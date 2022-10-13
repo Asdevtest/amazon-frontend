@@ -6,8 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     flex: '0 0 45%',
     flexDirection: 'column',
     padding: '48px',
-    background: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
+    background: theme.palette.background.entryLeftPanel,
     color: theme.palette.text.second,
+
+    // color: '#656565',
   },
   header: {
     minHeight: '40%',

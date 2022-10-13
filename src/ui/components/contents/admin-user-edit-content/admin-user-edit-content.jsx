@@ -304,18 +304,17 @@ export const AdminUserEditContent = observer(
               <div key={index} className={classNames.selectedRoleWrapper}>
                 <div className={classNames.leftContentWrapper}>
                   <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
-                  <div>
-                    <Field
-                      oneLine
-                      disabled
-                      inputProps={{maxLength: 8}}
-                      inputClasses={classNames.allowedRoleRateInput}
-                      containerClasses={classNames.allowedRoleRateContainer}
-                      label={t(TranslationKey.Rate)}
-                      // value={formFields.rate}
-                      // onChange={onChangeFormField('rate')}
-                    />
-                  </div>
+
+                  <Field
+                    oneLine
+                    disabled
+                    inputProps={{maxLength: 8}}
+                    inputClasses={classNames.allowedRoleRateInput}
+                    containerClasses={classNames.allowedRoleRateContainer}
+                    label={t(TranslationKey.Rate)}
+                    // value={formFields.rate}
+                    // onChange={onChangeFormField('rate')}
+                  />
                 </div>
 
                 <div className={classNames.actionDelButton} onClick={() => removeAllowedRole(role)}>
@@ -325,41 +324,42 @@ export const AdminUserEditContent = observer(
             ))}
             <div className={classNames.allowedRoleWrapper}>
               <div className={classNames.leftContentWrapper}>
-                <div>
-                  <Field
-                    containerClasses={classNames.allowedRoleContainer}
-                    inputComponent={
-                      <Select
-                        classes={{select: classNames.roleSelect}}
-                        value={selectedRole ? selectedRole : 'Роль'}
-                        renderValue={selected =>
-                          clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
-                        }
-                        // className={classNames.roleSelect}
-                        onChange={e => setSelectedRole(e.target.value)}
-                      >
-                        {Object.keys(UserRoleCodeMap).map((role, index) => (
-                          <MenuItem
-                            key={index}
-                            value={Number(role)}
-                            disabled={
-                              [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
-                              role === formFields.role
+                <Field
+                  containerClasses={classNames.allowedRoleContainer}
+                  inputComponent={
+                    <Select
+                      size="small"
+                      variant="standard"
+                      classes={{select: classNames.selectRoot}}
+                      value={selectedRole ? selectedRole : 'Роль'}
+                      renderValue={selected =>
+                        clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
+                      }
+                      className={classNames.standartText}
+                      onChange={e => setSelectedRole(e.target.value)}
+                    >
+                      {Object.keys(UserRoleCodeMap).map((role, index) => (
+                        <MenuItem
+                          key={index}
+                          className={classNames.standartText}
+                          value={Number(role)}
+                          disabled={
+                            [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                            role === formFields.role
+                          }
+                        >
+                          <Checkbox
+                            color="primary"
+                            checked={
+                              selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
                             }
-                          >
-                            <Checkbox
-                              color="primary"
-                              checked={
-                                selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
-                              }
-                            />
-                            <ListItemText primary={UserRoleCodeMap[role]} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    }
-                  />
-                </div>
+                          />
+                          <ListItemText primary={UserRoleCodeMap[role]} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  }
+                />
                 <div>
                   <Field
                     oneLine
@@ -388,12 +388,13 @@ export const AdminUserEditContent = observer(
               inputComponent={
                 <Select
                   multiple
+                  className={classNames.standartText}
                   value={formFields.allowedStrategies}
                   renderValue={selected => selected.map(el => mapProductStrategyStatusEnum[el]).join(', ')}
                   onChange={onChangeFormField('allowedStrategies')}
                 >
                   {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
-                    <MenuItem key={index} value={Number(strategy)}>
+                    <MenuItem key={index} className={classNames.standartText} value={Number(strategy)}>
                       <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
                       <ListItemText primary={mapProductStrategyStatusEnum[strategy]} />
                     </MenuItem>
@@ -513,7 +514,7 @@ export const AdminUserEditContent = observer(
 
           <Button
             disableElevation
-            className={[classNames.button, classNames.rightBtn]}
+            className={[classNames.button, classNames.rightBtn, classNames.cancelBtn]}
             variant="text"
             color="primary"
             onClick={() => {

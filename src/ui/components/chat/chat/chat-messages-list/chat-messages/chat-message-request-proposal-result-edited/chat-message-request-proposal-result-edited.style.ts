@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '20px',
   },
   timeText: {
-    color: '#5F5F5F',
+    color: theme.palette.text.second,
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '16px',
@@ -99,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   timeToCheckBlockValueText: {
     fontSize: '15px',
-    color: '#5F5F5F',
+    color: theme.palette.text.second,
   },
   footerWrapper: {
     marginTop: '20px',

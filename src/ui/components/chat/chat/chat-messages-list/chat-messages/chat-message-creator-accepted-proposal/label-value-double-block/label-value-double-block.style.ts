@@ -3,11 +3,13 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '20px 17px',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.main,
     minWidth: 306,
+
+    borderRadius: 4,
   },
   rootGreen: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
   row: {
     display: 'flex',

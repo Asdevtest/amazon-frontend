@@ -80,7 +80,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             onChange={onChangeFormField('password')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+            {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </div>
         </div>
 
@@ -90,10 +90,11 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             <Typography className={classNames.label}>{t(TranslationKey['Remember me'])}</Typography>
           </div>
           <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
+
+          <Button type="submit" color="primary" variant="contained" className={classNames.loginBtn}>
+            {t(TranslationKey.Login)}
+          </Button>
         </div>
-        <Button disableElevation type="submit" color="primary" variant="contained">
-          {t(TranslationKey.Login)}
-        </Button>
       </form>
     </div>
   )

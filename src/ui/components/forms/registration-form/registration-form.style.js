@@ -71,4 +71,25 @@ export const styles = theme => ({
   input: {
     height: '34px',
   },
+
+  labelWrapper: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  label: {
+    color: theme.palette.text.general,
+  },
+
+  link: {
+    color: theme.palette.primary.main,
+  },
+
+  red: {
+    color: 'red !important',
+  },
+
+  visibility: {
+    visibility: 'visible',
+  },
 })

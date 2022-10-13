@@ -1,8 +1,21 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
+  },
+
+  mainTitle: {
+    color: theme.palette.text.general,
+    marginBottom: 15,
+  },
+
+  deleteBtn: {
+    color: theme.palette.text.general,
+  },
+
+  selectOption: {
+    color: '#001029',
   },
 
   button: {

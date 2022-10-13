@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   text: {
     color: '#89919C',
     fontSize: '14px',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(() => ({
     justifyContent: 'space-between',
   },
   selected: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
   countTypo: {
     fontWeight: 700,

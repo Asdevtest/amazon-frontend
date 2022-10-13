@@ -125,7 +125,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.actionBtn} onClick={onCloseModal}>
+        <Button variant="text" className={[classNames.actionBtn, classNames.cancelBtn]} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

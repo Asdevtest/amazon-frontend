@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    // backgroundColor: '#D9FAE5',
+    // backgroundColor: theme.palette.background.green,
     backgroundColor: theme.palette.background.main,
     padding: '40px 30px',
     width: '870px',
@@ -67,7 +67,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 20,
   },
   labelValueBlockWrapper: {
-    backgroundColor: '#D9FAE5',
+    // backgroundColor: theme.palette.background.green,
     width: '28%',
   },
   labelValueBlockWrapperNotFirst: {},

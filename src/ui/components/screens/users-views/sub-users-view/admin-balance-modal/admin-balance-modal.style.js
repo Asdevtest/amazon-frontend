@@ -6,6 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: 'rgb(0, 123, 255)',
     textTransform: 'none',
   },
+
+  title: {
+    color: theme.palette.text.general,
+  },
   positiveMsg: {
     border: `1px solid ${theme.palette.success.main}`,
     borderRadius: '5px',

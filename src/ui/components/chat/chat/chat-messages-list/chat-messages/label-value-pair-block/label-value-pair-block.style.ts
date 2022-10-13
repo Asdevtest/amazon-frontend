@@ -3,14 +3,14 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '10px 15px',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.main,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   rootGreen: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
   labelWrapper: {},
   labelText: {

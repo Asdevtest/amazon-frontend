@@ -1,9 +1,10 @@
+import {cx} from '@emotion/css'
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {Button, Checkbox, InputAdornment, Typography} from '@mui/material'
+import {Checkbox, InputAdornment, Typography} from '@mui/material'
 
 import {useEffect, useState} from 'react'
 
@@ -14,6 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
 import {t} from '@utils/translations'
@@ -213,22 +215,21 @@ export const RegistrationFormRaw = ({
               errorLowercaseLetter,
               errorNoEngLetter,
             ).map((text, index) => (
-              <span
-                key={index}
-                className={classNames.validationText}
-                style={{color: submit && text.error ? 'red' : '#656565'}}
-              >
+              <span key={index} className={cx(classNames.validationText, {[classNames.red]: submit && text.error})}>
                 {text.name}
               </span>
             ))}
           </div>
           <div className={classNames.validationHiddenMessage}>
-            <span
-              className={classNames.validationHiddenText}
-              style={{color: submit && errorMaxLength ? 'red' : '#656565', visibility: errorMaxLength && 'visible'}}
+            <Typography
+              className={cx(
+                classNames.validationHiddenText,
+                {[classNames.red]: submit && errorMaxLength},
+                {[classNames.visibility]: errorMaxLength},
+              )}
             >
               {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-            </span>
+            </Typography>
           </div>
         </div>
         <div className={classNames.field}>
@@ -260,15 +261,14 @@ export const RegistrationFormRaw = ({
           <div className={classNames.formFooter} onClick={onChangeFormField('acceptTerms')}>
             <Checkbox className={classNames.checkbox} color="primary" checked={formFields.acceptTerms} />
 
-            <Typography className={classNames.label}>
-              {t(TranslationKey['Agree with']) + ' '}
-              <Link href="#" to="/terms" target="_blank" rel="noopener">
+            <div className={classNames.labelWrapper}>
+              <Typography className={classNames.label}>{t(TranslationKey['Agree with']) + ' '}</Typography>
+              <Link href="#" to="/terms" target="_blank" rel="noopener" className={classNames.link}>
                 {t(TranslationKey['Terms & Conditions'])}
               </Link>
-            </Typography>
+            </div>
           </div>
           <Button
-            disableElevation
             disabled={
               formFields.name === '' ||
               formFields.email === '' ||

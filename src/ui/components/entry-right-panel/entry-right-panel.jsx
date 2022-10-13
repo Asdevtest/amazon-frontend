@@ -1,8 +1,14 @@
+import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import {Divider, Typography} from '@mui/material'
 
 import React, {useEffect} from 'react'
 
 import {useFaviconNotification} from 'react-favicon-notification'
+
+import {UiTheme} from '@constants/themes'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {LanguageSelector} from '@components/language-selector/language-selector.jsx'
 
@@ -12,6 +18,10 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
   const {classes: classNames} = useClassNames()
 
   const [config, setConfig] = useFaviconNotification()
+
+  const onClickThemeIcon = theme => {
+    SettingsModel.setUiTheme(theme)
+  }
 
   useEffect(() => {
     setConfig({...config, show: false})
@@ -27,7 +37,18 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
               {redirect}
             </Typography>
 
-            <LanguageSelector />
+            <div className={classNames.selectorsWrapper}>
+              {SettingsModel.uiTheme === UiTheme.light ? (
+                <WbSunnyRoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
+              ) : (
+                <Brightness3RoundedIcon
+                  className={classNames.themeIcon}
+                  onClick={() => onClickThemeIcon(UiTheme.light)}
+                />
+              )}
+
+              <LanguageSelector />
+            </div>
           </div>
         </div>
         <Divider className={classNames.divider} />

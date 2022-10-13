@@ -18,6 +18,7 @@ export const styles = theme => ({
 
   btnText: {
     marginRight: 10,
+    color: theme.palette.text.general,
   },
 
   btnTextWrapper: {

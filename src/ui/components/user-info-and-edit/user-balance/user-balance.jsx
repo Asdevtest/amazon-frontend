@@ -73,7 +73,7 @@ export const UserBalance = observer(({userId}) => {
       </Button>
       <Button
         disableElevation
-        className={classNames.button}
+        className={[classNames.button, classNames.cancelBtn]}
         color="primary"
         variant="text"
         onClick={onTriggerWithdrawModal}

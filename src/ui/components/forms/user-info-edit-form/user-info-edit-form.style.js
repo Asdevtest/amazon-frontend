@@ -54,4 +54,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     lineHeight: '1.5',
   },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
 }))

@@ -135,13 +135,13 @@ export const AddOrEditGroupPermissionForm = observer(
     const renderMenuItem = per => (
       <MenuItem key={per._id} value={per._id}>
         <Checkbox checked={formFields.permissions.includes(per._id)} />
-        <ListItemText primary={`${per.title}`} />
+        <ListItemText className={classNames.standartText} primary={`${per.title}`} />
       </MenuItem>
     )
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">
+        <Typography variant="h5" className={classNames.mainTitle}>
           {isEdit ? t(TranslationKey['Change permissions group']) : t(TranslationKey['New Permission Group'])}
         </Typography>
 
@@ -156,12 +156,13 @@ export const AddOrEditGroupPermissionForm = observer(
               <NativeSelect
                 variant="filled"
                 value={formFields.role}
+                className={classNames.standartText}
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
                 <option value={'None'}>{'none'}</option>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <option key={index} value={roleCode}>
+                  <option key={index} value={roleCode} className={classNames.lightThemeText}>
                     {UserRoleCodeMap[roleCode]}
                   </option>
                 ))}
@@ -292,7 +293,6 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
                       <div className={classNames.selectModalBtnsWrapper}>
                         <Button
-                          disableElevation
                           className={classNames.button}
                           color="primary"
                           variant="contained"
@@ -302,9 +302,8 @@ export const AddOrEditGroupPermissionForm = observer(
                         </Button>
 
                         <Button
-                          disableElevation
                           disabled={!curPermissions.length}
-                          className={classNames.button}
+                          className={[classNames.button, classNames.resetBtn]}
                           color="primary"
                           variant="default"
                           onClick={() => onChangeField('permissions')({target: {value: []}})}

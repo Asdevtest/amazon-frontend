@@ -8,6 +8,10 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
+  mainTitle: {
+    color: theme.palette.text.general,
+  },
+
   mainWrapper: {
     width: '100%',
     height: '300px',
@@ -33,6 +37,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     border: '1px solid #007BFF',
     borderRadius: '50%',
+
+    backgroundColor: theme.palette.background.second,
   },
 
   btnsWrapper: {
@@ -43,6 +49,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '30px',
+    color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  labelStyle: {
+    width: '100%',
+    backgroundColor: theme.palette.background.second,
+    textAlign: 'center',
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   successText: {

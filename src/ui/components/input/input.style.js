@@ -30,7 +30,7 @@ export const stylesWithIcon = theme => ({
   root: {
     height: '32px',
     width: '100%',
-    border: '1px solid rgba(217, 222, 229, 1)',
+    // border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '4px',
     flexShrink: '0',
     '&$disabled': {
@@ -49,5 +49,7 @@ export const stylesWithIcon = theme => ({
   focused: {
     border: '1px solid rgba(0, 123, 255, 1)',
   },
-  disabled: {},
+  disabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
 })

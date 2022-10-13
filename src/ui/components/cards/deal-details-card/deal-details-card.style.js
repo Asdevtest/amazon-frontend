@@ -258,7 +258,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   timeOnReview: {
     padding: '8px 16px 8px 56px',
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
 
   sumAndTimeWrapper: {

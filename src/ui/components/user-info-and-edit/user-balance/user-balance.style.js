@@ -30,6 +30,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '68vh',
   },
 
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
+
   redRow: {
     color: 'red',
   },

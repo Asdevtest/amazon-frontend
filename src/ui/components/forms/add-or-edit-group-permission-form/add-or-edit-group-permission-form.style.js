@@ -1,8 +1,21 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '650px',
+  },
+
+  mainTitle: {
+    color: theme.palette.text.general,
+    marginBottom: 15,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  lightThemeText: {
+    color: '#001029',
   },
 
   button: {
@@ -38,11 +51,19 @@ export const useClassNames = makeStyles()(() => ({
 
   permissionSelect: {
     maxWidth: '200px',
+
+    color: theme.palette.text.general,
+  },
+
+  resetBtn: {
+    color: theme.palette.text.general,
   },
 
   permissionsSubTitle: {
     fontWeight: 'bold',
     fontSize: '16px',
+
+    color: theme.palette.text.second,
   },
 
   selectWrapper: {
@@ -54,6 +75,7 @@ export const useClassNames = makeStyles()(() => ({
 
   selectChoose: {
     fontSize: '26px',
+    color: theme.palette.text.general,
   },
 
   singlePermission: {

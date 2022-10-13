@@ -29,15 +29,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 0,
   },
   input: {
-    width: '100%',
-    height: '32px',
-    borderRadius: '4px',
-
-    overflow: 'hidden',
-
-    border: `1px solid ${theme.palette.input.border}`,
-
-    color: theme.palette.text.general,
+    // width: '100%',
+    // height: '32px',
+    // borderRadius: '4px',
+    // overflow: 'hidden',
+    // border: `1px solid ${theme.palette.input.border}`,
+    // color: theme.palette.text.general,
   },
   errorText: {
     marginTop: '2px',

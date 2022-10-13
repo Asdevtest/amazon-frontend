@@ -22,17 +22,29 @@ export const styles = theme => ({
   label: {
     fontWeight: 600,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    color: theme.palette.text.general,
   },
   formFooter: {
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: theme.spacing(2.5),
+    width: '100%',
   },
+
+  loginBtn: {
+    width: 200,
+    height: 40,
+  },
+
   forgotPassword: {
     marginLeft: '20px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    color: theme.palette.text.second,
+
     '&:hover': {
       color: theme.palette.primary.main,
       fontWeight: '500',
@@ -44,6 +56,8 @@ export const styles = theme => ({
     right: 10,
     top: 41,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    color: theme.palette.text.second,
   },
 
   inputAdornment: {
@@ -53,5 +67,8 @@ export const styles = theme => ({
 
   input: {
     height: '34px',
+
+    backgroundColor: 'inherit',
+    color: theme.palette.text.general,
   },
 })
