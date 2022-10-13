@@ -120,12 +120,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   successBtn: {
-<<<<<<< HEAD
     width: 140,
-=======
-    width: 136,
     whiteSpace: 'nowrap',
->>>>>>> 46652e19... save 12.10
   },
 
   cancelBtn: {

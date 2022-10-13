@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -87,7 +88,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         <Button
           disableElevation
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          className={clsx(classNames.button, classNames.cancelBtn)}
+          className={cx(classNames.button, classNames.cancelBtn)}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment, Avatar, Typography, Link} from '@mui/material'
 
@@ -63,7 +64,7 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={clsx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
+              <div className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
                 <div className={classNames.leftSide}>
                   <Field
                     containerClasses={classNames.searchContainer}

@@ -57,7 +57,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           <div className={classNames.headerSubWrapper}>
             <Typography className={classNames.headerTitle}>{t(TranslationKey.Destination)}</Typography>
 
-            <Typography className={clsx(classNames.headerSpanText, classNames.textEllipsis)}>
+            <Typography className={cx(classNames.headerSpanText, classNames.textEllipsis)}>
               {selectedGroup.destination?.name}
             </Typography>
           </div>

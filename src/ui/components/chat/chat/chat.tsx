@@ -2,7 +2,7 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import {InputAdornment, Typography, ClickAwayListener} from '@mui/material'
+import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'

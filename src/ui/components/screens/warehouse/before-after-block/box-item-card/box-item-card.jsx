@@ -155,7 +155,7 @@ export const BoxItemCard = ({
       </div>
       <div className={classNames.attributeFooterWrapperMobile}>
         <div
-          className={clsx(classNames.barCodeWrapper, {
+          className={cx(classNames.barCodeWrapper, {
             [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
           })}
         >

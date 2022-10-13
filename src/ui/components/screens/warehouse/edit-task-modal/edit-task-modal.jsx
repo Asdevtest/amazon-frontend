@@ -134,13 +134,8 @@ export const EditTaskModal = observer(
                 multiline
                 disabled
                 className={classNames.heightFieldAuto}
-<<<<<<< HEAD
-                minRows={currentScreenWidth < 768 ? 4 : 9}
-                maxRows={currentScreenWidth < 768 ? 4 : 9}
-=======
-                minRows={window.screen.width < 768 ? 4 : 8}
-                maxRows={window.screen.width < 768 ? 4 : 8}
->>>>>>> 46652e19... save 12.10
+                minRows={currentScreenWidth < 768 ? 4 : 8}
+                maxRows={currentScreenWidth < 768 ? 4 : 8}
                 label={t(TranslationKey['Client comment'])}
                 placeholder={t(TranslationKey['Client comment on the task'])}
                 value={task.clientComment || ''}
@@ -149,13 +144,8 @@ export const EditTaskModal = observer(
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-<<<<<<< HEAD
-                minRows={currentScreenWidth < 768 ? 4 : 9}
-                maxRows={currentScreenWidth < 768 ? 4 : 9}
-=======
-                minRows={window.screen.width < 768 ? 4 : 8}
-                maxRows={window.screen.width < 768 ? 4 : 8}
->>>>>>> 46652e19... save 12.10
+                minRows={currentScreenWidth < 768 ? 4 : 8}
+                maxRows={currentScreenWidth < 768 ? 4 : 8}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}

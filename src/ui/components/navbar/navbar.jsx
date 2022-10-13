@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import {Drawer, Hidden, List} from '@mui/material'
+import {Drawer, Hidden, List, SvgIcon, Typography} from '@mui/material'
 
 import React, {useRef, useState, useEffect} from 'react'
 

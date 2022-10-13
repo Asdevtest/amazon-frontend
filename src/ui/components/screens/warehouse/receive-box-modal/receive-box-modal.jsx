@@ -243,7 +243,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
               <Input
                 classes={{
-                  root: clsx(classNames.inputWrapper, {
+                  root: cx(classNames.inputWrapper, {
                     [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
                   }),
                   input: classNames.input,
@@ -257,7 +257,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Number of superboxes'])}</Typography>
               <Input
                 classes={{
-                  root: clsx(classNames.inputWrapper, {
+                  root: cx(classNames.inputWrapper, {
                     [classNames.error]: !item.amount || item.amount === '0',
                   }),
                   input: classNames.input,
@@ -282,7 +282,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
 
                 <Input
                   classes={{
-                    root: clsx(classNames.inputWrapper, {
+                    root: cx(classNames.inputWrapper, {
                       [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
                     }),
                     input: classNames.input,
@@ -296,7 +296,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 <Typography className={classNames.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
                 <Input
                   classes={{
-                    root: clsx(classNames.inputWrapper, {
+                    root: cx(classNames.inputWrapper, {
                       [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
                     }),
                     input: classNames.input,
@@ -310,7 +310,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
                   classes={{
-                    root: clsx(classNames.inputWrapper, {
+                    root: cx(classNames.inputWrapper, {
                       [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
                     }),
                     input: classNames.input,
@@ -325,7 +325,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
               <Input
                 classes={{
-                  root: clsx(classNames.inputWrapper, {
+                  root: cx(classNames.inputWrapper, {
                     [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
                   }),
                   input: classNames.input,

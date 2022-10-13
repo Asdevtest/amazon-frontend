@@ -109,7 +109,6 @@ export const styles = theme => ({
     display: 'flex',
     marginLeft: 20,
   },
-<<<<<<< HEAD
 
   '@media (max-width: 768px)': {
     noticesTextActive: {
@@ -122,6 +121,8 @@ export const styles = theme => ({
       flexDirection: 'column',
       gap: '15px',
       marginBottom: 20,
+
+      padding: '0 10px',
     },
     searchInput: {
       width: '100%',
@@ -141,20 +142,13 @@ export const styles = theme => ({
       display: 'none',
     },
 
-    '@media (max-width: 768px)': {
-      chatWrapper: {
-        height: '100%',
-        padding: '0 10px',
-      },
-      chatHeaderWrapper: {
-        padding: '0 10px',
-      },
-      newDialogBtn: {
-        width: '223px',
-      },
+    chatWrapper: {
+      height: '100%',
+      padding: '0 10px',
+    },
+
+    newDialogBtn: {
+      width: '223px',
     },
   },
-}))
-=======
 })
->>>>>>> 56997012... success migration on 5 mui

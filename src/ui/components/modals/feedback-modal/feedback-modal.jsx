@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+
 import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -64,7 +65,7 @@ export const FeedBackModal = ({onSubmit, onClose}) => {
         />
         <img
           src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-          className={clsx(classNames.inputIcon, classNames.fileIconPos)}
+          className={cx(classNames.inputIcon, classNames.fileIconPos)}
           onClick={() => setShowFiles(!showFiles)}
         />
       </div>

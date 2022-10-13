@@ -5,6 +5,14 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '500px',
   },
 
+  modalTitle: {
+    fontSize: '16px',
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+  },
+
   button: {width: '121px', height: '40px'},
 
   closeButton: {
@@ -79,7 +87,6 @@ export const useClassNames = makeStyles()(theme => ({
     modalTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
   },

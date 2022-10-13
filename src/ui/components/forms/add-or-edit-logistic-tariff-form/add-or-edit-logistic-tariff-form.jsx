@@ -252,176 +252,177 @@ export const AddOrEditLogisticTariffForm = observer(
                 label={t(TranslationKey['Current exchange rate'])}
                 tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
                 containerClasses={classNames.rateContainer}
-                labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
+                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
                 inputClasses={classNames.middleInput}
                 value={sourceYuanToDollarRate}
               />
 
-            <Field
-              oneLine
-              disabled
-              label={t(TranslationKey['Current exchange rate'])}
-              tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-              inputClasses={classNames.middleInput}
-              value={sourceYuanToDollarRate}
-            />
+              <Field
+                oneLine
+                disabled
+                label={t(TranslationKey['Current exchange rate'])}
+                tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
+                containerClasses={classNames.rateContainer}
+                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+                inputClasses={classNames.middleInput}
+                value={sourceYuanToDollarRate}
+              />
 
-            <Field
-              oneLine
-              label={t(TranslationKey['Yuan to USD exchange rate'])}
-              inputProps={{maxLength: 8}}
-              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-              inputClasses={classNames.middleInput}
-              value={formFields.conditionsByRegion.yuanToDollarRate}
-              onChange={onChangeField('yuanToDollarRate')}
-            />
+              <Field
+                oneLine
+                label={t(TranslationKey['Yuan to USD exchange rate'])}
+                inputProps={{maxLength: 8}}
+                tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+                containerClasses={classNames.rateContainer}
+                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+                inputClasses={classNames.middleInput}
+                value={formFields.conditionsByRegion.yuanToDollarRate}
+                onChange={onChangeField('yuanToDollarRate')}
+              />
+            </div>
+
+            <div className={classNames.blockWrapper}>
+              <div className={classNames.blockItem}>
+                <Field
+                  label={'US West Coast'}
+                  labelClasses={classNames.fieldLabel}
+                  value={formFields.conditionsByRegion.west.rate}
+                  onChange={onChangeField('rate', 'west')}
+                />
+              </div>
+
+              <div className={classNames.blockItem}>
+                <Field
+                  label={'US Central'}
+                  labelClasses={classNames.fieldLabel}
+                  value={formFields.conditionsByRegion.central.rate}
+                  onChange={onChangeField('rate', 'central')}
+                />
+              </div>
+
+              <div className={classNames.blockItem}>
+                <Field
+                  label={'US East Coast'}
+                  labelClasses={classNames.fieldLabel}
+                  value={formFields.conditionsByRegion.east.rate}
+                  onChange={onChangeField('rate', 'east')}
+                />
+              </div>
+            </div>
+
+            <Typography variant="h5" className={classNames.modalSubTitle}>
+              {t(TranslationKey['Shipping dates'])}
+            </Typography>
+
+            <div className={classNames.blockWrapper}>
+              <div className={classNames.blockItem}>
+                <Field
+                  label={t(TranslationKey['CLS (batch closing date)'])}
+                  labelClasses={classNames.fieldLabel}
+                  inputComponent={
+                    <div
+                      className={cx({
+                        [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                      })}
+                    >
+                      <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                      {checkDateByDeadline(formFields.cls) && (
+                        <p className={classNames.deadlineErrorText}>
+                          {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                        </p>
+                      )}
+                    </div>
+                  }
+                />
+              </div>
+
+              <div className={classNames.blockItem}>
+                <Field
+                  label={t(TranslationKey['ETD (date of shipment)'])}
+                  labelClasses={classNames.fieldLabel}
+                  inputComponent={
+                    <div
+                      className={cx({
+                        [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
+                      })}
+                    >
+                      <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
+
+                      {checkDateByDeadline(formFields.etd) && (
+                        <p className={classNames.deadlineErrorText}>
+                          {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                        </p>
+                      )}
+                    </div>
+                  }
+                />
+              </div>
+
+              <div className={classNames.blockItem}>
+                <Field
+                  label={t(TranslationKey['ETA (arrival date)'])}
+                  labelClasses={classNames.fieldLabel}
+                  inputComponent={
+                    <div
+                      className={cx({
+                        [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
+                      })}
+                    >
+                      <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
+                      {checkDateByDeadline(formFields.eta) && (
+                        <p className={classNames.deadlineErrorText}>
+                          {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                        </p>
+                      )}
+                    </div>
+                  }
+                />
+              </div>
+            </div>
+            <div className={classNames.descriptionFieldWrapper}>
+              <Field
+                multiline
+                minRows={4}
+                maxRows={4}
+                labelClasses={classNames.fieldLabel}
+                inputProps={{maxLength: 320}}
+                className={classNames.descriptionField}
+                tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
+                placeholder={t(TranslationKey.Description)}
+                label={t(TranslationKey.Description)}
+                value={formFields.description}
+                onChange={onChangeField('description')}
+              />
+              <span
+                className={cx(classNames.standartText, {[classNames.error]: formFields.description.length > 255})}
+              >{`${formFields.description.length} ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
+            </div>
           </div>
 
-          <div className={classNames.blockWrapper}>
-            <div className={classNames.blockItem}>
-              <Field
-                label={'US West Coast'}
-                labelClasses={classNames.fieldLabel}
-                value={formFields.conditionsByRegion.west.rate}
-                onChange={onChangeField('rate', 'west')}
-              />
-            </div>
+          <div className={classNames.btnsWrapper}>
+            <Button
+              success
+              disableElevation
+              disabled={disableSubmitBtn}
+              color="primary"
+              variant="contained"
+              onClick={onSubmit}
+            >
+              {t(TranslationKey.Save)}
+            </Button>
 
-            <div className={classNames.blockItem}>
-              <Field
-                label={'US Central'}
-                labelClasses={classNames.fieldLabel}
-                value={formFields.conditionsByRegion.central.rate}
-                onChange={onChangeField('rate', 'central')}
-              />
-            </div>
-
-            <div className={classNames.blockItem}>
-              <Field
-                label={'US East Coast'}
-                labelClasses={classNames.fieldLabel}
-                value={formFields.conditionsByRegion.east.rate}
-                onChange={onChangeField('rate', 'east')}
-              />
-            </div>
+            <Button
+              disableElevation
+              className={classNames.button}
+              color="primary"
+              variant="text"
+              onClick={() => onCloseModal()}
+            >
+              {t(TranslationKey.Cancel)}
+            </Button>
           </div>
-
-          <Typography variant="h5" className={classNames.modalSubTitle}>
-            {t(TranslationKey['Shipping dates'])}
-          </Typography>
-
-          <div className={classNames.blockWrapper}>
-            <div className={classNames.blockItem}>
-              <Field
-                label={t(TranslationKey['CLS (batch closing date)'])}
-                labelClasses={classNames.fieldLabel}
-                inputComponent={
-                  <div
-                    className={cx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
-                    })}
-                  >
-                    <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
-                    {checkDateByDeadline(formFields.cls) && (
-                      <p className={classNames.deadlineErrorText}>
-                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                      </p>
-                    )}
-                  </div>
-                }
-              />
-            </div>
-
-            <div className={classNames.blockItem}>
-              <Field
-                label={t(TranslationKey['ETD (date of shipment)'])}
-                labelClasses={classNames.fieldLabel}
-                inputComponent={
-                  <div
-                    className={cx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
-                    })}
-                  >
-                    <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
-
-                    {checkDateByDeadline(formFields.etd) && (
-                      <p className={classNames.deadlineErrorText}>
-                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                      </p>
-                    )}
-                  </div>
-                }
-              />
-            </div>
-
-            <div className={classNames.blockItem}>
-              <Field
-                label={t(TranslationKey['ETA (arrival date)'])}
-                labelClasses={classNames.fieldLabel}
-                inputComponent={
-                  <div
-                    className={cx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
-                    })}
-                  >
-                    <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
-                    {checkDateByDeadline(formFields.eta) && (
-                      <p className={classNames.deadlineErrorText}>
-                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                      </p>
-                    )}
-                  </div>
-                }
-              />
-            </div>
-          </div>
-          <div className={classNames.descriptionFieldWrapper}>
-            <Field
-              multiline
-              minRows={4}
-              maxRows={4}
-              labelClasses={classNames.fieldLabel}
-              inputProps={{maxLength: 320}}
-              className={classNames.descriptionField}
-              tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
-              placeholder={t(TranslationKey.Description)}
-              label={t(TranslationKey.Description)}
-              value={formFields.description}
-              onChange={onChangeField('description')}
-            />
-            <span
-              className={cx(classNames.standartText, {[classNames.error]: formFields.description.length > 255})}
-            >{`${formFields.description.length} ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
-          </div>
-        </div>
-
-        <div className={classNames.btnsWrapper}>
-          <Button
-            success
-            disableElevation
-            disabled={disableSubmitBtn}
-            color="primary"
-            variant="contained"
-            onClick={onSubmit}
-          >
-            {t(TranslationKey.Save)}
-          </Button>
-
-          <Button
-            disableElevation
-            className={classNames.button}
-            color="primary"
-            variant="text"
-            onClick={() => onCloseModal()}
-          >
-            {t(TranslationKey.Cancel)}
-          </Button>
         </div>
       </div>
     )
-  }
+  },
 )

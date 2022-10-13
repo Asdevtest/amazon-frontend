@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
 import React, {forwardRef, ReactElement} from 'react'
@@ -100,7 +101,7 @@ export const MultipleChats = observer(
           {
             <div
               className={cx(classNames.chatsWrapper, {
-                [classNames.hideChatsWrapper]: isNotUndefined(chatSelectedId) && findChatByChatId,
+                [classNames.hideChatsWrapper]: !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
               })}
             >
               <ChatsList

@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Box, Container, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -45,7 +46,7 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
       <div className={classNames.errorWrapper}>
-        <span className={clsx(newValue > 99999 && classNames.error)}>{`${t(
+        <span className={cx(newValue > 99999 && classNames.error)}>{`${t(
           TranslationKey['Maximum value'],
         )} 99999`}</span>
       </div>

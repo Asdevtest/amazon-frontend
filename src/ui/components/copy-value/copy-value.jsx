@@ -1,12 +1,11 @@
+import {cx} from '@emotion/css'
 import DoneIcon from '@mui/icons-material/Done'
 
 import React, {useState} from 'react'
 
-import clsx from 'clsx'
-
 import {useClassNames} from './copy-value.style'
 
-export const CopyValue = ({text}) => {
+export const CopyValue = ({text, disabled}) => {
   const {classes: classNames} = useClassNames()
   const [copied, setCopied] = useState(false)
 
@@ -22,7 +21,7 @@ export const CopyValue = ({text}) => {
           <DoneIcon color="success" classes={{root: classNames.doneIcon}} />
         ) : (
           <img
-            className={clsx(classNames.copyImg, {[classNames.disabledIcon]: disabled})}
+            className={cx(classNames.copyImg, {[classNames.disabledIcon]: disabled})}
             src="/assets/icons/copy-img.svg"
             alt=""
             onClick={e => {

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import CssBaseline from '@mui/material/CssBaseline'
-import {
-  ThemeProvider, // createTheme,
-} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
 
 import {useMemo, useEffect, useRef} from 'react'
 
