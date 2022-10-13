@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20030 {
     /**
      * Constructs a new <code>InlineResponse20030</code>.
-     * Схема магазина.
+     * Успешный ответ.
      * @alias module:model/InlineResponse20030
      */
     constructor() { 
@@ -48,32 +48,11 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
-            }
-            if (data.hasOwnProperty('ownerId')) {
-                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -83,58 +62,16 @@ class InlineResponse20030 {
 }
 
 /**
- * ID магазина.
- * @member {String} _id
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20030.prototype['_id'] = undefined;
+InlineResponse20030.prototype['isExist'] = undefined;
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
-InlineResponse20030.prototype['name'] = undefined;
-
-/**
- * URL для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
- */
-InlineResponse20030.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
-
-/**
- * URL для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
- */
-InlineResponse20030.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
-
-/**
- * GUID, владелеца.
- * @member {String} ownerId
- */
-InlineResponse20030.prototype['ownerId'] = undefined;
-
-/**
- * GUID любого, кто последний создал.
- * @member {String} createdById
- */
-InlineResponse20030.prototype['createdById'] = undefined;
-
-/**
- * GUID любого, кто последний редактировал.
- * @member {String} lastModifiedById
- */
-InlineResponse20030.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20030.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20030.prototype['updatedAt'] = undefined;
+InlineResponse20030.prototype['reason'] = undefined;
 
 
 

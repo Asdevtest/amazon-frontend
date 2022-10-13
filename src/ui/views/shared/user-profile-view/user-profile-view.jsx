@@ -3,6 +3,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -29,9 +30,10 @@ import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ProfileViewModel} from './user-profile-view.model'
+import {styles} from './user-profile-view.style'
 
 @observer
-export class UserProfileView extends Component {
+export class UserProfileViewRaw extends Component {
   viewModel = new ProfileViewModel({history: this.props.history})
 
   componentDidMount() {
@@ -76,7 +78,7 @@ export class UserProfileView extends Component {
       onChangeRowsPerPage,
       onChangeSortingModel,
     } = this.viewModel
-
+    const {classes: classNames} = this.props
     return (
       <>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -113,10 +115,12 @@ export class UserProfileView extends Component {
                   <DataGrid
                     pagination
                     useResizeContainer
-                    sx={{
-                      border: 0,
-                      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                      backgroundColor: '#fff',
+                    classes={{
+                      row: classNames.row,
+                      root: classNames.root,
+                      footerContainer: classNames.footerContainer,
+                      footerCell: classNames.footerCell,
+                      toolbarContainer: classNames.toolbarContainer,
                     }}
                     localeText={getLocalizationByLanguageTag()}
                     sortModel={sortModel}
@@ -180,3 +184,5 @@ export class UserProfileView extends Component {
     )
   }
 }
+
+export const UserProfileView = withStyles(styles)(UserProfileViewRaw)

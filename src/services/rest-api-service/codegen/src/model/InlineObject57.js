@@ -22,10 +22,11 @@ class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
      * @alias module:model/InlineObject57
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor() { 
+    constructor(fileUrl) { 
         
-        InlineObject57.initialize(this);
+        InlineObject57.initialize(this, fileUrl);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -64,58 +60,13 @@ class InlineObject57 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject57.prototype['asin'] = undefined;
-
-/**
- * Причина
- * @member {String} reason
- */
-InlineObject57.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject57.StrategyEnum} strategy
- */
-InlineObject57.prototype['strategy'] = undefined;
+InlineObject57.prototype['fileUrl'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>strategy</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject57['StrategyEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40"
-};
 
 
 

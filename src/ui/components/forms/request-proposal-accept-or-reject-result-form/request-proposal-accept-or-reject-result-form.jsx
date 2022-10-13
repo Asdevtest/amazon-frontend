@@ -24,8 +24,8 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
   }) => {
     const classNames = useClassNames()
-    const [rating, setRating] = useState('')
-    const [formFields, setFormFields] = useState({reason: ''})
+
+    const [formFields, setFormFields] = useState({reason: '', rating: ''})
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -33,7 +33,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         [fieldName]: event.target.value,
       })
     }
-
+    console.log(formFields)
     return (
       <div className={classNames.root}>
         <Typography className={classNames.modalTitle}>{title}</Typography>
@@ -43,10 +43,10 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             inputComponent={
               <div className={classNames.rating}>
                 <Rating
-                  value={rating}
+                  value={formFields.rating}
                   classes={{icon: classNames.icon}}
                   size="large"
-                  onChange={e => setRating(e.target.value)}
+                  onChange={onChangeField('rating')}
                 />
               </div>
             }

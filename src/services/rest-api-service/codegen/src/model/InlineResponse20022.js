@@ -47,11 +47,8 @@ class InlineResponse20022 {
         if (data) {
             obj = obj || new InlineResponse20022();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
             }
         }
         return obj;
@@ -61,15 +58,9 @@ class InlineResponse20022 {
 }
 
 /**
- * @member {String} productId
+ * @member {Array.<String>} failed
  */
-InlineResponse20022.prototype['productId'] = undefined;
-
-/**
- * Массив магазинов
- * @member {Array.<String>} shopIds
- */
-InlineResponse20022.prototype['shopIds'] = undefined;
+InlineResponse20022.prototype['failed'] = undefined;
 
 
 

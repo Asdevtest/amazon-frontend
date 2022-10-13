@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**_id** | **String** | GUID пользователя. | [optional] 
+**name** | **String** | Имя пользователя. | [optional] 
+**email** | **String** | Почта юзера | [optional] 
 
 

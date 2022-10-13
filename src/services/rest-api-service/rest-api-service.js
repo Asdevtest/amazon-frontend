@@ -15,6 +15,7 @@ import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BatchesApi from './codegen/src/api/BatchesApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
+import DashboardApi from './codegen/src/api/DashboardApi'
 import FreelancerApi from './codegen/src/api/FreelancerApi'
 import OtherApi from './codegen/src/api/OtherApi'
 import Product from './codegen/src/api/ProductApi'
@@ -50,7 +51,7 @@ class RestApiService {
     this.otherApi = new OtherApi(this.apiClient)
     this.permissionsApi = new PermissionsApi(this.apiClient)
     this.integrationsApi = new IntegrationsApi(this.apiClient)
-
+    this.dashboardApi = new DashboardApi(this.apiClient)
     this.SearchRequestApi = new RequestsApi(this.apiClient)
     this.RequestProposalsApi = new RequestProposalsApi(this.apiClient)
     this.shopApi = new ShopApi(this.apiClient)

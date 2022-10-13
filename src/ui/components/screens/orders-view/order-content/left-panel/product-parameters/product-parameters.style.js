@@ -56,4 +56,9 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  barCodeWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
 }))

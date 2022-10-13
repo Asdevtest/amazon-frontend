@@ -123,6 +123,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsDelete({body: ids})
     return response
   }
+
+  sendFeedback = async data => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackPost({body: data})
+    return response
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

@@ -210,9 +210,9 @@ export class ClientExchangeViewModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['Purchasing a product card']),
-      confirmMessage: `${t(TranslationKey['You will be charged'])} (${
+      confirmMessage: `${t(TranslationKey['You will be charged'])} ${
         this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
-      })?`,
+      }`,
       onClickConfirm: () => this.onClickBuyProductBtn(),
     }
 

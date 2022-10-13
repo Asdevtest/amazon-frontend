@@ -75,6 +75,8 @@ export const EditOrderModal = observer(
     )
 
     const [boxesForCreation, setBoxesForCreation] = useState([])
+    const [editingBox, setEditingBox] = useState({})
+    const [isEdit, setIsEdit] = useState(false)
 
     const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
@@ -93,6 +95,17 @@ export const EditOrderModal = observer(
     const onRemoveForCreationBox = boxIndex => {
       const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
       setBoxesForCreation(updatedNewBoxes)
+    }
+
+    const addBoxHandler = () => {
+      setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)
+      setIsEdit(false)
+    }
+
+    const onEditForCreationBox = index => {
+      setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)
+      setEditingBox(boxesForCreation[index])
+      setIsEdit(true)
     }
 
     const onClickBarcodeCheckbox = boxIndex => e => {
@@ -380,7 +393,7 @@ export const EditOrderModal = observer(
                 color="primary"
                 variant="contained"
                 className={classNames.addBoxButton}
-                onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+                onClick={addBoxHandler}
               >
                 {t(TranslationKey['Add a box'])}
               </Button>
@@ -394,6 +407,7 @@ export const EditOrderModal = observer(
             barcodeIsExist={order.product.barCode}
             newBoxes={boxesForCreation}
             onRemoveBox={onRemoveForCreationBox}
+            onEditBox={onEditForCreationBox}
             onClickBarcodeCheckbox={onClickBarcodeCheckbox}
             onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
           />
@@ -428,9 +442,11 @@ export const EditOrderModal = observer(
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <CreateBoxForm
+            isEdit={isEdit}
             order={order}
             currentSupplier={order.product.currentSupplier}
             volumeWeightCoefficient={volumeWeightCoefficient}
+            editingBox={editingBox}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}
             setBoxesForCreation={setBoxesForCreation}

@@ -12,6 +12,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingRight: '5px',
   },
 
   placeAddBtn: {

@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
-import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20031 model module.
@@ -23,12 +23,12 @@ import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehous
 class InlineResponse20031 {
     /**
      * Constructs a new <code>InlineResponse20031</code>.
+     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20031
-     * @param _id {String} GUID сторкипера в DB
      */
-    constructor(_id) { 
+    constructor() { 
         
-        InlineResponse20031.initialize(this, _id);
+        InlineResponse20031.initialize(this);
     }
 
     /**
@@ -36,8 +36,7 @@ class InlineResponse20031 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id) { 
-        obj['_id'] = _id;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,17 +53,32 @@ class InlineResponse20031 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('owner')) {
+                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
             }
-            if (data.hasOwnProperty('tariffLogistics')) {
-                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('tariffWarehouses')) {
-                obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('boxesCount')) {
-                obj['boxesCount'] = ApiClient.convertToType(data['boxesCount'], 'Number');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('monthlyMultiplier')) {
+                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            }
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
+            }
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -74,34 +88,62 @@ class InlineResponse20031 {
 }
 
 /**
- * GUID сторкипера в DB
+ * GUID магазина на продажу.
  * @member {String} _id
  */
 InlineResponse20031.prototype['_id'] = undefined;
 
 /**
- * Имя сторкипера.
- * @member {String} name
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
  */
-InlineResponse20031.prototype['name'] = undefined;
+InlineResponse20031.prototype['owner'] = undefined;
 
 /**
- * Тарифы логистики для сторкипера.
- * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineResponse20031.prototype['tariffLogistics'] = undefined;
+InlineResponse20031.prototype['title'] = undefined;
 
 /**
- * Тарифы складов для сторкипера.
- * @member {Array.<module:model/ApiV1StorekeepersTariffWarehouses>} tariffWarehouses
+ * Статус магазина для продажи
+ * @member {String} status
  */
-InlineResponse20031.prototype['tariffWarehouses'] = undefined;
+InlineResponse20031.prototype['status'] = undefined;
 
 /**
- * Количество коробок в сторкепере.
- * @member {Number} boxesCount
+ * Файлы, которые привязаны к магазину
+ * @member {Array.<String>} files
  */
-InlineResponse20031.prototype['boxesCount'] = undefined;
+InlineResponse20031.prototype['files'] = undefined;
+
+/**
+ * Стоимость магазина
+ * @member {Number} price
+ */
+InlineResponse20031.prototype['price'] = undefined;
+
+/**
+ * Ежемесячный множитель
+ * @member {Number} monthlyMultiplier
+ */
+InlineResponse20031.prototype['monthlyMultiplier'] = undefined;
+
+/**
+ * @member {module:model/ApiV1ShopSellStatistics} statistics
+ */
+InlineResponse20031.prototype['statistics'] = undefined;
+
+/**
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
+ */
+InlineResponse20031.prototype['businessStartDate'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20031.prototype['shopDetails'] = undefined;
 
 
 

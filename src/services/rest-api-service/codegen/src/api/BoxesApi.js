@@ -28,7 +28,7 @@ import InlineObject21 from '../model/InlineObject21';
 import InlineObject22 from '../model/InlineObject22';
 import InlineObject23 from '../model/InlineObject23';
 import InlineObject24 from '../model/InlineObject24';
-import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
@@ -206,6 +206,60 @@ export default class BoxesApi {
      */
     apiV1BoxesByProductGuidGuidGet(guid, opts) {
       return this.apiV1BoxesByProductGuidGuidGetWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить коробки и их строки по GUID продукта.
+     * ## Получить коробки и их строки по GUID продукта.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     */
+    apiV1BoxesByProductGuidLightGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesByProductGuidLightGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [ApiV1BatchesBoxes];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/by_product_guid_light/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки по GUID продукта.
+     * ## Получить коробки и их строки по GUID продукта.   
+     * @param {String} guid GUID
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     */
+    apiV1BoxesByProductGuidLightGuidGet(guid, opts) {
+      return this.apiV1BoxesByProductGuidLightGuidGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -589,7 +643,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
      */
     apiV1BoxesClientsLightGetWithHttpInfo(status, opts) {
       opts = opts || {};
@@ -614,7 +668,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = [InlineResponse2009];
       return this.apiClient.callApi(
         '/api/v1/boxes/clients_light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -629,7 +683,7 @@ export default class BoxesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
      */
     apiV1BoxesClientsLightGet(status, opts) {
       return this.apiV1BoxesClientsLightGetWithHttpInfo(status, opts)

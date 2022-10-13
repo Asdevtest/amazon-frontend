@@ -557,6 +557,14 @@ export const styles = createStyles(() => ({
     justifyContent: 'start',
     // marginLeft: '6px',
   },
+  multilineSuperBoxWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
 
   multilineText: {
     width: '100%',
@@ -570,6 +578,24 @@ export const styles = createStyles(() => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
+  },
+
+  multilineAsinTextAlignLeft: {
+    width: '100%',
+    maxHeight: '100%',
+    // userSelect: 'none',
+    textAlign: 'start',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  multilineLeftText: {
+    textAlign: 'start',
   },
 
   statusMultilineText: {
@@ -614,7 +640,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    flexWrap: 'wrap',
+    flexWrap: 'no-wrap',
   },
 
   multilineTextAlignLeft: {
@@ -1041,6 +1067,12 @@ export const styles = createStyles(() => ({
 
   editPaddingButton: {
     marginTop: 0,
+  },
+
+  photoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 0',
   },
 
   '@media (max-width: 768px)': {

@@ -3,7 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
+import {DashboardModel} from '@models/dashboard-model'
 import {UserModel} from '@models/user-model'
 
 export class ClientDashboardViewModel {
@@ -85,7 +85,7 @@ export class ClientDashboardViewModel {
 
   async getElementCount() {
     try {
-      const result = await ClientModel.getDashboardElementCount()
+      const result = await DashboardModel.getClientDashboadItems()
 
       runInAction(() => {
         this.dashboardData = {

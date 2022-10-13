@@ -47,11 +47,17 @@ class InlineObject69 {
         if (data) {
             obj = obj || new InlineObject69();
 
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
         }
         return obj;
@@ -59,6 +65,12 @@ class InlineObject69 {
 
 
 }
+
+/**
+ * Поставить оценку юзеру
+ * @member {Number} rating
+ */
+InlineObject69.prototype['rating'] = undefined;
 
 /**
  * Комментарий причин изменения статуса.
@@ -71,6 +83,11 @@ InlineObject69.prototype['reason'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject69.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject69.prototype['timeLimitInMinutes'] = undefined;
 
 
 

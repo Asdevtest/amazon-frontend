@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
-     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20011
      */
     constructor() { 
@@ -48,8 +47,14 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -59,9 +64,22 @@ class InlineResponse20011 {
 }
 
 /**
- * @member {Number} priceForClient
+ * GUID пользователя.
+ * @member {String} _id
  */
-InlineResponse20011.prototype['priceForClient'] = undefined;
+InlineResponse20011.prototype['_id'] = undefined;
+
+/**
+ * Имя пользователя.
+ * @member {String} name
+ */
+InlineResponse20011.prototype['name'] = undefined;
+
+/**
+ * Почта юзера
+ * @member {String} email
+ */
+InlineResponse20011.prototype['email'] = undefined;
 
 
 

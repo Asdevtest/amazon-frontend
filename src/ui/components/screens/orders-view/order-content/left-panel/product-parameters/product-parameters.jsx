@@ -5,6 +5,7 @@ import {Typography, Link} from '@material-ui/core'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {CopyValue} from '@components/copy-value'
 import {Field} from '@components/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -108,9 +109,12 @@ export const ProductParameters = ({order, collapsed}) => {
         inputComponent={
           <div>
             {order.product.barCode ? (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
-                <Typography className={classNames.scrollingText}>{order.product.barCode}</Typography>
-              </Link>
+              <div className={classNames.barCodeWrapper}>
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
+                  <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
+                </Link>
+                <CopyValue text={order.product.barCode} />
+              </div>
             ) : (
               <Typography className={classNames.scrollingText}>{t(TranslationKey['Not available'])}</Typography>
             )}

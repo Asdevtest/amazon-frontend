@@ -22,11 +22,10 @@ class InlineObject71 {
     /**
      * Constructs a new <code>InlineObject71</code>.
      * @alias module:model/InlineObject71
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(totalCost) { 
+    constructor() { 
         
-        InlineObject71.initialize(this, totalCost);
+        InlineObject71.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject71 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject71 {
         if (data) {
             obj = obj || new InlineObject71();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
         }
         return obj;
@@ -60,10 +61,16 @@ class InlineObject71 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject71.prototype['totalCost'] = undefined;
+InlineObject71.prototype['rating'] = undefined;
+
+/**
+ * Отзыв о работе
+ * @member {String} review
+ */
+InlineObject71.prototype['review'] = undefined;
 
 
 

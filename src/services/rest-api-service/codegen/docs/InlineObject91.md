@@ -4,7 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **String** | Результат работы исполнителя. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**listingName** | **String** |  | [optional] 
+**listingBulletPoints** | **[String]** | Массив ... | [optional] 
+**listingProductDetails** | **String** |  | [optional] 
+**listingSearchTerms** | **String** |  | [optional] 
+**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
+**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 
 

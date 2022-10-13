@@ -34,6 +34,8 @@ export const AddOrEditLogisticTariffForm = observer(
       setCurrencyType(newAlignment)
     }
 
+    const regExp = /^[0-9]*[.,][0-9][1-9]+$/
+
     const sourceFormFields = {
       name: tariffToEdit?.name || '',
       description: tariffToEdit?.description || '',
@@ -166,6 +168,7 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
       formFields.minWeightInKg === '0' ||
+      !formFields.minWeightInKg.match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||

@@ -23,6 +23,7 @@ export const DataGridTablesKeys = {
 
   ADMIN_AWAITING_BATCHES: 'adminAwaitingBatchesDataGridState',
   ADMIN_BATCHES: 'adminBatchesDataGridState',
+  ADMIN_FEEDBACK: 'adminFeedbackDataGridState',
 
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'adminExchangeCompleteSupplierNotFoundedDataGridState',
 

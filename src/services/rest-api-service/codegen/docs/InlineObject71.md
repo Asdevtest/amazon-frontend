@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
 
 

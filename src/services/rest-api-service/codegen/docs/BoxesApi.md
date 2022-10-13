@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**apiV1BoxesApprovePost**](BoxesApi.md#apiV1BoxesApprovePost) | **POST** /api/v1/boxes/approve | # Подтвердить операцию объединения/разъединения коробок.
 [**apiV1BoxesByOrderGuidGuidGet**](BoxesApi.md#apiV1BoxesByOrderGuidGuidGet) | **GET** /api/v1/boxes/by_order_guid/{guid} | # Получить коробки и их строки по GUID заказа.
 [**apiV1BoxesByProductGuidGuidGet**](BoxesApi.md#apiV1BoxesByProductGuidGuidGet) | **GET** /api/v1/boxes/by_product_guid/{guid} | # Получить коробки и их строки по GUID продукта.
+[**apiV1BoxesByProductGuidLightGuidGet**](BoxesApi.md#apiV1BoxesByProductGuidLightGuidGet) | **GET** /api/v1/boxes/by_product_guid_light/{guid} | # Получить коробки и их строки по GUID продукта.
 [**apiV1BoxesCancelEditPost**](BoxesApi.md#apiV1BoxesCancelEditPost) | **POST** /api/v1/boxes/cancel-edit | # Отменить редактирование коробок.
 [**apiV1BoxesCancelEditWithDraftGuidPost**](BoxesApi.md#apiV1BoxesCancelEditWithDraftGuidPost) | **POST** /api/v1/boxes/cancel_edit_with_draft/{guid} | # Отменить редактирование коробок сотрудником склада.
 [**apiV1BoxesCancelMergePost**](BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
@@ -160,6 +161,60 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesByProductGuidGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BoxesByProductGuidLightGuidGet
+
+> [ApiV1BatchesBoxes] apiV1BoxesByProductGuidLightGuidGet(guid, opts)
+
+# Получить коробки и их строки по GUID продукта.
+
+## Получить коробки и их строки по GUID продукта.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let guid = null; // String | GUID
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesByProductGuidLightGuidGet(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -575,7 +630,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsLightGet
 
-> [InlineResponse2008] apiV1BoxesClientsLightGet(status, opts)
+> [InlineResponse2009] apiV1BoxesClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -617,7 +672,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 

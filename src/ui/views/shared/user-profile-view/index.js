@@ -1,1 +1,1 @@
-export {ClientUserProfileView} from './user-profile-view'
+export {UserProfileView} from './user-profile-view'

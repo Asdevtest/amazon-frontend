@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20014Batches from './InlineResponse20014Batches';
-import InlineResponse20014Boxes from './InlineResponse20014Boxes';
-import InlineResponse20014Tasks from './InlineResponse20014Tasks';
 
 /**
  * The InlineResponse20014 model module.
@@ -24,6 +21,7 @@ import InlineResponse20014Tasks from './InlineResponse20014Tasks';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -50,14 +48,8 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20014Tasks.constructFromObject(data['tasks']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20014Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20014Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -67,19 +59,9 @@ class InlineResponse20014 {
 }
 
 /**
- * @member {module:model/InlineResponse20014Tasks} tasks
+ * @member {Number} priceForClient
  */
-InlineResponse20014.prototype['tasks'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20014Boxes} boxes
- */
-InlineResponse20014.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20014Batches} batches
- */
-InlineResponse20014.prototype['batches'] = undefined;
+InlineResponse20014.prototype['priceForClient'] = undefined;
 
 
 

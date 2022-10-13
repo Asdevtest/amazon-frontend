@@ -210,5 +210,8 @@ export const useClassNames = makeStyles({
     label: {
       width: '120px',
     },
+    barCodeWrapper: {
+      width: '200px',
+    },
   },
 })

@@ -22,11 +22,10 @@ class InlineObject85 {
     /**
      * Constructs a new <code>InlineObject85</code>.
      * @alias module:model/InlineObject85
-     * @param price {Number} Цена услуги.
      */
-    constructor(price) { 
+    constructor() { 
         
-        InlineObject85.initialize(this, price);
+        InlineObject85.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject85 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, price) { 
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,14 +47,8 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -66,22 +58,10 @@ class InlineObject85 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Статус
+ * @member {Number} status
  */
-InlineObject85.prototype['name'] = undefined;
-
-/**
- * Описание услуги
- * @member {String} description
- */
-InlineObject85.prototype['description'] = undefined;
-
-/**
- * Цена услуги.
- * @member {Number} price
- */
-InlineObject85.prototype['price'] = undefined;
+InlineObject85.prototype['status'] = undefined;
 
 
 

@@ -158,11 +158,13 @@ export const CreateBoxForm = observer(
   ({
     currentSupplier,
     formItem,
+    editingBox,
     boxesForCreation,
     onTriggerOpenModal,
     setBoxesForCreation,
     volumeWeightCoefficient,
     order,
+    isEdit,
   }) => {
     const classNames = useClassNames()
 
@@ -199,7 +201,7 @@ export const CreateBoxForm = observer(
         return
       }
 
-      const newFormFields = {...formFieldsArr[orderBoxIndex]}
+      const newFormFields = isEdit ? editingBox : {...formFieldsArr[orderBoxIndex]}
 
       if (fieldName === 'amount') {
         newFormFields[fieldName] = isNaN(parseInt(e.target.value)) ? '' : parseInt(e.target.value)
@@ -246,7 +248,7 @@ export const CreateBoxForm = observer(
         }
       })
 
-      setBoxesForCreation([...boxesForCreation, ...res])
+      isEdit ? setBoxesForCreation([...boxesForCreation]) : setBoxesForCreation([...boxesForCreation, ...res])
       onTriggerOpenModal()
     }
 
@@ -342,7 +344,7 @@ export const CreateBoxForm = observer(
       <div className={classNames.root}>
         <div className={classNames.form}>
           <Typography paragraph className={classNames.subTitle}>
-            {t(TranslationKey['Creating new boxes'])}
+            {isEdit ? t(TranslationKey['Editing the box']) : t(TranslationKey['Creating new boxes'])}
           </Typography>
 
           <div className={classNames.labelFieldsWrapper}>
@@ -404,7 +406,7 @@ export const CreateBoxForm = observer(
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 sizeSetting={sizeSetting}
                 orderBoxIndex={orderBoxIndex}
-                orderBox={orderBox}
+                orderBox={isEdit ? editingBox : orderBox}
                 setFormField={setFormField}
                 setAmountField={setAmountField}
                 setDimensionsOfSupplierField={setDimensionsOfSupplierField}
@@ -412,21 +414,22 @@ export const CreateBoxForm = observer(
               />
             ))}
           </div>
-
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              disableElevation
-              tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
-              className={classNames.button}
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
-              }}
-            >
-              {t(TranslationKey['Add another box'])}
-            </Button>
-          </div>
+          {!isEdit ? (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                disableElevation
+                tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
+                className={classNames.button}
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                }}
+              >
+                {t(TranslationKey['Add another box'])}
+              </Button>
+            </div>
+          ) : null}
         </div>
 
         <div className={classNames.buttonsWrapper}>
@@ -438,7 +441,7 @@ export const CreateBoxForm = observer(
             variant="contained"
             onClick={onSubmit}
           >
-            {t(TranslationKey.Add)}
+            {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
           <Button

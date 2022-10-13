@@ -25,6 +25,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -294,6 +295,12 @@ export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>
 ))
 
+export const PhotoAndFilesCell = withStyles(styles)(({classes: classNames, files}) => (
+  <div className={classNames.photoWrapper}>
+    <PhotoAndFilesCarousel small width={'300px'} files={files} />
+  </div>
+))
+
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.normDateCellTypo}>
     {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
@@ -426,13 +433,18 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText} style={color && {color}}>
-      {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
-    </Typography>
-  </div>
-))
+export const MultilineTextCell = withStyles(styles)(
+  ({classes: classNames, text, noTextText, color, isStatus, isAsin}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography
+        className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
+        style={color && {color}}
+      >
+        {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+      </Typography>
+    </div>
+  ),
+)
 
 export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment, isAsin}) =>
   isComment ? (
@@ -440,18 +452,25 @@ export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNam
       <div className={classNames.multilineTextAlignLeftWrapper}>
         <TextareaAutosize
           disabled
-          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          value={text.length > 200 ? text.slice(0, 192) + '...' : text}
           className={classNames.multilineTextAlignLeft}
         />
       </div>
     </Tooltip>
   ) : (
     <div className={classNames.multilineTextAlignLeftWrapper}>
-      <TextareaAutosize
-        disabled
-        value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-        className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
-      />
+      {isAsin ? (
+        <Typography className={clsx(classNames.multilineAsinTextAlignLeft)}>
+          {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+        </Typography>
+      ) : (
+        <TextareaAutosize
+          disabled
+          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
+        />
+      )}
+
       {isAsin ? <CopyValue text={text} /> : null}
     </div>
   ),
@@ -967,11 +986,9 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
 )
 
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography>
-      {qty || '-'}
-      <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
-    </Typography>
+  <div className={classNames.multilineSuperBoxWrapper}>
+    <Typography>{qty || '-'}</Typography>
+    <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
   </div>
 ))
 
