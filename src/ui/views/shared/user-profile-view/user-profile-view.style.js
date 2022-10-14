@@ -6,9 +6,9 @@ export const styles = theme => ({
       transform: 'scale(1.01)',
     },
 
-    border: 0,
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // border: 0,
+    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    // backgroundColor: '#fff',
   },
 
   datagridWrapper: {
@@ -16,9 +16,9 @@ export const styles = theme => ({
     height: '79vh',
   },
   root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // border: '0 !important',
+    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    // backgroundColor: '#fff',
   },
 
   footerContainer: {

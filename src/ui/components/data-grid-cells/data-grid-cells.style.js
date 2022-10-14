@@ -362,7 +362,10 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 450,
+    maxWidth: 670,
+
+    // maxWidth: '50%',
+
     overflow: 'auto',
     padding: '10px 0',
   },

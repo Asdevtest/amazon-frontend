@@ -51,7 +51,7 @@ export class BuyerSearchSupplierBySupervisorModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       await this.getProductsVacant()
-      this.updateProductsHead()
+      // this.updateProductsHead()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed

@@ -31,8 +31,6 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy})
     setFormFields(newFormFields)
   }
 
-  console.log(formFields)
-
   return (
     <div className={classNames.modalMessageWrapper}>
       <div className={classNames.modalTitle}>

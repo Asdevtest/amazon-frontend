@@ -142,9 +142,8 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onClickSendAsResult({message, links, files}) {
+  async onClickSendAsResult({message, files}) {
     try {
-      console.log('links ', links)
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
