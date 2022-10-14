@@ -8,6 +8,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalTitle: {
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
   },
   cancelButton: {
     color: '#001029',
@@ -16,34 +21,29 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
     gap: 20,
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
   },
   mainWrapper: {
     minWidth: '460px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-  },
-  '@media (max-width: 768px)': {
-    mainWrapper: {
+    [theme.breakpoints.down(768)]: {
       minWidth: '280px',
 
       display: 'flex',
       flexDirection: 'column',
       gap: '20px',
     },
-    modalTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-    labelField: {
+  },
+  labelField: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
       color: '#656565',
-    },
-    buttonWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
     },
   },
 }))

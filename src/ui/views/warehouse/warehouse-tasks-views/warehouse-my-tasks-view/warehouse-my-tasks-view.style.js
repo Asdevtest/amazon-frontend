@@ -42,7 +42,16 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
+
     borderTop: 'none !important',
+    [theme.breakpoints.down(768)]: {
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(3)': {
+        display: 'none',
+      },
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(5)': {
+        marginLeft: '2px',
+      },
+    },
   },
   footerCell: {
     padding: 0,
@@ -50,6 +59,38 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      height: '100px',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+
+      alignItems: 'start',
+
+      marginTop: '40px',
+
+      '& > button': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'center !important',
+
+        fontSize: '12px',
+      },
+      '& > button > span': {
+        marginRight: 0,
+      },
+    },
+  },
+  filterForm: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+
+      '& > div': {
+        width: '100%',
+      },
+    },
   },
 
   row: {
@@ -61,11 +102,5 @@ export const styles = theme => ({
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.main,
-  },
-
-  '@media (max-width: 768px)': {
-    toolbarContainer: {
-      visibility: 'hidden',
-    },
   },
 })

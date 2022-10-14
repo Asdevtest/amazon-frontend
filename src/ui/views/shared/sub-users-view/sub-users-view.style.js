@@ -12,12 +12,20 @@ export const styles = theme => ({
     border: '1px solid #007bff',
     width: '290px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   searchContainer: {
     marginTop: 0,
     width: 'auto',
     marginRight: 'calc(50% - 345px)',
+    [theme.breakpoints.down(768)]: {
+      marginTop: 0,
+      width: '100%',
+      marginRight: 0,
+    },
   },
 
   actionsWrapper: {
@@ -31,12 +39,19 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'end',
     alignItems: 'flex-start',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexDirection: 'column',
+    },
   },
 
   addUserButton: {
     width: '200px',
     height: '40px',
     display: 'flex',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
   datagridWrapper: {
     marginTop: '10px',
@@ -54,7 +69,16 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
+
     borderTop: 'none !important',
+    [theme.breakpoints.down(768)]: {
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(3)': {
+        display: 'none',
+      },
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(5)': {
+        marginLeft: '2px',
+      },
+    },
   },
   footerCell: {
     padding: 0,
@@ -62,27 +86,41 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      height: '100px',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+
+      alignItems: 'start',
+
+      marginTop: '40px',
+
+      '& > button': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'center !important',
+
+        fontSize: '12px',
+      },
+      '& > button > span': {
+        marginRight: 0,
+      },
+    },
   },
-  '@media (max-width: 768px)': {
-    toolbarContainer: {
-      visibility: 'hidden',
-    },
-    subUserHeader: {
-      width: '100%',
+  filterForm: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
       flexDirection: 'column',
+
+      '& > div': {
+        width: '100%',
+      },
     },
-    searchInput: {
-      width: '100%',
-    },
-    searchContainer: {
-      marginTop: 0,
-      width: '100%',
-      marginRight: 0,
-    },
-    addUserButton: {
-      width: '280px',
-    },
-    buttonWrapper: {
+  },
+  buttonWrapper: {
+    [theme.breakpoints.down(768)]: {
       width: '100%',
       display: 'flex',
       justifyContent: 'center',

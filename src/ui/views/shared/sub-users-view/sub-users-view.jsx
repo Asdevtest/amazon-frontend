@@ -135,6 +135,7 @@ class SubUsersViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
                   }}
                   localeText={getLocalizationByLanguageTag()}
                   sortModel={sortModel}

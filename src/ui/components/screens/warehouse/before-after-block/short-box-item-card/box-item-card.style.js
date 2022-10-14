@@ -9,6 +9,9 @@ export const useClassNames = makeStyles()(theme => ({
     paddingBottom: '20px',
     width: '630px',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   img: {
@@ -17,6 +20,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '4px',
     objectFit: 'contain',
     objectPosition: 'center',
+    [theme.breakpoints.down(768)]: {
+      width: '85px',
+      height: '85px',
+    },
   },
 
   title: {
@@ -29,6 +36,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     overflowY: 'auto',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   subTitle: {
@@ -60,6 +70,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '42px',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '20px',
+    },
   },
 
   countSubWrapper: {
@@ -91,11 +106,23 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '10px',
+    },
   },
 
   attributeHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '14px',
+    },
   },
 
   link: {
@@ -114,9 +141,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   attributeFooterWrapper: {
-    // display: 'flex',
-    // alignItems: 'start',
-    // justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   label: {
@@ -125,45 +152,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   attributeFooterMobileWrapper: {
     display: 'none',
+    [theme.breakpoints.down(768)]: {
+      display: 'block',
+    },
   },
 
   copyValueWrapper: {
     display: 'flex',
     gap: '10px',
-  },
-
-  '@media (max-width: 768px)': {
-    root: {
-      width: '100%',
-    },
-
-    img: {
-      width: '85px',
-      height: '85px',
-    },
-    attributeWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '10px',
-    },
-    countWrapper: {flexDirection: 'column', alignItems: 'end', gap: '20px'},
-    attributeHeaderWrapper: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '14px',
-    },
-
-    attributeFooterMobileWrapper: {
-      display: 'block',
-    },
-    attributeFooterWrapper: {
-      display: 'none',
-    },
-
-    title: {
-      width: '100%',
-    },
   },
 }))

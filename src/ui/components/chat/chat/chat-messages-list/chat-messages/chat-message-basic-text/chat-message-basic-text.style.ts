@@ -34,6 +34,15 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     width: '100%',
+    [theme.breakpoints.down(768)]: {
+      marginRight: '30px !important',
+
+      whiteSpace: 'pre-wrap',
+      fontSize: 14,
+      lineHeight: '19px',
+
+      width: '100%',
+    },
   },
 
   filesMainWrapper: {
@@ -51,20 +60,5 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     marginLeft: 10,
-  },
-  '@media (max-width: 768px)': {
-    filesMainWrapper: {
-      // width: '120px',
-    },
-    messageText: {
-      marginRight: '30px !important',
-
-      whiteSpace: 'pre-wrap',
-      fontSize: 14,
-      lineHeight: '19px',
-      color: '#001029',
-
-      width: '100%',
-    },
   },
 }))

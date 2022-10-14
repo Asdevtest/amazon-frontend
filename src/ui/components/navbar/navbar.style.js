@@ -66,6 +66,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     borderRadius: '50%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(900)]: {
+      display: 'none',
+    },
   },
   hideAndShowIcon: {
     top: 20,
@@ -98,11 +101,5 @@ export const useClassNames = makeStyles()(theme => ({
     width: '54px',
     height: '48px',
     color: `${theme.palette.text.general} !important`,
-  },
-
-  '@media (max-width: 959px)': {
-    hideAndShowIconWrapper: {
-      display: 'none',
-    },
   },
 }))

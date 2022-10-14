@@ -10,11 +10,23 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      overflow: 'hidden',
+      marginBottom: theme.spacing(1),
+    },
   },
   modalTitle: {
     marginRight: '100px',
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+      marginRight: 0,
+    },
   },
   subTitle: {
     color: theme.palette.text.general,
@@ -99,6 +111,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: '5px',
+    },
   },
 
   needPay: {
@@ -112,6 +130,11 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '20px',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+      gap: 15,
+    },
   },
 
   storekeeperField: {
@@ -177,6 +200,11 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #007bff',
     width: '300px',
     height: 36,
+    [theme.breakpoints.down(768)]: {
+      border: '1px solid #007bff',
+      width: '280px',
+      height: 36,
+    },
   },
 
   searchContainer: {
@@ -188,48 +216,23 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  '@media (max-width: 768px)': {
-    form: {
-      width: '280px',
-      overflow: 'hidden',
-      marginBottom: theme.spacing(1),
-    },
-    titleWrapper: {
-      flexDirection: 'column',
-      alignItems: 'start',
-      gap: 15,
-    },
-    modalTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      color: '#001029',
-      fontWeight: 600,
-      marginRight: 0,
-    },
-    fieldLabel: {
+  fieldLabel: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '16px',
       color: '#001029',
       fontWeight: 600,
     },
-    infoWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px',
-    },
-    subFieldLabel: {
+  },
+  subFieldLabel: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
       color: '#656565',
     },
-    searchInput: {
-      border: '1px solid #007bff',
-      width: '280px',
-      height: 36,
-    },
-
-    filesSubWrapper: {
+  },
+  filesSubWrapper: {
+    [theme.breakpoints.down(768)]: {
       width: '100%',
       minWidth: '280px',
 

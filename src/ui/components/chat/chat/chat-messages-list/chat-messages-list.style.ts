@@ -16,6 +16,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'end',
     flexDirection: 'row-reverse',
+    [theme.breakpoints.down(768)]: {
+      width: '90%',
+    },
   },
 
   messageWrapperIsNextMessageSameAuthor: {
@@ -154,9 +157,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     padding: 10,
   },
-  '@media (max-width: 768px)': {
-    messageWrapper: {
-      width: '90%',
-    },
-  },
+  // '@media (max-width: 768px)': {
+  //   messageWrapper: {
+  //     width: '90%',
+  //   },
+  // },
 }))

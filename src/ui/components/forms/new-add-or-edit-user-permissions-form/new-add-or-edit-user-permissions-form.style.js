@@ -7,6 +7,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
+    [theme.breakpoints.down(768)]: {
+      width: '295px',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+    },
   },
 
   form: {
@@ -19,6 +26,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     marginTop: '30px',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: '30px',
+      gap: '10px',
+    },
   },
 
   divider: {
@@ -68,6 +81,10 @@ export const useClassNames = makeStyles()(theme => ({
   button: {
     width: '152px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '144px',
+      height: '40px',
+    },
   },
   cancelBtn: {
     color: theme.palette.text.general,
@@ -131,12 +148,23 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '300px',
     height: '465px',
     overflow: 'auto',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: '280px',
+      height: 'auto',
+      overflow: 'auto',
+    },
   },
 
   permissionGroupsToSelectItemWrapper: {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+    },
   },
 
   permissionGroupsToSelectItem: {
@@ -153,6 +181,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      border: 'none',
+      margin: 0,
+    },
   },
 
   standartText: {
@@ -176,6 +208,19 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+    [theme.breakpoints.down(768)]: {
+      margin: '0',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '30px',
+      height: '30px',
+      transition: '0.3s ease',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+      '&:hover': {
+        transform: 'scale(1.01)',
+      },
+    },
   },
 
   selectedItem: {
@@ -189,15 +234,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   tabWillBeOpened: {
     backgroundColor: 'rgba(0,123,255, 0.4)',
+    [theme.breakpoints.down(768)]: {
+      borderRadius: '50%',
+    },
   },
 
-  // root: {
-  //   width: '100%',
-  //   boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
-  // },
   indicator: {
     backgroundColor: '#006CFF',
     height: '6px',
+    [theme.breakpoints.down(768)]: {
+      height: '0',
+    },
   },
   row: {
     width: '100%',
@@ -213,6 +260,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   selectedTab: {
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+    [theme.breakpoints.down(768)]: {
+      background: 'none',
+      fontSize: '16px',
+      color: theme.palette.text.general,
+      fontWeight: 600,
+    },
   },
   accordionWrapper: {
     height: '475px',
@@ -261,88 +314,27 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '10px',
     height: '350px',
   },
-  '@media (max-width: 768px)': {
-    root: {
-      width: '295px',
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      overflow: 'hidden',
-    },
-    permissionGroupsToSelectItemWrapper: {
-      flexDirection: 'column',
-      alignItems: 'start',
-    },
-    permGroupWrapper: {
-      border: '1px solid #e0e0e0',
+  permGroupWrapper: {
+    [theme.breakpoints.down(768)]: {
+      border: `1px solid ${theme.palette.input.border}`,
       width: '280px',
       borderRadius: '4px',
       marginBottom: '20px',
     },
-    permissionGroupsToSelectItemSubWrapper: {
+  },
+  permissionGroupsToSelectItemSubWrapper: {
+    [theme.breakpoints.down(768)]: {
       width: '280px',
       display: 'flex',
       alignItems: 'center',
       padding: '0 10px',
     },
-    permissionGroupsToSelectItem: {
-      border: 'none',
-      margin: 0,
-    },
-    permissionGroupsToSelectCheckboxWrapper: {
-      // border: 'none',
-      // borderRadius: 0,
-      margin: '0',
+  },
+  iconWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      width: '30px',
-      height: '30px',
-      transition: '0.3s ease',
-      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-      '&:hover': {
-        transform: 'scale(1.01)',
-      },
-    },
-    tabWillBeOpened: {
-      borderRadius: '50%',
-    },
-    iconWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    rightSideWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      minWidth: '280px',
-      height: 'auto',
-      overflow: 'auto',
-    },
-    buttonsWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '30px',
-      gap: '10px',
-    },
-    button: {
-      width: '144px',
-      height: '40px',
-    },
-    cancelBtn: {
-      color: '#001029',
-    },
-    indicator: {
-      backgroundColor: '#006CFF',
-      height: '0',
-    },
-
-    selectedTab: {
-      background: 'white',
-
-      fontSize: '16px',
-      color: '#001029',
-      fontWeight: 600,
     },
   },
 }))

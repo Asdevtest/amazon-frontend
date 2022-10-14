@@ -8,31 +8,27 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
+    [theme.breakpoints.down(768)]: {
+      width: '100vw',
+    },
   },
   scrollViewWrapper: {
     width: '100%',
-
-    // height: '556px',
-
     flex: 1,
-
     minHeight: 278,
     maxHeight: 690,
   },
   bottomPartWrapper: {
     backgroundColor: theme.palette.background.main,
-
-    // height: '227px',
-    // minHeight: 80,
-    // maxHeight: 300,
-
     display: 'flex',
     flexDirection: 'column',
-
     width: '100%',
     padding: '20px 70px',
-
     position: 'relative',
+    [theme.breakpoints.down(768)]: {
+      padding: '10px 40px 10px 10px',
+      width: '100vw',
+    },
   },
 
   btnsWrapper: {
@@ -93,6 +89,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   sendBtn: {
     height: 40,
+    [theme.breakpoints.down(768)]: {
+      width: 40,
+      height: 40,
+      borderRadius: '50%',
+    },
   },
 
   inputFilled: {
@@ -116,11 +117,19 @@ export const useClassNames = makeStyles()(theme => ({
   emojiIconPos: {
     top: -30,
     left: -5,
+    [theme.breakpoints.down(768)]: {
+      top: -30,
+      left: -5,
+    },
   },
 
   fileIconPos: {
     top: -30,
     left: 32,
+    [theme.breakpoints.down(768)]: {
+      top: -30,
+      left: 25,
+    },
   },
 
   filesIconWrapper: {
@@ -153,16 +162,18 @@ export const useClassNames = makeStyles()(theme => ({
     right: 65,
     bottom: 70,
     transform: 'translate(-50%, 0%)',
+    [theme.breakpoints.down(768)]: {
+      zIndex: 999,
+      position: 'absolute',
+      left: 'calc(100% - 270px)',
+      right: 0,
+      bottom: 70,
+      transform: 'translate(-50%, 0%)',
+    },
   },
-  opponentWrapper: {display: 'none'},
-  avatarWrapper: {},
-  opponentName: {},
-  opponentSubWrapper: {},
-  backIcon: {},
-  sendBtnText: {},
-
-  '@media (max-width: 768px)': {
-    opponentWrapper: {
+  opponentWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       position: 'absolute',
       top: 0,
       display: 'flex',
@@ -173,39 +184,20 @@ export const useClassNames = makeStyles()(theme => ({
       zIndex: 990,
       width: '100vw',
     },
-    opponentSubWrapper: {
+  },
+  avatarWrapper: {},
+  opponentName: {},
+  opponentSubWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       alignItems: 'center',
       gap: 10,
     },
-
-    sendBtnText: {
+  },
+  backIcon: {},
+  sendBtnText: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
-    },
-    sendBtn: {width: 40, height: 40, borderRadius: '50%'},
-    bottomPartWrapper: {
-      padding: '10px 40px 10px 10px',
-      width: '100vw',
-    },
-    emojisWrapper: {
-      zIndex: 999,
-      position: 'absolute',
-      left: 'calc(100% - 270px)',
-      right: 0,
-      bottom: 70,
-      transform: 'translate(-50%, 0%)',
-    },
-    emojiIconPos: {
-      top: -30,
-      left: -5,
-    },
-
-    fileIconPos: {
-      top: -30,
-      left: 25,
-    },
-    root: {
-      width: '100vw',
     },
   },
 }))

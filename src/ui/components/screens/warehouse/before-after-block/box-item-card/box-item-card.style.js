@@ -9,6 +9,9 @@ export const useClassNames = makeStyles()(theme => ({
     paddingBottom: '20px',
     width: '630px',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   img: {
@@ -17,6 +20,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '4px',
     objectFit: 'contain',
     objectPosition: 'center',
+    [theme.breakpoints.down(768)]: {
+      width: '85px',
+      height: '85px',
+    },
   },
 
   miss: {
@@ -33,6 +40,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     overflowY: 'auto',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   barCodeField: {
     fontSize: '14px',
@@ -81,12 +91,20 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '42px',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '20px',
+    },
   },
 
   countSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '25px',
+    [theme.breakpoints.down(768)]: {
+      gap: '10px',
+    },
   },
   asinWrapper: {
     display: 'flex',
@@ -105,21 +123,35 @@ export const useClassNames = makeStyles()(theme => ({
   },
   mainWrapper: {
     display: 'flex',
-
     width: '100%',
-    // padding: '10px',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      justifyContent: 'space-between',
+    },
   },
   attributeWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '10px',
+    },
   },
 
   attributeHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '14px',
+    },
   },
 
   link: {
@@ -141,6 +173,9 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '15px',
     alignItems: 'center',
     marginTop: '10px',
+    [theme.breakpoints.down(768)]: {
+      width: '200px',
+    },
   },
   barCode: {
     display: 'flex',
@@ -151,14 +186,25 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   label: {
     fontSize: '14px',
+    [theme.breakpoints.down(768)]: {
+      width: '120px',
+    },
   },
 
   attributeFooterWrapperMobile: {
     display: 'none',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '14px',
+    },
   },
 
   copyValueWrapper: {
@@ -170,54 +216,5 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
     borderRadius: 4,
     padding: 5,
-  },
-
-  '@media (max-width: 768px)': {
-    root: {
-      width: '100%',
-    },
-    mainWrapper: {
-      width: '100%',
-
-      justifyContent: 'space-between',
-    },
-    img: {
-      width: '85px',
-      height: '85px',
-    },
-    attributeWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '10px',
-    },
-    countWrapper: {flexDirection: 'column', alignItems: 'end', gap: '20px'},
-    attributeHeaderWrapper: {
-      flexDirection: 'column',
-      alignItems: 'end',
-      gap: '14px',
-    },
-
-    attributeFooterWrapper: {
-      display: 'none',
-    },
-    attributeFooterWrapperMobile: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '14px',
-    },
-    title: {
-      width: '100%',
-    },
-    countSubWrapper: {
-      gap: '10px',
-    },
-    label: {
-      width: '120px',
-    },
-    barCodeWrapper: {
-      width: '200px',
-    },
   },
 }))

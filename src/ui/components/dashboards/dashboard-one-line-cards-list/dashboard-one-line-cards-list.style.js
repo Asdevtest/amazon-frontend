@@ -4,10 +4,8 @@ export const useClassNames = makeStyles()(theme => ({
   cardsWrapper: {},
   cardWrapper: {
     width: '277px',
-    // background: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%);',
-    // background: `linear-gradient(157deg,${theme.palette.background.main} 50%, #F2FBF7 50%)`,
+
     background: theme.palette.linearGradient.successDashboardCard,
-    // boxShadow: '0px 2px 11px 2px #DFDFDF',
 
     boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
 
@@ -23,9 +21,11 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
 
     '&:hover': {
-      // background: 'linear-gradient(157deg,#fff 50%, #d8fded 50%) !important',
-
       background: theme.palette.linearGradient.hoverSuccessDashboardCard,
+    },
+    [theme.breakpoints.down(768)]: {
+      width: '200px',
+      height: '91px',
     },
   },
 
@@ -56,6 +56,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontWeight: 600,
     marginLeft: '86px',
+    [theme.breakpoints.down(768)]: {
+      marginLeft: '15px',
+    },
   },
   cardSubTitle: {
     width: '127px',
@@ -73,6 +76,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     marginBottom: '10px',
     marginLeft: '86px',
+    [theme.breakpoints.down(768)]: {
+      marginLeft: '15px',
+    },
   },
   cardHeaderWrapper: {
     display: 'flex',
@@ -83,31 +89,17 @@ export const useClassNames = makeStyles()(theme => ({
     height: 170,
     margin: '0 43px',
     padding: '0 45px',
-  },
-  addButton: {
-    width: '157px',
-    height: '40px',
-    marginRight: '90px',
-  },
-  '@media (max-width: 768px)': {
-    cardWrapper: {
-      width: '200px',
-
-      height: '91px',
-    },
-    swiper: {
+    [theme.breakpoints.down(768)]: {
       minWidth: '300px',
       height: 150,
       margin: '0 5px',
       padding: '0 10px',
       marginBottom: '15px',
     },
-
-    cardListTitle: {
-      marginLeft: '15px',
-    },
-    cardListSubTitle: {
-      marginLeft: '15px',
-    },
+  },
+  addButton: {
+    width: '157px',
+    height: '40px',
+    marginRight: '90px',
   },
 }))

@@ -13,10 +13,18 @@ export const useClassNames = makeStyles()(theme => ({
 
     boxShadow: '0px 2px 10px 2px rgba(150, 150, 150, 0.15)',
     backgroundColor: theme.palette.background.main,
+    [theme.breakpoints.down(768)]: {
+      height: '100%',
+      overflow: 'hidden',
+    },
   },
   chatsWrapper: {
     width: '296px',
     height: '100%',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      height: '100%',
+    },
   },
   chatWrapper: {
     flex: 1,
@@ -42,21 +50,15 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.general,
   },
-  hideChatWrapper: {display: 'none'},
-  hideChatsWrapper: {},
-  '@media (max-width: 768px)': {
-    chatsWrapper: {
-      width: '100%',
-      height: '100%',
-    },
-
-    hideChatWrapper: {
+  hideChatWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'none',
     },
-    hideChatsWrapper: {display: 'none'},
-    root: {
-      height: '100%',
-      overflow: 'hidden',
+  },
+  hideChatsWrapper: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
     },
   },
 }))

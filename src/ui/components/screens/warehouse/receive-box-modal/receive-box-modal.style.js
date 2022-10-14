@@ -3,6 +3,9 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1779px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   modalTitle: {
@@ -11,6 +14,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     color: theme.palette.text.general,
     marginBottom: '27px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+      color: theme.palette.text.general,
+      marginBottom: '27px',
+    },
   },
 
   modalHeaderWrapper: {
@@ -26,7 +36,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '20px',
-    // overflow: 'auto',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexDirection: 'column',
+      padding: '20px',
+    },
   },
 
   currentBox: {
@@ -37,6 +51,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   currentBoxesWrapper: {
     width: 350,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   currentBoxFooter: {
@@ -58,6 +75,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   divider: {
     margin: '-20px 10px',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   img: {
     width: '70px',
@@ -65,10 +85,22 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '20px',
     objectFit: 'contain',
     objectPosition: 'center',
+    [theme.breakpoints.down(768)]: {
+      width: '50px',
+      height: '50px',
+      marginRight: '10px',
+    },
   },
   sectionTitle: {
     color: theme.palette.text.second,
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down(768)]: {
+      marginTop: '40px',
+      marginBottom: '40px',
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: theme.palette.text.general,
+    },
   },
   title: {
     fontSize: '14px',
@@ -79,6 +111,15 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      fontWeight: 400,
+      lineHeight: '21px',
+      width: '200px',
+      overflow: 'visible',
+      textOverflow: 'inherit',
+      whiteSpace: 'pre-wrap',
+    },
   },
   titleOfCurBox: {
     fontSize: '14px',
@@ -94,14 +135,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
+    border: `1px solid ${theme.palette.input.border}`,
     borderRadius: '4px',
     maxWidth: '90px',
     height: '30px',
+    [theme.breakpoints.down(768)]: {
+      border: '1px solid rgba(143, 152, 165, 1)',
+      borderRadius: '4px',
+      maxWidth: '45px',
+      height: '30px',
+    },
   },
 
   error: {
     border: '1px solid red',
+    [theme.breakpoints.down(768)]: {
+      border: '1px solid red',
+    },
   },
   input: {
     fontSize: '12px',
@@ -117,6 +167,9 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '1275px',
     height: '575px',
     overflow: 'auto',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   sizesCell: {
@@ -142,6 +195,11 @@ export const useClassNames = makeStyles()(theme => ({
   sizeWrapper: {
     display: 'flex',
     gap: '5px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1px',
+    },
   },
   descriptionWrapper: {
     display: 'flex',
@@ -166,12 +224,21 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '30px',
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '20px',
+    },
   },
   qtyCell: {
     minWidth: '80px',
   },
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
+    [theme.breakpoints.down(768)]: {
+      color: theme.palette.text.general,
+    },
   },
 
   demensionsWrapper: {
@@ -202,12 +269,25 @@ export const useClassNames = makeStyles()(theme => ({
   button: {
     width: '162px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+    },
   },
   tableWrapperMobile: {
     display: 'none',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+    },
   },
   addButtonWrapperMobile: {
     display: 'none',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '30px',
+    },
   },
   checkboxContainer: {
     width: '190px',
@@ -227,137 +307,62 @@ export const useClassNames = makeStyles()(theme => ({
   cancelButton: {
     color: theme.palette.text.general,
   },
-
-  '@media (max-width: 768px)': {
-    root: {
-      width: '100%',
-    },
-    currentBoxesWrapper: {
-      width: '100%',
-    },
-
-    modalTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-      color: theme.palette.text.general,
-      marginBottom: '27px',
-    },
-    boxesWrapper: {
-      width: '100%',
-      // marginLeft: '-10px',
-      // marginRight: '-20px',
-      flexDirection: 'column',
-
-      padding: '20px',
-      // overflow: 'auto',
-    },
-    tableWrapper: {
-      display: 'none',
-    },
-    divider: {
-      display: 'none',
-    },
-    tableRow: {
+  tableRow: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    tableWrapperMobile: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '10px',
-    },
-    addButtonWrapper: {
+  },
+  addButtonWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
     },
-    sectionTitle: {
-      marginTop: '40px',
-      marginBottom: '40px',
-      fontSize: '16px',
-      lineHeight: '22px',
-      color: theme.palette.text.general,
-    },
-    deleteBtn: {
-      color: theme.palette.text.general,
-    },
-    boxesTitle: {
+  },
+  boxesTitle: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       lineHeight: '140%',
       fontWeight: 600,
       color: theme.palette.text.general,
       textTransform: 'uppercase',
     },
-    boxesTitleWrapper: {
+  },
+
+  boxesTitleWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    boxTitle: {
+  },
+  boxTitle: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       lineHeight: '16px',
       color: theme.palette.text.second,
       marginBottom: '12px',
     },
-    img: {
-      width: '50px',
-      height: '50px',
-      marginRight: '10px',
-    },
-
-    title: {
-      fontSize: '14px',
-      fontWeight: 400,
-      lineHeight: '21px',
-      // marginRight: '10px',
-      width: '200px',
-      overflow: 'visible',
-      textOverflow: 'inherit',
-      whiteSpace: 'pre-wrap',
-    },
-    boxTitleMobile: {
+  },
+  boxTitleMobile: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       lineHeight: '16px',
       fontWeight: 600,
       color: theme.palette.text.general,
     },
-    inputWrapper: {
-      border: '1px solid rgba(143, 152, 165, 1)',
-      borderRadius: '4px',
-      maxWidth: '45px',
-      height: '30px',
-    },
-    sizeTitle: {
+  },
+  sizeTitle: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       lineHeight: '16px',
       color: theme.palette.text.second,
     },
-    sizeWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1px',
-    },
-    photoBtnWrapper: {
+  },
+  photoBtnWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'end',
-    },
-    addButtonWrapperMobile: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: '30px',
-    },
-    buttonsWrapper: {
-      marginTop: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      gap: '20px',
-    },
-    button: {
-      width: '121px',
-    },
-
-    error: {
-      border: '1px solid red',
     },
   },
 }))

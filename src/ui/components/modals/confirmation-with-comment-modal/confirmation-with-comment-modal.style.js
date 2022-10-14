@@ -8,6 +8,14 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: '30px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      minHeight: '168px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '30px',
+    },
   },
 
   modalMessageTitle: {
@@ -48,16 +56,5 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  '@media (max-width: 768px)': {
-    modalMessageWrapper: {
-      width: '280px',
-      minHeight: '168px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      gap: '30px',
-    },
   },
 }))

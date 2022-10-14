@@ -24,6 +24,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     lineHeight: '19px',
     marginTop: '12px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 12,
+      color: theme.palette.text.general,
+      lineHeight: '16px',
+      marginTop: '12px',
+      maxWidth: '62px',
+      textAlign: 'center',
+    },
   },
   fontSizeLarge: {
     width: '45px',
@@ -33,6 +41,10 @@ export const useClassNames = makeStyles()(theme => ({
     // '&:hover': {
     //   transform: 'scale(1.1)',
     // },
+    [theme.breakpoints.down(768)]: {
+      width: '29px',
+      height: '28px',
+    },
   },
   iconWrapper: {
     display: 'flex',
@@ -56,6 +68,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     position: 'relative',
+    [theme.breakpoints.down(768)]: {
+      width: '62px',
+      height: '62px',
+    },
   },
 
   badge: {
@@ -73,6 +89,10 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',
+    [theme.breakpoints.down(768)]: {
+      height: 17,
+      width: 17,
+    },
   },
 
   buttonsWrapper: {
@@ -82,44 +102,17 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '54px',
     height: '145px',
     marginRight: '250px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      alignItems: 'start',
+      justifyContent: 'space-around',
+      height: '100px',
+      marginRight: 0,
+    },
   },
   buttonWrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-
-  '@media (max-width: 768px)': {
-    fontSizeLarge: {
-      width: '29px',
-      height: '28px',
-      // '&:hover': {
-      //   transform: 'scale(1.1)',
-      // },
-    },
-    iconWrapper: {
-      width: '62px',
-      height: '62px',
-    },
-    buttonsWrapper: {
-      width: '100%',
-      alignItems: 'start',
-      justifyContent: 'space-around',
-      // gap: '40px',
-      height: '100px',
-      marginRight: 0,
-    },
-    badge: {
-      height: 17,
-      width: 17,
-    },
-    title: {
-      fontSize: 12,
-      color: theme.palette.text.general,
-      lineHeight: '16px',
-      marginTop: '12px',
-      maxWidth: '62px',
-      textAlign: 'center',
-    },
   },
 }))

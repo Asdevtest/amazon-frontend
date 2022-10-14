@@ -4,6 +4,9 @@ export const useClassNames = makeStyles()(theme => ({
   lastCrumb: {
     color: theme.palette.text.general,
     fontSize: 18,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px !important',
+    },
   },
 
   сrumb: {
@@ -14,13 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       textDecoration: 'underline',
     },
-  },
-
-  '@media (max-width: 768px)': {
-    сrumb: {
-      fontSize: '14px !important',
-    },
-    lastCrumb: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px !important',
     },
   },
