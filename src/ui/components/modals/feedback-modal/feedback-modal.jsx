@@ -55,7 +55,7 @@ export const FeedBackModal = ({onSubmit, onClose}) => {
           className={classNames.heightFieldAuto}
           minRows={6}
           maxRows={6}
-          inputProps={{maxLength: 35000}}
+          inputProps={{maxLength: 1000}}
           // placeholder={t(TranslationKey.Reason)}
           labelClasses={classNames.commentLabelText}
           label={t(TranslationKey['Tell us how we can improve our platform'])}

@@ -27,7 +27,9 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
-    paddingBottom: '30px',
+
+    padding: '0 0 30px 0',
+    border: 'none',
   },
 
   buttonOk: {
