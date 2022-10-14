@@ -1565,7 +1565,7 @@ export enum TranslationKey {
   'Maximum value' = 'Maximum value',
   'Cancel task' = 'Cancel task',
   'Select date' = 'Select date',
-  // '' = '',
+  'Inbound' = 'Inbound',
 
   // '' = '',
   // '' = '',

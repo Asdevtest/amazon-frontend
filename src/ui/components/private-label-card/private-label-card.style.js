@@ -12,6 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   imgWrapper: {
+    marginTop: 16,
     height: '220px',
     width: '50%',
     alignSelf: 'center',
