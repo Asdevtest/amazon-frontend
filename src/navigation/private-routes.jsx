@@ -1,8 +1,8 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {useFaviconNotification} from 'react-favicon-notification'
-import {Redirect, Route, useHistory} from 'react-router-dom'
+import {Redirect, Route, useLocation} from 'react-router-dom'
 
 import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/routes'
 import {UserRoleCodeMap} from '@constants/user-roles'
@@ -11,9 +11,11 @@ import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
 export const PrivateRoutes = observer(() => {
-  const history = useHistory()
+  const location = useLocation()
 
   const [config, setConfig] = useFaviconNotification()
+
+  const [targetRoute, setTargetRoute] = useState('')
 
   useEffect(() => {
     if (ChatModel.unreadMessages > 0) {
@@ -24,10 +26,14 @@ export const PrivateRoutes = observer(() => {
   }, [ChatModel.unreadMessages])
 
   useEffect(() => {
-    if (UserModel.isAuthenticated()) {
+    if (location.state?.targetRoute) {
+      setTargetRoute(location.state.targetRoute)
+    } else if (location.pathname === targetRoute) {
+      setTargetRoute('')
+    } else if (UserModel.isAuthenticated()) {
       UserModel.getUserInfo()
     }
-  }, [history.location.pathname])
+  }, [location.pathname])
 
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
@@ -43,12 +49,10 @@ export const PrivateRoutes = observer(() => {
       .filter(route => route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]))
       .concat(overallRoutesConfigs)
 
-    const notAllowedRoute = !allowedRoutes.some(elem => elem.routePath === history.location.pathname)
+    const notAllowedRoute = !allowedRoutes.some(elem => elem.routePath === location.pathname)
 
     return (
       <>
-        {/* <Head title="HOME" icon="/assets/icons/+.svg" /> */}
-
         {allowedRoutes.map((route, index) => (
           <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
         ))}

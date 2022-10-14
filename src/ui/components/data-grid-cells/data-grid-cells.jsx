@@ -859,7 +859,7 @@ export const FourMonthesStockCell = withStyles(
       <ChangeChipCell
         row={params.row.originalData}
         // value={value}
-        text={value > 0 ? `${t(TranslationKey.Edit)} Stock` : `${t(TranslationKey.Set)} Stock`}
+        text={value > 0 ? value /* `${t(TranslationKey.Edit)} Stock`*/ : `${t(TranslationKey.Set)} Stock`}
         onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
         onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
       />

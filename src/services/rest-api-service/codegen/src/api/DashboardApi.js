@@ -17,6 +17,8 @@ import BadRequestError from '../model/BadRequestError';
 import InlineResponse20015 from '../model/InlineResponse20015';
 import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse20017 from '../model/InlineResponse20017';
+import InlineResponse20018 from '../model/InlineResponse20018';
+import InlineResponse20019 from '../model/InlineResponse20019';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -128,6 +130,100 @@ export default class DashboardApi {
      */
     apiV1DashboardClientCountsGet(opts) {
       return this.apiV1DashboardClientCountsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20019} and HTTP response
+     */
+    apiV1DashboardFreelancerCountsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20019;
+      return this.apiClient.callApi(
+        '/api/v1/dashboard/freelancer/counts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20019}
+     */
+    apiV1DashboardFreelancerCountsGet(opts) {
+      return this.apiV1DashboardFreelancerCountsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20018} and HTTP response
+     */
+    apiV1DashboardResearcherCountsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20018;
+      return this.apiClient.callApi(
+        '/api/v1/dashboard/researcher/counts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20018}
+     */
+    apiV1DashboardResearcherCountsGet(opts) {
+      return this.apiV1DashboardResearcherCountsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

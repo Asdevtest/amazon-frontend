@@ -121,6 +121,11 @@ class BoxesModelStatic {
     return response
   }
 
+  getBoxesByProductIdLight = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesByProductGuidLightGuidGet(id)
+    return response
+  }
+
   sendBoxesToBatch = async boxesIds => {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
     return response

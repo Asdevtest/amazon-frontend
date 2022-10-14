@@ -45,7 +45,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const history = useHistory()
   const location = useLocation()
   const {classes: classNames} = useClassNames()
-  const componentModel = useRef(new AppbarModel())
+  const componentModel = useRef(new AppbarModel({history}))
 
   useEffect(() => {
     if (lastCrumbAdditionalText !== undefined) {
@@ -87,7 +87,6 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const onChangeUserInfo = (roleNun: number) => {
     componentModel.current.changeUserInfo({role: roleNun})
-    history.push('/nonexistent-address') // для перехода на разрешенный роут другой роли
   }
 
   const onClickProfile = () => {
