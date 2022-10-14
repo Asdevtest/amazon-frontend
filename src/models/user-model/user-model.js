@@ -23,6 +23,7 @@ class UserModelStatic {
         this.isHydrated = persistStore.isHydrated
         if (this.accessToken) {
           restApiService.setAccessToken(this.accessToken)
+
           this.getUserInfo()
         }
       })

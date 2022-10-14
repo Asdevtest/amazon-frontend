@@ -180,7 +180,7 @@ export class ListingModel {
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxesByProductId(this.listingProduct._id)
+      const result = await BoxesModel.getBoxesByProductIdLight(this.listingProduct._id)
 
       runInAction(() => {
         this.boxes = result

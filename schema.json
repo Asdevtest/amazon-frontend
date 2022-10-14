@@ -32553,6 +32553,71 @@
         }
       }
     },
+    "/api/v1/dashboard/researcher/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "completed": {"type": "number"},
+                    "rejected": {"type": "number"},
+                    "inWork": {"type": "number"},
+                    "searchSupplierFromBuyer": {"type": "number"},
+                    "withoutStatus": {"type": "number"}
+                  }
+                },
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/freelancer/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/gologin/profile": {
       "post": {
         "summary": "# Создать новый профайл пользователя.",

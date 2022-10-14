@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**InlineResponse20029**](InlineResponse20029.md) |  | [optional] 
-**details** | [**InlineResponse20039Details**](InlineResponse20039Details.md) |  | [optional] 
+**proposal** | [**ApiV1RequestProposalsCustomByRequestIdGuidProposal**](ApiV1RequestProposalsCustomByRequestIdGuidProposal.md) |  | [optional] 
+**details** | [**ApiV1RequestProposalsCustomByRequestIdGuidDetails**](ApiV1RequestProposalsCustomByRequestIdGuidDetails.md) |  | [optional] 
+**request** | [**ApiV1RequestProposalsCustomByRequestIdGuidRequest**](ApiV1RequestProposalsCustomByRequestIdGuidRequest.md) |  | [optional] 
 
 

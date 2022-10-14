@@ -1,9 +1,12 @@
 import {makeAutoObservable} from 'mobx'
 
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 export class AppbarModel {
+  history = undefined
   requestStatus = undefined
   error = undefined
 
@@ -35,7 +38,8 @@ export class AppbarModel {
     return SettingsModel.showHints
   }
 
-  constructor() {
+  constructor({history}) {
+    this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -50,6 +54,10 @@ export class AppbarModel {
   async changeUserInfo(data) {
     try {
       await UserModel.changeUserInfo(data)
+
+      this.history.push(`/${UserRoleCodeMapForRoutes[data.role]}/dashboard`, {
+        targetRoute: `/${UserRoleCodeMapForRoutes[data.role]}/dashboard`,
+      })
     } catch (error) {
       console.log(error)
     }
