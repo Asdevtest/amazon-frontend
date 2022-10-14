@@ -9,6 +9,10 @@ export const useClassNames = makeStyles()(theme => ({
   formContainer: {
     padding: '0 20px',
     width: '1040px',
+    [theme.breakpoints.down(768)]: {
+      padding: 0,
+      width: '280px',
+    },
   },
 
   title: {
@@ -16,6 +20,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '600',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+    },
   },
 
   titleWrapper: {
@@ -23,6 +31,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '20px',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+      gap: '20px',
+      marginBottom: 0,
+    },
   },
 
   storekeeperField: {
@@ -39,20 +53,37 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     width: '1000px',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '280px',
+      justifyContent: 'space-between',
+    },
   },
 
   blockWrapper: {
     width: '480px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   deliveryInfoWrapper: {
     width: '480px',
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
 
   deliveryInfoField: {
     width: '225px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   carouselWrapper: {
@@ -63,11 +94,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   imgBoxWrapper: {
     width: '100%',
-
     display: 'flex',
     marginTop: '30px',
     alignItems: 'center',
     flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   imgBox: {
@@ -90,18 +123,22 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productsWrapper: {
-    // width: '480px',
-    // maxHeight: '450px',
     overflow: 'auto',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   productWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    // height: '330px',
     width: '480px',
-
-    // padding: '10px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      width: '280px',
+    },
   },
 
   productSubWrapper: {
@@ -119,9 +156,14 @@ export const useClassNames = makeStyles()(theme => ({
     flexWrap: 'wrap',
     width: '225px',
     color: theme.palette.text.general,
-    // overflow: 'auto',
-
     marginBottom: '20px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '280px',
+      marginBottom: '20px',
+      marginTop: '20px',
+    },
   },
 
   linkField: {
@@ -142,12 +184,24 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '27px',
     marginTop: '20px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
 
   imgSizesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: '20px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+      marginBottom: '20px',
+      marginTop: '20px',
+    },
   },
 
   sizesWrapper: {
@@ -155,6 +209,12 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '250px',
     marginLeft: '20px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '280px',
+      marginLeft: 0,
+    },
   },
 
   sizesSubWrapper: {
@@ -185,6 +245,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   photoWrapper: {
     width: '225px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      height: '240px',
+      paddingBottom: '10px',
+    },
   },
 
   leftColumn: {
@@ -193,6 +258,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   rightColumn: {
     width: '225px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '20px',
+      width: '280px',
+    },
   },
 
   asinWrapper: {
@@ -227,11 +296,23 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      flexDirection: 'column',
+      justifyContent: 'start',
+      alignItems: 'start',
+      gap: '20px',
+      marginBottom: '10px',
+    },
   },
 
   divider: {
     backgroundColor: '#E0E0E0',
     margin: '0 -40px 15px -40px',
+    [theme.breakpoints.down(768)]: {
+      backgroundColor: '#E0E0E0',
+      margin: '0 -20px 15px -20px',
+    },
   },
   label: {
     fontSize: '14px',
@@ -286,100 +367,9 @@ export const useClassNames = makeStyles()(theme => ({
   batchId: {
     color: theme.palette.text.second,
   },
-
-  '@media (max-width: 768px)': {
-    title: {
-      fontSize: '16px',
-      lineHeight: '22px',
-    },
-    formContainer: {
-      padding: 0,
-      width: '280px',
-    },
-    titleWrapper: {
-      flexDirection: 'column',
-      alignItems: 'start',
-      gap: '20px',
-      marginBottom: 0,
-    },
-    titleSubWrapper: {
-      width: '280px',
-      flexDirection: 'column',
-      justifyContent: 'start',
-      alignItems: 'start',
-      gap: '20px',
-      marginBottom: '10px',
-    },
-    deliveryInfoWrapper: {
-      width: '280px',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    deliveryInfoField: {
-      width: '280px',
-    },
-    productsWrapper: {
-      width: '280px',
-    },
-    productWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      width: '280px',
-    },
-    photoWrapper: {
-      width: '280px',
-      height: '240px',
-      paddingBottom: '10px',
-    },
-    amazonTitle: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: '280px',
-      marginBottom: '20px',
-      marginTop: '20px',
-    },
-    rightColumn: {
-      marginTop: '20px',
-      width: '280px',
-    },
-    blocksWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '280px',
-      justifyContent: 'space-between',
-    },
-    blockWrapper: {
-      width: '280px',
-    },
-    imgSizesWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-
-      gap: '20px',
-      marginBottom: '20px',
-      marginTop: '20px',
-    },
-    imgBoxWrapper: {
-      width: '280px',
-    },
-    sizesWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '280px',
-      marginLeft: 0,
-    },
-    labelsInfoWrapper: {
-      width: '280px',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    containerField: {
+  containerField: {
+    [theme.breakpoints.down(768)]: {
       magrin: 0,
-    },
-    divider: {
-      backgroundColor: '#E0E0E0',
-      margin: '0 -20px 15px -20px',
     },
   },
 }))

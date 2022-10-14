@@ -1,14 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {Typography} from '@mui/material'
 
-import React from 'react'
-
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {useClassNames} from '@components/dashboards/dashboard-balance/dashboard-balance.style'
 
-import {getThousandsSeparatedString} from '@utils/get-thousands-separated-string'
-import {toFixed, toFixedWithDollarSign, withDollarSign} from '@utils/text'
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const DashboardBalance = ({user, title}) => {

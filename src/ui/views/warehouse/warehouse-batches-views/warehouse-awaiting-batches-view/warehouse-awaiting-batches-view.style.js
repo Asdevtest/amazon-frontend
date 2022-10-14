@@ -33,23 +33,51 @@ export const styles = theme => ({
     alignItems: 'center',
     margin: '15px 0',
     paddingRight: '5px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column-reverse',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      margin: '15px 0',
+      gap: 15,
+      '& > :nth-child(1)': {
+        order: 0,
+      },
+      '&> :nth-child(2)': {
+        order: 2,
+      },
+      '&> :nth-child(3)': {
+        order: 1,
+      },
+    },
   },
 
   leftBtnsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'space-between',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      gap: '15px',
+    },
   },
 
   editBtn: {
     width: '260px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
   batchBtn: {
     width: '260px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
   createBtn: {
     width: '200px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   addBtn: {
@@ -75,7 +103,16 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
+
     borderTop: 'none !important',
+    [theme.breakpoints.down(768)]: {
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(3)': {
+        display: 'none',
+      },
+      '& > :nth-child(2) > :nth-child(1) > :nth-child(5)': {
+        marginLeft: '2px',
+      },
+    },
   },
   footerCell: {
     padding: 0,
@@ -83,6 +120,39 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      height: '100px',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+
+      alignItems: 'start',
+
+      marginTop: '40px',
+
+      '& > button': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'center !important',
+
+        fontSize: '12px',
+      },
+      '& > button > span': {
+        marginRight: 0,
+      },
+    },
+  },
+
+  filterForm: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+
+      '& > div': {
+        width: '100%',
+      },
+    },
   },
   datagridWrapper: {
     marginTop: '10px',
@@ -91,50 +161,16 @@ export const styles = theme => ({
   searchContainer: {
     display: 'flex',
     justifyContent: 'center',
+    [theme.breakpoints.down(768)]: {
+      margin: 0,
+    },
   },
   searchInput: {
     border: '1px solid #007bff',
     width: '300px',
     height: 36,
-  },
-  '@media (max-width: 768px)': {
-    toolbarContainer: {
-      visibility: 'hidden',
-    },
-    btnsWrapper: {
-      display: 'flex',
-      flexDirection: 'column-reverse',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: '15px 0',
-      gap: 15,
-      '& > :nth-child(1)': {
-        order: 0,
-      },
-      '&> :nth-child(2)': {
-        order: 2,
-      },
-      '&> :nth-child(3)': {
-        order: 1,
-      },
-    },
-    searchInput: {
+    [theme.breakpoints.down(768)]: {
       width: '280px',
-    },
-    leftBtnsWrapper: {
-      gap: '15px',
-    },
-    editBtn: {
-      width: '280px',
-    },
-    batchBtn: {
-      width: '280px',
-    },
-    createBtn: {
-      width: '280px',
-    },
-    searchContainer: {
-      margin: 0,
     },
   },
 })

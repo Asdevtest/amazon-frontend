@@ -110,7 +110,7 @@ export const Navbar = observer(
     )
     return (
       <div className={classNames.mainWrapper}>
-        <Hidden smDown>
+        <Hidden mdDown>
           <Drawer
             open
             classes={{

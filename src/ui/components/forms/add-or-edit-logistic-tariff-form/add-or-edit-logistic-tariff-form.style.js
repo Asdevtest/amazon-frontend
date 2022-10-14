@@ -3,14 +3,28 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '750px',
+    [theme.breakpoints.down(768)]: {
+      minWidth: 0,
+      width: '280px',
+    },
   },
 
   modalTitle: {
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
   },
 
   modalSubTitle: {
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
   },
 
   button: {
@@ -63,20 +77,34 @@ export const useClassNames = makeStyles()(theme => ({
   form: {
     marginTop: '20px',
     width: '700px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
   },
 
   nameDeliveryWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      flexDirection: 'column',
+    },
   },
 
   longContainer: {
     width: '330px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   blockWrapper: {
@@ -84,6 +112,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
 
   fieldLabel: {
@@ -91,17 +124,33 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.second,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
   },
 
   blockItem: {
     width: '200px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   deadlineError: {
     borderBottom: '1px solid red',
+    [theme.breakpoints.down(768)]: {
+      borderBottom: 'none',
+    },
   },
   deadlineErrorText: {
     color: 'red',
+    [theme.breakpoints.down(768)]: {
+      color: 'red',
+      padding: 0,
+      margin: 0,
+    },
   },
 
   costBlock: {
@@ -109,6 +158,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-start',
     width: '100%',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      flexDirection: 'column',
+    },
   },
 
   rateContainer: {
@@ -135,6 +188,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     lineHeight: '140%',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+    },
   },
 
   descriptionFieldWrapper: {
@@ -145,6 +204,9 @@ export const useClassNames = makeStyles()(theme => ({
     '& > span': {
       marginTop: '-20px',
     },
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   error: {
@@ -153,75 +215,8 @@ export const useClassNames = makeStyles()(theme => ({
   courseWrapper: {
     display: 'flex',
     gap: 10,
-  },
-
-  '@media (max-width: 768px)': {
-    form: {
-      width: '280px',
-    },
-    root: {
-      minWidth: 0,
-      width: '280px',
-    },
-    modalTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-    nameDeliveryWrapper: {
-      width: '280px',
-      flexDirection: 'column',
-    },
-    longContainer: {
-      width: '280px',
-    },
-    fieldLabel: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: '#656565',
-    },
-    courseWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
-    },
-    costBlock: {
-      width: '280px',
-    },
-
-    blockWrapper: {
-      width: '280px',
-      flexDirection: 'column',
-
-      alignItems: 'flex-start',
-    },
-
-    blockItem: {
-      width: '280px',
-    },
-    deadlineError: {
-      borderBottom: 'none',
-    },
-    deadlineErrorText: {
-      color: 'red',
-      padding: 0,
-      margin: 0,
-    },
-    modalSubTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-    rateTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      color: '#001029',
-      fontWeight: 600,
-    },
-    descriptionFieldWrapper: {
-      width: '280px',
-    },
-    btnsWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
     },
   },
 }))

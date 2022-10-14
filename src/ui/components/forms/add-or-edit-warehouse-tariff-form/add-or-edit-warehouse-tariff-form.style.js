@@ -3,6 +3,10 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
+    [theme.breakpoints.down(768)]: {
+      minWidth: 0,
+      width: '280px',
+    },
   },
 
   modalTitle: {
@@ -11,6 +15,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     fontWeight: 600,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
   },
 
   button: {width: '121px', height: '40px'},
@@ -66,28 +75,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   btnsWrapper: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
   },
-  '@media (max-width: 768px)': {
-    root: {
-      minWidth: 0,
-      width: '280px',
-    },
-    fieldLabel: {
+  fieldLabel: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
       color: '#656565',
-    },
-    btnsWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    modalTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
     },
   },
 }))

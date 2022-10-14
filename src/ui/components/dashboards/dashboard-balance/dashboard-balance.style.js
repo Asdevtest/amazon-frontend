@@ -12,6 +12,11 @@ export const useClassNames = makeStyles()(theme => ({
     // color: theme.palette.text.general,
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: 18,
+      lineHeight: '140%',
+      color: theme.palette.text.general,
+    },
   },
 
   balanceFreeze: {
@@ -28,14 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '16px',
 
     color: theme.palette.text.general,
-  },
-  '@media (max-width: 768px)': {
-    balanceTitle: {
-      fontSize: 18,
-      lineHeight: '140%',
-      color: theme.palette.text.general,
-    },
-    title: {
+    [theme.breakpoints.down(768)]: {
       fontSize: 12,
       color: theme.palette.text.general,
       lineHeight: '16px',

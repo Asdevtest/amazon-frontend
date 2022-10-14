@@ -65,7 +65,7 @@ export const styles = theme => ({
 
   menuItem: {
     overflow: 'hidden',
-
+    height: 'auto',
     width: '100%',
     borderRadius: 0,
     padding: 0,

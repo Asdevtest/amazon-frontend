@@ -5,16 +5,37 @@ export const useClassNames = makeStyles()(theme => ({
 
   batchesExistBlock: {
     width: '900px',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+    },
   },
 
   title: {
     textAlign: 'center',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      color: theme.palette.text.general,
+    },
   },
 
   messageWrapper: {
     width: '460px',
     textAlign: 'center',
     margin: '30px 0',
+    [theme.breakpoints.down(768)]: {
+      width: '214px',
+      textAlign: 'center',
+      margin: '0 auto',
+      marginTop: '10px',
+      color: theme.palette.text.general,
+
+      '& > :nth-child(n)': {
+        fontSize: '12px',
+        lineHeight: '16px',
+      },
+    },
   },
 
   mainTitle: {
@@ -41,6 +62,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '460px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '300px',
+      gap: 10,
+    },
   },
 
   btnsSubWrapper: {
@@ -50,6 +80,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '40px',
+    [theme.breakpoints.down(768)]: {
+      marginLeft: 0,
+    },
   },
 
   titleWrapper: {
@@ -62,43 +95,5 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '400px',
-  },
-
-  '@media (max-width: 768px)': {
-    batchesExistBlock: {
-      width: '280px',
-    },
-
-    messageWrapper: {
-      width: '214px',
-      textAlign: 'center',
-      margin: '0 auto',
-      marginTop: '10px',
-      color: theme.palette.text.general,
-
-      '& > :nth-child(n)': {
-        fontSize: '12px',
-        lineHeight: '16px',
-      },
-    },
-    btnsSecondWrapper: {
-      marginTop: '20px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '300px',
-      gap: 10,
-    },
-    cancelBtn: {
-      marginLeft: 0,
-    },
-
-    title: {
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '22px',
-      color: theme.palette.text.general,
-    },
   },
 }))

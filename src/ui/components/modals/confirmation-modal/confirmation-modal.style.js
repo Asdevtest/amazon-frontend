@@ -26,6 +26,12 @@ export const useClassNames = makeStyles()(theme => ({
     // gap: '20px',
 
     backgroundColor: theme.palette.background.main,
+    [theme.breakpoints.down(768)]: {
+      width: '300px',
+      minHeight: '0',
+      height: '122px',
+      padding: 0,
+    },
   },
 
   warningModalMessageWrapper: {
@@ -39,6 +45,9 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '12px',
+    },
   },
 
   warningModalMessage: {
@@ -67,6 +76,9 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.main,
 
     marginTop: '22px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '18px',
+    },
   },
 
   titleWrapper: {
@@ -81,6 +93,13 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '11px',
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      width: '220px',
+      textAlign: 'center',
+      marginBottom: '0',
+      fontSize: '16px',
+      lineHeight: '22px',
+    },
   },
 
   warningTitle: {
@@ -101,7 +120,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: '98px',
 
-    // color: theme.palette.text.negativeMain,
+    [theme.breakpoints.down(768)]: {
+      width: '69px',
+    },
   },
 
   cancelButton: {
@@ -110,32 +131,5 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     // color: theme.palette.text.negativeMain,
-  },
-
-  '@media (max-width: 768px)': {
-    modalMessageWrapper: {
-      width: '300px',
-      minHeight: '0',
-      height: '122px',
-
-      padding: 0,
-    },
-    title: {
-      width: '220px',
-      textAlign: 'center',
-      marginBottom: '0',
-      fontSize: '16px',
-      lineHeight: '22px',
-    },
-
-    modalMessage: {
-      fontSize: '12px',
-    },
-    button: {
-      width: '69px',
-    },
-    warningButtonsWrapper: {
-      marginTop: '18px',
-    },
   },
 }))

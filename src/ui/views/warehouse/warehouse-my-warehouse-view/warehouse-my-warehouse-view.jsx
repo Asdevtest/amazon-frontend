@@ -116,6 +116,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
                   }}
                   isRowSelectable={params => params.row.isDraft === false}
                   getRowClassName={getRowClassName}

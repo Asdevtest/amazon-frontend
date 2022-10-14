@@ -3,6 +3,10 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      maxWidth: '520px',
+    },
   },
   modalTitle: {
     color: theme.palette.text.general,
@@ -10,6 +14,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '24px',
+    [theme.breakpoints.down(768)]: {
+      color: theme.palette.text.general,
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      marginBottom: '24px',
+    },
   },
   modalText: {
     color: theme.palette.text.general,
@@ -68,6 +79,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '700px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   typoCode: {
     marginRight: '8px',
@@ -79,11 +93,19 @@ export const useClassNames = makeStyles()(theme => ({
   saveButton: {
     width: '179px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+      height: '40px',
+    },
   },
   cancelButton: {
     width: '179px',
     height: '40px',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+      height: '40px',
+    },
   },
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
@@ -93,12 +115,19 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     marginTop: '20px',
     gap: 15,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      width: '100%',
+    },
   },
   numberInputFieldsWrapper: {
     width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
     gap: 15,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'row',
+    },
   },
   numberInputField: {
     margin: 0,
@@ -113,6 +142,11 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     marginTop: '30px',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'center',
+      marginTop: '30px',
+      gap: '20px',
+    },
   },
 
   photoWrapper: {
@@ -142,6 +176,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     marginBottom: '10px',
+    [theme.breakpoints.down(768)]: {
+      textAlign: 'center',
+    },
   },
   checkboxContainer: {
     marginTop: '10px',
@@ -150,6 +187,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: theme.palette.text.second,
+    },
   },
 
   dimensionsWrapper: {
@@ -169,53 +211,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '160px',
     // marginBottom: 15,
   },
-
-  '@media (max-width: 768px)': {
-    modalWrapper: {
-      width: '100%',
-      maxWidth: '520px',
-    },
-    modalTitle: {
-      color: theme.palette.text.general,
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '22px',
-      marginBottom: '24px',
-    },
-    imageFileInputWrapper: {
-      width: '100%',
-    },
-    label: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: theme.palette.text.second,
-    },
-    numberInputFieldsBlocksWrapper: {
-      flexDirection: 'column',
-      width: '100%',
-    },
-    numberInputFieldsWrapper: {
-      flexDirection: 'row',
-    },
-    photoAndFilesTitleMobileWrapper: {
+  photoAndFilesTitleMobileWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
-    },
-    photoAndFilesTitle: {
-      textAlign: 'center',
-    },
-    buttonsWrapper: {
-      justifyContent: 'center',
-      marginTop: '30px',
-      gap: '20px',
-    },
-    saveButton: {
-      width: '121px',
-      height: '40px',
-    },
-    cancelButton: {
-      width: '121px',
-      height: '40px',
     },
   },
 }))

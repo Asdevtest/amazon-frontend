@@ -6,16 +6,25 @@ export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',
+    [theme.breakpoints.down(768)]: {
+      padding: '20px 20px',
+    },
   },
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+    },
   },
   buttonsWrapper: {},
 
   currentBox: {
     marginBottom: '20px',
     width: '690px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   currentBoxFooter: {
@@ -28,7 +37,11 @@ export const useClassNames = makeStyles()(theme => ({
   //   overflow: 'auto',
   //   overflowX: 'hidden',
   // },
-  newBoxes: {},
+  newBoxes: {
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
+  },
 
   itemsWrapper: {
     marginTop: '5px',
@@ -55,8 +68,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '30px',
-    // marginTop: '10px',
-    // padding: '5px',
+    [theme.breakpoints.down(768)]: {
+      gap: '10px',
+    },
   },
   categoryTitle: {
     fontSize: '14px',
@@ -87,6 +101,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: '20px',
+    },
   },
   noEditBtnWrapper: {
     width: '100%',
@@ -115,30 +133,50 @@ export const useClassNames = makeStyles()(theme => ({
   fieldsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      margin: '0 5px',
+      flexDirection: 'column',
+    },
   },
 
   boxInfoWrapper: {
     display: 'flex',
     // gap: '46px',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: '30px',
+    },
   },
 
   imagesWrapper: {
-    // marginTop: '10px',
     display: 'flex',
     flexDirection: 'column',
-    // padding: '5px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   photoWrapper: {
     width: '300px',
     marginLeft: '20px',
     minHeight: '150px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 0,
+    },
   },
 
   photoSubWrapper: {
     height: '100px',
     marginTop: '10px',
+    [theme.breakpoints.down(768)]: {
+      height: '250px',
+    },
   },
 
   imgBox: {
@@ -245,6 +283,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   field: {
     width: '330px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   sectionTitle: {
@@ -255,6 +296,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   sectionTitleWrapper: {
     marginBottom: '20px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '30px',
+    },
   },
 
   hideBlock: {
@@ -272,6 +316,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '60px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    },
   },
 
   tablePanelViewText: {
@@ -286,6 +336,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: '600',
+    [theme.breakpoints.down(768)]: {
+      width: '243px',
+      textAlign: 'center',
+    },
   },
   label: {
     fontSize: '14px',
@@ -298,11 +352,18 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 400,
+    [theme.breakpoints.down(768)]: {
+      width: '100px',
+    },
   },
   footerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: '14px',
+    },
   },
 
   barCodeField: {
@@ -317,6 +378,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 600,
+    [theme.breakpoints.down(768)]: {
+      padding: 0,
+    },
   },
   copyImg: {
     width: '20px',
@@ -339,6 +403,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      marginBottom: '50px',
+    },
   },
 
   receiveBox: {
@@ -363,6 +431,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     color: theme.palette.text.general,
     marginTop: '90px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      marginTop: '40px',
+    },
   },
 
   incomingBtnWrapper: {
@@ -427,104 +500,22 @@ export const useClassNames = makeStyles()(theme => ({
   standartText: {
     color: theme.palette.text.general,
   },
-
-  '@media (max-width: 768px)': {
-    boxesWrapper: {
-      flexDirection: 'column',
-    },
-    sectionTitleWrapper: {
-      marginTop: '30px',
-    },
-    fieldsWrapper: {
-      margin: '0 5px',
-      flexDirection: 'column',
-    },
-    field: {
-      width: '100%',
-    },
-    smallLabel: {
+  smallLabel: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
       color: theme.palette.text.second,
     },
-    boxWrapper: {
-      padding: '20px 20px',
-    },
-    currentBox: {
-      width: '100%',
-    },
-    newBoxes: {
-      width: '100%',
-    },
-    mobileDemensions: {
+  },
+  mobileDemensions: {
+    [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
     },
-    boxInfoWrapper: {
-      flexDirection: 'column',
-      gap: '30px',
-    },
-    photoSubWrapper: {
-      height: '250px',
-      // marginLeft: '-50px',
-      // display: 'flex',
-      // justifyContent: 'center',
-    },
-    photoAndFilesTitle: {
-      width: '243px',
-      textAlign: 'center',
-    },
-    photoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginLeft: 0,
-    },
-    imagesWrapper: {
-      width: '100%',
-      // marginRight: 20,
-      // paddingRight: 60,
-    },
-    footerWrapper: {
-      flexDirection: 'column',
-      gap: '14px',
-    },
-    labelShipping: {
-      width: '100px',
-    },
-
-    subTitle: {
-      padding: 0,
-    },
-
-    chipWrapper: {
-      gap: '10px',
-    },
-    editBtnWrapper: {
-      flexDirection: 'column',
-      gap: '20px',
-    },
-    tablePanelSortWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px',
-      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    },
-    receiveBoxWrapper: {
-      width: '100%',
-      marginBottom: '50px',
-    },
-
-    imageBox: {
+  },
+  imageBox: {
+    [theme.breakpoints.down(768)]: {
       width: '180px',
-    },
-
-    receiveBoxTitle: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      marginTop: '40px',
     },
   },
 }))

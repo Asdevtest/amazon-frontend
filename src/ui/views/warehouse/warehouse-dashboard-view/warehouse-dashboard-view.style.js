@@ -11,23 +11,7 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     gap: '25px',
     boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
-  },
-  cardImg: {
-    width: '145px',
-    height: '145px',
-  },
-  userInfoLeftWrapper: {
-    display: 'flex',
-    gap: '25px',
-    alignItems: 'center',
-  },
-
-  '@media (max-width: 768px)': {
-    cardImg: {
-      width: '51px',
-      height: '51px',
-    },
-    userInfoWrapper: {
+    [theme.breakpoints.down(768)]: {
       padding: '20px 20px',
       display: 'flex',
       alignItems: 'start',
@@ -35,5 +19,18 @@ export const styles = theme => ({
       gap: '39px',
       boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
     },
+  },
+  cardImg: {
+    width: '145px',
+    height: '145px',
+    [theme.breakpoints.down(768)]: {
+      width: '51px',
+      height: '51px',
+    },
+  },
+  userInfoLeftWrapper: {
+    display: 'flex',
+    gap: '25px',
+    alignItems: 'center',
   },
 })

@@ -6,11 +6,14 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
   },
   form: {
-    // marginTop: theme.spacing(2.5),
-    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
     width: '700px',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
   },
   modalTitle: {
     marginBottom: '25px',
@@ -72,6 +75,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      marginTop: '30px',
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px',
+    },
   },
 
   superboxTypo: {
@@ -99,21 +108,5 @@ export const useClassNames = makeStyles()(theme => ({
   saveButton: {
     width: '136px',
     height: '40px',
-  },
-
-  '@media (max-width: 768px)': {
-    form: {
-      // marginTop: theme.spacing(2.5),
-      // marginBottom: theme.spacing(2.5),
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-    },
-    buttonsWrapper: {
-      marginTop: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      gap: '10px',
-    },
   },
 }))

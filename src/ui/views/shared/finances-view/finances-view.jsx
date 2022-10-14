@@ -78,6 +78,7 @@ class FinancesViewRaw extends Component {
                   footerContainer: classNames.footerContainer,
                   footerCell: classNames.footerCell,
                   toolbarContainer: classNames.toolbarContainer,
+                  filterForm: classNames.filterForm,
                 }}
                 localeText={getLocalizationByLanguageTag()}
                 getRowClassName={getRowClassName}

@@ -159,6 +159,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
                   }}
                   selectionModel={selectedBatches}
                   sortModel={sortModel}

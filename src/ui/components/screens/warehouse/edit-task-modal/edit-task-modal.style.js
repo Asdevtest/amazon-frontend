@@ -6,6 +6,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      maxWidth: '520px',
+      overflow: 'hidden',
+    },
   },
   modalHeader: {
     display: 'flex',
@@ -17,6 +22,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '41px',
     fontWeight: 600,
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   typeTaskWrapper: {
     display: 'flex',
@@ -28,12 +36,20 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.second,
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   typeTaskSubTitle: {
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
   },
   form: {
     marginTop: theme.spacing(2.5),
@@ -47,6 +63,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
+    [theme.breakpoints.down(768)]: {
+      position: 'sticky',
+      bottom: 0,
+      display: 'flex',
+      justifyContent: 'center',
+    },
   },
   button: {
     width: '183px',
@@ -57,6 +79,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   field: {
     flexBasis: '100%',
@@ -76,6 +101,9 @@ export const useClassNames = makeStyles()(theme => ({
   horizontalDivider: {
     backgroundColor: '#E0E0E0',
     margin: '20px 0',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   carouselBox: {
@@ -146,12 +174,23 @@ export const useClassNames = makeStyles()(theme => ({
     width: '330px',
 
     padding: 0,
-    border: 'none',
+    border: `1px solid ${theme.palette.input.border}`,
+    [theme.breakpoints.down(768)]: {
+      height: 'auto',
+      width: '100%',
+      padding: 0,
+    },
   },
   commentsWrapper: {
     width: '400px',
     display: 'flex',
     gap: '30px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '20px',
+    },
   },
   filesInput: {
     width: '700px',
@@ -160,21 +199,39 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      padding: '0 10px',
+    },
   },
 
   imageAndFileInputWrapper: {
     width: '690px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      minWidth: '280px',
+      display: 'flex',
+      justifyContent: 'center',
+    },
   },
 
   successBtn: {
     width: '183px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+      height: '40px',
+    },
   },
 
   commentsAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'start',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexDirection: 'column',
+    },
   },
 
   buttons: {
@@ -186,6 +243,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+      height: '40px',
+    },
   },
 
   closeButton: {
@@ -197,111 +258,43 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
 
-    // position: 'sticky',
-    // bottom: 0,
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'center',
+    },
   },
   photosWrapper: {
     display: 'flex',
     alignItems: 'center',
     height: '200px',
+    [theme.breakpoints.down(768)]: {
+      width: '400px',
+      height: '200px',
+      marginLeft: '-50px',
+    },
   },
   buttonsWrapperMobile: {
     display: 'none',
-  },
-
-  '@media (max-width: 768px)': {
-    root: {
-      width: '100%',
-      maxWidth: '520px',
-      overflow: 'hidden',
-    },
-    modalTitle: {
-      display: 'none',
-    },
-    hideBlock: {
-      display: 'none',
-    },
-    typeTaskTitle: {
-      display: 'none',
-    },
-    typeTaskSubTitle: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-    subTitle: {
-      display: 'none',
-    },
-
-    heightFieldAuto: {
-      height: 'auto',
-      width: '280px',
-
-      padding: 0,
-      border: 'none',
-    },
-
-    commentsWrapper: {
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '20px',
-    },
-    commentsAndFilesWrapper: {
-      width: '100%',
-      flexDirection: 'column',
-    },
-    imageFileInputWrapper: {
-      width: '100%',
-
-      padding: '0 10px',
-    },
-    imageAndFileInputWrapper: {
-      width: '100%',
-      minWidth: '280px',
-
-      display: 'flex',
-      justifyContent: 'center',
-    },
-
-    horizontalDivider: {
-      display: 'none',
-    },
-
-    buttonsWrapper: {
-      position: 'sticky',
-      bottom: 0,
-
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    successBtn: {
-      width: '121px',
-      height: '40px',
-    },
-    cancelButton: {
-      width: '121px',
-      height: '40px',
-    },
-    buttonsWrapperMobile: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
       marginBottom: '20px',
     },
-    hideButton: {
+  },
+  hideBlock: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
     },
-    buttonMobile: {
+  },
+  hideButton: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+
+  buttonMobile: {
+    [theme.breakpoints.down(768)]: {
       width: '183px',
       height: '40px',
-    },
-    buttonWrapper: {
-      justifyContent: 'center',
-    },
-    photosWrapper: {
-      width: '400px',
-      height: '200px',
-      marginLeft: '-50px',
     },
   },
 }))

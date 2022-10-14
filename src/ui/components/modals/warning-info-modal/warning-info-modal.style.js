@@ -9,12 +9,22 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '40px',
     width: '445px',
     minHeight: '168px',
+    [theme.breakpoints.down(768)]: {
+      width: '260px',
+      minHeight: '120px',
+      gap: '20px',
+    },
   },
   title: {
     textAlign: 'center',
     width: '350px',
 
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      textAlign: 'center',
+      width: '280px',
+      fontSize: '14px',
+    },
   },
 
   titleWarning: {
@@ -24,17 +34,5 @@ export const useClassNames = makeStyles()(theme => ({
   button: {
     width: '118px',
     fontSize: '18px',
-  },
-  '@media (max-width: 768px)': {
-    modalMessageWrapper: {
-      width: '260px',
-      minHeight: '120px',
-      gap: '20px',
-    },
-    title: {
-      textAlign: 'center',
-      width: '280px',
-      fontSize: '14px',
-    },
   },
 }))

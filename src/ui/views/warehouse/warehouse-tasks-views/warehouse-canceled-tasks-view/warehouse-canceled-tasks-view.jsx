@@ -89,6 +89,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   footerContainer: classNames.footerContainer,
                   footerCell: classNames.footerCell,
                   toolbarContainer: classNames.toolbarContainer,
+                  filterForm: classNames.filterForm,
                 }}
                 sortModel={sortModel}
                 filterModel={filterModel}
