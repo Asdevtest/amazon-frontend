@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material'
@@ -244,7 +245,7 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       success
                       tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                      className={classNames.rightAddingBtn}
+                      className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
                       onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
                     >
                       {t(TranslationKey['Add product'])}
@@ -388,6 +389,7 @@ export class ClientInventoryViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={100}
+                  // getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}

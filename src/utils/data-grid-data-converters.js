@@ -221,6 +221,7 @@ export const clientInventoryDataConverter = data =>
 
     hsCode: item.hsCode,
     fourMonthesStock: item.fourMonthesStock,
+    clientComment: item.clientComment,
   }))
 
 export const clientCustomRequestsDataConverter = data =>

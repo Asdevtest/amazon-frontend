@@ -715,17 +715,23 @@ export const TaskTypeCell = withStyles(({classes: classNames, task}) => {
 }, styles)
 
 export const TaskDescriptionCell = withStyles(({classes: classNames, task}) => {
-  const renderProductImages = (product, key) => (
+  const renderProductImages = (product, key, box) => (
     <Grid key={key && key} item className={classNames.imgWrapper}>
       <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
-      <Typography className={classNames.imgNum}>{product?.amount}</Typography>
+      <div className={classNames.taskDescriptionCountWrapper}>
+        {box?.amount > 1 && (
+          <Typography className={classNames.taskDescriptionSuperBox}>{`SB ${box.amount}`}</Typography>
+        )}
+
+        <Typography className={classNames.imgNum}>{product?.amount}</Typography>
+      </div>
     </Grid>
   )
 
   const renderBox = (box, key, isOneBox) => (
     <div key={key && key} className={classNames.imagesWrapper}>
       <div className={cx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
-        {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))}
+        {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
       </div>
     </div>
   )

@@ -326,6 +326,18 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
     width: '50px',
   },
+  taskDescriptionCountWrapper: {
+    marginLeft: 5,
+  },
+
+  taskDescriptionSuperBox: {
+    fontWeight: 600,
+    fontSize: 18,
+    color: theme.palette.primary.main,
+
+    marginBottom: 10,
+  },
+
   imgWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -362,7 +374,10 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 450,
+    maxWidth: 670,
+
+    // maxWidth: '50%',
+
     overflow: 'auto',
     padding: '10px 0',
   },
@@ -554,6 +569,8 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'start',
     // marginLeft: '6px',
+
+    padding: '5px 0',
   },
   multilineSuperBoxWrapper: {
     width: '100%',
@@ -572,6 +589,8 @@ export const styles = theme => ({
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+
+    // overflow: 'auto',
 
     fontWeight: '400',
     fontSize: '14px',

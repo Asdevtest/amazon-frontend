@@ -155,6 +155,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   rightSideTitle: {
     color: theme.palette.text.general,
   },

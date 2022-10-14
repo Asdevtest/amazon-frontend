@@ -2,11 +2,16 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minHeight: '36px !important',
+    // minHeight: '36px !important',
     minWidth: '36px !important',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     color: theme.palette.text.negativeMain,
+
+    height: 40,
+
+    padding: '11px 25px 10px',
+    fontSize: 14,
 
     // '&$disabled': {
     //   backgroundColor: '#fff !important',

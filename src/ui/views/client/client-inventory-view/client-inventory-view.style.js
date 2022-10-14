@@ -98,7 +98,7 @@ export const styles = theme => ({
     // marginLeft: '15px',
     position: 'absolute',
     top: '11px',
-    right: '13px',
+    right: '25px',
 
     width: 15,
     height: 15,
@@ -119,10 +119,19 @@ export const styles = theme => ({
 
   rightAddingBtn: {
     width: 282,
+    // width: 300,
+
     display: 'flex',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     position: 'relative',
-    paddingRight: '40px',
+    // paddingRight: '40px',
+    justifyContent: 'flex-start',
+
+    // textAlign: 'left',
+  },
+
+  flexCenterBtn: {
+    justifyContent: 'center',
   },
 
   searchInput: {

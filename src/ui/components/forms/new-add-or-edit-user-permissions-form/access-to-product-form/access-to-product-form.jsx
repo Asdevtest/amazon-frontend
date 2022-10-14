@@ -117,11 +117,11 @@ export const AccessToProductForm = observer(
           >
             <div className={classNames.accardionTitleWrapper}>
               <Typography className={classNames.title}>{shop?.name}</Typography>
-              <Typography className={classNames.selectedValue}>{`(${
+              {/* <Typography className={classNames.selectedValue}>{`(${
                 selectedAccess === accessProductSettings.NEED_SELECT
                   ? t(TranslationKey['Access to selected products only'])
                   : t(TranslationKey['Access to all products'])
-              })`}</Typography>
+              })`}</Typography> */}
               {shop.tmpProductsIds.length ? (
                 <Typography className={classNames.chosenText}>
                   {`${t(TranslationKey.chosen)}: ${shop.tmpProductsIds.length}`}
@@ -141,11 +141,13 @@ export const AccessToProductForm = observer(
                 >
                   <FormControlLabel
                     value={accessProductSettings.ALL_PRODUCTS}
+                    className={classNames.standartText}
                     control={<Radio color="primary" />}
                     label={t(TranslationKey['Access to all products'])}
                   />
                   <FormControlLabel
                     value={accessProductSettings.NEED_SELECT}
+                    className={classNames.standartText}
                     control={<Radio color="primary" />}
                     label={t(TranslationKey['Access to selected products only'])}
                   />
@@ -153,7 +155,9 @@ export const AccessToProductForm = observer(
               </FormControl>
 
               <div className={classNames.searchWrapper}>
-                <Typography>{t(TranslationKey['Search by product description and ASIN:'])}</Typography>
+                <Typography className={classNames.standartText}>
+                  {t(TranslationKey['Search by product description and ASIN:'])}
+                </Typography>
                 <div>
                   <Field
                     containerClasses={classNames.searchContainer}

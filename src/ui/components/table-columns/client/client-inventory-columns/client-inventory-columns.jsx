@@ -58,8 +58,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
   {
     field: 'inBoard',
-    headerName: 'In Board',
-    renderHeader: () => <MultilineTextHeaderCell text={'In Board'} />,
+    headerName: t(TranslationKey.Inbound),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
@@ -234,5 +234,14 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
     type: 'date',
+  },
+
+  {
+    field: 'clientComment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 350,
   },
 ]

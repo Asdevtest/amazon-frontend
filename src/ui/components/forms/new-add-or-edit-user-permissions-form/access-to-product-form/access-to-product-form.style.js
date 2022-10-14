@@ -3,6 +3,8 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   accordion: {
     boxShadow: 'none',
+    background: theme.palette.background.second,
+    marginBottom: 2,
 
     '&::before': {
       display: 'none',
@@ -13,12 +15,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: '650px',
   },
   accordionExpanded: {
-    background: '#F4F4F4',
+    background: theme.palette.background.second,
   },
   selectedValue: {
     marginLeft: '5px',
     color: theme.palette.text.second,
   },
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   details: {
     height: '53vh',
   },
@@ -60,5 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+
+    color: theme.palette.text.general,
   },
 }))
