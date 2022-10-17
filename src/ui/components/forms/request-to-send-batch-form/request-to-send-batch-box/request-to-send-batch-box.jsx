@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import {Typography, Checkbox} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -80,13 +80,28 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                   </div>
 
                   <div className={classNames.barCodeLabelWrapper}>
-                    <Typography
-                      className={cx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].product.barCode})}
-                    >
+                    <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].barCode})}>
                       {t(TranslationKey.BarCode)}
                     </Typography>
 
-                    {/* <div className={classNames.checkboxWrapper}>
+                    {box.items[0].barCode ? (
+                      <div className={classNames.linkWrapper}>
+                        <a
+                          download
+                          target="_blank"
+                          rel="noreferrer"
+                          href={box.items[0].barCode}
+                          className={classNames.downloadLink}
+                        >
+                          {t(TranslationKey.download)}
+                        </a>
+                        <CopyValue text={box.items[0].barCode} />
+                      </div>
+                    ) : (
+                      <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
+                    )}
+
+                    <div className={classNames.checkboxWrapper}>
                       <Typography className={cx({[classNames.alertSpan]: isNoBarCodGlued})}>
                         {t(TranslationKey.glued)}
                       </Typography>
@@ -99,24 +114,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           box.items[0].isBarCodeAttachedByTheStorekeeper
                         }
                       />
-                    </div> */}
-
-                    {box.items[0].product.barCode ? (
-                      <div className={classNames.linkWrapper}>
-                        <a
-                          download
-                          target="_blank"
-                          rel="noreferrer"
-                          href={box.items[0].product.barCode}
-                          className={classNames.downloadLink}
-                        >
-                          {t(TranslationKey.download)}
-                        </a>
-                        <CopyValue text={box.items[0].product.barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.alertSpan}>{'N/A'}</Typography>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -162,6 +160,21 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                       ) : (
                         <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
                       )}
+
+                      <div className={classNames.checkboxWrapper}>
+                        <Typography className={cx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                          {t(TranslationKey.glued)}
+                        </Typography>
+
+                        <Checkbox
+                          disabled
+                          color="primary"
+                          checked={
+                            box.items[0].isBarCodeAlreadyAttachedByTheSupplier ||
+                            box.items[0].isBarCodeAttachedByTheStorekeeper
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -34,13 +34,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  inputsWrapper: {
-    // height: '141px',
+  heightFieldAuto: {
+    height: 'auto',
     width: '100%',
 
-    overflow: 'auto',
-    height: 'auto',
+    padding: 0,
+    border: 'none',
   },
+
   ratingWrapper: {
     width: '100%',
   },
@@ -53,9 +54,5 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '40px',
 
     marginRight: '25px',
-  },
-
-  fieldContainer: {
-    // height: '141px',
   },
 }))
