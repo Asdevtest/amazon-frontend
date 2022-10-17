@@ -230,7 +230,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
               <Divider flexItem orientation={'vertical'} className={classNames.divider} />
 
               <div className={classNames.rightSideWrapper}>
-                <Typography>{rightSide?.title}</Typography>
+                <Typography className={classNames.rightSideTitle}>{rightSide?.title}</Typography>
 
                 {rightSide?.permissions
                   ?.sort((a, b) => a.hierarchy - b.hierarchy)

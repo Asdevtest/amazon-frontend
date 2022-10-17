@@ -69,7 +69,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     // height: 40,
     borderRadius: 4,
-    // backgroundColor: '#E0E0E0',
 
     backgroundColor: theme.palette.input.second,
 

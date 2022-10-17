@@ -66,7 +66,6 @@ export class AdminFeedbackViewRaw extends Component {
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
-                  root: classNames.root,
                   footerContainer: classNames.footerContainer,
                   footerCell: classNames.footerCell,
                   toolbarContainer: classNames.toolbarContainer,
