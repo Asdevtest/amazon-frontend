@@ -33,7 +33,6 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         [fieldName]: event.target.value,
       })
     }
-    console.log(formFields)
     return (
       <div className={classNames.root}>
         <Typography className={classNames.modalTitle}>{title}</Typography>
@@ -53,19 +52,16 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           />
         </div>
 
-        <div className={classNames.fieldWrapper}>
-          <Field
-            multiline
-            inputProps={{maxLength: 500}}
-            label={reviewLabel}
-            minRows={6}
-            maxRow={6}
-            value={formFields.reason}
-            containerClasses={classNames.fieldContainer}
-            inputClasses={classNames.inputsWrapper}
-            onChange={onChangeField('reason')}
-          />
-        </div>
+        <Field
+          multiline
+          inputProps={{maxLength: 500}}
+          label={reviewLabel}
+          minRows={6}
+          maxRows={6}
+          value={formFields.reason}
+          className={classNames.heightFieldAuto}
+          onChange={onChangeField('reason')}
+        />
 
         <div className={classNames.btnsWrapper}>
           <Button

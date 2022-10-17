@@ -10,6 +10,7 @@ import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract} from '@models/chat-model/contracts'
@@ -199,6 +200,7 @@ export const Chat: FC<Props> = observer(
             >
               <div className={classNames.emojisWrapper}>
                 <Picker
+                  theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
                   data={data}
                   locale={SettingsModel.languageTag}
                   onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
@@ -215,6 +217,7 @@ export const Chat: FC<Props> = observer(
               id="outlined-multiline-flexible"
               size="small"
               className={cx(classNames.input, {[classNames.inputFilled]: !!message || !!focused})}
+              classes={{root: classNames.input}}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{maxLength: 1000}}

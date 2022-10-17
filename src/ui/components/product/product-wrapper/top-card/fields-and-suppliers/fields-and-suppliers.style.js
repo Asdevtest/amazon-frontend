@@ -17,6 +17,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
+  strategyOption: {
+    // color: '#001029',
+
+    color: theme.palette.text.general,
+  },
+
   input: {
     height: '32px',
     borderRadius: '4px',
@@ -166,6 +172,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   nativeSelect: {
     width: '300px',
+
+    color: theme.palette.text.general,
+
+    height: 36,
+
+    // backgroundColor: theme.palette.background.main,
   },
 
   strategyWrapper: {
@@ -195,7 +207,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '24px',
     padding: '5px 15px',
-    backgroundColor: '#CCE2FF',
+    backgroundColor: theme.palette.background.second,
     borderRadius: '4px',
     fontSize: '14px',
     lineHeight: '16px',

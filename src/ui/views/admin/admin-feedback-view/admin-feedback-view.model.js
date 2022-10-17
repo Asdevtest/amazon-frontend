@@ -12,6 +12,7 @@ import {UserModel} from '@models/user-model'
 
 import {adminFeedbackViewColumns} from '@components/table-columns/admin/admin-feedback-columns/admin-feedback-columns'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminFeedbackViewModel {
@@ -136,7 +137,7 @@ export class AdminFeedbackViewModel {
       const result = await AdministratorModel.getFeedback()
 
       runInAction(() => {
-        this.feedbackList = result
+        this.feedbackList = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

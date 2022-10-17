@@ -418,6 +418,10 @@ export class ClientProductViewModel {
       setTimeout(() => {
         this.acceptMessage = ''
       }, 5000)
+
+      this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
+
+      this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)

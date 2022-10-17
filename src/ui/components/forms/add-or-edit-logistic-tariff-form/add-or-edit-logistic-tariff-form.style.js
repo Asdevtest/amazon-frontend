@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '750px',
+    minWidth: '850px',
     [theme.breakpoints.down(768)]: {
       minWidth: 0,
       width: '280px',
@@ -76,7 +76,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   form: {
     marginTop: '20px',
-    width: '700px',
+    width: '100%',
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
@@ -94,9 +94,12 @@ export const useClassNames = makeStyles()(theme => ({
   nameDeliveryWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       flexDirection: 'column',
+      gap: 0,
     },
   },
 
@@ -108,10 +111,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blockWrapper: {
+    width: '100%',
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    flexDirection: 'row',
     [theme.breakpoints.down(768)]: {
       width: '280px',
       flexDirection: 'column',
@@ -127,7 +132,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
     },
   },
 
@@ -136,6 +140,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
+  },
+
+  blockItemContainer: {
+    width: 'min-content',
   },
 
   deadlineError: {
@@ -156,11 +164,11 @@ export const useClassNames = makeStyles()(theme => ({
   costBlock: {
     display: 'flex',
     alignItems: 'flex-start',
-    width: '100%',
+    width: '800px',
     justifyContent: 'space-between',
+    flexDirection: 'column',
     [theme.breakpoints.down(768)]: {
       width: '280px',
-      flexDirection: 'column',
     },
   },
 
@@ -191,12 +199,12 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
   },
 
   descriptionFieldWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',

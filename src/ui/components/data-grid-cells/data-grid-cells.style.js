@@ -183,6 +183,12 @@ export const styles = theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
+  barcodeChipNoExists: {
+    // color: '#F5CF00',
+    backgroundColor: '#F5CF00',
+    color: '#001029',
+  },
+
   chipStock: {
     width: '149px',
   },

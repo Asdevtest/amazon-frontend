@@ -71,7 +71,7 @@ export const lightTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          // color: '#001029',
+          color: '#001029',
 
           overflow: 'hidden',
 
@@ -191,7 +191,7 @@ export const darkTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          // color: '#fff',
+          color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
           // '&:disabled': {

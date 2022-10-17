@@ -66,7 +66,6 @@ export class AdminFeedbackViewRaw extends Component {
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
-                  root: classNames.root,
                   footerContainer: classNames.footerContainer,
                   footerCell: classNames.footerCell,
                   toolbarContainer: classNames.toolbarContainer,
@@ -83,7 +82,6 @@ export class AdminFeedbackViewRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                getRowId={row => row.userId}
                 getRowHeight={() => 'auto'}
                 rows={getCurrentData()}
                 onSelectionModelChange={newSelection => {

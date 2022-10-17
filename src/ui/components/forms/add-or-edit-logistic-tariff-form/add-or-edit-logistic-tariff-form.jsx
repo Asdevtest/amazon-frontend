@@ -169,7 +169,7 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
       formFields.minWeightInKg === '0' ||
-      !formFields.minWeightInKg.match(regExp) ||
+      !toString(formFields.minWeightInKg).match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||
@@ -319,6 +319,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={t(TranslationKey['CLS (batch closing date)'])}
                   labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({
@@ -340,6 +341,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={t(TranslationKey['ETD (date of shipment)'])}
                   labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({
@@ -362,6 +364,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={t(TranslationKey['ETA (arrival date)'])}
                   labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.blockItemContainer}
                   inputComponent={
                     <div
                       className={cx({

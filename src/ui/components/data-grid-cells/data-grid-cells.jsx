@@ -270,7 +270,7 @@ export const BarcodeCell = withStyles(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({[classNames.barcodeChipExists]: product.barCode})}
+        className={cx({[classNames.barcodeChipNoExists]: !product.barCode})}
         size="small"
         label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
         onClick={() => handlers.onClickBarcode(product)}
@@ -292,7 +292,7 @@ export const HsCodeCell = withStyles(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({[classNames.barcodeChipExists]: product.hsCode})}
+        className={cx({[classNames.barcodeChipNoExists]: !product.hsCode})}
         size="small"
         label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
         onClick={() => handlers.onClickHsCode(product)}

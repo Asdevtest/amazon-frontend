@@ -1,6 +1,6 @@
 import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Box, InputAdornment, NativeSelect, Paper, TableCell, TableRow, Typography} from '@mui/material'
+import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -231,7 +231,7 @@ export const EditOrderModal = observer(
               value={order.storekeeper?.name}
               labelClasses={classNames.label}
               inputComponent={
-                <NativeSelect
+                <Select
                   disabled={
                     order.status !== orderFields.status ||
                     +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
@@ -290,7 +290,7 @@ export const EditOrderModal = observer(
                       allowOrderStatuses.filter(el => el >= order.status),
                     ),
                   }).map((statusCode, statusIndex) => (
-                    <option
+                    <MenuItem
                       key={statusIndex}
                       value={statusCode}
                       className={cx(
@@ -313,9 +313,9 @@ export const EditOrderModal = observer(
                       disabled={disabledOrderStatuses.includes(statusCode)}
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
-                    </option>
+                    </MenuItem>
                   ))}
-                </NativeSelect>
+                </Select>
               }
             />
           </div>

@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import {Box, NativeSelect, TextareaAutosize, Typography, Alert} from '@mui/material'
+import {Box, TextareaAutosize, Typography, Alert, Select, MenuItem} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -104,7 +103,8 @@ export const ResearcherAddProductFormRaw = observer(
                 tooltipInfoContent={t(TranslationKey['Choose a strategy for your future product card'])}
                 label={`${t(TranslationKey['Product Strategy'])}*`}
                 inputComponent={
-                  <NativeSelect
+                  <Select
+                    displayEmpty
                     // disabled={errorMsg}
                     value={formFields.strategyStatus}
                     className={classNames.nativeSelect}
@@ -119,18 +119,18 @@ export const ResearcherAddProductFormRaw = observer(
                     onChange={onChangeFormFields('strategyStatus')}
                     onClick={() => setDisabledAddButton(true)}
                   >
-                    <option value={''} className={classNames.selectOption}>
+                    <MenuItem value={''} className={classNames.selectOption}>
                       {t(TranslationKey['not selected'])}
-                    </option>
+                    </MenuItem>
 
                     {Object.keys(mapProductStrategyStatusEnum)
                       .filter(el => user.allowedStrategies.includes(Number(el)))
                       .map((statusCode, statusIndex) => (
-                        <option key={statusIndex} value={statusCode} className={classNames.selectOption}>
+                        <MenuItem key={statusIndex} value={statusCode} className={classNames.selectOption}>
                           {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
-                        </option>
+                        </MenuItem>
                       ))}
-                  </NativeSelect>
+                  </Select>
                 }
               />
             </Box>

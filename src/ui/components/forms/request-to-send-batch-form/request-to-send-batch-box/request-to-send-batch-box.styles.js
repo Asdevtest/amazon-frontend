@@ -65,8 +65,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   superBoxTypo: {
     minWidth: '40px',
-    color: 'blue',
+    // color: 'blue',
     fontWeight: 'bold',
+
+    color: theme.palette.primary.main,
   },
 
   alertSpan: {
@@ -79,6 +81,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   productCell: {
     minWidth: '300px',
+
+    minHeight: 134,
   },
 
   dementionsCell: {
@@ -124,7 +128,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   checkboxWrapper: {
-    margin: '0 10px 0 20px',
+    // margin: '0 10px 0 20px',
 
     display: 'flex',
 

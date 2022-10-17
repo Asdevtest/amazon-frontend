@@ -1,4 +1,4 @@
-import {Button, IconButton, InputAdornment, NativeSelect, Toolbar, Typography} from '@mui/material'
+import {Button, IconButton, InputAdornment, Select, Toolbar, Typography, MenuItem} from '@mui/material'
 
 import {FormatAlignLeft, Search} from '@material-ui/icons'
 
@@ -34,18 +34,14 @@ export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
       </div>
 
       <Typography className={classNames.selectTitle}>{t(TranslationKey['Rows per page'])}</Typography>
-      <NativeSelect
-        input={<Input className={classNames.selectRoot} />}
-        value={rowsPerPage}
-        onChange={handlerRowsPerPage}
-      >
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={15}>15</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-      </NativeSelect>
+      <Select input={<Input className={classNames.selectRoot} />} value={rowsPerPage} onChange={handlerRowsPerPage}>
+        <MenuItem value={5}>5</MenuItem>
+        <MenuItem value={10}>10</MenuItem>
+        <MenuItem value={15}>15</MenuItem>
+        <MenuItem value={25}>25</MenuItem>
+        <MenuItem value={50}>50</MenuItem>
+        <MenuItem value={100}>100</MenuItem>
+      </Select>
     </Toolbar>
   )
 }
