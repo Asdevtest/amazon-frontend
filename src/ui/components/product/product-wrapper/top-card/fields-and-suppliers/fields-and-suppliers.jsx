@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ClearIcon from '@mui/icons-material/Clear'
 import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@mui/material'
@@ -258,7 +259,8 @@ export const FieldsAndSuppliers = observer(
                   tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
                   label={t(TranslationKey['Product Strategy'])}
                   inputComponent={
-                    <NativeSelect
+                    <Select
+                      displayEmpty
                       disabled={
                         !(
                           checkIsResearcher(curUserRole) ||
@@ -271,15 +273,16 @@ export const FieldsAndSuppliers = observer(
                       }
                       value={product.strategyStatus}
                       className={classNames.nativeSelect}
-                      input={<Input />}
                       onChange={onChangeField('strategyStatus')}
                     >
-                      <option value={''}>{t(TranslationKey['not selected'])}</option>
+                      <MenuItem value={''} className={classNames.strategyOption}>
+                        <em>{t(TranslationKey['not selected'])}</em>
+                      </MenuItem>
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-                        <option
+                        <MenuItem
                           key={statusIndex}
                           value={statusCode}
-                          className={cx({
+                          className={cx(classNames.strategyOption, {
                             [classNames.disabledOption]:
                               checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
                           })}
@@ -288,9 +291,9 @@ export const FieldsAndSuppliers = observer(
                           }
                         >
                           {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
-                        </option>
+                        </MenuItem>
                       ))}
-                    </NativeSelect>
+                    </Select>
                   }
                 />
               </div>
@@ -393,7 +396,7 @@ export const FieldsAndSuppliers = observer(
                         ? t(TranslationKey['No stores'])
                         : selectedItem?.name
                     }
-                    className={classNames.shopsSelect}
+                    className={classNames.nativeSelect}
                     onChange={e => setSelectedItem(e.target.value)}
                     // onClick={() => setClearSelect(false)}
                   >
@@ -402,7 +405,7 @@ export const FieldsAndSuppliers = observer(
                         key={index}
                         disabled={currentShops.includes(shop)}
                         value={shop}
-                        className={classNames.selectMenu}
+                        className={classNames.strategyOption}
                       >
                         <Checkbox color="primary" checked={currentShops.includes(shop)} />
                         <ListItemText primary={shop.name} />

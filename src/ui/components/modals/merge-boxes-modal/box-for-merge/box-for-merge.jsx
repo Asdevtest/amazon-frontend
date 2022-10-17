@@ -1,6 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Link, NativeSelect, Typography} from '@mui/material'
+import {Link, MenuItem, Typography, Select} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -60,17 +60,17 @@ export const BoxForMerge = ({box, readOnly = false, index}) => {
               label={t(TranslationKey.Destination)}
               labelClasses={classNames.label}
               inputComponent={
-                <NativeSelect
+                <Select
                   disabled
                   variant="filled"
                   className={classNames.destinationSelect}
                   input={<Input />}
                   value={box.destination?.name}
                 >
-                  <option value={''}>{t(TranslationKey['Not chosen'])}</option>
+                  <MenuItem value={''}>{t(TranslationKey['Not chosen'])}</MenuItem>
 
-                  <option>{box.destination?.name}</option>
-                </NativeSelect>
+                  <MenuItem>{box.destination?.name}</MenuItem>
+                </Select>
               }
             />
             <Field

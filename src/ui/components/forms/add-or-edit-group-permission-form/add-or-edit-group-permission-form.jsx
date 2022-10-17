@@ -1,9 +1,7 @@
-import {Typography, Tooltip, IconButton, NativeSelect, Input} from '@mui/material'
+import {Typography, Tooltip, IconButton, MenuItem, Select, Input} from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
 
 import React, {useState} from 'react'
 
@@ -153,20 +151,20 @@ export const AddOrEditGroupPermissionForm = observer(
               t(TranslationKey['The selected permissions and the current role do not match!'])
             }
             inputComponent={
-              <NativeSelect
+              <Select
                 variant="filled"
                 value={formFields.role}
                 className={classNames.standartText}
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <option value={'None'}>{'none'}</option>
+                <MenuItem value={'None'}>{'none'}</MenuItem>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <option key={index} value={roleCode} className={classNames.lightThemeText}>
+                  <MenuItem key={index} value={roleCode} className={classNames.lightThemeText}>
                     {UserRoleCodeMap[roleCode]}
-                  </option>
+                  </MenuItem>
                 ))}
-              </NativeSelect>
+              </Select>
             }
           />
 

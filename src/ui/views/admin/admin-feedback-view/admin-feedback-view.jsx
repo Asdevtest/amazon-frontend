@@ -83,7 +83,6 @@ export class AdminFeedbackViewRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                getRowId={row => row.userId}
                 getRowHeight={() => 'auto'}
                 rows={getCurrentData()}
                 onSelectionModelChange={newSelection => {

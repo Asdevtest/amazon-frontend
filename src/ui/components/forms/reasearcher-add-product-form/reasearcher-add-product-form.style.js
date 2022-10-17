@@ -90,6 +90,6 @@ export const styles = theme => ({
   },
 
   selectOption: {
-    color: theme.palette.text.negativeMain,
+    color: theme.palette.text.general,
   },
 })

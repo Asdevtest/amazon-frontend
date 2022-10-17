@@ -1,14 +1,4 @@
-import {
-  Container,
-  Button,
-  Typography,
-  NativeSelect,
-  Checkbox,
-  Select,
-  ListItemText,
-  MenuItem,
-  Rating,
-} from '@mui/material'
+import {Container, Button, Typography, Select, Checkbox, ListItemText, MenuItem, Rating} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -252,23 +242,23 @@ export const AdminContentModal = observer(
             isWrongPermissionsSelect && t(TranslationKey['The selected permissions and the current role do not match!'])
           }
           inputComponent={
-            <NativeSelect
+            <Select
               input={<Input fullWidth />}
               variant="filled"
               value={formFields.role}
               onChange={onChangeFormField('role')}
             >
               {Object.keys(UserRoleCodeMap).map(userRoleCode => (
-                <option
+                <MenuItem
                   key={userRoleCode}
                   value={userRoleCode}
                   className={classNames.userRoleSelect}
                   disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                 >
                   {UserRoleCodeMap[userRoleCode]}
-                </option>
+                </MenuItem>
               ))}
-            </NativeSelect>
+            </Select>
           }
         />
 
@@ -305,18 +295,18 @@ export const AdminContentModal = observer(
         <Field
           label={t(TranslationKey['User status'])}
           inputComponent={
-            <NativeSelect
+            <Select
               input={<Input fullWidth />}
               variant="filled"
               value={formFields.active}
               onChange={onChangeFormField('active')}
             >
               {activeOptions.map((option, index) => (
-                <option key={index} value={option.value}>
+                <MenuItem key={index} value={option.value}>
                   {option.label}
-                </option>
+                </MenuItem>
               ))}
-            </NativeSelect>
+            </Select>
           }
         />
         <div className={classNames.checkboxWrapper}>

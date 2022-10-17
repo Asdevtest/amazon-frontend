@@ -77,6 +77,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                       className={classNames.selectMenu}
                     >
                       {/* <Checkbox color="primary" checked={currentShops.includes(shop._id)} /> */}
+
                       <ListItemText primary={shop.name} />
                     </MenuItem>
                   ))}

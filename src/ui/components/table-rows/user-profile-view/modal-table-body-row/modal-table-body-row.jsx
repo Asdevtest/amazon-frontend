@@ -1,4 +1,4 @@
-import {Typography, TableRow, TableCell, NativeSelect} from '@mui/material'
+import {Typography, TableRow, TableCell, Select, MenuItem} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -58,7 +58,7 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
         </Typography>
       </TableCell>
       <TableCell>
-        <NativeSelect
+        <Select
           variant="filled"
           inputProps={{
             name: 'warehouse',
@@ -68,11 +68,11 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
           input={<Input />}
         >
           {managersList.map((managersItem, managersIndex) => (
-            <option key={managersIndex} value={managersItem.value}>
+            <MenuItem key={managersIndex} value={managersItem.value}>
               {managersItem.text}
-            </option>
+            </MenuItem>
           ))}
-        </NativeSelect>
+        </Select>
       </TableCell>
     </TableRow>
   )

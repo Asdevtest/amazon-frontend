@@ -1,4 +1,4 @@
-import {IconButton, NativeSelect, Typography} from '@mui/material'
+import {IconButton, Select, Typography, MenuItem} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -99,21 +99,21 @@ export const AddOrEditSinglePermissionForm = observer(
           <Field
             label={t(TranslationKey.Role)}
             inputComponent={
-              <NativeSelect
+              <Select
                 variant="filled"
                 value={formFields.role}
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <option value={'None'} className={classNames.selectOption}>
+                <MenuItem value={'None'} className={classNames.selectOption}>
                   {'none'}
-                </option>
+                </MenuItem>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <option key={index} value={roleCode} className={classNames.selectOption}>
+                  <MenuItem key={index} value={roleCode} className={classNames.selectOption}>
                     {UserRoleCodeMap[roleCode]}
-                  </option>
+                  </MenuItem>
                 ))}
-              </NativeSelect>
+              </Select>
             }
           />
 
@@ -172,22 +172,22 @@ export const AddOrEditSinglePermissionForm = observer(
                       placeholder={'example/example/example/:guid'}
                       onChange={onChangeField('allowedUrls', index, 'url')}
                     />
-                    <NativeSelect
+                    <Select
                       variant="filled"
                       value={formFields.allowedUrls[index].httpMethod}
                       input={<Input fullWidth />}
                       className={classNames.httpMethodSelect}
                       onChange={onChangeField('allowedUrls', index, 'httpMethod')}
                     >
-                      <option value={'None'} className={classNames.selectOption}>
+                      <MenuItem value={'None'} className={classNames.selectOption}>
                         {'none'}
-                      </option>
+                      </MenuItem>
                       {Object.keys(HttpMethod).map((http, idx) => (
-                        <option key={idx} value={http} className={classNames.selectOption}>
+                        <MenuItem key={idx} value={http} className={classNames.selectOption}>
                           {HttpMethod[http]}
-                        </option>
+                        </MenuItem>
                       ))}
-                    </NativeSelect>
+                    </Select>
 
                     <IconButton onClick={() => onRemovePermission(index)}>
                       <DeleteIcon className={classNames.deleteBtn} />

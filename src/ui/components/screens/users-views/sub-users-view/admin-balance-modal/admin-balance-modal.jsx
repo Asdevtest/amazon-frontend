@@ -1,4 +1,4 @@
-import {Container, Typography, NativeSelect} from '@mui/material'
+import {Container, Typography, Select, MenuItem} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -86,18 +86,18 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
           <Field
             label={t(TranslationKey.Type)}
             inputComponent={
-              <NativeSelect
+              <Select
                 input={<Input fullWidth />}
                 variant="filled"
                 value={paymentType}
                 onChange={e => setPaymentType(e.target.value)}
               >
                 {[paymentTypeSettings.WITHDRAW, paymentTypeSettings.FINE].map(type => (
-                  <option key={type} value={type}>
+                  <MenuItem key={type} value={type}>
                     {type}
-                  </option>
+                  </MenuItem>
                 ))}
-              </NativeSelect>
+              </Select>
             }
           />
         )}

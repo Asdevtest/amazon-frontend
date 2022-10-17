@@ -186,7 +186,9 @@ export const RightSideComments = observer(
           )}
           {acceptMessage && (
             <div className={classNames.acceptMessageWrapper}>
-              <Alert security="success">{acceptMessage}</Alert>
+              <Alert elevation={0} severity="success">
+                {acceptMessage}
+              </Alert>
             </div>
           )}
         </Box>

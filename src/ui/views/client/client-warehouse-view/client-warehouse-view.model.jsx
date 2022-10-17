@@ -386,7 +386,7 @@ export class ClientWarehouseViewModel {
       } ${t(TranslationKey['to change the Box'])} № ${this.selectedBox?.humanFriendlyId}`
 
       this.onTriggerOpenModal('showSuccessInfoModal')
-      // this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
