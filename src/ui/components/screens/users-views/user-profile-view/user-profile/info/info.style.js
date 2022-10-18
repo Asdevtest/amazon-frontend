@@ -20,17 +20,35 @@ export const useClassNames = makeStyles()(theme => ({
   },
   typoLabel: {
     marginRight: '16px',
+    color: theme.palette.text.general,
   },
   typoValue: {
     fontWeight: 600,
+    color: theme.palette.text.general,
   },
   paper: {
     width: '470px',
     border: '1px solid #C8CED3',
     margin: '24px 16px 0 0',
     padding: '8px 16px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      border: 'none',
+      padding: 0,
+      '& > :nth-child(n)': {
+        marginBottom: 10,
+      },
+    },
   },
   divider: {
     margin: '8px -16px',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+  mobileDivider: {
+    [theme.breakpoints.down(768)]: {
+      display: 'block',
+    },
   },
 }))

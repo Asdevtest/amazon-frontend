@@ -12,8 +12,11 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.main,
     padding: '48px 64px',
-    [theme.breakpoints.down('sm')]: {
-      padding: '8px',
+    [theme.breakpoints.down(768)]: {
+      flexGrow: 0.5,
+      flexDirection: 'column',
+      width: '100vw',
+      padding: '0 20px',
     },
   },
   formWrapper: {
@@ -22,9 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '300px',
     maxWidth: '600px',
     // flex: '1 1 300px',
-    [theme.breakpoints.down('sm')]: {
-      flex: '0 1 60%',
-    },
+    [theme.breakpoints.down(768)]: {width: '100%'},
   },
   formHeader: {
     display: 'flex',
@@ -35,6 +36,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     fontSize: '32px',
     fontWeight: '600',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '16px',
+      lineHeight: '22px',
+    },
   },
   divider: {
     margin: '8px 0 16px',
@@ -51,6 +56,11 @@ export const useClassNames = makeStyles()(theme => ({
       color: theme.palette.primary.main,
       fontWeight: '500',
     },
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      margin: '0 10px',
+    },
   },
 
   redirectWrapper: {
@@ -63,6 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifySelf: 'flex-end',
     transform: 'translate(150%, 0)',
     color: theme.palette.primary.main,
+    [theme.breakpoints.down(768)]: {transform: 'none'},
   },
   selectorsWrapper: {
     width: '110px',

@@ -66,33 +66,58 @@ export const UserProfile = observer(
 
                     <Rating disabled className={classNames.userRating} value={user?.rating} />
                   </div>
+                  <div className={classNames.userButtonsWrapper}>
+                    {isAnotherUser && (
+                      <Button
+                        id="user-profile-change-btn"
+                        variant="contained"
+                        color="primary"
+                        className={classNames.writeBtn}
+                        onClick={() => onClickWriteBtn(user._id)}
+                      >
+                        {t(TranslationKey.Write)}
+                      </Button>
+                    )}
 
-                  {isAnotherUser && (
-                    <Button
-                      id="user-profile-change-btn"
-                      variant="contained"
-                      color="primary"
-                      className={classNames.writeBtn}
-                      onClick={() => onClickWriteBtn(user._id)}
-                    >
-                      {t(TranslationKey.Write)}
-                    </Button>
-                  )}
-
-                  {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                    <Button
-                      id="user-profile-change-btn"
-                      variant="contained"
-                      color="primary"
-                      className={classNames.changeBtn}
-                      onClick={onClickChangeUserInfo}
-                    >
-                      {t(TranslationKey.Edit)}
-                    </Button>
-                  )}
+                    {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
+                      <Button
+                        id="user-profile-change-btn"
+                        variant="contained"
+                        color="primary"
+                        className={classNames.changeBtn}
+                        onClick={onClickChangeUserInfo}
+                      >
+                        {t(TranslationKey.Edit)}
+                      </Button>
+                    )}
+                  </div>
                 </Box>
               </Box>
+              <div className={classNames.userButtonsMobileWrapper}>
+                {isAnotherUser && (
+                  <Button
+                    id="user-profile-change-btn"
+                    variant="contained"
+                    color="primary"
+                    className={classNames.writeBtn}
+                    onClick={() => onClickWriteBtn(user._id)}
+                  >
+                    {t(TranslationKey.Write)}
+                  </Button>
+                )}
 
+                {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
+                  <Button
+                    id="user-profile-change-btn"
+                    variant="contained"
+                    color="primary"
+                    className={classNames.changeBtn}
+                    onClick={onClickChangeUserInfo}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                )}
+              </div>
               {!isAnotherUser && (
                 <div className={classNames.rolesWrapper}>
                   <Typography variant="h6" className={classNames.standartText}>
@@ -124,9 +149,8 @@ export const UserProfile = observer(
               <Reviews tabReview={tabReview} setTabReview={setTabReview} />
 
               <Box className={classNames.normalBox}>
-                <Box className={classNames.boxFeedbackCard}>
-                  <FeedbackCard isPositive counter={265} />
-                </Box>
+                <FeedbackCard isPositive counter={265} />
+
                 <FeedbackCard isPositive={false} counter={1} />
               </Box>
 

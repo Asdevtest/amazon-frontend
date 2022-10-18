@@ -99,6 +99,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
       <Field
         label={t(TranslationKey.Name)}
         inputProps={{maxLength: 25}}
+        labelClasses={classNames.labelField}
         error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
         className={classNames.textField}
         value={formFields.name}
@@ -108,6 +109,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
       <Field
         label={t(TranslationKey.Email)}
         inputProps={{maxLength: 35}}
+        labelClasses={classNames.labelField}
         error={
           (checkValidationNameOrEmail.emailIsUnique && t(TranslationKey['A user with this email already exists'])) ||
           (emailInputError && t(TranslationKey['Invalid email!']))

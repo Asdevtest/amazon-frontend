@@ -6,6 +6,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   paper: {
     width: '245px',

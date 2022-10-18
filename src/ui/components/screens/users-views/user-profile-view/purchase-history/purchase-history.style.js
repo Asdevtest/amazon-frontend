@@ -17,6 +17,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '12px',
+      width: '30%',
+      maxWidth: '100%',
+      padding: 0,
+    },
   },
   title: {
     fontSize: '20px',

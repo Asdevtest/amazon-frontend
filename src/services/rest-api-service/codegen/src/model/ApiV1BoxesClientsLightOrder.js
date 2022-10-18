@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 
 /**
  * The ApiV1BoxesClientsLightOrder model module.
@@ -50,6 +51,9 @@ class ApiV1BoxesClientsLightOrder {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('orderSupplier')) {
+                obj['orderSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['orderSupplier']);
+            }
         }
         return obj;
     }
@@ -62,6 +66,11 @@ class ApiV1BoxesClientsLightOrder {
  * @member {String} _id
  */
 ApiV1BoxesClientsLightOrder.prototype['_id'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} orderSupplier
+ */
+ApiV1BoxesClientsLightOrder.prototype['orderSupplier'] = undefined;
 
 
 

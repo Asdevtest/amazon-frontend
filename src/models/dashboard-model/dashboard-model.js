@@ -13,6 +13,18 @@ class DasboardModelStatic {
     const response = await restApiService.dashboardApi.apiV1DashboardStorekeeperCountsGet()
     return response
   }
+  getSupervisorDashboadItems = async () => {
+    const response = await restApiService.dashboardApi.apiV1DashboardSupervisorCountsGet()
+    return response
+  }
+  getResearcherDashboadItems = async () => {
+    const response = await restApiService.dashboardApi.apiV1DashboardResearcherCountsGet()
+    return response
+  }
+  getFreelancerDashboadItems = async () => {
+    const response = await restApiService.dashboardApi.apiV1DashboardFreelancerCountsGet()
+    return response
+  }
 }
 
 export const DashboardModel = new DasboardModelStatic()
