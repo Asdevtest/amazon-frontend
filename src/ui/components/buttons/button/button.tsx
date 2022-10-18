@@ -61,25 +61,16 @@ export const Button: FC<Props> = observer(
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
-          // className={cx(classNames.root, className, {
-          //   [classNames.success]: success,
-          //   [classNames.danger]: danger,
-          //   [classNames.disabled]: disabled,
-          // })}
           classes={{
             root: cx(
               classNames.root,
               {
                 [classNames.success]: success,
                 [classNames.danger]: danger,
-                [classNames.disabled]: disabled,
-
-                // [classNames.text]: variant === 'text',
+                // [classNames.disabled]: disabled,
               },
               className,
             ),
-
-            // text: classNames.text,
           }}
           {...restProps}
         >

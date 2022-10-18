@@ -6,9 +6,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
+import {ChatsModel} from '@models/chats-model'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
-import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -224,7 +224,7 @@ export class AnotherProfileViewModel {
   async onClickWriteBtn(anotherUserId) {
     try {
       if (!this.simpleChats.some(el => el.users.map(e => e._id).includes(anotherUserId))) {
-        await RequestModel.createSimpleChatByUserId(anotherUserId)
+        await ChatsModel.createSimpleChatByUserId(anotherUserId)
       }
 
       this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {

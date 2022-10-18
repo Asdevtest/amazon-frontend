@@ -49,11 +49,11 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: 'rgba(210, 35, 35, 0.5) !important',
     },
   },
-  disabled: {
-    backgroundColor: '#a0a0a4 !important',
-
-    // color: theme.palette.text.general,
-  },
+  // disabled: { работает
+  // backgroundColor: '#a0a0a4 !important',
+  // color: theme.palette.text.general,
+  // backgroundColor: `${theme.palette.background.disabled} !important`,
+  // },
 
   text: {
     color: theme.palette.text.general,
