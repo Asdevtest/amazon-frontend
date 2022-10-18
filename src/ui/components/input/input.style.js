@@ -23,6 +23,7 @@ export const styles = theme => ({
   },
   disabled: {
     backgroundColor: theme.palette.input.disabled,
+    border: 'none',
   },
 })
 

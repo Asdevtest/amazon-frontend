@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   cancelButton: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   buttonWrapper: {
     display: 'flex',

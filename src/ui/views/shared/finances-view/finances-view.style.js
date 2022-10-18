@@ -30,7 +30,7 @@ export const styles = theme => ({
   },
 
   greenRow: {
-    color: 'green',
+    color: theme.palette.text.green,
   },
   datagridWrapper: {
     marginTop: '10px',

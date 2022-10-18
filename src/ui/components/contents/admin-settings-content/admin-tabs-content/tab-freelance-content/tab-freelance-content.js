@@ -17,7 +17,7 @@ export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, on
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Percentage of each proposal']) + ', %'}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.requestPlatformMarginInPercent}
         onChange={onChangeField('requestPlatformMarginInPercent')}
       />
@@ -25,7 +25,7 @@ export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, on
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Time after which the offer will automatically be accepted, h'])}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
         onChange={onChangeField('requestTimeLimitInHourForCancelingProposalsByClient')}
       />
@@ -33,7 +33,7 @@ export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, on
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Minimum price per proposal to the order']) + ', $'}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.requestMinAmountPriceOfProposal}
         onChange={onChangeField('requestMinAmountPriceOfProposal')}
       />
@@ -41,7 +41,7 @@ export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, on
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.requestSupervisorFeeInPercent}
         onChange={onChangeField('requestSupervisorFeeInPercent')}
       />
@@ -49,7 +49,7 @@ export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, on
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
         onChange={onChangeField('requestTimeLimitInHourForCheckingProposalBySuper')}
       />

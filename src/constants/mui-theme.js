@@ -1,15 +1,22 @@
-// import {createTheme} from '@mui/material'
 import {grey} from '@mui/material/colors'
 import {createTheme} from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
-  MuiButton: {
-    styleOverrides: {
-      root: {
-        textTransform: 'none',
-      },
-    },
-  },
+  // MuiButton: {
+  //   defaultProps: {
+  //     sx: {
+  //       '&.Mui-disabled': {
+  //         backgroundColor: '#a0a0a4',
+  //       },
+  //     },
+  //   },
+  //   styleOverrides: {
+  //     root: {
+  //       textTransform: 'none',
+  //     },
+  //   },
+  // },
+
   MuiPaper: {
     styleOverrides: {
       elevation1: {
@@ -111,6 +118,21 @@ export const lightTheme = createTheme({
         },
       },
     },
+
+    MuiButton: {
+      defaultProps: {
+        sx: {
+          '&.Mui-disabled': {
+            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+          },
+        },
+      },
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
   },
 
   palette: {
@@ -123,6 +145,7 @@ export const lightTheme = createTheme({
       second: '#656565',
 
       negativeMain: '#fff',
+      green: 'green',
     },
 
     background: {
@@ -136,6 +159,7 @@ export const lightTheme = createTheme({
       red: '#FFC7C7',
       green: '#D9FAE5',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
+      disabled: 'rgba(0, 0, 0, 0.12)',
     },
 
     linearGradient: {
@@ -185,6 +209,54 @@ export const darkTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
           color: '#fff',
         },
+
+        paper: {
+          backgroundColor: '#2B2B34',
+          color: '#fff',
+        },
+
+        menu: {
+          // backgroundColor: '#2B2B34',
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiNativeSelect: {
+      // defaultProps: {
+      //   sx: {backgroundColor: '#2B2B34 !important'},
+      // },
+
+      styleOverrides: {
+        select: {
+          '& > option': {
+            backgroundColor: '#2B2B34 !important',
+          },
+        },
+      },
+    },
+
+    MuiList: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
       },
     },
 
@@ -194,31 +266,19 @@ export const darkTheme = createTheme({
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
-          // '&:disabled': {
-          //   color: '#fff',
-          // },
         },
-
-        // input: {
-        //   color: '#fff',
-        // },
-
-        // disabled: {
-        //   // color: '#fff !important',
-        //   backgroundColor: '#fff',
-
-        //   '-webkit-text-fill-color': '#fff !important',
-        // },
       },
     },
 
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff',
-    //     },
-    //   },
-    // },
+    MuiCheckbox: {
+      defaultProps: {
+        sx: {
+          '&.Mui-disabled': {
+            color: '#a0a0a4',
+          },
+        },
+      },
+    },
 
     MuiPaper: {
       styleOverrides: {
@@ -235,6 +295,21 @@ export const darkTheme = createTheme({
         },
       },
     },
+
+    MuiButton: {
+      defaultProps: {
+        sx: {
+          '&.Mui-disabled': {
+            backgroundColor: '#a0a0a4',
+          },
+        },
+      },
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
   },
 
   palette: {
@@ -247,6 +322,7 @@ export const darkTheme = createTheme({
       second: '#E1E1E1',
 
       negativeMain: '#001029',
+      green: '#2FE341',
     },
 
     background: {
@@ -260,6 +336,7 @@ export const darkTheme = createTheme({
       red: '#2E0505',
       green: '#388E3C',
       entryLeftPanel: '#2B2B34',
+      disabled: '#a0a0a4',
     },
 
     linearGradient: {

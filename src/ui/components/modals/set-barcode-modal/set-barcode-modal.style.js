@@ -87,7 +87,7 @@ export const useClassNames = makeStyles()(theme => ({
   closeBtn: {
     width: '123px',
     height: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   link: {
