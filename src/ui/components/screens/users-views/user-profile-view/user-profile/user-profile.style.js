@@ -6,11 +6,19 @@ export const useClassNames = makeStyles()(theme => ({
     width: '140px',
     borderRadius: '50%',
     objectFit: 'cover',
+    [theme.breakpoints.down(768)]: {
+      height: '91px',
+      width: '91px',
+    },
   },
   username: {
     color: theme.palette.text.general,
     fontSize: '23px',
     fontWeight: 500,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '12px',
+      fontWeight: 600,
+    },
   },
   text: {
     color: theme.palette.text.second,
@@ -30,6 +38,10 @@ export const useClassNames = makeStyles()(theme => ({
   paper: {
     padding: '24px',
     display: 'flex',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
   mainBox: {
     display: 'flex',
@@ -53,13 +65,11 @@ export const useClassNames = makeStyles()(theme => ({
   normalBox: {
     display: 'flex',
     margin: '12px 0',
+    gap: '16px',
   },
   visibilityIcon: {
     color: 'rgba(0, 123, 255, 1)',
     marginRight: '8px',
-  },
-  boxFeedbackCard: {
-    marginRight: '16px',
   },
 
   rightSideWrapper: {
@@ -86,16 +96,28 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '15px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+      fontWeight: 600,
+    },
   },
 
   userEmail: {
     fontWeight: 'bold',
     marginTop: '10px',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '12px',
+      fontWeight: 600,
+    },
   },
 
   standartText: {
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '12px',
+      fontWeight: 600,
+    },
   },
 
   badge: {
@@ -113,6 +135,10 @@ export const useClassNames = makeStyles()(theme => ({
   changeBtn: {
     marginTop: '5px',
     height: '20px',
+    [theme.breakpoints.down(768)]: {
+      width: '260px',
+      height: 40,
+    },
   },
 
   avatarWrapper: {
@@ -139,5 +165,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   writeBtn: {
     marginTop: 20,
+    [theme.breakpoints.down(768)]: {
+      width: '260px',
+      height: 40,
+    },
+  },
+
+  userButtonsWrapper: {
+    display: 'block',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+  userButtonsMobileWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: 30,
+    },
   },
 }))

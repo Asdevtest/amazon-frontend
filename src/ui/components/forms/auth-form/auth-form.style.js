@@ -36,6 +36,9 @@ export const styles = theme => ({
   loginBtn: {
     width: 200,
     height: 40,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   forgotPassword: {
@@ -54,7 +57,7 @@ export const styles = theme => ({
   visibilityIcon: {
     position: 'absolute',
     right: 10,
-    top: 41,
+    top: 35,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     color: theme.palette.text.second,
@@ -70,5 +73,10 @@ export const styles = theme => ({
 
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
+  },
+  labelField: {
+    fontSize: '14px',
+    color: theme.palette.text.second,
+    lineHeight: '19px',
   },
 })

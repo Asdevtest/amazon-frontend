@@ -1,5 +1,3 @@
-import {Hidden} from '@mui/material'
-
 import {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -51,9 +49,8 @@ class RegistrationViewRaw extends Component {
 
     return (
       <div className={classNames.root}>
-        <Hidden smDown>
-          <EntryLeftPanel />
-        </Hidden>
+        <EntryLeftPanel />
+
         <EntryRightPanel
           redirect={t(TranslationKey['Already have account?'])}
           title={t(TranslationKey.Registration)}

@@ -6,6 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
 
     flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      overflow: 'hidden',
+    },
   },
 
   mainTitle: {
@@ -35,11 +39,17 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '40px',
     justifyContent: 'flex-end',
     gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      justifyContent: 'center',
+    },
   },
 
   actionBtn: {
     width: '185px',
     height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '121px',
+    },
   },
 
   textField: {
@@ -57,5 +67,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     color: theme.palette.text.general,
+  },
+  labelField: {
+    fontSize: '14px',
+    color: theme.palette.text.second,
+    lineHeight: '19px',
   },
 }))

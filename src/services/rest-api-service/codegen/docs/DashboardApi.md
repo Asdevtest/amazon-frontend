@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiV1DashboardFreelancerCountsGet**](DashboardApi.md#apiV1DashboardFreelancerCountsGet) | **GET** /api/v1/dashboard/freelancer/counts | # Получить количество основных элементов в бд.
 [**apiV1DashboardResearcherCountsGet**](DashboardApi.md#apiV1DashboardResearcherCountsGet) | **GET** /api/v1/dashboard/researcher/counts | # Получить количество основных элементов в бд.
 [**apiV1DashboardStorekeeperCountsGet**](DashboardApi.md#apiV1DashboardStorekeeperCountsGet) | **GET** /api/v1/dashboard/storekeeper/counts | # Получить количество основных элементов в бд.
+[**apiV1DashboardSupervisorCountsGet**](DashboardApi.md#apiV1DashboardSupervisorCountsGet) | **GET** /api/v1/dashboard/supervisor/counts | # Получить количество основных элементов в бд.
 
 
 
@@ -261,6 +262,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InlineResponse20017**](InlineResponse20017.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1DashboardSupervisorCountsGet
+
+> InlineResponse20020 apiV1DashboardSupervisorCountsGet(opts)
+
+# Получить количество основных элементов в бд.
+
+## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.DashboardApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1DashboardSupervisorCountsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20020**](InlineResponse20020.md)
 
 ### Authorization
 

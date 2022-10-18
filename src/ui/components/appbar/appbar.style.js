@@ -150,13 +150,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   menu: {
     width: '170px',
-    marginTop: '40px',
+    marginTop: '0',
     marginLeft: '85px',
     display: 'flex',
     [theme.breakpoints.down(768)]: {
       width: '161px',
-      marginTop: -16,
-      marginLeft: '15px',
+      marginTop: -56,
+      marginLeft: '16px',
       display: 'flex',
     },
   },

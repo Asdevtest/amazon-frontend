@@ -1,5 +1,9 @@
 export const styles = theme => ({
-  root: {},
+  root: {
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
+  },
   formFields: {
     display: 'flex',
     alignItems: 'center',
@@ -24,8 +28,11 @@ export const styles = theme => ({
   visibilityIcon: {
     position: 'absolute',
     right: 10,
-    top: 41,
+    top: 35,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(768)]: {
+      top: 35,
+    },
   },
 
   inputAdornment: {
@@ -41,6 +48,10 @@ export const styles = theme => ({
 
     justifyContent: 'start',
     gap: '5px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexWrap: 'wrap',
+    },
   },
 
   validationTitle: {
@@ -70,6 +81,9 @@ export const styles = theme => ({
 
   input: {
     height: '34px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   labelWrapper: {
@@ -91,5 +105,15 @@ export const styles = theme => ({
 
   visibility: {
     visibility: 'visible',
+  },
+  labelField: {
+    fontSize: '14px',
+    color: theme.palette.text.second,
+    lineHeight: '19px',
+  },
+  button: {
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 })

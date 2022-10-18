@@ -3,11 +3,9 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {OtherModel} from '@models/other-model'
+import {DashboardModel} from '@models/dashboard-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {UserModel} from '@models/user-model'
-
-import {toFixed} from '@utils/text'
 
 export class FreelancerDashboardViewModel {
   history = undefined
@@ -41,37 +39,31 @@ export class FreelancerDashboardViewModel {
     }
   }
 
-  async getPayments() {
+  async loadData() {
     try {
-      const result = await OtherModel.getMyPayments()
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDashboardElementCount()
+      await this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getDashboardElementCount() {
+    try {
+      const result = await DashboardModel.getFreelancerDashboadItems()
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [FreelancerDashboardCardDataKey.REPLENISH]: toFixed(
-            result.filter(el => el.sum > 0).reduce((ac, cur) => (ac += cur.sum), 0),
-            2,
-          ),
-          [FreelancerDashboardCardDataKey.FINES]: toFixed(
-            result.filter(el => el.paymentType === 'FINE').reduce((ac, cur) => (ac += cur.sum), 0),
-            2,
-          ),
+          [FreelancerDashboardCardDataKey.REPLENISH]: result.finances.accruals,
+          [FreelancerDashboardCardDataKey.FINES]: result.finances.fines,
         }
       })
     } catch (error) {
       console.log(error)
       this.error = error
-    }
-  }
-
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getPayments()
-      await this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
     }
   }
 

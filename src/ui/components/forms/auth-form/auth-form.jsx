@@ -53,6 +53,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           containerClasses={classNames.field}
           inputClasses={classNames.input}
           label={t(TranslationKey.Email)}
+          labelClasses={classNames.labelField}
           placeholder={t(TranslationKey.Email)}
           type="email"
           value={formFields.email}
@@ -68,6 +69,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             withIcon
             error={isSubmit && emptyPassword && t(TranslationKey['The field must be filled in'])}
             label={t(TranslationKey.Password)}
+            labelClasses={classNames.labelField}
             inputClasses={classNames.input}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
@@ -90,11 +92,10 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             <Typography className={classNames.label}>{t(TranslationKey['Remember me'])}</Typography>
           </div>
           <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
-
-          <Button type="submit" color="primary" variant="contained" className={classNames.loginBtn}>
-            {t(TranslationKey.Login)}
-          </Button>
         </div>
+        <Button type="submit" color="primary" variant="contained" className={classNames.loginBtn}>
+          {t(TranslationKey.Login)}
+        </Button>
       </form>
     </div>
   )

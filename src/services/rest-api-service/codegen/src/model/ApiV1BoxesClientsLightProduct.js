@@ -53,6 +53,9 @@ class ApiV1BoxesClientsLightProduct {
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -83,6 +86,11 @@ ApiV1BoxesClientsLightProduct.prototype['_id'] = undefined;
  * @member {String} asin
  */
 ApiV1BoxesClientsLightProduct.prototype['asin'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+ApiV1BoxesClientsLightProduct.prototype['skusByClient'] = undefined;
 
 /**
  * Массив картинок.

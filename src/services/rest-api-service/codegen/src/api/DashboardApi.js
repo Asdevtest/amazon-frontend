@@ -19,6 +19,7 @@ import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse20017 from '../model/InlineResponse20017';
 import InlineResponse20018 from '../model/InlineResponse20018';
 import InlineResponse20019 from '../model/InlineResponse20019';
+import InlineResponse20020 from '../model/InlineResponse20020';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -271,6 +272,53 @@ export default class DashboardApi {
      */
     apiV1DashboardStorekeeperCountsGet(opts) {
       return this.apiV1DashboardStorekeeperCountsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20020} and HTTP response
+     */
+    apiV1DashboardSupervisorCountsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20020;
+      return this.apiClient.callApi(
+        '/api/v1/dashboard/supervisor/counts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20020}
+     */
+    apiV1DashboardSupervisorCountsGet(opts) {
+      return this.apiV1DashboardSupervisorCountsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

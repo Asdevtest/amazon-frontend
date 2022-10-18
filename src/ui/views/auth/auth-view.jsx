@@ -1,5 +1,3 @@
-import {Hidden} from '@mui/material'
-
 import {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -35,9 +33,8 @@ export class AuthViewRaw extends Component {
     console.log(this.viewModel?.error)
     return (
       <div className={classNames.root}>
-        <Hidden smDown>
-          <EntryLeftPanel />
-        </Hidden>
+        <EntryLeftPanel />
+
         <EntryRightPanel
           redirect={t(TranslationKey['Create account'])}
           title={t(TranslationKey['Sign in'])}

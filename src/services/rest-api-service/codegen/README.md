@@ -229,6 +229,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.DashboardApi* | [**apiV1DashboardFreelancerCountsGet**](docs/DashboardApi.md#apiV1DashboardFreelancerCountsGet) | **GET** /api/v1/dashboard/freelancer/counts | # Получить количество основных элементов в бд.
 *TestSwagger.DashboardApi* | [**apiV1DashboardResearcherCountsGet**](docs/DashboardApi.md#apiV1DashboardResearcherCountsGet) | **GET** /api/v1/dashboard/researcher/counts | # Получить количество основных элементов в бд.
 *TestSwagger.DashboardApi* | [**apiV1DashboardStorekeeperCountsGet**](docs/DashboardApi.md#apiV1DashboardStorekeeperCountsGet) | **GET** /api/v1/dashboard/storekeeper/counts | # Получить количество основных элементов в бд.
+*TestSwagger.DashboardApi* | [**apiV1DashboardSupervisorCountsGet**](docs/DashboardApi.md#apiV1DashboardSupervisorCountsGet) | **GET** /api/v1/dashboard/supervisor/counts | # Получить количество основных элементов в бд.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfilePost**](docs/GoLoginApi.md#apiV1GologinProfilePost) | **POST** /api/v1/gologin/profile | # Создать новый профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileProfileIdPatch**](docs/GoLoginApi.md#apiV1GologinProfileProfileIdPatch) | **PATCH** /api/v1/gologin/profile/{profileId} | # Изменить профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
@@ -552,13 +553,15 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse20020](docs/InlineResponse20020.md)
+ - [TestSwagger.InlineResponse20020Checking](docs/InlineResponse20020Checking.md)
+ - [TestSwagger.InlineResponse20020Products](docs/InlineResponse20020Products.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
- - [TestSwagger.InlineResponse20025Failed](docs/InlineResponse20025Failed.md)
  - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)
+ - [TestSwagger.InlineResponse20026Failed](docs/InlineResponse20026Failed.md)
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
@@ -580,7 +583,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse20040](docs/InlineResponse20040.md)
  - [TestSwagger.InlineResponse20041](docs/InlineResponse20041.md)
- - [TestSwagger.InlineResponse20041Details](docs/InlineResponse20041Details.md)
+ - [TestSwagger.InlineResponse20042](docs/InlineResponse20042.md)
+ - [TestSwagger.InlineResponse20042Details](docs/InlineResponse20042Details.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
