@@ -61,7 +61,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.yuanToDollarRate}
         onChange={onChangeField('yuanToDollarRate')}
       />
@@ -70,7 +70,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Divider for calculating volume weight'])}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         value={formFields.volumeWeightCoefficient}
         onChange={onChangeField('volumeWeightCoefficient')}
       />
@@ -79,7 +79,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Link for financial transactions'])}
-        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
         // value={formFields.volumeWeightCoefficient}
         // onChange={onChangeField('volumeWeightCoefficient')}
       />
@@ -98,7 +98,7 @@ export const TabMainContent = ({
             error={error && t(TranslationKey['Invalid proxy'])}
             // label={t(TranslationKey['Proxy servers for parsing'])}
             containerClasses={classNames.textContainer}
-            className={disabled ? classNames.textFieldUnSelection : classNames.textField}
+            classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
             value={proxy}
             onChange={e => setProxy(e.target.value)}
           />

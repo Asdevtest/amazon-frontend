@@ -621,7 +621,7 @@ export const EditBoxForm = observer(
             disableElevation
             color="primary"
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={classNames.button}
+            className={cx(classNames.button, classNames.cancelBtn)}
             variant="text"
             onClick={onTriggerOpenModal}
           >

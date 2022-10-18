@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-start',
   },
 
-  inputDisabled: {
-    backgroundColor: theme.palette.input.disabled,
-  },
+  // inputDisabled: {
+  //   backgroundColor: theme.palette.input.disabled,
+  // },
 }))

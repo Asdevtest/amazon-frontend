@@ -48,7 +48,8 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
 
-    color: theme.palette.text.negativeMain,
+    color: '#001029',
+
     '&:hover': {
       opacity: '0.7',
     },
@@ -74,7 +75,8 @@ export const useClassNames = makeStyles()(theme => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
-    color: theme.palette.text.negativeMain,
+
+    color: '#001029',
     '&:hover': {
       opacity: '0.7',
     },

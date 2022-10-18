@@ -385,7 +385,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     overflow: 'hidden',
 
-    border: `1px solid ${theme.palette.input.border}`,
+    // border: `1px solid ${theme.palette.input.border}`,
 
     color: theme.palette.text.general,
 

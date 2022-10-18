@@ -185,8 +185,64 @@ export const darkTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
           color: '#fff',
         },
+
+        paper: {
+          backgroundColor: '#2B2B34',
+          color: '#fff',
+        },
+
+        menu: {
+          // backgroundColor: '#2B2B34',
+          color: '#fff',
+        },
       },
     },
+
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiNativeSelect: {
+      // defaultProps: {
+      //   sx: {backgroundColor: '#2B2B34 !important'},
+      // },
+
+      styleOverrides: {
+        select: {
+          '& > option': {
+            backgroundColor: '#2B2B34 !important',
+          },
+        },
+      },
+    },
+
+    MuiList: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
+    // option: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: '#2B2B34',
+    //     },
+    //   },
+    // },
 
     MuiInputBase: {
       styleOverrides: {
@@ -194,31 +250,9 @@ export const darkTheme = createTheme({
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
-          // '&:disabled': {
-          //   color: '#fff',
-          // },
         },
-
-        // input: {
-        //   color: '#fff',
-        // },
-
-        // disabled: {
-        //   // color: '#fff !important',
-        //   backgroundColor: '#fff',
-
-        //   '-webkit-text-fill-color': '#fff !important',
-        // },
       },
     },
-
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff',
-    //     },
-    //   },
-    // },
 
     MuiPaper: {
       styleOverrides: {

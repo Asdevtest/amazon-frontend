@@ -82,13 +82,13 @@ export const Field: FC<Props> = observer(
           {inputComponent ||
             (withIcon ? (
               <InputWithIcon
-                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                // classes={{input: classNames.input, disabled: classNames.inputDisabled}}
                 className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
                 {...restProps}
               />
             ) : (
               <Input
-                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                // classes={{input: classNames.input, disabled: classNames.inputDisabled}}
                 className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
                 {...restProps}
               />

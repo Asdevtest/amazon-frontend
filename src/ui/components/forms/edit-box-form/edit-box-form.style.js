@@ -19,6 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
   },
 
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
