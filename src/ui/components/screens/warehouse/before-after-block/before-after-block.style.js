@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',
+
     [theme.breakpoints.down(768)]: {
       padding: '20px 20px',
     },
@@ -13,6 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
     },

@@ -110,7 +110,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blockWrapper: {
-    width: '100%',
+    width: '800px',
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -163,7 +163,7 @@ export const useClassNames = makeStyles()(theme => ({
   costBlock: {
     display: 'flex',
     alignItems: 'flex-start',
-    width: '800px',
+    width: '850px',
     justifyContent: 'space-between',
     flexDirection: 'column',
     [theme.breakpoints.down(768)]: {
@@ -221,6 +221,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   courseWrapper: {
     display: 'flex',
+    alignSelf: 'flex-end',
     gap: 10,
     [theme.breakpoints.down(768)]: {
       display: 'none',
