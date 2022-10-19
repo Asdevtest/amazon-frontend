@@ -32,12 +32,14 @@ export const styles = theme => ({
     minWidth: '250px',
 
     padding: 0,
-    border: 'none',
   },
   buttonsWrapper: {
     marginTop: '15px',
   },
   button: {
+    padding: '0 15',
+    height: 'auto',
+    whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.text.general,
   },

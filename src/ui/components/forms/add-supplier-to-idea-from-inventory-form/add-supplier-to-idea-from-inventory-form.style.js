@@ -108,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigInput: {
-    height: '210px',
+    height: 'auto',
   },
 
   btnsWrapper: {

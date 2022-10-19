@@ -36,14 +36,16 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
       {filteredBatches.length ? (
         <div className={classNames.batchesExistBlock}>
           <div className={classNames.titleWrapper}>
-            <Typography variant="h5">
+            <Typography variant="h5" className={classNames.standartText}>
               {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
             </Typography>
 
             <div className={classNames.titleSubWrapper}>
-              <Typography variant="h6">{`${t(TranslationKey.Box)}: ${box.humanFriendlyId}`}</Typography>
+              <Typography variant="h6" className={classNames.standartText}>{`${t(TranslationKey.Box)}: ${
+                box.humanFriendlyId
+              }`}</Typography>
 
-              <Typography variant="h6">{`${t(TranslationKey.Batch)}: ${
+              <Typography variant="h6" className={classNames.standartText}>{`${t(TranslationKey.Batch)}: ${
                 box.batch?.humanFriendlyId || 'N/A'
               }`}</Typography>
             </div>
@@ -99,8 +101,10 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
           </Typography>
 
           <div className={classNames.messageWrapper}>
-            <Typography>{t(TranslationKey['No batch with the parameters of the box.'])}</Typography>
-            <Typography>{`${t(TranslationKey.For)} ${
+            <Typography className={classNames.standartText}>
+              {t(TranslationKey['No batch with the parameters of the box.'])}
+            </Typography>
+            <Typography className={classNames.standartText}>{`${t(TranslationKey.For)} ${
               box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
             } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</Typography>
           </div>

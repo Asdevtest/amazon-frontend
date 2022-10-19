@@ -12,24 +12,28 @@ export const useClassNames = makeStyles()(theme => ({
 
   title: {
     textAlign: 'center',
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       fontWeight: 600,
       lineHeight: '22px',
-      color: theme.palette.text.general,
     },
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   messageWrapper: {
     width: '460px',
     textAlign: 'center',
     margin: '30px 0',
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       width: '214px',
       textAlign: 'center',
       margin: '0 auto',
       marginTop: '10px',
-      color: theme.palette.text.general,
 
       '& > :nth-child(n)': {
         fontSize: '12px',
@@ -80,6 +84,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '40px',
+    color: theme.palette.text.general,
+
     [theme.breakpoints.down(768)]: {
       marginLeft: 0,
     },

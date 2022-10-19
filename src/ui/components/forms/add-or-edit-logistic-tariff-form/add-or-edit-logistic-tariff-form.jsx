@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
@@ -169,7 +170,7 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
       formFields.minWeightInKg === '0' ||
-      !toString(formFields.minWeightInKg).match(regExp) ||
+      toString(formFields.minWeightInKg).match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||
@@ -246,17 +247,6 @@ export const AddOrEditLogisticTariffForm = observer(
               </ToggleBtn>
             </ToggleBtnGroup>
             <div className={classNames.courseWrapper}>
-              <Field
-                oneLine
-                disabled
-                label={t(TranslationKey['Current exchange rate'])}
-                tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
-                containerClasses={classNames.rateContainer}
-                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-                inputClasses={classNames.middleInput}
-                value={sourceYuanToDollarRate}
-              />
-
               <Field
                 oneLine
                 disabled
@@ -403,24 +393,11 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <Button
-              success
-              disableElevation
-              disabled={disableSubmitBtn}
-              color="primary"
-              variant="contained"
-              onClick={onSubmit}
-            >
+            <Button success disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              disableElevation
-              className={classNames.button}
-              color="primary"
-              variant="text"
-              onClick={() => onCloseModal()}
-            >
+            <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

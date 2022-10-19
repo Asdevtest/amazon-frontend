@@ -48,6 +48,67 @@ export default class BuyerApi {
 
 
     /**
+     * # Редактировать номер заказа.
+     * ## Редактировать номер заказа
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Number} item 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BuyersOrdersGuidEditItemItemPatchWithHttpInfo(guid, item, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersGuidEditItemItemPatch");
+      }
+      // verify the required parameter 'item' is set
+      if (item === undefined || item === null) {
+        throw new Error("Missing the required parameter 'item' when calling apiV1BuyersOrdersGuidEditItemItemPatch");
+      }
+
+      let pathParams = {
+        'guid': guid,
+        'item': item
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/{guid}/edit_item/{item}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Редактировать номер заказа.
+     * ## Редактировать номер заказа
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Number} item 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BuyersOrdersGuidEditItemItemPatch(guid, item, opts) {
+      return this.apiV1BuyersOrdersGuidEditItemItemPatchWithHttpInfo(guid, item, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Редактировать заказ.
      * ## Редактировать заказ.   Данный метод позволяет редактировать все поля кроме status и totalPriceChanged Проверки:  Пока нет проверок
      * @param {String} guid GUID заказа, который планируем изменить

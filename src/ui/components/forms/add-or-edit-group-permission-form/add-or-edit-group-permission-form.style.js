@@ -14,8 +14,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  lightThemeText: {
-    color: '#001029',
+  listSubheader: {
+    color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.second,
   },
 
   button: {

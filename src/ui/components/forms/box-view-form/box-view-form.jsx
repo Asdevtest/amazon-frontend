@@ -196,6 +196,15 @@ export const BoxViewForm = observer(
                         value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
                         placeholder={'N/A'}
                       />
+
+                      <Field
+                        disabled
+                        inputClasses={classNames.countField}
+                        containerClasses={classNames.countContainer}
+                        labelClasses={classNames.label}
+                        label={t(TranslationKey['Order number/Item'])}
+                        value={`${item.order.id} / ${item.order.item}`}
+                      />
                     </div>
                   </div>
                 ))}

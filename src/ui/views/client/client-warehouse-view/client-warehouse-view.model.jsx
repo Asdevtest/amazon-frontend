@@ -59,6 +59,7 @@ export class ClientWarehouseViewModel {
 
   boxesMy = []
   tasksMy = []
+  baseBoxesMy = []
 
   nameSearchValue = ''
 
@@ -177,6 +178,10 @@ export class ClientWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
+      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient).sort(
+        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+      )
+
       this.getDataGridState()
     }
   }
@@ -924,6 +929,10 @@ export class ClientWarehouseViewModel {
       const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.baseBoxesMy = result
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
+
         this.boxesMy = clientWarehouseDataConverter(result, res.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )

@@ -82,6 +82,11 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
                 }
               />
             </div>
+
+            <div className={classNames.orderItemWrapper}>
+              <Typography className={classNames.orderNum}>{'item'}</Typography>
+              <Typography className={classNames.titleSpan}>{updatedOrder.item}</Typography>
+            </div>
           </div>
 
           <Divider orientation={'horizontal'} />

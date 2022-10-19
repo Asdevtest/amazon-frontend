@@ -50,6 +50,9 @@ class InlineObject34 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+            }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
@@ -80,6 +83,11 @@ class InlineObject34 {
  * @member {String} storekeeperId
  */
 InlineObject34.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {Number} item
+ */
+InlineObject34.prototype['item'] = undefined;
 
 /**
  * GUID тарифа доставки

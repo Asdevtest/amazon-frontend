@@ -5,11 +5,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '1480px',
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
-      overflow: 'hidden',
     },
   },
   modalHeader: {

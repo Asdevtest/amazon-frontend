@@ -310,6 +310,31 @@ export const darkTheme = createTheme({
         },
       },
     },
+
+    MuiCssBaseline: {
+      styleOverrides: {
+        '::-webkit-scrollbar': {
+          backgroundColor: '#21212B',
+        },
+
+        '::-webkit-scrollbar-thumb': {
+          // backgroundColor: '#2B2B34',
+          backgroundColor: '#001029',
+          // borderRadius: 10,
+        },
+
+        '::-webkit-scrollbar-button': {
+          // backgroundColor: '#21212B',
+          backgroundColor: '#2B2B34',
+          outline: '1px solid #21212B',
+        },
+
+        // '::-webkit-scrollbar-track': {
+        //   backgroundColor: '#2B2B34',
+        //   // backgroundColor: '#fff',
+        // },
+      },
+    },
   },
 
   palette: {

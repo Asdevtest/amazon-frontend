@@ -11,11 +11,34 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalText: {
     color: theme.palette.text.general,
-    fontSize: '30px',
+    fontSize: 18,
     fontWeight: 600,
     lineHeight: '36px',
     marginBottom: '10px',
   },
+
+  idItemWrapper: {
+    display: 'flex',
+    gap: 15,
+  },
+
+  itemInputIcon: {
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  modalSpanText: {
+    color: theme.palette.text.second,
+  },
+
+  itemInput: {
+    width: 125,
+    height: 40,
+  },
+
   modalWrapper: {
     minWidth: '800px',
   },

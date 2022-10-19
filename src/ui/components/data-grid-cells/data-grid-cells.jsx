@@ -514,6 +514,22 @@ export const MultilineTextCell = withStyles(
   styles,
 )
 
+export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
+  const sortedValue = value.split('item')
+
+  const orderIds = sortedValue[0]
+
+  const ordersItems = 'item' + sortedValue[1]
+
+  return (
+    <div>
+      <MultilineTextCell text={orderIds} />
+
+      <MultilineTextCell text={ordersItems} />
+    </div>
+  )
+}, styles)
+
 export const MultilineTextAlignLeftCell = withStyles(
   ({classes: classNames, text, isComment, isAsin}) =>
     isComment ? (

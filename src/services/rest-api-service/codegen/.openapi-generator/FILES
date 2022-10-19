@@ -573,8 +573,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineResponse20020Checking.spec.js
-test/model/InlineResponse20020Products.spec.js
-test/model/InlineResponse20026Failed.spec.js
-test/model/InlineResponse20042.spec.js
-test/model/InlineResponse20042Details.spec.js

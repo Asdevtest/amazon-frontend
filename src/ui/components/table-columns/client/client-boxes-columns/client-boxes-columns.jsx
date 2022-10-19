@@ -11,6 +11,7 @@ import {
   MultilineTextCell,
   ShortBoxDimensions,
   SuperboxQtyCell,
+  OrdersIdsItemsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
@@ -107,6 +108,15 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
+  },
+
+  {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
   },
 
   {

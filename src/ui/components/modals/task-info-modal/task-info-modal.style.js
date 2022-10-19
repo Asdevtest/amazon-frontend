@@ -6,7 +6,6 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '650px',
 
     padding: 0,
-    border: 'none',
   },
   commentsWrapper: {
     display: 'flex',

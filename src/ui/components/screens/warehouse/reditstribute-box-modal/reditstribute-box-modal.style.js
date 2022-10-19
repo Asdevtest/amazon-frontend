@@ -98,7 +98,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '330px',
 
     padding: 0,
-    border: 'none',
   },
 
   itemWrapper: {

@@ -160,7 +160,7 @@ export const AddOrEditGroupPermissionForm = observer(
               >
                 <MenuItem value={'None'}>{'none'}</MenuItem>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <MenuItem key={index} value={roleCode} className={classNames.lightThemeText}>
+                  <MenuItem key={index} value={roleCode}>
                     {UserRoleCodeMap[roleCode]}
                   </MenuItem>
                 ))}
@@ -249,19 +249,19 @@ export const AddOrEditGroupPermissionForm = observer(
                       onChange={handleSelectPermissionChange}
                     >
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
-                        <ListSubheader>{UserRole.ADMIN}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.ADMIN}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
-                        <ListSubheader>{UserRole.CLIENT}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.CLIENT}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
-                        <ListSubheader>{UserRole.SUPERVISOR}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.SUPERVISOR}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
@@ -269,7 +269,7 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
-                        <ListSubheader>{UserRole.RESEARCHER}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.RESEARCHER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
@@ -277,13 +277,13 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
-                        <ListSubheader>{UserRole.BUYER}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.BUYER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
-                        <ListSubheader>{UserRole.STOREKEEPER}</ListSubheader>
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.STOREKEEPER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>

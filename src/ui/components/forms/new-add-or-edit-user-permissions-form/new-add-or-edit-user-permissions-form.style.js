@@ -66,6 +66,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    marginBottom: 15,
+    borderBottom: '1px solid rgba(0,0,0, .2)',
     '&:hover': {
       transform: 'translate(0%, -3%)',
     },

@@ -107,7 +107,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
 
     padding: 0,
-    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',

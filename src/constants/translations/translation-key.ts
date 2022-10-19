@@ -1567,8 +1567,8 @@ export enum TranslationKey {
   'Select date' = 'Select date',
   'Inbound' = 'Inbound',
 
-  // '' = '',
-  // '' = '',
+  '№ Order/ № Item' = '№ Order/ № Item',
+  'Order number/Item' = 'Order number/Item',
   // '' = '',
   // '' = '',
   // '' = '',

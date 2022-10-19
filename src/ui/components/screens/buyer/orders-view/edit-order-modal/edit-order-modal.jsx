@@ -59,6 +59,7 @@ export const EditOrderModal = observer(
     showProgress,
     progressValue,
     volumeWeightCoefficient,
+    onSaveOrderItem,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -137,6 +138,7 @@ export const EditOrderModal = observer(
       batchPrice: 0,
       totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
       yuanToDollarRate: order?.yuanToDollarRate || 6.3,
+      item: order?.item || 0,
     })
 
     const setOrderField = filedName => e => {
@@ -152,6 +154,8 @@ export const EditOrderModal = observer(
         if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
           newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
         }
+      } else if (filedName === 'item') {
+        newOrderFieldsState[filedName] = e.target.value ? parseInt(e.target.value) : 0
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -213,12 +217,30 @@ export const EditOrderModal = observer(
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
 
-    console.log('orderFields.status', orderFields.status)
-
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
-          <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} № ${order.id}`}</Typography>
+          <div className={classNames.idItemWrapper}>
+            <Typography className={classNames.modalText}>
+              {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={classNames.modalSpanText}>{'item'}</span>
+            </Typography>
+
+            <Input
+              className={classNames.itemInput}
+              value={orderFields.item}
+              endAdornment={
+                <InputAdornment position="start">
+                  <img
+                    src={'/assets/icons/save-discet.svg'}
+                    className={classNames.itemInputIcon}
+                    onClick={() => onSaveOrderItem(order._id, orderFields.item)}
+                  />
+                </InputAdornment>
+              }
+              onChange={setOrderField('item')}
+            />
+          </div>
+
           <Typography className={classNames.amazonTitle}>
             {order.product.amazonTitle.length > 130
               ? order.product.amazonTitle.slice(0, 130) + '...'

@@ -78,7 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
 
     // overflow: 'hidden',
     padding: 0,
-    border: 'none',
   },
 
   infoInput: {

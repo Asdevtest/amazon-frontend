@@ -34,7 +34,7 @@ export const DashboardButtons = ({user, routes}) => {
         onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
       >
         <div className={classNames.iconWrapper}>
-          <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} />
+          <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
           {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
         </div>
 
@@ -45,7 +45,7 @@ export const DashboardButtons = ({user, routes}) => {
         onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
       >
         <div className={classNames.iconWrapper}>
-          <Message classes={{root: classNames.fontSizeLarge}} />
+          <Message classes={{root: classNames.fontSizeLarge}} fontSize="large" />
 
           {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
         </div>
@@ -60,7 +60,7 @@ export const DashboardButtons = ({user, routes}) => {
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
         >
           <div className={classNames.iconWrapper}>
-            <SettingsIcon classes={{root: classNames.fontSizeLarge}} />
+            <SettingsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
           </div>
 
           <Typography className={classNames.title}>

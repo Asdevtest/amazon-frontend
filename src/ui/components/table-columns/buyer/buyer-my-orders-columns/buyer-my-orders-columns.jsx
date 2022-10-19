@@ -19,10 +19,10 @@ import {t} from '@utils/translations'
 export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'ID',
-    headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    headerName: t(TranslationKey.ID) + ' / item',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
 
-    width: 55,
+    width: 60,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 

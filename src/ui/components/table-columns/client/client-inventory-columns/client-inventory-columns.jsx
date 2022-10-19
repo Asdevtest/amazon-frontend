@@ -15,6 +15,7 @@ import {
   MultilineTextCell,
   ShowBarcodeOrHscodeCell,
   FourMonthesStockCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -241,7 +242,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
     width: 350,
   },
 ]
