@@ -21,10 +21,10 @@ import {toFixedWithDollarSign} from '@utils/text'
 export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'id',
-    headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    headerName: t(TranslationKey.ID) + ' / item',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 50,
+    width: 60,
   },
 
   {

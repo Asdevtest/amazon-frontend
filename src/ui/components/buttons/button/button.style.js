@@ -6,7 +6,8 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '36px !important',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
-    color: theme.palette.text.negativeMain,
+    // color: theme.palette.text.negativeMain,
+    // color: '#fff',
 
     height: 40,
     // padding: '11px 25px 10px', ломает все кнопки
@@ -14,7 +15,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   success: {
-    color: `${theme.palette.text.negativeMain} !important`,
+    // color: `${theme.palette.text.negativeMain} !important`,
+    // color: '#fff',
 
     backgroundColor: '#009a07 !important',
     '&:hover': {
@@ -24,12 +26,14 @@ export const useClassNames = makeStyles()(theme => ({
         backgroundColor: '#4caf50 !important',
       },
     },
-    '&$disabled': {
+    '&: disabled': {
       backgroundColor: 'rgba(15, 169, 20, 0.5) !important',
     },
   },
   danger: {
-    color: `${theme.palette.text.negativeMain} !important`,
+    // color: `${theme.palette.text.negativeMain} !important`,
+    // color: '#fff',
+
     backgroundColor: '#ff0000 !important',
     '&:hover': {
       backgroundColor: '#c51a1c !important',
@@ -38,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
         backgroundColor: '#c51a1c !important',
       },
     },
-    '&$disabled': {
+    '&:disabled': {
       backgroundColor: 'rgba(210, 35, 35, 0.5) !important',
     },
   },

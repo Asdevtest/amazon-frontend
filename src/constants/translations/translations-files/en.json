@@ -1566,5 +1566,7 @@
   "Maximum value": "Maximum value",
   "Cancel task": "Cancel task",
   "Select date": "Select date",
-  "Inbound": "Inbound"
+  "Inbound": "Inbound",
+  "№ Order/ № Item": "№ Order/ № Item",
+  "Order number/Item": "Order number/Item"
 }

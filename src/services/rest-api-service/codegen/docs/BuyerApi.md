@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1BuyersOrdersGuidEditItemItemPatch**](BuyerApi.md#apiV1BuyersOrdersGuidEditItemItemPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit_item/{item} | # Редактировать номер заказа.
 [**apiV1BuyersOrdersGuidEditPatch**](BuyerApi.md#apiV1BuyersOrdersGuidEditPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit | # Редактировать заказ.
 [**apiV1BuyersOrdersGuidGet**](BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.
 [**apiV1BuyersOrdersGuidPayToSupplierPatch**](BuyerApi.md#apiV1BuyersOrdersGuidPayToSupplierPatch) | **PATCH** /api/v1/buyers/orders/{guid}/pay_to_supplier | # Выставить статус оплачено поставщику.
@@ -21,6 +22,62 @@ Method | HTTP request | Description
 [**apiV1BuyersTasksGet**](BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
 [**apiV1BuyersTasksPost**](BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
 
+
+
+## apiV1BuyersOrdersGuidEditItemItemPatch
+
+> String apiV1BuyersOrdersGuidEditItemItemPatch(guid, item, opts)
+
+# Редактировать номер заказа.
+
+## Редактировать номер заказа
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = null; // String | GUID заказа, который планируем изменить
+let item = 56; // Number | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersOrdersGuidEditItemItemPatch(guid, item, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
+ **item** | **Number**|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## apiV1BuyersOrdersGuidEditPatch

@@ -58,6 +58,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  orderItemWrapper: {
+    display: 'flex',
+    marginLeft: '69px',
+    alignItems: 'center',
+  },
+
   orderNum: {
     fontSize: '16px',
     fontWeight: 400,

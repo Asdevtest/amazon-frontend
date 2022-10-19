@@ -3,6 +3,7 @@ import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
@@ -132,7 +133,7 @@ export const buyerMyOrdersDataConverter = data =>
     amount: item.amount,
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
-    ID: item.id,
+    ID: `${item.id} / ${item.item ? item.item : '-'}`,
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
@@ -261,7 +262,7 @@ export const depersonalizedPickDataConverter = data =>
 export const clientOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item.id,
+    id: `${item.id} / ${item.item ? item.item : '-'}`,
 
     barCode: item.product.barCode,
     totalPrice: item.totalPrice,
@@ -310,6 +311,11 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
+
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items.reduce(
+      (acc, cur) => (acc += cur.order.id + ', '),
+      '',
+    )}  item №: ${item.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')}`,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>

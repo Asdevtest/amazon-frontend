@@ -4,6 +4,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -33,6 +34,8 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+
+  'item',
 ]
 
 export class BuyerMyOrdersViewModel {
@@ -59,6 +62,8 @@ export class BuyerMyOrdersViewModel {
   showSuccessModal = false
   showOrderPriceMismatchModal = false
   showConfirmModal = false
+
+  showSuccessModalText = ''
 
   dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
 
@@ -186,6 +191,20 @@ export class BuyerMyOrdersViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async onSaveOrderItem(orderId, orderItem) {
+    try {
+      await BuyerModel.changeOrderItem(orderId, orderItem)
+
+      this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
+
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -360,6 +379,8 @@ export class BuyerMyOrdersViewModel {
       })
 
       if (!this.error) {
+        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+
         this.onTriggerOpenModal('showSuccessModal')
       }
       await this.getBoxesOfOrder(order._id)

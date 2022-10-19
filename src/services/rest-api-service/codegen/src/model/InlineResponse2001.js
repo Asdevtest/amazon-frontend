@@ -65,6 +65,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('trackingNumberChina')) {
                 obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+            }
             if (data.hasOwnProperty('buyerComment')) {
                 obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
@@ -161,6 +164,11 @@ InlineResponse2001.prototype['clientComment'] = undefined;
  * @member {String} trackingNumberChina
  */
 InlineResponse2001.prototype['trackingNumberChina'] = undefined;
+
+/**
+ * @member {Number} item
+ */
+InlineResponse2001.prototype['item'] = undefined;
 
 /**
  * комментарии байера.

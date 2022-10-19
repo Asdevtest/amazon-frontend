@@ -42,6 +42,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      showSuccessModalText,
       volumeWeightCoefficient,
       photosToLoad,
       requestStatus,
@@ -78,6 +79,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onSubmitCancelOrder,
+      onSaveOrderItem,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -151,6 +153,7 @@ class BuyerMyOrdersViewRaw extends Component {
             setPhotosToLoad={setPhotosToLoad}
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
+            onSaveOrderItem={onSaveOrderItem}
           />
         </Modal>
 
@@ -203,7 +206,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['A task was created for the warehouse: "Receive a box"'])}
+          title={showSuccessModalText}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')

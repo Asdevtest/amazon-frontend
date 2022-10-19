@@ -37,6 +37,9 @@ export const styles = theme => ({
     marginTop: '15px',
   },
   button: {
+    padding: '0 15',
+    height: 'auto',
+    whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.text.general,
   },
