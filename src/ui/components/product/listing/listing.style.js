@@ -47,7 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '25px',
 
     padding: 0,
-    border: 'none',
   },
 
   listingSearchTerms: {
@@ -56,7 +55,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'block',
 
     padding: 0,
-    border: 'none',
   },
 
   searchSupplierField: {
@@ -224,9 +222,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
     width: '100%',
     // overflowY: 'hidden',
-
     padding: 0,
-    border: 'none',
   },
 
   descriptionProduct: {

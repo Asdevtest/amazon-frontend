@@ -804,7 +804,8 @@ export const styles = theme => ({
   },
 
   warehouseBoxesBtn: {
-    width: '200px',
+    width: '210px',
+    // height: 'auto',
   },
 
   shopsReportBtnsWrapper: {

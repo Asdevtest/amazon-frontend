@@ -32,7 +32,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 231,
 
     padding: 0,
-    border: 'none',
   },
   priceOptionsWrapper: {
     width: '573px',

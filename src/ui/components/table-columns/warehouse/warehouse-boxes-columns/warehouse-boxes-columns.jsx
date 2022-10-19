@@ -118,7 +118,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 220,
+    width: 230,
 
     renderCell: params => (
       <WarehouseBoxesBtnsCell

@@ -38,7 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     padding: 0,
-    border: 'none',
   },
 
   buttonOk: {

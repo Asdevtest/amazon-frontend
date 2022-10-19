@@ -9,19 +9,13 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.negativeMain,
 
     height: 40,
-
-    padding: '11px 25px 10px',
+    // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
-
-    // '&$disabled': {
-    //   backgroundColor: '#fff !important',
-    // },
   },
 
   success: {
     color: `${theme.palette.text.negativeMain} !important`,
 
-    // color: '#fff !important',
     backgroundColor: '#009a07 !important',
     '&:hover': {
       backgroundColor: '#4caf50 !important',
@@ -35,7 +29,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   danger: {
-    // color: '#fff !important',
     color: `${theme.palette.text.negativeMain} !important`,
     backgroundColor: '#ff0000 !important',
     '&:hover': {

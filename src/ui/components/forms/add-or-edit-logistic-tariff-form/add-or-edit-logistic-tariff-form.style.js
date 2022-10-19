@@ -42,7 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'hidden',
 
     padding: 0,
-    border: 'none',
   },
 
   standartText: {

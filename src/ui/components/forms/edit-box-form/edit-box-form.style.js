@@ -43,7 +43,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     padding: 0,
-    border: 'none',
   },
 
   standartText: {
@@ -130,7 +129,6 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '250px',
 
     padding: 0,
-    border: 'none',
   },
   commentsWrapper: {
     display: 'flex',

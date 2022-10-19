@@ -32,7 +32,6 @@ export const styles = theme => ({
     minWidth: '250px',
 
     padding: 0,
-    border: 'none',
   },
   buttonsWrapper: {
     marginTop: '15px',
