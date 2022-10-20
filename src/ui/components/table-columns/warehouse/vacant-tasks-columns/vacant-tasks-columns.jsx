@@ -8,6 +8,7 @@ import {
   NormalActionBtnCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
+  MultilineTextCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -50,6 +51,24 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     filterable: false,
     sortable: false,
   },
+  {
+    field: 'asin',
+    headerName: 'ASIN',
+    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
+  },
+
+  {
+    field: 'orderId',
+    headerName: t(TranslationKey['Order number']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
+  },
+
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),

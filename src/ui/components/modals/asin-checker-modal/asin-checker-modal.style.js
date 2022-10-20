@@ -33,10 +33,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   heightFieldAuto: {
-    height: '141px',
+    height: 'auto',
     width: '100%',
 
     padding: 0,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   buttonOk: {

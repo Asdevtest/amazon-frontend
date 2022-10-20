@@ -29,7 +29,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   const onClickPreviewButton = () => {
     const asinsData = asins ? asins.split('\n') : []
     const reasonsData = reasons ? reasons.split('\n') : []
-    console.log(asinsData)
+
     const data = []
     asinsData.length &&
       asinsData.forEach((item, index) => {
@@ -67,7 +67,9 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         <Typography variant="h5" className={classNames.modalMessageTitle}>
           {t(TranslationKey['ASIN list'])}
         </Typography>
-        <Typography>{humanFriendlyStategyStatus(strategy).toUpperCase()}</Typography>
+        <Typography className={classNames.standartText}>
+          {humanFriendlyStategyStatus(strategy).toUpperCase()}
+        </Typography>
       </div>
       <div className={classNames.modalFieldsWrapper}>
         <Field

@@ -425,6 +425,23 @@ export const warehouseTasksDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     storekeeper: item.storekeeper?.name,
+    asin: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.product.asin + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    ).join(', '),
+
+    orderId: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.id + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    ).join(', '),
   }))
 
 export const adminProductsDataConverter = data =>
@@ -532,6 +549,11 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     updatedAt: item.updatedAt,
     batchId: item.batch?.humanFriendlyId,
     volumeWeightCoefficient,
+
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items.reduce(
+      (acc, cur) => (acc += cur.order.id + ', '),
+      '',
+    )}  item №: ${item.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')}`,
   }))
 
 export const adminBatchesDataConverter = data =>

@@ -34,7 +34,6 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'left',
     fontSize: '14px !important',
     lineHeight: '19px !important',
-    color: '#656565 !important',
   },
 
   nameCell: {
@@ -42,18 +41,15 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '5px 15px',
     fontSize: '14px !important',
     lineHeight: '19px !important',
-    color: '#001029 !important',
   },
 
   indexCell: {
     padding: 0,
     fontSize: '14px !important',
     lineHeight: '19px !important',
-    color: '#c4c4c4 !important',
   },
   clearCell: {
     padding: 0,
-    color: '#001029 !important',
     cursor: 'pointer',
   },
 

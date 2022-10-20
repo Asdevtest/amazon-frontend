@@ -99,14 +99,25 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSubWrapper: {
+    width: 178,
+
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: '25px',
     [theme.breakpoints.down(768)]: {
       gap: '10px',
     },
   },
+
+  attributeFooterSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
+  },
+
   asinWrapper: {
+    marginTop: 10,
     display: 'flex',
     alignItems: 'center',
     gap: '25px',

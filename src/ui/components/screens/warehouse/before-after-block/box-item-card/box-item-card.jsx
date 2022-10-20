@@ -64,26 +64,39 @@ export const BoxItemCard = ({
           </div>
 
           <div className={classNames.attributeFooterWrapper}>
-            <div
-              className={cx(classNames.barCodeWrapper, {
-                [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
-              })}
-            >
-              <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
-                {t(TranslationKey.BarCode) + ':'}
-              </Text>
+            <div className={classNames.attributeFooterSubWrapper}>
+              <div
+                className={cx(classNames.barCodeWrapper, {
+                  [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
+                })}
+              >
+                <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
+                  {t(TranslationKey.BarCode) + ':'}
+                </Text>
 
-              {item.barCode ? (
-                <div className={classNames.barCode}>
-                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                    <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                  </Link>
-                  <CopyValue text={item.barCode} />
-                </div>
-              ) : (
-                <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
-              )}
+                {item.barCode ? (
+                  <div className={classNames.barCode}>
+                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                    </Link>
+                    <CopyValue text={item.barCode} />
+                  </div>
+                ) : (
+                  <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
+                )}
+              </div>
+
+              <div className={classNames.countSubWrapper}>
+                <Typography className={classNames.subTitle}>{t(TranslationKey['Order number'])}</Typography>
+                <Typography className={classNames.count}>{item.order.id}</Typography>
+              </div>
+
+              <div className={classNames.countSubWrapper}>
+                <Typography className={classNames.subTitle}>{'item'}</Typography>
+                <Typography className={classNames.count}>{item.order.item}</Typography>
+              </div>
             </div>
+
             <div>
               <div className={classNames.chipWrapper}>
                 {item.barCode && (
@@ -144,8 +157,9 @@ export const BoxItemCard = ({
                 <div className={classNames.asinWrapper}>
                   <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
                   <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+                  {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
                 </div>
-                {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+                {/* {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null} */}
               </div>
 
               <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>

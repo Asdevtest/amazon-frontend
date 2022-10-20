@@ -1579,7 +1579,6 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
-  // '' = '',
 }
 
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"

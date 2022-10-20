@@ -7,7 +7,8 @@ import {
   TaskDescriptionCell,
   NormalActionBtnCell,
   TaskTypeCell,
-  MultilineTextHeaderCell, // WarehouseTasksBtnCell,
+  MultilineTextHeaderCell,
+  MultilineTextCell, // WarehouseTasksBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -48,6 +49,24 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'asin',
+    headerName: 'ASIN',
+    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
+  },
+
+  {
+    field: 'orderId',
+    headerName: t(TranslationKey['Order number']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
   },
   {
     field: 'updatedAt',
