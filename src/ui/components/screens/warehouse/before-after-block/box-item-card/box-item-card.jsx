@@ -49,7 +49,7 @@ export const BoxItemCard = ({
               </div>
 
               {superCount > 1 && (
-                <div className={classNames.countSubWrapper}>
+                <div className={classNames.countSuperBoxWrapper}>
                   <Typography className={classNames.subTitle}>{t(TranslationKey['Super Box']) + ':'}</Typography>
                   <Typography className={classNames.count}>{`x${superCount}`}</Typography>
                 </div>

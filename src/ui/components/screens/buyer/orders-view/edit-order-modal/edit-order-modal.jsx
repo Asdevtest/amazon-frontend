@@ -144,7 +144,7 @@ export const EditOrderModal = observer(
     const setOrderField = filedName => e => {
       const newOrderFieldsState = {...orderFields}
 
-      if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
+      if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate', 'item'].includes(filedName)) {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
           return
         }
@@ -154,8 +154,6 @@ export const EditOrderModal = observer(
         if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
           newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
         }
-      } else if (filedName === 'item') {
-        newOrderFieldsState[filedName] = e.target.value ? parseInt(e.target.value) : 0
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)

@@ -306,7 +306,7 @@ export const HsCodeCell = withStyles(
 
 export const ChangeChipCell = withStyles(
   ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label}) => (
-    <div>
+    <>
       {label ? <Typography className={classNames.changeChipCellLabel}>{label}</Typography> : null}
       <Chip
         disabled={disabled}
@@ -323,7 +323,7 @@ export const ChangeChipCell = withStyles(
         onDoubleClick={() => onDoubleClickChip(row)}
         onDelete={!value ? undefined : () => onDeleteChip(row)}
       />
-    </div>
+    </>
   ),
   styles,
 )

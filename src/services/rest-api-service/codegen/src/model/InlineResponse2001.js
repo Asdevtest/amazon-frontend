@@ -66,7 +66,7 @@ class InlineResponse2001 {
                 obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
             }
             if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
             if (data.hasOwnProperty('buyerComment')) {
                 obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
@@ -166,7 +166,7 @@ InlineResponse2001.prototype['clientComment'] = undefined;
 InlineResponse2001.prototype['trackingNumberChina'] = undefined;
 
 /**
- * @member {Number} item
+ * @member {String} item
  */
 InlineResponse2001.prototype['item'] = undefined;
 

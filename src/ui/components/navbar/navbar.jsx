@@ -16,6 +16,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Modal} from '@components/modal'
 import {FeedBackModal} from '@components/modals/feedback-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {checkIsAdmin} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -31,7 +32,8 @@ export const Navbar = observer(
 
     const viewModel = useRef(new NavbarModel())
 
-    const {showFeedbackModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} = viewModel.current
+    const {showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} =
+      viewModel.current
 
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
     const [shortNavbar, setShortNavbar] = useState(() => {
@@ -98,13 +100,23 @@ export const Navbar = observer(
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            <img src={'/assets/icons/FB icon.svg'} className={classNames.feedbackIcon} />
+            <img src={'/assets/icons/FB-icon.svg'} className={classNames.feedbackIcon} />
           </div>
         ) : null}
 
         <Modal openModal={showFeedbackModal} setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}>
           <FeedBackModal onSubmit={sendFeedbackAboutPlatform} onClose={() => onTriggerOpenModal('showFeedbackModal')} />
         </Modal>
+
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={t(TranslationKey['Feedback sent'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
       </div>
     )
     return (

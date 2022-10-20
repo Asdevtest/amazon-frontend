@@ -227,6 +227,7 @@ export const clientInventoryDataConverter = data =>
     stockSum:
       item.amountInOrders +
       item.amountInBoxes +
+      item.stockUSA +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
@@ -234,6 +235,7 @@ export const clientInventoryDataConverter = data =>
     hsCode: item.hsCode,
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
+    stockUSA: item.stockUSA,
   }))
 
 export const clientCustomRequestsDataConverter = data =>

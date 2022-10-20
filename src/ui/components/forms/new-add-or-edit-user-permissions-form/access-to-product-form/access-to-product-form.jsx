@@ -177,6 +177,7 @@ export const AccessToProductForm = observer(
               {selectedShop === shop?._id && curProdutsData ? (
                 <div className={classNames.tableWrapper}>
                   <DataGrid
+                    disableVirtualization
                     hideFooter
                     disableSelectionOnClick
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}

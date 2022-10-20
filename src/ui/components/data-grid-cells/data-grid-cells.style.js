@@ -190,7 +190,7 @@ export const styles = theme => ({
   },
 
   chipStock: {
-    width: '149px',
+    width: '100%',
   },
 
   noActivebarCode: {

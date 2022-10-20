@@ -60,7 +60,7 @@ class InlineObject28 {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -109,7 +109,7 @@ InlineObject28.prototype['logicsTariffId'] = undefined;
 InlineObject28.prototype['destinationId'] = undefined;
 
 /**
- * @member {Number} item
+ * @member {String} item
  */
 InlineObject28.prototype['item'] = undefined;
 

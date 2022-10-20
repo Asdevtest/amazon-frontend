@@ -1292,7 +1292,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -1742,7 +1743,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -2193,7 +2195,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -2643,7 +2646,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -2768,7 +2772,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "number", "example": 20},
+                  "item": {"type": "string", "example": "20"},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -3379,7 +3383,8 @@
                         "type": "number",
                         "description": "Каков должен быть сток за 4 месяца",
                         "example": 32
-                      }
+                      },
+                      "stockUSA": {"type": "number", "example": 213}
                     }
                   },
                   "storekeeper": {
@@ -4967,6 +4972,7 @@
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
                   },
+                  "stockUSA": {"type": "number", "example": 213},
                   "checkedby": {
                     "type": "object",
                     "required": ["name", "email", "_id", "role", "fba", "active", "rate"],
@@ -6079,7 +6085,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -6095,7 +6102,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -6819,7 +6826,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -8268,7 +8276,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -8284,7 +8293,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -8945,7 +8954,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -10009,7 +10019,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -10025,7 +10036,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -10686,7 +10697,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -11723,7 +11735,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -11739,7 +11752,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -12400,7 +12413,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -13437,7 +13451,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -13453,7 +13468,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -14114,7 +14129,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -15777,7 +15793,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -15793,7 +15810,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -16454,7 +16471,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -17921,7 +17939,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -17937,7 +17956,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -18598,7 +18617,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -19632,7 +19652,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -19648,7 +19669,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -20309,7 +20330,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -21274,7 +21296,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -21751,7 +21774,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -21849,7 +21873,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "number", "example": 20},
+                  "item": {"type": "string", "example": "20"},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -22460,7 +22484,8 @@
                         "type": "number",
                         "description": "Каков должен быть сток за 4 месяца",
                         "example": 32
-                      }
+                      },
+                      "stockUSA": {"type": "number", "example": 213}
                     }
                   },
                   "storekeeper": {
@@ -22647,7 +22672,7 @@
                   "type": "string",
                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                 },
-                "item": {"type": "number", "example": 20},
+                "item": {"type": "string", "example": "20"},
                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                 "status": {
                   "type": "number",
@@ -23237,7 +23262,8 @@
                       "type": "number",
                       "description": "Каков должен быть сток за 4 месяца",
                       "example": 32
-                    }
+                    },
+                    "stockUSA": {"type": "number", "example": 213}
                   }
                 },
                 "storekeeper": {
@@ -23439,7 +23465,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "number", "example": 20},
+                  "item": {"type": "string", "example": "20"},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -24050,7 +24076,8 @@
                         "type": "number",
                         "description": "Каков должен быть сток за 4 месяца",
                         "example": 32
-                      }
+                      },
+                      "stockUSA": {"type": "number", "example": 213}
                     }
                   },
                   "storekeeper": {
@@ -24360,7 +24387,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID пункта назначения."
                 },
-                "item": {"type": "number", "example": 20},
+                "item": {"type": "string", "example": "20"},
                 "images": {"type": "array", "description": "Массив картинок.", "items": {"type": "string"}},
                 "yuanToDollarRate": {"type": "number", "minimum": 0, "description": "Курс юань доллар."},
                 "deliveryCostToTheWarehouse": {
@@ -25178,7 +25205,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -25194,7 +25222,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -25918,7 +25946,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -27018,7 +27047,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -27034,7 +27064,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -27758,7 +27788,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -28244,7 +28275,7 @@
             "in": "path",
             "name": "guid"
           },
-          {"type": "number", "example": 20, "minimum": 0, "required": true, "in": "path", "name": "item"},
+          {"type": "string", "example": "20", "required": true, "in": "path", "name": "item"},
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
@@ -28748,6 +28779,42 @@
         }
       }
     },
+    "/api/v1/clients/products/{guid}/stockUSA": {
+      "patch": {
+        "summary": "# Внести изменения в stockUSA товара.",
+        "description": "## Внести изменения в stockUSA товара. \n\nПроверки: \nДанный товар не принадлежит вам.",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stockUSA": {"type": ["number", "null"], "description": "Каков должен быть сток США", "example": 32}
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID продукта, который будет изменен",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/clients/products/my": {
       "get": {
         "summary": "# Получить список товаров данного клиента используя фильтр",
@@ -29206,6 +29273,7 @@
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
                   },
+                  "stockUSA": {"type": "number", "example": 213},
                   "checkedby": {
                     "type": "object",
                     "required": ["name", "email", "_id", "role", "fba", "active", "rate"],
@@ -29340,7 +29408,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID storekeeper-a"
                 },
-                "item": {"type": "number", "example": 20},
+                "item": {"type": "string", "example": "20"},
                 "logicsTariffId": {
                   "type": "string",
                   "format": "uuid",
@@ -29414,7 +29482,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "number", "example": 20},
+                  "item": {"type": "string", "example": "20"},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -30025,7 +30093,8 @@
                         "type": "number",
                         "description": "Каков должен быть сток за 4 месяца",
                         "example": 32
-                      }
+                      },
+                      "stockUSA": {"type": "number", "example": 213}
                     }
                   },
                   "storekeeper": {
@@ -30198,7 +30267,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID storekeeper-a"
                 },
-                "item": {"type": "number", "example": 20},
+                "item": {"type": "string", "example": "20"},
                 "logicsTariffId": {
                   "type": "string",
                   "format": "uuid",
@@ -30278,7 +30347,7 @@
                   "type": "string",
                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                 },
-                "item": {"type": "number", "example": 20},
+                "item": {"type": "string", "example": "20"},
                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                 "status": {
                   "type": "number",
@@ -30868,7 +30937,8 @@
                       "type": "number",
                       "description": "Каков должен быть сток за 4 месяца",
                       "example": 32
-                    }
+                    },
+                    "stockUSA": {"type": "number", "example": 213}
                   }
                 },
                 "storekeeper": {
@@ -31051,7 +31121,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "number", "example": 20},
+                  "item": {"type": "string", "example": "20"},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -31662,7 +31732,8 @@
                         "type": "number",
                         "description": "Каков должен быть сток за 4 месяца",
                         "example": 32
-                      }
+                      },
+                      "stockUSA": {"type": "number", "example": 213}
                     }
                   },
                   "storekeeper": {
@@ -35711,7 +35782,8 @@
                   "type": "number",
                   "description": "Каков должен быть сток за 4 месяца",
                   "example": 32
-                }
+                },
+                "stockUSA": {"type": "number", "example": 213}
               }
             }
           },
@@ -37857,7 +37929,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -38387,7 +38460,8 @@
                   "type": "number",
                   "description": "Каков должен быть сток за 4 месяца",
                   "example": 32
-                }
+                },
+                "stockUSA": {"type": "number", "example": 213}
               }
             }
           },
@@ -39983,7 +40057,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -39999,7 +40074,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -40723,7 +40798,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -41823,7 +41899,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -41839,7 +41916,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -42563,7 +42640,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -43700,7 +43778,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -43716,7 +43795,7 @@
                                   "type": "string",
                                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 },
-                                "item": {"type": "number", "example": 20},
+                                "item": {"type": "string", "example": "20"},
                                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                                 "status": {
                                   "type": "number",
@@ -44432,7 +44511,8 @@
                                       "type": "number",
                                       "description": "Каков должен быть сток за 4 месяца",
                                       "example": 32
-                                    }
+                                    },
+                                    "stockUSA": {"type": "number", "example": 213}
                                   }
                                 },
                                 "storekeeper": {
@@ -45480,7 +45560,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -45496,7 +45577,7 @@
                                   "type": "string",
                                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 },
-                                "item": {"type": "number", "example": 20},
+                                "item": {"type": "string", "example": "20"},
                                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                                 "status": {
                                   "type": "number",
@@ -46212,7 +46293,8 @@
                                       "type": "number",
                                       "description": "Каков должен быть сток за 4 месяца",
                                       "example": 32
-                                    }
+                                    },
+                                    "stockUSA": {"type": "number", "example": 213}
                                   }
                                 },
                                 "storekeeper": {
@@ -47765,7 +47847,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -47781,7 +47864,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -48505,7 +48588,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -49605,7 +49689,8 @@
                                     "type": "number",
                                     "description": "Каков должен быть сток за 4 месяца",
                                     "example": 32
-                                  }
+                                  },
+                                  "stockUSA": {"type": "number", "example": 213}
                                 }
                               },
                               "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -49621,7 +49706,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "number", "example": 20},
+                                  "item": {"type": "string", "example": "20"},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -50345,7 +50430,8 @@
                                         "type": "number",
                                         "description": "Каков должен быть сток за 4 месяца",
                                         "example": 32
-                                      }
+                                      },
+                                      "stockUSA": {"type": "number", "example": 213}
                                     }
                                   },
                                   "storekeeper": {
@@ -51519,7 +51605,8 @@
                               "type": "number",
                               "description": "Каков должен быть сток за 4 месяца",
                               "example": 32
-                            }
+                            },
+                            "stockUSA": {"type": "number", "example": 213}
                           }
                         },
                         "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
@@ -51535,7 +51622,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "number", "example": 20},
+                            "item": {"type": "string", "example": "20"},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -52196,7 +52283,8 @@
                                   "type": "number",
                                   "description": "Каков должен быть сток за 4 месяца",
                                   "example": 32
-                                }
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
                               }
                             },
                             "storekeeper": {
@@ -53679,7 +53767,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }
@@ -54156,7 +54245,8 @@
                     "type": "number",
                     "description": "Каков должен быть сток за 4 месяца",
                     "example": 32
-                  }
+                  },
+                  "stockUSA": {"type": "number", "example": 213}
                 }
               }
             }

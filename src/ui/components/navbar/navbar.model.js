@@ -8,6 +8,7 @@ import {onSubmitPostImages} from '@utils/upload-files'
 
 export class NavbarModel {
   showFeedbackModal = false
+  showWarningModal = false
 
   get userInfo() {
     return UserModel.userInfo
@@ -34,6 +35,8 @@ export class NavbarModel {
       }
       await OtherModel.sendFeedback({text: comment, media: this.readyImages})
       this.onTriggerOpenModal('showFeedbackModal')
+
+      this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
     }

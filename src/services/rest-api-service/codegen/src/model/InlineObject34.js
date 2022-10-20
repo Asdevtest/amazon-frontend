@@ -51,7 +51,7 @@ class InlineObject34 {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
             if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
@@ -85,7 +85,7 @@ class InlineObject34 {
 InlineObject34.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {Number} item
+ * @member {String} item
  */
 InlineObject34.prototype['item'] = undefined;
 

@@ -110,6 +110,18 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  countSuperBoxWrapper: {
+    width: 60,
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '10px',
+    [theme.breakpoints.down(768)]: {
+      gap: '10px',
+    },
+  },
+
   attributeFooterSubWrapper: {
     display: 'flex',
     flexDirection: 'column',

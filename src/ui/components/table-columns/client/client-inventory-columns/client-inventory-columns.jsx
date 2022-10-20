@@ -16,11 +16,12 @@ import {
   ShowBarcodeOrHscodeCell,
   FourMonthesStockCell,
   MultilineTextAlignLeftCell,
+  ChangeChipCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
-export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers) => [
+export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers, stockUsHandlers) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -73,6 +74,20 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+  },
+
+  {
+    field: 'stockUSA',
+    headerName: t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />,
+    renderCell: params => (
+      <ChangeChipCell
+        row={params.row.originalData}
+        text={Number(params.value) > 0 ? params.value : `-`}
+        onClickChip={() => stockUsHandlers.onClickStockUs(params.row.originalData)}
+      />
+    ),
+    width: 110,
   },
 
   {

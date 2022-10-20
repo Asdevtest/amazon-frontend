@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **storekeeperId** | **String** | GUID storekeeper-a | 
-**item** | **Number** |  | [optional] 
+**item** | **String** |  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки | 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
 **amount** | **Number** | Кол-во продукта по этой позиции. | 

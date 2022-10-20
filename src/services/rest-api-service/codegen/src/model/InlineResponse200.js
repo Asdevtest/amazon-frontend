@@ -250,6 +250,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('fourMonthesStock')) {
                 obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
             }
+            if (data.hasOwnProperty('stockUSA')) {
+                obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
+            }
         }
         return obj;
     }
@@ -651,6 +654,11 @@ InlineResponse200.prototype['avgReviews'] = undefined;
  * @member {Number} fourMonthesStock
  */
 InlineResponse200.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * @member {Number} stockUSA
+ */
+InlineResponse200.prototype['stockUSA'] = undefined;
 
 
 

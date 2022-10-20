@@ -11,7 +11,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './set-chip-value-modal.style'
 
-export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) => {
+export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue, isInts}) => {
   const {classes: classNames} = useClassNames()
 
   const [newValue, setNewValue] = useState(sourceValue)
@@ -24,7 +24,7 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
         value={newValue}
-        onChange={e => setNewValue(e.target.value)}
+        onChange={e => setNewValue(isInts ? parseInt(e.target.value) : e.target.value)}
       />
 
       <Box className={classNames.saveBox}>

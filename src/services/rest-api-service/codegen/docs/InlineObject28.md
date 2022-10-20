@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **storekeeperId** | **String** | GUID storekeeper-a | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
-**item** | **Number** |  | [optional] 
+**item** | **String** |  | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 

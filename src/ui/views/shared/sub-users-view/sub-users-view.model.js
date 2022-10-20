@@ -227,9 +227,9 @@ export class SubUsersViewModel {
       const result = await methodByRole()
 
       runInAction(() => {
-        this.productsMy = clientInventoryDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.productsMy = clientInventoryDataConverter(result)
+          .filter(el => !el.originalData.archive)
+          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)
