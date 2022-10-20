@@ -12,6 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.background.main,
       flex: '0 0 20%',
       padding: '40px 0',
+      width: '100%',
     },
     // color: '#656565',
   },

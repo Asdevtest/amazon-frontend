@@ -33,8 +33,10 @@ export const styles = theme => ({
 
   button: {
     height: '40px',
-    width: '172px',
+    width: '156px',
     // Height: '40px !important'
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   balanceWrapper: {
@@ -45,8 +47,8 @@ export const styles = theme => ({
   },
 
   icon: {
-    marginLeft: '20px',
-    justifySelf: 'flex-end',
+    // marginLeft: '20px',
+    // justifySelf: 'flex-end',
     width: 11,
     height: 11,
   },

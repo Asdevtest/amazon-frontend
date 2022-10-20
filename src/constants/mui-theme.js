@@ -151,7 +151,7 @@ export const lightTheme = createTheme({
     background: {
       main: '#fff',
       second: '#F8F8F8',
-
+      third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
 
