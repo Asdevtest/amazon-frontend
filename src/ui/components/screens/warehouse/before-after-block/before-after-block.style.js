@@ -238,12 +238,15 @@ export const useClassNames = makeStyles()(theme => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     background: '#EFEFEF',
-
+    width: '90px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '3px',
     padding: 3,
+    [theme.breakpoints.down(768)]: {
+      width: '90px',
+    },
   },
 
   fileName: {
@@ -281,6 +284,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   greenText: {
     color: 'green',
+    [theme.breakpoints.down(768)]: {
+      marginLeft: '40px',
+    },
   },
 
   field: {

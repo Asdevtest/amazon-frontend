@@ -54,11 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '97px',
     borderRadius: '50%',
     // backgroundColor: theme.palette.background.second,
-    backgroundColor: theme.palette.background.second,
-
-    // boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',
-
-    boxShadow: `0px 0px 14px 6px ${theme.palette.boxShadow.main}, inset -4px -4px 13px ${theme.palette.boxShadow.main}`,
+    backgroundColor: theme.palette.background.third,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 

@@ -8,7 +8,6 @@ import React, {useRef, useState, useEffect} from 'react'
 import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
-import {Feedback} from '@constants/navbar-svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
@@ -96,10 +95,10 @@ export const Navbar = observer(
             )}
           </List>
         ) : null}
-        {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
+        {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            <Feedback className={classNames.feedbackIcon} />
+            <img src={'/assets/icons/FB icon.svg'} className={classNames.feedbackIcon} />
           </div>
         ) : null}
 

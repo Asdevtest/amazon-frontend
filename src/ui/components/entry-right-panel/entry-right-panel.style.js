@@ -13,10 +13,9 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.main,
     padding: '48px 64px',
     [theme.breakpoints.down(768)]: {
-      flexGrow: 0.5,
       flexDirection: 'column',
       width: '100vw',
-      padding: '0 20px',
+      padding: '0  20px 20px 20px',
     },
   },
   formWrapper: {

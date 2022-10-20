@@ -8,7 +8,7 @@ export const styles = theme => ({
       flexDirection: 'column',
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
+      // justifyContent: 'center',
     },
   },
 })
