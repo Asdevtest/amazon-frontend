@@ -378,6 +378,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [TestSwagger.AdminUserPatchDtoSchema](docs/AdminUserPatchDtoSchema.md)
+ - [TestSwagger.ApiV1AdminsFeedbackUser](docs/ApiV1AdminsFeedbackUser.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxProperties](docs/ApiV1AdminsGetProductsByStatusBoxProperties.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusCreatedBy](docs/ApiV1AdminsGetProductsByStatusCreatedBy.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers](docs/ApiV1AdminsGetProductsByStatusSuppliers.md)

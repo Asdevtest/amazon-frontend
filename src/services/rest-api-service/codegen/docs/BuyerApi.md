@@ -45,7 +45,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID заказа, который планируем изменить
-let item = 56; // Number | 
+let item = 3.4; // Number | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };

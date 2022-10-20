@@ -59,6 +59,9 @@ class InlineObject28 {
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'Number');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -104,6 +107,11 @@ InlineObject28.prototype['logicsTariffId'] = undefined;
  * @member {String} destinationId
  */
 InlineObject28.prototype['destinationId'] = undefined;
+
+/**
+ * @member {Number} item
+ */
+InlineObject28.prototype['item'] = undefined;
 
 /**
  * Массив картинок.

@@ -184,13 +184,13 @@ export const RightSideComments = observer(
               </Button>
             </div>
           )}
-          {acceptMessage && (
+          {acceptMessage ? (
             <div className={classNames.acceptMessageWrapper}>
-              <Alert elevation={0} severity="success">
+              <Alert elevation={5} severity="success">
                 {acceptMessage}
               </Alert>
             </div>
-          )}
+          ) : null}
         </Box>
       </Grid>
     )

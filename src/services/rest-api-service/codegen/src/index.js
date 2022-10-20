@@ -14,6 +14,7 @@
 
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
+import ApiV1AdminsFeedbackUser from './model/ApiV1AdminsFeedbackUser';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
@@ -341,6 +342,12 @@ export {
      * @property {module:model/AdminUserPatchDtoSchema}
      */
     AdminUserPatchDtoSchema,
+
+    /**
+     * The ApiV1AdminsFeedbackUser model constructor.
+     * @property {module:model/ApiV1AdminsFeedbackUser}
+     */
+    ApiV1AdminsFeedbackUser,
 
     /**
      * The ApiV1AdminsGetProductsByStatusBoxProperties model constructor.

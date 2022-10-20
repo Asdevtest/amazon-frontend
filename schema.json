@@ -2768,7 +2768,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "integer"},
+                  "item": {"type": "number", "example": 20},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -5223,6 +5223,7 @@
               "items": {
                 "type": "object",
                 "properties": {
+                  "_id": {"type": "string", "description": "GUID пользователя в БД."},
                   "text": {
                     "type": "string",
                     "description": "текст отзыва/репорта",
@@ -5233,7 +5234,22 @@
                     "description": "Прикрепленные ссылки на медиа для репорта/отзыва",
                     "items": {}
                   },
-                  "userId": {"type": "string", "format": "uuid"}
+                  "user": {
+                    "type": "object",
+                    "description": "Общая информация о пользователи",
+                    "nullable": true,
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID пользователя.",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                      "email": {"type": "string"}
+                    }
+                  },
+                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата создания."}
                 }
               }
             }
@@ -6079,7 +6095,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -8268,7 +8284,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -10009,7 +10025,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -11723,7 +11739,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -13437,7 +13453,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -15777,7 +15793,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -17921,7 +17937,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -19632,7 +19648,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",
@@ -21833,7 +21849,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "integer"},
+                  "item": {"type": "number", "example": 20},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -22631,7 +22647,7 @@
                   "type": "string",
                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                 },
-                "item": {"type": "integer"},
+                "item": {"type": "number", "example": 20},
                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                 "status": {
                   "type": "number",
@@ -23423,7 +23439,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "integer"},
+                  "item": {"type": "number", "example": 20},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -24344,6 +24360,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID пункта назначения."
                 },
+                "item": {"type": "number", "example": 20},
                 "images": {"type": "array", "description": "Массив картинок.", "items": {"type": "string"}},
                 "yuanToDollarRate": {"type": "number", "minimum": 0, "description": "Курс юань доллар."},
                 "deliveryCostToTheWarehouse": {
@@ -25177,7 +25194,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -27017,7 +27034,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -28227,7 +28244,7 @@
             "in": "path",
             "name": "guid"
           },
-          {"type": "integer", "minimum": 0, "required": true, "in": "path", "name": "item"},
+          {"type": "number", "example": 20, "minimum": 0, "required": true, "in": "path", "name": "item"},
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
@@ -29323,7 +29340,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID storekeeper-a"
                 },
-                "item": {"type": "integer"},
+                "item": {"type": "number", "example": 20},
                 "logicsTariffId": {
                   "type": "string",
                   "format": "uuid",
@@ -29397,7 +29414,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "integer"},
+                  "item": {"type": "number", "example": 20},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -30181,7 +30198,7 @@
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID storekeeper-a"
                 },
-                "item": {"type": "integer"},
+                "item": {"type": "number", "example": 20},
                 "logicsTariffId": {
                   "type": "string",
                   "format": "uuid",
@@ -30261,7 +30278,7 @@
                   "type": "string",
                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                 },
-                "item": {"type": "integer"},
+                "item": {"type": "number", "example": 20},
                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                 "status": {
                   "type": "number",
@@ -31034,7 +31051,7 @@
                     "type": "string",
                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                   },
-                  "item": {"type": "integer"},
+                  "item": {"type": "number", "example": 20},
                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                   "status": {
                     "type": "number",
@@ -39982,7 +39999,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -41822,7 +41839,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -43699,7 +43716,7 @@
                                   "type": "string",
                                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 },
-                                "item": {"type": "integer"},
+                                "item": {"type": "number", "example": 20},
                                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                                 "status": {
                                   "type": "number",
@@ -45479,7 +45496,7 @@
                                   "type": "string",
                                   "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 },
-                                "item": {"type": "integer"},
+                                "item": {"type": "number", "example": 20},
                                 "buyerComment": {"type": "string", "description": "комментарии байера."},
                                 "status": {
                                   "type": "number",
@@ -47764,7 +47781,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -49604,7 +49621,7 @@
                                     "type": "string",
                                     "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                   },
-                                  "item": {"type": "integer"},
+                                  "item": {"type": "number", "example": 20},
                                   "buyerComment": {"type": "string", "description": "комментарии байера."},
                                   "status": {
                                     "type": "number",
@@ -51518,7 +51535,7 @@
                               "type": "string",
                               "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                             },
-                            "item": {"type": "integer"},
+                            "item": {"type": "number", "example": 20},
                             "buyerComment": {"type": "string", "description": "комментарии байера."},
                             "status": {
                               "type": "number",

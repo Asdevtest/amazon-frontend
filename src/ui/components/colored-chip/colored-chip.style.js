@@ -1,39 +1,17 @@
+import {keyframes} from '@emotion/react'
+
 import {makeStyles} from 'tss-react/mui'
 
+const hypnoEye = keyframes`
+ 0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+`
+
 export const useClassNames = makeStyles()((theme, props) => ({
-  '@global': {
-    '@keyframes hypnoEye': {
-      '0%': {
-        transform: 'scale(0)',
-      },
-      '100%': {
-        transform: 'scale(1)',
-      },
-    },
-  },
-
-  // chip: props => ({
-  //   fontSize: '15px',
-  //   fontWeight: '600',
-  //   lineHeight: '20p',
-
-  //   borderRadius: '4px',
-  //   height: '36.5px',
-  //   color: 'rgba(0,0,0,.7)',
-  //   transition: '.7s ease-in-out',
-  //   backgroundColor: props.color,
-  //   '&:focus': {
-  //     backgroundColor: props.colorHover,
-  //     transform: 'scale(1.01)',
-  //     color: '#fff',
-  //   },
-  //   '&:hover': {
-  //     backgroundColor: props.colorHover,
-  //     transform: 'scale(1.01)',
-  //     color: 'rgba(255,255,255,.7)',
-  //   },
-  // }),
-
   chip: {
     fontSize: '15px',
     fontWeight: '600',
@@ -58,23 +36,6 @@ export const useClassNames = makeStyles()((theme, props) => ({
     },
   },
 
-  // chipActive: () => ({
-  //   color: '#fff',
-
-  //   '&::before': {
-  //     content: '""',
-  //     backgroundColor: 'black',
-  //     height: '36.5px',
-  //     width: '36.5px',
-  //     right: '30%',
-  //     textAlign: 'center',
-  //     borderRadius: '4px',
-  //     opacity: '0.4',
-  //     border: '7px solid white',
-  //     animation: 'hypnoEye .7s ease-in-out',
-  //   },
-  // }),
-
   chipActive: {
     color: '#fff',
 
@@ -88,7 +49,7 @@ export const useClassNames = makeStyles()((theme, props) => ({
       borderRadius: '4px',
       opacity: '0.4',
       border: '7px solid white',
-      animation: 'hypnoEye .7s ease-in-out',
+      animation: `${hypnoEye} .7s ease-in-out`,
     },
   },
 

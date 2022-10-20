@@ -27,6 +27,15 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
   },
 
   {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
+  },
+
+  {
     field: 'orders',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
@@ -75,15 +84,6 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     width: 170,
     filterable: false,
     sortable: false,
-  },
-
-  {
-    field: 'orderIdsItems',
-    headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-
-    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
   },
 
   {

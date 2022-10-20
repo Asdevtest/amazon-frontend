@@ -203,7 +203,7 @@ export const BoxViewForm = observer(
                         containerClasses={classNames.countContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['Order number/Item'])}
-                        value={`${item.order.id} / ${item.order.item}`}
+                        value={`${item.order?.id} / ${item.order?.item}`}
                       />
                     </div>
                   </div>

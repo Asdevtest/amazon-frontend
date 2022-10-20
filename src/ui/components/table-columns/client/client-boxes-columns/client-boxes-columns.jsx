@@ -19,13 +19,13 @@ import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientBoxesViewColumns = (handlers, storekeepersData) => [
-  {
-    field: 'isDraft',
-    headerName: '',
-    renderCell: params => (params.value ? 'isDraft' : 'OK'),
-    width: 60,
-    type: 'boolean',
-  },
+  // {
+  //   field: 'isDraft',
+  //   headerName: '',
+  //   renderCell: params => (params.value ? 'isDraft' : 'OK'),
+  //   width: 60,
+  //   type: 'boolean',
+  // },
 
   {
     field: 'humanFriendlyId',
@@ -34,6 +34,15 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+  },
+
+  {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
   },
 
   {
@@ -108,15 +117,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
-  },
-
-  {
-    field: 'orderIdsItems',
-    headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-
-    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
   },
 
   {

@@ -12,6 +12,17 @@ import {t} from './translations'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
+export const feedBackDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    media: item.media,
+    text: item.text,
+    userName: item.user.name,
+  }))
+
 export const myRequestsDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -312,10 +323,11 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
 
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items.reduce(
-      (acc, cur) => (acc += cur.order.id + ', '),
-      '',
-    )}  item №: ${item.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')}`,
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
@@ -432,7 +444,9 @@ export const warehouseTasksDataConverter = data =>
           '',
         )}`.split(', '),
       ),
-    ).join(', '),
+    )
+      .join(', ')
+      .slice(0, -2),
 
     orderId: Array.from(
       new Set(
@@ -441,7 +455,9 @@ export const warehouseTasksDataConverter = data =>
           '',
         )}`.split(', '),
       ),
-    ).join(', '),
+    )
+      .join(', ')
+      .slice(0, -2),
   }))
 
 export const adminProductsDataConverter = data =>
@@ -550,10 +566,11 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     batchId: item.batch?.humanFriendlyId,
     volumeWeightCoefficient,
 
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items.reduce(
-      (acc, cur) => (acc += cur.order.id + ', '),
-      '',
-    )}  item №: ${item.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')}`,
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
   }))
 
 export const adminBatchesDataConverter = data =>
