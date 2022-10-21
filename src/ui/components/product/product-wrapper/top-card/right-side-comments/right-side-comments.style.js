@@ -1,4 +1,17 @@
+import {keyframes} from '@emotion/react'
+
 import {makeStyles} from 'tss-react/mui'
+
+const ani = keyframes`
+ 0% {
+    transform: translateY(-150%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1
+  }
+`
 
 export const useClassNames = makeStyles()(theme => ({
   label: {
@@ -184,14 +197,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  '@keyframes ani': {
-    '0%': {transform: 'translateY(-150%)', opacity: 0},
-    '100%': {transform: 'translateY(0)', opacity: 1},
-  },
-
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
+    // top: '50%',
     left: '50%',
 
     padding: '10px',
@@ -199,7 +208,7 @@ export const useClassNames = makeStyles()(theme => ({
     zIndex: 999,
     opacity: 0,
     transform: 'translateY(-150%)',
-    animation: '$ani 1s forwards',
+    animation: `${ani} 1s forwards`,
   },
 
   acceptMessage: {

@@ -90,6 +90,8 @@ export class ClientInventoryViewRaw extends Component {
       showSetBarcodeModal,
       showSelectionSupplierModal,
       showSetChipValueModal,
+
+      showSetStockUsValueModal,
       showConfirmModal,
       curPage,
       productsMy,
@@ -145,6 +147,7 @@ export class ClientInventoryViewRaw extends Component {
 
       onChangeNameSearchValue,
       createSupplierSearchRequest,
+      onClickSavesStockUSA,
       withoutProduct,
       withProduct,
     } = this.viewModel
@@ -371,6 +374,7 @@ export class ClientInventoryViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
+                  disableVirtualization
                   pagination
                   useResizeContainer
                   checkboxSelection
@@ -460,6 +464,16 @@ export class ClientInventoryViewRaw extends Component {
             sourceValue={selectedProduct?.hsCode}
             onSubmit={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showSetStockUsValueModal} setOpenModal={() => onTriggerOpenModal('showSetStockUsValueModal')}>
+          <SetChipValueModal
+            isInts
+            title={`${t(TranslationKey.Set)}`}
+            sourceValue={selectedProduct?.stockUSA}
+            onSubmit={onClickSavesStockUSA}
+            onCloseModal={() => onTriggerOpenModal('showSetStockUsValueModal')}
           />
         </Modal>
 

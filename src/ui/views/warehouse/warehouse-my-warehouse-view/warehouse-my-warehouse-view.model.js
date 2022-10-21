@@ -33,6 +33,7 @@ export class WarehouseMyWarehouseViewModel {
   tasksMy = []
   boxesData = []
   batches = []
+  baseBoxesMy = []
 
   curBox = undefined
   curBoxToMove = undefined
@@ -95,6 +96,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
+      this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient).sort(
+        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+      )
+
       this.getDataGridState()
     }
   }
@@ -390,6 +395,8 @@ export class WarehouseMyWarehouseViewModel {
       const boxes = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
+        this.baseBoxesMy = result
+
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.boxesMy = warehouseBoxesDataConverter(boxes, result.volumeWeightCoefficient).sort(

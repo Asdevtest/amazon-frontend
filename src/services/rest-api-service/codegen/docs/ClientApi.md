@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 [**apiV1ClientsProductsGuidGetPriceForClientGet**](ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
 [**apiV1ClientsProductsGuidPatch**](ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
+[**apiV1ClientsProductsGuidStockUSAPatch**](ClientApi.md#apiV1ClientsProductsGuidStockUSAPatch) | **PATCH** /api/v1/clients/products/{guid}/stockUSA | # Внести изменения в stockUSA товара.
 [**apiV1ClientsProductsMyGet**](ClientApi.md#apiV1ClientsProductsMyGet) | **GET** /api/v1/clients/products/my | # Получить список товаров данного клиента используя фильтр
 [**apiV1ClientsProductsPost**](ClientApi.md#apiV1ClientsProductsPost) | **POST** /api/v1/clients/products | # Добавить новый продукт клиентом.
 [**apiV1ClientsProductsVacGet**](ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
@@ -1110,6 +1111,62 @@ Name | Type | Description  | Notes
  **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsProductsGuidStockUSAPatch
+
+> String apiV1ClientsProductsGuidStockUSAPatch(guid, opts)
+
+# Внести изменения в stockUSA товара.
+
+## Внести изменения в stockUSA товара.   Проверки:  Данный товар не принадлежит вам.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = null; // String | GUID продукта, который будет изменен
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1ClientsProductsGuidStockUSAPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | **Object**|  | [optional] 
 
 ### Return type
 

@@ -1569,9 +1569,8 @@ export enum TranslationKey {
 
   '№ Order/ № Item' = '№ Order/ № Item',
   'Order number/Item' = 'Order number/Item',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Feedback sent' = 'Feedback sent',
+  'Additionally' = 'Additionally',
   // '' = '',
   // '' = '',
   // '' = '',

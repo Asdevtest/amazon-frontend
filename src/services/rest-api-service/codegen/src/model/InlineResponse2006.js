@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse2006 model module.
@@ -47,14 +48,20 @@ class InlineResponse2006 {
         if (data) {
             obj = obj || new InlineResponse2006();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('text')) {
                 obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -62,6 +69,12 @@ class InlineResponse2006 {
 
 
 }
+
+/**
+ * GUID пользователя в БД.
+ * @member {String} _id
+ */
+InlineResponse2006.prototype['_id'] = undefined;
 
 /**
  * текст отзыва/репорта
@@ -76,9 +89,15 @@ InlineResponse2006.prototype['text'] = undefined;
 InlineResponse2006.prototype['media'] = undefined;
 
 /**
- * @member {String} userId
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
  */
-InlineResponse2006.prototype['userId'] = undefined;
+InlineResponse2006.prototype['user'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse2006.prototype['updatedAt'] = undefined;
 
 
 

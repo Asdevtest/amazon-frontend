@@ -55,7 +55,7 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
         {children}
       </div>
 
-      <Typography className={classNames.version}>{'version: 1.0.0'}</Typography>
+      <Typography className={classNames.version}>{'version: 2.1.0'}</Typography>
     </div>
   )
 }

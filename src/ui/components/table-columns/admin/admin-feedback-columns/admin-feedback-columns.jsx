@@ -14,24 +14,26 @@ import {t} from '@utils/translations'
 
 export const adminFeedbackViewColumns = handlers => [
   {
-    field: 'user',
+    field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: params => <UserLinkCell blackText name={'Client'} userId={params.row.userId} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row.originalData.user.name} userId={params.row.originalData.user._id} />
+    ),
     width: 240,
   },
   {
-    field: 'review',
+    field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: params => <MultilineTextCell text={params.row.text} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 820,
   },
   {
-    field: 'photos',
+    field: 'media',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => <PhotoAndFilesCell files={params.row.media} />,
+    renderCell: params => <PhotoAndFilesCell files={params.value} />,
     width: 350,
   },
   {
@@ -44,7 +46,7 @@ export const adminFeedbackViewColumns = handlers => [
       <NormalActionBtnCell
         bTnText={t(TranslationKey.Reply)}
         // isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickWriteBtn(params.row.userId)}
+        onClickOkBtn={() => handlers.onClickWriteBtn(params.row.originalData.user._id)}
       />
     ),
   },

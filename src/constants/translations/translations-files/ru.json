@@ -1568,6 +1568,8 @@
   "Cancel task": "Отмена задачи",
   "Select date": "Выберите дату",
   "Inbound": "В пути",
-  "№ Order/ № Item": "№ Зказа/ № Item",
-  "Order number/Item": "Номер заказа/Item"
+  "№ Order/ № Item": "№ Заказа/ № Item",
+  "Order number/Item": "Номер заказа/Item",
+  "Feedback sent": "Обратная связь отправлена",
+  "Additionally": "Дополнительно"
 }

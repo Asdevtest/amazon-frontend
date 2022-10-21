@@ -14,8 +14,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   selectOption: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   button: {

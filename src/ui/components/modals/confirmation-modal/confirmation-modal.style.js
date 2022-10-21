@@ -1,20 +1,20 @@
+import {keyframes} from '@emotion/react'
+
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  '@global': {
-    '@keyframes animate_gradient': {
-      '0%': {
-        backgroundPosition: '0% 50%',
-      },
-      '50%': {
-        backgroundPosition: '100% 50%',
-      },
-      '100%': {
-        backgroundPosition: '0% 50%',
-      },
-    },
-  },
+const animate_gradient = keyframes`
+ 0% {
+    backgroundPosition: '0% 50%';
+  }
+  50% {
+    backgroundPosition: '100% 50%';
+  }
+  100% {
+    backgroundPosition: '0% 50%';
+  }
+`
 
+export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '425px',
     minHeight: '168px',
@@ -106,7 +106,7 @@ export const useClassNames = makeStyles()(theme => ({
     // width: '100%',
     borderRadius: '10px',
     backgroundSize: '400% 400%',
-    animation: 'animate_gradient 1.5s ease infinite',
+    animation: `${animate_gradient} 1.5s ease infinite`,
 
     fontWeight: '600',
     fontSize: '18px',

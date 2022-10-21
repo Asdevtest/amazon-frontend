@@ -219,6 +219,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidGetPriceForClientGet**](docs/ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
+*TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidStockUSAPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidStockUSAPatch) | **PATCH** /api/v1/clients/products/{guid}/stockUSA | # Внести изменения в stockUSA товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsMyGet**](docs/ClientApi.md#apiV1ClientsProductsMyGet) | **GET** /api/v1/clients/products/my | # Получить список товаров данного клиента используя фильтр
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsPost**](docs/ClientApi.md#apiV1ClientsProductsPost) | **POST** /api/v1/clients/products | # Добавить новый продукт клиентом.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsVacGet**](docs/ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
@@ -378,6 +379,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [TestSwagger.AdminUserPatchDtoSchema](docs/AdminUserPatchDtoSchema.md)
+ - [TestSwagger.ApiV1AdminsFeedbackUser](docs/ApiV1AdminsFeedbackUser.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxProperties](docs/ApiV1AdminsGetProductsByStatusBoxProperties.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusCreatedBy](docs/ApiV1AdminsGetProductsByStatusCreatedBy.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers](docs/ApiV1AdminsGetProductsByStatusSuppliers.md)

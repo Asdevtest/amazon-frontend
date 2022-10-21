@@ -117,6 +117,7 @@ export class ClientInventoryViewModel {
   showSetFourMonthsStockValueModal = false
   showCircularProgressModal = false
   showAddSuppliersModal = false
+  showSetStockUsValueModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -144,6 +145,10 @@ export class ClientInventoryViewModel {
     onDeleteFourMonthesStock: item => this.onDeleteFourMonthesStock(item),
   }
 
+  stockUsHandlers = {
+    onClickStockUs: item => this.onClickStockUs(item),
+  }
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -160,7 +165,12 @@ export class ClientInventoryViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers, this.fourMonthesStockHandlers)
+  columnsModel = clientInventoryColumns(
+    this.barCodeHandlers,
+    this.hsCodeHandlers,
+    this.fourMonthesStockHandlers,
+    this.stockUsHandlers,
+  )
 
   get isNoEditProductSelected() {
     return this.selectedRowIds.some(prodId => {
@@ -253,6 +263,7 @@ export class ClientInventoryViewModel {
         this.barCodeHandlers,
         this.hsCodeHandlers,
         this.fourMonthesStockHandlers,
+        this.stockUsHandlers,
       ).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
@@ -479,6 +490,19 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onClickSavesStockUSA(value) {
+    await ClientModel.editProductsStockUS(this.selectedProduct._id, {
+      stockUSA: value,
+    })
+
+    this.onTriggerOpenModal('showSetStockUsValueModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
   async onClickSaveHsCode(hsCode) {
     await ProductModel.editProductsHsCods([{productId: this.selectedProduct._id, hsCode}])
 
@@ -560,6 +584,11 @@ export class ClientInventoryViewModel {
     this.currentHscode = hscode
     this.currentBarcode = barcode
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
+  }
+
+  onClickStockUs(item) {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetStockUsValueModal')
   }
 
   onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {

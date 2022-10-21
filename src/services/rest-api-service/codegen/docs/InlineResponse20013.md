@@ -71,6 +71,7 @@ Name | Type | Description | Notes
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Каков должен быть сток за 4 месяца | [optional] 
+**stockUSA** | **Number** |  | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 **productsInWarehouse** | **[Object]** |  | [optional] 
 

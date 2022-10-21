@@ -12,6 +12,17 @@ import {t} from './translations'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
+export const feedBackDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    media: item.media,
+    text: item.text,
+    userName: item.user.name,
+  }))
+
 export const myRequestsDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -216,6 +227,7 @@ export const clientInventoryDataConverter = data =>
     stockSum:
       item.amountInOrders +
       item.amountInBoxes +
+      item.stockUSA +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
@@ -223,6 +235,7 @@ export const clientInventoryDataConverter = data =>
     hsCode: item.hsCode,
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
+    stockUSA: item.stockUSA,
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -312,10 +325,11 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
 
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items.reduce(
-      (acc, cur) => (acc += cur.order.id + ', '),
-      '',
-    )}  item №: ${item.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')}`,
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
@@ -425,6 +439,27 @@ export const warehouseTasksDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     storekeeper: item.storekeeper?.name,
+    asin: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.product.asin + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    )
+      .join(', ')
+      .slice(0, -2),
+
+    orderId: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.id + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    )
+      .join(', ')
+      .slice(0, -2),
   }))
 
 export const adminProductsDataConverter = data =>
@@ -532,6 +567,12 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     updatedAt: item.updatedAt,
     batchId: item.batch?.humanFriendlyId,
     volumeWeightCoefficient,
+
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
   }))
 
 export const adminBatchesDataConverter = data =>

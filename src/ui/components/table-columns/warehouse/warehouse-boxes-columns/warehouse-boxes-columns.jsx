@@ -11,6 +11,7 @@ import {
   SuperboxQtyCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
+  OrdersIdsItemsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -23,6 +24,15 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+  },
+
+  {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
   },
 
   {

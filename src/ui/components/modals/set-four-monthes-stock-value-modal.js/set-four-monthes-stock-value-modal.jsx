@@ -46,7 +46,7 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
       <div className={classNames.errorWrapper}>
-        <span className={cx(newValue > 99999 && classNames.error)}>{`${t(
+        <span className={cx(classNames.standartText, {[classNames.error]: newValue > 99999})}>{`${t(
           TranslationKey['Maximum value'],
         )} 99999`}</span>
       </div>

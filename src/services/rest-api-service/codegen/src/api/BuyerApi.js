@@ -51,7 +51,7 @@ export default class BuyerApi {
      * # Редактировать номер заказа.
      * ## Редактировать номер заказа
      * @param {String} guid GUID заказа, который планируем изменить
-     * @param {Number} item 
+     * @param {String} item 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
@@ -95,7 +95,7 @@ export default class BuyerApi {
      * # Редактировать номер заказа.
      * ## Редактировать номер заказа
      * @param {String} guid GUID заказа, который планируем изменить
-     * @param {Number} item 
+     * @param {String} item 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}

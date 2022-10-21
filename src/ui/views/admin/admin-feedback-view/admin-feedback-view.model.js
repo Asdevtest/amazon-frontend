@@ -6,13 +6,14 @@ import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {ChatModel} from '@models/chat-model'
-import {RequestModel} from '@models/request-model'
+import {ChatsModel} from '@models/chats-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {adminFeedbackViewColumns} from '@components/table-columns/admin/admin-feedback-columns/admin-feedback-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {feedBackDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminFeedbackViewModel {
@@ -137,7 +138,7 @@ export class AdminFeedbackViewModel {
       const result = await AdministratorModel.getFeedback()
 
       runInAction(() => {
-        this.feedbackList = addIdDataConverter(result)
+        this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
       })
     } catch (error) {
       console.log(error)
@@ -148,7 +149,7 @@ export class AdminFeedbackViewModel {
   async onClickWriteBtn(anotherUserId) {
     try {
       if (!this.simpleChats.some(el => el.users.map(e => e._id).includes(anotherUserId))) {
-        await RequestModel.createSimpleChatByUserId(anotherUserId)
+        await ChatsModel.createSimpleChatByUserId(anotherUserId)
       }
 
       this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {

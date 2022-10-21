@@ -251,6 +251,9 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('fourMonthesStock')) {
                 obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
             }
+            if (data.hasOwnProperty('stockUSA')) {
+                obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
+            }
             if (data.hasOwnProperty('checkedby')) {
                 obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
             }
@@ -657,6 +660,11 @@ InlineResponse20013.prototype['avgReviews'] = undefined;
  * @member {Number} fourMonthesStock
  */
 InlineResponse20013.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * @member {Number} stockUSA
+ */
+InlineResponse20013.prototype['stockUSA'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby

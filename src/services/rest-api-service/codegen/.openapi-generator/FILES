@@ -4,6 +4,7 @@
 README.md
 docs/AdminUserPatchDtoSchema.md
 docs/AdministratorApi.md
+docs/ApiV1AdminsFeedbackUser.md
 docs/ApiV1AdminsGetProductsByStatusBoxProperties.md
 docs/ApiV1AdminsGetProductsByStatusCreatedBy.md
 docs/ApiV1AdminsGetProductsByStatusSuppliers.md
@@ -313,6 +314,7 @@ src/api/SupplierApi.js
 src/api/UserApi.js
 src/index.js
 src/model/AdminUserPatchDtoSchema.js
+src/model/ApiV1AdminsFeedbackUser.js
 src/model/ApiV1AdminsGetProductsByStatusBoxProperties.js
 src/model/ApiV1AdminsGetProductsByStatusCreatedBy.js
 src/model/ApiV1AdminsGetProductsByStatusSuppliers.js

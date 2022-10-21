@@ -124,6 +124,7 @@ export const lightTheme = createTheme({
         sx: {
           '&.Mui-disabled': {
             backgroundColor: 'rgba(0, 0, 0, 0.12)',
+            // color: '#001029',
           },
         },
       },
@@ -261,11 +262,53 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
+      // sx: {
+      //   '&.Mui-disabled': {
+      //     // backgroundColor: 'rgba(0, 0, 0, 0.12)',
+      //     color: '#001029 !important',
+      //   },
+      // },
       styleOverrides: {
         root: {
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+
+          // '& >disabled': {
+          //   color: '#001029 !important',
+          // },
+
+          // '&.Mui-disabled': {
+          //   // backgroundColor: '#a0a0a4',
+          //   color: '#fff',
+          // },
+
+          // '::-webkit-text-fill-color': {
+          //   color: '#001029 !important',
+          //   // color: '#001029',
+          // },
+        },
+
+        // '&.Mui-disabled': {
+        //   // backgroundColor: '#a0a0a4',
+        //   color: '#fff',
+        // },
+
+        disabled: {
+          color: '#001029 !important',
+
+          // '::-webkit-text-fill-color': {
+          //   color: '#001029 !important',
+          //   // color: '#001029',
+          // },
+        },
+      },
+    },
+
+    Mui: {
+      styleOverrides: {
+        disabled: {
+          color: '#001029 !important',
         },
       },
     },
@@ -301,6 +344,7 @@ export const darkTheme = createTheme({
         sx: {
           '&.Mui-disabled': {
             backgroundColor: '#a0a0a4',
+            color: '#fff',
           },
         },
       },
@@ -332,6 +376,16 @@ export const darkTheme = createTheme({
         // '::-webkit-scrollbar-track': {
         //   backgroundColor: '#2B2B34',
         //   // backgroundColor: '#fff',
+        // },
+
+        // '::-webkit-text-fill-color': {
+        //   color: '#001029 !important',
+        //   // color: '#001029',
+        // },
+
+        // '&:Mui-disabled': {
+        //   // backgroundColor: '#a0a0a4',
+        //   color: '#fff !important',
         // },
       },
     },
@@ -379,6 +433,7 @@ export const darkTheme = createTheme({
     input: {
       // disabled: '#36363F',
       // disabled: '#9999a8',
+      // disabled: '#fff',
 
       disabled: '#a0a0a4',
 
