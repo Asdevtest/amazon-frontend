@@ -7,11 +7,20 @@ import {
   NormDateWithoutTimeCell,
   MultilineTextCell,
   ScrollingCell,
+  NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const clientLast30DaySellerBoardColumns = () => [
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
   {
     field: 'shopName',
     headerName: t(TranslationKey.Shop),

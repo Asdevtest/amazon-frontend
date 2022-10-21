@@ -8,7 +8,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {productIntegrationsColumns} from '@components/table-columns/product/integrations-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 
 export class IntegrationsModel {
   history = undefined
@@ -129,7 +129,7 @@ export class IntegrationsModel {
       const result = await SellerBoardModel.getProductsWithSkuById(this.productId)
 
       runInAction(() => {
-        this.sellerBoardData = addIdDataConverter(result)
+        this.sellerBoardData = stockReportDataConverter(result)
       })
     } catch (error) {
       console.log(error)

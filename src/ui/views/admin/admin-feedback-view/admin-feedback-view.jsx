@@ -81,6 +81,7 @@ export class AdminFeedbackViewRaw extends Component {
               </div>
 
               <DataGrid
+                disableVirtualization
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
