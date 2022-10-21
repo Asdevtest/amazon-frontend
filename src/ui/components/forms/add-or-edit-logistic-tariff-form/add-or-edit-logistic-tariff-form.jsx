@@ -168,8 +168,7 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.conditionsByRegion.yuanToDollarRate === '' ||
       Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
-      formFields.minWeightInKg === '' ||
-      formFields.minWeightInKg === '0' ||
+      Number(formFields.minWeightInKg) <= 0 ||
       toString(formFields.minWeightInKg).match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||

@@ -504,12 +504,24 @@ export const RenderFieldValueCell = withStyles(
 )
 
 export const MultilineTextCell = withStyles(
-  ({classes: classNames, text, noTextText, color}) => (
-    <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineText} style={color && {color}}>
-        {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
-      </Typography>
-    </div>
+  ({classes: classNames, text, noTextText, color, withTooltip}) => (
+    <>
+      {withTooltip ? (
+        <Tooltip title={text}>
+          <div className={classNames.multilineTextWrapper}>
+            <Typography className={classNames.multilineText} style={color && {color}}>
+              {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+            </Typography>
+          </div>
+        </Tooltip>
+      ) : (
+        <div className={classNames.multilineTextWrapper}>
+          <Typography className={classNames.multilineText} style={color && {color}}>
+            {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+          </Typography>
+        </div>
+      )}
+    </>
   ),
   styles,
 )
@@ -537,7 +549,8 @@ export const MultilineTextAlignLeftCell = withStyles(
         <div className={classNames.multilineTextAlignLeftWrapper}>
           <TextareaAutosize
             disabled
-            value={checkIsString(text).length > 200 ? text.slice(0, 197) + '...' : text}
+            value={checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
+            // value={text.length > 10 ? text.slice(0, 7) + '...' : text}
             className={classNames.multilineTextAlignLeft}
           />
         </div>
@@ -1126,7 +1139,7 @@ export const AdminUsersActionBtnsCell = withStyles(
 
 export const SuperboxQtyCell = withStyles(
   ({classes: classNames, qty, superbox}) => (
-    <div className={classNames.multilineTextWrapper}>
+    <div className={classNames.superBoxQtyWrapper}>
       <Typography>{qty || '-'}</Typography>
       <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
     </div>

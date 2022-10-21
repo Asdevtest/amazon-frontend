@@ -273,6 +273,7 @@ export const FieldsAndSuppliers = observer(
                       }
                       value={product.strategyStatus}
                       className={classNames.nativeSelect}
+                      input={<Input className={classNames.nativeSelect} />}
                       onChange={onChangeField('strategyStatus')}
                     >
                       <MenuItem value={''} className={classNames.strategyOption}>

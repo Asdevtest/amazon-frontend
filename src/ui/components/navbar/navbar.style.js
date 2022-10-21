@@ -92,14 +92,14 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   feedBackText: {
-    fontSize: '18px',
+    fontSize: '14px',
     lineHeight: '140%',
     color: theme.palette.text.general,
   },
 
   feedbackIcon: {
-    width: '54px',
-    height: '48px',
+    width: '46px',
+    height: '40px',
     // color: `${theme.palette.text.general} !important`,
     color: theme.palette.text.general,
   },
