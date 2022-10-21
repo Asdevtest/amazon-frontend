@@ -41,12 +41,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   showImagesBtn: {
-    maxHeight: '32px',
-    width: '110px',
+    // maxHeight: '32px',
+    // width: '110px',
+
+    padding: '11px 14px 10px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '10px',
+    borderRadius: '4px',
 
     color: '#001029',
 
@@ -69,12 +71,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   removeAllBtn: {
-    maxHeight: '32px',
-    width: '90px',
+    // maxHeight: '32px',
+    // width: '90px',
+    padding: '11px 14px 10px',
+
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    borderRadius: '10px',
+    borderRadius: '4px',
 
     color: '#001029',
     '&:hover': {

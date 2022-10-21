@@ -14,7 +14,7 @@ import {UserModel} from '@models/user-model'
 
 import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
@@ -243,7 +243,7 @@ export class StockReportModel {
       const result = await SellerBoardModel.getStockGoods(this.currentShop && {shopId: this.currentShop._id})
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = stockReportDataConverter(result)
       })
     } catch (error) {
       console.log(error)

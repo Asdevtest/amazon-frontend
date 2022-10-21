@@ -176,6 +176,11 @@ export const useClassNames = makeStyles()(theme => ({
 
     height: 36,
 
+    '& > disabled': {
+      // color: theme.palette.text.general,
+      backgroundColor: theme.palette.input.disabled,
+    },
+
     // backgroundColor: theme.palette.background.main,
   },
 

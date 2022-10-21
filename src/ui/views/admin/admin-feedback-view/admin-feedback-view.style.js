@@ -66,4 +66,30 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '290px',
+    height: '40px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
+  },
+
+  searchContainer: {
+    marginTop: 0,
+    width: 'auto',
+    // marginRight: 'calc(50% - 345px)',
+    [theme.breakpoints.down(768)]: {
+      marginTop: 0,
+      width: '100%',
+      marginRight: 0,
+    },
+  },
+
+  headerWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))

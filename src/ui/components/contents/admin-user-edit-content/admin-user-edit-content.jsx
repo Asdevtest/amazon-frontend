@@ -198,7 +198,9 @@ export const AdminUserEditContent = observer(
                       userId={editUserFormFields.masterUserInfo?._id}
                     />
 
-                    <Typography disabled>{editUserFormFields.masterUserInfo.email}</Typography>
+                    <Typography className={classNames.standartText}>
+                      {editUserFormFields.masterUserInfo.email}
+                    </Typography>
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
@@ -218,7 +220,7 @@ export const AdminUserEditContent = observer(
                       <div key={subUser._id} className={classNames.ratingWrapper}>
                         <UserLink name={subUser.name} userId={subUser._id} />
 
-                        <Typography disabled>{subUser.email}</Typography>
+                        <Typography className={classNames.standartText}>{subUser.email}</Typography>
                       </div>
                     ))}
                   </div>
@@ -331,6 +333,7 @@ export const AdminUserEditContent = observer(
                     <Select
                       size="small"
                       variant="standard"
+                      input={<Input fullWidth />}
                       classes={{select: classNames.selectRoot}}
                       value={selectedRole ? selectedRole : 'Роль'}
                       renderValue={selected =>

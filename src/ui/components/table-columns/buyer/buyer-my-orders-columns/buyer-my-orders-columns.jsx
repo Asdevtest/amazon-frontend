@@ -102,7 +102,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 300,
   },
 
@@ -111,7 +111,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 300,
   },
 

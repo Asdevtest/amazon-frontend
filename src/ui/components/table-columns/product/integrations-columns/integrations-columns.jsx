@@ -2,11 +2,34 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {MultilineTextHeaderCell, MultilineTextCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  MultilineTextHeaderCell,
+  MultilineTextCell,
+  ScrollingCell,
+  NormDateCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const productIntegrationsColumns = () => [
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 150,
+    type: 'date',
+  },
+
+  {
+    field: 'shopName',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
+  },
+
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),

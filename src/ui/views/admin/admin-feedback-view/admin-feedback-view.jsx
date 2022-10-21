@@ -1,3 +1,5 @@
+import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -10,6 +12,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -32,6 +35,7 @@ export class AdminFeedbackViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       getCurrentData,
       sortModel,
       filterModel,
@@ -50,6 +54,7 @@ export class AdminFeedbackViewRaw extends Component {
       onChangeSortingModel,
 
       onChangeFilterModel,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -60,7 +65,23 @@ export class AdminFeedbackViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Feedback)}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by name, email'])}
+                  value={nameSearchValue}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
+                disableVirtualization
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}

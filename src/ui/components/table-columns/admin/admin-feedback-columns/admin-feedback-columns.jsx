@@ -3,11 +3,12 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  MultilineTextCell,
+  NormDateCell,
+  MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
   NormalActionBtnCell,
   PhotoAndFilesCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -17,17 +18,16 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: params => (
-      <UserLinkCell blackText name={params.row.originalData.user.name} userId={params.row.originalData.user._id} />
-    ),
-    width: 240,
+    renderCell: params => <UserCell user={params.row.originalData.user} />,
+    width: 450,
   },
+
   {
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 820,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    width: 500,
   },
   {
     field: 'media',
@@ -49,5 +49,14 @@ export const adminFeedbackViewColumns = handlers => [
         onClickOkBtn={() => handlers.onClickWriteBtn(params.row.originalData.user._id)}
       />
     ),
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Date),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 ]

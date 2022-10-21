@@ -76,7 +76,6 @@ export const EditOrderModal = observer(
     )
 
     const [boxesForCreation, setBoxesForCreation] = useState([])
-    const [editingBox, setEditingBox] = useState({})
     const [isEdit, setIsEdit] = useState(false)
 
     const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
@@ -103,9 +102,9 @@ export const EditOrderModal = observer(
       setIsEdit(false)
     }
 
-    const onEditForCreationBox = index => {
+    const onEditForCreationBox = () => {
       setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)
-      setEditingBox(boxesForCreation[index])
+
       setIsEdit(true)
     }
 
@@ -225,6 +224,7 @@ export const EditOrderModal = observer(
 
             <Input
               className={classNames.itemInput}
+              inputProps={{maxLength: 9}}
               value={orderFields.item}
               endAdornment={
                 <InputAdornment position="start">
@@ -468,7 +468,6 @@ export const EditOrderModal = observer(
             order={order}
             currentSupplier={order.product.currentSupplier}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            editingBox={editingBox}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}
             setBoxesForCreation={setBoxesForCreation}

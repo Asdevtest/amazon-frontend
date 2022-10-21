@@ -159,7 +159,7 @@ export const CreateBoxForm = observer(
   ({
     currentSupplier,
     formItem,
-    editingBox,
+    // editingBox,
     boxesForCreation,
     onTriggerOpenModal,
     setBoxesForCreation,
@@ -191,7 +191,7 @@ export const CreateBoxForm = observer(
       tmpUseCurrentSupplierDimensions: false,
     }
 
-    const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
+    const [formFieldsArr, setFormFieldsArr] = useState(isEdit ? boxesForCreation : [sourceBox])
 
     const setFormField = (fieldName, orderBoxIndex) => e => {
       if (
@@ -202,7 +202,7 @@ export const CreateBoxForm = observer(
         return
       }
 
-      const newFormFields = isEdit ? editingBox : {...formFieldsArr[orderBoxIndex]}
+      const newFormFields = {...formFieldsArr[orderBoxIndex]}
 
       if (fieldName === 'amount') {
         newFormFields[fieldName] = isNaN(parseInt(e.target.value)) ? '' : parseInt(e.target.value)
@@ -249,7 +249,7 @@ export const CreateBoxForm = observer(
         }
       })
 
-      isEdit ? setBoxesForCreation([...boxesForCreation]) : setBoxesForCreation([...boxesForCreation, ...res])
+      isEdit ? setBoxesForCreation([...res]) : setBoxesForCreation([...boxesForCreation, ...res])
       onTriggerOpenModal()
     }
 
@@ -293,19 +293,49 @@ export const CreateBoxForm = observer(
       if (!checkIsPositiveNum(e.target.value)) {
         return
       }
+      let newFormFields = {...formFieldsArr[orderBoxIndex]}
 
-      const newStateFormFields = [...formFieldsArr]
-      newStateFormFields[orderBoxIndex] = {
-        ...newStateFormFields[orderBoxIndex],
+      console.log('orderBoxIndex', orderBoxIndex)
+
+      // console.log('formFieldsArr', formFieldsArr)
+
+      console.log('e.target.value', e.target.value)
+
+      newFormFields = {
+        ...newFormFields,
         items: [
           {
-            ...newStateFormFields[orderBoxIndex].items[0],
+            ...newFormFields.items[0],
             amount: Number(e.target.value),
           },
         ],
         tmpUseCurrentSupplierDimensions: false,
       }
-      setFormFieldsArr(newStateFormFields)
+
+      console.log('newFormFields', newFormFields)
+
+      const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
+
+      console.log('newFormFields', updatedNewBoxes)
+
+      setFormFieldsArr([...updatedNewBoxes])
+
+      console.log('formFieldsArr', formFieldsArr)
+
+      // const newStateFormFields = [...formFieldsArr]
+
+      // newStateFormFields[orderBoxIndex] = {
+      //   ...newStateFormFields[orderBoxIndex],
+      //   items: [
+      //     {
+      //       ...newStateFormFields[orderBoxIndex].items[0],
+      //       amount: Number(e.target.value),
+      //     },
+      //   ],
+      //   tmpUseCurrentSupplierDimensions: false,
+      // }
+
+      // setFormFieldsArr(newStateFormFields)
     }
 
     const onRemoveBox = boxIndex => {
@@ -399,22 +429,25 @@ export const CreateBoxForm = observer(
             </ToggleBtnGroup>
           </div>
 
-          <div className={classNames.blockOfNewBoxWrapper}>
-            {formFieldsArr.map((orderBox, orderBoxIndex) => (
-              <BlockOfNewBox
-                key={orderBoxIndex}
-                order={order}
-                volumeWeightCoefficient={volumeWeightCoefficient}
-                sizeSetting={sizeSetting}
-                orderBoxIndex={orderBoxIndex}
-                orderBox={isEdit ? editingBox : orderBox}
-                setFormField={setFormField}
-                setAmountField={setAmountField}
-                setDimensionsOfSupplierField={setDimensionsOfSupplierField}
-                onRemoveBox={onRemoveBox}
-              />
-            ))}
-          </div>
+          {formFieldsArr ? (
+            <div className={classNames.blockOfNewBoxWrapper}>
+              {formFieldsArr.map((orderBox, orderBoxIndex) => (
+                <BlockOfNewBox
+                  key={orderBoxIndex}
+                  order={order}
+                  volumeWeightCoefficient={volumeWeightCoefficient}
+                  sizeSetting={sizeSetting}
+                  orderBoxIndex={orderBoxIndex}
+                  // orderBox={isEdit ? editingBox : orderBox}
+                  orderBox={orderBox}
+                  setFormField={setFormField}
+                  setAmountField={setAmountField}
+                  setDimensionsOfSupplierField={setDimensionsOfSupplierField}
+                  onRemoveBox={onRemoveBox}
+                />
+              ))}
+            </div>
+          ) : null}
           {!isEdit ? (
             <div className={classNames.buttonsWrapper}>
               <Button

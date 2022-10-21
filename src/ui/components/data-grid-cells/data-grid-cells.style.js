@@ -568,6 +568,19 @@ export const styles = theme => ({
     marginLeft: '20px',
   },
 
+  superBoxQtyWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+
+    // marginLeft: '6px',
+
+    padding: '5px 0',
+  },
+
   multilineTextWrapper: {
     width: '100%',
     height: '100%',
@@ -601,6 +614,13 @@ export const styles = theme => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
+
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+
+    // display: '-webkit-box',
+    // '-webkitLineClamp': 3,
+    // '-webkitBoxOrient': 'vertical',
   },
 
   multilineAsinTextAlignLeft: {
@@ -664,6 +684,13 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'start',
     flexWrap: 'no-wrap',
+
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+
+    // display: '-webkit-box',
+    // '-webkitLineClamp': 4,
+    // '-webkitBoxOrient': 'vertical',
   },
 
   multilineTextAlignLeft: {
