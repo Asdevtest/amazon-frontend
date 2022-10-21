@@ -95,5 +95,3 @@ export const Button: FC<Props> = observer(
     )
   },
 )
-
-// export const Button = withStyles(ButtonRaw, styles)

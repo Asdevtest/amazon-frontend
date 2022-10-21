@@ -180,7 +180,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           >
             <DeleteIcon className={classNames.deleteBtn} />
           </Button>
-          <Button className={classNames.editBtnWrapper} onClick={() => handlers.onEditBox(itemIndex)}>
+          <Button className={classNames.editBtnWrapper} onClick={() => handlers.onEditBox()}>
             <EditIcon className={classNames.editBtn} />
           </Button>
         </div>

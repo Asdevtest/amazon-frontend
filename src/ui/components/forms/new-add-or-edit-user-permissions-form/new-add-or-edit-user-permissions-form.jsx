@@ -151,9 +151,8 @@ export const NewAddOrEditUserPermissionsForm = observer(
     }
 
     const submitDisabled =
-      (!formFields.length && !sourceData?.permissions.length) ||
-      (JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
-        JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender))
+      JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
+      JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender)
 
     return (
       <div className={classNames.root}>

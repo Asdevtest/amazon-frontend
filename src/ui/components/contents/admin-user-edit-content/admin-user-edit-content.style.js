@@ -53,7 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   userRoleSelect: {
-    color: theme.palette.text.negativeMain,
+    color: theme.palette.text.general,
 
     '&:disabled': {
       color: '#DEDEDE',
@@ -83,6 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   rating: {
     // margin: '0 20px',
+    color: theme.palette.text.general,
   },
 
   mainWrapper: {
@@ -129,11 +130,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   rateContainer: {
     width: '170px',
-    margin: 0,
+    marginBottom: '0 !important',
   },
 
   allowedRoleRateContainer: {
-    marginBottom: 0,
+    marginBottom: '0 !important',
     width: '38px',
     gap: 10,
     // marginRight: 20,
@@ -142,7 +143,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '270px',
   },
   allowedRoleContainer: {
-    marginBottom: 0,
+    marginBottom: '0 !important',
     width: '139px',
   },
 
@@ -166,7 +167,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   allowedRoleWrapper: {
-    border: '1px solid #C4C4C4',
+    // border: '1px solid #C4C4C4',
+    border: `1px solid ${theme.palette.input.disabled}`,
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

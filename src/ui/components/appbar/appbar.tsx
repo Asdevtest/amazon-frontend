@@ -267,7 +267,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                 </div>
               </MenuItem>
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
-                <PersonIcon color="primary" classes={{root: classNames.icon}} />
+                <PersonIcon className={classNames.icon} />
                 {t(TranslationKey.Profile)}
               </MenuItem>
 

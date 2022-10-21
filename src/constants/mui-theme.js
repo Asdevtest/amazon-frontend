@@ -411,7 +411,7 @@ export const darkTheme = createTheme({
       chatIncomeMessage: '#36363F',
       chatMyMessage: '#384C68',
 
-      tableCurRow: '#388E3C',
+      tableCurRow: '#001A15', // '#388E3C',
       red: '#2E0505',
       green: '#388E3C',
       entryLeftPanel: '#2B2B34',

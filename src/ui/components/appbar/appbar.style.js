@@ -108,7 +108,8 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     height: '100%',
     '&:hover': {
-      backgroundColor: '#CCE2FF',
+      // backgroundColor: '#CCE2FF',
+      backgroundColor: theme.palette.background.second,
     },
   },
   usernameAndBalanceWrapper: {
@@ -173,7 +174,8 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.main,
 
     '&:hover': {
-      backgroundColor: '#CCE2FF',
+      // backgroundColor: '#CCE2FF',
+      backgroundColor: theme.palette.background.second,
     },
     [theme.breakpoints.down(768)]: {
       display: 'flex',
@@ -188,7 +190,8 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: theme.palette.background.main,
 
       '&:hover': {
-        backgroundColor: '#CCE2FF',
+        // backgroundColor: '#CCE2FF',
+        backgroundColor: theme.palette.background.second,
       },
     },
   },
@@ -199,6 +202,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   icon: {
     marginRight: '13px',
+    color: theme.palette.primary.main,
   },
   menuTitle: {
     height: '30px',
