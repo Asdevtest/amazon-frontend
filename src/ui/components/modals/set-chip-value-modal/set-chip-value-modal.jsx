@@ -24,7 +24,7 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue, i
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
         value={newValue}
-        onChange={e => setNewValue(isInts ? parseInt(e.target.value) : e.target.value)}
+        onChange={e => setNewValue(isInts ? (e.target.value ? parseInt(e.target.value) : 0) : e.target.value)}
       />
 
       <Box className={classNames.saveBox}>

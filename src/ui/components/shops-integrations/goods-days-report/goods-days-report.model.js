@@ -9,7 +9,7 @@ import {ShopModel} from '@models/shop-model'
 
 import {clientLast30DaySellerBoardColumns} from '@components/table-columns/client/client-last-30-day-seller-board-columns copy'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -137,7 +137,9 @@ export class GoodsDaysReportModel {
       )
 
       runInAction(() => {
-        this.sellerBoardLast30DayData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('date'))
+        this.sellerBoardLast30DayData = stockReportDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('date'),
+        )
       })
     } catch (error) {
       console.log(error)

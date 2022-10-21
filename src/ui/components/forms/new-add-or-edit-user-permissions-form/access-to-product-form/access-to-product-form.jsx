@@ -132,27 +132,29 @@ export const AccessToProductForm = observer(
 
           <AccordionDetails classes={{root: classNames.details}}>
             <div className={classNames.detailsShopWrapper}>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={selectedAccess}
-                  onChange={e => handleChangeRadio(e.target.value)}
-                >
-                  <FormControlLabel
-                    value={accessProductSettings.ALL_PRODUCTS}
-                    className={classNames.standartText}
-                    control={<Radio color="primary" />}
-                    label={t(TranslationKey['Access to all products'])}
-                  />
-                  <FormControlLabel
-                    value={accessProductSettings.NEED_SELECT}
-                    className={classNames.standartText}
-                    control={<Radio color="primary" />}
-                    label={t(TranslationKey['Access to selected products only'])}
-                  />
-                </RadioGroup>
-              </FormControl>
+              {curProdutsData ? (
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={selectedAccess}
+                    onChange={e => handleChangeRadio(e.target.value)}
+                  >
+                    <FormControlLabel
+                      value={accessProductSettings.ALL_PRODUCTS}
+                      className={classNames.standartText}
+                      control={<Radio color="primary" />}
+                      label={t(TranslationKey['Access to all products'])}
+                    />
+                    <FormControlLabel
+                      value={accessProductSettings.NEED_SELECT}
+                      className={classNames.standartText}
+                      control={<Radio color="primary" />}
+                      label={t(TranslationKey['Access to selected products only'])}
+                    />
+                  </RadioGroup>
+                </FormControl>
+              ) : null}
 
               <div className={classNames.searchWrapper}>
                 <Typography className={classNames.standartText}>

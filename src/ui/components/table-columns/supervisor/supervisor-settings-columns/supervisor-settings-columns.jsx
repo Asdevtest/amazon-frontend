@@ -27,7 +27,7 @@ export const supervisorSettingsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
 
     width: 535,
-    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
   },
   {
     field: 'action',

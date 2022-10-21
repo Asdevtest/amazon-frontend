@@ -12,6 +12,15 @@ import {t} from './translations'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
+export const stockReportDataConverter = data =>
+  data.map((item, index) => ({
+    ...item,
+    originalData: item,
+    id: item._id ? item._id : index,
+
+    shopName: item.shop.name,
+  }))
+
 export const feedBackDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -21,6 +30,7 @@ export const feedBackDataConverter = data =>
     media: item.media,
     text: item.text,
     userName: item.user.name,
+    updatedAt: item.updatedAt,
   }))
 
 export const myRequestsDataConverter = data =>

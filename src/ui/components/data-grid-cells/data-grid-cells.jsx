@@ -543,8 +543,8 @@ export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
 }, styles)
 
 export const MultilineTextAlignLeftCell = withStyles(
-  ({classes: classNames, text, isComment, isAsin}) =>
-    isComment ? (
+  ({classes: classNames, text, withTooltip, isAsin}) =>
+    withTooltip ? (
       <Tooltip title={text}>
         <div className={classNames.multilineTextAlignLeftWrapper}>
           <TextareaAutosize

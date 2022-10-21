@@ -8,6 +8,15 @@ import {t} from '@utils/translations'
 
 export const clientDailySellerBoardColumns = () => [
   {
+    field: 'shopName',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
+  },
+
+  {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,

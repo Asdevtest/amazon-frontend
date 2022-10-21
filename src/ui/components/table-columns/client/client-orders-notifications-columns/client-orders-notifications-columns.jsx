@@ -62,7 +62,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment to order']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
-    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 450,
   },
 

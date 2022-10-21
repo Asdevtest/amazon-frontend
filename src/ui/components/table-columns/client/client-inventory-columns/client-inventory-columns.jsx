@@ -257,7 +257,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
   },
 ]

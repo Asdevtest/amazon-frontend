@@ -21,6 +21,7 @@ export class AdminFeedbackViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
   drawerOpen = false
   isWarning = false
   feedbackList = []
@@ -55,6 +56,9 @@ export class AdminFeedbackViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
     }
+  }
+  onChangeNameSearchValue(e) {
+    this.nameSearchValue = e.target.value
   }
 
   setDataGridState(state) {
@@ -110,7 +114,15 @@ export class AdminFeedbackViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.feedbackList)
+    if (this.nameSearchValue) {
+      return toJS(this.feedbackList).filter(
+        el =>
+          el.originalData.user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.originalData.user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.feedbackList)
+    }
   }
 
   async loadData() {

@@ -13,13 +13,12 @@ import {t} from '@utils/translations'
 
 export const clientLast30DaySellerBoardColumns = () => [
   {
-    field: 'date',
-    headerName: t(TranslationKey.Date),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+    field: 'shopName',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-    renderCell: params => <NormDateWithoutTimeCell params={params} />,
-    minWidth: 80,
-    type: 'date',
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
   },
 
   {
@@ -47,6 +46,16 @@ export const clientLast30DaySellerBoardColumns = () => [
 
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
+  },
+
+  {
+    field: 'date',
+    headerName: t(TranslationKey.Date),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+
+    renderCell: params => <NormDateWithoutTimeCell params={params} />,
+    minWidth: 80,
+    type: 'date',
   },
   {
     field: 'unitsorganic',
