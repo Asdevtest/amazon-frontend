@@ -123,8 +123,9 @@ export const lightTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+            // backgroundColor: 'rgba(0, 0, 0, 0.12)',
             // color: '#001029',
+            backgroundColor: '#C4C4C4',
           },
         },
       },
@@ -177,7 +178,9 @@ export const lightTheme = createTheme({
 
     input: {
       // disabled: 'rgba(0, 0, 0, 0.38)',
-      disabled: '#C4C4C4',
+      // disabled: '#C4C4C4',
+      disabled: '#EBEBEB',
+
       // disabled: 'normal',
       // disabled: 'rgba(0, 0, 0, 0.26)',
       border: '#E0E0E0',
@@ -365,30 +368,44 @@ export const darkTheme = createTheme({
       styleOverrides: {
         '::-webkit-scrollbar': {
           backgroundColor: '#21212B',
+          cursor: 'pointer !important',
         },
-
         '::-webkit-scrollbar-thumb': {
           // backgroundColor: '#2B2B34',
           backgroundColor: '#001029',
           // borderRadius: 10,
+
+          '&:hover': {
+            backgroundColor: 'rgba(0, 16, 41, 0.7)',
+          },
         },
 
         '::-webkit-scrollbar-button': {
           // backgroundColor: '#21212B',
           backgroundColor: '#2B2B34',
           outline: '1px solid #21212B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(43, 43, 52, 0.7)',
+          },
+        },
+
+        '::-webkit-scrollbar-corner': {
+          backgroundColor: '#21212B',
+        },
+
+        textarea: {
+          cursor: 'auto',
         },
 
         // '::-webkit-scrollbar-track': {
         //   backgroundColor: '#2B2B34',
         //   // backgroundColor: '#fff',
         // },
-
         // '::-webkit-text-fill-color': {
         //   color: '#001029 !important',
         //   // color: '#001029',
         // },
-
         // '&:Mui-disabled': {
         //   // backgroundColor: '#a0a0a4',
         //   color: '#fff !important',
@@ -442,6 +459,7 @@ export const darkTheme = createTheme({
       // disabled: '#fff',
 
       disabled: '#a0a0a4',
+      // disabled: '#EBEBEB', // макет
 
       border: '#424250',
     },

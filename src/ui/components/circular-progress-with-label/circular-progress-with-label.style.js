@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     top: 0,
     left: 0,
@@ -40,5 +40,11 @@ export const useClassNames = makeStyles()(() => ({
   },
   text: {
     fontSize: '26px',
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    fontSize: '26px',
+    color: theme.palette.text.second,
   },
 }))

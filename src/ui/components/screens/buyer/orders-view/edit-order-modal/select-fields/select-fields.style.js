@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentInput: {
     fontSize: '14px',
-    height: '75px',
+    height: 'auto',
 
     marginTop: '2px',
 

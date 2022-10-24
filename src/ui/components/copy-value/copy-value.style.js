@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   copyImg: {
     width: '18px',
     height: '18px',
@@ -14,6 +14,7 @@ export const useClassNames = makeStyles()(() => ({
   doneIcon: {
     width: '18px !important',
     height: '18px !important',
+    color: theme.palette.text.green,
   },
 
   copyImgWrapper: {
