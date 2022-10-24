@@ -23,6 +23,15 @@ export const adminFeedbackViewColumns = handlers => [
   },
 
   {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 90,
+    type: 'date',
+  },
+
+  {
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
@@ -49,14 +58,5 @@ export const adminFeedbackViewColumns = handlers => [
         onClickOkBtn={() => handlers.onClickWriteBtn(params.row.originalData.user._id)}
       />
     ),
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Date),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
   },
 ]

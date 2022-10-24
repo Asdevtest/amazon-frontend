@@ -463,6 +463,8 @@ export const styles = theme => ({
   normDateCellTypo: {
     fontSize: '10px',
     fontWeight: '600',
+
+    textAlign: 'center',
   },
 
   shortDateCellTypo: {

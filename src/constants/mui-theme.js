@@ -321,6 +321,12 @@ export const darkTheme = createTheme({
           },
         },
       },
+
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
     },
 
     MuiPaper: {
