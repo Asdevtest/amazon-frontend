@@ -272,7 +272,7 @@ export const EditBoxForm = observer(
                           formItem && formItem.humanFriendlyId
                         }`}</Typography>
 
-                        <Typography variant="h4" className={classNames.amountSpan}>
+                        <Typography className={classNames.amountSpan}>
                           {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
                         </Typography>
                       </div>

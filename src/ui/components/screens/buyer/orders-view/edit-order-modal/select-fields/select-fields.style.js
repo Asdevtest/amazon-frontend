@@ -54,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     height: '46px',
     overflowX: 'auto',
+    color: theme.palette.text.second,
   },
   barCodeWrapper: {
     display: 'flex',

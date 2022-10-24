@@ -163,7 +163,6 @@ export const OwnerGeneralRequestInfo = ({
               </Button>
               <Button
                 tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                variant="contained"
                 color="primary"
                 btnWrapperStyle={classNames.buttonWrapperFullWidth}
                 className={[classNames.button, classNames.cancelBtn]}
@@ -194,8 +193,6 @@ export const OwnerGeneralRequestInfo = ({
               {requestIsNotDraftAndPublished && (
                 <Button
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                  variant="contained"
-                  color="default"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
                   className={[classNames.button, classNames.cancelBtn]}
                   onClick={onClickCancelBtn}
@@ -207,7 +204,6 @@ export const OwnerGeneralRequestInfo = ({
               {request && request?.request.status === RequestStatus.PUBLISHED && (
                 <Button
                   tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                  variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
                   className={cx(classNames.button, {
@@ -229,7 +225,6 @@ export const OwnerGeneralRequestInfo = ({
                     request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
                     t(TranslationKey['Removes the visibility of the request on the exchange'])
                   }
-                  variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
                   className={cx(classNames.button, {

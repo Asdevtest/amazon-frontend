@@ -97,31 +97,35 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
           onChange={e => setReasons(e.target.value)}
         />
       </div>
-      {updatedAsinsAndReasonsData.length ? (
-        <div className={classNames.tableWrapper}>
-          <div className={classNames.tableSearchWrapper}>
-            <Typography className={classNames.tableSearchTitle}>
-              {t(TranslationKey['To be added to the list'])}
-            </Typography>
-            <Field
-              containerClasses={classNames.searchContainer}
-              inputClasses={classNames.searchInput}
-              value={nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-              endAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon color="primary" />
-                </InputAdornment>
-              }
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
-          </div>
-          <TableAsinAndReason data={updatedAsinsAndReasonsData} onClickRemoveCell={onClickRemoveCell} />
-          {updatedAsinsAndReasonsData.some(item => item.asin === '') ? (
-            <span className={classNames.error}>{t(TranslationKey['ASIN cannot contain empty values'])}</span>
-          ) : null}
+
+      <div className={classNames.tableWrapper}>
+        <div className={classNames.tableSearchWrapper}>
+          <Typography className={classNames.tableSearchTitle}>
+            {t(TranslationKey['To be added to the list'])}
+          </Typography>
+          <Field
+            containerClasses={classNames.searchContainer}
+            inputClasses={classNames.searchInput}
+            value={nameSearchValue}
+            placeholder={t(TranslationKey['Search by ASIN, Reason'])}
+            endAdornment={
+              <InputAdornment position="start">
+                <SearchIcon color="primary" />
+              </InputAdornment>
+            }
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
         </div>
-      ) : null}
+        {updatedAsinsAndReasonsData.length ? (
+          <>
+            <TableAsinAndReason data={updatedAsinsAndReasonsData} onClickRemoveCell={onClickRemoveCell} />
+            {updatedAsinsAndReasonsData.some(item => item.asin === '') ? (
+              <span className={classNames.error}>{t(TranslationKey['ASIN cannot contain empty values'])}</span>
+            ) : null}
+          </>
+        ) : null}
+      </div>
+
       <div className={classNames.buttonsWrapper}>
         <div>
           <Button variant="contained" className={classNames.buttonPreview} onClick={() => onClickPreviewButton()}>

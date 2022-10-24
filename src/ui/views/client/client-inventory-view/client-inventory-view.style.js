@@ -122,10 +122,10 @@ export const styles = theme => ({
     // width: 300,
 
     display: 'flex',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     position: 'relative',
-    // paddingRight: '40px',
-    justifyContent: 'flex-start',
+    paddingRight: '40px',
+    // justifyContent: 'flex-start',
 
     // textAlign: 'left',
   },
