@@ -124,6 +124,7 @@ export class ClientWarehouseViewModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
+
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData)
 
@@ -921,7 +922,7 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(
+      const result = await BoxesModel.getBoxesForCurClientLight(
         BoxStatus.IN_STOCK,
         this.currentStorekeeper && this.currentStorekeeper._id,
       )

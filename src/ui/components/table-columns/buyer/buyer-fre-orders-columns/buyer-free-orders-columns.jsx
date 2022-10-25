@@ -10,6 +10,7 @@ import {
   UserLinkCell,
   MultilineTextHeaderCell,
   DownloadAndCopyBtnsCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -107,7 +108,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 300,
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    width: 400,
   },
 ]

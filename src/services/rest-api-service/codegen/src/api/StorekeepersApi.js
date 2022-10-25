@@ -25,8 +25,9 @@ import InlineObject86 from '../model/InlineObject86';
 import InlineObject87 from '../model/InlineObject87';
 import InlineObject88 from '../model/InlineObject88';
 import InlineObject89 from '../model/InlineObject89';
+import InlineObject90 from '../model/InlineObject90';
 import InlineResponse20010 from '../model/InlineResponse20010';
-import InlineResponse20037 from '../model/InlineResponse20037';
+import InlineResponse20038 from '../model/InlineResponse20038';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
@@ -100,12 +101,115 @@ export default class StorekeepersApi {
 
 
     /**
+     * # Создать/обновить дестинейшн
+     * ## Создать/обновить дестинейшн  Доступно для сторкипера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject90} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     */
+    apiV1StorekeepersDestinationPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse2015;
+      return this.apiClient.callApi(
+        '/api/v1/storekeepers/destination', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Создать/обновить дестинейшн
+     * ## Создать/обновить дестинейшн  Доступно для сторкипера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject90} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     */
+    apiV1StorekeepersDestinationPost(opts) {
+      return this.apiV1StorekeepersDestinationPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Скопировать партию, расформировать, на коробки из партии создать задачи
+     * ## Создается копия партии, коробки получают статус IN_STOCK, слздаются задачи на принятие
+     * @param {Object} params 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(params, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'params' is set
+      if (params === undefined || params === null) {
+        throw new Error("Missing the required parameter 'params' when calling apiV1StorekeepersDestructBatchGuidPost");
+      }
+
+      let pathParams = {
+        'params': params
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/storekeepers/destruct_batch/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Скопировать партию, расформировать, на коробки из партии создать задачи
+     * ## Создается копия партии, коробки получают статус IN_STOCK, слздаются задачи на принятие
+     * @param {Object} params 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1StorekeepersDestructBatchGuidPost(params, opts) {
+      return this.apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(params, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получить всех сторкиперов(все склады).
      * ## Получить всех сторкиперов(все склады).  если вызвал килен, то показывает сколко коробок у каждого сторкипера пока тут только данные о сторкипере, далее должно быть вся информация о складе, с тарифами  
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20037>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20038>} and HTTP response
      */
     apiV1StorekeepersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -125,7 +229,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20037];
+      let returnType = [InlineResponse20038];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -139,7 +243,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {module:model/String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20037>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20038>}
      */
     apiV1StorekeepersGet(opts) {
       return this.apiV1StorekeepersGetWithHttpInfo(opts)

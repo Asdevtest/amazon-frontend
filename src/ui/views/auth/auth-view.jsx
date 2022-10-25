@@ -1,3 +1,5 @@
+import {Typography} from '@mui/material'
+
 import {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -30,7 +32,7 @@ export class AuthViewRaw extends Component {
 
   render() {
     const {classes: classNames} = this.props
-    console.log(this.viewModel?.error)
+
     return (
       <div className={classNames.root}>
         <EntryLeftPanel />
@@ -49,20 +51,20 @@ export class AuthViewRaw extends Component {
             onChangeFormField={this.onChangeFormField}
             onSubmit={this.viewModel.onSubmitForm}
           />
-          {SettingsModel.languageTag && this.renderError()}
+          {SettingsModel.languageTag && (
+            <Typography className={classNames.error}>
+              {this.viewModel.error &&
+                ((this.viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
+                  (this.viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
+                  /* t(TranslationKey['The user is waiting for confirmation by the Administrator'])*/ t(
+                    TranslationKey.Error,
+                  ))}
+            </Typography>
+          )}
         </EntryRightPanel>
       </div>
     )
   }
-
-  renderError = () => (
-    <h3>
-      {this.viewModel.error &&
-        ((this.viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
-          (this.viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
-          /* t(TranslationKey['The user is waiting for confirmation by the Administrator'])*/ t(TranslationKey.Error))}
-    </h3>
-  )
 
   onClickRedirect = () => {
     this.props.history.push('/registration')

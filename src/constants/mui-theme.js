@@ -135,6 +135,23 @@ export const lightTheme = createTheme({
         },
       },
     },
+
+    MuiCssBaseline: {
+      styleOverrides: {
+        textarea: {
+          cursor: 'auto',
+        },
+
+        a: {
+          color: '#007bff',
+          textDecoration: 'none',
+
+          '&:hover': {
+            opacity: 0.7,
+          },
+        },
+      },
+    },
   },
 
   palette: {
@@ -296,25 +313,18 @@ export const darkTheme = createTheme({
         //   // backgroundColor: '#a0a0a4',
         //   color: '#fff',
         // },
-
-        disabled: {
-          color: '#001029 !important',
-
-          // '::-webkit-text-fill-color': {
-          //   color: '#001029 !important',
-          //   // color: '#001029',
-          // },
-        },
       },
     },
 
-    Mui: {
-      styleOverrides: {
-        disabled: {
-          color: '#001029 !important',
-        },
-      },
-    },
+    // Mui: {
+    //   styleOverrides: {
+    //     root: {
+    //       '&.Mui-disabled': {
+    //         color: '#001029 !important',
+    //       },
+    //     },
+    //   },
+    // },
 
     MuiCheckbox: {
       defaultProps: {
@@ -398,18 +408,14 @@ export const darkTheme = createTheme({
           cursor: 'auto',
         },
 
-        // '::-webkit-scrollbar-track': {
-        //   backgroundColor: '#2B2B34',
-        //   // backgroundColor: '#fff',
-        // },
-        // '::-webkit-text-fill-color': {
-        //   color: '#001029 !important',
-        //   // color: '#001029',
-        // },
-        // '&:Mui-disabled': {
-        //   // backgroundColor: '#a0a0a4',
-        //   color: '#fff !important',
-        // },
+        a: {
+          color: '#008CF1',
+          textDecoration: 'none',
+
+          '&:hover': {
+            opacity: 0.7,
+          },
+        },
       },
     },
   },

@@ -33,4 +33,25 @@ export const styles = theme => ({
     gap: '25px',
     alignItems: 'center',
   },
+
+  addressMainWrapper: {
+    marginTop: 20,
+    // display: 'flex',
+    // alignItems: 'center',
+    // gap: 20,
+  },
+
+  addressSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  addressMain: {
+    color: theme.palette.text.general,
+  },
+
+  address: {
+    color: theme.palette.text.second,
+  },
 })

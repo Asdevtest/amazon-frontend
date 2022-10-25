@@ -31,9 +31,11 @@ class SettingsModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistable(this, {name: stateModelName, properties: persistProperties}).then(({isHydrated}) => {
-      this.isHydrated = isHydrated
-    })
+    makePersistable(this, {name: stateModelName, properties: persistProperties})
+      .then(({isHydrated}) => {
+        this.isHydrated = isHydrated
+      })
+      .catch(error => console.log(error))
     reaction(
       () => this.isHydrated,
 

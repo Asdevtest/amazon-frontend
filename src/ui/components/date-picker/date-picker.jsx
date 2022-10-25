@@ -112,6 +112,20 @@ const darkTheme = createTheme({
         },
       },
     },
+
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#fff',
+          },
+
+          '&:focus': {
+            color: '#fff',
+          },
+        },
+      },
+    },
   },
 })
 

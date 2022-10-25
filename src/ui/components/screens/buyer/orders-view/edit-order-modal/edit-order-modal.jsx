@@ -314,7 +314,7 @@ export const EditOrderModal = observer(
                       key={statusIndex}
                       value={statusCode}
                       className={cx(
-                        cx({
+                        cx(classNames.stantartSelect, {
                           [classNames.orange]:
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||

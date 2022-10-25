@@ -17,6 +17,13 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
+  stantartSelect: {
+    '&:hover': {
+      backgroundColor: theme.palette.background.second,
+      opacity: 0.8,
+    },
+  },
+
   idItemWrapper: {
     display: 'flex',
     gap: 15,
@@ -182,6 +189,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   green: {
-    color: 'green !important',
+    color: `${theme.palette.text.green} !important`,
   },
 }))

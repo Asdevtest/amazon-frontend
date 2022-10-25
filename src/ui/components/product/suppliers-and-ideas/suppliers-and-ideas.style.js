@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     gap: '5px',
     width: '100%',
@@ -24,5 +24,6 @@ export const useClassNames = makeStyles()(() => ({
 
   emptyTableText: {
     marginTop: '30px',
+    color: theme.palette.text.second,
   },
 }))

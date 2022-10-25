@@ -168,7 +168,7 @@ export class AdminDestinationsViewModel {
     }
   }
 
-  async onSubmitEditDestination(destinationId, data) {
+  async onSubmitEditDestination(data, destinationId) {
     try {
       await AdministratorModel.editDestination(destinationId, data)
 

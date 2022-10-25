@@ -507,7 +507,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
   restrictMoreThanOneProposal: {
-    fontWeight: '600',
+    fontWeight: '400',
+    color: theme.palette.text.second,
   },
 
   listItemDot: {

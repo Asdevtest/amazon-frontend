@@ -1,3 +1,4 @@
+import {Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
@@ -9,6 +10,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -25,6 +27,8 @@ export const LogisticsTariffs = observer(() => {
   const gpModel = useRef(new LogisticsTariffsModel({history}))
 
   const {
+    storekeeperDestination,
+
     yuanToDollarRate,
     tariffToEdit,
     requestStatus,
@@ -37,6 +41,7 @@ export const LogisticsTariffs = observer(() => {
     curPage,
     rowsPerPage,
     showAddOrEditLogisticTariffModal,
+    showAddOrEditDestinationModal,
     confirmModalSettings,
     showConfirmModal,
     onChangeCurPage,
@@ -51,6 +56,8 @@ export const LogisticsTariffs = observer(() => {
 
     onSubmitCreateTariff,
     onSubmitEditTariff,
+    onSubmitChangeDestination,
+    onClickAddressBtn,
   } = gpModel.current
 
   useEffect(() => {
@@ -60,6 +67,22 @@ export const LogisticsTariffs = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
+        <div className={classNames.addressMainWrapper}>
+          {storekeeperDestination ? (
+            <div className={classNames.addressSubWrapper}>
+              <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+
+              <Typography
+                className={classNames.addressMain}
+              >{`${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
+            </div>
+          ) : null}
+
+          <Button onClick={() => onClickAddressBtn()}>
+            {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+          </Button>
+        </div>
+
         <Button
           success
           tooltipInfoContent={t(TranslationKey['Add a new rate'])}
@@ -100,6 +123,18 @@ export const LogisticsTariffs = observer(() => {
         onStateChange={setDataGridState}
         onFilterModelChange={model => onChangeFilterModel(model)}
       />
+
+      <Modal
+        openModal={showAddOrEditDestinationModal}
+        setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+      >
+        <AddOrEditDestinationForm
+          destinationToEdit={storekeeperDestination}
+          onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+          onCreateSubmit={onSubmitChangeDestination}
+          onEditSubmit={onSubmitChangeDestination}
+        />
+      </Modal>
 
       <Modal
         openModal={showAddOrEditLogisticTariffModal}

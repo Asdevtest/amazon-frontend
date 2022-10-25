@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **state** | **String** | Штат. | [optional] 
 **city** | **String** | Город. | [optional] 
 **address** | **String** | Адрес склада. | [optional] 
+**storekeeperId** | **String** | Гуид сторкипера. | [optional] 
 
 

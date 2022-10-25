@@ -51,6 +51,9 @@ class ApiV1AdminsPaymentsCreatedBy {
         if (data) {
             obj = obj || new ApiV1AdminsPaymentsCreatedBy();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -63,6 +66,12 @@ class ApiV1AdminsPaymentsCreatedBy {
 
 
 }
+
+/**
+ * GUID юзера.
+ * @member {String} _id
+ */
+ApiV1AdminsPaymentsCreatedBy.prototype['_id'] = undefined;
 
 /**
  * Имя пользователя.

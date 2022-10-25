@@ -1,16 +1,21 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '400px',
   },
 
   button: {
     marginLeft: '10px',
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
     minHeight: '100px',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   descriptionField: {

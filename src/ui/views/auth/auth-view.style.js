@@ -11,4 +11,8 @@ export const styles = theme => ({
       // justifyContent: 'center',
     },
   },
+
+  error: {
+    color: theme.palette.text.second,
+  },
 })
