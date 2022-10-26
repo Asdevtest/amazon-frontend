@@ -21,6 +21,10 @@ export class AdminFeedbackViewModel {
   requestStatus = undefined
   error = undefined
 
+  selectedFeedback = undefined
+
+  showReplyFeedbackModal = false
+
   nameSearchValue = ''
   drawerOpen = false
   isWarning = false
@@ -31,7 +35,7 @@ export class AdminFeedbackViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   rowHandlers = {
-    onClickWriteBtn: id => this.onClickWriteBtn(id),
+    onClickOpenFeedbackBtn: item => this.onClickOpenFeedbackBtn(item),
   }
   columnsModel = adminFeedbackViewColumns(this.rowHandlers)
 
@@ -156,6 +160,12 @@ export class AdminFeedbackViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onClickOpenFeedbackBtn(feedback) {
+    this.selectedFeedback = feedback
+
+    this.onTriggerOpenModal('showReplyFeedbackModal')
   }
 
   async onClickWriteBtn(anotherUserId) {

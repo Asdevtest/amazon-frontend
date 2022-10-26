@@ -273,9 +273,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   conditionsInput: {
+    height: 'auto',
+
     width: '100%',
     border: 'none',
-    color: 'black',
+    color: theme.palette.text.general,
   },
 
   conditionsField: {

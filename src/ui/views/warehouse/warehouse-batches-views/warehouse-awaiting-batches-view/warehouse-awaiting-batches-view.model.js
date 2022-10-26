@@ -8,6 +8,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
@@ -288,12 +289,28 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
+  async confirmSendToStorekeeper(batchId) {
+    try {
+      await StorekeeperModel.confirmSendToStorekeeper(batchId)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onClickConfirmSendToBatchBtn() {
     try {
       for (let i = 0; i < this.selectedBatches.length; i++) {
         const batchId = this.selectedBatches[i]
 
-        await this.confirmSendToBatch(batchId)
+        const batch = this.batches.find(el => el._id === batchId)
+
+        console.log('batch', batch)
+
+        if (batch.originalData.boxes[0]?.destination?.storekeeperId) {
+          await this.confirmSendToStorekeeper(batchId)
+        } else {
+          await this.confirmSendToBatch(batchId)
+        }
       }
 
       this.selectedBatches = []

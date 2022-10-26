@@ -17,6 +17,7 @@ import {
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
+import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -49,6 +50,85 @@ const getPlaceholderByLanguageTag = languageTag => {
   }
 }
 
+const lightTheme = createTheme({
+  components: {
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          paddingRight: 10,
+        },
+      },
+    },
+  },
+})
+
+const darkTheme = createTheme({
+  components: {
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          paddingRight: 10,
+        },
+      },
+    },
+
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: '#fff !important',
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2B2B34',
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiTypography: {
+      defaultProps: {
+        sx: {
+          '&.Mui-disabled': {
+            color: '#a0a0a4',
+          },
+        },
+      },
+
+      styleOverrides: {
+        root: {
+          color: '#fff !important',
+        },
+      },
+    },
+
+    MuiClockNumber: {
+      styleOverrides: {
+        root: {
+          color: '#E1E1E1',
+        },
+      },
+    },
+
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#fff',
+          },
+
+          '&:focus': {
+            color: '#fff',
+          },
+        },
+      },
+    },
+  },
+})
+
 export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   const {classes: classNames} = useClassNames()
 
@@ -58,20 +138,8 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
     setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
-  const theme = createTheme({
-    components: {
-      MuiInputAdornment: {
-        styleOverrides: {
-          root: {
-            paddingRight: 10,
-          },
-        },
-      },
-    },
-  })
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <NewestDatePicker
           closeOnSelect
@@ -106,20 +174,8 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
     setPlaceholder(getPlaceholderByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
-  const theme = createTheme({
-    components: {
-      MuiInputAdornment: {
-        styleOverrides: {
-          root: {
-            paddingRight: 10,
-          },
-        },
-      },
-    },
-  })
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <NewestDatePicker
           // views={['year', 'month']}
@@ -198,20 +254,8 @@ export const DatePickerTime = ({value, onChange, ...restProps}) => {
     setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
-  const theme = createTheme({
-    components: {
-      MuiInputAdornment: {
-        styleOverrides: {
-          root: {
-            paddingRight: 10,
-          },
-        },
-      },
-    },
-  })
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <TimePicker
           inputProps={{placeholder: '10:00', className: classNames.root}}

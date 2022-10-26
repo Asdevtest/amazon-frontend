@@ -255,21 +255,21 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
               <Typography variant="h5">
                 {calculateDeliveryCostPerPcs(
                   box.items,
-                  item.product.currentSupplier.boxProperties?.boxWeighGrossKg,
+                  item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
                   price,
                   item.amount,
-                  item.product.currentSupplier.boxProperties?.amountInBox,
+                  item.order.orderSupplier.boxProperties?.amountInBox,
                   box.weighGrossKgWarehouse,
                 )}
-                {/* {box.items.length === 1 && item.product.currentSupplier.boxProperties?.boxWeighGrossKg
+                {/* {box.items.length === 1 && item.order.orderSupplier.boxProperties?.boxWeighGrossKg
                   ? toFixedWithDollarSign(price / item.amount)
                   : t(TranslationKey['No data'])}
-                {box.items.length > 1 && item.product.currentSupplier.boxProperties?.boxWeighGrossKg
+                {box.items.length > 1 && item.order.orderSupplier.boxProperties?.boxWeighGrossKg
                   ? toFixedWithDollarSign(
                       (price *
                         toFixed(
-                          ((item.product.currentSupplier.boxProperties?.boxWeighGrossKg /
-                            item.product.currentSupplier.boxProperties?.amountInBox) *
+                          ((item.order.orderSupplier.boxProperties?.boxWeighGrossKg /
+                            item.order.orderSupplier.boxProperties?.amountInBox) *
                             item.amount) /
                             toFixed(box.weighGrossKgWarehouse, 2),
                         )) /

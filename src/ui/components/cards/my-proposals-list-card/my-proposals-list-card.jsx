@@ -66,6 +66,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
           <Field
             multiline
+            minRows={4}
+            maxRows={4}
             value={item.detailsCustom.conditions}
             inputClasses={classNames.conditionsInput}
             containerClasses={classNames.conditionsField}

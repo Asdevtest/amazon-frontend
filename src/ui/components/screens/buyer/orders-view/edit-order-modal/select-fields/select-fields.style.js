@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentInput: {
     fontSize: '14px',
-    height: '75px',
+    height: 'auto',
 
     marginTop: '2px',
 
@@ -54,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     height: '46px',
     overflowX: 'auto',
+    color: theme.palette.text.second,
   },
   barCodeWrapper: {
     display: 'flex',

@@ -124,6 +124,8 @@ export class ClientWarehouseViewRaw extends Component {
 
     const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
 
+    console.log('storekeepersData', storekeepersData)
+
     return (
       <React.Fragment>
         <Navbar
@@ -150,7 +152,7 @@ export class ClientWarehouseViewRaw extends Component {
 
                   {storekeepersData
                     .slice()
-                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .sort((a, b) => a.name?.localeCompare(b.name))
                     .map(storekeeper =>
                       storekeeper.boxesCount !== 0 ? (
                         <Button

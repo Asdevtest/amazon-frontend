@@ -68,6 +68,9 @@ class ApiV1AdminsOrdersDestination {
             if (data.hasOwnProperty('address')) {
                 obj['address'] = ApiClient.convertToType(data['address'], 'String');
             }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
         }
         return obj;
     }
@@ -116,6 +119,12 @@ ApiV1AdminsOrdersDestination.prototype['city'] = undefined;
  * @member {String} address
  */
 ApiV1AdminsOrdersDestination.prototype['address'] = undefined;
+
+/**
+ * Гуид сторкипера.
+ * @member {String} storekeeperId
+ */
+ApiV1AdminsOrdersDestination.prototype['storekeeperId'] = undefined;
 
 
 

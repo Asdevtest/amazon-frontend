@@ -11,11 +11,32 @@ export const useClassNames = makeStyles()(theme => ({
   placeAddBtnWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingRight: '5px',
     [theme.breakpoints.down(768)]: {
       paddingRight: '10px',
     },
+  },
+
+  addressMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  addressSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  addressMain: {
+    color: theme.palette.text.general,
+  },
+
+  address: {
+    color: theme.palette.text.second,
   },
 
   placeAddBtn: {

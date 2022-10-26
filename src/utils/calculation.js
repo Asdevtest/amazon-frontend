@@ -138,8 +138,8 @@ export const calcPriceForBox = box => {
   const sumsOfItems = box.items.reduce(
     (acc, cur) =>
       acc +
-      (cur.product.currentSupplier.price +
-        roundSafely(cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount)) *
+      (cur.order.orderSupplier.price +
+        roundSafely(cur.order.orderSupplier.batchDeliveryCostInDollar / cur.order.orderSupplier.amount)) *
         cur.amount,
     0,
   )

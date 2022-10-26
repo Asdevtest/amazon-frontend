@@ -3,7 +3,9 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ClientModel} from '@models/client-model'
 import {DashboardModel} from '@models/dashboard-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 export class WarehouseDashboardViewModel {
@@ -12,6 +14,8 @@ export class WarehouseDashboardViewModel {
   error = undefined
 
   drawerOpen = false
+
+  showAddOrEditDestinationModal = false
 
   dashboardData = {
     [WarehouseDashboardCardDataKey.VACANT_TASKS]: '',
@@ -42,9 +46,41 @@ export class WarehouseDashboardViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.getDashboardElementCount()
+
+      this.getDestinations()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const result = await ClientModel.getDestinations()
+
+      const storekeeperDestination = result.find(el => el.storekeeperId === this.userInfo._id)
+      if (storekeeperDestination) {
+        runInAction(() => {
+          this.storekeeperDestination = storekeeperDestination
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickAddressBtn() {
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+  }
+
+  async onSubmitChangeDestination(data) {
+    try {
+      await StorekeeperModel.editStorekeperDestination(data)
+
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.loadData()
+    } catch (error) {
       console.log(error)
     }
   }
@@ -77,5 +113,9 @@ export class WarehouseDashboardViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

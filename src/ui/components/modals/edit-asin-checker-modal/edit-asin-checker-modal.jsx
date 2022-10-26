@@ -40,10 +40,7 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy})
       </div>
       <div className={classNames.modalFieldsWrapper}>
         <Field
-          multiline
-          minRows={1}
-          maxRows={1}
-          inputProps={{maxLength: 24}}
+          inputProps={{maxLength: 15}}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
           label={t(TranslationKey.ASIN)}

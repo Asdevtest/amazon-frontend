@@ -92,6 +92,10 @@ export class BuyerMyProductsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
 
     if (state) {
+      console.log('state.sorting.sortModel', toJS(state.sorting.sortModel))
+
+      console.log('state.filter.filterModel.filterModel', toJS(state.filter.filterModel.filterModel))
+
       this.sortModel = state.sorting.sortModel
       this.filterModel = this.startFilterModel
         ? {

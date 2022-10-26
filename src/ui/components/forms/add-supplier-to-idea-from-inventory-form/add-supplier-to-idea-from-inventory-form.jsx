@@ -250,7 +250,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               multiline
               minRows={9}
               maxRows={9}
-              inputProps={{maxLength: 50}}
+              inputProps={{maxLength: 200}}
               label={t(TranslationKey['Important criteria'])}
               labelClasses={classNames.label}
               inputClasses={classNames.bigInput}
@@ -264,6 +264,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           <div className={classNames.bottomFieldsSubWrapper}>
             <div className={classNames.sizesBottomWrapper}>
               <Field
+                inputProps={{maxLength: 9}}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -272,6 +273,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                 onChange={onChangeField('width')}
               />
               <Field
+                inputProps={{maxLength: 9}}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -280,6 +282,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                 onChange={onChangeField('height')}
               />
               <Field
+                inputProps={{maxLength: 9}}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -290,7 +293,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             </div>
 
             <Field
-              inputProps={{maxLength: 50}}
+              inputProps={{maxLength: 9}}
               label={t(TranslationKey.Quantity)}
               labelClasses={classNames.label}
               value={formFields.quantity}
@@ -298,7 +301,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               onChange={onChangeField('quantity')}
             />
             <Field
-              inputProps={{maxLength: 50}}
+              inputProps={{maxLength: 9}}
               label={t(TranslationKey['Desired purchase price']) + ', $'}
               labelClasses={classNames.label}
               value={formFields.price}

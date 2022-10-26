@@ -142,7 +142,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   amountSpan: {
     margin: '0 0 0 20px',
-    color: 'rgb(0, 123, 255, 0.7)',
+    color: theme.palette.primary.main,
+    fontSize: 18,
   },
   imgBox: {
     width: '200px',

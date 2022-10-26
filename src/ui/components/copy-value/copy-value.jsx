@@ -18,7 +18,7 @@ export const CopyValue = ({text, disabled}) => {
     <>
       <div className={classNames.copyImgWrapper}>
         {copied ? (
-          <DoneIcon color="success" classes={{root: classNames.doneIcon}} />
+          <DoneIcon classes={{root: classNames.doneIcon}} />
         ) : (
           <img
             className={cx(classNames.copyImg, {[classNames.disabledIcon]: disabled})}

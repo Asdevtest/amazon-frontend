@@ -91,7 +91,7 @@ export class ClientInventoryViewRaw extends Component {
       showSelectionSupplierModal,
       showSetChipValueModal,
 
-      showSetStockUsValueModal,
+      // showSetStockUsValueModal,
       showConfirmModal,
       curPage,
       productsMy,
@@ -147,7 +147,7 @@ export class ClientInventoryViewRaw extends Component {
 
       onChangeNameSearchValue,
       createSupplierSearchRequest,
-      onClickSavesStockUSA,
+      // onClickSavesStockUSA,
       withoutProduct,
       withProduct,
     } = this.viewModel
@@ -392,8 +392,8 @@ export class ClientInventoryViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={100}
-                  // getRowHeight={() => 'auto'}
+                  // rowHeight={100}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}
@@ -467,7 +467,7 @@ export class ClientInventoryViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showSetStockUsValueModal} setOpenModal={() => onTriggerOpenModal('showSetStockUsValueModal')}>
+        {/* <Modal openModal={showSetStockUsValueModal} setOpenModal={() => onTriggerOpenModal('showSetStockUsValueModal')}>
           <SetChipValueModal
             isInts
             maxLength={9}
@@ -476,7 +476,7 @@ export class ClientInventoryViewRaw extends Component {
             onSubmit={onClickSavesStockUSA}
             onCloseModal={() => onTriggerOpenModal('showSetStockUsValueModal')}
           />
-        </Modal>
+        </Modal> */}
 
         <Modal
           openModal={showSetFourMonthsStockValueModal}

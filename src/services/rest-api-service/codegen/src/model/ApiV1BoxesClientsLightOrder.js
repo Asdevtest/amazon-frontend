@@ -51,6 +51,12 @@ class ApiV1BoxesClientsLightOrder {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
             if (data.hasOwnProperty('orderSupplier')) {
                 obj['orderSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['orderSupplier']);
             }
@@ -66,6 +72,17 @@ class ApiV1BoxesClientsLightOrder {
  * @member {String} _id
  */
 ApiV1BoxesClientsLightOrder.prototype['_id'] = undefined;
+
+/**
+ * id заказ.
+ * @member {Number} id
+ */
+ApiV1BoxesClientsLightOrder.prototype['id'] = undefined;
+
+/**
+ * @member {String} item
+ */
+ApiV1BoxesClientsLightOrder.prototype['item'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} orderSupplier

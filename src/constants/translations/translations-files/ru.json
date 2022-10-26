@@ -1571,5 +1571,8 @@
   "№ Order/ № Item": "№ Заказа/ № Item",
   "Order number/Item": "Номер заказа/Item",
   "Feedback sent": "Обратная связь отправлена",
-  "Additionally": "Дополнительно"
+  "Additionally": "Дополнительно",
+  "Warehouse address": "Адрес склада",
+  "Add Address": "Добавить адрес",
+  "Reply to a User Feedback": "Ответ на обращение пользователя"
 }

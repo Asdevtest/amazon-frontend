@@ -37,7 +37,7 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
 
   const onSubmit = () => {
     if (destinationToEdit) {
-      onEditSubmit(destinationToEdit._id, formFields)
+      onEditSubmit(formFields, destinationToEdit._id)
     } else {
       onCreateSubmit(formFields)
     }
@@ -56,7 +56,9 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{t(TranslationKey['Add a new drop off location'])}</Typography>
+      <Typography variant="h5" className={classNames.standartText}>
+        {t(TranslationKey['Add a new drop off location'])}
+      </Typography>
 
       <div className={classNames.form}>
         <Field
@@ -114,24 +116,11 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <Button
-          success
-          disableElevation
-          disabled={disableSubmitBtn}
-          color="primary"
-          variant="contained"
-          onClick={onSubmit}
-        >
+        <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          disableElevation
-          className={classNames.button}
-          color="primary"
-          variant="text"
-          onClick={() => onCloseModal()}
-        >
+        <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

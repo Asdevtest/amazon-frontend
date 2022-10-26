@@ -49,6 +49,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '34px',
     lineHeight: '40px',
     color: theme.palette.text.general,
+    marginTop: 30,
   },
 
   headerWrapper: {
@@ -66,18 +67,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubTitle: {
     fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
+    fontSize: '14px',
+    color: theme.palette.text.second,
     marginTop: '30px',
-    width: '373px',
+    // width: '373px',
   },
 
   mainSubStepTwoTitle: {
-    fontWeight: '600',
-    fontSize: '18px',
+    fontWeight: '400',
+    fontSize: '14px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.second,
     marginTop: '20px',
   },
 
@@ -218,17 +218,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   spanLabel: {
-    fontSize: '18px',
+    fontSize: '14px',
     lineHeight: '140%',
-    fontWeight: 'bold',
-    color: theme.palette.text.general,
+    fontWeight: '400',
+    color: theme.palette.text.second,
   },
 
   spanLabelSmall: {
-    fontWeight: '600',
+    fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.second,
   },
 
   filesContainer: {
@@ -283,11 +283,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   adviceTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '600',
     marginBottom: '22px',
-    color: theme.palette.text.general,
+
+    fontSize: '14px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: theme.palette.text.second,
   },
   adviceListItem: {
     padding: '0',
@@ -333,10 +334,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesTitle: {
-    fontSize: '18px',
+    fontSize: '14px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.general,
+    color: theme.palette.text.second,
   },
 
   mainTwoStepWrapper: {
@@ -506,7 +507,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
   restrictMoreThanOneProposal: {
-    fontWeight: '600',
+    fontWeight: '400',
+    color: theme.palette.text.second,
   },
 
   listItemDot: {

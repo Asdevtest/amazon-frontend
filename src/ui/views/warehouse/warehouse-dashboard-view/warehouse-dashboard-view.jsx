@@ -1,4 +1,4 @@
-import {Avatar, Paper} from '@mui/material'
+import {Avatar, Paper, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -10,11 +10,14 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
 import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-line-cards-list'
+import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -34,7 +37,18 @@ export class WarehouseDashboardViewRaw extends Component {
   }
 
   render() {
-    const {dashboardData, userInfo, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
+    const {
+      showAddOrEditDestinationModal,
+      storekeeperDestination,
+      dashboardData,
+      userInfo,
+      drawerOpen,
+      onChangeTriggerDrawerOpen,
+      onClickInfoCardViewMode,
+      onClickAddressBtn,
+      onTriggerOpenModal,
+      onSubmitChangeDestination,
+    } = this.viewModel
     const {classes: classNames} = this.props
     const warhouseButtonsRoutes = {
       notifications: '',
@@ -55,7 +69,27 @@ export class WarehouseDashboardViewRaw extends Component {
                 <div className={classNames.userInfoLeftWrapper}>
                   <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  <div>
+                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+
+                    <div className={classNames.addressMainWrapper}>
+                      {storekeeperDestination ? (
+                        <div className={classNames.addressSubWrapper}>
+                          <Typography className={classNames.address}>
+                            {t(TranslationKey['Warehouse address']) + ':'}
+                          </Typography>
+
+                          <Typography
+                            className={classNames.addressMain}
+                          >{`${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
+                        </div>
+                      ) : null}
+
+                      <Button onClick={onClickAddressBtn}>
+                        {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+                      </Button>
+                    </div>
+                  </div>
                 </div>
 
                 <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
@@ -68,6 +102,18 @@ export class WarehouseDashboardViewRaw extends Component {
                   onClickViewMore={onClickInfoCardViewMode}
                 />
               ))}
+
+              <Modal
+                openModal={showAddOrEditDestinationModal}
+                setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+              >
+                <AddOrEditDestinationForm
+                  destinationToEdit={storekeeperDestination}
+                  onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+                  onCreateSubmit={onSubmitChangeDestination}
+                  onEditSubmit={onSubmitChangeDestination}
+                />
+              </Modal>
             </MainContent>
           </Appbar>
         </Main>

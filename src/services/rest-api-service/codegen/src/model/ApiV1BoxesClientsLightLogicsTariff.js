@@ -52,6 +52,9 @@ class ApiV1BoxesClientsLightLogicsTariff {
         if (data) {
             obj = obj || new ApiV1BoxesClientsLightLogicsTariff();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -64,6 +67,12 @@ class ApiV1BoxesClientsLightLogicsTariff {
 
 
 }
+
+/**
+ * GUID в базе данных
+ * @member {String} _id
+ */
+ApiV1BoxesClientsLightLogicsTariff.prototype['_id'] = undefined;
 
 /**
  * Название тарифа

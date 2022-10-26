@@ -123,14 +123,32 @@ export const lightTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+            // backgroundColor: 'rgba(0, 0, 0, 0.12)',
             // color: '#001029',
+            backgroundColor: '#C4C4C4',
           },
         },
       },
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+
+    MuiCssBaseline: {
+      styleOverrides: {
+        textarea: {
+          cursor: 'auto',
+        },
+
+        a: {
+          color: '#007bff',
+          textDecoration: 'none',
+
+          '&:hover': {
+            opacity: 0.7,
+          },
         },
       },
     },
@@ -177,7 +195,9 @@ export const lightTheme = createTheme({
 
     input: {
       // disabled: 'rgba(0, 0, 0, 0.38)',
-      disabled: '#C4C4C4',
+      // disabled: '#C4C4C4',
+      disabled: '#EBEBEB',
+
       // disabled: 'normal',
       // disabled: 'rgba(0, 0, 0, 0.26)',
       border: '#E0E0E0',
@@ -293,25 +313,18 @@ export const darkTheme = createTheme({
         //   // backgroundColor: '#a0a0a4',
         //   color: '#fff',
         // },
-
-        disabled: {
-          color: '#001029 !important',
-
-          // '::-webkit-text-fill-color': {
-          //   color: '#001029 !important',
-          //   // color: '#001029',
-          // },
-        },
       },
     },
 
-    Mui: {
-      styleOverrides: {
-        disabled: {
-          color: '#001029 !important',
-        },
-      },
-    },
+    // Mui: {
+    //   styleOverrides: {
+    //     root: {
+    //       '&.Mui-disabled': {
+    //         color: '#001029 !important',
+    //       },
+    //     },
+    //   },
+    // },
 
     MuiCheckbox: {
       defaultProps: {
@@ -319,6 +332,12 @@ export const darkTheme = createTheme({
           '&.Mui-disabled': {
             color: '#a0a0a4',
           },
+        },
+      },
+
+      styleOverrides: {
+        root: {
+          color: '#fff',
         },
       },
     },
@@ -359,34 +378,44 @@ export const darkTheme = createTheme({
       styleOverrides: {
         '::-webkit-scrollbar': {
           backgroundColor: '#21212B',
+          cursor: 'pointer !important',
         },
-
         '::-webkit-scrollbar-thumb': {
           // backgroundColor: '#2B2B34',
           backgroundColor: '#001029',
           // borderRadius: 10,
+
+          '&:hover': {
+            backgroundColor: 'rgba(0, 16, 41, 0.7)',
+          },
         },
 
         '::-webkit-scrollbar-button': {
           // backgroundColor: '#21212B',
           backgroundColor: '#2B2B34',
           outline: '1px solid #21212B',
+
+          '&:hover': {
+            backgroundColor: 'rgba(43, 43, 52, 0.7)',
+          },
         },
 
-        // '::-webkit-scrollbar-track': {
-        //   backgroundColor: '#2B2B34',
-        //   // backgroundColor: '#fff',
-        // },
+        '::-webkit-scrollbar-corner': {
+          backgroundColor: '#21212B',
+        },
 
-        // '::-webkit-text-fill-color': {
-        //   color: '#001029 !important',
-        //   // color: '#001029',
-        // },
+        textarea: {
+          cursor: 'auto',
+        },
 
-        // '&:Mui-disabled': {
-        //   // backgroundColor: '#a0a0a4',
-        //   color: '#fff !important',
-        // },
+        a: {
+          color: '#008CF1',
+          textDecoration: 'none',
+
+          '&:hover': {
+            opacity: 0.7,
+          },
+        },
       },
     },
   },
@@ -436,6 +465,7 @@ export const darkTheme = createTheme({
       // disabled: '#fff',
 
       disabled: '#a0a0a4',
+      // disabled: '#EBEBEB', // макет
 
       border: '#424250',
     },

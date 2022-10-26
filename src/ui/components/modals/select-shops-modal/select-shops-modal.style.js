@@ -117,10 +117,14 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #e0e0e0',
     padding: '10px 15px',
     borderRadius: '4px',
+
+    // color: theme.palette.text.general,
   },
 
   shopsSelect: {
     width: '214px',
+
+    height: 40,
 
     color: theme.palette.text.general,
   },
@@ -176,6 +180,6 @@ export const useClassNames = makeStyles()(theme => ({
   fieldLabel: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 }))

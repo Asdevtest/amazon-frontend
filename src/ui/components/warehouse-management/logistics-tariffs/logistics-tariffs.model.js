@@ -4,6 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -20,12 +21,14 @@ export class LogisticsTariffsModel {
   error = undefined
 
   yuanToDollarRate = undefined
+  storekeeperDestination = undefined
 
   logisticsTariffs = []
   tariffToEdit = undefined
   tariffIdToRemove = undefined
 
   showAddOrEditLogisticTariffModal = false
+  showAddOrEditDestinationModal = false
   showConfirmModal = false
 
   confirmModalSettings = {
@@ -46,6 +49,10 @@ export class LogisticsTariffsModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -137,9 +144,41 @@ export class LogisticsTariffsModel {
 
       this.getDataGridState()
 
+      this.getDestinations()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const result = await ClientModel.getDestinations()
+
+      const storekeeperDestination = result.find(el => el.storekeeperId === this.userInfo._id)
+      if (storekeeperDestination) {
+        runInAction(() => {
+          this.storekeeperDestination = storekeeperDestination
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickAddressBtn() {
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+  }
+
+  async onSubmitChangeDestination(data) {
+    try {
+      await StorekeeperModel.editStorekeperDestination(data)
+
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
+      this.loadData()
+    } catch (error) {
       console.log(error)
     }
   }

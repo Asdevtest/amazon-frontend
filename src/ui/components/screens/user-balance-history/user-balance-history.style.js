@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   replenishRow: {
     '& td': {
-      color: theme.palette.success.main,
+      color: theme.palette.text.green,
       textAlign: 'center',
     },
 
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   withdrawRow: {
     '& td': {
-      color: theme.palette.error.main,
+      color: 'red',
       textAlign: 'center',
     },
 

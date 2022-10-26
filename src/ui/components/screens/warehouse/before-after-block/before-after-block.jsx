@@ -136,7 +136,7 @@ const Box = observer(
         {box.amount > 1 && (
           <div className={classNames.superWrapper}>
             <Typography className={classNames.subTitle}>{t(TranslationKey.Super) + ' '}</Typography>
-            <Typography>{`x${box.amount}`}</Typography>
+            <Typography className={classNames.superAmount}>{`x${box.amount}`}</Typography>
           </div>
         )}
         {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
