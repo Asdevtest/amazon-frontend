@@ -560,7 +560,7 @@ export const adminBoxesDataConverter = data =>
   }))
 
 export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
-  data.map(item => ({
+  data?.map(item => ({
     originalData: item,
     id: item._id,
     _id: item._id,
@@ -568,7 +568,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     warehouse: item.destination?.name,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
-    client: item.items[0].product.client.name,
+    client: item.items[0]?.product.client.name,
 
     humanFriendlyId: item.humanFriendlyId,
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),

@@ -55031,10 +55031,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "guid": {"type": "string", "format": "uuid", "description": "GUID партии в БД."},
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID партии в БД.",
             "required": true,
             "in": "path",
-            "name": "params"
+            "name": "guid"
           },
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],

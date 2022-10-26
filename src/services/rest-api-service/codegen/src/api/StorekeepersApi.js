@@ -152,21 +152,21 @@ export default class StorekeepersApi {
     /**
      * # Скопировать партию, расформировать, на коробки из партии создать задачи
      * ## Создается копия партии, коробки получают статус IN_STOCK, слздаются задачи на принятие
-     * @param {Object} params 
+     * @param {String} guid GUID партии в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(params, opts) {
+    apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'params' is set
-      if (params === undefined || params === null) {
-        throw new Error("Missing the required parameter 'params' when calling apiV1StorekeepersDestructBatchGuidPost");
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersDestructBatchGuidPost");
       }
 
       let pathParams = {
-        'params': params
+        'guid': guid
       };
       let queryParams = {
       };
@@ -190,13 +190,13 @@ export default class StorekeepersApi {
     /**
      * # Скопировать партию, расформировать, на коробки из партии создать задачи
      * ## Создается копия партии, коробки получают статус IN_STOCK, слздаются задачи на принятие
-     * @param {Object} params 
+     * @param {String} guid GUID партии в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1StorekeepersDestructBatchGuidPost(params, opts) {
-      return this.apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(params, opts)
+    apiV1StorekeepersDestructBatchGuidPost(guid, opts) {
+      return this.apiV1StorekeepersDestructBatchGuidPostWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

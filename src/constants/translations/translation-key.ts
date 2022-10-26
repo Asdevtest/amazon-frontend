@@ -1573,7 +1573,7 @@ export enum TranslationKey {
   'Additionally' = 'Additionally',
   'Warehouse address' = 'Warehouse address',
   'Add Address' = 'Add Address',
-  // '' = '',
+  'Reply to a User Feedback' = 'Reply to a User Feedback',
   // '' = '',
   // '' = '',
   // '' = '',

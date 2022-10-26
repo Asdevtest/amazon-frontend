@@ -44,6 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionButtonWrapper: {
+    marginTop: 15,
     width: '100%',
     display: 'flex',
     justifyContent: 'end',

@@ -442,13 +442,13 @@ export const NormDateWithParseISOCell = withStyles(
 export const OrderCell = withStyles(
   ({classes: classNames, product, superbox, box, error}) => (
     <div className={classNames.order}>
-      <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
+      <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
       <div>
-        <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
+        <Typography className={classNames.orderTitle}>{product?.amazonTitle}</Typography>
         <div className={classNames.copyAsin}>
           <Typography className={classNames.orderText}>
             <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-            {product.asin ? (
+            {product?.asin ? (
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -461,7 +461,7 @@ export const OrderCell = withStyles(
               <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
             )}
           </Typography>
-          {product.asin ? <CopyValue text={product.asin} /> : null}
+          {product?.asin ? <CopyValue text={product.asin} /> : null}
         </div>
         <div className={classNames.copyAsin}>
           <Typography className={classNames.orderText}>

@@ -13,8 +13,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Field} from '@components/field'
+import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -35,6 +37,8 @@ export class AdminFeedbackViewRaw extends Component {
 
   render() {
     const {
+      selectedFeedback,
+      showReplyFeedbackModal,
       nameSearchValue,
       getCurrentData,
       sortModel,
@@ -55,6 +59,9 @@ export class AdminFeedbackViewRaw extends Component {
 
       onChangeFilterModel,
       onChangeNameSearchValue,
+      onTriggerOpenModal,
+
+      onClickWriteBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -114,6 +121,17 @@ export class AdminFeedbackViewRaw extends Component {
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
+
+              <Modal
+                openModal={showReplyFeedbackModal}
+                setOpenModal={() => onTriggerOpenModal('showReplyFeedbackModal')}
+              >
+                <ReplyFeedbackForm
+                  feedback={selectedFeedback}
+                  onCloseModal={() => onTriggerOpenModal('showReplyFeedbackModal')}
+                  onSubmit={onClickWriteBtn}
+                />
+              </Modal>
             </MainContent>
           </Appbar>
         </Main>

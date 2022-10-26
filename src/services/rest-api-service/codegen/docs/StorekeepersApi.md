@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersDestructBatchGuidPost
 
-> String apiV1StorekeepersDestructBatchGuidPost(params, opts)
+> String apiV1StorekeepersDestructBatchGuidPost(guid, opts)
 
 # Скопировать партию, расформировать, на коробки из партии создать задачи
 
@@ -155,11 +155,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.StorekeepersApi();
-let params = null; // Object | 
+let guid = null; // String | GUID партии в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1StorekeepersDestructBatchGuidPost(params, opts).then((data) => {
+apiInstance.apiV1StorekeepersDestructBatchGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -172,7 +172,7 @@ apiInstance.apiV1StorekeepersDestructBatchGuidPost(params, opts).then((data) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **params** | [**Object**](.md)|  | 
+ **guid** | [**String**](.md)| GUID партии в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

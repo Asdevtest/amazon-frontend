@@ -47,7 +47,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       ) : (
         <OrderCell
           box={params.row.originalData}
-          product={params.row.originalData.items[0].product}
+          product={params.row.originalData.items[0]?.product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />
       ),
@@ -92,7 +92,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0]?.product.client?._id} />
     ),
     width: 200,
   },
