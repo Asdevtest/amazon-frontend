@@ -189,8 +189,28 @@ export const styles = theme => ({
     color: '#001029',
   },
 
+  inputValueNoExists: {
+    backgroundColor: '#F5CF00',
+    color: '#001029',
+  },
+
   chipStock: {
     width: '100%',
+
+    backgroundcolor: theme.palette.text.general,
+  },
+
+  changeInput: {
+    width: '100%',
+    height: 36,
+  },
+
+  changeInputIcon: {
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
 
   noActivebarCode: {
@@ -1023,12 +1043,26 @@ export const styles = theme => ({
     },
   },
 
+  inStockWrapper: {
+    width: '100%',
+  },
+
+  inStockSubWrapper: {
+    width: '100%',
+
+    display: 'flex',
+
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+
   fourMonthesStockWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '10px 0',
   },
 
   fourMonthesStockLabel: {

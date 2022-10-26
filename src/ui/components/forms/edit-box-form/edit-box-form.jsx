@@ -153,9 +153,9 @@ export const EditBoxForm = observer(
       volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
       weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
-      destinationId: formItem?.destinationId || null,
-      storekeeperId: formItem?.storekeeperId || '',
-      logicsTariffId: formItem?.logicsTariffId || '',
+      destinationId: formItem?.destination?._id || null,
+      storekeeperId: formItem?.storekeeper?._id || '',
+      logicsTariffId: formItem?.logicsTariff?._id || '',
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,

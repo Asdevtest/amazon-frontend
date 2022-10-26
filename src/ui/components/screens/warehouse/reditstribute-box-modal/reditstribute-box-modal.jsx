@@ -383,7 +383,9 @@ export const RedistributeBox = observer(
       _id: 'new_id_' + Date.now(),
       items: emptyProducts,
       amount: 1,
-      destinationId: currentBox.destinationId || null,
+      destinationId: currentBox.destination?._id || null,
+      storekeeperId: currentBox.storekeeper?._id || '',
+      logicsTariffId: currentBox.logicsTariff?._id || '',
       tmpShippingLabel: [],
     })
 

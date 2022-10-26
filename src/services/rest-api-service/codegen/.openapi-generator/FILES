@@ -5,8 +5,10 @@ README.md
 docs/AdminUserPatchDtoSchema.md
 docs/AdministratorApi.md
 docs/ApiV1AdminsFeedbackUser.md
+docs/ApiV1AdminsGetProductsByStatusBoxAmounts.md
 docs/ApiV1AdminsGetProductsByStatusBoxProperties.md
 docs/ApiV1AdminsGetProductsByStatusCreatedBy.md
+docs/ApiV1AdminsGetProductsByStatusStorekeeper.md
 docs/ApiV1AdminsGetProductsByStatusSuppliers.md
 docs/ApiV1AdminsOrdersDestination.md
 docs/ApiV1AdminsOrdersLogicsTariff.md
@@ -317,8 +319,10 @@ src/api/UserApi.js
 src/index.js
 src/model/AdminUserPatchDtoSchema.js
 src/model/ApiV1AdminsFeedbackUser.js
+src/model/ApiV1AdminsGetProductsByStatusBoxAmounts.js
 src/model/ApiV1AdminsGetProductsByStatusBoxProperties.js
 src/model/ApiV1AdminsGetProductsByStatusCreatedBy.js
+src/model/ApiV1AdminsGetProductsByStatusStorekeeper.js
 src/model/ApiV1AdminsGetProductsByStatusSuppliers.js
 src/model/ApiV1AdminsOrdersDestination.js
 src/model/ApiV1AdminsOrdersLogicsTariff.js

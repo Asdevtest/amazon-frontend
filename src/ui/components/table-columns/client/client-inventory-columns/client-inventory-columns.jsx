@@ -16,7 +16,8 @@ import {
   ShowBarcodeOrHscodeCell,
   FourMonthesStockCell,
   MultilineTextAlignLeftCell,
-  ChangeChipCell,
+  ChangeInputCell,
+  InStockCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -80,14 +81,24 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     field: 'stockUSA',
     headerName: t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />,
+    // renderCell: params => (
+    //   <ChangeChipCell
+    //     row={params.row.originalData}
+    //     text={Number(params.value) > 0 ? params.value : `-`}
+    //     onClickChip={() => stockUsHandlers.onClickStockUs(params.row.originalData)}
+    //   />
+    // ),
+
     renderCell: params => (
-      <ChangeChipCell
+      <ChangeInputCell
+        isInts
         row={params.row.originalData}
-        text={Number(params.value) > 0 ? params.value : `-`}
-        onClickChip={() => stockUsHandlers.onClickStockUs(params.row.originalData)}
+        // text={Number(params.value) > 0 ? params.value : `-`}
+        text={params.value}
+        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
       />
     ),
-    width: 110,
+    width: 130,
   },
 
   {
@@ -95,8 +106,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: 'In stock',
     renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    renderCell: params => <InStockCell boxAmounts={params.row.originalData.boxAmounts} />,
+    width: 160,
   },
 
   {

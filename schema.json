@@ -1258,10 +1258,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -1709,10 +1733,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -2161,10 +2209,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -2612,10 +2684,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -3339,10 +3435,34 @@
                         "description": "Сколько такого продукта находится в заказах.",
                         "example": 1
                       },
-                      "amountInBoxes": {
-                        "type": "number",
-                        "description": "Сколько такого продукта находится в коробках.",
-                        "example": 12
+                      "boxAmounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID в базе данных",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "storekeeper": {
+                              "type": "object",
+                              "description": "Общая информация о пользователи",
+                              "nullable": true,
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID пользователя.",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                              }
+                            },
+                            "amountInBoxes": {"type": "number", "example": 23}
+                          }
+                        }
                       },
                       "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                       "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -4945,10 +5065,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -6034,10 +6178,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -6777,10 +6949,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -8235,10 +8435,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -8918,10 +9146,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -9988,10 +10244,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -10671,10 +10955,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -11714,10 +12026,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -12397,10 +12737,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -13440,10 +13808,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -14123,10 +14519,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -15792,10 +16216,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -16475,10 +16927,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -17282,6 +17762,11 @@
                     "additionalProperties": false,
                     "required": ["name", "conditionsByRegion"],
                     "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID в базе данных",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
                       "name": {"type": "string", "example": "Fast sea QP9", "description": "Название тарифа"},
                       "conditionsByRegion": {
                         "type": "object",
@@ -17950,10 +18435,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -18633,10 +19146,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -19673,10 +20214,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -20356,10 +20925,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -21352,10 +21949,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -21830,10 +22451,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -22530,10 +23175,34 @@
                         "description": "Сколько такого продукта находится в заказах.",
                         "example": 1
                       },
-                      "amountInBoxes": {
-                        "type": "number",
-                        "description": "Сколько такого продукта находится в коробках.",
-                        "example": 12
+                      "boxAmounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID в базе данных",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "storekeeper": {
+                              "type": "object",
+                              "description": "Общая информация о пользователи",
+                              "nullable": true,
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID пользователя.",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                              }
+                            },
+                            "amountInBoxes": {"type": "number", "example": 23}
+                          }
+                        }
                       },
                       "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                       "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -23318,10 +23987,34 @@
                       "description": "Сколько такого продукта находится в заказах.",
                       "example": 1
                     },
-                    "amountInBoxes": {
-                      "type": "number",
-                      "description": "Сколько такого продукта находится в коробках.",
-                      "example": 12
+                    "boxAmounts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID в базе данных",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "storekeeper": {
+                            "type": "object",
+                            "description": "Общая информация о пользователи",
+                            "nullable": true,
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "description": "GUID пользователя.",
+                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                              },
+                              "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                              "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                              "email": {"type": "string", "example": "asdasd@gmail.com"}
+                            }
+                          },
+                          "amountInBoxes": {"type": "number", "example": 23}
+                        }
+                      }
                     },
                     "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                     "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -24132,10 +24825,34 @@
                         "description": "Сколько такого продукта находится в заказах.",
                         "example": 1
                       },
-                      "amountInBoxes": {
-                        "type": "number",
-                        "description": "Сколько такого продукта находится в коробках.",
-                        "example": 12
+                      "boxAmounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID в базе данных",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "storekeeper": {
+                              "type": "object",
+                              "description": "Общая информация о пользователи",
+                              "nullable": true,
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID пользователя.",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                              }
+                            },
+                            "amountInBoxes": {"type": "number", "example": 23}
+                          }
+                        }
                       },
                       "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                       "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -25251,10 +25968,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -25994,10 +26739,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -27103,10 +27876,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -27846,10 +28647,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -29412,10 +30241,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -30224,10 +31077,34 @@
                         "description": "Сколько такого продукта находится в заказах.",
                         "example": 1
                       },
-                      "amountInBoxes": {
-                        "type": "number",
-                        "description": "Сколько такого продукта находится в коробках.",
-                        "example": 12
+                      "boxAmounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID в базе данных",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "storekeeper": {
+                              "type": "object",
+                              "description": "Общая информация о пользователи",
+                              "nullable": true,
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID пользователя.",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                              }
+                            },
+                            "amountInBoxes": {"type": "number", "example": 23}
+                          }
+                        }
                       },
                       "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                       "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -31078,10 +31955,34 @@
                       "description": "Сколько такого продукта находится в заказах.",
                       "example": 1
                     },
-                    "amountInBoxes": {
-                      "type": "number",
-                      "description": "Сколько такого продукта находится в коробках.",
-                      "example": 12
+                    "boxAmounts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID в базе данных",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "storekeeper": {
+                            "type": "object",
+                            "description": "Общая информация о пользователи",
+                            "nullable": true,
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "description": "GUID пользователя.",
+                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                              },
+                              "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                              "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                              "email": {"type": "string", "example": "asdasd@gmail.com"}
+                            }
+                          },
+                          "amountInBoxes": {"type": "number", "example": 23}
+                        }
+                      }
                     },
                     "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                     "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -31873,10 +32774,34 @@
                         "description": "Сколько такого продукта находится в заказах.",
                         "example": 1
                       },
-                      "amountInBoxes": {
-                        "type": "number",
-                        "description": "Сколько такого продукта находится в коробках.",
-                        "example": 12
+                      "boxAmounts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID в базе данных",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "storekeeper": {
+                              "type": "object",
+                              "description": "Общая информация о пользователи",
+                              "nullable": true,
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID пользователя.",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                              }
+                            },
+                            "amountInBoxes": {"type": "number", "example": 23}
+                          }
+                        }
                       },
                       "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                       "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -35962,10 +36887,34 @@
                   "description": "Сколько такого продукта находится в заказах.",
                   "example": 1
                 },
-                "amountInBoxes": {
-                  "type": "number",
-                  "description": "Сколько такого продукта находится в коробках.",
-                  "example": 12
+                "boxAmounts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID в базе данных",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "storekeeper": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                        }
+                      },
+                      "amountInBoxes": {"type": "number", "example": 23}
+                    }
+                  }
                 },
                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -38099,10 +39048,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -38640,10 +39613,34 @@
                   "description": "Сколько такого продукта находится в заказах.",
                   "example": 1
                 },
-                "amountInBoxes": {
-                  "type": "number",
-                  "description": "Сколько такого продукта находится в коробках.",
-                  "example": 12
+                "boxAmounts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID в базе данных",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "storekeeper": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                        }
+                      },
+                      "amountInBoxes": {"type": "number", "example": 23}
+                    }
+                  }
                 },
                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -40202,10 +41199,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -40945,10 +41970,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -42054,10 +43107,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -42797,10 +43878,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -43943,10 +45052,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -44678,10 +45815,38 @@
                                       "description": "Сколько такого продукта находится в заказах.",
                                       "example": 1
                                     },
-                                    "amountInBoxes": {
-                                      "type": "number",
-                                      "description": "Сколько такого продукта находится в коробках.",
-                                      "example": 12
+                                    "boxAmounts": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID в базе данных",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "storekeeper": {
+                                            "type": "object",
+                                            "description": "Общая информация о пользователи",
+                                            "nullable": true,
+                                            "properties": {
+                                              "_id": {
+                                                "type": "string",
+                                                "description": "GUID пользователя.",
+                                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "description": "Имя пользователя.",
+                                                "example": "Petia"
+                                              },
+                                              "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                              "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                            }
+                                          },
+                                          "amountInBoxes": {"type": "number", "example": 23}
+                                        }
+                                      }
                                     },
                                     "archive": {
                                       "type": "boolean",
@@ -45735,10 +46900,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -46470,10 +47663,38 @@
                                       "description": "Сколько такого продукта находится в заказах.",
                                       "example": 1
                                     },
-                                    "amountInBoxes": {
-                                      "type": "number",
-                                      "description": "Сколько такого продукта находится в коробках.",
-                                      "example": 12
+                                    "boxAmounts": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID в базе данных",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "storekeeper": {
+                                            "type": "object",
+                                            "description": "Общая информация о пользователи",
+                                            "nullable": true,
+                                            "properties": {
+                                              "_id": {
+                                                "type": "string",
+                                                "description": "GUID пользователя.",
+                                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "description": "Имя пользователя.",
+                                                "example": "Petia"
+                                              },
+                                              "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                              "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                            }
+                                          },
+                                          "amountInBoxes": {"type": "number", "example": 23}
+                                        }
+                                      }
                                     },
                                     "archive": {
                                       "type": "boolean",
@@ -48032,10 +49253,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -48775,10 +50024,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -49884,10 +51161,38 @@
                                     "description": "Сколько такого продукта находится в заказах.",
                                     "example": 1
                                   },
-                                  "amountInBoxes": {
-                                    "type": "number",
-                                    "description": "Сколько такого продукта находится в коробках.",
-                                    "example": 12
+                                  "boxAmounts": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID в базе данных",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "storekeeper": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                          }
+                                        },
+                                        "amountInBoxes": {"type": "number", "example": 23}
+                                      }
+                                    }
                                   },
                                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -50627,10 +51932,38 @@
                                         "description": "Сколько такого продукта находится в заказах.",
                                         "example": 1
                                       },
-                                      "amountInBoxes": {
-                                        "type": "number",
-                                        "description": "Сколько такого продукта находится в коробках.",
-                                        "example": 12
+                                      "boxAmounts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID в базе данных",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "storekeeper": {
+                                              "type": "object",
+                                              "description": "Общая информация о пользователи",
+                                              "nullable": true,
+                                              "properties": {
+                                                "_id": {
+                                                  "type": "string",
+                                                  "description": "GUID пользователя.",
+                                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "description": "Имя пользователя.",
+                                                  "example": "Petia"
+                                                },
+                                                "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                                "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                              }
+                                            },
+                                            "amountInBoxes": {"type": "number", "example": 23}
+                                          }
+                                        }
                                       },
                                       "archive": {
                                         "type": "boolean",
@@ -51810,10 +53143,38 @@
                               "description": "Сколько такого продукта находится в заказах.",
                               "example": 1
                             },
-                            "amountInBoxes": {
-                              "type": "number",
-                              "description": "Сколько такого продукта находится в коробках.",
-                              "example": 12
+                            "boxAmounts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "_id": {
+                                    "type": "string",
+                                    "description": "GUID в базе данных",
+                                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                  },
+                                  "storekeeper": {
+                                    "type": "object",
+                                    "description": "Общая информация о пользователи",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID пользователя.",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Имя пользователя.",
+                                        "example": "Petia"
+                                      },
+                                      "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                      "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                    }
+                                  },
+                                  "amountInBoxes": {"type": "number", "example": 23}
+                                }
+                              }
                             },
                             "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                             "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -52493,10 +53854,38 @@
                                   "description": "Сколько такого продукта находится в заказах.",
                                   "example": 1
                                 },
-                                "amountInBoxes": {
-                                  "type": "number",
-                                  "description": "Сколько такого продукта находится в коробках.",
-                                  "example": 12
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
                                 },
                                 "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                                 "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -54073,10 +55462,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},
@@ -54551,10 +55964,34 @@
                     "description": "Сколько такого продукта находится в заказах.",
                     "example": 1
                   },
-                  "amountInBoxes": {
-                    "type": "number",
-                    "description": "Сколько такого продукта находится в коробках.",
-                    "example": 12
+                  "boxAmounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID в базе данных",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "storekeeper": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                            "email": {"type": "string", "example": "asdasd@gmail.com"}
+                          }
+                        },
+                        "amountInBoxes": {"type": "number", "example": 23}
+                      }
+                    }
                   },
                   "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
                   "hsCode": {"type": "string", "description": "hsCode продукта."},

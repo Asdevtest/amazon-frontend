@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusBoxAmounts from './ApiV1AdminsGetProductsByStatusBoxAmounts';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
@@ -215,8 +216,8 @@ class InlineResponse20014 {
             if (data.hasOwnProperty('amountInOrders')) {
                 obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
             }
-            if (data.hasOwnProperty('amountInBoxes')) {
-                obj['amountInBoxes'] = ApiClient.convertToType(data['amountInBoxes'], 'Number');
+            if (data.hasOwnProperty('boxAmounts')) {
+                obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
             }
             if (data.hasOwnProperty('archive')) {
                 obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
@@ -590,10 +591,9 @@ InlineResponse20014.prototype['needCheckBySupervisor'] = undefined;
 InlineResponse20014.prototype['amountInOrders'] = undefined;
 
 /**
- * Сколько такого продукта находится в коробках.
- * @member {Number} amountInBoxes
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts
  */
-InlineResponse20014.prototype['amountInBoxes'] = undefined;
+InlineResponse20014.prototype['boxAmounts'] = undefined;
 
 /**
  * Флаг указывает что продукт в архиве.

@@ -141,12 +141,16 @@ export class ClientInventoryViewModel {
   }
 
   fourMonthesStockHandlers = {
-    onClickFourMonthsStock: item => this.onClickFourMonthsStock(item),
-    onDeleteFourMonthesStock: item => this.onDeleteFourMonthesStock(item),
+    // onClickFourMonthsStock: item => this.onClickFourMonthsStock(item),
+    // onDeleteFourMonthesStock: item => this.onDeleteFourMonthesStock(item),
+
+    onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
   }
 
   stockUsHandlers = {
-    onClickStockUs: item => this.onClickStockUs(item),
+    // onClickStockUs: item => this.onClickStockUs(item),
+
+    onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
   }
 
   confirmModalSettings = {
@@ -490,34 +494,10 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onClickSavesStockUSA(value) {
-    await ClientModel.editProductsStockUS(this.selectedProduct._id, {
-      stockUSA: value,
-    })
-
-    this.onTriggerOpenModal('showSetStockUsValueModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
   async onClickSaveHsCode(hsCode) {
     await ProductModel.editProductsHsCods([{productId: this.selectedProduct._id, hsCode}])
 
     this.onTriggerOpenModal('showSetChipValueModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickSaveFourMonthesStockValue(fourMonthesStock) {
-    await ClientModel.updateProductFourMonthesStock(this.selectedProduct._id, {fourMonthesStock})
-
-    this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
     this.loadData()
 
     runInAction(() => {
@@ -575,9 +555,24 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetChipValueModal')
   }
 
-  onClickFourMonthsStock(item) {
-    this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
+  // onClickFourMonthsStock(item) {
+  //   this.setSelectedProduct(item)
+  //   this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
+  // }
+
+  async onClickSaveFourMonthesStockValue(item, fourMonthesStock) {
+    try {
+      await ClientModel.updateProductFourMonthesStock(item._id, {fourMonthesStock})
+
+      // this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
+      this.getProductsMy()
+
+      // runInAction(() => {
+      //   this.selectedProduct = undefined
+      // })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   showBarcodeOrHscode(barcode, hscode) {
@@ -586,9 +581,26 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
-  onClickStockUs(item) {
-    this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetStockUsValueModal')
+  // onClickStockUs(item) {
+  //   this.setSelectedProduct(item)
+  //   this.onTriggerOpenModal('showSetStockUsValueModal')
+  // }
+
+  async onClickSaveStockUs(item, value) {
+    try {
+      await ClientModel.editProductsStockUS(item._id, {
+        stockUSA: value,
+      })
+
+      // this.onTriggerOpenModal('showSetStockUsValueModal')
+      this.getProductsMy()
+
+      // runInAction(() => {
+      //   this.selectedProduct = undefined
+      // })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {

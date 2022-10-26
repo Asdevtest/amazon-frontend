@@ -390,6 +390,11 @@ export const useClassNames = makeStyles()(theme => ({
       padding: 0,
     },
   },
+
+  superAmount: {
+    color: theme.palette.primary.main,
+  },
+
   copyImg: {
     width: '20px',
     height: '20px',

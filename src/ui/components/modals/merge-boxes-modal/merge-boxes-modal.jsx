@@ -33,16 +33,16 @@ export const MergeBoxesModal = ({
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: selectedBoxes.some(box => box.destinationId !== selectedBoxes[0].destinationId)
+    destinationId: selectedBoxes.some(box => box.destination?._id !== selectedBoxes[0].destination?._id)
       ? null
-      : selectedBoxes[0].destinationId,
+      : selectedBoxes[0].destination?._id,
 
-    storekeeperId: selectedBoxes.some(box => box.storekeeperId !== selectedBoxes[0].storekeeperId)
+    storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0].storekeeper?._id)
       ? ''
-      : selectedBoxes[0].storekeeperId,
-    logicsTariffId: selectedBoxes.some(box => box.logicsTariffId !== selectedBoxes[0].logicsTariffId)
+      : selectedBoxes[0].storekeeper?._id,
+    logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0].logicsTariff?._id)
       ? ''
-      : selectedBoxes[0].logicsTariffId,
+      : selectedBoxes[0].logicsTariff?._id,
 
     fbaShipment: '',
 

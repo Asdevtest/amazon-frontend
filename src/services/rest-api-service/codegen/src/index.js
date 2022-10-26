@@ -15,8 +15,10 @@
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
 import ApiV1AdminsFeedbackUser from './model/ApiV1AdminsFeedbackUser';
+import ApiV1AdminsGetProductsByStatusBoxAmounts from './model/ApiV1AdminsGetProductsByStatusBoxAmounts';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusStorekeeper from './model/ApiV1AdminsGetProductsByStatusStorekeeper';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
@@ -352,6 +354,12 @@ export {
     ApiV1AdminsFeedbackUser,
 
     /**
+     * The ApiV1AdminsGetProductsByStatusBoxAmounts model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusBoxAmounts}
+     */
+    ApiV1AdminsGetProductsByStatusBoxAmounts,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusBoxProperties model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusBoxProperties}
      */
@@ -362,6 +370,12 @@ export {
      * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedBy}
      */
     ApiV1AdminsGetProductsByStatusCreatedBy,
+
+    /**
+     * The ApiV1AdminsGetProductsByStatusStorekeeper model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusStorekeeper}
+     */
+    ApiV1AdminsGetProductsByStatusStorekeeper,
 
     /**
      * The ApiV1AdminsGetProductsByStatusSuppliers model constructor.

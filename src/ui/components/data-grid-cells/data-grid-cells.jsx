@@ -4,7 +4,18 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography, Rating} from '@mui/material'
+import {
+  Avatar,
+  Badge,
+  Chip,
+  Grid,
+  Link,
+  TextareaAutosize,
+  Tooltip,
+  Typography,
+  Rating,
+  InputAdornment,
+} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -25,6 +36,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Input} from '@components/input'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -74,6 +86,21 @@ export const UserCell = withStyles(
           <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
         </div>
       </div>
+    </div>
+  ),
+  styles,
+)
+
+export const InStockCell = withStyles(
+  ({classes: classNames, boxAmounts}) => (
+    <div className={classNames.inStockWrapper}>
+      {boxAmounts?.map(el => (
+        <div key={el._id} className={classNames.inStockSubWrapper}>
+          <UserLink name={el.storekeeper?.name} userId={el.storekeeper?._id} />
+
+          <Typography>{el.amountInBoxes}</Typography>
+        </div>
+      ))}
     </div>
   ),
   styles,
@@ -304,6 +331,35 @@ export const HsCodeCell = withStyles(
   styles,
 )
 
+export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSubmit, text, disabled, isInts}) => {
+  const sourceValue = text ? text : ''
+
+  const [value, setValue] = useState(sourceValue)
+  return (
+    <>
+      <Input
+        disabled={disabled}
+        // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
+        className={classNames.changeInput}
+        inputProps={{maxLength: 7}}
+        value={value}
+        endAdornment={
+          <InputAdornment position="start">
+            {sourceValue !== value ? (
+              <img
+                src={'/assets/icons/save-discet.svg'}
+                className={classNames.changeInputIcon}
+                onClick={() => onClickSubmit(row, value)}
+              />
+            ) : null}
+          </InputAdornment>
+        }
+        onChange={e => (isInts ? setValue(e.target.value ? parseInt(e.target.value) : '') : setValue(e.target.value))}
+      />
+    </>
+  )
+}, styles)
+
 export const ChangeChipCell = withStyles(
   ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label}) => (
     <>
@@ -316,7 +372,7 @@ export const ChangeChipCell = withStyles(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx(classNames.chipStock, {[classNames.barcodeChipExists]: value})}
+        className={cx(classNames.chipStock, {[classNames.barcodeChipNoExists]: !value})}
         size="small"
         label={value ? trimBarcode(value) : text}
         onClick={() => onClickChip(row)}
@@ -885,12 +941,20 @@ export const FourMonthesStockCell = withStyles(
       <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
         value < params.row.stockSum ? 0 : value - params.row.stockSum
       }`}</Typography>
-      <ChangeChipCell
+      {/* <ChangeChipCell
         row={params.row.originalData}
         // value={value}
-        text={value > 0 ? value /* `${t(TranslationKey.Edit)} Stock`*/ : `${t(TranslationKey.Set)} Stock`}
+        text={value > 0 ? value : `${t(TranslationKey.Set)} Stock`}
         onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
         onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
+      /> */}
+
+      <ChangeInputCell
+        isInts
+        row={params.row.originalData}
+        // text={Number(params.value) > 0 ? params.value : `-`}
+        text={params.value}
+        onClickSubmit={handlers.onClickSaveFourMonthsStock}
       />
     </div>
   ),
