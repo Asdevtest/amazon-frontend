@@ -467,17 +467,6 @@ export class ClientInventoryViewRaw extends Component {
           />
         </Modal>
 
-        {/* <Modal openModal={showSetStockUsValueModal} setOpenModal={() => onTriggerOpenModal('showSetStockUsValueModal')}>
-          <SetChipValueModal
-            isInts
-            maxLength={9}
-            title={`${t(TranslationKey.Set)}`}
-            sourceValue={selectedProduct?.stockUSA}
-            onSubmit={onClickSavesStockUSA}
-            onCloseModal={() => onTriggerOpenModal('showSetStockUsValueModal')}
-          />
-        </Modal> */}
-
         <Modal
           openModal={showSetFourMonthsStockValueModal}
           setOpenModal={() => onTriggerOpenModal('showSetFourMonthsStockValueModal')}

@@ -15,8 +15,8 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
-import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -43,6 +43,7 @@ class SubUsersViewRaw extends Component {
 
   render() {
     const {
+      productPermissionsData,
       userInfo,
       curUserProductPermissions,
       nameSearchValue,
@@ -59,8 +60,6 @@ class SubUsersViewRaw extends Component {
       getCurrentData,
 
       shopsData,
-      productsMy,
-      onClickShop,
 
       sortModel,
       filterModel,
@@ -161,16 +160,14 @@ class SubUsersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
         <Modal openModal={showAddSubUserModal} setOpenModal={() => onTriggerOpenModal('showAddSubUserModal')}>
           <LinkSubUserForm
             closeModal={() => onTriggerOpenModal('showAddSubUserModal')}
             onSubmit={onSubmitlinkSubUser}
           />
         </Modal>
-
         <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
-          <NewAddOrEditUserPermissionsForm
+          <AddOrEditUserPermissionsForm
             isWithoutProductPermissions={checkIsStorekeeper(UserRoleCodeMap[userInfo.role])}
             isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[userInfo.role])}
             curUserProductPermissions={curUserProductPermissions}
@@ -178,8 +175,7 @@ class SubUsersViewRaw extends Component {
             permissionGroupsToSelect={groupPermissions}
             sourceData={selectedSubUser}
             shops={shopsData}
-            products={productsMy}
-            onClickShop={onClickShop}
+            productPermissionsData={productPermissionsData}
             onCloseModal={() => onTriggerOpenModal('showPermissionModal')}
             onSubmit={onSubmitUserPermissionsForm}
           />
@@ -195,7 +191,6 @@ class SubUsersViewRaw extends Component {
             onTriggerOpenModal('showWarningModal')
           }}
         />
-
         <ConfirmationModal
           isWarning
           openModal={showConfirmModal}

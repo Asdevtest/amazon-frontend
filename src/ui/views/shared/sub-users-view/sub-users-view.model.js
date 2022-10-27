@@ -32,9 +32,9 @@ export class SubUsersViewModel {
   singlePermissions = []
   groupPermissions = []
   shopsData = []
-  productsMy = []
 
   curUserProductPermissions = []
+  productPermissionsData = []
 
   drawerOpen = false
 
@@ -199,47 +199,43 @@ export class SubUsersViewModel {
     }
   }
 
-  async onClickShop(shopId) {
-    await this.getProductsMy(shopId)
-  }
+  // async getProductsMy(shopId) {
+  //   try {
+  //     const methodByRole = () => {
+  //       switch (UserRoleCodeMap[this.userInfo.role]) {
+  //         case UserRole.CLIENT:
+  //           return ClientModel.getProductsMyFilteredByShopId({shopId})
 
-  async getProductsMy(shopId) {
-    try {
-      const methodByRole = () => {
-        switch (UserRoleCodeMap[this.userInfo.role]) {
-          case UserRole.CLIENT:
-            return ClientModel.getProductsMyFilteredByShopId({shopId})
+  //         case UserRole.BUYER:
+  //           return BuyerModel.getProductsMy()
 
-          case UserRole.BUYER:
-            return BuyerModel.getProductsMy()
+  //         case UserRole.SUPERVISOR:
+  //           return SupervisorModel.getProductsMy()
 
-          case UserRole.SUPERVISOR:
-            return SupervisorModel.getProductsMy()
+  //         case UserRole.RESEARCHER:
+  //           return ResearcherModel.getProductsVacant()
 
-          case UserRole.RESEARCHER:
-            return ResearcherModel.getProductsVacant()
+  //         default:
+  //           return ClientModel.getProductsMyFilteredByShopId({shopId})
+  //       }
+  //     }
 
-          default:
-            return ClientModel.getProductsMyFilteredByShopId({shopId})
-        }
-      }
+  //     const result = await methodByRole()
 
-      const result = await methodByRole()
+  //     runInAction(() => {
+  //       this.productsMy = clientInventoryDataConverter(result)
+  //         .filter(el => !el.originalData.archive)
+  //         .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.productsMy = []
 
-      runInAction(() => {
-        this.productsMy = clientInventoryDataConverter(result)
-          .filter(el => !el.originalData.archive)
-          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-      })
-    } catch (error) {
-      console.log(error)
-      this.productsMy = []
-
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
+  //     if (error.body && error.body.message) {
+  //       this.error = error.body.message
+  //     }
+  //   }
+  // }
 
   async getUsers() {
     try {
@@ -284,6 +280,31 @@ export class SubUsersViewModel {
       const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
 
       this.curUserProductPermissions = result
+
+      const methodByRole = () => {
+        switch (UserRoleCodeMap[this.userInfo.role]) {
+          case UserRole.CLIENT:
+            return ClientModel.getProductPermissionsData()
+
+          case UserRole.BUYER:
+            return BuyerModel.getProductsMy()
+
+          case UserRole.SUPERVISOR:
+            return SupervisorModel.getProductsMy()
+
+          case UserRole.RESEARCHER:
+            return ResearcherModel.getProductsVacant()
+
+          default:
+            return ClientModel.getProductPermissionsData()
+        }
+      }
+
+      const productPermissionsData = await methodByRole()
+
+      this.productPermissionsData = clientInventoryDataConverter(productPermissionsData)
+        .filter(el => !el.originalData.archive)
+        .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
 
       this.onTriggerOpenModal('showPermissionModal')
     } catch (error) {

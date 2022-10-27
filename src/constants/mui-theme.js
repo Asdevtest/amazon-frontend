@@ -39,7 +39,7 @@ const baseThemeComponentsSettings = {
 
 const baseThemeSettings = {
   typography: {
-    fontFamily: ['Manrope', 'sans-serif'],
+    fontFamily: ['Manrope', 'sans-serif'].join(','),
 
     h5: {
       fontWeight: 500,

@@ -129,7 +129,7 @@ export const AsinCell = withStyles(
       <div className={classNames.asinCellContainer}>
         <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
 
-        <div>
+        <div className={classNames.csCodeTypoWrapper}>
           <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
           <div className={classNames.copyAsin}>
             <Typography className={classNames.typoCell}>

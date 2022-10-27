@@ -8,6 +8,11 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '28px',
     marginBottom: '24px',
   },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   modalContainer: {
     width: '800px',
   },

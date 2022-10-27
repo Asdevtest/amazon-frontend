@@ -674,7 +674,7 @@ export const AddOrEditSupplierModalContent = observer(
             <div className={classNames.boxInfoWrapper}>
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.sizesSubWrapper}>
-                  <Typography>{t(TranslationKey.Demensions)}</Typography>
+                  <Typography className={classNames.standartText}>{t(TranslationKey.Demensions)}</Typography>
 
                   <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
