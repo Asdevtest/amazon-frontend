@@ -97,7 +97,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           <div className={classNames.inputWrapper}>
             <Field
               oneLine
-              type="number"
+              // type="number"
               placeholder={'00'}
               value={hour}
               containerClasses={classNames.inputField}
@@ -112,7 +112,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           <div className={classNames.inputWrapper}>
             <Field
               oneLine
-              type="number"
+              // type="number"
               placeholder={'00'}
               value={minute}
               containerClasses={classNames.inputField}

@@ -1,6 +1,9 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
+
+import Linkify from 'react-linkify-always-blank'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -33,21 +36,22 @@ interface Props {
 export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const {classes: classNames} = useClassNames()
-  console.log(message.data.price)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
+          <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
+          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
         </div>
       </div>
       <div className={classNames.mainWrapper}>
         <div className={classNames.mainInfoWrapper}>
           <div className={classNames.descriptionWrapper}>
-            <p className={classNames.descriptionText}>{message.data.comment}</p>
+            <Linkify>
+              <Typography className={classNames.descriptionText}>{message.data.comment}</Typography>
+            </Linkify>
           </div>
 
           <div className={classNames.leftSide}>

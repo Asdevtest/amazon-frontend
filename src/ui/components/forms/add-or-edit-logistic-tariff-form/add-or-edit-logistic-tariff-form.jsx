@@ -230,50 +230,55 @@ export const AddOrEditLogisticTariffForm = observer(
           />
 
           <div className={classNames.costBlock}>
-            <Text
-              tooltipInfoContent={t(TranslationKey['Shipping cost per kilogram to the region'])}
-              className={classNames.rateTitle}
-            >
-              {t(TranslationKey.Rates)}
-            </Text>
+            <div className={classNames.costSubBlock}>
+              <div className={classNames.ratesTitleWrapper}>
+                <Text
+                  tooltipInfoContent={t(TranslationKey['Shipping cost per kilogram to the region'])}
+                  className={classNames.rateTitle}
+                >
+                  {t(TranslationKey.Rates)}
+                </Text>
 
-            <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
-              <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>
-                {'$'}
-              </ToggleBtn>
-              <ToggleBtn disabled={currencyType === rateSettings.IN_YAN} value={rateSettings.IN_YAN}>
-                {'¥'}
-              </ToggleBtn>
-            </ToggleBtnGroup>
-            <div className={classNames.courseWrapper}>
-              <Field
-                oneLine
-                disabled
-                label={t(TranslationKey['Current exchange rate'])}
-                tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
-                containerClasses={classNames.rateContainer}
-                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-                inputClasses={classNames.middleInput}
-                value={sourceYuanToDollarRate}
-              />
+                <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
+                  <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>
+                    {'$'}
+                  </ToggleBtn>
+                  <ToggleBtn disabled={currencyType === rateSettings.IN_YAN} value={rateSettings.IN_YAN}>
+                    {'¥'}
+                  </ToggleBtn>
+                </ToggleBtnGroup>
+              </div>
 
-              <Field
-                oneLine
-                label={t(TranslationKey['Yuan to USD exchange rate'])}
-                inputProps={{maxLength: 8}}
-                tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-                containerClasses={classNames.rateContainer}
-                labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
-                inputClasses={classNames.middleInput}
-                value={formFields.conditionsByRegion.yuanToDollarRate}
-                onChange={onChangeField('yuanToDollarRate')}
-              />
+              <div className={classNames.courseWrapper}>
+                <Field
+                  oneLine
+                  disabled
+                  label={t(TranslationKey['Current exchange rate'])}
+                  tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
+                  containerClasses={classNames.rateContainer}
+                  labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+                  inputClasses={classNames.middleInput}
+                  value={sourceYuanToDollarRate}
+                />
+
+                <Field
+                  oneLine
+                  label={t(TranslationKey['Yuan to USD exchange rate'])}
+                  inputProps={{maxLength: 8}}
+                  tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+                  containerClasses={classNames.rateContainer}
+                  labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+                  inputClasses={classNames.middleInput}
+                  value={formFields.conditionsByRegion.yuanToDollarRate}
+                  onChange={onChangeField('yuanToDollarRate')}
+                />
+              </div>
             </div>
 
             <div className={classNames.blockWrapper}>
               <div className={classNames.blockItem}>
                 <Field
-                  label={'US West Coast'}
+                  label={`US West Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.west.rate}
                   onChange={onChangeField('rate', 'west')}
@@ -282,7 +287,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
               <div className={classNames.blockItem}>
                 <Field
-                  label={'US Central'}
+                  label={`US Central ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.central.rate}
                   onChange={onChangeField('rate', 'central')}
@@ -291,7 +296,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
               <div className={classNames.blockItem}>
                 <Field
-                  label={'US East Coast'}
+                  label={`US East Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.east.rate}
                   onChange={onChangeField('rate', 'east')}
@@ -392,11 +397,15 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <Button success disabled={disableSubmitBtn} onClick={onSubmit}>
+            <Button success disabled={disableSubmitBtn} className={classNames.button} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
+            <Button
+              className={cx(classNames.button, classNames.cancelBtn)}
+              variant="text"
+              onClick={() => onCloseModal()}
+            >
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

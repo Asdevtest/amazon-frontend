@@ -10,7 +10,9 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
   rootGreen: {
-    backgroundColor: theme.palette.background.green,
+    // backgroundColor: '#D9FAE5',
+
+    backgroundColor: theme.palette.background.second,
   },
   labelWrapper: {},
   labelText: {
@@ -27,6 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
+
     textAlign: 'center',
   },
 }))

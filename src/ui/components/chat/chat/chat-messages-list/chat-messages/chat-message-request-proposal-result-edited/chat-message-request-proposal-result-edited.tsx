@@ -1,6 +1,9 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
+
+import Linkify from 'react-linkify-always-blank'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -42,10 +45,10 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
+          <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
+          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
@@ -53,22 +56,28 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           <p className={classNames.titleText}>{message.data.request.title}</p>
         </div> */}
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>{}</p>
+          <Linkify>
+            <Typography className={classNames.descriptionText}>{}</Typography>
+          </Linkify>
         </div>
       </div>
       <div className={classNames.resultTextWrapper}>
-        <p className={classNames.resultText}>{message.data.edited.result}</p>
+        <Linkify>
+          <Typography className={classNames.resultText}>{message.data.edited.result}</Typography>
+        </Linkify>
       </div>
       <div className={classNames.resultWrapper}>
         <PhotoAndFilesCarousel notToShowEmpty small files={message.data.edited.linksToMediaFiles} width="340px" />
 
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
-            <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>
+            <Typography className={classNames.timeToCheckBlockLabelText}>
+              {t(TranslationKey['Time to check'])}
+            </Typography>
             <div className={classNames.timeToCheckBlockValueWrapper}>
-              <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
+              <Typography className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
                 TranslationKey.minute,
-              )}`}</p>
+              )}`}</Typography>
             </div>
           </div>
         </div>
