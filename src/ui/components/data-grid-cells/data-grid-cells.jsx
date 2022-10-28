@@ -1455,22 +1455,24 @@ export const WarehouseBoxesBtnsCell = withStyles(
         <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
       )}
 
-      {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
-        <Button
-          tooltipAttentionContent={
-            row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
-            t(TranslationKey['The tariff is invalid or has been removed!'])
-          }
-          tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
-          disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
-          className={classNames.warehouseBoxesBtn}
-          variant="contained"
-          color="primary"
-          onClick={() => handlers.moveBox(row)}
-        >
-          {t(TranslationKey['Move box'])}
-        </Button>
-      )}
+      {row.batchId &&
+        row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+        row.status !== BoxStatus.NEW && (
+          <Button
+            tooltipAttentionContent={
+              row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
+              t(TranslationKey['The tariff is invalid or has been removed!'])
+            }
+            tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
+            disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
+            className={classNames.warehouseBoxesBtn}
+            variant="contained"
+            color="primary"
+            onClick={() => handlers.moveBox(row)}
+          >
+            {t(TranslationKey['Move box'])}
+          </Button>
+        )}
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
         <Button

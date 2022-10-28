@@ -236,7 +236,7 @@ export const AddOrEditSupplierModalContent = observer(
       } else if (onlyRead) {
         return (
           <div className={classNames.buttonsWrapper}>
-            <Button variant="contained" onClick={() => onTriggerShowModal()}>
+            <Button className={classNames.cancelBtn} variant="text" onClick={() => onTriggerShowModal()}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -262,7 +262,7 @@ export const AddOrEditSupplierModalContent = observer(
               disableElevation
               tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
               className={classNames.cancelBtn}
-              variant="contained"
+              variant="text"
               onClick={() => onTriggerShowModal()}
             >
               {t(TranslationKey.Cancel)}

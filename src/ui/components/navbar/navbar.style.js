@@ -98,8 +98,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   feedbackIcon: {
-    width: '46px',
-    height: '40px',
+    width: '46px !important',
+    height: '40px !important',
     // color: `${theme.palette.text.general} !important`,
     color: theme.palette.text.general,
   },
