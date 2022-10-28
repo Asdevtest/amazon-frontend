@@ -39,7 +39,7 @@ const baseThemeComponentsSettings = {
 
 const baseThemeSettings = {
   typography: {
-    fontFamily: ['Manrope', 'sans-serif'],
+    fontFamily: ['Manrope', 'sans-serif'].join(','),
 
     h5: {
       fontWeight: 500,
@@ -223,6 +223,13 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
+      // defaultProps: {
+      //   sx: {
+      //     menuIcon: {
+      //       color: '#a0a0a4',
+      //     },
+      //   },
+      // },
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
@@ -240,8 +247,24 @@ export const darkTheme = createTheme({
           // backgroundColor: '#2B2B34',
           color: '#fff',
         },
+
+        menuIconButton: {
+          color: '#fff',
+        },
+
+        sortIcon: {
+          color: '#fff',
+        },
       },
     },
+
+    // MuiSvgIcon: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: '#fff',
+    //     },
+    //   },
+    // },
 
     MuiFormLabel: {
       styleOverrides: {
@@ -416,6 +439,10 @@ export const darkTheme = createTheme({
             opacity: 0.7,
           },
         },
+
+        // '.MuiDataGrid-menuIconButton': {
+        //   color: '#fff',
+        // },
       },
     },
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -18,7 +19,7 @@ import {ITab} from '@components/i-tab/i-tab'
 import {t} from '@utils/translations'
 
 import {AccessToProductForm} from './access-to-product-form'
-import {useClassNames} from './new-add-or-edit-user-permissions-form.style'
+import {useClassNames} from './add-or-edit-user-permissions-form.style'
 
 const tabsValues = {
   ASSIGN_PERMISSIONS: 'ASSIGN_PERMISSIONS',
@@ -39,7 +40,7 @@ const TabPanel = ({children, value, index, ...other}) => (
   </div>
 )
 
-export const NewAddOrEditUserPermissionsForm = observer(
+export const AddOrEditUserPermissionsForm = observer(
   ({
     curUserProductPermissions,
     onCloseModal,
@@ -48,10 +49,10 @@ export const NewAddOrEditUserPermissionsForm = observer(
     permissionGroupsToSelect,
     sourceData,
     shops,
-    products,
-    onClickShop,
     isWithoutShopsDepends,
     isWithoutProductPermissions,
+
+    productPermissionsData,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -59,8 +60,6 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [selectedShop, setSelectedShop] = useState(null)
     const [showPermissions, setShowPermissions] = useState(false)
-
-    const [isReady, setIsReady] = useState(true)
 
     const sourceDataToProductsPermissions = [
       {
@@ -80,23 +79,9 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
 
-    const [updatedProducts, setUpdatedProducts] = useState(null)
-
     const onClickToShowDetails = value => {
       setSelectedShop(value)
-
-      setIsReady(false)
-      onClickShop && onClickShop(value === PRODUCTS_WITHOUT_SHOPS_ID ? null : value)
     }
-
-    useEffect(() => {
-      const productsWithoutShops = products?.filter(p => !p.originalData.shopIds.length)
-      const currentProducts =
-        selectedShop === PRODUCTS_WITHOUT_SHOPS_ID && !isWithoutShopsDepends ? productsWithoutShops : products
-
-      setIsReady(true)
-      setUpdatedProducts(currentProducts)
-    }, [selectedShop, products])
 
     const permissionsIdsFromGroups = permissionGroupsToSelect.reduce(
       (ac, cur) => (ac = [...ac, ...cur.permissions.map(el => el._id)]),
@@ -347,13 +332,12 @@ export const NewAddOrEditUserPermissionsForm = observer(
             {shopDataToRender.map(shop => (
               <AccessToProductForm
                 key={shop._id}
-                isWithoutShopsDepends
-                isReady={isReady}
+                PRODUCTS_WITHOUT_SHOPS_ID={PRODUCTS_WITHOUT_SHOPS_ID}
                 shop={shop}
                 selectedShop={selectedShop}
                 shops={shopDataToRender}
                 setShopDataToRender={setShopDataToRender}
-                updatedProducts={updatedProducts}
+                productPermissionsData={productPermissionsData}
                 onClickToShowDetails={onClickToShowDetails}
               />
             ))}

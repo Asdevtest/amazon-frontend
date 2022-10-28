@@ -471,6 +471,17 @@ export const warehouseTasksDataConverter = data =>
     )
       .join(', ')
       .slice(0, -2),
+
+    item: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    )
+      .join(', ')
+      .slice(0, -2),
   }))
 
 export const adminProductsDataConverter = data =>

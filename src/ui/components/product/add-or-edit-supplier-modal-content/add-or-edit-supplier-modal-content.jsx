@@ -236,7 +236,7 @@ export const AddOrEditSupplierModalContent = observer(
       } else if (onlyRead) {
         return (
           <div className={classNames.buttonsWrapper}>
-            <Button variant="contained" onClick={() => onTriggerShowModal()}>
+            <Button className={classNames.cancelBtn} variant="text" onClick={() => onTriggerShowModal()}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -262,7 +262,7 @@ export const AddOrEditSupplierModalContent = observer(
               disableElevation
               tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
               className={classNames.cancelBtn}
-              variant="contained"
+              variant="text"
               onClick={() => onTriggerShowModal()}
             >
               {t(TranslationKey.Cancel)}
@@ -674,7 +674,7 @@ export const AddOrEditSupplierModalContent = observer(
             <div className={classNames.boxInfoWrapper}>
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.sizesSubWrapper}>
-                  <Typography>{t(TranslationKey.Demensions)}</Typography>
+                  <Typography className={classNames.standartText}>{t(TranslationKey.Demensions)}</Typography>
 
                   <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>

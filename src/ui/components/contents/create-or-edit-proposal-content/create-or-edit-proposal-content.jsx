@@ -221,7 +221,7 @@ export const CreateOrEditProposalContent = ({
                 value={formFields.comment}
                 onChange={onChangeField('comment')}
               />
-              <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 2000})}>{`${
+              <span className={cx(classNames.standartText, {[classNames.error]: formFields.comment.length > 2000})}>{`${
                 formFields.comment.length
               } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
             </div>

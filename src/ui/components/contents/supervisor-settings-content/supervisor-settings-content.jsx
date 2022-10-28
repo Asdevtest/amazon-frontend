@@ -1,5 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {Box, Tabs, InputAdornment} from '@mui/material'
+import {Box, Tabs} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
@@ -10,13 +9,13 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
 import {ITab} from '@components/i-tab/i-tab'
 import {Modal} from '@components/modal'
 import {AsinCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditAsinCheckerModal} from '@components/modals/edit-asin-checker-modal'
 import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -108,16 +107,10 @@ export const SupervisorSettingsContent = observer(() => {
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
         <div className={classNames.buttonWrapper}>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={onChangeNameSearchValue}
           />
           <div className={classNames.buttonsWrapper}>
@@ -174,16 +167,10 @@ export const SupervisorSettingsContent = observer(() => {
 
       <TabPanel value={tabIndex} index={tabsValues.DROPSHIPPING}>
         <div className={classNames.buttonWrapper}>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={onChangeNameSearchValue}
           />
           <div className={classNames.buttonsWrapper}>
@@ -240,16 +227,10 @@ export const SupervisorSettingsContent = observer(() => {
 
       <TabPanel value={tabIndex} index={tabsValues.PRIVATE_LABEL}>
         <div className={classNames.buttonWrapper}>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={onChangeNameSearchValue}
           />
           <div className={classNames.buttonsWrapper}>
@@ -306,16 +287,10 @@ export const SupervisorSettingsContent = observer(() => {
 
       <TabPanel value={tabIndex} index={tabsValues.WHOLE_SALE_USA}>
         <div className={classNames.buttonWrapper}>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={onChangeNameSearchValue}
           />
           <div className={classNames.buttonsWrapper}>

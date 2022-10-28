@@ -1,5 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {TableCell, TableRow, Typography, InputAdornment} from '@mui/material'
+import {TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
 
@@ -13,6 +12,7 @@ import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
+import {SearchInput} from '@components/search-input'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
@@ -224,16 +224,10 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
         </div>
 
         <div className={classNames.searchWrapper}>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>

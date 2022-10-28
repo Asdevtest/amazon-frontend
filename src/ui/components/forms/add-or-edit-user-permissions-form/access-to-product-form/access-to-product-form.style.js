@@ -53,6 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   accardionTitleWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
   },
@@ -61,6 +62,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     marginLeft: 'auto',
   },
+
+  chosenTextSelectAll: {
+    color: theme.palette.text.green,
+  },
+
   title: {
     maxWidth: '200px',
     textOverflow: 'ellipsis',

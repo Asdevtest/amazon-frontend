@@ -23,6 +23,8 @@ export class BuyerMyProductsViewModel {
   productsMy = []
   drawerOpen = false
 
+  nameSearchValue = ''
+
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
   }
@@ -72,6 +74,12 @@ export class BuyerMyProductsViewModel {
     }
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -92,10 +100,6 @@ export class BuyerMyProductsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
 
     if (state) {
-      console.log('state.sorting.sortModel', toJS(state.sorting.sortModel))
-
-      console.log('state.filter.filterModel.filterModel', toJS(state.filter.filterModel.filterModel))
-
       this.sortModel = state.sorting.sortModel
       this.filterModel = this.startFilterModel
         ? {
@@ -134,7 +138,18 @@ export class BuyerMyProductsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.productsMy)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.productsMy.filter(
+          el =>
+            el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
+            el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.productsMy)
+    }
   }
 
   async loadData() {

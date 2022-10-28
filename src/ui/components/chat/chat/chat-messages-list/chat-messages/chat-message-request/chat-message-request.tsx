@@ -1,7 +1,9 @@
 import {cx} from '@emotion/css'
-import {TextareaAutosize} from '@mui/material'
+import {TextareaAutosize, Typography} from '@mui/material'
 
 import React, {FC} from 'react'
+
+import Linkify from 'react-linkify-always-blank'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -29,19 +31,21 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>{message.data?.title}</p>
+          <Typography className={classNames.headerText}>{message.data?.title}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
+          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
         <div className={classNames.descriptionWrapper}>
-          <TextareaAutosize
-            disabled
-            value={message?.data?.details?.conditions}
-            className={classNames.conditionsField}
-          />
+          <Linkify>
+            <TextareaAutosize
+              disabled
+              value={message?.data?.details?.conditions}
+              className={classNames.conditionsField}
+            />
+          </Linkify>
         </div>
         <PhotoAndFilesCarousel notToShowEmpty small files={message?.data.details?.linksToMediaFiles} width="352px" />
       </div>

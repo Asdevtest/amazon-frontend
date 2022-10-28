@@ -92,6 +92,7 @@ export const styles = theme => ({
   shopsFiltersWrapper: {
     display: 'flex',
     gap: 30,
+    marginBottom: 20,
   },
 
   icon: {

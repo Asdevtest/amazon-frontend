@@ -1,6 +1,9 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
+
+import Linkify from 'react-linkify-always-blank'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -75,10 +78,12 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.titleWrapper}>
-              <p className={classNames.titleText}>{`${t(TranslationKey.Corrections)}:`}</p>
+              <Typography className={classNames.titleText}>{`${t(TranslationKey.Corrections)}:`}</Typography>
             </div>
             <div className={classNames.reasonWrapper}>
-              <p className={classNames.reasonText}>{message.data.reason}</p>
+              <Linkify>
+                <Typography className={classNames.reasonText}>{message.data.reason}</Typography>
+              </Linkify>
             </div>
 
             <div className={classNames.footerWrapper}>
@@ -93,7 +98,6 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                   {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
                     RequestProposalStatus.TO_CORRECT && (
                     <Button
-                      variant="contained"
                       color="primary"
                       btnWrapperStyle={classNames.actionBtnWrapperStyle}
                       className={cx(classNames.actionButton, classNames.editBtn)}
@@ -108,7 +112,6 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                     </Button>
                   )}
                   <Button
-                    variant="contained"
                     color="primary"
                     btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
                     className={cx(classNames.actionButton, classNames.successBtn)}

@@ -1,9 +1,8 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
-import {Box, InputAdornment, Typography} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -17,10 +16,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
-import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
@@ -89,19 +88,11 @@ class VacantRequestsViewRaw extends Component {
                   </ToggleBtnGroup>
                 </div>
 
-                <div>
-                  <Field
-                    containerClasses={classNames.searchContainer}
-                    inputClasses={classNames.searchInput}
-                    value={nameSearchValue}
-                    endAdornment={
-                      <InputAdornment position="start">
-                        <SearchIcon color="primary" />
-                      </InputAdornment>
-                    }
-                    onChange={onChangeNameSearchValue}
-                  />
-                </div>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  onChange={onChangeNameSearchValue}
+                />
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>

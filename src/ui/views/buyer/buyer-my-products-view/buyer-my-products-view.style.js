@@ -24,6 +24,13 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.main,
   },
 
+  headerWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,

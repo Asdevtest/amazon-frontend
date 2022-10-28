@@ -20,6 +20,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -42,6 +43,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       showSuccessModalText,
       volumeWeightCoefficient,
       photosToLoad,
@@ -81,6 +83,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onSubmitCancelOrder,
       onSaveOrderItem,
 
+      onChangeNameSearchValue,
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -95,6 +98,14 @@ class BuyerMyOrdersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 disableVirtualization
                 pagination

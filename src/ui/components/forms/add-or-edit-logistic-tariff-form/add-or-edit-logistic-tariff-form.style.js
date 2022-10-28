@@ -18,6 +18,13 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  ratesTitleWrapper: {
+    display: 'flex',
+
+    gap: 40,
+    alignItems: 'center',
+  },
+
   modalSubTitle: {
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
@@ -28,6 +35,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   button: {
+    padding: '0 40px',
+  },
+
+  cancelBtn: {
     marginLeft: '10px',
     color: theme.palette.text.general,
   },
@@ -83,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnsWrapper: {
     display: 'flex',
+    gap: 30,
     justifyContent: 'flex-end',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
@@ -173,6 +185,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   rateContainer: {
     width: 'auto',
+    margin: 0,
   },
 
   rateLabel: {
@@ -216,13 +229,20 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  costSubBlock: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
   error: {
     color: 'red',
   },
   courseWrapper: {
     display: 'flex',
     alignSelf: 'flex-end',
-    gap: 10,
+    gap: 20,
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

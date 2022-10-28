@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {FC} from 'react'
 
@@ -15,10 +16,10 @@ export const LabelValuePairBlock: FC<Props> = ({bgColor, label, value}) => {
   return (
     <div className={cx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
       <div className={classNames.labelWrapper}>
-        <p className={classNames.labelText}>{label}</p>
+        <Typography className={classNames.labelText}>{label}</Typography>
       </div>
       <div className={classNames.valueWrapper}>
-        <p className={classNames.valueText}>{value}</p>
+        <Typography className={classNames.valueText}>{value}</Typography>
       </div>
     </div>
   )

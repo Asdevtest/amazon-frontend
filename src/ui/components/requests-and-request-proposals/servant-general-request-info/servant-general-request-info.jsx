@@ -57,7 +57,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
             <Typography className={classNames.title}>{request?.request.title}</Typography>
           </div>
           <div className={classNames.titleWrapper}>
-            <Typography className={classNames.subTitle}>
+            <Typography className={classNames.standartText}>
               {translateProposalsLeftMessage(
                 request?.request.maxAmountOfProposals -
                   (requestProposals?.filter(

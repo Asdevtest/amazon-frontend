@@ -49,9 +49,6 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '15px',
       padding: '8px',
     },
-    '& tbody': {
-      borderBottom: '1px solid rgba(224, 224, 224, 1)',
-    },
   },
   alert: {
     marginBottom: '24px',

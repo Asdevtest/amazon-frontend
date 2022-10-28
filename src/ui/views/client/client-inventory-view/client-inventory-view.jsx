@@ -1,7 +1,5 @@
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -16,7 +14,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {Field} from '@components/field'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -35,6 +32,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
+import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -220,16 +218,10 @@ export class ClientInventoryViewRaw extends Component {
                     onClickSelect={shop => onClickShopBtn(shop)}
                   />
 
-                  <Field
-                    containerClasses={classNames.searchContainer}
+                  <SearchInput
                     inputClasses={classNames.searchInput}
                     value={nameSearchValue}
                     placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                    endAdornment={
-                      <InputAdornment position="start">
-                        <SearchIcon color="primary" />
-                      </InputAdornment>
-                    }
                     onChange={onChangeNameSearchValue}
                   />
                 </div>
@@ -466,17 +458,6 @@ export class ClientInventoryViewRaw extends Component {
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
           />
         </Modal>
-
-        {/* <Modal openModal={showSetStockUsValueModal} setOpenModal={() => onTriggerOpenModal('showSetStockUsValueModal')}>
-          <SetChipValueModal
-            isInts
-            maxLength={9}
-            title={`${t(TranslationKey.Set)}`}
-            sourceValue={selectedProduct?.stockUSA}
-            onSubmit={onClickSavesStockUSA}
-            onCloseModal={() => onTriggerOpenModal('showSetStockUsValueModal')}
-          />
-        </Modal> */}
 
         <Modal
           openModal={showSetFourMonthsStockValueModal}

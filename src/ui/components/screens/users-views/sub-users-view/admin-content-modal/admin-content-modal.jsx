@@ -8,7 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Field} from '@components/field'
-import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
+import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {UserLink} from '@components/user-link'
@@ -374,7 +374,7 @@ export const AdminContentModal = observer(
           </Button>
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <NewAddOrEditUserPermissionsForm
+          <AddOrEditUserPermissionsForm
             isWithoutProductPermissions
             permissionsToSelect={permissionsToSelect}
             permissionGroupsToSelect={permissionGroupsToSelect}

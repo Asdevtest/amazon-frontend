@@ -51,10 +51,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   input: {
-    width: '35px',
+    // width: '35px',
+    width: '100px',
+
     border: 'none',
     padding: 0,
     margin: 0,
+
+    borderRadius: 0,
+
+    borderBottom: '1px solid #e0e0e0',
 
     '& >::-webkit-outer-spin-button,::-webkit-inner-spin-button': {
       '-webkit-appearance': 'none',
@@ -67,17 +73,22 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
-  inputLabel: {},
+  inputLabel: {
+    color: theme.palette.text.second,
+  },
 
   btnSubmit: {
     width: '259px',
     height: '40px',
   },
   inputsWrapper: {
-    width: '120px',
+    // width: '300px',
     display: 'flex',
+    // justifyContent: 'space-between',
 
-    borderBottom: '1px solid #e0e0e0',
+    gap: 30,
+
+    // borderBottom: '1px solid #e0e0e0',
   },
 
   reasonWrapper: {

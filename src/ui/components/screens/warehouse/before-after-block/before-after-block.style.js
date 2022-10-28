@@ -12,6 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   boxesWrapper: {
+    // padding: '20px 30px',
     display: 'flex',
     justifyContent: 'space-between',
     overflow: 'hidden',
@@ -496,7 +497,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   editAccent: {
-    outline: '2px solid #F5CF00',
+    border: '2px solid #F5CF00',
     borderRadius: 4,
   },
 

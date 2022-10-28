@@ -52,6 +52,8 @@ export class BuyerMyOrdersViewModel {
 
   volumeWeightCoefficient = undefined
 
+  nameSearchValue = ''
+
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
@@ -176,7 +178,26 @@ export class BuyerMyOrdersViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.ordersMy)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.ordersMy.filter(
+          el =>
+            el.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.originalData.product.skusByClient?.some(sku =>
+              sku.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ) ||
+            el.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.ordersMy)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async loadData() {

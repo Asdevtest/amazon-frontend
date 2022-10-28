@@ -39,6 +39,7 @@ export const styles = theme => ({
     height: '88px',
     scope: 'row',
     position: 'relative',
+    width: '100%',
   },
   productCell: {
     padding: '20px 0px',
@@ -46,13 +47,20 @@ export const styles = theme => ({
   },
   asinCellContainer: {
     display: 'inline-flex',
+    width: '100%',
   },
+  csCodeTypoWrapper: {
+    width: '100%',
+  },
+
   csCodeTypo: {
     fontSize: '14px',
     lineHeight: '18px',
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '300px',
+    maxWidth: '215px',
+    // maxWidth: '100%',
+
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -400,7 +408,7 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 670,
+    maxWidth: 620,
 
     // maxWidth: '50%',
 

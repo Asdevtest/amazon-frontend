@@ -1,7 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -17,7 +16,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {Field} from '@components/field'
+import {SearchInput} from '@components/search-input'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
@@ -61,16 +60,10 @@ export const ClientSellShopsDeals = observer(() => {
           <div className={classNames.tablePanelWrapper}>
             <div></div>
 
-            <Field
-              containerClasses={classNames.searchContainer}
+            <SearchInput
               placeholder={t(TranslationKey.search)}
               inputClasses={classNames.searchInput}
               value={nameSearchValue}
-              endAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon color="primary" />
-                </InputAdornment>
-              }
               onChange={onChangeNameSearchValue}
             />
 

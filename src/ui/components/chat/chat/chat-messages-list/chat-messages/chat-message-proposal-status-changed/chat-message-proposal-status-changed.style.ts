@@ -36,11 +36,15 @@ export const useClassNames = makeStyles()(theme => ({
   titleText: {
     fontSize: 18,
     fontWeight: 700,
+
+    color: theme.palette.text.general,
   },
   reasonWrapper: {
     marginTop: '10px',
   },
-  reasonText: {},
+  reasonText: {
+    color: theme.palette.text.general,
+  },
   footerWrapper: {
     marginTop: 25,
     width: '100%',

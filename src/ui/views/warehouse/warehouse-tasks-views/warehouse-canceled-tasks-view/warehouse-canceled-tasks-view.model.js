@@ -24,6 +24,8 @@ export class WarehouseCanceledTasksViewModel {
 
   volumeWeightCoefficient = undefined
 
+  nameSearchValue = ''
+
   drawerOpen = false
 
   rowHandlers = {
@@ -114,7 +116,24 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.tasksMy)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.tasksMy.filter(
+          el =>
+            el.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.orderId?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.tasksMy)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async loadData() {

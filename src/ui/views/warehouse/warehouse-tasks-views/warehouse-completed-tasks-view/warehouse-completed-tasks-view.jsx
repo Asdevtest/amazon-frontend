@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -35,6 +36,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -57,6 +59,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       setCurrentOpenedTask,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -72,6 +75,14 @@ export class WarehouseCompletedTasksViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Completed tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer
