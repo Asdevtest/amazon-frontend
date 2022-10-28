@@ -11,7 +11,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-r
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
-import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
+import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {RegistrationForm} from '@components/forms/registration-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -529,7 +529,7 @@ export const AdminUserEditContent = observer(
           </Button>
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <NewAddOrEditUserPermissionsForm
+          <AddOrEditUserPermissionsForm
             isWithoutProductPermissions
             shops={[]}
             permissionsToSelect={permissionsToSelect}

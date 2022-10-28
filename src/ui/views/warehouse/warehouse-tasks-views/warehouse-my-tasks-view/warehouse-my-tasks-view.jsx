@@ -18,6 +18,7 @@ import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comm
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -38,6 +39,7 @@ export class WarehouseMyTasksViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       volumeWeightCoefficient,
       requestStatus,
       getCurrentData,
@@ -72,6 +74,8 @@ export class WarehouseMyTasksViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onClickResolveBtn,
+
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -87,6 +91,14 @@ export class WarehouseMyTasksViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer

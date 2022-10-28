@@ -35,6 +35,8 @@ export class WarehouseVacantViewModel {
 
   volumeWeightCoefficient = undefined
 
+  nameSearchValue = ''
+
   showProgress = false
   progressValue = 0
 
@@ -135,7 +137,24 @@ export class WarehouseVacantViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.tasksMy)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.tasksMy.filter(
+          el =>
+            el.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.orderId?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.tasksMy)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async loadData() {

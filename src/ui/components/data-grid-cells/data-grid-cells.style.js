@@ -408,7 +408,7 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 670,
+    maxWidth: 620,
 
     // maxWidth: '50%',
 

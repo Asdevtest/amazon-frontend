@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -14,7 +12,6 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
 import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {Main} from '@components/main'
@@ -23,6 +20,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -102,16 +100,10 @@ class SubUsersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <div className={classNames.subUserHeader}>
-                <Field
-                  containerClasses={classNames.searchContainer}
+                <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by name, email'])}
                   value={nameSearchValue}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
                   onChange={onChangeNameSearchValue}
                 />
                 <div className={classNames.buttonWrapper}>

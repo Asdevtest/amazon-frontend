@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -12,12 +10,12 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {Field} from '@components/field'
 import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -73,16 +71,10 @@ export class AdminFeedbackViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Feedback)}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <Field
-                  containerClasses={classNames.searchContainer}
+                <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by name, email'])}
                   value={nameSearchValue}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
                   onChange={onChangeNameSearchValue}
                 />
               </div>

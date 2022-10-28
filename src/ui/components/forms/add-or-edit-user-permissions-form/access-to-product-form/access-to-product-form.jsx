@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import SearchIcon from '@mui/icons-material/Search'
 import {
   Accordion,
   AccordionDetails,
@@ -9,7 +8,6 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  InputAdornment,
   Radio,
   RadioGroup,
   Typography,
@@ -24,6 +22,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
+import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
 
@@ -199,16 +198,10 @@ export const AccessToProductForm = observer(
                   {t(TranslationKey['Search by product description and ASIN:'])}
                 </Typography>
                 <div>
-                  <Field
-                    containerClasses={classNames.searchContainer}
+                  <SearchInput
                     inputClasses={classNames.searchInput}
                     value={searchInputValue}
                     placeholder={t(TranslationKey.search)}
-                    endAdornment={
-                      <InputAdornment position="start">
-                        <SearchIcon color="primary" />
-                      </InputAdornment>
-                    }
                     onChange={e => setSearchInputValue(e.target.value)}
                   />
                 </div>

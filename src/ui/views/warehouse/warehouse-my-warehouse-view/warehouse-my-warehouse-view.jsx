@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -12,7 +10,6 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {Field} from '@components/field/field'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
@@ -22,6 +19,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -93,16 +91,10 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
-              <Field
-                containerClasses={classNames.searchContainer}
+              <SearchInput
                 inputClasses={classNames.searchInput}
                 value={nameSearchValue}
                 placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                endAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                }
                 onChange={onChangeNameSearchValue}
               />
               <div className={classNames.datagridWrapper}>

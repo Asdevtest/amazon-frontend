@@ -88,15 +88,10 @@ class MyProposalsViewRaw extends Component {
                 </div> */}
 
                 {/* <div>
-                  <Field
-                    containerClasses={classNames.searchcontainer}
+                  <SearchInput
                     inputClasses={classNames.searchInput}
                     value={nameSearchValue}
-                    endAdornment={
-                      <InputAdornment position="start">
-                        <SearchIcon color="primary" />
-                      </InputAdornment>
-                    }
+                
                     onChange={onChangeNameSearchValue}
                   />
                 </div> */}

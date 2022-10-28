@@ -196,7 +196,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
                   variant="square"
                   alt={'!'}
                   src={photo?.data_url || photo}
-                  // className={classNames.image}
+                  className={classNames.image}
                   classes={{img: small ? classNames.smallImage : classNames.image}}
                   onClick={() => {
                     setShowPhotosModal(!showPhotosModal)

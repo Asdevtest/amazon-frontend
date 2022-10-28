@@ -28,6 +28,12 @@ export const styles = theme => ({
     },
   },
 
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
   attentionRow: {
     boxShadow: 'inset 0 0 30px rgba(247, 179, 7,1)',
   },

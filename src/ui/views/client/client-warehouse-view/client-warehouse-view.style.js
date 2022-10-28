@@ -113,6 +113,7 @@ export const styles = theme => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
   modalTitleWrapper: {
     width: '100%',

@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -13,7 +11,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -21,6 +18,7 @@ import {Modal} from '@components/modal'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -125,16 +123,10 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     {t(TranslationKey['Edit batch'])}
                   </Button>
                 </div>
-                <Field
-                  containerClasses={classNames.searchContainer}
+                <SearchInput
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
                   onChange={onChangeNameSearchValue}
                 />
 

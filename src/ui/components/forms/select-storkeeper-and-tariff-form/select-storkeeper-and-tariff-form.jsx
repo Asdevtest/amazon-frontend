@@ -1,10 +1,8 @@
 import {cx} from '@emotion/css'
-import SearchIcon from '@mui/icons-material/Search'
 import {
   Box,
   Tabs,
   /* Tab, */
-  InputAdornment,
 } from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
@@ -16,8 +14,8 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
 import {ITab} from '@components/i-tab/i-tab'
+import {SearchInput} from '@components/search-input'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {t} from '@utils/translations'
@@ -92,16 +90,10 @@ export const SelectStorekeeperAndTariffForm = observer(
             ))}
         </div>
 
-        <Field
-          containerClasses={classNames.searchContainer}
+        <SearchInput
           inputClasses={classNames.searchInput}
           value={nameSearchValue}
           placeholder={t(TranslationKey.search)}
-          endAdornment={
-            <InputAdornment position="start">
-              <SearchIcon color="primary" />
-            </InputAdornment>
-          }
           onChange={e => setNameSearchValue(e.target.value)}
         />
 

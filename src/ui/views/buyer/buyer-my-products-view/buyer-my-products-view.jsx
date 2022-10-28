@@ -14,6 +14,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -34,6 +35,7 @@ export class BuyerMyProductsViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -53,6 +55,7 @@ export class BuyerMyProductsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -65,6 +68,14 @@ export class BuyerMyProductsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer

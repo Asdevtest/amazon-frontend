@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment, Avatar, Typography, Link} from '@mui/material'
+import {Avatar, Typography, Link} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -14,10 +13,10 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -66,15 +65,9 @@ class MessagesViewRaw extends Component {
             <MainContent>
               <div className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
                 <div className={classNames.leftSide}>
-                  <Field
-                    containerClasses={classNames.searchContainer}
+                  <SearchInput
                     inputClasses={classNames.searchInput}
                     value={nameSearchValue}
-                    endAdornment={
-                      <InputAdornment position="start">
-                        <SearchIcon color="primary" />
-                      </InputAdornment>
-                    }
                     onChange={onChangeNameSearchValue}
                   />
 

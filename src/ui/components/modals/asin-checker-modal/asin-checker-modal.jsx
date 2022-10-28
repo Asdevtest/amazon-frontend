@@ -1,6 +1,5 @@
-import SearchIcon from '@mui/icons-material/Search'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import {InputAdornment, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -9,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
 
@@ -103,16 +103,10 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
           <Typography className={classNames.tableSearchTitle}>
             {t(TranslationKey['To be added to the list'])}
           </Typography>
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>

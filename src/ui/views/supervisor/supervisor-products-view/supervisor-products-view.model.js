@@ -21,6 +21,8 @@ export class SupervisorProductsViewModel {
 
   drawerOpen = false
 
+  nameSearchValue = ''
+
   baseNoConvertedProducts = []
   productsMy = []
 
@@ -97,6 +99,12 @@ export class SupervisorProductsViewModel {
     }
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
   }
@@ -118,7 +126,18 @@ export class SupervisorProductsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.productsMy)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.productsMy.filter(
+          el =>
+            el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
+            el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.productsMy)
+    }
   }
 
   async loadData() {

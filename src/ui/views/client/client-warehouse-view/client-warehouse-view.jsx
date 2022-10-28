@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -15,7 +14,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
@@ -32,6 +30,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -171,16 +170,10 @@ export class ClientWarehouseViewRaw extends Component {
                     )}
                 </div>
 
-                <Field
-                  containerClasses={classNames.searchContainer}
+                <SearchInput
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
                   onChange={onChangeNameSearchValue}
                 />
               </div>

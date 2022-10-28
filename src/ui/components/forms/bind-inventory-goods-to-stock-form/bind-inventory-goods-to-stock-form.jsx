@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
@@ -12,7 +11,7 @@ import qs from 'qs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
 
@@ -158,17 +157,11 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             {t(TranslationKey.SKU)}
           </Button>
 
-          <Field
-            containerClasses={classNames.searchContainer}
+          <SearchInput
             inputClasses={classNames.searchInput}
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
             value={searchInputValue}
             placeholder={t(TranslationKey.search)}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
             onChange={e => setSearchInputValue(e.target.value)}
           />
         </div>

@@ -26,6 +26,13 @@ export const styles = theme => ({
     marginLeft: '10px',
   },
 
+  headerWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
   rowCancelBtn: {
     marginLeft: '10px',
   },

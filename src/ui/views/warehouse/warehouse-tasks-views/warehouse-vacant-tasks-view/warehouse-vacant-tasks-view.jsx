@@ -16,6 +16,7 @@ import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -36,6 +37,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       volumeWeightCoefficient,
       curOpenedTask,
       requestStatus,
@@ -62,6 +64,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       setCurrentOpenedTask,
+
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -77,14 +81,17 @@ export class WarehouseVacantTasksViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['New tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer
-                // sx={{
-                //   border: 0,
-                //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                //   backgroundColor: theme.palette.background.main,
-                // }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,

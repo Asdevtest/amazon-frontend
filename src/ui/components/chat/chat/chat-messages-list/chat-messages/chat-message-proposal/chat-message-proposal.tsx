@@ -68,7 +68,9 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
           </div>
         </div>
         <div className={classNames.rightSideWrapper}>
-          <PhotoAndFilesCarousel notToShowEmpty small files={message.images} width="352px" />
+          <div>
+            <PhotoAndFilesCarousel notToShowEmpty small files={message.images} width="352px" />
+          </div>
 
           <div className={classNames.footerWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||

@@ -25,6 +25,8 @@ export class WarehouseVacantViewModel {
   selectedTask = undefined
   curOpenedTask = {}
 
+  nameSearchValue = ''
+
   volumeWeightCoefficient = undefined
 
   showTwoVerticalChoicesModal = false
@@ -95,6 +97,12 @@ export class WarehouseVacantViewModel {
     }
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
   }
@@ -116,7 +124,18 @@ export class WarehouseVacantViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.tasksVacant)
+    if (this.nameSearchValue) {
+      return toJS(
+        this.tasksVacant.filter(
+          el =>
+            el.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.orderId?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return toJS(this.tasksVacant)
+    }
   }
 
   async loadData() {

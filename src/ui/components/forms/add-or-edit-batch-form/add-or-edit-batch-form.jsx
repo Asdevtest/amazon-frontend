@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
-import SearchIcon from '@mui/icons-material/Search'
-import {Typography, InputAdornment} from '@mui/material'
+import {Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
@@ -14,6 +13,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
+import {SearchInput} from '@components/search-input'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
@@ -234,16 +234,10 @@ export const AddOrEditBatchForm = observer(
           <div className={classNames.searchWrapper}>
             <Typography className={classNames.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
-            <Field
-              containerClasses={classNames.searchContainer}
+            <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValue}
               placeholder={t(TranslationKey['Search by ASIN, Title'])}
-              endAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon color="primary" />
-                </InputAdornment>
-              }
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>

@@ -14,6 +14,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -50,6 +51,7 @@ class SupervisorProductsViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -69,6 +71,7 @@ class SupervisorProductsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -82,6 +85,14 @@ class SupervisorProductsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
               <div className={classNames.dataGridWrapper}>
                 <DataGrid
                   pagination

@@ -19,7 +19,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 250,
+    width: 190,
     renderCell: params => (
       <NormalActionBtnCell
         isFirstRow={firstRowId === params.row.id}
@@ -37,7 +37,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 200,
+    width: 130,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
   {
@@ -45,7 +45,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 900,
+    width: 850,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -64,6 +64,15 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     field: 'orderId',
     headerName: t(TranslationKey['Order number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 160,
+  },
+
+  {
+    field: 'item',
+    headerName: 'item',
+    renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,

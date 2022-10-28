@@ -126,11 +126,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   twoStepFieldResult: {
-    // minHeight: '40px',
-    // background: 'rgba(200,200,200, .1)',
-
-    // textAlign: 'center',
-
     color: theme.palette.text.second,
   },
 
