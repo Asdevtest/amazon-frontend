@@ -100,6 +100,8 @@ class SubUsersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <div className={classNames.subUserHeader}>
+                <div />
+
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by name, email'])}

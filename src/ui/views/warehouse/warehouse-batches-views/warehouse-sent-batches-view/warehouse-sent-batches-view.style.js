@@ -27,6 +27,12 @@ export const styles = theme => ({
     height: '75vh',
   },
 
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
   btnsWrapper: {
     margin: '10px 0 15px',
   },

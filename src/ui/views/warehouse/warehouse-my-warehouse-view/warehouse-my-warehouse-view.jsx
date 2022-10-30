@@ -91,12 +91,14 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
-              <SearchInput
-                inputClasses={classNames.searchInput}
-                value={nameSearchValue}
-                placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                onChange={onChangeNameSearchValue}
-              />
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   pagination

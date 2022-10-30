@@ -3,7 +3,7 @@ import {Checkbox, Link, Typography} from '@mui/material'
 
 import React from 'react'
 
-import {TaskOperationType} from '@constants/task-operation-type'
+// import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -24,7 +24,7 @@ export const BoxItemCard = ({
   onChangeBarCode,
   boxId,
   readOnly,
-  taskType,
+  // taskType,
   needAccent,
   referenceEditingBox,
 }) => {
@@ -55,12 +55,12 @@ export const BoxItemCard = ({
                 </div>
               )}
             </div>
-            {((readOnly && taskType === TaskOperationType.RECEIVE) || taskType !== TaskOperationType.RECEIVE) && (
-              <div className={classNames.countSubWrapper}>
-                <Typography className={classNames.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
-                <Typography className={classNames.count}>{boxId}</Typography>
-              </div>
-            )}
+            {/* {((readOnly && taskType === TaskOperationType.RECEIVE) || taskType !== TaskOperationType.RECEIVE) && ( */}
+            <div className={classNames.countSubWrapper}>
+              <Typography className={classNames.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
+              <Typography className={classNames.count}>{boxId}</Typography>
+            </div>
+            {/* )} */}
           </div>
 
           <div className={classNames.attributeFooterWrapper}>

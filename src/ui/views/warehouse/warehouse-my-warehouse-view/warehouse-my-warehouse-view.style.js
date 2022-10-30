@@ -20,6 +20,13 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     padding: '0 0 10px',
   },
+
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
   leftBtnsWrapper: {
     display: 'flex',
     flexDirection: 'row',

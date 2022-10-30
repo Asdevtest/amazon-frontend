@@ -22,8 +22,12 @@ export const styles = theme => ({
   },
 
   btnsWrapper: {
+    width: '100%',
+
     margin: '10px 0 15px',
     display: 'flex',
+
+    justifyContent: 'space-between',
   },
   root: {
     border: '0 !important',

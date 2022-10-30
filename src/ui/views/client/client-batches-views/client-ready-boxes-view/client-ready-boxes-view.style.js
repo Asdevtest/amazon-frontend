@@ -68,6 +68,7 @@ export const styles = theme => ({
   btnsWrapper: {
     margin: '10px 0 15px',
     display: 'flex',
+    justifyContent: 'space-between',
   },
   root: {
     border: '0 !important',

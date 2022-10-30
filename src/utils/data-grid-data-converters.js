@@ -481,7 +481,8 @@ export const warehouseTasksDataConverter = data =>
       ),
     )
       .join(', ')
-      .slice(0, -2),
+      .slice(0, -2)
+      .replace('0', '-'),
   }))
 
 export const adminProductsDataConverter = data =>

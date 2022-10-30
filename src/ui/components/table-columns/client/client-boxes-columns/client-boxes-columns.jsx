@@ -28,6 +28,15 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
   // },
 
   {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Storekeeper),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 120,
+  },
+
+  {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,

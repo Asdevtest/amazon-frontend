@@ -36,8 +36,10 @@ export const styles = theme => ({
   },
 
   subUserHeader: {
+    width: '100%',
+
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
     alignItems: 'flex-start',
     [theme.breakpoints.down(768)]: {
       width: '100%',

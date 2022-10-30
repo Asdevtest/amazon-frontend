@@ -91,12 +91,15 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 </Button>
 
               </div> */}
-              <SearchInput
-                inputClasses={classNames.searchInput}
-                value={nameSearchValue}
-                placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                onChange={onChangeNameSearchValue}
-              />
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   checkboxSelection

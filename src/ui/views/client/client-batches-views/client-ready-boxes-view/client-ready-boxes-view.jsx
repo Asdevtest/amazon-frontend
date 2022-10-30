@@ -141,6 +141,8 @@ export class ClientReadyBoxesViewRaw extends Component {
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
                   onChange={onChangeNameSearchValue}
                 />
+
+                <div />
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
