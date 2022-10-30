@@ -33,7 +33,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 100,
   },
 
   {
