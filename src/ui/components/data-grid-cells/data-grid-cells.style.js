@@ -211,6 +211,7 @@ export const styles = theme => ({
   changeInput: {
     width: '100%',
     height: 36,
+    textAlign: 'center',
   },
 
   changeInputIcon: {

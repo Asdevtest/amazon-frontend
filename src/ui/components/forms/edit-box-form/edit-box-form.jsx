@@ -481,10 +481,7 @@ export const EditBoxForm = observer(
                           disableElevation
                           color="primary"
                           variant={boxFields.storekeeperId && 'text'}
-                          className={cx(
-                            {[classNames.storekeeperBtn]: !boxFields.storekeeperId},
-                            {[classNames.standartText]: boxFields.storekeeperId},
-                          )}
+                          className={cx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }

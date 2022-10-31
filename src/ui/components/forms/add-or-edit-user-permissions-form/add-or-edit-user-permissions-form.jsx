@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useMemo} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -61,21 +61,24 @@ export const AddOrEditUserPermissionsForm = observer(
     const [selectedShop, setSelectedShop] = useState(null)
     const [showPermissions, setShowPermissions] = useState(false)
 
-    const sourceDataToProductsPermissions = [
-      {
-        _id: PRODUCTS_WITHOUT_SHOPS_ID,
-        name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
-        tmpProductsIds:
-          curUserProductPermissions
-            ?.filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
-            ?.map(el => el.productId) || [],
-      },
-      ...shops.map(shop => ({
-        ...shop,
-        tmpProductsIds:
-          curUserProductPermissions?.filter(el => el.shopIds.includes(shop._id))?.map(el => el.productId) || [],
-      })),
-    ]
+    const sourceDataToProductsPermissions = useMemo(
+      () => [
+        {
+          _id: PRODUCTS_WITHOUT_SHOPS_ID,
+          name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
+          tmpProductsIds:
+            curUserProductPermissions
+              ?.filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
+              ?.map(el => el.productId) || [],
+        },
+        ...shops.map(shop => ({
+          ...shop,
+          tmpProductsIds:
+            curUserProductPermissions?.filter(el => el.shopIds.includes(shop._id))?.map(el => el.productId) || [],
+        })),
+      ],
+      [curUserProductPermissions],
+    )
 
     const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
 
@@ -329,18 +332,31 @@ export const AddOrEditUserPermissionsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.ACCESS_TO_PRODUCTS}>
           <div className={classNames.accordionWrapper}>
-            {shopDataToRender.map(shop => (
-              <AccessToProductForm
-                key={shop._id}
-                PRODUCTS_WITHOUT_SHOPS_ID={PRODUCTS_WITHOUT_SHOPS_ID}
-                shop={shop}
-                selectedShop={selectedShop}
-                shops={shopDataToRender}
-                setShopDataToRender={setShopDataToRender}
-                productPermissionsData={productPermissionsData}
-                onClickToShowDetails={onClickToShowDetails}
-              />
-            ))}
+            {sourceDataToProductsPermissions
+              .map(shop => {
+                const sourceData = useMemo(
+                  () =>
+                    productPermissionsData.filter(el =>
+                      shop._id === PRODUCTS_WITHOUT_SHOPS_ID
+                        ? !el.originalData.shopIds?.length
+                        : el.originalData.shopIds?.includes(shop._id),
+                    ),
+                  [],
+                )
+
+                return (
+                  <AccessToProductForm
+                    key={shop._id}
+                    sourceData={sourceData}
+                    shop={shopDataToRender.find(el => el._id === shop._id)}
+                    selectedShop={selectedShop}
+                    shops={shopDataToRender}
+                    setShopDataToRender={setShopDataToRender}
+                    onClickToShowDetails={onClickToShowDetails}
+                  />
+                )
+              })
+              .sort((a, b) => b.props.sourceData.length - a.props.sourceData.length)}
           </div>
         </TabPanel>
 

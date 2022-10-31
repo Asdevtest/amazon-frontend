@@ -156,10 +156,7 @@ const Box = ({
                         disabled={!isNewBox}
                         color="primary"
                         variant={box.logicsTariffId && 'text'}
-                        className={cx(
-                          {[classNames.storekeeperBtn]: !box.logicsTariffId},
-                          {[classNames.standartText]: box.logicsTariffId},
-                        )}
+                        className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }

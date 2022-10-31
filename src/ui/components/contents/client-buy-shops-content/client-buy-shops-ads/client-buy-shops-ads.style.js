@@ -71,6 +71,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   emptyTableText: {
     marginTop: '30px',
+    color: theme.palette.text.second,
   },
 
   tablePanelWrapper: {

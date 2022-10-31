@@ -175,6 +175,8 @@ export const buyerVacantOrdersDataConverter = data =>
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
 
+    ID: item.id,
+
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,

@@ -340,7 +340,9 @@ export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSub
       <Input
         disabled={disabled}
         // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
+
         className={classNames.changeInput}
+        classes={{input: classNames.changeInput}}
         inputProps={{maxLength: 7}}
         value={value}
         endAdornment={
