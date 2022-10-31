@@ -123,8 +123,6 @@ export class ClientWarehouseViewRaw extends Component {
 
     const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
 
-    console.log('storekeepersData', storekeepersData)
-
     return (
       <React.Fragment>
         <Navbar
