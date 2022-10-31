@@ -154,6 +154,9 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '0',
     marginLeft: '85px',
     display: 'flex',
+
+    color: 'red',
+
     [theme.breakpoints.down(768)]: {
       width: '161px',
       marginTop: -56,
@@ -333,6 +336,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   hideOnModile: {
     display: 'block',
+    color: theme.palette.primary.main,
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

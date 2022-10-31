@@ -55,8 +55,12 @@ export const styles = theme => ({
 
   disabledChosenItem: {
     cursor: 'auto',
+    backgroundColor: theme.palette.input.disabled,
+
     '&:hover': {
       transform: 'none',
+
+      backgroundColor: theme.palette.input.disabled,
     },
   },
 

@@ -258,6 +258,18 @@ export const darkTheme = createTheme({
       },
     },
 
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+
+        deleteIcon: {
+          color: '#fff',
+        },
+      },
+    },
+
     // MuiSvgIcon: {
     //   styleOverrides: {
     //     root: {
@@ -305,12 +317,6 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
-      // sx: {
-      //   '&.Mui-disabled': {
-      //     // backgroundColor: 'rgba(0, 0, 0, 0.12)',
-      //     color: '#001029 !important',
-      //   },
-      // },
       styleOverrides: {
         root: {
           color: '#fff',

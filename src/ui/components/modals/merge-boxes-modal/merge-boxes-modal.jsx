@@ -135,6 +135,7 @@ export const MergeBoxesModal = ({
                 key={boxIndex}
                 index={boxIndex}
                 box={box}
+                destinations={destinations}
                 // showFullCard={showFullCard}
                 // setShowFullCard={setShowFullCard}
                 onRemoveBox={onRemoveBoxFromSelected}
