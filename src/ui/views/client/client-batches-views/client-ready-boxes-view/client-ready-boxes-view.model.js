@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -15,6 +16,7 @@ import {clientBoxesReadyToBatchViewColumns} from '@components/table-columns/clie
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class ClientReadyBoxesViewModel {
   history = undefined
@@ -32,6 +34,7 @@ export class ClientReadyBoxesViewModel {
 
   showBoxViewModal = false
   showConfirmModal = false
+  showWarningInfoModal = false
 
   sortModel = []
   filterModel = {items: []}
@@ -39,6 +42,11 @@ export class ClientReadyBoxesViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientBoxesReadyToBatchViewColumns()
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   constructor({history}) {
     this.history = history
@@ -207,6 +215,15 @@ export class ClientReadyBoxesViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey.Error),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     }
   }
 

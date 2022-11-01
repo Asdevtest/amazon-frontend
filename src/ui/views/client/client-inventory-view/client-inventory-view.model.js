@@ -208,11 +208,6 @@ export class ClientInventoryViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
-
-    reaction(
-      () => this.selectedRowIds,
-      () => this.getIdeas(),
-    )
   }
 
   async updateColumnsModel() {
@@ -790,6 +785,7 @@ export class ClientInventoryViewModel {
         this.selectedRowId = this.selectedRowIds[0]
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
+      this.getIdeas()
     } catch (error) {
       console.log(error)
     }

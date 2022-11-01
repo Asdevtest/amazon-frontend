@@ -27,8 +27,16 @@ export const styles = theme => ({
   button: {
     marginBottom: 5,
     marginRight: '10px',
+    // height: 'auto',
 
-    color: theme.palette.text.general,
+    // color: theme.palette.text.general,
+    padding: '0 45px',
+
+    color: theme.palette.primary.main,
+
+    '&>disabled': {
+      backgroundColor: 'inherit',
+    },
   },
 
   tableWrapper: {
@@ -52,9 +60,11 @@ export const styles = theme => ({
 
   selectedBoxesBtn: {
     marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
 
     borderBottom: '5px solid #0460DE',
+
+    color: `${theme.palette.primary.main} !important`,
   },
 
   row: {

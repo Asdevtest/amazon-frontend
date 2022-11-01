@@ -1,6 +1,8 @@
+import axios from 'axios'
 import {makeAutoObservable, reaction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
+import {appVersion} from '@constants/app-version'
 import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
 
@@ -44,7 +46,32 @@ class SettingsModelStatic {
           setI18nConfig()
         }
       },
+
+      this.setIntervalCheckAppVersion(),
     )
+  }
+
+  async checkAppVersion() {
+    const response = await axios({
+      method: 'get',
+      url: `${window.location.origin}/manifest.json`,
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+      },
+    })
+
+    if (appVersion !== response.data.version) {
+      console.log('!!!*** versions do not match')
+      window.location.reload()
+    }
+  }
+
+  setIntervalCheckAppVersion() {
+    this.checkAppVersion()
+
+    setInterval(async () => {
+      this.checkAppVersion()
+    }, 300000)
   }
 
   onTriggerShowHints() {

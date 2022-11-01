@@ -17,6 +17,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -38,6 +39,8 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
+      showWarningInfoModal,
       nameSearchValue,
       showConfirmModal,
       showBoxViewModal,
@@ -195,6 +198,17 @@ export class ClientReadyBoxesViewRaw extends Component {
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
           />
         </Modal>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
 
         <ConfirmationModal
           isWarning

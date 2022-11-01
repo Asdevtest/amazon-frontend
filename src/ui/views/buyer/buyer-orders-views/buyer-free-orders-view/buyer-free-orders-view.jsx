@@ -80,6 +80,7 @@ class BuyerFreeOrdersViewRaw extends Component {
               </div>
               <div className={classNames.dataGridWrapper}>
                 <DataGrid
+                  disableVirtualization
                   checkboxSelection
                   pagination
                   useResizeContainer

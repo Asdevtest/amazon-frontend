@@ -132,7 +132,7 @@ const Box = ({
                     disabled={!isNewBox}
                     width={230}
                     selectedItemName={
-                      destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination._id))?.name ||
+                      destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
                     data={destinations}

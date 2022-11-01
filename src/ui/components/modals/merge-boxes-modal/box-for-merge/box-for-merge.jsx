@@ -64,7 +64,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
                   disabled
                   width={230}
                   selectedItemName={
-                    destinations.find(el => el._id === box.destination._id)?.name || t(TranslationKey['Not chosen'])
+                    destinations.find(el => el._id === box.destination?._id)?.name || t(TranslationKey['Not chosen'])
                   }
                   data={destinations}
                   fieldName="name"
