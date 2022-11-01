@@ -121,10 +121,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   field: {
-    margin: 0,
+    marginBottom: '0 !important',
   },
 
   divider: {
     height: '660px',
+
+    // borderColor: theme.palette.background.border,
   },
 }))

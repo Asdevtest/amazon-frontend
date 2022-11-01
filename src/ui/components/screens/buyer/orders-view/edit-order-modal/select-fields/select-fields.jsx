@@ -429,7 +429,6 @@ export const SelectFields = ({
       )}
 
       <BigImagesModal
-        isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={order.images || []}

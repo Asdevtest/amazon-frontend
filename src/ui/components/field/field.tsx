@@ -54,7 +54,7 @@ export const Field: FC<Props> = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={cx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
+      <div className={cx(classNames.root, {[classNames.rootOneLine]: oneLine}, containerClasses)}>
         <>
           <div className={classNames.labelWrapper}>
             {label ? (

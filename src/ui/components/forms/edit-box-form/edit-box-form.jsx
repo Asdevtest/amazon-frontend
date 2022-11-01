@@ -627,7 +627,6 @@ export const EditBoxForm = observer(
         </div>
 
         <BigImagesModal
-          isAmazone
           openModal={showPhotosModal}
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}

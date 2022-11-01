@@ -136,6 +136,14 @@ export const lightTheme = createTheme({
       },
     },
 
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(0, 0, 0, 0.12)',
+        },
+      },
+    },
+
     MuiCssBaseline: {
       styleOverrides: {
         textarea: {
@@ -399,6 +407,14 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(255, 255, 255, 0.12)',
         },
       },
     },

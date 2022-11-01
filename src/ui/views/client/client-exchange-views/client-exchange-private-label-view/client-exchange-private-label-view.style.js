@@ -25,5 +25,6 @@ export const styles = theme => ({
 
   noRows: {
     marginTop: '150px',
+    color: theme.palette.text.second,
   },
 })

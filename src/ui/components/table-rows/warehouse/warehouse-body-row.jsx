@@ -186,7 +186,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
       ))}
 
       <BigImagesModal
-        isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={curImages}

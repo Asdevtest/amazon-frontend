@@ -272,7 +272,6 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
         </Modal>
 
         <BigImagesModal
-          isAmazone
           openModal={showPhotosModal}
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={batch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}

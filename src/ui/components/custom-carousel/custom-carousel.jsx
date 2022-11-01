@@ -309,7 +309,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
 
                   setBigImagesOptions({
                     images: isAmazonPhoto
-                      ? files?.map(el => getAmazonImageUrl(el))
+                      ? files?.map(el => getAmazonImageUrl(el, true))
                       : files?.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
 
                     imgIndex: index,

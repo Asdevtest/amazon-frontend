@@ -1,8 +1,16 @@
-import {amazonImageUrlPostfix, amazonImageUrlPrefix} from '@constants/amazon-images'
+import {amazonImageUrlSmallPostfix, amazonImageUrlPrefix, amazonImageUrlBigPostfix} from '@constants/amazon-images'
+import {BACKEND_API_URL} from '@constants/env'
 
-export const getAmazonImageUrl = hash =>
-  hash
-    ? hash.includes('http')
-      ? hash
-      : `${amazonImageUrlPrefix}${hash}${amazonImageUrlPostfix}`
-    : '/assets/img/no-photo.jpg'
+export const getAmazonImageUrl = (str, big) => {
+  if (str) {
+    if (str.includes(BACKEND_API_URL)) {
+      return big ? str : str + '.preview.webp'
+    } else if (str.includes('http')) {
+      return str
+    } else {
+      return `${amazonImageUrlPrefix}${str}${big ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix}`
+    }
+  } else {
+    return '/assets/img/no-photo.jpg'
+  }
+}
