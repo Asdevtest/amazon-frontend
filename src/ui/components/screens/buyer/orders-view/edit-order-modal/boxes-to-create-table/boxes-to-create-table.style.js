@@ -97,7 +97,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   buttonCell: {
-    minWidth: 60,
+    minWidth: 70,
     display: 'flex',
     alignItems: 'center',
 

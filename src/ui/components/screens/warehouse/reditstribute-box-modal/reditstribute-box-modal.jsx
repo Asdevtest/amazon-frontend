@@ -162,7 +162,7 @@ const Box = ({
                         }
                       >
                         {box.logicsTariffId
-                          ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
+                          ? `${storekeepers.find(el => el._id === box.storekeeperID)?.name || 'N/A'} /  
                             ${
                               box.logicsTariffId
                                 ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -174,10 +174,10 @@ const Box = ({
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'
+                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name || 'N/A'
                       } /  
                         ${
-                          box.logicsTariffId
+                          box.logicsTariff?._id
                             ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
                                 tariffRate ? ' / ' + tariffRate + ' $' : ''
                               }`
@@ -368,7 +368,12 @@ export const RedistributeBox = observer(
     onTriggerOpenModal,
   }) => {
     const {classes: classNames} = useClassNames()
-    const [currentBox, setCurrentBox] = useState(selectedBox)
+    const [currentBox, setCurrentBox] = useState({
+      ...selectedBox,
+      destinationId: selectedBox.destination?._id || null,
+      storekeeperId: selectedBox.storekeeper?._id || '',
+      logicsTariffId: selectedBox.logicsTariff?._id || '',
+    })
 
     const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
@@ -381,9 +386,6 @@ export const RedistributeBox = observer(
       _id: 'new_id_' + Date.now(),
       items: emptyProducts,
       amount: 1,
-      destinationId: currentBox.destination?._id || null,
-      storekeeperId: currentBox.storekeeper?._id || '',
-      logicsTariffId: currentBox.logicsTariff?._id || '',
       tmpShippingLabel: [],
     })
 
