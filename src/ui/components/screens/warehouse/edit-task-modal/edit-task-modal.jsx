@@ -261,7 +261,6 @@ export const EditTaskModal = observer(
                   disableElevation
                   className={classNames.cancelButton}
                   color="primary"
-                  variant="text"
                   onClick={onClickOpenCloseModal}
                 >
                   {t(TranslationKey.Cancel)}
