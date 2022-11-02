@@ -162,7 +162,7 @@ const Box = ({
                         }
                       >
                         {box.logicsTariffId
-                          ? `${storekeepers.find(el => el._id === box.storekeeperID)?.name || 'N/A'} /  
+                          ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                             ${
                               box.logicsTariffId
                                 ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${

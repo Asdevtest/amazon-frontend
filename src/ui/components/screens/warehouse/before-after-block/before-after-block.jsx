@@ -108,7 +108,7 @@ const Box = observer(
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-              label={t(TranslationKey.Warehouse)}
+              label={t(TranslationKey.Destination)}
               labelClasses={classNames.smallLabel}
               inputClasses={cx(classNames.field, {
                 [classNames.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,

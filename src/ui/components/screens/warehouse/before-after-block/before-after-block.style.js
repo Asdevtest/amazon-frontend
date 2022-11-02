@@ -430,7 +430,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '690px',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       marginBottom: '50px',

@@ -557,13 +557,13 @@ export const adminBoxesDataConverter = data =>
 
     amazonPrice: calcPriceForBox(item),
 
-    trackingNumberChina: item.items[0].order.trackingNumberChina,
+    trackingNumberChina: item.items[0]?.order?.trackingNumberChina,
     finalWeight: calcFinalWeightForBox(item),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
 
     warehouses: item.destination?.name,
 
-    client: item.items[0].product.client.name,
+    client: item.items[0]?.product.client.name,
     storekeeper: item.storekeeper?.name,
 
     humanFriendlyId: item.humanFriendlyId,

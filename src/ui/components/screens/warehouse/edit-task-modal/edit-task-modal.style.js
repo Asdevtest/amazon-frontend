@@ -255,6 +255,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
     color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.main,
+
     [theme.breakpoints.down(768)]: {
       width: '121px',
       height: '40px',
