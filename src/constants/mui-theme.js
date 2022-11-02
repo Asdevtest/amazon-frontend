@@ -509,8 +509,8 @@ export const darkTheme = createTheme({
       successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
       negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
 
-      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2B2B34 50%);',
-      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2B2B34 50%);',
+      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
     },
 
     boxShadow: {

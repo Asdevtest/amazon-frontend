@@ -289,7 +289,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyPhotos = isAmazonPhoto
-    ? files?.map(el => getAmazonImageUrl(el))
+    ? files?.map(el => getAmazonImageUrl(el, true))
     : files?.filter(el => checkIsImageLink(el?.file?.name || el))
 
   return files?.length ? (

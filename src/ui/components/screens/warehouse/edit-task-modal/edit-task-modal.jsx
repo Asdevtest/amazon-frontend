@@ -198,32 +198,13 @@ export const EditTaskModal = observer(
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
           />
         </div>
-        {!readOnly ? (
-          <div className={classNames.buttonsWrapperMobile}>
-            {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-              <Button
-                disableElevation
-                className={classNames.buttonMobile}
-                tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setReceiveBoxModal(!receiveBoxModal)
-                }}
-              >
-                {t(TranslationKey.Redistribute)}
-              </Button>
-            )}
-          </div>
-        ) : null}
-
-        {!readOnly ? (
-          <div className={classNames.buttonsWrapper}>
-            {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-              <div className={classNames.hideButton}>
+        <div className={classNames.buttonsMainWrapper}>
+          {!readOnly ? (
+            <div className={classNames.buttonsWrapperMobile}>
+              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
                   disableElevation
-                  className={classNames.button}
+                  className={classNames.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                   color="primary"
                   variant="contained"
@@ -233,47 +214,68 @@ export const EditTaskModal = observer(
                 >
                   {t(TranslationKey.Redistribute)}
                 </Button>
-              </div>
-            )}
+              )}
+            </div>
+          ) : null}
 
-            <div className={classNames.buttons}>
-              <Button
-                success
-                disableElevation
-                className={classNames.successBtn}
-                disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
-                tooltipInfoContent={t(TranslationKey['Save task data'])}
-                variant="contained"
-                onClick={() => {
-                  onClickSolveTask({
-                    task,
-                    newBoxes,
-                    operationType: task.operationType,
-                    comment: storekeeperComment,
-                    photos: photosOfTask,
-                  })
-                }}
-              >
-                {t(TranslationKey.Save)}
-              </Button>
-              <Button
-                disableElevation
-                className={classNames.cancelButton}
-                color="primary"
-                variant="text"
-                onClick={onClickOpenCloseModal}
-              >
-                {t(TranslationKey.Cancel)}
+          {!readOnly ? (
+            <div className={classNames.buttonsWrapper}>
+              {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
+                <div className={classNames.hideButton}>
+                  <Button
+                    disableElevation
+                    className={classNames.button}
+                    tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                      setReceiveBoxModal(!receiveBoxModal)
+                    }}
+                  >
+                    {t(TranslationKey.Redistribute)}
+                  </Button>
+                </div>
+              )}
+
+              <div className={classNames.buttons}>
+                <Button
+                  success
+                  disableElevation
+                  className={classNames.successBtn}
+                  disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
+                  tooltipInfoContent={t(TranslationKey['Save task data'])}
+                  variant="contained"
+                  onClick={() => {
+                    onClickSolveTask({
+                      task,
+                      newBoxes,
+                      operationType: task.operationType,
+                      comment: storekeeperComment,
+                      photos: photosOfTask,
+                    })
+                  }}
+                >
+                  {t(TranslationKey.Save)}
+                </Button>
+                <Button
+                  disableElevation
+                  className={classNames.cancelButton}
+                  color="primary"
+                  variant="text"
+                  onClick={onClickOpenCloseModal}
+                >
+                  {t(TranslationKey.Cancel)}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className={classNames.buttonWrapper}>
+              <Button className={classNames.closeButton} color="primary" onClick={onClickOpenCloseModal}>
+                {t(TranslationKey.Close)}
               </Button>
             </div>
-          </div>
-        ) : (
-          <div className={classNames.buttonWrapper}>
-            <Button className={classNames.closeButton} color="primary" onClick={onClickOpenCloseModal}>
-              {t(TranslationKey.Close)}
-            </Button>
-          </div>
-        )}
+          )}
+        </div>
 
         <Modal
           openModal={receiveBoxModal}

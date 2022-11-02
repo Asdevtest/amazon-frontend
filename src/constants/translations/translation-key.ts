@@ -1575,7 +1575,7 @@ export enum TranslationKey {
   'Add Address' = 'Add Address',
   'Reply to a User Feedback' = 'Reply to a User Feedback',
   'Search by ASIN, Order ID, Item' = 'Search by ASIN, Order ID, Item',
-  // '' = '',
+  'Your feedback has been sent and will be reviewed shortly' = 'Your feedback has been sent and will be reviewed shortly',
   // '' = '',
   // '' = '',
   // '' = '',
