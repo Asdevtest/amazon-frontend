@@ -592,7 +592,7 @@ export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
   const ordersItems = 'item' + sortedValue[1]
 
   return (
-    <div>
+    <div className={classNames.orderIdsItemsWrapper}>
       <MultilineTextCell text={orderIds} />
 
       <MultilineTextCell text={ordersItems} />

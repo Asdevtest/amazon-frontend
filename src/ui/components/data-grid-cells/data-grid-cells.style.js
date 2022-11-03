@@ -13,6 +13,11 @@ export const styles = theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
   },
+
+  orderIdsItemsWrapper: {
+    whiteSpace: 'normal',
+  },
+
   productWrapper: {
     display: 'flex',
     flexDirection: 'column',
