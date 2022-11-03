@@ -158,7 +158,7 @@ export const BoxItemCard = ({
                     {isNewBox && !readOnly && boxIndex === 0 && index === 0 && (
                       <Field
                         oneLine
-                        containerClasses={classNames.checkboxContainer}
+                        // containerClasses={classNames.checkboxContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['Apply to all boxes'])}
                         tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
