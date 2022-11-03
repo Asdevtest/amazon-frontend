@@ -16,6 +16,9 @@ export class MessagesViewModel {
   chatSelectedId = undefined
 
   nameSearchValue = ''
+  mesSearchValue = ''
+
+  messagesFound = []
 
   showProgress = false
 
@@ -65,6 +68,26 @@ export class MessagesViewModel {
         }
       },
     )
+
+    reaction(
+      () => this.chatSelectedId,
+      () => {
+        this.mesSearchValue = ''
+      },
+    )
+
+    reaction(
+      () => this.mesSearchValue,
+      () => {
+        if ((this.mesSearchValue, this.chatSelectedId)) {
+          this.messagesFound = this.simpleChats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text.includes(this.mesSearchValue))
+        } else {
+          this.messagesFound = []
+        }
+      },
+    )
   }
 
   async loadData() {
@@ -94,6 +117,12 @@ export class MessagesViewModel {
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
+    })
+  }
+
+  onChangeMesSearchValue(e) {
+    runInAction(() => {
+      this.mesSearchValue = e.target.value
     })
   }
 

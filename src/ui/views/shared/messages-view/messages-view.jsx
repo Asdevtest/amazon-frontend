@@ -36,6 +36,8 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      // messagesFound,
+      // mesSearchValue,
       showProgress,
       typingUsers,
       noticeOfSimpleChats,
@@ -51,6 +53,7 @@ class MessagesViewRaw extends Component {
       onSubmitMessage,
       onClickBackButton,
       onChangeNameSearchValue,
+      // onChangeMesSearchValue,
       onTriggerNoticeOfSimpleChats,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -72,16 +75,34 @@ class MessagesViewRaw extends Component {
                   />
 
                   {chatSelectedId && simpleChats.length ? (
-                    <Link
-                      target="_blank"
-                      href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                      underline="none"
-                    >
-                      <div className={classNames.opponentWrapper}>
-                        <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-                      </div>
-                    </Link>
+                    <div className={classNames.chatSelectedWrapper}>
+                      <Link
+                        target="_blank"
+                        href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                        underline="none"
+                      >
+                        <div className={classNames.opponentWrapper}>
+                          <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                          <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                        </div>
+                      </Link>
+                      {/* <SearchInput
+                        inputClasses={classNames.searchInput}
+                        placeholder={t(TranslationKey['Message Search'])}
+                        value={mesSearchValue}
+                        onChange={onChangeMesSearchValue}
+                      />
+
+                      {messagesFound.length ? (
+                        <div>
+                          <Typography className={classNames.noticesTextActive}>
+                            {t(TranslationKey['Search results']) + ':'}
+                          </Typography>
+
+                          <Typography className={classNames.noticesTextActive}>{messagesFound.length}</Typography>
+                        </div>
+                      ) : null} */}
+                    </div>
                   ) : null}
                 </div>
 
@@ -108,6 +129,7 @@ class MessagesViewRaw extends Component {
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
+                  // toScrollMesId={messagesFound[0]?._id}
                   typingUsers={typingUsers}
                   searchFilter={nameSearchValue}
                   currentOpponent={currentOpponent}

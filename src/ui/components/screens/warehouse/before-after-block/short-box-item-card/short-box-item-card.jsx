@@ -19,7 +19,10 @@ export const ShortBoxItemCard = ({item, superCount, boxId, taskType, readOnly}) 
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <img className={classNames.img} src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0])} />
+        <img
+          className={classNames.img}
+          src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0], true)}
+        />
 
         <div className={classNames.attributeWrapper}>
           <div className={classNames.attributeHeaderWrapper}>

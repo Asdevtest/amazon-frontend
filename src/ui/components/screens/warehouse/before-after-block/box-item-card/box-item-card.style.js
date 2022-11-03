@@ -14,6 +14,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  applyButton: {
+    height: 30,
+    marginLeft: 10,
+  },
+
   img: {
     width: '128px',
     height: '128px',

@@ -18,6 +18,12 @@ export const styles = theme => ({
     margin: 0,
   },
 
+  chatSelectedWrapper: {
+    display: 'flex',
+    gap: 20,
+    alignItems: 'center',
+  },
+
   chatHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

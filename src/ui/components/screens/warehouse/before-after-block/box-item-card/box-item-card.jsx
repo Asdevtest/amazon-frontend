@@ -6,6 +6,7 @@ import React from 'react'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field'
 import {Text} from '@components/text'
@@ -27,13 +28,15 @@ export const BoxItemCard = ({
   taskType,
   needAccent,
   referenceEditingBox,
+  boxIndex,
+  onApplyGluedBarcodeToAllBoxes,
 }) => {
   const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <img className={classNames.img} src={getAmazonImageUrl(item.product.images[0])} />
+        <img className={classNames.img} src={getAmazonImageUrl(item.product.images[0], true)} />
 
         <div className={classNames.attributeWrapper}>
           <div className={classNames.attributeHeaderWrapper}>
@@ -151,6 +154,29 @@ export const BoxItemCard = ({
                         }
                       />
                     )}
+
+                    {isNewBox && !readOnly && boxIndex === 0 && index === 0 && (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        labelClasses={classNames.label}
+                        label={t(TranslationKey['Apply to all boxes'])}
+                        tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                        inputComponent={
+                          <Button
+                            className={classNames.applyButton}
+                            onClick={() =>
+                              onApplyGluedBarcodeToAllBoxes(
+                                item.isBarCodeAlreadyAttachedByTheSupplier,
+                                item.isBarCodeAttachedByTheStorekeeper,
+                              )
+                            }
+                          >
+                            {t(TranslationKey.Apply)}
+                          </Button>
+                        }
+                      />
+                    )}
                   </div>
                 )}
               </div>
@@ -239,6 +265,29 @@ export const BoxItemCard = ({
                           )
                         }
                       />
+                    }
+                  />
+                )}
+
+                {isNewBox && !readOnly && boxIndex === 0 && index === 0 && (
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxContainer}
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey['Apply to all boxes'])}
+                    tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                    inputComponent={
+                      <Button
+                        className={classNames.applyButton}
+                        onClick={() =>
+                          onApplyGluedBarcodeToAllBoxes(
+                            item.isBarCodeAlreadyAttachedByTheSupplier,
+                            item.isBarCodeAttachedByTheStorekeeper,
+                          )
+                        }
+                      >
+                        {t(TranslationKey.Apply)}
+                      </Button>
                     }
                   />
                 )}

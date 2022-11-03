@@ -47,6 +47,8 @@ interface Props {
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   typingUsers?: OnTypingMessageResponse[]
+  toScrollMesId?: string | undefined
+
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, files: IFile[], chat: string) => void
@@ -59,6 +61,7 @@ export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
       {
+        toScrollMesId,
         typingUsers,
         searchFilter,
         chats,
@@ -121,6 +124,7 @@ export const MultipleChats = observer(
                   chat={findChatByChatId}
                   messages={findChatByChatId.messages}
                   chatMessageHandlers={chatMessageHandlers}
+                  toScrollMesId={toScrollMesId}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
                   onSubmitMessage={(message: string, files: IFile[]) =>

@@ -338,7 +338,9 @@ export const AddOrEditUserPermissionsForm = observer(
                   () =>
                     productPermissionsData.filter(el =>
                       shop._id === PRODUCTS_WITHOUT_SHOPS_ID
-                        ? !el.originalData.shopIds?.length
+                        ? isWithoutShopsDepends
+                          ? true
+                          : !el.originalData.shopIds?.length
                         : el.originalData.shopIds?.includes(shop._id),
                     ),
                   [],

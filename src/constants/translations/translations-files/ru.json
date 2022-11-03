@@ -1576,5 +1576,9 @@
   "Add Address": "Добавить адрес",
   "Reply to a User Feedback": "Ответ на обращение пользователя",
   "Search by ASIN, Order ID, Item": "Поиск по ASIN, ID заказа, Item",
-  "Your feedback has been sent and will be reviewed shortly": "Ваше предложение отправлено и в скором времени будет рассмотрено"
+  "Your feedback has been sent and will be reviewed shortly": "Ваше предложение отправлено и в скором времени будет рассмотрено",
+  "Message Search": "Поиск по сообщениям",
+  "Search results": "Результаты поиска",
+  "Apply to all boxes": "Применить ко всем коробкам",
+  "Apply barcode sticker values to all boxes": "Применить значения проклейки баркода ко всем коробкам"
 }
