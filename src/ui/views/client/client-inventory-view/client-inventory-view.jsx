@@ -53,12 +53,14 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      currentData,
       userInfo,
       nameSearchValue,
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
 
+      rowCount,
       sortModel,
       filterModel,
       densityModel,
@@ -154,6 +156,8 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showAddOrEditSupplierModal')
       onTriggerOpenModal('showSelectionSupplierModal')
     }
+
+    console.log('currentData', currentData)
 
     return (
       <React.Fragment>
@@ -366,6 +370,7 @@ export class ClientInventoryViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
+                  // keepNonExistentRowsSelected
                   disableVirtualization
                   pagination
                   useResizeContainer
@@ -378,12 +383,15 @@ export class ClientInventoryViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  // rows={getCurrentData()}
+                  rows={currentData}
                   // rowHeight={100}
                   getRowHeight={() => 'auto'}
                   components={{

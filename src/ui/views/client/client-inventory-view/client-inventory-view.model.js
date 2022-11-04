@@ -160,10 +160,13 @@ export class ClientInventoryViewModel {
     onClickConfirm: () => {},
   }
 
+  currentData = []
+
   readyImages = []
   progressValue = 0
   showProgress = false
 
+  rowCount = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -208,6 +211,13 @@ export class ClientInventoryViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.productsMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -215,7 +225,7 @@ export class ClientInventoryViewModel {
       this.getDataGridState()
 
       this.productsMy = clientInventoryDataConverter(
-        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+        this.baseNoConvertedProducts.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
       )
     }
   }
@@ -272,6 +282,8 @@ export class ClientInventoryViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+
+    this.getProductsMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -467,24 +479,27 @@ export class ClientInventoryViewModel {
 
   async getProductsMy(noProductBaseUpdate) {
     try {
-      const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
+      // const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
 
-      // const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-      //   shopId: this.currentShop ? this.currentShop._id : null,
-      //   limit: 15,
-      //   offset: 0,
-      // })
+      const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
+        shopId: this.currentShop ? this.currentShop._id : null,
+        limit: this.rowsPerPage,
+        // offset: this.curPage  (page - 1) * limit,
+        offset: this.curPage * this.rowsPerPage,
+      })
 
-      // console.log('result', result)
+      console.log('result', result)
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
 
-        this.productsMy = clientInventoryDataConverter(result).sort(
+        this.rowCount = result.count
+
+        this.productsMy = clientInventoryDataConverter(result.rows).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
         if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result).sort(
+          this.productsMyBase = clientInventoryDataConverter(result.rows).sort(
             sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
           )
         }
@@ -1074,6 +1089,7 @@ export class ClientInventoryViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+    this.getProductsMy()
   }
 
   onTriggerDrawer() {
