@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **products** | [**InlineResponse20017Products**](InlineResponse20017Products.md) |  | [optional] 
-**orders** | [**InlineResponse20017Orders**](InlineResponse20017Orders.md) |  | [optional] 
-**finances** | [**InlineResponse20017Finances**](InlineResponse20017Finances.md) |  | [optional] 
+**checking** | [**InlineResponse20017Checking**](InlineResponse20017Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20013Finances**](InlineResponse20013Finances.md) |  | [optional] 
 
 

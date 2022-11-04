@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**products** | [**InlineResponse20015Products**](InlineResponse20015Products.md) |  | [optional] 
+**finances** | [**InlineResponse20013Finances**](InlineResponse20013Finances.md) |  | [optional] 
 
 

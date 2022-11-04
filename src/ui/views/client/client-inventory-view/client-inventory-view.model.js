@@ -469,6 +469,14 @@ export class ClientInventoryViewModel {
     try {
       const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
 
+      // const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
+      //   shopId: this.currentShop ? this.currentShop._id : null,
+      //   limit: 15,
+      //   offset: 0,
+      // })
+
+      // console.log('result', result)
+
       runInAction(() => {
         this.baseNoConvertedProducts = result
 

@@ -730,6 +730,7 @@ export const styles = theme => ({
   },
 
   commentOfSbWrapper: {
+    padding: '10px 0',
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -737,7 +738,7 @@ export const styles = theme => ({
   },
 
   commentOfSbSubWrapper: {
-    height: '100%',
+    maxHeight: 300,
     width: '100%',
     overflow: 'auto',
   },

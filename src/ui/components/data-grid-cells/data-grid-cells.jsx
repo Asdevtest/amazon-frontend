@@ -622,7 +622,9 @@ export const CommentOfSbCell = withStyles(
           {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
           {productsInWarehouse?.map((item, index) => (
             <Tooltip key={index} title={item.comment}>
-              <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${item.comment}`}</Typography>
+              <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
+                item.comment ? item.comment : '-'
+              }`}</Typography>
             </Tooltip>
           ))}
         </div>
