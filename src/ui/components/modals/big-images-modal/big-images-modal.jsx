@@ -8,7 +8,7 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 
 import {useClassNames} from './big-images-modal.style'
 
-export const BigImagesModal = ({openModal, setOpenModal, images, isAmazone, imgIndex = 0}) => {
+export const BigImagesModal = ({openModal, setOpenModal, images, imgIndex = 0}) => {
   const {classes: classNames} = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
@@ -30,7 +30,7 @@ export const BigImagesModal = ({openModal, setOpenModal, images, isAmazone, imgI
         >
           {images.map((el, index) => (
             <div key={index} className={classNames.mainWrapper}>
-              <img alt="" className={classNames.imgBox} src={isAmazone ? getAmazonImageUrl(el) : el} />
+              <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el, true)} />
             </div>
           ))}
         </Carousel>

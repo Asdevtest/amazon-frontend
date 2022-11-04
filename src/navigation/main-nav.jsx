@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import CssBaseline from '@mui/material/CssBaseline'
 import {ThemeProvider} from '@mui/material/styles'
 

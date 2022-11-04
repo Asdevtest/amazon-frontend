@@ -175,6 +175,8 @@ export const buyerVacantOrdersDataConverter = data =>
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
 
+    ID: item.id,
+
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
@@ -555,13 +557,13 @@ export const adminBoxesDataConverter = data =>
 
     amazonPrice: calcPriceForBox(item),
 
-    trackingNumberChina: item.items[0].order.trackingNumberChina,
+    trackingNumberChina: item.items[0]?.order?.trackingNumberChina,
     finalWeight: calcFinalWeightForBox(item),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
 
     warehouses: item.destination?.name,
 
-    client: item.items[0].product.client.name,
+    client: item.items[0]?.product.client.name,
     storekeeper: item.storekeeper?.name,
 
     humanFriendlyId: item.humanFriendlyId,

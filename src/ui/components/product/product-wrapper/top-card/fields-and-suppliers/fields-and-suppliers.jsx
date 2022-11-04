@@ -397,6 +397,7 @@ export const FieldsAndSuppliers = observer(
                         ? t(TranslationKey['No stores'])
                         : selectedItem?.name
                     }
+                    input={<Input className={classNames.nativeSelect} />}
                     className={classNames.nativeSelect}
                     onChange={e => setSelectedItem(e.target.value)}
                     // onClick={() => setClearSelect(false)}

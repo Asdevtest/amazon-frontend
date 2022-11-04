@@ -12,12 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20016Batch from './InlineResponse20016Batch';
-import InlineResponse20016Boxes from './InlineResponse20016Boxes';
-import InlineResponse20016Orders from './InlineResponse20016Orders';
-import InlineResponse20016Products from './InlineResponse20016Products';
-import InlineResponse20016Requests from './InlineResponse20016Requests';
-import InlineResponse20016Shops from './InlineResponse20016Shops';
+import InlineResponse20013Finances from './InlineResponse20013Finances';
 
 /**
  * The InlineResponse20016 model module.
@@ -53,23 +48,8 @@ class InlineResponse20016 {
         if (data) {
             obj = obj || new InlineResponse20016();
 
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20016Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('shops')) {
-                obj['shops'] = InlineResponse20016Shops.constructFromObject(data['shops']);
-            }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = InlineResponse20016Requests.constructFromObject(data['requests']);
-            }
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20016Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = InlineResponse20016Batch.constructFromObject(data['batch']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20016Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20013Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -79,34 +59,9 @@ class InlineResponse20016 {
 }
 
 /**
- * @member {module:model/InlineResponse20016Orders} orders
+ * @member {module:model/InlineResponse20013Finances} finances
  */
-InlineResponse20016.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Shops} shops
- */
-InlineResponse20016.prototype['shops'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Requests} requests
- */
-InlineResponse20016.prototype['requests'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Products} products
- */
-InlineResponse20016.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Batch} batch
- */
-InlineResponse20016.prototype['batch'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Boxes} boxes
- */
-InlineResponse20016.prototype['boxes'] = undefined;
+InlineResponse20016.prototype['finances'] = undefined;
 
 
 

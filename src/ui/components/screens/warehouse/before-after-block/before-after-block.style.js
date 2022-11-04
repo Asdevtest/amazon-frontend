@@ -177,6 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
   photoSubWrapper: {
     height: '100px',
     marginTop: '10px',
+    marginBottom: 25,
     [theme.breakpoints.down(768)]: {
       height: '250px',
     },
@@ -211,7 +212,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageLinkListItem: {
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    background: '#EFEFEF',
+    backgroundColor: theme.palette.background.second,
     padding: '5px',
 
     display: 'flex',
@@ -238,7 +239,8 @@ export const useClassNames = makeStyles()(theme => ({
   imageListItem: {
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    background: '#EFEFEF',
+    backgroundColor: theme.palette.background.second,
+
     width: '90px',
     display: 'flex',
     flexDirection: 'column',
@@ -256,6 +258,18 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     fontSize: '9px',
+
+    color: theme.palette.text.second,
+  },
+
+  linkName: {
+    maxWidth: 120,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '9px',
+
+    color: theme.palette.text.second,
   },
 
   tooltipWrapper: {
@@ -284,7 +298,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   greenText: {
-    color: 'green',
+    color: theme.palette.text.green,
     [theme.breakpoints.down(768)]: {
       marginLeft: '40px',
     },
@@ -416,7 +430,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '690px',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       marginBottom: '50px',

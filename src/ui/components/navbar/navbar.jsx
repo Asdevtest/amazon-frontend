@@ -113,7 +113,7 @@ export const Navbar = observer(
         <WarningInfoModal
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={t(TranslationKey['Feedback sent'])}
+          title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')

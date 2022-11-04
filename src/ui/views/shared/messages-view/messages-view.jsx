@@ -13,8 +13,10 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {AddNewChatByEmailForm} from '@components/forms/add-new-chat-by-email-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -36,6 +38,10 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      // messagesFound,
+      // mesSearchValue,
+      usersData,
+      showAddNewChatByEmailModal,
       showProgress,
       typingUsers,
       noticeOfSimpleChats,
@@ -51,7 +57,11 @@ class MessagesViewRaw extends Component {
       onSubmitMessage,
       onClickBackButton,
       onChangeNameSearchValue,
+      // onChangeMesSearchValue,
       onTriggerNoticeOfSimpleChats,
+      onTriggerOpenModal,
+      onClickAddNewChatByEmail,
+      onSubmitAddNewChat,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -72,16 +82,34 @@ class MessagesViewRaw extends Component {
                   />
 
                   {chatSelectedId && simpleChats.length ? (
-                    <Link
-                      target="_blank"
-                      href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                      underline="none"
-                    >
-                      <div className={classNames.opponentWrapper}>
-                        <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-                      </div>
-                    </Link>
+                    <div className={classNames.chatSelectedWrapper}>
+                      <Link
+                        target="_blank"
+                        href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                        underline="none"
+                      >
+                        <div className={classNames.opponentWrapper}>
+                          <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                          <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                        </div>
+                      </Link>
+                      {/* <SearchInput
+                        inputClasses={classNames.searchInput}
+                        placeholder={t(TranslationKey['Message Search'])}
+                        value={mesSearchValue}
+                        onChange={onChangeMesSearchValue}
+                      />
+
+                      {messagesFound.length ? (
+                        <div>
+                          <Typography className={classNames.noticesTextActive}>
+                            {t(TranslationKey['Search results']) + ':'}
+                          </Typography>
+
+                          <Typography className={classNames.noticesTextActive}>{messagesFound.length}</Typography>
+                        </div>
+                      ) : null} */}
+                    </div>
                   ) : null}
                 </div>
 
@@ -100,7 +128,7 @@ class MessagesViewRaw extends Component {
                     <img src={noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
                   </div>
 
-                  <Button disabled className={classNames.newDialogBtn}>
+                  <Button className={classNames.newDialogBtn} onClick={onClickAddNewChatByEmail}>
                     {t(TranslationKey['New Dialogue'])}
                   </Button>
                 </div>
@@ -108,6 +136,7 @@ class MessagesViewRaw extends Component {
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
+                  // toScrollMesId={messagesFound[0]?._id}
                   typingUsers={typingUsers}
                   searchFilter={nameSearchValue}
                   currentOpponent={currentOpponent}
@@ -122,6 +151,17 @@ class MessagesViewRaw extends Component {
                 />
               </div>
               {showProgress && <CircularProgressWithLabel title={t(TranslationKey['Creating a Chat']) + '...'} />}
+
+              <Modal
+                openModal={showAddNewChatByEmailModal}
+                setOpenModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
+              >
+                <AddNewChatByEmailForm
+                  closeModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
+                  usersData={usersData}
+                  onSubmit={onSubmitAddNewChat}
+                />
+              </Modal>
             </MainContent>
           </Appbar>
         </Main>

@@ -7,6 +7,8 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   OrderBoxesCell,
+  MultilineTextHeaderCell,
+  OrdersIdsItemsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -32,6 +34,24 @@ export const addOrEditBatchFormColumns = () => [
   //   width: 150,
   //   // type: 'number',
   // },
+
+  {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 60,
+  },
+
+  {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
+  },
 
   {
     field: 'boxes',
@@ -65,7 +85,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: 130,
   },
 
   {
@@ -86,7 +106,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 100,
     type: 'date',
   },
 
@@ -95,14 +115,14 @@ export const addOrEditBatchFormColumns = () => [
     headerName: t(TranslationKey['Final weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     // type: 'number',
-    width: 170,
+    width: 100,
   },
 
   {
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 170,
+    width: 100,
     // type: 'number',
   },
 ]

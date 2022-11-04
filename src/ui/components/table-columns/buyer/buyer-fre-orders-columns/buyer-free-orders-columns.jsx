@@ -17,13 +17,12 @@ import {t} from '@utils/translations'
 
 export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'ID',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
+    width: 60,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -110,5 +109,15 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 ]

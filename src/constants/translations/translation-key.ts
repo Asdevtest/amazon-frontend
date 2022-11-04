@@ -1575,12 +1575,27 @@ export enum TranslationKey {
   'Add Address' = 'Add Address',
   'Reply to a User Feedback' = 'Reply to a User Feedback',
   'Search by ASIN, Order ID, Item' = 'Search by ASIN, Order ID, Item',
+  'Your feedback has been sent and will be reviewed shortly' = 'Your feedback has been sent and will be reviewed shortly',
+  'Message Search' = 'Message Search',
+  'Search results' = 'Search results',
+  'Apply to all boxes' = 'Apply to all boxes',
+  'Apply barcode sticker values to all boxes' = 'Apply barcode sticker values to all boxes',
+  'Create a new dialog' = 'Create a new dialog',
+  'Choose your speaker' = 'Choose your speaker',
+  'Comment of SB' = 'Comment of SB',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
 }
-
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

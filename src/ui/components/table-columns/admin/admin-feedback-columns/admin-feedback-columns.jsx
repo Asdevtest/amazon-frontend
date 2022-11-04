@@ -53,7 +53,7 @@ export const adminFeedbackViewColumns = handlers => [
     width: 180,
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={t(TranslationKey.Reply)}
+        bTnText={t(TranslationKey.View)}
         // isFirstRow={firstRowId === params.row.id}
         onClickOkBtn={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
       />

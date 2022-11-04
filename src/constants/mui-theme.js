@@ -1,4 +1,4 @@
-import {grey} from '@mui/material/colors'
+// import {grey} from '@mui/material/colors'
 import {createTheme} from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
@@ -16,25 +16,6 @@ const baseThemeComponentsSettings = {
   //     },
   //   },
   // },
-
-  MuiPaper: {
-    styleOverrides: {
-      elevation1: {
-        boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
-      },
-    },
-  },
-
-  MuiTableCell: {
-    styleOverrides: {
-      root: {
-        padding: '10px',
-      },
-      body: {
-        color: grey[600],
-      },
-    },
-  },
 }
 
 const baseThemeSettings = {
@@ -115,6 +96,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#001029',
+          padding: '5px',
         },
       },
     },
@@ -132,6 +114,14 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(0, 0, 0, 0.12)',
         },
       },
     },
@@ -258,6 +248,33 @@ export const darkTheme = createTheme({
       },
     },
 
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+
+        deleteIcon: {
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiIconButton: {
+      defaultProps: {
+        sx: {
+          '&.Mui-disabled': {
+            color: '#a0a0a4',
+          },
+        },
+      },
+      styleOverrides: {
+        root: {
+          color: '#fff',
+        },
+      },
+    },
+
     // MuiSvgIcon: {
     //   styleOverrides: {
     //     root: {
@@ -285,6 +302,9 @@ export const darkTheme = createTheme({
             backgroundColor: '#2B2B34 !important',
           },
         },
+        icon: {
+          color: '#fff',
+        },
       },
     },
 
@@ -305,12 +325,6 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
-      // sx: {
-      //   '&.Mui-disabled': {
-      //     // backgroundColor: 'rgba(0, 0, 0, 0.12)',
-      //     color: '#001029 !important',
-      //   },
-      // },
       styleOverrides: {
         root: {
           color: '#fff',
@@ -377,6 +391,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
+          padding: '5px',
         },
       },
     },
@@ -393,6 +408,22 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(255, 255, 255, 0.12)',
+        },
+      },
+    },
+
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: '#fff',
         },
       },
     },
@@ -478,8 +509,8 @@ export const darkTheme = createTheme({
       successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
       negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
 
-      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2B2B34 50%);',
-      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2B2B34 50%);',
+      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
     },
 
     boxShadow: {

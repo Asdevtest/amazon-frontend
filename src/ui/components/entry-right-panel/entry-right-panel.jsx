@@ -6,6 +6,7 @@ import React, {useEffect} from 'react'
 
 import {useFaviconNotification} from 'react-favicon-notification'
 
+import {appVersion} from '@constants/app-version.js'
 import {UiTheme} from '@constants/themes'
 
 import {SettingsModel} from '@models/settings-model'
@@ -55,7 +56,7 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
         {children}
       </div>
 
-      <Typography className={classNames.version}>{'version: 2.2.150'}</Typography>
+      <Typography className={classNames.version}>{appVersion}</Typography>
     </div>
   )
 }

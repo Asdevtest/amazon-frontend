@@ -111,7 +111,7 @@ export const TopCard = observer(
                             <img
                               alt=""
                               className={classNames.carouselImage}
-                              src={getAmazonImageUrl(imageHash)}
+                              src={getAmazonImageUrl(imageHash, true)}
                               onClick={() => {
                                 setShowImageModal(!showImageModal)
                                 setBigImagesOptions({images: product.images, imgIndex: index})
@@ -359,7 +359,6 @@ export const TopCard = observer(
         </Paper>
 
         <BigImagesModal
-          isAmazone
           openModal={showImageModal}
           setOpenModal={() => setShowImageModal(!showImageModal)}
           images={bigImagesOptions.images}

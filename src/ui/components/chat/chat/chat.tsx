@@ -52,6 +52,8 @@ interface Props {
   userId: string
   currentOpponent?: CurrentOpponent
   chatMessageHandlers?: ChatMessageUniversalHandlers
+  toScrollMesId?: string | undefined
+
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[]) => void
   updateData: () => void
@@ -61,6 +63,7 @@ interface Props {
 
 export const Chat: FC<Props> = observer(
   ({
+    toScrollMesId,
     chat,
     messages,
     userId,
@@ -184,7 +187,12 @@ export const Chat: FC<Props> = observer(
           </div>
         </div>
         <div className={classNames.scrollViewWrapper}>
-          <ChatMessagesList userId={userId} messages={messages} handlers={chatMessageHandlers} />
+          <ChatMessagesList
+            userId={userId}
+            messages={messages}
+            handlers={chatMessageHandlers}
+            toScrollMesId={toScrollMesId}
+          />
         </div>
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}

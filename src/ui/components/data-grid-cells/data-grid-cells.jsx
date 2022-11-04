@@ -340,7 +340,9 @@ export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSub
       <Input
         disabled={disabled}
         // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
+
         className={classNames.changeInput}
+        classes={{input: classNames.changeInput}}
         inputProps={{maxLength: 7}}
         value={value}
         endAdornment={
@@ -590,13 +592,47 @@ export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
   const ordersItems = 'item' + sortedValue[1]
 
   return (
-    <div>
+    <div className={classNames.orderIdsItemsWrapper}>
       <MultilineTextCell text={orderIds} />
 
       <MultilineTextCell text={ordersItems} />
     </div>
   )
 }, styles)
+
+export const CommentOfSbCell = withStyles(
+  ({classes: classNames, productsInWarehouse}) => (
+    <div className={classNames.commentOfSbWrapper}>
+      {productsInWarehouse?.length === 1 ? (
+        <Tooltip title={productsInWarehouse[0].comment}>
+          <div className={classNames.multilineTextAlignLeftWrapper}>
+            <TextareaAutosize
+              disabled
+              value={
+                checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
+                  ? productsInWarehouse[0].comment.slice(0, 147) + '...'
+                  : productsInWarehouse[0].comment
+              }
+              className={classNames.multilineTextAlignLeft}
+            />
+          </div>
+        </Tooltip>
+      ) : (
+        <div className={classNames.commentOfSbSubWrapper}>
+          {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+          {productsInWarehouse?.map((item, index) => (
+            <Tooltip key={index} title={item.comment}>
+              <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${
+                item.comment ? item.comment : '-'
+              }`}</Typography>
+            </Tooltip>
+          ))}
+        </div>
+      )}
+    </div>
+  ),
+  styles,
+)
 
 export const MultilineTextAlignLeftCell = withStyles(
   ({classes: classNames, text, withTooltip, isAsin}) =>

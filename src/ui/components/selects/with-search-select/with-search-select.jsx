@@ -1,8 +1,7 @@
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import SearchIcon from '@mui/icons-material/Search'
-import {Button, ClickAwayListener, InputAdornment, Popover, Typography} from '@mui/material'
+import {Button, ClickAwayListener, Popover, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -10,7 +9,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
+import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
 
@@ -26,6 +25,7 @@ const WithSearchSelectRaw = ({
   width,
   disabled,
   onClickNotChosen,
+  placeholder,
 }) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -78,13 +78,10 @@ const WithSearchSelectRaw = ({
             onClose={handleClose}
           >
             <div className={classNames.subMainWrapper}>
-              <Field
+              <SearchInput
+                inputClasses={classNames.searchInput}
                 value={nameSearchValue}
-                endAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                }
+                placeholder={placeholder ? placeholder : t(TranslationKey.search)}
                 onChange={e => setNameSearchValue(e.target.value)}
               />
               <div className={classNames.itemsWrapper}>

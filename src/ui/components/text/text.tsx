@@ -29,6 +29,9 @@ export const Text: FC<Props> = observer(
   ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style}) => {
     const {classes: classNames} = useClassNames()
 
+    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
+    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
+
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
     useEffect(() => {
@@ -49,14 +52,36 @@ export const Text: FC<Props> = observer(
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={tooltipPosition === 'corner' ? classNames.cornerTooltipsWrapper : classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (
-              <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
-                <img className={classNames.tooltip} src="/assets/icons/attention.svg" />
+              <Tooltip
+                arrow
+                open={openAttentionTooltip}
+                title={tooltipAttentionContent}
+                placement="top-end"
+                onClose={() => setOpenAttentionTooltip(false)}
+                onOpen={() => setOpenAttentionTooltip(true)}
+              >
+                <img
+                  className={classNames.tooltip}
+                  src="/assets/icons/attention.svg"
+                  onClick={() => setOpenAttentionTooltip(true)}
+                />
               </Tooltip>
             ) : null}
 
             {tooltipInfoContent && showHints ? (
-              <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+              <Tooltip
+                arrow
+                open={openInfoTooltip}
+                title={tooltipInfoContent}
+                placement="top-end"
+                onClose={() => setOpenInfoTooltip(false)}
+                onOpen={() => setOpenInfoTooltip(true)}
+              >
+                <img
+                  className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                  src="/assets/icons/info-q.svg"
+                  onClick={() => setOpenInfoTooltip(true)}
+                />
               </Tooltip>
             ) : null}
           </div>

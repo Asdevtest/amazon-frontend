@@ -854,7 +854,6 @@ export const AddOrEditSupplierModalContent = observer(
         )}
 
         <BigImagesModal
-          isAmazone
           openModal={showPhotosModal}
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={tmpSupplier.images}

@@ -32,6 +32,7 @@ import {ShortBoxItemCard} from './short-box-item-card'
 const Box = observer(
   ({
     box,
+    boxIndex,
     setCurBox,
     isNewBox = false,
     isCurrentBox = false,
@@ -46,12 +47,27 @@ const Box = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    const [showFullCard, setShowFullCard] = useState(isEdit && newBoxes[0]._id === box._id ? true : false)
+    const [showFullCard, setShowFullCard] = useState(isEdit /* && newBoxes[0]._id === box._id ? true : false*/)
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
       const updatedTargetBox = {...targetBox, [field]: value}
       const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? updatedTargetBox : newBox))
+      setNewBoxes(updatedNewBoxes)
+    }
+
+    const onApplyGluedBarcodeToAllBoxes = (
+      isBarCodeAlreadyAttachedByTheSupplier,
+      isBarCodeAttachedByTheStorekeeper,
+    ) => {
+      const updatedNewBoxes = newBoxes.map(newBox => ({
+        ...newBox,
+        items: newBox.items.map(el => ({
+          ...el,
+          isBarCodeAlreadyAttachedByTheSupplier,
+          isBarCodeAttachedByTheStorekeeper,
+        })),
+      }))
       setNewBoxes(updatedNewBoxes)
     }
 
@@ -108,7 +124,7 @@ const Box = observer(
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-              label={t(TranslationKey.Warehouse)}
+              label={t(TranslationKey.Destination)}
               labelClasses={classNames.smallLabel}
               inputClasses={cx(classNames.field, {
                 [classNames.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
@@ -162,6 +178,7 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
+                    boxIndex={boxIndex}
                     needAccent={needAccent}
                     taskType={taskType}
                     readOnly={readOnly}
@@ -172,6 +189,7 @@ const Box = observer(
                     superCount={box.amount}
                     isNewBox={isNewBox}
                     onChangeBarCode={onChangeBarCode}
+                    onApplyGluedBarcodeToAllBoxes={onApplyGluedBarcodeToAllBoxes}
                   />
                 </div>
               ))}
@@ -694,6 +712,7 @@ const NewBoxes = observer(
           {newBoxes.map((box, boxIndex) => (
             <Box
               key={boxIndex}
+              boxIndex={boxIndex}
               readOnly={readOnly}
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}

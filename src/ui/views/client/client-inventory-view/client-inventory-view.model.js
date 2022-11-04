@@ -208,11 +208,6 @@ export class ClientInventoryViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
-
-    reaction(
-      () => this.selectedRowIds,
-      () => this.getIdeas(),
-    )
   }
 
   async updateColumnsModel() {
@@ -473,6 +468,14 @@ export class ClientInventoryViewModel {
   async getProductsMy(noProductBaseUpdate) {
     try {
       const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
+
+      // const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
+      //   shopId: this.currentShop ? this.currentShop._id : null,
+      //   limit: 15,
+      //   offset: 0,
+      // })
+
+      // console.log('result', result)
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
@@ -790,6 +793,7 @@ export class ClientInventoryViewModel {
         this.selectedRowId = this.selectedRowIds[0]
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
+      this.getIdeas()
     } catch (error) {
       console.log(error)
     }

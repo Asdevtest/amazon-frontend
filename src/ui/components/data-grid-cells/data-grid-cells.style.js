@@ -13,6 +13,11 @@ export const styles = theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
   },
+
+  orderIdsItemsWrapper: {
+    whiteSpace: 'normal',
+  },
+
   productWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -211,6 +216,7 @@ export const styles = theme => ({
   changeInput: {
     width: '100%',
     height: 36,
+    textAlign: 'center',
   },
 
   changeInputIcon: {
@@ -721,6 +727,27 @@ export const styles = theme => ({
     // display: '-webkit-box',
     // '-webkitLineClamp': 4,
     // '-webkitBoxOrient': 'vertical',
+  },
+
+  commentOfSbWrapper: {
+    padding: '10px 0',
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  commentOfSbSubWrapper: {
+    maxHeight: 300,
+    width: '100%',
+    overflow: 'auto',
+  },
+
+  commentOfSbSubMultiText: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   multilineTextAlignLeft: {

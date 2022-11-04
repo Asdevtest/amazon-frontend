@@ -132,9 +132,10 @@ const Box = ({
                     disabled={!isNewBox}
                     width={230}
                     selectedItemName={
-                      destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
+                      destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
+                      t(TranslationKey['Not chosen'])
                     }
-                    data={destinations}
+                    data={destinations.filter(el => el.storekeeperId !== box?.storekeeper._id)}
                     fieldName="name"
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
@@ -155,10 +156,7 @@ const Box = ({
                         disabled={!isNewBox}
                         color="primary"
                         variant={box.logicsTariffId && 'text'}
-                        className={cx(
-                          {[classNames.storekeeperBtn]: !box.logicsTariffId},
-                          {[classNames.standartText]: box.logicsTariffId},
-                        )}
+                        className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
@@ -176,10 +174,10 @@ const Box = ({
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'
+                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name || 'N/A'
                       } /  
                         ${
-                          box.logicsTariffId
+                          box.logicsTariff?._id
                             ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
                                 tariffRate ? ' / ' + tariffRate + ' $' : ''
                               }`
@@ -370,7 +368,12 @@ export const RedistributeBox = observer(
     onTriggerOpenModal,
   }) => {
     const {classes: classNames} = useClassNames()
-    const [currentBox, setCurrentBox] = useState(selectedBox)
+    const [currentBox, setCurrentBox] = useState({
+      ...selectedBox,
+      destinationId: selectedBox.destination?._id || null,
+      storekeeperId: selectedBox.storekeeper?._id || '',
+      logicsTariffId: selectedBox.logicsTariff?._id || '',
+    })
 
     const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
@@ -383,9 +386,6 @@ export const RedistributeBox = observer(
       _id: 'new_id_' + Date.now(),
       items: emptyProducts,
       amount: 1,
-      destinationId: currentBox.destination?._id || null,
-      storekeeperId: currentBox.storekeeper?._id || '',
-      logicsTariffId: currentBox.logicsTariff?._id || '',
       tmpShippingLabel: [],
     })
 

@@ -11,6 +11,11 @@ export const styles = theme => ({
     opacity: '.7',
   },
 
+  searchInput: {
+    width: '90%',
+    marginBottom: 20,
+  },
+
   mainWrapper: {
     width: '100%',
 
@@ -55,8 +60,12 @@ export const styles = theme => ({
 
   disabledChosenItem: {
     cursor: 'auto',
+    backgroundColor: theme.palette.input.disabled,
+
     '&:hover': {
       transform: 'none',
+
+      backgroundColor: theme.palette.input.disabled,
     },
   },
 

@@ -22,7 +22,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  const tableCellClsx = cx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
+  const tableCellClsx = cx(classNames.tableCell)
 
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
@@ -30,7 +30,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
-  const isBadBox = isNoBarCodGlued || !box.shippingLabel
+  const isBadBox = isNoBarCodGlued || !box.shippingLabel || !price
 
   const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
     if (items.length === 1 && boxWeigh) {
@@ -288,7 +288,11 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
       </td>
 
       <td className={cx(tableCellClsx, classNames.priceCellRight)}>
-        {price ? <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> : null}
+        {price ? (
+          <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+        ) : (
+          <Typography variant="h5">{'-'}</Typography>
+        )}
       </td>
 
       <td className={classNames.tableCellCrossBtn}>

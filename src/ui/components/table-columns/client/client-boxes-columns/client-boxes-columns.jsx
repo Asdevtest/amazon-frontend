@@ -67,8 +67,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
           error={
             !findTariffInStorekeepersData(
               storekeepersData,
-              params.row.originalData.storekeeper._id,
-              params.row.originalData.logicsTariff._id,
+              params.row.originalData.storekeeper?._id,
+              params.row.originalData.logicsTariff?._id,
             ) && t(TranslationKey['The tariff is invalid or has been removed!'])
           }
         />
@@ -79,8 +79,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
           error={
             !findTariffInStorekeepersData(
               storekeepersData,
-              params.row.originalData.storekeeper._id,
-              params.row.originalData.logicsTariff._id,
+              params.row.originalData.storekeeper?._id,
+              params.row.originalData.logicsTariff?._id,
             ) && t(TranslationKey['The tariff is invalid or has been removed!'])
           }
         />

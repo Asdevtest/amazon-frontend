@@ -57,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
 
-    width: '160px',
+    width: '100px',
   },
   titleOfCurBox: {
     fontSize: '14px',
@@ -91,13 +91,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   normalCell: {
-    minWidth: 80,
+    minWidth: 70,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonCell: {
-    minWidth: 80,
+    minWidth: 70,
     display: 'flex',
     alignItems: 'center',
 

@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
 import {ChatModel} from '@models/chat-model'
+import {ChatsModel} from '@models/chats-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -12,10 +13,15 @@ export class MessagesViewModel {
 
   drawerOpen = false
   showConfirmModal = false
+  showAddNewChatByEmailModal = false
 
   chatSelectedId = undefined
 
   nameSearchValue = ''
+  mesSearchValue = ''
+
+  usersData = []
+  messagesFound = []
 
   showProgress = false
 
@@ -65,11 +71,60 @@ export class MessagesViewModel {
         }
       },
     )
+
+    reaction(
+      () => this.chatSelectedId,
+      () => {
+        this.mesSearchValue = ''
+      },
+    )
+
+    reaction(
+      () => this.mesSearchValue,
+      () => {
+        if ((this.mesSearchValue, this.chatSelectedId)) {
+          this.messagesFound = this.simpleChats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text.includes(this.mesSearchValue))
+        } else {
+          this.messagesFound = []
+        }
+      },
+    )
   }
 
   async loadData() {
     try {
       await ChatModel.getSimpleChats()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickAddNewChatByEmail() {
+    try {
+      const res = await ChatsModel.getUsersEmails()
+
+      const existedChatsEmails = this.simpleChats.reduce(
+        (acc, cur) => acc.concat(cur.users.map(user => user.email)),
+        [],
+      )
+
+      this.usersData = res.filter(el => !existedChatsEmails.includes(el.email))
+
+      this.onTriggerOpenModal('showAddNewChatByEmailModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitAddNewChat(user) {
+    try {
+      const response = await ChatsModel.createSimpleChatByUserEmail(user.email)
+
+      console.log('response', response)
+
+      this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
       console.log(error)
     }
@@ -94,6 +149,12 @@ export class MessagesViewModel {
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
+    })
+  }
+
+  onChangeMesSearchValue(e) {
+    runInAction(() => {
+      this.mesSearchValue = e.target.value
     })
   }
 

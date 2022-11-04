@@ -182,11 +182,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   </Typography>
                 </Tooltip>
 
-                {componentModel.current.balance && (
-                  <Typography className={classNames.balance}>
-                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
-                  </Typography>
-                )}
+                <Typography className={classNames.balance}>
+                  {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                </Typography>
               </div>
               <ArrowDropDownIcon className={classNames.hideOnModile} />
             </div>

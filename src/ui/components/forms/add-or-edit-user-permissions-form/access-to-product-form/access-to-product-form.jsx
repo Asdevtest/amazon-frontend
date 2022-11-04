@@ -21,7 +21,6 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
 import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
@@ -34,26 +33,9 @@ const accessProductSettings = {
   NEED_SELECT: 'NEED_SELECT',
 }
 
-export const AccessToProductForm = observer(
-  ({
-    shop,
-    shops,
-    selectedShop,
-    onClickToShowDetails,
-    setShopDataToRender,
-    productPermissionsData,
-    PRODUCTS_WITHOUT_SHOPS_ID,
-  }) => {
+export const AccessToProductForm = React.memo(
+  observer(({shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData}) => {
     const {classes: classNames} = useClassNames()
-
-    const getSourceData = () =>
-      toJS(productPermissionsData).filter(el =>
-        shop._id === PRODUCTS_WITHOUT_SHOPS_ID
-          ? !el.originalData.shopIds?.length
-          : el.originalData.shopIds?.includes(shop._id),
-      )
-
-    const sourceData = getSourceData()
 
     const [curProdutsData, setCurProdutsData] = useState(sourceData || null)
 
@@ -73,22 +55,20 @@ export const AccessToProductForm = observer(
 
     useEffect(() => {
       if (searchInputValue) {
-        const filter = getSourceData()?.filter(
+        const filter = sourceData?.filter(
           i =>
             i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
             i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
         )
         setCurProdutsData(filter)
       } else {
-        setCurProdutsData(getSourceData())
+        setCurProdutsData(sourceData)
       }
     }, [searchInputValue])
 
     useEffect(() => {
       if (selectedAccess === accessProductSettings.NEED_SELECT) {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: [...chosenGoods]} : item)),
-        )
+        setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: chosenGoods} : item)))
       }
     }, [chosenGoods])
 
@@ -102,13 +82,13 @@ export const AccessToProductForm = observer(
       } else {
         setChosenGoods(shop?.tmpProductsIds || [])
         // setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: []} : item)))
-        // setChooseAllCheck(false)
+        setChooseAllCheck(false)
       }
       // setChosenGoods(shop?.tmpProductsIds || [])
     }, [selectedAccess])
 
     useEffect(() => {
-      if (shop.tmpProductsIds.length === sourceData.length) {
+      if (shop.tmpProductsIds.length && shop.tmpProductsIds.length === sourceData.length) {
         setChooseAllCheck(true)
       } else {
         setChooseAllCheck(false)
@@ -118,18 +98,14 @@ export const AccessToProductForm = observer(
     const onClickChooseAllCheck = e => {
       e.stopPropagation()
       if (chooseAllCheck) {
-        setChosenGoods([])
-        setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: []} : item)))
-        setChooseAllCheck(false)
         setSelectedAccess(accessProductSettings.NEED_SELECT)
+        setChosenGoods([])
+        setChooseAllCheck(false)
       } else {
-        setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: allProductsIds} : item)),
-        )
+        // setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
 
         setChosenGoods(allProductsIds)
         setChooseAllCheck(true)
-        setSelectedAccess(accessProductSettings.ALL_PRODUCTS)
       }
     }
 
@@ -159,7 +135,8 @@ export const AccessToProductForm = observer(
 
               <Typography
                 className={cx(classNames.chosenText, {
-                  [classNames.chosenTextSelectAll]: shop.tmpProductsIds.length === sourceData.length,
+                  [classNames.chosenTextSelectAll]:
+                    shop.tmpProductsIds.length && shop.tmpProductsIds.length === sourceData.length,
                 })}
               >
                 {`${t(TranslationKey.chosen)}: ${shop.tmpProductsIds.length} / ${sourceData.length}`}
@@ -207,7 +184,7 @@ export const AccessToProductForm = observer(
                 </div>
               </div>
 
-              {selectedShop === shop?._id && curProdutsData ? (
+              {selectedShop === shop?._id ? (
                 <div className={classNames.tableWrapper}>
                   <DataGrid
                     disableVirtualization
@@ -215,7 +192,7 @@ export const AccessToProductForm = observer(
                     disableSelectionOnClick
                     keepNonExistentRowsSelected
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
-                    rows={curProdutsData}
+                    rows={toJS(curProdutsData)}
                     columns={sourceColumns()}
                     rowHeight={65}
                     selectionModel={chosenGoods}
@@ -230,5 +207,5 @@ export const AccessToProductForm = observer(
         </Accordion>
       )
     )
-  },
+  }),
 )

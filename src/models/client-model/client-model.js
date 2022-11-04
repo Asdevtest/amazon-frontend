@@ -28,6 +28,11 @@ class ClientModelStatic {
     return response
   }
 
+  getProductsMyFilteredByShopIdWithPag = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
+    return response
+  }
+
   makePayments = async productIds => {
     const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({
       body: {guids: productIds},

@@ -462,7 +462,7 @@ export const EditBoxForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations}
+                          data={destinations.filter(el => el.storekeeperId !== formItem?.storekeeper._id)}
                           fieldName="name"
                           onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
@@ -481,10 +481,7 @@ export const EditBoxForm = observer(
                           disableElevation
                           color="primary"
                           variant={boxFields.storekeeperId && 'text'}
-                          className={cx(
-                            {[classNames.storekeeperBtn]: !boxFields.storekeeperId},
-                            {[classNames.standartText]: boxFields.storekeeperId},
-                          )}
+                          className={cx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -630,7 +627,6 @@ export const EditBoxForm = observer(
         </div>
 
         <BigImagesModal
-          isAmazone
           openModal={showPhotosModal}
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}

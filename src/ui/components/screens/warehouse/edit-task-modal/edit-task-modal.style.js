@@ -4,12 +4,26 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1480px',
     display: 'flex',
+    maxHeight: '85vh',
+
     flexDirection: 'column',
+    position: 'relative',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
     },
   },
+
+  buttonsMainWrapper: {
+    // position: 'absolute',
+    // top: 0,
+    // right: 0,
+
+    position: 'sticky',
+    bottom: '0',
+    right: '0',
+  },
+
   modalHeader: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -241,6 +255,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
     color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.main,
+
+    zIndex: 999,
+
     [theme.breakpoints.down(768)]: {
       width: '121px',
       height: '40px',

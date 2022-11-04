@@ -219,7 +219,7 @@ export const OrderModalBodyRow = ({
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations}
+            data={destinations.filter(el => !el.storekeeperId)} // убираем дестинейшены, которые одновременно и склады
             fieldName="name"
             onClickNotChosen={() => onChangeInput({target: {value: ''}}, 'destinationId')}
             onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}

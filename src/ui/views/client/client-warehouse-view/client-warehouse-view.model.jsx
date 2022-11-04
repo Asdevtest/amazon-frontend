@@ -149,6 +149,13 @@ export class ClientWarehouseViewModel {
     })
   }
 
+  get isNoLogicsTariffBoxSelected() {
+    return this.selectedBoxes.some(boxId => {
+      const findBox = this.boxesMy.find(box => box._id === boxId)
+      return !findBox?.originalData?.logicsTariff
+    })
+  }
+
   // get isNoDeliverySizes() {
   //   return this.selectedBoxes.some(boxId => {
   //     const findBox = this.boxesMy.find(box => box._id === boxId)
@@ -585,7 +592,7 @@ export class ClientWarehouseViewModel {
 
         if (splitBoxesResult) {
           this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
-            this.storekeepersData.find(el => el._id === sourceBox.storekeeperId)?.name
+            this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
           } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`
 
           this.onTriggerOpenModal('showSuccessInfoModal')
