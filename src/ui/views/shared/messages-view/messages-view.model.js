@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
 import {ChatModel} from '@models/chat-model'
+import {ChatsModel} from '@models/chats-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -12,12 +13,14 @@ export class MessagesViewModel {
 
   drawerOpen = false
   showConfirmModal = false
+  showAddNewChatByEmailModal = false
 
   chatSelectedId = undefined
 
   nameSearchValue = ''
   mesSearchValue = ''
 
+  usersData = []
   messagesFound = []
 
   showProgress = false
@@ -93,6 +96,35 @@ export class MessagesViewModel {
   async loadData() {
     try {
       await ChatModel.getSimpleChats()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickAddNewChatByEmail() {
+    try {
+      const res = await ChatsModel.getUsersEmails()
+
+      const existedChatsEmails = this.simpleChats.reduce(
+        (acc, cur) => acc.concat(cur.users.map(user => user.email)),
+        [],
+      )
+
+      this.usersData = res.filter(el => !existedChatsEmails.includes(el.email))
+
+      this.onTriggerOpenModal('showAddNewChatByEmailModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitAddNewChat(user) {
+    try {
+      const response = await ChatsModel.createSimpleChatByUserEmail(user.email)
+
+      console.log('response', response)
+
+      this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
       console.log(error)
     }

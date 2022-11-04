@@ -600,6 +600,38 @@ export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
   )
 }, styles)
 
+export const CommentOfSbCell = withStyles(
+  ({classes: classNames, productsInWarehouse}) => (
+    <div className={classNames.commentOfSbWrapper}>
+      {productsInWarehouse?.length === 1 ? (
+        <Tooltip title={productsInWarehouse[0].comment}>
+          <div className={classNames.multilineTextAlignLeftWrapper}>
+            <TextareaAutosize
+              disabled
+              value={
+                checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
+                  ? productsInWarehouse[0].comment.slice(0, 147) + '...'
+                  : productsInWarehouse[0].comment
+              }
+              className={classNames.multilineTextAlignLeft}
+            />
+          </div>
+        </Tooltip>
+      ) : (
+        <div className={classNames.commentOfSbSubWrapper}>
+          {productsInWarehouse.some(el => el.comment) && <Typography>{t(TranslationKey.Comments) + ':'}</Typography>}
+          {productsInWarehouse?.map((item, index) => (
+            <Tooltip key={index} title={item.comment}>
+              <Typography className={classNames.commentOfSbSubMultiText}>{`${index}. ${item.comment}`}</Typography>
+            </Tooltip>
+          ))}
+        </div>
+      )}
+    </div>
+  ),
+  styles,
+)
+
 export const MultilineTextAlignLeftCell = withStyles(
   ({classes: classNames, text, withTooltip, isAsin}) =>
     withTooltip ? (

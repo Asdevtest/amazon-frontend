@@ -135,7 +135,7 @@ const Box = ({
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations}
+                    data={destinations.filter(el => el.storekeeperId !== box?.storekeeper._id)}
                     fieldName="name"
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}

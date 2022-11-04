@@ -67,7 +67,9 @@ class SettingsModelStatic {
   }
 
   setIntervalCheckAppVersion() {
-    this.checkAppVersion()
+    setTimeout(async () => {
+      this.checkAppVersion()
+    }, 30000)
 
     setInterval(async () => {
       this.checkAppVersion()

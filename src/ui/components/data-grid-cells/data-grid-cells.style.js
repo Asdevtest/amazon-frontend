@@ -729,6 +729,26 @@ export const styles = theme => ({
     // '-webkitBoxOrient': 'vertical',
   },
 
+  commentOfSbWrapper: {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  commentOfSbSubWrapper: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+  },
+
+  commentOfSbSubMultiText: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
   multilineTextAlignLeft: {
     width: '100%',
     textAlign: 'left',

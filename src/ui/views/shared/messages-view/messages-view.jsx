@@ -13,8 +13,10 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {AddNewChatByEmailForm} from '@components/forms/add-new-chat-by-email-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -38,6 +40,8 @@ class MessagesViewRaw extends Component {
     const {
       // messagesFound,
       // mesSearchValue,
+      usersData,
+      showAddNewChatByEmailModal,
       showProgress,
       typingUsers,
       noticeOfSimpleChats,
@@ -55,6 +59,9 @@ class MessagesViewRaw extends Component {
       onChangeNameSearchValue,
       // onChangeMesSearchValue,
       onTriggerNoticeOfSimpleChats,
+      onTriggerOpenModal,
+      onClickAddNewChatByEmail,
+      onSubmitAddNewChat,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -121,7 +128,7 @@ class MessagesViewRaw extends Component {
                     <img src={noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
                   </div>
 
-                  <Button disabled className={classNames.newDialogBtn}>
+                  <Button className={classNames.newDialogBtn} onClick={onClickAddNewChatByEmail}>
                     {t(TranslationKey['New Dialogue'])}
                   </Button>
                 </div>
@@ -144,6 +151,17 @@ class MessagesViewRaw extends Component {
                 />
               </div>
               {showProgress && <CircularProgressWithLabel title={t(TranslationKey['Creating a Chat']) + '...'} />}
+
+              <Modal
+                openModal={showAddNewChatByEmailModal}
+                setOpenModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
+              >
+                <AddNewChatByEmailForm
+                  closeModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
+                  usersData={usersData}
+                  onSubmit={onSubmitAddNewChat}
+                />
+              </Modal>
             </MainContent>
           </Appbar>
         </Main>

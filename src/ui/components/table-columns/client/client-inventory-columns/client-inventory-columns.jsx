@@ -18,6 +18,7 @@ import {
   MultilineTextAlignLeftCell,
   ChangeInputCell,
   InStockCell,
+  CommentOfSbCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -261,6 +262,15 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
     type: 'date',
+  },
+
+  {
+    field: 'commentSb',
+    headerName: t(TranslationKey['Comment of SB']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comment of SB'])} />,
+
+    renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
+    width: 400,
   },
 
   {

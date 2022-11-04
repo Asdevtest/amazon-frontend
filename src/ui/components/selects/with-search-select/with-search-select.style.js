@@ -11,6 +11,11 @@ export const styles = theme => ({
     opacity: '.7',
   },
 
+  searchInput: {
+    width: '90%',
+    marginBottom: 20,
+  },
+
   mainWrapper: {
     width: '100%',
 
