@@ -120,7 +120,7 @@ export const SelectStorekeeperAndTariffForm = observer(
               // }}
               getRowClassName={getRowClassName}
               rows={
-                curStorekeeper.tariffLogistics?.length
+                curStorekeeper?.tariffLogistics?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
                   : []
               }
