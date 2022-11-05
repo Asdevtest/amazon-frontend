@@ -191,10 +191,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   field: {
-    margin: '0',
+    // margin: '0',
   },
   fieldInput: {
     height: '40px',
+  },
+
+  superBox: {
+    color: theme.palette.primary.main,
+    fontSize: 20,
   },
 
   currentBoxTitle: {

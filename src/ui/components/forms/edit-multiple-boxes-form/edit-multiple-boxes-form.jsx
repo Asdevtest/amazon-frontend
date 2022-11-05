@@ -27,7 +27,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-multiple-boxes-form.style'
 
-const Box = ({destinations, storekeepers, box, selectedBox, onChangeField}) => {
+const Box = ({destinations, storekeepers, box, onChangeField}) => {
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -106,9 +106,11 @@ const Box = ({destinations, storekeepers, box, selectedBox, onChangeField}) => {
                     label={t(TranslationKey.Quantity)}
                     className={classNames.orderInput}
                     labelClasses={classNames.label}
-                    value={isMasterBox ? selectedBox.amount : order.amount}
+                    value={isMasterBox ? box.amount : order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   />
+
+                  {isMasterBox ? <Typography className={classNames.superBox}>{`SB x ${box.amount}`}</Typography> : null}
                 </div>
               </div>
               {isMasterBox ? (
@@ -250,7 +252,7 @@ const Box = ({destinations, storekeepers, box, selectedBox, onChangeField}) => {
   )
 }
 
-const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeField, destinations, storekeepers}) => {
+const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
   const {classes: classNames} = useClassNames()
 
   const [boxes, setBoxes] = useState(newBoxes || [])
@@ -297,8 +299,6 @@ const NewBoxes = ({newBoxes, isMasterBox, selectedBox, onChangeField, destinatio
             storekeepers={storekeepers}
             index={boxIndex}
             box={box}
-            isMasterBox={isMasterBox}
-            selectedBox={selectedBox}
             onChangeField={onChangeField}
           />
         </div>
@@ -311,7 +311,6 @@ export const EditMultipleBoxesForm = observer(
   ({
     destinations,
     storekeepers,
-    selectedBox,
     onSubmit,
     onCloseModal,
 
@@ -321,7 +320,7 @@ export const EditMultipleBoxesForm = observer(
 
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
-      logicsTariffId: '',
+      logicsTariffId: null,
       shippingLabel: null,
       fbaShipment: '',
 
@@ -431,7 +430,7 @@ export const EditMultipleBoxesForm = observer(
       regionOfDeliveryName
     ]?.rate
 
-    const disabledSubmitBtn = false
+    const disabledSubmitBtn = newBoxes.some(el => !el.logicsTariffId)
 
     return (
       <div>
@@ -567,7 +566,6 @@ export const EditMultipleBoxesForm = observer(
 
           <NewBoxes
             newBoxes={newBoxes}
-            selectedBox={selectedBox}
             destinations={destinations}
             storekeepers={storekeepers}
             onChangeField={onChangeField}
