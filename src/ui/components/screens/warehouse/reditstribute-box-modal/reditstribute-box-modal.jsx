@@ -487,6 +487,11 @@ export const RedistributeBox = observer(
 
     return (
       <div>
+        <div className={classNames.modalTitleWrapper}>
+          <Typography className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</Typography>
+          <img src="/assets/img/split.png" />
+        </div>
+
         <div className={classNames.boxesWrapper}>
           <div className={classNames.currentBox}>
             <div className={classNames.currentBoxTitle}>

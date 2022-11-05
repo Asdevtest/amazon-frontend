@@ -85,7 +85,11 @@ export class ClientWarehouseViewModel {
 
   showRequestToSendBatchModal = false
 
+  showEditMultipleBoxesModal = false
+
   showConfirmWithCommentModal = false
+
+  showProgress = false
 
   showSuccessInfoModal = false
 
@@ -140,6 +144,19 @@ export class ClientWarehouseViewModel {
       const findBox = this.boxesMy.find(box => box._id === boxId)
       return findBox?.originalData?.amount && findBox.originalData?.amount > 1
     })
+  }
+
+  get isChosenDifferentsStorekeeper() {
+    if (this.selectedBoxes.length) {
+      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+
+      return this.selectedBoxes.some(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.storekeeper !== firstBox?.storekeeper
+      })
+    } else {
+      return false
+    }
   }
 
   get isNoDestinationBoxSelected() {
@@ -617,17 +634,23 @@ export class ClientWarehouseViewModel {
 
   async onClickEditBtn() {
     try {
-      const result = await UserModel.getPlatformSettings()
-
       const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
         this.destinations = destinations
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.onTriggerOpenModal('showEditBoxModal')
+      if (this.selectedBoxes.length === 1) {
+        const result = await UserModel.getPlatformSettings()
+
+        runInAction(() => {
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
+
+        this.onTriggerOpenModal('showEditBoxModal')
+      } else {
+        this.onTriggerOpenModal('showEditMultipleBoxesModal')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -663,27 +686,58 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async onEditBoxSubmit(id, boxData, sourceData) {
+  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.onTriggerOpenModal('showEditMultipleBoxesModal')
+
+      this.showProgress = true
+
+      for (let i = 0; i < newBoxes.length; i++) {
+        const newBox = newBoxes[i]
+
+        const sourceBox = selectedBoxes[i]
+
+        const isMultipleEdit = true
+
+        await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
+      }
+
+      this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
+
+      this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.showProgress = false
+      this.loadData()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit) {
+    try {
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
 
       this.uploadedFiles = []
 
-      if (boxData.tmpShippingLabel.length) {
+      if (boxData.tmpShippingLabel?.length) {
         await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
       }
 
       if (
         !boxData.clientComment &&
-        boxData.items.every(item => !item.tmpBarCode.length) &&
+        boxData.items.every(item => !item.tmpBarCode?.length) &&
         (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
-          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
@@ -693,11 +747,12 @@ export class ClientWarehouseViewModel {
         this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(
           TranslationKey['has been changed'],
         )}`
-        this.onTriggerOpenModal('showSuccessInfoModal')
+
+        !isMultipleEdit && this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
         let dataToBarCodeChange = boxData.items
           .map(el =>
-            el.tmpBarCode.length
+            el.tmpBarCode?.length
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
                   productId: el.product._id,
@@ -708,7 +763,7 @@ export class ClientWarehouseViewModel {
           )
           .filter(el => el !== null)
 
-        if (dataToBarCodeChange.length) {
+        if (dataToBarCodeChange?.length) {
           dataToBarCodeChange = await onSubmitPostFilesInData({
             dataWithFiles: dataToBarCodeChange,
             nameOfField: 'tmpBarCode',
@@ -723,11 +778,11 @@ export class ClientWarehouseViewModel {
             orderId: el.order._id,
             productId: el.product._id,
 
-            barCode: prodInDataToUpdateBarCode?.newData.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData.length
+            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
               ? false
               : el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData.length
+            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
               ? false
               : el.isBarCodeAttachedByTheStorekeeper,
           }
@@ -739,7 +794,7 @@ export class ClientWarehouseViewModel {
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
             items: newItems,
-            shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+            shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           },
           updateBoxWhiteList,
         )
@@ -759,16 +814,16 @@ export class ClientWarehouseViewModel {
           sourceData.storekeeper?.name
         } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
 
-        this.onTriggerOpenModal('showSuccessInfoModal')
+        !isMultipleEdit && this.onTriggerOpenModal('showSuccessInfoModal')
       }
 
-      this.loadData()
-      this.onTriggerOpenModal('showEditBoxModal')
-      this.onTriggerOpenModal('showConfirmModal')
+      !isMultipleEdit && this.loadData()
+      !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
+      !isMultipleEdit && this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      !isMultipleEdit && this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       this.error = error
     }

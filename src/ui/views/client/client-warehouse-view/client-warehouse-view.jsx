@@ -14,8 +14,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
+import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -81,6 +83,8 @@ export class ClientWarehouseViewRaw extends Component {
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
+      showProgress,
+      showEditMultipleBoxesModal,
       showConfirmWithCommentModal,
       showSetShippingLabelModal,
       showSetChipValueModal,
@@ -117,6 +121,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSaveShippingLabel,
       onClickCancelAfterConfirm,
       onChangeNameSearchValue,
+      onClickSubmitEditMultipleBoxes,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -266,25 +271,32 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showRedistributeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
         >
-          <div className={classNames.redistributionWrapper}>
-            <div className={classNames.modalTitleWrapper}>
-              <Typography className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</Typography>
-              <img src="/assets/img/split.png" />
-            </div>
+          <RedistributeBox
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            requestStatus={requestStatus}
+            addNewBoxModal={showRedistributeBoxAddNewBoxModal}
+            setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
+            selectedBox={
+              selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData
+            }
+            onRedistribute={onClickConfirmCreateSplitTasks}
+            onTriggerOpenModal={onTriggerOpenModal}
+          />
+        </Modal>
 
-            <RedistributeBox
-              destinations={destinations}
-              storekeepers={storekeepersData}
-              requestStatus={requestStatus}
-              addNewBoxModal={showRedistributeBoxAddNewBoxModal}
-              setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-              selectedBox={
-                selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData
-              }
-              onRedistribute={onClickConfirmCreateSplitTasks}
-              onTriggerOpenModal={onTriggerOpenModal}
-            />
-          </div>
+        <Modal
+          missClickModalOn
+          openModal={showEditMultipleBoxesModal}
+          setOpenModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
+        >
+          <EditMultipleBoxesForm
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            onSubmit={onClickSubmitEditMultipleBoxes}
+            onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
+          />
         </Modal>
 
         <Modal
@@ -403,6 +415,8 @@ export class ClientWarehouseViewRaw extends Component {
             onCloseModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
           />
         </Modal>
+
+        {showProgress && <CircularProgressWithLabel />}
       </React.Fragment>
     )
   }
@@ -413,6 +427,7 @@ export class ClientWarehouseViewRaw extends Component {
       isMasterBoxSelected,
       isNoDestinationBoxSelected,
       isNoLogicsTariffBoxSelected,
+      isChosenDifferentsStorekeeper,
       // isNoDeliverySizes,
       isOneItemInBox,
       onClickRequestToSendBatch,
@@ -423,46 +438,34 @@ export class ClientWarehouseViewRaw extends Component {
     return (
       <React.Fragment>
         <Button
-          disableElevation
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
           tooltipAttentionContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
           disabled={
             !selectedBoxes.length || isNoDestinationBoxSelected || isNoLogicsTariffBoxSelected /* || isNoDeliverySizes*/
           }
-          color="primary"
-          variant="contained"
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
         </Button>
 
         <Button
-          disableElevation
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
           disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
-          color="primary"
-          variant="contained"
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disableElevation
           disabled={selectedBoxes.length !== 1 || isOneItemInBox}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
-          color="primary"
-          variant="contained"
           onClick={onClickSplitBtn}
         >
           {t(TranslationKey.Redistribute)}
         </Button>
         <Button
-          disableElevation
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={selectedBoxes.length !== 1}
-          color="primary"
-          variant="contained"
+          disabled={!selectedBoxes.length || (selectedBoxes.length && isChosenDifferentsStorekeeper)}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}

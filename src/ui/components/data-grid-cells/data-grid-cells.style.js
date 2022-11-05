@@ -738,7 +738,7 @@ export const styles = theme => ({
   },
 
   commentOfSbSubWrapper: {
-    maxHeight: 300,
+    maxHeight: 200,
     width: '100%',
     overflow: 'auto',
   },

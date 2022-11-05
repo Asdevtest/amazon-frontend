@@ -26,6 +26,13 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  applyButton: {
+    height: 26,
+    // width: 65,
+    // marginLeft: 5,
+    // fontSize: 11,
+  },
+
   currentBoxFooter: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -119,12 +126,20 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  itemSubWrapper: {
+  sharedItemSubWrapper: {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 231px)',
     columnGap: '25px',
     rowGap: '30px',
+  },
+
+  itemSubWrapper: {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 231px)',
+    columnGap: '25px',
+    // rowGap: '30px',
   },
 
   barcodeChip: {
@@ -176,10 +191,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   field: {
-    margin: '0',
+    // margin: '0',
   },
   fieldInput: {
     height: '40px',
+  },
+
+  superBox: {
+    color: theme.palette.primary.main,
+    fontSize: 20,
   },
 
   currentBoxTitle: {
@@ -190,6 +210,12 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
     marginBottom: '10px',
+    justifyContent: 'space-between',
+  },
+
+  searchCount: {
+    color: theme.palette.primary.main,
+    fontSize: 14,
   },
 
   asinWrapper: {
