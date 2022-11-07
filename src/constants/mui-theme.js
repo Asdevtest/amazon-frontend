@@ -428,22 +428,6 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiDatePicker: {
-      styleOverrides: {
-        PaperContent: {
-          backgroundColor: 'red',
-        },
-
-        LeftArrowIcon: {
-          color: 'red',
-        },
-
-        RightArrowButton: {
-          color: 'red',
-        },
-      },
-    },
-
     MuiCssBaseline: {
       styleOverrides: {
         '::-webkit-scrollbar': {
