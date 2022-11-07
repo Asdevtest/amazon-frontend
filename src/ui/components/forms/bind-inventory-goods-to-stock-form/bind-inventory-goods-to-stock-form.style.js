@@ -39,7 +39,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
+  form: {
+    width: '100%',
+  },
+
   filtersWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     margin: '20px 0 13px',
@@ -82,17 +87,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     // backgroundColor: '#F4F4F4',
-    width: '100%',
+    flexGrow: 1,
     height: 40,
     '&:focus-within': {
       backgroundColor: theme.palette.background.main,
     },
-  },
-
-  searchContainer: {
-    width: '100%',
-    margin: '0 0 0 10px',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 }))

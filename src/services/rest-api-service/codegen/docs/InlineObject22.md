@@ -4,7 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | Массив коробок. | 
-**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**volumeWeightKgWarehouse** | **Number** |  | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

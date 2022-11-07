@@ -115,8 +115,8 @@ export class WarehouseVacantViewModel {
     this.drawerOpen = value
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
   }
 
   onSelectionModel(model) {

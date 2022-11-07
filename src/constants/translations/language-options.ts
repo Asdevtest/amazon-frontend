@@ -14,4 +14,9 @@ export const languageOptions: LanguageOption[] = [
     key: LanguageKey.ru,
     label: 'Русский',
   },
+
+  {
+    key: LanguageKey.zh,
+    label: '中国',
+  },
 ]

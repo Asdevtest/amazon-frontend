@@ -65,7 +65,7 @@ const WithSearchSelectRaw = ({
           >
             <Typography className={classNames.selectedItemName}>{selectedItemName}</Typography>
 
-            {open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />}
+            {open ? <ArrowDropUpIcon className={classNames.icon} /> : <ArrowDropDownIcon className={classNames.icon} />}
           </div>
 
           <Popover

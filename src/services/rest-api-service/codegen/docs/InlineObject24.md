@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, которую делим | [optional] 
-**newBoxesParams** | [**[ApiV1BoxesSplitNewBoxesParams]**](ApiV1BoxesSplitNewBoxesParams.md) |  | [optional] 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

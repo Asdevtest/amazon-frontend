@@ -47,9 +47,6 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -62,12 +59,6 @@ class InlineResponse20011 {
 
 
 }
-
-/**
- * GUID пользователя.
- * @member {String} _id
- */
-InlineResponse20011.prototype['_id'] = undefined;
 
 /**
  * Имя пользователя.

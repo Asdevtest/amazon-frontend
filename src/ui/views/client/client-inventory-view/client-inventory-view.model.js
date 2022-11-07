@@ -141,15 +141,10 @@ export class ClientInventoryViewModel {
   }
 
   fourMonthesStockHandlers = {
-    // onClickFourMonthsStock: item => this.onClickFourMonthsStock(item),
-    // onDeleteFourMonthesStock: item => this.onDeleteFourMonthesStock(item),
-
     onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
   }
 
   stockUsHandlers = {
-    // onClickStockUs: item => this.onClickStockUs(item),
-
     onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
   }
 
@@ -180,18 +175,22 @@ export class ClientInventoryViewModel {
   )
 
   get isNoEditProductSelected() {
-    return this.selectedRowIds.some(prodId => {
-      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+    if (this.selectedRowIds.length) {
+      return this.selectedRowIds.some(prodId => {
+        const findProduct = this.productsMy.find(prod => prod._id === prodId)
 
-      return [
-        ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
-        ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
-        ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
-        ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
-        ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-        ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-      ].includes(ProductStatusByCode[findProduct?.originalData.status])
-    })
+        return [
+          ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+          ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
+          ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
+          ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+          ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+          ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+        ].includes(ProductStatusByCode[findProduct?.originalData.status])
+      })
+    } else {
+      return false
+    }
   }
 
   get userInfo() {
@@ -224,9 +223,7 @@ export class ClientInventoryViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.productsMy = clientInventoryDataConverter(
-        this.baseNoConvertedProducts.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-      )
+      this.productsMy = clientInventoryDataConverter(this.baseNoConvertedProducts.rows)
     }
   }
 
@@ -282,6 +279,7 @@ export class ClientInventoryViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
 
     this.getProductsMy()
   }
@@ -294,8 +292,10 @@ export class ClientInventoryViewModel {
     this.drawerOpen = value
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
+
+    this.getProductsMy()
   }
 
   onSelectionModel(model) {
@@ -307,16 +307,11 @@ export class ClientInventoryViewModel {
       ? toJS(this.productsMy.filter(el => el.originalData.archive))
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
 
-    if (this.nameSearchValue) {
-      return dataByArchive.filter(
-        el =>
-          el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
-          el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return dataByArchive
-    }
+    return dataByArchive
+  }
+
+  onSearchSubmit() {
+    this.getProductsMy()
   }
 
   async uploadTemplateFile(file) {
@@ -479,29 +474,29 @@ export class ClientInventoryViewModel {
 
   async getProductsMy(noProductBaseUpdate) {
     try {
-      // const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
+      const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue}`
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        shopId: this.currentShop ? this.currentShop._id : null,
-        limit: this.rowsPerPage,
-        // offset: this.curPage  (page - 1) * limit,
-        offset: this.curPage * this.rowsPerPage,
-      })
+        filters: this.nameSearchValue ? filter : null,
 
-      console.log('result', result)
+        shopId: this.currentShop ? this.currentShop._id : null,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : null,
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+      })
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
 
         this.rowCount = result.count
 
-        this.productsMy = clientInventoryDataConverter(result.rows).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.productsMy = clientInventoryDataConverter(result.rows)
+
         if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result.rows).sort(
-            sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-          )
+          this.productsMyBase = clientInventoryDataConverter(result.rows)
         }
       })
     } catch (error) {
@@ -573,21 +568,11 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetChipValueModal')
   }
 
-  // onClickFourMonthsStock(item) {
-  //   this.setSelectedProduct(item)
-  //   this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
-  // }
-
   async onClickSaveFourMonthesStockValue(item, fourMonthesStock) {
     try {
       await ClientModel.updateProductFourMonthesStock(item._id, {fourMonthesStock})
 
-      // this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
       this.getProductsMy()
-
-      // runInAction(() => {
-      //   this.selectedProduct = undefined
-      // })
     } catch (error) {
       console.log(error)
     }
@@ -599,23 +584,13 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
-  // onClickStockUs(item) {
-  //   this.setSelectedProduct(item)
-  //   this.onTriggerOpenModal('showSetStockUsValueModal')
-  // }
-
   async onClickSaveStockUs(item, value) {
     try {
       await ClientModel.editProductsStockUS(item._id, {
         stockUSA: value,
       })
 
-      // this.onTriggerOpenModal('showSetStockUsValueModal')
       this.getProductsMy()
-
-      // runInAction(() => {
-      //   this.selectedProduct = undefined
-      // })
     } catch (error) {
       console.log(error)
     }
@@ -1014,16 +989,6 @@ export class ClientInventoryViewModel {
   async onDeleteBarcode(product) {
     try {
       await ClientModel.updateProductBarCode(product._id, {barCode: null})
-
-      this.loadData()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onDeleteFourMonthesStock(product) {
-    try {
-      await ClientModel.updateProductFourMonthesStock(product._id, {fourMonthesStock: 0})
 
       this.loadData()
     } catch (error) {

@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
+**destinationId** | **String** | GUID пункта назначения коробки | [optional] 
+**logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**shippingLabel** | **String** | shippingLabel коробки | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
 
 

@@ -76,6 +76,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   arrowIcon: {
     marginLeft: 8,
+    color: theme.palette.primary.main,
   },
 
   categoriesWrapper: {

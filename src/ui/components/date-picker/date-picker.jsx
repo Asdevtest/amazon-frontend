@@ -16,6 +16,7 @@ import {
 } from '@material-ui/pickers'
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
+import zhLocale from 'date-fns/locale/zh-CN'
 
 import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
@@ -31,6 +32,9 @@ const getLocalByLanguageTag = languageTag => {
 
     case LanguageKey.en:
       return enLocale
+
+    case LanguageKey.zh:
+      return zhLocale
 
     default:
       return enLocale

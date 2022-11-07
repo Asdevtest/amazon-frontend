@@ -16,6 +16,10 @@ export const styles = theme => ({
     marginBottom: 20,
   },
 
+  icon: {
+    color: theme.palette.primary.main,
+  },
+
   mainWrapper: {
     width: '100%',
 

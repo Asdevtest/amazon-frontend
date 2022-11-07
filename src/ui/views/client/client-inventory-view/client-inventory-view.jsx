@@ -150,6 +150,8 @@ export class ClientInventoryViewRaw extends Component {
       // onClickSavesStockUSA,
       withoutProduct,
       withProduct,
+
+      onSearchSubmit,
     } = this.viewModel
     const {classes: classNames} = this.props
     const onClickPrevButton = () => {
@@ -157,7 +159,9 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showSelectionSupplierModal')
     }
 
-    console.log('currentData', currentData)
+    // console.log('currentData', currentData)
+
+    console.log('sortModel', sortModel)
 
     return (
       <React.Fragment>
@@ -227,6 +231,7 @@ export class ClientInventoryViewRaw extends Component {
                     value={nameSearchValue}
                     placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
                     onChange={onChangeNameSearchValue}
+                    onSubmit={onSearchSubmit}
                   />
                 </div>
 
@@ -383,9 +388,10 @@ export class ClientInventoryViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
+                  sortingMode="server"
                   paginationMode="server"
                   rowCount={rowCount}
-                  sortModel={sortModel}
+                  // sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}

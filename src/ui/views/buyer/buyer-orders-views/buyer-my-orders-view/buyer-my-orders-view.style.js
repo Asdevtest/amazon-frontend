@@ -62,4 +62,8 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  dataGridWrapper: {
+    height: '84vh',
+  },
 })
