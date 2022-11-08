@@ -383,6 +383,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
+          color: '#fff',
         },
       },
     },

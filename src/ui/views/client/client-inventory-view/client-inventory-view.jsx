@@ -184,7 +184,7 @@ export class ClientInventoryViewRaw extends Component {
                         shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
                       )
                       .filter(shop => currentShop?.id !== shop._id)}
-                    fieldName="name"
+                    searchFields={['name']}
                     firstItems={
                       <>
                         {!(!withProduct && !withoutProduct && !currentShop?._id) && (

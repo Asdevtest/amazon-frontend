@@ -41,7 +41,7 @@ import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsStorekeeper, checkIsString} from '@utils/checks'
+import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -356,7 +356,11 @@ export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSub
             ) : null}
           </InputAdornment>
         }
-        onChange={e => (isInts ? setValue(e.target.value ? parseInt(e.target.value) : '') : setValue(e.target.value))}
+        onChange={e =>
+          isInts
+            ? setValue(checkIsPositiveNum(e.target.value) ? parseInt(e.target.value) : '')
+            : setValue(e.target.value)
+        }
       />
     </>
   )

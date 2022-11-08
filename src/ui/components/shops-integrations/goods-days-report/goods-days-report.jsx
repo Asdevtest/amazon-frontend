@@ -57,7 +57,7 @@ class GoodsDaysReportRaw extends Component {
                 (!currentShop?._id && t(TranslationKey['All shops'])) || (currentShop && currentShop.name)
               }
               data={shopsData.filter(shop => currentShop?.id !== shop._id)}
-              fieldName="name"
+              searchFields={['name']}
               firstItems={
                 <>
                   {currentShop?._id && (

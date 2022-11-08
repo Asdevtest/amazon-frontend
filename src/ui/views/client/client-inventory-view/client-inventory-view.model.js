@@ -474,6 +474,7 @@ export class ClientInventoryViewModel {
 
   async getProductsMy(noProductBaseUpdate) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue}`
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
@@ -499,8 +500,13 @@ export class ClientInventoryViewModel {
           this.productsMyBase = clientInventoryDataConverter(result.rows)
         }
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      this.productsMy = []
+      this.baseNoConvertedProducts = []
+
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

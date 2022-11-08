@@ -23,6 +23,22 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
+  closeIcon: {
+    color: theme.palette.text.second,
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&: hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  searchWrapper: {
+    display: 'flex',
+    gap: 5,
+    alignItems: 'center',
+  },
+
   submit: {
     padding: '6px',
   },

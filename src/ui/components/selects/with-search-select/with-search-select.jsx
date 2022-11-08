@@ -18,7 +18,6 @@ import {styles} from './with-search-select.style'
 const WithSearchSelectRaw = ({
   classes: classNames,
   data,
-  fieldName,
   onClickSelect,
   selectedItemName,
   firstItems,
@@ -26,6 +25,7 @@ const WithSearchSelectRaw = ({
   disabled,
   onClickNotChosen,
   placeholder,
+  searchFields,
 }) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -49,7 +49,13 @@ const WithSearchSelectRaw = ({
 
   useEffect(() => {
     if (nameSearchValue) {
-      setDataToRender(data.slice().filter(el => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())))
+      setDataToRender(
+        data
+          .slice()
+          .filter(el =>
+            searchFields.some(fieldName => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+          ),
+      )
     } else {
       setDataToRender(data)
     }
@@ -112,7 +118,13 @@ const WithSearchSelectRaw = ({
                       handleClose()
                     }}
                   >
-                    {el[fieldName]}
+                    <div className={classNames.fieldNamesWrapper}>
+                      {searchFields.map((fieldName, index) => (
+                        <Typography key={index} className={classNames.fieldName}>
+                          {el[fieldName]}
+                        </Typography>
+                      ))}
+                    </div>
                   </Button>
                 ))}
               </div>

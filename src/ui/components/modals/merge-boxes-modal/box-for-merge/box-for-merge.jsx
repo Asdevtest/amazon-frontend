@@ -67,7 +67,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
                     destinations.find(el => el._id === box.destination?._id)?.name || t(TranslationKey['Not chosen'])
                   }
                   data={destinations}
-                  fieldName="name"
+                  searchFields={['name']}
                 />
               }
             />

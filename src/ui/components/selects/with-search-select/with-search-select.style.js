@@ -84,6 +84,7 @@ export const styles = theme => ({
     maxHeight: 300,
     overflow: 'auto',
     width: '100%',
+    gap: 5,
   },
 
   button: {
@@ -92,14 +93,28 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
 
-    textOverflow: 'ellipsis',
-    minHeight: 20,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
+    // minHeight: '20px',
+
+    height: 'auto !important',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
 
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
+  },
+
+  fieldNamesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    height: 'max-content',
+  },
+
+  fieldName: {
+    height: 20,
+    whiteSpace: 'nowrap',
   },
 
   selectedItemName: {

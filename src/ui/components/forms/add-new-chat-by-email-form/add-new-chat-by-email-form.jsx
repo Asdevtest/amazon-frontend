@@ -34,7 +34,7 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
               usersData.find(el => el.email === chosenUser?.email)?.name || t(TranslationKey['Not chosen'])
             }
             data={usersData.sort((a, b) => a.name.localeCompare(b.name))}
-            fieldName="name"
+            searchFields={['name', 'email']}
             onClickNotChosen={() => setChoseUser(null)}
             onClickSelect={el => setChoseUser(el)}
           />

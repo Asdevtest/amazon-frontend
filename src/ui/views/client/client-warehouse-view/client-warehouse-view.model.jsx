@@ -656,8 +656,6 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      this.showProgress = true
-
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = newBoxes[i]
 
@@ -672,7 +670,6 @@ export class ClientWarehouseViewModel {
 
       this.onTriggerOpenModal('showSuccessInfoModal')
 
-      this.showProgress = false
       this.loadData()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -1083,6 +1080,23 @@ export class ClientWarehouseViewModel {
         return !findBox?.originalData?.logicsTariff || !findBox?.originalData?.destination
       })
 
+      if (boxesWithoutTariffOrDestinationIds.length) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: `${t(
+            TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
+          )}: ${boxesWithoutTariffOrDestinationIds
+            .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
+            .join(', ')} `,
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        this.setRequestStatus(loadingStatuses.failed)
+
+        return
+      }
+
       this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
 
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
@@ -1097,19 +1111,6 @@ export class ClientWarehouseViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
       this.triggerRequestToSendBatchModal()
-
-      if (boxesWithoutTariffOrDestinationIds.length) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: `${t(
-            TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
-          )}: ${boxesWithoutTariffOrDestinationIds
-            .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
-            .join(', ')} `,
-        }
-
-        this.onTriggerOpenModal('showWarningInfoModal')
-      }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
