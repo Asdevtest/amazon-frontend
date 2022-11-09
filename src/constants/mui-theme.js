@@ -145,6 +145,8 @@ export const lightTheme = createTheme({
   },
 
   palette: {
+    mode: 'light',
+
     primary: {
       main: '#007bff',
     },
@@ -213,13 +215,6 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
-      // defaultProps: {
-      //   sx: {
-      //     menuIcon: {
-      //       color: '#a0a0a4',
-      //     },
-      //   },
-      // },
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
@@ -292,10 +287,6 @@ export const darkTheme = createTheme({
     },
 
     MuiNativeSelect: {
-      // defaultProps: {
-      //   sx: {backgroundColor: '#2B2B34 !important'},
-      // },
-
       styleOverrides: {
         select: {
           '& > option': {
@@ -330,38 +321,9 @@ export const darkTheme = createTheme({
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
-
-          // '& >disabled': {
-          //   color: '#001029 !important',
-          // },
-
-          // '&.Mui-disabled': {
-          //   // backgroundColor: '#a0a0a4',
-          //   color: '#fff',
-          // },
-
-          // '::-webkit-text-fill-color': {
-          //   color: '#001029 !important',
-          //   // color: '#001029',
-          // },
         },
-
-        // '&.Mui-disabled': {
-        //   // backgroundColor: '#a0a0a4',
-        //   color: '#fff',
-        // },
       },
     },
-
-    // Mui: {
-    //   styleOverrides: {
-    //     root: {
-    //       '&.Mui-disabled': {
-    //         color: '#001029 !important',
-    //       },
-    //     },
-    //   },
-    // },
 
     MuiCheckbox: {
       defaultProps: {
@@ -471,62 +433,111 @@ export const darkTheme = createTheme({
             opacity: 0.7,
           },
         },
-
-        // '.MuiDataGrid-menuIconButton': {
-        //   color: '#fff',
-        // },
       },
     },
   },
 
   palette: {
-    primary: {
-      main: '#008CF1',
+    mode: 'dark',
+
+    ...{
+      primary: {
+        main: '#008CF1',
+      },
+      text: {
+        // primary: '#3d5170',
+        general: '#fff',
+        second: '#E1E1E1',
+
+        negativeMain: '#001029',
+        green: '#2FE341',
+      },
+
+      background: {
+        // main: '#2B2B34',
+        second: '#21212B',
+
+        chatIncomeMessage: '#36363F',
+        chatMyMessage: '#384C68',
+
+        tableCurRow: '#001A15', // '#388E3C',
+        red: '#2E0505',
+        green: '#388E3C',
+        entryLeftPanel: '#2B2B34',
+        disabled: '#a0a0a4',
+      },
+
+      linearGradient: {
+        successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+        negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+
+        hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+        hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
+      },
+
+      boxShadow: {
+        main: 'rgba(31, 31, 31, 0.56)',
+      },
+
+      input: {
+        // disabled: '#36363F',
+        // disabled: '#9999a8',
+        // disabled: '#fff',
+
+        disabled: '#a0a0a4',
+        // disabled: '#EBEBEB', // макет
+
+        border: '#424250',
+      },
     },
-    text: {
-      primary: '#3d5170',
-      general: '#fff',
-      second: '#E1E1E1',
 
-      negativeMain: '#001029',
-      green: '#2FE341',
-    },
+    // primary: {
+    //   main: '#008CF1',
+    // },
+    // text: {
+    //   primary: '#3d5170',
+    //   general: '#fff',
+    //   second: '#E1E1E1',
 
-    background: {
-      main: '#2B2B34',
-      second: '#21212B',
+    //   negativeMain: '#001029',
+    //   green: '#2FE341',
+    // },
 
-      chatIncomeMessage: '#36363F',
-      chatMyMessage: '#384C68',
+    // background: {
+    //   main: '#2B2B34',
+    //   second: '#21212B',
 
-      tableCurRow: '#001A15', // '#388E3C',
-      red: '#2E0505',
-      green: '#388E3C',
-      entryLeftPanel: '#2B2B34',
-      disabled: '#a0a0a4',
-    },
+    //   chatIncomeMessage: '#36363F',
+    //   chatMyMessage: '#384C68',
 
-    linearGradient: {
-      successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-      negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+    //   tableCurRow: '#001A15', // '#388E3C',
+    //   red: '#2E0505',
+    //   green: '#388E3C',
+    //   entryLeftPanel: '#2B2B34',
+    //   disabled: '#a0a0a4',
+    // },
 
-      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-    },
+    // linearGradient: {
+    //   successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+    //   negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
 
-    boxShadow: {
-      main: 'rgba(31, 31, 31, 0.56)',
-    },
+    //   hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+    //   hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
+    // },
 
-    input: {
-      // disabled: '#36363F',
-      // disabled: '#9999a8',
-      // disabled: '#fff',
+    // boxShadow: {
+    //   main: 'rgba(31, 31, 31, 0.56)',
+    // },
 
-      disabled: '#a0a0a4',
-      // disabled: '#EBEBEB', // макет
+    // input: {
+    //   // disabled: '#36363F',
+    //   // disabled: '#9999a8',
+    //   // disabled: '#fff',
 
-      border: '#424250',
-    },
+    //   disabled: '#a0a0a4',
+    //   // disabled: '#EBEBEB', // макет
+
+    //   border: '#424250',
+    // },
   },
 })

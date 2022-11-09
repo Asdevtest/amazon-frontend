@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
@@ -82,13 +83,6 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     field: 'stockUSA',
     headerName: t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />,
-    // renderCell: params => (
-    //   <ChangeChipCell
-    //     row={params.row.originalData}
-    //     text={Number(params.value) > 0 ? params.value : `-`}
-    //     onClickChip={() => stockUsHandlers.onClickStockUs(params.row.originalData)}
-    //   />
-    // ),
 
     renderCell: params => (
       <ChangeInputCell
@@ -149,30 +143,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 90,
-
-    // headerAlign: 'center',
   },
-
-  // {
-  //   field: 'margin',
-  //   headerName: t(TranslationKey.Margin),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
-
-  //   renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-  //   width: 80,
-  //   // type: 'number',
-  //   headerAlign: 'center',
-  // },
-  // {
-  //   field: 'bsr',
-  //   headerName: t(TranslationKey.BSR),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 60,
-  //   type: 'number',
-  //   headerAlign: 'center',
-  // },
 
   {
     field: 'fbafee',
@@ -185,16 +156,6 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     type: 'number',
     headerAlign: 'center',
   },
-
-  // {
-  //   field: 'fbaamount',
-  //   headerName: t(TranslationKey['Recommend amount']),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
-  //   renderCell: () => <MultilineTextCell text={'' /* params.value*/} />, // столбец пока без значений
-  //   width: 90,
-  //   type: 'number',
-  //   headerAlign: 'center',
-  // },
 
   {
     field: 'barCode',

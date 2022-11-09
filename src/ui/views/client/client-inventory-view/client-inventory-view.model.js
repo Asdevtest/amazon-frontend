@@ -228,9 +228,9 @@ export class ClientInventoryViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    // runInAction(() => {
+    this.nameSearchValue = e.target.value
+    // })
   }
 
   onChangeFilterModel(model) {
@@ -418,6 +418,11 @@ export class ClientInventoryViewModel {
     }
   }
 
+  onClickPrevButton = () => {
+    this.onTriggerOpenModal('showAddOrEditSupplierModal')
+    this.onTriggerOpenModal('showSelectionSupplierModal')
+  }
+
   async getIdeas() {
     try {
       const result = await IdeaModel.getIdeas(this.selectedRowIds.slice()[0])
@@ -488,6 +493,8 @@ export class ClientInventoryViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : null,
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
       })
+
+      // console.trace('TRACE')
 
       runInAction(() => {
         this.baseNoConvertedProducts = result

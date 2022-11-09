@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
@@ -152,16 +153,16 @@ export class ClientInventoryViewRaw extends Component {
       withProduct,
 
       onSearchSubmit,
+
+      onClickPrevButton,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const onClickPrevButton = () => {
-      onTriggerOpenModal('showAddOrEditSupplierModal')
-      onTriggerOpenModal('showSelectionSupplierModal')
-    }
+
+    console.log('!!!*** ')
 
     // console.log('currentData', currentData)
 
-    console.log('sortModel', sortModel)
+    // console.log('sortModel', sortModel)
 
     return (
       <React.Fragment>
@@ -376,10 +377,12 @@ export class ClientInventoryViewRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   // keepNonExistentRowsSelected
-                  disableVirtualization
+                  // disableVirtualization
                   pagination
-                  useResizeContainer
+                  // useResizeContainer
                   checkboxSelection
+                  columnThreshold={100}
+                  columnBuffer={100}
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
@@ -398,7 +401,6 @@ export class ClientInventoryViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   // rows={getCurrentData()}
                   rows={currentData}
-                  // rowHeight={100}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
@@ -410,13 +412,8 @@ export class ClientInventoryViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
+                  // onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
-                  // onRowClick={(params, event) => // в один клик(с фильтрами)
-                  //   event.target.checked === undefined &&
-                  //   !event.target.className.includes('Chip') &&
-                  //   onClickShowProduct(params.row)
-                  // }
                   onRowDoubleClick={params => onClickShowProduct(params.row)}
                 />
               </div>
