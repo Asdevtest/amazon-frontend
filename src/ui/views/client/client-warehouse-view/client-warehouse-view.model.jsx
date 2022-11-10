@@ -459,10 +459,9 @@ export class ClientWarehouseViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
       await this.getStorekeepers()
-
-      this.getDataGridState()
 
       this.getBoxesMy()
 

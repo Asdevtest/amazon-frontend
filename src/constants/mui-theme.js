@@ -151,7 +151,6 @@ export const lightTheme = createTheme({
       main: '#007bff',
     },
     text: {
-      primary: '#3d5170',
       general: '#001029',
       second: '#656565',
 
@@ -160,7 +159,7 @@ export const lightTheme = createTheme({
     },
 
     background: {
-      main: '#fff',
+      general: '#fff',
       second: '#F8F8F8',
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
@@ -182,17 +181,17 @@ export const lightTheme = createTheme({
     },
 
     boxShadow: {
-      main: '#DFDFDF',
+      general: '#DFDFDF',
     },
 
     input: {
       // disabled: 'rgba(0, 0, 0, 0.38)',
       // disabled: '#C4C4C4',
-      disabled: '#EBEBEB',
+      customDisabled: '#EBEBEB',
 
       // disabled: 'normal',
       // disabled: 'rgba(0, 0, 0, 0.26)',
-      border: '#E0E0E0',
+      customBorder: '#E0E0E0',
     },
   },
 })
@@ -438,23 +437,31 @@ export const darkTheme = createTheme({
   },
 
   palette: {
-    mode: 'dark',
+    // mode: 'dark',
 
     ...{
       primary: {
         main: '#008CF1',
       },
       text: {
-        // primary: '#3d5170',
         general: '#fff',
         second: '#E1E1E1',
 
         negativeMain: '#001029',
         green: '#2FE341',
+        disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
+
+        primary: '#fff',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+      },
+
+      action: {
+        active: '#fff',
+        disabled: 'rgba(255, 255, 255, 0.3)',
       },
 
       background: {
-        // main: '#2B2B34',
+        general: '#2B2B34',
         second: '#21212B',
 
         chatIncomeMessage: '#36363F',
@@ -465,6 +472,8 @@ export const darkTheme = createTheme({
         green: '#388E3C',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
+
+        default: '#121212',
       },
 
       linearGradient: {
@@ -476,68 +485,17 @@ export const darkTheme = createTheme({
       },
 
       boxShadow: {
-        main: 'rgba(31, 31, 31, 0.56)',
+        general: 'rgba(31, 31, 31, 0.56)',
       },
 
       input: {
-        // disabled: '#36363F',
-        // disabled: '#9999a8',
-        // disabled: '#fff',
+        customDisabled: '#a0a0a4',
+        // customDisabled: '#21212B',
 
-        disabled: '#a0a0a4',
-        // disabled: '#EBEBEB', // макет
+        // customDisabled: '#EBEBEB', // макет
 
-        border: '#424250',
+        customBorder: '#424250',
       },
     },
-
-    // primary: {
-    //   main: '#008CF1',
-    // },
-    // text: {
-    //   primary: '#3d5170',
-    //   general: '#fff',
-    //   second: '#E1E1E1',
-
-    //   negativeMain: '#001029',
-    //   green: '#2FE341',
-    // },
-
-    // background: {
-    //   main: '#2B2B34',
-    //   second: '#21212B',
-
-    //   chatIncomeMessage: '#36363F',
-    //   chatMyMessage: '#384C68',
-
-    //   tableCurRow: '#001A15', // '#388E3C',
-    //   red: '#2E0505',
-    //   green: '#388E3C',
-    //   entryLeftPanel: '#2B2B34',
-    //   disabled: '#a0a0a4',
-    // },
-
-    // linearGradient: {
-    //   successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-    //   negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-
-    //   hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-    //   hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-    // },
-
-    // boxShadow: {
-    //   main: 'rgba(31, 31, 31, 0.56)',
-    // },
-
-    // input: {
-    //   // disabled: '#36363F',
-    //   // disabled: '#9999a8',
-    //   // disabled: '#fff',
-
-    //   disabled: '#a0a0a4',
-    //   // disabled: '#EBEBEB', // макет
-
-    //   border: '#424250',
-    // },
   },
 })

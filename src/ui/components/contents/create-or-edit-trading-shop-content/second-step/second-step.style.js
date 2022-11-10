@@ -532,7 +532,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 5px',
     borderRadius: '4px',
     marginBottom: '10px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
 
   indicatorWrapper: {
@@ -618,7 +618,7 @@ export const useClassNames = makeStyles()(theme => ({
   indicatorInput: {
     // width: 70,
     // margin: '0 5px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
 
   subLabelWrapper: {

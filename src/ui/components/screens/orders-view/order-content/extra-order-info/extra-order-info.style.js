@@ -164,7 +164,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
 
     // '& > :disabled': {
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
     // },
   },
 

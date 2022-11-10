@@ -16,7 +16,7 @@ export const styles = theme => ({
     gap: '25px',
     boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
   cardImg: {
     width: '145px',

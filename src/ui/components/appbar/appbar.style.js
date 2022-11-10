@@ -10,9 +10,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: theme.spacing(7),
     boxShadow: `0px 5px 19px 0px rgba(90, 97, 105, 0.12)`,
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     borderRadius: '0',
     zIndex: 1100,
     flexShrink: 0,
@@ -174,7 +174,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 400,
     color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
 
     '&:hover': {
       // backgroundColor: '#CCE2FF',
@@ -190,7 +190,7 @@ export const useClassNames = makeStyles()(theme => ({
       lineHeight: '22px',
       fontWeight: 400,
       color: theme.palette.text.general,
-      backgroundColor: theme.palette.background.main,
+      backgroundColor: theme.palette.background.general,
 
       '&:hover': {
         // backgroundColor: '#CCE2FF',
@@ -283,7 +283,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     [theme.breakpoints.down(768)]: {
       background: 'none',
-      backgroundColor: 'theme.palette.background.main',
+      backgroundColor: 'theme.palette.background.general',
       borderBottom: 0,
       color: theme.palette.primary.main,
     },

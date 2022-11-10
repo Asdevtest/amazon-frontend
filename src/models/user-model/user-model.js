@@ -24,7 +24,7 @@ class UserModelStatic {
         if (this.accessToken) {
           restApiService.setAccessToken(this.accessToken)
 
-          this.getUserInfo()
+          // this.getUserInfo()
         }
       })
     })

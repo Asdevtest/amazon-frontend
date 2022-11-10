@@ -186,7 +186,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '330px',
 
     padding: 0,
-    border: `1px solid ${theme.palette.input.border}`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     [theme.breakpoints.down(768)]: {
       height: 'auto',
       width: '100%',
@@ -255,7 +255,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
     color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
 
     zIndex: 999,
 

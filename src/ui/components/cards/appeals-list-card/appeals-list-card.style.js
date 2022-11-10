@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
 
   nameWrapper: {

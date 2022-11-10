@@ -232,13 +232,11 @@ export const clientInventoryDataConverter = data =>
     _id: item._id,
     asin: item.asin,
     amountInOrders: item.amountInOrders,
-    amountInBoxes: item.amountInBoxes,
     stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0),
     reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
     inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
     stockSum:
       item.amountInOrders +
-      // item.amountInBoxes +
       item.boxAmounts?.reduce((ac, cur) => (ac += cur.amountInBoxes), 0) +
       item.stockUSA +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
@@ -283,6 +281,8 @@ export const depersonalizedPickDataConverter = data =>
     id: item._id,
 
     number: index + 1,
+    checkednotes: item.checkednotes,
+    clientComment: item.clientComment,
   }))
 
 export const clientOrdersDataConverter = data =>

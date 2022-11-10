@@ -186,6 +186,7 @@ export class ClientWarehouseViewRaw extends Component {
 
               <DataGrid
                 // autoHeight
+                disableVirtualization
                 pagination
                 useResizeContainer
                 checkboxSelection
@@ -215,11 +216,11 @@ export class ClientWarehouseViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onFilterModelChange={model => onChangeFilterModel(model)}
+                onFilterModelChange={onChangeFilterModel}
                 onStateChange={setDataGridState}
                 onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />

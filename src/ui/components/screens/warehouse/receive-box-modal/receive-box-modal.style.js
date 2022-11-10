@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputWrapper: {
-    border: `1px solid ${theme.palette.input.border}`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: '4px',
     maxWidth: '90px',
     height: '30px',

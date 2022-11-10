@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
 
     boxShadow: '0px 2px 10px 2px rgba(150, 150, 150, 0.15)',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     [theme.breakpoints.down(768)]: {
       height: '100%',
       overflow: 'hidden',

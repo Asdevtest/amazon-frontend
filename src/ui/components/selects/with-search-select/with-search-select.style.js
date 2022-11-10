@@ -33,7 +33,7 @@ export const styles = theme => ({
   },
 
   selectorIsOpen: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     maxHeight: 400,
     position: 'absolute',
 
@@ -64,12 +64,12 @@ export const styles = theme => ({
 
   disabledChosenItem: {
     cursor: 'auto',
-    backgroundColor: theme.palette.input.disabled,
+    backgroundColor: theme.palette.input.customDisabled,
 
     '&:hover': {
       transform: 'none',
 
-      backgroundColor: theme.palette.input.disabled,
+      backgroundColor: theme.palette.input.customDisabled,
     },
   },
 

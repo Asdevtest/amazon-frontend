@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     // backgroundColor: theme.palette.background.green,
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     padding: '40px 30px',
     width: '870px',
     margin: '0 auto',

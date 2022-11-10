@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
   cancelBtn: {
     marginLeft: '50px',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
 
     color: theme.palette.text.general,
   },

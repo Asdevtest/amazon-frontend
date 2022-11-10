@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
 
     position: 'relative',
 
@@ -80,7 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   categoriesWrapper: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
   feedBackButton: {
     position: 'absolute',

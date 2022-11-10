@@ -3,11 +3,11 @@ export const styles = theme => ({
     padding: '16px 20px',
     marginBottom: '42px',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
   formWrapper: {
     marginTop: '32px',
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
   },
   tableWrapper: {
     marginTop: '32px',

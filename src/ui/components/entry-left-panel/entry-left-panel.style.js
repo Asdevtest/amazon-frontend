@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     background: theme.palette.background.entryLeftPanel,
     color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
-      background: theme.palette.background.main,
+      background: theme.palette.background.general,
       flex: '0 0 20%',
       padding: '40px 0',
       width: '100%',

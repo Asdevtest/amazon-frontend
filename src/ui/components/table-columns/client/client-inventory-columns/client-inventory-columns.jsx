@@ -50,6 +50,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
+    sortable: false,
   },
 
   {
@@ -59,6 +60,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 65,
+    sortable: false,
   },
 
   {
@@ -68,6 +70,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
+    sortable: false,
   },
 
   {
@@ -77,6 +80,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+    sortable: false,
   },
 
   {
@@ -103,6 +107,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <InStockCell boxAmounts={params.row.originalData.boxAmounts} />,
     width: 160,
+    sortable: false,
+    type: 'actions',
+    filterable: false,
   },
 
   {
@@ -111,6 +118,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
+    sortable: false,
   },
 
   {
@@ -124,6 +132,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     width: 150,
     // type: 'number',
     headerAlign: 'center',
+    type: 'actions',
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -172,6 +183,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
+    sortable: false,
+    filterable: false,
   },
 
   {
@@ -189,13 +202,14 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
+    sortable: false,
+    filterable: false,
   },
 
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -232,6 +246,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
     width: 400,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -241,5 +257,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
+    filterable: false,
+    sortable: false,
   },
 ]

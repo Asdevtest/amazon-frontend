@@ -1589,5 +1589,6 @@
   "Editing completed": "Редактирование завершено",
   "Boxes do not have enough fare or destination. The following boxes will not be counted": "У коробок не хватает тарифа или пункта назначения. Следующие коробки не будут учтены",
   "Boxes with identical storekeeper must be selected": "Должны быть выбраны коробки с идентичным складом",
-  "Cannot be merged with a Superbox": "Нельзя соединить со Супербоксом "
+  "Cannot be merged with a Superbox": "Нельзя соединить со Супербоксом",
+  "Comments from the supervisor": "Комментарий супервизора"
 }

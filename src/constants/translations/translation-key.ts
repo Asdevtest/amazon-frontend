@@ -1589,7 +1589,7 @@ export enum TranslationKey {
   'Boxes do not have enough fare or destination. The following boxes will not be counted' = 'Boxes do not have enough fare or destination. The following boxes will not be counted',
   'Boxes with identical storekeeper must be selected' = 'Boxes with identical storekeeper must be selected',
   'Cannot be merged with a Superbox' = 'Cannot be merged with a Superbox',
-  // '' = '',
+  'Comments from the supervisor' = 'Comments from the supervisor',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
   detailsWrapper: {
     marginTop: '5px',
     width: '100%',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     padding: '40px 30px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {

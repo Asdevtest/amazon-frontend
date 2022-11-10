@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     background: theme.palette.linearGradient.successDashboardCard,
 
-    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.general}`,
 
     padding: '20px',
     borderRadius: '8px',

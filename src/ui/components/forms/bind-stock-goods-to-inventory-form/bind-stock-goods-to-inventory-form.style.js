@@ -140,7 +140,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
     height: 40,
     '&:focus-within': {
-      backgroundColor: theme.palette.background.main,
+      backgroundColor: theme.palette.background.general,
     },
   },
 }))

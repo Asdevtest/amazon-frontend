@@ -3,9 +3,9 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   cardsWrapper: {
     width: '485px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     // boxShadow: '0px 2px 11px 2px #DFDFDF',
-    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.general}`,
     borderRadius: '8px',
   },
 

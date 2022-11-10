@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     // border: '1px solid #E0E0E0',
 
-    border: `1px solid ${theme.palette.input.border}`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     [theme.breakpoints.down(768)]: {
       borderRadius: '4px',
     },
@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
   chatWrapper: {
     width: '100%',
     borderBottomWidth: '2px',
-    borderBottomColor: theme.palette.input.border,
+    borderBottomColor: theme.palette.input.customBorder,
     borderBottomStyle: 'solid',
   },
   chatWrapperIsSelected: {

@@ -45,14 +45,14 @@ export const styles = theme => ({
   nativeSelect: {
     width: '300px',
 
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
     // color: theme.palette.text.general,
   },
 
   mainWrapper: {
     display: 'flex',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
 
   leftBlockWrapper: {
@@ -84,7 +84,7 @@ export const styles = theme => ({
   input: {
     overflow: 'hidden',
 
-    border: `1px solid ${theme.palette.input.border} `,
+    border: `1px solid ${theme.palette.input.customBorder} `,
 
     color: theme.palette.text.general,
   },

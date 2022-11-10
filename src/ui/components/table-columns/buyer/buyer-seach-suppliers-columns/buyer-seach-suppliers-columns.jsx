@@ -6,6 +6,7 @@ import {
   MultilineTextHeaderCell,
   MultilineTextCell,
   NormalActionBtnCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -33,5 +34,14 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
       />
     ),
     width: 550,
+  },
+
+  {
+    field: 'checkednotes',
+    headerName: t(TranslationKey['Comments from the supervisor']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
+
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    width: 400,
   },
 ]

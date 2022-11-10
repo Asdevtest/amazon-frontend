@@ -174,25 +174,6 @@ export class ClientInventoryViewModel {
     this.stockUsHandlers,
   )
 
-  get isNoEditProductSelected() {
-    if (this.selectedRowIds.length) {
-      return this.selectedRowIds.some(prodId => {
-        const findProduct = this.productsMy.find(prod => prod._id === prodId)
-
-        return [
-          ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
-          ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
-          ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
-          ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
-          ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-          ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-        ].includes(ProductStatusByCode[findProduct?.originalData.status])
-      })
-    } else {
-      return false
-    }
-  }
-
   get userInfo() {
     return UserModel.userInfo
   }
@@ -260,7 +241,7 @@ export class ClientInventoryViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
+      this.sortModel = [...state.sorting.sortModel]
       this.filterModel = state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
@@ -303,6 +284,8 @@ export class ClientInventoryViewModel {
   }
 
   getCurrentData() {
+    // console.log('GET_CURRENT_DATA')
+
     const dataByArchive = this.isArchive
       ? toJS(this.productsMy.filter(el => el.originalData.archive))
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
@@ -328,7 +311,28 @@ export class ClientInventoryViewModel {
     }
   }
 
+  checkIsNoEditProductSelected() {
+    return this.selectedRowIds.some(prodId => {
+      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+
+      return [
+        ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+        ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
+        ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
+        ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ].includes(ProductStatusByCode[findProduct?.originalData.status])
+    })
+  }
+
   onClickTriggerArchOrResetProducts() {
+    if (this.checkIsNoEditProductSelected()) {
+      this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+      this.onTriggerOpenModal('showInfoModal')
+      return
+    }
+
     this.confirmModalSettings = {
       isWarning: this.isArchive ? false : true,
       confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
@@ -375,7 +379,6 @@ export class ClientInventoryViewModel {
 
       await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
-      await this.getOrders()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -462,24 +465,12 @@ export class ClientInventoryViewModel {
     this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
   }
 
-  async getOrders() {
-    try {
-      const result = await ClientModel.getOrders()
-
-      runInAction(() => {
-        this.orders = result
-      })
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
-    }
-  }
-
   async getProductsMy(noProductBaseUpdate) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      // console.log('START')
+
       const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue}`
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
@@ -494,7 +485,7 @@ export class ClientInventoryViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
       })
 
-      // console.trace('TRACE')
+      // console.log('REQUEST_TRUE_END')
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
@@ -506,11 +497,15 @@ export class ClientInventoryViewModel {
         if (!noProductBaseUpdate) {
           this.productsMyBase = clientInventoryDataConverter(result.rows)
         }
+
+        // console.log('END')
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      this.rowCount = undefined
+
       this.productsMy = []
       this.baseNoConvertedProducts = []
 
@@ -760,6 +755,12 @@ export class ClientInventoryViewModel {
 
   async onClickParseProductsBtn() {
     try {
+      if (this.checkIsNoEditProductSelected()) {
+        this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+        this.onTriggerOpenModal('showInfoModal')
+        return
+      }
+
       this.showCircularProgressModal = true
 
       await SellerBoardModel.refreshProducts(this.selectedRowIds)
@@ -779,6 +780,12 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierBtn() {
     try {
+      if (this.checkIsNoEditProductSelected()) {
+        this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+        this.onTriggerOpenModal('showInfoModal')
+        return
+      }
+
       if (this.selectedRowIds.length > 1) {
         const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
         this.confirmMessage = this.confirmModalSettings = {

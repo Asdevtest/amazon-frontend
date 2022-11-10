@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     borderRadius: '10px 10px',
     // padding: '10px',
   },
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     marginTop: '22px',
   },
 

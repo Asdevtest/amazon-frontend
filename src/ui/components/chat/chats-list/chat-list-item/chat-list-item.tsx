@@ -59,7 +59,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
   return (
     <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
       <div className={classNames.leftSide}>
-        <Avatar src={getUserAvatarSrc(oponentUser._id)} className={classNames.avatarWrapper} />
+        <Avatar src={getUserAvatarSrc(oponentUser?._id)} className={classNames.avatarWrapper} />
       </div>
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
@@ -71,9 +71,9 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
         </div>
         {lastMessage ? (
           <div className={classNames.lastMessageWrapper}>
-            {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser._id) ? (
+            {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
               <div className={classNames.lastMessageSubWrapper}>
-                <Avatar src={getUserAvatarSrc(oponentUser._id)} className={classNames.miniAvatar} />
+                <Avatar src={getUserAvatarSrc(oponentUser?._id)} className={classNames.miniAvatar} />
 
                 <p className={classNames.lastMessageText}>{t(TranslationKey.Writes) + '...'}</p>
               </div>
