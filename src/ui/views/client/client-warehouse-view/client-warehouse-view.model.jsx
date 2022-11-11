@@ -139,40 +139,6 @@ export class ClientWarehouseViewModel {
 
   taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers)
 
-  get isMasterBoxSelected() {
-    return this.selectedBoxes.some(boxId => {
-      const findBox = this.boxesMy.find(box => box._id === boxId)
-      return findBox?.originalData?.amount && findBox.originalData?.amount > 1
-    })
-  }
-
-  get isChosenDifferentsStorekeeper() {
-    if (this.selectedBoxes.length) {
-      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
-
-      return this.selectedBoxes.some(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
-        return findBox?.storekeeper !== firstBox?.storekeeper
-      })
-    } else {
-      return false
-    }
-  }
-
-  get isNoDestinationBoxSelected() {
-    return this.selectedBoxes.some(boxId => {
-      const findBox = this.boxesMy.find(box => box._id === boxId)
-      return !findBox?.originalData?.destination
-    })
-  }
-
-  get isNoLogicsTariffBoxSelected() {
-    return this.selectedBoxes.some(boxId => {
-      const findBox = this.boxesMy.find(box => box._id === boxId)
-      return !findBox?.originalData?.logicsTariff
-    })
-  }
-
   // get isNoDeliverySizes() {
   //   return this.selectedBoxes.some(boxId => {
   //     const findBox = this.boxesMy.find(box => box._id === boxId)
@@ -185,11 +151,6 @@ export class ClientWarehouseViewModel {
   //     )
   //   })
   // }
-
-  get isOneItemInBox() {
-    const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes.slice()[0])
-    return findBox?.originalData.items.reduce((ac, cur) => (ac += cur.amount), 0) <= 1
-  }
 
   constructor({history}) {
     this.history = history
@@ -263,8 +224,8 @@ export class ClientWarehouseViewModel {
     this.drawerOpen = value
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
   }
 
   onSelectionModel(model) {
@@ -498,10 +459,9 @@ export class ClientWarehouseViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
 
       await this.getStorekeepers()
-
-      this.getDataGridState()
 
       this.getBoxesMy()
 
@@ -541,20 +501,6 @@ export class ClientWarehouseViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e
-  }
-
-  onTriggerCheckbox = boxId => {
-    const boxById = this.boxesMy.find(box => box._id === boxId)
-    if (
-      (this.isMasterBoxSelected || (this.selectedBoxes.length && boxById.amount && boxById.amount > 1)) &&
-      !this.selectedBoxes.includes(boxId)
-    ) {
-      return
-    }
-    const updatedselectedBoxes = this.selectedBoxes.includes(boxId)
-      ? this.selectedBoxes.filter(_id => _id !== boxId)
-      : this.selectedBoxes.concat(boxId)
-    this.selectedBoxes = updatedselectedBoxes
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
@@ -634,6 +580,24 @@ export class ClientWarehouseViewModel {
 
   async onClickEditBtn() {
     try {
+      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+
+      const boxesWithDifferentStorekeepers = this.selectedBoxes.filter(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.storekeeper !== firstBox?.storekeeper
+      })
+
+      if (boxesWithDifferentStorekeepers.length) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        return
+      }
+
       const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
@@ -691,8 +655,6 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      this.showProgress = true
-
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = newBoxes[i]
 
@@ -707,7 +669,6 @@ export class ClientWarehouseViewModel {
 
       this.onTriggerOpenModal('showSuccessInfoModal')
 
-      this.showProgress = false
       this.loadData()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -1113,6 +1074,30 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      const boxesWithoutTariffOrDestinationIds = this.selectedBoxes.filter(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return !findBox?.originalData?.logicsTariff || !findBox?.originalData?.destination
+      })
+
+      if (boxesWithoutTariffOrDestinationIds.length) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: `${t(
+            TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
+          )}: ${boxesWithoutTariffOrDestinationIds
+            .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
+            .join(', ')} `,
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        this.setRequestStatus(loadingStatuses.failed)
+
+        return
+      }
+
+      this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
+
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
       const result = await UserModel.getPlatformSettings()
@@ -1162,6 +1147,22 @@ export class ClientWarehouseViewModel {
 
   async onClickMergeBtn() {
     try {
+      const isMasterBoxSelected = this.selectedBoxes.some(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.originalData?.amount && findBox.originalData?.amount > 1
+      })
+
+      if (isMasterBoxSelected) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Cannot be merged with a Superbox']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        return
+      }
+
       const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {

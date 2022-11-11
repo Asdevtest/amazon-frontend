@@ -121,7 +121,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   badge: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     borderRadius: '50%',
     border: '1px solid #007BFF',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

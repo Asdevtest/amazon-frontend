@@ -92,6 +92,13 @@ export const productStatusButtonsConfigs = {
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
+
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: t(TranslationKey['Repeat search']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
         {
           statusKey: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
           label: t(TranslationKey['Supplier not found']),

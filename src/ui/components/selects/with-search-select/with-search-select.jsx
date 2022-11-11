@@ -18,7 +18,6 @@ import {styles} from './with-search-select.style'
 const WithSearchSelectRaw = ({
   classes: classNames,
   data,
-  fieldName,
   onClickSelect,
   selectedItemName,
   firstItems,
@@ -26,6 +25,8 @@ const WithSearchSelectRaw = ({
   disabled,
   onClickNotChosen,
   placeholder,
+  searchFields,
+  CustomBtn,
 }) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -49,7 +50,13 @@ const WithSearchSelectRaw = ({
 
   useEffect(() => {
     if (nameSearchValue) {
-      setDataToRender(data.slice().filter(el => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())))
+      setDataToRender(
+        data
+          .slice()
+          .filter(el =>
+            searchFields.some(fieldName => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+          ),
+      )
     } else {
       setDataToRender(data)
     }
@@ -65,7 +72,7 @@ const WithSearchSelectRaw = ({
           >
             <Typography className={classNames.selectedItemName}>{selectedItemName}</Typography>
 
-            {open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />}
+            {open ? <ArrowDropUpIcon className={classNames.icon} /> : <ArrowDropDownIcon className={classNames.icon} />}
           </div>
 
           <Popover
@@ -77,7 +84,7 @@ const WithSearchSelectRaw = ({
             }}
             onClose={handleClose}
           >
-            <div className={classNames.subMainWrapper}>
+            <div className={classNames.subMainWrapper} style={width && {width}}>
               <SearchInput
                 inputClasses={classNames.searchInput}
                 value={nameSearchValue}
@@ -89,7 +96,6 @@ const WithSearchSelectRaw = ({
                   <Button
                     className={classNames.button}
                     variant="text"
-                    color="primary"
                     onClick={() => {
                       onClickNotChosen()
                       handleClose()
@@ -101,20 +107,36 @@ const WithSearchSelectRaw = ({
 
                 {firstItems}
 
-                {dataToRender.map((el, index) => (
-                  <Button
-                    key={index}
-                    className={classNames.button}
-                    variant="text"
-                    color="primary"
-                    onClick={() => {
-                      onClickSelect(el)
-                      handleClose()
-                    }}
-                  >
-                    {el[fieldName]}
-                  </Button>
-                ))}
+                {dataToRender.map((el, index) =>
+                  CustomBtn ? (
+                    <CustomBtn
+                      key={index}
+                      item={el}
+                      onClick={() => {
+                        onClickSelect(el)
+                        handleClose()
+                      }}
+                    />
+                  ) : (
+                    <Button
+                      key={index}
+                      className={classNames.button}
+                      variant="text"
+                      onClick={() => {
+                        onClickSelect(el)
+                        handleClose()
+                      }}
+                    >
+                      <div className={classNames.fieldNamesWrapper}>
+                        {searchFields.map((fieldName, index) => (
+                          <Typography key={index} className={classNames.fieldName}>
+                            {el[fieldName]}
+                          </Typography>
+                        ))}
+                      </div>
+                    </Button>
+                  ),
+                )}
               </div>
             </div>
           </Popover>

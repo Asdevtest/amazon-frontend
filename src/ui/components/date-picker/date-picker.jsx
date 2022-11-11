@@ -16,6 +16,7 @@ import {
 } from '@material-ui/pickers'
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
+import zhLocale from 'date-fns/locale/zh-CN'
 
 import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
@@ -31,6 +32,9 @@ const getLocalByLanguageTag = languageTag => {
 
     case LanguageKey.en:
       return enLocale
+
+    case LanguageKey.zh:
+      return zhLocale
 
     default:
       return enLocale
@@ -72,60 +76,64 @@ const darkTheme = createTheme({
       },
     },
 
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: '#fff !important',
-        },
-      },
-    },
+    // MuiSvgIcon: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: '#fff !important',
+    //     },
+    //   },
+    // },
 
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#2B2B34',
-          color: '#fff',
-        },
-      },
-    },
+    // MuiPaper: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: '#2B2B34',
+    //       color: '#fff',
+    //     },
+    //   },
+    // },
 
-    MuiTypography: {
-      defaultProps: {
-        sx: {
-          '&.Mui-disabled': {
-            color: '#a0a0a4',
-          },
-        },
-      },
+    // MuiTypography: {
+    //   defaultProps: {
+    //     sx: {
+    //       '&.Mui-disabled': {
+    //         color: '#a0a0a4',
+    //       },
+    //     },
+    //   },
 
-      styleOverrides: {
-        root: {
-          color: '#fff !important',
-        },
-      },
-    },
+    //   styleOverrides: {
+    //     root: {
+    //       color: '#fff !important',
+    //     },
+    //   },
+    // },
 
-    MuiClockNumber: {
-      styleOverrides: {
-        root: {
-          color: '#E1E1E1',
-        },
-      },
-    },
+    // MuiClockNumber: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: '#E1E1E1',
+    //     },
+    //   },
+    // },
 
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            color: '#fff',
-          },
+    // MuiButtonBase: {
+    //   styleOverrides: {
+    //     root: {
+    //       '&:hover': {
+    //         color: '#fff',
+    //       },
 
-          '&:focus': {
-            color: '#fff',
-          },
-        },
-      },
-    },
+    //       '&:focus': {
+    //         color: '#fff',
+    //       },
+    //     },
+    //   },
+    // },
+  },
+
+  palette: {
+    mode: 'dark',
   },
 })
 

@@ -12,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
+import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
@@ -44,6 +45,9 @@ export const OrderModalBodyRow = ({
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+
+  const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
+
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
@@ -101,6 +105,17 @@ export const OrderModalBodyRow = ({
       setPerPriceUnit(t(TranslationKey['No data']))
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+
+  const boxPropertiesIsFull =
+    item.currentSupplier.boxProperties?.amountInBox &&
+    item.currentSupplier.boxProperties?.boxLengthCm &&
+    item.currentSupplier.boxProperties?.boxWidthCm &&
+    item.currentSupplier.boxProperties?.boxHeightCm &&
+    item.currentSupplier.boxProperties?.boxWeighGrossKg &&
+    item.currentSupplier.amount &&
+    item.currentSupplier.minlot &&
+    item.currentSupplier.priceInYuan &&
+    item.currentSupplier.price
 
   return (
     <React.Fragment>
@@ -191,8 +206,6 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Button
-            disableElevation
-            color="primary"
             variant={item.storekeeperId && 'text'}
             className={cx(
               {[classNames.storekeeperBtn]: !item.storekeeperId},
@@ -219,8 +232,8 @@ export const OrderModalBodyRow = ({
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations.filter(el => !el.storekeeperId)} // убираем дестинейшены, которые одновременно и склады
-            fieldName="name"
+            data={destinations /* .filter(el => !el.storekeeperId)*/} // убираем дестинейшены, которые одновременно и склады
+            searchFields={['name']}
             onClickNotChosen={() => onChangeInput({target: {value: ''}}, 'destinationId')}
             onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}
           />
@@ -261,6 +274,32 @@ export const OrderModalBodyRow = ({
       <TableRow key={item._id + new Date()}>
         <TableCell colSpan={11}>
           <div className={classNames.sumsWrapper}>
+            <Button
+              tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
+              disabled={!boxPropertiesIsFull}
+              onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+            >
+              {t(TranslationKey['View an oriented calculation'])}
+            </Button>
+
+            <Field
+              oneLine
+              containerClasses={classNames.containerField}
+              labelClasses={classNames.labelField}
+              label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
+              inputComponent={
+                <Typography className={classNames.sumText}>{item.currentSupplier.productionTerm}</Typography>
+              }
+            />
+
+            <Field
+              oneLine
+              containerClasses={classNames.containerField}
+              labelClasses={classNames.labelField}
+              label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
+              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier.minlot}</Typography>}
+            />
+
             <Field
               oneLine
               containerClasses={classNames.containerField}
@@ -306,6 +345,19 @@ export const OrderModalBodyRow = ({
             />
           </div>
         </TableCell>
+
+        <Modal
+          openModal={showSupplierApproximateCalculationsModal}
+          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+        >
+          <SupplierApproximateCalculationsForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            product={item}
+            supplier={item.currentSupplier}
+            storekeepers={storekeepers}
+            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+          />
+        </Modal>
       </TableRow>
     </React.Fragment>
   )

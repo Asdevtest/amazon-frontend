@@ -157,6 +157,10 @@ export const OrderProductModal = ({
     setTimeout(() => setSubmitIsClicked(false), 3000)
   }
 
+  const storekeeperEqualsDestination = orderState.some(
+    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeperId,
+  )
+
   const disabledSubmit =
     orderState.some(
       order =>
@@ -165,6 +169,7 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)),
     ) ||
+    storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||
     !orderState.length ||
     submitIsClicked
@@ -291,11 +296,12 @@ export const OrderProductModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          disableElevation
           tooltipInfoContent={t(
             TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],
           )}
-          variant="contained"
+          tooltipAttentionContent={
+            storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
+          }
           className={(classNames.modalButton, classNames.buyNowBtn)}
           disabled={disabledSubmit}
           onClick={onClickSubmit}
@@ -304,8 +310,6 @@ export const OrderProductModal = ({
         </Button>
 
         <Button
-          disableElevation
-          variant="contained"
           tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}

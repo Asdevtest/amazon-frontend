@@ -187,7 +187,7 @@ export const MergeBoxesModal = ({
                       destinations.find(el => el._id === boxBody.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
                     data={destinations.filter(el => el.storekeeperId !== selectedBoxes[0]?.storekeeper._id)}
-                    fieldName="name"
+                    searchFields={['name']}
                     onClickNotChosen={() => setBoxBody({...boxBody, destinationId: ''})}
                     onClickSelect={el => setBoxBody({...boxBody, destinationId: el._id})}
                   />

@@ -168,7 +168,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   allowedRoleWrapper: {
     // border: '1px solid #C4C4C4',
-    border: `1px solid ${theme.palette.input.disabled}`,
+    border: `1px solid ${theme.palette.input.customDisabled}`,
 
     display: 'flex',
     alignItems: 'center',

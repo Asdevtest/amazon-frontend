@@ -177,7 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
   disableSelect: {
     // color: 'rgba(0, 0, 0, .2) !important',
 
-    color: theme.palette.input.disabled,
+    color: theme.palette.input.customDisabled,
   },
 
   orange: {

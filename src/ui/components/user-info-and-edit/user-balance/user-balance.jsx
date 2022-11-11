@@ -87,7 +87,7 @@ export const UserBalance = observer(({userId}) => {
           // sx={{
           //   border: 0,
           //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          //   backgroundColor: theme.palette.background.main,
+          //   backgroundColor: theme.palette.background.general,
           // }}
           getRowClassName={getRowClassName}
           sortModel={sortModel}

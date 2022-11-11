@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20014Batches from './InlineResponse20014Batches';
-import InlineResponse20014Boxes from './InlineResponse20014Boxes';
-import InlineResponse20014Tasks from './InlineResponse20014Tasks';
+import InlineResponse20014Rows from './InlineResponse20014Rows';
 
 /**
  * The InlineResponse20014 model module.
@@ -24,6 +22,7 @@ import InlineResponse20014Tasks from './InlineResponse20014Tasks';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -50,14 +49,11 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20014Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20014Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20014Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20014Rows]);
             }
         }
         return obj;
@@ -67,19 +63,16 @@ class InlineResponse20014 {
 }
 
 /**
- * @member {module:model/InlineResponse20014Tasks} tasks
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20014.prototype['tasks'] = undefined;
+InlineResponse20014.prototype['count'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20014Boxes} boxes
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20014Rows>} rows
  */
-InlineResponse20014.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20014Batches} batches
- */
-InlineResponse20014.prototype['batches'] = undefined;
+InlineResponse20014.prototype['rows'] = undefined;
 
 
 

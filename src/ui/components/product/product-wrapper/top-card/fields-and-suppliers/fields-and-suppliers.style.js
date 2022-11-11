@@ -178,10 +178,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     '& > disabled': {
       // color: theme.palette.text.general,
-      backgroundColor: theme.palette.input.disabled,
+      backgroundColor: theme.palette.input.customDisabled,
     },
 
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
   },
 
   strategyWrapper: {
@@ -389,7 +389,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     overflow: 'hidden',
 
-    // border: `1px solid ${theme.palette.input.border}`,
+    // border: `1px solid ${theme.palette.input.customBorder}`,
 
     color: theme.palette.text.general,
 
@@ -397,7 +397,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputDisabled: {
-    backgroundColor: theme.palette.input.disabled,
+    backgroundColor: theme.palette.input.customDisabled,
 
     border: `none`,
   },

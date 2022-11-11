@@ -38,10 +38,7 @@ export const ProductParameters = ({order, collapsed}) => {
     <div className={classNames.container}>
       <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.product.minpurchase, 2)} />
       <OrderParameter label={t(TranslationKey['Quantity (pcs.)'])} value={order.amount} />
-      <OrderParameter
-        label={t(TranslationKey['Purchase price'])}
-        value={toFixed(order.product.currentSupplier?.price, 2)}
-      />
+      <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} />
 
       <Field
         oneLine
@@ -50,11 +47,11 @@ export const ProductParameters = ({order, collapsed}) => {
         labelClasses={classNames.fieldLabel}
         inputComponent={
           <div>
-            {order.product.currentSupplier?.link === 'access denied' ? (
-              <Typography className={classNames.scrollingText}>{order.product.currentSupplier?.link}</Typography>
+            {order.orderSupplier?.link === 'access denied' ? (
+              <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
             ) : (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier?.link)}>
-                <Typography className={classNames.scrollingText}>{order.product.currentSupplier?.link}</Typography>
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
+                <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
               </Link>
             )}
           </div>
@@ -63,10 +60,7 @@ export const ProductParameters = ({order, collapsed}) => {
 
       <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(
-          order.product.currentSupplier.batchDeliveryCostInDollar / order.product.currentSupplier.amount,
-          2,
-        )}
+        value={toFixed(order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount, 2)}
       />
 
       <Field

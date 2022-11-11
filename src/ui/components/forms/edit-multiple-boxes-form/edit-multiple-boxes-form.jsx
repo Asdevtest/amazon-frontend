@@ -2,7 +2,9 @@
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Chip, Typography} from '@mui/material'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DoneIcon from '@mui/icons-material/Done'
+import {Chip, IconButton, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -27,7 +29,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-multiple-boxes-form.style'
 
-const Box = ({destinations, storekeepers, box, onChangeField}) => {
+const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox}) => {
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -74,9 +76,9 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
   return (
     <div className={classNames.box}>
       <div className={classNames.itemWrapper}>
-        <div>
+        <div className={classNames.orderWrapper}>
           {box.items.map((order, orderIndex) => (
-            <div key={`box_${box._id}_${orderIndex}`}>
+            <div key={`box_${box._id}_${orderIndex}`} className={classNames.orderWrapper}>
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
@@ -88,6 +90,8 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
                   <div className={classNames.asinWrapper}>
                     <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
                     <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
+
+                    {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
                   </div>
 
                   <div className={classNames.asinWrapper}>
@@ -95,6 +99,8 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
                     <Typography className={classNames.asinValue}>
                       {order.product.skusByClient?.length ? order.product.skusByClient[0] : '-'}
                     </Typography>
+
+                    {order.product.skusByClient?.length ? <CopyValue text={order.product.skusByClient[0]} /> : null}
                   </div>
 
                   <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
@@ -134,7 +140,7 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
                     data={destinations.filter(el => el.storekeeperId !== box?.storekeeperId)}
-                    fieldName="name"
+                    searchFields={['name']}
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
                   />
@@ -207,8 +213,10 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
             </div>
           ) : null}
 
-          {/* <div className={classNames.bottomBlockWrapper}>
-            <div />
+          <div className={classNames.bottomBlockWrapper}>
+            <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
+              <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+            </IconButton>
             <div className={classNames.incomingBtnWrapper}>
               <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
                 <Typography className={classNames.tablePanelViewText}>
@@ -218,7 +226,7 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
                 {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
 
@@ -252,16 +260,22 @@ const Box = ({destinations, storekeepers, box, onChangeField}) => {
   )
 }
 
-const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
+const NewBoxes = ({
+  newBoxes,
+  onChangeField,
+  destinations,
+  storekeepers,
+  visibleBoxes,
+  setVisibleBoxes,
+  onRemoveBox,
+}) => {
   const {classes: classNames} = useClassNames()
-
-  const [boxes, setBoxes] = useState(newBoxes || [])
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   useEffect(() => {
     if (nameSearchValue) {
-      setBoxes(
+      setVisibleBoxes(
         newBoxes.filter(
           el =>
             el.items.some(item => item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase())) ||
@@ -272,7 +286,7 @@ const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
         ),
       )
     } else {
-      setBoxes(newBoxes)
+      setVisibleBoxes(newBoxes)
     }
   }, [newBoxes, nameSearchValue])
 
@@ -281,7 +295,7 @@ const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
       <div className={classNames.currentBoxTitle}>
         <Typography className={classNames.sectionTitle}>{t(TranslationKey.Boxes)}</Typography>
 
-        <Typography className={classNames.searchCount}>{`${boxes.length} / ${newBoxes.length}`}</Typography>
+        <Typography className={classNames.searchCount}>{`${visibleBoxes.length} / ${newBoxes.length}`}</Typography>
 
         <SearchInput
           inputClasses={classNames.searchInput}
@@ -291,7 +305,7 @@ const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
         />
       </div>
 
-      {boxes.map((box, boxIndex) => (
+      {visibleBoxes.map((box, boxIndex) => (
         <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
           <Box
             isNewBox
@@ -300,6 +314,7 @@ const NewBoxes = ({newBoxes, onChangeField, destinations, storekeepers}) => {
             index={boxIndex}
             box={box}
             onChangeField={onChangeField}
+            onRemoveBox={onRemoveBox}
           />
         </div>
       ))}
@@ -368,12 +383,32 @@ export const EditMultipleBoxesForm = observer(
       })),
     )
 
+    const [visibleBoxes, setVisibleBoxes] = useState([])
+
+    const [applyBtnsClicked, setApplyBtnsClicked] = useState({
+      destinationId: false,
+      logicsTariffId: false,
+      fbaShipment: false,
+      tmpShippingLabel: false,
+    })
+
+    const onRemoveBox = boxId => {
+      const arr = newBoxes.filter(box => box._id !== boxId)
+      setNewBoxes([...arr])
+    }
+
+    useEffect(() => {
+      if (!newBoxes.length) {
+        onCloseModal()
+      }
+    }, [newBoxes.length])
+
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
       const updatedTargetBox = {
         ...targetBox,
-        [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+        [field]: e.target.value,
       }
 
       const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
@@ -382,30 +417,45 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onApplySharedValuesToAllBoxes = field => {
-      let updatedNewBoxes = null
+      // let updatedNewBoxes = null
 
-      if (field === 'destinationId') {
-        updatedNewBoxes = newBoxes.map(newBox => ({
-          ...newBox,
-          destinationId: sharedFields.destinationId,
-        }))
-      } else if (field === 'logicsTariffId') {
-        updatedNewBoxes = newBoxes.map(newBox => ({
-          ...newBox,
-          logicsTariffId: sharedFields.logicsTariffId,
-        }))
-      } else if (field === 'fbaShipment') {
-        updatedNewBoxes = newBoxes.map(newBox => ({
-          ...newBox,
-          fbaShipment: sharedFields.fbaShipment,
-        }))
-      } else if (field === 'tmpShippingLabel') {
-        updatedNewBoxes = newBoxes.map(newBox => ({
-          ...newBox,
-          shippingLabel: sharedFields.shippingLabel,
-          tmpShippingLabel: sharedFields.tmpShippingLabel,
-        }))
-      }
+      const visibleBoxesIds = visibleBoxes.map(el => el._id)
+
+      const updatedNewBoxes = newBoxes.map(newBox =>
+        visibleBoxesIds.includes(newBox._id)
+          ? {
+              ...newBox,
+              [field]: sharedFields[field],
+            }
+          : newBox,
+      )
+
+      setApplyBtnsClicked({...applyBtnsClicked, [field]: true})
+
+      setTimeout(() => setApplyBtnsClicked({...applyBtnsClicked, [field]: false}), 1000)
+
+      // if (field === 'destinationId') {
+      //   updatedNewBoxes = newBoxes.map(newBox => ({
+      //     ...newBox,
+      //     destinationId: sharedFields.destinationId,
+      //   }))
+      // } else if (field === 'logicsTariffId') {
+      //   updatedNewBoxes = newBoxes.map(newBox => ({
+      //     ...newBox,
+      //     logicsTariffId: sharedFields.logicsTariffId,
+      //   }))
+      // } else if (field === 'fbaShipment') {
+      //   updatedNewBoxes = newBoxes.map(newBox => ({
+      //     ...newBox,
+      //     fbaShipment: sharedFields.fbaShipment,
+      //   }))
+      // } else if (field === 'tmpShippingLabel') {
+      //   updatedNewBoxes = newBoxes.map(newBox => ({
+      //     ...newBox,
+      //     shippingLabel: sharedFields.shippingLabel,
+      //     tmpShippingLabel: sharedFields.tmpShippingLabel,
+      //   }))
+      // }
 
       setNewBoxes(updatedNewBoxes)
     }
@@ -432,8 +482,10 @@ export const EditMultipleBoxesForm = observer(
 
     const disabledSubmitBtn = newBoxes.some(el => !el.logicsTariffId)
 
+    const disabledApplyBtn = !visibleBoxes.length
+
     return (
-      <div>
+      <div className={classNames.root}>
         <div className={classNames.modalTitleWrapper}>
           <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
           <img src="/assets/img/edit.png" />
@@ -460,7 +512,7 @@ export const EditMultipleBoxesForm = observer(
                         t(TranslationKey['Not chosen'])
                       }
                       data={destinations.filter(el => el.storekeeperId !== sharedFields.storekeeperId)}
-                      fieldName="name"
+                      searchFields={['name']}
                       onClickNotChosen={() => onChangeSharedFields({target: {value: null}}, 'destinationId')}
                       onClickSelect={el => onChangeSharedFields({target: {value: el._id}}, 'destinationId')}
                     />
@@ -468,10 +520,13 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button
-                  className={classNames.applyButton}
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.destinationId,
+                  })}
                   onClick={() => onApplySharedValuesToAllBoxes('destinationId')}
                 >
-                  {t(TranslationKey.Apply)}
+                  {applyBtnsClicked.destinationId ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -502,10 +557,13 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button
-                  className={classNames.applyButton}
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.logicsTariffId,
+                  })}
                   onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}
                 >
-                  {t(TranslationKey.Apply)}
+                  {applyBtnsClicked.logicsTariffId ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -521,8 +579,14 @@ export const EditMultipleBoxesForm = observer(
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />
 
-                <Button className={classNames.applyButton} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
-                  {t(TranslationKey.Apply)}
+                <Button
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.fbaShipment,
+                  })}
+                  onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}
+                >
+                  {applyBtnsClicked.fbaShipment ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -555,20 +619,26 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button
-                  className={classNames.applyButton}
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpShippingLabel,
+                  })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}
                 >
-                  {t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpShippingLabel ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
             </div>
           </div>
 
           <NewBoxes
+            visibleBoxes={visibleBoxes}
             newBoxes={newBoxes}
             destinations={destinations}
             storekeepers={storekeepers}
+            setVisibleBoxes={setVisibleBoxes}
             onChangeField={onChangeField}
+            onRemoveBox={onRemoveBox}
           />
         </div>
 

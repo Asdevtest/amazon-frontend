@@ -150,9 +150,9 @@ export const Navbar = observer(
           onClick={() => setShortNavbar(!shortNavbar)}
         >
           {shortNavbar ? (
-            <ArrowForwardIosIcon color="primary" />
+            <ArrowForwardIosIcon className={classNames.arrowIcon} />
           ) : (
-            <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
+            <ArrowBackIosIcon className={classNames.arrowIcon} />
           )}
         </div>
       </div>

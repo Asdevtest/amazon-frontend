@@ -157,8 +157,8 @@ export class SubUsersViewModel {
     this.curPage = e
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
   }
 
   onChangeRowsPerPage(e) {

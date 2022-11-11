@@ -72,7 +72,7 @@ export const styles = theme => ({
     display: 'inline-flex',
     backgroundColor: 'inherit',
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'inherit',
     },

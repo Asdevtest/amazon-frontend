@@ -19,7 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 690,
   },
   bottomPartWrapper: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -96,7 +96,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputFilled: {
-    // backgroundColor: theme.palette.background.main,
+    // backgroundColor: theme.palette.background.general,
 
     backgroundColor: theme.palette.input.second,
   },

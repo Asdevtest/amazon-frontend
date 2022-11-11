@@ -12,8 +12,12 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    width: '90%',
+    width: '100%',
     marginBottom: 20,
+  },
+
+  icon: {
+    color: theme.palette.primary.main,
   },
 
   mainWrapper: {
@@ -29,7 +33,7 @@ export const styles = theme => ({
   },
 
   selectorIsOpen: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     maxHeight: 400,
     position: 'absolute',
 
@@ -60,12 +64,12 @@ export const styles = theme => ({
 
   disabledChosenItem: {
     cursor: 'auto',
-    backgroundColor: theme.palette.input.disabled,
+    backgroundColor: theme.palette.input.customDisabled,
 
     '&:hover': {
       transform: 'none',
 
-      backgroundColor: theme.palette.input.disabled,
+      backgroundColor: theme.palette.input.customDisabled,
     },
   },
 
@@ -80,6 +84,7 @@ export const styles = theme => ({
     maxHeight: 300,
     overflow: 'auto',
     width: '100%',
+    gap: 5,
   },
 
   button: {
@@ -88,14 +93,28 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
 
-    textOverflow: 'ellipsis',
-    minHeight: 20,
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
+    // minHeight: '20px',
+
+    height: 'auto !important',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
 
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
+  },
+
+  fieldNamesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    height: 'max-content',
+  },
+
+  fieldName: {
+    height: 20,
+    whiteSpace: 'nowrap',
   },
 
   selectedItemName: {

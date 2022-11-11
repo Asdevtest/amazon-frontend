@@ -1,4 +1,4 @@
-import {DataGrid} from '@mui/x-data-grid'
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -84,6 +84,9 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  components={{
+                    Toolbar: GridToolbar,
                   }}
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}

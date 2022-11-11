@@ -97,7 +97,6 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onTriggerCheckbox,
       onClickConfirmCreateSplitTasks,
 
       onClickConfirmCreateChangeTasks,
@@ -187,6 +186,7 @@ export class ClientWarehouseViewRaw extends Component {
 
               <DataGrid
                 // autoHeight
+                disableVirtualization
                 pagination
                 useResizeContainer
                 checkboxSelection
@@ -216,11 +216,11 @@ export class ClientWarehouseViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
-                onFilterModelChange={model => onChangeFilterModel(model)}
+                onFilterModelChange={onChangeFilterModel}
                 onStateChange={setDataGridState}
                 onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
@@ -361,7 +361,6 @@ export class ClientWarehouseViewRaw extends Component {
             selectedBoxes={selectedBoxes}
             volumeWeightCoefficient={volumeWeightCoefficient}
             boxesMy={boxesMy.map(box => box.originalData)}
-            onClickRemoveBoxFromBatch={onTriggerCheckbox}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
           />
         </Modal>
@@ -424,12 +423,7 @@ export class ClientWarehouseViewRaw extends Component {
   renderButtons = () => {
     const {
       selectedBoxes,
-      isMasterBoxSelected,
-      isNoDestinationBoxSelected,
-      isNoLogicsTariffBoxSelected,
-      isChosenDifferentsStorekeeper,
-      // isNoDeliverySizes,
-      isOneItemInBox,
+      // isMasterBoxSelected,
       onClickRequestToSendBatch,
       onClickEditBtn,
       onClickMergeBtn,
@@ -439,10 +433,7 @@ export class ClientWarehouseViewRaw extends Component {
       <React.Fragment>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          tooltipAttentionContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
-          disabled={
-            !selectedBoxes.length || isNoDestinationBoxSelected || isNoLogicsTariffBoxSelected /* || isNoDeliverySizes*/
-          }
+          disabled={!selectedBoxes.length}
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
@@ -450,14 +441,14 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
+          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disabled={selectedBoxes.length !== 1 || isOneItemInBox}
+          disabled={selectedBoxes.length !== 1}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
@@ -465,7 +456,7 @@ export class ClientWarehouseViewRaw extends Component {
         </Button>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length || (selectedBoxes.length && isChosenDifferentsStorekeeper)}
+          disabled={!selectedBoxes.length}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}

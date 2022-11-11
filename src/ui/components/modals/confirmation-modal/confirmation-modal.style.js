@@ -25,7 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 28px',
     // gap: '20px',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     [theme.breakpoints.down(768)]: {
       width: '300px',
       minHeight: '0',
@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    background: theme.palette.background.main,
+    background: theme.palette.background.general,
     borderRadius: '10px 10px',
     // padding: '10px',
   },
@@ -68,12 +68,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
 
     marginTop: '22px',
     [theme.breakpoints.down(768)]: {

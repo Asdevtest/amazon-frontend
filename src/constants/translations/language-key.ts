@@ -7,4 +7,5 @@ export enum LanguageKey {
   kr = 'kr',
   es = 'es',
   zhTW = 'zhTW',
+  zh = 'zh',
 }

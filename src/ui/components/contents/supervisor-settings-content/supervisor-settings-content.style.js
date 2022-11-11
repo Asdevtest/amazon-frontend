@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(() => ({
   // rootDataGrid: {
   //   border: '0 !important',
   //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-  //   backgroundColor: theme.palette.background.main,
+  //   backgroundColor: theme.palette.background.general,
   // },
 
   footerContainer: {

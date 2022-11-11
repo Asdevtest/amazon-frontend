@@ -318,7 +318,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   permGroupWrapper: {
     [theme.breakpoints.down(768)]: {
-      border: `1px solid ${theme.palette.input.border}`,
+      border: `1px solid ${theme.palette.input.customBorder}`,
       width: '280px',
       borderRadius: '4px',
       marginBottom: '20px',

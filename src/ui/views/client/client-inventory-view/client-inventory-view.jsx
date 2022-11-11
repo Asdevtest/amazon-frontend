@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
@@ -53,12 +54,14 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      currentData,
       userInfo,
       nameSearchValue,
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
 
+      rowCount,
       sortModel,
       filterModel,
       densityModel,
@@ -74,8 +77,6 @@ export class ClientInventoryViewRaw extends Component {
       currentHscode,
       shopsData,
       currentShop,
-
-      isNoEditProductSelected,
 
       showProgress,
       progressValue,
@@ -148,12 +149,15 @@ export class ClientInventoryViewRaw extends Component {
       // onClickSavesStockUSA,
       withoutProduct,
       withProduct,
+
+      onSearchSubmit,
+
+      onClickPrevButton,
+      getProductsMy1,
     } = this.viewModel
     const {classes: classNames} = this.props
-    const onClickPrevButton = () => {
-      onTriggerOpenModal('showAddOrEditSupplierModal')
-      onTriggerOpenModal('showSelectionSupplierModal')
-    }
+
+    const disableSelectionCells = ['stockUSA', 'fourMonthesStock']
 
     return (
       <React.Fragment>
@@ -172,11 +176,11 @@ export class ClientInventoryViewRaw extends Component {
                     }
                     data={shopsData
 
-                      .map(
-                        shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
-                      )
+                      // .map(
+                      //   shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
+                      // )
                       .filter(shop => currentShop?.id !== shop._id)}
-                    fieldName="name"
+                    searchFields={['name']}
                     firstItems={
                       <>
                         {!(!withProduct && !withoutProduct && !currentShop?._id) && (
@@ -190,7 +194,7 @@ export class ClientInventoryViewRaw extends Component {
                             {t(TranslationKey['All Products'])}
                           </Button>
                         )}
-                        {!withProduct && (
+                        {/* {!withProduct && (  // Не работает после пвнедрения пагинации, нужны отдельные фильтры в метод
                           <Button
                             disabled={!productsMy}
                             className={classNames.button}
@@ -212,7 +216,7 @@ export class ClientInventoryViewRaw extends Component {
                           >
                             {t(TranslationKey['Products without shops'])}
                           </Button>
-                        )}
+                        )} */}
                       </>
                     }
                     onClickSelect={shop => onClickShopBtn(shop)}
@@ -223,6 +227,7 @@ export class ClientInventoryViewRaw extends Component {
                     value={nameSearchValue}
                     placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
                     onChange={onChangeNameSearchValue}
+                    onSubmit={onSearchSubmit}
                   />
                 </div>
 
@@ -266,42 +271,26 @@ export class ClientInventoryViewRaw extends Component {
                     </Button>
 
                     <Button
-                      disableElevation
                       tooltipInfoContent={t(
                         TranslationKey['Bind the selected product from the inventory to an item from the store'],
                       )}
                       disabled={selectedRowIds.length !== 1}
                       className={classNames.buttonOffset}
-                      variant="contained"
-                      color="primary"
                       onClick={onClickBindInventoryGoodsToStockBtn}
                     >
                       {t(TranslationKey['Bind an product from Amazon'])}
                     </Button>
 
                     <Button
-                      variant="contained"
                       tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                      tooltipAttentionContent={
-                        selectedRowIds.length &&
-                        isNoEditProductSelected &&
-                        t(TranslationKey['Product with invalid status selected'])
-                      }
-                      disabled={!selectedRowIds.length || isNoEditProductSelected}
+                      disabled={!selectedRowIds.length}
                       className={classNames.buttonOffset}
                       onClick={() => onClickAddSupplierBtn()}
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
 
-                    <Button
-                      tooltipAttentionContent={
-                        isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
-                      }
-                      variant="contained"
-                      disabled={!selectedRowIds.length || isNoEditProductSelected}
-                      onClick={onClickParseProductsBtn}
-                    >
+                    <Button disabled={!selectedRowIds.length} onClick={onClickParseProductsBtn}>
                       {'Parse all'}
                     </Button>
                   </div>
@@ -311,13 +300,10 @@ export class ClientInventoryViewRaw extends Component {
                   {!isArchive && (
                     <>
                       <Button
-                        tooltipAttentionContent={
-                          isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
-                        }
                         tooltipInfoContent={t(
                           TranslationKey['Delete the selected product (the product is moved to the archive)'],
                         )}
-                        disabled={!selectedRowIds.length || isNoEditProductSelected}
+                        disabled={!selectedRowIds.length}
                         variant="outlined"
                         className={classNames.archiveAddBtn}
                         onClick={onClickTriggerArchOrResetProducts}
@@ -340,12 +326,8 @@ export class ClientInventoryViewRaw extends Component {
                   {isArchive ? (
                     <>
                       <Button
-                        disableElevation
-                        tooltipAttentionContent={
-                          isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
-                        }
                         tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                        disabled={!selectedRowIds.length || isNoEditProductSelected}
+                        disabled={!selectedRowIds.length}
                         variant="contained"
                         onClick={onClickTriggerArchOrResetProducts}
                       >
@@ -368,7 +350,6 @@ export class ClientInventoryViewRaw extends Component {
                 <DataGrid
                   disableVirtualization
                   pagination
-                  useResizeContainer
                   checkboxSelection
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
@@ -378,13 +359,16 @@ export class ClientInventoryViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  // rowHeight={100}
+                  rowsPerPageOptions={[15, 25 /* , 50, 100*/]}
+                  // rows={getCurrentData()}
+                  rows={currentData}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
@@ -392,18 +376,16 @@ export class ClientInventoryViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  // onRowClick={(params, event) => // в один клик(с фильтрами)
-                  //   event.target.checked === undefined &&
-                  //   !event.target.className.includes('Chip') &&
-                  //   onClickShowProduct(params.row)
-                  // }
+                  onFilterModelChange={onChangeFilterModel}
                   onRowDoubleClick={params => onClickShowProduct(params.row)}
+                  onCellClick={(param, event) => {
+                    event.defaultMuiPrevented = disableSelectionCells.includes(param.field)
+                  }}
                 />
               </div>
             </MainContent>
@@ -520,7 +502,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         >
           <BindInventoryGoodsToStockForm
-            product={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData}
+            product={productsMy.find(item => selectedRowIds.includes(item.id))?.originalData}
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}

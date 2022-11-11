@@ -24,6 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
   },
   text: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

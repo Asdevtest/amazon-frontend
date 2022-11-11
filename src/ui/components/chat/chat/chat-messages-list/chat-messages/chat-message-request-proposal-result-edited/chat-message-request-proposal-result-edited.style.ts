@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     padding: '40px 30px',
     width: '869px',
     margin: '0 auto',
@@ -92,7 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
   timeToCheckBlockValueWrapper: {
     width: '158px',
     padding: '8px 16px 7px 56px',
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     borderRadius: '4px',
     marginTop: 15,
     textAlign: 'end',

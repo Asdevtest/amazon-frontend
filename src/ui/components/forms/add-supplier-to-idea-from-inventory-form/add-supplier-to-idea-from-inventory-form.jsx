@@ -162,7 +162,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               width={400}
               selectedItemName={ideas.find(el => el._id === curIdeaId)?.productName || t(TranslationKey['Not chosen'])}
               data={ideas}
-              fieldName="productName"
+              searchFields={['productName']}
               onClickSelect={idea => setCurIdeaId(idea._id)}
             />
           }

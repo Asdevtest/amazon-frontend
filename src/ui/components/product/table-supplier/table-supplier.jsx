@@ -34,6 +34,8 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
         <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
@@ -87,6 +89,8 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell className={classNames.alignCenter}>
                   {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                 </TableCell>
+
+                <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
 
                 <TableCell className={cx(classNames.alignCenter, classNames.commentCell)}>{supplier.comment}</TableCell>
 

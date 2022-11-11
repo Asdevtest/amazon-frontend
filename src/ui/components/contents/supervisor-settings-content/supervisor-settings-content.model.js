@@ -240,8 +240,8 @@ export class SupervisorSettingsContentModel {
     this.rowsPerPage = e
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
   }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus

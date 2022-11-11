@@ -137,17 +137,10 @@ export const useClassNames = makeStyles()(theme => ({
   searchInput: {
     // border: '1px solid #007bff',
     // backgroundColor: '#F4F4F4',
-    width: '100%',
+    flexGrow: 1,
     height: 40,
     '&:focus-within': {
-      backgroundColor: theme.palette.background.main,
+      backgroundColor: theme.palette.background.general,
     },
-  },
-
-  searchContainer: {
-    width: '100%',
-    margin: '0 0 0 10px',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 }))

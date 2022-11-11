@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '100vh',
     // width: '100%',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.background.general,
     padding: '48px 64px',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -42,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   divider: {
     margin: '8px 0 16px',
-    border: `1px solid ${theme.palette.input.border}`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
   redirect: {
     margin: '0 30px',

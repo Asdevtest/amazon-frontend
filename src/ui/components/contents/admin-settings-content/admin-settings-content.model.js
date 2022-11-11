@@ -114,8 +114,8 @@ export class AdminSettingsModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
+  onChangeSortingModel(sortModel) {
+    this.sortModel = sortModel
   }
 
   onSelectionModel(model) {

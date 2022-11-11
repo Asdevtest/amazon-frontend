@@ -41,7 +41,7 @@ import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsStorekeeper, checkIsString} from '@utils/checks'
+import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -127,7 +127,7 @@ export const AsinCell = withStyles(
   ({classes: classNames, product}) => (
     <div className={classNames.asinCell}>
       <div className={classNames.asinCellContainer}>
-        <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
+        <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images.slice()[0])} />
 
         <div className={classNames.csCodeTypoWrapper}>
           <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
@@ -155,10 +155,12 @@ export const AsinCell = withStyles(
             <Typography className={classNames.typoCell}>
               {t(TranslationKey.SKU)}
               <span className={classNames.typoSpan}>
-                {product.skusByClient[0] ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
+                {product.skusByClient.slice()[0]
+                  ? shortSku(product.skusByClient.slice()[0])
+                  : t(TranslationKey.Missing)}
               </span>
             </Typography>
-            {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+            {product.skusByClient.slice()[0] ? <CopyValue text={product.skusByClient.slice()[0]} /> : null}
           </div>
         </div>
       </div>
@@ -227,7 +229,7 @@ export const FeesValuesWithCalculateBtnCell = withStyles(
 
 export const SupplierCell = withStyles(
   ({classes: classNames, product}) => (
-    <div>
+    <>
       <Typography className={classNames.researcherCell}>
         {!product.currentSupplier ? '-' : product.currentSupplier.name}
       </Typography>
@@ -237,7 +239,7 @@ export const SupplierCell = withStyles(
           <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
         </Link>
       )}
-    </div>
+    </>
   ),
   styles,
 )
@@ -253,80 +255,68 @@ export const UserLinkCell = withStyles(
 
 export const SupervisorCell = withStyles(
   ({classes: classNames, product}) => (
-    <div>
-      <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
-    </div>
+    <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
   ),
   styles,
 )
 
 export const ResearcherCell = withStyles(
   ({classes: classNames, product}) => (
-    <div>
-      <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
-    </div>
+    <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
   ),
   styles,
 )
 
 export const ClientCell = withStyles(
   ({classes: classNames, product}) => (
-    <div>
-      <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
-    </div>
+    <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
   ),
   styles,
 )
 
 export const BuyerCell = withStyles(
   ({classes: classNames, product}) => (
-    <div>
-      <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
-    </div>
+    <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
   ),
   styles,
 )
 
 export const BarcodeCell = withStyles(
   ({classes: classNames, product, handlers}) => (
-    <React.Fragment>
-      <Chip
-        classes={{
-          root: classNames.barcodeChip,
-          clickable: classNames.barcodeChipHover,
-          deletable: classNames.barcodeChipHover,
-          deleteIcon: classNames.barcodeChipIcon,
-        }}
-        className={cx({[classNames.barcodeChipNoExists]: !product.barCode})}
-        size="small"
-        label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
-        onClick={() => handlers.onClickBarcode(product)}
-        onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
-        onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
-      />
-    </React.Fragment>
+    <Chip
+      classes={{
+        root: classNames.barcodeChip,
+        clickable: classNames.barcodeChipHover,
+        deletable: classNames.barcodeChipHover,
+        deleteIcon: classNames.barcodeChipIcon,
+      }}
+      className={cx({[classNames.barcodeChipNoExists]: !product.barCode})}
+      size="small"
+      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
+      onClick={() => handlers.onClickBarcode(product)}
+      onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
+      onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
+    />
   ),
   styles,
 )
 
 export const HsCodeCell = withStyles(
   ({classes: classNames, product, handlers}) => (
-    <React.Fragment>
-      <Chip
-        classes={{
-          root: classNames.barcodeChip,
-          clickable: classNames.barcodeChipHover,
-          deletable: classNames.barcodeChipHover,
-          deleteIcon: classNames.barcodeChipIcon,
-        }}
-        className={cx({[classNames.barcodeChipNoExists]: !product.hsCode})}
-        size="small"
-        label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
-        onClick={() => handlers.onClickHsCode(product)}
-        onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
-        onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
-      />
-    </React.Fragment>
+    <Chip
+      classes={{
+        root: classNames.barcodeChip,
+        clickable: classNames.barcodeChipHover,
+        deletable: classNames.barcodeChipHover,
+        deleteIcon: classNames.barcodeChipIcon,
+      }}
+      className={cx({[classNames.barcodeChipNoExists]: !product.hsCode})}
+      size="small"
+      label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
+      onClick={() => handlers.onClickHsCode(product)}
+      onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
+      onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
+    />
   ),
   styles,
 )
@@ -336,7 +326,7 @@ export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSub
 
   const [value, setValue] = useState(sourceValue)
   return (
-    <>
+    <div>
       <Input
         disabled={disabled}
         // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
@@ -356,9 +346,13 @@ export const ChangeInputCell = withStyles(({classes: classNames, row, onClickSub
             ) : null}
           </InputAdornment>
         }
-        onChange={e => (isInts ? setValue(e.target.value ? parseInt(e.target.value) : '') : setValue(e.target.value))}
+        onChange={e =>
+          isInts
+            ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            : setValue(e.target.value)
+        }
       />
-    </>
+    </div>
   )
 }, styles)
 
@@ -930,14 +924,14 @@ export const TaskDescriptionCell = withStyles(({classes: classNames, task}) => {
   const renderTaskDescription = type => {
     switch (type) {
       case TaskOperationType.MERGE:
-        return <div>{taskMergeDescription()}</div>
+        return <>{taskMergeDescription()}</>
 
       case TaskOperationType.SPLIT:
-        return <div>{taskDivideDescription()}</div>
+        return <>{taskDivideDescription()}</>
       case TaskOperationType.RECEIVE:
-        return <div>{taskReceiveDescription()}</div>
+        return <>{taskReceiveDescription()}</>
       case TaskOperationType.EDIT:
-        return <div>{taskEditDescription()}</div>
+        return <>{taskEditDescription()}</>
     }
   }
 
@@ -1290,7 +1284,7 @@ export const OrderManyItemsCell = withStyles(({classes: classNames, box, error})
 
   return (
     <Tooltip title={renderProductInfo()}>
-      <div>
+      <>
         <div className={classNames.manyItemsImagesWrapper}>
           {box.items.map((product, productIndex) => (
             <div key={productIndex} className={classNames.manyItemsImgWrapper}>
@@ -1304,7 +1298,7 @@ export const OrderManyItemsCell = withStyles(({classes: classNames, box, error})
           ))}
         </div>
         {error && <span className={classNames.OrderCellError}>{error}</span>}
-      </div>
+      </>
     </Tooltip>
   )
 }, styles)

@@ -173,7 +173,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             // sx={{
             //   border: 0,
             //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.main,
+            //   backgroundColor: theme.palette.background.general,
             // }}
             rows={toJS(stockData)}
             columns={sourceColumns()}
@@ -204,7 +204,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             // sx={{
             //   border: 0,
             //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.main,
+            //   backgroundColor: theme.palette.background.general,
             // }}
             rows={chosenGoods || []}
             columns={chosenGoodsColumns({onClickTrash}, firstRowId)}

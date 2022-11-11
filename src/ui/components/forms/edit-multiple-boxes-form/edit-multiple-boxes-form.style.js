@@ -1,15 +1,30 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  root: {
+    minHeight: 600,
+    display: 'flex',
+    flexDirection: 'column',
+
+    position: 'relative',
+    maxHeight: '85vh',
+  },
+
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
+
+    flexGrow: 1,
   },
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'end',
     gap: '36px',
     marginTop: '40px',
+    justifySelf: 'flex-end',
+
+    position: 'sticky',
+    bottom: 0,
   },
 
   modalTitleWrapper: {
@@ -28,9 +43,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   applyButton: {
     height: 26,
-    // width: 65,
-    // marginLeft: 5,
-    // fontSize: 11,
+    width: 90,
+    transition: '0.3s ease',
+  },
+
+  applyButtonClicked: {
+    backgroundColor: 'green',
+    '&: hover': {
+      backgroundColor: 'green',
+    },
   },
 
   currentBoxFooter: {
@@ -46,11 +67,20 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
     padding: '20px 17px',
   },
+
+  orderWrapper: {
+    width: '100%',
+    flexGrow: 1,
+  },
+
   order: {
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
     marginBottom: '30px',
+    width: '100%',
+
+    flexGrow: 1,
   },
   orderInput: {
     width: '79px',
@@ -90,11 +120,20 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    marginRight: '10px',
+    // marginRight: '10px',
     width: '299px',
     // overflow: 'hidden',
     // textOverflow: 'ellipsis',
     // whiteSpace: 'wrap',
+
+    display: '-webkit-box',
+    '-webkitLineClamp': 2,
+    '-webkitBoxOrient': 'vertical',
+    height: 45,
+    whiteSpace: 'normal',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
 
     color: theme.palette.text.general,
   },
@@ -235,6 +274,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cancelButton: {
     color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.general,
   },
 
   bottomBlockWrapper: {
