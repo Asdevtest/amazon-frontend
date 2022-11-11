@@ -12,7 +12,7 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    width: '90%',
+    width: '100%',
     marginBottom: 20,
   },
 

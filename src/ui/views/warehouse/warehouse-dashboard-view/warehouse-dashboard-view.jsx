@@ -81,7 +81,7 @@ export class WarehouseDashboardViewRaw extends Component {
 
                           <Typography
                             className={classNames.addressMain}
-                          >{`${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
+                          >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
                         </div>
                       ) : null}
 

@@ -26,6 +26,7 @@ const WithSearchSelectRaw = ({
   onClickNotChosen,
   placeholder,
   searchFields,
+  CustomBtn,
 }) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -83,7 +84,7 @@ const WithSearchSelectRaw = ({
             }}
             onClose={handleClose}
           >
-            <div className={classNames.subMainWrapper}>
+            <div className={classNames.subMainWrapper} style={width && {width}}>
               <SearchInput
                 inputClasses={classNames.searchInput}
                 value={nameSearchValue}
@@ -95,7 +96,6 @@ const WithSearchSelectRaw = ({
                   <Button
                     className={classNames.button}
                     variant="text"
-                    color="primary"
                     onClick={() => {
                       onClickNotChosen()
                       handleClose()
@@ -107,26 +107,36 @@ const WithSearchSelectRaw = ({
 
                 {firstItems}
 
-                {dataToRender.map((el, index) => (
-                  <Button
-                    key={index}
-                    className={classNames.button}
-                    variant="text"
-                    color="primary"
-                    onClick={() => {
-                      onClickSelect(el)
-                      handleClose()
-                    }}
-                  >
-                    <div className={classNames.fieldNamesWrapper}>
-                      {searchFields.map((fieldName, index) => (
-                        <Typography key={index} className={classNames.fieldName}>
-                          {el[fieldName]}
-                        </Typography>
-                      ))}
-                    </div>
-                  </Button>
-                ))}
+                {dataToRender.map((el, index) =>
+                  CustomBtn ? (
+                    <CustomBtn
+                      key={index}
+                      item={el}
+                      onClick={() => {
+                        onClickSelect(el)
+                        handleClose()
+                      }}
+                    />
+                  ) : (
+                    <Button
+                      key={index}
+                      className={classNames.button}
+                      variant="text"
+                      onClick={() => {
+                        onClickSelect(el)
+                        handleClose()
+                      }}
+                    >
+                      <div className={classNames.fieldNamesWrapper}>
+                        {searchFields.map((fieldName, index) => (
+                          <Typography key={index} className={classNames.fieldName}>
+                            {el[fieldName]}
+                          </Typography>
+                        ))}
+                      </div>
+                    </Button>
+                  ),
+                )}
               </div>
             </div>
           </Popover>

@@ -199,13 +199,15 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '10px 0',
-    marginBottom: '-20px',
+    // marginBottom: '-20px',
     gap: '45px',
   },
 
   containerField: {
     display: 'flex',
     width: 'min-content',
+
+    margin: '0 !important',
   },
   labelField: {
     fontSize: '14px',

@@ -1590,5 +1590,11 @@
   "Boxes do not have enough fare or destination. The following boxes will not be counted": "У коробок не хватает тарифа или пункта назначения. Следующие коробки не будут учтены",
   "Boxes with identical storekeeper must be selected": "Должны быть выбраны коробки с идентичным складом",
   "Cannot be merged with a Superbox": "Нельзя соединить со Супербоксом",
-  "Comments from the supervisor": "Комментарий супервизора"
+  "Comments from the supervisor": "Комментарий супервизора",
+  "Storekeeper and destination match": "Склад и пункт назначения совпадают",
+  "Search by Email, Nickname...": "Поиск по Email, Nickname...",
+  "Repeat search": "Повторить поиск",
+  "Repeat the search for a supplier": "Повторить поиск поставщика",
+  "days": "дн",
+  "units": "ед"
 }

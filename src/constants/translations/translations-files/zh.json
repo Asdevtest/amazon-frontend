@@ -1590,5 +1590,11 @@
   "Boxes do not have enough fare or destination. The following boxes will not be counted": "Boxes do not have enough fare or destination. The following boxes will not be counted",
   "Boxes with identical storekeeper must be selected": "Boxes with identical storekeeper must be selected",
   "Cannot be merged with a Superbox": "Cannot be merged with a Superbox",
-  "Comments from the supervisor": "Comments from the supervisor"
+  "Comments from the supervisor": "Comments from the supervisor",
+  "Storekeeper and destination match": "Storekeeper and destination match",
+  "Search by Email, Nickname...": "Search by Email, Nickname...",
+  "Repeat search": "Repeat search",
+  "Repeat the search for a supplier": "Repeat the search for a supplier",
+  "days": "days",
+  "units": "units"
 }

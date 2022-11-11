@@ -34,6 +34,8 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
       />
     ),
     width: 550,
+    filterable: false,
+    sortable: false,
   },
 
   {

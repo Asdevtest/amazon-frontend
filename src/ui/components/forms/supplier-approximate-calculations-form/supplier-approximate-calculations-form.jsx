@@ -13,7 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
-import {roundSafely} from '@utils/calculation'
+import {calcTotalFbaForProduct, roundSafely} from '@utils/calculation'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -46,7 +46,7 @@ const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, 
       ) *
         fInalWeightOfUnit
 
-    const roi = ((product.amazon - product.totalFba - costDeliveryToUsa) / costDeliveryToUsa) * 100
+    const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
 
     return {
       originalData: item,
