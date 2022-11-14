@@ -48,7 +48,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
-          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
+          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>

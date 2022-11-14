@@ -56,6 +56,9 @@ class InlineResponse20012 {
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
@@ -82,6 +85,12 @@ InlineResponse20012.prototype['asin'] = undefined;
  * @member {Array.<String>} skusByClient
  */
 InlineResponse20012.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20012.prototype['images'] = undefined;
 
 /**
  * Заголовок на товар с сайта амазон.

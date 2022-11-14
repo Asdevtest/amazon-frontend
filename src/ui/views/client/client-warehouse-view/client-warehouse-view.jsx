@@ -64,7 +64,7 @@ export class ClientWarehouseViewRaw extends Component {
       destinations,
 
       requestStatus,
-      getCurrentData,
+      currentData,
       getCurrentTaskData,
       sortModel,
       filterModel,
@@ -209,7 +209,8 @@ export class ClientWarehouseViewRaw extends Component {
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
+                // rows={getCurrentData()}
+                rows={currentData}
                 getRowHeight={() => 'auto'}
                 // rowHeight={170}
                 components={{

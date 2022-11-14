@@ -22,11 +22,10 @@ class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
      * @alias module:model/InlineObject53
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject53.initialize(this, profileId);
+        InlineObject53.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject53 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject53.prototype['profileId'] = undefined;
+InlineObject53.prototype['requestStatus'] = undefined;
 
 
 

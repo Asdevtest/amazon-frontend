@@ -74,6 +74,10 @@ export class ClientWarehouseViewModel {
   storekeepersData = []
   destinations = []
 
+  currentData = []
+
+  boxesIdsToTask = []
+
   volumeWeightCoefficient = undefined
 
   showMergeBoxModal = false
@@ -160,6 +164,13 @@ export class ClientWarehouseViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.boxesMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -189,7 +200,7 @@ export class ClientWarehouseViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    this.currentData && SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
 
   getDataGridState() {
@@ -277,9 +288,9 @@ export class ClientWarehouseViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
-      console.log('result', result)
-
       this.storekeepersData = result
+
+      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
@@ -465,13 +476,16 @@ export class ClientWarehouseViewModel {
 
   async loadData() {
     try {
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getStorekeepers()
 
-      this.getDataGridState()
+      // this.getDataGridState()
 
       this.getBoxesMy()
+
+      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
       this.getTasksMy()
@@ -663,6 +677,8 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
+      this.boxesIdsToTask = []
+
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = newBoxes[i]
 
@@ -673,7 +689,13 @@ export class ClientWarehouseViewModel {
         await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
       }
 
-      this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
+      this.modalEditSuccessMessage = this.boxesIdsToTask.length
+        ? `${t(TranslationKey['Editing completed'])}, ${t(
+            TranslationKey['Tasks were created for the following boxes'],
+          )}: ${this.boxesIdsToTask.join(', ')}`
+        : t(TranslationKey['Editing completed'])
+
+      this.boxesIdsToTask = []
 
       this.onTriggerOpenModal('showSuccessInfoModal')
 
@@ -785,7 +807,9 @@ export class ClientWarehouseViewModel {
           sourceData.storekeeper?.name
         } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
 
-        !isMultipleEdit && this.onTriggerOpenModal('showSuccessInfoModal')
+        !isMultipleEdit
+          ? this.onTriggerOpenModal('showSuccessInfoModal')
+          : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
       }
 
       !isMultipleEdit && this.loadData()

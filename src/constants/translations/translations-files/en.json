@@ -1458,7 +1458,7 @@
   "Access to products": "Access to products",
   "Access to all products": "Access to all products",
   "Access to selected products only": "Access to selected products only",
-  "Search by product description and ASIN:": "Search by product description and ASIN:",
+  "Search by product description and ASIN, SKU:": "Search by product description and ASIN, SKU:",
   "Search by SKU, ASIN, Title": "Search by SKU, ASIN, Title",
   "Repeat order": "Repeat order",
   "Box data": "Box data",
@@ -1595,5 +1595,6 @@
   "Repeat search": "Repeat search",
   "Repeat the search for a supplier": "Repeat the search for a supplier",
   "days": "days",
-  "units": "units"
+  "units": "units",
+  "Tasks were created for the following boxes": "Tasks were created for the following boxes"
 }

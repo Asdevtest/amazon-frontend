@@ -235,7 +235,7 @@ export const TopCard = observer(
                   {selectedSupplier ? (
                     <>
                       {((user?._id === selectedSupplier?.createdBy?._id ||
-                        user.masterUser === selectedSupplier?.createdBy?._id) &&
+                        user?.masterUser === selectedSupplier?.createdBy?._id) &&
                         checkIsBuyer(curUserRole)) ||
                       selectedSupplier.name !== 'access denied' ? (
                         <>
@@ -332,7 +332,7 @@ export const TopCard = observer(
                       </div>
                     ) : null}
                     {(user?._id === selectedSupplier?.createdBy?._id ||
-                      user.masterUser === selectedSupplier?.createdBy?._id) &&
+                      user?.masterUser === selectedSupplier?.createdBy?._id) &&
                     checkIsBuyer(curUserRole) ? (
                       <div className={classNames.supplierButtonWrapper}>
                         <Button

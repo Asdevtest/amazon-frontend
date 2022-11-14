@@ -712,8 +712,8 @@ export default class BuyerApi {
 
 
     /**
-     * # Получить список вакантных товаров.
-     * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+     * # Получить список товаров, где пользователь - баер товара(не архив).
+     * ## Получить список товаров, где пользователь - баер товара(не архив).
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
@@ -746,8 +746,8 @@ export default class BuyerApi {
     }
 
     /**
-     * # Получить список вакантных товаров.
-     * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+     * # Получить список товаров, где пользователь - баер товара(не архив).
+     * ## Получить список товаров, где пользователь - баер товара(не архив).
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 

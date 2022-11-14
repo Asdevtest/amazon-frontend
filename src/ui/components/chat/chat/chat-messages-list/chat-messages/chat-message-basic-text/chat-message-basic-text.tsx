@@ -46,7 +46,7 @@ export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, 
         ) : undefined}
       </div>
 
-      <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
+      <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
 
       {!isIncomming ? (
         <div className={classNames.readIconsWrapper}>

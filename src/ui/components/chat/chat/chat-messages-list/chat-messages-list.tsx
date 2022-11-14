@@ -149,11 +149,11 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                   className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
                 >
                   {index === 0 ||
-                  formatDateWithoutTime(messages[index - 1].updatedAt) !==
-                    formatDateWithoutTime(messageItem.updatedAt) ? (
+                  formatDateWithoutTime(messages[index - 1].createdAt) !==
+                    formatDateWithoutTime(messageItem.createdAt) ? (
                     <div className={classNames.timeTextWrapper}>
                       <Typography className={classNames.timeText}>
-                        {formatDateWithoutTime(messageItem.updatedAt)}
+                        {formatDateWithoutTime(messageItem.createdAt)}
                       </Typography>
                     </div>
                   ) : null}

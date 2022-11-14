@@ -193,7 +193,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersVacGet**](docs/BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsGuidPatch**](docs/BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
-*TestSwagger.BuyerApi* | [**apiV1BuyersProductsLightGet**](docs/BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список вакантных товаров.
+*TestSwagger.BuyerApi* | [**apiV1BuyersProductsLightGet**](docs/BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список товаров, где пользователь - баер товара(не архив).
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsMyGet**](docs/BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsPagMyGet**](docs/BuyerApi.md#apiV1BuyersProductsPagMyGet) | **GET** /api/v1/buyers/products/pag/my | # Получить список товаров взятых в работу байером с пагинацией.
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | 
@@ -563,27 +563,27 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
- - [TestSwagger.InlineResponse20023Batch](docs/InlineResponse20023Batch.md)
- - [TestSwagger.InlineResponse20023Boxes](docs/InlineResponse20023Boxes.md)
- - [TestSwagger.InlineResponse20023Orders](docs/InlineResponse20023Orders.md)
- - [TestSwagger.InlineResponse20023Products](docs/InlineResponse20023Products.md)
- - [TestSwagger.InlineResponse20023Requests](docs/InlineResponse20023Requests.md)
- - [TestSwagger.InlineResponse20023Shops](docs/InlineResponse20023Shops.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
- - [TestSwagger.InlineResponse20024Finances](docs/InlineResponse20024Finances.md)
+ - [TestSwagger.InlineResponse20024Batch](docs/InlineResponse20024Batch.md)
+ - [TestSwagger.InlineResponse20024Boxes](docs/InlineResponse20024Boxes.md)
  - [TestSwagger.InlineResponse20024Orders](docs/InlineResponse20024Orders.md)
  - [TestSwagger.InlineResponse20024Products](docs/InlineResponse20024Products.md)
+ - [TestSwagger.InlineResponse20024Requests](docs/InlineResponse20024Requests.md)
+ - [TestSwagger.InlineResponse20024Shops](docs/InlineResponse20024Shops.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
- - [TestSwagger.InlineResponse20025Batches](docs/InlineResponse20025Batches.md)
- - [TestSwagger.InlineResponse20025Boxes](docs/InlineResponse20025Boxes.md)
- - [TestSwagger.InlineResponse20025Tasks](docs/InlineResponse20025Tasks.md)
+ - [TestSwagger.InlineResponse20025Finances](docs/InlineResponse20025Finances.md)
+ - [TestSwagger.InlineResponse20025Orders](docs/InlineResponse20025Orders.md)
+ - [TestSwagger.InlineResponse20025Products](docs/InlineResponse20025Products.md)
  - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)
- - [TestSwagger.InlineResponse20026Products](docs/InlineResponse20026Products.md)
+ - [TestSwagger.InlineResponse20026Batches](docs/InlineResponse20026Batches.md)
+ - [TestSwagger.InlineResponse20026Boxes](docs/InlineResponse20026Boxes.md)
+ - [TestSwagger.InlineResponse20026Tasks](docs/InlineResponse20026Tasks.md)
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
+ - [TestSwagger.InlineResponse20027Products](docs/InlineResponse20027Products.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
- - [TestSwagger.InlineResponse20028Checking](docs/InlineResponse20028Checking.md)
- - [TestSwagger.InlineResponse20028Products](docs/InlineResponse20028Products.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
+ - [TestSwagger.InlineResponse20029Checking](docs/InlineResponse20029Checking.md)
+ - [TestSwagger.InlineResponse20029Products](docs/InlineResponse20029Products.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)

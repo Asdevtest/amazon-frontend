@@ -57,6 +57,7 @@ export const AccessToProductForm = React.memo(
       if (searchInputValue) {
         const filter = sourceData?.filter(
           i =>
+            i.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(searchInputValue.toLowerCase())) ||
             i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
             i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
         )
@@ -172,7 +173,7 @@ export const AccessToProductForm = React.memo(
 
               <div className={classNames.searchWrapper}>
                 <Typography className={classNames.standartText}>
-                  {t(TranslationKey['Search by product description and ASIN:'])}
+                  {t(TranslationKey['Search by product description and ASIN, SKU:'])}
                 </Typography>
                 <div>
                   <SearchInput

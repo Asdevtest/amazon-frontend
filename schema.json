@@ -22136,8 +22136,8 @@
     },
     "/api/v1/buyers/products/light": {
       "get": {
-        "summary": "# Получить список вакантных товаров.",
-        "description": "## Получить список вакантных товаров. \n\n## Товары со статусом 30 у которых не заполнен buyer \n\n",
+        "summary": "# Получить список товаров, где пользователь - баер товара(не архив).",
+        "description": "## Получить список товаров, где пользователь - баер товара(не архив).",
         "tags": ["Buyer"],
         "produces": ["application/json"],
         "parameters": [
@@ -22169,6 +22169,13 @@
                   "skusByClient": {
                     "type": "array",
                     "items": {"type": "string", "description": "SKU введенным клиентом.", "example": "B015UKRNGS"}
+                  },
+                  "images": {
+                    "type": "array",
+                    "nullable": true,
+                    "description": "Массив картинок.",
+                    "items": {"type": "string"},
+                    "example": ["go.ru/1.jpg", "go.ru/2.jpg"]
                   },
                   "amazonTitle": {
                     "type": "string",
@@ -34666,6 +34673,183 @@
         }
       }
     },
+    "/api/v1/gologin/profile": {
+      "post": {
+        "summary": "# Создать новый профайл пользователя.",
+        "description": "## Создать новый профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
+                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
+                "navigator": {
+                  "type": "object",
+                  "properties": {
+                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
+                    "userAgent": {
+                      "type": "string",
+                      "description": "Браузер. Включая рандомный.",
+                      "example": "random",
+                      "default": "random"
+                    },
+                    "resolution": {
+                      "type": "string",
+                      "description": "Разрешение экрана",
+                      "example": "1024x768",
+                      "default": "1024x768"
+                    },
+                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
+                  }
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {"profileId": {"type": "string", "description": "id созданного профайла"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/{profileId}": {
+      "patch": {
+        "summary": "# Изменить профайл пользователя.",
+        "description": "## Изменить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
+                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
+                "navigator": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
+                    "userAgent": {
+                      "type": "string",
+                      "description": "Браузер. Включая рандомный.",
+                      "example": "random",
+                      "default": "random"
+                    },
+                    "resolution": {
+                      "type": "string",
+                      "description": "Разрешение экрана",
+                      "example": "1024x768",
+                      "default": "1024x768"
+                    },
+                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "description": "id профайла который нужно изменить.",
+            "required": true,
+            "in": "path",
+            "name": "profileId"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/start": {
+      "post": {
+        "summary": "# Запустить пользователя.",
+        "description": "## Запустить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["profileId"],
+              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {"type": "string", "description": "Тестовый статус запуска", "example": "Ok"},
+                "wsUrl": {"type": "string", "description": "Строка подключения к WS соединению"}
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/stop": {
+      "post": {
+        "summary": "# Остановить профайл пользователя.",
+        "description": "## Остановить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["profileId"],
+              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {"description": "Default Response", "schema": {"type": "object"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/dashboard/client/counts": {
       "get": {
         "summary": "# Получить количество основных элементов в бд.",
@@ -35729,183 +35913,6 @@
         ],
         "security": [{"AccessTokenBearer": []}],
         "responses": {"200": {"description": "Default Response"}}
-      }
-    },
-    "/api/v1/gologin/profile": {
-      "post": {
-        "summary": "# Создать новый профайл пользователя.",
-        "description": "## Создать новый профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": ["name"],
-              "additionalProperties": false,
-              "properties": {
-                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
-                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
-                "navigator": {
-                  "type": "object",
-                  "properties": {
-                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
-                    "userAgent": {
-                      "type": "string",
-                      "description": "Браузер. Включая рандомный.",
-                      "example": "random",
-                      "default": "random"
-                    },
-                    "resolution": {
-                      "type": "string",
-                      "description": "Разрешение экрана",
-                      "example": "1024x768",
-                      "default": "1024x768"
-                    },
-                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
-                  }
-                }
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {"profileId": {"type": "string", "description": "id созданного профайла"}}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/{profileId}": {
-      "patch": {
-        "summary": "# Изменить профайл пользователя.",
-        "description": "## Изменить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
-                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
-                "navigator": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
-                    "userAgent": {
-                      "type": "string",
-                      "description": "Браузер. Включая рандомный.",
-                      "example": "random",
-                      "default": "random"
-                    },
-                    "resolution": {
-                      "type": "string",
-                      "description": "Разрешение экрана",
-                      "example": "1024x768",
-                      "default": "1024x768"
-                    },
-                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
-                  }
-                }
-              }
-            }
-          },
-          {
-            "type": "string",
-            "description": "id профайла который нужно изменить.",
-            "required": true,
-            "in": "path",
-            "name": "profileId"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/start": {
-      "post": {
-        "summary": "# Запустить пользователя.",
-        "description": "## Запустить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["profileId"],
-              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {"type": "string", "description": "Тестовый статус запуска", "example": "Ok"},
-                "wsUrl": {"type": "string", "description": "Строка подключения к WS соединению"}
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/stop": {
-      "post": {
-        "summary": "# Остановить профайл пользователя.",
-        "description": "## Остановить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["profileId"],
-              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {"description": "Default Response", "schema": {"type": "object"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
       }
     },
     "/api/v1/integrations/sellerboard_warehouse_stocks": {
@@ -58859,6 +58866,13 @@
                   "skusByClient": {
                     "type": "array",
                     "items": {"type": "string", "description": "SKU введенным клиентом.", "example": "B015UKRNGS"}
+                  },
+                  "images": {
+                    "type": "array",
+                    "nullable": true,
+                    "description": "Массив картинок.",
+                    "items": {"type": "string"},
+                    "example": ["go.ru/1.jpg", "go.ru/2.jpg"]
                   },
                   "amazonTitle": {
                     "type": "string",

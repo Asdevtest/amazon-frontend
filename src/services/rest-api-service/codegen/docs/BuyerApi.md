@@ -16,7 +16,7 @@ Method | HTTP request | Description
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
 [**apiV1BuyersProductsGuidPatch**](BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
-[**apiV1BuyersProductsLightGet**](BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список вакантных товаров.
+[**apiV1BuyersProductsLightGet**](BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список товаров, где пользователь - баер товара(не архив).
 [**apiV1BuyersProductsMyGet**](BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
 [**apiV1BuyersProductsPagMyGet**](BuyerApi.md#apiV1BuyersProductsPagMyGet) | **GET** /api/v1/buyers/products/pag/my | # Получить список товаров взятых в работу байером с пагинацией.
 [**apiV1BuyersProductsPickupGuidPost**](BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | 
@@ -695,9 +695,9 @@ Name | Type | Description  | Notes
 
 > [InlineResponse20012] apiV1BuyersProductsLightGet(opts)
 
-# Получить список вакантных товаров.
+# Получить список товаров, где пользователь - баер товара(не архив).
 
-## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+## Получить список товаров, где пользователь - баер товара(не архив).
 
 ### Example
 
