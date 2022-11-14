@@ -277,6 +277,8 @@ export class ClientWarehouseViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
+      console.log('result', result)
+
       this.storekeepersData = result
     } catch (error) {
       console.log(error)
@@ -459,9 +461,10 @@ export class ClientWarehouseViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getDataGridState()
 
       await this.getStorekeepers()
+
+      this.getDataGridState()
 
       this.getBoxesMy()
 

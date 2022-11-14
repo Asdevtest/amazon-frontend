@@ -3,7 +3,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
@@ -350,12 +350,31 @@ export class SupervisorProductViewModel {
         this.imagesForLoad = []
       }
 
-      await SupervisorModel.updateProduct(this.product._id, {
+      const statusesToClearBuyer = [
+        ProductStatus.BUYER_FOUND_SUPPLIER,
+        ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+        ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+
+        ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+        ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ]
+
+      const checkToBuyerNeedClear =
+        ProductStatusByCode[this.curUpdateProductData?.status] === ProductStatus.TO_BUYER_FOR_RESEARCH ||
+        (ProductStatusByCode[this.curUpdateProductData?.status] === ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH &&
+          statusesToClearBuyer.includes(ProductStatusByCode[this.productBase.status]))
+
+      const dataToUpdate = {
         ...this.curUpdateProductData,
         images: this.uploadedImages.length
           ? [...this.curUpdateProductData.images, ...this.uploadedImages]
           : this.curUpdateProductData.images,
-      })
+
+        buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
+      }
+
+      await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
       this.setActionStatus(loadingStatuses.success)
 
       this.history.push('/supervisor/products')

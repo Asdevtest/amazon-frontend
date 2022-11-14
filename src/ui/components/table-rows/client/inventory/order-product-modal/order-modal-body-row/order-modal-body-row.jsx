@@ -107,15 +107,15 @@ export const OrderModalBodyRow = ({
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
   const boxPropertiesIsFull =
-    item.currentSupplier.boxProperties?.amountInBox &&
-    item.currentSupplier.boxProperties?.boxLengthCm &&
-    item.currentSupplier.boxProperties?.boxWidthCm &&
-    item.currentSupplier.boxProperties?.boxHeightCm &&
-    item.currentSupplier.boxProperties?.boxWeighGrossKg &&
-    item.currentSupplier.amount &&
-    item.currentSupplier.minlot &&
-    item.currentSupplier.priceInYuan &&
-    item.currentSupplier.price
+    item.currentSupplier?.boxProperties?.amountInBox &&
+    item.currentSupplier?.boxProperties?.boxLengthCm &&
+    item.currentSupplier?.boxProperties?.boxWidthCm &&
+    item.currentSupplier?.boxProperties?.boxHeightCm &&
+    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
+    item.currentSupplier?.amount &&
+    item.currentSupplier?.minlot &&
+    item.currentSupplier?.priceInYuan &&
+    item.currentSupplier?.price
 
   return (
     <React.Fragment>
@@ -288,7 +288,7 @@ export const OrderModalBodyRow = ({
               labelClasses={classNames.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
               inputComponent={
-                <Typography className={classNames.sumText}>{item.currentSupplier.productionTerm}</Typography>
+                <Typography className={classNames.sumText}>{item.currentSupplier?.productionTerm}</Typography>
               }
             />
 
@@ -297,7 +297,7 @@ export const OrderModalBodyRow = ({
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier.minlot}</Typography>}
+              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier?.minlot}</Typography>}
             />
 
             <Field
