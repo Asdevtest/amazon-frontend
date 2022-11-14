@@ -4,8 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**yuanToDollarRate** | **Number** | Курс юаня к доллару. | [optional] 
-**volumeWeightCoefficient** | **Number** | Коэффициент расчета объемного веса. | [optional] 
-**requestMinAmountPriceOfProposal** | **Number** | Минимальная стоимость предложения (может быть .01 для практического отсутствия) | [optional] 
+**price** | **Number** | Цена за каждое предложение. | [optional] 
+**requestPlatformMarginInPercent** | **Number** | Процент с каждого предложения, маржа платформы, в процентах. | [optional] 
+**platformMargin** | **Number** | Услуги платформы. | [optional] 
+**requestSupervisorFeeInPercent** | **Number** | Процент с каждого предложения для супервайзера, в процентах. | [optional] 
+**supervisorFee** | **Number** | Услуги супервайзера. | [optional] 
+**unitCost** | **Number** | Сумма. | [optional] 
+**maxAmountOfProposals** | **Number** | Количество предложений, не менее. | [optional] 
+**totalCost** | **Number** | Итого. | [optional] 
 
 

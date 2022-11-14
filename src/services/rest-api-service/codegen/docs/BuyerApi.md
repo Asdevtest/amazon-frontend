@@ -12,10 +12,13 @@ Method | HTTP request | Description
 [**apiV1BuyersOrdersGuidSetTotalPriceChangedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidSetTotalPriceChangedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/set_totalPriceChanged | # Задать изменение итоговой цены, totalPriceChanged.
 [**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # Выставить статус \&quot;выдан трек номер\&quot;.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
+[**apiV1BuyersOrdersPagMyGet**](BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersVacGet**](BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
 [**apiV1BuyersProductsGuidPatch**](BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
+[**apiV1BuyersProductsLightGet**](BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список вакантных товаров.
 [**apiV1BuyersProductsMyGet**](BuyerApi.md#apiV1BuyersProductsMyGet) | **GET** /api/v1/buyers/products/my | # Получить список товаров взятых в работу байером.
+[**apiV1BuyersProductsPagMyGet**](BuyerApi.md#apiV1BuyersProductsPagMyGet) | **GET** /api/v1/buyers/products/pag/my | # Получить список товаров взятых в работу байером с пагинацией.
 [**apiV1BuyersProductsPickupGuidPost**](BuyerApi.md#apiV1BuyersProductsPickupGuidPost) | **POST** /api/v1/buyers/products/pickup/{guid} | 
 [**apiV1BuyersProductsVacGet**](BuyerApi.md#apiV1BuyersProductsVacGet) | **GET** /api/v1/buyers/products/vac | # Получить список вакантных товаров.
 [**apiV1BuyersTasksCancelGuidPost**](BuyerApi.md#apiV1BuyersTasksCancelGuidPost) | **POST** /api/v1/buyers/tasks/cancel/{guid} | # Отменить задачу.
@@ -412,7 +415,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [InlineResponse2001] apiV1BuyersOrdersMyGet(opts)
+> [InlineResponse20014] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -450,7 +453,71 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2001]**](InlineResponse2001.md)
+[**[InlineResponse20014]**](InlineResponse20014.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersPagMyGet
+
+> InlineResponse20015 apiV1BuyersOrdersPagMyGet(opts)
+
+# Получить список заказов текущего байера с пагинацией.
+
+## Получить список заказов текущего байера с пагинацией.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let opts = {
+  'filtersProduct': "filtersProduct_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'filtersOrder': "filtersOrder_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersOrdersPagMyGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filtersProduct** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **filtersOrder** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20015**](InlineResponse20015.md)
 
 ### Authorization
 
@@ -624,9 +691,63 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1BuyersProductsLightGet
+
+> [InlineResponse20012] apiV1BuyersProductsLightGet(opts)
+
+# Получить список вакантных товаров.
+
+## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let opts = {
+  'isCreatedByClient': true, // Boolean | Если true отдает товары созданные клиентом.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersProductsLightGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **isCreatedByClient** | **Boolean**| Если true отдает товары созданные клиентом. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20012]**](InlineResponse20012.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1BuyersProductsMyGet
 
-> [InlineResponse200] apiV1BuyersProductsMyGet(opts)
+> [InlineResponse20011] apiV1BuyersProductsMyGet(opts)
 
 # Получить список товаров взятых в работу байером.
 
@@ -664,7 +785,69 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BuyersProductsPagMyGet
+
+> InlineResponse20013 apiV1BuyersProductsPagMyGet(opts)
+
+# Получить список товаров взятых в работу байером с пагинацией.
+
+## Получить список товаров взятых в работу байером с пагинацией.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let opts = {
+  'filters': "filters_example", // String |                Примеры: /products/pag/my?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products/pag/my?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersProductsPagMyGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filters** | **String**|                Примеры: /products/pag/my?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /products/pag/my?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20013**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -732,7 +915,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [InlineResponse200] apiV1BuyersProductsVacGet(opts)
+> [InlineResponse20011] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -772,7 +955,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -840,7 +1023,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse20010] apiV1BuyersTasksGet(opts)
+> [InlineResponse20016] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -878,7 +1061,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20016]**](InlineResponse20016.md)
 
 ### Authorization
 

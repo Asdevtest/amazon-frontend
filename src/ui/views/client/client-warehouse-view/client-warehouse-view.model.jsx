@@ -406,7 +406,8 @@ export class ClientWarehouseViewModel {
       confirmMessage:
         !boxData.clientComment &&
         boxData.items.every(item => !item.tmpBarCode.length) &&
-        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
           ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
@@ -456,6 +457,10 @@ export class ClientWarehouseViewModel {
     runInAction(() => {
       this.selectedBox = undefined
     })
+  }
+
+  onClickRemoveBoxFromBatch(boxId) {
+    this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
   }
 
   async loadData() {
@@ -695,7 +700,9 @@ export class ClientWarehouseViewModel {
       if (
         !boxData.clientComment &&
         boxData.items.every(item => !item.tmpBarCode?.length) &&
-        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        // (sourceData.shippingLabel === null ||
+        //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,

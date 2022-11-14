@@ -20,6 +20,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
@@ -29,14 +30,47 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-multiple-boxes-form.style'
 
-const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox}) => {
+const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBoxes, setNewBoxes}) => {
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+  const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
+  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+
+  const onClickBarcode = item => {
+    setCurProductToEditBarcode(item)
+
+    setShowSetBarcodeModal(!showSetBarcodeModal)
+  }
 
   const isMasterBox = box.amount && box.amount > 1
 
   const [showFullCard, setShowFullCard] = useState(true)
+
+  const onClickSaveBarcode = product => value => {
+    // onChangeField({target: {value}}, 'tmpBarCode', box._id)
+
+    // const newFormFields = {...boxFields}
+
+    // newFormFields.items = [
+    //   ...boxFields.items.map(el => (el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el)),
+    // ]
+
+    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
+
+    const newFormFields = {...targetBox}
+
+    newFormFields.items = [
+      ...targetBox.items.map(el => (el.product._id === product.product._id ? {...el, tmpBarCode: value} : el)),
+    ]
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? newFormFields : newBox))
+
+    setNewBoxes(updatedNewBoxes)
+
+    setShowSetBarcodeModal(!showSetBarcodeModal)
+  }
 
   const setShippingLabel = () => value => {
     onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
@@ -104,6 +138,35 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox}) => {
                   </div>
 
                   <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
+
+                  <Field
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey.BarCode)}
+                    inputComponent={
+                      <div>
+                        <Chip
+                          classes={{
+                            root: classNames.barcodeChip,
+                            clickable: classNames.barcodeChipHover,
+                            deletable: classNames.barcodeChipHover,
+                            deleteIcon: classNames.barcodeChipIcon,
+                            label: classNames.barcodeChiplabel,
+                          }}
+                          className={cx({[classNames.barcodeChipExists]: order.barCode})}
+                          size="small"
+                          label={
+                            order.tmpBarCode?.length
+                              ? t(TranslationKey['File added'])
+                              : order.barCode
+                              ? order.barCode
+                              : t(TranslationKey['Set Barcode'])
+                          }
+                          onClick={() => onClickBarcode(order)}
+                          // onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
+                        />
+                      </div>
+                    }
+                  />
                 </div>
 
                 <div>
@@ -256,6 +319,15 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox}) => {
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
+
+      <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+        <SetBarcodeModal
+          tmpCode={curProductToEditBarcode?.tmpBarCode}
+          item={curProductToEditBarcode}
+          onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
+          onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+        />
+      </Modal>
     </div>
   )
 }
@@ -268,6 +340,7 @@ const NewBoxes = ({
   visibleBoxes,
   setVisibleBoxes,
   onRemoveBox,
+  setNewBoxes,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -309,10 +382,12 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
           <Box
             isNewBox
+            newBoxes={newBoxes}
             destinations={destinations}
             storekeepers={storekeepers}
             index={boxIndex}
             box={box}
+            setNewBoxes={setNewBoxes}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
           />
@@ -341,6 +416,7 @@ export const EditMultipleBoxesForm = observer(
 
       storekeeperId: selectedBoxes[0]?.storekeeper?._id,
       tmpShippingLabel: [],
+      tmpBarCode: [],
     })
 
     const onChangeSharedFields = (event, field) => {
@@ -351,6 +427,17 @@ export const EditMultipleBoxesForm = observer(
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
+    const onClickBarcode = item => {
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onClickSaveBarcode = product => value => {
+      onChangeSharedFields({target: {value}}, 'tmpBarCode')
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
 
     const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
       onChangeSharedFields({target: {value: storekeeperId}}, 'storekeeperId')
@@ -390,6 +477,7 @@ export const EditMultipleBoxesForm = observer(
       logicsTariffId: false,
       fbaShipment: false,
       tmpShippingLabel: false,
+      tmpBarCode: false,
     })
 
     const onRemoveBox = boxId => {
@@ -421,14 +509,35 @@ export const EditMultipleBoxesForm = observer(
 
       const visibleBoxesIds = visibleBoxes.map(el => el._id)
 
-      const updatedNewBoxes = newBoxes.map(newBox =>
-        visibleBoxesIds.includes(newBox._id)
-          ? {
-              ...newBox,
-              [field]: sharedFields[field],
-            }
-          : newBox,
-      )
+      let updatedNewBoxes
+
+      if (field === 'tmpBarCode') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                items: newBox?.items
+                  ? [
+                      ...newBox.items.map(el => ({
+                        ...el,
+                        changeBarCodInInventory: false,
+                        tmpBarCode: sharedFields.tmpBarCode,
+                      })),
+                    ]
+                  : [],
+              }
+            : newBox,
+        )
+      } else {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                [field]: sharedFields[field],
+              }
+            : newBox,
+        )
+      }
 
       setApplyBtnsClicked({...applyBtnsClicked, [field]: true})
 
@@ -628,6 +737,46 @@ export const EditMultipleBoxesForm = observer(
                   {applyBtnsClicked.tmpShippingLabel ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
+
+              <div>
+                <Field
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey.BarCode)}
+                  inputComponent={
+                    <div>
+                      <Chip
+                        classes={{
+                          root: classNames.barcodeChip,
+                          clickable: classNames.barcodeChipHover,
+                          deletable: classNames.barcodeChipHover,
+                          deleteIcon: classNames.barcodeChipIcon,
+                          label: classNames.barcodeChiplabel,
+                        }}
+                        className={cx({[classNames.barcodeChipExists]: sharedFields.barCode})}
+                        size="small"
+                        label={
+                          sharedFields.tmpBarCode?.length
+                            ? t(TranslationKey['File added'])
+                            : sharedFields.barCode
+                            ? sharedFields.barCode
+                            : t(TranslationKey['Set Barcode'])
+                        }
+                        onClick={() => onClickBarcode(sharedFields)}
+                        // onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
+                      />
+                    </div>
+                  }
+                />
+                <Button
+                  disabled={disabledApplyBtn}
+                  className={cx(classNames.applyButton, {
+                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpBarCode,
+                  })}
+                  onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}
+                >
+                  {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -637,6 +786,7 @@ export const EditMultipleBoxesForm = observer(
             destinations={destinations}
             storekeepers={storekeepers}
             setVisibleBoxes={setVisibleBoxes}
+            setNewBoxes={setNewBoxes}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
           />
@@ -681,6 +831,15 @@ export const EditMultipleBoxesForm = observer(
             curStorekeeperId={sharedFields.storekeeperId}
             curTariffId={sharedFields.logicsTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
+          />
+        </Modal>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            tmpCode={sharedFields?.tmpBarCode}
+            item={sharedFields}
+            onClickSaveBarcode={data => onClickSaveBarcode(sharedFields)(data)}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
       </div>

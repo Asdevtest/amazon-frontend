@@ -287,10 +287,14 @@ export class SubUsersViewModel {
             return ClientModel.getProductPermissionsData()
 
           case UserRole.BUYER:
-            return BuyerModel.getProductsMy()
+            // return BuyerModel.getProductsMy()
+
+            return BuyerModel.getProductsMyLight()
 
           case UserRole.SUPERVISOR:
-            return SupervisorModel.getProductsMy()
+            // return SupervisorModel.getProductsMy()
+
+            return SupervisorModel.getProductsMyLight()
 
           case UserRole.RESEARCHER:
             return ResearcherModel.getProductsVacant()

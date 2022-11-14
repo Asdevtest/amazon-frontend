@@ -173,7 +173,7 @@ export const ProductCell = withStyles(
   ({classes: classNames, product}) => (
     <div className={classNames.productCell}>
       <div className={classNames.asinCellContainer}>
-        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images?.[0])} />
 
         <div className={classNames.productWrapper}>
           <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **boxes** | **[String]** |  | 
 **operationType** | **String** | Тип операции | 
 **clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
+**buyerComment** | **String** | Комментарий баера. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 

@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
+[**apiV1BoxesPagClientsLightGet**](BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesPost**](BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
 [**apiV1BoxesSplitPost**](BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 [**apiV1BoxesStorekeepersGuidPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
@@ -897,6 +898,74 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BoxesPagClientsLightGet
+
+> InlineResponse20010 apiV1BoxesPagClientsLightGet(status, opts)
+
+# Получить коробки и их строки по текущему клиенту.
+
+## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let status = "status_example"; // String | 
+let opts = {
+  'filtersProduct': "filtersProduct_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'filtersBox': "filtersBox_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'storekeeperId': null, // String | GUID склада который нужно получить.
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesPagClientsLightGet(status, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**|  | 
+ **filtersProduct** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **filtersBox** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20010**](InlineResponse20010.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

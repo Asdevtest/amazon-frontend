@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject30 from '../model/InlineObject30';
-import InlineResponse20011 from '../model/InlineResponse20011';
+import InlineResponse20017 from '../model/InlineResponse20017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -93,7 +93,7 @@ export default class ChatsApi {
      * Получить все почты юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
      */
     apiV1ChatsEmailsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -112,7 +112,7 @@ export default class ChatsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20011];
+      let returnType = [InlineResponse20017];
       return this.apiClient.callApi(
         '/api/v1/chats/emails', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -125,7 +125,7 @@ export default class ChatsApi {
      * Получить все почты юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
      */
     apiV1ChatsEmailsGet(opts) {
       return this.apiV1ChatsEmailsGetWithHttpInfo(opts)

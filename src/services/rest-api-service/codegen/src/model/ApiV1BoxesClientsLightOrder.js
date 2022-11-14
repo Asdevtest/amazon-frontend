@@ -57,6 +57,9 @@ class ApiV1BoxesClientsLightOrder {
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
             if (data.hasOwnProperty('orderSupplier')) {
                 obj['orderSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['orderSupplier']);
             }
@@ -83,6 +86,12 @@ ApiV1BoxesClientsLightOrder.prototype['id'] = undefined;
  * @member {String} item
  */
 ApiV1BoxesClientsLightOrder.prototype['item'] = undefined;
+
+/**
+ * Комментарии к товару, от клиента.
+ * @member {String} clientComment
+ */
+ApiV1BoxesClientsLightOrder.prototype['clientComment'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} orderSupplier

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | [**[InlineResponse20027Failed]**](InlineResponse20027Failed.md) |  | [optional] 
+**finances** | [**InlineResponse20024Finances**](InlineResponse20024Finances.md) |  | [optional] 
 
 

@@ -68,6 +68,9 @@ class InlineObject35 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -109,6 +112,12 @@ InlineObject35.prototype['operationType'] = undefined;
  * @default ''
  */
 InlineObject35.prototype['clientComment'] = '';
+
+/**
+ * Комментарий баера.
+ * @member {String} buyerComment
+ */
+InlineObject35.prototype['buyerComment'] = undefined;
 
 /**
  * Массив картинок.

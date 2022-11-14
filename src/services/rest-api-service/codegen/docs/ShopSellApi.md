@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopSellGet
 
-> [InlineResponse20035] apiV1ShopSellGet(opts)
+> [InlineResponse20042] apiV1ShopSellGet(opts)
 
 # Получить все магазины на продажу
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20035]**](InlineResponse20035.md)
+[**[InlineResponse20042]**](InlineResponse20042.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellGuidGet
 
-> InlineResponse20036 apiV1ShopSellGuidGet(guid, opts)
+> InlineResponse20043 apiV1ShopSellGuidGet(guid, opts)
 
 # Получить магазин на продажу по GUID
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20036**](InlineResponse20036.md)
+[**InlineResponse20043**](InlineResponse20043.md)
 
 ### Authorization
 

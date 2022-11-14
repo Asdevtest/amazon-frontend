@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20021Products**](InlineResponse20021Products.md) |  | [optional] 
-**checking** | [**InlineResponse20021Checking**](InlineResponse20021Checking.md) |  | [optional] 
-**finances** | [**InlineResponse20017Finances**](InlineResponse20017Finances.md) |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse2001]**](InlineResponse2001.md) | Массив заказов c пагинацией(заданная страничка). | [optional] 
 
 

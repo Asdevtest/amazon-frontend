@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productId** | **String** |  | [optional] 
+**products** | [**InlineResponse20028Products**](InlineResponse20028Products.md) |  | [optional] 
+**checking** | [**InlineResponse20028Checking**](InlineResponse20028Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20024Finances**](InlineResponse20024Finances.md) |  | [optional] 
 
 

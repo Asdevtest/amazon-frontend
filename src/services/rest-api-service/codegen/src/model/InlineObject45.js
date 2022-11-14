@@ -22,11 +22,10 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject45.initialize(this, profileId);
+        InlineObject45.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject45 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject45.prototype['profileId'] = undefined;
+InlineObject45.prototype['suppliersIds'] = undefined;
 
 
 

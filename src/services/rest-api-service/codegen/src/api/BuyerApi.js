@@ -20,9 +20,13 @@ import InlineObject26 from '../model/InlineObject26';
 import InlineObject27 from '../model/InlineObject27';
 import InlineObject28 from '../model/InlineObject28';
 import InlineObject29 from '../model/InlineObject29';
-import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse20010 from '../model/InlineResponse20010';
+import InlineResponse20011 from '../model/InlineResponse20011';
+import InlineResponse20012 from '../model/InlineResponse20012';
+import InlineResponse20013 from '../model/InlineResponse20013';
+import InlineResponse20014 from '../model/InlineResponse20014';
+import InlineResponse20015 from '../model/InlineResponse20015';
+import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -443,7 +447,7 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2001>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20014>} and HTTP response
      */
     apiV1BuyersOrdersMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -462,7 +466,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2001];
+      let returnType = [InlineResponse20014];
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -475,10 +479,75 @@ export default class BuyerApi {
      * ## Получить список заказов текущего байера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2001>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20014>}
      */
     apiV1BuyersOrdersMyGet(opts) {
       return this.apiV1BuyersOrdersMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить список заказов текущего байера с пагинацией.
+     * ## Получить список заказов текущего байера с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filtersProduct                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.filtersOrder                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20015} and HTTP response
+     */
+    apiV1BuyersOrdersPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'filtersProduct': opts['filtersProduct'],
+        'filtersOrder': opts['filtersOrder'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20015;
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список заказов текущего байера с пагинацией.
+     * ## Получить список заказов текущего байера с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filtersProduct                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.filtersOrder                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20015}
+     */
+    apiV1BuyersOrdersPagMyGet(opts) {
+      return this.apiV1BuyersOrdersPagMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -643,11 +712,61 @@ export default class BuyerApi {
 
 
     /**
+     * # Получить список вакантных товаров.
+     * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20012>} and HTTP response
+     */
+    apiV1BuyersProductsLightGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'isCreatedByClient': opts['isCreatedByClient']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20012];
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/light', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список вакантных товаров.
+     * ## Получить список вакантных товаров.   ## Товары со статусом 30 у которых не заполнен buyer   
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20012>}
+     */
+    apiV1BuyersProductsLightGet(opts) {
+      return this.apiV1BuyersProductsLightGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получить список товаров взятых в работу байером.
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1BuyersProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -666,7 +785,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse200];
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -679,10 +798,72 @@ export default class BuyerApi {
      * ## Получить список товаров взятых в работу байером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1BuyersProductsMyGet(opts) {
       return this.apiV1BuyersProductsMyGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить список товаров взятых в работу байером с пагинацией.
+     * ## Получить список товаров взятых в работу байером с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Примеры: /products/pag/my?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products/pag/my?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
+     */
+    apiV1BuyersProductsPagMyGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20013;
+      return this.apiClient.callApi(
+        '/api/v1/buyers/products/pag/my', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить список товаров взятых в работу байером с пагинацией.
+     * ## Получить список товаров взятых в работу байером с пагинацией.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Примеры: /products/pag/my?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products/pag/my?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
+     */
+    apiV1BuyersProductsPagMyGet(opts) {
+      return this.apiV1BuyersProductsPagMyGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -747,7 +928,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1BuyersProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -767,7 +948,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse200];
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/buyers/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -781,7 +962,7 @@ export default class BuyerApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1BuyersProductsVacGet(opts) {
       return this.apiV1BuyersProductsVacGetWithHttpInfo(opts)
@@ -850,7 +1031,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20016>} and HTTP response
      */
     apiV1BuyersTasksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -869,7 +1050,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse20016];
       return this.apiClient.callApi(
         '/api/v1/buyers/tasks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -882,7 +1063,7 @@ export default class BuyerApi {
      * ## Показать все задачи данного пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20016>}
      */
     apiV1BuyersTasksGet(opts) {
       return this.apiV1BuyersTasksGetWithHttpInfo(opts)

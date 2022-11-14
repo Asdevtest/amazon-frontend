@@ -11,6 +11,11 @@ class SupervisorModelStatic {
     return response
   }
 
+  getProductsMyLight = async () => {
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsLightGet()
+    return response
+  }
+
   updateProduct = async (id, data) => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, {body: data})
     return response

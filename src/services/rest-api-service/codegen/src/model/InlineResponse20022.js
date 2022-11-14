@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20022 {
     /**
      * Constructs a new <code>InlineResponse20022</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20022
      */
     constructor() { 
@@ -47,8 +48,8 @@ class InlineResponse20022 {
         if (data) {
             obj = obj || new InlineResponse20022();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -58,10 +59,9 @@ class InlineResponse20022 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {Number} priceForClient
  */
-InlineResponse20022.prototype['profileId'] = undefined;
+InlineResponse20022.prototype['priceForClient'] = undefined;
 
 
 

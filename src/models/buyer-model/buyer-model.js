@@ -11,6 +11,11 @@ class BuyerModelStatic {
     return response
   }
 
+  getProductsMyLight = async () => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsLightGet()
+    return response
+  }
+
   updateProduct = async (id, data) => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsGuidPatch(id, {
       body: data,

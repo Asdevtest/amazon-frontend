@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**proposal** | [**ApiV1RequestProposalsCustomByRequestIdGuidProposal**](ApiV1RequestProposalsCustomByRequestIdGuidProposal.md) |  | [optional] 
-**details** | [**ApiV1RequestProposalsCustomByRequestIdGuidDetails**](ApiV1RequestProposalsCustomByRequestIdGuidDetails.md) |  | [optional] 
-**request** | [**ApiV1RequestProposalsCustomByRequestIdGuidRequest**](ApiV1RequestProposalsCustomByRequestIdGuidRequest.md) |  | [optional] 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
+**reason** | **String** | Причина из таблицы с асинами | [optional] 
 
 

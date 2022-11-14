@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20025Batches from './InlineResponse20025Batches';
+import InlineResponse20025Boxes from './InlineResponse20025Boxes';
+import InlineResponse20025Tasks from './InlineResponse20025Tasks';
 
 /**
  * The InlineResponse20025 model module.
@@ -47,8 +50,14 @@ class InlineResponse20025 {
         if (data) {
             obj = obj || new InlineResponse20025();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20025Tasks.constructFromObject(data['tasks']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20025Boxes.constructFromObject(data['boxes']);
+            }
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20025Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -58,9 +67,19 @@ class InlineResponse20025 {
 }
 
 /**
- * @member {Array.<String>} failed
+ * @member {module:model/InlineResponse20025Tasks} tasks
  */
-InlineResponse20025.prototype['failed'] = undefined;
+InlineResponse20025.prototype['tasks'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20025Boxes} boxes
+ */
+InlineResponse20025.prototype['boxes'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20025Batches} batches
+ */
+InlineResponse20025.prototype['batches'] = undefined;
 
 
 

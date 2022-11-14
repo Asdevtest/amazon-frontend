@@ -17,7 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject81 from '../model/InlineObject81';
 import InlineObject82 from '../model/InlineObject82';
-import InlineResponse20037 from '../model/InlineResponse20037';
+import InlineResponse20044 from '../model/InlineResponse20044';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -47,7 +47,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20037>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20044>} and HTTP response
      */
     apiV1ShopsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +66,7 @@ export default class ShopApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20037];
+      let returnType = [InlineResponse20044];
       return this.apiClient.callApi(
         '/api/v1/shops/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +79,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20037>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20044>}
      */
     apiV1ShopsGet(opts) {
       return this.apiV1ShopsGetWithHttpInfo(opts)

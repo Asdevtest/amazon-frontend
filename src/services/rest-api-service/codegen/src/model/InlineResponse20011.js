@@ -47,11 +47,50 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+            }
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -61,16 +100,93 @@ class InlineResponse20011 {
 }
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20011.prototype['name'] = undefined;
+InlineResponse20011.prototype['_id'] = undefined;
 
 /**
- * Почта юзера
- * @member {String} email
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20011.prototype['email'] = undefined;
+InlineResponse20011.prototype['asin'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20011.prototype['skusByClient'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineResponse20011.prototype['strategyStatus'] = undefined;
+
+/**
+ * 
+ * @member {Number} bsr
+ */
+InlineResponse20011.prototype['bsr'] = undefined;
+
+/**
+ * 
+ * @member {Number} amazon
+ */
+InlineResponse20011.prototype['amazon'] = undefined;
+
+/**
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineResponse20011.prototype['reffee'] = undefined;
+
+/**
+ * ФБА комиссия
+ * @member {Number} fbafee
+ */
+InlineResponse20011.prototype['fbafee'] = undefined;
+
+/**
+ *  Общая сумма с фба.
+ * @member {Number} fbaamount
+ */
+InlineResponse20011.prototype['fbaamount'] = undefined;
+
+/**
+ * Код текущего статуса
+ * @member {Number} status
+ */
+InlineResponse20011.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20011.prototype['images'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20011.prototype['amazonTitle'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineResponse20011.prototype['profit'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20011.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20011.prototype['updatedAt'] = undefined;
 
 
 

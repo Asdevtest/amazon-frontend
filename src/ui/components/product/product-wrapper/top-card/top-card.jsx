@@ -234,8 +234,10 @@ export const TopCard = observer(
 
                   {selectedSupplier ? (
                     <>
-                      {selectedSupplier.name !== 'access denied' ||
-                      (checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id) ? (
+                      {((user?._id === selectedSupplier?.createdBy?._id ||
+                        user.masterUser === selectedSupplier?.createdBy?._id) &&
+                        checkIsBuyer(curUserRole)) ||
+                      selectedSupplier.name !== 'access denied' ? (
                         <>
                           {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
                             <div className={classNames.supplierButtonWrapper}>
@@ -329,7 +331,9 @@ export const TopCard = observer(
                         </Typography>
                       </div>
                     ) : null}
-                    {checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id ? (
+                    {(user?._id === selectedSupplier?.createdBy?._id ||
+                      user.masterUser === selectedSupplier?.createdBy?._id) &&
+                    checkIsBuyer(curUserRole) ? (
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
                           disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}

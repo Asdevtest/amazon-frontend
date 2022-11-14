@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiV1StorekeepersDestructBatchGuidPost**](StorekeepersApi.md#apiV1StorekeepersDestructBatchGuidPost) | **POST** /api/v1/storekeepers/destruct_batch/{guid} | # Скопировать партию, расформировать, на коробки из партии создать задачи
 [**apiV1StorekeepersGet**](StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 [**apiV1StorekeepersOrdersSetStatusGuidPatch**](StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
+[**apiV1StorekeepersPagBoxesGet**](StorekeepersApi.md#apiV1StorekeepersPagBoxesGet) | **GET** /api/v1/storekeepers/pag/boxes | # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 [**apiV1StorekeepersTariffLogisticsGuidDelete**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
 [**apiV1StorekeepersTariffLogisticsGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-logistics/{guid} | # Редактировать тариф доставки.
 [**apiV1StorekeepersTariffLogisticsMyGet**](StorekeepersApi.md#apiV1StorekeepersTariffLogisticsMyGet) | **GET** /api/v1/storekeepers/tariff-logistics/my | # Получить всех тарифами доставки сторкипером.
@@ -191,7 +192,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20038] apiV1StorekeepersGet(opts)
+> [InlineResponse20046] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -231,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20038]**](InlineResponse20038.md)
+[**[InlineResponse20046]**](InlineResponse20046.md)
 
 ### Authorization
 
@@ -296,6 +297,70 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1StorekeepersPagBoxesGet
+
+> InlineResponse20045 apiV1StorekeepersPagBoxesGet(opts)
+
+# Получить коробки и их строки по текущему сторкиперу с пагинацией.
+
+## Получить коробки и их строки по текущему сторкиперу с пагинацией.   Отдет все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED  GUID сторкипера получаем из токена.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.StorekeepersApi();
+let opts = {
+  'filtersProduct': "filtersProduct_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'filtersBox': "filtersBox_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1StorekeepersPagBoxesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filtersProduct** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **filtersBox** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20045**](InlineResponse20045.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -1059,7 +1124,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20010] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20016] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1099,7 +1164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20016]**](InlineResponse20016.md)
 
 ### Authorization
 
@@ -1167,7 +1232,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20010] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20016] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1205,7 +1270,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20016]**](InlineResponse20016.md)
 
 ### Authorization
 

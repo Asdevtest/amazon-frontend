@@ -121,6 +121,8 @@ export class ClientWarehouseViewRaw extends Component {
       onClickCancelAfterConfirm,
       onChangeNameSearchValue,
       onClickSubmitEditMultipleBoxes,
+
+      onClickRemoveBoxFromBatch,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -362,6 +364,7 @@ export class ClientWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             boxesMy={boxesMy.map(box => box.originalData)}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
+            onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
           />
         </Modal>
 
