@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject84 model module.
@@ -22,10 +23,12 @@ class InlineObject84 {
     /**
      * Constructs a new <code>InlineObject84</code>.
      * @alias module:model/InlineObject84
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject84.initialize(this);
+        InlineObject84.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject84 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -47,14 +52,29 @@ class InlineObject84 {
         if (data) {
             obj = obj || new InlineObject84();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
+            }
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
+            }
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
+            }
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -64,22 +84,51 @@ class InlineObject84 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject84.prototype['status'] = undefined;
+InlineObject84.prototype['name'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject84.prototype['images'] = undefined;
+InlineObject84.prototype['description'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject84.prototype['storekeeperComment'] = undefined;
+InlineObject84.prototype['deliveryTimeInDay'] = undefined;
+
+/**
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
+ */
+InlineObject84.prototype['cls'] = undefined;
+
+/**
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
+ */
+InlineObject84.prototype['etd'] = undefined;
+
+/**
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
+ */
+InlineObject84.prototype['eta'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject84.prototype['minWeightInKg'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject84.prototype['conditionsByRegion'] = undefined;
 
 
 

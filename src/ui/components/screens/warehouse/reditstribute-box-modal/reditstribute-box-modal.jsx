@@ -152,11 +152,12 @@ const Box = ({
                   <div>
                     {isNewBox ? (
                       <Button
-                        disableElevation
                         disabled={!isNewBox}
-                        color="primary"
                         variant={box.logicsTariffId && 'text'}
-                        className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                        className={cx(
+                          {[classNames.storekeeperBtn]: !box.logicsTariffId},
+                          {[classNames.storekeeperDisableBtn]: !isNewBox},
+                        )}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }

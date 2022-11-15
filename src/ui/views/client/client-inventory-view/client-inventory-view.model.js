@@ -286,11 +286,11 @@ export class ClientInventoryViewModel {
   getCurrentData() {
     // console.log('GET_CURRENT_DATA')
 
-    const dataByArchive = this.isArchive
-      ? toJS(this.productsMy.filter(el => el.originalData.archive))
-      : toJS(this.productsMy.filter(el => !el.originalData.archive))
+    // const dataByArchive = this.isArchive
+    //   ? toJS(this.productsMy.filter(el => el.originalData.archive))
+    //   : toJS(this.productsMy.filter(el => !el.originalData.archive))
 
-    return dataByArchive
+    return toJS(this.productsMy)
   }
 
   onSearchSubmit() {
@@ -471,10 +471,12 @@ export class ClientInventoryViewModel {
 
       // console.log('START')
 
-      const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue}`
+      const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
+        this.nameSearchValue
+      };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.nameSearchValue ? filter : null,
+        filters: filter, // this.nameSearchValue ? filter : null,
 
         shopId: this.currentShop ? this.currentShop._id : null,
 

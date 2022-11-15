@@ -54,7 +54,7 @@ export const SelectStorekeeperAndTariffForm = observer(
     const [curStorekeeper, setCurStorekeeper] = useState(
       curStorekeeperId
         ? storekeepers.find(el => el._id === curStorekeeperId)
-        : storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
+        : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
     )
 
     const onClickSelectTariff = tariffId => {
@@ -68,7 +68,7 @@ export const SelectStorekeeperAndTariffForm = observer(
         <div className={classNames.boxesFiltersWrapper}>
           {storekeepers
             .slice()
-            .sort((a, b) => a.name.localeCompare(b.name))
+            .sort((a, b) => a.name?.localeCompare(b?.name))
             .map(storekeeper => (
               <Button
                 key={storekeeper._id}

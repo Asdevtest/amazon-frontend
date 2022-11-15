@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject90 {
     /**
      * Constructs a new <code>InlineObject90</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject90
      */
     constructor() { 
@@ -50,20 +51,11 @@ class InlineObject90 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -73,40 +65,22 @@ class InlineObject90 {
 }
 
 /**
- * Название склада.
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
  * @member {String} name
  */
 InlineObject90.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject90.prototype['country'] = undefined;
+InlineObject90.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineObject90.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject90.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject90.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject90.prototype['address'] = undefined;
+InlineObject90.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

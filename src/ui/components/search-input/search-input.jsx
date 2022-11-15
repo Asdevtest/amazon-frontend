@@ -4,7 +4,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material'
 
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './search-input.style'
 
-export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit}) => {
+export const SearchInput = ({key, value, onChange, placeholder, inputClasses, onSubmit}) => {
   const {classes: classNames} = useClassNames()
 
   const onClickCloseIcon = () => {
@@ -23,8 +23,22 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
     onSubmit()
   }
 
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        event.preventDefault()
+        onSubmit()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
+
   return (
     <Input
+      key={key ? key : `${new Date()}`}
       className={cx(classNames.input, inputClasses)}
       value={value}
       placeholder={placeholder}

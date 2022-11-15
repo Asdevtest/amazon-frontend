@@ -21,12 +21,10 @@ export const PrivateLabelCard = ({item, setProductToPay, index}) => {
     </div>
   )
 
-  console.log('item', item)
-
   return (
     <Paper className={classNames.root}>
       <div className={classNames.imgWrapper}>
-        <img alt="item image" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
+        <img alt="item image" className={classNames.img} src={getAmazonImageUrl(item.images[0], true)} />
       </div>
       <div className={classNames.wrapper}>
         <Typography className={classNames.category}>{item.category}</Typography>

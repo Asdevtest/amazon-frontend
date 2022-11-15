@@ -264,7 +264,7 @@ export const OrderProductModal = ({
           <TableBody>
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
-                key={product._id}
+                key={index}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}

@@ -133,9 +133,14 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
   storekeeperDisableBtn: {
-    backgroundColor: '#e4e7ea',
+    // backgroundColor: '#e4e7ea',
+
     borderRadius: '4px',
     padding: '6px 7px',
+
+    color: '#001029',
+
+    backgroundColor: theme.palette.input.customDisabled,
   },
   fieldInput: {
     height: '40px',

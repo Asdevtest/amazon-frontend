@@ -163,14 +163,14 @@ export class ClientOrdersNotificationsViewModel {
 
   async getOrders() {
     try {
-      const result = await ClientModel.getOrders()
+      const result = await ClientModel.getOrders(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE])
 
       runInAction(() => {
         this.baseNoConvertedOrders = result
 
-        this.orders = clientOrdersNotificationsDataConverter(
-          result.filter(order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-        ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.orders = clientOrdersNotificationsDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)

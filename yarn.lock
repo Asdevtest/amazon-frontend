@@ -7086,6 +7086,11 @@ easy-table@1.1.0:
   optionalDependencies:
     wcwidth ">=1.0.1"
 
+ec-highlighter-core@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/ec-highlighter-core/-/ec-highlighter-core-1.0.5.tgz#bb136ce8166ab67d41c8c7dcc8380c60f513d7f6"
+  integrity sha512-hS3nYrK14ZpfdSVHsNgEj6E/3SCTZ5TZu8scFJZcscpQtF7f59G2dVLVNp21ssiD0dCx+ZJZSqfHniiO9yiwCQ==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -14835,6 +14840,14 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-ec-highlighter@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-ec-highlighter/-/react-ec-highlighter-1.1.2.tgz#0ecec4c5f35c4459118208aea44893f25657a161"
+  integrity sha512-G++piSOBc4dW24P0TAKbjuQCnaBoQZ86RBGOAOVyWZ16I6v+rj9O5dGQTzQiF5U57cYVVTr2OnaW+7C7/xrGGQ==
+  dependencies:
+    ec-highlighter-core "^1.0.4"
+    prop-types "^15.8.1"
 
 react-error-overlay@6.0.9, react-error-overlay@^6.0.11, react-error-overlay@^6.0.9:
   version "6.0.9"

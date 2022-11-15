@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject82 {
     /**
      * Constructs a new <code>InlineObject82</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject82
      */
     constructor() { 
@@ -48,14 +47,14 @@ class InlineObject82 {
         if (data) {
             obj = obj || new InlineObject82();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -65,22 +64,22 @@ class InlineObject82 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject82.prototype['name'] = undefined;
+InlineObject82.prototype['status'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject82.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject82.prototype['images'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject82.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject82.prototype['storekeeperComment'] = undefined;
 
 
 

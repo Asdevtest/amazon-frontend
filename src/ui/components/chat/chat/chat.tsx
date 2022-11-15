@@ -53,6 +53,8 @@ interface Props {
   currentOpponent?: CurrentOpponent
   chatMessageHandlers?: ChatMessageUniversalHandlers
   toScrollMesId?: string | undefined
+  messagesFound?: ChatMessageContract[]
+  searchPhrase?: string
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[]) => void
@@ -63,7 +65,9 @@ interface Props {
 
 export const Chat: FC<Props> = observer(
   ({
+    searchPhrase,
     toScrollMesId,
+    messagesFound,
     chat,
     messages,
     userId,
@@ -192,6 +196,8 @@ export const Chat: FC<Props> = observer(
             messages={messages}
             handlers={chatMessageHandlers}
             toScrollMesId={toScrollMesId}
+            messagesFound={messagesFound}
+            searchPhrase={searchPhrase}
           />
         </div>
         <div className={classNames.bottomPartWrapper}>

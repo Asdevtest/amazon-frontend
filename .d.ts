@@ -11,3 +11,5 @@ declare module '@mui/material/styles' {
     main: string
   }
 }
+
+declare module 'react-ec-highlighter'

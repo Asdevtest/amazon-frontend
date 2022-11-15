@@ -38,8 +38,8 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
-      // messagesFound,
-      // mesSearchValue,
+      messagesFound,
+      mesSearchValue,
       usersData,
       showAddNewChatByEmailModal,
       showProgress,
@@ -66,6 +66,8 @@ class MessagesViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const currentOpponent = simpleChats.find(el => el._id === chatSelectedId)?.users.find(el => el._id !== user._id)
+
+    // console.log('messagesFound', messagesFound)
 
     return (
       <React.Fragment>
@@ -101,12 +103,12 @@ class MessagesViewRaw extends Component {
                       />
 
                       {messagesFound.length ? (
-                        <div>
-                          <Typography className={classNames.noticesTextActive}>
+                        <div className={classNames.searchResultWrapper}>
+                          <Typography className={classNames.searchResult}>
                             {t(TranslationKey['Search results']) + ':'}
                           </Typography>
 
-                          <Typography className={classNames.noticesTextActive}>{messagesFound.length}</Typography>
+                          <Typography className={classNames.searchResultNum}>{messagesFound.length}</Typography>
                         </div>
                       ) : null} */}
                     </div>
@@ -137,6 +139,8 @@ class MessagesViewRaw extends Component {
                 <MultipleChats
                   ref={this.chatRef}
                   // toScrollMesId={messagesFound[0]?._id}
+                  searchPhrase={mesSearchValue}
+                  messagesFound={messagesFound}
                   typingUsers={typingUsers}
                   searchFilter={nameSearchValue}
                   currentOpponent={currentOpponent}

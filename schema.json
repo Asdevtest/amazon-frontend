@@ -15130,7 +15130,7 @@
                 },
                 "logicsTariffId": {"type": "string", "format": "uuid", "description": "GUID тарифа доставки "},
                 "storekeeperId": {"type": "string", "format": "uuid", "description": "GUID сторкипера"},
-                "shippingLabel": {"type": "string", "description": "Шипингш лейбл"}
+                "shippingLabel": {"type": ["string", "null"], "description": "Шипингш лейбл"}
               }
             }
           },
@@ -34673,183 +34673,6 @@
         }
       }
     },
-    "/api/v1/gologin/profile": {
-      "post": {
-        "summary": "# Создать новый профайл пользователя.",
-        "description": "## Создать новый профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": ["name"],
-              "additionalProperties": false,
-              "properties": {
-                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
-                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
-                "navigator": {
-                  "type": "object",
-                  "properties": {
-                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
-                    "userAgent": {
-                      "type": "string",
-                      "description": "Браузер. Включая рандомный.",
-                      "example": "random",
-                      "default": "random"
-                    },
-                    "resolution": {
-                      "type": "string",
-                      "description": "Разрешение экрана",
-                      "example": "1024x768",
-                      "default": "1024x768"
-                    },
-                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
-                  }
-                }
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {"profileId": {"type": "string", "description": "id созданного профайла"}}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/{profileId}": {
-      "patch": {
-        "summary": "# Изменить профайл пользователя.",
-        "description": "## Изменить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
-                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
-                "navigator": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
-                    "userAgent": {
-                      "type": "string",
-                      "description": "Браузер. Включая рандомный.",
-                      "example": "random",
-                      "default": "random"
-                    },
-                    "resolution": {
-                      "type": "string",
-                      "description": "Разрешение экрана",
-                      "example": "1024x768",
-                      "default": "1024x768"
-                    },
-                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
-                  }
-                }
-              }
-            }
-          },
-          {
-            "type": "string",
-            "description": "id профайла который нужно изменить.",
-            "required": true,
-            "in": "path",
-            "name": "profileId"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/start": {
-      "post": {
-        "summary": "# Запустить пользователя.",
-        "description": "## Запустить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["profileId"],
-              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {"type": "string", "description": "Тестовый статус запуска", "example": "Ok"},
-                "wsUrl": {"type": "string", "description": "Строка подключения к WS соединению"}
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/gologin/profile/stop": {
-      "post": {
-        "summary": "# Остановить профайл пользователя.",
-        "description": "## Остановить профайл пользователя.\n\n",
-        "tags": ["GoLogin"],
-        "produces": ["text/html"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["profileId"],
-              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {"description": "Default Response", "schema": {"type": "object"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
     "/api/v1/dashboard/client/counts": {
       "get": {
         "summary": "# Получить количество основных элементов в бд.",
@@ -35098,6 +34921,183 @@
               }
             }
           },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile": {
+      "post": {
+        "summary": "# Создать новый профайл пользователя.",
+        "description": "## Создать новый профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
+                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
+                "navigator": {
+                  "type": "object",
+                  "properties": {
+                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
+                    "userAgent": {
+                      "type": "string",
+                      "description": "Браузер. Включая рандомный.",
+                      "example": "random",
+                      "default": "random"
+                    },
+                    "resolution": {
+                      "type": "string",
+                      "description": "Разрешение экрана",
+                      "example": "1024x768",
+                      "default": "1024x768"
+                    },
+                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
+                  }
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {"profileId": {"type": "string", "description": "id созданного профайла"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/{profileId}": {
+      "patch": {
+        "summary": "# Изменить профайл пользователя.",
+        "description": "## Изменить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string", "description": "Название профиля", "example": "test_profile_1"},
+                "os": {"type": "string", "description": "Название ОС", "example": "mac", "default": "mac"},
+                "navigator": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "language": {"type": "string", "description": "Язык", "example": "enUS", "default": "enUS"},
+                    "userAgent": {
+                      "type": "string",
+                      "description": "Браузер. Включая рандомный.",
+                      "example": "random",
+                      "default": "random"
+                    },
+                    "resolution": {
+                      "type": "string",
+                      "description": "Разрешение экрана",
+                      "example": "1024x768",
+                      "default": "1024x768"
+                    },
+                    "platform": {"type": "string", "description": "ID платформы", "example": "mac", "default": "mac"}
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "description": "id профайла который нужно изменить.",
+            "required": true,
+            "in": "path",
+            "name": "profileId"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/start": {
+      "post": {
+        "summary": "# Запустить пользователя.",
+        "description": "## Запустить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["profileId"],
+              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {"type": "string", "description": "Тестовый статус запуска", "example": "Ok"},
+                "wsUrl": {"type": "string", "description": "Строка подключения к WS соединению"}
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/gologin/profile/stop": {
+      "post": {
+        "summary": "# Остановить профайл пользователя.",
+        "description": "## Остановить профайл пользователя.\n\n",
+        "tags": ["GoLogin"],
+        "produces": ["text/html"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["profileId"],
+              "properties": {"profileId": {"type": "string", "description": "id профайла"}}
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {"description": "Default Response", "schema": {"type": "object"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
@@ -41055,185 +41055,6 @@
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/shops/": {
-      "post": {
-        "summary": "# Добавить новый магазин клиентом.",
-        "description": "# Добавить новый магазин клиентом. \n## Создает новые магазин и добавляет в таблицу связи user_shops\nПроверки:\nПользователь не может иметь два магазина с одинаковыми именами (name)\nПеред записью в базу проверка работоспособности ссылок\nПоля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов.\nвалидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"",
-        "tags": ["Shop"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "description": "Схема магазина.",
-              "required": ["name", "sellerBoardWarehouseReportUrlDaily", "sellerBoardWarehouseReportUrlMonthly"],
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
-                },
-                "sellerBoardWarehouseReportUrlDaily": {
-                  "type": "string",
-                  "format": "uri",
-                  "description": "uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard."
-                },
-                "sellerBoardWarehouseReportUrlMonthly": {
-                  "type": "string",
-                  "format": "uri",
-                  "description": "uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц."
-                }
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {
-            "description": "Успешный ответ",
-            "schema": {
-              "type": "object",
-              "description": "Успешный ответ",
-              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "get": {
-        "summary": "# Получить все магазины пользователя.",
-        "description": "## Получить все магазины пользователя. \n\n",
-        "tags": ["Shop"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "description": "Схема магазина.",
-                "properties": {
-                  "_id": {"type": "string", "description": "ID магазина."},
-                  "name": {
-                    "type": "string",
-                    "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
-                  },
-                  "sellerBoardWarehouseReportUrlDaily": {
-                    "type": "string",
-                    "description": "URL для скачивания ежедневных отчетов SellerBoard."
-                  },
-                  "sellerBoardWarehouseReportUrlMonthly": {
-                    "type": "string",
-                    "description": "URL для скачивания отчетов SellerBoard за последний месяц."
-                  },
-                  "ownerId": {
-                    "type": "string",
-                    "description": "GUID, владелеца.",
-                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
-                  },
-                  "createdById": {
-                    "type": "string",
-                    "description": "GUID любого, кто последний создал.",
-                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
-                  },
-                  "lastModifiedById": {
-                    "type": "string",
-                    "description": "GUID любого, кто последний редактировал.",
-                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
-                  },
-                  "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
-                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/shops/{guid}": {
-      "patch": {
-        "summary": "# Редактировать магазин.",
-        "description": "# Редактировать магазин. клиентом. \n## Только владелец может редактировать \nПеред записью в базу проверка работоспособности ссылок\nПоля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов.\nвалидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"",
-        "tags": ["Shop"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "description": "Схема магазина.",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
-                },
-                "sellerBoardWarehouseReportUrlDaily": {
-                  "type": "string",
-                  "format": "uri",
-                  "description": "uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard."
-                },
-                "sellerBoardWarehouseReportUrlMonthly": {
-                  "type": "string",
-                  "format": "uri",
-                  "description": "uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц."
-                }
-              }
-            }
-          },
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID объекта в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "delete": {
-        "summary": "# Логическое удаление магазина по его GUID.",
-        "description": "## Логическое удаление магазина по его GUID.  \n\nТолько владелец может удалить магазин. \nПосле удаления магазин дезактивируется.",
-        "tags": ["Shop"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID в сущности в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
@@ -57849,6 +57670,185 @@
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shops/": {
+      "post": {
+        "summary": "# Добавить новый магазин клиентом.",
+        "description": "# Добавить новый магазин клиентом. \n## Создает новые магазин и добавляет в таблицу связи user_shops\nПроверки:\nПользователь не может иметь два магазина с одинаковыми именами (name)\nПеред записью в базу проверка работоспособности ссылок\nПоля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов.\nвалидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"",
+        "tags": ["Shop"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема магазина.",
+              "required": ["name", "sellerBoardWarehouseReportUrlDaily", "sellerBoardWarehouseReportUrlMonthly"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
+                },
+                "sellerBoardWarehouseReportUrlDaily": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard."
+                },
+                "sellerBoardWarehouseReportUrlMonthly": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц."
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "object",
+              "description": "Успешный ответ",
+              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "# Получить все магазины пользователя.",
+        "description": "## Получить все магазины пользователя. \n\n",
+        "tags": ["Shop"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "Схема магазина.",
+                "properties": {
+                  "_id": {"type": "string", "description": "ID магазина."},
+                  "name": {
+                    "type": "string",
+                    "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
+                  },
+                  "sellerBoardWarehouseReportUrlDaily": {
+                    "type": "string",
+                    "description": "URL для скачивания ежедневных отчетов SellerBoard."
+                  },
+                  "sellerBoardWarehouseReportUrlMonthly": {
+                    "type": "string",
+                    "description": "URL для скачивания отчетов SellerBoard за последний месяц."
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "GUID, владелеца.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "createdById": {
+                    "type": "string",
+                    "description": "GUID любого, кто последний создал.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "lastModifiedById": {
+                    "type": "string",
+                    "description": "GUID любого, кто последний редактировал.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shops/{guid}": {
+      "patch": {
+        "summary": "# Редактировать магазин.",
+        "description": "# Редактировать магазин. клиентом. \n## Только владелец может редактировать \nПеред записью в базу проверка работоспособности ссылок\nПоля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов.\nвалидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"",
+        "tags": ["Shop"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема магазина.",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами."
+                },
+                "sellerBoardWarehouseReportUrlDaily": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard."
+                },
+                "sellerBoardWarehouseReportUrlMonthly": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц."
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID объекта в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "delete": {
+        "summary": "# Логическое удаление магазина по его GUID.",
+        "description": "## Логическое удаление магазина по его GUID.  \n\nТолько владелец может удалить магазин. \nПосле удаления магазин дезактивируется.",
+        "tags": ["Shop"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID в сущности в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
       }

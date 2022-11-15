@@ -15,7 +15,9 @@ import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
+import {roundHalf} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-logistic-tariff-form.style'
@@ -88,17 +90,29 @@ export const AddOrEditLogisticTariffForm = observer(
       const newFormFields = {...formFields}
 
       if (currencyType === rateSettings.IN_YAN) {
-        newFormFields.conditionsByRegion.west.rate =
-          Math.round(formFields.conditionsByRegion.west.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
-          100
+        newFormFields.conditionsByRegion.west.rate = toFixed(
+          roundHalf(
+            Math.round(formFields.conditionsByRegion.west.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
+              100,
+          ),
+          2,
+        )
 
-        newFormFields.conditionsByRegion.central.rate =
-          Math.round(
-            formFields.conditionsByRegion.central.rate * formFields.conditionsByRegion.yuanToDollarRate * 100,
-          ) / 100
-        newFormFields.conditionsByRegion.east.rate =
-          Math.round(formFields.conditionsByRegion.east.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
-          100
+        newFormFields.conditionsByRegion.central.rate = toFixed(
+          roundHalf(
+            Math.round(
+              formFields.conditionsByRegion.central.rate * formFields.conditionsByRegion.yuanToDollarRate * 100,
+            ) / 100,
+          ),
+          2,
+        )
+        newFormFields.conditionsByRegion.east.rate = toFixed(
+          roundHalf(
+            Math.round(formFields.conditionsByRegion.east.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
+              100,
+          ),
+          2,
+        )
       } else {
         newFormFields.conditionsByRegion.west.rate =
           Math.round((formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100) /

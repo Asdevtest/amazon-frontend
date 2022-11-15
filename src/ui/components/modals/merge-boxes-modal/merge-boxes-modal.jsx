@@ -200,9 +200,7 @@ export const MergeBoxesModal = ({
                 labelClasses={classNames.label}
                 inputComponent={
                   <Button
-                    disableElevation
                     disabled={isDifferentStorekeepers}
-                    color="primary"
                     variant={boxBody.logicsTariffId && 'text'}
                     className={cx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
