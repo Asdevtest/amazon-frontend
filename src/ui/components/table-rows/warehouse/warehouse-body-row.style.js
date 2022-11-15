@@ -26,9 +26,9 @@ export const styles = {
   boxLastRow: {
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },
-  cellValueNumber: {
-    textAlign: 'right',
-    flexDirection: 'row-reverse',
+  cellValueNumber: {},
+  paddingLeftCell: {
+    paddingLeft: '12px',
   },
   centerCell: {
     textAlign: 'center',

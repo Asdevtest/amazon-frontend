@@ -117,26 +117,28 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               </React.Fragment>
             )}
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.paddingLeftCell}>
               {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
             </TableCell>
 
             {orderIndex === 0 && (
               <React.Fragment>
-                <TableCell rowSpan={ordersQty} className={classNames.textEllipsis}>
+                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.paddingLeftCell]}>
                   {box.destination?.name}
                 </TableCell>
-                <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
+                <TableCell className={classNames.paddingLeftCell} rowSpan={ordersQty}>
+                  {'ID: ' + box.humanFriendlyId}
+                </TableCell>
               </React.Fragment>
             )}
 
             {orderIndex === 0 && (
-              <TableCell rowSpan={ordersQty} className={classNames.cellValueNumber}>
+              <TableCell rowSpan={ordersQty} className={classNames.paddingLeftCell}>
                 {toFixedWithDollarSign(calcPriceForBox(box), 2)}
               </TableCell>
             )}
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.paddingLeftCell}>
               {toFixedWithKg(
                 Math.max(
                   parseFloat(
@@ -152,11 +154,13 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               )}
             </TableCell>
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.paddingLeftCell}>
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            <TableCell>{order.order.trackingNumberChina || t(TranslationKey.Missing)}</TableCell>
+            <TableCell className={classNames.paddingLeftCell}>
+              {order.order.trackingNumberChina || t(TranslationKey.Missing)}
+            </TableCell>
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>
