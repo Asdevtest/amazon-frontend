@@ -176,6 +176,7 @@ export class ClientWarehouseViewRaw extends Component {
                 </div>
 
                 <SearchInput
+                  key={'client_warehouse_search_input'}
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}

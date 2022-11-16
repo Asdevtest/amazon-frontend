@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './search-input.style'
 
-export const SearchInput = ({key, value, onChange, placeholder, inputClasses, onSubmit}) => {
+export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit}) => {
   const {classes: classNames} = useClassNames()
 
   const onClickCloseIcon = () => {
@@ -25,7 +25,7 @@ export const SearchInput = ({key, value, onChange, placeholder, inputClasses, on
 
   useEffect(() => {
     const listener = event => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+      if (onSubmit && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
         event.preventDefault()
         onSubmit()
       }
@@ -38,7 +38,6 @@ export const SearchInput = ({key, value, onChange, placeholder, inputClasses, on
 
   return (
     <Input
-      key={key ? key : `${new Date()}`}
       className={cx(classNames.input, inputClasses)}
       value={value}
       placeholder={placeholder}
