@@ -117,28 +117,28 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               </React.Fragment>
             )}
 
-            <TableCell className={classNames.paddingLeftCell}>
+            <TableCell className={classNames.centerCell}>
               {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
             </TableCell>
 
             {orderIndex === 0 && (
               <React.Fragment>
-                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.paddingLeftCell]}>
+                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
                   {box.destination?.name}
                 </TableCell>
-                <TableCell className={classNames.paddingLeftCell} rowSpan={ordersQty}>
+                <TableCell className={classNames.cellValueNumber} rowSpan={ordersQty}>
                   {'ID: ' + box.humanFriendlyId}
                 </TableCell>
               </React.Fragment>
             )}
 
             {orderIndex === 0 && (
-              <TableCell rowSpan={ordersQty} className={classNames.paddingLeftCell}>
+              <TableCell rowSpan={ordersQty} className={classNames.cellValueNumber}>
                 {toFixedWithDollarSign(calcPriceForBox(box), 2)}
               </TableCell>
             )}
 
-            <TableCell className={classNames.paddingLeftCell}>
+            <TableCell className={classNames.centerCell}>
               {toFixedWithKg(
                 Math.max(
                   parseFloat(
@@ -154,11 +154,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               )}
             </TableCell>
 
-            <TableCell className={classNames.paddingLeftCell}>
+            <TableCell className={classNames.centerCell}>
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            <TableCell className={classNames.paddingLeftCell}>
+            <TableCell className={classNames.cellValueNumber}>
               {order.order.trackingNumberChina || t(TranslationKey.Missing)}
             </TableCell>
           </TableRow>

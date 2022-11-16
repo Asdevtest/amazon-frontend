@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
   },
   reasonInput: {
-    height: '150px',
+    height: 'auto',
     width: '100%',
   },
 
