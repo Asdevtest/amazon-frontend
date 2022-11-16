@@ -83,6 +83,7 @@ export const BoxItemCard = ({
                     <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
                       <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
                     </Link>
+
                     <CopyValue text={item.barCode} />
                   </div>
                 ) : (
