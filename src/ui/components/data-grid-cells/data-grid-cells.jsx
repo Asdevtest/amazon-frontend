@@ -556,19 +556,25 @@ export const RenderFieldValueCell = withStyles(
 )
 
 export const MultilineTextCell = withStyles(
-  ({classes: classNames, text, noTextText, color, withTooltip}) => (
+  ({classes: classNames, text, noTextText, color, withTooltip, leftAlign}) => (
     <>
       {withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextWrapper}>
-            <Typography className={classNames.multilineText} style={color && {color}}>
+            <Typography
+              className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+              style={color && {color}}
+            >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
             </Typography>
           </div>
         </Tooltip>
       ) : (
         <div className={classNames.multilineTextWrapper}>
-          <Typography className={classNames.multilineText} style={color && {color}}>
+          <Typography
+            className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+            style={color && {color}}
+          >
             {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
           </Typography>
         </div>

@@ -29,6 +29,16 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  iconBtn: {
+    marginLeft: '15px',
+    // position: 'absolute',
+    // top: '11px',
+    // right: '25px',
+
+    width: 15,
+    height: 15,
+  },
+
   cardErrorWrapper: {
     // background: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%);',
 
@@ -82,7 +92,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cardHeaderWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   swiper: {
@@ -98,8 +107,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   addButton: {
-    width: '157px',
     height: '40px',
-    marginRight: '90px',
+    marginLeft: 270,
   },
 }))

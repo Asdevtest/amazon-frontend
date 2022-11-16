@@ -67,11 +67,13 @@ export const onSubmitPostFilesInData = async ({dataWithFiles, nameOfField}) => {
   return dataWithFiles
 }
 
-export async function onSubmitPostImages({images, type}) {
+export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   this[type] = []
   const loadingStep = 100 / images.length
 
-  this.showProgress = true
+  if (!withoutShowProgress) {
+    this.showProgress = true
+  }
 
   for (let i = 0; i < images.length; i++) {
     const image = images[i]
@@ -89,6 +91,8 @@ export async function onSubmitPostImages({images, type}) {
     this.progressValue = this.progressValue + loadingStep
   }
 
-  this.showProgress = false
+  if (!withoutShowProgress) {
+    this.showProgress = false
+  }
   this.progressValue = 0
 }

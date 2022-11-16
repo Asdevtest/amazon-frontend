@@ -23,6 +23,7 @@ export const styles = theme => ({
     width: '145px',
     height: '145px',
   },
+
   mr2: {
     marginRight: theme.spacing(2),
   },

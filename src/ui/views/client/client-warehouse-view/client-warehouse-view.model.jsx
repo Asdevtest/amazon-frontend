@@ -716,7 +716,11 @@ export class ClientWarehouseViewModel {
       this.uploadedFiles = []
 
       if (boxData.tmpShippingLabel?.length) {
-        await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, {
+          images: boxData.tmpShippingLabel,
+          type: 'uploadedFiles',
+          withoutShowProgress: true,
+        })
       }
 
       if (

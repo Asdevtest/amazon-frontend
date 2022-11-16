@@ -44,7 +44,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     width: 160,
     renderCell: params => (
       <MultilineTextCell
-        isStatus
+        leftAlign
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />

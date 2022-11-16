@@ -36,6 +36,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
         {isClient ? (
           <Button success className={classNames.addButton} onClick={() => onClickAddProduct(config.route)}>
             {t(TranslationKey['Add product'])}
+            <img src="/assets/icons/white-plus.svg" className={classNames.iconBtn} />
           </Button>
         ) : null}
       </div>
