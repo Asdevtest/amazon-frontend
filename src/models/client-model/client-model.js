@@ -80,6 +80,11 @@ class ClientModelStatic {
     return response
   }
 
+  getOrdersPag = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(data)
+    return response
+  }
+
   updateOrder = async (id, data) => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidPatch(id, {
       body: data,

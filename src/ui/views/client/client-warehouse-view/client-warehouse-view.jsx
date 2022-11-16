@@ -52,7 +52,8 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
-      nameSearchValue,
+      rowCount,
+
       confirmModalSettings,
       selectedBox,
       curBox,
@@ -64,8 +65,7 @@ export class ClientWarehouseViewRaw extends Component {
       destinations,
 
       requestStatus,
-      // currentData,
-      getCurrentData,
+      currentData,
       getCurrentTaskData,
       sortModel,
       filterModel,
@@ -120,10 +120,10 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSaveFbaShipment,
       onClickSaveShippingLabel,
       onClickCancelAfterConfirm,
-      onChangeNameSearchValue,
       onClickSubmitEditMultipleBoxes,
 
       onClickRemoveBoxFromBatch,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -178,9 +178,8 @@ export class ClientWarehouseViewRaw extends Component {
                 <SearchInput
                   key={'client_warehouse_search_input'}
                   inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
 
@@ -206,13 +205,16 @@ export class ClientWarehouseViewRaw extends Component {
                 }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
+                sortingMode="server"
+                paginationMode="server"
+                rowCount={rowCount}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                // rows={currentData}
+                // rows={getCurrentData()}
+                rows={currentData}
                 getRowHeight={() => 'auto'}
                 // rowHeight={170}
                 components={{

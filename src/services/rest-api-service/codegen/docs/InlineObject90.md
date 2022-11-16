@@ -4,8 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
-**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | [optional] 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**name** | **String** | Название склада. | [optional] 
+**country** | **String** | Страна. | [optional] 
+**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
+**state** | **String** | Штат. | [optional] 
+**city** | **String** | Город. | [optional] 
+**address** | **String** | Адрес склада. | [optional] 
 
 

@@ -33,6 +33,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
     width: 140,
+    sortable: false,
   },
 
   {
@@ -68,6 +69,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       ),
     width: 110,
     type: 'number',
+    sortable: false,
   },
 
   {
@@ -95,6 +97,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0]?.product.client?._id} />
     ),
     width: 200,
+    sortable: false,
   },
 
   {
@@ -121,6 +124,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       />
     ),
     width: 230,
+    filterable: false,
+    sortable: false,
   },
 
   {

@@ -38,6 +38,7 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      rowCount,
       confirmModalSettings,
       successModalText,
       getCurrentReorderData,
@@ -46,9 +47,8 @@ class ClientOrdersViewRaw extends Component {
       storekeepers,
       destinations,
       volumeWeightCoefficient,
-      nameSearchValue,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -70,12 +70,12 @@ class ClientOrdersViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
-      onChangeNameSearchValue,
 
       onTriggerOpenModal,
       onClickSaveBarcode,
       onDoubleClickBarcode,
       onConfirmSubmitOrderProductModal,
+      onSearchSubmit,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -88,13 +88,13 @@ class ClientOrdersViewRaw extends Component {
               <div className={classNames.topHeaderBtnsWrapper}>
                 <SearchInput
                   inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
+                  disableVirtualization
                   pagination
                   useResizeContainer
                   localeText={getLocalizationByLanguageTag()}
@@ -105,12 +105,15 @@ class ClientOrdersViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rowsPerPageOptions={[15, 25, 50 /* , 100*/]}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: GridToolbar,

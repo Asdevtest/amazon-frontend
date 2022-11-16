@@ -34,6 +34,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    sortable: false,
   },
 
   {
@@ -73,6 +74,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 170,
     renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    sortable: false,
   },
 
   {
@@ -83,6 +85,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     width: 150,
+    sortable: false,
   },
 
   {
@@ -94,6 +97,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -103,6 +107,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+    sortable: false,
   },
 
   {
@@ -122,6 +127,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 110,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    sortable: false,
   },
   {
     field: 'trackingNumberChina',

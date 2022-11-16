@@ -56,7 +56,6 @@ export class ClientInventoryViewRaw extends Component {
     const {
       currentData,
       userInfo,
-      nameSearchValue,
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
@@ -144,7 +143,6 @@ export class ClientInventoryViewRaw extends Component {
       onClickWithoutProductsShopBtn,
       onClickWithProductsShopBtn,
 
-      onChangeNameSearchValue,
       createSupplierSearchRequest,
       // onClickSavesStockUSA,
       withoutProduct,
@@ -225,9 +223,7 @@ export class ClientInventoryViewRaw extends Component {
                   <SearchInput
                     key={'client_inventory_search_input'}
                     inputClasses={classNames.searchInput}
-                    value={nameSearchValue}
                     placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                    onChange={onChangeNameSearchValue}
                     onSubmit={onSearchSubmit}
                   />
                 </div>
@@ -367,7 +363,7 @@ export class ClientInventoryViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25 /* , 50, 100*/]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   // rows={getCurrentData()}
                   rows={currentData}
                   getRowHeight={() => 'auto'}

@@ -18,7 +18,6 @@ import {
   warehouseBatchesDataConverter,
   warehouseBoxesDataConverter,
 } from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -44,6 +43,8 @@ export class WarehouseMyWarehouseViewModel {
   curOpenedTask = {}
   toCancelData = {}
 
+  currentData = []
+
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
   showAddBatchModal = false
@@ -59,6 +60,8 @@ export class WarehouseMyWarehouseViewModel {
   uploadedFiles = []
   progressValue = 0
   showProgress = false
+
+  rowCount = undefined
 
   firstRowId = undefined
   sortModel = []
@@ -92,13 +95,18 @@ export class WarehouseMyWarehouseViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.boxesMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient).sort(
-        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-      )
+      this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
 
       this.getDataGridState()
     }
@@ -110,11 +118,6 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
   }
 
   setDataGridState(state) {
@@ -149,6 +152,9 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
+
+    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -161,6 +167,8 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
@@ -170,22 +178,12 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.boxesMy).filter(
-        el =>
-          el.originalData.items.some(item =>
-            item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product?.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-      )
-    } else {
-      return toJS(this.boxesMy)
-    }
+    return toJS(this.boxesMy)
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.getBoxesMy()
   }
 
   async loadData() {
@@ -382,6 +380,8 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e
+
+    this.getBoxesMy()
   }
 
   onTriggerOpenModal(modalState) {
@@ -390,28 +390,46 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
+      // const boxes = await StorekeeperModel.getBoxesMy()
+
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const boxes = await StorekeeperModel.getBoxesMyPag({
+        filtersProduct: this.nameSearchValue ? productFilter : null,
+
+        filtersBox: this.nameSearchValue ? boxFilter : null,
+
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : null,
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+      })
+
       const result = await UserModel.getPlatformSettings()
 
-      const boxes = await StorekeeperModel.getBoxesMy()
-
       runInAction(() => {
-        this.baseBoxesMy = result
+        this.rowCount = boxes.count
+
+        this.baseBoxesMy = boxes.rows
 
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.boxesMy = warehouseBoxesDataConverter(boxes, result.volumeWeightCoefficient).sort(
-          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-        )
+        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
       this.error = error
 
-      if (error.body.message === 'Коробки не найдены.') {
-        runInAction(() => {
-          this.boxesMy = []
-        })
-      }
+      runInAction(() => {
+        this.boxesMy = []
+
+        this.baseBoxesMy = []
+      })
     }
   }
 }

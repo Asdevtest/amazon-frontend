@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material'
 
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -18,16 +17,18 @@ import {useClassNames} from './search-input.style'
 export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit}) => {
   const {classes: classNames} = useClassNames()
 
+  const [internalValue, setInternalValue] = useState('')
+
   const onClickCloseIcon = () => {
-    onChange({target: {value: ''}})
-    onSubmit()
+    setInternalValue('')
+    onSubmit('')
   }
 
   useEffect(() => {
     const listener = event => {
       if (onSubmit && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
         event.preventDefault()
-        onSubmit()
+        onSubmit(internalValue)
       }
     }
     document.addEventListener('keydown', listener)
@@ -39,14 +40,16 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
   return (
     <Input
       className={cx(classNames.input, inputClasses)}
-      value={value}
+      value={onSubmit ? internalValue : value}
       placeholder={placeholder}
       endAdornment={
         <InputAdornment position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (
             <div className={classNames.searchWrapper}>
-              {value ? <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} /> : null}
-              <Button className={classNames.submit} onClick={onSubmit}>
+              {(onSubmit ? internalValue : value) ? (
+                <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} />
+              ) : null}
+              <Button className={classNames.submit} onClick={() => (onSubmit ? onSubmit(internalValue) : onSubmit())}>
                 {t(TranslationKey.search)}
               </Button>
             </div>
@@ -55,7 +58,9 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
           )}
         </InputAdornment>
       }
-      onChange={onChange}
+      onChange={e => {
+        onSubmit ? setInternalValue(e.target.value) : onChange(e.target.value)
+      }}
     />
   )
 }

@@ -19,7 +19,7 @@ import {clientBoxesViewColumns} from '@components/table-columns/client/client-bo
 import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
@@ -128,6 +128,7 @@ export class ClientWarehouseViewModel {
     onClickConfirm: () => {},
   }
 
+  rowCount = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -175,9 +176,7 @@ export class ClientWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient).sort(
-        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-      )
+      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
 
       this.getDataGridState()
     }
@@ -200,7 +199,7 @@ export class ClientWarehouseViewModel {
       'columns',
     ])
 
-    this.currentData && SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
 
   getDataGridState() {
@@ -225,6 +224,9 @@ export class ClientWarehouseViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
+
+    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -237,6 +239,8 @@ export class ClientWarehouseViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
@@ -245,29 +249,8 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = res
   }
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
-  }
-
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.boxesMy).filter(
-        el =>
-          el.originalData.items.some(item =>
-            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-      )
-    } else {
-      return toJS(this.boxesMy)
-    }
+    return toJS(this.boxesMy)
   }
 
   getCurrentTaskData() {
@@ -523,6 +506,13 @@ export class ClientWarehouseViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e
+
+    this.getBoxesMy()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.getBoxesMy()
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
@@ -983,21 +973,34 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClientLight(
-        BoxStatus.IN_STOCK,
-        this.currentStorekeeper && this.currentStorekeeper._id,
-      )
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
+        filtersProduct: this.nameSearchValue ? productFilter : null,
+
+        filtersBox: this.nameSearchValue ? boxFilter : null,
+
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : null,
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+      })
 
       const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.baseBoxesMy = result
+        this.baseBoxesMy = result.rows
 
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
-        this.boxesMy = clientWarehouseDataConverter(result, res.volumeWeightCoefficient).sort(
-          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-        )
+        this.rowCount = result.count
+
+        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
@@ -1005,6 +1008,8 @@ export class ClientWarehouseViewModel {
 
       runInAction(() => {
         this.boxesMy = []
+
+        this.baseBoxesMy = []
       })
     }
   }

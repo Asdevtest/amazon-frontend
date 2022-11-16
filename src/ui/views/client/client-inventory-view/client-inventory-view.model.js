@@ -208,12 +208,6 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
-    // runInAction(() => {
-    this.nameSearchValue = e.target.value
-    // })
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -284,16 +278,12 @@ export class ClientInventoryViewModel {
   }
 
   getCurrentData() {
-    // console.log('GET_CURRENT_DATA')
-
-    // const dataByArchive = this.isArchive
-    //   ? toJS(this.productsMy.filter(el => el.originalData.archive))
-    //   : toJS(this.productsMy.filter(el => !el.originalData.archive))
-
     return toJS(this.productsMy)
   }
 
-  onSearchSubmit() {
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
     this.getProductsMy()
   }
 
@@ -469,8 +459,6 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // console.log('START')
-
       const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
         this.nameSearchValue
       };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
@@ -487,8 +475,6 @@ export class ClientInventoryViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
       })
 
-      // console.log('REQUEST_TRUE_END')
-
       runInAction(() => {
         this.baseNoConvertedProducts = result
 
@@ -499,8 +485,6 @@ export class ClientInventoryViewModel {
         if (!noProductBaseUpdate) {
           this.productsMyBase = clientInventoryDataConverter(result.rows)
         }
-
-        // console.log('END')
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

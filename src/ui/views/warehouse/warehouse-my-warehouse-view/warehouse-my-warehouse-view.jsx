@@ -38,7 +38,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
-      nameSearchValue,
+      rowCount,
+
       showProgress,
       progressValue,
       sourceBoxForBatch,
@@ -53,7 +54,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       showBoxViewModal,
       showEditBoxModal,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -75,10 +76,10 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       setCurrentOpenedBox,
       onSubmitMoveBoxToBatch,
       onSubmitCreateBatch,
-      onChangeNameSearchValue,
       onSubmitAddBatch,
       onSubmitAddOrEditHsCode,
       onSubmitEditBox,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -94,9 +95,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               <div className={classNames.headerWrapper}>
                 <SearchInput
                   inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
               <div className={classNames.datagridWrapper}>
@@ -114,13 +114,16 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   }}
                   isRowSelectable={params => params.row.isDraft === false}
                   getRowClassName={getRowClassName}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   selectionModel={selectedBoxes}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rowsPerPageOptions={[15, 25, 50 /* , 100*/]}
+                  rows={currentData}
                   // rowHeight={225}
                   getRowHeight={() => 'auto'}
                   components={{
