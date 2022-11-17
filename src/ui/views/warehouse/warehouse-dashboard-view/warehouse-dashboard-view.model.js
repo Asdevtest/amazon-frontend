@@ -95,14 +95,14 @@ export class WarehouseDashboardViewModel {
       console.log(result)
       runInAction(() => {
         this.dashboardData = {
-          [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.tasks.vacant,
-          [WarehouseDashboardCardDataKey.TASKS_MY]: result.tasks.my,
-          [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: result.tasks.completed,
-          [WarehouseDashboardCardDataKey.CANCELED_TASKS]: result.tasks.canceled,
-          [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.boxes.all,
-          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.batches.sent,
-          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.batches.awaitingSend,
-          [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: result.boxes.requestedShipment,
+          [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.tasks.vacant || '0',
+          [WarehouseDashboardCardDataKey.TASKS_MY]: result.tasks.my || '0',
+          [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: result.tasks.completed || '0',
+          [WarehouseDashboardCardDataKey.CANCELED_TASKS]: result.tasks.canceled || '0',
+          [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.boxes.all || '0',
+          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.batches.sent || '0',
+          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.batches.awaitingSend || '0',
+          [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: result.boxes.requestedShipment || '0',
         }
       })
     } catch (error) {

@@ -68,21 +68,21 @@ export class BuyerDashboardViewModel {
         this.dashboardData = {
           ...this.dashboardData,
 
-          [BuyerDashboardCardDataKey.ALL_PRODUCTS]: result.products.all,
-          [BuyerDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.success,
-          [BuyerDashboardCardDataKey.PAYED_PRODUCTS]: result.products.paid,
+          [BuyerDashboardCardDataKey.ALL_PRODUCTS]: result.products.all || '0',
+          [BuyerDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.success || '0',
+          [BuyerDashboardCardDataKey.PAYED_PRODUCTS]: result.products.paid || '0',
 
-          [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR]: result.products.newSearchFromSupervisor,
-          [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: result.products.newSearchFromClient,
-          [BuyerDashboardCardDataKey.IN_SEARCH_PRODUCTS]: result.products.inProcessOfSearching,
-          [BuyerDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.canceled,
+          [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR]: result.products.newSearchFromSupervisor || '0',
+          [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: result.products.newSearchFromClient || '0',
+          [BuyerDashboardCardDataKey.IN_SEARCH_PRODUCTS]: result.products.inProcessOfSearching || '0',
+          [BuyerDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.canceled || '0',
 
-          [BuyerDashboardCardDataKey.IN_PROCESS_ORDERS]: result.orders.inProcess,
-          [BuyerDashboardCardDataKey.FREE_ORDERS]: result.orders.free,
-          [BuyerDashboardCardDataKey.CLOSED_ORDERS]: result.orders.completed,
+          [BuyerDashboardCardDataKey.IN_PROCESS_ORDERS]: result.orders.inProcess || '0',
+          [BuyerDashboardCardDataKey.FREE_ORDERS]: result.orders.free || '0',
+          [BuyerDashboardCardDataKey.CLOSED_ORDERS]: result.orders.completed || '0',
 
-          [BuyerDashboardCardDataKey.REPLENISH]: result.finances.accruals,
-          [BuyerDashboardCardDataKey.FINES]: result.finances.fines,
+          [BuyerDashboardCardDataKey.REPLENISH]: result.finances.accruals || '0',
+          [BuyerDashboardCardDataKey.FINES]: result.finances.fines || '0',
         }
       })
     } catch (error) {
