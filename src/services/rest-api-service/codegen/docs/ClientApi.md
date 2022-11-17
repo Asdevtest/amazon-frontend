@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**apiV1ClientsOrdersGuidGet**](ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 [**apiV1ClientsOrdersGuidPatch**](ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
 [**apiV1ClientsOrdersPost**](ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
+[**apiV1ClientsPagOrdersGet**](ClientApi.md#apiV1ClientsPagOrdersGet) | **GET** /api/v1/clients/pag/orders | # Получить заказы текущего клиента.
 [**apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданные клиентом товары на проверку супервайзеру.
 [**apiV1ClientsProductsGetPriceForClientPost**](ClientApi.md#apiV1ClientsProductsGetPriceForClientPost) | **POST** /api/v1/clients/products/get_price_for_client | # Получить цену для клиента на поиск поставщика множества товаров
 [**apiV1ClientsProductsGuidChangeBarCodePatch**](ClientApi.md#apiV1ClientsProductsGuidChangeBarCodePatch) | **PATCH** /api/v1/clients/products/{guid}/change_barCode | # Внести изменения в баркод товара.
@@ -435,6 +436,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
+  'status': "status_example", // String | GUID сторкипера
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1ClientsOrdersGet(opts).then((data) => {
@@ -450,6 +452,7 @@ apiInstance.apiV1ClientsOrdersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | **String**| GUID сторкипера | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -742,6 +745,72 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1ClientsPagOrdersGet
+
+> InlineResponse20021 apiV1ClientsPagOrdersGet(opts)
+
+# Получить заказы текущего клиента.
+
+## Получить заказы текущего клиента.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'status': "status_example", // String | GUID сторкипера
+  'filtersProduct': "filtersProduct_example", // String |                Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'filtersOrder': "filtersOrder_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsPagOrdersGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| GUID сторкипера | [optional] 
+ **filtersProduct** | **String**|                Примеры: /clients/pag/orders?filtersProduct&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **filtersOrder** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20021**](InlineResponse20021.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch
 
 > String apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts)
@@ -798,7 +867,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20015 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20022 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -838,7 +907,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20015**](InlineResponse20015.md)
+[**InlineResponse20022**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -1020,7 +1089,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20015 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20022 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1060,7 +1129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20015**](InlineResponse20015.md)
+[**InlineResponse20022**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -1186,7 +1255,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20013] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20019] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1224,7 +1293,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20013]**](InlineResponse20013.md)
+[**[InlineResponse20019]**](InlineResponse20019.md)
 
 ### Authorization
 
@@ -1238,7 +1307,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20014Rows] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20020Rows] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1280,7 +1349,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20014Rows]**](InlineResponse20014Rows.md)
+[**[InlineResponse20020Rows]**](InlineResponse20020Rows.md)
 
 ### Authorization
 
@@ -1294,7 +1363,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20014 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20020 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1344,7 +1413,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20014**](InlineResponse20014.md)
+[**InlineResponse20020**](InlineResponse20020.md)
 
 ### Authorization
 
@@ -1412,7 +1481,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20012] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20018] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1450,7 +1519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20012]**](InlineResponse20012.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 

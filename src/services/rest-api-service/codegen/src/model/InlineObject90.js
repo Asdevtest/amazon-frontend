@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject90 model module.
@@ -50,20 +51,26 @@ class InlineObject90 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
+            }
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -73,40 +80,51 @@ class InlineObject90 {
 }
 
 /**
- * Название склада.
+ * Название тарифа
  * @member {String} name
  */
 InlineObject90.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject90.prototype['country'] = undefined;
+InlineObject90.prototype['description'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject90.prototype['zipCode'] = undefined;
+InlineObject90.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject90.prototype['state'] = undefined;
+InlineObject90.prototype['cls'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject90.prototype['city'] = undefined;
+InlineObject90.prototype['etd'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject90.prototype['address'] = undefined;
+InlineObject90.prototype['eta'] = undefined;
+
+/**
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
+ */
+InlineObject90.prototype['minWeightInKg'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject90.prototype['conditionsByRegion'] = undefined;
 
 
 

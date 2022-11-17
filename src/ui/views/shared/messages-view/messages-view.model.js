@@ -82,10 +82,10 @@ export class MessagesViewModel {
     reaction(
       () => this.mesSearchValue,
       () => {
-        if ((this.mesSearchValue, this.chatSelectedId)) {
+        if (this.mesSearchValue && this.chatSelectedId) {
           this.messagesFound = this.simpleChats
             .find(el => el._id === this.chatSelectedId)
-            .messages.filter(mes => mes.text.includes(this.mesSearchValue))
+            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
         } else {
           this.messagesFound = []
         }

@@ -15,6 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'end',
     flexDirection: 'row-reverse',
+
     [theme.breakpoints.down(768)]: {
       width: '90%',
     },

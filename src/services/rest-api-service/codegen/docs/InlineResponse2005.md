@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **minpurchase** | **Number** | Минимальный заказ | [optional] 
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
+**inTransfer** | **Number** | Кол-во товаров, которые находятся в пути | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **checkedBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 

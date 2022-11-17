@@ -28,7 +28,10 @@ export class ClientOrdersViewModel {
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
+
   drawerOpen = false
+
+  currentData = []
 
   showOrderModal = false
   showSetBarcodeModal = false
@@ -55,6 +58,7 @@ export class ClientOrdersViewModel {
     onClickReorder: item => this.onClickReorder(item),
   }
 
+  rowCount = undefined
   firstRowId = undefined
   startFilterModel = undefined
   sortModel = []
@@ -83,6 +87,13 @@ export class ClientOrdersViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.orders,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -93,12 +104,6 @@ export class ClientOrdersViewModel {
         sortObjectsArrayByFiledDateWithParseISO('createdAt'),
       )
     }
-  }
-
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
   }
 
   onChangeFilterModel(model) {
@@ -142,6 +147,15 @@ export class ClientOrdersViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
+
+    this.getOrders()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    this.getOrders()
   }
 
   setRequestStatus(requestStatus) {
@@ -154,6 +168,8 @@ export class ClientOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.getOrders()
   }
 
   onSelectionModel(model) {
@@ -161,18 +177,7 @@ export class ClientOrdersViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.orders).filter(
-        el =>
-          el.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.originalData.product.skusByClient?.some(sku =>
-            sku.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.orders)
-    }
+    return toJS(this.orders)
   }
 
   getCurrentReorderData() {
@@ -196,15 +201,36 @@ export class ClientOrdersViewModel {
 
   async getOrders() {
     try {
-      const result = await ClientModel.getOrders()
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      // const orderFilter = `[id][$eq]=${this.nameSearchValue};`
+
+      const result = await ClientModel.getOrdersPag({
+        filtersProduct: this.nameSearchValue ? productFilter : null,
+
+        filtersOrder: /* this.nameSearchValue ? orderFilter :*/ null,
+        status: null,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
 
       runInAction(() => {
-        this.baseNoConvertedOrders = result
+        this.rowCount = result.count
 
-        this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.baseNoConvertedOrders = result.rows
+
+        this.orders = clientOrdersDataConverter(result.rows)
       })
     } catch (error) {
       console.log(error)
+
+      this.baseNoConvertedOrders = []
+      this.orders = []
+
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
@@ -343,6 +369,7 @@ export class ClientOrdersViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+    this.getOrders()
   }
 
   onTriggerOpenModal(modalState) {

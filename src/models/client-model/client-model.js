@@ -1,7 +1,5 @@
-import axios from 'axios'
-
-import {BACKEND_API_URL} from '@constants/env'
-
+// import axios from 'axios'
+// import {BACKEND_API_URL} from '@constants/env'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class ClientModelStatic {
@@ -33,25 +31,25 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    // const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
-    // return response
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(data)
+    return response
 
     // console.log(`REQUEST_ START ${Date.now()}`)
     // const st = Date.now()
 
-    const response = await axios({
-      method: 'get',
-      url: `${BACKEND_API_URL}/api/v1/clients/products/my_with_pag`,
-      params: {
-        ...data,
-      },
-      headers: {
-        Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
-      },
-    })
+    // const response = await axios({
+    //   method: 'get',
+    //   url: `${BACKEND_API_URL}/api/v1/clients/products/my_with_pag`,
+    //   params: {
+    //     ...data,
+    //   },
+    //   headers: {
+    //     Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
+    //   },
+    // })
     // console.log(`REQUEST_ END ${st - Date.now()}`)
 
-    return response.data
+    // return response.data
 
     // const res = await fetch(`${BACKEND_API_URL}/api/v1/clients/products/my_with_pag?limit=100&offset=0`, {
     //   headers: {
@@ -77,8 +75,13 @@ class ClientModelStatic {
     return response
   }
 
-  getOrders = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGet()
+  getOrders = async status => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGet({status})
+    return response
+  }
+
+  getOrdersPag = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(data)
     return response
   }
 

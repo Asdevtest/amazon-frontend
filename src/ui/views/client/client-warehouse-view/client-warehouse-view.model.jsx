@@ -19,7 +19,7 @@ import {clientBoxesViewColumns} from '@components/table-columns/client/client-bo
 import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
@@ -74,6 +74,10 @@ export class ClientWarehouseViewModel {
   storekeepersData = []
   destinations = []
 
+  currentData = []
+
+  boxesIdsToTask = []
+
   volumeWeightCoefficient = undefined
 
   showMergeBoxModal = false
@@ -124,6 +128,7 @@ export class ClientWarehouseViewModel {
     onClickConfirm: () => {},
   }
 
+  rowCount = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -160,13 +165,18 @@ export class ClientWarehouseViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.boxesMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient).sort(
-        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-      )
+      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
 
       this.getDataGridState()
     }
@@ -214,6 +224,9 @@ export class ClientWarehouseViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
+
+    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -226,6 +239,8 @@ export class ClientWarehouseViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
@@ -234,29 +249,8 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = res
   }
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
-  }
-
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.boxesMy).filter(
-        el =>
-          el.originalData.items.some(item =>
-            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.items.some(item =>
-            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-          ),
-      )
-    } else {
-      return toJS(this.boxesMy)
-    }
+    return toJS(this.boxesMy)
   }
 
   getCurrentTaskData() {
@@ -278,6 +272,8 @@ export class ClientWarehouseViewModel {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       this.storekeepersData = result
+
+      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
@@ -404,7 +400,8 @@ export class ClientWarehouseViewModel {
       confirmMessage:
         !boxData.clientComment &&
         boxData.items.every(item => !item.tmpBarCode.length) &&
-        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
           ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
@@ -456,14 +453,22 @@ export class ClientWarehouseViewModel {
     })
   }
 
+  onClickRemoveBoxFromBatch(boxId) {
+    this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
+  }
+
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+      this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getStorekeepers()
 
+      // this.getDataGridState()
+
       this.getBoxesMy()
+
+      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
       this.getTasksMy()
@@ -501,6 +506,13 @@ export class ClientWarehouseViewModel {
 
   onChangeCurPage = e => {
     this.curPage = e
+
+    this.getBoxesMy()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.getBoxesMy()
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
@@ -655,6 +667,8 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
+      this.boxesIdsToTask = []
+
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = newBoxes[i]
 
@@ -665,7 +679,13 @@ export class ClientWarehouseViewModel {
         await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
       }
 
-      this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
+      this.modalEditSuccessMessage = this.boxesIdsToTask.length
+        ? `${t(TranslationKey['Editing completed'])}, ${t(
+            TranslationKey['Tasks were created for the following boxes'],
+          )}: ${this.boxesIdsToTask.join(', ')}`
+        : t(TranslationKey['Editing completed'])
+
+      this.boxesIdsToTask = []
 
       this.onTriggerOpenModal('showSuccessInfoModal')
 
@@ -686,13 +706,19 @@ export class ClientWarehouseViewModel {
       this.uploadedFiles = []
 
       if (boxData.tmpShippingLabel?.length) {
-        await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, {
+          images: boxData.tmpShippingLabel,
+          type: 'uploadedFiles',
+          withoutShowProgress: true,
+        })
       }
 
       if (
         !boxData.clientComment &&
         boxData.items.every(item => !item.tmpBarCode?.length) &&
-        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+        // (sourceData.shippingLabel === null ||
+        //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
+        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
@@ -775,7 +801,9 @@ export class ClientWarehouseViewModel {
           sourceData.storekeeper?.name
         } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
 
-        !isMultipleEdit && this.onTriggerOpenModal('showSuccessInfoModal')
+        !isMultipleEdit
+          ? this.onTriggerOpenModal('showSuccessInfoModal')
+          : (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
       }
 
       !isMultipleEdit && this.loadData()
@@ -945,21 +973,34 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClientLight(
-        BoxStatus.IN_STOCK,
-        this.currentStorekeeper && this.currentStorekeeper._id,
-      )
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
+        filtersProduct: this.nameSearchValue ? productFilter : null,
+
+        filtersBox: this.nameSearchValue ? boxFilter : null,
+
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
 
       const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.baseBoxesMy = result
+        this.baseBoxesMy = result.rows
 
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
-        this.boxesMy = clientWarehouseDataConverter(result, res.volumeWeightCoefficient).sort(
-          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-        )
+        this.rowCount = result.count
+
+        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
@@ -967,6 +1008,8 @@ export class ClientWarehouseViewModel {
 
       runInAction(() => {
         this.boxesMy = []
+
+        this.baseBoxesMy = []
       })
     }
   }

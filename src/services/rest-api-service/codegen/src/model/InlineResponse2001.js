@@ -59,6 +59,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
@@ -152,6 +155,12 @@ InlineResponse2001.prototype['id'] = undefined;
  * @member {String} _id
  */
 InlineResponse2001.prototype['_id'] = undefined;
+
+/**
+ * ASIN продукта
+ * @member {String} asin
+ */
+InlineResponse2001.prototype['asin'] = undefined;
 
 /**
  * Комментарии клиента.

@@ -261,6 +261,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               {t(TranslationKey['Product description']).toUpperCase()}
             </Typography>
             <Field
+              // key={'amazonTitle'}
               disabled={defaultFieldDisable}
               label={t(TranslationKey['Product header on Amazon'])}
               value={product.amazonTitle || ''}

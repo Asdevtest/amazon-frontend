@@ -34,7 +34,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
           <Typography className={classNames.headerText}>{message.data?.title}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
-          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</Typography>
+          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>

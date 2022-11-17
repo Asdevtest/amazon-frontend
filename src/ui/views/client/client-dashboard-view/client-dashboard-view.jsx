@@ -72,8 +72,6 @@ export class ClientDashboardViewRaw extends Component {
                       <Button
                         tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
                         className={classes.button}
-                        color="primary"
-                        variant="contained"
                         onClick={onClickWithdrawMoney}
                       >
                         {t(TranslationKey.Deposit)}

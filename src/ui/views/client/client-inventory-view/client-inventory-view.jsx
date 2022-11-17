@@ -56,7 +56,6 @@ export class ClientInventoryViewRaw extends Component {
     const {
       currentData,
       userInfo,
-      nameSearchValue,
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
@@ -93,7 +92,7 @@ export class ClientInventoryViewRaw extends Component {
       // showSetStockUsValueModal,
       showConfirmModal,
       curPage,
-      productsMy,
+      // currentData,
       productsMyBase,
       ideasData,
 
@@ -144,7 +143,6 @@ export class ClientInventoryViewRaw extends Component {
       onClickWithoutProductsShopBtn,
       onClickWithProductsShopBtn,
 
-      onChangeNameSearchValue,
       createSupplierSearchRequest,
       // onClickSavesStockUSA,
       withoutProduct,
@@ -157,7 +155,7 @@ export class ClientInventoryViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const disableSelectionCells = ['stockUSA', 'fourMonthesStock']
+    const disableSelectionCells = ['asin', 'stockUSA', 'fourMonthesStock']
 
     return (
       <React.Fragment>
@@ -185,7 +183,7 @@ export class ClientInventoryViewRaw extends Component {
                       <>
                         {!(!withProduct && !withoutProduct && !currentShop?._id) && (
                           <Button
-                            disabled={!productsMy}
+                            disabled={!currentData}
                             className={classNames.button}
                             variant="text"
                             color="primary"
@@ -196,7 +194,7 @@ export class ClientInventoryViewRaw extends Component {
                         )}
                         {/* {!withProduct && (  // Не работает после пвнедрения пагинации, нужны отдельные фильтры в метод
                           <Button
-                            disabled={!productsMy}
+                            disabled={!currentData}
                             className={classNames.button}
                             variant="text"
                             color="primary"
@@ -208,7 +206,7 @@ export class ClientInventoryViewRaw extends Component {
 
                         {!withoutProduct && (
                           <Button
-                            disabled={!productsMy}
+                            disabled={!currentData}
                             className={classNames.button}
                             variant="text"
                             color="primary"
@@ -223,10 +221,9 @@ export class ClientInventoryViewRaw extends Component {
                   />
 
                   <SearchInput
+                    key={'client_inventory_search_input'}
                     inputClasses={classNames.searchInput}
-                    value={nameSearchValue}
                     placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                    onChange={onChangeNameSearchValue}
                     onSubmit={onSearchSubmit}
                   />
                 </div>
@@ -366,7 +363,7 @@ export class ClientInventoryViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25 /* , 50, 100*/]}
+                  rowsPerPageOptions={[15, 25 /* 50, 100*/]}
                   // rows={getCurrentData()}
                   rows={currentData}
                   getRowHeight={() => 'auto'}
@@ -409,7 +406,7 @@ export class ClientInventoryViewRaw extends Component {
           <AddSupplierToIdeaFromInventoryForm
             showProgress={showProgress}
             progressValue={progressValue}
-            product={productsMy.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
             ideas={ideasData}
             onClose={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
             onSubmit={createSupplierSearchRequest}
@@ -475,7 +472,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         >
           <SelectionSupplierModal
-            product={productsMy.find(el => el.originalData._id === selectedRowId)}
+            product={currentData.find(el => el.originalData._id === selectedRowId)}
             onClickFinalAddSupplierButton={onClickAddSupplierButton}
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
             onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
@@ -488,7 +485,7 @@ export class ClientInventoryViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepers}
-            selectedProductsData={productsMy
+            selectedProductsData={currentData
               .filter(product => selectedRowIds.includes(product.id))
               .map(prod => prod.originalData)}
             onTriggerOpenModal={onTriggerOpenModal}
@@ -502,7 +499,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         >
           <BindInventoryGoodsToStockForm
-            product={productsMy.find(item => selectedRowIds.includes(item.id))?.originalData}
+            product={currentData.find(item => selectedRowIds.includes(item.id))?.originalData}
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}

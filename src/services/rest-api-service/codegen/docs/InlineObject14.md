@@ -21,6 +21,5 @@ Name | Type | Description | Notes
 **destinationId** | **String** | destination GUID  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
 **storekeeperId** | **String** | GUID сторкипера | [optional] 
-**shippingLabel** | **String** | Шипингш лейбл | [optional] 
 
 

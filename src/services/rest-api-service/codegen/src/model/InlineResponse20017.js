@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20017Finances from './InlineResponse20017Finances';
-import InlineResponse20017Orders from './InlineResponse20017Orders';
-import InlineResponse20017Products from './InlineResponse20017Products';
 
 /**
  * The InlineResponse20017 model module.
@@ -50,14 +47,14 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20017Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20017Orders.constructFromObject(data['orders']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20017Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -67,19 +64,22 @@ class InlineResponse20017 {
 }
 
 /**
- * @member {module:model/InlineResponse20017Products} products
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20017.prototype['products'] = undefined;
+InlineResponse20017.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20017Orders} orders
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse20017.prototype['orders'] = undefined;
+InlineResponse20017.prototype['name'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20017Finances} finances
+ * Почта юзера
+ * @member {String} email
  */
-InlineResponse20017.prototype['finances'] = undefined;
+InlineResponse20017.prototype['email'] = undefined;
 
 
 

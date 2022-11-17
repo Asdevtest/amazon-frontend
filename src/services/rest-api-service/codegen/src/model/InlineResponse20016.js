@@ -12,12 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20016Batch from './InlineResponse20016Batch';
-import InlineResponse20016Boxes from './InlineResponse20016Boxes';
-import InlineResponse20016Orders from './InlineResponse20016Orders';
-import InlineResponse20016Products from './InlineResponse20016Products';
-import InlineResponse20016Requests from './InlineResponse20016Requests';
-import InlineResponse20016Shops from './InlineResponse20016Shops';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20016 model module.
@@ -53,23 +49,47 @@ class InlineResponse20016 {
         if (data) {
             obj = obj || new InlineResponse20016();
 
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20016Orders.constructFromObject(data['orders']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('shops')) {
-                obj['shops'] = InlineResponse20016Shops.constructFromObject(data['shops']);
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = InlineResponse20016Requests.constructFromObject(data['requests']);
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20016Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = InlineResponse20016Batch.constructFromObject(data['batch']);
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
             }
             if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20016Boxes.constructFromObject(data['boxes']);
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
         }
         return obj;
@@ -79,37 +99,117 @@ class InlineResponse20016 {
 }
 
 /**
- * @member {module:model/InlineResponse20016Orders} orders
+ * GUID
+ * @member {String} _id
  */
-InlineResponse20016.prototype['orders'] = undefined;
+InlineResponse20016.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20016Shops} shops
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineResponse20016.prototype['shops'] = undefined;
+InlineResponse20016.prototype['taskId'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20016Requests} requests
+ * Тип операции
+ * @member {module:model/InlineResponse20016.OperationTypeEnum} operationType
  */
-InlineResponse20016.prototype['requests'] = undefined;
+InlineResponse20016.prototype['operationType'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20016Products} products
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
  */
-InlineResponse20016.prototype['products'] = undefined;
+InlineResponse20016.prototype['boxesBefore'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20016Batch} batch
- */
-InlineResponse20016.prototype['batch'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20016Boxes} boxes
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
 InlineResponse20016.prototype['boxes'] = undefined;
 
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
+ * @member {Number} status
+ */
+InlineResponse20016.prototype['status'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse20016.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse20016.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий баера.
+ * @member {String} buyerComment
+ */
+InlineResponse20016.prototype['buyerComment'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20016.prototype['images'] = undefined;
+
+/**
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
+ */
+InlineResponse20016.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20016.prototype['storekeeper'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20016.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updateDate
+ */
+InlineResponse20016.prototype['updateDate'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20016['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

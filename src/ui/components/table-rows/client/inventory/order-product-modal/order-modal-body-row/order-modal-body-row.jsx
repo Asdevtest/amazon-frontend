@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Chip, Typography, TableCell, TableRow, IconButton} from '@mui/material'
 
@@ -79,11 +80,11 @@ export const OrderModalBodyRow = ({
 
   const tariffName = storekeepers
     .find(el => el._id === item.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === item.logicsTariffId)?.name
+    ?.tariffLogistics?.find(el => el._id === item.logicsTariffId)?.name
 
   const tariffRate = storekeepers
     .find(el => el._id === item.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+    ?.tariffLogistics?.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
@@ -107,15 +108,15 @@ export const OrderModalBodyRow = ({
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
   const boxPropertiesIsFull =
-    item.currentSupplier.boxProperties?.amountInBox &&
-    item.currentSupplier.boxProperties?.boxLengthCm &&
-    item.currentSupplier.boxProperties?.boxWidthCm &&
-    item.currentSupplier.boxProperties?.boxHeightCm &&
-    item.currentSupplier.boxProperties?.boxWeighGrossKg &&
-    item.currentSupplier.amount &&
-    item.currentSupplier.minlot &&
-    item.currentSupplier.priceInYuan &&
-    item.currentSupplier.price
+    item.currentSupplier?.boxProperties?.amountInBox &&
+    item.currentSupplier?.boxProperties?.boxLengthCm &&
+    item.currentSupplier?.boxProperties?.boxWidthCm &&
+    item.currentSupplier?.boxProperties?.boxHeightCm &&
+    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
+    item.currentSupplier?.amount &&
+    item.currentSupplier?.minlot &&
+    item.currentSupplier?.priceInYuan &&
+    item.currentSupplier?.price
 
   return (
     <React.Fragment>
@@ -271,7 +272,7 @@ export const OrderModalBodyRow = ({
         </Modal>
       </TableRow>
 
-      <TableRow key={item._id + new Date()}>
+      <TableRow key={item._id + `+`}>
         <TableCell colSpan={11}>
           <div className={classNames.sumsWrapper}>
             <Button
@@ -288,7 +289,7 @@ export const OrderModalBodyRow = ({
               labelClasses={classNames.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
               inputComponent={
-                <Typography className={classNames.sumText}>{item.currentSupplier.productionTerm}</Typography>
+                <Typography className={classNames.sumText}>{item.currentSupplier?.productionTerm}</Typography>
               }
             />
 
@@ -297,7 +298,7 @@ export const OrderModalBodyRow = ({
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier.minlot}</Typography>}
+              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier?.minlot}</Typography>}
             />
 
             <Field

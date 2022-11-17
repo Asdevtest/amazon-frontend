@@ -40,168 +40,184 @@ interface Props {
   messages?: ChatMessageContract[]
   handlers?: ChatMessageUniversalHandlers
   toScrollMesId?: string | undefined
+  messagesFound?: ChatMessageContract[]
+  searchPhrase?: string
 }
 
-export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers /* toScrollMesId*/}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessagesList: FC<Props> = observer(
+  ({messages, userId, handlers, /* toScrollMesId, messagesFound,*/ searchPhrase}) => {
+    const {classes: classNames} = useClassNames()
 
-  // const messagesIds = messages ? messages.map(mes => mes._id) : []
+    // console.log('CHAT_messagesFound', messagesFound)
 
-  // const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds)
+    // const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
-  // const messagesRefs = useMemo(() => messagesIds.map(() => useRef()), [])
+    // const messagesIds = messages ? messages.map(mes => mes._id) : []
 
-  // useEffect(() => {
-  //   if (toScrollMesId) {
-  //     scrollToElementClickHandler(toScrollMesId)
+    // const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds)
 
-  //     console.log('toScrollMesId', toScrollMesId)
-  //   }
-  // }, [toScrollMesId])
+    // const messagesRefs = useMemo(() => messagesIds.map(() => useRef()), [])
 
-  // useEffect(() => {
-  //   if (toScrollMesId) {
-  //     const ref = (messagesRefs as {[key: string]: string})[toScrollMesId]
+    // useEffect(() => {
+    //   if (toScrollMesId) {
+    //     scrollToElementClickHandler(toScrollMesId)
 
-  //     ref.current.scrollIntoView()
+    //     console.log('toScrollMesId', toScrollMesId)
+    //   }
+    // }, [toScrollMesId])
 
-  //     //  {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+    // useEffect(() => {
+    //   if (toScrollMesId) {
+    //     const ref = (messagesRefs as {[key: string]: string})[toScrollMesId]
 
-  //     console.log('toScrollMesId', toScrollMesId)
-  //   }
-  // }, [toScrollMesId])
+    //     ref.current.scrollIntoView()
 
-  useEffect(() => {
-    const unReadMessages = messages?.filter(el => el.userId !== userId && !el.isRead)
+    //     //  {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
 
-    if (unReadMessages?.length) {
-      ChatModel.readMessages(unReadMessages.map(el => el._id))
+    //     console.log('toScrollMesId', toScrollMesId)
+    //   }
+    // }, [toScrollMesId])
+
+    useEffect(() => {
+      const unReadMessages = messages?.filter(el => el.userId !== userId && !el.isRead)
+
+      if (unReadMessages?.length) {
+        ChatModel.readMessages(unReadMessages.map(el => el._id))
+      }
+    }, [messages])
+
+    const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract, unReadMessage: boolean) => {
+      if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
+        return <ChatMessageRequest message={messageItem} />
+      } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
+        return (
+          <ChatMessageProposal
+            message={messageItem}
+            handlers={{
+              onClickProposalAccept: handlers.onClickProposalAccept,
+              onClickProposalRegect: handlers.onClickProposalRegect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
+        return (
+          <ChatMessageProposalStatusChanged
+            message={messageItem}
+            handlers={{
+              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
+              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
+        return (
+          <ChatMessageRequestProposalResultEdited
+            message={messageItem}
+            handlers={{
+              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
+              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else {
+        return (
+          <ChatMessageBasicText
+            isIncomming={isIncomming}
+            message={messageItem}
+            unReadMessage={unReadMessage}
+            // isFound={messagesFoundIds.includes(messageItem?._id)}
+            searchPhrase={searchPhrase}
+          />
+        )
+      }
     }
-  }, [messages])
 
-  const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract, unReadMessage: boolean) => {
-    if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
-      return <ChatMessageRequest message={messageItem} />
-    } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
-      return (
-        <ChatMessageProposal
-          message={messageItem}
-          handlers={{
-            onClickProposalAccept: handlers.onClickProposalAccept,
-            onClickProposalRegect: handlers.onClickProposalRegect,
-          }}
-        />
-      )
-    } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
-      return (
-        <ChatMessageProposalStatusChanged
-          message={messageItem}
-          handlers={{
-            onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-            onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-          }}
-        />
-      )
-    } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
-      return (
-        <ChatMessageRequestProposalResultEdited
-          message={messageItem}
-          handlers={{
-            onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-            onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-          }}
-        />
-      )
-    } else {
-      return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} unReadMessage={unReadMessage} />
-    }
-  }
+    return (
+      <div className={classNames.root}>
+        <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
+          {messages
+            ? messages.map((messageItem: ChatMessageContract, index: number) => {
+                const isIncomming = userId !== messageItem.userId
 
-  return (
-    <div className={classNames.root}>
-      <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
-        {messages
-          ? messages.map((messageItem: ChatMessageContract, index: number) => {
-              const isIncomming = userId !== messageItem.userId
+                const isNotPersonal = !messageItem.userId
 
-              const isNotPersonal = !messageItem.userId
+                const isLastMessage = index === messages.length - 1
 
-              const isLastMessage = index === messages.length - 1
+                const isNextMessageSameAuthor =
+                  !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
 
-              const isNextMessageSameAuthor =
-                !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
+                const unReadMessage = !messageItem.isRead
 
-              const unReadMessage = !messageItem.isRead
+                // const mesRef = getScrollToElementRef(messageItem._id)
 
-              // const mesRef = getScrollToElementRef(messageItem._id)
+                // console.log('mesRef', mesRef)
+                // const mesRef = useRef(null)
 
-              // console.log('mesRef', mesRef)
-              // const mesRef = useRef(null)
-
-              return (
-                <div
-                  key={`chatMessage_${messageItem._id}`}
-                  // ref={getScrollToElementRef(messageItem._id)}
-                  // ref={sec => getScrollToElementRef(messageItem._id)(sec)}
-                  // ref={mesRef}
-                  // ref={mesRef}
-                  // ref={messagesRefs[messageItem._id]}
-                  className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
-                >
-                  {index === 0 ||
-                  formatDateWithoutTime(messages[index - 1].updatedAt) !==
-                    formatDateWithoutTime(messageItem.updatedAt) ? (
-                    <div className={classNames.timeTextWrapper}>
-                      <Typography className={classNames.timeText}>
-                        {formatDateWithoutTime(messageItem.updatedAt)}
-                      </Typography>
-                    </div>
-                  ) : null}
-
+                return (
                   <div
-                    className={cx(classNames.messageWrapper, {
-                      [classNames.messageWrapperIsIncomming]: isIncomming,
-                      [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
-                      [classNames.messageWrapperIsLastMessage]: isLastMessage,
-                      [classNames.messageWrapperisNotPersonal]: isNotPersonal,
-                    })}
+                    key={`chatMessage_${messageItem._id}`}
+                    // ref={getScrollToElementRef(messageItem._id)}
+                    // ref={sec => getScrollToElementRef(messageItem._id)(sec)}
+                    // ref={mesRef}
+                    // ref={mesRef}
+                    // ref={messagesRefs[messageItem._id]}
+                    className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
                   >
-                    {!isNextMessageSameAuthor && !isNotPersonal ? (
-                      <Link
-                        target="_blank"
-                        href={
-                          userId === messageItem.userId
-                            ? `${window.location.origin}/profile`
-                            : `${window.location.origin}/another-user?${messageItem.userId}`
-                        }
-                      >
-                        <Avatar
-                          src={getUserAvatarSrc(messageItem.userId)}
-                          className={cx(classNames.messageAvatarWrapper, {
-                            [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
-                          })}
-                        />
-                      </Link>
+                    {index === 0 ||
+                    formatDateWithoutTime(messages[index - 1].createdAt) !==
+                      formatDateWithoutTime(messageItem.createdAt) ? (
+                      <div className={classNames.timeTextWrapper}>
+                        <Typography className={classNames.timeText}>
+                          {formatDateWithoutTime(messageItem.createdAt)}
+                        </Typography>
+                      </div>
                     ) : null}
 
                     <div
-                      className={cx(classNames.messageInner, {
-                        [classNames.messageInnerIsIncomming]: isIncomming,
-                        [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
-                        [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
-                          isNextMessageSameAuthor && isIncomming,
+                      className={cx(classNames.messageWrapper, {
+                        [classNames.messageWrapperIsIncomming]: isIncomming,
+                        [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
+                        [classNames.messageWrapperIsLastMessage]: isLastMessage,
+                        [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                       })}
                     >
-                      <div className={classNames.messageInnerContentWrapper}>
-                        {renderMessageByType(isIncomming, messageItem, unReadMessage)}
+                      {!isNextMessageSameAuthor && !isNotPersonal ? (
+                        <Link
+                          target="_blank"
+                          href={
+                            userId === messageItem.userId
+                              ? `${window.location.origin}/profile`
+                              : `${window.location.origin}/another-user?${messageItem.userId}`
+                          }
+                        >
+                          <Avatar
+                            src={getUserAvatarSrc(messageItem.userId)}
+                            className={cx(classNames.messageAvatarWrapper, {
+                              [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
+                            })}
+                          />
+                        </Link>
+                      ) : null}
+
+                      <div
+                        className={cx(classNames.messageInner, {
+                          [classNames.messageInnerIsIncomming]: isIncomming,
+                          [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
+                          [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
+                            isNextMessageSameAuthor && isIncomming,
+                        })}
+                      >
+                        <div className={classNames.messageInnerContentWrapper}>
+                          {renderMessageByType(isIncomming, messageItem, unReadMessage)}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )
-            })
-          : undefined}
-      </ScrollView>
-    </div>
-  )
-})
+                )
+              })
+            : undefined}
+        </ScrollView>
+      </div>
+    )
+  },
+)

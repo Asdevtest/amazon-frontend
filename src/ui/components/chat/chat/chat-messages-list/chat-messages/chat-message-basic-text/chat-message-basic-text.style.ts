@@ -14,8 +14,26 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
   },
+
+  isFound: {
+    borderLeft: `8px solid ${theme.palette.primary.main}`,
+  },
+
+  isFoundIncomming: {
+    borderLeft: 'none',
+
+    borderRight: `8px solid ${theme.palette.primary.main}`,
+  },
+
   rootIsIncomming: {
     backgroundColor: `${theme.palette.background.chatIncomeMessage} !important`,
+  },
+
+  highlightClassName: {
+    color: theme.palette.primary.main,
+    // color: 'red',
+
+    backgroundColor: 'rgb(201, 229, 114)',
   },
 
   timeText: {

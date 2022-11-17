@@ -2,6 +2,19 @@ import {toFixed} from './text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 
+export const roundHalf = num => {
+  const roundedNum = Number(toFixed(num, 1))
+  const dif = roundedNum - Math.trunc(num)
+
+  if (dif >= 0.25 && dif < 0.75) {
+    return Math.trunc(num) + 0.5
+  } else if (dif < 0.5) {
+    return Math.trunc(num)
+  } else {
+    return Math.ceil(num)
+  }
+}
+
 export const calcProductPrice = product =>
   ((parseInt(product.createdBy?.rate) || 0) +
     (parseInt(product.buyer?.rate) || 0) +

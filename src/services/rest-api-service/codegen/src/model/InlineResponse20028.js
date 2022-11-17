@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20024Finances from './InlineResponse20024Finances';
+import InlineResponse20028Checking from './InlineResponse20028Checking';
+import InlineResponse20028Products from './InlineResponse20028Products';
 
 /**
  * The InlineResponse20028 model module.
@@ -47,11 +50,14 @@ class InlineResponse20028 {
         if (data) {
             obj = obj || new InlineResponse20028();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20028Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20028Checking.constructFromObject(data['checking']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20024Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -61,14 +67,19 @@ class InlineResponse20028 {
 }
 
 /**
- * @member {String} userId
+ * @member {module:model/InlineResponse20028Products} products
  */
-InlineResponse20028.prototype['userId'] = undefined;
+InlineResponse20028.prototype['products'] = undefined;
 
 /**
- * @member {String} productId
+ * @member {module:model/InlineResponse20028Checking} checking
  */
-InlineResponse20028.prototype['productId'] = undefined;
+InlineResponse20028.prototype['checking'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20024Finances} finances
+ */
+InlineResponse20028.prototype['finances'] = undefined;
 
 
 

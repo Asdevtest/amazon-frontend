@@ -4,7 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя пользователя. | [optional] 
-**email** | **String** | Почта юзера | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**bsr** | **Number** |  | [optional] 
+**amazon** | **Number** |  | [optional] 
+**reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
+**fbafee** | **Number** | ФБА комиссия | [optional] 
+**fbaamount** | **Number** |  Общая сумма с фба. | [optional] 
+**status** | **Number** | Код текущего статуса | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**profit** | **Number** | Прибыль | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

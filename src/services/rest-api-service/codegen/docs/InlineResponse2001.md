@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** | id заказ. | [optional] 
 **_id** | **String** | GUID данной записи в БД. | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
 **clientComment** | **String** | Комментарии клиента. | [optional] 
 **trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
 **item** | **String** |  | [optional] 

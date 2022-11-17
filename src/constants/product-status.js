@@ -184,7 +184,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Supplier was not found']
 
     case ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE:
-      return TranslationKey['Supplier price does not fit (сhecked)']
+      return TranslationKey['Supplier price does not fit']
 
     case ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS:
       return TranslationKey['Search complete']

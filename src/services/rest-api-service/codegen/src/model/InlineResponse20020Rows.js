@@ -150,6 +150,9 @@ class InlineResponse20020Rows {
             if (data.hasOwnProperty('margin')) {
                 obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
             }
+            if (data.hasOwnProperty('inTransfer')) {
+                obj['inTransfer'] = ApiClient.convertToType(data['inTransfer'], 'Number');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -460,6 +463,12 @@ InlineResponse20020Rows.prototype['profit'] = undefined;
  * @member {Number} margin
  */
 InlineResponse20020Rows.prototype['margin'] = undefined;
+
+/**
+ * Кол-во товаров, которые находятся в пути
+ * @member {Number} inTransfer
+ */
+InlineResponse20020Rows.prototype['inTransfer'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy

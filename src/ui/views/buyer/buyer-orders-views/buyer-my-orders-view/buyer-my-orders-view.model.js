@@ -46,6 +46,8 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   baseNoConvertedOrders = []
 
+  currentData = []
+
   curBoxesOfOrder = []
 
   createBoxesResult = []
@@ -71,6 +73,7 @@ export class BuyerMyOrdersViewModel {
 
   firstRowId = undefined
 
+  rowCount = undefined
   sortModel = []
   startFilterModel = undefined
   filterModel = {items: []}
@@ -88,6 +91,10 @@ export class BuyerMyOrdersViewModel {
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
+
+      const state = {...history.location.state}
+      delete state.orderId
+      history.replace({...history.location, state})
     }
 
     if (location?.state?.dataGridFilter) {
@@ -107,15 +114,20 @@ export class BuyerMyOrdersViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.ordersMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders).sort(
-        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-      )
+      this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
     }
   }
 
@@ -159,6 +171,8 @@ export class BuyerMyOrdersViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+    this.curPage = 0
+    this.getOrdersMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -171,6 +185,7 @@ export class BuyerMyOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+    this.getOrdersMy()
   }
 
   onSelectionModel(model) {
@@ -178,26 +193,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(
-        this.ordersMy.filter(
-          el =>
-            el.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.originalData.product.skusByClient?.some(sku =>
-              sku.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ) ||
-            el.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        ),
-      )
-    } else {
-      return toJS(this.ordersMy)
-    }
-  }
-
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    return toJS(this.ordersMy)
   }
 
   async loadData() {
@@ -467,15 +463,37 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    this.getOrdersMy()
+  }
+
   async getOrdersMy() {
     try {
-      const result = await BuyerModel.getOrdersMy()
-      runInAction(() => {
-        this.baseNoConvertedOrders = result
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
-        this.ordersMy = buyerMyOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      const result = await BuyerModel.getOrdersMyPag({
+        filtersProduct: this.nameSearchValue ? productFilter : null,
+
+        filtersOrder: null,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
+
+      runInAction(() => {
+        this.rowCount = result.count
+
+        this.baseNoConvertedOrders = result.rows
+
+        this.ordersMy = buyerMyOrdersDataConverter(result.rows)
       })
     } catch (error) {
+      this.baseNoConvertedOrders = []
       this.ordersMy = []
       console.log(error)
     }
@@ -495,5 +513,6 @@ export class BuyerMyOrdersViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+    this.getOrdersMy()
   }
 }

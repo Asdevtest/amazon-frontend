@@ -18,7 +18,7 @@ import {useClassNames} from './box-for-merge.style'
 
 export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
   const {classes: classNames} = useClassNames()
-  const [showFullCard, setShowFullCard] = useState(false)
+  const [showFullCard, setShowFullCard] = useState(true)
 
   return (
     <div className={classNames.box}>

@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
+import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
 
 import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
@@ -48,6 +49,8 @@ interface Props {
   chatMessageHandlers?: ChatMessageUniversalHandlers
   typingUsers?: OnTypingMessageResponse[]
   toScrollMesId?: string | undefined
+  messagesFound?: ChatMessageContract[]
+  searchPhrase?: string
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
@@ -61,7 +64,9 @@ export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
       {
+        searchPhrase,
         toScrollMesId,
+        messagesFound,
         typingUsers,
         searchFilter,
         chats,
@@ -125,6 +130,8 @@ export const MultipleChats = observer(
                   messages={findChatByChatId.messages}
                   chatMessageHandlers={chatMessageHandlers}
                   toScrollMesId={toScrollMesId}
+                  messagesFound={messagesFound}
+                  searchPhrase={searchPhrase}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
                   onSubmitMessage={(message: string, files: IFile[]) =>

@@ -68,106 +68,108 @@ export const ProductWrapper = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    const curUserRole = UserRoleCodeMap[userRole]
+    const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.MAIN_INFO)
 
-    const [updatedProduct, setUpdatedProduct] = useState(product)
-
     useEffect(() => {
-      setUpdatedProduct(() => ({...product}))
-    }, [SettingsModel.languageTag, product])
+      seturUserRole(() => UserRoleCodeMap[userRole])
+    }, [SettingsModel.languageTag, userRole])
 
     return (
-      <React.Fragment>
-        <Tabs
-          variant={'fullWidth'}
-          classes={{
-            root: classNames.row,
-            indicator: classNames.indicator,
-          }}
-          value={tabIndex}
-          onChange={(e, value) => {
-            setTabIndex(value)
-          }}
-        >
-          <ITab
-            tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
-            value={tabsValues.MAIN_INFO}
-            label={t(TranslationKey['Basic information'])}
-          />
+      <>
+        {SettingsModel.languageTag && (
+          <React.Fragment>
+            <Tabs
+              variant={'fullWidth'}
+              classes={{
+                root: classNames.row,
+                indicator: classNames.indicator,
+              }}
+              value={tabIndex}
+              onChange={(e, value) => {
+                setTabIndex(value)
+              }}
+            >
+              <ITab
+                tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
+                value={tabsValues.MAIN_INFO}
+                label={t(TranslationKey['Basic information'])}
+              />
 
-          {checkIsClient(curUserRole) && (
-            <ITab
-              tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
-              label={t(TranslationKey.Orders)}
-              value={tabsValues.ORDERS}
-            />
-          )}
+              {checkIsClient(curUserRole) && (
+                <ITab
+                  tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
+                  label={t(TranslationKey.Orders)}
+                  value={tabsValues.ORDERS}
+                />
+              )}
 
-          {checkIsClient(curUserRole) && (
-            <ITab
-              tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
-              label={t(TranslationKey.Integrations)}
-              value={tabsValues.INTEGRATIONS}
-            />
-          )}
+              {checkIsClient(curUserRole) && (
+                <ITab
+                  tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
+                  label={t(TranslationKey.Integrations)}
+                  value={tabsValues.INTEGRATIONS}
+                />
+              )}
 
-          {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
+              {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
 
-          {!checkIsResearcher(curUserRole) && (
-            <ITab label={t(TranslationKey['Suppliers and Ideas'])} value={tabsValues.SUPPLIERS_AND_IDEAS} />
-          )}
-        </Tabs>
+              {!checkIsResearcher(curUserRole) && (
+                <ITab label={t(TranslationKey['Suppliers and Ideas'])} value={tabsValues.SUPPLIERS_AND_IDEAS} />
+              )}
+            </Tabs>
 
-        <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
-          <TopCard
-            user={user}
-            imagesForLoad={imagesForLoad}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            alertFailedText={alertFailedText}
-            curUserRole={curUserRole}
-            product={updatedProduct}
-            shops={shops}
-            productBase={productBase}
-            selectedSupplier={selectedSupplier}
-            actionStatus={actionStatus}
-            acceptMessage={acceptMessage}
-            handleProductActionButtons={handleProductActionButtons}
-            formFieldsValidationErrors={formFieldsValidationErrors}
-            onChangeField={onChangeField}
-            onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-            onClickSupplierBtns={handleSupplierButtons}
-            onClickSupplier={onClickSupplier}
-            onClickParseProductData={onClickParseProductData}
-            onChangeImagesForLoad={onChangeImagesForLoad}
-          />
-          <BottomCard
-            curUserRole={curUserRole}
-            product={updatedProduct}
-            productBase={productBase}
-            formFieldsValidationErrors={formFieldsValidationErrors}
-            onChangeField={onChangeField}
-          />
-        </TabPanel>
+            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
+              <TopCard
+                user={user}
+                imagesForLoad={imagesForLoad}
+                showProgress={showProgress}
+                progressValue={progressValue}
+                alertFailedText={alertFailedText}
+                curUserRole={curUserRole}
+                product={product}
+                shops={shops}
+                productBase={productBase}
+                selectedSupplier={selectedSupplier}
+                actionStatus={actionStatus}
+                acceptMessage={acceptMessage}
+                handleProductActionButtons={handleProductActionButtons}
+                formFieldsValidationErrors={formFieldsValidationErrors}
+                onChangeField={onChangeField}
+                onClickSetProductStatusBtn={onClickSetProductStatusBtn}
+                onClickSupplierBtns={handleSupplierButtons}
+                onClickSupplier={onClickSupplier}
+                onClickParseProductData={onClickParseProductData}
+                onChangeImagesForLoad={onChangeImagesForLoad}
+              />
+              <BottomCard
+                curUserRole={curUserRole}
+                product={product}
+                productBase={productBase}
+                formFieldsValidationErrors={formFieldsValidationErrors}
+                onChangeField={onChangeField}
+              />
+            </TabPanel>
 
-        <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-          <Orders productId={updatedProduct._id} />
-        </TabPanel>
+            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
+              <Orders productId={product._id} />
+            </TabPanel>
 
-        <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-          <Integrations productId={product._id} />
-        </TabPanel>
+            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
+              <Integrations productId={product._id} />
+            </TabPanel>
 
-        <TabPanel value={tabIndex} index={tabsValues.LISTING}>
-          <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
-        </TabPanel>
+            <TabPanel value={tabIndex} index={tabsValues.LISTING}>
+              <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
+            </TabPanel>
 
-        <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-          <SuppliersAndIdeas productId={product._id} />
-        </TabPanel>
-      </React.Fragment>
+            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+              <SuppliersAndIdeas productId={product._id} />
+            </TabPanel>
+          </React.Fragment>
+        )}
+      </>
     )
   },
 )

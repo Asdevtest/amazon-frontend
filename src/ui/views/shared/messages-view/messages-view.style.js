@@ -13,6 +13,20 @@ export const styles = theme => ({
     height: 36,
   },
 
+  searchResult: {
+    color: theme.palette.text.second,
+  },
+
+  searchResultNum: {
+    color: theme.palette.text.general,
+    marginLeft: 5,
+  },
+
+  searchResultWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   searchContainer: {
     width: 'auto',
     margin: 0,

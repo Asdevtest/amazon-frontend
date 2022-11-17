@@ -102,9 +102,6 @@ class InlineObject14 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
         }
         return obj;
     }
@@ -213,12 +210,6 @@ InlineObject14.prototype['logicsTariffId'] = undefined;
  * @member {String} storekeeperId
  */
 InlineObject14.prototype['storekeeperId'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject14.prototype['shippingLabel'] = undefined;
 
 
 

@@ -20,7 +20,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 150,
+    width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -30,7 +30,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 200,
+    width: 155,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -39,7 +39,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 580,
+    width: 850,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -50,7 +50,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    width: 200,
+    width: 180,
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
@@ -61,7 +61,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 250,
+    width: 190,
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['View more'])}
@@ -76,7 +76,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 150,
+    width: 130,
     renderCell: params => <TaskStatusCell status={params.value} />,
   },
 ]

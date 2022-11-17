@@ -40,9 +40,9 @@ export class BuyerMyProductsViewRaw extends Component {
 
   render() {
     const {
-      nameSearchValue,
+      rowCount,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -60,7 +60,7 @@ export class BuyerMyProductsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
-      onChangeNameSearchValue,
+      onSearchSubmit,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -74,14 +74,11 @@ export class BuyerMyProductsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <SearchInput
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
-                />
+                <SearchInput placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])} onSubmit={onSearchSubmit} />
               </div>
 
               <DataGrid
+                disableVirtualization
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
@@ -93,12 +90,15 @@ export class BuyerMyProductsViewRaw extends Component {
                   toolbarContainer: classNames.toolbarContainer,
                 }}
                 getRowClassName={getRowClassName}
+                sortingMode="server"
+                paginationMode="server"
+                rowCount={rowCount}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
+                rows={currentData}
                 rowHeight={100}
                 components={{
                   Toolbar: GridToolbar,

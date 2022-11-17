@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20041 model module.
@@ -24,7 +21,7 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20041 {
     /**
      * Constructs a new <code>InlineResponse20041</code>.
-     * Схема универсального предложения
+     * Успешный ответ.
      * @alias module:model/InlineResponse20041
      */
     constructor() { 
@@ -51,14 +48,11 @@ class InlineResponse20041 {
         if (data) {
             obj = obj || new InlineResponse20041();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
-            }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -68,19 +62,16 @@ class InlineResponse20041 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20041.prototype['proposal'] = undefined;
+InlineResponse20041.prototype['isExist'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
-InlineResponse20041.prototype['details'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
- */
-InlineResponse20041.prototype['request'] = undefined;
+InlineResponse20041.prototype['reason'] = undefined;
 
 
 

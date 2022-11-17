@@ -55,7 +55,7 @@ export const ProductStatusButtons = ({
               label={t(TranslationKey['Save without status'])}
               color={saveWithoutStatusBtnColor}
               colorHover={saveWithoutStatusBtnColorHover}
-              onClick={onClickSaveWithoutStatusChange}
+              onClickChip={onClickSaveWithoutStatusChange}
             />
           </Grid>
         ) : undefined}

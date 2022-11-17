@@ -205,7 +205,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   containerField: {
     display: 'flex',
-    width: 'min-content',
+    width: 'min-content !important',
 
     margin: '0 !important',
   },

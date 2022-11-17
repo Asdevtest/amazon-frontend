@@ -11,6 +11,16 @@ class BuyerModelStatic {
     return response
   }
 
+  getProductsMyPag = async data => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(data)
+    return response
+  }
+
+  getProductsMyLight = async () => {
+    const response = await restApiService.buyerApi.apiV1BuyersProductsLightGet()
+    return response
+  }
+
   updateProduct = async (id, data) => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsGuidPatch(id, {
       body: data,
@@ -54,6 +64,11 @@ class BuyerModelStatic {
 
   getOrdersMy = async () => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersMyGet()
+    return response
+  }
+
+  getOrdersMyPag = async data => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(data)
     return response
   }
 

@@ -184,6 +184,10 @@ export class ClientInventoryViewModel {
     if (location.state) {
       this.isArchive = location.state.isArchive
       this.isModalOpen = location.state.isModalOpen
+
+      const state = {...history.location.state}
+      delete state.isModalOpen
+      history.replace({...history.location, state})
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -206,12 +210,6 @@ export class ClientInventoryViewModel {
 
       this.productsMy = clientInventoryDataConverter(this.baseNoConvertedProducts.rows)
     }
-  }
-
-  onChangeNameSearchValue(e) {
-    // runInAction(() => {
-    this.nameSearchValue = e.target.value
-    // })
   }
 
   onChangeFilterModel(model) {
@@ -284,16 +282,12 @@ export class ClientInventoryViewModel {
   }
 
   getCurrentData() {
-    // console.log('GET_CURRENT_DATA')
-
-    const dataByArchive = this.isArchive
-      ? toJS(this.productsMy.filter(el => el.originalData.archive))
-      : toJS(this.productsMy.filter(el => !el.originalData.archive))
-
-    return dataByArchive
+    return toJS(this.productsMy)
   }
 
-  onSearchSubmit() {
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
     this.getProductsMy()
   }
 
@@ -469,23 +463,21 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // console.log('START')
-
-      const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue}`
+      const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
+        this.nameSearchValue
+      };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.nameSearchValue ? filter : null,
+        filters: filter, // this.nameSearchValue ? filter : null,
 
         shopId: this.currentShop ? this.currentShop._id : null,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : null,
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
-      // console.log('REQUEST_TRUE_END')
 
       runInAction(() => {
         this.baseNoConvertedProducts = result
@@ -497,8 +489,6 @@ export class ClientInventoryViewModel {
         if (!noProductBaseUpdate) {
           this.productsMyBase = clientInventoryDataConverter(result.rows)
         }
-
-        // console.log('END')
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -53,6 +53,12 @@ export const adminExchangeBtnsConfig = () => [
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
+
+  {
+    label: t(TranslationKey["The supplier's price does not fit"]),
+    color: 'rgb(15, 169, 20)',
+    colorHover: '#009a07',
+  },
 ]
 
 export const adminOrdersBtnsConfig = () => [

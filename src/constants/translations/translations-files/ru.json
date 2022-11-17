@@ -1459,7 +1459,7 @@
   "Access to products": "Доступ к товарам",
   "Access to all products": "Доступ ко всем товарам",
   "Access to selected products only": "Доступ только к выбранным товарам",
-  "Search by product description and ASIN:": "Поиск по описанию товара и ASIN:",
+  "Search by product description and ASIN, SKU:": "Поиск по описанию товара и ASIN, SKU:",
   "Search by SKU, ASIN, Title": "Поиск по SKU, ASIN, Title",
   "Repeat order": "Повторить заказ",
   "Box data": "Данные коробки",
@@ -1596,5 +1596,7 @@
   "Repeat search": "Повторить поиск",
   "Repeat the search for a supplier": "Повторить поиск поставщика",
   "days": "дн",
-  "units": "ед"
+  "units": "ед",
+  "Tasks were created for the following boxes": "Для следующих коробок созданы задачи",
+  "Prep Center USA": "Преп центр США"
 }

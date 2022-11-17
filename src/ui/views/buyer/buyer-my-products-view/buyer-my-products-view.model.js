@@ -10,7 +10,6 @@ import {SettingsModel} from '@models/settings-model'
 import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
@@ -23,12 +22,15 @@ export class BuyerMyProductsViewModel {
   productsMy = []
   drawerOpen = false
 
+  currentData = []
+
   nameSearchValue = ''
 
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
   }
 
+  rowCount = undefined
   sortModel = []
   startFilterModel = undefined
   filterModel = {items: []}
@@ -52,15 +54,20 @@ export class BuyerMyProductsViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.productsMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.productsMy = buyerProductsDataConverter(
-        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-      )
+      this.productsMy = buyerProductsDataConverter(this.baseNoConvertedProducts)
     }
   }
 
@@ -72,12 +79,6 @@ export class BuyerMyProductsViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
   }
 
   onChangeFilterModel(model) {
@@ -119,8 +120,10 @@ export class BuyerMyProductsViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
-  }
+    this.curPage = 0
 
+    this.getProductsMy()
+  }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
@@ -131,6 +134,7 @@ export class BuyerMyProductsViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+    this.getProductsMy()
   }
 
   onSelectionModel(model) {
@@ -138,18 +142,13 @@ export class BuyerMyProductsViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(
-        this.productsMy.filter(
-          el =>
-            el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
-            el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        ),
-      )
-    } else {
-      return toJS(this.productsMy)
-    }
+    return toJS(this.productsMy)
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    this.getProductsMy()
   }
 
   async loadData() {
@@ -169,16 +168,34 @@ export class BuyerMyProductsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await BuyerModel.getProductsMy()
-      runInAction(() => {
-        this.baseNoConvertedProducts = result
 
-        this.productsMy = buyerProductsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+      // const result = await BuyerModel.getProductsMy()
+
+      const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      const result = await BuyerModel.getProductsMyPag({
+        filters: this.nameSearchValue ? filter : null,
+
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
+
+      runInAction(() => {
+        this.rowCount = result.count
+
+        this.baseNoConvertedProducts = result.rows
+
+        this.productsMy = buyerProductsDataConverter(result.rows)
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      this.baseNoConvertedProducts = []
+      this.productsMy = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
@@ -198,5 +215,7 @@ export class BuyerMyProductsViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+
+    this.getProductsMy()
   }
 }

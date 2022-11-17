@@ -12,7 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
+import InlineResponse20023Batch from './InlineResponse20023Batch';
+import InlineResponse20023Boxes from './InlineResponse20023Boxes';
+import InlineResponse20023Orders from './InlineResponse20023Orders';
+import InlineResponse20023Products from './InlineResponse20023Products';
+import InlineResponse20023Requests from './InlineResponse20023Requests';
+import InlineResponse20023Shops from './InlineResponse20023Shops';
 
 /**
  * The InlineResponse20023 model module.
@@ -22,7 +27,6 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1Integrations
 class InlineResponse20023 {
     /**
      * Constructs a new <code>InlineResponse20023</code>.
-     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20023
      */
     constructor() { 
@@ -49,83 +53,23 @@ class InlineResponse20023 {
         if (data) {
             obj = obj || new InlineResponse20023();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20023Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('shops')) {
+                obj['shops'] = InlineResponse20023Shops.constructFromObject(data['shops']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = InlineResponse20023Requests.constructFromObject(data['requests']);
             }
-            if (data.hasOwnProperty('roi')) {
-                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20023Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('fbaFbmStock')) {
-                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = InlineResponse20023Batch.constructFromObject(data['batch']);
             }
-            if (data.hasOwnProperty('stockValue')) {
-                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedSalesVelocity')) {
-                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
-            }
-            if (data.hasOwnProperty('daysOfStockLeft')) {
-                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
-            }
-            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
-                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
-            }
-            if (data.hasOwnProperty('runningOutOfStock')) {
-                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
-            }
-            if (data.hasOwnProperty('reserved')) {
-                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
-            }
-            if (data.hasOwnProperty('sentToFba')) {
-                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaPrepStock')) {
-                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
-            }
-            if (data.hasOwnProperty('ordered')) {
-                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
-            }
-            if (data.hasOwnProperty('timeToReorder')) {
-                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
-            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
-                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaBufferDays')) {
-                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
-            }
-            if (data.hasOwnProperty('manufTimeDays')) {
-                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
-            }
-            if (data.hasOwnProperty('useAPrepCenter')) {
-                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
-            }
-            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
-                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
-            }
-            if (data.hasOwnProperty('shippingToFbaDays')) {
-                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('shop')) {
-                obj['shop'] = ApiV1IntegrationsSellerboardWarehouseStocksShop.constructFromObject(data['shop']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20023Boxes.constructFromObject(data['boxes']);
             }
         }
         return obj;
@@ -135,159 +79,34 @@ class InlineResponse20023 {
 }
 
 /**
- * ﻿\"ASIN\"
- * @member {String} asin
+ * @member {module:model/InlineResponse20023Orders} orders
  */
-InlineResponse20023.prototype['asin'] = undefined;
+InlineResponse20023.prototype['orders'] = undefined;
 
 /**
- * SKU
- * @member {String} sku
+ * @member {module:model/InlineResponse20023Shops} shops
  */
-InlineResponse20023.prototype['sku'] = undefined;
+InlineResponse20023.prototype['shops'] = undefined;
 
 /**
- * Title
- * @member {String} title
+ * @member {module:model/InlineResponse20023Requests} requests
  */
-InlineResponse20023.prototype['title'] = undefined;
+InlineResponse20023.prototype['requests'] = undefined;
 
 /**
- * ROI, %
- * @member {Number} roi
+ * @member {module:model/InlineResponse20023Products} products
  */
-InlineResponse20023.prototype['roi'] = undefined;
+InlineResponse20023.prototype['products'] = undefined;
 
 /**
- * FBA/FBM Stock
- * @member {Number} fbaFbmStock
+ * @member {module:model/InlineResponse20023Batch} batch
  */
-InlineResponse20023.prototype['fbaFbmStock'] = undefined;
+InlineResponse20023.prototype['batch'] = undefined;
 
 /**
- * Stock value
- * @member {Number} stockValue
+ * @member {module:model/InlineResponse20023Boxes} boxes
  */
-InlineResponse20023.prototype['stockValue'] = undefined;
-
-/**
- * Estimated Sales Velocity
- * @member {Number} estimatedSalesVelocity
- */
-InlineResponse20023.prototype['estimatedSalesVelocity'] = undefined;
-
-/**
- * Days  of stock  left
- * @member {Number} daysOfStockLeft
- */
-InlineResponse20023.prototype['daysOfStockLeft'] = undefined;
-
-/**
- * Recommended quantity for  reordering
- * @member {Number} recommendedQuantityForReordering
- */
-InlineResponse20023.prototype['recommendedQuantityForReordering'] = undefined;
-
-/**
- * Running  out of stock
- * @member {String} runningOutOfStock
- */
-InlineResponse20023.prototype['runningOutOfStock'] = undefined;
-
-/**
- * Reserved
- * @member {Number} reserved
- */
-InlineResponse20023.prototype['reserved'] = undefined;
-
-/**
- * Sent  to FBA
- * @member {Number} sentToFba
- */
-InlineResponse20023.prototype['sentToFba'] = undefined;
-
-/**
- * FBA  Prep. Stock
- * @member {Number} fbaPrepStock
- */
-InlineResponse20023.prototype['fbaPrepStock'] = undefined;
-
-/**
- * Ordered
- * @member {String} ordered
- */
-InlineResponse20023.prototype['ordered'] = undefined;
-
-/**
- * Time to  reorder
- * @member {String} timeToReorder
- */
-InlineResponse20023.prototype['timeToReorder'] = undefined;
-
-/**
- * Comment
- * @member {String} comment
- */
-InlineResponse20023.prototype['comment'] = undefined;
-
-/**
- * Marketplace
- * @member {String} marketplace
- */
-InlineResponse20023.prototype['marketplace'] = undefined;
-
-/**
- * Target stock range after new order days
- * @member {Number} targetStockRangeAfterNewOrderDays
- */
-InlineResponse20023.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
-
-/**
- * FBA buffer days
- * @member {Number} fbaBufferDays
- */
-InlineResponse20023.prototype['fbaBufferDays'] = undefined;
-
-/**
- * Manuf. time days
- * @member {Number} manufTimeDays
- */
-InlineResponse20023.prototype['manufTimeDays'] = undefined;
-
-/**
- * Use a Prep Center
- * @member {String} useAPrepCenter
- */
-InlineResponse20023.prototype['useAPrepCenter'] = undefined;
-
-/**
- * Shipping to Prep Center days
- * @member {Number} shippingToPrepCenterDays
- */
-InlineResponse20023.prototype['shippingToPrepCenterDays'] = undefined;
-
-/**
- * Shipping to FBA days
- * @member {Number} shippingToFbaDays
- */
-InlineResponse20023.prototype['shippingToFbaDays'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20023.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления
- * @member {Date} updatedAt
- */
-InlineResponse20023.prototype['updatedAt'] = undefined;
-
-/**
- * @member {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop} shop
- */
-InlineResponse20023.prototype['shop'] = undefined;
+InlineResponse20023.prototype['boxes'] = undefined;
 
 
 

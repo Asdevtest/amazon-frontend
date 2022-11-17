@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse20012] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20018] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20012]**](InlineResponse20012.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20030 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20037 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20030**](InlineResponse20030.md)
+[**InlineResponse20037**](InlineResponse20037.md)
 
 ### Authorization
 

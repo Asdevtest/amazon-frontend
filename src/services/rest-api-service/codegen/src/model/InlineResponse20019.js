@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20017Finances from './InlineResponse20017Finances';
-import InlineResponse20019Products from './InlineResponse20019Products';
 
 /**
  * The InlineResponse20019 model module.
@@ -49,11 +47,23 @@ class InlineResponse20019 {
         if (data) {
             obj = obj || new InlineResponse20019();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20019Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20017Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -63,14 +73,39 @@ class InlineResponse20019 {
 }
 
 /**
- * @member {module:model/InlineResponse20019Products} products
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20019.prototype['products'] = undefined;
+InlineResponse20019.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20017Finances} finances
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20019.prototype['finances'] = undefined;
+InlineResponse20019.prototype['asin'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+InlineResponse20019.prototype['shopIds'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20019.prototype['amazonTitle'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20019.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20019.prototype['images'] = undefined;
 
 
 

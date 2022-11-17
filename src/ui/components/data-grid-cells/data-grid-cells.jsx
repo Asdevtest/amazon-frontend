@@ -173,7 +173,7 @@ export const ProductCell = withStyles(
   ({classes: classNames, product}) => (
     <div className={classNames.productCell}>
       <div className={classNames.asinCellContainer}>
-        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images?.[0])} />
 
         <div className={classNames.productWrapper}>
           <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
@@ -556,19 +556,25 @@ export const RenderFieldValueCell = withStyles(
 )
 
 export const MultilineTextCell = withStyles(
-  ({classes: classNames, text, noTextText, color, withTooltip}) => (
+  ({classes: classNames, text, noTextText, color, withTooltip, leftAlign}) => (
     <>
       {withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextWrapper}>
-            <Typography className={classNames.multilineText} style={color && {color}}>
+            <Typography
+              className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+              style={color && {color}}
+            >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
             </Typography>
           </div>
         </Tooltip>
       ) : (
         <div className={classNames.multilineTextWrapper}>
-          <Typography className={classNames.multilineText} style={color && {color}}>
+          <Typography
+            className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+            style={color && {color}}
+          >
             {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
           </Typography>
         </div>

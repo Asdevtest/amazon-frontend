@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20034Failed from './InlineResponse20034Failed';
 
 /**
  * The InlineResponse20034 model module.
@@ -21,7 +22,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20034 {
     /**
      * Constructs a new <code>InlineResponse20034</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20034
      */
     constructor() { 
@@ -48,11 +48,8 @@ class InlineResponse20034 {
         if (data) {
             obj = obj || new InlineResponse20034();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20034Failed]);
             }
         }
         return obj;
@@ -62,16 +59,9 @@ class InlineResponse20034 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * @member {Array.<module:model/InlineResponse20034Failed>} failed
  */
-InlineResponse20034.prototype['isExist'] = undefined;
-
-/**
- * Причина из таблицы с асинами
- * @member {String} reason
- */
-InlineResponse20034.prototype['reason'] = undefined;
+InlineResponse20034.prototype['failed'] = undefined;
 
 
 

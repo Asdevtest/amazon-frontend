@@ -24,9 +24,9 @@ import InlineObject70 from '../model/InlineObject70';
 import InlineObject71 from '../model/InlineObject71';
 import InlineObject72 from '../model/InlineObject72';
 import InlineObject73 from '../model/InlineObject73';
-import InlineObject95 from '../model/InlineObject95';
-import InlineResponse20031 from '../model/InlineResponse20031';
-import InlineResponse20041 from '../model/InlineResponse20041';
+import InlineObject96 from '../model/InlineObject96';
+import InlineResponse20038 from '../model/InlineResponse20038';
+import InlineResponse20049 from '../model/InlineResponse20049';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -56,7 +56,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20041>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20049>} and HTTP response
      */
     apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -80,7 +80,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20041];
+      let returnType = [InlineResponse20049];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/custom/by_request_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -94,7 +94,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20041>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20049>}
      */
     apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts) {
       return this.apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts)
@@ -164,7 +164,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject95} opts.body 
+     * @param {module:model/InlineObject96} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -203,7 +203,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject95} opts.body 
+     * @param {module:model/InlineObject96} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {
@@ -222,7 +222,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20031>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20038>} and HTTP response
      */
     apiV1RequestProposalsGetWithHttpInfo(type, kind, opts) {
       opts = opts || {};
@@ -252,7 +252,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20031];
+      let returnType = [InlineResponse20038];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -268,7 +268,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20031>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20038>}
      */
     apiV1RequestProposalsGet(type, kind, opts) {
       return this.apiV1RequestProposalsGetWithHttpInfo(type, kind, opts)

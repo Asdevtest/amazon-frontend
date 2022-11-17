@@ -34,6 +34,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
+    sortable: false,
   },
 
   {
@@ -52,6 +53,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
     width: 140,
+    sortable: false,
   },
 
   {
@@ -101,6 +103,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         <MultilineTextCell text={params.value} />
       ),
     width: 90,
+    sortable: false,
   },
 
   {
@@ -126,6 +129,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
+    sortable: false,
   },
 
   {
@@ -160,6 +164,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     ),
     minWidth: 220,
     headerAlign: 'center',
+    sortable: false,
   },
 
   {
@@ -171,6 +176,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
     ),
     width: 210,
+    sortable: false,
   },
 
   {

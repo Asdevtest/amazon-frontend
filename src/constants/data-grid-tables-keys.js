@@ -26,6 +26,7 @@ export const DataGridTablesKeys = {
   ADMIN_FEEDBACK: 'adminFeedbackDataGridState',
 
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'adminExchangeCompleteSupplierNotFoundedDataGridState',
+  COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'adminExchangeCompletePriceWasNotAcceptableDataGridState',
 
   WAREHOUSE_VACANT_TASKS: 'warehouseVacantTasksDataGridState',
   WAREHOUSE_MY_TASKS: 'warehouseMyTasksDataGridState',

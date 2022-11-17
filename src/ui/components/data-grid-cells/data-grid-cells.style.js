@@ -659,6 +659,10 @@ export const styles = theme => ({
     // '-webkitBoxOrient': 'vertical',
   },
 
+  multilineLeftAlignText: {
+    textAlign: 'left',
+  },
+
   multilineAsinTextAlignLeft: {
     width: '100%',
     maxHeight: '100%',

@@ -56,6 +56,9 @@ class ApiV1BoxesClientsLightDestination {
             if (data.hasOwnProperty('zipCode')) {
                 obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
             }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
         }
         return obj;
     }
@@ -80,6 +83,12 @@ ApiV1BoxesClientsLightDestination.prototype['name'] = undefined;
  * @member {String} zipCode
  */
 ApiV1BoxesClientsLightDestination.prototype['zipCode'] = undefined;
+
+/**
+ * Гуид сторкипера
+ * @member {String} storekeeperId
+ */
+ApiV1BoxesClientsLightDestination.prototype['storekeeperId'] = undefined;
 
 
 

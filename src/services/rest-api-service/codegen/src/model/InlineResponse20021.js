@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20017Finances from './InlineResponse20017Finances';
-import InlineResponse20021Checking from './InlineResponse20021Checking';
-import InlineResponse20021Products from './InlineResponse20021Products';
+import InlineResponse2001 from './InlineResponse2001';
 
 /**
  * The InlineResponse20021 model module.
@@ -24,6 +22,7 @@ import InlineResponse20021Products from './InlineResponse20021Products';
 class InlineResponse20021 {
     /**
      * Constructs a new <code>InlineResponse20021</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20021
      */
     constructor() { 
@@ -50,14 +49,11 @@ class InlineResponse20021 {
         if (data) {
             obj = obj || new InlineResponse20021();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20021Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('checking')) {
-                obj['checking'] = InlineResponse20021Checking.constructFromObject(data['checking']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20017Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
             }
         }
         return obj;
@@ -67,19 +63,16 @@ class InlineResponse20021 {
 }
 
 /**
- * @member {module:model/InlineResponse20021Products} products
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20021.prototype['products'] = undefined;
+InlineResponse20021.prototype['count'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20021Checking} checking
+ * Массив заказов c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse2001>} rows
  */
-InlineResponse20021.prototype['checking'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20017Finances} finances
- */
-InlineResponse20021.prototype['finances'] = undefined;
+InlineResponse20021.prototype['rows'] = undefined;
 
 
 

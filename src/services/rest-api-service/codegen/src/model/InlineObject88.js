@@ -22,11 +22,10 @@ class InlineObject88 {
     /**
      * Constructs a new <code>InlineObject88</code>.
      * @alias module:model/InlineObject88
-     * @param price {Number} Цена услуги.
      */
-    constructor(price) { 
+    constructor() { 
         
-        InlineObject88.initialize(this, price);
+        InlineObject88.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject88 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, price) { 
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,14 +47,38 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
         }
         return obj;
@@ -66,22 +88,70 @@ class InlineObject88 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject88.prototype['name'] = undefined;
+InlineObject88.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * Описание услуги
- * @member {String} description
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
  */
-InlineObject88.prototype['description'] = undefined;
+InlineObject88.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Цена услуги.
- * @member {Number} price
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
  */
-InlineObject88.prototype['price'] = undefined;
+InlineObject88.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject88.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject88.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject88.prototype['fbaShipment'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject88.prototype['images'] = undefined;
+
+/**
+ * destination GUID 
+ * @member {String} destinationId
+ */
+InlineObject88.prototype['destinationId'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+InlineObject88.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+InlineObject88.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+
+/**
+ * Штрихкод продукта
+ * @member {String} barCode
+ */
+InlineObject88.prototype['barCode'] = undefined;
 
 
 

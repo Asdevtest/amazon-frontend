@@ -434,7 +434,13 @@ ApiV1BatchesBoxes['StatusEnum'] = {
      * value: "IN_BATCH_ON_THE_WAY"
      * @const
      */
-    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY"
+    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY",
+
+    /**
+     * value: "FINISH_PREP_CENTR_USA"
+     * @const
+     */
+    "FINISH_PREP_CENTR_USA": "FINISH_PREP_CENTR_USA"
 };
 
 

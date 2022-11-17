@@ -228,11 +228,13 @@ export const EditOrderModal = observer(
               value={orderFields.item}
               endAdornment={
                 <InputAdornment position="start">
-                  <img
-                    src={'/assets/icons/save-discet.svg'}
-                    className={classNames.itemInputIcon}
-                    onClick={() => onSaveOrderItem(order._id, orderFields.item)}
-                  />
+                  {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
+                    <img
+                      src={'/assets/icons/save-discet.svg'}
+                      className={classNames.itemInputIcon}
+                      onClick={() => onSaveOrderItem(order._id, orderFields.item)}
+                    />
+                  ) : null}
                 </InputAdornment>
               }
               onChange={setOrderField('item')}

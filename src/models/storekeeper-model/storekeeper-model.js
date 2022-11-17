@@ -51,6 +51,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  getBoxesMyPag = async data => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersPagBoxesGet(data)
+    return response
+  }
+
   updateStatusInOrder = async (id, data) => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersOrdersSetStatusGuidPatch(id, {
       body: data,

@@ -487,12 +487,11 @@ class ApiClient {
                     reject(err);
                 } else {
                     try {
-                        
-
                         var data = this.deserialize(response, returnType);
                         if (this.enableCookies && typeof window === 'undefined'){
                             this.agent._saveCookies(response);
                         }
+
                         resolve({data, response});
                     } catch (err) {
                         reject(err);
