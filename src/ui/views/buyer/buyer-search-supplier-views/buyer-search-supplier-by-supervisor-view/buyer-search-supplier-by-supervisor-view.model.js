@@ -65,7 +65,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
         )
       })
     } catch (error) {
