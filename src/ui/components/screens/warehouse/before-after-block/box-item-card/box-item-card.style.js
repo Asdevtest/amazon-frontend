@@ -51,13 +51,14 @@ export const useClassNames = makeStyles()(theme => ({
       width: '100%',
     },
   },
+
   barCodeField: {
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
     // width: '280px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.primary.main,
   },
 
   subTitle: {

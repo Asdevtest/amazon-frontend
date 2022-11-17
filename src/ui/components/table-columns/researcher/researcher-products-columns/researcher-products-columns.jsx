@@ -7,6 +7,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
+  AsinCell,
   ToFixedWithDollarSignCell,
   MultilineStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -17,9 +18,9 @@ export const researcherProductsViewColumns = () => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+    renderHeader: () => <MultilineTextCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
     minWidth: 150,
     flex: 1,
   },

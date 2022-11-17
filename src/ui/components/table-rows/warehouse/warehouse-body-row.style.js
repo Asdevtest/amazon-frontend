@@ -27,8 +27,7 @@ export const styles = {
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },
   cellValueNumber: {
-    textAlign: 'right',
-    flexDirection: 'row-reverse',
+    textAlign: 'left',
   },
   centerCell: {
     textAlign: 'center',

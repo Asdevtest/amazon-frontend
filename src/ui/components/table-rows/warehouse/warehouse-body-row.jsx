@@ -117,16 +117,18 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               </React.Fragment>
             )}
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.centerCell}>
               {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
             </TableCell>
 
             {orderIndex === 0 && (
               <React.Fragment>
-                <TableCell rowSpan={ordersQty} className={classNames.textEllipsis}>
+                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
                   {box.destination?.name}
                 </TableCell>
-                <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
+                <TableCell className={classNames.cellValueNumber} rowSpan={ordersQty}>
+                  {'ID: ' + box.humanFriendlyId}
+                </TableCell>
               </React.Fragment>
             )}
 
@@ -136,7 +138,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               </TableCell>
             )}
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.centerCell}>
               {toFixedWithKg(
                 Math.max(
                   parseFloat(
@@ -152,11 +154,13 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               )}
             </TableCell>
 
-            <TableCell className={classNames.cellValueNumber}>
+            <TableCell className={classNames.centerCell}>
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            <TableCell>{order.order.trackingNumberChina || t(TranslationKey.Missing)}</TableCell>
+            <TableCell className={classNames.cellValueNumber}>
+              {order.order.trackingNumberChina || t(TranslationKey.Missing)}
+            </TableCell>
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>

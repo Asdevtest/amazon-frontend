@@ -23,5 +23,6 @@
     "^[./]"
   ],
   "importOrderSeparation": true,
+  "endOfLine": "auto",
   "experimentalBabelParserPluginsList": ["typescript", "jsx", "classProperties", "decorators-legacy"]
 }

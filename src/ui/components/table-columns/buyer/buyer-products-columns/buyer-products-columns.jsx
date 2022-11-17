@@ -4,7 +4,7 @@ import {colorByProductStatus, ProductStatusByCode} from '@constants/product-stat
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
+  ProductAsinCell,
   FeesValuesWithCalculateBtnCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -21,7 +21,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <AsinCell product={params.row.originalData} />,
+    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     width: 350,
   },
 

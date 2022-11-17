@@ -54,19 +54,16 @@ class ChatModelStatic {
   }
 
   constructor() {
-    console.log('ChatModelStatic constructor')
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   public init() {
-    console.log('ChatModelStatic init')
     if (UserModel.accessToken) {
       this.websocketChatService = new WebsocketChatService({
         token: UserModel.accessToken,
         handlers: {
           onConnect: this.onConnect,
           onConnectionError: this.onConnectionError,
-          onPong: this.onPong,
           onNewMessage: this.onNewMessage,
           onNewChat: this.onNewChat,
           onReadMessage: this.onReadMessage,
@@ -79,11 +76,9 @@ class ChatModelStatic {
   }
 
   private async onConnect() {
-    console.log('onConnect')
     this.isConnected = true
     this.ping()
     if (!this.websocketChatService) {
-      console.warn('onConnect websocketChatService is not initialized')
       return
     }
   }
@@ -113,10 +108,7 @@ class ChatModelStatic {
       return
     }
     try {
-      console.log('getSimpleChats')
-
       const getSimpleChatsResult = await this.websocketChatService.getChats()
-      console.log('getSimpleChatsResult ', getSimpleChatsResult)
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
@@ -316,10 +308,6 @@ class ChatModelStatic {
         this.simpleChats = [...this.simpleChats, chat]
       })
     }
-  }
-
-  private onPong(result: string) {
-    console.log('onPong result', result)
   }
 
   public ping() {

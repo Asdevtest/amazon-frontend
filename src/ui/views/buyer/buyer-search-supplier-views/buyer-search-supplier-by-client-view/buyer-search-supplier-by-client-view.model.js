@@ -68,7 +68,7 @@ export class BuyerSearchSupplierByClientModel {
       const result = await BuyerModel.getProductsVacant(isCreatedByClient)
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
         )
       })
       this.setRequestStatus(loadingStatuses.success)

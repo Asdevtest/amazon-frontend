@@ -66,7 +66,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       runInAction(() => {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
         )
       })
     } catch (error) {

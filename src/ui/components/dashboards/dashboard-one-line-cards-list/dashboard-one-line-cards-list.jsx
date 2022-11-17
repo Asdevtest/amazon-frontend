@@ -62,10 +62,14 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
                 <InventoryIcon classes={{root: classNames.icon}} />
                 <div className={classNames.cardSubWrapper}>
                   <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
-                  <Typography className={classNames.cardValueTitle}>
-                    {valuesData[item.dataKey] ? valuesData[item.dataKey] : null}
-                  </Typography>
-                  {!valuesData[item.dataKey] && <CircularProgress color="primary" thickness={2} />}
+
+                  {valuesData[item.dataKey] === 0 || valuesData[item.dataKey] === '-' ? (
+                    <Typography className={classNames.cardValueTitle}>{0}</Typography>
+                  ) : valuesData[item.dataKey] ? (
+                    <Typography className={classNames.cardValueTitle}>{valuesData[item.dataKey]}</Typography>
+                  ) : (
+                    <CircularProgress color="primary" thickness={2} />
+                  )}
                 </div>
               </div>
             </SwiperSlide>

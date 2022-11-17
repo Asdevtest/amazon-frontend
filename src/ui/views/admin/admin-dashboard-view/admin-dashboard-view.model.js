@@ -70,6 +70,12 @@ export class AdminDashboardViewModel {
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
+          [AdminDashboardCardDataKey.EXCHANGE_CHECKED]: '-',
+          [AdminDashboardCardDataKey.EXCHANGE_REJECTED]: '-',
+          [AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS]: '-',
+          [AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS]: '-',
+          [AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES]: '-',
+          [AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES]: '-',
           [AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED]: result.length,
         }
       })

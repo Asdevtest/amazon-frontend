@@ -71,7 +71,6 @@ export class WebsocketChatService {
     //   throw new Error('crmItemId and crmItemType should be both in parameters')
     // }
     return new Promise((resolve, reject) => {
-      console.log('emit socket call')
       this.socket.emit(
         crmItemType ? EentToEmit.GET_CHATS : EentToEmit.GET_SIMPLE_CHATS,
         // 'Chat:user:get-simple-chats',
