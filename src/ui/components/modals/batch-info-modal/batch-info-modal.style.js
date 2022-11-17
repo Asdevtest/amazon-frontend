@@ -215,6 +215,7 @@ export const useClassNames = makeStyles()(theme => ({
   searchWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    marginBottom: '22px',
   },
   fieldLabel: {
     [theme.breakpoints.down(768)]: {
