@@ -122,8 +122,29 @@ export const UserRolesCell = withStyles(
   ),
   styles,
 )
-// ProductAsinCell - old
-// ProductAsinCell - new
+
+export const AsinCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div className={classNames.multilineTextHeaderWrapper}>
+      <Typography className={classNames.typoCell}>
+        {product.asin ? (
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.amazon.com/dp/${product.asin}`}
+            className={classNames.normalizeLink}
+          >
+            <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+          </a>
+        ) : (
+          <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+        )}
+      </Typography>
+      {product.asin ? <CopyValue text={product.asin} /> : null}
+    </div>
+  ),
+  styles,
+)
 
 export const ProductAsinCell = withStyles(
   ({classes: classNames, product}) => (
