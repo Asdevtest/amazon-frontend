@@ -58,16 +58,16 @@ export class ResearcherDashboardViewModel {
         this.dashboardData = {
           ...this.dashboardData,
 
-          [ResearcherDashboardCardDataKey.ALL_PRODUCTS]: result.products.all || '0',
-          [ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.completed || '0',
+          [ResearcherDashboardCardDataKey.ALL_PRODUCTS]: result.products.all,
+          [ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.completed,
 
-          [ResearcherDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.rejected || '0',
-          [ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING]: result.products.inWork || '0',
-          [ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER]: result.products.searchSupplierFromBuyer || '0',
-          [ResearcherDashboardCardDataKey.NO_STATUS]: result.products.withoutStatus || '0',
+          [ResearcherDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.rejected,
+          [ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING]: result.products.inWork,
+          [ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER]: result.products.searchSupplierFromBuyer,
+          [ResearcherDashboardCardDataKey.NO_STATUS]: result.products.withoutStatus,
 
-          [ResearcherDashboardCardDataKey.REPLENISH]: result.finances.accruals || '0',
-          [ResearcherDashboardCardDataKey.FINES]: result.finances.fines || '0',
+          [ResearcherDashboardCardDataKey.REPLENISH]: result.finances.accruals,
+          [ResearcherDashboardCardDataKey.FINES]: result.finances.fines,
         }
       })
     } catch (error) {

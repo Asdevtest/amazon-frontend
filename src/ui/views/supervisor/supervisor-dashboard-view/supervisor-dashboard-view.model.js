@@ -62,20 +62,20 @@ export class SupervisorDashboardViewModel {
         this.dashboardData = {
           ...this.dashboardData,
 
-          [SupervisorDashboardCardDataKey.ALL_PRODUCTS]: result.products.all || '0',
-          [SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.publishedOnExchange || '0',
-          [SupervisorDashboardCardDataKey.PAYED_PRODUCTS]: result.products.paid || '0',
+          [SupervisorDashboardCardDataKey.ALL_PRODUCTS]: result.products.all,
+          [SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.publishedOnExchange,
+          [SupervisorDashboardCardDataKey.PAYED_PRODUCTS]: result.products.paid,
 
-          [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER]: result.checking.checkFromResearcher || '0',
-          [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: result.checking.newSearchFromClient || '0',
-          [SupervisorDashboardCardDataKey.ON_CHECKING]: result.checking.onReview || '0',
-          [SupervisorDashboardCardDataKey.AWAIT_SOLVE]: result.checking.waitingToCheck || '0',
+          [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER]: result.checking.checkFromResearcher,
+          [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: result.checking.newSearchFromClient,
+          [SupervisorDashboardCardDataKey.ON_CHECKING]: result.checking.onReview,
+          [SupervisorDashboardCardDataKey.AWAIT_SOLVE]: result.checking.waitingToCheck,
 
-          [SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS]: result.checking.inWorkBuyer || '0',
-          [SupervisorDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.rejected || '0',
+          [SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS]: result.checking.inWorkBuyer,
+          [SupervisorDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.rejected,
 
-          [SupervisorDashboardCardDataKey.REPLENISH]: result.finances.accruals || '0',
-          [SupervisorDashboardCardDataKey.FINES]: result.finances.fines || '0',
+          [SupervisorDashboardCardDataKey.REPLENISH]: result.finances.accruals,
+          [SupervisorDashboardCardDataKey.FINES]: result.finances.fines,
         }
       })
     } catch (error) {

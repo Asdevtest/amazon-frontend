@@ -122,6 +122,8 @@ export const UserRolesCell = withStyles(
   ),
   styles,
 )
+// ProductAsinCell - old
+// AsinCell - new
 
 export const AsinCell = withStyles(
   ({classes: classNames, product}) => (

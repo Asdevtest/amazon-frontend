@@ -109,17 +109,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: '190px',
     color: theme.palette.text.general,
-    backgroundColor: 'inherit',
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-
-      '@media (hover: none)': {
-        backgroundColor: '#c51a1c',
-      },
-    },
-    '&$disabled': {
-      backgroundColor: '#c5c5c5',
-    },
   },
   amazonTitle: {
     width: '417px',
