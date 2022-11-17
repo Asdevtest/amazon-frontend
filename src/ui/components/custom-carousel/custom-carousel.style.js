@@ -23,6 +23,14 @@ export const useClassNames = makeStyles()(theme => ({
     transitionTimingFunction: 'ease-in-out',
   },
 
+  arrowIcon: {
+    color: theme.palette.primary.main,
+  },
+
+  arrowDisabledIcon: {
+    color: theme.palette.action.disabled,
+  },
+
   emptyDocs: {
     color: theme.palette.text.second,
   },

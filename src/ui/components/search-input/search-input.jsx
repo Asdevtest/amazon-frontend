@@ -58,9 +58,7 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
           )}
         </InputAdornment>
       }
-      onChange={e => {
-        onSubmit ? setInternalValue(e.target.value) : onChange(e.target.value)
-      }}
+      onChange={e => (onSubmit ? setInternalValue(e.target.value) : onChange(e))}
     />
   )
 }

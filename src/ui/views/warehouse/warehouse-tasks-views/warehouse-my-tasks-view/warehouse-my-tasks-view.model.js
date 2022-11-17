@@ -69,6 +69,10 @@ export class WarehouseVacantViewModel {
 
     if (location.state?.task) {
       this.onClickResolveBtn(location.state?.task)
+
+      const state = {...history.location.state}
+      delete state.task
+      history.replace({...history.location, state})
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})

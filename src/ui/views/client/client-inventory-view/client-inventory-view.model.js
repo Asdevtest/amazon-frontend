@@ -184,6 +184,10 @@ export class ClientInventoryViewModel {
     if (location.state) {
       this.isArchive = location.state.isArchive
       this.isModalOpen = location.state.isModalOpen
+
+      const state = {...history.location.state}
+      delete state.isModalOpen
+      history.replace({...history.location, state})
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})

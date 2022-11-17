@@ -80,8 +80,8 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
             {alignButtons === 'center' ? (
               <ArrowLeftIcon
                 style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-                color={offset === 0 ? 'disabled' : 'primary'}
-                className={classNames.carouselBtn}
+                // color={offset === 0 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
                 onClick={handleLeftArrowClick}
               />
             ) : null}
@@ -98,7 +98,10 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
                   width: '40px',
                   height: '40px',
                 }}
-                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                })}
                 onClick={handleRightArrowClick}
               />
             ) : null}
@@ -111,8 +114,8 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
             <div className={classNames.numberOfFilesFlex}>
               <ArrowLeftIcon
                 style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-                color={offset === 0 ? 'disabled' : 'primary'}
-                className={classNames.carouselBtn}
+                // color={offset === 0 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
                 onClick={handleLeftArrowClick}
               />
               <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
@@ -122,7 +125,10 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
                   width: '40px',
                   height: '40px',
                 }}
-                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                })}
                 onClick={handleRightArrowClick}
               />
             </div>
@@ -135,15 +141,18 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
             <div className={classNames.buttonWrapper}>
               <ArrowLeftIcon
                 style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
-                color={offset === 0 ? 'disabled' : 'primary'}
-                className={classNames.carouselBtn}
+                // color={offset === 0 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
                 onClick={handleLeftArrowClick}
               />
               <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
               <ArrowRightIcon
                 style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer'}}
-                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                className={cx(classNames.arrowIcon, {
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                })}
                 onClick={handleRightArrowClick}
               />
             </div>

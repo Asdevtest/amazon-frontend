@@ -91,6 +91,10 @@ export class BuyerMyOrdersViewModel {
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
+
+      const state = {...history.location.state}
+      delete state.orderId
+      history.replace({...history.location, state})
     }
 
     if (location?.state?.dataGridFilter) {
