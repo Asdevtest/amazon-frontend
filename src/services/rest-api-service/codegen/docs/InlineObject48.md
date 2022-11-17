@@ -4,16 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**media** | **[Object]** | Images URLs | [optional] 
-**comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
-**productLinks** | **[Object]** | Ссылки на продукт, если есть | [optional] 
+**productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 
+**linksToMediaFiles** | **[String]** | Image URL | [optional] 
 **criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
+**dimensions** | **String** | Размеры | [optional] 
 **quantity** | **Number** | Количество товаров | [optional] 
 **price** | **Number** | Желаемая цена | [optional] 
-**width** | **Number** | Ширина, см | [optional] 
-**height** | **Number** | Высота, см | [optional] 
-**length** | **Number** | Длина, см | [optional] 
 **productId** | **String** | Product ID | [optional] 
 
 

@@ -56,6 +56,7 @@ export const AdminUserEditContent = observer(
       role: editUserFormFields?.role || '',
       hideSuppliers: editUserFormFields?.hideSuppliers || false,
       overdraft: editUserFormFields?.overdraft || 0,
+      isUserPreProcessingCenterUSA: editUserFormFields?.isUserPreProcessingCenterUSA || false,
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
@@ -105,7 +106,7 @@ export const AdminUserEditContent = observer(
       const newFormFields = {...formFields}
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
-      } else if (['fba', 'canByMasterUser', 'hideSuppliers'].includes(fieldName)) {
+      } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreProcessingCenterUSA'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
       } else if (
         ['overdraft'].includes(fieldName) &&
@@ -499,6 +500,16 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('hideSuppliers')}
               />
               <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
+            </div>
+
+            <div className={classNames.checkboxWrapper}>
+              <Checkbox
+                color="primary"
+                disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+                checked={formFields.isUserPreProcessingCenterUSA}
+                onChange={onChangeFormField('isUserPreProcessingCenterUSA')}
+              />
+              <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
             </div>
           </div>
         </div>

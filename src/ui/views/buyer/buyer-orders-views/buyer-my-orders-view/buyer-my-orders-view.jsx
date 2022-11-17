@@ -43,12 +43,12 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
-      nameSearchValue,
+      rowCount,
       showSuccessModalText,
       volumeWeightCoefficient,
       photosToLoad,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -83,7 +83,8 @@ class BuyerMyOrdersViewRaw extends Component {
       onSubmitCancelOrder,
       onSaveOrderItem,
 
-      onChangeNameSearchValue,
+      onSearchSubmit,
+
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -99,11 +100,7 @@ class BuyerMyOrdersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <SearchInput
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
-                />
+                <SearchInput placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])} onSubmit={onSearchSubmit} />
               </div>
 
               <div className={classNames.dataGridWrapper}>
@@ -120,12 +117,15 @@ class BuyerMyOrdersViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                   }}
                   getRowClassName={getRowClassName}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rowsPerPageOptions={[15, 25, 50 /* , 100*/]}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: GridToolbar,

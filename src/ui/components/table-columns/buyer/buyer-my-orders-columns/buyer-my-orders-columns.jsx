@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = firstRowId => [
   {
-    field: 'ID',
+    field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
 
@@ -33,6 +33,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    sortable: false,
   },
   {
     field: 'status',
@@ -55,6 +56,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     width: 90,
+    sortable: false,
   },
 
   {
@@ -64,6 +66,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     width: 160,
     renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    sortable: false,
   },
 
   {
@@ -75,6 +78,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -86,6 +90,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
     ),
     width: 150,
+    sortable: false,
   },
 
   {
@@ -95,6 +100,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 130,
+    sortable: false,
   },
 
   {
@@ -104,6 +110,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
+    sortable: false,
   },
 
   {
@@ -113,6 +120,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
+    sortable: false,
   },
 
   {

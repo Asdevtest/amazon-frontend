@@ -36,8 +36,12 @@ export const ColoredChip = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={classNames.chipWrapper} onClick={onClickChip}>
-        <Chip className={cx(classNames.chip, {[classNames.chipActive]: !!selected})} {...restProps} />
+      <div className={classNames.chipWrapper}>
+        <Chip
+          className={cx(classNames.chip, {[classNames.chipActive]: !!selected})}
+          {...restProps}
+          onClick={onClickChip}
+        />
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (

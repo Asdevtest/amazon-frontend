@@ -54,6 +54,9 @@ class ApiV1BuyersOrdersMyProduct {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
@@ -84,6 +87,12 @@ ApiV1BuyersOrdersMyProduct.prototype['_id'] = undefined;
  * @member {String} amazonTitle
  */
 ApiV1BuyersOrdersMyProduct.prototype['amazonTitle'] = undefined;
+
+/**
+ * ASIN продукта
+ * @member {String} asin
+ */
+ApiV1BuyersOrdersMyProduct.prototype['asin'] = undefined;
 
 /**
  * @member {Array.<String>} skusByClient

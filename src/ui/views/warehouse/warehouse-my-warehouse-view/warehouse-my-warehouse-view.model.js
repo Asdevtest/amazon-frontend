@@ -390,8 +390,6 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      // const boxes = await StorekeeperModel.getBoxesMy()
-
       const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
       const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
@@ -406,8 +404,8 @@ export class WarehouseMyWarehouseViewModel {
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : null,
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       const result = await UserModel.getPlatformSettings()

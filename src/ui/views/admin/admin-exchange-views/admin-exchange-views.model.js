@@ -25,6 +25,7 @@ const productsStatusBySubCategory = {
   7: ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS],
   8: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
   9: ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND],
+  10: ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 }
 
 export class AdminExchangeViewModel {
@@ -103,6 +104,8 @@ export class AdminExchangeViewModel {
       case 8:
         return DataGridTablesKeys.ADMIN_EXCHANGE_CANCELED
       case 9:
+        return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
+      case 10:
         return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
     }
   }

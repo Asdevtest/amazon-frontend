@@ -67,6 +67,11 @@ class BuyerModelStatic {
     return response
   }
 
+  getOrdersMyPag = async data => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(data)
+    return response
+  }
+
   getPaymentsMy = async () => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsMyGet()
     return response

@@ -61,6 +61,8 @@ Name | Type | Description | Notes
 
 * `IN_BATCH_ON_THE_WAY` (value: `"IN_BATCH_ON_THE_WAY"`)
 
+* `FINISH_PREP_CENTR_USA` (value: `"FINISH_PREP_CENTR_USA"`)
+
 
 
 

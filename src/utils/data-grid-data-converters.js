@@ -154,8 +154,7 @@ export const buyerMyOrdersDataConverter = data =>
     amount: item.amount,
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
-    ID: `${item.id} / ${item.item ? item.item : '-'}`,
-    id: item._id,
+    id: `${item.id} / ${item.item ? item.item : '-'}`,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
@@ -231,11 +230,13 @@ export const clientInventoryDataConverter = data =>
     id: item._id,
     _id: item._id,
     asin: item.asin,
+    inTransfer: item.inTransfer,
     amountInOrders: item.amountInOrders,
     stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0),
     reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
     inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
     stockSum:
+      item.inTransfer +
       item.amountInOrders +
       item.boxAmounts?.reduce((ac, cur) => (ac += cur.amountInBoxes), 0) +
       item.stockUSA +

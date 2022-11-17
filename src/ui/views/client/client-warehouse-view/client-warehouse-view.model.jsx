@@ -987,8 +987,8 @@ export class ClientWarehouseViewModel {
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : null,
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       const res = await UserModel.getPlatformSettings()

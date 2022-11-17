@@ -339,6 +339,16 @@ export const AdminContentModal = observer(
           <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
         </div>
 
+        <div className={classNames.checkboxWrapper}>
+          <Checkbox
+            color="primary"
+            disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+            checked={formFields.isUserPreProcessingCenterUSA}
+            onChange={onChangeFormField('isUserPreProcessingCenterUSA')}
+          />
+          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
+        </div>
+
         <Field label={t(TranslationKey['Security/Sharing options'])} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (

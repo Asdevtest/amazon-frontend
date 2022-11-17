@@ -80,7 +80,6 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
     renderCell: params => <MultilineTextCell /* key={`${params.field}_${params.row.id}`}*/ text={params.value} />,
     width: 60,
-    sortable: false,
   },
 
   {
@@ -99,6 +98,15 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
       />
     ),
     width: 130,
+  },
+
+  {
+    field: 'inTransfer',
+    headerName: 'in Transfer',
+    renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
+
+    renderCell: params => <MultilineTextCell /* key={`${params.field}_${params.row.id}`}*/ text={params.value} />,
+    width: 80,
   },
 
   {

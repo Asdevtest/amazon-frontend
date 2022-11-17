@@ -47,8 +47,8 @@ class InlineObject49 {
         if (data) {
             obj = obj || new InlineObject49();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject49 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject49.prototype['suppliersIds'] = undefined;
+InlineObject49.prototype['requestStatus'] = undefined;
 
 
 
