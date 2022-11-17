@@ -123,9 +123,9 @@ export const UserRolesCell = withStyles(
   styles,
 )
 // ProductAsinCell - old
-// AsinCell - new
+// ProductAsinCell - new
 
-export const AsinCell = withStyles(
+export const ProductAsinCell = withStyles(
   ({classes: classNames, product}) => (
     <div className={classNames.asinCell}>
       <div className={classNames.asinCellContainer}>

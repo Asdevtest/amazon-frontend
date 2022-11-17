@@ -3,7 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
+  ProductAsinCell,
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
@@ -39,7 +39,7 @@ export const exchangeСreatedColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <AsinCell product={params.row.originalData} />,
+    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     width: 300,
   },
 
