@@ -196,11 +196,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   sumsWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     padding: '10px 0',
     // marginBottom: '-20px',
-    gap: '45px',
+    // gap: '45px',
   },
 
   containerField: {

@@ -5,7 +5,6 @@ import {colorByProductStatus, ProductStatusByCode} from '@constants/product-stat
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
   ToFixedCell,
   BarcodeCell,
   ShortDateCell,
@@ -20,6 +19,7 @@ import {
   ChangeInputCell,
   InStockCell,
   CommentOfSbCell,
+  ProductAsinCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -30,7 +30,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <AsinCell /* key={`${params.field}_${params.row.id}`}*/ product={params.row.originalData} />,
+    renderCell: params => (
+      <ProductAsinCell /* key={`${params.field}_${params.row.id}`}*/ product={params.row.originalData} />
+    ),
     width: 300,
   },
 
