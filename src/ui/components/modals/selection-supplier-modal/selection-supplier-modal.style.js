@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalTextArea: {
-    height: '129px',
+    height: 'auto',
     width: '100%',
     overflowY: 'hidden',
   },
