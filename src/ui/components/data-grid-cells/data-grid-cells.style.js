@@ -548,6 +548,7 @@ export const styles = theme => ({
     marginBottom: '5px',
 
     maxHeight: 500,
+    width: 510,
     overflow: 'auto',
   },
 
