@@ -192,6 +192,22 @@ export const ProductAsinCell = withStyles(
   styles,
 )
 
+export const AsinCopyCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div className={classNames.copyAsin}>
+      <Typography className={classNames.typoCell}>
+        {product ? (
+          <span className={classNames.multilineHeaderText}>{shortAsin(product)}</span>
+        ) : (
+          <span className={classNames.multilineHeaderText}>{t(TranslationKey.Missing)}</span>
+        )}
+      </Typography>
+      {product ? <CopyValue text={product} /> : null}
+    </div>
+  ),
+  styles,
+)
+
 export const ProductCell = withStyles(
   ({classes: classNames, product}) => (
     <div className={classNames.productCell}>

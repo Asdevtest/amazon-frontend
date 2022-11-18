@@ -3,6 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  AsinCopyCell,
   NormDateFromUnixCell,
   TaskDescriptionCell,
   NormalActionBtnCell,
@@ -56,7 +57,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <AsinCopyCell product={params.row.asin} />,
     width: 160,
   },
 
