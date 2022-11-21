@@ -399,8 +399,10 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
+            color="primary"
+            variant="text"
             className={classNames.cancelBtn}
+            tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}
           >
             {t(TranslationKey.Cancel)}

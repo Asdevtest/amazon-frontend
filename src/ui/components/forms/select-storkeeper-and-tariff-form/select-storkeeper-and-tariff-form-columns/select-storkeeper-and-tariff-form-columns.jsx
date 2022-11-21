@@ -28,7 +28,6 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Tariff description']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff description'])} />,
     width: 310,
-    // renderCell: params => <ScrollingCell value={params.value} />,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 

@@ -386,7 +386,7 @@ export const AddOrEditUserPermissionsForm = observer(
             className={cx(classNames.button, classNames.cancelBtn)}
             color="primary"
             variant="text"
-            onClick={() => onCloseModal()}
+            onClick={onCloseModal}
           >
             {t(TranslationKey.Cancel)}
           </Button>
