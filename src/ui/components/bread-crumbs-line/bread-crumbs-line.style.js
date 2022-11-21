@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   lastCrumb: {
     color: theme.palette.text.general,
-    fontSize: 18,
+    fontSize: 16,
     [theme.breakpoints.down(768)]: {
       fontSize: '14px !important',
     },
@@ -20,9 +20,5 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '14px !important',
     },
-  },
-
-  seporatorIcon: {
-    color: theme.palette.primary.main,
   },
 }))
