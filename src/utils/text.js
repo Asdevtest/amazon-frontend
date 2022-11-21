@@ -65,7 +65,9 @@ export const minsToTime = mins =>
   }`
 
 export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box) {
+  console.log(box)
+
+  if (!box || !box.destination) {
     return
   }
 

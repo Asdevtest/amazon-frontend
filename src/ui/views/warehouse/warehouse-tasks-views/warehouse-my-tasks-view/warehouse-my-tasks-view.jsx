@@ -69,7 +69,6 @@ export class WarehouseMyTasksViewRaw extends Component {
       onTriggerOpenModal,
       onClickConfirmCancelTask,
 
-      onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
@@ -101,7 +100,6 @@ export class WarehouseMyTasksViewRaw extends Component {
 
               <DataGrid
                 pagination
-                useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
@@ -124,14 +122,11 @@ export class WarehouseMyTasksViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
+                onFilterModelChange={onChangeFilterModel}
                 onRowDoubleClick={params => onClickResolveBtn(params.row.originalData)}
               />
             </MainContent>

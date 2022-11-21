@@ -139,7 +139,7 @@ const Box = observer(
               tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
               label={t(TranslationKey.Tariff)}
               labelClasses={classNames.smallLabel}
-              value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
+              value={getFullTariffTextForBoxOrOrder(box) || t(TranslationKey['Not available'])}
               inputClasses={cx(classNames.field, {
                 [classNames.editAccent]:
                   needAccent &&
