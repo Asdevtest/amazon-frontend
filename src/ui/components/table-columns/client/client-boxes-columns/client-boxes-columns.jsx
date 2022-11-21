@@ -202,6 +202,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
   {
     field: 'createdAt',
+    headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
@@ -211,6 +212,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
   {
     field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
