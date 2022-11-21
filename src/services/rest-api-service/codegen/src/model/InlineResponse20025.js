@@ -12,9 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20025Batches from './InlineResponse20025Batches';
-import InlineResponse20025Boxes from './InlineResponse20025Boxes';
-import InlineResponse20025Tasks from './InlineResponse20025Tasks';
+import InlineResponse20025Finances from './InlineResponse20025Finances';
+import InlineResponse20025Orders from './InlineResponse20025Orders';
+import InlineResponse20025Products from './InlineResponse20025Products';
 
 /**
  * The InlineResponse20025 model module.
@@ -50,14 +50,14 @@ class InlineResponse20025 {
         if (data) {
             obj = obj || new InlineResponse20025();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20025Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20025Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20025Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20025Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20025Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20025Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -67,19 +67,19 @@ class InlineResponse20025 {
 }
 
 /**
- * @member {module:model/InlineResponse20025Tasks} tasks
+ * @member {module:model/InlineResponse20025Products} products
  */
-InlineResponse20025.prototype['tasks'] = undefined;
+InlineResponse20025.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20025Boxes} boxes
+ * @member {module:model/InlineResponse20025Orders} orders
  */
-InlineResponse20025.prototype['boxes'] = undefined;
+InlineResponse20025.prototype['orders'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20025Batches} batches
+ * @member {module:model/InlineResponse20025Finances} finances
  */
-InlineResponse20025.prototype['batches'] = undefined;
+InlineResponse20025.prototype['finances'] = undefined;
 
 
 

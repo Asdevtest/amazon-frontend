@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20048] apiV1UsersContactsGet(opts)
+> [InlineResponse20049] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20048]**](InlineResponse20048.md)
+[**[InlineResponse20049]**](InlineResponse20049.md)
 
 ### Authorization
 
@@ -450,7 +450,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20047 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20048 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -488,7 +488,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20047**](InlineResponse20047.md)
+[**InlineResponse20048**](InlineResponse20048.md)
 
 ### Authorization
 

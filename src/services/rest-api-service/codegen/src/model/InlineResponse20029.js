@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import InlineResponse20025Finances from './InlineResponse20025Finances';
+import InlineResponse20029Checking from './InlineResponse20029Checking';
+import InlineResponse20029Products from './InlineResponse20029Products';
 
 /**
  * The InlineResponse20029 model module.
@@ -48,50 +50,14 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20029Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20029Checking.constructFromObject(data['checking']);
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
-            }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('suppliers')) {
-                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20025Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -101,94 +67,19 @@ class InlineResponse20029 {
 }
 
 /**
- * GUID идеи
- * @member {String} _id
+ * @member {module:model/InlineResponse20029Products} products
  */
-InlineResponse20029.prototype['_id'] = undefined;
+InlineResponse20029.prototype['products'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<Object>} media
+ * @member {module:model/InlineResponse20029Checking} checking
  */
-InlineResponse20029.prototype['media'] = undefined;
+InlineResponse20029.prototype['checking'] = undefined;
 
 /**
- * Комментарий к идее
- * @member {String} comments
+ * @member {module:model/InlineResponse20025Finances} finances
  */
-InlineResponse20029.prototype['comments'] = undefined;
-
-/**
- * Назавние продукта
- * @member {String} productName
- */
-InlineResponse20029.prototype['productName'] = undefined;
-
-/**
- * Ссылка на продукт, если есть
- * @member {Array.<Object>} productLinks
- */
-InlineResponse20029.prototype['productLinks'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineResponse20029.prototype['criteria'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineResponse20029.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineResponse20029.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineResponse20029.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineResponse20029.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineResponse20029.prototype['length'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20029.prototype['createdAt'] = undefined;
-
-/**
- * Дата последнего обновления
- * @member {Date} updatedAt
- */
-InlineResponse20029.prototype['updatedAt'] = undefined;
-
-/**
- * Массив поставщиков.
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
- */
-InlineResponse20029.prototype['suppliers'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineResponse20029.prototype['productId'] = undefined;
+InlineResponse20029.prototype['finances'] = undefined;
 
 
 

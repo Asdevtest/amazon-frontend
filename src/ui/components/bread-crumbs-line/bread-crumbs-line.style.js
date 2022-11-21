@@ -21,4 +21,8 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '14px !important',
     },
   },
+
+  seporatorIcon: {
+    color: theme.palette.primary.main,
+  },
 }))

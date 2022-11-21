@@ -36,7 +36,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject83() // InlineObject83 | 
+  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject83**](InlineObject83.md)|  | [optional] 
+ **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
 
 ### Return type
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsLightGet
 
-> [InlineResponse20012] apiV1SupervisorsProductsLightGet(opts)
+> [InlineResponse20013] apiV1SupervisorsProductsLightGet(opts)
 
 # Получить облегченный список товаров взятых на проверку супервайзером.
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20012]**](InlineResponse20012.md)
+[**[InlineResponse20013]**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -144,7 +144,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject84() // InlineObject84 | 
+  'body': new TestSwagger.InlineObject93() // InlineObject93 | 
 };
 apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject84**](InlineObject84.md)|  | [optional] 
+ **body** | [**InlineObject93**](InlineObject93.md)|  | [optional] 
 
 ### Return type
 

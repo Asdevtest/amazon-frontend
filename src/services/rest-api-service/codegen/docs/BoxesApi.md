@@ -631,7 +631,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsLightGet
 
-> [InlineResponse2009] apiV1BoxesClientsLightGet(status, opts)
+> [InlineResponse20010] apiV1BoxesClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2009]**](InlineResponse2009.md)
+[**[InlineResponse20010]**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -903,7 +903,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPagClientsLightGet
 
-> InlineResponse20010 apiV1BoxesPagClientsLightGet(status, opts)
+> InlineResponse20011 apiV1BoxesPagClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -957,7 +957,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20010**](InlineResponse20010.md)
+[**InlineResponse20011**](InlineResponse20011.md)
 
 ### Authorization
 

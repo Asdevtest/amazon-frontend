@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
+import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -34,6 +35,8 @@ export class WarehouseMyWarehouseViewModel {
   batches = []
   baseBoxesMy = []
 
+  destinations = []
+
   curBox = undefined
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
@@ -50,11 +53,13 @@ export class WarehouseMyWarehouseViewModel {
   showAddBatchModal = false
   showAddOrEditHsCodeInBox = false
   showEditBoxModal = false
+  showFullEditBoxModal = false
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
     setHsCode: item => this.setHsCode(item),
     setDimensions: item => this.setDimensions(item),
+    onEditBox: item => this.onEditBox(item),
   }
 
   uploadedFiles = []
@@ -198,6 +203,30 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onClickEditBtn() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+
+      const storekeepersData = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.destinations = destinations
+
+        this.storekeepersData = storekeepersData
+      })
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showEditBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async getDataToMoveBatch() {
     try {
       const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
@@ -230,6 +259,33 @@ export class WarehouseMyWarehouseViewModel {
       this.curBox = row
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onEditBox(row) {
+    try {
+      const destinations = await ClientModel.getDestinations()
+
+      const storekeepersData = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.destinations = destinations
+
+        this.storekeepersData = storekeepersData
+      })
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.curBox = row
+
+      this.onTriggerOpenModal('showFullEditBoxModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -392,12 +448,12 @@ export class WarehouseMyWarehouseViewModel {
     try {
       const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
-      const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+      // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filtersProduct: this.nameSearchValue ? productFilter : null,
 
-        filtersBox: this.nameSearchValue ? boxFilter : null,
+        filtersBox: /* this.nameSearchValue ? boxFilter : */ null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

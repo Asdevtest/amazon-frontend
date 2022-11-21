@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsFeedbackGet
 
-> [InlineResponse2006] apiV1AdminsFeedbackGet(opts)
+> [InlineResponse2007] apiV1AdminsFeedbackGet(opts)
 
 #  Получить список отзывов/репортов
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -780,7 +780,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2005] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2006] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -818,7 +818,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -1046,7 +1046,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsToggleServerPatch
 
-> String apiV1AdminsToggleServerPatch(opts)
+> InlineResponse2005 apiV1AdminsToggleServerPatch(opts)
 
 # Включить/выключить сервер
 
@@ -1084,7 +1084,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 

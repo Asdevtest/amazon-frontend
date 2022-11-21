@@ -1525,8 +1525,6 @@ export const WarehouseBoxesBtnsCell = withStyles(
             tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
             disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
             className={classNames.warehouseBoxesBtn}
-            variant="contained"
-            color="primary"
             onClick={() => handlers.moveBox(row)}
           >
             {t(TranslationKey['Move box'])}
@@ -1545,12 +1543,14 @@ export const WarehouseBoxesBtnsCell = withStyles(
         </Button>
       )}
 
+      <Button disabled={row.isDraft} className={classNames.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
+        {t(TranslationKey.Edit)}
+      </Button>
+
       <Button
         disabled={row.isDraft}
         className={classNames.warehouseBoxesBtn}
         tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
-        variant="contained"
-        color="primary"
         onClick={() => handlers.setHsCode(row)}
       >
         {row.items.some(item => !item.product.hsCode)

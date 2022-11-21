@@ -57,7 +57,10 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrum
   }
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" color="primary" />}>
+    <Breadcrumbs
+      aria-label="breadcrumb"
+      separator={<NavigateNextIcon fontSize="small" className={classNames.seporatorIcon} />}
+    >
       {pathnames.length > 2 || location.pathname === '/profile'
         ? pathnames.map((value, index) => {
             const last = index === pathnames.length - 1

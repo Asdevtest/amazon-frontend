@@ -203,11 +203,8 @@ export const EditTaskModal = observer(
             <div className={classNames.buttonsWrapperMobile}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
-                  disableElevation
                   className={classNames.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                  color="primary"
-                  variant="contained"
                   onClick={() => {
                     setReceiveBoxModal(!receiveBoxModal)
                   }}
@@ -223,11 +220,8 @@ export const EditTaskModal = observer(
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={classNames.hideButton}>
                   <Button
-                    disableElevation
                     className={classNames.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                    color="primary"
-                    variant="contained"
                     onClick={() => {
                       setReceiveBoxModal(!receiveBoxModal)
                     }}

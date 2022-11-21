@@ -146,6 +146,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsDestinationGuidDelete(id)
     return response
   }
+
+  toggleServer = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

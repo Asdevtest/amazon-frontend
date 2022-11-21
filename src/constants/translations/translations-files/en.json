@@ -1598,5 +1598,14 @@
   "units": "units",
   "Tasks were created for the following boxes": "Tasks were created for the following boxes",
   "Prep Center USA": "Prep Center USA",
-  "User blocked by administrator": "User blocked by administrator"
+  "User blocked by administrator": "User blocked by administrator",
+  "Technical work and notices": "Technical work and notices",
+  "Access for users": "Access for users",
+  "Notify users before disconnecting": "Notify users before disconnecting",
+  "Notice of technical work": "Notice of technical work",
+  "Send a notice": "Send a notice",
+  "We recommend that you save any unsaved changes and finish the work.\n When the technical work begins, all unsaved changes will be lost.\n\nWe apologize for the inconvenience!": "We recommend that you save any unsaved changes and finish the work.\n When the technical work begins, all unsaved changes will be lost.\n\nWe apologize for the inconvenience!",
+  "Notice to users": "Notice to users",
+  "Enter notification text": "Enter notification text",
+  "Boxes in group": "Boxes in group"
 }

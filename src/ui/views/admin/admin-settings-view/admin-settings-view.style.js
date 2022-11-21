@@ -12,4 +12,12 @@ export const styles = theme => ({
   mr2: {
     marginRight: theme.spacing(2),
   },
+
+  mainWrapper: {
+    padding: '20px 45px',
+  },
+
+  technicalBtn: {
+    marginBottom: 25,
+  },
 })

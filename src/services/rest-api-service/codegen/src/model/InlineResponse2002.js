@@ -83,6 +83,9 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('active')) {
                 obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
+            if (data.hasOwnProperty('isUserPreprocessingCenterUSA')) {
+                obj['isUserPreprocessingCenterUSA'] = ApiClient.convertToType(data['isUserPreprocessingCenterUSA'], 'Boolean');
+            }
             if (data.hasOwnProperty('rate')) {
                 obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
@@ -173,6 +176,12 @@ InlineResponse2002.prototype['fba'] = undefined;
  * @member {Boolean} active
  */
 InlineResponse2002.prototype['active'] = undefined;
+
+/**
+ * Поле отвечает за то, берется ли в расчет бокс этого юзера(сторкипера) при подсчете товаров в дороге
+ * @member {Boolean} isUserPreprocessingCenterUSA
+ */
+InlineResponse2002.prototype['isUserPreprocessingCenterUSA'] = undefined;
 
 /**
  * Ставка, по который оплачивается сотрудник.

@@ -32,7 +32,7 @@ import {useClassNames} from './receive-box-modal.style'
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography>},
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Number of superboxes'])}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Boxes in group'])}</Typography>},
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Total)}</Typography>},
   {
     title: (
@@ -254,7 +254,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               />
             </div>
             <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Number of superboxes'])}</Typography>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</Typography>
               <Input
                 classes={{
                   root: cx(classNames.inputWrapper, {

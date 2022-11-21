@@ -95,10 +95,32 @@ export const productStatusButtonsConfigs = {
           colorHover: '#1269ec',
         },
       ]
+    } else if (curStatus === ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]) {
+      return [
+        {
+          statusKey: ProductStatus.COMPLETE_SUCCESS,
+          label: t(TranslationKey['Publish on the exchange']),
+          color: 'rgb(15, 169, 20)',
+          colorHover: '#009a07',
+        },
+
+        {
+          statusKey: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
+          label: t(TranslationKey['Supplier not found']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
+
+        {
+          statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+          label: t(TranslationKey["The supplier's price does not fit"]),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+      ]
     } else if (
-      (curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
-        curStatus <= ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-      curStatus === ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]
+      curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
+      curStatus <= ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]
     ) {
       return [
         {

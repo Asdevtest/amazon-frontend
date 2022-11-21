@@ -11,7 +11,7 @@ import {UiTheme} from '@constants/themes'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {LanguageSelector} from '@components/language-selector/language-selector.jsx'
+import {LanguageSelector} from '@components/selectors/language-selector/language-selector.jsx'
 
 import {useClassNames} from './entry-right-panel.style.js'
 
