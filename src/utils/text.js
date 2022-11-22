@@ -65,16 +65,9 @@ export const minsToTime = mins =>
   }`
 
 export const getFullTariffTextForBoxOrOrder = box => {
-  // const notAvailable = t(TranslationKey['Not available'])
-  console.log(box)
-
   if (!box || (!box.destination && !box.logicsTariff)) {
-    // return notAvailable
     return t(TranslationKey['Not available'])
   }
-  // if (!box.destination && !box.logicsTariff) {
-  //   return notAvailable
-  // }
 
   const firstNumOfCode = box.destination?.zipCode?.[0] || null
 
