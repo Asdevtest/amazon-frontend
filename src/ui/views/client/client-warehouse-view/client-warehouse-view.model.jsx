@@ -128,7 +128,7 @@ export class ClientWarehouseViewModel {
     onClickConfirm: () => {},
   }
 
-  rowCount = undefined
+  rowCount = 0
   sortModel = []
   filterModel = {items: []}
   curPage = 0

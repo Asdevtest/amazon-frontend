@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {UserLink} from '@components/user-link'
 
 import {t} from '@utils/translations'
 
@@ -61,6 +62,26 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
       </Typography>
 
       <div className={classNames.form}>
+        {destinationToEdit && (
+          <Field
+            label={t(TranslationKey.Account)}
+            inputComponent={
+              <>
+                {destinationToEdit.storekeeper ? (
+                  <UserLink
+                    blackText
+                    withAvatar
+                    name={destinationToEdit.storekeeper?.name}
+                    userId={destinationToEdit.storekeeper?._id}
+                  />
+                ) : (
+                  <Typography className={classNames.standartText}>{t(TranslationKey.Missing)}</Typography>
+                )}
+              </>
+            }
+          />
+        )}
+
         <Field
           label={t(TranslationKey.Title)}
           inputProps={{maxLength: 255}}

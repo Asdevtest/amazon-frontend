@@ -1,6 +1,14 @@
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {
+  DataGrid,
+  /* , GridToolbar*/
+} from '@mui/x-data-grid'
+import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
+import {
+  /* DataGrid,*/
+  GridToolbar,
+} from '@mui/x-data-grid-pro'
 
 import React, {Component} from 'react'
 
@@ -187,12 +195,18 @@ export class ClientWarehouseViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
 
-              <DataGrid
-                // autoHeight
+              <DataGridPremium
                 disableVirtualization
                 pagination
-                useResizeContainer
                 checkboxSelection
+                defaultGroupingExpansionDepth
+                apiRef={this.props.apiRef}
+                // groupingColDef={{leafField: 'orderIdsItems'}}
+                // isGroupExpandedByDefault={node => {
+                //   console.log('node', node)
+                //   return node.children.length <= 1
+                // }}
+                rowGroupingModel={[/* 'storekeeper', */ 'orderIdsItems']}
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
@@ -205,7 +219,7 @@ export class ClientWarehouseViewRaw extends Component {
                 }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
-                sortingMode="server"
+                // sortingMode="server"
                 paginationMode="server"
                 rowCount={rowCount}
                 sortModel={sortModel}
@@ -213,10 +227,8 @@ export class ClientWarehouseViewRaw extends Component {
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
-                // rows={getCurrentData()}
-                rows={currentData}
+                rows={currentData || []}
                 getRowHeight={() => 'auto'}
-                // rowHeight={170}
                 components={{
                   Toolbar: GridToolbar,
                 }}
@@ -234,8 +246,8 @@ export class ClientWarehouseViewRaw extends Component {
 
               <div className={classNames.tasksWrapper}>
                 <DataGrid
+                  disableVirtualization
                   pagination
-                  useResizeContainer
                   classes={{
                     root: classNames.root,
                     footerContainer: classNames.footerContainer,
@@ -247,9 +259,9 @@ export class ClientWarehouseViewRaw extends Component {
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   // rowHeight={150}
-                  components={{
-                    Toolbar: GridToolbar,
-                  }}
+                  // components={{
+                  //   Toolbar: GridToolbar,
+                  // }}
                   columns={taskColumnsModel}
                 />
               </div>
@@ -474,4 +486,10 @@ export class ClientWarehouseViewRaw extends Component {
   }
 }
 
-export const ClientWarehouseView = withStyles(ClientWarehouseViewRaw, styles)
+const WrappedComponent = props => {
+  const apiRef = useGridApiRef()
+
+  return <ClientWarehouseViewRaw {...props} apiRef={apiRef} />
+}
+
+export const ClientWarehouseView = withStyles(WrappedComponent, styles)

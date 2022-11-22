@@ -106,7 +106,7 @@ export class AdminExchangeViewModel {
       case 9:
         return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
       case 10:
-        return DataGridTablesKeys.COMPLETE_SUPPLIER_WAS_NOT_FOUND
+        return DataGridTablesKeys.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE
     }
   }
 
@@ -152,10 +152,6 @@ export class AdminExchangeViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
-  }
-
-  onSelectionModel(model) {
-    this.selectionModel = model
   }
 
   getCurrentData() {

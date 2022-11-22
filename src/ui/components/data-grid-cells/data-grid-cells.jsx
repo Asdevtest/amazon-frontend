@@ -608,7 +608,7 @@ export const MultilineTextCell = withStyles(
 )
 
 export const OrdersIdsItemsCell = withStyles(({classes: classNames, value}) => {
-  const sortedValue = value.split('item')
+  const sortedValue = value?.split('item')
 
   const orderIds = sortedValue[0]
 

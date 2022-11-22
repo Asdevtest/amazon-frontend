@@ -31,6 +31,8 @@ export const exchangeProductsColumns = ({activeSubCategory}) => {
         return exchangeCanceledColumns()
       case 9:
         return exchangeSupplierNotFoundedColumns()
+      case 10:
+        return exchangeSupplierNotFoundedColumns()
     }
   }
 

@@ -35,6 +35,8 @@
     "@mui/styles": "^5.10.8",
     "@mui/system": "^5.10.5",
     "@mui/x-data-grid": "^5.17.10",
+    "@mui/x-data-grid-premium": "^5.17.12",
+    "@mui/x-data-grid-pro": "^5.17.12",
     "@mui/x-date-pickers": "^5.0.0-beta.3",
     "@openapitools/openapi-generator-cli": "^2.4.13",
     "@sentry/react": "^6.19.7",

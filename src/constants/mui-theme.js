@@ -16,6 +16,15 @@ const baseThemeComponentsSettings = {
   //     },
   //   },
   // },
+
+  MuiAvatar: {
+    styleOverrides: {
+      fallback: {
+        width: '70% !important',
+        height: '70% !important',
+      },
+    },
+  },
 }
 
 const baseThemeSettings = {

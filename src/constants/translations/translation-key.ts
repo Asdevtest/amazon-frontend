@@ -1608,7 +1608,7 @@ export enum TranslationKey {
   'Notice to users' = 'Notice to users',
   'Enter notification text' = 'Enter notification text',
   'Boxes in group' = 'Boxes in group',
-  // '' = '',
+  'Account' = 'Account',
   // '' = '',
   // '' = '',
 }
