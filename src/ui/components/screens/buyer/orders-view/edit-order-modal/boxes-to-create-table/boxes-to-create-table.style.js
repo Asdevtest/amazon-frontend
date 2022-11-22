@@ -132,10 +132,10 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '80px',
   },
   deleteBtn: {
-    color: 'rgba(189, 194, 209, 1)',
+    color: 'grey',
   },
   editBtn: {
-    color: 'rgba(189, 194, 209, 1)',
+    color: 'grey',
   },
 
   checkboxWithLabelWrapper: {
@@ -160,19 +160,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deleteBtnWrapper: {
-    backgroundColor: 'inherit',
     width: '40px',
     height: '40px',
     marginLeft: '10px',
+    backgroundColor: 'inherit',
 
     '&:hover': {
       backgroundColor: '#e4e4e4',
     },
   },
   editBtnWrapper: {
-    backgroundColor: 'inherit',
     width: '40px',
     height: '40px',
+    backgroundColor: 'inherit',
 
     '&:hover': {
       backgroundColor: '#e4e4e4',

@@ -65,18 +65,23 @@ export const minsToTime = mins =>
   }`
 
 export const getFullTariffTextForBoxOrOrder = box => {
+  // const notAvailable = t(TranslationKey['Not available'])
   console.log(box)
 
-  if (!box || !box.destination) {
-    return
+  if (!box || (!box.destination && !box.logicsTariff)) {
+    // return notAvailable
+    return t(TranslationKey['Not available'])
   }
+  // if (!box.destination && !box.logicsTariff) {
+  //   return notAvailable
+  // }
 
   const firstNumOfCode = box.destination?.zipCode?.[0] || null
 
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  return `${box.logicsTariff?.name || 'n/a'}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
     box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
       ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
       : ''
