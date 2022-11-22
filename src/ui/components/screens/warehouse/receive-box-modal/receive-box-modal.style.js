@@ -247,6 +247,8 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     minWidth: '200px',
 
+    overflow: 'hidden',
+
     marginTop: '10px',
     height: '220px',
   },
