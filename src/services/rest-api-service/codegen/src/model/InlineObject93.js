@@ -47,23 +47,26 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('listingName')) {
+                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('listingBulletPoints')) {
+                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('listingProductDetails')) {
+                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('listingSearchTerms')) {
+                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('listingSubjectMatters')) {
+                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('listingImages')) {
+                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
         }
         return obj;
@@ -73,40 +76,46 @@ class InlineObject93 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * 
+ * @member {String} listingName
  */
-InlineObject93.prototype['name'] = undefined;
+InlineObject93.prototype['listingName'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Массив ...
+ * @member {Array.<String>} listingBulletPoints
  */
-InlineObject93.prototype['country'] = undefined;
+InlineObject93.prototype['listingBulletPoints'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * 
+ * @member {String} listingProductDetails
  */
-InlineObject93.prototype['zipCode'] = undefined;
+InlineObject93.prototype['listingProductDetails'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * 
+ * @member {String} listingSearchTerms
  */
-InlineObject93.prototype['state'] = undefined;
+InlineObject93.prototype['listingSearchTerms'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Массив ...
+ * @member {Array.<String>} listingSubjectMatters
  */
-InlineObject93.prototype['city'] = undefined;
+InlineObject93.prototype['listingSubjectMatters'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * массив картинок(в виде прямых ссылок).
+ * @member {Array.<String>} listingImages
  */
-InlineObject93.prototype['address'] = undefined;
+InlineObject93.prototype['listingImages'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject93.prototype['strategyStatus'] = undefined;
 
 
 

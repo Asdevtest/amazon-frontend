@@ -49,7 +49,6 @@ class AdminExchangeViewsRaw extends Component {
       requestStatus,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onSelectionModel,
       onChangeSubCategory,
       onTriggerDrawer,
       setDataGridState,
@@ -75,6 +74,7 @@ class AdminExchangeViewsRaw extends Component {
                 {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
                     <Button
+                      key={index}
                       variant={'text'}
                       className={cx(classNames.filterBtn, {
                         [classNames.currentFilterBtn]: activeSubCategory === index,
@@ -89,7 +89,6 @@ class AdminExchangeViewsRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   pagination
-                  useResizeContainer
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
@@ -111,9 +110,6 @@ class AdminExchangeViewsRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}

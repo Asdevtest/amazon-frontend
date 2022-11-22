@@ -4,20 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID идеи | [optional] 
-**media** | **[Object]** | Image URL | [optional] 
-**comments** | **String** | Комментарий к идее | [optional] 
-**productName** | **String** | Назавние продукта | [optional] 
-**productLinks** | **[Object]** | Ссылка на продукт, если есть | [optional] 
-**criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
-**quantity** | **Number** | Количество товаров | [optional] 
-**price** | **Number** | Желаемая цена | [optional] 
-**width** | **Number** | Ширина, см | [optional] 
-**height** | **Number** | Высота, см | [optional] 
-**length** | **Number** | Длина, см | [optional] 
-**createdAt** | **Date** | Дата создания | [optional] 
-**updatedAt** | **Date** | Дата последнего обновления | [optional] 
-**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) | Массив поставщиков. | [optional] 
-**productId** | **String** | Product ID | [optional] 
+**products** | [**InlineResponse20029Products**](InlineResponse20029Products.md) |  | [optional] 
+**checking** | [**InlineResponse20029Checking**](InlineResponse20029Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20025Finances**](InlineResponse20025Finances.md) |  | [optional] 
 
 

@@ -4,8 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
+**destinationId** | **String** | destination GUID  | [optional] 
+**isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
+**barCode** | **String** | Штрихкод продукта | [optional] 
 
 

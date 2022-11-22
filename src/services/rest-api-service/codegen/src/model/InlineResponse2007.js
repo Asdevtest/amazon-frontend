@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
-import ApiV1BatchesStorekeeper from './ApiV1BatchesStorekeeper';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse2007 model module.
@@ -52,38 +51,14 @@ class InlineResponse2007 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
-            if (data.hasOwnProperty('shipId')) {
-                obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
-            }
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
-            }
-            if (data.hasOwnProperty('finalWeightAsOneBox')) {
-                obj['finalWeightAsOneBox'] = ApiClient.convertToType(data['finalWeightAsOneBox'], 'Number');
-            }
-            if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
-                obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['lastModifiedBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
@@ -96,73 +71,27 @@ class InlineResponse2007 {
 }
 
 /**
- * GUID партии.
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2007.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id партии.
- * @member {Number} humanFriendlyId
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineResponse2007.prototype['humanFriendlyId'] = undefined;
+InlineResponse2007.prototype['text'] = undefined;
 
 /**
- * Статус партии.
- * @member {String} status
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<Object>} media
  */
-InlineResponse2007.prototype['status'] = undefined;
+InlineResponse2007.prototype['media'] = undefined;
 
 /**
- * id корабля.
- * @member {String} shipId
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
  */
-InlineResponse2007.prototype['shipId'] = undefined;
-
-/**
- * Массив ссылок на файлов документации к партии.
- * @member {Array.<String>} attachedDocuments
- */
-InlineResponse2007.prototype['attachedDocuments'] = undefined;
-
-/**
- * Финальный вес партии, если считать все коробки как одну большую коробу.
- * @member {Number} finalWeightAsOneBox
- */
-InlineResponse2007.prototype['finalWeightAsOneBox'] = undefined;
-
-/**
- * Финальный вес партии, если сложить все веса коробок по отдельности.
- * @member {Number} finalWeightSumEachBoxAmount
- */
-InlineResponse2007.prototype['finalWeightSumEachBoxAmount'] = undefined;
-
-/**
- * Массив id коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
- */
-InlineResponse2007.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} storekeeper
- */
-InlineResponse2007.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} createdBy
- */
-InlineResponse2007.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} lastModifiedBy
- */
-InlineResponse2007.prototype['lastModifiedBy'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse2007.prototype['createdAt'] = undefined;
+InlineResponse2007.prototype['user'] = undefined;
 
 /**
  * Дата создания.

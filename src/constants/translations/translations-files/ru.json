@@ -1598,5 +1598,16 @@
   "days": "дн",
   "units": "ед",
   "Tasks were created for the following boxes": "Для следующих коробок созданы задачи",
-  "Prep Center USA": "Преп центр США"
+  "Prep Center USA": "Преп центр США",
+  "User blocked by administrator": "Пользователь заблокирован администратором",
+  "Technical work and notices": "Технические работы и уведомления",
+  "Access for users": "Доступ пользователей",
+  "Notify users before disconnecting": "Перед отключением уведомите пользователей",
+  "Notice of technical work": "Уведомление о технических работах",
+  "Send a notice": "Отправить уведомление",
+  "We recommend that you save any unsaved changes and finish the work.\n When the technical work begins, all unsaved changes will be lost.\n\nWe apologize for the inconvenience!": "На сервисе будут проводиться плановые технические работы.\nРекомендуем сохранить несохраненные изменения и завершить работы.\nПосле начала проведения технических работ, все несохраненные изменения будут потеряны.\n\n Приносим извенения за причененные неудобства!",
+  "Notice to users": "Уведомление пользователям",
+  "Enter notification text": "Введите текст уведомления",
+  "Boxes in group": "Коробок в группе",
+  "Account": "Аккаунт"
 }

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject88 model module.
@@ -47,38 +48,29 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -88,70 +80,51 @@ class InlineObject88 {
 }
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject88.prototype['lengthCmWarehouse'] = undefined;
+InlineObject88.prototype['name'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject88.prototype['widthCmWarehouse'] = undefined;
+InlineObject88.prototype['description'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject88.prototype['heightCmWarehouse'] = undefined;
+InlineObject88.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject88.prototype['weighGrossKgWarehouse'] = undefined;
+InlineObject88.prototype['cls'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject88.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject88.prototype['etd'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject88.prototype['fbaShipment'] = undefined;
+InlineObject88.prototype['eta'] = undefined;
 
 /**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
  */
-InlineObject88.prototype['images'] = undefined;
+InlineObject88.prototype['minWeightInKg'] = undefined;
 
 /**
- * destination GUID 
- * @member {String} destinationId
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
-InlineObject88.prototype['destinationId'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-InlineObject88.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineObject88.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * Штрихкод продукта
- * @member {String} barCode
- */
-InlineObject88.prototype['barCode'] = undefined;
+InlineObject88.prototype['conditionsByRegion'] = undefined;
 
 
 

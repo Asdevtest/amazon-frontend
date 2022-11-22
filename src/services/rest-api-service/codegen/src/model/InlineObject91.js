@@ -22,11 +22,10 @@ class InlineObject91 {
     /**
      * Constructs a new <code>InlineObject91</code>.
      * @alias module:model/InlineObject91
-     * @param price {Number} Цена услуги.
      */
-    constructor(price) { 
+    constructor() { 
         
-        InlineObject91.initialize(this, price);
+        InlineObject91.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject91 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, price) { 
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +50,20 @@ class InlineObject91 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
             }
         }
         return obj;
@@ -66,22 +73,40 @@ class InlineObject91 {
 }
 
 /**
- * Название услуги
+ * Название склада.
  * @member {String} name
  */
 InlineObject91.prototype['name'] = undefined;
 
 /**
- * Описание услуги
- * @member {String} description
+ * Страна.
+ * @member {String} country
  */
-InlineObject91.prototype['description'] = undefined;
+InlineObject91.prototype['country'] = undefined;
 
 /**
- * Цена услуги.
- * @member {Number} price
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
  */
-InlineObject91.prototype['price'] = undefined;
+InlineObject91.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject91.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject91.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject91.prototype['address'] = undefined;
 
 
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**finances** | [**InlineResponse20024Finances**](InlineResponse20024Finances.md) |  | [optional] 
+**products** | [**InlineResponse20027Products**](InlineResponse20027Products.md) |  | [optional] 
+**finances** | [**InlineResponse20025Finances**](InlineResponse20025Finances.md) |  | [optional] 
 
 

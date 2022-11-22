@@ -29,6 +29,7 @@ import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2006 from '../model/InlineResponse2006';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import SuccessResponseBodyWithGuid from '../model/SuccessResponseBodyWithGuid';
@@ -218,7 +219,7 @@ export default class AdministratorApi {
      * ## Получить список отзывов/репортов   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1AdminsFeedbackGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -237,7 +238,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/admins/feedback', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -250,7 +251,7 @@ export default class AdministratorApi {
      * ## Получить список отзывов/репортов   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1AdminsFeedbackGet(opts) {
       return this.apiV1AdminsFeedbackGetWithHttpInfo(opts)
@@ -754,7 +755,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1AdminsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -773,7 +774,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/admins/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -786,7 +787,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1AdminsProductsVacGet(opts) {
       return this.apiV1AdminsProductsVacGetWithHttpInfo(opts)
@@ -996,7 +997,7 @@ export default class AdministratorApi {
      * ## Включить/выключить сервер   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
      */
     apiV1AdminsToggleServerPatchWithHttpInfo(opts) {
       opts = opts || {};
@@ -1015,7 +1016,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = 'String';
+      let returnType = InlineResponse2005;
       return this.apiClient.callApi(
         '/api/v1/admins/toggle_server', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1028,7 +1029,7 @@ export default class AdministratorApi {
      * ## Включить/выключить сервер   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
      */
     apiV1AdminsToggleServerPatch(opts) {
       return this.apiV1AdminsToggleServerPatchWithHttpInfo(opts)

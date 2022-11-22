@@ -111,6 +111,7 @@ export class SupervisorSettingsContentModel {
 
   async loadData(tabIndex) {
     try {
+      this.selectedRowIds = []
       await this.getAsins(tabIndex)
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()

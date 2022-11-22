@@ -9,6 +9,7 @@ import {AdminOrderView} from '@views/admin/admin-orders-views/order'
 import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
 import {AdminProductView} from '@views/admin/admin-product-view'
 import {AdminSettingsView} from '@views/admin/admin-settings-view'
+import {AdminTechnicalView} from '@views/admin/admin-technical-view'
 import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
 import {AdminUserView} from '@views/admin/admin-users-view/admin-user-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
@@ -1037,10 +1038,19 @@ export const privateRoutesConfigs = [
   {
     routePath: '/admin/settings',
     component: AdminSettingsView,
-    exact: false,
+    exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Settings,
   },
+
+  {
+    routePath: '/admin/settings/technical-works',
+    component: AdminTechnicalView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['Technical work and notices'],
+  },
+
   {
     routePath: '/admin/feedback',
     component: AdminFeedbackView,

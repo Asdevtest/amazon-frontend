@@ -101,19 +101,23 @@ export const FieldsAndSuppliers = observer(
                   href={checkAndMakeAbsoluteUrl(product.lamazon)}
                   className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
                 >
-                  <Input
-                    disabled={edit}
-                    classes={{
-                      input: cx(
-                        classNames.inputLink,
-                        {[classNames.inputDisabled]: edit},
-                        {[classNames.linkOnEdit]: edit && product.lamazon},
-                      ),
-                    }}
-                    placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
-                    value={product.lamazon}
-                    onChange={onChangeField('lamazon')}
-                  />
+                  {edit ? (
+                    <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
+                  ) : (
+                    <Input
+                      disabled={edit}
+                      classes={{
+                        input: cx(
+                          classNames.inputLink,
+                          {[classNames.inputDisabled]: edit},
+                          {[classNames.linkOnEdit]: edit && product.lamazon},
+                        ),
+                      }}
+                      placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
+                      value={product.lamazon}
+                      onChange={onChangeField('lamazon')}
+                    />
+                  )}
                 </Link>
                 {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
               </div>

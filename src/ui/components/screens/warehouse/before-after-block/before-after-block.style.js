@@ -458,7 +458,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 400,
     color: theme.palette.text.general,
-    marginTop: '90px',
+    marginTop: 40,
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',

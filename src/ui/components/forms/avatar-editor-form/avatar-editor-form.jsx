@@ -69,7 +69,8 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
         <Avatar
           width={320}
           height={210}
-          // labelStyle={classNames.labelStyle}
+          imageWidth={320}
+          imageHeight={210}
           labelStyle={{
             width: '100%',
             backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',

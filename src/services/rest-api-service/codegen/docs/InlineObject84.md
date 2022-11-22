@@ -4,12 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**listingName** | **String** |  | [optional] 
-**listingBulletPoints** | **[String]** | Массив ... | [optional] 
-**listingProductDetails** | **String** |  | [optional] 
-**listingSearchTerms** | **String** |  | [optional] 
-**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
-**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 
 

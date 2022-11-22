@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -13,6 +14,7 @@ import {Appbar} from '@components/appbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
+import {EditBoxStorekeeperForm} from '@components/forms/edit-box-storekeeper-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -39,6 +41,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
   render() {
     const {
       rowCount,
+      destinations,
+      storekeepersData,
 
       showProgress,
       progressValue,
@@ -50,6 +54,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       volumeWeightCoefficient,
       showBoxMoveToBatchModal,
       showAddOrEditHsCodeInBox,
+      showFullEditBoxModal,
       showAddBatchModal,
       showBoxViewModal,
       showEditBoxModal,
@@ -101,8 +106,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
+                  disableVirtualization
                   pagination
-                  useResizeContainer
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
@@ -136,7 +141,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onFilterModelChange={onChangeFilterModel}
                   onStateChange={setDataGridState}
                   onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
                 />
@@ -173,6 +178,22 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             boxesData={boxesData}
             onClose={() => onTriggerOpenModal('showAddBatchModal')}
             onSubmit={onSubmitAddBatch}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showFullEditBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
+        >
+          <EditBoxStorekeeperForm
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            requestStatus={requestStatus}
+            formItem={curBox}
+            // onSubmit={onClickConfirmCreateChangeTasks}
+            onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
           />
         </Modal>
 

@@ -22,11 +22,10 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
-     * @param action {module:model/InlineObject73.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject73.initialize(this, action);
+        InlineObject73.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,8 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -63,39 +58,13 @@ class InlineObject73 {
 }
 
 /**
- * @member {module:model/InlineObject73.ActionEnum} action
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject73.prototype['action'] = undefined;
-
-/**
- * Причина смены статуса.
- * @member {String} reason
- */
-InlineObject73.prototype['reason'] = undefined;
+InlineObject73.prototype['suppliersIds'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject73['ActionEnum'] = {
-
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
-
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
 
 
 

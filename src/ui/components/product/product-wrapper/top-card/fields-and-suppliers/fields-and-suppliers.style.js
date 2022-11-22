@@ -310,6 +310,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkDecoration: {
+    color: 'red !important',
+
     '&:hover': {
       textDecoration: 'none',
     },
@@ -394,6 +396,19 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     outline: 'none',
+
+    textDecoration: 'none',
+  },
+
+  lamazonText: {
+    color: theme.palette.primary.main,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    textDecoration: 'none',
+    backgroundColor: theme.palette.input.customDisabled,
+    borderRadius: 4,
+    padding: '6px 8px',
   },
 
   inputDisabled: {

@@ -23,7 +23,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
-import {LanguageSelector} from '@components/language-selector'
+import {LanguageSelector} from '@components/selectors/language-selector'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'

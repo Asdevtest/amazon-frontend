@@ -128,7 +128,7 @@ export class ClientWarehouseViewModel {
     onClickConfirm: () => {},
   }
 
-  rowCount = undefined
+  rowCount = 0
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -975,12 +975,12 @@ export class ClientWarehouseViewModel {
     try {
       const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
-      const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+      // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
         filtersProduct: this.nameSearchValue ? productFilter : null,
 
-        filtersBox: this.nameSearchValue ? boxFilter : null,
+        filtersBox: /* this.nameSearchValue ? boxFilter :*/ null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

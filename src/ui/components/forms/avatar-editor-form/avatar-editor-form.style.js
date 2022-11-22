@@ -38,7 +38,12 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #007BFF',
     borderRadius: '50%',
 
-    backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.disabled,
+  },
+
+  imgFallback: {
+    width: '50% !important',
+    height: '50% !important',
   },
 
   btnsWrapper: {

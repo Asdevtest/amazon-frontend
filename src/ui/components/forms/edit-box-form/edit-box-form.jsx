@@ -33,7 +33,6 @@ import {t} from '@utils/translations'
 
 import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-form.style'
-import {ProductInOrderTableRow} from './product-in-order-table-row'
 
 const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   const {classes: classNames} = useClassNames()
