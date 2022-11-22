@@ -71,14 +71,14 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: 'Unitsorganic',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    width: 200,
   },
   {
     field: 'unitsppc',
     headerName: 'Unitsppc',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    width: 200,
   },
   {
     field: 'netprofit',
