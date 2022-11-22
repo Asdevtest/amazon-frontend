@@ -18,7 +18,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 120,
     type: 'date',
   },
   {
