@@ -131,6 +131,6 @@ export const useClassNames = makeStyles()(theme => ({
   fieldLabel: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.general,
   },
 }))
