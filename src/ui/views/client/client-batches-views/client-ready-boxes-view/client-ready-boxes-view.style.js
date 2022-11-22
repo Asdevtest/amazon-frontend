@@ -31,6 +31,7 @@ export const styles = theme => ({
 
     // color: theme.palette.text.general,
     padding: '0 45px',
+    fontWeight: 600,
 
     color: theme.palette.primary.main,
 
