@@ -136,10 +136,6 @@ export class WarehouseVacantViewModel {
     this.sortModel = sortModel
   }
 
-  onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
   getCurrentData() {
     if (this.nameSearchValue) {
       return toJS(

@@ -281,7 +281,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   conditionsField: {
-    height: '100px',
+    height: 'auto',
     overflow: 'auto',
   },
   divider: {

@@ -41,6 +41,7 @@ export const styles = theme => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
+    marginBottom: 20,
   },
   datagridWrapper: {
     height: '83vh',

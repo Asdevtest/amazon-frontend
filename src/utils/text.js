@@ -65,8 +65,8 @@ export const minsToTime = mins =>
   }`
 
 export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box) {
-    return
+  if (!box || (!box.destination && !box.logicsTariff)) {
+    return t(TranslationKey['Not available'])
   }
 
   const firstNumOfCode = box.destination?.zipCode?.[0] || null
@@ -74,7 +74,7 @@ export const getFullTariffTextForBoxOrOrder = box => {
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  return `${box.logicsTariff?.name || 'n/a'}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
     box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
       ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
       : ''

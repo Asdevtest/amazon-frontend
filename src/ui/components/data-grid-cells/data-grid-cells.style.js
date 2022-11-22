@@ -517,7 +517,8 @@ export const styles = theme => ({
     justifyContent: 'flex-start',
     overflowY: 'auto',
     margin: 10,
-    paddingBottom: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 
   smallRowImgWrapper: {
@@ -547,6 +548,7 @@ export const styles = theme => ({
     padding: '3px',
     marginBottom: '5px',
 
+    width: 510,
     maxHeight: 500,
     overflow: 'auto',
   },

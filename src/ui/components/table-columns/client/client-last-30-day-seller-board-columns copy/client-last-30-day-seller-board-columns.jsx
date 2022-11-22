@@ -18,7 +18,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 120,
     type: 'date',
   },
   {
@@ -71,14 +71,14 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: 'Unitsorganic',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    width: 200,
   },
   {
     field: 'unitsppc',
     headerName: 'Unitsppc',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    width: 200,
   },
   {
     field: 'netprofit',

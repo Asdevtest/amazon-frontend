@@ -7,7 +7,7 @@ import {
   SupplierCell,
   MultilineTextCell,
   FeesValuesWithCalculateBtnCell,
-  ActiveBarcodeCell,
+  DownloadAndCopyBtnsCell,
   NormDateCell,
   UserLinkCell,
   MultilineTextHeaderCell,
@@ -81,7 +81,7 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 150,
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
   },
 
   {

@@ -11,6 +11,7 @@ import {UserModel} from '@models/user-model'
 import {adminBatchesViewColumns} from '@components/table-columns/admin/admin-batches-columns'
 
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class AdminAwaitingBatchesViewModel {
@@ -139,7 +140,9 @@ export class AdminAwaitingBatchesViewModel {
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
     } catch (error) {
       console.log(error)
