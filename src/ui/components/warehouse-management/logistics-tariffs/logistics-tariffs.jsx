@@ -94,6 +94,7 @@ export const LogisticsTariffs = observer(() => {
       </div>
 
       <DataGrid
+        disableVirtualization
         pagination
         useResizeContainer
         classes={{
