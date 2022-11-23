@@ -589,6 +589,7 @@
   "The buyer took the order": "买方下订单了",
   "The buyer paid for the order": "买方支付该订单的款项",
   "Track number issued": "追踪编码提供了",
+  "Track number issued (In transit in stock)": "发出的跟踪号（库存中途）",
   "Came to the warehouse": "来到仓库",
   "Return Order": "退货订单",
   "Additional payment required": "需要支付额外",

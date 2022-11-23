@@ -2,7 +2,7 @@ import React from 'react'
 
 import {t} from 'i18n-js'
 
-import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
+import {orderColorByStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -46,7 +46,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <MultilineTextCell
         leftAlign
-        text={params.value}
+        text={OrderStatusTranslate(OrderStatusByCode[params.row.originalData.status], true)}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),

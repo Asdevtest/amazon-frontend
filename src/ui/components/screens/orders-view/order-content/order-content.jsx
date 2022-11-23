@@ -24,6 +24,7 @@ import {useClassNames} from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 
+<<<<<<< HEAD
 export const OrderContent = ({
   order,
   boxes,
@@ -32,6 +33,9 @@ export const OrderContent = ({
   userInfo,
   onSubmitChangeBoxFields,
 }) => {
+=======
+export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient, isClient}) => {
+>>>>>>> 47a548d6 (4410: a different product status message is displayed to the client)
   const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -40,6 +44,8 @@ export const OrderContent = ({
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+
+  console.log(updatedOrder.status)
 
   // useEffect(() => {
   //   setUpdatedProduct(() => ({...product}))
@@ -67,7 +73,11 @@ export const OrderContent = ({
         <div>
           <div className={classNames.orderContainer}>
             <div>
-              <OrderStatusText status={OrderStatusByCode[updatedOrder.status]} className={classNames.containerTitle} />
+              <OrderStatusText
+                status={OrderStatusByCode[updatedOrder.status]}
+                className={classNames.containerTitle}
+                isClient={isClient}
+              />
             </div>
 
             <div className={classNames.orderNumWrapper}>
