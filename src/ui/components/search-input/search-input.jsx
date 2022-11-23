@@ -37,6 +37,14 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
     }
   }, [internalValue])
 
+  const searchAndClearSpaces = () => {
+    const valueWitchoutSpaces = internalValue.trim()
+
+    onSubmit ? onSubmit(valueWitchoutSpaces) : onSubmit()
+
+    setInternalValue(valueWitchoutSpaces)
+  }
+
   return (
     <Input
       className={cx(classNames.input, inputClasses)}
@@ -49,7 +57,7 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
               {(onSubmit ? internalValue : value) ? (
                 <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} />
               ) : null}
-              <Button className={classNames.submit} onClick={() => (onSubmit ? onSubmit(internalValue) : onSubmit())}>
+              <Button className={classNames.submit} onClick={searchAndClearSpaces}>
                 {t(TranslationKey.search)}
               </Button>
             </div>
