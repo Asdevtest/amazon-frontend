@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -19,8 +21,22 @@ import {
   warehouseBatchesDataConverter,
   warehouseBoxesDataConverter,
 } from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {onSubmitPostImages} from '@utils/upload-files'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
+import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
+
+const updateBoxWhiteList = [
+  'shippingLabel',
+  'lengthCmWarehouse',
+  'widthCmWarehouse',
+  'heightCmWarehouse',
+  'weighGrossKgWarehouse',
+  'isShippingLabelAttachedByStorekeeper',
+  'fbaShipment',
+  'images',
+  'destinationId',
+  'items',
+]
 
 export class WarehouseMyWarehouseViewModel {
   history = undefined
@@ -54,6 +70,9 @@ export class WarehouseMyWarehouseViewModel {
   showAddOrEditHsCodeInBox = false
   showEditBoxModal = false
   showFullEditBoxModal = false
+  showSuccessInfoModal = false
+
+  modalEditSuccessMessage = ''
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
@@ -61,7 +80,7 @@ export class WarehouseMyWarehouseViewModel {
     setDimensions: item => this.setDimensions(item),
     onEditBox: item => this.onEditBox(item),
   }
-
+  uploadedImages = []
   uploadedFiles = []
   progressValue = 0
   showProgress = false
@@ -196,75 +215,101 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox(/* id, boxData, sourceData*/) {
+  async onClickSubmitEditBox({id, boxData, sourceData, imagesOfBox, dataToSubmitHsCode}) {
     try {
-      // this.selectedBoxes = []
-      // this.uploadedFiles = []
+      this.selectedBoxes = []
+      this.uploadedFiles = []
+      this.uploadedImages = []
 
-      // if (boxData.tmpShippingLabel?.length) {
-      //   await onSubmitPostImages.call(this, {
-      //     images: boxData.tmpShippingLabel,
-      //     type: 'uploadedFiles',
-      //     withoutShowProgress: true,
-      //   })
-      // }
+      // console.log('dataToSubmitHsCode', dataToSubmitHsCode)
 
-      // {
-      //   let dataToBarCodeChange = boxData.items
-      //     .map(el =>
-      //       el.tmpBarCode?.length
-      //         ? {
-      //             changeBarCodInInventory: el.changeBarCodInInventory,
-      //             productId: el.product._id,
-      //             tmpBarCode: el.tmpBarCode,
-      //             newData: [],
-      //           }
-      //         : null,
-      //     )
-      //     .filter(el => el !== null)
+      // console.log('boxData', boxData)
+      // console.log('sourceData', sourceData)
 
-      //   if (dataToBarCodeChange?.length) {
-      //     dataToBarCodeChange = await onSubmitPostFilesInData({
-      //       dataWithFiles: dataToBarCodeChange,
-      //       nameOfField: 'tmpBarCode',
-      //     })
-      //   }
+      if (boxData.tmpShippingLabel?.length) {
+        await onSubmitPostImages.call(this, {
+          images: boxData.tmpShippingLabel,
+          type: 'uploadedFiles',
+          withoutShowProgress: true,
+        })
+      }
 
-      //   const newItems = boxData.items.map(el => {
-      //     const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-      //     return {
-      //       ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
-      //       amount: el.amount,
-      //       orderId: el.order._id,
-      //       productId: el.product._id,
+      if (imagesOfBox?.length) {
+        await onSubmitPostImages.call(this, {
+          images: imagesOfBox,
+          type: 'uploadedImages',
+          withoutShowProgress: true,
+        })
+      }
 
-      //       barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-      //       isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-      //         ? false
-      //         : el.isBarCodeAlreadyAttachedByTheSupplier,
-      //       isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-      //         ? false
-      //         : el.isBarCodeAttachedByTheStorekeeper,
-      //     }
-      //   })
+      let dataToBarCodeChange = boxData.items
+        .map(el =>
+          el.tmpBarCode?.length
+            ? {
+                changeBarCodInInventory: el.changeBarCodInInventory,
+                productId: el.product._id,
+                tmpBarCode: el.tmpBarCode,
+                newData: [],
+              }
+            : null,
+        )
+        .filter(el => el !== null)
 
-      //   const requestBox = getObjectFilteredByKeyArrayWhiteList(
-      //     {
-      //       ...boxData,
-      //       isShippingLabelAttachedByStorekeeper:
-      //         sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-      //       items: newItems,
-      //       shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
-      //     },
-      //     updateBoxWhiteList,
-      //   )
+      if (dataToBarCodeChange?.length) {
+        dataToBarCodeChange = await onSubmitPostFilesInData({
+          dataWithFiles: dataToBarCodeChange,
+          nameOfField: 'tmpBarCode',
+        })
+      }
 
-      //   await this.editBox({id, data: requestBox})
-      // }
+      const newItems = boxData.items.map(el => {
+        const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+        return {
+          ...getObjectFilteredByKeyArrayBlackList(el, [
+            'amount',
+            'order',
+            'product',
+            'tmpBarCode',
+            'changeBarCodInInventory',
+          ]),
 
-      // this.loadData()
+          _id: el._id,
+
+          barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+
+          isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
+            ? false
+            : el.isBarCodeAlreadyAttachedByTheSupplier,
+
+          isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
+            ? false
+            : el.isBarCodeAttachedByTheStorekeeper,
+        }
+      })
+
+      const requestBox = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...boxData,
+          images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
+          items: newItems,
+          shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+        },
+        updateBoxWhiteList,
+      )
+
+      await StorekeeperModel.editBox(id, requestBox)
+
+      if (dataToSubmitHsCode) {
+        await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      }
+
+      this.loadData()
 
       this.onTriggerOpenModal('showFullEditBoxModal')
+
+      this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+
+      this.onTriggerOpenModal('showSuccessInfoModal')
     } catch (error) {
       console.log(error)
       this.error = error

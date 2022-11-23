@@ -1559,7 +1559,7 @@ export const WarehouseBoxesBtnsCell = withStyles(
         </Button>
       )}
 
-      <Button disabled className={classNames.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
+      {/* <Button disabled className={classNames.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
         {t(TranslationKey.Edit)}
       </Button>
 
@@ -1572,7 +1572,7 @@ export const WarehouseBoxesBtnsCell = withStyles(
         {row.items.some(item => !item.product.hsCode)
           ? t(TranslationKey['Add HS Code'])
           : t(TranslationKey['Edit HS Code'])}
-      </Button>
+      </Button> */}
     </div>
   ),
   styles,

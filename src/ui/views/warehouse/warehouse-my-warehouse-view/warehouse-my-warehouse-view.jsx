@@ -21,6 +21,7 @@ import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
 import {SearchInput} from '@components/search-input'
@@ -45,6 +46,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       rowCount,
       destinations,
       storekeepersData,
+      modalEditSuccessMessage,
 
       showProgress,
       progressValue,
@@ -57,6 +59,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       showBoxMoveToBatchModal,
       showAddOrEditHsCodeInBox,
       showFullEditBoxModal,
+      showSuccessInfoModal,
       showAddBatchModal,
       showBoxViewModal,
       showEditBoxModal,
@@ -103,7 +106,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <Button disabled /* </div>={!selectedBoxes.length}*/ className={classNames.editBtn} onClick={onEditBox}>
+                <Button disabled={!selectedBoxes.length} className={classNames.editBtn} onClick={onEditBox}>
                   {t(TranslationKey.Edit)}
                 </Button>
 
@@ -232,6 +235,16 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             // operationType={taskType}
           />
         </Modal>
+
+        <SuccessInfoModal
+          openModal={showSuccessInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
+          title={modalEditSuccessMessage}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessInfoModal')
+          }}
+        />
       </React.Fragment>
     )
   }

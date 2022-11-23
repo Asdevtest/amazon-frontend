@@ -132,6 +132,11 @@ class StorekeeperModelStatic {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersDestructBatchGuidPost(id)
     return response
   }
+
+  editBox = async (id, data) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch(id, {body: data})
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()
