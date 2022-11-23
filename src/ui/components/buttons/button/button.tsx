@@ -13,13 +13,12 @@ import {StyledButton} from './styled-button'
 enum tooltipPositions {
   Corner = 'corner',
   Center = 'center',
-  Close = 'close',
 }
 
 interface Props {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
-  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.Close
+  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
   variant?: string
   color?: string
   success?: boolean
@@ -81,15 +80,7 @@ export const Button: FC<Props> = observer(
           {children}
         </StyledButton>
         {tooltipAttentionContent || tooltipInfoContent ? (
-          <div
-            className={
-              tooltipPosition === 'center'
-                ? classNames.tooltipsCenterWrapper
-                : tooltipPosition === 'close'
-                ? classNames.tooltipsCloseWrapper
-                : classNames.tooltipsWrapper
-            }
-          >
+          <div className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (
               <Tooltip
                 arrow
