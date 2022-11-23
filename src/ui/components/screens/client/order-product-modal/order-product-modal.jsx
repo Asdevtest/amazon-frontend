@@ -187,6 +187,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.priceCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
                   {t(TranslationKey['Price per unit.']) + ' $'}
@@ -197,6 +198,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.deliveryCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
                 >
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
@@ -206,6 +208,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.qntCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
@@ -215,6 +218,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.totalCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
                 >
                   {t(TranslationKey.Total) + ' $'}
@@ -224,6 +228,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.barCodeCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Product barcode'])}
                 >
                   {t(TranslationKey.BarCode)}
@@ -233,6 +238,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.tariffCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
@@ -244,6 +250,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.warehouseCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
@@ -254,6 +261,7 @@ export const OrderProductModal = ({
                 <Button
                   disabled
                   className={classNames.commentCellBtn}
+                  // tooltipPosition={'close'}
                   tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
