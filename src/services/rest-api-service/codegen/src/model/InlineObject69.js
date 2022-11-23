@@ -22,11 +22,10 @@ class InlineObject69 {
     /**
      * Constructs a new <code>InlineObject69</code>.
      * @alias module:model/InlineObject69
-     * @param action {module:model/InlineObject69.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject69.initialize(this, action);
+        InlineObject69.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject69 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,20 @@ class InlineObject69 {
         if (data) {
             obj = obj || new InlineObject69();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -63,39 +70,37 @@ class InlineObject69 {
 }
 
 /**
- * @member {module:model/InlineObject69.ActionEnum} action
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject69.prototype['action'] = undefined;
+InlineObject69.prototype['execution_time'] = undefined;
 
 /**
- * Причина смены статуса.
- * @member {String} reason
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject69.prototype['reason'] = undefined;
-
-
-
-
+InlineObject69.prototype['price'] = undefined;
 
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineObject69['ActionEnum'] = {
+InlineObject69.prototype['comment'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject69.prototype['linksToMediaFiles'] = undefined;
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject69.prototype['title'] = undefined;
+
+
+
 
 
 

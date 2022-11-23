@@ -21,13 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject26 {
     /**
      * Constructs a new <code>InlineObject26</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject26
-     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(buyerComment) { 
+    constructor() { 
         
-        InlineObject26.initialize(this, buyerComment);
+        InlineObject26.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject26 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,11 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            }
+            if (data.hasOwnProperty('newAmounts')) {
+                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
             }
         }
         return obj;
@@ -61,10 +61,14 @@ class InlineObject26 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * @member {Array.<String>} boxIds
  */
-InlineObject26.prototype['buyerComment'] = undefined;
+InlineObject26.prototype['boxIds'] = undefined;
+
+/**
+ * @member {Array.<Number>} newAmounts
+ */
+InlineObject26.prototype['newAmounts'] = undefined;
 
 
 

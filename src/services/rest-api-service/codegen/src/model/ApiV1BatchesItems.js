@@ -49,6 +49,9 @@ class ApiV1BatchesItems {
         if (data) {
             obj = obj || new ApiV1BatchesItems();
 
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
             if (data.hasOwnProperty('product')) {
                 obj['product'] = InlineResponse200.constructFromObject(data['product']);
             }
@@ -73,6 +76,12 @@ class ApiV1BatchesItems {
 
 
 }
+
+/**
+ * GUID айтема.
+ * @member {String} _id
+ */
+ApiV1BatchesItems.prototype['_id'] = undefined;
 
 /**
  * @member {module:model/InlineResponse200} product

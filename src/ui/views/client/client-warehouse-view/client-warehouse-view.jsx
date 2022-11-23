@@ -1,15 +1,12 @@
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
-import {
-  DataGrid,
-  /* , GridToolbar*/
-} from '@mui/x-data-grid'
-import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
-import {
-  /* DataGrid,*/
-  GridToolbar,
-} from '@mui/x-data-grid-pro'
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
+// import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
+// import {
+//   /* DataGrid,*/
+//   GridToolbar,
+// } from '@mui/x-data-grid-pro'
 import React, {Component} from 'react'
 
 import {toJS} from 'mobx'
@@ -26,6 +23,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
+import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -92,6 +90,7 @@ export class ClientWarehouseViewRaw extends Component {
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
+      showGroupingBoxesModal,
       showProgress,
       showEditMultipleBoxesModal,
       showConfirmWithCommentModal,
@@ -132,6 +131,7 @@ export class ClientWarehouseViewRaw extends Component {
 
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
+      onClickSubmitGroupingBoxes,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -195,18 +195,17 @@ export class ClientWarehouseViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
 
-              <DataGridPremium
+              <DataGrid
                 disableVirtualization
                 pagination
                 checkboxSelection
-                defaultGroupingExpansionDepth
-                apiRef={this.props.apiRef}
+                // defaultGroupingExpansionDepth
                 // groupingColDef={{leafField: 'orderIdsItems'}}
                 // isGroupExpandedByDefault={node => {
                 //   console.log('node', node)
                 //   return node.children.length <= 1
                 // }}
-                rowGroupingModel={[/* 'storekeeper', */ 'orderIdsItems']}
+                // rowGroupingModel={[/* 'storekeeper', */ 'orderIdsItems']}
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
@@ -219,7 +218,7 @@ export class ClientWarehouseViewRaw extends Component {
                 }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
-                // sortingMode="server"
+                sortingMode="server"
                 paginationMode="server"
                 rowCount={rowCount}
                 sortModel={sortModel}
@@ -246,7 +245,7 @@ export class ClientWarehouseViewRaw extends Component {
 
               <div className={classNames.tasksWrapper}>
                 <DataGrid
-                  disableVirtualization
+                  // disableVirtualization
                   pagination
                   classes={{
                     root: classNames.root,
@@ -259,9 +258,9 @@ export class ClientWarehouseViewRaw extends Component {
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   // rowHeight={150}
-                  // components={{
-                  //   Toolbar: GridToolbar,
-                  // }}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
                   columns={taskColumnsModel}
                 />
               </div>
@@ -315,6 +314,20 @@ export class ClientWarehouseViewRaw extends Component {
             selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
             onSubmit={onClickSubmitEditMultipleBoxes}
             onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showGroupingBoxesModal}
+          setOpenModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
+        >
+          <GroupingBoxesForm
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            onSubmit={onClickSubmitGroupingBoxes}
+            onCloseModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
           />
         </Modal>
 
@@ -448,6 +461,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickEditBtn,
       onClickMergeBtn,
       onClickSplitBtn,
+      onClickGroupingBtn,
     } = this.viewModel
     return (
       <React.Fragment>
@@ -481,15 +495,13 @@ export class ClientWarehouseViewRaw extends Component {
         >
           {t(TranslationKey.Edit)}
         </Button>
+
+        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+          {t(TranslationKey.Grouping)}
+        </Button>
       </React.Fragment>
     )
   }
 }
 
-const WrappedComponent = props => {
-  const apiRef = useGridApiRef()
-
-  return <ClientWarehouseViewRaw {...props} apiRef={apiRef} />
-}
-
-export const ClientWarehouseView = withStyles(WrappedComponent, styles)
+export const ClientWarehouseView = withStyles(ClientWarehouseViewRaw, styles)

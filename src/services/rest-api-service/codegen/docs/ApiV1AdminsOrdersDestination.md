@@ -11,6 +11,11 @@ Name | Type | Description | Notes
 **state** | **String** | Штат. | [optional] 
 **city** | **String** | Город. | [optional] 
 **address** | **String** | Адрес склада. | [optional] 
-**storekeeperId** | **String** | Гуид сторкипера. | [optional] 
+**storekeeper** | [**ApiV1AdminsOrdersDestinationStorekeeper**](ApiV1AdminsOrdersDestinationStorekeeper.md) |  | [optional] 
+**isActive** | **Boolean** | Флаг активности склада. | [optional] 
+**createdById** | **String** | GUID создателя склада. | [optional] 
+**lastModifiedById** | **String** | GUID последнего изменившего склада. | [optional] 
+**createdAt** | **Date** | Дата создания склада. | [optional] 
+**updatedAt** | **Date** | Дата обновления склада. | [optional] 
 
 

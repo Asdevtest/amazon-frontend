@@ -56,7 +56,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
   )
 }
 
-export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => {
+export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit, startData}) => {
   const {classes: classNames} = useClassNames()
 
   const HEAD_CELLS = [
@@ -77,7 +77,7 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
     image: item.product.images[0],
   }))
 
-  const [formFields, setFormFields] = useState(sourceData)
+  const [formFields, setFormFields] = useState(startData ? startData : sourceData)
 
   const onChangeField = (fieldName, productId) => event => {
     const newFormFieldsProd = formFields.find(el => el.productId === productId)
@@ -111,25 +111,11 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
       />
 
       <div className={classNames.buttonsWrapper}>
-        <Button
-          success
-          disableElevation
-          disabled={submitDisabled}
-          className={classNames.saveButton}
-          color="primary"
-          variant="contained"
-          onClick={onClickSubmit}
-        >
+        <Button success disabled={submitDisabled} className={classNames.saveButton} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          disableElevation
-          className={classNames.closeButton}
-          color="primary"
-          variant="text"
-          onClick={() => setOpenModal()}
-        >
+        <Button className={classNames.closeButton} variant="text" onClick={() => setOpenModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

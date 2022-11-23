@@ -886,7 +886,7 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     // alignItems: 'center',
-    justifyContent: 'end',
+    justifyContent: 'center',
     gap: '10px',
     // minWidth: '190px',
     height: '100%',

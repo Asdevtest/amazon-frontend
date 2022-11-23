@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
 
 

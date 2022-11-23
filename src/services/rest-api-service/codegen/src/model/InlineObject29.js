@@ -21,14 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject29 {
     /**
      * Constructs a new <code>InlineObject29</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject29
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject29.OperationTypeEnum} Тип операции
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject29.initialize(this, taskId, boxes, operationType);
+        InlineObject29.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -36,10 +35,8 @@ class InlineObject29 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -53,29 +50,8 @@ class InlineObject29 {
         if (data) {
             obj = obj || new InlineObject29();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -85,87 +61,13 @@ class InlineObject29 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject29.prototype['taskId'] = undefined;
-
-/**
- * @member {Array.<String>} boxesBefore
- */
-InlineObject29.prototype['boxesBefore'] = undefined;
-
-/**
- * @member {Array.<String>} boxes
- */
-InlineObject29.prototype['boxes'] = undefined;
-
-/**
- * Тип операции
- * @member {module:model/InlineObject29.OperationTypeEnum} operationType
- */
-InlineObject29.prototype['operationType'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- * @default ''
- */
-InlineObject29.prototype['clientComment'] = '';
-
-/**
- * Комментарий баера.
- * @member {String} buyerComment
- */
-InlineObject29.prototype['buyerComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject29.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject29.prototype['storekeeperComment'] = undefined;
+InlineObject29.prototype['totalPriceChanged'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject29['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 

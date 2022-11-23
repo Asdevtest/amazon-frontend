@@ -80,13 +80,6 @@ export class WarehouseMyWarehouseViewModel {
     return UserModel.userInfo
   }
 
-  get isMasterBoxSelected() {
-    return this.selectedBoxes.some(boxId => {
-      const findBox = this.boxesMy.find(box => box._id === boxId)
-      return findBox?.amount && findBox?.amount > 1
-    })
-  }
-
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -203,6 +196,81 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onClickSubmitEditBox(/* id, boxData, sourceData*/) {
+    try {
+      // this.selectedBoxes = []
+      // this.uploadedFiles = []
+
+      // if (boxData.tmpShippingLabel?.length) {
+      //   await onSubmitPostImages.call(this, {
+      //     images: boxData.tmpShippingLabel,
+      //     type: 'uploadedFiles',
+      //     withoutShowProgress: true,
+      //   })
+      // }
+
+      // {
+      //   let dataToBarCodeChange = boxData.items
+      //     .map(el =>
+      //       el.tmpBarCode?.length
+      //         ? {
+      //             changeBarCodInInventory: el.changeBarCodInInventory,
+      //             productId: el.product._id,
+      //             tmpBarCode: el.tmpBarCode,
+      //             newData: [],
+      //           }
+      //         : null,
+      //     )
+      //     .filter(el => el !== null)
+
+      //   if (dataToBarCodeChange?.length) {
+      //     dataToBarCodeChange = await onSubmitPostFilesInData({
+      //       dataWithFiles: dataToBarCodeChange,
+      //       nameOfField: 'tmpBarCode',
+      //     })
+      //   }
+
+      //   const newItems = boxData.items.map(el => {
+      //     const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+      //     return {
+      //       ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
+      //       amount: el.amount,
+      //       orderId: el.order._id,
+      //       productId: el.product._id,
+
+      //       barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+      //       isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
+      //         ? false
+      //         : el.isBarCodeAlreadyAttachedByTheSupplier,
+      //       isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
+      //         ? false
+      //         : el.isBarCodeAttachedByTheStorekeeper,
+      //     }
+      //   })
+
+      //   const requestBox = getObjectFilteredByKeyArrayWhiteList(
+      //     {
+      //       ...boxData,
+      //       isShippingLabelAttachedByStorekeeper:
+      //         sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+      //       items: newItems,
+      //       shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+      //     },
+      //     updateBoxWhiteList,
+      //   )
+
+      //   await this.editBox({id, data: requestBox})
+      // }
+
+      // this.loadData()
+
+      this.onTriggerOpenModal('showFullEditBoxModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async onClickEditBtn() {
     try {
       const destinations = await ClientModel.getDestinations()
@@ -265,7 +333,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onEditBox(row) {
+  async onEditBox() {
     try {
       const destinations = await ClientModel.getDestinations()
 
@@ -283,7 +351,7 @@ export class WarehouseMyWarehouseViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.curBox = row
+      this.curBox = this.boxesMy.find(el => el._id === this.selectedBoxes[0]).originalData
 
       this.onTriggerOpenModal('showFullEditBoxModal')
     } catch (error) {

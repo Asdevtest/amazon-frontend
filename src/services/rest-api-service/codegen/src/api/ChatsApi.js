@@ -14,8 +14,8 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject30 from '../model/InlineObject30';
-import InlineResponse20018 from '../model/InlineResponse20018';
+import InlineObject32 from '../model/InlineObject32';
+import InlineResponse20019 from '../model/InlineResponse20019';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -44,7 +44,7 @@ export default class ChatsApi {
      * Метод создает чат не привязаный к другим инстансам через почту   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ChatsByEmailPostWithHttpInfo(opts) {
@@ -77,7 +77,7 @@ export default class ChatsApi {
      * Метод создает чат не привязаный к другим инстансам через почту   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ChatsByEmailPost(opts) {
@@ -93,7 +93,7 @@ export default class ChatsApi {
      * Получить все почты юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20018>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20019>} and HTTP response
      */
     apiV1ChatsEmailsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -112,7 +112,7 @@ export default class ChatsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20018];
+      let returnType = [InlineResponse20019];
       return this.apiClient.callApi(
         '/api/v1/chats/emails', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -125,7 +125,7 @@ export default class ChatsApi {
      * Получить все почты юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20018>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20019>}
      */
     apiV1ChatsEmailsGet(opts) {
       return this.apiV1ChatsEmailsGetWithHttpInfo(opts)

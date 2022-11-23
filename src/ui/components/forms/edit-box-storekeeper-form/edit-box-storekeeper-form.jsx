@@ -31,6 +31,7 @@ import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
+import {AddOrEditHsCodeInBox} from '../add-or-edit-hs-code-in-box-form'
 import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-storekeeper-form.style'
 
@@ -185,6 +186,27 @@ export const EditBoxStorekeeperForm = observer(
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
+    const [showAddOrEditHsCodeInBox, setShowAddOrEditHsCodeInBox] = useState(false)
+
+    // const sourceDataToSubmitHsCode = formItem.items.map(item => ({
+    //   productId: item.product._id,
+    //   hsCode: item.product.hsCode,
+
+    //   asin: item.product.asin,
+    //   qty: item.amount,
+    //   amazonTitle: item.product.amazonTitle,
+    //   image: item.product.images[0],
+    // }))
+
+    // console.log('sourceDataToSubmitHsCode', sourceDataToSubmitHsCode)
+
+    const [dataToSubmitHsCode, setDataToSubmitHsCode] = useState(null)
+
+    const onSubmitAddOrEditHsCode = data => {
+      setDataToSubmitHsCode(data)
+      setShowAddOrEditHsCodeInBox(false)
+    }
+
     const onClickBarcode = item => {
       setCurProductToEditBarcode(item)
 
@@ -310,7 +332,7 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const disableSubmit =
-      true || // ЗАДИЗЕЙБЛЕНО
+      true ||
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
       boxFields.storekeeperId === '' ||
@@ -429,27 +451,6 @@ export const EditBoxStorekeeperForm = observer(
                                 </div>
                               }
                             />
-
-                            {item.tmpBarCode.length ? (
-                              <Field
-                                oneLine
-                                labelClasses={classNames.standartLabel}
-                                containerClasses={classNames.checkboxContainer}
-                                tooltipInfoContent={t(
-                                  TranslationKey['The new barcode will be updated at the product in the inventory'],
-                                )}
-                                label={t(TranslationKey['Change in inventory'])}
-                                inputComponent={
-                                  <Checkbox
-                                    color="primary"
-                                    checked={item.changeBarCodInInventory}
-                                    onClick={() =>
-                                      onClickBarcodeInventoryCheckbox(item.product._id, !item.changeBarCodInInventory)
-                                    }
-                                  />
-                                }
-                              />
-                            ) : null}
 
                             {!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper ? (
                               <Typography className={classNames.noBarCodeGlued}>
@@ -587,18 +588,7 @@ export const EditBoxStorekeeperForm = observer(
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
                       labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.fbaShipmentInput}
-                      inputProps={{maxLength: 255}}
-                      tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
-                      value={boxFields.fbaShipment}
-                      onChange={setFormField('fbaShipment')}
-                    />
-
-                    <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
+                      containerClasses={classNames.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                       tooltipAttentionContent={t(
                         TranslationKey['When re-sticking will create a task for the prep center'],
@@ -627,6 +617,32 @@ export const EditBoxStorekeeperForm = observer(
                             onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                           />
                         </div>
+                      }
+                    />
+                  </div>
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.fbaShipmentInput}
+                      inputProps={{maxLength: 255}}
+                      tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
+                      label={t(TranslationKey['FBA Shipment'])}
+                      value={boxFields.fbaShipment}
+                      onChange={setFormField('fbaShipment')}
+                    />
+
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      label={t(TranslationKey['HS code'])}
+                      inputComponent={
+                        <Button
+                          className={classNames.hsCodeBtn}
+                          onClick={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
+                        >
+                          {t(TranslationKey['Add HS Code'])}
+                        </Button>
                       }
                     />
                   </div>
@@ -693,12 +709,9 @@ export const EditBoxStorekeeperForm = observer(
 
         <div className={classNames.buttonsWrapper}>
           <Button
-            disableElevation
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
-            color="primary"
-            variant="contained"
             onClick={() => {
               onSubmit(formItem?._id, {...boxFields, destinationId: boxFields.destinationId || null}, formItem)
             }}
@@ -707,8 +720,6 @@ export const EditBoxStorekeeperForm = observer(
           </Button>
 
           <Button
-            disableElevation
-            color="primary"
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(classNames.button, classNames.cancelBtn)}
             variant="text"
@@ -758,6 +769,18 @@ export const EditBoxStorekeeperForm = observer(
             item={curProductToEditBarcode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showAddOrEditHsCodeInBox}
+          setOpenModal={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
+        >
+          <AddOrEditHsCodeInBox
+            box={formItem}
+            startData={dataToSubmitHsCode}
+            setOpenModal={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
+            onSubmit={onSubmitAddOrEditHsCode}
           />
         </Modal>
       </div>

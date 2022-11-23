@@ -22,10 +22,11 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
+     * @param email {String} 
      */
-    constructor() { 
+    constructor(email) { 
         
-        InlineObject32.initialize(this);
+        InlineObject32.initialize(this, email);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject32 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * @member {String} email
  */
-InlineObject32.prototype['guids'] = undefined;
+InlineObject32.prototype['email'] = undefined;
 
 
 

@@ -1559,7 +1559,7 @@ export const WarehouseBoxesBtnsCell = withStyles(
         </Button>
       )}
 
-      <Button disabled={row.isDraft} className={classNames.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
+      <Button disabled className={classNames.warehouseBoxesBtn} onClick={() => handlers.onEditBox(row)}>
         {t(TranslationKey.Edit)}
       </Button>
 
@@ -1659,7 +1659,7 @@ export const ShortBoxDimensions = withStyles(
         {!box.isDraft && finalWeight < 12 ? (
           <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
         ) : null}
-        {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
+        {/* {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
             disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
             className={cx(classNames.shortBoxDimensionsButton, {
@@ -1669,7 +1669,7 @@ export const ShortBoxDimensions = withStyles(
           >
             {t(TranslationKey.Set)}
           </Button>
-        ) : null}
+        ) : null} */}
       </div>
     )
   },

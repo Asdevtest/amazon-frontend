@@ -21,9 +21,14 @@ export const styles = theme => ({
     padding: '0 0 10px',
   },
 
+  editBtn: {
+    padding: '0 54px',
+  },
+
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
 

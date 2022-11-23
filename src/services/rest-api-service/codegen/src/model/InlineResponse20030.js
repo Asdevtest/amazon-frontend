@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20026Finances from './InlineResponse20026Finances';
+import InlineResponse20030Checking from './InlineResponse20030Checking';
+import InlineResponse20030Products from './InlineResponse20030Products';
 
 /**
  * The InlineResponse20030 model module.
@@ -47,8 +50,14 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20030Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20030Checking.constructFromObject(data['checking']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20026Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -58,10 +67,19 @@ class InlineResponse20030 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {module:model/InlineResponse20030Products} products
  */
-InlineResponse20030.prototype['profileId'] = undefined;
+InlineResponse20030.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20030Checking} checking
+ */
+InlineResponse20030.prototype['checking'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20026Finances} finances
+ */
+InlineResponse20030.prototype['finances'] = undefined;
 
 
 

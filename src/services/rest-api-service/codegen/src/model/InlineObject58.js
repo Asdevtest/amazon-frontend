@@ -22,10 +22,12 @@ class InlineObject58 {
     /**
      * Constructs a new <code>InlineObject58</code>.
      * @alias module:model/InlineObject58
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor() { 
+    constructor(productId, skus) { 
         
-        InlineObject58.initialize(this);
+        InlineObject58.initialize(this, productId, skus);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject58 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -47,14 +51,11 @@ class InlineObject58 {
         if (data) {
             obj = obj || new InlineObject58();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -64,58 +65,17 @@ class InlineObject58 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * @member {String} productId
  */
-InlineObject58.prototype['asin'] = undefined;
+InlineObject58.prototype['productId'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * @member {Array.<String>} skus
  */
-InlineObject58.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject58.StrategyEnum} strategy
- */
-InlineObject58.prototype['strategy'] = undefined;
+InlineObject58.prototype['skus'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>strategy</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject58['StrategyEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40"
-};
 
 
 
