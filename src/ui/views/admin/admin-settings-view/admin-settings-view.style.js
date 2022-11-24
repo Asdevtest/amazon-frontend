@@ -14,7 +14,7 @@ export const styles = theme => ({
   },
 
   mainWrapper: {
-    padding: '20px 45px',
+    padding: '20px 0',
   },
 
   technicalBtn: {
