@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersDestinationStorekeeper from './ApiV1AdminsOrdersDestinationStorekeeper';
 
 /**
  * The ApiV1AdminsOrdersDestination model module.
@@ -68,8 +69,23 @@ class ApiV1AdminsOrdersDestination {
             if (data.hasOwnProperty('address')) {
                 obj['address'] = ApiClient.convertToType(data['address'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsOrdersDestinationStorekeeper.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('isActive')) {
+                obj['isActive'] = ApiClient.convertToType(data['isActive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -121,10 +137,39 @@ ApiV1AdminsOrdersDestination.prototype['city'] = undefined;
 ApiV1AdminsOrdersDestination.prototype['address'] = undefined;
 
 /**
- * Гуид сторкипера.
- * @member {String} storekeeperId
+ * @member {module:model/ApiV1AdminsOrdersDestinationStorekeeper} storekeeper
  */
-ApiV1AdminsOrdersDestination.prototype['storekeeperId'] = undefined;
+ApiV1AdminsOrdersDestination.prototype['storekeeper'] = undefined;
+
+/**
+ * Флаг активности склада.
+ * @member {Boolean} isActive
+ */
+ApiV1AdminsOrdersDestination.prototype['isActive'] = undefined;
+
+/**
+ * GUID создателя склада.
+ * @member {String} createdById
+ */
+ApiV1AdminsOrdersDestination.prototype['createdById'] = undefined;
+
+/**
+ * GUID последнего изменившего склада.
+ * @member {String} lastModifiedById
+ */
+ApiV1AdminsOrdersDestination.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания склада.
+ * @member {Date} createdAt
+ */
+ApiV1AdminsOrdersDestination.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления склада.
+ * @member {Date} updatedAt
+ */
+ApiV1AdminsOrdersDestination.prototype['updatedAt'] = undefined;
 
 
 

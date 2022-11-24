@@ -45,6 +45,15 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
+  shippingField: {
+    width: '230px !important',
+  },
+
+  hsCodeBtn: {
+    height: 30,
+    width: 230,
+  },
+
   standartText: {
     color: theme.palette.text.general,
   },
@@ -212,6 +221,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
     // width: 350,
+    justifyContent: 'flex-end',
   },
 
   destinationSelect: {

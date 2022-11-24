@@ -93,6 +93,8 @@ export class ClientWarehouseViewModel {
 
   showConfirmWithCommentModal = false
 
+  showGroupingBoxesModal = false
+
   showProgress = false
 
   showSuccessInfoModal = false
@@ -590,6 +592,44 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  async onClickGroupingBtn() {
+    try {
+      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+
+      const boxesWithDifferentStorekeepers = this.selectedBoxes.filter(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.storekeeper !== firstBox?.storekeeper
+      })
+
+      if (boxesWithDifferentStorekeepers.length) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        return
+      }
+
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+      })
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showGroupingBoxesModal')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   async onClickEditBtn() {
     try {
       const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
@@ -871,6 +911,31 @@ export class ClientWarehouseViewModel {
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickSubmitGroupingBoxes({oldBoxes, newBoxes}) {
+    try {
+      await BoxesModel.regroupBoxes({
+        boxIds: oldBoxes.map(el => el._id),
+        newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
+      })
+
+      this.selectedBoxes = []
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data was successfully saved']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showGroupingBoxesModal')
+    } catch (error) {
       console.log(error)
       this.error = error
     }

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**boxIds** | **[String]** |  | [optional] 
+**newAmounts** | **[Number]** |  | [optional] 
 
 

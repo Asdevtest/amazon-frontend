@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20015 from './InlineResponse20015';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
 
 /**
  * The InlineResponse20016 model module.
@@ -22,7 +24,7 @@ import InlineResponse20015 from './InlineResponse20015';
 class InlineResponse20016 {
     /**
      * Constructs a new <code>InlineResponse20016</code>.
-     * Результат запроса с пагинацией
+     * Заказ.
      * @alias module:model/InlineResponse20016
      */
     constructor() { 
@@ -49,11 +51,50 @@ class InlineResponse20016 {
         if (data) {
             obj = obj || new InlineResponse20016();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20015]);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1BuyersOrdersMyProduct.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
             }
         }
         return obj;
@@ -63,16 +104,87 @@ class InlineResponse20016 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * id заказ.
+ * @member {Number} id
  */
-InlineResponse20016.prototype['count'] = undefined;
+InlineResponse20016.prototype['id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20015>} rows
+ * GUID данной записи в БД.
+ * @member {String} _id
  */
-InlineResponse20016.prototype['rows'] = undefined;
+InlineResponse20016.prototype['_id'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineResponse20016.prototype['amount'] = undefined;
+
+/**
+ * Комментарии клиента.
+ * @member {String} clientComment
+ */
+InlineResponse20016.prototype['clientComment'] = undefined;
+
+/**
+ * комментарии байера.
+ * @member {String} buyerComment
+ */
+InlineResponse20016.prototype['buyerComment'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ */
+InlineResponse20016.prototype['destination'] = undefined;
+
+/**
+ * @member {String} item
+ */
+InlineResponse20016.prototype['item'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineResponse20016.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+InlineResponse20016.prototype['trackNumberFile'] = undefined;
+
+/**
+ * @member {String} createdById
+ */
+InlineResponse20016.prototype['createdById'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20016.prototype['storekeeper'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BuyersOrdersMyProduct} product
+ */
+InlineResponse20016.prototype['product'] = undefined;
+
+/**
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+ * @member {Number} status
+ */
+InlineResponse20016.prototype['status'] = undefined;
+
+/**
+ * @member {String} createdAt
+ */
+InlineResponse20016.prototype['createdAt'] = undefined;
+
+/**
+ * @member {String} updatedAt
+ */
+InlineResponse20016.prototype['updatedAt'] = undefined;
 
 
 

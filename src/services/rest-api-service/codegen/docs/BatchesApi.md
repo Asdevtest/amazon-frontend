@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1BatchesByProductGuidGet**](BatchesApi.md#apiV1BatchesByProductGuidGet) | **GET** /api/v1/batches/by_product/{guid} | # Получить партии по гуиду продукта
 [**apiV1BatchesCalculateBoxDeliveryCostsInBatchPost**](BatchesApi.md#apiV1BatchesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/batches/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
 [**apiV1BatchesGet**](BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 [**apiV1BatchesGuidAddBoxesPatch**](BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
@@ -13,6 +14,60 @@ Method | HTTP request | Description
 [**apiV1BatchesPost**](BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
 
+
+
+## apiV1BatchesByProductGuidGet
+
+> [InlineResponse20010] apiV1BatchesByProductGuidGet(guid, opts)
+
+# Получить партии по гуиду продукта
+
+## Получить партии по гуиду продукта.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BatchesApi();
+let guid = null; // String | GUID продукта.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BatchesByProductGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID продукта. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20010]**](InlineResponse20010.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## apiV1BatchesCalculateBoxDeliveryCostsInBatchPost

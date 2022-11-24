@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
-import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20047 model module.
@@ -23,12 +22,12 @@ import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehous
 class InlineResponse20047 {
     /**
      * Constructs a new <code>InlineResponse20047</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20047
-     * @param _id {String} GUID сторкипера в DB
      */
-    constructor(_id) { 
+    constructor() { 
         
-        InlineResponse20047.initialize(this, _id);
+        InlineResponse20047.initialize(this);
     }
 
     /**
@@ -36,8 +35,7 @@ class InlineResponse20047 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id) { 
-        obj['_id'] = _id;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,20 +49,11 @@ class InlineResponse20047 {
         if (data) {
             obj = obj || new InlineResponse20047();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('tariffLogistics')) {
-                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
-            }
-            if (data.hasOwnProperty('tariffWarehouses')) {
-                obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
-            }
-            if (data.hasOwnProperty('boxesCount')) {
-                obj['boxesCount'] = ApiClient.convertToType(data['boxesCount'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BatchesBoxes]);
             }
         }
         return obj;
@@ -74,34 +63,16 @@ class InlineResponse20047 {
 }
 
 /**
- * GUID сторкипера в DB
- * @member {String} _id
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20047.prototype['_id'] = undefined;
+InlineResponse20047.prototype['count'] = undefined;
 
 /**
- * Имя сторкипера.
- * @member {String} name
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} rows
  */
-InlineResponse20047.prototype['name'] = undefined;
-
-/**
- * Тарифы логистики для сторкипера.
- * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
- */
-InlineResponse20047.prototype['tariffLogistics'] = undefined;
-
-/**
- * Тарифы складов для сторкипера.
- * @member {Array.<module:model/ApiV1StorekeepersTariffWarehouses>} tariffWarehouses
- */
-InlineResponse20047.prototype['tariffWarehouses'] = undefined;
-
-/**
- * Количество коробок в сторкепере.
- * @member {Number} boxesCount
- */
-InlineResponse20047.prototype['boxesCount'] = undefined;
+InlineResponse20047.prototype['rows'] = undefined;
 
 
 

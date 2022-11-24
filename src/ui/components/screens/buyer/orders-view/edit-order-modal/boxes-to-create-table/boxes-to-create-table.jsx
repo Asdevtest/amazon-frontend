@@ -24,6 +24,7 @@ import {useClassNames} from './boxes-to-create-table.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
   {align: 'center', title: t(TranslationKey.Box)},
+  {align: 'center', title: t(TranslationKey['Boxes in group'])},
   {align: 'center', title: t(TranslationKey.Quantity)},
   {align: 'center', title: t(TranslationKey.Sizes)},
   {align: 'center', title: t(TranslationKey.Weight)},
@@ -60,6 +61,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           <Typography className={classNames.title}>
             {`${itemIndex + 1}. ${item.items[0].product.amazonTitle}`}
           </Typography>
+        </div>
+      </TableCell>
+
+      <TableCell className={classNames.qtyCell}>
+        <div className={classNames.normalCell}>
+          <Input disabled classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
         </div>
       </TableCell>
 

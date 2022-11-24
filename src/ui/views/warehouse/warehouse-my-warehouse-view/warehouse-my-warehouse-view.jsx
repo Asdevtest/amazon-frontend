@@ -6,11 +6,13 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus} from '@constants/box-status'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
@@ -19,6 +21,7 @@ import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
 import {SearchInput} from '@components/search-input'
@@ -43,6 +46,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       rowCount,
       destinations,
       storekeepersData,
+      modalEditSuccessMessage,
 
       showProgress,
       progressValue,
@@ -55,6 +59,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       showBoxMoveToBatchModal,
       showAddOrEditHsCodeInBox,
       showFullEditBoxModal,
+      showSuccessInfoModal,
       showAddBatchModal,
       showBoxViewModal,
       showEditBoxModal,
@@ -85,6 +90,9 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onSubmitAddOrEditHsCode,
       onSubmitEditBox,
       onSearchSubmit,
+
+      onEditBox,
+      onClickSubmitEditBox,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -98,15 +106,22 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.headerWrapper}>
+                <Button disabled={selectedBoxes.length !== 1} className={classNames.editBtn} onClick={onEditBox}>
+                  {t(TranslationKey.Edit)}
+                </Button>
+
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
                   onSubmit={onSearchSubmit}
                 />
+
+                <div />
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   disableVirtualization
+                  checkboxSelection
                   pagination
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
@@ -117,7 +132,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                     filterForm: classNames.filterForm,
                   }}
-                  isRowSelectable={params => params.row.isDraft === false}
+                  isRowSelectable={params =>
+                    params.row.isDraft === false &&
+                    params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+                    params.row.originalData.status !== BoxStatus.IN_BATCH
+                  }
                   getRowClassName={getRowClassName}
                   sortingMode="server"
                   paginationMode="server"
@@ -137,7 +156,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
@@ -192,7 +211,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
             formItem={curBox}
-            // onSubmit={onClickConfirmCreateChangeTasks}
+            onSubmit={onClickSubmitEditBox}
             onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
           />
         </Modal>
@@ -217,6 +236,16 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             // operationType={taskType}
           />
         </Modal>
+
+        <SuccessInfoModal
+          openModal={showSuccessInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
+          title={modalEditSuccessMessage}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessInfoModal')
+          }}
+        />
       </React.Fragment>
     )
   }

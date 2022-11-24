@@ -12,8 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20025Finances from './InlineResponse20025Finances';
-import InlineResponse20027Products from './InlineResponse20027Products';
+import InlineResponse20027Batches from './InlineResponse20027Batches';
+import InlineResponse20027Boxes from './InlineResponse20027Boxes';
+import InlineResponse20027Tasks from './InlineResponse20027Tasks';
 
 /**
  * The InlineResponse20027 model module.
@@ -49,11 +50,14 @@ class InlineResponse20027 {
         if (data) {
             obj = obj || new InlineResponse20027();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20027Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20027Tasks.constructFromObject(data['tasks']);
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20025Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20027Boxes.constructFromObject(data['boxes']);
+            }
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20027Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -63,14 +67,19 @@ class InlineResponse20027 {
 }
 
 /**
- * @member {module:model/InlineResponse20027Products} products
+ * @member {module:model/InlineResponse20027Tasks} tasks
  */
-InlineResponse20027.prototype['products'] = undefined;
+InlineResponse20027.prototype['tasks'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20025Finances} finances
+ * @member {module:model/InlineResponse20027Boxes} boxes
  */
-InlineResponse20027.prototype['finances'] = undefined;
+InlineResponse20027.prototype['boxes'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20027Batches} batches
+ */
+InlineResponse20027.prototype['batches'] = undefined;
 
 
 

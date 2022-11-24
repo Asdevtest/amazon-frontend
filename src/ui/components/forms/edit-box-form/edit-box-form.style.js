@@ -23,6 +23,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  inputAccent: {
+    outline: '2px solid #F5CF00',
+  },
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

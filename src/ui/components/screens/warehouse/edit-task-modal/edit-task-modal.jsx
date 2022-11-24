@@ -234,11 +234,9 @@ export const EditTaskModal = observer(
               <div className={classNames.buttons}>
                 <Button
                   success
-                  disableElevation
                   className={classNames.successBtn}
                   disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
-                  variant="contained"
                   onClick={() => {
                     onClickSolveTask({
                       task,
@@ -251,12 +249,7 @@ export const EditTaskModal = observer(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button
-                  disableElevation
-                  className={classNames.cancelButton}
-                  color="primary"
-                  onClick={onClickOpenCloseModal}
-                >
+                <Button className={classNames.cancelButton} onClick={onClickOpenCloseModal}>
                   {t(TranslationKey.Cancel)}
                 </Button>
               </div>

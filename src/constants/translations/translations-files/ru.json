@@ -1609,5 +1609,9 @@
   "Notice to users": "Уведомление пользователям",
   "Enter notification text": "Введите текст уведомления",
   "Boxes in group": "Коробок в группе",
-  "Account": "Аккаунт"
+  "Account": "Аккаунт",
+  "Grouping": "Сгруппировать",
+  "Group boxes": "Группирова коробок",
+  "Basic box": "Основная коробка",
+  "Select the basic box": "Выберете основную коробку"
 }

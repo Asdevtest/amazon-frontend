@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**_id** | **String** | GUID айтема. | [optional] 
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | [optional] 
 **amount** | **Number** | Кол-во продукта | [optional] 
 **order** | [**InlineResponse2001**](InlineResponse2001.md) |  | [optional] 

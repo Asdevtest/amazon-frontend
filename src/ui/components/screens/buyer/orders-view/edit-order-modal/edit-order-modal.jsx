@@ -399,7 +399,6 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            color="primary"
             variant="text"
             className={classNames.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
@@ -414,10 +413,7 @@ export const EditOrderModal = observer(
             <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
             <div className={classNames.addBoxButtonWrapper}>
               <Button
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-                color="primary"
-                variant="contained"
                 className={classNames.addBoxButton}
                 onClick={addBoxHandler}
               >

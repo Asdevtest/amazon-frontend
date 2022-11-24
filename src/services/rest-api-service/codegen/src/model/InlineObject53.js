@@ -47,8 +47,29 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('requestStatus')) {
-                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('dimensions')) {
+                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -58,10 +79,52 @@ class InlineObject53 {
 }
 
 /**
- * новый статус заявки
- * @member {String} requestStatus
+ * Назавние продукта
+ * @member {String} productName
  */
-InlineObject53.prototype['requestStatus'] = undefined;
+InlineObject53.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject53.prototype['productLinks'] = undefined;
+
+/**
+ * Image URL
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject53.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject53.prototype['criteria'] = undefined;
+
+/**
+ * Размеры
+ * @member {String} dimensions
+ */
+InlineObject53.prototype['dimensions'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject53.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject53.prototype['price'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject53.prototype['productId'] = undefined;
 
 
 

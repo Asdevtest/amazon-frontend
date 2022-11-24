@@ -336,16 +336,25 @@ export class WarehouseVacantViewModel {
           const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
               ...box,
-              items: [
-                {
-                  amount: box.items[0].amount,
-                  orderId: box.items[0].order._id,
-                  productId: box.items[0].product._id,
-                  barCode: box.items[0].barCode,
-                  isBarCodeAlreadyAttachedByTheSupplier: box.items[0].isBarCodeAlreadyAttachedByTheSupplier,
-                  isBarCodeAttachedByTheStorekeeper: box.items[0].isBarCodeAttachedByTheStorekeeper,
-                },
-              ],
+              // items: [
+              //   {
+              //     amount: box.items[0].amount,
+              //     orderId: box.items[0].order._id,
+              //     productId: box.items[0].product._id,
+              //     barCode: box.items[0].barCode,
+              //     isBarCodeAlreadyAttachedByTheSupplier: box.items[0].isBarCodeAlreadyAttachedByTheSupplier,
+              //     isBarCodeAttachedByTheStorekeeper: box.items[0].isBarCodeAttachedByTheStorekeeper,
+              //   },
+              // ],
+
+              items: box.items.map(el => ({
+                amount: el.amount,
+                orderId: el.order._id,
+                productId: el.product._id,
+                barCode: el.barCode,
+                isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
+                isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+              })),
               images: this.imagesOfBox || box.images,
             },
             [

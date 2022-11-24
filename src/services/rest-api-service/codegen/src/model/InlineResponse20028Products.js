@@ -50,14 +50,20 @@ class InlineResponse20028Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
-            if (data.hasOwnProperty('publishedOnExchange')) {
-                obj['publishedOnExchange'] = ApiClient.convertToType(data['publishedOnExchange'], 'Number');
-            }
-            if (data.hasOwnProperty('paid')) {
-                obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
+            if (data.hasOwnProperty('completed')) {
+                obj['completed'] = ApiClient.convertToType(data['completed'], 'Number');
             }
             if (data.hasOwnProperty('rejected')) {
                 obj['rejected'] = ApiClient.convertToType(data['rejected'], 'Number');
+            }
+            if (data.hasOwnProperty('inWork')) {
+                obj['inWork'] = ApiClient.convertToType(data['inWork'], 'Number');
+            }
+            if (data.hasOwnProperty('searchSupplierFromBuyer')) {
+                obj['searchSupplierFromBuyer'] = ApiClient.convertToType(data['searchSupplierFromBuyer'], 'Number');
+            }
+            if (data.hasOwnProperty('withoutStatus')) {
+                obj['withoutStatus'] = ApiClient.convertToType(data['withoutStatus'], 'Number');
             }
         }
         return obj;
@@ -72,19 +78,29 @@ class InlineResponse20028Products {
 InlineResponse20028Products.prototype['all'] = undefined;
 
 /**
- * @member {Number} publishedOnExchange
+ * @member {Number} completed
  */
-InlineResponse20028Products.prototype['publishedOnExchange'] = undefined;
-
-/**
- * @member {Number} paid
- */
-InlineResponse20028Products.prototype['paid'] = undefined;
+InlineResponse20028Products.prototype['completed'] = undefined;
 
 /**
  * @member {Number} rejected
  */
 InlineResponse20028Products.prototype['rejected'] = undefined;
+
+/**
+ * @member {Number} inWork
+ */
+InlineResponse20028Products.prototype['inWork'] = undefined;
+
+/**
+ * @member {Number} searchSupplierFromBuyer
+ */
+InlineResponse20028Products.prototype['searchSupplierFromBuyer'] = undefined;
+
+/**
+ * @member {Number} withoutStatus
+ */
+InlineResponse20028Products.prototype['withoutStatus'] = undefined;
 
 
 

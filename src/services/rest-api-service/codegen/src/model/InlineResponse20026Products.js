@@ -50,20 +50,23 @@ class InlineResponse20026Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
-            if (data.hasOwnProperty('completed')) {
-                obj['completed'] = ApiClient.convertToType(data['completed'], 'Number');
+            if (data.hasOwnProperty('success')) {
+                obj['success'] = ApiClient.convertToType(data['success'], 'Number');
             }
-            if (data.hasOwnProperty('rejected')) {
-                obj['rejected'] = ApiClient.convertToType(data['rejected'], 'Number');
+            if (data.hasOwnProperty('paid')) {
+                obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
             }
-            if (data.hasOwnProperty('inWork')) {
-                obj['inWork'] = ApiClient.convertToType(data['inWork'], 'Number');
+            if (data.hasOwnProperty('newSearchFromSupervisor')) {
+                obj['newSearchFromSupervisor'] = ApiClient.convertToType(data['newSearchFromSupervisor'], 'Number');
             }
-            if (data.hasOwnProperty('searchSupplierFromBuyer')) {
-                obj['searchSupplierFromBuyer'] = ApiClient.convertToType(data['searchSupplierFromBuyer'], 'Number');
+            if (data.hasOwnProperty('newSearchFromClient')) {
+                obj['newSearchFromClient'] = ApiClient.convertToType(data['newSearchFromClient'], 'Number');
             }
-            if (data.hasOwnProperty('withoutStatus')) {
-                obj['withoutStatus'] = ApiClient.convertToType(data['withoutStatus'], 'Number');
+            if (data.hasOwnProperty('inProcessOfSearching')) {
+                obj['inProcessOfSearching'] = ApiClient.convertToType(data['inProcessOfSearching'], 'Number');
+            }
+            if (data.hasOwnProperty('canceled')) {
+                obj['canceled'] = ApiClient.convertToType(data['canceled'], 'Number');
             }
         }
         return obj;
@@ -78,29 +81,34 @@ class InlineResponse20026Products {
 InlineResponse20026Products.prototype['all'] = undefined;
 
 /**
- * @member {Number} completed
+ * @member {Number} success
  */
-InlineResponse20026Products.prototype['completed'] = undefined;
+InlineResponse20026Products.prototype['success'] = undefined;
 
 /**
- * @member {Number} rejected
+ * @member {Number} paid
  */
-InlineResponse20026Products.prototype['rejected'] = undefined;
+InlineResponse20026Products.prototype['paid'] = undefined;
 
 /**
- * @member {Number} inWork
+ * @member {Number} newSearchFromSupervisor
  */
-InlineResponse20026Products.prototype['inWork'] = undefined;
+InlineResponse20026Products.prototype['newSearchFromSupervisor'] = undefined;
 
 /**
- * @member {Number} searchSupplierFromBuyer
+ * @member {Number} newSearchFromClient
  */
-InlineResponse20026Products.prototype['searchSupplierFromBuyer'] = undefined;
+InlineResponse20026Products.prototype['newSearchFromClient'] = undefined;
 
 /**
- * @member {Number} withoutStatus
+ * @member {Number} inProcessOfSearching
  */
-InlineResponse20026Products.prototype['withoutStatus'] = undefined;
+InlineResponse20026Products.prototype['inProcessOfSearching'] = undefined;
+
+/**
+ * @member {Number} canceled
+ */
+InlineResponse20026Products.prototype['canceled'] = undefined;
 
 
 
