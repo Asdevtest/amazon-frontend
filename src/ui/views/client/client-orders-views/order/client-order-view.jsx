@@ -157,7 +157,6 @@ class ClientOrderViewRaw extends Component {
       order,
       history,
       showConfirmModal,
-      isClient,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickCancelOrder,
@@ -185,11 +184,11 @@ class ClientOrderViewRaw extends Component {
               </div>
               {order ? (
                 <OrderContent
+                  isClient
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
                   history={history}
-                  isClient={isClient}
                   onClickCancelOrder={onClickCancelOrder}
                 />
               ) : null}

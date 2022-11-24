@@ -80,9 +80,9 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
           <div className={classNames.orderContainer}>
             <div>
               <OrderStatusText
+                isClient={isClient}
                 status={OrderStatusByCode[updatedOrder.status]}
                 className={classNames.containerTitle}
-                isClient={isClient}
               />
             </div>
 

@@ -163,8 +163,6 @@ export class ClientOrderViewModel {
   drawerOpen = false
   order = undefined
 
-  isClient = true
-
   showConfirmModal = false
 
   constructor({history}) {
