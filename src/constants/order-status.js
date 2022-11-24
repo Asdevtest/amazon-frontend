@@ -80,10 +80,7 @@ export const OrderStatusTranslate = (status, isClient) => {
     case OrderStatus.PAID_TO_SUPPLIER:
       return t(TranslationKey['Paid to supplier'])
     case OrderStatus.TRACK_NUMBER_ISSUED:
-      return isClient
-        ? t(TranslationKey['Track number issued (In transit in stock)'])
-        : t(TranslationKey['Track number issued'])
-    // return t(TranslationKey['Track number issued'])
+      return t(TranslationKey['Track number issued' + `${isClient ? ' (In transit in stock)' : ''}`])
     case OrderStatus.IN_STOCK:
       return t(TranslationKey['In stock'])
     case OrderStatus.CANCELED_BY_BUYER:

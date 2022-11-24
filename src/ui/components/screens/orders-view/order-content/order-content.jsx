@@ -26,6 +26,7 @@ const MEDIA_SCALE_POINTS = '1812'
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const OrderContent = ({
   order,
   boxes,
@@ -40,6 +41,9 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
 =======
 export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient /* isClient */}) => {
 >>>>>>> cfab7506 (4268: added whiteSpace for component classes)
+=======
+export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient, isClient}) => {
+>>>>>>> a3df46d6 (4410: dlc; add isClient)
   const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -48,8 +52,6 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
-
-  console.log(updatedOrder.status)
 
   // useEffect(() => {
   //   setUpdatedProduct(() => ({...product}))
@@ -80,7 +82,7 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
               <OrderStatusText
                 status={OrderStatusByCode[updatedOrder.status]}
                 className={classNames.containerTitle}
-                isClient={'client'}
+                isClient={isClient}
               />
             </div>
 
