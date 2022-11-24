@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '1779px',
+    width: 'min-content',
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -86,8 +86,8 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
     [theme.breakpoints.down(768)]: {
-      width: '50px',
-      height: '50px',
+      // width: '50px',
+      // height: '50px',
       marginRight: '10px',
     },
   },
@@ -183,6 +183,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartCell: {
     width: '100px',
+    height: '100%',
   },
   headerCell: {
     maxWidth: '100px',
@@ -203,6 +204,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   descriptionWrapper: {
     display: 'flex',
+    marginBottom: 5,
   },
   qtyWrapper: {
     display: 'flex',
@@ -361,10 +363,10 @@ export const useClassNames = makeStyles()(theme => ({
       color: theme.palette.text.second,
     },
   },
-  photoBtnWrapper: {
+  footerBtnsWrapper: {
     [theme.breakpoints.down(768)]: {
       display: 'flex',
-      justifyContent: 'end',
+      justifyContent: 'space-between',
     },
   },
 }))

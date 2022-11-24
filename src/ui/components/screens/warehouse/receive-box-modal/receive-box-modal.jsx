@@ -31,8 +31,9 @@ import {useClassNames} from './receive-box-modal.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography>},
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Boxes in group'])}</Typography>},
+  // {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
+
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Total)}</Typography>},
   {
     title: (
@@ -44,33 +45,55 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
   {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Final weight, kg'])}</Typography>},
 ]
 
-const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
+const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
   const {classes: classNames} = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
       <TableCell className={classNames.standartCell}>
-        <Typography className={classNames.boxTitle}>{'new box'}</Typography>
-        <div className={classNames.descriptionWrapper}>
-          <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
-          <Typography className={classNames.title}>
-            {itemIndex + 1 + '. ' + item.items[0].product.amazonTitle}
-          </Typography>
-        </div>
-      </TableCell>
+        {item.items.map((el, i) => (
+          <div key={i} className={classNames.descriptionWrapper}>
+            <img className={classNames.img} src={getAmazonImageUrl(el?.product.images[0])} />
 
-      <TableCell className={classNames.qtyCell}>
-        <Input
-          classes={{
-            root: cx(classNames.inputWrapper, {
-              [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
-            }),
-            input: classNames.input,
-          }}
-          inputProps={{maxLength: 6}}
-          value={item.items[0].amount}
-          onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
-        />
+            <div>
+              <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
+
+              <Input
+                classes={{
+                  root: cx(classNames.inputWrapper, {
+                    [classNames.error]: !el.amount || el.amount === '0',
+                  }),
+                  input: classNames.input,
+                }}
+                inputProps={{maxLength: 6}}
+                value={el.amount}
+                onChange={e => handlers.onChangeQtyInput(e, item._id, el.order)}
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* <div className={classNames.descriptionWrapper}>
+          <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
+
+          <div>
+            <Typography className={classNames.title}>
+              {itemIndex + 1 + '. ' + item.items[0].product.amazonTitle}
+            </Typography>
+
+            <Input
+              classes={{
+                root: cx(classNames.inputWrapper, {
+                  [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
+                }),
+                input: classNames.input,
+              }}
+              inputProps={{maxLength: 6}}
+              value={item.items[0].amount}
+              onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
+            />
+          </div>
+        </div> */}
       </TableCell>
 
       <TableCell className={classNames.standartCell}>
@@ -87,58 +110,75 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         />
       </TableCell>
 
+      {/* <TableCell className={classNames.qtyCell}>
+        <Input
+          classes={{
+            root: cx(classNames.inputWrapper, {
+              [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
+            }),
+            input: classNames.input,
+          }}
+          inputProps={{maxLength: 6}}
+          value={item.items[0].amount}
+          onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
+        />
+      </TableCell> */}
+
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          value={item.items[0].amount * item.amount}
+          // value={item.items[0].amount * item.amount}
+          value={item.items.reduce((ac, cur) => (ac += cur.amount), 0) * item.amount}
         />
       </TableCell>
 
-      <TableCell className={classNames.sizesCell}>
-        <div className={classNames.sizeWrapper}>
-          {/* <Field oneLine label={t(TranslationKey.L) + ': '} value={item.heightCmWarehouse} /> */}
-          <Typography>{t(TranslationKey.L) + ': '}</Typography>
-          <Input
-            classes={{
-              root: cx(classNames.inputWrapper, {
-                [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
-              }),
-              input: classNames.input,
-            }}
-            inputProps={{maxLength: 6}}
-            value={item.lengthCmWarehouse}
-            onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
-          />
-        </div>
+      <TableCell className={classNames.standartCell}>
+        <div className={classNames.sizesCell}>
+          <div className={classNames.sizeWrapper}>
+            {/* <Field oneLine label={t(TranslationKey.L) + ': '} value={item.heightCmWarehouse} /> */}
+            <Typography>{t(TranslationKey.L) + ': '}</Typography>
+            <Input
+              classes={{
+                root: cx(classNames.inputWrapper, {
+                  [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                }),
+                input: classNames.input,
+              }}
+              inputProps={{maxLength: 6}}
+              value={item.lengthCmWarehouse}
+              onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
+            />
+          </div>
 
-        <div className={classNames.sizeWrapper}>
-          <Typography>{t(TranslationKey.W) + ': '}</Typography>
-          <Input
-            classes={{
-              root: cx(classNames.inputWrapper, {
-                [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
-              }),
-              input: classNames.input,
-            }}
-            inputProps={{maxLength: 6}}
-            value={item.widthCmWarehouse}
-            onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
-          />
-        </div>
-        <div className={classNames.sizeWrapper}>
-          <Typography>{t(TranslationKey.H) + ': '}</Typography>
-          <Input
-            classes={{
-              root: cx(classNames.inputWrapper, {
-                [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
-              }),
-              input: classNames.input,
-            }}
-            inputProps={{maxLength: 6}}
-            value={item.heightCmWarehouse}
-            onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
-          />
+          <div className={classNames.sizeWrapper}>
+            <Typography>{t(TranslationKey.W) + ': '}</Typography>
+            <Input
+              classes={{
+                root: cx(classNames.inputWrapper, {
+                  [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                }),
+                input: classNames.input,
+              }}
+              inputProps={{maxLength: 6}}
+              value={item.widthCmWarehouse}
+              onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
+            />
+          </div>
+          <div className={classNames.sizeWrapper}>
+            <Typography>{t(TranslationKey.H) + ': '}</Typography>
+            <Input
+              classes={{
+                root: cx(classNames.inputWrapper, {
+                  [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                }),
+                input: classNames.input,
+              }}
+              inputProps={{maxLength: 6}}
+              value={item.heightCmWarehouse}
+              onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
+            />
+          </div>
         </div>
       </TableCell>
       <TableCell className={classNames.standartCell}>
@@ -190,6 +230,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       </TableCell>
 
       <TableCell>
+        <Button onClick={() => handlers.addDouble(item._id)}>
+          <img src="/assets/icons/plus.svg" />
+        </Button>
+      </TableCell>
+
+      <TableCell>
         <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
           <DeleteIcon className={classNames.deleteBtn} />
         </IconButton>
@@ -198,7 +244,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
   )
 }
 
-const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
+const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble}) => {
   const {classes: classNames} = useClassNames()
 
   const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(classNames)} />
@@ -212,7 +258,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
           data={newBoxes}
           BodyRow={TableBodyBoxRow}
           renderHeadRow={renderHeadRow()}
-          rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
+          rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble}}
         />
       </div>
 
@@ -229,30 +275,55 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               </IconButton>
             </div>
             <div>
-              <Typography className={classNames.boxTitle}>{t(TranslationKey['New box'])}</Typography>
-              <div className={classNames.descriptionWrapper}>
+              {item.items.map((el, i) => (
+                <div key={i} className={classNames.descriptionWrapper}>
+                  <img className={classNames.img} src={getAmazonImageUrl(el.product.images[0])} />
+                  <div>
+                    <Typography className={classNames.title}>
+                      {el.product.amazonTitle.length > 50
+                        ? el.product.amazonTitle.slice(0, 50) + '...'
+                        : el.product.amazonTitle}
+                    </Typography>
+
+                    <Input
+                      classes={{
+                        root: cx(classNames.inputWrapper, {
+                          [classNames.error]: !el.amount || el.amount === 0,
+                        }),
+                        input: classNames.input,
+                      }}
+                      inputProps={{maxLength: 6}}
+                      value={el.amount}
+                      onChange={e => onChangeQtyInput(e, item._id, el.order)}
+                    />
+                  </div>
+                </div>
+              ))}
+
+              {/* <div className={classNames.descriptionWrapper}>
                 <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
-                <Typography className={classNames.title}>
-                  {item.items[0].product.amazonTitle.length > 50
-                    ? item.items[0].product.amazonTitle.slice(0, 50) + '...'
-                    : item.items[0].product.amazonTitle}
-                </Typography>
-              </div>
+                <div>
+                  <Typography className={classNames.title}>
+                    {item.items[0].product.amazonTitle.length > 50
+                      ? item.items[0].product.amazonTitle.slice(0, 50) + '...'
+                      : item.items[0].product.amazonTitle}
+                  </Typography>
+
+                  <Input
+                    classes={{
+                      root: cx(classNames.inputWrapper, {
+                        [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
+                      }),
+                      input: classNames.input,
+                    }}
+                    inputProps={{maxLength: 6}}
+                    value={item.items[0].amount}
+                    onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
+                  />
+                </div>
+              </div> */}
             </div>
-            <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
-              <Input
-                classes={{
-                  root: cx(classNames.inputWrapper, {
-                    [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
-                  }),
-                  input: classNames.input,
-                }}
-                inputProps={{maxLength: 6}}
-                value={item.items[0].amount}
-                onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
-              />
-            </div>
+
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</Typography>
               <Input
@@ -267,6 +338,22 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 onChange={e => onChangeFieldInput(e, item._id, 'amount')}
               />
             </div>
+
+            {/* <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
+              <Input
+                classes={{
+                  root: cx(classNames.inputWrapper, {
+                    [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
+                  }),
+                  input: classNames.input,
+                }}
+                inputProps={{maxLength: 6}}
+                value={item.items[0].amount}
+                onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
+              />
+            </div> */}
+
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
               <Input
@@ -352,7 +439,11 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               />
             </div>
 
-            <div className={classNames.photoBtnWrapper}>
+            <div className={classNames.footerBtnsWrapper}>
+              <Button onClick={() => addDouble(item._id)}>
+                <img src="/assets/icons/plus.svg" />
+              </Button>
+
               <Button onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
             </div>
           </div>
@@ -366,6 +457,8 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const {classes: classNames} = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
+
+  const isManyItemsInSomeBox = boxesBefore.some(box => box.items.length > 1)
 
   const emptyProducts = boxesBefore[0].items.map(product => ({...product, amount: ''}))
 
@@ -394,7 +487,6 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
         ...el,
         _id: 'new_id_' + index + Date.now(),
         items: el.items.map(product => ({...product})),
-        amount: 1,
       }
 
       const volumeWeight =
@@ -508,6 +600,13 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     setNewBoxes(updatedNewBoxes)
   }
 
+  const addDouble = boxId => {
+    const foundedBox = newBoxes.find(box => box._id === boxId)
+
+    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: foundedBox._id + 'double'}]
+    setNewBoxes(updatedNewBoxes)
+  }
+
   const [boxForImageEdit, setBoxForImageEdit] = useState({})
 
   const onAddImages = boxId => {
@@ -518,7 +617,9 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
 
   const onClickRedistributeBtn = async () => {
     try {
-      const newBoxesWithoutEmptyBoxes = newBoxes.filter(el => el.items[0].amount !== (0 || ''))
+      const newBoxesWithoutEmptyBoxes = newBoxes
+        .map(box => ({...box, items: box.items.filter(e => e.amount > 0)}))
+        .filter(el => el.items[0].amount !== (0 || ''))
 
       const newBoxesWithoutNumberFields = newBoxesWithoutEmptyBoxes.map(el => ({
         ...el,
@@ -626,24 +727,26 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     </div>
   )
 
-  const disableSubmit = newBoxes.some(box => box.items[0].amount < 1 || box.amount === '')
+  const disableSubmit = newBoxes.some(box => /* box.items[0].amount < 1 ||*/ box.amount === '')
 
   return (
     <div className={classNames.root}>
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
-        <div className={classNames.addButtonWrapper}>
-          <Button
-            className={classNames.addButton}
-            tooltipInfoContent={t(TranslationKey['Add a box'])}
-            onClick={() => {
-              setNewBoxes(newBoxes.concat(getEmptyBox()))
-            }}
-          >
-            {t(TranslationKey['New box'])}
-            <AddIcon fontSize="small" className={classNames.icon} />
-          </Button>
-        </div>
+        {!isManyItemsInSomeBox && (
+          <div className={classNames.addButtonWrapper}>
+            <Button
+              className={classNames.addButton}
+              tooltipInfoContent={t(TranslationKey['Add a box'])}
+              onClick={() => {
+                setNewBoxes(newBoxes.concat(getEmptyBox()))
+              }}
+            >
+              {t(TranslationKey['New box'])}
+              <AddIcon fontSize="small" className={classNames.icon} />
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* <CommentsLine /> */}
@@ -659,10 +762,11 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           </CustomCarousel>
         </div> */}
 
-        <CurrentBox />
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+        {!isManyItemsInSomeBox && <CurrentBox />}
+        {!isManyItemsInSomeBox && <Divider flexItem className={classNames.divider} orientation="vertical" />}
         <NewBoxes
           newBoxes={newBoxes}
+          addDouble={addDouble}
           onChangeQtyInput={onChangeQtyInput}
           onChangeFieldInput={onChangeFieldInput}
           onRemoveBox={onRemoveBox}

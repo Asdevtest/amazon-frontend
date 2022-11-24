@@ -55077,7 +55077,7 @@
     "/api/v1/storekeepers/boxes": {
       "get": {
         "summary": "# Получить коробки и их строки по текущему сторкиперу.",
-        "description": "## Получить коробки и их строки по текущему сторкиперу. \n\nОтдет все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED\n\nGUID сторкипера получаем из токена. \n\n",
+        "description": "## Получить коробки и их строки по текущему сторкиперу. \n\nОтдает все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED\n\nGUID сторкипера получаем из токена. \n\n",
         "tags": ["Storekeepers"],
         "produces": ["application/json"],
         "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],

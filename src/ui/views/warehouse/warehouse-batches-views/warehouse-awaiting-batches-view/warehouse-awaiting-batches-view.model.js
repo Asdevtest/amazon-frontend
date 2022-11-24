@@ -304,9 +304,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
         const batch = this.batches.find(el => el._id === batchId)
 
-        console.log('batch', batch)
-
-        if (batch.originalData.boxes[0]?.destination?.storekeeperId) {
+        if (batch.originalData.boxes[0]?.destination?.storekeeper) {
           await this.confirmSendToStorekeeper(batchId)
         } else {
           await this.confirmSendToBatch(batchId)

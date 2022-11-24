@@ -53,6 +53,7 @@ import {
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {
   toFixedWithDollarSign,
   trimBarcode,
@@ -939,7 +940,24 @@ export const TaskDescriptionCell = withStyles(({classes: classNames, task}) => {
       <div className={classNames.receiveOrEditWrapper}>
         <img src="/assets/icons/big-box.svg" />
         <img src="/assets/icons/box-arrow.svg" />
-        {task.boxesBefore.map((box, index) => renderProductImages(box?.items[0], index))}
+
+        {task.boxesBefore[0]?.amount > 1 && (
+          <div className={classNames.superboxWrapper}>
+            <img src="/assets/icons/cube.svg" />
+            <Typography className={classNames.imgNum}>
+              {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
+            </Typography>
+          </div>
+        )}
+
+        {/* {task.boxesBefore.map((box, index) => renderProductImages(box?.items[0], index))} */}
+
+        <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          {task.boxesBefore.map(el =>
+            el.items.map((product, productIndex) => renderProductImages(product, productIndex)),
+          )}
+          {/* {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))} */}
+        </Grid>
       </div>
     </div>
   )
@@ -1469,46 +1487,78 @@ export const EditOrRemoveIconBtnsCell = withStyles(
 )
 
 export const BatchBoxesCell = withStyles(({classes: classNames, boxes}) => {
-  const renderProductInfo = box => (
+  const renderProductInfo = (box, boxesLength) => (
     <div className={classNames.batchProductsWrapper}>
-      {box.items.map((item, itemIndex) => (
-        <div key={itemIndex} className={classNames.order}>
-          <img alt="" src={getAmazonImageUrl(item.product.images[0])} className={classNames.orderImg} />
-          <div>
-            <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
-            <div className={classNames.copyAsin}>
-              <Typography className={classNames.orderText}>
-                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                {item.product.asin}
-              </Typography>
-              {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
-              <Typography className={classNames.orderText}>
-                {box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
-                  <span className={classNames.needPay}>{`${t(
-                    TranslationKey['Extra payment required!'],
-                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                )}
-              </Typography>
+      {boxesLength > 1 ? (
+        <Typography className={classNames.batchProductsBoxesLength}>{`x${boxesLength}`}</Typography>
+      ) : null}
+
+      <div className={classNames.batchProductsSubWrapper}>
+        {box.items.map((item, itemIndex) => (
+          <div key={itemIndex} className={classNames.order}>
+            <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
+            <div>
+              <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
+              <div className={classNames.copyAsin}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {item.asin}
+                </Typography>
+                {item.asin ? <CopyValue text={item.asin} /> : null}
+                <Typography className={classNames.orderText}>
+                  {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                    <span className={classNames.needPay}>{`${t(
+                      TranslationKey['Extra payment required!'],
+                    )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                  )}
+                </Typography>
+              </div>
+
+              <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
+              {box.amount > 1 && (
+                <Typography className={classNames.superboxTypo}>{`Superbox x ${box.amount}`}</Typography>
+              )}
             </div>
-
-            <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
-            {box.amount > 1 && (
-              <Typography className={classNames.superboxTypo}>{`Superbox x ${box.amount}`}</Typography>
-            )}
           </div>
-        </div>
-      ))}
+        ))}
 
-      {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-        <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
-      )}
+        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+          <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+        )}
+      </div>
     </div>
   )
 
+  const simpleBoxes = boxes.map(box => ({
+    amount: box.amount,
+    deliveryTotalPrice: box.deliveryTotalPrice,
+    deliveryTotalPriceChanged: box.deliveryTotalPriceChanged,
+    items: box.items.map(item => ({
+      image: item.product.images[0],
+      amazonTitle: item.product.amazonTitle,
+      asin: item.product.asin,
+      amount: item.amount,
+    })),
+  }))
+
+  const object = {}
+  simpleBoxes.forEach(box => {
+    const boxStr = JSON.stringify(
+      getObjectFilteredByKeyArrayBlackList(box, ['deliveryTotalPrice', 'deliveryTotalPriceChanged']),
+    )
+    const extraPay = box.deliveryTotalPriceChanged - box.deliveryTotalPrice
+    if (extraPay > 0) {
+      object[`${boxStr}${extraPay}`] = object[`${boxStr}${extraPay}`] ? [...object[`${boxStr}${extraPay}`], box] : [box]
+    } else {
+      object[boxStr] = object[boxStr] ? [...object[boxStr], box] : [box]
+    }
+  })
+  const filteredBoxes = Object.values(object)
+
   return (
     <div className={classNames.batchBoxesWrapper}>
-      {boxes.map(box => (
-        <div key={box._id}>{renderProductInfo(box)}</div>
+      {filteredBoxes.map(boxes => (
+        <div key={boxes[0]._id}>{renderProductInfo(boxes[0], boxes.length)}</div>
       ))}
     </div>
   )

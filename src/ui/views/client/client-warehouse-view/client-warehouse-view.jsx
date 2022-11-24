@@ -254,7 +254,8 @@ export class ClientWarehouseViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                   }}
                   localeText={getLocalizationByLanguageTag()}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  // rowsPerPageOptions={[15, 25 /* 50, 100*/]}
+                  pageSize={25}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   // rowHeight={150}

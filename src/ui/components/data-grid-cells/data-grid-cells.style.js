@@ -537,11 +537,26 @@ export const styles = theme => ({
     padding: '5px',
   },
 
-  batchProductsWrapper: {
+  batchProductsSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+
+    // border: '1px solid rgba(0, 123, 255, 0.5)',
+    // borderRadius: '10px',
+    // padding: '3px',
+    // marginBottom: '5px',
+
+    width: 480,
+
+    maxHeight: 500,
+    overflow: 'auto',
+  },
+
+  batchProductsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
 
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
@@ -553,9 +568,16 @@ export const styles = theme => ({
     overflow: 'auto',
   },
 
+  batchProductsBoxesLength: {
+    fontSize: 26,
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    padding: '0 5px',
+  },
+
   batchProductTitle: {
     whiteSpace: 'nowrap',
-    maxWidth: '400px',
+    maxWidth: '360px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
