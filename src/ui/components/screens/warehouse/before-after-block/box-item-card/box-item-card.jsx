@@ -33,7 +33,7 @@ export const BoxItemCard = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log(item)
+  console.log(taskType)
 
   return (
     <div className={classNames.root}>
@@ -158,28 +158,33 @@ export const BoxItemCard = ({
                       />
                     )}
 
-                    {isNewBox && !readOnly && boxIndex === 0 && index === 0 && (
-                      <Field
-                        oneLine
-                        // containerClasses={classNames.checkboxContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['Apply to all boxes'])}
-                        tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
-                        inputComponent={
-                          <Button
-                            className={classNames.applyButton}
-                            onClick={() =>
-                              onApplyGluedBarcodeToAllBoxes(
-                                item.isBarCodeAlreadyAttachedByTheSupplier,
-                                item.isBarCodeAttachedByTheStorekeeper,
-                              )
+                    {isNewBox &&
+                      !readOnly &&
+                      boxIndex === 0 &&
+                      index === 0 &&
+                      !taskType ===
+                        'merge'(
+                          <Field
+                            oneLine
+                            // containerClasses={classNames.checkboxContainer}
+                            labelClasses={classNames.label}
+                            label={t(TranslationKey['Apply to all boxes'])}
+                            tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                            inputComponent={
+                              <Button
+                                className={classNames.applyButton}
+                                onClick={() =>
+                                  onApplyGluedBarcodeToAllBoxes(
+                                    item.isBarCodeAlreadyAttachedByTheSupplier,
+                                    item.isBarCodeAttachedByTheStorekeeper,
+                                  )
+                                }
+                              >
+                                {t(TranslationKey.Apply)}
+                              </Button>
                             }
-                          >
-                            {t(TranslationKey.Apply)}
-                          </Button>
-                        }
-                      />
-                    )}
+                          />,
+                        )}
                   </div>
                 )}
               </div>

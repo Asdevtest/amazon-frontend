@@ -24,6 +24,9 @@ export class ChatMessageDataCreatedNewProposalProposalDescriptionContract
   @IsNotEmpty()
   @IsString()
   public status!: string
+  @IsNotEmpty()
+  @IsString()
+  public title?: string
 }
 
 export class ChatMessageDataCreatedNewProposalRequestDescriptionDetailsContract
