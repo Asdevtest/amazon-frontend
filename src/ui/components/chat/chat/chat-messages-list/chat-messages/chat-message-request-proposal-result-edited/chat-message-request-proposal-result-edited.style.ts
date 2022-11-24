@@ -70,6 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '140%',
     color: theme.palette.text.general,
+    whiteSpace: 'pre',
   },
   resultLinksWrapper: {
     marginTop: 20,

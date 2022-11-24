@@ -25,6 +25,7 @@ import {useClassNames} from './order-content.style'
 const MEDIA_SCALE_POINTS = '1812'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const OrderContent = ({
   order,
   boxes,
@@ -36,6 +37,9 @@ export const OrderContent = ({
 =======
 export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient, isClient}) => {
 >>>>>>> 47a548d6 (4410: a different product status message is displayed to the client)
+=======
+export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient /* isClient */}) => {
+>>>>>>> cfab7506 (4268: added whiteSpace for component classes)
   const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -76,7 +80,7 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
               <OrderStatusText
                 status={OrderStatusByCode[updatedOrder.status]}
                 className={classNames.containerTitle}
-                isClient={isClient}
+                isClient={'client'}
               />
             </div>
 
