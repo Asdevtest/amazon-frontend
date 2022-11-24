@@ -5,12 +5,14 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #007bff',
     width: '300px',
     height: 36,
+    position: 'relative',
   },
 
   input: {
     border: '1px solid #007bff',
     width: '300px',
     height: 36,
+    position: 'relative',
   },
 
   searchContainer: {
@@ -40,6 +42,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   submit: {
+    position: 'absolute',
+    border: '1px solid #007bff',
+    borderLeft: 'none',
+    height: 36,
     padding: '6px',
+    right: -1,
+    top: -18,
   },
 }))

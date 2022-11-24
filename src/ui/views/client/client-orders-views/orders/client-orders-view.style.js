@@ -30,6 +30,7 @@ export const styles = theme => ({
     border: '1px solid #007bff',
     width: '400px',
     height: 36,
+    overflow: 'visible',
   },
 
   searchContainer: {
