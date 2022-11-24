@@ -106,7 +106,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <Button disabled={!selectedBoxes.length} className={classNames.editBtn} onClick={onEditBox}>
+                <Button disabled={selectedBoxes.length !== 1} className={classNames.editBtn} onClick={onEditBox}>
                   {t(TranslationKey.Edit)}
                 </Button>
 
@@ -121,6 +121,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   disableVirtualization
+                  checkboxSelection
                   pagination
                   localeText={getLocalizationByLanguageTag()}
                   classes={{

@@ -158,7 +158,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               <div>
                 <Field
                   disabled={!isNewBox}
-                  label={t(TranslationKey['Units in a box'])}
+                  label={t(TranslationKey['Boxes in group'])}
                   className={classNames.orderInput}
                   labelClasses={classNames.label}
                   value={box.amount}
@@ -340,7 +340,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickAddBox = () => {
-      setNewBoxes([...newBoxes, basicBox])
+      setNewBoxes([...newBoxes, {...basicBox, amount: 1}])
     }
     const onRemoveOldBox = boxId => {
       const arr = oldBoxes.filter(box => box._id !== boxId)

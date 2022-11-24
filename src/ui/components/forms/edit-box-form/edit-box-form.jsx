@@ -79,26 +79,6 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   )
 }
 
-export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = () => [
-  t(TranslationKey.Product),
-  t(TranslationKey.BarCode),
-  t(TranslationKey.Quantity),
-  t(TranslationKey['Order comment']),
-  t(TranslationKey.Actions),
-]
-
-const renderHeadRow = () => (
-  <TableRow>
-    {CLIENT_EDIT_BOX_MODAL_HEAD_CELLS().map((item, index) => (
-      <TableCell key={index}>
-        <Text tooltipInfoContent={item === t(TranslationKey.BarCode) && t(TranslationKey['Product barcode'])}>
-          {item}
-        </Text>
-      </TableCell>
-    ))}
-  </TableRow>
-)
-
 export const EditBoxForm = observer(
   ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
     const {classes: classNames} = useClassNames()
@@ -229,7 +209,8 @@ export const EditBoxForm = observer(
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
       boxFields.storekeeperId === '' ||
-      boxFields.logicsTariffId === ''
+      boxFields.logicsTariffId === '' ||
+      ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) && !boxFields.fbaShipment)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
 
@@ -503,7 +484,10 @@ export const EditBoxForm = observer(
                     <Field
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.field}
-                      inputClasses={classNames.fbaShipmentInput}
+                      inputClasses={cx(classNames.fbaShipmentInput, {
+                        [classNames.inputAccent]:
+                          (boxFields.shippingLabel || boxFields.tmpShippingLabel.length) && !boxFields.fbaShipment,
+                      })}
                       inputProps={{maxLength: 255}}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                       label={t(TranslationKey['FBA Shipment'])}
@@ -600,12 +584,9 @@ export const EditBoxForm = observer(
 
         <div className={classNames.buttonsWrapper}>
           <Button
-            disableElevation
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
-            color="primary"
-            variant="contained"
             onClick={() => {
               onSubmit(formItem?._id, {...boxFields, destinationId: boxFields.destinationId || null}, formItem)
             }}
@@ -614,8 +595,6 @@ export const EditBoxForm = observer(
           </Button>
 
           <Button
-            disableElevation
-            color="primary"
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(classNames.button, classNames.cancelBtn)}
             variant="text"
