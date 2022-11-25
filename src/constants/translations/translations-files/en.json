@@ -1614,6 +1614,10 @@
   "Group boxes": "Group boxes",
   "Basic box": "Basic box",
   "Select the basic box": "Select the basic box",
+<<<<<<< HEAD
   "Add comment": "Add comment",
   "Storekeeper edit": "Storekeeper edit"
+=======
+  "Product lot data": "Product lot data"
+>>>>>>> 44a0715b (4415: added button and lang)
 }
