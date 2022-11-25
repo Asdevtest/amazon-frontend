@@ -1,5 +1,4 @@
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 // import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
@@ -59,6 +58,7 @@ export class ClientWarehouseViewRaw extends Component {
   render() {
     const {
       rowCount,
+      userInfo,
 
       confirmModalSettings,
       selectedBox,
@@ -132,6 +132,8 @@ export class ClientWarehouseViewRaw extends Component {
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
       onClickSubmitGroupingBoxes,
+
+      onSubmitChangeBoxFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -337,10 +339,6 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showMergeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
         >
-          <div className={classNames.modalTitleWrapper}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
-            <img src="/assets/img/merge.png" />
-          </div>
           <MergeBoxesModal
             destinations={destinations}
             storekeepers={storekeepersData}
@@ -388,6 +386,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal missClickModalOn openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
+            userInfo={userInfo}
             storekeepersData={storekeepersData}
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
@@ -396,6 +395,7 @@ export class ClientWarehouseViewRaw extends Component {
             boxesMy={boxesMy.map(box => box.originalData)}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
             onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
+            onSubmitChangeBoxFields={onSubmitChangeBoxFields}
           />
         </Modal>
 
@@ -423,9 +423,11 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
 

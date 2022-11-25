@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject45 model module.
@@ -23,11 +22,11 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
-     * @param name {String} Название профиля
+     * @param clientComment {String} 
      */
-    constructor(name) { 
+    constructor(clientComment) { 
         
-        InlineObject45.initialize(this, name);
+        InlineObject45.initialize(this, clientComment);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, clientComment) { 
+        obj['clientComment'] = clientComment;
     }
 
     /**
@@ -50,14 +49,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
         }
         return obj;
@@ -67,22 +60,9 @@ class InlineObject45 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * @member {String} clientComment
  */
-InlineObject45.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject45.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject45.prototype['navigator'] = undefined;
+InlineObject45.prototype['clientComment'] = undefined;
 
 
 

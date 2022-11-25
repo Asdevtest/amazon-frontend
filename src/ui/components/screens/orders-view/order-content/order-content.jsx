@@ -24,7 +24,14 @@ import {useClassNames} from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 
-export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient}) => {
+export const OrderContent = ({
+  order,
+  boxes,
+  onClickCancelOrder,
+  volumeWeightCoefficient,
+  userInfo,
+  onSubmitChangeBoxFields,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
@@ -135,6 +142,8 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
                 renderHeadRow={renderHeadRow()}
                 mainProductId={updatedOrder.product._id}
                 volumeWeightCoefficient={volumeWeightCoefficient}
+                userInfo={userInfo}
+                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               />
             ) : (
               <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>

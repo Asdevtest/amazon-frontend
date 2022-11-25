@@ -3,10 +3,12 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
@@ -14,6 +16,7 @@ import {batchesViewColumns} from '@components/table-columns/batches-columns'
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class WarehouseSentBatchesViewModel {
   history = undefined
@@ -30,12 +33,23 @@ export class WarehouseSentBatchesViewModel {
   isWarning = false
   showBatchInfoModal = false
 
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -132,6 +146,25 @@ export class WarehouseSentBatchesViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+
+      await this.loadData()
+
+      this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

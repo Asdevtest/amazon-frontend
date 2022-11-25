@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1StorekeepersBoxesGuidItems from './ApiV1StorekeepersBoxesGuidItems';
 
 /**
  * The InlineObject88 model module.
@@ -48,32 +47,8 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -83,57 +58,10 @@ class InlineObject88 {
 }
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
+ * Статус
+ * @member {Number} status
  */
-InlineObject88.prototype['lengthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
- */
-InlineObject88.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
- */
-InlineObject88.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject88.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject88.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject88.prototype['fbaShipment'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject88.prototype['images'] = undefined;
-
-/**
- * destination GUID 
- * @member {String} destinationId
- */
-InlineObject88.prototype['destinationId'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items
- */
-InlineObject88.prototype['items'] = undefined;
+InlineObject88.prototype['status'] = undefined;
 
 
 

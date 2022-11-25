@@ -137,6 +137,13 @@ class StorekeeperModelStatic {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch(id, {body: data})
     return response
   }
+
+  updateBoxComment = async (id, data) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesCommentGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()

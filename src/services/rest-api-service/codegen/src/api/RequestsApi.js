@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject100 from '../model/InlineObject100';
-import InlineObject76 from '../model/InlineObject76';
+import InlineObject101 from '../model/InlineObject101';
+import InlineObject102 from '../model/InlineObject102';
 import InlineObject77 from '../model/InlineObject77';
 import InlineObject78 from '../model/InlineObject78';
-import InlineObject99 from '../model/InlineObject99';
+import InlineObject79 from '../model/InlineObject79';
 import InlineResponse20041 from '../model/InlineResponse20041';
 import InlineResponse20042 from '../model/InlineResponse20042';
 import InlineResponse20052 from '../model/InlineResponse20052';
@@ -217,7 +217,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject102} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsCustomGuidPatchWithHttpInfo(guid, opts) {
@@ -256,7 +256,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject102} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsCustomGuidPatch(guid, opts) {
@@ -272,7 +272,7 @@ export default class RequestsApi {
      * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1RequestsCustomPostWithHttpInfo(opts) {
@@ -305,7 +305,7 @@ export default class RequestsApi {
      * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1RequestsCustomPost(opts) {
@@ -383,7 +383,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject78} opts.body 
+     * @param {module:model/InlineObject79} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidAbortPatchWithHttpInfo(guid, opts) {
@@ -422,7 +422,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject78} opts.body 
+     * @param {module:model/InlineObject79} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidAbortPatch(guid, opts) {
@@ -547,7 +547,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1RequestsGuidPickupPostWithHttpInfo(guid, opts) {
@@ -586,7 +586,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1RequestsGuidPickupPost(guid, opts) {
@@ -603,7 +603,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject76} opts.body 
+     * @param {module:model/InlineObject77} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidToPublishPatchWithHttpInfo(guid, opts) {
@@ -642,7 +642,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject76} opts.body 
+     * @param {module:model/InlineObject77} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidToPublishPatch(guid, opts) {

@@ -58,17 +58,20 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
             <div>
               <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
 
-              <Input
-                classes={{
-                  root: cx(classNames.inputWrapper, {
-                    [classNames.error]: !el.amount || el.amount === '0',
-                  }),
-                  input: classNames.input,
-                }}
-                inputProps={{maxLength: 6}}
-                value={el.amount}
-                onChange={e => handlers.onChangeQtyInput(e, item._id, el.order)}
-              />
+              <div className={classNames.unitsWrapper}>
+                <Typography className={classNames.unitsText}>{t(TranslationKey.units) + ':'}</Typography>
+                <Input
+                  classes={{
+                    root: cx(classNames.inputWrapper, {
+                      [classNames.error]: !el.amount || el.amount === '0',
+                    }),
+                    input: classNames.input,
+                  }}
+                  inputProps={{maxLength: 6}}
+                  value={el.amount}
+                  onChange={e => handlers.onChangeQtyInput(e, item._id, el.order)}
+                />
+              </div>
             </div>
           </div>
         ))}
@@ -603,7 +606,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const addDouble = boxId => {
     const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: foundedBox._id + 'double'}]
+    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: `${foundedBox._id} + 'double' ${new Date()}`}]
     setNewBoxes(updatedNewBoxes)
   }
 
@@ -660,10 +663,8 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           <Typography className={classNames.qtyTitle}>{t(TranslationKey.Quantity)}</Typography>
           <Typography className={classNames.qtySubTitle}>
             {
-              boxesBefore.reduce(
-                (ac, cur) => (ac += cur.items[0].amount),
-                0,
-              ) /* `${box.items[0].amount} x ${box.amount}`*/
+              boxesBefore.reduce((ac, cur) => (ac += cur.items[0].amount), 0) *
+                boxesBefore[0].amount /* `${box.items[0].amount} x ${box.amount}`*/
             }
           </Typography>
         </div>

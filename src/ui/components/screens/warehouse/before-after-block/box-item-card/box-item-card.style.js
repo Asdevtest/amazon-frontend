@@ -66,6 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     lineHeight: '19px',
     // marginRight: theme.spacing(1),
+    whiteSpace: 'nowrap',
   },
   asin: {
     fontSize: '14px',
@@ -107,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSubWrapper: {
-    width: 178,
+    width: 130,
 
     display: 'flex',
     alignItems: 'center',
@@ -119,7 +120,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSuperBoxWrapper: {
-    width: 60,
+    width: 150,
+    // marginLeft: 'auto',
+    marginLeft: 25,
 
     display: 'flex',
     alignItems: 'center',

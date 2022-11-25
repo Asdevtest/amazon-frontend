@@ -30,6 +30,7 @@ import InlineObject41 from '../model/InlineObject41';
 import InlineObject42 from '../model/InlineObject42';
 import InlineObject43 from '../model/InlineObject43';
 import InlineObject44 from '../model/InlineObject44';
+import InlineObject45 from '../model/InlineObject45';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20020 from '../model/InlineResponse20020';
 import InlineResponse20021 from '../model/InlineResponse20021';
@@ -61,6 +62,62 @@ export default class ClientApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * # Изменить комментарий коробки клиента.
+     * ## Изменить комментарий коробки клиента.   
+     * @param {String} guid GUID тарифа.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject45} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ClientsBoxesCommentGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsBoxesCommentGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/clients/boxes/comment/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить комментарий коробки клиента.
+     * ## Изменить комментарий коробки клиента.   
+     * @param {String} guid GUID тарифа.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject45} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ClientsBoxesCommentGuidPatch(guid, opts) {
+      return this.apiV1ClientsBoxesCommentGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**

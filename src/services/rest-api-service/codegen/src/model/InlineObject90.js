@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject90 model module.
@@ -23,10 +22,11 @@ class InlineObject90 {
     /**
      * Constructs a new <code>InlineObject90</code>.
      * @alias module:model/InlineObject90
+     * @param storekeeperComment {String} 
      */
-    constructor() { 
+    constructor(storekeeperComment) { 
         
-        InlineObject90.initialize(this);
+        InlineObject90.initialize(this, storekeeperComment);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject90 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -48,29 +49,8 @@ class InlineObject90 {
         if (data) {
             obj = obj || new InlineObject90();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('deliveryTimeInDay')) {
-                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
-            }
-            if (data.hasOwnProperty('etd')) {
-                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
-            }
-            if (data.hasOwnProperty('eta')) {
-                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
-            }
-            if (data.hasOwnProperty('minWeightInKg')) {
-                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
-            }
-            if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -80,51 +60,9 @@ class InlineObject90 {
 }
 
 /**
- * Название тарифа
- * @member {String} name
+ * @member {String} storekeeperComment
  */
-InlineObject90.prototype['name'] = undefined;
-
-/**
- * Описание тарифа
- * @member {String} description
- */
-InlineObject90.prototype['description'] = undefined;
-
-/**
- * Время доставки, днях
- * @member {String} deliveryTimeInDay
- */
-InlineObject90.prototype['deliveryTimeInDay'] = undefined;
-
-/**
- * Дата закрытия приема новых грузов.
- * @member {Date} cls
- */
-InlineObject90.prototype['cls'] = undefined;
-
-/**
- * Ожидаема дата отбытия.
- * @member {Date} etd
- */
-InlineObject90.prototype['etd'] = undefined;
-
-/**
- * Ожидаема дата прибытия.
- * @member {Date} eta
- */
-InlineObject90.prototype['eta'] = undefined;
-
-/**
- * Минимальный вес, в кг
- * @member {Number} minWeightInKg
- */
-InlineObject90.prototype['minWeightInKg'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
- */
-InlineObject90.prototype['conditionsByRegion'] = undefined;
+InlineObject90.prototype['storekeeperComment'] = undefined;
 
 
 

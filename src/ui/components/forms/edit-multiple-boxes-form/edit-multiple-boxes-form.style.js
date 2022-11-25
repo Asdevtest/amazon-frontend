@@ -27,6 +27,10 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: 0,
   },
 
+  inputAccent: {
+    outline: '2px solid #F5CF00',
+  },
+
   modalTitleWrapper: {
     width: '100%',
     display: 'flex',

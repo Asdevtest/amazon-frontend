@@ -121,6 +121,12 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('batchId')) {
                 obj['batchId'] = ApiClient.convertToType(data['batchId'], 'String');
             }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
@@ -307,6 +313,18 @@ ApiV1BatchesBoxes.prototype['logicsTariffId'] = undefined;
  * @member {String} batchId
  */
 ApiV1BatchesBoxes.prototype['batchId'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+ApiV1BatchesBoxes.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+ApiV1BatchesBoxes.prototype['storekeeperComment'] = undefined;
 
 /**
  * Сторкипер взявший коробку в работу.

@@ -181,9 +181,14 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
           <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
             <BoxViewForm
+              userInfo={restProps.userInfo}
               box={box}
               volumeWeightCoefficient={restProps.volumeWeightCoefficient}
               setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+              onSubmitChangeFields={data => {
+                restProps.onSubmitChangeBoxFields(data)
+                setShowBoxViewModal(!showBoxViewModal)
+              }}
             />
           </Modal>
         </React.Fragment>

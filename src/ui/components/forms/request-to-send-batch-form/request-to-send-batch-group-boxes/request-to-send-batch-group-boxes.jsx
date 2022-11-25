@@ -18,12 +18,14 @@ import {RequestToSendBatchBox} from '../request-to-send-batch-box'
 import {useClassNames} from './request-to-send-batch-group-boxes.style'
 
 export const RequestToSendBatchesGroupBoxes = ({
+  userInfo,
   storekeepersData,
   volumeWeightCoefficient,
   selectedGroup,
   boxesMy,
   boxesDeliveryCosts,
   onClickRemoveBoxFromBatch,
+  onSubmitChangeBoxFields,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -33,7 +35,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const totalWeight = selectedGroup.boxes.reduce(
-    (acc, cur) => acc + calcFinalWeightForBox(cur, volumeWeightCoefficient),
+    (acc, cur) => (acc += calcFinalWeightForBox(cur, volumeWeightCoefficient) * cur.amount),
     0,
   )
 
@@ -96,12 +98,14 @@ export const RequestToSendBatchesGroupBoxes = ({
           return (
             <tbody key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
               <RequestToSendBatchBox
+                userInfo={userInfo}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 box={findBox}
                 index={index}
                 price={findRequestToSendBatchPriceForCurBox?.deliveryCost}
                 currentTariff={currentTariff}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
+                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               />
             </tbody>
           )

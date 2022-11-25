@@ -4,6 +4,7 @@ import {BatchStatus} from '@constants/batch-status'
 import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -16,6 +17,7 @@ import {batchesViewColumns} from '@components/table-columns/batches-columns'
 import {clientWarehouseDataConverter, warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 export class WarehouseAwaitingBatchesViewModel {
@@ -36,6 +38,13 @@ export class WarehouseAwaitingBatchesViewModel {
   showBatchInfoModal = false
 
   showAddOrEditBatchModal = false
+
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   uploadedFiles = []
   progressValue = 0
@@ -62,6 +71,10 @@ export class WarehouseAwaitingBatchesViewModel {
         box => box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       )
     })
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({history}) {
@@ -160,6 +173,25 @@ export class WarehouseAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+
+      await this.loadData()
+
+      this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

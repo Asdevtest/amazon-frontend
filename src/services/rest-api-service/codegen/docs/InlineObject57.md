@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**payload** | [**[ApiV1IntegrationsCreateAndLinkSkuProductsPayload]**](ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md) |  | [optional] 
+**productId** | **String** |  | 
+**warehouseStocks** | [**[ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]**](ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md) |  | 
 
 

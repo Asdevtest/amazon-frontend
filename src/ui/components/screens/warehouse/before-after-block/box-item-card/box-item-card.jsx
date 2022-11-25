@@ -61,7 +61,7 @@ export const BoxItemCard = ({
             {((readOnly && taskType === TaskOperationType.RECEIVE) ||
               (!isNewBox && taskType === TaskOperationType.RECEIVE)) && (
               <div className={classNames.countSubWrapper}>
-                <Typography className={classNames.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
+                <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={classNames.count}>{boxId}</Typography>
               </div>
             )}

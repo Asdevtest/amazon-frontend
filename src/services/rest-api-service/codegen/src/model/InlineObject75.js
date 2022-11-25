@@ -22,11 +22,10 @@ class InlineObject75 {
     /**
      * Constructs a new <code>InlineObject75</code>.
      * @alias module:model/InlineObject75
-     * @param action {module:model/InlineObject75.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject75.initialize(this, action);
+        InlineObject75.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject75 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,14 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -63,39 +64,25 @@ class InlineObject75 {
 }
 
 /**
- * @member {module:model/InlineObject75.ActionEnum} action
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject75.prototype['action'] = undefined;
+InlineObject75.prototype['rating'] = undefined;
 
 /**
- * Причина смены статуса.
+ * Комментарий причин изменения статуса.
  * @member {String} reason
  */
 InlineObject75.prototype['reason'] = undefined;
 
-
-
-
-
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject75['ActionEnum'] = {
+InlineObject75.prototype['linksToMediaFiles'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+
 
 
 

@@ -65,6 +65,9 @@ class InlineObject23 {
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -105,6 +108,12 @@ InlineObject23.prototype['volumeWeightKgWarehouse'] = undefined;
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject23.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineObject23.prototype['storekeeperComment'] = undefined;
 
 /**
  * Массив ссылок на фотографии.

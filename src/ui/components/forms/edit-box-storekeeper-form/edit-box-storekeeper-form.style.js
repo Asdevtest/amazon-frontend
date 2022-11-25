@@ -54,6 +54,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 230,
   },
 
+  commentField: {
+    height: 'auto',
+  },
+
   standartText: {
     color: theme.palette.text.general,
   },
@@ -145,7 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   commentsWrapper: {
     display: 'flex',
-    gap: '10px',
+    flexDirection: 'column',
   },
 
   boxTitleWrapper: {

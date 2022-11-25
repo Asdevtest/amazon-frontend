@@ -583,7 +583,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.PermissionsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
+  'body': new TestSwagger.InlineObject63() // InlineObject63 | 
 };
 apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -599,7 +599,7 @@ apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
+ **body** | [**InlineObject63**](InlineObject63.md)|  | [optional] 
 
 ### Return type
 

@@ -5743,6 +5743,16 @@
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
                         },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
                         "storekeeperId": {
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -8209,6 +8219,16 @@
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
                   },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
                   "storekeeperId": {
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -10082,6 +10102,16 @@
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
                   },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
                   "storekeeperId": {
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -11928,6 +11958,16 @@
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
                   },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
                   "storekeeperId": {
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -13773,6 +13813,16 @@
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
+                  },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
                   },
                   "storekeeperId": {
                     "type": "string",
@@ -15654,6 +15704,12 @@
                   "example": "FBA16N2Y2L76U000003",
                   "description": "Это номер конкретной коробки при отправке в амазон."
                 },
+                "clientComment": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Комментарии к коробке",
+                  "example": "Просто коммент."
+                },
                 "shippingLabel": {"type": "string", "nullable": true, "description": "shippingLabel коробки"},
                 "isShippingLabelAttachedByStorekeeper": {
                   "type": "boolean",
@@ -16307,6 +16363,16 @@
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
+                  },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
                   },
                   "storekeeperId": {
                     "type": "string",
@@ -18096,6 +18162,18 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
+                  "clientComment": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
                   "lengthCmWarehouse": {
                     "type": "number",
                     "example": 25,
@@ -18576,6 +18654,18 @@
                         "type": "string",
                         "example": "https://www.mf.com/sdkfjasldf.pdf",
                         "description": "Ссылка на наклейку для коробки"
+                      },
+                      "clientComment": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperComment": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
                       },
                       "lengthCmWarehouse": {
                         "type": "number",
@@ -19100,6 +19190,16 @@
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
+                  },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
                   },
                   "storekeeperId": {
                     "type": "string",
@@ -20944,6 +21044,16 @@
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
                   },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
                   "storekeeperId": {
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -22686,6 +22796,12 @@
                   "type": "boolean",
                   "example": false,
                   "description": "Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл."
+                },
+                "storekeeperComment": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Комментарии к коробке",
+                  "example": "Просто коммент."
                 },
                 "images": {"type": "array", "description": "Массив ссылок на фотографии.", "items": {"type": "string"}}
               }
@@ -25656,6 +25772,16 @@
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
                         },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
                         "storekeeperId": {
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -27638,6 +27764,16 @@
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
+                        },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
                         },
                         "storekeeperId": {
                           "type": "string",
@@ -35847,6 +35983,41 @@
         }
       }
     },
+    "/api/v1/clients/boxes/comment/{guid}": {
+      "patch": {
+        "summary": "# Изменить комментарий коробки клиента.",
+        "description": "## Изменить комментарий коробки клиента. \n\n",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["clientComment"],
+              "properties": {"clientComment": {"type": "string", "example": "comment", "nullable": true}}
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID тарифа.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/dashboard/client/counts": {
       "get": {
         "summary": "# Получить количество основных элементов в бд.",
@@ -42753,6 +42924,16 @@
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
                         },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
                         "storekeeperId": {
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -44735,6 +44916,16 @@
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
+                        },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
                         },
                         "storekeeperId": {
                           "type": "string",
@@ -46793,6 +46984,16 @@
                         "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                         "description": "Сторкипер взявший коробку в работу."
                       },
+                      "clientComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
                       "storekeeperId": {
                         "type": "string",
                         "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -48712,6 +48913,16 @@
                         "type": "string",
                         "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                         "description": "Сторкипер взявший коробку в работу."
+                      },
+                      "clientComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
                       },
                       "storekeeperId": {
                         "type": "string",
@@ -51105,6 +51316,16 @@
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
                         },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
                         "storekeeperId": {
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
@@ -53087,6 +53308,16 @@
                           "type": "string",
                           "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                           "description": "Сторкипер взявший коробку в работу."
+                        },
+                        "clientComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
+                        },
+                        "storekeeperComment": {
+                          "type": "string",
+                          "description": "Комментарии к коробке",
+                          "example": "Просто коммент."
                         },
                         "storekeeperId": {
                           "type": "string",
@@ -55077,7 +55308,7 @@
     "/api/v1/storekeepers/boxes": {
       "get": {
         "summary": "# Получить коробки и их строки по текущему сторкиперу.",
-        "description": "## Получить коробки и их строки по текущему сторкиперу. \n\nОтдает все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED\n\nGUID сторкипера получаем из токена. \n\n",
+        "description": "## Получить коробки и их строки по текущему сторкиперу. \n\nОтдет все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED\n\nGUID сторкипера получаем из токена. \n\n",
         "tags": ["Storekeepers"],
         "produces": ["application/json"],
         "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
@@ -55197,6 +55428,16 @@
                     "type": "string",
                     "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                     "description": "Сторкипер взявший коробку в работу."
+                  },
+                  "clientComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
+                  },
+                  "storekeeperComment": {
+                    "type": "string",
+                    "description": "Комментарии к коробке",
+                    "example": "Просто коммент."
                   },
                   "storekeeperId": {
                     "type": "string",
@@ -56957,6 +57198,12 @@
                   "example": false,
                   "description": "Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл."
                 },
+                "storekeeperComment": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Комментарии к коробке",
+                  "example": "Просто коммент."
+                },
                 "fbaShipment": {
                   "type": "string",
                   "description": "Это номер конкретной коробки при отправке в амазон.",
@@ -56994,6 +57241,41 @@
                   }
                 }
               }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID тарифа.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/storekeepers/boxes/comment/{guid}": {
+      "patch": {
+        "summary": "# Изменить комментарий коробки сторкипера.",
+        "description": "## Изменить комментарий коробки сторкипера. \n\n",
+        "tags": ["Storekeepers"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["storekeeperComment"],
+              "properties": {"storekeeperComment": {"type": "string", "example": "comment", "nullable": true}}
             }
           },
           {
@@ -57184,6 +57466,16 @@
                         "type": "string",
                         "example": "09941859-238c-4fde-8eef-843f9c997d2d",
                         "description": "Сторкипер взявший коробку в работу."
+                      },
+                      "clientComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
                       },
                       "storekeeperId": {
                         "type": "string",

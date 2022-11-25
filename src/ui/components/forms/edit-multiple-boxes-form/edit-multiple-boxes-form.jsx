@@ -240,7 +240,9 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
-                className={classNames.fieldInput}
+                inputClasses={cx(classNames.fieldInput, {
+                  [classNames.inputAccent]: (box.shippingLabel || box.tmpShippingLabel?.length) && !box.fbaShipment,
+                })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
@@ -589,7 +591,9 @@ export const EditMultipleBoxesForm = observer(
       regionOfDeliveryName
     ]?.rate
 
-    const disabledSubmitBtn = newBoxes.some(el => !el.logicsTariffId)
+    const disabledSubmitBtn = newBoxes.some(
+      el => /* !el.logicsTariffId ||*/ (el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment,
+    )
 
     const disabledApplyBtn = !visibleBoxes.length
 

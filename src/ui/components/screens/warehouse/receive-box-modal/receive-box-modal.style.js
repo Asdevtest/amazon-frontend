@@ -308,6 +308,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: '200px',
   },
 
+  unitsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  unitsText: {
+    color: theme.palette.text.second,
+  },
+
   cancelButton: {
     color: theme.palette.text.general,
   },

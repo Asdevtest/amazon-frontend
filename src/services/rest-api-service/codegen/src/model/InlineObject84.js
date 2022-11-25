@@ -23,10 +23,13 @@ class InlineObject84 {
      * Constructs a new <code>InlineObject84</code>.
      * Схема магазина.
      * @alias module:model/InlineObject84
+     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor() { 
+    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
         
-        InlineObject84.initialize(this);
+        InlineObject84.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
     }
 
     /**
@@ -34,7 +37,10 @@ class InlineObject84 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+        obj['name'] = name;
+        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
+        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
     }
 
     /**

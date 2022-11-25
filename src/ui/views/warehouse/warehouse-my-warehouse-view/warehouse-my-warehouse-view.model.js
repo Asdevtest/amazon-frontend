@@ -36,6 +36,8 @@ const updateBoxWhiteList = [
   'images',
   'destinationId',
   'items',
+  'storekeeperComment',
+  'logicsTariffId',
 ]
 
 export class WarehouseMyWarehouseViewModel {
@@ -212,6 +214,22 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+
+      this.getBoxesMy()
+
+      this.onTriggerOpenModal('showBoxViewModal')
+
+      this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+
+      this.onTriggerOpenModal('showSuccessInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

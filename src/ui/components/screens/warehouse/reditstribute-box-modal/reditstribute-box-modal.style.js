@@ -26,6 +26,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  inputAccent: {
+    outline: '2px solid #F5CF00',
+  },
+
   currentBoxFooter: {
     display: 'flex',
     alignItems: 'flex-end',

@@ -56,6 +56,9 @@ class InlineObject72 {
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
         }
         return obj;
     }
@@ -80,6 +83,11 @@ InlineObject72.prototype['reason'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject72.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject72.prototype['timeLimitInMinutes'] = undefined;
 
 
 

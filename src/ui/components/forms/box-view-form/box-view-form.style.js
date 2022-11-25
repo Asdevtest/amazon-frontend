@@ -6,6 +6,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-end',
   },
 
+  closeBtn: {
+    marginLeft: 40,
+  },
+
   formContainer: {
     padding: '0 20px',
     width: '1040px',
@@ -24,6 +28,16 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '16px',
       lineHeight: '22px',
     },
+  },
+
+  commentsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 40,
+  },
+
+  commentField: {
+    height: 'auto',
   },
 
   titleWrapper: {

@@ -8,6 +8,24 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
+  modalTitleWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'center',
+    marginBottom: '40px',
+  },
+  modalTitle: {
+    fontSize: '30px',
+    lineHeight: '40px',
+    fontWeight: '600',
+    color: theme.palette.text.general,
+  },
+
+  inputAccent: {
+    outline: '2px solid #F5CF00',
+  },
+
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

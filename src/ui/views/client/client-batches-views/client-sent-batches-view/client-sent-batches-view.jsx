@@ -16,6 +16,7 @@ import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -37,6 +38,8 @@ class ClientSentBatchesViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
+      warningInfoModalSettings,
       nameSearchValue,
       volumeWeightCoefficient,
       curBatch,
@@ -49,6 +52,7 @@ class ClientSentBatchesViewRaw extends Component {
       requestStatus,
       densityModel,
       columnsModel,
+      showWarningInfoModal,
 
       drawerOpen,
       curPage,
@@ -64,6 +68,7 @@ class ClientSentBatchesViewRaw extends Component {
 
       setCurrentOpenedBatch,
       onChangeNameSearchValue,
+      onSubmitChangeBoxFields,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -135,6 +140,19 @@ class ClientSentBatchesViewRaw extends Component {
           openModal={showBatchInfoModal}
           setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
           batch={curBatch}
+          userInfo={userInfo}
+          onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+        />
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
         />
       </React.Fragment>
     )

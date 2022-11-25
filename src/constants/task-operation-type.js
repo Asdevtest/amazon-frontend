@@ -5,6 +5,7 @@ export const TaskOperationType = {
   SPLIT: 'split',
   RECEIVE: 'receive',
   EDIT: 'edit',
+  EDIT_BY_STOREKEEPER: 'storekeeperEditBoxes',
 }
 
 export const mapTaskOperationTypeKeyToEnum = {
@@ -12,6 +13,7 @@ export const mapTaskOperationTypeKeyToEnum = {
   split: TaskOperationType.SPLIT,
   receive: TaskOperationType.RECEIVE,
   edit: TaskOperationType.EDIT,
+  storekeeperEditBoxes: TaskOperationType.EDIT_BY_STOREKEEPER,
 }
 
 export const mapTaskOperationTypeToLabel = {
@@ -19,6 +21,7 @@ export const mapTaskOperationTypeToLabel = {
   [TaskOperationType.SPLIT]: 'Разделить',
   [TaskOperationType.RECEIVE]: 'Принять',
   [TaskOperationType.EDIT]: 'Изменить',
+  [TaskOperationType.EDIT_BY_STOREKEEPER]: 'Изменение складом',
 }
 
 export const mapTaskOperationTypeEnumToKey = objectFlip(mapTaskOperationTypeKeyToEnum)

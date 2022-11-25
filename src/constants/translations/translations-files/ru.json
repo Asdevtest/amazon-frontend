@@ -1611,7 +1611,9 @@
   "Boxes in group": "Коробок в группе",
   "Account": "Аккаунт",
   "Grouping": "Сгруппировать",
-  "Group boxes": "Группирова коробок",
+  "Group boxes": "Группировка коробок",
   "Basic box": "Основная коробка",
-  "Select the basic box": "Выберете основную коробку"
+  "Select the basic box": "Выберете основную коробку",
+  "Add comment": "Добавьте комментарий",
+  "Storekeeper edit": "Изменение складом"
 }

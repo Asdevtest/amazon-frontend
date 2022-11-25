@@ -17,6 +17,7 @@ import {RequestToSendBatchesGroupBoxes} from './request-to-send-batch-group-boxe
 
 export const RequestToSendBatchForm = observer(
   ({
+    userInfo,
     storekeepersData,
     volumeWeightCoefficient,
     boxesMy,
@@ -25,6 +26,7 @@ export const RequestToSendBatchForm = observer(
     onClickSendBoxesToBatch,
     onClickRemoveBoxFromBatch,
     closeModal,
+    onSubmitChangeBoxFields,
   }) => {
     const {classes: classNames} = useClassNames()
     useEffect(() => {
@@ -106,12 +108,14 @@ export const RequestToSendBatchForm = observer(
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
+                userInfo={userInfo}
                 storekeepersData={storekeepersData}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}
                 onClickRemoveBoxFromBatch={onClickRemoveBtn}
+                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               />
             </div>
           ))}

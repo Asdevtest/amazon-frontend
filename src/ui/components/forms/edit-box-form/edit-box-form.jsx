@@ -139,6 +139,7 @@ export const EditBoxForm = observer(
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
       clientComment: formItem?.clientComment || '',
+      clientTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
@@ -565,6 +566,31 @@ export const EditBoxForm = observer(
                   </Typography>
                   <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
                 </div>
+
+                <div className={classNames.commentsWrapper}>
+                  <Field
+                    multiline
+                    minRows={3}
+                    maxRows={3}
+                    label={t(TranslationKey['Client comment'])}
+                    placeholder={t(TranslationKey['Add comment'])}
+                    className={classNames.commentField}
+                    labelClasses={classNames.label}
+                    value={boxFields.clientComment}
+                    onChange={setFormField('clientComment')}
+                  />
+
+                  <Field
+                    multiline
+                    disabled
+                    minRows={3}
+                    maxRows={3}
+                    label={t(TranslationKey['Storekeeper comment'])}
+                    className={classNames.commentField}
+                    labelClasses={classNames.label}
+                    value={boxFields.storekeeperComment}
+                  />
+                </div>
               </div>
             }
           />
@@ -578,7 +604,7 @@ export const EditBoxForm = observer(
             tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
             label={t(TranslationKey['Write a comment on the task'])}
             placeholder={t(TranslationKey['Client comment on the task'])}
-            onChange={setFormField('clientComment')}
+            onChange={setFormField('clientTaskComment')}
           />
         </div>
 

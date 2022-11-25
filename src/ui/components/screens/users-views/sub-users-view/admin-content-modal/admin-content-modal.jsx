@@ -344,7 +344,7 @@ export const AdminContentModal = observer(
             color="primary"
             disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
             checked={formFields.isUserPreprocessingCenterUSA}
-            onChange={onChangeFormField('isUserPreprocessingCenterUSA ')}
+            onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
           />
           <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
         </div>
