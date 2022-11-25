@@ -423,7 +423,7 @@ export class ClientWarehouseViewModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmMessage:
-        !boxData.clientComment &&
+        !boxData.clientTaskComment &&
         boxData.items.every(item => !item.tmpBarCode.length) &&
         // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
@@ -777,7 +777,7 @@ export class ClientWarehouseViewModel {
       }
 
       if (
-        !boxData.clientComment &&
+        !boxData.clientTaskComment &&
         boxData.items.every(item => !item.tmpBarCode?.length) &&
         // (sourceData.shippingLabel === null ||
         //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
@@ -858,7 +858,7 @@ export class ClientWarehouseViewModel {
           idsData: [editBoxesResult.guid],
           idsBeforeData: [id],
           type: TaskOperationType.EDIT,
-          clientComment: boxData.clientComment,
+          clientComment: boxData.clientTaskComment,
         })
 
         this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${

@@ -96,7 +96,8 @@ export const MergeBoxesModal = ({
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
-    isDifferentStorekeepers
+    isDifferentStorekeepers ||
+    ((boxBody.shippingLabel || boxBody.tmpShippingLabel.length) && !boxBody.fbaShipment)
 
   const curDestination = destinations.find(el => el._id === boxBody.destinationId)
 
@@ -126,6 +127,10 @@ export const MergeBoxesModal = ({
 
   return (
     <div>
+      <div className={classNames.modalTitleWrapper}>
+        <Typography className={classNames.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
+        <img src="/assets/img/merge.png" />
+      </div>
       <div className={classNames.mainWrapper}>
         <div>
           <Typography className={classNames.boxTitle}>{t(TranslationKey['Source boxes'])}</Typography>
@@ -221,7 +226,10 @@ export const MergeBoxesModal = ({
               <Field
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
-                className={classNames.fieldInput}
+                inputClasses={cx(classNames.fieldInput, {
+                  [classNames.inputAccent]:
+                    (boxBody.shippingLabel || boxBody.tmpShippingLabel.length) && !boxBody.fbaShipment,
+                })}
                 labelClasses={classNames.label}
                 inputProps={{maxLength: 255}}
                 label={t(TranslationKey['FBA Shipment'])}
@@ -281,8 +289,6 @@ export const MergeBoxesModal = ({
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
             disabled={disabledSubmit}
-            color="primary"
-            variant="contained"
             className={classNames.button}
             onClick={() => {
               onSubmitBoxesModal()
@@ -293,7 +299,6 @@ export const MergeBoxesModal = ({
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             disabled={requestStatus === loadingStatuses.isLoading}
-            color="primary"
             variant="text"
             className={cx(classNames.button, classNames.cancelButton)}
             onClick={() => {

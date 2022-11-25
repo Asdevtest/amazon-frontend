@@ -106,7 +106,7 @@ export const AdminUserEditContent = observer(
       const newFormFields = {...formFields}
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
-      } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreprocessingCenterUSA '].includes(fieldName)) {
+      } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreprocessingCenterUSA'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
       } else if (
         ['overdraft'].includes(fieldName) &&
@@ -507,7 +507,7 @@ export const AdminUserEditContent = observer(
                 color="primary"
                 disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
-                onChange={onChangeFormField('isUserPreprocessingCenterUSA ')}
+                onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />
               <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
             </div>

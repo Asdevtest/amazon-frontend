@@ -30,14 +30,34 @@ export const useClassNames = makeStyles()(theme => ({
   leftToRedistributeWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: 10,
   },
   leftToRedistribute: {
     color: theme.palette.text.second,
     marginRight: 5,
   },
 
+  modalTitleSubWrapper: {
+    display: 'flex',
+  },
+
   standartText: {
     color: theme.palette.text.general,
+  },
+
+  iconText: {
+    color: theme.palette.primary.main,
+    marginLeft: 5,
+    fontWeight: 600,
+    fontSize: 18,
+  },
+
+  iconWrapper: {
+    borderRadius: 4,
+    border: `1px solid ${theme.palette.primary.main}`,
+    padding: 5,
+
+    display: 'flex',
   },
 
   modalTitleWrapper: {
@@ -45,7 +65,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '20px',
     alignItems: 'center',
-    marginBottom: '40px',
+    marginBottom: 10,
     justifyContent: 'space-between',
   },
   modalTitle: {
@@ -53,6 +73,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '40px',
     fontWeight: '600',
     color: theme.palette.text.general,
+    marginRight: 20,
   },
 
   applyButton: {
@@ -76,10 +97,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   box: {
     width: 527,
-    backgroundColor: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '4px',
-    padding: '20px 17px',
+    // backgroundColor: theme.palette.background.second,
+    // boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    // borderRadius: '4px',
+    // padding: '20px 17px',
 
     display: 'flex',
     flexDirection: 'column',
@@ -89,13 +110,18 @@ export const useClassNames = makeStyles()(theme => ({
   orderWrapper: {
     width: '100%',
     flexGrow: 1,
+
+    backgroundColor: theme.palette.background.second,
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    borderRadius: '4px',
+    padding: '20px 17px',
   },
 
   order: {
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
-    marginBottom: '30px',
+    // marginBottom: 10,
     width: '100%',
 
     flexGrow: 1,
@@ -131,7 +157,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   title: {
-    margin: '20px 0',
+    margin: '5px 0',
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -144,7 +170,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: '-webkit-box',
     '-webkitLineClamp': 2,
     '-webkitBoxOrient': 'vertical',
-    height: 45,
+    height: 40,
     whiteSpace: 'normal',
 
     overflow: 'hidden',
@@ -184,18 +210,51 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: 527,
   },
 
+  bigPlus: {
+    marginTop: 40,
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  newBoxesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+
+    alignItems: 'center',
+  },
+
   radioWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
   },
 
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  boxNum: {
+    fontSize: 18,
+    color: theme.palette.text.general,
+  },
+
   needChooseMainBox: {
     width: '100%',
 
-    color: theme.palette.text.second,
+    color: theme.palette.primary.main,
 
     marginTop: 100,
+    fontSize: 18,
+
+    fontWeight: 600,
 
     textAlign: 'center',
   },
@@ -226,6 +285,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '12px',
     alignItems: 'center',
+  },
+
+  leftToRedistributeCount: {
+    color: theme.palette.text.general,
+    fontSize: 18,
   },
 
   barCodeField: {
@@ -286,12 +350,20 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '5px',
   },
 
+  demensionsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
   storekeeperBtn: {
     height: '40px',
   },
 
   field: {
     // margin: '0',
+
+    marginBottom: '10px !important',
   },
   fieldInput: {
     height: '40px',
@@ -357,6 +429,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 400,
     color: theme.palette.primary.main,
+  },
+
+  barCodeWrapper: {
+    marginLeft: 10,
   },
 
   marginBox: {

@@ -330,9 +330,8 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const disableSubmit =
-      JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
-      boxFields.storekeeperId === '' ||
-      boxFields.logicsTariffId === ''
+      JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || boxFields.storekeeperId === ''
+    // || boxFields.logicsTariffId === ''
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
 

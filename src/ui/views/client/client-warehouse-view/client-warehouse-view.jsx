@@ -1,5 +1,4 @@
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 // import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
@@ -340,10 +339,6 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showMergeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
         >
-          <div className={classNames.modalTitleWrapper}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
-            <img src="/assets/img/merge.png" />
-          </div>
           <MergeBoxesModal
             destinations={destinations}
             storekeepers={storekeepersData}

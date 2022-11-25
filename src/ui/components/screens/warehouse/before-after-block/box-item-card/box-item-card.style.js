@@ -107,7 +107,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSubWrapper: {
-    width: 178,
+    width: 130,
 
     display: 'flex',
     alignItems: 'center',
@@ -119,7 +119,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSuperBoxWrapper: {
-    width: 60,
+    width: 150,
+    // marginLeft: 'auto',
+    marginLeft: 25,
 
     display: 'flex',
     alignItems: 'center',

@@ -1614,7 +1614,7 @@ export enum TranslationKey {
   'Basic box' = 'Basic box',
   'Select the basic box' = 'Select the basic box',
   'Add comment' = 'Add comment',
-  // '' = '',
+  'Storekeeper edit' = 'Storekeeper edit',
   // '' = '',
   // '' = '',
   // '' = '',

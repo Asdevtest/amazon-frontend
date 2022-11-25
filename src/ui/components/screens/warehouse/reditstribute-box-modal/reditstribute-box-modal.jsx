@@ -195,7 +195,9 @@ const Box = ({
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
-                className={classNames.fieldInput}
+                inputClasses={cx(classNames.fieldInput, {
+                  [classNames.inputAccent]: (box.shippingLabel || box.tmpShippingLabel?.length) && !box.fbaShipment,
+                })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
@@ -483,7 +485,10 @@ export const RedistributeBox = observer(
       requestStatus === loadingStatuses.isLoading ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
-        el => (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) || el.logicsTariffId === '',
+        el =>
+          (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) ||
+          el.logicsTariffId === '' ||
+          ((el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment),
       )
 
     return (
@@ -544,8 +549,6 @@ export const RedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            color="primary"
-            variant="contained"
             className={classNames.button}
             onClick={() => {
               setNewBoxes(newBoxes.concat(getEmptyBox()))
@@ -554,8 +557,6 @@ export const RedistributeBox = observer(
             {t(TranslationKey['Create a new box'])}
           </Button>
           <Button
-            color="primary"
-            variant="contained"
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
             className={classNames.button}
@@ -565,7 +566,6 @@ export const RedistributeBox = observer(
           </Button>
 
           <Button
-            color="primary"
             variant="text"
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(classNames.button, classNames.cancelButton)}

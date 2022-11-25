@@ -869,6 +869,8 @@ export const TaskTypeCell = withStyles(({classes: classNames, task}) => {
         return <Typography>{t(TranslationKey.Receive)}</Typography>
       case TaskOperationType.EDIT:
         return <Typography>{t(TranslationKey.Edit)}</Typography>
+      case TaskOperationType.EDIT_BY_STOREKEEPER:
+        return <Typography>{t(TranslationKey['Storekeeper edit'])}</Typography>
     }
   }
 
@@ -994,6 +996,9 @@ export const TaskDescriptionCell = withStyles(({classes: classNames, task}) => {
       case TaskOperationType.RECEIVE:
         return <>{taskReceiveDescription()}</>
       case TaskOperationType.EDIT:
+        return <>{taskEditDescription()}</>
+
+      case TaskOperationType.EDIT_BY_STOREKEEPER:
         return <>{taskEditDescription()}</>
     }
   }

@@ -139,6 +139,7 @@ export const EditBoxForm = observer(
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
       clientComment: formItem?.clientComment || '',
+      clientTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
@@ -603,7 +604,7 @@ export const EditBoxForm = observer(
             tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
             label={t(TranslationKey['Write a comment on the task'])}
             placeholder={t(TranslationKey['Client comment on the task'])}
-            onChange={setFormField('clientComment')}
+            onChange={setFormField('clientTaskComment')}
           />
         </div>
 

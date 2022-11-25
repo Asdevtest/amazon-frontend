@@ -35,7 +35,7 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [])
+  }, [internalValue])
 
   return (
     <Input

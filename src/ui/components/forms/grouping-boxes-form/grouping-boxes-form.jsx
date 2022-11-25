@@ -11,6 +11,7 @@ import React, {useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {BigPlus} from '@constants/navbar-svg-icons'
 import {operationTypes} from '@constants/operation-types'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -89,33 +90,30 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
     setSizeSetting(newAlignment)
   }
 
-  const [showFullCard, setShowFullCard] = useState(true)
+  const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
   return (
     <div className={classNames.box}>
       {!isNewBox && (
-        <div className={classNames.radioWrapper}>
-          {(basicBox?._id === box._id || !basicBox) && (
-            <Radio checked={box._id === basicBox?._id} onClick={() => onClickBasicBoxRadio(box)} />
-          )}
+        <div className={classNames.headerWrapper}>
+          <Typography className={classNames.boxNum}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
 
-          <Typography className={classNames.standartText}>{t(TranslationKey['Basic box'])}</Typography>
+          <div className={classNames.radioWrapper}>
+            {(basicBox?._id === box._id || !basicBox) && (
+              <Radio checked={box._id === basicBox?._id} onClick={() => onClickBasicBoxRadio(box)} />
+            )}
+
+            <Typography className={classNames.standartText}>{t(TranslationKey['Basic box'])}</Typography>
+          </div>
         </div>
       )}
 
       <div className={classNames.orderWrapper}>
         {box.items.map((order, orderIndex) => (
-          <div key={`box_${box._id}_${orderIndex}`} className={classNames.orderWrapper}>
+          <div key={`box_${box._id}_${orderIndex}`} /* className={classNames.orderWrapper}*/>
             <div key={orderIndex} className={classNames.order}>
               <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
               <div>
-                {!isNewBox && (
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.Box)}</Typography>
-                    <Typography className={classNames.asinValue}>{box.humanFriendlyId}</Typography>
-                  </div>
-                )}
-
                 <div className={classNames.asinWrapper}>
                   <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
                   <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
@@ -135,10 +133,11 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                 <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
 
                 <Field
+                  oneLine
                   labelClasses={classNames.label}
                   label={t(TranslationKey.BarCode)}
                   inputComponent={
-                    <>
+                    <div className={classNames.barCodeWrapper}>
                       {order.barCode ? (
                         <div className={classNames.barCode}>
                           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.barCode)}>
@@ -150,7 +149,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                       ) : (
                         <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
                       )}
-                    </>
+                    </div>
                   }
                 />
               </div>
@@ -159,6 +158,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                 <Field
                   disabled={!isNewBox}
                   label={t(TranslationKey['Boxes in group'])}
+                  containerClasses={classNames.field}
                   className={classNames.orderInput}
                   labelClasses={classNames.label}
                   value={box.amount}
@@ -167,6 +167,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 
                 <Field
                   disabled
+                  containerClasses={classNames.field}
                   label={t(TranslationKey.Quantity)}
                   className={classNames.orderInput}
                   labelClasses={classNames.label}
@@ -202,15 +203,9 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                 label={t(TranslationKey.Destination)}
                 labelClasses={classNames.label}
                 inputComponent={
-                  <WithSearchSelect
-                    disabled
-                    width={230}
-                    selectedItemName={
-                      destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
-                    }
-                    data={destinations.filter(el => el.storekeeperId !== box?.storekeeperId)}
-                    searchFields={['name']}
-                  />
+                  <Typography className={classNames.standartText}>
+                    {destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])}
+                  </Typography>
                 }
               />
 
@@ -220,20 +215,13 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                 label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                 labelClasses={classNames.label}
                 inputComponent={
-                  <Button
-                    disabled
-                    variant={box.logicsTariffId && 'text'}
-                    className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
-                  >
-                    <Typography className={classNames.storekeeperDisableBtn}>{`${
-                      box.storekeeper?.name
-                    } / ${getFullTariffTextForBoxOrOrder(box)}`}</Typography>
-                  </Button>
+                  <Typography className={classNames.standartText}>{`${
+                    box.storekeeper?.name
+                  } / ${getFullTariffTextForBoxOrOrder(box)}`}</Typography>
                 }
               />
 
               <Field
-                disabled
                 inputProps={{maxLength: 255}}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
@@ -241,6 +229,11 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                 className={classNames.fieldInput}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
+                inputComponent={
+                  <Typography className={classNames.standartText}>
+                    {box.fbaShipment || t(TranslationKey.Missing)}
+                  </Typography>
+                }
               />
 
               <Field
@@ -387,14 +380,25 @@ export const GroupingBoxesForm = observer(
     return (
       <div className={classNames.root}>
         <div className={classNames.modalTitleWrapper}>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Group boxes'])}</Typography>
+          <div className={classNames.modalTitleSubWrapper}>
+            <Typography className={classNames.modalTitle}>{t(TranslationKey['Group boxes'])}</Typography>
+
+            <div className={classNames.iconWrapper}>
+              <img src="/assets/icons/mini-box.svg" />
+              <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
+            </div>
+          </div>
 
           <div className={classNames.leftToRedistributeWrapper}>
             <Typography className={classNames.leftToRedistribute}>
               {t(TranslationKey['Left to redistribute']) + ':'}
             </Typography>
 
-            <Typography className={classNames.standartText}>{basicBox ? leftToRedistribute : '-'}</Typography>
+            <Typography className={classNames.leftToRedistributeCount}>
+              {basicBox ? leftToRedistribute : '-'}
+            </Typography>
+
+            <img src="/assets/icons/mini-box.svg" />
           </div>
         </div>
 
@@ -418,33 +422,36 @@ export const GroupingBoxesForm = observer(
           </div>
 
           <div className={classNames.newBoxes}>
-            {newBoxes.length ? (
-              <>
-                {newBoxes.map((box, boxIndex) => (
-                  <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
-                    <Box
-                      isNewBox
-                      destinations={destinations}
-                      index={boxIndex}
-                      box={box}
-                      onChangeField={onChangeField}
-                      onRemoveBox={onRemoveNewBox}
-                    />
-                  </div>
-                ))}
-              </>
-            ) : (
-              <Typography className={classNames.needChooseMainBox}>
-                {t(TranslationKey['Select the basic box'])}
-              </Typography>
-            )}
+            {
+              /* newBoxes.length && */ basicBox ? (
+                <div className={classNames.newBoxesWrapper}>
+                  {newBoxes.map((box, boxIndex) => (
+                    <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                      <Box
+                        isNewBox
+                        destinations={destinations}
+                        index={boxIndex}
+                        box={box}
+                        onChangeField={onChangeField}
+                        onRemoveBox={onRemoveNewBox}
+                      />
+                    </div>
+                  ))}
+                  <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddBox} />
+                </div>
+              ) : (
+                <Typography className={classNames.needChooseMainBox}>
+                  {t(TranslationKey['Select the basic box'])}
+                </Typography>
+              )
+            }
           </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <Button disabled={!basicBox} className={classNames.button} onClick={onClickAddBox}>
+          {/* <Button disabled={!basicBox} className={classNames.button} onClick={onClickAddBox}>
             {t(TranslationKey['Add a box'])}
-          </Button>
+          </Button> */}
 
           <Button disabled={disabledSubmitBtn} className={classNames.button} onClick={onClickSubmit}>
             {t(TranslationKey.Grouping)}
