@@ -326,9 +326,9 @@ export const EditBoxStorekeeperForm = observer(
         return {
           ...boxFields,
           destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 4),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 4),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 4),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 4),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 4),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 4),
         }
       } else {
         return {...boxFields, destinationId: boxFields.destinationId || null}
