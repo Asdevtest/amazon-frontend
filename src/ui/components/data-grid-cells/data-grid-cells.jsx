@@ -193,8 +193,8 @@ export const ProductAsinCell = withStyles(
   styles,
 )
 
-export const AsinCopyCell = withStyles(({classes: classNames, product}) => {
-  const asins = product.split(', ').map(asin =>
+export const AsinCopyCell = withStyles(({classes: classNames, asinData}) => {
+  const asins = asinData.split(', ').map(asin =>
     asin ? (
       <div className={classNames.multilineTextHeaderWrapper}>
         <Typography className={classNames.typoCell}>

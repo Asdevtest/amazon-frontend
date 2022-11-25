@@ -57,7 +57,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinCopyCell product={params.value} />,
+    renderCell: params => <AsinCopyCell asinData={params.value} />,
     width: 160,
   },
 
