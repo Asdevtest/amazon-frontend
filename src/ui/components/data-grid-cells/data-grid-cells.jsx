@@ -206,7 +206,7 @@ export const AsinCopyCell = withStyles(({classes: classNames, asinData}) => {
       <span className={classNames.multilineHeaderText}>{t(TranslationKey.Missing)}</span>
     ),
   )
-  return <div className={classNames.copyAsin}>{asins}</div>
+  return <div className={classNames.flexDirectionColumn}>{asins}</div>
 }, styles)
 
 export const ProductCell = withStyles(

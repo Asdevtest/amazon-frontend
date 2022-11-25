@@ -960,6 +960,11 @@ export const styles = theme => ({
     display: 'flex',
     gap: '2px',
     alignItems: 'center',
+  },
+
+  flexDirectionColumn: {
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
   },
