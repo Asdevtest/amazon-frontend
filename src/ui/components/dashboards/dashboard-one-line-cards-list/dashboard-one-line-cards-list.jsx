@@ -63,7 +63,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
                 <div className={classNames.cardSubWrapper}>
                   <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
 
-                  {valuesData[item.dataKey] === 0 || valuesData[item.dataKey] === '-' ? (
+                  {valuesData[item.dataKey] === 0 || valuesData[item.dataKey] === '-' || !valuesData[item.dataKey] ? (
                     <Typography className={classNames.cardValueTitle}>{0}</Typography>
                   ) : valuesData[item.dataKey] ? (
                     <Typography className={classNames.cardValueTitle}>{valuesData[item.dataKey]}</Typography>
