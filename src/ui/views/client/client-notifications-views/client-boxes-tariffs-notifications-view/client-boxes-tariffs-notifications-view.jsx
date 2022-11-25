@@ -16,6 +16,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -37,6 +38,8 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
+      userInfo,
       storekeepersData,
       volumeWeightCoefficient,
       curBox,
@@ -57,6 +60,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
       setCurrentOpenedBox,
       showConfirmModal,
       showSelectionStorekeeperAndTariffModal,
+      showWarningInfoModal,
       confirmModalSettings,
       onTriggerOpenModal,
       onSelectionModel,
@@ -64,6 +68,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onClickConfirmTarrifChangeBtn,
+      onSubmitChangeBoxFields,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -147,11 +152,24 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
       </React.Fragment>
     )
   }

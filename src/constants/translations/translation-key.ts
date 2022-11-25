@@ -1613,7 +1613,7 @@ export enum TranslationKey {
   'Group boxes' = 'Group boxes',
   'Basic box' = 'Basic box',
   'Select the basic box' = 'Select the basic box',
-  // '' = '',
+  'Add comment' = 'Add comment',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -73,6 +73,12 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
             if (data.hasOwnProperty('lengthCmWarehouse')) {
                 obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
@@ -175,6 +181,18 @@ InlineResponse20011.prototype['isDraft'] = undefined;
  * @member {String} shippingLabel
  */
 InlineResponse20011.prototype['shippingLabel'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+InlineResponse20011.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineResponse20011.prototype['storekeeperComment'] = undefined;
 
 /**
  * Что фактически пришло на склад. Кладовщик.

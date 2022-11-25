@@ -1,12 +1,14 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 export class ClientOrderViewModel {
   history = undefined
@@ -22,6 +24,17 @@ export class ClientOrderViewModel {
   order = undefined
 
   showConfirmModal = false
+
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -53,6 +66,23 @@ export class ClientOrderViewModel {
       runInAction(() => {
         this.order = result
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      this.getBoxesOfOrder(this.orderId)
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.log(error)
     }

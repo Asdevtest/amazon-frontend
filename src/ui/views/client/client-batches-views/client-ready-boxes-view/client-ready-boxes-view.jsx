@@ -39,6 +39,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
       warningInfoModalSettings,
       showWarningInfoModal,
       nameSearchValue,
@@ -75,6 +76,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
       returnBoxesToStock,
       onChangeNameSearchValue,
+      onSubmitChangeBoxFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -193,9 +195,11 @@ export class ClientReadyBoxesViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
 

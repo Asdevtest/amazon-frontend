@@ -35,6 +35,14 @@ export class ClientBoxesNotificationsViewModel {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
   }
+
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -45,6 +53,10 @@ export class ClientBoxesNotificationsViewModel {
     onTriggerOpenRejectModal: row => this.onTriggerOpenRejectModal(row),
   }
   columnsModel = clientBoxesNotificationsViewColumns(this.rowHandlers)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -155,6 +167,24 @@ export class ClientBoxesNotificationsViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showBoxViewModal')
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

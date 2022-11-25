@@ -207,6 +207,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ChatsApi* | [**apiV1ChatsByEmailPost**](docs/ChatsApi.md#apiV1ChatsByEmailPost) | **POST** /api/v1/chats/by_email | Создать обычный чат через почту
 *TestSwagger.ChatsApi* | [**apiV1ChatsEmailsGet**](docs/ChatsApi.md#apiV1ChatsEmailsGet) | **GET** /api/v1/chats/emails | Получить все почты юзеров
 *TestSwagger.ChatsApi* | [**apiV1ChatsGuidPost**](docs/ChatsApi.md#apiV1ChatsGuidPost) | **POST** /api/v1/chats/{guid} | Создать обычный чат
+*TestSwagger.ClientApi* | [**apiV1ClientsBoxesCommentGuidPatch**](docs/ClientApi.md#apiV1ClientsBoxesCommentGuidPatch) | **PATCH** /api/v1/clients/boxes/comment/{guid} | # Изменить комментарий коробки клиента.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](docs/ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch**](docs/ClientApi.md#apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch) | **PATCH** /api/v1/clients/boxes/{guid}/edit_shippingLabel_first_time | Редактировать shippingLabel в первый раз.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesReturnBoxesToStockPost**](docs/ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
@@ -342,6 +343,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidGet**](docs/ShopSellApi.md#apiV1ShopSellGuidGet) | **GET** /api/v1/shop_sell/{guid} | # Получить магазин на продажу по GUID
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidPatch**](docs/ShopSellApi.md#apiV1ShopSellGuidPatch) | **PATCH** /api/v1/shop_sell/{guid} | # Обновить магазин на продажу.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellPost**](docs/ShopSellApi.md#apiV1ShopSellPost) | **POST** /api/v1/shop_sell/ | # Добавить на продажу новый магазин.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesCommentGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesCommentGuidPatch) | **PATCH** /api/v1/storekeepers/boxes/comment/{guid} | # Изменить комментарий коробки сторкипера.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGuidPatch) | **PATCH** /api/v1/storekeepers/boxes/{guid} | # Изменить коробку сторкипером.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersDestinationPost**](docs/StorekeepersApi.md#apiV1StorekeepersDestinationPost) | **POST** /api/v1/storekeepers/destination | # Создать/обновить дестинейшн
@@ -459,6 +461,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject1](docs/InlineObject1.md)
  - [TestSwagger.InlineObject10](docs/InlineObject10.md)
  - [TestSwagger.InlineObject100](docs/InlineObject100.md)
+ - [TestSwagger.InlineObject101](docs/InlineObject101.md)
+ - [TestSwagger.InlineObject102](docs/InlineObject102.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)

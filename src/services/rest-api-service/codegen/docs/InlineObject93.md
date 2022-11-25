@@ -4,11 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название склада. | [optional] 
-**country** | **String** | Страна. | [optional] 
-**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
-**state** | **String** | Штат. | [optional] 
-**city** | **String** | Город. | [optional] 
-**address** | **String** | Адрес склада. | [optional] 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | 
 
 

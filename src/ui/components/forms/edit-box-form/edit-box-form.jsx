@@ -565,6 +565,31 @@ export const EditBoxForm = observer(
                   </Typography>
                   <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
                 </div>
+
+                <div className={classNames.commentsWrapper}>
+                  <Field
+                    multiline
+                    minRows={3}
+                    maxRows={3}
+                    label={t(TranslationKey['Client comment'])}
+                    placeholder={t(TranslationKey['Add comment'])}
+                    className={classNames.commentField}
+                    labelClasses={classNames.label}
+                    value={boxFields.clientComment}
+                    onChange={setFormField('clientComment')}
+                  />
+
+                  <Field
+                    multiline
+                    disabled
+                    minRows={3}
+                    maxRows={3}
+                    label={t(TranslationKey['Storekeeper comment'])}
+                    className={classNames.commentField}
+                    labelClasses={classNames.label}
+                    value={boxFields.storekeeperComment}
+                  />
+                </div>
               </div>
             }
           />

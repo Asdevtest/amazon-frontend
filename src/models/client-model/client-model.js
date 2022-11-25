@@ -249,6 +249,13 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsLightGet()
     return response
   }
+
+  updateBoxComment = async (id, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesCommentGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

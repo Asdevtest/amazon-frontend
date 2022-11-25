@@ -56,6 +56,9 @@ class InlineObject15 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -86,6 +89,12 @@ InlineObject15.prototype['logicsTariffId'] = undefined;
  * @member {String} fbaShipment
  */
 InlineObject15.prototype['fbaShipment'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+InlineObject15.prototype['clientComment'] = undefined;
 
 /**
  * shippingLabel коробки

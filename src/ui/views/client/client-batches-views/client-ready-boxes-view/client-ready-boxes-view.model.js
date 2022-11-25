@@ -48,6 +48,10 @@ export class ClientReadyBoxesViewModel {
     title: '',
   }
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -174,6 +178,24 @@ export class ClientReadyBoxesViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showBoxViewModal')
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

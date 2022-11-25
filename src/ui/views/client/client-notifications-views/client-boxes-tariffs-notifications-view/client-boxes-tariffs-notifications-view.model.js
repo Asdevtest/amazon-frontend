@@ -41,6 +41,14 @@ export class ClientBoxesTariffsNotificationsViewModel {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
   }
+
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -51,6 +59,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
     onTriggerOpenRejectModal: row => this.onTriggerOpenRejectModal(row),
   }
   columnsModel = clientBoxesTariffsNotificationsViewColumns(this.rowHandlers)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -101,6 +113,24 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showBoxViewModal')
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getStorekeepers() {

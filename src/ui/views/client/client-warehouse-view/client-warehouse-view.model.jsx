@@ -159,6 +159,10 @@ export class ClientWarehouseViewModel {
   //   })
   // }
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -276,6 +280,25 @@ export class ClientWarehouseViewModel {
       this.storekeepersData = result
 
       this.getDataGridState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data, inModal) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      this.getBoxesMy()
+
+      !inModal && this.onTriggerOpenModal('showBoxViewModal')
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.log(error)
     }
@@ -769,6 +792,7 @@ export class ClientWarehouseViewModel {
             boxData.shippingLabel !== sourceData.shippingLabel
               ? false
               : sourceData.isShippingLabelAttachedByStorekeeper,
+          clientComment: boxData.clientComment,
         })
 
         this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(

@@ -15,6 +15,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -36,6 +37,8 @@ class ClientBoxesNotificationsViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
+      userInfo,
       volumeWeightCoefficient,
       curBox,
       showBoxViewModal,
@@ -54,12 +57,14 @@ class ClientBoxesNotificationsViewRaw extends Component {
       onChangeRowsPerPage,
       setCurrentOpenedBox,
       showConfirmModal,
+      showWarningInfoModal,
       confirmModalSettings,
       onTriggerOpenModal,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onSubmitChangeBoxFields,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -130,11 +135,24 @@ class ClientBoxesNotificationsViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
       </React.Fragment>
     )
   }

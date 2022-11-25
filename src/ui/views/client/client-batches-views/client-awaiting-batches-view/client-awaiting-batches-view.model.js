@@ -3,8 +3,10 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -13,6 +15,7 @@ import {clientBatchesViewColumns} from '@components/table-columns/client/client-
 import {clientBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
@@ -29,12 +32,23 @@ export class ClientAwaitingBatchesViewModel {
   showBatchInfoModal = false
   showConfirmModal = false
 
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientBatchesViewColumns(this.rowHandlers)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -138,6 +152,25 @@ export class ClientAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data) {
+    try {
+      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+
+      await this.loadData()
+
+      this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

@@ -59,6 +59,7 @@ export class ClientWarehouseViewRaw extends Component {
   render() {
     const {
       rowCount,
+      userInfo,
 
       confirmModalSettings,
       selectedBox,
@@ -132,6 +133,8 @@ export class ClientWarehouseViewRaw extends Component {
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
       onClickSubmitGroupingBoxes,
+
+      onSubmitChangeBoxFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -388,6 +391,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal missClickModalOn openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
+            userInfo={userInfo}
             storekeepersData={storekeepersData}
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
@@ -396,6 +400,7 @@ export class ClientWarehouseViewRaw extends Component {
             boxesMy={boxesMy.map(box => box.originalData)}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
             onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
+            onSubmitChangeBoxFields={onSubmitChangeBoxFields}
           />
         </Modal>
 
@@ -423,9 +428,11 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
 

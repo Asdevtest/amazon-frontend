@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
 
@@ -8,6 +9,7 @@ import {observer} from 'mobx-react'
 // import Carousel from 'react-material-ui-carousel'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -19,19 +21,36 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './box-view-form.style'
 
 export const BoxViewForm = observer(
-  ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper}) => {
+  ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
+
+    // if (!box) {
+    //   return null
+    // }
+
+    const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
+    const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
+    }
+
+    const [formFields, setFormFields] = useState(box)
+
+    const onChangeField = fieldName => event => {
+      const newFormFields = {...formFields}
+      newFormFields[fieldName] = event.target.value
+
+      setFormFields(newFormFields)
     }
 
     // const dimensionsConfig = {
@@ -425,8 +444,42 @@ export const BoxViewForm = observer(
           </div>
         </div>
 
+        <div className={classNames.commentsWrapper}>
+          <Field
+            multiline
+            disabled={!isClient || !onSubmitChangeFields}
+            minRows={3}
+            maxRows={3}
+            label={t(TranslationKey['Client comment'])}
+            placeholder={isClient && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+            className={classNames.commentField}
+            labelClasses={classNames.label}
+            value={formFields.clientComment}
+            onChange={onChangeField('clientComment')}
+          />
+
+          <Field
+            multiline
+            disabled={!isStorekeeper || !onSubmitChangeFields}
+            minRows={3}
+            maxRows={3}
+            label={t(TranslationKey['Storekeeper comment'])}
+            placeholder={isStorekeeper && onSubmitChangeFields && t(TranslationKey['Add comment'])}
+            className={classNames.commentField}
+            labelClasses={classNames.label}
+            value={formFields.storekeeperComment}
+            onChange={onChangeField('storekeeperComment')}
+          />
+        </div>
+
         <div className={classNames.buttonsWrapper}>
-          <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>
+          {onSubmitChangeFields && (
+            <Button success onClick={() => onSubmitChangeFields(formFields)}>
+              {t(TranslationKey.Save)}
+            </Button>
+          )}
+
+          <Button variant="text" className={classNames.closeBtn} onClick={setOpenModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

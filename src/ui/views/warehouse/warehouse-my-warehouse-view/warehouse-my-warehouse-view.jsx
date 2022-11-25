@@ -43,6 +43,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
       rowCount,
       destinations,
       storekeepersData,
@@ -93,6 +94,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
       onEditBox,
       onClickSubmitEditBox,
+      onSubmitChangeBoxFields,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -171,9 +173,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm
+            userInfo={userInfo}
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+            onSubmitChangeFields={onSubmitChangeBoxFields}
           />
         </Modal>
 

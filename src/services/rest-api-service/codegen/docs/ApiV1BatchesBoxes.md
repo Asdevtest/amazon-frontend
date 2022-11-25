@@ -27,6 +27,8 @@ Name | Type | Description | Notes
 **destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
 **batchId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
+**clientComment** | **String** | Комментарии к коробке | [optional] 
+**storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **storekeeperId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
 **clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 
 **createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 

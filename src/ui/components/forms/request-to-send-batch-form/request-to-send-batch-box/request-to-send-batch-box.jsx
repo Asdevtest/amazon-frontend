@@ -18,7 +18,14 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
-export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
+export const RequestToSendBatchBox = ({
+  box,
+  price,
+  onClickRemoveBoxFromBatch,
+  volumeWeightCoefficient,
+  userInfo,
+  onSubmitChangeBoxFields,
+}) => {
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
@@ -303,9 +310,14 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
       <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
         <BoxViewForm
+          userInfo={userInfo}
           box={box}
           volumeWeightCoefficient={volumeWeightCoefficient}
           setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+          onSubmitChangeFields={data => {
+            onSubmitChangeBoxFields(data, true)
+            setShowBoxViewModal(!showBoxViewModal)
+          }}
         />
       </Modal>
     </tr>
