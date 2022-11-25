@@ -8,7 +8,8 @@ import {
   NormalActionBtnCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
-  MultilineTextCell, // WarehouseTasksBtnCell,
+  MultilineTextCell,
+  AsinCopyCell, // WarehouseTasksBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -56,7 +57,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <AsinCopyCell product={params.value} />,
     width: 160,
   },
 

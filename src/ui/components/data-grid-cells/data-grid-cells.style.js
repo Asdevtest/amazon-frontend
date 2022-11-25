@@ -960,6 +960,8 @@ export const styles = theme => ({
     display: 'flex',
     gap: '2px',
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 
   changeChipCellLabel: {
