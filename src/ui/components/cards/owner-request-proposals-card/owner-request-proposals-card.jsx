@@ -76,6 +76,7 @@ export const OwnerRequestProposalsCard = ({
                   </div>
                 </div>
               </div>
+              <Typography className={classNames.proposalTitle}>{item.proposal.title}</Typography>
               <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
 
