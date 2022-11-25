@@ -316,7 +316,8 @@ export const GroupingBoxesForm = observer(
               el.storekeeperId === box.storekeeperId &&
               el.logicsTariffId === box.logicsTariffId &&
               el.fbaShipment === box.fbaShipment &&
-              el.shippingLabel === box.shippingLabel &&
+              (el.shippingLabel === box.shippingLabel ||
+                (!box.shippingLabel && !!el.shippingLabel === !!box.shippingLabel)) &&
               el.heightCmWarehouse === box.heightCmWarehouse &&
               el.lengthCmWarehouse === box.lengthCmWarehouse &&
               el.weighGrossKgWarehouse === box.weighGrossKgWarehouse &&

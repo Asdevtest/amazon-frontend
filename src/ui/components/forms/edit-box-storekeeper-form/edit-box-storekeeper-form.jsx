@@ -321,6 +321,20 @@ export const EditBoxStorekeeperForm = observer(
       }
     }
 
+    const getBoxDataToSubmit = () => {
+      if (sizeSetting === sizesType.INCHES) {
+        return {
+          ...boxFields,
+          destinationId: boxFields.destinationId || null,
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 4),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 4),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 4),
+        }
+      } else {
+        return {...boxFields, destinationId: boxFields.destinationId || null}
+      }
+    }
+
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
     const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
@@ -330,7 +344,8 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const disableSubmit =
-      JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || boxFields.storekeeperId === ''
+      (JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || boxFields.storekeeperId === '') &&
+      !imagesOfBox.length
     // || boxFields.logicsTariffId === ''
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
@@ -727,7 +742,7 @@ export const EditBoxStorekeeperForm = observer(
             onClick={() => {
               onSubmit({
                 id: formItem?._id,
-                boxData: {...boxFields, destinationId: boxFields.destinationId || null},
+                boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
                 imagesOfBox,
                 dataToSubmitHsCode,

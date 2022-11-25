@@ -66,6 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     lineHeight: '19px',
     // marginRight: theme.spacing(1),
+    whiteSpace: 'nowrap',
   },
   asin: {
     fontSize: '14px',
