@@ -139,7 +139,6 @@ export class ClientInventoryViewRaw extends Component {
       onClickAddSupplierButton,
       onClickTriggerArchOrResetProducts,
       onConfirmSubmitOrderProductModal,
-      onClickProductLotDataBtn,
 
       onClickWithoutProductsShopBtn,
       onClickWithProductsShopBtn,
@@ -283,7 +282,7 @@ export class ClientInventoryViewRaw extends Component {
                       tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                       disabled={!selectedRowIds.length}
                       className={classNames.buttonOffset}
-                      onClick={onClickAddSupplierBtn}
+                      onClick={() => onClickAddSupplierBtn()}
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
@@ -293,8 +292,9 @@ export class ClientInventoryViewRaw extends Component {
                     </Button>
                     <Button
                       tooltipInfoContent={t(TranslationKey['Product lot data'])}
+                      variant="contained"
                       disabled={selectedRowIds.length !== 1}
-                      onClick={onClickProductLotDataBtn}
+                      onClick={onClickOrderBtn}
                     >
                       {t(TranslationKey['Product lot data'])}
                     </Button>
