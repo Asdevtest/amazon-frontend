@@ -119,6 +119,7 @@ export class ClientInventoryViewModel {
   showCircularProgressModal = false
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
+  showProductLotData = false
 
   successModalText = ''
   confirmMessage = ''
@@ -797,6 +798,14 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
       this.getIdeas()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickProductLotDataBtn() {
+    try {
+      this.onTriggerOpenModal('showProductLotData')
     } catch (error) {
       console.log(error)
     }
