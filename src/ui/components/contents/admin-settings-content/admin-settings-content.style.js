@@ -82,7 +82,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tabItemActiveContent: {
-    padding: '0 20px',
+    padding: '0',
     height: '74vh',
   },
 

@@ -24,9 +24,6 @@ import {useClassNames} from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 export const OrderContent = ({
   order,
   boxes,
@@ -34,16 +31,8 @@ export const OrderContent = ({
   volumeWeightCoefficient,
   userInfo,
   onSubmitChangeBoxFields,
+  isClient,
 }) => {
-=======
-export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient, isClient}) => {
->>>>>>> 47a548d6 (4410: a different product status message is displayed to the client)
-=======
-export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient /* isClient */}) => {
->>>>>>> cfab7506 (4268: added whiteSpace for component classes)
-=======
-export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient, isClient}) => {
->>>>>>> a3df46d6 (4410: dlc; add isClient)
   const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)

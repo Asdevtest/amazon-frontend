@@ -1615,10 +1615,7 @@
   "Group boxes": "Группировка коробок",
   "Basic box": "Основная коробка",
   "Select the basic box": "Выберете основную коробку",
-<<<<<<< HEAD
   "Add comment": "Добавьте комментарий",
-  "Storekeeper edit": "Изменение складом"
-=======
+  "Storekeeper edit": "Изменение складом",
   "Product lot data": "Данные партий продукта"
->>>>>>> 44a0715b (4415: added button and lang)
 }
