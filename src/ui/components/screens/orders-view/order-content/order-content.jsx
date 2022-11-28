@@ -14,6 +14,7 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
+import {formatShortDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -98,6 +99,11 @@ export const OrderContent = ({
             <div className={classNames.orderItemWrapper}>
               <Typography className={classNames.orderNum}>{'item'}</Typography>
               <Typography className={classNames.titleSpan}>{updatedOrder.item || '-'}</Typography>
+            </div>
+
+            <div className={classNames.orderItemWrapper}>
+              <Typography className={classNames.orderNum}>{t(TranslationKey.Created)}</Typography>
+              <Typography className={classNames.titleSpan}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
             </div>
           </div>
 

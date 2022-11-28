@@ -306,7 +306,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   barCode: {display: 'flex', gap: '5px'},
   titleSubWrapper: {
-    width: '480px',
+    width: '650px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -380,6 +380,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   batchId: {
     color: theme.palette.text.second,
+  },
+
+  updatedAt: {
+    color: theme.palette.text.second,
+    marginLeft: 10,
   },
   containerField: {
     [theme.breakpoints.down(768)]: {

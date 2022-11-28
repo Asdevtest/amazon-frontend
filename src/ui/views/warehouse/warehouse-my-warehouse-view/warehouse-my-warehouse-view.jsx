@@ -17,6 +17,7 @@ import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxStorekeeperForm} from '@components/forms/edit-box-storekeeper-form'
+import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -61,6 +62,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       showAddOrEditHsCodeInBox,
       showFullEditBoxModal,
       showSuccessInfoModal,
+      showEditMultipleBoxesModal,
       showAddBatchModal,
       showBoxViewModal,
       showEditBoxModal,
@@ -95,6 +97,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onEditBox,
       onClickSubmitEditBox,
       onSubmitChangeBoxFields,
+      onClickSubmitEditMultipleBoxes,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -108,7 +111,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <Button disabled={selectedBoxes.length !== 1} className={classNames.editBtn} onClick={onEditBox}>
+                <Button disabled={!selectedBoxes.length} className={classNames.editBtn} onClick={onEditBox}>
                   {t(TranslationKey.Edit)}
                 </Button>
 
@@ -217,6 +220,20 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             formItem={curBox}
             onSubmit={onClickSubmitEditBox}
             onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showEditMultipleBoxesModal}
+          setOpenModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
+        >
+          <EditMultipleBoxesForm
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={currentData.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            onSubmit={onClickSubmitEditMultipleBoxes}
+            onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
           />
         </Modal>
 

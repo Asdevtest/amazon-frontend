@@ -196,7 +196,10 @@ const Box = ({
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
                 inputClasses={cx(classNames.fieldInput, {
-                  [classNames.inputAccent]: (box.shippingLabel || box.tmpShippingLabel?.length) && !box.fbaShipment,
+                  [classNames.inputAccent]:
+                    (box.shippingLabel || box.tmpShippingLabel?.length) &&
+                    !box.fbaShipment &&
+                    !box.destination?.storekeeperId,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
@@ -488,7 +491,7 @@ export const RedistributeBox = observer(
         el =>
           (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) ||
           el.logicsTariffId === '' ||
-          ((el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment),
+          ((el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment && !el.destination?.storekeeperId),
       )
 
     return (

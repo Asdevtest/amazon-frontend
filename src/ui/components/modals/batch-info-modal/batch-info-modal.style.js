@@ -107,6 +107,18 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  headerSubWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
+
+  datesWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '10px',
+  },
+
   infoWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -200,6 +212,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #007bff',
     width: '300px',
     height: 36,
+    marginBottom: 20,
     [theme.breakpoints.down(768)]: {
       border: '1px solid #007bff',
       width: '280px',

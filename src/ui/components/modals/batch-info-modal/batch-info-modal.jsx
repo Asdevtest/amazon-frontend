@@ -18,7 +18,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
-import {formatNormDateTime} from '@utils/date-time'
+import {formatDateWithoutTime, formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithKg, toFixedWithDollarSign, toFixed, getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
@@ -224,7 +224,36 @@ export const BatchInfoModal = observer(
             />
           </div>
 
-          <div className={classNames.searchWrapper}>
+          <div className={classNames.headerSubWrapper}>
+            <div className={classNames.datesWrapper}>
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey['CLS (batch closing date)'])}
+                value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.cls)}
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey['ETD (date of shipment)'])}
+                value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.etd)}
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey['ETA (arrival date)'])}
+                value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.eta)}
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+            </div>
+
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValue}

@@ -8,7 +8,6 @@ import {
   OrderCell,
   OrderManyItemsCell,
   MultilineTextCell,
-  SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -47,6 +46,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
         <OrderManyItemsCell box={params.row.originalData} />
       ) : (
         <OrderCell
+          box={params.row.originalData}
           product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />
@@ -60,12 +60,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params =>
-      params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
-      ) : (
-        <MultilineTextCell text={params.value} />
-      ),
+    renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
     width: 100,
   },
 

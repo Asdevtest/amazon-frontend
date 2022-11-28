@@ -10,8 +10,6 @@ import {useClassNames} from './success-info-modal.style'
 export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText, onClickSuccessBtn}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log(openModal)
-
   useEffect(() => {
     const listener = event => {
       if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {

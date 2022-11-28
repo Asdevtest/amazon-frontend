@@ -28,6 +28,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -232,6 +233,16 @@ export const EditBoxStorekeeperForm = observer(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
+    const onClickGluedCheckbox = (field, itemId) => e => {
+      const newFormFields = {...boxFields}
+
+      newFormFields.items = [
+        ...boxFields.items.map(el => (el._id === itemId ? {...el, [field]: e.target.checked} : el)),
+      ]
+
+      setBoxFields(newFormFields)
+    }
+
     const boxInitialState = {
       ...formItem,
 
@@ -344,7 +355,9 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const disableSubmit =
-      (JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || boxFields.storekeeperId === '') &&
+      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
+        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
+        boxFields.storekeeperId === '') &&
       !imagesOfBox.length &&
       !dataToSubmitHsCode
     // || boxFields.logicsTariffId === ''
@@ -464,7 +477,6 @@ export const EditBoxStorekeeperForm = observer(
                             />
 
                             <div>
-                              {/* {item.isBarCodeAlreadyAttachedByTheSupplier ? ( */}
                               <Field
                                 oneLine
                                 labelClasses={classNames.standartLabel}
@@ -474,10 +486,12 @@ export const EditBoxStorekeeperForm = observer(
                                 containerClasses={classNames.checkboxContainer}
                                 label={t(TranslationKey['The barcode is glued by the supplier'])}
                                 inputComponent={
-                                  <Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />
+                                  <Checkbox
+                                    checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                                    onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
+                                  />
                                 }
                               />
-                              {/* ) : ( */}
                               <Field
                                 oneLine
                                 labelClasses={classNames.standartLabel}
@@ -488,9 +502,13 @@ export const EditBoxStorekeeperForm = observer(
                                 )}
                                 containerClasses={classNames.checkboxContainer}
                                 label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+                                inputComponent={
+                                  <Checkbox
+                                    checked={item.isBarCodeAttachedByTheStorekeeper}
+                                    onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
+                                  />
+                                }
                               />
-                              {/* )} */}
                             </div>
                           </>
                         </div>

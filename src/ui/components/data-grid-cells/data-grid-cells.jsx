@@ -507,7 +507,12 @@ export const OrderCell = withStyles(
           {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
         </div>
 
-        {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
+        {superbox && (
+          <div className={classNames.superboxWrapper}>
+            <Typography className={classNames.superboxTypo}>{`SB x ${superbox}`}</Typography>{' '}
+            <Typography>{`x ${box?.items?.[0].amount}`}</Typography>{' '}
+          </div>
+        )}
 
         {box && box.totalPrice - box.totalPriceChanged < 0 && (
           <span className={classNames.needPay}>{`${t(

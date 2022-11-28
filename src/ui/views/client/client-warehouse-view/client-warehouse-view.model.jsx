@@ -1062,6 +1062,8 @@ export class ClientWarehouseViewModel {
     try {
       const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
+      // const boxFilter = `or[0][humanFriendlyId][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};`
+
       // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {

@@ -74,6 +74,8 @@ export class WarehouseMyWarehouseViewModel {
   showFullEditBoxModal = false
   showSuccessInfoModal = false
 
+  showEditMultipleBoxesModal = false
+
   modalEditSuccessMessage = ''
 
   rowHandlers = {
@@ -233,16 +235,37 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({id, boxData, sourceData, imagesOfBox, dataToSubmitHsCode}) {
+  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.onTriggerOpenModal('showEditMultipleBoxesModal')
+
+      for (let i = 0; i < newBoxes.length; i++) {
+        const newBox = newBoxes[i]
+
+        const sourceBox = selectedBoxes[i]
+
+        await this.onClickSubmitEditBox({id: sourceBox._id, boxData: newBox, isMultipleEdit: true})
+      }
+
+      this.modalEditSuccessMessage = t(TranslationKey['Editing completed'])
+
+      this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.loadData()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickSubmitEditBox({id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit}) {
     try {
       this.selectedBoxes = []
       this.uploadedFiles = []
       this.uploadedImages = []
-
-      // console.log('dataToSubmitHsCode', dataToSubmitHsCode)
-
-      // console.log('boxData', boxData)
-      // console.log('sourceData', sourceData)
 
       if (boxData.tmpShippingLabel?.length) {
         await onSubmitPostImages.call(this, {
@@ -295,13 +318,9 @@ export class WarehouseMyWarehouseViewModel {
 
           barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
 
-          isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-            ? false
-            : el.isBarCodeAlreadyAttachedByTheSupplier,
+          isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
 
-          isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-            ? false
-            : el.isBarCodeAttachedByTheStorekeeper,
+          isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
         }
       })
 
@@ -321,13 +340,15 @@ export class WarehouseMyWarehouseViewModel {
         await ProductModel.editProductsHsCods(dataToSubmitHsCode)
       }
 
-      this.loadData()
+      if (!isMultipleEdit) {
+        this.loadData()
 
-      this.onTriggerOpenModal('showFullEditBoxModal')
+        this.onTriggerOpenModal('showFullEditBoxModal')
 
-      this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+        this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
 
-      this.onTriggerOpenModal('showSuccessInfoModal')
+        this.onTriggerOpenModal('showSuccessInfoModal')
+      }
     } catch (error) {
       console.log(error)
       this.error = error
@@ -414,9 +435,13 @@ export class WarehouseMyWarehouseViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.curBox = this.boxesMy.find(el => el._id === this.selectedBoxes[0]).originalData
+      if (this.selectedBoxes.length === 1) {
+        this.curBox = this.boxesMy.find(el => el._id === this.selectedBoxes[0]).originalData
 
-      this.onTriggerOpenModal('showFullEditBoxModal')
+        this.onTriggerOpenModal('showFullEditBoxModal')
+      } else {
+        this.onTriggerOpenModal('showEditMultipleBoxesModal')
+      }
     } catch (error) {
       console.log(error)
       this.error = error
@@ -581,10 +606,14 @@ export class WarehouseMyWarehouseViewModel {
 
       // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
+      const orderFilter = `or[0][id][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};`
+
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filtersProduct: this.nameSearchValue ? productFilter : null,
 
         filtersBox: /* this.nameSearchValue ? boxFilter : */ null,
+
+        filtersOrders: this.nameSearchValue ? orderFilter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

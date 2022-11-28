@@ -22,6 +22,7 @@ import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsClient, checkIsStorekeeper} from '@utils/checks'
+import {formatShortDateTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -30,10 +31,6 @@ import {useClassNames} from './box-view-form.style'
 export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
-
-    // if (!box) {
-    //   return null
-    // }
 
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
@@ -91,6 +88,15 @@ export const BoxViewForm = observer(
               (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
               t(TranslationKey['Not available'])
             }`}</Typography>
+
+            <Field
+              oneLine
+              label={`${t(TranslationKey.Updated)}:`}
+              containerClasses={classNames.storekeeperField}
+              inputComponent={
+                <Typography className={classNames.updatedAt}>{formatShortDateTime(box.updatedAt)}</Typography>
+              }
+            />
           </div>
         </div>
 
