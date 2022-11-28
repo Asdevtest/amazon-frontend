@@ -69,6 +69,9 @@ class InlineObject89 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -126,6 +129,12 @@ InlineObject89.prototype['storekeeperComment'] = undefined;
  * @member {String} fbaShipment
  */
 InlineObject89.prototype['fbaShipment'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject89.prototype['logicsTariffId'] = undefined;
 
 /**
  * Массив ссылок на фотографии.

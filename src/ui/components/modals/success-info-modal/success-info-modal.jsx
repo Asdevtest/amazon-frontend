@@ -10,6 +10,8 @@ import {useClassNames} from './success-info-modal.style'
 export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText, onClickSuccessBtn}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log(openModal)
+
   useEffect(() => {
     const listener = event => {
       if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
@@ -30,7 +32,14 @@ export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText
           {title}
         </Typography>
 
-        <Button success disableElevation variant="contained" className={classNames.button} onClick={onClickSuccessBtn}>
+        <Button
+          success
+          disableElevation
+          disabled={!openModal}
+          variant="contained"
+          className={classNames.button}
+          onClick={onClickSuccessBtn}
+        >
           {successBtnText}
         </Button>
       </div>

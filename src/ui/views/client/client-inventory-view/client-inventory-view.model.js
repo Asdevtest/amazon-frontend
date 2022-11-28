@@ -8,6 +8,7 @@ import {RequestStatus} from '@constants/request-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {BatchesModel} from '@models/batches-model'
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
 import {OtherModel} from '@models/other-model'
@@ -94,6 +95,7 @@ export class ClientInventoryViewModel {
   currentShop = undefined
   ideaId = ''
   isArchive = false
+  batchesData = []
 
   nameSearchValue = ''
 
@@ -119,6 +121,7 @@ export class ClientInventoryViewModel {
   showCircularProgressModal = false
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
+  showProductLotDataModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -797,6 +800,17 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
       this.getIdeas()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickProductLotDataBtn() {
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0])
+      console.log('result', result)
+      this.batchesData = result
+      this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
       console.log(error)
     }

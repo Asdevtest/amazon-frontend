@@ -7743,6 +7743,2024 @@
         }
       }
     },
+    "/api/v1/batches/{guid}": {
+      "get": {
+        "summary": "# Получить партии.",
+        "description": "## Получить партии. В зависимости от роли:\n\nадмин - получает все партии без исключения.\n        клиент - получает все партии в которых есть его коробки.\n        супер: получает все партии без исключения.\n        байер: получает все партии в которых есть его коробки, которые он создал.\n        сторкипер: получает только свои партии.",
+        "tags": ["Batches"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID партии.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {"type": "string", "description": "GUID партии."},
+                "humanFriendlyId": {"type": "number", "description": "Человекочитаемый id партии."},
+                "status": {
+                  "type": "string",
+                  "enum": [["IS_BEING_COLLECTED", "HAS_DISPATCHED"]],
+                  "description": "Статус партии."
+                },
+                "shipId": {"type": "string", "description": "id корабля."},
+                "attachedDocuments": {
+                  "nullable": true,
+                  "type": "array",
+                  "description": "Массив ссылок на файлов документации к партии.",
+                  "items": {"type": "string"}
+                },
+                "finalWeightAsOneBox": {
+                  "type": "number",
+                  "description": "Финальный вес партии, если считать все коробки как одну большую коробу."
+                },
+                "finalWeightSumEachBoxAmount": {
+                  "type": "number",
+                  "description": "Финальный вес партии, если сложить все веса коробок по отдельности."
+                },
+                "boxes": {
+                  "nullable": true,
+                  "type": "array",
+                  "description": "Массив id коробок.",
+                  "items": {
+                    "nullable": true,
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                        "description": "GUID коробки."
+                      },
+                      "humanFriendlyId": {"type": "integer", "example": "123456789", "description": "Номер коробки."},
+                      "amount": {"type": "number", "example": "9", "description": "ККоличества в коробке."},
+                      "status": {
+                        "type": "string",
+                        "description": "Статус коробки",
+                        "enum": [
+                          "NEW",
+                          "IN_STOCK",
+                          "REQUESTED_SEND_TO_BATCH",
+                          "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
+                          "IN_BATCH",
+                          "NEED_TO_UPDATE_THE_TARIFF",
+                          "IN_BATCH_ON_THE_WAY",
+                          "FINISH_PREP_CENTR_USA"
+                        ]
+                      },
+                      "isActual": {
+                        "type": "boolean",
+                        "description": "Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам."
+                      },
+                      "isDraft": {"type": "boolean", "description": "Если true - значит коробку черновик."},
+                      "fbaShipment": {
+                        "type": "string",
+                        "description": "Это номер конкретной коробки при отправке в амазон.",
+                        "example": "FBA16N2Y2L76U000003"
+                      },
+                      "shippingLabel": {
+                        "nullable": true,
+                        "type": "string",
+                        "example": "https://www.mf.com/sdkfjasldf.pdf",
+                        "description": "Ссылка на наклейку для коробки"
+                      },
+                      "lengthCmSupplier": {
+                        "type": "number",
+                        "example": 25,
+                        "description": "Размеры которые назвал поставщик при заказе ( могут отличаться с реальными)."
+                      },
+                      "widthCmSupplier": {
+                        "type": "number",
+                        "example": 35,
+                        "description": "Размеры которые назвал поставщик при заказе ( могут отличаться с реальными)."
+                      },
+                      "heightCmSupplier": {
+                        "type": "number",
+                        "example": 45,
+                        "description": "Размеры которые назвал поставщик при заказе ( могут отличаться с реальными)."
+                      },
+                      "weighGrossKgSupplier": {
+                        "type": "number",
+                        "example": 45,
+                        "description": "Общий вес кг коробки который назвал поставщик."
+                      },
+                      "lengthCmWarehouse": {
+                        "type": "number",
+                        "example": 25,
+                        "description": "Что фактически пришло на склад. Кладовщик."
+                      },
+                      "widthCmWarehouse": {
+                        "type": "number",
+                        "example": 25,
+                        "description": "Что фактически пришло на склад. Кладовщик."
+                      },
+                      "heightCmWarehouse": {
+                        "type": "number",
+                        "example": 25,
+                        "description": "Что фактически пришло на склад. Кладовщик."
+                      },
+                      "weighGrossKgWarehouse": {
+                        "type": "number",
+                        "example": 25,
+                        "description": "Что фактически пришло на склад. Кладовщик."
+                      },
+                      "isShippingLabelAttachedByStorekeeper": {
+                        "type": "boolean",
+                        "example": false,
+                        "description": "Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл."
+                      },
+                      "images": {
+                        "type": "array",
+                        "nullable": true,
+                        "description": "Массив картинок.",
+                        "items": {"type": "string"}
+                      },
+                      "deliveryTotalPrice": {"type": "number", "description": "Итого за доставку.", "example": 123.12},
+                      "deliveryTotalPriceChanged": {
+                        "type": "number",
+                        "description": "Обновление итога за доставку.",
+                        "example": 130.35
+                      },
+                      "destinationId": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "id склада - склады куда отправляют "
+                      },
+                      "logicsTariffId": {"type": "string", "format": "uuid", "description": "GUID тарифа доставки "},
+                      "batchId": {
+                        "type": "string",
+                        "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                        "description": "Сторкипер взявший коробку в работу."
+                      },
+                      "clientComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperComment": {
+                        "type": "string",
+                        "description": "Комментарии к коробке",
+                        "example": "Просто коммент."
+                      },
+                      "storekeeperId": {
+                        "type": "string",
+                        "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                        "description": "Сторкипер взявший коробку в работу."
+                      },
+                      "clientId": {
+                        "type": "string",
+                        "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                        "description": "Клиент владелец товара в коробке в работу."
+                      },
+                      "createdById": {
+                        "type": "string",
+                        "example": 25,
+                        "description": "Клиент создавший заказ и коробку."
+                      },
+                      "lastModifiedById": {
+                        "type": "string",
+                        "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                        "description": "GUID любого, кто последний редактировал коробку."
+                      },
+                      "createdAt": {"type": "string", "format": "date-time"},
+                      "updatedAt": {"type": "string", "format": "date-time"},
+                      "items": {
+                        "type": "array",
+                        "description": "Массив коробок.",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                              "description": "GUID айтема."
+                            },
+                            "product": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "description": "GUID продукта в базе данных",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "skusByClient": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "description": "SKU введенным клиентом.",
+                                    "example": "B015UKRNGS"
+                                  }
+                                },
+                                "suppliers": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "Новый поставщик.",
+                                    "nullable": true,
+                                    "properties": {
+                                      "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                                      "name": {
+                                        "type": "string",
+                                        "description": "Название поставщика.",
+                                        "example": "Bond"
+                                      },
+                                      "link": {
+                                        "type": "string",
+                                        "description": "Ссылка на поставщика.",
+                                        "example": "www.bond.uk"
+                                      },
+                                      "price": {
+                                        "type": "number",
+                                        "description": "Цена за еденицу, dollar",
+                                        "example": 1000000
+                                      },
+                                      "amount": {"type": "number", "description": "кол-во", "example": 300},
+                                      "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                                      "images": {
+                                        "type": "array",
+                                        "nullable": true,
+                                        "description": "Массив картинок.",
+                                        "items": {"type": "string"}
+                                      },
+                                      "comment": {
+                                        "type": "string",
+                                        "description": "Комментарий",
+                                        "example": "Крутой поставщик с правом на обстрел."
+                                      },
+                                      "yuanRate": {
+                                        "type": "number",
+                                        "description": "Курс доллара к юаню поставщика. ",
+                                        "example": 6.8
+                                      },
+                                      "priceInYuan": {
+                                        "type": "number",
+                                        "description": "Цена за еденицу, yuan",
+                                        "example": 1000000
+                                      },
+                                      "batchDeliveryCostInDollar": {
+                                        "type": "number",
+                                        "description": "Доставка партии, dollar",
+                                        "example": 100
+                                      },
+                                      "batchDeliveryCostInYuan": {
+                                        "type": "number",
+                                        "description": "Доставка партии, yuan",
+                                        "example": 600
+                                      },
+                                      "batchTotalCostInDollar": {
+                                        "type": "number",
+                                        "description": "Цена партии, dollar",
+                                        "example": 300
+                                      },
+                                      "batchTotalCostInYuan": {
+                                        "type": "number",
+                                        "description": "Цена партии, yuan",
+                                        "example": 1800
+                                      },
+                                      "boxProperties": {
+                                        "type": "object",
+                                        "nullable": true,
+                                        "description": "Параметры коробок.",
+                                        "properties": {
+                                          "amountInBox": {
+                                            "type": "integer",
+                                            "example": 45,
+                                            "description": "Количество единиц в коробке.",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1000000
+                                          },
+                                          "boxLengthCm": {
+                                            "type": "number",
+                                            "example": 20,
+                                            "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1000000
+                                          },
+                                          "boxWidthCm": {
+                                            "type": "number",
+                                            "example": 20,
+                                            "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1000000
+                                          },
+                                          "boxHeightCm": {
+                                            "type": "number",
+                                            "example": 20,
+                                            "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1000000
+                                          },
+                                          "boxWeighGrossKg": {
+                                            "type": "number",
+                                            "example": 20,
+                                            "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1000000
+                                          }
+                                        }
+                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
+                                      "createdBy": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "currentSupplier": {
+                                  "type": "object",
+                                  "description": "Новый поставщик.",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                                    "name": {
+                                      "type": "string",
+                                      "description": "Название поставщика.",
+                                      "example": "Bond"
+                                    },
+                                    "link": {
+                                      "type": "string",
+                                      "description": "Ссылка на поставщика.",
+                                      "example": "www.bond.uk"
+                                    },
+                                    "price": {
+                                      "type": "number",
+                                      "description": "Цена за еденицу, dollar",
+                                      "example": 1000000
+                                    },
+                                    "amount": {"type": "number", "description": "кол-во", "example": 300},
+                                    "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                                    "images": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "Массив картинок.",
+                                      "items": {"type": "string"}
+                                    },
+                                    "comment": {
+                                      "type": "string",
+                                      "description": "Комментарий",
+                                      "example": "Крутой поставщик с правом на обстрел."
+                                    },
+                                    "yuanRate": {
+                                      "type": "number",
+                                      "description": "Курс доллара к юаню поставщика. ",
+                                      "example": 6.8
+                                    },
+                                    "priceInYuan": {
+                                      "type": "number",
+                                      "description": "Цена за еденицу, yuan",
+                                      "example": 1000000
+                                    },
+                                    "batchDeliveryCostInDollar": {
+                                      "type": "number",
+                                      "description": "Доставка партии, dollar",
+                                      "example": 100
+                                    },
+                                    "batchDeliveryCostInYuan": {
+                                      "type": "number",
+                                      "description": "Доставка партии, yuan",
+                                      "example": 600
+                                    },
+                                    "batchTotalCostInDollar": {
+                                      "type": "number",
+                                      "description": "Цена партии, dollar",
+                                      "example": 300
+                                    },
+                                    "batchTotalCostInYuan": {
+                                      "type": "number",
+                                      "description": "Цена партии, yuan",
+                                      "example": 1800
+                                    },
+                                    "boxProperties": {
+                                      "type": "object",
+                                      "nullable": true,
+                                      "description": "Параметры коробок.",
+                                      "properties": {
+                                        "amountInBox": {
+                                          "type": "integer",
+                                          "example": 45,
+                                          "description": "Количество единиц в коробке.",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxLengthCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxWidthCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxHeightCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxWeighGrossKg": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        }
+                                      }
+                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
+                                    "createdBy": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    }
+                                  }
+                                },
+                                "currentSupplierId": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "description": "GUID поставщика в базе данных",
+                                  "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                },
+                                "category": {"type": "string", "description": "Категория"},
+                                "lamazon": {
+                                  "type": "string",
+                                  "description": "Ссылка на этот продукт на амазоне.",
+                                  "example": "www.rbc.ru"
+                                },
+                                "bsr": {"type": "number", "description": "", "example": 2},
+                                "fba": {"type": "boolean", "description": "Признак fba", "example": false},
+                                "amazon": {"type": "number", "description": "", "example": 2341234},
+                                "height": {"type": "number", "description": "Высота", "example": 55},
+                                "width": {"type": "number", "description": "Ширина", "example": 44},
+                                "length": {"type": "number", "description": "Длинна", "example": 33},
+                                "weight": {"type": "number", "description": "Вес", "example": 22},
+                                "reffee": {
+                                  "type": "number",
+                                  "description": "комиссия которую берет амазон за любой заказ - 15%",
+                                  "example": 0.15
+                                },
+                                "fbafee": {"type": "number", "description": "ФБА комиссия", "example": 0.23},
+                                "fbaamount": {"type": "number", "description": " Общая сумма с фба.", "example": 23},
+                                "status": {"type": "number", "description": "Код текущего статуса", "example": 0},
+                                "icomment": {
+                                  "type": "string",
+                                  "description": "Комментарии к товару.",
+                                  "example": "Просто коммент."
+                                },
+                                "clientComment": {
+                                  "type": "string",
+                                  "description": "Комментарии к товару, от клиента.",
+                                  "example": "Просто коммент."
+                                },
+                                "images": {
+                                  "type": "array",
+                                  "nullable": true,
+                                  "description": "Массив картинок.",
+                                  "items": {"type": "string"}
+                                },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
+                                "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
+                                "isCreatedByClient": {
+                                  "type": "boolean",
+                                  "description": "Признак isCreatedByClient",
+                                  "example": false
+                                },
+                                "client": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "amazonDescription": {
+                                  "type": "string",
+                                  "description": "Описание с сайта амазон.",
+                                  "example": "описание"
+                                },
+                                "amazonDetail": {
+                                  "type": "string",
+                                  "description": "Данные из поля детали с сайта амазон.",
+                                  "example": "Данные из поля детали с сайта амазон."
+                                },
+                                "amazonTitle": {
+                                  "type": "string",
+                                  "description": "Заголовок на товар с сайта амазон.",
+                                  "example": "Титул"
+                                },
+                                "barCode": {"type": "string", "description": "Баркод"},
+                                "minpurchase": {"type": "number", "description": "Минимальный заказ", "example": 23},
+                                "profit": {"type": "number", "description": "Прибыль"},
+                                "margin": {"type": "number", "description": "Маржа"},
+                                "inTransfer": {
+                                  "type": "number",
+                                  "example": 234,
+                                  "description": "Кол-во товаров, которые находятся в пути"
+                                },
+                                "createdBy": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "checkedBy": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                                "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"},
+                                "checkedAt": {"type": "string", "format": "date-time", "description": "Дата проверки"},
+                                "buyer": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "buyerTimeoutAt": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "description": "Дедлаин на на поиск поставщика байером."
+                                },
+                                "buyersComment": {
+                                  "type": "string",
+                                  "description": "Комментарии к товару от байера.",
+                                  "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
+                                },
+                                "researcherRate": {"type": "number", "description": "Савка ресечера."},
+                                "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
+                                "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
+                                "buyerRate": {"type": "number", "description": "Савка байера."},
+                                "listingName": {"type": "string", "description": ""},
+                                "listingBulletPoints": {
+                                  "type": "array",
+                                  "nullable": true,
+                                  "description": "Массив ...",
+                                  "items": {"type": "string"}
+                                },
+                                "listingProductDetails": {"type": "string", "description": ""},
+                                "listingSearchTerms": {"type": "string", "description": ""},
+                                "listingSubjectMatters": {
+                                  "type": "array",
+                                  "nullable": true,
+                                  "description": "Массив ...",
+                                  "items": {"type": "string"}
+                                },
+                                "listingImages": {
+                                  "type": "array",
+                                  "nullable": true,
+                                  "description": "массив картинок(в виде прямых ссылок).",
+                                  "items": {"type": "string"}
+                                },
+                                "strategyStatus": {
+                                  "type": "number",
+                                  "description": "У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40"
+                                },
+                                "needCheckBySupervisor": {
+                                  "type": "boolean",
+                                  "description": "Признак needCheckBySupervisor",
+                                  "example": false
+                                },
+                                "amountInOrders": {
+                                  "type": "number",
+                                  "description": "Сколько такого продукта находится в заказах.",
+                                  "example": 1
+                                },
+                                "boxAmounts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "_id": {
+                                        "type": "string",
+                                        "description": "GUID в базе данных",
+                                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                      },
+                                      "storekeeper": {
+                                        "type": "object",
+                                        "description": "Общая информация о пользователи",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID пользователя.",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Имя пользователя.",
+                                            "example": "Petia"
+                                          },
+                                          "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                          "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                        }
+                                      },
+                                      "amountInBoxes": {"type": "number", "example": 23}
+                                    }
+                                  }
+                                },
+                                "archive": {"type": "boolean", "description": "Флаг указывает что продукт в архиве."},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."},
+                                "niche": {
+                                  "type": "string",
+                                  "description": "Ниша",
+                                  "maxLength": 255,
+                                  "example": "Компьютеры"
+                                },
+                                "asins": {
+                                  "type": "string",
+                                  "description": "Асины",
+                                  "maxLength": 255,
+                                  "example": "JUSTASIN, JUSTASIN"
+                                },
+                                "totalRevenue": {
+                                  "type": "string",
+                                  "description": "Общий доход",
+                                  "maxLength": 255,
+                                  "example": "54.2"
+                                },
+                                "coefficient": {
+                                  "type": "string",
+                                  "description": "Коэффициент прибыли",
+                                  "maxLength": 255,
+                                  "example": "0.5"
+                                },
+                                "avgRevenue": {
+                                  "type": "string",
+                                  "description": "Средний доход",
+                                  "maxLength": 255,
+                                  "example": "54.2"
+                                },
+                                "avgBSR": {
+                                  "type": "string",
+                                  "description": "Средний BSR",
+                                  "maxLength": 255,
+                                  "example": "0.5"
+                                },
+                                "avgPrice": {
+                                  "type": "string",
+                                  "description": "Средняя цена",
+                                  "maxLength": 255,
+                                  "example": "54.2"
+                                },
+                                "avgReviews": {
+                                  "type": "string",
+                                  "description": "Средний отзывы",
+                                  "maxLength": 255,
+                                  "example": "54.2"
+                                },
+                                "fourMonthesStock": {
+                                  "type": "number",
+                                  "description": "Каков должен быть сток за 4 месяца",
+                                  "example": 32
+                                },
+                                "stockUSA": {"type": "number", "example": 213}
+                              }
+                            },
+                            "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"},
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "clientComment": {"type": "string", "description": "Комментарии клиента."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
+                                },
+                                "item": {"type": "string", "example": "20"},
+                                "buyerComment": {"type": "string", "description": "комментарии байера."},
+                                "status": {
+                                  "type": "number",
+                                  "enum": [0, 1, 10, 15, 20, 25, 30, 35],
+                                  "default": 1,
+                                  "description": "\n  formed: 0,  Корзина - статус \"Формируется\" \n\n\n  new: 1,  Клиент создал заказ - статус \"Новый\" \n\n\n  readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\" \n\n\n  atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\" \n\n\n  \t Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное  \n\n\n  \t уведомление (т.к. будет суброль) \n\n\n  \t Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль) \n\n\n  needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"   \n\n\n  paid: 20, закупщик оплатил заказ - статус \"оплачен\"  \n\n\n  trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\" \n\n\n  inStock: 30, Товар пришёл на склад - \"Пришёл на склад\" \n\n\n  canceledByBuyer: 35, // Отменен байером \n\n\n  canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)\n\n\n"
+                                },
+                                "images": {
+                                  "type": "array",
+                                  "description": "Массив картинок.",
+                                  "nullable": true,
+                                  "items": {"type": "string"}
+                                },
+                                "trackNumberText": {
+                                  "type": "string",
+                                  "description": "Текст трек номера",
+                                  "example": "234432"
+                                },
+                                "trackNumberFile": {
+                                  "type": "string",
+                                  "description": "Ссылка на фото трек номера",
+                                  "example": "https://picsum.photos/id/237/200/300"
+                                },
+                                "totalPrice": {
+                                  "type": "number",
+                                  "description": "Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком"
+                                },
+                                "totalPriceChanged": {
+                                  "type": "number",
+                                  "description": "Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. "
+                                },
+                                "paidAt": {"type": "string", "format": "data-time"},
+                                "yuanToDollarRate": {"type": "number", "description": "Курс юань доллар."},
+                                "deliveryCostToTheWarehouse": {
+                                  "type": "number",
+                                  "example": 10,
+                                  "description": "Стоимость доставки до склада."
+                                },
+                                "productId": {"type": "string", "description": "GUID продукта"},
+                                "logicsTariffId": {
+                                  "type": "string",
+                                  "format": "uuid",
+                                  "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
+                                  "description": "GUID тарифа доставки"
+                                },
+                                "buyerId": {"type": "string", "description": "GUID пользователя(байера)"},
+                                "amount": {"type": "number", "description": "кол-во"},
+                                "createdById": {"type": "string"},
+                                "createdAt": {"type": "string", "format": "data-time"},
+                                "updatedAt": {"type": "string", "format": "data-time"},
+                                "destination": {
+                                  "nullable": true,
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "_id": {"type": "string", "description": "GUID пользователя в БД."},
+                                    "name": {"type": "string", "description": "Название склада."},
+                                    "country": {"type": "string", "description": "Страна."},
+                                    "zipCode": {"type": "string", "description": "Индекс."},
+                                    "state": {"type": "string", "description": "Штат."},
+                                    "city": {"type": "string", "description": "Город."},
+                                    "address": {"type": "string", "description": "Адрес склада."},
+                                    "storekeeper": {
+                                      "type": "object",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                                          "description": "Гуид сторкипера."
+                                        },
+                                        "name": {"type": "string", "example": "Vasya"},
+                                        "email": {"type": "string", "example": "adssadas@sdfsd.sdf"}
+                                      }
+                                    },
+                                    "isActive": {"type": "boolean", "description": "Флаг активности склада."},
+                                    "createdById": {"type": "string", "description": "GUID создателя склада."},
+                                    "lastModifiedById": {
+                                      "type": "string",
+                                      "description": "GUID последнего изменившего склада."
+                                    },
+                                    "createdAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата создания склада."
+                                    },
+                                    "updatedAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата обновления склада."
+                                    }
+                                  }
+                                },
+                                "logicsTariff": {
+                                  "nullable": true,
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": ["name", "conditionsByRegion"],
+                                  "properties": {
+                                    "name": {
+                                      "type": "string",
+                                      "example": "Fast sea QP9",
+                                      "description": "Название тарифа"
+                                    },
+                                    "description": {"type": "string", "description": "Описание тарифа"},
+                                    "deliveryTimeInDay": {
+                                      "type": "string",
+                                      "example": "30-40",
+                                      "description": "Время доставки, днях"
+                                    },
+                                    "cls": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата закрытия приема новых грузов.",
+                                      "example": "2022-10-24T15:10:46.882Z"
+                                    },
+                                    "etd": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Ожидаема дата отбытия.",
+                                      "example": "2022-10-24T15:10:46.882Z"
+                                    },
+                                    "eta": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Ожидаема дата прибытия.",
+                                      "example": "2022-10-24T15:10:46.882Z"
+                                    },
+                                    "minWeightInKg": {
+                                      "type": "number",
+                                      "exclusiveMinimum": 0,
+                                      "exclusiveMaximum": 1000000,
+                                      "example": 0.5,
+                                      "description": "Минимальный вес, в кг"
+                                    },
+                                    "conditionsByRegion": {
+                                      "type": "object",
+                                      "additionalProperties": false,
+                                      "required": ["west", "central", "east"],
+                                      "properties": {
+                                        "west": {
+                                          "type": "object",
+                                          "additionalProperties": false,
+                                          "required": ["rate"],
+                                          "properties": {
+                                            "rate": {
+                                              "type": "number",
+                                              "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                              "example": 5.5
+                                            }
+                                          }
+                                        },
+                                        "central": {
+                                          "type": "object",
+                                          "additionalProperties": false,
+                                          "required": ["rate"],
+                                          "properties": {
+                                            "rate": {
+                                              "type": "number",
+                                              "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                              "example": 5.5
+                                            }
+                                          }
+                                        },
+                                        "east": {
+                                          "type": "object",
+                                          "additionalProperties": false,
+                                          "required": ["rate"],
+                                          "properties": {
+                                            "rate": {
+                                              "type": "number",
+                                              "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                              "example": 5.5
+                                            }
+                                          }
+                                        },
+                                        "yuanToDollarRate": {
+                                          "type": "number",
+                                          "description": "Курс юань/доллар.",
+                                          "example": 6.73
+                                        }
+                                      }
+                                    },
+                                    "_id": {"type": "string", "format": "uuid"},
+                                    "storekeeperId": {"type": "string", "format": "uuid"},
+                                    "updatedAt": {"type": "string", "format": "data-time"}
+                                  }
+                                },
+                                "product": {
+                                  "type": "object",
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID продукта в базе данных",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                    "skusByClient": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "description": "SKU введенным клиентом.",
+                                        "example": "B015UKRNGS"
+                                      }
+                                    },
+                                    "suppliers": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "description": "Новый поставщик.",
+                                        "nullable": true,
+                                        "properties": {
+                                          "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                                          "name": {
+                                            "type": "string",
+                                            "description": "Название поставщика.",
+                                            "example": "Bond"
+                                          },
+                                          "link": {
+                                            "type": "string",
+                                            "description": "Ссылка на поставщика.",
+                                            "example": "www.bond.uk"
+                                          },
+                                          "price": {
+                                            "type": "number",
+                                            "description": "Цена за еденицу, dollar",
+                                            "example": 1000000
+                                          },
+                                          "amount": {"type": "number", "description": "кол-во", "example": 300},
+                                          "minlot": {
+                                            "type": "number",
+                                            "description": "Минимальный лот.",
+                                            "example": 30
+                                          },
+                                          "images": {
+                                            "type": "array",
+                                            "nullable": true,
+                                            "description": "Массив картинок.",
+                                            "items": {"type": "string"}
+                                          },
+                                          "comment": {
+                                            "type": "string",
+                                            "description": "Комментарий",
+                                            "example": "Крутой поставщик с правом на обстрел."
+                                          },
+                                          "yuanRate": {
+                                            "type": "number",
+                                            "description": "Курс доллара к юаню поставщика. ",
+                                            "example": 6.8
+                                          },
+                                          "priceInYuan": {
+                                            "type": "number",
+                                            "description": "Цена за еденицу, yuan",
+                                            "example": 1000000
+                                          },
+                                          "batchDeliveryCostInDollar": {
+                                            "type": "number",
+                                            "description": "Доставка партии, dollar",
+                                            "example": 100
+                                          },
+                                          "batchDeliveryCostInYuan": {
+                                            "type": "number",
+                                            "description": "Доставка партии, yuan",
+                                            "example": 600
+                                          },
+                                          "batchTotalCostInDollar": {
+                                            "type": "number",
+                                            "description": "Цена партии, dollar",
+                                            "example": 300
+                                          },
+                                          "batchTotalCostInYuan": {
+                                            "type": "number",
+                                            "description": "Цена партии, yuan",
+                                            "example": 1800
+                                          },
+                                          "boxProperties": {
+                                            "type": "object",
+                                            "nullable": true,
+                                            "description": "Параметры коробок.",
+                                            "properties": {
+                                              "amountInBox": {
+                                                "type": "integer",
+                                                "example": 45,
+                                                "description": "Количество единиц в коробке.",
+                                                "exclusiveMinimum": 0,
+                                                "exclusiveMaximum": 1000000
+                                              },
+                                              "boxLengthCm": {
+                                                "type": "number",
+                                                "example": 20,
+                                                "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                                "exclusiveMinimum": 0,
+                                                "exclusiveMaximum": 1000000
+                                              },
+                                              "boxWidthCm": {
+                                                "type": "number",
+                                                "example": 20,
+                                                "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                                "exclusiveMinimum": 0,
+                                                "exclusiveMaximum": 1000000
+                                              },
+                                              "boxHeightCm": {
+                                                "type": "number",
+                                                "example": 20,
+                                                "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                                "exclusiveMinimum": 0,
+                                                "exclusiveMaximum": 1000000
+                                              },
+                                              "boxWeighGrossKg": {
+                                                "type": "number",
+                                                "example": 20,
+                                                "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                                "exclusiveMinimum": 0,
+                                                "exclusiveMaximum": 1000000
+                                              }
+                                            }
+                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
+                                          "createdBy": {
+                                            "type": "object",
+                                            "description": "Общая информация о пользователи",
+                                            "nullable": true,
+                                            "properties": {
+                                              "_id": {
+                                                "type": "string",
+                                                "description": "GUID пользователя.",
+                                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "description": "Имя пользователя.",
+                                                "example": "Petia"
+                                              },
+                                              "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "currentSupplier": {
+                                      "type": "object",
+                                      "description": "Новый поставщик.",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Название поставщика.",
+                                          "example": "Bond"
+                                        },
+                                        "link": {
+                                          "type": "string",
+                                          "description": "Ссылка на поставщика.",
+                                          "example": "www.bond.uk"
+                                        },
+                                        "price": {
+                                          "type": "number",
+                                          "description": "Цена за еденицу, dollar",
+                                          "example": 1000000
+                                        },
+                                        "amount": {"type": "number", "description": "кол-во", "example": 300},
+                                        "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                                        "images": {
+                                          "type": "array",
+                                          "nullable": true,
+                                          "description": "Массив картинок.",
+                                          "items": {"type": "string"}
+                                        },
+                                        "comment": {
+                                          "type": "string",
+                                          "description": "Комментарий",
+                                          "example": "Крутой поставщик с правом на обстрел."
+                                        },
+                                        "yuanRate": {
+                                          "type": "number",
+                                          "description": "Курс доллара к юаню поставщика. ",
+                                          "example": 6.8
+                                        },
+                                        "priceInYuan": {
+                                          "type": "number",
+                                          "description": "Цена за еденицу, yuan",
+                                          "example": 1000000
+                                        },
+                                        "batchDeliveryCostInDollar": {
+                                          "type": "number",
+                                          "description": "Доставка партии, dollar",
+                                          "example": 100
+                                        },
+                                        "batchDeliveryCostInYuan": {
+                                          "type": "number",
+                                          "description": "Доставка партии, yuan",
+                                          "example": 600
+                                        },
+                                        "batchTotalCostInDollar": {
+                                          "type": "number",
+                                          "description": "Цена партии, dollar",
+                                          "example": 300
+                                        },
+                                        "batchTotalCostInYuan": {
+                                          "type": "number",
+                                          "description": "Цена партии, yuan",
+                                          "example": 1800
+                                        },
+                                        "boxProperties": {
+                                          "type": "object",
+                                          "nullable": true,
+                                          "description": "Параметры коробок.",
+                                          "properties": {
+                                            "amountInBox": {
+                                              "type": "integer",
+                                              "example": 45,
+                                              "description": "Количество единиц в коробке.",
+                                              "exclusiveMinimum": 0,
+                                              "exclusiveMaximum": 1000000
+                                            },
+                                            "boxLengthCm": {
+                                              "type": "number",
+                                              "example": 20,
+                                              "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                              "exclusiveMinimum": 0,
+                                              "exclusiveMaximum": 1000000
+                                            },
+                                            "boxWidthCm": {
+                                              "type": "number",
+                                              "example": 20,
+                                              "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                              "exclusiveMinimum": 0,
+                                              "exclusiveMaximum": 1000000
+                                            },
+                                            "boxHeightCm": {
+                                              "type": "number",
+                                              "example": 20,
+                                              "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                              "exclusiveMinimum": 0,
+                                              "exclusiveMaximum": 1000000
+                                            },
+                                            "boxWeighGrossKg": {
+                                              "type": "number",
+                                              "example": 20,
+                                              "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                              "exclusiveMinimum": 0,
+                                              "exclusiveMaximum": 1000000
+                                            }
+                                          }
+                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
+                                        "createdBy": {
+                                          "type": "object",
+                                          "description": "Общая информация о пользователи",
+                                          "nullable": true,
+                                          "properties": {
+                                            "_id": {
+                                              "type": "string",
+                                              "description": "GUID пользователя.",
+                                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                            },
+                                            "name": {
+                                              "type": "string",
+                                              "description": "Имя пользователя.",
+                                              "example": "Petia"
+                                            },
+                                            "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "currentSupplierId": {
+                                      "type": "string",
+                                      "nullable": true,
+                                      "description": "GUID поставщика в базе данных",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "category": {"type": "string", "description": "Категория"},
+                                    "lamazon": {
+                                      "type": "string",
+                                      "description": "Ссылка на этот продукт на амазоне.",
+                                      "example": "www.rbc.ru"
+                                    },
+                                    "bsr": {"type": "number", "description": "", "example": 2},
+                                    "fba": {"type": "boolean", "description": "Признак fba", "example": false},
+                                    "amazon": {"type": "number", "description": "", "example": 2341234},
+                                    "height": {"type": "number", "description": "Высота", "example": 55},
+                                    "width": {"type": "number", "description": "Ширина", "example": 44},
+                                    "length": {"type": "number", "description": "Длинна", "example": 33},
+                                    "weight": {"type": "number", "description": "Вес", "example": 22},
+                                    "reffee": {
+                                      "type": "number",
+                                      "description": "комиссия которую берет амазон за любой заказ - 15%",
+                                      "example": 0.15
+                                    },
+                                    "fbafee": {"type": "number", "description": "ФБА комиссия", "example": 0.23},
+                                    "fbaamount": {
+                                      "type": "number",
+                                      "description": " Общая сумма с фба.",
+                                      "example": 23
+                                    },
+                                    "status": {"type": "number", "description": "Код текущего статуса", "example": 0},
+                                    "icomment": {
+                                      "type": "string",
+                                      "description": "Комментарии к товару.",
+                                      "example": "Просто коммент."
+                                    },
+                                    "clientComment": {
+                                      "type": "string",
+                                      "description": "Комментарии к товару, от клиента.",
+                                      "example": "Просто коммент."
+                                    },
+                                    "images": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "Массив картинок.",
+                                      "items": {"type": "string"}
+                                    },
+                                    "priceForClient": {
+                                      "type": "number",
+                                      "description": "Цена для клиента",
+                                      "example": 120
+                                    },
+                                    "checkednotes": {
+                                      "type": "string",
+                                      "description": "",
+                                      "example": "коммент к проверке"
+                                    },
+                                    "isCreatedByClient": {
+                                      "type": "boolean",
+                                      "description": "Признак isCreatedByClient",
+                                      "example": false
+                                    },
+                                    "client": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    },
+                                    "amazonDescription": {
+                                      "type": "string",
+                                      "description": "Описание с сайта амазон.",
+                                      "example": "описание"
+                                    },
+                                    "amazonDetail": {
+                                      "type": "string",
+                                      "description": "Данные из поля детали с сайта амазон.",
+                                      "example": "Данные из поля детали с сайта амазон."
+                                    },
+                                    "amazonTitle": {
+                                      "type": "string",
+                                      "description": "Заголовок на товар с сайта амазон.",
+                                      "example": "Титул"
+                                    },
+                                    "barCode": {"type": "string", "description": "Баркод"},
+                                    "minpurchase": {
+                                      "type": "number",
+                                      "description": "Минимальный заказ",
+                                      "example": 23
+                                    },
+                                    "profit": {"type": "number", "description": "Прибыль"},
+                                    "margin": {"type": "number", "description": "Маржа"},
+                                    "inTransfer": {
+                                      "type": "number",
+                                      "example": 234,
+                                      "description": "Кол-во товаров, которые находятся в пути"
+                                    },
+                                    "createdBy": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    },
+                                    "checkedBy": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    },
+                                    "createdAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата создания"
+                                    },
+                                    "updatedAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата изменения"
+                                    },
+                                    "checkedAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дата проверки"
+                                    },
+                                    "buyer": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    },
+                                    "buyerTimeoutAt": {
+                                      "type": "string",
+                                      "format": "date-time",
+                                      "description": "Дедлаин на на поиск поставщика байером."
+                                    },
+                                    "buyersComment": {
+                                      "type": "string",
+                                      "description": "Комментарии к товару от байера.",
+                                      "example": "Просто коммент от байера."
+                                    },
+                                    "shopIds": {
+                                      "type": "array",
+                                      "items": {"type": "string"},
+                                      "description": "ID магазинов для продукта"
+                                    },
+                                    "researcherRate": {"type": "number", "description": "Савка ресечера."},
+                                    "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
+                                    "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
+                                    "buyerRate": {"type": "number", "description": "Савка байера."},
+                                    "listingName": {"type": "string", "description": ""},
+                                    "listingBulletPoints": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "Массив ...",
+                                      "items": {"type": "string"}
+                                    },
+                                    "listingProductDetails": {"type": "string", "description": ""},
+                                    "listingSearchTerms": {"type": "string", "description": ""},
+                                    "listingSubjectMatters": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "Массив ...",
+                                      "items": {"type": "string"}
+                                    },
+                                    "listingImages": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "массив картинок(в виде прямых ссылок).",
+                                      "items": {"type": "string"}
+                                    },
+                                    "strategyStatus": {
+                                      "type": "number",
+                                      "description": "У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40"
+                                    },
+                                    "needCheckBySupervisor": {
+                                      "type": "boolean",
+                                      "description": "Признак needCheckBySupervisor",
+                                      "example": false
+                                    },
+                                    "amountInOrders": {
+                                      "type": "number",
+                                      "description": "Сколько такого продукта находится в заказах.",
+                                      "example": 1
+                                    },
+                                    "boxAmounts": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "_id": {
+                                            "type": "string",
+                                            "description": "GUID в базе данных",
+                                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                          },
+                                          "storekeeper": {
+                                            "type": "object",
+                                            "description": "Общая информация о пользователи",
+                                            "nullable": true,
+                                            "properties": {
+                                              "_id": {
+                                                "type": "string",
+                                                "description": "GUID пользователя.",
+                                                "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "description": "Имя пользователя.",
+                                                "example": "Petia"
+                                              },
+                                              "rating": {"type": "number", "description": "Рейтинг пользователя."},
+                                              "email": {"type": "string", "example": "asdasd@gmail.com"}
+                                            }
+                                          },
+                                          "amountInBoxes": {"type": "number", "example": 23}
+                                        }
+                                      }
+                                    },
+                                    "archive": {
+                                      "type": "boolean",
+                                      "description": "Флаг указывает что продукт в архиве."
+                                    },
+                                    "hsCode": {"type": "string", "description": "hsCode продукта."},
+                                    "niche": {
+                                      "type": "string",
+                                      "description": "Ниша",
+                                      "maxLength": 255,
+                                      "example": "Компьютеры"
+                                    },
+                                    "asins": {
+                                      "type": "string",
+                                      "description": "Асины",
+                                      "maxLength": 255,
+                                      "example": "JUSTASIN, JUSTASIN"
+                                    },
+                                    "totalRevenue": {
+                                      "type": "string",
+                                      "description": "Общий доход",
+                                      "maxLength": 255,
+                                      "example": "54.2"
+                                    },
+                                    "coefficient": {
+                                      "type": "string",
+                                      "description": "Коэффициент прибыли",
+                                      "maxLength": 255,
+                                      "example": "0.5"
+                                    },
+                                    "avgRevenue": {
+                                      "type": "string",
+                                      "description": "Средний доход",
+                                      "maxLength": 255,
+                                      "example": "54.2"
+                                    },
+                                    "avgBSR": {
+                                      "type": "string",
+                                      "description": "Средний BSR",
+                                      "maxLength": 255,
+                                      "example": "0.5"
+                                    },
+                                    "avgPrice": {
+                                      "type": "string",
+                                      "description": "Средняя цена",
+                                      "maxLength": 255,
+                                      "example": "54.2"
+                                    },
+                                    "avgReviews": {
+                                      "type": "string",
+                                      "description": "Средний отзывы",
+                                      "maxLength": 255,
+                                      "example": "54.2"
+                                    },
+                                    "fourMonthesStock": {
+                                      "type": "number",
+                                      "description": "Каков должен быть сток за 4 месяца",
+                                      "example": 32
+                                    },
+                                    "stockUSA": {"type": "number", "example": 213}
+                                  }
+                                },
+                                "storekeeper": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "buyer": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                },
+                                "orderSupplier": {
+                                  "type": "object",
+                                  "description": "Новый поставщик.",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                                    "name": {
+                                      "type": "string",
+                                      "description": "Название поставщика.",
+                                      "example": "Bond"
+                                    },
+                                    "link": {
+                                      "type": "string",
+                                      "description": "Ссылка на поставщика.",
+                                      "example": "www.bond.uk"
+                                    },
+                                    "price": {
+                                      "type": "number",
+                                      "description": "Цена за еденицу, dollar",
+                                      "example": 1000000
+                                    },
+                                    "amount": {"type": "number", "description": "кол-во", "example": 300},
+                                    "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                                    "images": {
+                                      "type": "array",
+                                      "nullable": true,
+                                      "description": "Массив картинок.",
+                                      "items": {"type": "string"}
+                                    },
+                                    "comment": {
+                                      "type": "string",
+                                      "description": "Комментарий",
+                                      "example": "Крутой поставщик с правом на обстрел."
+                                    },
+                                    "yuanRate": {
+                                      "type": "number",
+                                      "description": "Курс доллара к юаню поставщика. ",
+                                      "example": 6.8
+                                    },
+                                    "priceInYuan": {
+                                      "type": "number",
+                                      "description": "Цена за еденицу, yuan",
+                                      "example": 1000000
+                                    },
+                                    "batchDeliveryCostInDollar": {
+                                      "type": "number",
+                                      "description": "Доставка партии, dollar",
+                                      "example": 100
+                                    },
+                                    "batchDeliveryCostInYuan": {
+                                      "type": "number",
+                                      "description": "Доставка партии, yuan",
+                                      "example": 600
+                                    },
+                                    "batchTotalCostInDollar": {
+                                      "type": "number",
+                                      "description": "Цена партии, dollar",
+                                      "example": 300
+                                    },
+                                    "batchTotalCostInYuan": {
+                                      "type": "number",
+                                      "description": "Цена партии, yuan",
+                                      "example": 1800
+                                    },
+                                    "boxProperties": {
+                                      "type": "object",
+                                      "nullable": true,
+                                      "description": "Параметры коробок.",
+                                      "properties": {
+                                        "amountInBox": {
+                                          "type": "integer",
+                                          "example": 45,
+                                          "description": "Количество единиц в коробке.",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxLengthCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxWidthCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxHeightCm": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        },
+                                        "boxWeighGrossKg": {
+                                          "type": "number",
+                                          "example": 20,
+                                          "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                                          "exclusiveMinimum": 0,
+                                          "exclusiveMaximum": 1000000
+                                        }
+                                      }
+                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
+                                    "createdBy": {
+                                      "type": "object",
+                                      "description": "Общая информация о пользователи",
+                                      "nullable": true,
+                                      "properties": {
+                                        "_id": {
+                                          "type": "string",
+                                          "description": "GUID пользователя.",
+                                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "description": "Имя пользователя.",
+                                          "example": "Petia"
+                                        },
+                                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                      }
+                                    }
+                                  }
+                                },
+                                "createdBy": {
+                                  "type": "object",
+                                  "description": "Общая информация о пользователи",
+                                  "nullable": true,
+                                  "properties": {
+                                    "_id": {
+                                      "type": "string",
+                                      "description": "GUID пользователя.",
+                                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                                    },
+                                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                                  }
+                                }
+                              }
+                            },
+                            "barCode": {
+                              "type": "string",
+                              "example": "1234567890123",
+                              "description": "Штрихкод продукта"
+                            },
+                            "isBarCodeAttachedByTheStorekeeper": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Прикреплен ли баркод к коробке сотрудником склада."
+                            },
+                            "isBarCodeAlreadyAttachedByTheSupplier": {
+                              "type": "boolean",
+                              "example": false,
+                              "description": "Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика."
+                            }
+                          }
+                        }
+                      },
+                      "storekeeper": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      },
+                      "client": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      },
+                      "createdBy": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      },
+                      "lastModifiedBy": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      },
+                      "destination": {
+                        "nullable": true,
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "_id": {"type": "string", "description": "GUID пользователя в БД."},
+                          "name": {"type": "string", "description": "Название склада."},
+                          "country": {"type": "string", "description": "Страна."},
+                          "zipCode": {"type": "string", "description": "Индекс."},
+                          "state": {"type": "string", "description": "Штат."},
+                          "city": {"type": "string", "description": "Город."},
+                          "address": {"type": "string", "description": "Адрес склада."},
+                          "storekeeper": {
+                            "type": "object",
+                            "nullable": true,
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                                "description": "Гуид сторкипера."
+                              },
+                              "name": {"type": "string", "example": "Vasya"},
+                              "email": {"type": "string", "example": "adssadas@sdfsd.sdf"}
+                            }
+                          },
+                          "isActive": {"type": "boolean", "description": "Флаг активности склада."},
+                          "createdById": {"type": "string", "description": "GUID создателя склада."},
+                          "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Дата создания склада."
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Дата обновления склада."
+                          }
+                        }
+                      },
+                      "logicsTariff": {
+                        "nullable": true,
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["name", "conditionsByRegion"],
+                        "properties": {
+                          "name": {"type": "string", "example": "Fast sea QP9", "description": "Название тарифа"},
+                          "description": {"type": "string", "description": "Описание тарифа"},
+                          "deliveryTimeInDay": {
+                            "type": "string",
+                            "example": "30-40",
+                            "description": "Время доставки, днях"
+                          },
+                          "cls": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Дата закрытия приема новых грузов.",
+                            "example": "2022-10-24T15:10:46.882Z"
+                          },
+                          "etd": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Ожидаема дата отбытия.",
+                            "example": "2022-10-24T15:10:46.882Z"
+                          },
+                          "eta": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Ожидаема дата прибытия.",
+                            "example": "2022-10-24T15:10:46.882Z"
+                          },
+                          "minWeightInKg": {
+                            "type": "number",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000,
+                            "example": 0.5,
+                            "description": "Минимальный вес, в кг"
+                          },
+                          "conditionsByRegion": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["west", "central", "east"],
+                            "properties": {
+                              "west": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["rate"],
+                                "properties": {
+                                  "rate": {
+                                    "type": "number",
+                                    "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                    "example": 5.5
+                                  }
+                                }
+                              },
+                              "central": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["rate"],
+                                "properties": {
+                                  "rate": {
+                                    "type": "number",
+                                    "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                    "example": 5.5
+                                  }
+                                }
+                              },
+                              "east": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["rate"],
+                                "properties": {
+                                  "rate": {
+                                    "type": "number",
+                                    "description": "Стоимость доставки в местную региональную зону, кг/$",
+                                    "example": 5.5
+                                  }
+                                }
+                              },
+                              "yuanToDollarRate": {
+                                "type": "number",
+                                "description": "Курс юань/доллар.",
+                                "example": 6.73
+                              }
+                            }
+                          },
+                          "_id": {"type": "string", "format": "uuid"},
+                          "storekeeperId": {"type": "string", "format": "uuid"},
+                          "updatedAt": {"type": "string", "format": "data-time"}
+                        }
+                      },
+                      "batch": {
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {"type": "string", "description": "GUID партии."},
+                          "humanFriendlyId": {"type": "number", "description": "Человекочитаемый id партии."},
+                          "status": {"type": "string", "description": "Статус партии."},
+                          "shipId": {"type": "string", "description": "id корабля."},
+                          "attachedDocuments": {
+                            "nullable": true,
+                            "type": "array",
+                            "description": "Массив ссылок на файлов документации к партии.",
+                            "items": {"type": "string"}
+                          },
+                          "finalWeightAsOneBox": {
+                            "type": "number",
+                            "description": "Финальный вес партии, если считать все коробки как одну большую коробу."
+                          },
+                          "finalWeightSumEachBoxAmount": {
+                            "type": "number",
+                            "description": "Финальный вес партии, если сложить все веса коробок по отдельности."
+                          },
+                          "storekeeperId": {
+                            "type": "string",
+                            "example": "09941859-238c-4fde-8eef-843f9c997d2d",
+                            "description": "Сторкипер взявший коробку в работу."
+                          },
+                          "createdById": {
+                            "type": "string",
+                            "example": 25,
+                            "description": "Клиент создавший заказ и коробку."
+                          },
+                          "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания."},
+                          "updatedAt": {"type": "string", "format": "date-time", "description": "Дата создания."}
+                        }
+                      }
+                    }
+                  }
+                },
+                "storekeeper": {
+                  "type": "object",
+                  "nullable": true,
+                  "required": ["name", "email"],
+                  "properties": {
+                    "_id": {"type": "string", "description": "GUID пользователя."},
+                    "name": {"type": "string", "description": "Имя пользователя."},
+                    "email": {"type": "string", "format": "email", "description": "email"}
+                  }
+                },
+                "createdBy": {
+                  "type": "object",
+                  "nullable": true,
+                  "required": ["name", "email"],
+                  "properties": {
+                    "_id": {"type": "string", "description": "GUID пользователя."},
+                    "name": {"type": "string", "description": "Имя пользователя."},
+                    "email": {"type": "string", "format": "email", "description": "email"}
+                  }
+                },
+                "lastModifiedBy": {
+                  "type": "object",
+                  "nullable": true,
+                  "required": ["name", "email"],
+                  "properties": {
+                    "_id": {"type": "string", "description": "GUID пользователя."},
+                    "name": {"type": "string", "description": "Имя пользователя."},
+                    "email": {"type": "string", "format": "email", "description": "email"}
+                  }
+                },
+                "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания."},
+                "updatedAt": {"type": "string", "format": "date-time", "description": "Дата создания."}
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/batches/calculate_box_delivery_costs_in_batch": {
       "post": {
         "summary": "# Рассчитать стоимость доставки коробов.",
@@ -22924,6 +24942,7 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "required": ["boxIds", "newAmounts"],
               "properties": {
                 "boxIds": {
                   "type": "array",
@@ -57209,6 +59228,12 @@
                   "description": "Это номер конкретной коробки при отправке в амазон.",
                   "example": "FBA16N2Y2L76U000003"
                 },
+                "logicsTariffId": {
+                  "type": "string",
+                  "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
+                  "description": " logicsTariff GUID",
+                  "nullable": true
+                },
                 "images": {"type": "array", "description": "Массив ссылок на фотографии.", "items": {"type": "string"}},
                 "destinationId": {
                   "type": "string",
@@ -57318,6 +59343,7 @@
             "in": "query",
             "name": "filtersBox"
           },
+          {"type": "string", "required": false, "in": "query", "name": "filtersOrders"},
           {
             "type": "number",
             "description": "Лимит записей для пагинации",

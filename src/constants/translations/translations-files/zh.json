@@ -589,6 +589,7 @@
   "The buyer took the order": "买方下订单了",
   "The buyer paid for the order": "买方支付该订单的款项",
   "Track number issued": "追踪编码提供了",
+  "Track number issued (In transit in stock)": "发出的跟踪号（库存中途）",
   "Came to the warehouse": "来到仓库",
   "Return Order": "退货订单",
   "Additional payment required": "需要支付额外",
@@ -1615,5 +1616,10 @@
   "Basic box": "Basic box",
   "Select the basic box": "Select the basic box",
   "Add comment": "Add comment",
-  "Storekeeper edit": "Storekeeper edit"
+  "Storekeeper edit": "Storekeeper edit",
+  "Product lot data": "产品批次数据",
+  "Quantity selected goods in a batch": "批次中所选项目的数量",
+  "Boxes and the quantity of the selected product in them": "盒子和其中所选产品的数量",
+  "Watch the batch": "看批次",
+  "Lot number search": "批号搜索"
 }

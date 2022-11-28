@@ -9,6 +9,7 @@ import {
   TaskTypeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
+  AsinCopyCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -57,7 +58,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <AsinCopyCell asinData={params.value} />,
     width: 160,
   },
 

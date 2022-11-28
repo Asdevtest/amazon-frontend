@@ -962,6 +962,13 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
+  flexDirectionColumn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+
   changeChipCellLabel: {
     fontSize: '12px',
   },

@@ -31,6 +31,7 @@ export const OrderContent = ({
   volumeWeightCoefficient,
   userInfo,
   onSubmitChangeBoxFields,
+  isClient,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -67,7 +68,11 @@ export const OrderContent = ({
         <div>
           <div className={classNames.orderContainer}>
             <div>
-              <OrderStatusText status={OrderStatusByCode[updatedOrder.status]} className={classNames.containerTitle} />
+              <OrderStatusText
+                isClient={isClient}
+                status={OrderStatusByCode[updatedOrder.status]}
+                className={classNames.containerTitle}
+              />
             </div>
 
             <div className={classNames.orderNumWrapper}>

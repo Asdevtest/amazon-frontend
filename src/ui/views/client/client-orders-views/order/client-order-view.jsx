@@ -71,6 +71,7 @@ class ClientOrderViewRaw extends Component {
               </div>
               {order ? (
                 <OrderContent
+                  isClient
                   userInfo={userInfo}
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   order={order}

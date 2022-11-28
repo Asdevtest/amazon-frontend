@@ -83,6 +83,8 @@ export class ClientReadyBoxesViewRaw extends Component {
 
     const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
 
+    console.log('storekeepersData', storekeepersData.slice())
+
     return (
       <React.Fragment>
         <Navbar
@@ -95,7 +97,7 @@ export class ClientReadyBoxesViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes ready to send'])}>
             <MainContent>
               <div className={classNames.boxesFiltersWrapper}>
-                <Button
+                {/* <Button
                   disabled={!currentStorekeeper?._id}
                   className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
                   variant="text"
@@ -103,27 +105,22 @@ export class ClientReadyBoxesViewRaw extends Component {
                   onClick={onClickStorekeeperBtn}
                 >
                   {t(TranslationKey['All warehouses'])}
-                </Button>
+                </Button> */}
 
-                {storekeepersData
-                  .slice()
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map(storekeeper =>
-                    storekeeper.boxesCount !== 0 ? (
-                      <Button
-                        key={storekeeper._id}
-                        disabled={currentStorekeeper?._id === storekeeper._id}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                        })}
-                        variant="text"
-                        color="primary"
-                        onClick={() => onClickStorekeeperBtn(storekeeper)}
-                      >
-                        {storekeeper.name}
-                      </Button>
-                    ) : null,
-                  )}
+                {storekeepersData.slice().map(storekeeper => (
+                  <Button
+                    key={storekeeper._id}
+                    disabled={currentStorekeeper?._id === storekeeper._id}
+                    className={cx(classNames.button, {
+                      [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                    })}
+                    variant="text"
+                    color="primary"
+                    onClick={() => onClickStorekeeperBtn(storekeeper)}
+                  >
+                    {storekeeper.name}
+                  </Button>
+                ))}
               </div>
 
               <div className={classNames.btnsWrapper}>

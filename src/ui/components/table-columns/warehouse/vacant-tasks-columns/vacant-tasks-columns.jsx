@@ -57,7 +57,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinCopyCell product={params.row.asin} />,
+    renderCell: params => <AsinCopyCell asinData={params.row.asin} />,
     width: 160,
   },
 

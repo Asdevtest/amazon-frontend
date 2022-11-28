@@ -128,10 +128,20 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  proposalTitle: {
+    width: '100%',
+    marginTop: '10px',
+    overflow: 'auto',
+    color: theme.palette.text.general,
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '140%',
+  },
+
   proposalDescription: {
     width: '100%',
     marginTop: '10px',
-    height: '110px',
+    height: '60px',
     overflow: 'auto',
     fontWeight: '400',
     fontSize: '16px',

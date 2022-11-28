@@ -65,7 +65,7 @@ export const OrderStatusByCode = {
 //   }
 // }
 
-export const OrderStatusTranslate = status => {
+export const OrderStatusTranslate = (status, isClient) => {
   switch (status) {
     case OrderStatus.FORMED:
       return t(TranslationKey.Formed)
@@ -80,7 +80,7 @@ export const OrderStatusTranslate = status => {
     case OrderStatus.PAID_TO_SUPPLIER:
       return t(TranslationKey['Paid to supplier'])
     case OrderStatus.TRACK_NUMBER_ISSUED:
-      return t(TranslationKey['Track number issued'])
+      return t(TranslationKey['Track number issued' + `${isClient ? ' (In transit in stock)' : ''}`])
     case OrderStatus.IN_STOCK:
       return t(TranslationKey['In stock'])
     case OrderStatus.CANCELED_BY_BUYER:
@@ -169,7 +169,7 @@ export const orderColorByStatus = status => {
   }
 }
 
-export const OrderStatusText = ({className, status}) => {
+export const OrderStatusText = ({className, status, isClient}) => {
   const colorByStatus = () => {
     if (
       [
@@ -197,7 +197,7 @@ export const OrderStatusText = ({className, status}) => {
       className={className}
       style={{color: colorStatus}}
     >
-      {OrderStatusTranslate(status)}
+      {OrderStatusTranslate(status, isClient)}
     </Text>
   )
 }
