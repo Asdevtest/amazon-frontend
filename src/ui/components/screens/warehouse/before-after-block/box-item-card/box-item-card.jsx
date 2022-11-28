@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Checkbox, Link, Typography} from '@mui/material'
+import {Checkbox, Link, Tooltip, Typography} from '@mui/material'
 
 import React from 'react'
 
@@ -48,13 +48,13 @@ export const BoxItemCard = ({
                 >
                   {t(TranslationKey.Quantity) + ':'}
                 </Text>
-                <Typography className={classNames.count}>{item.amount}</Typography>
+                <Typography className={classNames.subValue}>{item.amount}</Typography>
               </div>
 
               {superCount > 1 && (
                 <div className={classNames.countSuperBoxWrapper}>
                   <Typography className={classNames.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
-                  <Typography className={classNames.count}>{`x${superCount}`}</Typography>
+                  <Typography className={classNames.subValue}>{`x${superCount}`}</Typography>
                 </div>
               )}
             </div>
@@ -62,7 +62,7 @@ export const BoxItemCard = ({
               (!isNewBox && taskType === TaskOperationType.RECEIVE)) && (
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
-                <Typography className={classNames.count}>{boxId}</Typography>
+                <Typography className={classNames.subValue}>{boxId}</Typography>
               </div>
             )}
           </div>
@@ -93,12 +93,21 @@ export const BoxItemCard = ({
 
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Order number'])}</Typography>
-                <Typography className={classNames.count}>{item.order.id}</Typography>
+                <Typography className={classNames.subValue}>{item.order.id}</Typography>
               </div>
 
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{'item'}</Typography>
-                <Typography className={classNames.count}>{item.order.item}</Typography>
+                <Typography className={classNames.subValue}>{item.order.item}</Typography>
+              </div>
+
+              <div className={classNames.countSubWrapper}>
+                <Typography className={classNames.subTitle}>{t(TranslationKey['Track number'])}</Typography>
+                <Tooltip title={item.order.trackingNumberChina}>
+                  <Typography className={classNames.subValue}>
+                    {item.order.trackingNumberChina || t(TranslationKey['Not available'])}
+                  </Typography>
+                </Tooltip>
               </div>
             </div>
 

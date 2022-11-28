@@ -97,7 +97,9 @@ export const MergeBoxesModal = ({
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
     isDifferentStorekeepers ||
-    ((boxBody.shippingLabel || boxBody.tmpShippingLabel.length) && !boxBody.fbaShipment)
+    ((boxBody.shippingLabel || boxBody.tmpShippingLabel.length) &&
+      !boxBody.fbaShipment &&
+      !boxBody.destination?.storekeeperId)
 
   const curDestination = destinations.find(el => el._id === boxBody.destinationId)
 
@@ -228,7 +230,9 @@ export const MergeBoxesModal = ({
                 containerClasses={classNames.field}
                 inputClasses={cx(classNames.fieldInput, {
                   [classNames.inputAccent]:
-                    (boxBody.shippingLabel || boxBody.tmpShippingLabel.length) && !boxBody.fbaShipment,
+                    (boxBody.shippingLabel || boxBody.tmpShippingLabel.length) &&
+                    !boxBody.fbaShipment &&
+                    !boxBody.destination?.storekeeperId,
                 })}
                 labelClasses={classNames.label}
                 inputProps={{maxLength: 255}}

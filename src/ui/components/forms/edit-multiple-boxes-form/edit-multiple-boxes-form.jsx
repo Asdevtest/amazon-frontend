@@ -241,7 +241,10 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
                 inputClasses={cx(classNames.fieldInput, {
-                  [classNames.inputAccent]: (box.shippingLabel || box.tmpShippingLabel?.length) && !box.fbaShipment,
+                  [classNames.inputAccent]:
+                    (box.shippingLabel || box.tmpShippingLabel?.length) &&
+                    !box.fbaShipment &&
+                    !box.destination?.storekeeperId,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
@@ -592,7 +595,10 @@ export const EditMultipleBoxesForm = observer(
     ]?.rate
 
     const disabledSubmitBtn = newBoxes.some(
-      el => /* !el.logicsTariffId ||*/ (el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment,
+      el =>
+        /* !el.logicsTariffId ||*/ (el.shippingLabel || el.tmpShippingLabel?.length) &&
+        !el.fbaShipment &&
+        !el.destination?.storekeeperId,
     )
 
     const disabledApplyBtn = !visibleBoxes.length

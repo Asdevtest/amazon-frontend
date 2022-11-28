@@ -581,10 +581,14 @@ export class WarehouseMyWarehouseViewModel {
 
       // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
+      // const orderFilter = `or[0][humanFriendlyId][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};`
+
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filtersProduct: this.nameSearchValue ? productFilter : null,
 
         filtersBox: /* this.nameSearchValue ? boxFilter : */ null,
+
+        // filtersOrders: this.nameSearchValue ? orderFilter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

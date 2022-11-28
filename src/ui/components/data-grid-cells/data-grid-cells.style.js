@@ -329,7 +329,7 @@ export const styles = theme => ({
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
   },
 
   standartBoxWrapper: {

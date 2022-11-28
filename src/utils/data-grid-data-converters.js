@@ -486,6 +486,18 @@ export const warehouseTasksDataConverter = data =>
       .join(', ')
       .slice(0, -2)
       .replace('0', '-'),
+
+    trackNumber: Array.from(
+      new Set(
+        `${item.boxesBefore.reduce(
+          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.trackingNumberChina + ', '), '')),
+          '',
+        )}`.split(', '),
+      ),
+    )
+      .join(', ')
+      .slice(0, -2)
+      .replace('0', '-'),
   }))
 
 export const adminProductsDataConverter = data =>

@@ -8,7 +8,6 @@ import {
   OrderManyItemsCell,
   MultilineTextCell,
   ShortBoxDimensions,
-  SuperboxQtyCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
   OrdersIdsItemsCell,
@@ -61,12 +60,13 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params =>
-      params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
-      ) : (
-        <MultilineTextCell text={params.value} />
-      ),
+    renderCell: params => (
+      // params.row.originalData.amount > 1 ? (
+      //   <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
+      // ) : (
+      <MultilineTextCell text={params.value * params.row.originalData.amount} />
+    ),
+    // )
     width: 110,
     type: 'number',
     sortable: false,

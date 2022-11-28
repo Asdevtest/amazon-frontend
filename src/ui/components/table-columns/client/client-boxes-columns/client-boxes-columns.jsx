@@ -11,7 +11,6 @@ import {
   OrderManyItemsCell,
   MultilineTextCell,
   ShortBoxDimensions,
-  SuperboxQtyCell,
   OrdersIdsItemsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -103,12 +102,12 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params =>
       params.row.originalData ? (
-        params.row.originalData?.amount > 1 ? (
-          <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData?.amount} />
-        ) : (
-          <MultilineTextCell text={params.value} />
-        )
+        // params.row.originalData?.amount > 1 ? (
+        //   <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData?.amount} />
+        // ) : (
+        <MultilineTextCell text={params.value * params.row.originalData?.amount} />
       ) : (
+        // )
         ''
       ),
     width: 90,

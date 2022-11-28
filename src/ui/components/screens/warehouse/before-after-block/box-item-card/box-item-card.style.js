@@ -74,11 +74,17 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  count: {
+  subValue: {
     fontSize: '14px',
+
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
+
+    maxWidth: 150,
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
   },
   asinTitle: {
     fontSize: '14px',
@@ -108,7 +114,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSubWrapper: {
-    width: 130,
+    width: 160,
 
     display: 'flex',
     alignItems: 'center',
