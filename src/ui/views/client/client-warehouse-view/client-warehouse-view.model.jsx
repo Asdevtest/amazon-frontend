@@ -1060,7 +1060,7 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$contains]=${this.nameSearchValue};or[4][humanFriendlyId][$contains]=${this.nameSearchValue};`
+      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
       // const boxFilter = `or[0][humanFriendlyId][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};`
 

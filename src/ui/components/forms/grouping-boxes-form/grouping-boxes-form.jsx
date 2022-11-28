@@ -117,6 +117,13 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
               <div>
                 <div className={classNames.asinWrapper}>
+                  <Typography className={classNames.asinTitle}>{`${t(TranslationKey.Order)} / item`}</Typography>
+                  <Typography className={classNames.asinValue}>{`${order.order.id} / ${
+                    Number(order.order.item) ? order.order.item : '-'
+                  }`}</Typography>
+                </div>
+
+                <div className={classNames.asinWrapper}>
                   <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
                   <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
 
@@ -305,41 +312,50 @@ export const GroupingBoxesForm = observer(
       if (basicBox?._id !== box._id) {
         setBasicBox(box)
 
-        setNewBoxes([box])
-
-        setOldBoxes(
-          sourceOldBoxes.filter(
-            el =>
-              el.destinationId === box.destinationId &&
-              el.storekeeperId === box.storekeeperId &&
-              el.logicsTariffId === box.logicsTariffId &&
-              el.fbaShipment === box.fbaShipment &&
-              (el.shippingLabel === box.shippingLabel ||
-                (!box.shippingLabel && !!el.shippingLabel === !!box.shippingLabel)) &&
-              el.heightCmWarehouse === box.heightCmWarehouse &&
-              el.lengthCmWarehouse === box.lengthCmWarehouse &&
-              el.weighGrossKgWarehouse === box.weighGrossKgWarehouse &&
-              el.widthCmWarehouse === box.widthCmWarehouse &&
+        const newOldBoxes = sourceOldBoxes.filter(
+          el =>
+            el.destinationId === box.destinationId &&
+            el.storekeeperId === box.storekeeperId &&
+            el.logicsTariffId === box.logicsTariffId &&
+            el.fbaShipment === box.fbaShipment &&
+            (el.shippingLabel === box.shippingLabel ||
+              (!box.shippingLabel && !!el.shippingLabel === !!box.shippingLabel)) &&
+            el.heightCmWarehouse === box.heightCmWarehouse &&
+            el.lengthCmWarehouse === box.lengthCmWarehouse &&
+            el.weighGrossKgWarehouse === box.weighGrossKgWarehouse &&
+            el.widthCmWarehouse === box.widthCmWarehouse &&
+            JSON.stringify(
+              el.items.map(el => ({
+                ...getObjectFilteredByKeyArrayBlackList(el, [
+                  'isBarCodeAlreadyAttachedByTheSupplier',
+                  'isBarCodeAttachedByTheStorekeeper',
+                  'order',
+                ]),
+              })),
+            ) ===
               JSON.stringify(
-                el.items.map(el => ({
+                box.items.map(el => ({
                   ...getObjectFilteredByKeyArrayBlackList(el, [
                     'isBarCodeAlreadyAttachedByTheSupplier',
                     'isBarCodeAttachedByTheStorekeeper',
                     'order',
                   ]),
                 })),
-              ) ===
-                JSON.stringify(
-                  box.items.map(el => ({
-                    ...getObjectFilteredByKeyArrayBlackList(el, [
-                      'isBarCodeAlreadyAttachedByTheSupplier',
-                      'isBarCodeAttachedByTheStorekeeper',
-                      'order',
-                    ]),
-                  })),
-                ),
-          ),
+              ),
         )
+
+        setNewBoxes([
+          newOldBoxes.length > 1
+            ? {
+                ...box,
+                amount:
+                  newOldBoxes.reduce((ac, cur) => (ac += cur.amount), 0) -
+                  newBoxes.reduce((ac, cur) => (ac += cur.amount), 0),
+              }
+            : box,
+        ])
+
+        setOldBoxes(newOldBoxes)
       } else {
         setBasicBox(null)
 
