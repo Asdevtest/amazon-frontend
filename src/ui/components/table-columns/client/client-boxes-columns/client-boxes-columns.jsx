@@ -77,6 +77,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
           />
         ) : (
           <OrderCell
+            box={params.row.originalData}
             product={params.row.originalData?.items[0].product}
             superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
             error={
