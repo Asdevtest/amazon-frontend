@@ -14,18 +14,18 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The InlineObject62 model module.
- * @module model/InlineObject62
+ * The InlineResponse20038Failed model module.
+ * @module model/InlineResponse20038Failed
  * @version 0.1.0
  */
-class InlineObject62 {
+class InlineResponse20038Failed {
     /**
-     * Constructs a new <code>InlineObject62</code>.
-     * @alias module:model/InlineObject62
+     * Constructs a new <code>InlineResponse20038Failed</code>.
+     * @alias module:model/InlineResponse20038Failed
      */
     constructor() { 
         
-        InlineObject62.initialize(this);
+        InlineResponse20038Failed.initialize(this);
     }
 
     /**
@@ -37,21 +37,18 @@ class InlineObject62 {
     }
 
     /**
-     * Constructs a <code>InlineObject62</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>InlineResponse20038Failed</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineObject62} obj Optional instance to populate.
-     * @return {module:model/InlineObject62} The populated <code>InlineObject62</code> instance.
+     * @param {module:model/InlineResponse20038Failed} obj Optional instance to populate.
+     * @return {module:model/InlineResponse20038Failed} The populated <code>InlineResponse20038Failed</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineObject62();
+            obj = obj || new InlineResponse20038Failed();
 
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('strategy')) {
                 obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
@@ -67,19 +64,13 @@ class InlineObject62 {
  * ASIN продукта
  * @member {String} asin
  */
-InlineObject62.prototype['asin'] = undefined;
-
-/**
- * Причина
- * @member {String} reason
- */
-InlineObject62.prototype['reason'] = undefined;
+InlineResponse20038Failed.prototype['asin'] = undefined;
 
 /**
  * Стратегия
- * @member {module:model/InlineObject62.StrategyEnum} strategy
+ * @member {module:model/InlineResponse20038Failed.StrategyEnum} strategy
  */
-InlineObject62.prototype['strategy'] = undefined;
+InlineResponse20038Failed.prototype['strategy'] = undefined;
 
 
 
@@ -90,7 +81,7 @@ InlineObject62.prototype['strategy'] = undefined;
  * @enum {String}
  * @readonly
  */
-InlineObject62['StrategyEnum'] = {
+InlineResponse20038Failed['StrategyEnum'] = {
 
     /**
      * value: "10"
@@ -119,5 +110,5 @@ InlineObject62['StrategyEnum'] = {
 
 
 
-export default InlineObject62;
+export default InlineResponse20038Failed;
 

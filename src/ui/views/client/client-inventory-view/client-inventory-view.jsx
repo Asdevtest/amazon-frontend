@@ -18,6 +18,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
+import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -54,6 +55,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      batchesData,
       currentData,
       userInfo,
       showInfoModalTitle,
@@ -109,6 +111,7 @@ export class ClientInventoryViewRaw extends Component {
       showSetFourMonthsStockValueModal,
       showAddSuppliersModal,
       showCircularProgressModal,
+      showProductLotDataModal,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
       onClickShowProduct,
@@ -406,6 +409,13 @@ export class ClientInventoryViewRaw extends Component {
             showProgress={showProgress}
             progressValue={progressValue}
             onSubmit={onSubmitCreateProduct}
+          />
+        </Modal>
+
+        <Modal openModal={showProductLotDataModal} setOpenModal={() => onTriggerOpenModal('showProductLotDataModal')}>
+          <ProductLotDataForm
+            product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            batchesData={batchesData}
           />
         </Modal>
 

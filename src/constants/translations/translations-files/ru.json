@@ -1617,5 +1617,9 @@
   "Select the basic box": "Выберете основную коробку",
   "Add comment": "Добавьте комментарий",
   "Storekeeper edit": "Изменение складом",
-  "Product lot data": "Данные партий продукта"
+  "Product lot data": "Данные партий продукта",
+  "Quantity of the selected item in the batch": "Количество выбранного товара в партии",
+  "Boxes and the quantity of the selected product in them": "Коробки и количество выбранного товара в них",
+  "Watch the batch": "Смотреть партию",
+  "Lot number search": "Поиск по номеру партии"
 }

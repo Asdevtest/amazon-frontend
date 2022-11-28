@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxIds** | **[String]** |  | [optional] 
-**newAmounts** | **[Number]** |  | [optional] 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

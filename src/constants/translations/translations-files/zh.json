@@ -1617,5 +1617,9 @@
   "Select the basic box": "Select the basic box",
   "Add comment": "Add comment",
   "Storekeeper edit": "Storekeeper edit",
-  "Product lot data": "产品批次数据"
+  "Product lot data": "产品批次数据",
+  "Quantity selected goods in a batch": "批次中所选项目的数量",
+  "Boxes and the quantity of the selected product in them": "盒子和其中所选产品的数量",
+  "Watch the batch": "看批次",
+  "Lot number search": "批号搜索"
 }

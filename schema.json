@@ -22924,6 +22924,7 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "required": ["boxIds", "newAmounts"],
               "properties": {
                 "boxIds": {
                   "type": "array",
@@ -37790,6 +37791,339 @@
         }
       }
     },
+    "/api/v1/permissions/": {
+      "post": {
+        "summary": "# Создать permission.",
+        "description": "## Создать permission. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionPostDtoSchema"}},
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {"description": "Default Response", "schema": {"$ref": "#/definitions/successResponseBodyWithGuid"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "Получить список permissions.",
+        "description": "## Получить список permission-ы. Админ может запращивать по всем ролям.\n\n## Обычный пользователь может получить только permission-ы из его роли.",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "number",
+            "enum": [10, 20, 30, 35, 40, 45, 60],
+            "description": "Если указать role - отфильтрует, нет - выведет все.",
+            "required": false,
+            "in": "query",
+            "name": "role"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Массив permissions.",
+            "schema": {
+              "type": "array",
+              "description": "Массив permissions.",
+              "items": {"$ref": "#/definitions/permissionGetDtoSchema"}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/{guid}": {
+      "patch": {
+        "summary": "#  Изменить permission.",
+        "description": "## Изменить permission. \n\n## Нельзя менять поле key. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionPatchDtoSchema"}},
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "delete": {
+        "summary": "# Удалить permission по его GUID.",
+        "description": "## Удалить permission по его GUID. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/groups": {
+      "post": {
+        "summary": "# Создать группу permission.",
+        "description": "## Создать группу permission. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionGroupPostDtoSchema"}},
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {"description": "Default Response", "schema": {"$ref": "#/definitions/successResponseBodyWithGuid"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "Получить список групп permissions.",
+        "description": "## Получить список групп permissions. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "number",
+            "enum": [10, 20, 30, 35, 40, 45, 60],
+            "description": "Если указать role - отфильтрует, нет - выведет все.",
+            "required": false,
+            "in": "query",
+            "name": "role"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Массив групп permissions.",
+            "schema": {
+              "type": "array",
+              "description": "Массив групп permissions.",
+              "items": {"$ref": "#/definitions/permissionGroupGetDtoSchema"}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/groups/{guid}": {
+      "patch": {
+        "summary": "#  Изменить группу permission.",
+        "description": "## Изменить группу permission. \n\n## Нельзя изменять поле key и role. \n\n## При изменении массива permission-ов, старый массив затирается",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionGroupPatchDtoSchema"}},
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "delete": {
+        "summary": "# Удалить группу permission по его GUID.",
+        "description": "## Удалить группу permission по его GUID. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/set-for-user/{guid}": {
+      "patch": {
+        "summary": "#   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid",
+        "description": "## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid. \n\n",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/setPermissionsForUsersPathDTOSchema"}},
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/products": {
+      "patch": {
+        "summary": "Переписать разрешения для продукта для саба.",
+        "description": "## Переписать разрешения для продукта для саба.",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {"type": "string", "format": "uuid"},
+                "productIds": {"type": "array", "items": {"type": "string", "format": "uuid"}}
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "Получить список разрешений для продуктов всех сабъюзеров.",
+        "description": "## Получить список разрешений для продуктов всех сабъюзеров.",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Массив разрешений для продуктов всех сабъюзеров.",
+            "schema": {
+              "type": "array",
+              "description": "Массив разрешений для продуктов всех сабъюзеров.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "userId": {"type": "string", "format": "uuid"},
+                  "productId": {"type": "string", "format": "uuid"}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/permissions/products/{guid}": {
+      "get": {
+        "summary": "Получить список разрешений для продуктов юзера по его айди.",
+        "description": "## Получить список разрешений для продуктов юзера по его айди.",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID permission в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Массив разрешенных продуктов для юзера.",
+            "schema": {
+              "type": "array",
+              "description": "Массив разрешенных продуктов для юзера.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "productId": {"type": "string", "format": "uuid"},
+                  "shopIds": {
+                    "type": "array",
+                    "description": "Массив магазинов",
+                    "items": {"type": "string", "format": "uuid"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/other/img/{guid}": {
       "get": {
         "summary": "# Получить изображение.",
@@ -38377,339 +38711,6 @@
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/": {
-      "post": {
-        "summary": "# Создать permission.",
-        "description": "## Создать permission. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionPostDtoSchema"}},
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {"description": "Default Response", "schema": {"$ref": "#/definitions/successResponseBodyWithGuid"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "get": {
-        "summary": "Получить список permissions.",
-        "description": "## Получить список permission-ы. Админ может запращивать по всем ролям.\n\n## Обычный пользователь может получить только permission-ы из его роли.",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "number",
-            "enum": [10, 20, 30, 35, 40, 45, 60],
-            "description": "Если указать role - отфильтрует, нет - выведет все.",
-            "required": false,
-            "in": "query",
-            "name": "role"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Массив permissions.",
-            "schema": {
-              "type": "array",
-              "description": "Массив permissions.",
-              "items": {"$ref": "#/definitions/permissionGetDtoSchema"}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/{guid}": {
-      "patch": {
-        "summary": "#  Изменить permission.",
-        "description": "## Изменить permission. \n\n## Нельзя менять поле key. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionPatchDtoSchema"}},
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "delete": {
-        "summary": "# Удалить permission по его GUID.",
-        "description": "## Удалить permission по его GUID. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/groups": {
-      "post": {
-        "summary": "# Создать группу permission.",
-        "description": "## Создать группу permission. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionGroupPostDtoSchema"}},
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {"description": "Default Response", "schema": {"$ref": "#/definitions/successResponseBodyWithGuid"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "get": {
-        "summary": "Получить список групп permissions.",
-        "description": "## Получить список групп permissions. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "number",
-            "enum": [10, 20, 30, 35, 40, 45, 60],
-            "description": "Если указать role - отфильтрует, нет - выведет все.",
-            "required": false,
-            "in": "query",
-            "name": "role"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Массив групп permissions.",
-            "schema": {
-              "type": "array",
-              "description": "Массив групп permissions.",
-              "items": {"$ref": "#/definitions/permissionGroupGetDtoSchema"}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/groups/{guid}": {
-      "patch": {
-        "summary": "#  Изменить группу permission.",
-        "description": "## Изменить группу permission. \n\n## Нельзя изменять поле key и role. \n\n## При изменении массива permission-ов, старый массив затирается",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/permissionGroupPatchDtoSchema"}},
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "delete": {
-        "summary": "# Удалить группу permission по его GUID.",
-        "description": "## Удалить группу permission по его GUID. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/set-for-user/{guid}": {
-      "patch": {
-        "summary": "#   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid",
-        "description": "## !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid. \n\n",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/setPermissionsForUsersPathDTOSchema"}},
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/products": {
-      "patch": {
-        "summary": "Переписать разрешения для продукта для саба.",
-        "description": "## Переписать разрешения для продукта для саба.",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {"type": "string", "format": "uuid"},
-                "productIds": {"type": "array", "items": {"type": "string", "format": "uuid"}}
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "get": {
-        "summary": "Получить список разрешений для продуктов всех сабъюзеров.",
-        "description": "## Получить список разрешений для продуктов всех сабъюзеров.",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Массив разрешений для продуктов всех сабъюзеров.",
-            "schema": {
-              "type": "array",
-              "description": "Массив разрешений для продуктов всех сабъюзеров.",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "userId": {"type": "string", "format": "uuid"},
-                  "productId": {"type": "string", "format": "uuid"}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/permissions/products/{guid}": {
-      "get": {
-        "summary": "Получить список разрешений для продуктов юзера по его айди.",
-        "description": "## Получить список разрешений для продуктов юзера по его айди.",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID permission в БД",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Массив разрешенных продуктов для юзера.",
-            "schema": {
-              "type": "array",
-              "description": "Массив разрешенных продуктов для юзера.",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "productId": {"type": "string", "format": "uuid"},
-                  "shopIds": {
-                    "type": "array",
-                    "description": "Массив магазинов",
-                    "items": {"type": "string", "format": "uuid"}
-                  }
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
       }
@@ -57209,6 +57210,12 @@
                   "description": "Это номер конкретной коробки при отправке в амазон.",
                   "example": "FBA16N2Y2L76U000003"
                 },
+                "logicsTariffId": {
+                  "type": "string",
+                  "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
+                  "description": " logicsTariff GUID",
+                  "nullable": true
+                },
                 "images": {"type": "array", "description": "Массив ссылок на фотографии.", "items": {"type": "string"}},
                 "destinationId": {
                   "type": "string",
@@ -57318,6 +57325,7 @@
             "in": "query",
             "name": "filtersBox"
           },
+          {"type": "string", "required": false, "in": "query", "name": "filtersOrders"},
           {
             "type": "number",
             "description": "Лимит записей для пагинации",

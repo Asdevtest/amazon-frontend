@@ -1,11 +1,10 @@
-# TestSwagger.InlineObject62
+# TestSwagger.InlineResponse20038Failed
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **asin** | **String** | ASIN продукта | [optional] 
-**reason** | **String** | Причина | [optional] 
 **strategy** | **String** | Стратегия | [optional] 
 
 

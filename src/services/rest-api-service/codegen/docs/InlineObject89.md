@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **destinationId** | **String** | destination GUID  | [optional] 
 **items** | [**[ApiV1StorekeepersBoxesGuidItems]**](ApiV1StorekeepersBoxesGuidItems.md) |  | [optional] 
