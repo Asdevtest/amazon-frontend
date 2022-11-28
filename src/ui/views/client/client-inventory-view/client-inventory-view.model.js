@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {RequestStatus} from '@constants/request-status'
+import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -865,7 +866,10 @@ export class ClientInventoryViewModel {
             {
               ...this.product,
               ...parseFieldsAdapter(parseResult, ProductDataParser.AMAZON),
-              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+              weight:
+                this.product.weight > parseResult.weight
+                  ? this.product.weight
+                  : parseResult.weight * poundsWeightCoefficient,
               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
             },

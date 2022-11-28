@@ -379,10 +379,12 @@ export class ClientInventoryViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onStateChange={setDataGridState}
                   onFilterModelChange={onChangeFilterModel}
-                  onRowDoubleClick={params => onClickShowProduct(params.row)}
-                  onCellClick={(param, event) => {
-                    event.defaultMuiPrevented = disableSelectionCells.includes(param.field)
+                  onCellClick={(params, event) => {
+                    event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
                   }}
+                  onCellDoubleClick={params =>
+                    !disableSelectionCells.includes(params.field) && onClickShowProduct(params.row)
+                  }
                 />
               </div>
             </MainContent>

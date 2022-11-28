@@ -3,6 +3,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
@@ -544,7 +545,10 @@ export class ResearcherProductViewModel {
             {
               ...this.product,
               ...parseFieldsAdapter(parseResult, productDataParser),
-              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+              weight:
+                this.product.weight > parseResult.weight
+                  ? this.product.weight
+                  : parseResult.weight * poundsWeightCoefficient,
               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
             },
