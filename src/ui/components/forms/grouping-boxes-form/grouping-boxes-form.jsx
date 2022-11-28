@@ -29,8 +29,10 @@ import {WithSearchSelect} from '@components/selects/with-search-select'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsPositiveNum} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -280,14 +282,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 }
 
 export const GroupingBoxesForm = observer(
-  ({
-    destinations,
-    storekeepers,
-    onSubmit,
-    onCloseModal,
-
-    selectedBoxes,
-  }) => {
+  ({destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes}) => {
     const {classes: classNames} = useClassNames()
 
     const sourceOldBoxes = selectedBoxes.map(el => ({
@@ -295,6 +290,9 @@ export const GroupingBoxesForm = observer(
       destinationId: el.destination?._id || null,
       storekeeperId: el.storekeeper?._id || '',
       logicsTariffId: el.logicsTariff?._id || '',
+
+      volumeWeightKgWarehouse: calcVolumeWeightForBox(el, volumeWeightCoefficient),
+      weightFinalAccountingKgWarehouse: calcFinalWeightForBox(el, volumeWeightCoefficient),
     }))
 
     const [oldBoxes, setOldBoxes] = useState(sourceOldBoxes)
@@ -322,7 +320,24 @@ export const GroupingBoxesForm = observer(
               el.lengthCmWarehouse === box.lengthCmWarehouse &&
               el.weighGrossKgWarehouse === box.weighGrossKgWarehouse &&
               el.widthCmWarehouse === box.widthCmWarehouse &&
-              JSON.stringify(el.items) === JSON.stringify(box.items),
+              JSON.stringify(
+                el.items.map(el => ({
+                  ...getObjectFilteredByKeyArrayBlackList(el, [
+                    'isBarCodeAlreadyAttachedByTheSupplier',
+                    'isBarCodeAttachedByTheStorekeeper',
+                    'order',
+                  ]),
+                })),
+              ) ===
+                JSON.stringify(
+                  box.items.map(el => ({
+                    ...getObjectFilteredByKeyArrayBlackList(el, [
+                      'isBarCodeAlreadyAttachedByTheSupplier',
+                      'isBarCodeAttachedByTheStorekeeper',
+                      'order',
+                    ]),
+                  })),
+                ),
           ),
         )
       } else {

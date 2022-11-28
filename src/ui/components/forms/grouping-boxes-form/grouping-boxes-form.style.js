@@ -220,6 +220,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  alertText: {
+    color: 'red',
+  },
+
   newBoxesWrapper: {
     display: 'flex',
     flexDirection: 'column',

@@ -153,17 +153,6 @@ export class ClientWarehouseViewRaw extends Component {
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.boxesFiltersWrapper}>
-                  <Button
-                    disabled={!currentStorekeeper?._id}
-                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                    variant="text"
-                    color="primary"
-                    onClick={onClickStorekeeperBtn}
-                  >
-                    {t(TranslationKey['All warehouses'])}
-                  </Button>
-
                   {storekeepersData
                     .slice()
                     .sort((a, b) => a.name?.localeCompare(b.name))
@@ -176,13 +165,22 @@ export class ClientWarehouseViewRaw extends Component {
                             [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
                           })}
                           variant="text"
-                          color="primary"
                           onClick={() => onClickStorekeeperBtn(storekeeper)}
                         >
                           {storekeeper.name}
                         </Button>
                       ) : null,
                     )}
+
+                  <Button
+                    disabled={!currentStorekeeper?._id}
+                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                    variant="text"
+                    onClick={onClickStorekeeperBtn}
+                  >
+                    {t(TranslationKey['All warehouses'])}
+                  </Button>
                 </div>
 
                 <SearchInput
@@ -201,13 +199,6 @@ export class ClientWarehouseViewRaw extends Component {
                 disableVirtualization
                 pagination
                 checkboxSelection
-                // defaultGroupingExpansionDepth
-                // groupingColDef={{leafField: 'orderIdsItems'}}
-                // isGroupExpandedByDefault={node => {
-                //   console.log('node', node)
-                //   return node.children.length <= 1
-                // }}
-                // rowGroupingModel={[/* 'storekeeper', */ 'orderIdsItems']}
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
@@ -219,7 +210,7 @@ export class ClientWarehouseViewRaw extends Component {
                   toolbarContainer: classNames.toolbarContainer,
                 }}
                 getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
+                // selectionModel={selectedBoxes}
                 sortingMode="server"
                 paginationMode="server"
                 rowCount={rowCount}
@@ -326,6 +317,7 @@ export class ClientWarehouseViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
         >
           <GroupingBoxesForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}

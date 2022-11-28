@@ -4,6 +4,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
+import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
@@ -465,7 +466,10 @@ export class SupervisorProductViewModel {
               {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
-                weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+                weight:
+                  this.product.weight > parseResult.weight
+                    ? this.product.weight
+                    : parseResult.weight * poundsWeightCoefficient,
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
               },

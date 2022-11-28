@@ -345,7 +345,8 @@ export const EditBoxStorekeeperForm = observer(
 
     const disableSubmit =
       (JSON.stringify(boxInitialState) === JSON.stringify(boxFields) || boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+      !imagesOfBox.length &&
+      !dataToSubmitHsCode
     // || boxFields.logicsTariffId === ''
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)

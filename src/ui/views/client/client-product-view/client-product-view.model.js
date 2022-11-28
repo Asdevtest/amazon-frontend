@@ -2,6 +2,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
+import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -626,7 +627,10 @@ export class ClientProductViewModel {
               {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
-                weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+                weight:
+                  this.product.weight > parseResult.weight
+                    ? this.product.weight
+                    : parseResult.weight / poundsWeightCoefficient,
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
               },
