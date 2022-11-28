@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import {Modal, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
@@ -9,7 +9,10 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {BatchesModel} from '@models/batches-model'
+
 import {CopyValue} from '@components/copy-value'
+import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -26,7 +29,10 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
   const {classes: classNames} = useClassNames()
 
   const [batches, setBatches] = useState(batchesData)
+  const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
+
+  const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
   console.log('nameSearchValue', nameSearchValue)
 
@@ -42,6 +48,21 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
       setBatches(batchesData)
     }
   }, [nameSearchValue])
+
+  const setOpenBatchInfoModal = () => {
+    setShowBatchInfoModal(!showBatchInfoModal)
+  }
+
+  const onClickShowBatchBtn = async rowId => {
+    try {
+      const result = await BatchesModel.getBatchesByGuid(rowId)
+      console.log('result', result)
+      setBatchInfo(result)
+      setOpenBatchInfoModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className={classNames.productLotDataBlock}>
@@ -91,12 +112,14 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
           hideFooter
           localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches._id}
-          columns={productLotDataFormColumns()}
+          columns={productLotDataFormColumns({onClickShowBatchBtn})}
           rows={toJS(batches)}
           headerHeight={64}
           rowHeight={100}
         />
       </div>
+
+      <BatchInfoModal openModal={showBatchInfoModal} setOpenModal={setOpenBatchInfoModal} batch={batchInfo} />
     </div>
   )
 })

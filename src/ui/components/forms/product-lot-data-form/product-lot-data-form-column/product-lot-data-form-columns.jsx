@@ -10,7 +10,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const productLotDataFormColumns = () => [
+export const productLotDataFormColumns = handlers => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Batch number']),
@@ -56,7 +56,12 @@ export const productLotDataFormColumns = () => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => <NormalActionBtnCell bTnText={t(TranslationKey['Watch the batch'])} />,
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={t(TranslationKey['Watch the batch'])}
+        onClickOkBtn={() => handlers.onClickShowBatchBtn(params.row._id)}
+      />
+    ),
     width: 240,
   },
 ]

@@ -157,6 +157,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidAddBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidBatchHasDispatchedPatch**](docs/BatchesApi.md#apiV1BatchesGuidBatchHasDispatchedPatch) | **PATCH** /api/v1/batches/{guid}/batch_has_dispatched | # Выставить статус отбытия партии из склада.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidEditAttachedDocumentsPatch**](docs/BatchesApi.md#apiV1BatchesGuidEditAttachedDocumentsPatch) | **PATCH** /api/v1/batches/{guid}/edit_attachedDocuments | # Редактировать прикрепленные документы партии.
+*TestSwagger.BatchesApi* | [**apiV1BatchesGuidGet**](docs/BatchesApi.md#apiV1BatchesGuidGet) | **GET** /api/v1/batches/{guid} | # Получить партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidRemoveBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesPost**](docs/BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesRequestSendBoxesToBatchPost**](docs/BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
@@ -611,9 +612,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20034](docs/InlineResponse20034.md)
  - [TestSwagger.InlineResponse20035](docs/InlineResponse20035.md)
  - [TestSwagger.InlineResponse20036](docs/InlineResponse20036.md)
+ - [TestSwagger.InlineResponse20036Failed](docs/InlineResponse20036Failed.md)
  - [TestSwagger.InlineResponse20037](docs/InlineResponse20037.md)
  - [TestSwagger.InlineResponse20038](docs/InlineResponse20038.md)
- - [TestSwagger.InlineResponse20038Failed](docs/InlineResponse20038Failed.md)
  - [TestSwagger.InlineResponse20039](docs/InlineResponse20039.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse20040](docs/InlineResponse20040.md)
