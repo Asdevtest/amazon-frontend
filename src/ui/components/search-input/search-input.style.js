@@ -42,12 +42,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   submit: {
-    position: 'absolute',
+    // position: 'absolute',
     border: '1px solid #007bff',
     borderLeft: 'none',
-    height: 36,
+    height: 37,
     padding: '6px',
-    right: -1,
-    top: -18,
+    // right: -1,
+    // top: -18,
+    flexGrow: 1,
   },
 }))

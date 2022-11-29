@@ -81,7 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
 
-    maxWidth: 150,
+    maxWidth: 185,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

@@ -236,9 +236,35 @@ export const EditBoxStorekeeperForm = observer(
     const onClickGluedCheckbox = (field, itemId) => e => {
       const newFormFields = {...boxFields}
 
-      newFormFields.items = [
-        ...boxFields.items.map(el => (el._id === itemId ? {...el, [field]: e.target.checked} : el)),
-      ]
+      if (field === 'isBarCodeAlreadyAttachedByTheSupplier') {
+        newFormFields.items = [
+          ...boxFields.items.map(el =>
+            el._id === itemId
+              ? {
+                  ...el,
+                  isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
+                  isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
+                    ? !e.target.checked
+                    : el.isBarCodeAttachedByTheStorekeeper,
+                }
+              : el,
+          ),
+        ]
+      } else if (field === 'isBarCodeAttachedByTheStorekeeper') {
+        newFormFields.items = [
+          ...boxFields.items.map(el =>
+            el._id === itemId
+              ? {
+                  ...el,
+                  isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
+                    ? !e.target.checked
+                    : el.isBarCodeAlreadyAttachedByTheSupplier,
+                  isBarCodeAttachedByTheStorekeeper: e.target.checked,
+                }
+              : el,
+          ),
+        ]
+      }
 
       setBoxFields(newFormFields)
     }

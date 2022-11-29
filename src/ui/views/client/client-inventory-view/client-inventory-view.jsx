@@ -374,7 +374,7 @@ export class ClientInventoryViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25 /* 50, 100*/]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   // rows={getCurrentData()}
                   rows={currentData}
                   getRowHeight={() => 'auto'}

@@ -467,7 +467,7 @@ export class SupervisorProductViewModel {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
                 weight:
-                  this.product.weight > parseResult.weight
+                  this.product.weight > parseResult.weight * poundsWeightCoefficient
                     ? this.product.weight
                     : parseResult.weight * poundsWeightCoefficient,
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,

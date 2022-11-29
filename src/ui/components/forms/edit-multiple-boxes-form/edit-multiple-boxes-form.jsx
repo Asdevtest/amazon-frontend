@@ -244,7 +244,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                   [classNames.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
                     !box.fbaShipment &&
-                    !box.destination?.storekeeperId,
+                    !curDestination?.storekeeper,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
@@ -598,7 +598,7 @@ export const EditMultipleBoxesForm = observer(
       el =>
         /* !el.logicsTariffId ||*/ (el.shippingLabel || el.tmpShippingLabel?.length) &&
         !el.fbaShipment &&
-        !el.destination?.storekeeperId,
+        !destinations.find(e => e._id === el.destinationId)?.storekeeper,
     )
 
     const disabledApplyBtn = !visibleBoxes.length

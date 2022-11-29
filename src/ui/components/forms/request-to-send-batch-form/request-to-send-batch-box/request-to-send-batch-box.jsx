@@ -41,10 +41,12 @@ export const RequestToSendBatchBox = ({
 
   const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
     if (items.length === 1 && boxWeigh) {
-      return toFixedWithDollarSign(price / amount, 2)
+      return toFixedWithDollarSign(price / amount / box.amount, 2)
     } else if (items.length > 1 && boxWeigh) {
       const finalWeight = toFixedWithDollarSign(
-        (price * (((boxWeigh / amountInBox) * amount) / calcFinalWeightForBox(box, volumeWeightCoefficient))) / amount,
+        (price * (((boxWeigh / amountInBox) * amount) / calcFinalWeightForBox(box, volumeWeightCoefficient))) /
+          amount /
+          box.amount,
         2,
       )
 
@@ -53,6 +55,8 @@ export const RequestToSendBatchBox = ({
       return t(TranslationKey['No data'])
     }
   }
+
+  console.log('box', box)
 
   return (
     <tr
@@ -268,22 +272,6 @@ export const RequestToSendBatchBox = ({
                   item.order.orderSupplier.boxProperties?.amountInBox,
                   box.weighGrossKgWarehouse,
                 )}
-                {/* {box.items.length === 1 && item.order.orderSupplier.boxProperties?.boxWeighGrossKg
-                  ? toFixedWithDollarSign(price / item.amount)
-                  : t(TranslationKey['No data'])}
-                {box.items.length > 1 && item.order.orderSupplier.boxProperties?.boxWeighGrossKg
-                  ? toFixedWithDollarSign(
-                      (price *
-                        toFixed(
-                          ((item.order.orderSupplier.boxProperties?.boxWeighGrossKg /
-                            item.order.orderSupplier.boxProperties?.amountInBox) *
-                            item.amount) /
-                            toFixed(box.weighGrossKgWarehouse, 2),
-                        )) /
-                        item.amount,
-                      2,
-                    )
-                  : t(TranslationKey['No data'])} */}
               </Typography>
             </div>
           </div>

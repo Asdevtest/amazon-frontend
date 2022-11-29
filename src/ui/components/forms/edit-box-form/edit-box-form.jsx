@@ -210,10 +210,11 @@ export const EditBoxForm = observer(
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
       boxFields.storekeeperId === '' ||
-      boxFields.logicsTariffId === '' ||
+      // boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
-        !boxFields.destination?.storekeeperId)
+        !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper)
+    // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
 
@@ -491,7 +492,7 @@ export const EditBoxForm = observer(
                         [classNames.inputAccent]:
                           (boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
                           !boxFields.fbaShipment &&
-                          !boxFields.destination?.storekeeperId,
+                          !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper,
                       })}
                       inputProps={{maxLength: 255}}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}

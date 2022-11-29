@@ -199,7 +199,7 @@ const Box = ({
                   [classNames.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
                     !box.fbaShipment &&
-                    !box.destination?.storekeeperId,
+                    !destinations.find(el => el._id === box.destinationId)?.storekeeper,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}
@@ -491,7 +491,9 @@ export const RedistributeBox = observer(
         el =>
           (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) ||
           el.logicsTariffId === '' ||
-          ((el.shippingLabel || el.tmpShippingLabel?.length) && !el.fbaShipment && !el.destination?.storekeeperId),
+          ((el.shippingLabel || el.tmpShippingLabel?.length) &&
+            !el.fbaShipment &&
+            !destinations.find(e => e._id === el.destinationId)?.storekeeper),
       )
 
     return (

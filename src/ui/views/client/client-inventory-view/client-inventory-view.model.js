@@ -881,7 +881,7 @@ export class ClientInventoryViewModel {
               ...this.product,
               ...parseFieldsAdapter(parseResult, ProductDataParser.AMAZON),
               weight:
-                this.product.weight > parseResult.weight
+                this.product.weight > parseResult.weight * poundsWeightCoefficient
                   ? this.product.weight
                   : parseResult.weight * poundsWeightCoefficient,
               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
@@ -908,7 +908,10 @@ export class ClientInventoryViewModel {
             {
               ...this.product,
               ...parseFieldsAdapter(parseResult, ProductDataParser.SELLCENTRAL),
-              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+              weight:
+                this.product.weight > parseResult.weight * poundsWeightCoefficient
+                  ? this.product.weight
+                  : parseResult.weight * poundsWeightCoefficient,
               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
             },
