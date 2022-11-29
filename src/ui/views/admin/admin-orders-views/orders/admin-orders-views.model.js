@@ -63,7 +63,7 @@ export class AdminOrdersAllViewModel {
     reaction(
       () => this.currentOrdersData,
       () => {
-        this.currentData = this.CurrentData()
+        this.currentData = toJS(this.currentOrdersData)
       },
     )
   }
@@ -79,11 +79,7 @@ export class AdminOrdersAllViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    console.log(this.currentOrdersData[0])
-
     this.nameSearchValue = searchValue
-
-    console.log('nameSearchValue', this.nameSearchValue)
 
     if (this.nameSearchValue) {
       this.currentOrdersData = this.orderData.filter(
@@ -172,10 +168,6 @@ export class AdminOrdersAllViewModel {
       this.error = error
       this.currentOrdersData = []
     }
-  }
-
-  CurrentData() {
-    return toJS(this.currentOrdersData)
   }
 
   onSelectionModel(model) {

@@ -120,8 +120,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   middleBlockWrapper: {
     display: 'flex',
-
     flexDirection: 'column',
+
     justifyContent: 'space-between',
   },
 
@@ -239,7 +239,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   filesWrapper: {
     width: '70%',
-    height: '100px',
+    minHeight: '100px',
   },
   timeOnReviewWrapper: {
     width: '200px',

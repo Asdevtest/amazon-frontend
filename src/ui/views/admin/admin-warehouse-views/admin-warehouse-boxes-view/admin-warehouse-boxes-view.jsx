@@ -36,10 +36,10 @@ export class AdminWarehouseBoxesViewRaw extends Component {
 
   render() {
     const {
+      currentData,
       curBox,
       volumeWeightCoefficient,
       showBoxViewModal,
-      currentData,
       sortModel,
       filterModel,
       requestStatus,

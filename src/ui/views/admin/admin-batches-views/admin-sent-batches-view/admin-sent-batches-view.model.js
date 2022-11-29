@@ -20,6 +20,11 @@ export class AdminSentBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
+  currentData = []
+
+  batchesData = []
   batches = []
   selectedBatches = []
   volumeWeightCoefficient = undefined
@@ -44,11 +49,36 @@ export class AdminSentBatchesViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.batches,
+      () => (this.currentData = toJS(this.batches)),
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    console.log('this.nameSearchValue', this.nameSearchValue)
+    console.log('this.batchesData', this.batchesData)
+
+    if (this.nameSearchValue) {
+      this.batches = this.batchesData.filter(item =>
+        item.originalData.boxes.some(
+          box =>
+            box.items.some(item =>
+              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ) || box.items.some(item => item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+        ),
+      )
+    } else {
+      this.batches = this.batchesBase
     }
   }
 
@@ -104,10 +134,6 @@ export class AdminSentBatchesViewModel {
     this.selectedBatches = model
   }
 
-  getCurrentData() {
-    return toJS(this.batches)
-  }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -133,6 +159,9 @@ export class AdminSentBatchesViewModel {
       const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
 
       runInAction(() => {
+        this.batchesData = warehouseBatchesDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
         this.batches = warehouseBatchesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {

@@ -4,6 +4,8 @@ import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
+import Linkify from 'react-linkify-always-blank'
+
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -30,6 +32,8 @@ export const DealDetailsCard = ({
 }) => {
   const {classes: classNames} = useClassNames()
   const curProposal = item.find(el => el?.proposal._id === proposalId)
+
+  console.log('curProposal', curProposal)
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -138,7 +142,9 @@ export const DealDetailsCard = ({
           </div>
           <div className={classNames.resultWrapper}>
             <Typography className={classNames.result}>{t(TranslationKey.Result)}</Typography>
-            <Typography className={classNames.resultDescription}>{curProposal?.details.result}</Typography>
+            <Linkify>
+              <Typography className={classNames.resultDescription}>{curProposal?.details.result}</Typography>
+            </Linkify>
           </div>
           <div className={classNames.filesAndTimeWrapper}>
             <div className={classNames.filesWrapper}>

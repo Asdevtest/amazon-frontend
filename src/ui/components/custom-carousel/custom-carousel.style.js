@@ -103,8 +103,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-
-    // margin: '20px 0 20px 0',
+    margin: '20px 0 20px 0',
   },
 
   imagesAndFilesWrapperColumn: {

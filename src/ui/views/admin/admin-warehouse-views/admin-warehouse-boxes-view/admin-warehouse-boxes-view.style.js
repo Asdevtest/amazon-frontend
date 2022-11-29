@@ -49,4 +49,10 @@ export const styles = theme => ({
     justifyContent: 'center',
     marginBottom: 20,
   },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+    height: 36,
+    overflow: 'visible',
+  },
 })

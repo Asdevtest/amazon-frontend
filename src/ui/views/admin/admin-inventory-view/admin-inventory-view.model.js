@@ -151,10 +151,6 @@ export class AdminInventoryViewModel {
     }
   }
 
-  CurrentData() {
-    return toJS(this.products)
-  }
-
   onSelectionModel(model) {
     this.selectionModel = model
   }

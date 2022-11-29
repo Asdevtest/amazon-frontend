@@ -52,7 +52,7 @@ export class AdminWarehouseBoxesViewModel {
 
     reaction(
       () => this.boxes,
-      () => (this.currentData = this.CurrentData()),
+      () => (this.currentData = toJS(this.boxes)),
     )
   }
 
@@ -65,15 +65,20 @@ export class AdminWarehouseBoxesViewModel {
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
+    console.log('this.nameSearchValue', this.nameSearchValue)
+    console.log('this.boxesData', this.boxesData[0].originalData.items[0].product.asin)
+
     if (this.nameSearchValue) {
-      this.boxes = this.boxesData.filter(
-        item =>
-          item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      this.boxes = this.boxesData.filter(box =>
+        box.originalData.items.some(
+          item =>
+            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
       )
     } else {
-      this.currentOrdersData = this.orderData
+      this.boxes = this.boxesData
     }
   }
 
@@ -87,10 +92,6 @@ export class AdminWarehouseBoxesViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
-  }
-
-  CurrentData() {
-    return toJS(this.boxes)
   }
 
   setDataGridState(state) {
@@ -150,6 +151,7 @@ export class AdminWarehouseBoxesViewModel {
       const result = await BoxesModel.getBoxes()
 
       runInAction(() => {
+        this.boxesData = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
         this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
