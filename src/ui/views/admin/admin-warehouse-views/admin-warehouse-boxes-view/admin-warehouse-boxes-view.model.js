@@ -18,7 +18,12 @@ export class AdminWarehouseBoxesViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
+  boxesData = []
   boxes = []
+
+  currentData = []
 
   curBox = undefined
 
@@ -39,15 +44,36 @@ export class AdminWarehouseBoxesViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.boxes,
+      () => (this.currentData = this.CurrentData()),
     )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    if (this.nameSearchValue) {
+      this.boxes = this.boxesData.filter(
+        item =>
+          item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      this.currentOrdersData = this.orderData
     }
   }
 
@@ -63,7 +89,7 @@ export class AdminWarehouseBoxesViewModel {
     this.rowsPerPage = e
   }
 
-  getCurrentData() {
+  CurrentData() {
     return toJS(this.boxes)
   }
 

@@ -17,6 +17,7 @@ import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -36,8 +37,8 @@ class AdminOrdersViewsRaw extends Component {
 
   render() {
     const {
+      currentData,
       requestStatus,
-      getCurrentData,
       sortModel,
       filterModel,
       densityModel,
@@ -57,6 +58,7 @@ class AdminOrdersViewsRaw extends Component {
       onChangeSortingModel,
       onClickTableRow,
       onChangeFilterModel,
+      onSearchSubmit,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -72,6 +74,13 @@ class AdminOrdersViewsRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onSubmit={onSearchSubmit}
+                />
+              </div>
               <Grid container spacing={1} className={classNames.filterBtnWrapper}>
                 {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
@@ -104,7 +113,7 @@ class AdminOrdersViewsRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: GridToolbar,
