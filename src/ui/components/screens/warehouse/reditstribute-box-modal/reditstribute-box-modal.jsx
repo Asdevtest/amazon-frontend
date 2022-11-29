@@ -493,7 +493,7 @@ export const RedistributeBox = observer(
           el.logicsTariffId === '' ||
           ((el.shippingLabel || el.tmpShippingLabel?.length) &&
             !el.fbaShipment &&
-            !destinations.find(el => el._id === el.destinationId)?.storekeeper),
+            !destinations.find(e => e._id === el.destinationId)?.storekeeper),
       )
 
     return (

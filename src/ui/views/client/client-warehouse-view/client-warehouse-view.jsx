@@ -196,7 +196,7 @@ export class ClientWarehouseViewRaw extends Component {
               </div>
 
               <DataGrid
-                disableVirtualization
+                // disableVirtualization
                 pagination
                 checkboxSelection
                 localeText={getLocalizationByLanguageTag()}
