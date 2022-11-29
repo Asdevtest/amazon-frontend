@@ -808,7 +808,7 @@ export const BoxesAndQuantity = React.memo(
       item ? (
         <Typography className={classNames.boxesAndQuantityText}>{`
         ${item.boxAmount}x${item.itemAmount}${
-          i === 0 && boxesData.length > 1 && i !== boxesData.length ? ', ' : ''
+          boxesData.length > 1 && i + 1 !== boxesData.length ? ', ' : ''
         }`}</Typography>
       ) : null,
     )

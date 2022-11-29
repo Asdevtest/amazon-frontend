@@ -112,7 +112,7 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
           hideFooter
           localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches._id}
-          columns={productLotDataFormColumns({onClickShowBatchBtn}, batches)}
+          columns={productLotDataFormColumns({onClickShowBatchBtn})}
           rows={toJS(batches)}
           headerHeight={64}
           rowHeight={100}

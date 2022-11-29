@@ -11,7 +11,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const productLotDataFormColumns = (handlers, batches) => [
+export const productLotDataFormColumns = handlers => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Batch number']),
