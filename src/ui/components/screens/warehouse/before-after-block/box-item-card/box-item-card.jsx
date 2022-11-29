@@ -101,14 +101,27 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subValue}>{item.order.item}</Typography>
               </div>
 
-              <div className={classNames.countSubWrapper}>
+              <Field
+                // containerClasses={classNames.countSubWrapper}
+                label={t(TranslationKey['Track number'])}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <Tooltip title={item.order.trackingNumberChina}>
+                    <Typography className={classNames.subValue}>
+                      {item.order.trackingNumberChina || t(TranslationKey['Not available'])}
+                    </Typography>
+                  </Tooltip>
+                }
+              />
+
+              {/* <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Track number'])}</Typography>
                 <Tooltip title={item.order.trackingNumberChina}>
                   <Typography className={classNames.subValue}>
                     {item.order.trackingNumberChina || t(TranslationKey['Not available'])}
                   </Typography>
                 </Tooltip>
-              </div>
+              </div> */}
             </div>
 
             <div>

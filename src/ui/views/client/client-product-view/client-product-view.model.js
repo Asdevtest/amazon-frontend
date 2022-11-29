@@ -628,9 +628,9 @@ export class ClientProductViewModel {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
                 weight:
-                  this.product.weight > parseResult.weight
+                  this.product.weight > parseResult.weight * poundsWeightCoefficient
                     ? this.product.weight
-                    : parseResult.weight / poundsWeightCoefficient,
+                    : parseResult.weight * poundsWeightCoefficient,
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
               },

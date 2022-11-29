@@ -59,7 +59,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
               <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
 
               <div className={classNames.unitsWrapper}>
-                <Typography className={classNames.unitsText}>{t(TranslationKey.units) + ':'}</Typography>
+                <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
                 <Input
                   classes={{
                     root: cx(classNames.inputWrapper, {
@@ -288,17 +288,21 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                         : el.product.amazonTitle}
                     </Typography>
 
-                    <Input
-                      classes={{
-                        root: cx(classNames.inputWrapper, {
-                          [classNames.error]: !el.amount || el.amount === 0,
-                        }),
-                        input: classNames.input,
-                      }}
-                      inputProps={{maxLength: 6}}
-                      value={el.amount}
-                      onChange={e => onChangeQtyInput(e, item._id, el.order)}
-                    />
+                    <div className={classNames.unitsWrapper}>
+                      <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
+
+                      <Input
+                        classes={{
+                          root: cx(classNames.inputWrapper, {
+                            [classNames.error]: !el.amount || el.amount === 0,
+                          }),
+                          input: classNames.input,
+                        }}
+                        inputProps={{maxLength: 6}}
+                        value={el.amount}
+                        onChange={e => onChangeQtyInput(e, item._id, el.order)}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -606,7 +610,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const addDouble = boxId => {
     const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: `${foundedBox._id} + 'double' ${new Date()}`}]
+    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: `${foundedBox._id} + 'double' ${Date.now()}`}]
     setNewBoxes(updatedNewBoxes)
   }
 

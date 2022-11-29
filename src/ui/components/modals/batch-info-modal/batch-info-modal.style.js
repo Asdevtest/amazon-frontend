@@ -239,6 +239,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   subFieldLabel: {
+    whiteSpace: 'nowrap',
+
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',

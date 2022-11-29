@@ -111,6 +111,32 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
       )}
 
       <div className={classNames.orderWrapper}>
+        <div className={classNames.boxHeaderWrapper}>
+          {box.amount > 1 ? (
+            <div className={classNames.iconWrapper}>
+              <img src="/assets/icons/mini-box.svg" />
+              <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
+            </div>
+          ) : (
+            <div className={cx(classNames.iconWrapper, classNames.standartIconWrapper)}>
+              <img src="/assets/icons/mini-box.svg" />
+              <Typography className={cx(classNames.iconText, classNames.standartText)}>{'Box'}</Typography>
+            </div>
+          )}
+
+          <Field
+            oneLine
+            disabled={!isNewBox}
+            label={t(TranslationKey['Boxes in group']) + ':'}
+            // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+            containerClasses={classNames.amountField}
+            className={classNames.orderInput}
+            labelClasses={classNames.label}
+            value={box.amount}
+            onChange={e => onChangeField(e, 'amount', index)}
+          />
+        </div>
+
         {box.items.map((order, orderIndex) => (
           <div key={`box_${box._id}_${orderIndex}`} /* className={classNames.orderWrapper}*/>
             <div key={orderIndex} className={classNames.order}>
@@ -164,7 +190,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               </div>
 
               <div>
-                <Field
+                {/* <Field
                   disabled={!isNewBox}
                   label={t(TranslationKey['Boxes in group'])}
                   containerClasses={classNames.field}
@@ -172,7 +198,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                   labelClasses={classNames.label}
                   value={box.amount}
                   onChange={e => onChangeField(e, 'amount', index)}
-                />
+                /> */}
 
                 <Field
                   disabled

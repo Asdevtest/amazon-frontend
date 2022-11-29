@@ -52,12 +52,26 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
   },
 
+  standartIconWrapper: {
+    border: 'none',
+  },
+
   iconWrapper: {
     borderRadius: 4,
     border: `1px solid ${theme.palette.primary.main}`,
     padding: 5,
 
     display: 'flex',
+
+    width: 'min-content',
+  },
+
+  boxHeaderWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexGrow: 1,
+    marginBottom: 20,
   },
 
   modalTitleWrapper: {
@@ -369,6 +383,14 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginBottom: '10px !important',
   },
+
+  amountField: {
+    marginBottom: '0 !important',
+    width: 'min-content',
+    gap: 15,
+    marginRight: 20,
+  },
+
   fieldInput: {
     height: '40px',
   },
@@ -448,6 +470,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
+    whiteSpace: 'nowrap',
   },
   asinTitle: {
     fontSize: '14px',
