@@ -683,6 +683,17 @@ export const styles = theme => ({
     // '-webkitBoxOrient': 'vertical',
   },
 
+  boxesAndQuantityText: {
+    whiteSpace: 'normal',
+
+    // color: theme.palette.text.general,
+    color: theme.palette.text.general,
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
   multilineLeftAlignText: {
     textAlign: 'left',
   },
@@ -815,6 +826,13 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  boxesAndQuantityWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    whiteSpace: 'pre-wrap',
   },
 
   textHeaderWrapper: {

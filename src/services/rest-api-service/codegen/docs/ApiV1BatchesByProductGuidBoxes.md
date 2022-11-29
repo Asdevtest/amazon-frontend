@@ -8,5 +8,7 @@ Name | Type | Description | Notes
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **logicsTariff** | [**ApiV1BatchesByProductGuidLogicsTariff**](ApiV1BatchesByProductGuidLogicsTariff.md) |  | [optional] 
+**boxAmount** | **Number** | Общее кол-во коробок с этим продуктом | [optional] 
+**itemAmount** | **Number** | Общее кол-во в коробке | [optional] 
 
 

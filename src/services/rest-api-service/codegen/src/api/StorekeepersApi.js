@@ -606,6 +606,7 @@ export default class StorekeepersApi {
      * # Получить всех тарифами доставки сторкипером.
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирован ли тариф
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} and HTTP response
      */
@@ -616,6 +617,7 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
+        'archive': opts['archive']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -638,6 +640,7 @@ export default class StorekeepersApi {
      * # Получить всех тарифами доставки сторкипером.
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирован ли тариф
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>}
      */

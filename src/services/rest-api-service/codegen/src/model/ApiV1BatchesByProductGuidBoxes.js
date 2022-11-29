@@ -60,6 +60,12 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('logicsTariff')) {
                 obj['logicsTariff'] = ApiV1BatchesByProductGuidLogicsTariff.constructFromObject(data['logicsTariff']);
             }
+            if (data.hasOwnProperty('boxAmount')) {
+                obj['boxAmount'] = ApiClient.convertToType(data['boxAmount'], 'Number');
+            }
+            if (data.hasOwnProperty('itemAmount')) {
+                obj['itemAmount'] = ApiClient.convertToType(data['itemAmount'], 'Number');
+            }
         }
         return obj;
     }
@@ -89,6 +95,18 @@ ApiV1BatchesByProductGuidBoxes.prototype['fbaShipment'] = undefined;
  * @member {module:model/ApiV1BatchesByProductGuidLogicsTariff} logicsTariff
  */
 ApiV1BatchesByProductGuidBoxes.prototype['logicsTariff'] = undefined;
+
+/**
+ * Общее кол-во коробок с этим продуктом
+ * @member {Number} boxAmount
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['boxAmount'] = undefined;
+
+/**
+ * Общее кол-во в коробке
+ * @member {Number} itemAmount
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['itemAmount'] = undefined;
 
 
 

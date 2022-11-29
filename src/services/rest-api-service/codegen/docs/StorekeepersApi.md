@@ -611,6 +611,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
+  'archive': true, // Boolean | Заархивирован ли тариф
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
@@ -626,6 +627,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **archive** | **Boolean**| Заархивирован ли тариф | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

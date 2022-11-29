@@ -25,7 +25,7 @@ import {productLotDataFormColumns} from './product-lot-data-form-column'
 import {useClassNames} from './product-lot-data-form.style'
 
 export const ProductLotDataForm = observer(({product, batchesData}) => {
-  console.log(batchesData)
+  console.log('batchesData', batchesData)
   const {classes: classNames} = useClassNames()
 
   const [batches, setBatches] = useState(batchesData)
@@ -112,7 +112,7 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
           hideFooter
           localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches._id}
-          columns={productLotDataFormColumns({onClickShowBatchBtn})}
+          columns={productLotDataFormColumns({onClickShowBatchBtn}, batches)}
           rows={toJS(batches)}
           headerHeight={64}
           rowHeight={100}
