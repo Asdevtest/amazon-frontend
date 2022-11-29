@@ -386,7 +386,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   amountField: {
     marginBottom: '0 !important',
-    width: 'min-content',
+    width: 'min-content !important',
     gap: 15,
     marginRight: 20,
   },
