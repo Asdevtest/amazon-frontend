@@ -244,7 +244,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                   [classNames.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
                     !box.fbaShipment &&
-                    !box.destination?.storekeeperId,
+                    !destinations.find(el => el._id === el.destinationId)?.storekeeper,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}

@@ -136,24 +136,18 @@ export const RequestToSendBatchForm = observer(
 
         <div className={classNames.btnsWrapper}>
           <Button
-            disableElevation
             disabled={disabledSubmit}
             tooltipAttentionContent={t(
               TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'],
             )}
-            color="primary"
-            variant="contained"
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Send)}
           </Button>
           <Button
             danger
-            disableElevation
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={classNames.btnClose}
-            color="primary"
-            variant="contained"
             onClick={closeModal}
           >
             {t(TranslationKey.Close)}
