@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(() => ({
 
   warningDialogPadding: {
     padding: '40px 30px',
-    '&:first-child': {
+    '&:first-of-type': {
       padding: '0',
     },
   },

@@ -260,8 +260,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
-      this.boxes = []
+      runInAction(() => {
+        this.error = error
+        this.boxes = []
+      })
     }
   }
 

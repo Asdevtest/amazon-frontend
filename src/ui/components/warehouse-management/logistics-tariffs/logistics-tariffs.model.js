@@ -20,6 +20,7 @@ export class LogisticsTariffsModel {
   requestStatus = undefined
   error = undefined
 
+  isArchive = false
   yuanToDollarRate = undefined
   storekeeperDestination = undefined
 
@@ -40,6 +41,7 @@ export class LogisticsTariffsModel {
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+    onTriggerArchive: row => this.onTriggerArchiveBtn(row),
   }
 
   firstRowId = undefined
@@ -48,7 +50,7 @@ export class LogisticsTariffsModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive)
 
   get userInfo() {
     return UserModel.userInfo
@@ -66,12 +68,51 @@ export class LogisticsTariffsModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.isArchive,
+      () => this.loadData(),
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
     }
+  }
+
+  onTriggerArchiveBtn(row) {
+    runInAction(() => {
+      this.tariffArchiveMove = row
+    })
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: row.archive
+        ? t(TranslationKey['Are you sure you want to restore the tariff?'])
+        : t(TranslationKey['Are you sure you want to move the tariff to the archive?']),
+      onClickSuccess: () => this.onSubmitTriggerArchiveBtn(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitTriggerArchiveBtn() {
+    try {
+      await StorekeeperModel.editLogisticTariff(this.tariffArchiveMove._id, {archive: !this.tariffArchiveMove.archive})
+
+      this.onTriggerOpenModal('showConfirmModal')
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onTriggerArchive() {
+    runInAction(() => {
+      this.isArchive = !this.isArchive
+    })
   }
 
   onChangeFilterModel(model) {
@@ -101,7 +142,7 @@ export class LogisticsTariffsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -185,7 +226,7 @@ export class LogisticsTariffsModel {
 
   async getLogisticsTariffs() {
     try {
-      const result = await StorekeeperModel.getLogisticsTariffs()
+      const result = await StorekeeperModel.getLogisticsTariffs({archive: this.isArchive})
 
       runInAction(() => {
         this.logisticsTariffs = addIdDataConverter(result)

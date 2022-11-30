@@ -161,10 +161,12 @@ export class ClientReadyBoxesViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
-      this.storekeepersData = result
-        .filter(storekeeper => storekeeper.boxesCount !== 0)
-        .sort((a, b) => a.name.localeCompare(b.name))
-      // console.log('this.storekeepersData', this.storekeepersData)
+      runInAction(() => {
+        this.storekeepersData = result
+          .filter(storekeeper => storekeeper.boxesCount !== 0)
+          .sort((a, b) => a.name.localeCompare(b.name))
+      })
+
       this.onClickStorekeeperBtn(this.storekeepersData[0])
     } catch (error) {
       console.log(error)

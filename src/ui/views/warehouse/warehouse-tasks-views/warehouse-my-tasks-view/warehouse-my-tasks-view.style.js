@@ -51,10 +51,10 @@ export const styles = theme => ({
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
-      '& > :nth-child(2) > :nth-child(1) > :nth-child(3)': {
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
         display: 'none',
       },
-      '& > :nth-child(2) > :nth-child(1) > :nth-child(5)': {
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
         marginLeft: '2px',
       },
     },

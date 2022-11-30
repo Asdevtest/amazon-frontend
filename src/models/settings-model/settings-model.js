@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {makeAutoObservable, reaction} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
 import {appVersion} from '@constants/app-version'
@@ -35,7 +35,9 @@ class SettingsModelStatic {
     makeAutoObservable(this, undefined, {autoBind: true})
     makePersistable(this, {name: stateModelName, properties: persistProperties})
       .then(({isHydrated}) => {
-        this.isHydrated = isHydrated
+        runInAction(() => {
+          this.isHydrated = isHydrated
+        })
       })
       .catch(error => console.log(error))
     reaction(

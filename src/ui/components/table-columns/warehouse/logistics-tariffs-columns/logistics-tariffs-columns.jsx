@@ -16,7 +16,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const logisticsTariffsColumns = (handlers, firstRowId) => [
+export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -92,7 +92,7 @@ export const logisticsTariffsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 150,
+    width: 200,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
         tooltipFirstButton={t(TranslationKey.Edit)}
@@ -100,6 +100,7 @@ export const logisticsTariffsColumns = (handlers, firstRowId) => [
         handlers={handlers}
         row={params.row}
         isFirstRow={firstRowId === params.row.id}
+        isArchive={isArchive}
       />
     ),
     filterable: false,

@@ -123,7 +123,7 @@ export const useClassNames = makeStyles()(theme => ({
   userNameWrapper: {
     marginLeft: '10px',
 
-    '& > :first-child': {
+    '& > :first-of-type': {
       marginBottom: '13px',
     },
   },

@@ -58,7 +58,7 @@ export class ModeratorMyProductsViewRaw extends Component {
     const {classes: classNames} = this.props
 
     // const getRowClassName = params =>
-    //   attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+    //   attentionStatuses.includes(params.row.status) && classNames.attentionRow
 
     return (
       <React.Fragment>

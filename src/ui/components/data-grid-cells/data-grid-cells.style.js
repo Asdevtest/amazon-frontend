@@ -332,6 +332,11 @@ export const styles = theme => ({
     gap: 10,
   },
 
+  renderBoxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   standartBoxWrapper: {
     display: 'grid',
     gridAutoFlow: 'column',
@@ -1172,10 +1177,19 @@ export const styles = theme => ({
     padding: '20px 0',
   },
 
+  editOrRemoveIconBtnsSubCell: {
+    width: 'min-content',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+    // padding: '20px 0',
+  },
+
   editOrRemoveBtnWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    flexDirection: 'column',
   },
 
   editOrRemoveBtnText: {

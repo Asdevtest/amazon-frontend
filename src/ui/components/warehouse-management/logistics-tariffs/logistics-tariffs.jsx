@@ -27,6 +27,7 @@ export const LogisticsTariffs = observer(() => {
   const gpModel = useRef(new LogisticsTariffsModel({history}))
 
   const {
+    isArchive,
     storekeeperDestination,
 
     yuanToDollarRate,
@@ -58,6 +59,7 @@ export const LogisticsTariffs = observer(() => {
     onSubmitEditTariff,
     onSubmitChangeDestination,
     onClickAddressBtn,
+    onTriggerArchive,
   } = gpModel.current
 
   useEffect(() => {
@@ -83,14 +85,26 @@ export const LogisticsTariffs = observer(() => {
           </Button>
         </div>
 
-        <Button
-          success
-          tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-          className={classNames.placeAddBtn}
-          onClick={() => onClickAddBtn()}
-        >
-          {t(TranslationKey.Add)}
-        </Button>
+        {isArchive ? (
+          <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+            {t(TranslationKey['Open warehouse management'])}
+          </Button>
+        ) : (
+          <div>
+            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+              {t(TranslationKey['Open archive'])}
+            </Button>
+
+            <Button
+              success
+              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
+              className={classNames.placeAddBtn}
+              onClick={() => onClickAddBtn()}
+            >
+              {t(TranslationKey.Add)}
+            </Button>
+          </div>
+        )}
       </div>
 
       <DataGrid

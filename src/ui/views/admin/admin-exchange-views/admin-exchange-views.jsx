@@ -72,9 +72,8 @@ class AdminExchangeViewsRaw extends Component {
             <MainContent>
               <Grid container spacing={2} className={classNames.filterBtnWrapper}>
                 {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
-                  <Grid key={buttonConfig.status} item>
+                  <Grid key={index} item>
                     <Button
-                      key={index}
                       variant={'text'}
                       className={cx(classNames.filterBtn, {
                         [classNames.currentFilterBtn]: activeSubCategory === index,

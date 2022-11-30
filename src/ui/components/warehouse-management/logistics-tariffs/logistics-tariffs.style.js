@@ -19,6 +19,13 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  openArchiveBtn: {
+    // width: 230,
+    padding: '0 30px',
+
+    color: theme.palette.primary.main,
+  },
+
   addressMainWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -42,8 +49,10 @@ export const useClassNames = makeStyles()(theme => ({
   placeAddBtn: {
     width: '159px',
     height: '40px',
+    marginLeft: 30,
     [theme.breakpoints.down(768)]: {
       width: '91px',
+      marginLeft: 0,
     },
   },
   root: {
@@ -65,10 +74,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
-      '& > :nth-child(2) > :nth-child(1) > :nth-child(3)': {
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
         display: 'none',
       },
-      '& > :nth-child(2) > :nth-child(1) > :nth-child(5)': {
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
         marginLeft: '2px',
       },
     },

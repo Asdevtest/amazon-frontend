@@ -165,7 +165,7 @@ export class ClientInventoryViewModel {
   progressValue = 0
   showProgress = false
 
-  rowCount = undefined
+  rowCount = 0
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -221,10 +221,13 @@ export class ClientInventoryViewModel {
   }
 
   onClickShowProduct(row) {
-    this.history.push({
-      pathname: '/client/inventory/product',
-      search: row.originalData._id,
-    })
+    // this.history.push({
+    //   pathname: '/client/inventory/product',
+    //   search: row.originalData._id,
+    // })
+
+    const win = window.open(`${window.location.origin}/client/inventory/product?${row.originalData._id}`, '_blank')
+    win.focus()
   }
 
   setDataGridState(state) {
@@ -498,7 +501,7 @@ export class ClientInventoryViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.rowCount = undefined
+      this.rowCount = 0
 
       this.productsMy = []
       this.baseNoConvertedProducts = []

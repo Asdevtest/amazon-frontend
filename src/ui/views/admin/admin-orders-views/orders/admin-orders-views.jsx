@@ -83,7 +83,7 @@ class AdminOrdersViewsRaw extends Component {
               </div>
               <Grid container spacing={1} className={classNames.filterBtnWrapper}>
                 {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (
-                  <Grid key={buttonConfig.status} item>
+                  <Grid key={index} item>
                     <Button
                       variant={'text'}
                       className={cx(classNames.filterBtn, {

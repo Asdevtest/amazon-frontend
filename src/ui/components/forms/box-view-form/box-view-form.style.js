@@ -282,7 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
 
-    '& > :nth-child(n)': {
+    '& > :nth-of-type(n)': {
       fontSize: '16px',
       lineHeight: '19px',
       fontWeight: '400',

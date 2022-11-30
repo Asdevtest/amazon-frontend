@@ -30,7 +30,7 @@ import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsPositiveNum} from '@utils/checks'
+import {checkIsPositiveNum, checkIsStringFilesSame} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
@@ -344,7 +344,7 @@ export const GroupingBoxesForm = observer(
             el.storekeeperId === box.storekeeperId &&
             el.logicsTariffId === box.logicsTariffId &&
             el.fbaShipment === box.fbaShipment &&
-            (el.shippingLabel === box.shippingLabel ||
+            (checkIsStringFilesSame(el.shippingLabel, box.shippingLabel) ||
               (!box.shippingLabel && !!el.shippingLabel === !!box.shippingLabel)) &&
             el.heightCmWarehouse === box.heightCmWarehouse &&
             el.lengthCmWarehouse === box.lengthCmWarehouse &&

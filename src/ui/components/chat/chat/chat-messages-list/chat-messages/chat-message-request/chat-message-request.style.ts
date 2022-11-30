@@ -59,7 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    '& > :nth-child(2n)': {
+    '& > :nth-of-type(2n)': {
       width: '40%',
     },
   },

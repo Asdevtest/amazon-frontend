@@ -53,10 +53,7 @@ export const UserBalance = observer(({userId}) => {
     onChangeFilterModel,
   } = model.current
 
-  const getRowClassName = params =>
-    params.getValue(params.id, 'sum') < 0
-      ? classNames.redRow
-      : params.getValue(params.id, 'sum') > 0 && classNames.greenRow
+  const getRowClassName = params => (params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow)
 
   return (
     <div className={classNames.mainWrapper}>

@@ -197,7 +197,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: '58%',
 
-    '& > :first-child': {
+    '& > :first-of-type': {
       color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',
@@ -211,7 +211,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: '35%',
 
-    '& > :first-child': {
+    '& > :first-of-type': {
       color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',

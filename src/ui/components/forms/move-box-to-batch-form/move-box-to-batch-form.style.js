@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
       margin: '0 auto',
       marginTop: '10px',
 
-      '& > :nth-child(n)': {
+      '& > :nth-of-type(n)': {
         fontSize: '12px',
         lineHeight: '16px',
       },

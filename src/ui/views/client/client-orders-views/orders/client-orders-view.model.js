@@ -58,7 +58,7 @@ export class ClientOrdersViewModel {
     onClickReorder: item => this.onClickReorder(item),
   }
 
-  rowCount = undefined
+  rowCount = 0
   firstRowId = undefined
   startFilterModel = undefined
   sortModel = []
@@ -100,9 +100,11 @@ export class ClientOrdersViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders).sort(
-        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-      )
+      runInAction(() => {
+        this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
+      })
     }
   }
 

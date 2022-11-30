@@ -89,7 +89,7 @@ export class WarehouseMyWarehouseViewModel {
   progressValue = 0
   showProgress = false
 
-  rowCount = undefined
+  rowCount = 0
 
   firstRowId = undefined
   sortModel = []
@@ -127,7 +127,9 @@ export class WarehouseMyWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+      runInAction(() => {
+        this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+      })
 
       this.getDataGridState()
     }

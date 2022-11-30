@@ -720,9 +720,9 @@ export const CommentOfSbCell = React.memo(
               <TextareaAutosize
                 disabled
                 value={
-                  checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
+                  (checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
                     ? productsInWarehouse[0].comment.slice(0, 147) + '...'
-                    : productsInWarehouse[0].comment
+                    : productsInWarehouse[0].comment) || ''
                 }
                 className={classNames.multilineTextAlignLeft}
               />
@@ -1010,10 +1010,10 @@ export const TaskDescriptionCell = React.memo(
           <div className={classNames.sideWrapper}>
             {task.boxesBefore.map((box, index) =>
               index !== task.boxesBefore.length - 1 ? (
-                <>
+                <div key={index} className={classNames.renderBoxWrapper}>
                   {renderBox(box, index)}
                   <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
-                </>
+                </div>
               ) : (
                 renderBox(box, index, task.boxesBefore.length === 1)
               ),
@@ -1026,10 +1026,10 @@ export const TaskDescriptionCell = React.memo(
         <div className={classNames.sideWrapper}>
           {task.boxes.map((box, index) =>
             index !== task.boxes.length - 1 ? (
-              <>
+              <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
                 <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
-              </>
+              </div>
             ) : (
               renderBox(box, index, task.boxes.length === 1)
             ),
@@ -1610,21 +1610,38 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       tooltipFirstButton,
       tooltipSecondButton,
       isFirstRow,
+      isArchive,
     }) => (
       <div className={classNames.editOrRemoveIconBtnsCell}>
-        <div className={classNames.editOrRemoveBtnWrapper}>
-          <Button
-            tooltipInfoContent={isFirstRow && tooltipFirstButton}
-            variant="contained"
-            color="primary"
-            disabled={disableActionBtn}
-            className={classNames.removeOrEditBtn}
-            onClick={() => handlers.onClickEditBtn(row)}
-          >
-            {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-          </Button>
-          {/* <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Edit)}</Typography> */}
+        <div className={classNames.editOrRemoveIconBtnsSubCell}>
+          <div className={classNames.editOrRemoveBtnWrapper}>
+            <Button
+              tooltipInfoContent={isFirstRow && tooltipFirstButton}
+              disabled={disableActionBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => handlers.onClickEditBtn(row)}
+            >
+              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+            </Button>
+            <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
+          </div>
+
+          {handlers.onTriggerArchive && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                success={isArchive}
+                // tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers.onTriggerArchive(row)}
+              >
+                <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{isArchive ? 'Reveal' : 'Hide'}</Typography>
+            </div>
+          )}
         </div>
+
         <div className={classNames.editOrRemoveBtnWrapper}>
           <Button
             danger
@@ -1638,7 +1655,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
           >
             <DeleteOutlineOutlinedIcon />
           </Button>
-          {/* <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Delete)}</Typography> */}
+          <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
         </div>
       </div>
     ),
@@ -1722,8 +1739,8 @@ export const BatchBoxesCell = React.memo(
 
     return (
       <div className={classNames.batchBoxesWrapper}>
-        {filteredBoxes.map(boxes => (
-          <div key={boxes[0]._id}>{renderProductInfo(boxes[0], boxes.length)}</div>
+        {filteredBoxes.map((boxes, i) => (
+          <div key={i}>{renderProductInfo(boxes[0], boxes.length)}</div>
         ))}
       </div>
     )

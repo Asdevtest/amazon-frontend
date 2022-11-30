@@ -72,7 +72,7 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
 
-    '&:nth-child(n)': {
+    '&:nth-of-type(n)': {
       marginBottom: '30px',
     },
   },

@@ -55,9 +55,7 @@ class FinancesViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const getRowClassName = params =>
-      params.getValue(params.id, 'sum') < 0
-        ? classNames.redRow
-        : params.getValue(params.id, 'sum') > 0 && classNames.greenRow
+      params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow
 
     return (
       <React.Fragment>

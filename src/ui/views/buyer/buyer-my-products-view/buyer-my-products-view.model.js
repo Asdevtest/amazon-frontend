@@ -30,7 +30,7 @@ export class BuyerMyProductsViewModel {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
   }
 
-  rowCount = undefined
+  rowCount = 0
   sortModel = []
   startFilterModel = undefined
   filterModel = {items: []}

@@ -21,12 +21,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
 
-    '& > :nth-child(n)': {
+    '& > :nth-of-type(n)': {
       fontSize: '14px',
       lineHeight: '19px',
       fontWeight: 400,
     },
-    '& > :first-child': {
+    '& > :first-of-type': {
       color: theme.palette.text.general,
     },
     marginBottom: '30px',
@@ -35,12 +35,12 @@ export const useClassNames = makeStyles()(theme => ({
   idWrapper: {
     display: 'flex',
     gap: '15px',
-    '& > :nth-child(n)': {
+    '& > :nth-of-type(n)': {
       fontSize: '14px',
       lineHeight: '19px',
       fontWeight: 400,
     },
-    '& > :first-child': {
+    '& > :first-of-type': {
       color: theme.palette.text.second,
     },
     alignItems: 'center',
@@ -62,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '13px',
     alignItems: 'center',
 
-    '& > :first-child': {
+    '& > :first-of-type': {
       fontSize: '14px',
       lineHeight: '19px',
       fontWeight: 400,

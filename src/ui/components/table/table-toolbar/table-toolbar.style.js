@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
   icon: {
     fontSize: '16px',
     color: theme.palette.primary.main,
-    '& > *:first-child': {
+    '& > *:first-of-type': {
       fontSize: '16px',
     },
   },

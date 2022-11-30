@@ -37,7 +37,7 @@ export const RequestToSendBatchBox = ({
 
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
-  const isBadBox = isNoBarCodGlued || !box.shippingLabel || !price
+  const isBadBox = isNoBarCodGlued || (!box.shippingLabel && !box.destination?.storekeeperId) || !price
 
   const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
     if (items.length === 1 && boxWeigh) {
@@ -55,8 +55,6 @@ export const RequestToSendBatchBox = ({
       return t(TranslationKey['No data'])
     }
   }
-
-  console.log('box', box)
 
   return (
     <tr
