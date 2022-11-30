@@ -275,11 +275,13 @@ export class ClientWarehouseViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
-      this.storekeepersData = result
+      runInAction(() => {
+        this.storekeepersData = result
 
-      this.currentStorekeeper = this.currentStorekeeper
-        ? this.currentStorekeeper
-        : result.sort((a, b) => a.name?.localeCompare(b.name))[0]
+        this.currentStorekeeper = this.currentStorekeeper
+          ? this.currentStorekeeper
+          : result.sort((a, b) => a.name?.localeCompare(b.name))[0]
+      })
 
       this.getDataGridState()
     } catch (error) {

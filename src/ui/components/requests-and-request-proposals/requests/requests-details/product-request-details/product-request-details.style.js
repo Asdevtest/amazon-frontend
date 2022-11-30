@@ -14,7 +14,7 @@ export const useClassNames = makeStyles()(() => ({
 
   row: {
     display: 'flex',
-    '&:nth-child(2n)': {
+    '&:nth-of-type(2n)': {
       background: 'rgba(0,0,0,.1)',
     },
   },

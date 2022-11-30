@@ -238,7 +238,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
 
-    '& > :first-child': {
+    '& > :first-of-type': {
       marginRight: '60px',
       fontSize: '16px',
       lineHeight: '19px',

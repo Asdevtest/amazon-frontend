@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
@@ -138,7 +139,7 @@ export class ClientWarehouseViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
+    const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
 
     return (
       <React.Fragment>
@@ -247,7 +248,7 @@ export class ClientWarehouseViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                   }}
                   localeText={getLocalizationByLanguageTag()}
-                  // rowsPerPageOptions={[15, 25 /* 50, 100*/]}
+                  // rowsPerPageOptions={[15, 25 , 50, 100]}
                   pageSize={25}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}

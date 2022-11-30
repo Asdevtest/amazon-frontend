@@ -483,9 +483,8 @@ export const warehouseTasksDataConverter = data =>
         )}`.split(', '),
       ),
     )
-      .join(', ')
-      .slice(0, -2)
-      .replace('0', '-'),
+      .filter(el => !!parseInt(el))
+      .join(', '),
 
     trackNumber: Array.from(
       new Set(
@@ -495,9 +494,8 @@ export const warehouseTasksDataConverter = data =>
         )}`.split(', '),
       ),
     )
-      .join(', ')
-      .slice(0, -2)
-      .replace('0', '-'),
+      .filter(el => !!parseInt(el))
+      .join(', '),
   }))
 
 export const adminProductsDataConverter = data =>

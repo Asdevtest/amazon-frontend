@@ -73,7 +73,7 @@ export class BuyerMyOrdersViewModel {
 
   firstRowId = undefined
 
-  rowCount = undefined
+  rowCount = 0
   sortModel = []
   startFilterModel = undefined
   filterModel = {items: []}

@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: '10px',
-    '& > :first-child': {
+    '& > :first-of-type': {
       fontSize: '14px',
     },
   },
@@ -259,7 +259,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: '10px',
-    '& > :first-child': {
+    '& > :first-of-type': {
       fontSize: '14px',
     },
   },

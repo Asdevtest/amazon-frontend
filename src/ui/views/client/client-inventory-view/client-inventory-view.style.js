@@ -15,7 +15,7 @@ export const styles = theme => ({
   btnsWrapper: {
     display: 'flex',
 
-    '& > :not(:first-child)': {
+    '& > :not(:first-of-type)': {
       marginLeft: '30px',
     },
   },

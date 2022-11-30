@@ -88,7 +88,9 @@ export const RequestToSendBatchForm = observer(
 
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
-      boxesWithPriceRequest.some(el => !el.shippingLabel || el.items.some(e => !e.barCode)) ||
+      boxesWithPriceRequest.some(
+        el => (!el.shippingLabel && !el.destination?.storekeeperId) || el.items.some(e => !e.barCode),
+      ) ||
       boxesGroupedByWarehouseAndDeliveryMethod.some(
         selectedGroup =>
           !findTariffInStorekeepersData(

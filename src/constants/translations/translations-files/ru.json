@@ -1621,5 +1621,8 @@
   "Quantity of the selected item in the batch": "Количество выбранного товара в партии",
   "Boxes and the quantity of the selected product in them": "Коробки и количество выбранного товара в них",
   "Watch the batch": "Смотреть партию",
-  "Lot number search": "Поиск по номеру партии"
+  "Lot number search": "Поиск по номеру партии",
+  "Open warehouse management": "Открыть управление складом",
+  "Are you sure you want to move the tariff to the archive?": "Are you sure you want to move the tariff to the archive?",
+  "Are you sure you want to restore the tariff?": "Вы уверены, что хотите восстановить тариф?"
 }

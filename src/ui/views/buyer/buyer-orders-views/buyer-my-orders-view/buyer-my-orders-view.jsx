@@ -89,8 +89,7 @@ class BuyerMyOrdersViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const getRowClassName = params =>
-      attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+    const getRowClassName = params => attentionStatuses.includes(params.row.status) && classNames.attentionRow
 
     return (
       <React.Fragment>

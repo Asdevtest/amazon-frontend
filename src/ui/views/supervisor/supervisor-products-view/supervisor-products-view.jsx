@@ -76,7 +76,7 @@ class SupervisorProductsViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const getRowClassName = params =>
-      attentionStatuses.includes(params.getValue(params.id, 'statusForAttention')) && classNames.attentionRow
+      attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
     // attentionStatuses.includes(params.row.originalData.status) && classNames.attentionRow
 
     return (

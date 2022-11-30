@@ -102,7 +102,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => params.getValue(params.id, 'isDraft') === true && classNames.isDraftRow
+    const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
 
     return (
       <React.Fragment>

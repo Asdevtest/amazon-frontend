@@ -61,7 +61,7 @@ export const SelectStorekeeperAndTariffForm = observer(
       onSubmit(curStorekeeper._id, tariffId)
     }
 
-    const getRowClassName = params => curTariffId === params.getValue(params.id, '_id') && classNames.attentionRow
+    const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
     return (
       <div className={classNames.root}>
