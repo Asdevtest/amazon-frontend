@@ -21,8 +21,12 @@ export class AdminAwaitingBatchesViewModel {
 
   volumeWeightCoefficient = undefined
 
+  nameSearchValue = ''
+
   batches = []
-  boxesData = []
+  batchesData = []
+
+  currentData = []
 
   selectedBatches = []
   curBatch = {}
@@ -46,6 +50,11 @@ export class AdminAwaitingBatchesViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.batches,
+      () => (this.currentData = toJS(this.batches)),
     )
   }
 
@@ -83,6 +92,26 @@ export class AdminAwaitingBatchesViewModel {
     }
   }
 
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    console.log('this.nameSearchValue', this.nameSearchValue)
+    console.log('this.boxesData', this.batchesData)
+
+    if (this.nameSearchValue) {
+      this.batches = this.batchesData.filter(item =>
+        item.originalData.boxes.some(
+          box =>
+            box.items.some(item =>
+              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ) || box.items.some(item => item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+        ),
+      )
+    } else {
+      this.boxes = this.boxesData
+    }
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -105,10 +134,6 @@ export class AdminAwaitingBatchesViewModel {
 
   onSelectionModel(model) {
     this.selectedBatches = model
-  }
-
-  getCurrentData() {
-    return toJS(this.batches)
   }
 
   async loadData() {
@@ -141,6 +166,9 @@ export class AdminAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
+        this.batchesData = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })

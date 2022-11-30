@@ -85,6 +85,7 @@ InlineResponse20010.prototype['humanFriendlyId'] = undefined;
 InlineResponse20010.prototype['boxes'] = undefined;
 
 /**
+ * Общее кол-во продуктов
  * @member {Number} amountInBatch
  */
 InlineResponse20010.prototype['amountInBatch'] = undefined;

@@ -6,6 +6,7 @@ import {
   WarehouseTariffDatesCell,
   MultilineTextCell,
   NormalActionBtnCell,
+  BoxesAndQuantity,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -32,13 +33,13 @@ export const productLotDataFormColumns = handlers => [
   },
 
   {
-    field: 'shippingLabel',
+    field: 'boxesAndQuantity',
     headerName: t(TranslationKey['Boxes and the quantity of the selected product in them']),
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
     ),
 
-    renderCell: params => <MultilineTextCell text={params.value ? params.value : '-'} />,
+    renderCell: params => <BoxesAndQuantity boxesData={params.row.boxes} />,
     width: 200,
   },
 

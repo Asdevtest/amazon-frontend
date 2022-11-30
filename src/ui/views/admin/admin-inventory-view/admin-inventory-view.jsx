@@ -13,6 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -31,7 +32,7 @@ export class AdminInventoryViewRaw extends Component {
 
   render() {
     const {
-      getCurrentData,
+      // getCurrentData,
       sortModel,
       filterModel,
       densityModel,
@@ -41,6 +42,7 @@ export class AdminInventoryViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      currentData,
       onChangeCurPage,
       onChangeRowsPerPage,
       onSelectionModel,
@@ -49,6 +51,7 @@ export class AdminInventoryViewRaw extends Component {
       onChangeSortingModel,
       onClickTableRow,
       onChangeFilterModel,
+      onSearchSubmit,
     } = this.viewModel
 
     const activeCategory = navBarActiveCategory.NAVBAR_INVENTORY
@@ -60,6 +63,13 @@ export class AdminInventoryViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  onSubmit={onSearchSubmit}
+                />
+              </div>
               <DataGrid
                 pagination
                 useResizeContainer
@@ -83,7 +93,7 @@ export class AdminInventoryViewRaw extends Component {
                 components={{
                   Toolbar: GridToolbar,
                 }}
-                rows={getCurrentData()}
+                rows={currentData}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

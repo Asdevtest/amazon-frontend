@@ -292,8 +292,6 @@ export class ClientInventoryViewModel {
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
-    console.log('searchValue', searchValue)
-
     this.getProductsMy()
   }
 

@@ -802,15 +802,26 @@ export const MultilineTextHeaderCell = React.memo(
   ),
 )
 
+export const BoxesAndQuantity = React.memo(
+  withStyles(({classes: classNames, boxesData}) => {
+    const boxes = boxesData.map((item, i) =>
+      item ? (
+        <Typography className={classNames.boxesAndQuantityText}>{`
+        ${item.boxAmount}x${item.itemAmount}${
+          boxesData.length > 1 && i + 1 !== boxesData.length ? ', ' : ''
+        }`}</Typography>
+      ) : null,
+    )
+    return <div className={classNames.multilineTextAlignLeftHeaderWrapper}>{boxes}</div>
+  }, styles),
+)
+
 export const TextHeaderCell = React.memo(
-  withStyles(
-    ({classes: classNames, text}) => (
-      <div className={classNames.textHeaderWrapper}>
-        <Typography className={classNames.headerText}>{text}</Typography>
-      </div>
-    ),
-    styles,
-  ),
+  withStyles(({classes: classNames, text}) => (
+    <div className={classNames.textHeaderWrapper}>
+      <Typography className={classNames.headerText}>{text}</Typography>
+    </div>
+  )),
 )
 
 export const MultilineStatusCell = React.memo(

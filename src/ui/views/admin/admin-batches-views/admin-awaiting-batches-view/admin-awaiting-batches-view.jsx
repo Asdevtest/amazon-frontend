@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -37,7 +38,7 @@ export class AdminAwaitingBatchesViewRaw extends Component {
       curBatch,
       showBatchInfoModal,
       onTriggerOpenModal,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       requestStatus,
@@ -56,6 +57,7 @@ export class AdminAwaitingBatchesViewRaw extends Component {
       onChangeFilterModel,
 
       setCurrentOpenedBatch,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -71,6 +73,13 @@ export class AdminAwaitingBatchesViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Awaiting send'])}>
             <MainContent>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  onSubmit={onSearchSubmit}
+                />
+              </div>
               <DataGrid
                 pagination
                 useResizeContainer
@@ -87,7 +96,7 @@ export class AdminAwaitingBatchesViewRaw extends Component {
                 page={curPage}
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
+                rows={currentData}
                 getRowHeight={() => 'auto'}
                 components={{
                   Toolbar: GridToolbar,

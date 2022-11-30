@@ -17,7 +17,12 @@ export class AdminInventoryViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
+  productsBase = []
   products = []
+
+  currentData = []
 
   selectionModel = undefined
 
@@ -38,6 +43,13 @@ export class AdminInventoryViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.products,
+      () => {
+        this.currentData = toJS(this.products)
+      },
     )
   }
 
@@ -101,6 +113,21 @@ export class AdminInventoryViewModel {
     this.curPage = e
   }
 
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    if (this.nameSearchValue) {
+      this.products = this.productsBase.filter(
+        item =>
+          item.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      this.products = this.productsBase
+    }
+  }
+
   async getProducts() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -110,6 +137,7 @@ export class AdminInventoryViewModel {
 
       runInAction(() => {
         this.products = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.productsBase = productsData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -121,10 +149,6 @@ export class AdminInventoryViewModel {
       }
       this.products = []
     }
-  }
-
-  getCurrentData() {
-    return toJS(this.products)
   }
 
   onSelectionModel(model) {

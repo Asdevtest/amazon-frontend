@@ -18,7 +18,12 @@ export class AdminWarehouseBoxesViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
+  boxesData = []
   boxes = []
+
+  currentData = []
 
   curBox = undefined
 
@@ -39,15 +44,41 @@ export class AdminWarehouseBoxesViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.boxes,
+      () => (this.currentData = toJS(this.boxes)),
     )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    console.log('this.nameSearchValue', this.nameSearchValue)
+    console.log('this.boxesData', this.boxesData[0].originalData.items[0].product.asin)
+
+    if (this.nameSearchValue) {
+      this.boxes = this.boxesData.filter(box =>
+        box.originalData.items.some(
+          item =>
+            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      this.boxes = this.boxesData
     }
   }
 
@@ -61,10 +92,6 @@ export class AdminWarehouseBoxesViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
-  }
-
-  getCurrentData() {
-    return toJS(this.boxes)
   }
 
   setDataGridState(state) {
@@ -124,6 +151,7 @@ export class AdminWarehouseBoxesViewModel {
       const result = await BoxesModel.getBoxes()
 
       runInAction(() => {
+        this.boxesData = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
         this.boxes = adminBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {

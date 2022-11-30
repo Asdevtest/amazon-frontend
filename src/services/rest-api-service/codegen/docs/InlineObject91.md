@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **etd** | **Date** | Ожидаема дата отбытия. | [optional] 
 **eta** | **Date** | Ожидаема дата прибытия. | [optional] 
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
+**archive** | **Boolean** | Заархивирован ли тариф | [optional] 
 **conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | 
 
 

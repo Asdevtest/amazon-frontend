@@ -19,6 +19,19 @@ export const styles = theme => ({
       transform: 'scale(1.005)',
     },
   },
+  topHeaderBtnsWrapper: {
+    paddingTop: 5,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+    height: 36,
+    overflow: 'visible',
+  },
   datagridWrapper: {
     marginTop: '10px',
     height: '79vh',
@@ -30,7 +43,6 @@ export const styles = theme => ({
 
     backgroundColor: theme.palette.background.general,
   },
-
   footerContainer: {
     position: 'absolute',
     top: 0,

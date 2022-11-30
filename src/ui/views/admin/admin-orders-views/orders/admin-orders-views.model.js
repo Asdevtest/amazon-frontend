@@ -30,7 +30,12 @@ export class AdminOrdersAllViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
+  orderData = []
   currentOrdersData = []
+
+  currentData = []
 
   baseNoConvertedOrders = []
 
@@ -54,6 +59,13 @@ export class AdminOrdersAllViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.currentOrdersData,
+      () => {
+        this.currentData = toJS(this.currentOrdersData)
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -63,6 +75,21 @@ export class AdminOrdersAllViewModel {
       this.currentOrdersData = adminOrdersDataConverter(this.baseNoConvertedOrders).sort(
         sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
       )
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+
+    if (this.nameSearchValue) {
+      this.currentOrdersData = this.orderData.filter(
+        item =>
+          item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      this.currentOrdersData = this.orderData
     }
   }
 
@@ -129,6 +156,7 @@ export class AdminOrdersAllViewModel {
       runInAction(() => {
         this.baseNoConvertedOrders = result
 
+        this.orderData = adminOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
         this.currentOrdersData = adminOrdersDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
@@ -140,10 +168,6 @@ export class AdminOrdersAllViewModel {
       this.error = error
       this.currentOrdersData = []
     }
-  }
-
-  getCurrentData() {
-    return toJS(this.currentOrdersData)
   }
 
   onSelectionModel(model) {

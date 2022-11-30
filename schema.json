@@ -3006,6 +3006,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -6525,6 +6526,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -7527,6 +7533,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -8649,6 +8656,11 @@
                                       "example": 0.5,
                                       "description": "Минимальный вес, в кг"
                                     },
+                                    "archive": {
+                                      "type": "boolean",
+                                      "description": "Заархивирован ли тариф",
+                                      "example": true
+                                    },
                                     "conditionsByRegion": {
                                       "type": "object",
                                       "additionalProperties": false,
@@ -9628,6 +9640,7 @@
                             "example": 0.5,
                             "description": "Минимальный вес, в кг"
                           },
+                          "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                           "conditionsByRegion": {
                             "type": "object",
                             "additionalProperties": false,
@@ -9962,11 +9975,17 @@
                               "example": "2022-10-24T15:10:46.882Z"
                             }
                           }
-                        }
+                        },
+                        "boxAmount": {
+                          "type": "number",
+                          "example": "3",
+                          "description": "Общее кол-во коробок с этим продуктом"
+                        },
+                        "itemAmount": {"type": "number", "example": "15", "description": "Общее кол-во в коробке"}
                       }
                     }
                   },
-                  "amountInBatch": {"type": "number", "example": "102"}
+                  "amountInBatch": {"type": "number", "example": "45", "description": "Общее кол-во продуктов"}
                 }
               }
             }
@@ -10963,6 +10982,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -11871,6 +11895,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -12846,6 +12871,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -13754,6 +13784,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -14702,6 +14733,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -15610,6 +15646,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -16558,6 +16595,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -17466,6 +17508,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -19108,6 +19151,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -20016,6 +20064,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -20581,6 +20630,7 @@
             "in": "query",
             "name": "filtersBox"
           },
+          {"type": "string", "required": false, "in": "query", "name": "filtersOrders"},
           {
             "type": "string",
             "enum": [
@@ -21935,6 +21985,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -22843,6 +22898,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -23788,6 +23844,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -24696,6 +24757,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -25507,6 +25569,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -26356,6 +26419,7 @@
                       "example": 0.5,
                       "description": "Минимальный вес, в кг"
                     },
+                    "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                     "conditionsByRegion": {
                       "type": "object",
                       "additionalProperties": false,
@@ -28573,6 +28637,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -29575,6 +29644,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -30566,6 +30636,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -31568,6 +31643,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -33809,6 +33885,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -34730,6 +34807,7 @@
                       "example": 0.5,
                       "description": "Минимальный вес, в кг"
                     },
+                    "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                     "conditionsByRegion": {
                       "type": "object",
                       "additionalProperties": false,
@@ -35608,6 +35686,7 @@
                             "example": 0.5,
                             "description": "Минимальный вес, в кг"
                           },
+                          "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                           "conditionsByRegion": {
                             "type": "object",
                             "additionalProperties": false,
@@ -36497,6 +36576,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -45725,6 +45805,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -46727,6 +46812,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -47718,6 +47804,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -48720,6 +48811,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -49749,6 +49841,11 @@
                                       "example": 0.5,
                                       "description": "Минимальный вес, в кг"
                                     },
+                                    "archive": {
+                                      "type": "boolean",
+                                      "description": "Заархивирован ли тариф",
+                                      "example": true
+                                    },
                                     "conditionsByRegion": {
                                       "type": "object",
                                       "additionalProperties": false,
@@ -50728,6 +50825,7 @@
                             "example": 0.5,
                             "description": "Минимальный вес, в кг"
                           },
+                          "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                           "conditionsByRegion": {
                             "type": "object",
                             "additionalProperties": false,
@@ -51679,6 +51777,11 @@
                                       "example": 0.5,
                                       "description": "Минимальный вес, в кг"
                                     },
+                                    "archive": {
+                                      "type": "boolean",
+                                      "description": "Заархивирован ли тариф",
+                                      "example": true
+                                    },
                                     "conditionsByRegion": {
                                       "type": "object",
                                       "additionalProperties": false,
@@ -52658,6 +52761,7 @@
                             "example": 0.5,
                             "description": "Минимальный вес, в кг"
                           },
+                          "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                           "conditionsByRegion": {
                             "type": "object",
                             "additionalProperties": false,
@@ -54117,6 +54221,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -55119,6 +55228,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -56110,6 +56220,11 @@
                                         "example": 0.5,
                                         "description": "Минимальный вес, в кг"
                                       },
+                                      "archive": {
+                                        "type": "boolean",
+                                        "description": "Заархивирован ли тариф",
+                                        "example": true
+                                      },
                                       "conditionsByRegion": {
                                         "type": "object",
                                         "additionalProperties": false,
@@ -57112,6 +57227,7 @@
                               "example": 0.5,
                               "description": "Минимальный вес, в кг"
                             },
+                            "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                             "conditionsByRegion": {
                               "type": "object",
                               "additionalProperties": false,
@@ -58174,6 +58290,11 @@
                                   "example": 0.5,
                                   "description": "Минимальный вес, в кг"
                                 },
+                                "archive": {
+                                  "type": "boolean",
+                                  "description": "Заархивирован ли тариф",
+                                  "example": true
+                                },
                                 "conditionsByRegion": {
                                   "type": "object",
                                   "additionalProperties": false,
@@ -59082,6 +59203,7 @@
                         "example": 0.5,
                         "description": "Минимальный вес, в кг"
                       },
+                      "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                       "conditionsByRegion": {
                         "type": "object",
                         "additionalProperties": false,
@@ -60239,6 +60361,11 @@
                                       "example": 0.5,
                                       "description": "Минимальный вес, в кг"
                                     },
+                                    "archive": {
+                                      "type": "boolean",
+                                      "description": "Заархивирован ли тариф",
+                                      "example": true
+                                    },
                                     "conditionsByRegion": {
                                       "type": "object",
                                       "additionalProperties": false,
@@ -61218,6 +61345,7 @@
                             "example": 0.5,
                             "description": "Минимальный вес, в кг"
                           },
+                          "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                           "conditionsByRegion": {
                             "type": "object",
                             "additionalProperties": false,
@@ -61400,6 +61528,7 @@
                           "example": 0.5,
                           "description": "Минимальный вес, в кг"
                         },
+                        "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                         "conditionsByRegion": {
                           "type": "object",
                           "additionalProperties": false,
@@ -61521,6 +61650,7 @@
                   "example": 0.5,
                   "description": "Минимальный вес, в кг"
                 },
+                "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                 "conditionsByRegion": {
                   "type": "object",
                   "additionalProperties": false,
@@ -61592,7 +61722,17 @@
         "description": "## Получить всех тарифами доставки сторкипером. \n\nдоступно сторкипером\n\n",
         "tags": ["Storekeepers"],
         "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "parameters": [
+          {
+            "type": "boolean",
+            "example": true,
+            "description": "Заархивирован ли тариф",
+            "required": false,
+            "in": "query",
+            "name": "archive"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
         "security": [{"AccessTokenBearer": []}],
         "responses": {
           "200": {
@@ -61634,6 +61774,7 @@
                     "example": 0.5,
                     "description": "Минимальный вес, в кг"
                   },
+                  "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                   "conditionsByRegion": {
                     "type": "object",
                     "additionalProperties": false,
@@ -61734,6 +61875,7 @@
                   "example": 0.5,
                   "description": "Минимальный вес, в кг"
                 },
+                "archive": {"type": "boolean", "description": "Заархивирован ли тариф", "example": true},
                 "conditionsByRegion": {
                   "type": "object",
                   "additionalProperties": false,

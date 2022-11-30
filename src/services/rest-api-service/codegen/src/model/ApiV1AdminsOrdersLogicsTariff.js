@@ -73,6 +73,9 @@ class ApiV1AdminsOrdersLogicsTariff {
             if (data.hasOwnProperty('minWeightInKg')) {
                 obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
@@ -133,6 +136,12 @@ ApiV1AdminsOrdersLogicsTariff.prototype['eta'] = undefined;
  * @member {Number} minWeightInKg
  */
 ApiV1AdminsOrdersLogicsTariff.prototype['minWeightInKg'] = undefined;
+
+/**
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['archive'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
