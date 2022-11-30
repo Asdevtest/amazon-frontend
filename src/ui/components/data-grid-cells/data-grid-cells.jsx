@@ -817,11 +817,14 @@ export const BoxesAndQuantity = React.memo(
 )
 
 export const TextHeaderCell = React.memo(
-  withStyles(({classes: classNames, text}) => (
-    <div className={classNames.textHeaderWrapper}>
-      <Typography className={classNames.headerText}>{text}</Typography>
-    </div>
-  )),
+  withStyles(
+    ({classes: classNames, text}) => (
+      <div className={classNames.textHeaderWrapper}>
+        <Typography className={classNames.headerText}>{text}</Typography>
+      </div>
+    ),
+    styles,
+  ),
 )
 
 export const MultilineStatusCell = React.memo(
