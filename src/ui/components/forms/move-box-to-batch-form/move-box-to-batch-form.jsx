@@ -46,7 +46,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
               }`}</Typography>
 
               <Typography variant="h6" className={classNames.standartText}>{`${t(TranslationKey.Batch)}: ${
-                box.batch?.humanFriendlyId || 'N/A'
+                box.batch?.humanFriendlyId || t(TranslationKey['Not chosen'])
               }`}</Typography>
             </div>
           </div>
