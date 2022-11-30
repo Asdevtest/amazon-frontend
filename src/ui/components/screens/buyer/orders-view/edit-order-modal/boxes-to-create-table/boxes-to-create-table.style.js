@@ -97,7 +97,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   buttonCell: {
-    minWidth: 70,
+    minWidth: 50,
     display: 'flex',
     alignItems: 'center',
 
@@ -131,16 +131,11 @@ export const useClassNames = makeStyles()(theme => ({
   qtyCell: {
     minWidth: '80px',
   },
-  deleteBtn: {
-    color: 'grey',
-  },
-  editBtn: {
-    color: 'grey',
-  },
 
   checkboxWithLabelWrapper: {
     display: 'flex',
     alignItems: 'center',
+    width: 155,
   },
 
   hidden: {
@@ -164,6 +159,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     marginLeft: '10px',
     backgroundColor: 'inherit',
+    margin: 0,
+    padding: 0,
 
     '&:hover': {
       backgroundColor: '#e4e4e4',
@@ -173,10 +170,19 @@ export const useClassNames = makeStyles()(theme => ({
     width: '40px',
     height: '40px',
     backgroundColor: 'inherit',
+    margin: 0,
+    padding: 0,
 
     '&:hover': {
       backgroundColor: '#e4e4e4',
     },
     marginLeft: 10,
+  },
+
+  deleteBtn: {
+    color: 'grey',
+  },
+  editBtn: {
+    color: 'grey',
   },
 }))
