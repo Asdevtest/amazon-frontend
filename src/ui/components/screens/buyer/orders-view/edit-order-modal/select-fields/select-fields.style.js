@@ -169,7 +169,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   barCode: {
     display: 'flex',
-    gap: '20px',
+    gap: 10,
   },
 
   trackAndHsCodeAndComments: {
