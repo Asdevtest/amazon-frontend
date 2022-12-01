@@ -785,6 +785,7 @@ export const EditBoxStorekeeperForm = observer(
           />
 
           <Field
+            disabled
             multiline
             className={classNames.multiline}
             minRows={25}
@@ -792,7 +793,7 @@ export const EditBoxStorekeeperForm = observer(
             inputProps={{maxLength: 1000}}
             label={t(TranslationKey['Write a comment on the task'])}
             placeholder={t(TranslationKey.Comment)}
-            onChange={setFormField('clientComment')}
+            // onChange={setFormField('clientComment')}
           />
         </div>
 
