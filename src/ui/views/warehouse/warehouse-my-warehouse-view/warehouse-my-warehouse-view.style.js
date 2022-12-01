@@ -125,7 +125,7 @@ export const styles = theme => ({
   },
   searchInput: {
     border: '1px solid #007bff',
-    width: '300px',
+    width: 400,
     height: 36,
   },
   datagridWrapper: {

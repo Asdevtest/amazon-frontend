@@ -384,6 +384,8 @@ export class ClientWarehouseViewModel {
             sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
           items: newItems,
           shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          destinationId: boxData.destination?._id,
+          logicsTariffId: boxData.logicsTariff?._id,
         },
         updateBoxWhiteList,
       )

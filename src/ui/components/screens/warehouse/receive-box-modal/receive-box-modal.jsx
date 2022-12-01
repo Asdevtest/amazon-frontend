@@ -667,8 +667,10 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           <Typography className={classNames.qtyTitle}>{t(TranslationKey.Quantity)}</Typography>
           <Typography className={classNames.qtySubTitle}>
             {
-              boxesBefore.reduce((ac, cur) => (ac += cur.items[0].amount), 0) *
-                boxesBefore[0].amount /* `${box.items[0].amount} x ${box.amount}`*/
+              boxesBefore.reduce(
+                (ac, cur) => (ac += cur.items[0].amount * cur.amount),
+                0,
+              ) /* `${box.items[0].amount} x ${box.amount}`*/
             }
           </Typography>
         </div>

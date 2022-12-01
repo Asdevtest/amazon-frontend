@@ -100,6 +100,7 @@ class BuyerMyOrdersViewRaw extends Component {
             <MainContent>
               <div className={classNames.headerWrapper}>
                 <SearchInput
+                  inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
