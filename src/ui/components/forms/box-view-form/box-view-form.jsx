@@ -451,7 +451,7 @@ export const BoxViewForm = observer(
                 inputClasses={classNames.inputField}
                 inputProps={{maxLength: 255}}
                 label={t(TranslationKey['Reference id'])}
-                value={box.referenceId}
+                value={formFields.referenceId}
                 onChange={onChangeField('referenceId')}
               />
             </div>
