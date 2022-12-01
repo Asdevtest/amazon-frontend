@@ -187,7 +187,8 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: 225,
     height: 40,
 
-    border: '1px solid #E0E0E0',
+    border: `1px solid ${theme.palette.input.customBorder}`,
+
     borderRadius: '4px',
   },
 

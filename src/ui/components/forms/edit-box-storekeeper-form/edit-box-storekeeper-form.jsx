@@ -171,6 +171,8 @@ export const EditBoxStorekeeperForm = observer(
   ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
     const {classes: classNames} = useClassNames()
 
+    console.log(formItem)
+
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
