@@ -210,7 +210,7 @@ export const EditBoxForm = observer(
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
       boxFields.storekeeperId === '' ||
-      // boxFields.logicsTariffId === '' ||
+      boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
         !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper)
@@ -533,6 +533,19 @@ export const EditBoxForm = observer(
                           />
                         </div>
                       }
+                    />
+                  </div>
+
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <Field
+                      disabled
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={cx(classNames.fbaShipmentInput)}
+                      inputProps={{maxLength: 255}}
+                      label={t(TranslationKey['Reference id'])}
+                      value={boxFields.referenceId}
+                      onChange={setFormField('referenceId')}
                     />
                   </div>
                 </div>

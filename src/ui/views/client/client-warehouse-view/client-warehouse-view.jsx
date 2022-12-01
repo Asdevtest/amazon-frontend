@@ -211,7 +211,7 @@ export class ClientWarehouseViewRaw extends Component {
                   toolbarContainer: classNames.toolbarContainer,
                 }}
                 getRowClassName={getRowClassName}
-                // selectionModel={selectedBoxes}
+                selectionModel={selectedBoxes}
                 sortingMode="server"
                 paginationMode="server"
                 rowCount={rowCount}

@@ -37,7 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
   warningModalMessageWrapper: {
     background: theme.palette.background.general,
     borderRadius: '10px 10px',
-    padding: '10px',
+    // padding: '10px',
   },
 
   modalMessage: {

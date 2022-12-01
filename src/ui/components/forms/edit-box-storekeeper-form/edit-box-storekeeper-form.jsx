@@ -171,8 +171,6 @@ export const EditBoxStorekeeperForm = observer(
   ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
     const {classes: classNames} = useClassNames()
 
-    console.log(formItem)
-
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -642,6 +640,16 @@ export const EditBoxStorekeeperForm = observer(
                     />
                   </div>
                   <div className={classNames.shareBoxSubWrapper}>
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={cx(classNames.fbaShipmentInput)}
+                      inputProps={{maxLength: 255}}
+                      label={t(TranslationKey['Reference id'])}
+                      value={boxFields.referenceId}
+                      onChange={setFormField('referenceId')}
+                    />
+
                     <Field
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.shippingField}

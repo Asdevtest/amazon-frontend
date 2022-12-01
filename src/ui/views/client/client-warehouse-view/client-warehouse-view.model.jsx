@@ -48,6 +48,7 @@ const updateBoxWhiteList = [
   'storekeeperId',
   'logicsTariffId',
   'fbaShipment',
+  // 'referenceId',
 ]
 
 export class ClientWarehouseViewModel {
@@ -291,7 +292,10 @@ export class ClientWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        clientComment: data.clientComment,
+        referenceId: data.referenceId,
+      })
 
       this.getBoxesMy()
 
@@ -797,6 +801,7 @@ export class ClientWarehouseViewModel {
               ? false
               : sourceData.isShippingLabelAttachedByStorekeeper,
           clientComment: boxData.clientComment,
+          referenceId: boxData.referenceId,
         })
 
         this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(

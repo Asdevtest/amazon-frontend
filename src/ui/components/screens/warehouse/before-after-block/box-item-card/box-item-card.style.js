@@ -82,10 +82,18 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
 
     maxWidth: 185,
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
   },
+
+  trackNum: {
+    fontSize: '14px',
+
+    color: theme.palette.text.general,
+    lineHeight: '19px',
+    fontWeight: 600,
+
+    maxWidth: 185,
+  },
+
   asinTitle: {
     fontSize: '14px',
     color: theme.palette.text.general,

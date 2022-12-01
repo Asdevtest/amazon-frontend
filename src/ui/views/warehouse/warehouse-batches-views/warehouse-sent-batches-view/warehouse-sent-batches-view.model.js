@@ -8,7 +8,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
@@ -151,7 +150,10 @@ export class WarehouseSentBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        storekeeperComment: data.storekeeperComment,
+        referenceId: data.referenceId,
+      })
 
       await this.loadData()
 

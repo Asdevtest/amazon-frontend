@@ -6,7 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
-import {ClientModel} from '@models/client-model'
+import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -155,7 +155,10 @@ export class ClientSentBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        clientComment: data.clientComment,
+        referenceId: data.referenceId,
+      })
 
       await this.loadData()
 
