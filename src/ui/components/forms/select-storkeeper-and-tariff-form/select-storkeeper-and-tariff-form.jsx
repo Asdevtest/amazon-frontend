@@ -135,7 +135,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                 color="primary"
                 variant={'outlined'}
                 className={classNames.resetBtn}
-                onClick={() => onSubmit('', '')}
+                onClick={() => onSubmit(null, null)}
               >
                 {t(TranslationKey.reset)}
               </Button>

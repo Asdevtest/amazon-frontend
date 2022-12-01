@@ -210,7 +210,7 @@ export const EditBoxForm = observer(
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
       boxFields.storekeeperId === '' ||
-      // boxFields.logicsTariffId === '' ||
+      boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
         !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper)

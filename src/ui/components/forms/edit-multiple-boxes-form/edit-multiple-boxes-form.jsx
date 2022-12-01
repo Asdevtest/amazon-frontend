@@ -467,8 +467,8 @@ export const EditMultipleBoxesForm = observer(
       selectedBoxes.map(el => ({
         ...el,
         destinationId: el.destination?._id || null,
-        storekeeperId: el.storekeeper?._id || '',
-        logicsTariffId: el.logicsTariff?._id || '',
+        storekeeperId: el.storekeeper?._id || null,
+        logicsTariffId: el.logicsTariff?._id || null,
 
         tmpShippingLabel: [],
         items: el?.items ? [...el.items.map(el => ({...el, changeBarCodInInventory: false, tmpBarCode: []}))] : [],
@@ -596,9 +596,10 @@ export const EditMultipleBoxesForm = observer(
 
     const disabledSubmitBtn = newBoxes.some(
       el =>
-        /* !el.logicsTariffId ||*/ (el.shippingLabel || el.tmpShippingLabel?.length) &&
-        !el.fbaShipment &&
-        !destinations.find(e => e._id === el.destinationId)?.storekeeper,
+        !el.logicsTariffId ||
+        ((el.shippingLabel || el.tmpShippingLabel?.length) &&
+          !el.fbaShipment &&
+          !destinations.find(e => e._id === el.destinationId)?.storekeeper),
     )
 
     const disabledApplyBtn = !visibleBoxes.length
