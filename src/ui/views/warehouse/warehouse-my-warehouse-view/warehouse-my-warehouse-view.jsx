@@ -117,7 +117,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
                 <SearchInput
                   inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
 

@@ -20775,16 +20775,8 @@
             "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
             "required": false,
             "in": "query",
-            "name": "filtersProduct"
+            "name": "filters"
           },
-          {
-            "type": "string",
-            "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
-            "required": false,
-            "in": "query",
-            "name": "filtersBox"
-          },
-          {"type": "string", "required": false, "in": "query", "name": "filtersOrders"},
           {
             "type": "string",
             "enum": [
@@ -27568,14 +27560,7 @@
             "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
             "required": false,
             "in": "query",
-            "name": "filtersProduct"
-          },
-          {
-            "type": "string",
-            "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
-            "required": false,
-            "in": "query",
-            "name": "filtersOrder"
+            "name": "filters"
           },
           {
             "type": "number",
@@ -35850,14 +35835,7 @@
             "description": "\n              Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
             "required": false,
             "in": "query",
-            "name": "filtersProduct"
-          },
-          {
-            "type": "string",
-            "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
-            "required": false,
-            "in": "query",
-            "name": "filtersOrder"
+            "name": "filters"
           },
           {
             "type": "number",
@@ -59951,16 +59929,8 @@
             "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
             "required": false,
             "in": "query",
-            "name": "filtersProduct"
+            "name": "filters"
           },
-          {
-            "type": "string",
-            "description": "\n              Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive\n\n              отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.\n\n\n              без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive\n\n\n              Query параметры:\n\n              filters - фильтры по любые поля из модели продукта\n\n              shopId - ID магазина\n            ",
-            "required": false,
-            "in": "query",
-            "name": "filtersBox"
-          },
-          {"type": "string", "required": false, "in": "query", "name": "filtersOrders"},
           {
             "type": "number",
             "description": "Лимит записей для пагинации",
