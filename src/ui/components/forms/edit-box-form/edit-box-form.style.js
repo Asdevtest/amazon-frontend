@@ -141,6 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
   commentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    marginTop: 40,
   },
 
   boxTitleWrapper: {

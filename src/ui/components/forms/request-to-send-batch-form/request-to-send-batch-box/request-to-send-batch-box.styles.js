@@ -28,6 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
     width: '100px',
   },
+
   imgWrapper: {
     minHeight: '50px',
     width: '50px',
@@ -115,6 +116,26 @@ export const useClassNames = makeStyles()(theme => ({
     width: '140px',
 
     textAlign: 'center',
+  },
+
+  suberboxPriceCellWrapper: {
+    width: 'auto',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    color: theme.palette.text.second,
+    margin: 0,
+    padding: 0,
+    gap: 15,
+  },
+
+  suberboxPriceCell: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   spanText: {

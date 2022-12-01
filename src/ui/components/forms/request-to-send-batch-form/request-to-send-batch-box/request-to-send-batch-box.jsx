@@ -31,6 +31,8 @@ export const RequestToSendBatchBox = ({
 
   const tableCellClsx = cx(classNames.tableCell)
 
+  console.log('price', price)
+
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
@@ -275,18 +277,53 @@ export const RequestToSendBatchBox = ({
           </div>
         ))}
       </td>
+      {/* cx(tableCellClsx, classNames.priceCell) */}
+      {box.amount > 1 ? (
+        <td className={classNames.suberboxPriceCellWrapper}>
+          <div className={classNames.suberboxPriceCell}>
+            <div className={classNames.priceCell}>
+              <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
+            </div>
+            <div className={classNames.priceCellRight}>
+              <Typography variant="h5">{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
+            </div>
+          </div>
+          <div className={classNames.suberboxPriceCell}>
+            <div className={classNames.priceCell}>
+              <Typography className={classNames.spanText}>{t(TranslationKey['Delivery cost'])}</Typography>
+            </div>
+            <div className={classNames.priceCellRight}>
+              <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+            </div>
+          </div>
+        </td>
+      ) : (
+        <>
+          <td className={cx(tableCellClsx, classNames.priceCell)}>
+            <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
+          </td>
+          <td className={cx(tableCellClsx, classNames.priceCellRight)}>
+            <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+          </td>
+        </>
+      )}
 
-      <td className={cx(tableCellClsx, classNames.priceCell)}>
-        <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
-      </td>
-
-      <td className={cx(tableCellClsx, classNames.priceCellRight)}>
-        {price ? (
+      {/* <td className={cx(tableCellClsx, classNames.priceCellRight)}>
+        {box.amount > 1 ? (
+          price ? (
+            <>
+              <Typography variant="h5">{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
+              <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+            </>
+          ) : (
+            <Typography variant="h5">{'-'}</Typography>
+          )
+        ) : price ? (
           <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
         ) : (
           <Typography variant="h5">{'-'}</Typography>
         )}
-      </td>
+      </td> */}
 
       <td className={classNames.tableCellCrossBtn}>
         <Button danger className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>

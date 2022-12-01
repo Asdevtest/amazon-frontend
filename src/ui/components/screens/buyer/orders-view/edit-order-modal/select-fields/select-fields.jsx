@@ -400,7 +400,7 @@ export const SelectFields = ({
                           rel="noopener"
                           href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
                         >
-                          <Typography className={classNames.link}>{orderFields.product.barCode}</Typography>
+                          <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
                         </Link>
                         <CopyValue text={orderFields.product.barCode} />
                       </div>

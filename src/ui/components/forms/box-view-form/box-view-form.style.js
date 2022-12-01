@@ -180,12 +180,25 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  linkFieldWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+    maxWidth: 225,
+    height: 40,
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+
+    borderRadius: '4px',
+  },
+
   linkField: {
-    maxWidth: '200px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
 
     color: theme.palette.text.second,
+
+    marginLeft: 5,
   },
 
   standartText: {
@@ -302,6 +315,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   countContainer: {
     marginTop: '10px',
+  },
+
+  barCodeWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+    maxWidth: 225,
+    height: 40,
   },
 
   barCode: {display: 'flex', gap: '5px'},

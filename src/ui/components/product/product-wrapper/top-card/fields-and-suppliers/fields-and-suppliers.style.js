@@ -361,7 +361,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 5px',
     height: '50px',
 
-    border: '1px solid rgba(0, 0, 0, .1)',
     borderRadius: '10px',
     fontSize: '20px',
 

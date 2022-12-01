@@ -32,6 +32,8 @@ export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
 
+    console.log(box)
+
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
@@ -166,7 +168,7 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        disabled
+                        // disabled
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
@@ -417,19 +419,21 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputComponent={
-                    box.shippingLabel ? (
-                      <div className={classNames.barCode}>
-                        <Typography className={classNames.linkWrapper}>
-                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                            {t(TranslationKey.View)}
-                          </Link>
-                        </Typography>
+                    <div className={classNames.barCodeWrapper}>
+                      {box.shippingLabel ? (
+                        <div className={classNames.barCode}>
+                          <Typography className={classNames.linkWrapper}>
+                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                              {t(TranslationKey.View)}
+                            </Link>
+                          </Typography>
 
-                        <CopyValue text={box.shippingLabel} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
-                    )
+                          <CopyValue text={box.shippingLabel} />
+                        </div>
+                      ) : (
+                        <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                      )}
+                    </div>
                   }
                 />
 
@@ -438,7 +442,7 @@ export const BoxViewForm = observer(
                   containerClasses={classNames.containerField}
                   labelClasses={classNames.label}
                   inputComponent={
-                    <div>
+                    <div className={classNames.linkFieldWrapper}>
                       <Typography className={classNames.linkField}>
                         {box.fbaShipment || t(TranslationKey['Not available'])}
                       </Typography>
@@ -446,6 +450,18 @@ export const BoxViewForm = observer(
                   }
                 />
               </div>
+              <Field
+                label={t(TranslationKey['Reference id'])}
+                containerClasses={classNames.containerField}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <div className={classNames.linkFieldWrapper}>
+                    <Typography className={classNames.linkField}>
+                      {box.referenceId || t(TranslationKey['Not available'])}
+                    </Typography>
+                  </div>
+                }
+              />
             </div>
           </div>
         </div>
