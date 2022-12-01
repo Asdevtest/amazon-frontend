@@ -359,6 +359,7 @@ export class ClientInventoryViewRaw extends Component {
                   disableVirtualization
                   pagination
                   checkboxSelection
+                  selectionModel={selectedRowIds}
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
