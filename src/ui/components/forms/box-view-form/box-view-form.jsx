@@ -32,6 +32,8 @@ export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
 
+    console.log(box)
+
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
@@ -455,7 +457,7 @@ export const BoxViewForm = observer(
                 inputComponent={
                   <div className={classNames.linkFieldWrapper}>
                     <Typography className={classNames.linkField}>
-                      {box.fbaShipment || t(TranslationKey['Not available'])}
+                      {box.referenceId || t(TranslationKey['Not available'])}
                     </Typography>
                   </div>
                 }

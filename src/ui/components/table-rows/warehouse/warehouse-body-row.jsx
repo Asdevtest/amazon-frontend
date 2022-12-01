@@ -29,6 +29,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const boxCreatedAt = formatNormDateTime(box.createdAt)
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
 
+  console.log(box)
+
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
 
