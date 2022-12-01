@@ -25302,6 +25302,50 @@
         }
       }
     },
+    "/api/v1/boxes/additional_info/{guid}": {
+      "patch": {
+        "summary": "# Изменить дополнительную информацию коробки.",
+        "description": "## Изменить дополнительную информацию коробки.",
+        "tags": ["Boxes"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "clientComment": {"type": "string", "example": "comment", "nullable": true},
+                "storekeeperComment": {"type": "string", "example": "comment", "nullable": true},
+                "referenceId": {
+                  "type": "string",
+                  "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                  "example": "4373",
+                  "nullable": true
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID тарифа.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/buyers/products/vac": {
       "get": {
         "summary": "# Получить список вакантных товаров.",
@@ -32239,6 +32283,260 @@
         }
       }
     },
+    "/api/v1/dashboard/client/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orders": {
+                  "type": "object",
+                  "properties": {"all": {"type": "number"}, "paid": {"type": "number"}, "canceled": {"type": "number"}}
+                },
+                "shops": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "moderating": {"type": "number"},
+                    "booked": {"type": "number"}
+                  }
+                },
+                "requests": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "inProcess": {"type": "number"},
+                    "noProposals": {"type": "number"}
+                  }
+                },
+                "products": {"type": "object", "properties": {"all": {"type": "number"}, "paid": {"type": "number"}}},
+                "batch": {"type": "object", "properties": {"isBeingCollected": {"type": "number"}}},
+                "boxes": {
+                  "type": "object",
+                  "properties": {
+                    "inStock": {"type": "number"},
+                    "requestedSendToBatch": {"type": "number"},
+                    "inBatchOnTheWay": {"type": "number"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/buyer/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "success": {"type": "number"},
+                    "paid": {"type": "number"},
+                    "newSearchFromSupervisor": {"type": "number"},
+                    "newSearchFromClient": {"type": "number"},
+                    "inProcessOfSearching": {"type": "number"},
+                    "canceled": {"type": "number"}
+                  }
+                },
+                "orders": {
+                  "type": "object",
+                  "properties": {
+                    "inProcess": {"type": "number"},
+                    "free": {"type": "number"},
+                    "completed": {"type": "number"},
+                    "all": {"type": "number"},
+                    "paid": {"type": "number"},
+                    "canceled": {"type": "number"}
+                  }
+                },
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/storekeeper/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tasks": {
+                  "type": "object",
+                  "properties": {
+                    "vacant": {"type": "number"},
+                    "my": {"type": "number"},
+                    "completed": {"type": "number"},
+                    "canceled": {"type": "number"}
+                  }
+                },
+                "boxes": {
+                  "type": "object",
+                  "properties": {"all": {"type": "number"}, "requestedShipment": {"type": "number"}}
+                },
+                "batches": {
+                  "type": "object",
+                  "properties": {"awaitingSend": {"type": "number"}, "sent": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/researcher/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "completed": {"type": "number"},
+                    "rejected": {"type": "number"},
+                    "inWork": {"type": "number"},
+                    "searchSupplierFromBuyer": {"type": "number"},
+                    "withoutStatus": {"type": "number"}
+                  }
+                },
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/freelancer/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/supervisor/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Dashboard"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "publishedOnExchange": {"type": "number"},
+                    "paid": {"type": "number"},
+                    "rejected": {"type": "number"}
+                  }
+                },
+                "checking": {
+                  "type": "object",
+                  "properties": {
+                    "checkFromResearcher": {"type": "number"},
+                    "newSearchFromClient": {"type": "number"},
+                    "onReview": {"type": "number"},
+                    "waitingToCheck": {"type": "number"},
+                    "inWorkBuyer": {"type": "number"}
+                  }
+                },
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/clients/products/vac": {
       "get": {
         "summary": "# Получить список вакантных товаров.",
@@ -38417,295 +38715,6 @@
         "security": [{"AccessTokenBearer": []}],
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/clients/boxes/comment/{guid}": {
-      "patch": {
-        "summary": "# Изменить комментарий коробки клиента.",
-        "description": "## Изменить комментарий коробки клиента. \n\n",
-        "tags": ["Client"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "required": ["clientComment"],
-              "properties": {"clientComment": {"type": "string", "example": "comment", "nullable": true}}
-            }
-          },
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID тарифа.",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/client/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "orders": {
-                  "type": "object",
-                  "properties": {"all": {"type": "number"}, "paid": {"type": "number"}, "canceled": {"type": "number"}}
-                },
-                "shops": {
-                  "type": "object",
-                  "properties": {
-                    "all": {"type": "number"},
-                    "moderating": {"type": "number"},
-                    "booked": {"type": "number"}
-                  }
-                },
-                "requests": {
-                  "type": "object",
-                  "properties": {
-                    "all": {"type": "number"},
-                    "inProcess": {"type": "number"},
-                    "noProposals": {"type": "number"}
-                  }
-                },
-                "products": {"type": "object", "properties": {"all": {"type": "number"}, "paid": {"type": "number"}}},
-                "batch": {"type": "object", "properties": {"isBeingCollected": {"type": "number"}}},
-                "boxes": {
-                  "type": "object",
-                  "properties": {
-                    "inStock": {"type": "number"},
-                    "requestedSendToBatch": {"type": "number"},
-                    "inBatchOnTheWay": {"type": "number"}
-                  }
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/buyer/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "products": {
-                  "type": "object",
-                  "properties": {
-                    "all": {"type": "number"},
-                    "success": {"type": "number"},
-                    "paid": {"type": "number"},
-                    "newSearchFromSupervisor": {"type": "number"},
-                    "newSearchFromClient": {"type": "number"},
-                    "inProcessOfSearching": {"type": "number"},
-                    "canceled": {"type": "number"}
-                  }
-                },
-                "orders": {
-                  "type": "object",
-                  "properties": {
-                    "inProcess": {"type": "number"},
-                    "free": {"type": "number"},
-                    "completed": {"type": "number"},
-                    "all": {"type": "number"},
-                    "paid": {"type": "number"},
-                    "canceled": {"type": "number"}
-                  }
-                },
-                "finances": {
-                  "type": "object",
-                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/storekeeper/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "tasks": {
-                  "type": "object",
-                  "properties": {
-                    "vacant": {"type": "number"},
-                    "my": {"type": "number"},
-                    "completed": {"type": "number"},
-                    "canceled": {"type": "number"}
-                  }
-                },
-                "boxes": {
-                  "type": "object",
-                  "properties": {"all": {"type": "number"}, "requestedShipment": {"type": "number"}}
-                },
-                "batches": {
-                  "type": "object",
-                  "properties": {"awaitingSend": {"type": "number"}, "sent": {"type": "number"}}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/researcher/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "products": {
-                  "type": "object",
-                  "properties": {
-                    "all": {"type": "number"},
-                    "completed": {"type": "number"},
-                    "rejected": {"type": "number"},
-                    "inWork": {"type": "number"},
-                    "searchSupplierFromBuyer": {"type": "number"},
-                    "withoutStatus": {"type": "number"}
-                  }
-                },
-                "finances": {
-                  "type": "object",
-                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/freelancer/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "finances": {
-                  "type": "object",
-                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/dashboard/supervisor/counts": {
-      "get": {
-        "summary": "# Получить количество основных элементов в бд.",
-        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
-        "tags": ["Dashboard"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "products": {
-                  "type": "object",
-                  "properties": {
-                    "all": {"type": "number"},
-                    "publishedOnExchange": {"type": "number"},
-                    "paid": {"type": "number"},
-                    "rejected": {"type": "number"}
-                  }
-                },
-                "checking": {
-                  "type": "object",
-                  "properties": {
-                    "checkFromResearcher": {"type": "number"},
-                    "newSearchFromClient": {"type": "number"},
-                    "onReview": {"type": "number"},
-                    "waitingToCheck": {"type": "number"},
-                    "inWorkBuyer": {"type": "number"}
-                  }
-                },
-                "finances": {
-                  "type": "object",
-                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
-                }
-              }
-            }
-          },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}

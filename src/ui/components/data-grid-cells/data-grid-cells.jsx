@@ -808,11 +808,11 @@ export const BoxesAndQuantity = React.memo(
       item ? (
         <Typography className={classNames.boxesAndQuantityText}>{`
         ${item.boxAmount}x${item.itemAmount}${
-          boxesData.length > 1 && i + 1 !== boxesData.length ? ', ' : ''
-        }`}</Typography>
+          boxesData.length > 1 && i + 1 !== boxesData.length ? ',' : ''
+        } `}</Typography>
       ) : null,
     )
-    return <div className={classNames.multilineTextAlignLeftHeaderWrapper}>{boxes}</div>
+    return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>
   }, styles),
 )
 

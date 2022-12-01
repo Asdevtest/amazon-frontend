@@ -851,7 +851,8 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    whiteSpace: 'pre-wrap',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
   },
 
   textHeaderWrapper: {
