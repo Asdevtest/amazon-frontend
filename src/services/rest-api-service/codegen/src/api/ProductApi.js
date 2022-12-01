@@ -20,8 +20,8 @@ import InlineObject65 from '../model/InlineObject65';
 import InlineObject66 from '../model/InlineObject66';
 import InlineObject67 from '../model/InlineObject67';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20020 from '../model/InlineResponse20020';
-import InlineResponse20039 from '../model/InlineResponse20039';
+import InlineResponse20021 from '../model/InlineResponse20021';
+import InlineResponse20040 from '../model/InlineResponse20040';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -163,7 +163,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20021>} and HTTP response
      */
     apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -187,7 +187,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20020];
+      let returnType = [InlineResponse20021];
       return this.apiClient.callApi(
         '/api/v1/products/by_creator/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -201,7 +201,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20021>}
      */
     apiV1ProductsByCreatorGuidGet(guid, opts) {
       return this.apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts)
@@ -375,7 +375,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20039} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20040} and HTTP response
      */
     apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -400,7 +400,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20039;
+      let returnType = InlineResponse20040;
       return this.apiClient.callApi(
         '/api/v1/products/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -415,7 +415,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20039}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20040}
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)

@@ -384,6 +384,8 @@ export class ClientWarehouseViewModel {
             sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
           items: newItems,
           shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          destinationId: boxData.destination?._id,
+          logicsTariffId: boxData.logicsTariff?._id,
         },
         updateBoxWhiteList,
       )
@@ -1064,16 +1066,12 @@ export class ClientWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
-
-      // const boxFilter = `or[0][humanFriendlyId][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};`
-
-      // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
-        filtersProduct: this.nameSearchValue ? productFilter : null,
-
-        filtersBox: /* this.nameSearchValue ? boxFilter :*/ null,
+        filters: this.nameSearchValue ? filter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

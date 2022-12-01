@@ -69,7 +69,7 @@ export const validateEmail = email =>
 export const checkIsString = value => typeof value === 'string'
 
 export const checkIsStringFilesSame = (str1, str2) => {
-  if (str1.includes(BACKEND_API_URL) && str2.includes(BACKEND_API_URL)) {
+  if (str1?.includes(BACKEND_API_URL) && str2?.includes(BACKEND_API_URL)) {
     const idLength = 36
 
     const strWithoutUrl1 = str1.replace(`${BACKEND_API_URL}/uploads/`, '')

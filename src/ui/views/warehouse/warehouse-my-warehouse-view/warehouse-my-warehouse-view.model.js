@@ -604,20 +604,12 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
-
-      // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
-
-      // const orderFilter = `or[0][id][$eq]=${this.nameSearchValue};or[1][item][$eq]=${this.nameSearchValue};`
-
-      // const orderFilter = `[item][$eq]=${this.nameSearchValue};`
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
-        filtersProduct: this.nameSearchValue ? productFilter : null,
-
-        // filtersBox: this.nameSearchValue ? boxFilter :  null,
-
-        // filtersOrders: this.nameSearchValue ? orderFilter : null,
+        filters: this.nameSearchValue ? filter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

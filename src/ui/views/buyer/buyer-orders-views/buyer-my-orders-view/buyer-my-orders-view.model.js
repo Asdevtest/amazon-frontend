@@ -471,10 +471,12 @@ export class BuyerMyOrdersViewModel {
 
   async getOrdersMy() {
     try {
-      const productFilter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
 
       const result = await BuyerModel.getOrdersMyPag({
-        filtersProduct: this.nameSearchValue ? productFilter : null,
+        filters: this.nameSearchValue ? filter : null,
 
         filtersOrder: null,
 

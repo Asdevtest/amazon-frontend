@@ -20,6 +20,12 @@ export const styles = theme => ({
     gap: '20px',
   },
 
+  searchInput: {
+    border: '1px solid #007bff',
+    width: 400,
+    height: 36,
+  },
+
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',

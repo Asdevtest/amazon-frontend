@@ -1048,23 +1048,33 @@ export const TaskDescriptionCell = React.memo(
           <img src="/assets/icons/big-box.svg" />
           <img src="/assets/icons/box-arrow.svg" />
 
-          {task.boxesBefore[0]?.amount > 1 && (
+          {/* {task.boxesBefore[0]?.amount > 1 && (
             <div className={classNames.superboxWrapper}>
               <img src="/assets/icons/cube.svg" />
               <Typography className={classNames.imgNum}>
                 {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
               </Typography>
             </div>
-          )}
+          )} */}
 
           {/* {task.boxesBefore.map((box, index) => renderProductImages(box?.items[0], index))} */}
 
-          <Grid container spacing={2} className={classNames.gridEditWrapper}>
-            {task.boxesBefore.map(el =>
-              el.items.map((product, productIndex) => renderProductImages(product, productIndex)),
-            )}
+          <div className={classNames.gridBoxesWrapper}>
+            {task.boxesBefore.map((el, i) => (
+              <div key={i} className={classNames.gridBoxWrapper}>
+                {el.amount > 1 && (
+                  <div className={classNames.superboxWrapper}>
+                    <img src="/assets/icons/cube.svg" />
+                    <Typography className={classNames.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
+                  </div>
+                )}
+                <Grid container spacing={2} className={classNames.gridEditWrapper}>
+                  {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
+                </Grid>
+              </div>
+            ))}
             {/* {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))} */}
-          </Grid>
+          </div>
         </div>
       </div>
     )

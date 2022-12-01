@@ -559,7 +559,7 @@ const Box = observer(
               <div
                 className={cx(classNames.chipWrapper, {
                   [classNames.chipWrapperEditAccent]:
-                    needAccent && !!box.shippingLabel !== !!referenceEditingBox.shippingLabel,
+                    needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
                 })}
               >
                 <Text

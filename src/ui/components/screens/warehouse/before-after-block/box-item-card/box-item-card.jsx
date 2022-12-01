@@ -50,20 +50,22 @@ export const BoxItemCard = ({
                 </Text>
                 <Typography className={classNames.subValue}>{item.amount}</Typography>
               </div>
-
-              {superCount > 1 && (
-                <div className={classNames.countSuperBoxWrapper}>
-                  <Typography className={classNames.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
-                  <Typography className={classNames.subValue}>{`x${superCount}`}</Typography>
-                </div>
-              )}
             </div>
-            {((readOnly && taskType === TaskOperationType.RECEIVE) ||
-              (!isNewBox && taskType === TaskOperationType.RECEIVE)) && (
+            {superCount > 1 && (
+              <div className={classNames.countSuperBoxWrapper}>
+                <Typography className={classNames.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
+                <Typography className={classNames.subValue}>{`x${superCount}`}</Typography>
+              </div>
+            )}
+
+            {(readOnly && taskType === TaskOperationType.RECEIVE) ||
+            (!isNewBox && taskType === TaskOperationType.RECEIVE) ? (
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={classNames.subValue}>{boxId}</Typography>
               </div>
+            ) : (
+              <div className={classNames.countSubWrapper} />
             )}
           </div>
 

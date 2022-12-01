@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ChatsEmailsGet
 
-> [InlineResponse20019] apiV1ChatsEmailsGet(opts)
+> [InlineResponse20020] apiV1ChatsEmailsGet(opts)
 
 Получить все почты юзеров
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20019]**](InlineResponse20019.md)
+[**[InlineResponse20020]**](InlineResponse20020.md)
 
 ### Authorization
 

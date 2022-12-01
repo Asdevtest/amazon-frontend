@@ -32,6 +32,7 @@ import InlineObject25 from '../model/InlineObject25';
 import InlineObject26 from '../model/InlineObject26';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
+import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
@@ -850,6 +851,62 @@ export default class BoxesApi {
 
 
     /**
+     * # Получить сгруппированные коробки
+     * ## Получить сгруппированные коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.additionalGroupParameter                Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount             
+     * @param {Number} opts.limit Сколько вернуть полей
+     * @param {Number} opts.offset Сколько отступить от начала полей
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
+     */
+    apiV1BoxesGroupedGroupsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'additionalGroupParameter': opts['additionalGroupParameter'],
+        'limit': opts['limit'],
+        'offset': opts['offset']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20013;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/grouped/groups', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить сгруппированные коробки
+     * ## Получить сгруппированные коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.additionalGroupParameter                Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount             
+     * @param {Number} opts.limit Сколько вернуть полей
+     * @param {Number} opts.offset Сколько отступить от начала полей
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
+     */
+    apiV1BoxesGroupedGroupsGet(opts) {
+      return this.apiV1BoxesGroupedGroupsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Изменить несколько коробок сторкипером.
      * ## Изменить несколько коробок сторкипером.   
      * @param {Object} opts Optional parameters
@@ -952,9 +1009,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filtersProduct                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-     * @param {String} opts.filtersBox                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-     * @param {String} opts.filtersOrders 
+     * @param {String} opts.filters                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -974,9 +1029,7 @@ export default class BoxesApi {
       let pathParams = {
       };
       let queryParams = {
-        'filtersProduct': opts['filtersProduct'],
-        'filtersBox': opts['filtersBox'],
-        'filtersOrders': opts['filtersOrders'],
+        'filters': opts['filters'],
         'status': status,
         'storekeeperId': opts['storekeeperId'],
         'limit': opts['limit'],
@@ -1006,9 +1059,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filtersProduct                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-     * @param {String} opts.filtersBox                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-     * @param {String} opts.filtersOrders 
+     * @param {String} opts.filters                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)

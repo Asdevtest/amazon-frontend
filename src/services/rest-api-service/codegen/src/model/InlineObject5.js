@@ -67,6 +67,9 @@ class InlineObject5 {
             if (data.hasOwnProperty('address')) {
                 obj['address'] = ApiClient.convertToType(data['address'], 'String');
             }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            }
         }
         return obj;
     }
@@ -109,6 +112,12 @@ InlineObject5.prototype['city'] = undefined;
  * @member {String} address
  */
 InlineObject5.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject5.prototype['fontColor'] = undefined;
 
 
 

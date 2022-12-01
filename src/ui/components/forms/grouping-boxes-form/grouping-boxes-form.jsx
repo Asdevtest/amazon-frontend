@@ -352,7 +352,7 @@ export const GroupingBoxesForm = observer(
             el.widthCmWarehouse === box.widthCmWarehouse &&
             JSON.stringify(
               el.items.map(el => ({
-                ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id}, [
+                ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order_id}, [
                   'isBarCodeAlreadyAttachedByTheSupplier',
                   'isBarCodeAttachedByTheStorekeeper',
                   'order',
@@ -362,7 +362,7 @@ export const GroupingBoxesForm = observer(
             ) ===
               JSON.stringify(
                 box.items.map(el => ({
-                  ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id}, [
+                  ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order_id}, [
                     'isBarCodeAlreadyAttachedByTheSupplier',
                     'isBarCodeAttachedByTheStorekeeper',
                     'order',

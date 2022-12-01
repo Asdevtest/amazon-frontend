@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
+**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **clientComment** | **String** | Комментарии к коробке | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 

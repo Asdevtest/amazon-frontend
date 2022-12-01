@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **isActive** | **Boolean** | Флаг активности склада. | [optional] 
 **createdById** | **String** | GUID создателя склада. | [optional] 
 **lastModifiedById** | **String** | GUID последнего изменившего склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 **createdAt** | **Date** | Дата создания склада. | [optional] 
 **updatedAt** | **Date** | Дата обновления склада. | [optional] 
 

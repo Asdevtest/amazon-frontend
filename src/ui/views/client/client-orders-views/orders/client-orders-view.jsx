@@ -88,7 +88,7 @@ class ClientOrdersViewRaw extends Component {
               <div className={classNames.topHeaderBtnsWrapper}>
                 <SearchInput
                   inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
               </div>

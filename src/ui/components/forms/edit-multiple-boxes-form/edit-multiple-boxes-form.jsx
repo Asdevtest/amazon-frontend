@@ -202,7 +202,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                     selectedItemName={
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeperId !== box?.storekeeperId)}
+                    data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeperId)}
                     searchFields={['name']}
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
@@ -630,7 +630,7 @@ export const EditMultipleBoxesForm = observer(
                         destinations.find(el => el._id === sharedFields.destinationId)?.name ||
                         t(TranslationKey['Not chosen'])
                       }
-                      data={destinations.filter(el => el.storekeeperId !== sharedFields.storekeeperId)}
+                      data={destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)}
                       searchFields={['name']}
                       onClickNotChosen={() => onChangeSharedFields({target: {value: null}}, 'destinationId')}
                       onClickSelect={el => onChangeSharedFields({target: {value: el._id}}, 'destinationId')}

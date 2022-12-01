@@ -296,6 +296,13 @@ export const EditBoxStorekeeperForm = observer(
 
     const setFormField = fieldName => e => {
       const newFormFields = {...boxFields}
+
+      if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
+        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+          return
+        }
+      }
+
       newFormFields[fieldName] = e.target.value
 
       setBoxFields(newFormFields)
@@ -594,7 +601,7 @@ export const EditBoxStorekeeperForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations.filter(el => el.storekeeperId !== formItem?.storekeeper._id)}
+                          data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
                           searchFields={['name']}
                           onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}

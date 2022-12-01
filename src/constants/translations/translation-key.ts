@@ -1624,7 +1624,7 @@ export enum TranslationKey {
   'Open warehouse management' = 'Open warehouse management',
   'Are you sure you want to move the tariff to the archive?' = 'Are you sure you want to move the tariff to the archive?',
   'Are you sure you want to restore the tariff?' = 'Are you sure you want to restore the tariff?',
-  // '' = '',
+  'Search by SKU, ASIN, Title, Order, item' = 'Search by SKU, ASIN, Title, Order, item',
   // '' = '',
   // '' = '',
   // '' = '',

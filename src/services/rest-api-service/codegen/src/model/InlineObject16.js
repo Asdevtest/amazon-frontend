@@ -22,10 +22,11 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject16.initialize(this);
+        InlineObject16.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -61,6 +63,9 @@ class InlineObject16 {
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
@@ -101,6 +106,12 @@ InlineObject16.prototype['shippingLabel'] = undefined;
  * @member {String} fbaShipment
  */
 InlineObject16.prototype['fbaShipment'] = undefined;
+
+/**
+ * Гуид модели destination
+ * @member {String} destinationId
+ */
+InlineObject16.prototype['destinationId'] = undefined;
 
 /**
  * @member {Array.<String>} boxesIds

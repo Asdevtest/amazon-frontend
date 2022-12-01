@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
 **batchId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
 **clientComment** | **String** | Комментарии к коробке | [optional] 
+**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **storekeeperId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
 **clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 

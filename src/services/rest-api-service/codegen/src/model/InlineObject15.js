@@ -59,6 +59,9 @@ class InlineObject15 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -95,6 +98,12 @@ InlineObject15.prototype['fbaShipment'] = undefined;
  * @member {String} clientComment
  */
 InlineObject15.prototype['clientComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineObject15.prototype['referenceId'] = undefined;
 
 /**
  * shippingLabel коробки

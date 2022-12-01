@@ -804,7 +804,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsPagOrdersGet
 
-> InlineResponse20023 apiV1ClientsPagOrdersGet(opts)
+> InlineResponse20024 apiV1ClientsPagOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -824,8 +824,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'status': "status_example", // String | GUID сторкипера
-  'filtersProduct': "filtersProduct_example", // String |                Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-  'filtersOrder': "filtersOrder_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'filters': "filters_example", // String |                Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
@@ -846,8 +845,7 @@ apiInstance.apiV1ClientsPagOrdersGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**| GUID сторкипера | [optional] 
- **filtersProduct** | **String**|                Примеры: /clients/pag/orders?filtersProduct&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
- **filtersOrder** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **filters** | **String**|                Примеры: /clients/pag/orders?filtersProduct&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 
@@ -856,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20023**](InlineResponse20023.md)
+[**InlineResponse20024**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -924,7 +922,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20024 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20025 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -964,7 +962,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20024**](InlineResponse20024.md)
+[**InlineResponse20025**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1146,7 +1144,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20024 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20025 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1186,7 +1184,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20024**](InlineResponse20024.md)
+[**InlineResponse20025**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1312,7 +1310,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20021] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20022] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1350,7 +1348,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -1364,7 +1362,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20022Rows] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20023Rows] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1406,7 +1404,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20022Rows]**](InlineResponse20022Rows.md)
+[**[InlineResponse20023Rows]**](InlineResponse20023Rows.md)
 
 ### Authorization
 
@@ -1420,7 +1418,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20022 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20023 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1470,7 +1468,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20022**](InlineResponse20022.md)
+[**InlineResponse20023**](InlineResponse20023.md)
 
 ### Authorization
 
@@ -1538,7 +1536,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20020] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20021] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1576,7 +1574,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20020]**](InlineResponse20020.md)
+[**[InlineResponse20021]**](InlineResponse20021.md)
 
 ### Authorization
 

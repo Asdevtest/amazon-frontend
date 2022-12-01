@@ -99,7 +99,11 @@ class BuyerMyOrdersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <SearchInput placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])} onSubmit={onSearchSubmit} />
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+                  onSubmit={onSearchSubmit}
+                />
               </div>
 
               <div className={classNames.dataGridWrapper}>
