@@ -32,8 +32,6 @@ export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
 
-    console.log(box)
-
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
@@ -438,29 +436,23 @@ export const BoxViewForm = observer(
                 />
 
                 <Field
-                  label={t(TranslationKey['FBA Shipment'])}
-                  containerClasses={classNames.containerField}
+                  disabled
                   labelClasses={classNames.label}
-                  inputComponent={
-                    <div className={classNames.linkFieldWrapper}>
-                      <Typography className={classNames.linkField}>
-                        {box.fbaShipment || t(TranslationKey['Not available'])}
-                      </Typography>
-                    </div>
-                  }
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  label={t(TranslationKey['FBA Shipment'])}
+                  value={box.fbaShipment || t(TranslationKey['Not available'])}
                 />
               </div>
+
               <Field
-                label={t(TranslationKey['Reference id'])}
-                containerClasses={classNames.containerField}
                 labelClasses={classNames.label}
-                inputComponent={
-                  <div className={classNames.linkFieldWrapper}>
-                    <Typography className={classNames.linkField}>
-                      {box.referenceId || t(TranslationKey['Not available'])}
-                    </Typography>
-                  </div>
-                }
+                containerClasses={classNames.containerField}
+                inputClasses={classNames.inputField}
+                inputProps={{maxLength: 255}}
+                label={t(TranslationKey['Reference id'])}
+                value={box.referenceId}
+                onChange={onChangeField('referenceId')}
               />
             </div>
           </div>

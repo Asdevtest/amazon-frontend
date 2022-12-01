@@ -38,6 +38,7 @@ const updateBoxWhiteList = [
   'items',
   'storekeeperComment',
   'logicsTariffId',
+  'referenceId',
 ]
 
 export class WarehouseMyWarehouseViewModel {
@@ -223,7 +224,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        storekeeperComment: data.storekeeperComment,
+        referenceId: data.referenceId,
+      })
 
       this.getBoxesMy()
 

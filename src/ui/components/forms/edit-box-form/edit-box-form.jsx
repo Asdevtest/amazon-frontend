@@ -535,6 +535,19 @@ export const EditBoxForm = observer(
                       }
                     />
                   </div>
+
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <Field
+                      disabled
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={cx(classNames.fbaShipmentInput)}
+                      inputProps={{maxLength: 255}}
+                      label={t(TranslationKey['Reference id'])}
+                      value={boxFields.referenceId}
+                      onChange={setFormField('referenceId')}
+                    />
+                  </div>
                 </div>
               </div>
             }

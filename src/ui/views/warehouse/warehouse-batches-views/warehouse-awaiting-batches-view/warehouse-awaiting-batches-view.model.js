@@ -178,7 +178,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      await StorekeeperModel.updateBoxComment(data._id, {storekeeperComment: data.storekeeperComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        storekeeperComment: data.storekeeperComment,
+        referenceId: data.referenceId,
+      })
 
       await this.loadData()
 

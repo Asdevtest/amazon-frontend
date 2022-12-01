@@ -73,7 +73,10 @@ export class ClientOrderViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      await ClientModel.updateBoxComment(data._id, {clientComment: data.clientComment})
+      await BoxesModel.editAdditionalInfo(data._id, {
+        clientComment: data.clientComment,
+        referenceId: data.referenceId,
+      })
 
       this.getBoxesOfOrder(this.orderId)
 

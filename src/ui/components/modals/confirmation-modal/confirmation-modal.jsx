@@ -48,7 +48,7 @@ export const ConfirmationModal = ({
   }, [])
 
   return (
-    <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal /* isWarning={isWarning}*/ openModal={openModal} setOpenModal={setOpenModal}>
       <div className={cx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
         <div className={classNames.titleWrapper}>
           <Typography variant="h5" className={cx(classNames.title, {[classNames.warningTitle]: isWarning})}>

@@ -59,7 +59,9 @@ export const BoxItemCard = ({
             )}
 
             {(readOnly && taskType === TaskOperationType.RECEIVE) ||
-            (!isNewBox && taskType === TaskOperationType.RECEIVE) ? (
+            (!isNewBox && taskType !== TaskOperationType.RECEIVE) ||
+            taskType === TaskOperationType.EDIT ||
+            taskType === TaskOperationType.EDIT_BY_STOREKEEPER ? (
               <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={classNames.subValue}>{boxId}</Typography>
@@ -109,7 +111,7 @@ export const BoxItemCard = ({
                 labelClasses={classNames.label}
                 inputComponent={
                   <Tooltip title={item.order.trackingNumberChina}>
-                    <Typography className={classNames.subValue}>
+                    <Typography className={classNames.trackNum}>
                       {item.order.trackingNumberChina || t(TranslationKey['Not available'])}
                     </Typography>
                   </Tooltip>

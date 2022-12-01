@@ -157,6 +157,11 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesChangeDimensionsGuidPatch(id, {body: data})
     return response
   }
+
+  editAdditionalInfo = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesAdditionalInfoGuidPatch(id, {body: data})
+    return response
+  }
 }
 
 export const BoxesModel = new BoxesModelStatic()
