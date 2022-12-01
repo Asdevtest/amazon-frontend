@@ -804,12 +804,19 @@ export const MultilineTextHeaderCell = React.memo(
 
 export const BoxesAndQuantity = React.memo(
   withStyles(({classes: classNames, boxesData}) => {
-    const boxes = boxesData.map((item, i) =>
+    const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
+    const filteredBoxes = [...new Set(mergedBoxes)]
+    const count = mergedBoxes.reduce((acc, el) => {
+      acc[el] = (acc[el] || 0) + 1
+      return acc
+    }, {})
+    const boxes = filteredBoxes.map((item, i) =>
       item ? (
-        <Typography className={classNames.boxesAndQuantityText}>{`
-        ${item.boxAmount}x${item.itemAmount}${
-          boxesData.length > 1 && i + 1 !== boxesData.length ? ',' : ''
-        } `}</Typography>
+        <Typography className={classNames.boxesAndQuantityText}>
+          {item}
+          {count[item] !== 1 ? ` x ${count[item]}` : ''}
+          {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
+        </Typography>
       ) : null,
     )
     return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>

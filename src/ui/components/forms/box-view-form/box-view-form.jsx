@@ -166,7 +166,7 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        // disabled
+                        disabled
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
