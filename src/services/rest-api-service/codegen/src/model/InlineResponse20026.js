@@ -12,12 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20026Batch from './InlineResponse20026Batch';
-import InlineResponse20026Boxes from './InlineResponse20026Boxes';
-import InlineResponse20026Orders from './InlineResponse20026Orders';
+import InlineResponse20022Finances from './InlineResponse20022Finances';
+import InlineResponse20026Checking from './InlineResponse20026Checking';
 import InlineResponse20026Products from './InlineResponse20026Products';
-import InlineResponse20026Requests from './InlineResponse20026Requests';
-import InlineResponse20026Shops from './InlineResponse20026Shops';
 
 /**
  * The InlineResponse20026 model module.
@@ -53,23 +50,14 @@ class InlineResponse20026 {
         if (data) {
             obj = obj || new InlineResponse20026();
 
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20026Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('shops')) {
-                obj['shops'] = InlineResponse20026Shops.constructFromObject(data['shops']);
-            }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = InlineResponse20026Requests.constructFromObject(data['requests']);
-            }
             if (data.hasOwnProperty('products')) {
                 obj['products'] = InlineResponse20026Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = InlineResponse20026Batch.constructFromObject(data['batch']);
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20026Checking.constructFromObject(data['checking']);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20026Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20022Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -79,34 +67,19 @@ class InlineResponse20026 {
 }
 
 /**
- * @member {module:model/InlineResponse20026Orders} orders
- */
-InlineResponse20026.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20026Shops} shops
- */
-InlineResponse20026.prototype['shops'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20026Requests} requests
- */
-InlineResponse20026.prototype['requests'] = undefined;
-
-/**
  * @member {module:model/InlineResponse20026Products} products
  */
 InlineResponse20026.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20026Batch} batch
+ * @member {module:model/InlineResponse20026Checking} checking
  */
-InlineResponse20026.prototype['batch'] = undefined;
+InlineResponse20026.prototype['checking'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20026Boxes} boxes
+ * @member {module:model/InlineResponse20022Finances} finances
  */
-InlineResponse20026.prototype['boxes'] = undefined;
+InlineResponse20026.prototype['finances'] = undefined;
 
 
 

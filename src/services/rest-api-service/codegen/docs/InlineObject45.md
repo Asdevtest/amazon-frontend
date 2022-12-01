@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** |  | 
+**shippingLabel** | **String** | shippingLabel | 
 
 

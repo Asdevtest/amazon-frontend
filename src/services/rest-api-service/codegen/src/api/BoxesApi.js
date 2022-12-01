@@ -30,6 +30,7 @@ import InlineObject23 from '../model/InlineObject23';
 import InlineObject24 from '../model/InlineObject24';
 import InlineObject25 from '../model/InlineObject25';
 import InlineObject26 from '../model/InlineObject26';
+import InlineObject27 from '../model/InlineObject27';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
 import InlineResponse20013 from '../model/InlineResponse20013';
@@ -57,6 +58,62 @@ export default class BoxesApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * # Изменить дополнительную информацию коробки.
+     * ## Изменить дополнительную информацию коробки.
+     * @param {String} guid GUID тарифа.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject27} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesAdditionalInfoGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesAdditionalInfoGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/additional_info/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить дополнительную информацию коробки.
+     * ## Изменить дополнительную информацию коробки.
+     * @param {String} guid GUID тарифа.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject27} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesAdditionalInfoGuidPatch(guid, opts) {
+      return this.apiV1BoxesAdditionalInfoGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**

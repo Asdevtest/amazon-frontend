@@ -21,12 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject45
-     * @param clientComment {String} 
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(clientComment) { 
+    constructor(shippingLabel) { 
         
-        InlineObject45.initialize(this, clientComment);
+        InlineObject45.initialize(this, shippingLabel);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment) { 
-        obj['clientComment'] = clientComment;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -49,8 +50,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -60,9 +61,10 @@ class InlineObject45 {
 }
 
 /**
- * @member {String} clientComment
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject45.prototype['clientComment'] = undefined;
+InlineObject45.prototype['shippingLabel'] = undefined;
 
 
 

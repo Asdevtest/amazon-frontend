@@ -50,14 +50,8 @@ class InlineResponse20021Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
-            if (data.hasOwnProperty('publishedOnExchange')) {
-                obj['publishedOnExchange'] = ApiClient.convertToType(data['publishedOnExchange'], 'Number');
-            }
             if (data.hasOwnProperty('paid')) {
                 obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
-            }
-            if (data.hasOwnProperty('rejected')) {
-                obj['rejected'] = ApiClient.convertToType(data['rejected'], 'Number');
             }
         }
         return obj;
@@ -72,19 +66,9 @@ class InlineResponse20021Products {
 InlineResponse20021Products.prototype['all'] = undefined;
 
 /**
- * @member {Number} publishedOnExchange
- */
-InlineResponse20021Products.prototype['publishedOnExchange'] = undefined;
-
-/**
  * @member {Number} paid
  */
 InlineResponse20021Products.prototype['paid'] = undefined;
-
-/**
- * @member {Number} rejected
- */
-InlineResponse20021Products.prototype['rejected'] = undefined;
 
 
 

@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20028Batches from './InlineResponse20028Batches';
-import InlineResponse20028Boxes from './InlineResponse20028Boxes';
-import InlineResponse20028Tasks from './InlineResponse20028Tasks';
 
 /**
  * The InlineResponse20028 model module.
@@ -50,14 +47,23 @@ class InlineResponse20028 {
         if (data) {
             obj = obj || new InlineResponse20028();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20028Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20028Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20028Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -67,19 +73,39 @@ class InlineResponse20028 {
 }
 
 /**
- * @member {module:model/InlineResponse20028Tasks} tasks
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20028.prototype['tasks'] = undefined;
+InlineResponse20028.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20028Boxes} boxes
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20028.prototype['boxes'] = undefined;
+InlineResponse20028.prototype['asin'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20028Batches} batches
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20028.prototype['batches'] = undefined;
+InlineResponse20028.prototype['shopIds'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20028.prototype['amazonTitle'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20028.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20028.prototype['images'] = undefined;
 
 
 

@@ -4,8 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tasks** | [**InlineResponse20028Tasks**](InlineResponse20028Tasks.md) |  | [optional] 
-**boxes** | [**InlineResponse20028Boxes**](InlineResponse20028Boxes.md) |  | [optional] 
-**batches** | [**InlineResponse20028Batches**](InlineResponse20028Batches.md) |  | [optional] 
+**_id** | **String** | GUID продукта в базе данных | [optional] 
+**asin** | **String** | ASIN продукта | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
+**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
+**skusByClient** | **[String]** |  | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
 
 
