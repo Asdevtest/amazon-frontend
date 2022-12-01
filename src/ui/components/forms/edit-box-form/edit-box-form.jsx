@@ -446,7 +446,7 @@ export const EditBoxForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations.filter(el => el.storekeeperId !== formItem?.storekeeper._id)}
+                          data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
                           searchFields={['name']}
                           onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}

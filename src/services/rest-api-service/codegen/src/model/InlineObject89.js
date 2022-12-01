@@ -66,6 +66,9 @@ class InlineObject89 {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
@@ -123,6 +126,12 @@ InlineObject89.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
  * @member {String} storekeeperComment
  */
 InlineObject89.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineObject89.prototype['referenceId'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.

@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **state** | **String** | Штат. | [optional] 
 **city** | **String** | Город. | [optional] 
 **address** | **String** | Адрес склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 
 

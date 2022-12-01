@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20036Failed from './InlineResponse20036Failed';
 
 /**
  * The InlineResponse20036 model module.
@@ -49,7 +48,7 @@ class InlineResponse20036 {
             obj = obj || new InlineResponse20036();
 
             if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20036Failed]);
+                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
             }
         }
         return obj;
@@ -59,7 +58,7 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20036Failed>} failed
+ * @member {Array.<String>} failed
  */
 InlineResponse20036.prototype['failed'] = undefined;
 

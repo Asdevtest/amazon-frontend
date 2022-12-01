@@ -73,6 +73,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
@@ -181,6 +184,12 @@ InlineResponse20011.prototype['isDraft'] = undefined;
  * @member {String} shippingLabel
  */
 InlineResponse20011.prototype['shippingLabel'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineResponse20011.prototype['referenceId'] = undefined;
 
 /**
  * Комментарии к коробке

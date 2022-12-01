@@ -81,6 +81,9 @@ class ApiV1AdminsOrdersDestination {
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -158,6 +161,12 @@ ApiV1AdminsOrdersDestination.prototype['createdById'] = undefined;
  * @member {String} lastModifiedById
  */
 ApiV1AdminsOrdersDestination.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+ApiV1AdminsOrdersDestination.prototype['fontColor'] = undefined;
 
 /**
  * Дата создания склада.

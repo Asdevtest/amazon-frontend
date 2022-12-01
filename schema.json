@@ -2964,6 +2964,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -5335,7 +5341,8 @@
                 "zipCode": {"type": "string", "description": "Индекс. 5 цифр.", "pattern": "^[0-9]{5}$"},
                 "state": {"type": "string", "description": "Штат."},
                 "city": {"type": "string", "description": "Город."},
-                "address": {"type": "string", "description": "Адрес склада."}
+                "address": {"type": "string", "description": "Адрес склада."},
+                "fontColor": {"type": "string", "description": "Цвет шрифта", "example": "#F2F2F2", "nullable": true}
               }
             }
           },
@@ -5370,7 +5377,8 @@
                 "zipCode": {"type": "string", "description": "Индекс. 5 цифр.", "pattern": "^[0-9]{5}$"},
                 "state": {"type": "string", "description": "Штат."},
                 "city": {"type": "string", "description": "Город."},
-                "address": {"type": "string", "description": "Адрес склада."}
+                "address": {"type": "string", "description": "Адрес склада."},
+                "fontColor": {"type": "string", "description": "Цвет шрифта", "example": "#F2F2F2", "nullable": true}
               }
             }
           },
@@ -5747,7 +5755,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -6471,6 +6485,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -7483,6 +7503,12 @@
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
                             },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
+                            },
                             "createdAt": {
                               "type": "string",
                               "format": "date-time",
@@ -7913,7 +7939,13 @@
                       "clientComment": {
                         "type": "string",
                         "description": "Комментарии к коробке",
-                        "example": "Просто коммент."
+                        "example": "Просто коммент.",
+                        "nullable": true
+                      },
+                      "referenceId": {
+                        "type": "string",
+                        "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                        "example": "4373"
                       },
                       "storekeeperComment": {
                         "type": "string",
@@ -8601,6 +8633,12 @@
                                     "lastModifiedById": {
                                       "type": "string",
                                       "description": "GUID последнего изменившего склада."
+                                    },
+                                    "fontColor": {
+                                      "type": "string",
+                                      "description": "Цвет шрифта",
+                                      "example": "#F2F2F2",
+                                      "nullable": true
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -9590,6 +9628,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -10259,7 +10303,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -10931,6 +10981,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -11853,6 +11909,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -12148,7 +12210,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -12820,6 +12888,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -13742,6 +13816,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -14010,7 +14090,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -14682,6 +14768,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -15604,6 +15696,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -15872,7 +15970,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -16544,6 +16648,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -17466,6 +17576,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -17771,6 +17887,12 @@
                   "description": "Комментарии к коробке",
                   "example": "Просто коммент."
                 },
+                "referenceId": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                  "example": "4373"
+                },
                 "shippingLabel": {"type": "string", "nullable": true, "description": "shippingLabel коробки"},
                 "isShippingLabelAttachedByStorekeeper": {
                   "type": "boolean",
@@ -17809,6 +17931,7 @@
             "in": "body",
             "schema": {
               "type": "object",
+              "required": ["boxesIds"],
               "properties": {
                 "barCode": {"type": "string", "description": "Штрихкод продукта", "example": "1234567890123"},
                 "logicsTariffId": {
@@ -17833,6 +17956,13 @@
                   "type": "string",
                   "description": "Это номер конкретной коробки при отправке в амазон.",
                   "example": "FBA16N2Y2L76U000003"
+                },
+                "destinationId": {
+                  "type": "string",
+                  "description": "Гуид модели destination",
+                  "format": "uuid",
+                  "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
+                  "nullable": true
                 },
                 "boxesIds": {
                   "type": "array",
@@ -18428,7 +18558,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -19100,6 +19236,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -20022,6 +20164,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -20228,6 +20376,12 @@
                     "type": "string",
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373",
+                    "nullable": true
                   },
                   "clientComment": {
                     "type": "string",
@@ -20722,6 +20876,12 @@
                         "type": "string",
                         "example": "https://www.mf.com/sdkfjasldf.pdf",
                         "description": "Ссылка на наклейку для коробки"
+                      },
+                      "referenceId": {
+                        "type": "string",
+                        "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                        "example": "4373",
+                        "nullable": true
                       },
                       "clientComment": {
                         "type": "string",
@@ -21262,7 +21422,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -21934,6 +22100,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -22856,6 +23028,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -23121,7 +23299,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -23793,6 +23977,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -24715,6 +24905,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -25024,6 +25220,88 @@
             "schema": {
               "type": "array",
               "items": {"type": "string", "format": "uuid", "description": "GUID коробки в БД."}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/boxes/grouped/groups": {
+      "get": {
+        "summary": "# Получить сгруппированные коробки",
+        "description": "## Получить сгруппированные коробки",
+        "tags": ["Boxes"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "description": "\n              Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount\n            ",
+            "required": false,
+            "in": "query",
+            "name": "additionalGroupParameter"
+          },
+          {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "example": 10,
+            "description": "Сколько вернуть полей",
+            "required": false,
+            "in": "query",
+            "name": "limit"
+          },
+          {
+            "type": "integer",
+            "minimum": 0,
+            "example": 10,
+            "description": "Сколько отступить от начала полей",
+            "required": false,
+            "in": "query",
+            "name": "offset"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rows": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["productId"],
+                    "properties": {
+                      "productId": {
+                        "type": "string",
+                        "description": "GUID продукта в базе данных",
+                        "nullable": true,
+                        "format": "uuid",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "logicsTariffId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "GUID тарифа доставки",
+                        "example": "3423f887-7485-4c8b-b167-61a8d3eecbdc",
+                        "nullable": true
+                      },
+                      "orderId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "3423f887-7485-4c8b-b167-61a8d3eecbdc",
+                        "description": "GUID заказа в БД",
+                        "nullable": true
+                      },
+                      "amount": {"type": "number", "example": "42", "description": "Кол-во продукта"}
+                    }
+                  }
+                },
+                "count": {"type": "integer"}
+              }
             }
           },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
@@ -25527,6 +25805,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -26381,6 +26665,12 @@
                     "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                     "createdById": {"type": "string", "description": "GUID создателя склада."},
                     "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                    "fontColor": {
+                      "type": "string",
+                      "description": "Цвет шрифта",
+                      "example": "#F2F2F2",
+                      "nullable": true
+                    },
                     "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                     "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                   }
@@ -27179,6 +27469,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -27358,6 +27654,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -27858,7 +28160,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -28582,6 +28890,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -29593,6 +29907,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -29857,7 +30177,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -30581,6 +30907,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -31592,6 +31924,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -33843,6 +34181,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -34769,6 +35113,12 @@
                     "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                     "createdById": {"type": "string", "description": "GUID создателя склада."},
                     "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                    "fontColor": {
+                      "type": "string",
+                      "description": "Цвет шрифта",
+                      "example": "#F2F2F2",
+                      "nullable": true
+                    },
                     "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                     "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                   }
@@ -35636,6 +35986,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -36534,6 +36890,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -37916,6 +38278,7 @@
                   "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                   "createdById": {"type": "string", "description": "GUID создателя склада."},
                   "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                  "fontColor": {"type": "string", "description": "Цвет шрифта", "example": "#F2F2F2", "nullable": true},
                   "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                   "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                 }
@@ -45026,7 +45389,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -45750,6 +46119,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -46761,6 +47136,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -47025,7 +47406,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -47749,6 +48136,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -48760,6 +49153,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -49098,7 +49497,13 @@
                       "clientComment": {
                         "type": "string",
                         "description": "Комментарии к коробке",
-                        "example": "Просто коммент."
+                        "example": "Просто коммент.",
+                        "nullable": true
+                      },
+                      "referenceId": {
+                        "type": "string",
+                        "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                        "example": "4373"
                       },
                       "storekeeperComment": {
                         "type": "string",
@@ -49786,6 +50191,12 @@
                                     "lastModifiedById": {
                                       "type": "string",
                                       "description": "GUID последнего изменившего склада."
+                                    },
+                                    "fontColor": {
+                                      "type": "string",
+                                      "description": "Цвет шрифта",
+                                      "example": "#F2F2F2",
+                                      "nullable": true
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -50775,6 +51186,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -51034,7 +51451,13 @@
                       "clientComment": {
                         "type": "string",
                         "description": "Комментарии к коробке",
-                        "example": "Просто коммент."
+                        "example": "Просто коммент.",
+                        "nullable": true
+                      },
+                      "referenceId": {
+                        "type": "string",
+                        "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                        "example": "4373"
                       },
                       "storekeeperComment": {
                         "type": "string",
@@ -51722,6 +52145,12 @@
                                     "lastModifiedById": {
                                       "type": "string",
                                       "description": "GUID последнего изменившего склада."
+                                    },
+                                    "fontColor": {
+                                      "type": "string",
+                                      "description": "Цвет шрифта",
+                                      "example": "#F2F2F2",
+                                      "nullable": true
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -52711,6 +53140,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -53442,7 +53877,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -54166,6 +54607,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -55177,6 +55624,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -55441,7 +55894,13 @@
                         "clientComment": {
                           "type": "string",
                           "description": "Комментарии к коробке",
-                          "example": "Просто коммент."
+                          "example": "Просто коммент.",
+                          "nullable": true
+                        },
+                        "referenceId": {
+                          "type": "string",
+                          "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                          "example": "4373"
                         },
                         "storekeeperComment": {
                           "type": "string",
@@ -56165,6 +56624,12 @@
                                       "lastModifiedById": {
                                         "type": "string",
                                         "description": "GUID последнего изменившего склада."
+                                      },
+                                      "fontColor": {
+                                        "type": "string",
+                                        "description": "Цвет шрифта",
+                                        "example": "#F2F2F2",
+                                        "nullable": true
                                       },
                                       "createdAt": {
                                         "type": "string",
@@ -57176,6 +57641,12 @@
                             "lastModifiedById": {
                               "type": "string",
                               "description": "GUID последнего изменившего склада."
+                            },
+                            "fontColor": {
+                              "type": "string",
+                              "description": "Цвет шрифта",
+                              "example": "#F2F2F2",
+                              "nullable": true
                             },
                             "createdAt": {
                               "type": "string",
@@ -57567,7 +58038,13 @@
                   "clientComment": {
                     "type": "string",
                     "description": "Комментарии к коробке",
-                    "example": "Просто коммент."
+                    "example": "Просто коммент.",
+                    "nullable": true
+                  },
+                  "referenceId": {
+                    "type": "string",
+                    "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                    "example": "4373"
                   },
                   "storekeeperComment": {
                     "type": "string",
@@ -58239,6 +58716,12 @@
                                 "lastModifiedById": {
                                   "type": "string",
                                   "description": "GUID последнего изменившего склада."
+                                },
+                                "fontColor": {
+                                  "type": "string",
+                                  "description": "Цвет шрифта",
+                                  "example": "#F2F2F2",
+                                  "nullable": true
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -59161,6 +59644,12 @@
                       "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                       "createdById": {"type": "string", "description": "GUID создателя склада."},
                       "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                      "fontColor": {
+                        "type": "string",
+                        "description": "Цвет шрифта",
+                        "example": "#F2F2F2",
+                        "nullable": true
+                      },
                       "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания склада."},
                       "updatedAt": {"type": "string", "format": "date-time", "description": "Дата обновления склада."}
                     }
@@ -59344,6 +59833,12 @@
                   "nullable": true,
                   "description": "Комментарии к коробке",
                   "example": "Просто коммент."
+                },
+                "referenceId": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                  "example": "4373"
                 },
                 "fbaShipment": {
                   "type": "string",
@@ -59618,7 +60113,13 @@
                       "clientComment": {
                         "type": "string",
                         "description": "Комментарии к коробке",
-                        "example": "Просто коммент."
+                        "example": "Просто коммент.",
+                        "nullable": true
+                      },
+                      "referenceId": {
+                        "type": "string",
+                        "description": "Дополнительное поле shippingLabel для доставки грузовиками",
+                        "example": "4373"
                       },
                       "storekeeperComment": {
                         "type": "string",
@@ -60306,6 +60807,12 @@
                                     "lastModifiedById": {
                                       "type": "string",
                                       "description": "GUID последнего изменившего склада."
+                                    },
+                                    "fontColor": {
+                                      "type": "string",
+                                      "description": "Цвет шрифта",
+                                      "example": "#F2F2F2",
+                                      "nullable": true
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -61295,6 +61802,12 @@
                           "isActive": {"type": "boolean", "description": "Флаг активности склада."},
                           "createdById": {"type": "string", "description": "GUID создателя склада."},
                           "lastModifiedById": {"type": "string", "description": "GUID последнего изменившего склада."},
+                          "fontColor": {
+                            "type": "string",
+                            "description": "Цвет шрифта",
+                            "example": "#F2F2F2",
+                            "nullable": true
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time",
@@ -62133,7 +62646,8 @@
                 "zipCode": {"type": "string", "description": "Индекс. 5 цифр.", "pattern": "^[0-9]{5}$"},
                 "state": {"type": "string", "description": "Штат."},
                 "city": {"type": "string", "description": "Город."},
-                "address": {"type": "string", "description": "Адрес склада."}
+                "address": {"type": "string", "description": "Адрес склада."},
+                "fontColor": {"type": "string", "description": "Цвет шрифта", "example": "#F2F2F2", "nullable": true}
               }
             }
           },

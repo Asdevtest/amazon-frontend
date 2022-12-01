@@ -124,6 +124,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
@@ -319,6 +322,12 @@ ApiV1BatchesBoxes.prototype['batchId'] = undefined;
  * @member {String} clientComment
  */
 ApiV1BatchesBoxes.prototype['clientComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+ApiV1BatchesBoxes.prototype['referenceId'] = undefined;
 
 /**
  * Комментарии к коробке

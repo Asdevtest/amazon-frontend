@@ -505,7 +505,7 @@ export const AdminUserEditContent = observer(
             <div className={classNames.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+                disabled={`${formFields.role}` !== `${mapUserRoleEnumToKey[UserRole.STOREKEEPER]}`}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
               />
@@ -517,21 +517,16 @@ export const AdminUserEditContent = observer(
         <div className={classNames.buttonWrapper}>
           <Button
             success
-            disableElevation
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             className={[classNames.button, classNames.rightBtn]}
-            variant="contained"
-            color="primary"
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
           <Button
-            disableElevation
             className={[classNames.button, classNames.rightBtn, classNames.cancelBtn]}
             variant="text"
-            color="primary"
             onClick={() => {
               onClickCancelBtn()
             }}

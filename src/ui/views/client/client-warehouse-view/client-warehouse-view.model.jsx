@@ -1070,10 +1070,16 @@ export class ClientWarehouseViewModel {
 
       // const boxFilter = `[humanFriendlyId][$eq]=${this.nameSearchValue};`
 
+      // const orderFilter = `or[0][id][$eq]=${this.nameSearchValue};or[1][item][$eq]=${this.nameSearchValue};`
+
+      // const orderFilter = `[item][$eq]=${this.nameSearchValue};`
+
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
         filtersProduct: this.nameSearchValue ? productFilter : null,
 
-        filtersBox: /* this.nameSearchValue ? boxFilter :*/ null,
+        // filtersBox:  this.nameSearchValue ? boxFilter : null,
+
+        // filtersOrders: this.nameSearchValue ? orderFilter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

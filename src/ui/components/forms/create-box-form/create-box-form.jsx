@@ -216,7 +216,7 @@ export const CreateBoxForm = observer(
     }
 
     const onSubmit = () => {
-      const newArr = formFieldsArr.map(editingBox => /* editingBox.amount > 1 ?  */ ({
+      const newArr = formFieldsArr.map(editingBox => ({
         ...editingBox,
 
         lengthCmSupplier:
@@ -235,23 +235,7 @@ export const CreateBoxForm = observer(
             : editingBox.heightCmSupplier) || 0,
       }))
 
-      // const res = []
-
-      // newArr.forEach(el => {
-      //   if (el.amount <= 1) {
-      //     res.push({...el, amount: 1})
-      //   } else {
-      //     let i = 0
-      //     while (i < el.amount) {
-      //       res.push({...el, amount: 1})
-      //       i++
-      //     }
-      //   }
-      // })
-
-      // isEdit ? setBoxesForCreation([...res]) : setBoxesForCreation([...boxesForCreation, ...res])
-
-      setBoxesForCreation([...newArr])
+      setBoxesForCreation(isEdit ? [...newArr] : [...boxesForCreation, ...newArr])
       onTriggerOpenModal()
     }
 

@@ -32,6 +32,7 @@ import InlineObject25 from '../model/InlineObject25';
 import InlineObject26 from '../model/InlineObject26';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
+import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
@@ -843,6 +844,62 @@ export default class BoxesApi {
      */
     apiV1BoxesGet(opts) {
       return this.apiV1BoxesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить сгруппированные коробки
+     * ## Получить сгруппированные коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.additionalGroupParameter                Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount             
+     * @param {Number} opts.limit Сколько вернуть полей
+     * @param {Number} opts.offset Сколько отступить от начала полей
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
+     */
+    apiV1BoxesGroupedGroupsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'additionalGroupParameter': opts['additionalGroupParameter'],
+        'limit': opts['limit'],
+        'offset': opts['offset']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20013;
+      return this.apiClient.callApi(
+        '/api/v1/boxes/grouped/groups', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить сгруппированные коробки
+     * ## Получить сгруппированные коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.additionalGroupParameter                Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount             
+     * @param {Number} opts.limit Сколько вернуть полей
+     * @param {Number} opts.offset Сколько отступить от начала полей
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
+     */
+    apiV1BoxesGroupedGroupsGet(opts) {
+      return this.apiV1BoxesGroupedGroupsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

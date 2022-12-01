@@ -326,10 +326,16 @@ export const styles = theme => ({
     // overflow: 'auto',
   },
 
+  gridBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+
   superboxWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    marginRight: 5,
   },
 
   renderBoxWrapper: {
@@ -369,7 +375,7 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 14,
     color: theme.palette.primary.main,
-    width: '50px',
+    // width: '50px',
   },
   taskDescriptionCountWrapper: {
     marginLeft: 5,
@@ -388,6 +394,14 @@ export const styles = theme => ({
     alignItems: 'flex-end',
     gap: '2px',
   },
+
+  gridBoxWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '2px',
+    marginRight: 30,
+  },
+
   buttonsWrapper: {
     display: 'flex',
 
