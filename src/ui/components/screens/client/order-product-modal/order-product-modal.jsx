@@ -27,6 +27,8 @@ export const OrderProductModal = ({
   onSubmit,
   onClickCancel,
   reorderOrder,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -271,8 +273,10 @@ export const OrderProductModal = ({
                 item={product}
                 withRemove={selectedProductsData?.length > 1}
                 orderState={orderState[index]}
+                destinationsFavourites={destinationsFavourites}
                 setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}
+                onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                 onClickBarcode={() => {
                   setTmpOrderIndex(index)
                   triggerBarcodeModal()

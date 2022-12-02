@@ -229,6 +229,14 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
     this.curPage = 0

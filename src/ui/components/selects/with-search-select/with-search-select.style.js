@@ -107,9 +107,20 @@ export const styles = theme => ({
 
   fieldNamesWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 'max-content',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  setFavouriteBtn: {
+    height: 30,
+    width: 30,
+    backgroundColor: 'black',
+    borderRadius: 30,
+  },
+  setFavouriteBtnIsSelected: {
+    backgroundColor: 'yellow',
   },
 
   fieldName: {

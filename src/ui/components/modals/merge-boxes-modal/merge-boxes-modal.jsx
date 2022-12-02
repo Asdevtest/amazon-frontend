@@ -28,6 +28,8 @@ export const MergeBoxesModal = ({
   setOpenModal,
   onSubmit,
   onRemoveBoxFromSelected,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -195,6 +197,8 @@ export const MergeBoxesModal = ({
                     }
                     data={destinations.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper._id)}
                     searchFields={['name']}
+                    favourites={destinationsFavourites}
+                    onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                     onClickNotChosen={() => setBoxBody({...boxBody, destinationId: ''})}
                     onClickSelect={el => setBoxBody({...boxBody, destinationId: el._id})}
                   />

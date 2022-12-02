@@ -38,6 +38,8 @@ export const OrderModalBodyRow = ({
   orderState,
   onRemoveProduct,
   withRemove,
+  destinationsFavourites,
+  onClickSetDestinationFavourite,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -234,7 +236,9 @@ export const OrderModalBodyRow = ({
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={destinations /* .filter(el => !el.storekeeperId)*/} // убираем дестинейшены, которые одновременно и склады
+            favourites={destinationsFavourites}
             searchFields={['name']}
+            onClickSetDestinationFavourite={onClickSetDestinationFavourite}
             onClickNotChosen={() => onChangeInput({target: {value: ''}}, 'destinationId')}
             onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}
           />
