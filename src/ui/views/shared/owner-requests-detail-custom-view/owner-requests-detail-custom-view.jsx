@@ -99,6 +99,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    console.log('requestProposals', requestProposals)
+
     const findRequestProposalForCurChat =
       chatSelectedId && requestProposals.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
 
