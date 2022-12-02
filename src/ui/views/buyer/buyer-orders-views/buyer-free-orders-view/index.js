@@ -1,1 +1,1 @@
-export {BuyerFreeOrdersView} from './buyer-free-orders-view'
+export * from './buyer-free-orders-view'

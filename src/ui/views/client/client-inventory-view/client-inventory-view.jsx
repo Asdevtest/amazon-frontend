@@ -21,6 +21,7 @@ import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-go
 import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -355,11 +356,10 @@ export class ClientInventoryViewRaw extends Component {
                 </div>
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   disableVirtualization
                   pagination
                   checkboxSelection
-                  selectionModel={selectedRowIds}
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
@@ -378,10 +378,12 @@ export class ClientInventoryViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   // rows={getCurrentData()}
                   rows={currentData}
-                  getRowHeight={() => 'auto'}
+                  // getRowHeight={() => 'auto'}
+                  rowHeight={120}
                   components={{
                     Toolbar: GridToolbar,
                   }}
+                  selectionModel={selectedRowIds}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}

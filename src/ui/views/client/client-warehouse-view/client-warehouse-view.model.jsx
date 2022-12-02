@@ -48,7 +48,7 @@ const updateBoxWhiteList = [
   'storekeeperId',
   'logicsTariffId',
   'fbaShipment',
-  // 'referenceId',
+  'referenceId',
 ]
 
 export class ClientWarehouseViewModel {

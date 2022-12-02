@@ -33,14 +33,14 @@ export const MergeBoxesModal = ({
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: selectedBoxes.some(box => box.destination?._id !== selectedBoxes[0].destination?._id)
+    destinationId: selectedBoxes.some(box => box.destination?._id !== selectedBoxes[0]?.destination?._id)
       ? null
       : selectedBoxes[0].destination?._id,
 
-    storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0].storekeeper?._id)
+    storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
       ? ''
       : selectedBoxes[0].storekeeper?._id,
-    logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0].logicsTariff?._id)
+    logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id)
       ? ''
       : selectedBoxes[0].logicsTariff?._id,
 
@@ -89,7 +89,7 @@ export const MergeBoxesModal = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
-  const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0].storekeeper._id)
+  const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0]?.storekeeper._id)
 
   const disabledSubmit =
     requestStatus === loadingStatuses.isLoading ||

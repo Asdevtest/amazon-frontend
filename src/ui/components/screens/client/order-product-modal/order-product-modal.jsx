@@ -158,7 +158,7 @@ export const OrderProductModal = ({
   }
 
   const storekeeperEqualsDestination = orderState.some(
-    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeperId,
+    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
   )
 
   const disabledSubmit =

@@ -205,16 +205,18 @@ export const ProductAsinCell = React.memo(
 
 export const AsinCopyCell = React.memo(
   withStyles(({classes: classNames, asinData}) => {
-    const asins = asinData.split(', ').map(asin =>
+    const asins = asinData.split(', ').map((asin, i) =>
       asin ? (
-        <div className={classNames.multilineTextHeaderWrapper}>
+        <div key={i} className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.typoCell}>
             {<span className={classNames.multilineHeaderText}>{shortAsin(asin)}</span>}
           </Typography>
           {<CopyValue text={asin} />}
         </div>
       ) : (
-        <span className={classNames.multilineHeaderText}>{t(TranslationKey.Missing)}</span>
+        <span key={i} className={classNames.multilineHeaderText}>
+          {t(TranslationKey.Missing)}
+        </span>
       ),
     )
     return <div className={classNames.flexDirectionColumn}>{asins}</div>
@@ -398,6 +400,22 @@ export const ChangeInputCell = React.memo(
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
+
+    const [isMyInputFocused, setIsMyInputFocused] = useState(false)
+
+    useEffect(() => {
+      const listener = event => {
+        if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+          event.preventDefault()
+          onClickSubmit(row, value)
+        }
+      }
+      document.addEventListener('keydown', listener)
+      return () => {
+        document.removeEventListener('keydown', listener)
+      }
+    }, [value])
+
     return (
       <div>
         <Input
@@ -424,6 +442,8 @@ export const ChangeInputCell = React.memo(
               ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
               : setValue(e.target.value)
           }
+          onBlur={() => setIsMyInputFocused(false)}
+          onFocus={() => setIsMyInputFocused(true)}
         />
       </div>
     )
@@ -812,7 +832,7 @@ export const BoxesAndQuantity = React.memo(
     }, {})
     const boxes = filteredBoxes.map((item, i) =>
       item ? (
-        <Typography className={classNames.boxesAndQuantityText}>
+        <Typography key={i} className={classNames.boxesAndQuantityText}>
           {item}
           {count[item] !== 1 ? ` x ${count[item]}` : ''}
           {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
