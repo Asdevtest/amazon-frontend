@@ -27,6 +27,7 @@ import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
@@ -196,7 +197,7 @@ export class ClientWarehouseViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
 
-              <DataGrid
+              <MemoDataGrid
                 // disableVirtualization
                 pagination
                 checkboxSelection

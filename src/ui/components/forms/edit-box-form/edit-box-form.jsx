@@ -538,7 +538,6 @@ export const EditBoxForm = observer(
 
                   <div className={classNames.shareBoxSubWrapper}>
                     <Field
-                      disabled
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.field}
                       inputClasses={cx(classNames.fbaShipmentInput)}

@@ -1,108 +1,491 @@
-import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
-import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
-import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
-import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
-import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
-import {AdminFeedbackView} from '@views/admin/admin-feedback-view'
-import {AdminInventoryView} from '@views/admin/admin-inventory-view'
-import {AdminOrderView} from '@views/admin/admin-orders-views/order'
-import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
-import {AdminProductView} from '@views/admin/admin-product-view'
-import {AdminSettingsView} from '@views/admin/admin-settings-view'
-import {AdminTechnicalView} from '@views/admin/admin-technical-view'
-import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
-import {AdminUserView} from '@views/admin/admin-users-view/admin-user-view'
-import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
-import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
-import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
-import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
-import {AdminWarehouseView} from '@views/admin/admin-warehouse-views/admin-warehouse-view'
-import {AuthView} from '@views/auth'
-import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
-import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
-import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
-import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
-import {BuyerProductView} from '@views/buyer/buyer-product-view/'
-import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
-import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
-import {BuyerSearchSupplierForIdeaView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view'
-import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
-import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
-import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
-import {ClientSentBatchesView} from '@views/client/client-batches-views/client-sent-batches-view'
-import {ClientDashboardView} from '@views/client/client-dashboard-view'
-import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
-import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
-import {ClientFreelanceView} from '@views/client/client-freelance-view'
-import {ClientInventoryView} from '@views/client/client-inventory-view'
-import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
-import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
-import {ClientNotificationsView} from '@views/client/client-notifications-views/client-notifications-view'
-import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
-import {ClientOrderView} from '@views/client/client-orders-views/order'
-import {ClientOrdersView} from '@views/client/client-orders-views/orders'
-import {ClientProductExchangeView} from '@views/client/client-product-exchange-view'
-import {ClientProductView} from '@views/client/client-product-view/'
-import {ClientSettingsView} from '@views/client/client-settings-view'
-import {ClientShopView} from '@views/client/client-shop-view'
-import {ClientShopsView} from '@views/client/client-shops-view'
-import {ClientBuyShopsView} from '@views/client/client-trading-shops-views/client-buy-shops-view'
-import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
-import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/client-trading-shops-view'
-import {CreateOrEditTradingShopView} from '@views/client/client-trading-shops-views/create-or-edit-trading-shop-view'
-import {ClientWarehouseView} from '@views/client/client-warehouse-view'
-import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
-import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
-import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view/moderator-appeal-view'
-// import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
-import {ModeratorAppealsView} from '@views/moderator/moderator-appeals-view/moderator-appeals-view'
-import {ModeratorDashboardView} from '@views/moderator/moderator-dashboard-view'
-import {ModeratorMyProductsView} from '@views/moderator/moderator-my-products-view'
-import {ModeratorSettingsView} from '@views/moderator/moderator-settings-view'
-import {RegistrationView} from '@views/registration'
-import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
-import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
-import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
-import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
-import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
-import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
-import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
-import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
-import {FinancesView} from '@views/shared/finances-view'
-import {MessagesView} from '@views/shared/messages-view'
-import {MyProposalsView} from '@views/shared/my-proposals-view'
-import {MyRequestsView} from '@views/shared/my-requests-view'
-import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
-import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
-import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
-import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
-import {UsersView} from '@views/shared/users-view'
-import {VacantDealsDetailsView} from '@views/shared/vacant-deals-details-view'
-import {VacantDealsView} from '@views/shared/vacant-deals-view'
-import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
-import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
-import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-view'
-import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
-import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
-import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
-import {SupervisorReadyToCheckForIdeaView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea'
-import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
-import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view'
-import {TermsView} from '@views/terms'
-import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
-import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
-import {WarehouseSentBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view'
-import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
-import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
-import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
-import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
-import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
-import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
-import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
-import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
+import {lazy} from 'react'
 
+// import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
+// import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
+// import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
+// import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
+// import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
+// import {AdminFeedbackView} from '@views/admin/admin-feedback-view'
+// import {AdminInventoryView} from '@views/admin/admin-inventory-view'
+// import {AdminOrderView} from '@views/admin/admin-orders-views/order'
+// import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
+// import {AdminProductView} from '@views/admin/admin-product-view'
+// import {AdminSettingsView} from '@views/admin/admin-settings-view'
+// import {AdminTechnicalView} from '@views/admin/admin-technical-view'
+// import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
+// import {AdminUserView} from '@views/admin/admin-users-view/admin-user-view'
+// import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
+// import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
+// import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
+// import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
+// import {AdminWarehouseView} from '@views/admin/admin-warehouse-views/admin-warehouse-view'
+// import {AuthView} from '@views/auth'
+// import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
+// import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
+// import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
+// import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
+// import {BuyerProductView} from '@views/buyer/buyer-product-view/'
+// import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
+// import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
+// import {BuyerSearchSupplierForIdeaView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view'
+// import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
+// import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
+// import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
+// import {ClientSentBatchesView} from '@views/client/client-batches-views/client-sent-batches-view'
+// import {ClientDashboardView} from '@views/client/client-dashboard-view'
+// import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
+// import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
+// import {ClientFreelanceView} from '@views/client/client-freelance-view'
+// import {ClientInventoryView} from '@views/client/client-inventory-view'
+// import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
+// import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
+// import {ClientNotificationsView} from '@views/client/client-notifications-views/client-notifications-view'
+// import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
+// import {ClientOrderView} from '@views/client/client-orders-views/order'
+// import {ClientOrdersView} from '@views/client/client-orders-views/orders'
+// import {ClientProductExchangeView} from '@views/client/client-product-exchange-view'
+// import {ClientProductView} from '@views/client/client-product-view/'
+// import {ClientSettingsView} from '@views/client/client-settings-view'
+// import {ClientShopView} from '@views/client/client-shop-view'
+// import {ClientShopsView} from '@views/client/client-shops-view'
+// import {ClientBuyShopsView} from '@views/client/client-trading-shops-views/client-buy-shops-view'
+// import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
+// import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/client-trading-shops-view'
+// import {CreateOrEditTradingShopView} from '@views/client/client-trading-shops-views/create-or-edit-trading-shop-view'
+// import {ClientWarehouseView} from '@views/client/client-warehouse-view'
+// import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
+// import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
+// import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view/moderator-appeal-view'
+// // import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
+// import {ModeratorAppealsView} from '@views/moderator/moderator-appeals-view/moderator-appeals-view'
+// import {ModeratorDashboardView} from '@views/moderator/moderator-dashboard-view'
+// import {ModeratorMyProductsView} from '@views/moderator/moderator-my-products-view'
+// import {ModeratorSettingsView} from '@views/moderator/moderator-settings-view'
+// import {RegistrationView} from '@views/registration'
+// import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
+// import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
+// import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
+// import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
+// import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
+// import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
+// import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
+// import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
+// import {FinancesView} from '@views/shared/finances-view'
+// import {MessagesView} from '@views/shared/messages-view'
+// import {MyProposalsView} from '@views/shared/my-proposals-view'
+// import {MyRequestsView} from '@views/shared/my-requests-view'
+// import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
+// import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
+// import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
+// import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
+// import {UsersView} from '@views/shared/users-view'
+// import {VacantDealsDetailsView} from '@views/shared/vacant-deals-details-view'
+// import {VacantDealsView} from '@views/shared/vacant-deals-view'
+// import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
+// import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
+// import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-view'
+// import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
+// import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
+// import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
+// import {SupervisorReadyToCheckForIdeaView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea'
+// import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
+// import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view'
+// import {TermsView} from '@views/terms'
+// import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
+// import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
+// import {WarehouseSentBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view'
+// import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
+// import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
+// import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
+// import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
+// import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
+// import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
+// import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
+// import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
+
+const AdminAwaitingBatchesView = lazy(() =>
+  import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({
+    default: module.AdminAwaitingBatchesView,
+  })),
+)
+const AdminBatchesView = lazy(() =>
+  import('@views/admin/admin-batches-views/admin-batches-view').then(module => ({default: module.AdminBatchesView})),
+)
+const AdminSentBatchesView = lazy(() =>
+  import('@views/admin/admin-batches-views/admin-sent-batches-view').then(module => ({
+    default: module.AdminSentBatchesView,
+  })),
+)
+const AdminDashboardView = lazy(() =>
+  import('@views/admin/admin-dashboard-view').then(module => ({default: module.AdminDashboardView})),
+)
+const AdminExchangeViews = lazy(() =>
+  import('@views/admin/admin-exchange-views').then(module => ({default: module.AdminExchangeViews})),
+)
+const AdminFeedbackView = lazy(() =>
+  import('@views/admin/admin-feedback-view').then(module => ({default: module.AdminFeedbackView})),
+)
+const AdminInventoryView = lazy(() =>
+  import('@views/admin/admin-inventory-view').then(module => ({default: module.AdminInventoryView})),
+)
+const AdminOrderView = lazy(() =>
+  import('@views/admin/admin-orders-views/order').then(module => ({default: module.AdminOrderView})),
+)
+const AdminOrdersViews = lazy(() =>
+  import('@views/admin/admin-orders-views/orders').then(module => ({default: module.AdminOrdersViews})),
+)
+const AdminProductView = lazy(() =>
+  import('@views/admin/admin-product-view').then(module => ({default: module.AdminProductView})),
+)
+const AdminSettingsView = lazy(() =>
+  import('@views/admin/admin-settings-view').then(module => ({default: module.AdminSettingsView})),
+)
+const AdminTechnicalView = lazy(() =>
+  import('@views/admin/admin-technical-view').then(module => ({default: module.AdminTechnicalView})),
+)
+const AdminUserPermissionsView = lazy(() =>
+  import('@views/admin/admin-user-permissions-view').then(module => ({default: module.AdminUserPermissionsView})),
+)
+const AdminUserView = lazy(() =>
+  import('@views/admin/admin-users-view/admin-user-view').then(module => ({default: module.AdminUserView})),
+)
+const AdminUsersView = lazy(() =>
+  import('@views/admin/admin-users-view/admin-users-view').then(module => ({default: module.AdminUsersView})),
+)
+const AdminDestinationsView = lazy(() =>
+  import('@views/admin/admin-warehouse-views/admin-destinations-view').then(module => ({
+    default: module.AdminDestinationsView,
+  })),
+)
+const AdminWarehouseBoxesView = lazy(() =>
+  import('@views/admin/admin-warehouse-views/admin-warehouse-boxes-view').then(module => ({
+    default: module.AdminWarehouseBoxesView,
+  })),
+)
+const AdminWarehouseTasksView = lazy(() =>
+  import('@views/admin/admin-warehouse-views/admin-warehouse-tasks-view').then(module => ({
+    default: module.AdminWarehouseTasksView,
+  })),
+)
+const AdminWarehouseView = lazy(() =>
+  import('@views/admin/admin-warehouse-views/admin-warehouse-view').then(module => ({
+    default: module.AdminWarehouseView,
+  })),
+)
+const AuthView = lazy(() => import('@views/auth').then(module => ({default: module.AuthView})))
+
+const BuyerDashboardView = lazy(() =>
+  import('@views/buyer/buyer-dashboard-view').then(module => ({default: module.BuyerDashboardView})),
+)
+
+const BuyerMyProductsView = lazy(() =>
+  import('@views/buyer/buyer-my-products-view').then(module => ({default: module.BuyerMyProductsView})),
+)
+
+const BuyerFreeOrdersView = lazy(() =>
+  import('@views/buyer/buyer-orders-views/buyer-free-orders-view').then(module => ({
+    default: module.BuyerFreeOrdersView,
+  })),
+)
+const BuyerMyOrdersView = lazy(() =>
+  import('@views/buyer/buyer-orders-views/buyer-my-orders-view').then(module => ({default: module.BuyerMyOrdersView})),
+)
+const BuyerProductView = lazy(() =>
+  import('@views/buyer/buyer-product-view/').then(module => ({default: module.BuyerProductView})),
+)
+const BuyerSearchSupplierByClientView = lazy(() =>
+  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view').then(module => ({
+    default: module.BuyerSearchSupplierByClientView,
+  })),
+)
+const BuyerSearchSupplierBySupervisorView = lazy(() =>
+  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view').then(module => ({
+    default: module.BuyerSearchSupplierBySupervisorView,
+  })),
+)
+const BuyerSearchSupplierForIdeaView = lazy(() =>
+  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view').then(module => ({
+    default: module.BuyerSearchSupplierForIdeaView,
+  })),
+)
+const ClientAwaitingBatchesView = lazy(() =>
+  import('@views/client/client-batches-views/client-awaiting-batches-view').then(module => ({
+    default: module.ClientAwaitingBatchesView,
+  })),
+)
+const ClientBatchesView = lazy(() =>
+  import('@views/client/client-batches-views/client-batches-view').then(module => ({
+    default: module.ClientBatchesView,
+  })),
+)
+const ClientReadyBoxesView = lazy(() =>
+  import('@views/client/client-batches-views/client-ready-boxes-view').then(module => ({
+    default: module.ClientReadyBoxesView,
+  })),
+)
+const ClientSentBatchesView = lazy(() =>
+  import('@views/client/client-batches-views/client-sent-batches-view').then(module => ({
+    default: module.ClientSentBatchesView,
+  })),
+)
+const ClientDashboardView = lazy(() =>
+  import('@views/client/client-dashboard-view').then(module => ({default: module.ClientDashboardView})),
+)
+const ClientExchangePrivateLabelView = lazy(() =>
+  import('@views/client/client-exchange-views/client-exchange-private-label-view').then(module => ({
+    default: module.ClientExchangePrivateLabelView,
+  })),
+)
+const ClientExchangeView = lazy(() =>
+  import('@views/client/client-exchange-views/client-exchange-view').then(module => ({
+    default: module.ClientExchangeView,
+  })),
+)
+const ClientFreelanceView = lazy(() =>
+  import('@views/client/client-freelance-view').then(module => ({default: module.ClientFreelanceView})),
+)
+const ClientInventoryView = lazy(() =>
+  import('@views/client/client-inventory-view').then(module => ({default: module.ClientInventoryView})),
+)
+const ClientBoxesNotificationsView = lazy(() =>
+  import('@views/client/client-notifications-views/client-boxes-notifications-view').then(module => ({
+    default: module.ClientBoxesNotificationsView,
+  })),
+)
+const ClientBoxesTariffsNotificationsView = lazy(() =>
+  import('@views/client/client-notifications-views/client-boxes-tariffs-notifications-view').then(module => ({
+    default: module.ClientBoxesTariffsNotificationsView,
+  })),
+)
+const ClientNotificationsView = lazy(() =>
+  import('@views/client/client-notifications-views/client-notifications-view').then(module => ({
+    default: module.ClientNotificationsView,
+  })),
+)
+const ClientOrdersNotificationsView = lazy(() =>
+  import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
+    default: module.ClientOrdersNotificationsView,
+  })),
+)
+const ClientOrderView = lazy(() =>
+  import('@views/client/client-orders-views/order').then(module => ({default: module.ClientOrderView})),
+)
+const ClientOrdersView = lazy(() =>
+  import('@views/client/client-orders-views/orders').then(module => ({default: module.ClientOrdersView})),
+)
+const ClientProductExchangeView = lazy(() =>
+  import('@views/client/client-product-exchange-view').then(module => ({default: module.ClientProductExchangeView})),
+)
+const ClientProductView = lazy(() =>
+  import('@views/client/client-product-view/').then(module => ({default: module.ClientProductView})),
+)
+const ClientSettingsView = lazy(() =>
+  import('@views/client/client-settings-view').then(module => ({default: module.ClientSettingsView})),
+)
+const ClientShopView = lazy(() =>
+  import('@views/client/client-shop-view').then(module => ({default: module.ClientShopView})),
+)
+const ClientShopsView = lazy(() =>
+  import('@views/client/client-shops-view').then(module => ({default: module.ClientShopsView})),
+)
+const ClientBuyShopsView = lazy(() =>
+  import('@views/client/client-trading-shops-views/client-buy-shops-view').then(module => ({
+    default: module.ClientBuyShopsView,
+  })),
+)
+const ClientSellShopsView = lazy(() =>
+  import('@views/client/client-trading-shops-views/client-sell-shops-view').then(module => ({
+    default: module.ClientSellShopsView,
+  })),
+)
+const ClientTradingShopsView = lazy(() =>
+  import('@views/client/client-trading-shops-views/client-trading-shops-view').then(module => ({
+    default: module.ClientTradingShopsView,
+  })),
+)
+const CreateOrEditTradingShopView = lazy(() =>
+  import('@views/client/client-trading-shops-views/create-or-edit-trading-shop-view').then(module => ({
+    default: module.CreateOrEditTradingShopView,
+  })),
+)
+const ClientWarehouseView = lazy(() =>
+  import('@views/client/client-warehouse-view').then(module => ({default: module.ClientWarehouseView})),
+)
+const FreelancerDashboardView = lazy(() =>
+  import('@views/freelancer/freelancer-dashboard-view').then(module => ({default: module.FreelancerDashboardView})),
+)
+const FreelancerFreelanceView = lazy(() =>
+  import('@views/freelancer/freelancer-freelance-view').then(module => ({default: module.FreelancerFreelanceView})),
+)
+const ModeratorAppealView = lazy(() =>
+  import('@views/moderator/moderator-appeal-view/moderator-appeal-view').then(module => ({
+    default: module.ModeratorAppealView,
+  })),
+)
+// const rt ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
+const ModeratorAppealsView = lazy(() =>
+  import('@views/moderator/moderator-appeals-view/moderator-appeals-view').then(module => ({
+    default: module.ModeratorAppealsView,
+  })),
+)
+const ModeratorDashboardView = lazy(() =>
+  import('@views/moderator/moderator-dashboard-view').then(module => ({default: module.ModeratorDashboardView})),
+)
+const ModeratorMyProductsView = lazy(() =>
+  import('@views/moderator/moderator-my-products-view').then(module => ({default: module.ModeratorMyProductsView})),
+)
+const ModeratorSettingsView = lazy(() =>
+  import('@views/moderator/moderator-settings-view').then(module => ({default: module.ModeratorSettingsView})),
+)
+const RegistrationView = lazy(() => import('@views/registration').then(module => ({default: module.RegistrationView})))
+const ResearcherDashboardView = lazy(() =>
+  import('@views/researcher/researcher-dashboard-view').then(module => ({default: module.ResearcherDashboardView})),
+)
+const ResearcherProductView = lazy(() =>
+  import('@views/researcher/researcher-product-view/researcher-product-view').then(module => ({
+    default: module.ResearcherProductView,
+  })),
+)
+const ResearcherProductsView = lazy(() =>
+  import('@views/researcher/researcher-products-view').then(module => ({default: module.ResearcherProductsView})),
+)
+const AnotherUserProfileView = lazy(() =>
+  import('@views/shared/another-user-profile-view').then(module => ({default: module.AnotherUserProfileView})),
+)
+const CreateOrEditProposalView = lazy(() =>
+  import('@views/shared/create-or-edit-proposal-view').then(module => ({default: module.CreateOrEditProposalView})),
+)
+const CreateOrEditRequestView = lazy(() =>
+  import('@views/shared/create-or-edit-request-view').then(module => ({default: module.CreateOrEditRequestView})),
+)
+const DealsOnReviewDetailsView = lazy(() =>
+  import('@views/shared/deals-on-review-details-view').then(module => ({default: module.DealsOnReviewDetailsView})),
+)
+const DealsOnReviewView = lazy(() =>
+  import('@views/shared/deals-on-review-view/deals-on-review-view').then(module => ({
+    default: module.DealsOnReviewView,
+  })),
+)
+const FinancesView = lazy(() => import('@views/shared/finances-view').then(module => ({default: module.FinancesView})))
+const MessagesView = lazy(() => import('@views/shared/messages-view').then(module => ({default: module.MessagesView})))
+const MyProposalsView = lazy(() =>
+  import('@views/shared/my-proposals-view').then(module => ({default: module.MyProposalsView})),
+)
+const MyRequestsView = lazy(() =>
+  import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
+)
+const OwnerRequestDetailCustomView = lazy(() =>
+  import('@views/shared/owner-requests-detail-custom-view').then(module => ({
+    default: module.OwnerRequestDetailCustomView,
+  })),
+)
+const RequestDetailCustomView = lazy(() =>
+  import('@views/shared/servant-requests-detail-custom-view').then(module => ({
+    default: module.RequestDetailCustomView,
+  })),
+)
+const SubUsersView = lazy(() =>
+  import('@views/shared/sub-users-view/sub-users-view').then(module => ({default: module.SubUsersView})),
+)
+const UserProfileView = lazy(() =>
+  import('@views/shared/user-profile-view/user-profile-view').then(module => ({default: module.UserProfileView})),
+)
+const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({default: module.UsersView})))
+const VacantDealsDetailsView = lazy(() =>
+  import('@views/shared/vacant-deals-details-view').then(module => ({default: module.VacantDealsDetailsView})),
+)
+const VacantDealsView = lazy(() =>
+  import('@views/shared/vacant-deals-view').then(module => ({default: module.VacantDealsView})),
+)
+const VacantRequestsView = lazy(() =>
+  import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
+    default: module.VacantRequestsView,
+  })),
+)
+const SupervisorDashboardView = lazy(() =>
+  import('@views/supervisor/supervisor-dashboard-view').then(module => ({default: module.SupervisorDashboardView})),
+)
+const SupervisorFreelanceView = lazy(() =>
+  import('@views/supervisor/supervisor-freelance-view').then(module => ({default: module.SupervisorFreelanceView})),
+)
+const SupervisorProductView = lazy(() =>
+  import('@views/supervisor/supervisor-product-view/supervisor-product-view').then(module => ({
+    default: module.SupervisorProductView,
+  })),
+)
+const SupervisorProductsView = lazy(() =>
+  import('@views/supervisor/supervisor-products-view/').then(module => ({default: module.SupervisorProductsView})),
+)
+const SupervisorReadyToCheckByClientView = lazy(() =>
+  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view').then(module => ({
+    default: module.SupervisorReadyToCheckByClientView,
+  })),
+)
+const SupervisorReadyToCheckForIdeaView = lazy(() =>
+  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea').then(module => ({
+    default: module.SupervisorReadyToCheckForIdeaView,
+  })),
+)
+const SupervisorReadyToCheckView = lazy(() =>
+  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view').then(module => ({
+    default: module.SupervisorReadyToCheckView,
+  })),
+)
+const SupervisorSettingsView = lazy(() =>
+  import('@views/supervisor/supervisor-settings-view').then(module => ({default: module.SupervisorSettingsView})),
+)
+const TermsView = lazy(() => import('@views/terms').then(module => ({default: module.TermsView})))
+const WarehouseAwaitingBatchesView = lazy(() =>
+  import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
+    default: module.WarehouseAwaitingBatchesView,
+  })),
+)
+const WarehouseBatchesView = lazy(() =>
+  import('@views/warehouse/warehouse-batches-views/warehouse-batches-view').then(module => ({
+    default: module.WarehouseBatchesView,
+  })),
+)
+const WarehouseSentBatchesView = lazy(() =>
+  import('@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view').then(
+    module => ({default: module.WarehouseSentBatchesView}),
+  ),
+)
+const WarehouseDashboardView = lazy(() =>
+  import('@views/warehouse/warehouse-dashboard-view').then(module => ({default: module.WarehouseDashboardView})),
+)
+const WarehouseManagementView = lazy(() =>
+  import('@views/warehouse/warehouse-management-view').then(module => ({default: module.WarehouseManagementView})),
+)
+const WarehouseMyWarehouseView = lazy(() =>
+  import('@views/warehouse/warehouse-my-warehouse-view').then(module => ({default: module.WarehouseMyWarehouseView})),
+)
+const WarehouseCanceledTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view').then(module => ({
+    default: module.WarehouseCanceledTasksView,
+  })),
+)
+const WarehouseCompletedTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view').then(module => ({
+    default: module.WarehouseCompletedTasksView,
+  })),
+)
+const WarehouseMyTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view').then(module => ({
+    default: module.WarehouseMyTasksView,
+  })),
+)
+const WarehouseTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-tasks-view').then(module => ({
+    default: module.WarehouseTasksView,
+  })),
+)
+const WarehouseVacantTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view').then(module => ({
+    default: module.WarehouseVacantTasksView,
+  })),
+)
 
 export const publicRoutesConfigs = [
   {

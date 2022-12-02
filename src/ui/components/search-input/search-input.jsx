@@ -17,6 +17,8 @@ import {useClassNames} from './search-input.style'
 export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit}) => {
   const {classes: classNames} = useClassNames()
 
+  const [isMyInputFocused, setIsMyInputFocused] = useState(false)
+
   const [internalValue, setInternalValue] = useState('')
 
   const onClickCloseIcon = () => {
@@ -26,7 +28,7 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
 
   useEffect(() => {
     const listener = event => {
-      if (onSubmit && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+      if (isMyInputFocused && onSubmit && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
         event.preventDefault()
         onSubmit(internalValue)
       }
@@ -66,6 +68,8 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
           )}
         </InputAdornment>
       }
+      onBlur={() => setIsMyInputFocused(false)}
+      onFocus={() => setIsMyInputFocused(true)}
       onChange={e => (onSubmit ? setInternalValue(e.target.value) : onChange(e))}
     />
   )

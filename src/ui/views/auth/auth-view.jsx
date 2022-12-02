@@ -33,8 +33,6 @@ export class AuthViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
 
-    console.log('this.viewModel.error', this.viewModel.error)
-
     return (
       <div className={classNames.root}>
         <EntryLeftPanel />

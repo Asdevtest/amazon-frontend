@@ -35,11 +35,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: '50px',
     objectFit: 'contain',
     objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
   },
 
   productTitle: {

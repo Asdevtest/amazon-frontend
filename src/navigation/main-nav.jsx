@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import {ThemeProvider} from '@mui/material/styles'
 
-import {useMemo, useEffect, useRef} from 'react'
+import {useMemo, useEffect, useRef, Suspense} from 'react'
 
 import {observer} from 'mobx-react'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
@@ -37,11 +37,13 @@ export const MainNav = observer(() => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Switch>
-          {generateRedirects()}
-          {generatePublicRoutes()}
-          <PrivateRoutes />
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            {generateRedirects()}
+            {generatePublicRoutes()}
+            <PrivateRoutes />
+          </Switch>
+        </Suspense>
       </Router>
     </ThemeProvider>
   )
