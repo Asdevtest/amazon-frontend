@@ -80,7 +80,17 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
 }
 
 export const EditBoxForm = observer(
-  ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
+  ({
+    formItem,
+    onSubmit,
+    onTriggerOpenModal,
+    requestStatus,
+    volumeWeightCoefficient,
+    destinations,
+    storekeepers,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -448,6 +458,8 @@ export const EditBoxForm = observer(
                           }
                           data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
                           searchFields={['name']}
+                          favourites={destinationsFavourites}
+                          onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                           onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
                         />

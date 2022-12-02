@@ -103,6 +103,8 @@ export class ClientWarehouseViewRaw extends Component {
       boxesDeliveryCosts,
       modalEditSuccessMessage,
       warningInfoModalSettings,
+      destinationsFavourites,
+      setDestinationsFavouritesItem,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -273,6 +275,8 @@ export class ClientWarehouseViewRaw extends Component {
             storekeepers={storekeepersData}
             volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             formItem={boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData}
             onSubmit={onClickConfirmCreateChangeTasks}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
@@ -293,6 +297,8 @@ export class ClientWarehouseViewRaw extends Component {
             selectedBox={
               selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData
             }
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onRedistribute={onClickConfirmCreateSplitTasks}
             onTriggerOpenModal={onTriggerOpenModal}
           />
@@ -341,6 +347,8 @@ export class ClientWarehouseViewRaw extends Component {
               []
             }
             requestStatus={requestStatus}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
             onRemoveBoxFromSelected={onRemoveBoxFromSelected}
             onSubmit={onClickConfirmCreateMergeTasks}

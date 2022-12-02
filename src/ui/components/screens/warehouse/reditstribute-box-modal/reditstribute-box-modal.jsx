@@ -43,6 +43,8 @@ const Box = ({
   onChangeField,
   isNewBox,
   totalProductsAmount,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -137,6 +139,8 @@ const Box = ({
                     }
                     data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeper._id)}
                     searchFields={['name']}
+                    favourites={destinationsFavourites}
+                    onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
                   />
@@ -332,6 +336,8 @@ const NewBoxes = ({
   onChangeField,
   destinations,
   storekeepers,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -352,6 +358,8 @@ const NewBoxes = ({
             readOnly={isMasterBox}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
@@ -372,6 +380,8 @@ export const RedistributeBox = observer(
     selectedBox,
     onRedistribute,
     onTriggerOpenModal,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
   }) => {
     const {classes: classNames} = useClassNames()
     const [currentBox, setCurrentBox] = useState({
@@ -522,6 +532,8 @@ export const RedistributeBox = observer(
               index={0}
               isMasterBox={isMasterBox}
               selectedBox={selectedBox}
+              destinationsFavourites={destinationsFavourites}
+              setDestinationsFavouritesItem={setDestinationsFavouritesItem}
               onChangeAmountInput={onChangeAmountInput}
             />
           </div>
@@ -532,6 +544,8 @@ export const RedistributeBox = observer(
             selectedBox={selectedBox}
             destinations={destinations}
             storekeepers={storekeepers}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}

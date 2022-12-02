@@ -216,6 +216,14 @@ export class ClientInventoryViewModel {
     }
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import isEqual from 'lodash.isequal'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
 import {appVersion} from '@constants/app-version'
@@ -15,6 +16,7 @@ const persistProperties = [
   'languageTag',
   'chatMessageState',
   'uiTheme',
+  'destinationsFavourites',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -30,6 +32,8 @@ class SettingsModelStatic {
   breadcrumbsForProfile = null
   showHints = true
   noticeOfSimpleChats = true
+
+  destinationsFavourites = []
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -66,6 +70,19 @@ class SettingsModelStatic {
       console.log('!!!*** versions do not match')
       window.location.reload()
     }
+  }
+
+  setDestinationsFavouritesItem(item) {
+    console.log('setDestinationsFavouritesItem')
+    const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(destinationsFavouritesItem =>
+      isEqual(destinationsFavouritesItem, item),
+    )
+    if (findDestinationsFavouritesItemIndex !== -1) {
+      this.destinationsFavourites.splice(findDestinationsFavouritesItemIndex, 1)
+    } else {
+      this.destinationsFavourites.push(item)
+    }
+    console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
   }
 
   setIntervalCheckAppVersion() {

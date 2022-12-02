@@ -112,6 +112,7 @@ export class ClientInventoryViewRaw extends Component {
       showAddSuppliersModal,
       showCircularProgressModal,
       showProductLotDataModal,
+      destinationsFavourites,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
       onClickShowProduct,
@@ -148,6 +149,7 @@ export class ClientInventoryViewRaw extends Component {
       onClickWithProductsShopBtn,
 
       createSupplierSearchRequest,
+      setDestinationsFavouritesItem,
       // onClickSavesStockUSA,
       withoutProduct,
       withProduct,
@@ -506,6 +508,8 @@ export class ClientInventoryViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepers}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             selectedProductsData={currentData
               .filter(product => selectedRowIds.includes(product.id))
               .map(prod => prod.originalData)}
