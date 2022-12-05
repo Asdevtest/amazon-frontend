@@ -132,7 +132,7 @@ const Box = ({
                 inputComponent={
                   <WithSearchSelect
                     disabled={!isNewBox}
-                    width={230}
+                    width={220}
                     selectedItemName={
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])

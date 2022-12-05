@@ -12,7 +12,6 @@ import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-hs-code-in-box-form.style'
@@ -88,9 +87,7 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit, star
   }
 
   const onClickSubmit = () => {
-    const submitData = formFields.map(el => getObjectFilteredByKeyArrayWhiteList(el, ['productId', 'hsCode']))
-
-    onSubmit(submitData)
+    onSubmit(formFields)
   }
 
   const submitDisabled = JSON.stringify(sourceData) === JSON.stringify(formFields)

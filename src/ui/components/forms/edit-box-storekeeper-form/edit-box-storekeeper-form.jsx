@@ -28,7 +28,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -808,7 +808,9 @@ export const EditBoxStorekeeperForm = observer(
                 boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
                 imagesOfBox,
-                dataToSubmitHsCode,
+                dataToSubmitHsCode: dataToSubmitHsCode.map(el =>
+                  getObjectFilteredByKeyArrayWhiteList(el, ['productId', 'hsCode']),
+                ),
               })
             }}
           >

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
@@ -746,14 +747,97 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
+      const uploadedShippingLabeles = []
+
+      const uploadedBarcodes = []
+
       this.boxesIdsToTask = []
 
       for (let i = 0; i < newBoxes.length; i++) {
-        const newBox = newBoxes[i]
-
+        const newBox = {...newBoxes[i]}
         const sourceBox = selectedBoxes[i]
-
         const isMultipleEdit = true
+
+        if (newBox.tmpShippingLabel?.length) {
+          this.uploadedFiles = []
+
+          const findUploadedShippingLabel = uploadedShippingLabeles.find(
+            el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
+          )
+
+          if (!findUploadedShippingLabel) {
+            await onSubmitPostImages.call(this, {
+              images: newBox.tmpShippingLabel,
+              type: 'uploadedFiles',
+              withoutShowProgress: true,
+            })
+
+            uploadedShippingLabeles.push({
+              strKey: JSON.stringify(newBox.tmpShippingLabel[0]),
+              link: this.uploadedFiles[0],
+            })
+          }
+
+          newBox.shippingLabel = findUploadedShippingLabel ? findUploadedShippingLabel.link : this.uploadedFiles[0]
+        }
+
+        const dataToBarCodeChange = newBox.items
+          .map(el =>
+            el.tmpBarCode?.length
+              ? {
+                  changeBarCodInInventory: el.changeBarCodInInventory,
+                  productId: el.product._id,
+                  tmpBarCode: el.tmpBarCode,
+                  newData: [],
+                }
+              : null,
+          )
+          .filter(el => el !== null)
+
+        if (dataToBarCodeChange?.length) {
+          for (let j = 0; j < dataToBarCodeChange.length; j++) {
+            const findUploadedBarcode = uploadedBarcodes.find(
+              el => el.strKey === JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
+            )
+
+            if (!findUploadedBarcode) {
+              await onSubmitPostImages.call(this, {
+                images: dataToBarCodeChange[j].tmpBarCode,
+                type: 'uploadedFiles',
+                withoutShowProgress: true,
+              })
+
+              uploadedBarcodes.push({
+                strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
+                link: this.uploadedFiles[0],
+              })
+            }
+
+            dataToBarCodeChange[j].newData = findUploadedBarcode ? [findUploadedBarcode.link] : [this.uploadedFiles[0]]
+          }
+        }
+
+        newBox.items = newBox.items.map(el => {
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+          return {
+            ...getObjectFilteredByKeyArrayBlackList(el, [
+              'order',
+              'product',
+              /* 'tmpBarCode',*/ 'changeBarCodInInventory',
+            ]),
+            amount: el.amount,
+            orderId: el.order._id,
+            productId: el.product._id,
+
+            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
+              ? false
+              : el.isBarCodeAlreadyAttachedByTheSupplier,
+            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
+              ? false
+              : el.isBarCodeAttachedByTheStorekeeper,
+          }
+        })
 
         await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
       }
@@ -784,7 +868,7 @@ export class ClientWarehouseViewModel {
 
       this.uploadedFiles = []
 
-      if (boxData.tmpShippingLabel?.length) {
+      if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
         await onSubmitPostImages.call(this, {
           images: boxData.tmpShippingLabel,
           type: 'uploadedFiles',
@@ -823,7 +907,7 @@ export class ClientWarehouseViewModel {
             el.tmpBarCode?.length
               ? {
                   changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id,
+                  productId: el.product?._id,
                   tmpBarCode: el.tmpBarCode,
                   newData: [],
                 }
@@ -831,37 +915,48 @@ export class ClientWarehouseViewModel {
           )
           .filter(el => el !== null)
 
-        if (dataToBarCodeChange?.length) {
+        if (!isMultipleEdit && dataToBarCodeChange?.length) {
           dataToBarCodeChange = await onSubmitPostFilesInData({
             dataWithFiles: dataToBarCodeChange,
             nameOfField: 'tmpBarCode',
           })
         }
 
-        const newItems = boxData.items.map(el => {
-          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-          return {
-            ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
-            amount: el.amount,
-            orderId: el.order._id,
-            productId: el.product._id,
+        const getNewItems = () => {
+          const newItems = boxData.items.map(el => {
+            const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+            return {
+              ...getObjectFilteredByKeyArrayBlackList(el, [
+                'order',
+                'product',
+                'tmpBarCode',
+                'changeBarCodInInventory',
+              ]),
+              amount: el.amount,
+              orderId: el.order._id,
+              productId: el.product._id,
 
-            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAttachedByTheStorekeeper,
-          }
-        })
+              barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+              isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
+                ? false
+                : el.isBarCodeAlreadyAttachedByTheSupplier,
+              isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
+                ? false
+                : el.isBarCodeAttachedByTheStorekeeper,
+            }
+          })
+
+          return newItems
+        }
 
         const requestBox = getObjectFilteredByKeyArrayWhiteList(
           {
             ...boxData,
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-            items: newItems,
+            items: isMultipleEdit
+              ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
+              : getNewItems,
             shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           },
           updateBoxWhiteList,

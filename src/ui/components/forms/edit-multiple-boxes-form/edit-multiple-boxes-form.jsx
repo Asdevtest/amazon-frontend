@@ -114,7 +114,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${orderIndex}`} className={classNames.orderWrapper}>
               <div key={orderIndex} className={classNames.order}>
-                <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
+                <img className={classNames.img} src={getAmazonImageUrl(order.product?.images[0])} />
                 <div>
                   <div className={classNames.asinWrapper}>
                     <Typography className={classNames.asinTitle}>{t(TranslationKey.Box)}</Typography>

@@ -191,7 +191,7 @@ export const MergeBoxesModal = ({
                 labelClasses={classNames.label}
                 inputComponent={
                   <WithSearchSelect
-                    width={230}
+                    width={220}
                     selectedItemName={
                       destinations.find(el => el._id === boxBody.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }

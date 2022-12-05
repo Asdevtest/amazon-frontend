@@ -4,16 +4,11 @@ import React, {useMemo} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {SettingsModel} from '@models/settings-model'
+
 export const MemoDataGrid = observer(({...restProps}) => {
   const result = useMemo(
-    () => (
-      // {
-      //     console.log('render DataGrid')
-
-      //     return <DataGrid {...restProps} />
-      //   }
-      <DataGrid {...restProps} />
-    ),
+    () => <DataGrid {...restProps} />,
 
     [
       restProps.rows,
@@ -25,6 +20,7 @@ export const MemoDataGrid = observer(({...restProps}) => {
       restProps.sortModel,
       restProps.filterModel,
       restProps.selectionModel,
+      SettingsModel.uiTheme,
     ],
   )
 

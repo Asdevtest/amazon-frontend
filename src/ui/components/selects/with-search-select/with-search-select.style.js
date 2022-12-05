@@ -116,11 +116,17 @@ export const styles = theme => ({
   setFavouriteBtn: {
     height: 30,
     width: 30,
-    backgroundColor: 'black',
+    color: theme.palette.background.disabled,
     borderRadius: 30,
+    transition: '.3s ease',
+    // backgroundColor: theme.palette.background.disabled,
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
   setFavouriteBtnIsSelected: {
-    backgroundColor: 'yellow',
+    color: '#ff9800',
   },
 
   fieldName: {

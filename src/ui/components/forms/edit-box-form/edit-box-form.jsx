@@ -451,7 +451,7 @@ export const EditBoxForm = observer(
                       )}
                       inputComponent={
                         <WithSearchSelect
-                          width={230}
+                          width={220}
                           selectedItemName={
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
