@@ -544,7 +544,7 @@ export const NormDateWithParseISOCell = React.memo(
 
 export const OrderCell = React.memo(
   withStyles(
-    ({classes: classNames, product, superbox, box, error}) => (
+    ({classes: classNames, product, superbox, superboxProductAmount, box, error}) => (
       <div className={classNames.order}>
         <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
         <div>
@@ -578,7 +578,9 @@ export const OrderCell = React.memo(
           {superbox && (
             <div className={classNames.superboxWrapper}>
               <Typography className={classNames.superboxTypo}>{`SB x ${superbox}`}</Typography>{' '}
-              <Typography>{`x ${box?.items?.[0].amount}`}</Typography>{' '}
+              <Typography
+                className={classNames.superboxTypo}
+              >{`x ${superboxProductAmount?.items?.[0].amount}`}</Typography>{' '}
             </div>
           )}
 
@@ -1476,8 +1478,8 @@ export const SuperboxQtyCell = React.memo(
   withStyles(
     ({classes: classNames, qty, superbox}) => (
       <div className={classNames.superBoxQtyWrapper}>
-        <Typography>{qty || '-'}</Typography>
-        <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
+        <Typography>{qty * superbox}</Typography>
+        {/* <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography> */}
       </div>
     ),
     styles,
