@@ -402,11 +402,12 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <ConfirmWithCommentModal
+          isWarning
           openModal={showConfirmWithCommentModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
           titleText={t(TranslationKey.Attention)}
           commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
-          okBtnText={t(TranslationKey.Ok)}
+          okBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
           onSubmit={onClickCancelAfterConfirm}
         />
