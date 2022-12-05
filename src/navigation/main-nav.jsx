@@ -11,6 +11,8 @@ import {UiTheme} from '@constants/themes'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+
 import {PrivateRoutes} from './private-routes'
 import {generatePublicRoutes} from './public-routes'
 import {generateRedirects} from './redirects'
@@ -37,7 +39,7 @@ export const MainNav = observer(() => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<CircularProgressWithLabel />}>
           <Switch>
             {generateRedirects()}
             {generatePublicRoutes()}

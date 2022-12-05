@@ -808,7 +808,7 @@ export const EditBoxStorekeeperForm = observer(
                 boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
                 imagesOfBox,
-                dataToSubmitHsCode: dataToSubmitHsCode.map(el =>
+                dataToSubmitHsCode: dataToSubmitHsCode?.map(el =>
                   getObjectFilteredByKeyArrayWhiteList(el, ['productId', 'hsCode']),
                 ),
               })

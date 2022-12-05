@@ -35,6 +35,8 @@ export const BoxViewForm = observer(
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
+    const isEdit = isClient || isStorekeeper
+
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
     const handleChange = (event, newAlignment) => {
@@ -166,7 +168,7 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        disabled
+                        // disabled
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
@@ -446,6 +448,7 @@ export const BoxViewForm = observer(
               </div>
 
               <Field
+                disabled={!isEdit}
                 labelClasses={classNames.label}
                 containerClasses={classNames.containerField}
                 inputClasses={classNames.inputField}
@@ -487,7 +490,7 @@ export const BoxViewForm = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          {onSubmitChangeFields && (
+          {isEdit && (
             <Button success onClick={() => onSubmitChangeFields(formFields)}>
               {t(TranslationKey.Save)}
             </Button>
