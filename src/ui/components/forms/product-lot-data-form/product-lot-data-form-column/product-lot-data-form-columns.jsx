@@ -17,8 +17,8 @@ export const productLotDataFormColumns = handlers => [
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.humanFriendlyId} />,
-    width: 150,
+    renderCell: params => <MultilineTextCell text={params.row.boxes[0].humanFriendlyId} />,
+    width: 80,
   },
 
   {
@@ -29,7 +29,7 @@ export const productLotDataFormColumns = handlers => [
     ),
 
     renderCell: params => <MultilineTextCell text={params.row.amountInBatch} />,
-    width: 180,
+    width: 200,
   },
 
   {
@@ -44,12 +44,21 @@ export const productLotDataFormColumns = handlers => [
   },
 
   {
+    field: 'destination',
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.boxes[0].destination} />,
+    width: 140,
+  },
+
+  {
     field: 'date',
     headerName: t(TranslationKey.Date),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
     renderCell: params => <WarehouseTariffDatesCell row={params.row.boxes[0].logicsTariff} />,
-    width: 370,
+    width: 330,
   },
 
   {
@@ -63,6 +72,6 @@ export const productLotDataFormColumns = handlers => [
         onClickOkBtn={() => handlers.onClickShowBatchBtn(params.row._id)}
       />
     ),
-    width: 240,
+    width: 190,
   },
 ]
