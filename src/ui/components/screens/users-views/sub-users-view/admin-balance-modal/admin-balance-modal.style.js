@@ -11,11 +11,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   positiveMsg: {
-    border: `1px solid ${theme.palette.success.main}`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: '5px',
     marginBottom: '16px',
     padding: '20px',
-    color: theme.palette.success.dark,
+    color: theme.palette.text.general,
   },
   negativeMsg: {
     border: `1px solid ${theme.palette.error.main}`,
