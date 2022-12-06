@@ -50,7 +50,9 @@ export class AdminExchangeViewModel {
   selectedProduct = undefined
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -66,7 +68,9 @@ export class AdminExchangeViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeSubCategory(value) {
@@ -130,28 +134,36 @@ export class AdminExchangeViewModel {
     const state = SettingsModel.dataGridState[this.dataGridTableKeyDependingOnActiveSubCategory()]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   getCurrentData() {
@@ -183,20 +195,28 @@ export class AdminExchangeViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
-      this.currentProductsData = []
+      runInAction(() => {
+        this.error = error
+        this.currentProductsData = []
+      })
     }
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setSelectedProduct(item) {
-    this.selectedProduct = item
+    runInAction(() => {
+      this.selectedProduct = item
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

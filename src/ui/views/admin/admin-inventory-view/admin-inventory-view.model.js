@@ -37,7 +37,9 @@ export class AdminInventoryViewModel {
   columnsModel = exchangeInventoryColumns()
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -47,9 +49,10 @@ export class AdminInventoryViewModel {
 
     reaction(
       () => this.products,
-      () => {
-        this.currentData = toJS(this.products)
-      },
+      () =>
+        runInAction(() => {
+          this.currentData = toJS(this.products)
+        }),
     )
   }
 
@@ -60,7 +63,9 @@ export class AdminInventoryViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -79,15 +84,17 @@ export class AdminInventoryViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_INVENTORY]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = exchangeInventoryColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = exchangeInventoryColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
@@ -102,29 +109,39 @@ export class AdminInventoryViewModel {
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
     if (this.nameSearchValue) {
-      this.products = this.productsBase.filter(
-        item =>
-          item.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
+      runInAction(() => {
+        this.products = this.productsBase.filter(
+          item =>
+            item.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.originalData.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        )
+      })
     } else {
-      this.products = this.productsBase
+      runInAction(() => {
+        this.products = this.productsBase
+      })
     }
   }
 
@@ -145,21 +162,31 @@ export class AdminInventoryViewModel {
 
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
-      this.products = []
+      runInAction(() => {
+        this.products = []
+      })
     }
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

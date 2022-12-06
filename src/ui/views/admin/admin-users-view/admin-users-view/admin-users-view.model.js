@@ -50,7 +50,9 @@ export class AdminUsersViewModel {
   showEditUserModal = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -65,7 +67,9 @@ export class AdminUsersViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -84,20 +88,24 @@ export class AdminUsersViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_USERS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminUsersViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminUsersViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async loadData() {
@@ -119,7 +127,9 @@ export class AdminUsersViewModel {
   async getUsers() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       const result = await AdministratorModel.getUsers()
 
       const usersData = adminUsersDataConverter(result)
@@ -132,7 +142,9 @@ export class AdminUsersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error?.body?.message || error
+      runInAction(() => {
+        this.error = error?.body?.message || error
+      })
     }
   }
 
@@ -163,15 +175,20 @@ export class AdminUsersViewModel {
   async submitEditUserForm(data, sourceData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
+
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
         email: this.changeNameAndEmail.email,
       })
 
-      this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+      runInAction(() => {
+        this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
 
-      this.availableSubUsers = undefined
+        this.availableSubUsers = undefined
+      })
 
       if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
         this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.selectionModel)).subUsers.length
@@ -187,7 +204,9 @@ export class AdminUsersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error?.body?.message || error
+      runInAction(() => {
+        this.error = error?.body?.message || error
+      })
     }
   }
 
@@ -200,10 +219,14 @@ export class AdminUsersViewModel {
       await this.getUsers()
       await this.getGroupPermissions()
       await this.getSinglePermissions()
-      this.changeNameAndEmail = {email: '', name: ''}
+      runInAction(() => {
+        this.changeNameAndEmail = {email: '', name: ''}
+      })
     } catch (error) {
       console.log(error)
-      this.error = error?.body?.message || error
+      runInAction(() => {
+        this.error = error?.body?.message || error
+      })
     }
   }
 
@@ -216,16 +239,22 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   async onClickEditUser(row) {
     try {
       const result = await AdministratorModel.getUsersById(row._id)
 
-      this.editUserFormFields = result
+      runInAction(() => {
+        this.editUserFormFields = result
+      })
 
-      this.showEditUserModal = !this.showEditUserModal
+      runInAction(() => {
+        this.showEditUserModal = !this.showEditUserModal
+      })
     } catch (error) {
       console.log(error)
     }
@@ -245,26 +274,38 @@ export class AdminUsersViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

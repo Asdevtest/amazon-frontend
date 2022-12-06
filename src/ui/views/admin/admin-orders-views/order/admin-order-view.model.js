@@ -17,8 +17,10 @@ export class AdminOrderViewModel {
   order = undefined
 
   constructor({history}) {
-    this.history = history
-    this.orderId = history.location.search.slice(1)
+    runInAction(() => {
+      this.history = history
+      this.orderId = history.location.search.slice(1)
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -58,9 +60,13 @@ export class AdminOrderViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

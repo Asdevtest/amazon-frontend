@@ -68,11 +68,15 @@ export class AdminProductViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
-    this.productId = history.location.search.slice(1)
+    runInAction(() => {
+      this.history = history
+      this.productId = history.location.search.slice(1)
+    })
 
     if (location.state) {
-      this.inInventory = location.state.inInventory
+      runInAction(() => {
+        this.inInventory = location.state.inInventory
+      })
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -88,7 +92,9 @@ export class AdminProductViewModel {
   async onClickSupplierButtons(actionType) {
     switch (actionType) {
       case 'view':
-        this.supplierModalReadOnly = true
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
 
         this.onTriggerAddOrEditSupplierModal()
         break
@@ -110,7 +116,9 @@ export class AdminProductViewModel {
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        this.product = result
+        runInAction(() => {
+          this.product = result
+        })
 
         updateProductAutoCalculatedFields.call(this)
       })
@@ -121,9 +129,13 @@ export class AdminProductViewModel {
 
   onChangeSelectedSupplier(supplier) {
     if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
+      runInAction(() => {
+        this.selectedSupplier = undefined
+      })
     } else {
-      this.selectedSupplier = supplier
+      runInAction(() => {
+        this.selectedSupplier = supplier
+      })
     }
   }
 
@@ -139,31 +151,43 @@ export class AdminProductViewModel {
   onChangeProductFields() {}
 
   onChangeProduct(e, value) {
-    this.product = value
+    runInAction(() => {
+      this.product = value
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
 
         await this.getStorekeepers()
 
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        runInAction(() => {
+          this.yuanToDollarRate = result.yuanToDollarRate
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
       }
 
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
     } catch (error) {
       console.log(error)
     }

@@ -43,7 +43,9 @@ export class AdminSentBatchesViewModel {
   columnsModel = adminBatchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -63,22 +65,26 @@ export class AdminSentBatchesViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
-
-    console.log('this.nameSearchValue', this.nameSearchValue)
-    console.log('this.batchesData', this.batchesData)
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     if (this.nameSearchValue) {
-      this.batches = this.batchesData.filter(item =>
-        item.originalData.boxes.some(
-          box =>
-            box.items.some(item =>
-              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ) || box.items.some(item => item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-        ),
-      )
+      runInAction(() => {
+        this.batches = this.batchesData.filter(item =>
+          item.originalData.boxes.some(
+            box =>
+              box.items.some(item =>
+                item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+              ) ||
+              box.items.some(item => item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          ),
+        )
+      })
     } else {
-      this.batches = this.batchesBase
+      runInAction(() => {
+        this.batches = this.batchesBase
+      })
     }
   }
 
@@ -98,40 +104,54 @@ export class AdminSentBatchesViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BATCHES]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminBatchesViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminBatchesViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedBatches = model
+    runInAction(() => {
+      this.selectedBatches = model
+    })
   }
 
   async loadData() {
@@ -147,11 +167,15 @@ export class AdminSentBatchesViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async getBatches() {
@@ -166,13 +190,17 @@ export class AdminSentBatchesViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async setCurrentOpenedBatch(row) {
     try {
-      this.curBatch = row
+      runInAction(() => {
+        this.curBatch = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -182,7 +210,9 @@ export class AdminSentBatchesViewModel {
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -207,6 +237,8 @@ export class AdminSentBatchesViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

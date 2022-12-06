@@ -52,7 +52,9 @@ export class AdminOrdersAllViewModel {
   columnsModel = adminOrdersViewColumns()
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -62,9 +64,10 @@ export class AdminOrdersAllViewModel {
 
     reaction(
       () => this.currentOrdersData,
-      () => {
-        this.currentData = toJS(this.currentOrdersData)
-      },
+      () =>
+        runInAction(() => {
+          this.currentData = toJS(this.currentOrdersData)
+        }),
     )
   }
 
@@ -79,22 +82,30 @@ export class AdminOrdersAllViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     if (this.nameSearchValue) {
-      this.currentOrdersData = this.orderData.filter(
-        item =>
-          item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
+      runInAction(() => {
+        this.currentOrdersData = this.orderData.filter(
+          item =>
+            item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        )
+      })
     } else {
-      this.currentOrdersData = this.orderData
+      runInAction(() => {
+        this.currentOrdersData = this.orderData
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setActiveSubCategoryState(state) {
@@ -117,15 +128,17 @@ export class AdminOrdersAllViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_ORDERS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminOrdersViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminOrdersViewColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
@@ -138,18 +151,24 @@ export class AdminOrdersAllViewModel {
 
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
-    this.activeSubCategory = value
+    runInAction(() => {
+      this.activeSubCategory = value
+    })
     this.getOrdersByStatus(value)
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   async getOrdersByStatus(activeSubCategory) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       this.getDataGridState()
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
@@ -165,28 +184,40 @@ export class AdminOrdersAllViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
-      this.currentOrdersData = []
+      runInAction(() => {
+        this.error = error
+        this.currentOrdersData = []
+      })
     }
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 }

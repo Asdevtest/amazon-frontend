@@ -16,10 +16,14 @@ export class AdminUserViewModel {
   order = undefined
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
 
     if (location.state) {
-      this.user = location.state.user
+      runInAction(() => {
+        this.user = location.state.user
+      })
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -49,9 +53,13 @@ export class AdminUserViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

@@ -46,7 +46,9 @@ export class AdminDestinationsViewModel {
   columnsModel = destinationsColumns(this.rowHandlers)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -61,7 +63,9 @@ export class AdminDestinationsViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -80,44 +84,60 @@ export class AdminDestinationsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = destinationsColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = destinationsColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   getCurrentData() {
@@ -145,13 +165,17 @@ export class AdminDestinationsViewModel {
         this.destinations = addIdDataConverter(result)
       })
     } catch (error) {
-      this.destinations = []
+      runInAction(() => {
+        this.destinations = []
+      })
       console.log(error)
     }
   }
 
   onClickEditBtn(row) {
-    this.destinationToEdit = row
+    runInAction(() => {
+      this.destinationToEdit = row
+    })
 
     this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
@@ -164,7 +188,9 @@ export class AdminDestinationsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -176,22 +202,28 @@ export class AdminDestinationsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickAddBtn() {
-    this.destinationToEdit = undefined
+    runInAction(() => {
+      this.destinationToEdit = undefined
+    })
 
     this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
 
   onClickCancelBtn() {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: t(TranslationKey['The data will not be saved!']),
-      onClickSuccess: () => this.cancelTheOrder(),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: t(TranslationKey['The data will not be saved!']),
+        onClickSuccess: () => this.cancelTheOrder(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -202,13 +234,15 @@ export class AdminDestinationsViewModel {
   }
 
   onClickRemoveBtn(row) {
-    this.destinationIdToRemove = row._id
+    runInAction(() => {
+      this.destinationIdToRemove = row._id
 
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Are you sure you want to delete the destination?']),
-      onClickSuccess: () => this.removeDestination(),
-    }
+      this.confirmModalSettings = {
+        isWarning: true,
+        message: t(TranslationKey['Are you sure you want to delete the destination?']),
+        onClickSuccess: () => this.removeDestination(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -222,11 +256,15 @@ export class AdminDestinationsViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

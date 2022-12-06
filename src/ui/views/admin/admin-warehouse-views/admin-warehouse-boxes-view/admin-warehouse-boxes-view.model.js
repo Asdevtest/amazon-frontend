@@ -42,7 +42,9 @@ export class AdminWarehouseBoxesViewModel {
   columnsModel = adminBoxesViewColumns()
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -52,7 +54,10 @@ export class AdminWarehouseBoxesViewModel {
 
     reaction(
       () => this.boxes,
-      () => (this.currentData = toJS(this.boxes)),
+      () =>
+        runInAction(() => {
+          this.currentData = toJS(this.boxes)
+        }),
     )
   }
 
@@ -63,35 +68,47 @@ export class AdminWarehouseBoxesViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     console.log('this.nameSearchValue', this.nameSearchValue)
     console.log('this.boxesData', this.boxesData[0].originalData.items[0].product.asin)
 
     if (this.nameSearchValue) {
-      this.boxes = this.boxesData.filter(box =>
-        box.originalData.items.some(
-          item =>
-            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        ),
-      )
+      runInAction(() => {
+        this.boxes = this.boxesData.filter(box =>
+          box.originalData.items.some(
+            item =>
+              item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              item.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
+        )
+      })
     } else {
-      this.boxes = this.boxesData
+      runInAction(() => {
+        this.boxes = this.boxesData
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setDataGridState(state) {
@@ -110,27 +127,33 @@ export class AdminWarehouseBoxesViewModel {
     const boxes = this.boxesMy.filter(box => model.includes(box.id))
     const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
 
-    this.selectedBoxes = res
+    runInAction(() => {
+      this.selectedBoxes = res
+    })
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BOXES]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminBoxesViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminBoxesViewColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   async loadData() {
@@ -156,13 +179,17 @@ export class AdminWarehouseBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
-      this.curBox = row
+      runInAction(() => {
+        this.curBox = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -172,19 +199,27 @@ export class AdminWarehouseBoxesViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 }
