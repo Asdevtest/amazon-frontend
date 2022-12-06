@@ -1233,7 +1233,7 @@ export const ActiveBarcodeCell = React.memo(
 
 export const ToFixedWithKgSignCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix}) => (
+    ({classes: classNames, value, fix, amount}) => (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineText}>
           {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}

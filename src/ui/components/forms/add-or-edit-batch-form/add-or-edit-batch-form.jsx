@@ -64,6 +64,8 @@ export const AddOrEditBatchForm = observer(
       return newArr
     }
 
+    console.log('chosenBoxes', chosenBoxes)
+
     useEffect(() => {
       if (batchToEdit) {
         setSourceDataForFilters(() => chosenBoxes[0].originalData)
