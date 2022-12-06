@@ -37,7 +37,7 @@ export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) ||
 
 export const calcVolumeWeightForBox = (box, coefficient, isShipping) => {
   if (isShipping) {
-    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight) / coefficient) || 0
+    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight * box.amount) / coefficient) || 0
   }
 
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
@@ -50,7 +50,11 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
     parseFloat(
-      isShipping ? box.deliveryMass : box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier,
+      isShipping
+        ? box.deliveryMass * box.amount
+        : box.weighGrossKgWarehouse
+        ? box.weighGrossKgWarehouse * box.amount
+        : box.weighGrossKgSupplier * box.amount,
     ) || 0,
   )
 
