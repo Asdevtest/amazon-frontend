@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   allowedRoleContainer: {
     marginBottom: '0 !important',
-    width: '139px',
+    width: '150px',
   },
 
   overdraftContainer: {
