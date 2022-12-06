@@ -1,5 +1,5 @@
 import InboxIcon from '@mui/icons-material/Inbox'
-import {Typography, Paper, Accordion, AccordionDetails, AccordionSummary} from '@mui/material'
+import {Typography, Paper, Accordion, AccordionDetails, AccordionSummary, Alert} from '@mui/material'
 
 import React, {Component, createRef} from 'react'
 
@@ -58,6 +58,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
   render() {
     const {
+      acceptMessage,
+      showAcceptMessage,
       typingUsers,
       requestProposals,
       drawerOpen,
@@ -277,6 +279,13 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             onSubmit={onSubmitAbortRequest}
           />
         </Main>
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }

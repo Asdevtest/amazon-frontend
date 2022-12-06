@@ -1628,6 +1628,8 @@ export enum TranslationKey {
   'Reference id' = 'Reference id',
   'Received files' = 'Received files',
   'Quantity of goods delivered' = 'Quantity of goods delivered',
+  'Batch title' = 'Batch title',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

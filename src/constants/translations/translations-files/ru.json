@@ -1628,5 +1628,6 @@
   "Search by SKU, ASIN, Title, Order, item": "Поиск по SKU, ASIN, Title, Заказу, item",
   "Reference id": "Reference id",
   "Received files": "Полученные файлы",
-  "Quantity of goods delivered": "Кол-во поставленного товара"
+  "Quantity of goods delivered": "Кол-во поставленного товара",
+  "Batch title": "Название партии"
 }

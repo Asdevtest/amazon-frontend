@@ -22,6 +22,15 @@ export const productLotDataFormColumns = handlers => [
   },
 
   {
+    field: 'batchTitle',
+    headerName: t(TranslationKey['Batch title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.boxes[0].batchTitle} />,
+    width: 80,
+  },
+
+  {
     field: 'amountInBatch',
     headerName: t(TranslationKey['Quantity of the selected item in the batch']),
     renderHeader: () => (
