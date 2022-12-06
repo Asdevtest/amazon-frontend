@@ -76,7 +76,7 @@ export const clientBatchesViewColumns = () => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeightAsOneBox} fix={2} />,
 
     width: 100,
   },
