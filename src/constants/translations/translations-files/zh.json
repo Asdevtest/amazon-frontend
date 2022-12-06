@@ -1618,7 +1618,7 @@
   "Add comment": "Add comment",
   "Storekeeper edit": "Storekeeper edit",
   "Product lot data": "Product lot data",
-  "Quantity selected goods in a batch": "Quantity selected goods in a batch",
+  "Quantity of the selected item in the batch": "Quantity of the selected item in the batch",
   "Boxes and the quantity of the selected product in them": "Boxes and the quantity of the selected product in them",
   "Watch the batch": "Watch the batch",
   "Lot number search": "Lot number search",
@@ -1626,5 +1626,6 @@
   "Are you sure you want to move the tariff to the archive?": "Are you sure you want to move the tariff to the archive?",
   "Are you sure you want to restore the tariff?": "Are you sure you want to restore the tariff?",
   "Search by SKU, ASIN, Title, Order, item": "Search by SKU, ASIN, Title, Order, item",
-  "Reference id": "Reference id"
+  "Reference id": "Reference id",
+  "Batch title": "Batch title"
 }

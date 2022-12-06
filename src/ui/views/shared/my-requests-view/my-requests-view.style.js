@@ -1,3 +1,16 @@
+import {keyframes} from '@emotion/react'
+
+const ani = keyframes`
+0% {
+    transform: translateY(-150%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1
+  }
+`
+
 export const styles = theme => ({
   multiline: {
     height: 'auto',
@@ -54,5 +67,23 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
+  },
+
+  acceptMessageWrapper: {
+    position: 'absolute',
+    top: 0,
+    // top: '50%',
+    left: '50%',
+
+    padding: '10px',
+    marginTop: '63px',
+    zIndex: 999,
+    opacity: 0,
+    transform: 'translateY(-150%)',
+    animation: `${ani} 1s forwards`,
+  },
+
+  acceptMessage: {
+    color: '#00B746',
   },
 })

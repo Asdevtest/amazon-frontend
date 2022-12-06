@@ -1626,7 +1626,7 @@ export enum TranslationKey {
   'Are you sure you want to restore the tariff?' = 'Are you sure you want to restore the tariff?',
   'Search by SKU, ASIN, Title, Order, item' = 'Search by SKU, ASIN, Title, Order, item',
   'Reference id' = 'Reference id',
-  // '' = '',
+  'Batch title' = 'Batch title',
   // '' = '',
   // '' = '',
   // '' = '',

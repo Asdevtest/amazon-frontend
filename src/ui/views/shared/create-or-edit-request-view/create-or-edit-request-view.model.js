@@ -12,13 +12,12 @@ export class CreateOrEditRequestViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
+  acceptMessage = null
+  showAcceptMessage = false
+
   drawerOpen = false
 
-  showInfoModal = false
-
   requestToEdit = undefined
-
-  infoModalText = ''
 
   uploadedFiles = []
 
@@ -48,13 +47,23 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.createRequest(dataWithFiles)
 
-      this.infoModalText = t(TranslationKey['An request has been created'])
-      this.onTriggerOpenModal('showInfoModal')
+      this.showAcceptMessage = true
+      this.acceptMessage = t(TranslationKey['An request has been created'])
+
+      this.history.push('/client/freelance/my-requests', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+      })
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = t(TranslationKey['The request was not created'])
-      this.onTriggerOpenModal('showInfoModal')
+      this.showAcceptMessage = true
+      this.acceptMessage = t(TranslationKey['The request was not created'])
+
+      this.history.push('/client/freelance/my-requests', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+      })
 
       this.error = error
     }
@@ -73,25 +82,28 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 
-      this.infoModalText = t(TranslationKey['The request has been changed'])
-      this.onTriggerOpenModal('showInfoModal')
+      this.showAcceptMessage = true
+      this.acceptMessage = t(TranslationKey['The request has been changed'])
+
+      this.history.push('/client/freelance/my-requests/custom-request', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+        request: this.requestToEdit.request,
+      })
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = t(TranslationKey['The request has not been changed'])
-      this.onTriggerOpenModal('showInfoModal')
+      this.showAcceptMessage = true
+      this.acceptMessage = t(TranslationKey['The request has not been changed'])
+
+      this.history.push('/client/freelance/my-requests/custom-request', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+        request: this.requestToEdit.request,
+      })
 
       this.error = error
     }
-  }
-
-  onClickOkInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
-    this.history.goBack()
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
   }
 
   onTriggerDrawerOpen() {

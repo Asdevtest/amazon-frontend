@@ -24,7 +24,9 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '.3s ease',
     maxWidth: '100px',
     textAlign: 'end',
-    whiteSpace: 'pre-wrap',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
 
     '&:hover': {
       transform: 'scale(1.01)',

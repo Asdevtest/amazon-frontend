@@ -1,4 +1,4 @@
-import {Typography} from '@mui/material'
+import {Alert, Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -30,7 +30,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 
 @observer
 class MyRequestsViewRaw extends Component {
-  viewModel = new MyRequestsViewModel({history: this.props.history})
+  viewModel = new MyRequestsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -51,6 +51,8 @@ class MyRequestsViewRaw extends Component {
       onTriggerDrawer,
       onClickAddBtn,
 
+      acceptMessage,
+      showAcceptMessage,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -146,6 +148,13 @@ class MyRequestsViewRaw extends Component {
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }

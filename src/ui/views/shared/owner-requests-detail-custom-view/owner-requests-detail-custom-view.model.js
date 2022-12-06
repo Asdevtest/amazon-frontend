@@ -23,6 +23,9 @@ export class OwnerRequestDetailCustomViewModel {
   request = undefined
   requestProposals = []
 
+  showAcceptMessage = undefined
+  acceptMessage = undefined
+
   showConfirmModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
@@ -62,6 +65,15 @@ export class OwnerRequestDetailCustomViewModel {
     this.scrollToChat = scrollToChat
     if (location.state) {
       this.requestId = location.state.request._id
+      this.acceptMessage = location.state.acceptMessage
+      this.showAcceptMessage = location.state.showAcceptMessage
+
+      console.log('requestIdMain', this.requestId)
+
+      const state = {...history.location.state}
+      delete state.acceptMessage
+      delete state.showAcceptMessage
+      history.replace({...history.location, state})
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
@@ -85,6 +97,13 @@ export class OwnerRequestDetailCustomViewModel {
       }
     } catch (error) {
       console.warn(error)
+    }
+
+    if (this.showAcceptMessage) {
+      setTimeout(() => {
+        this.acceptMessage = ''
+        this.showAcceptMessage = false
+      }, 3000)
     }
   }
 
@@ -301,7 +320,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
-      {request: toJS(this.request)},
+      {request: toJS(this.request), requestId: this.requestId},
     )
   }
 

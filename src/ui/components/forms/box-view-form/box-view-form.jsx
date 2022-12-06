@@ -69,34 +69,40 @@ export const BoxViewForm = observer(
           }`}</Typography>
 
           <div className={classNames.titleSubWrapper}>
-            <Field
-              oneLine
-              label={`${t(TranslationKey['Int warehouse'])}:`}
-              containerClasses={classNames.storekeeperField}
-              inputComponent={
-                <div className={classNames.userLinkWrapper}>
-                  <UserLink
-                    blackText
-                    name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
-                    userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
-                  />
-                </div>
-              }
-            />
+            <div className={classNames.storekeeperFieldWrapper}>
+              <Field
+                oneLine
+                label={`${t(TranslationKey['Int warehouse'])}:`}
+                containerClasses={classNames.storekeeperField}
+                inputComponent={
+                  <div className={classNames.userLinkWrapper}>
+                    <UserLink
+                      blackText
+                      name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
+                      userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
+                    />
+                  </div>
+                }
+              />
+            </div>
 
-            <Typography className={classNames.batchId}>{`${t(TranslationKey.Batch)} № ${
-              (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
-              t(TranslationKey['Not available'])
-            }`}</Typography>
+            <div className={classNames.batchIdWrapper}>
+              <Typography className={classNames.batchId}>{`${t(TranslationKey.Batch)} № ${
+                (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
+                t(TranslationKey['Not available'])
+              }`}</Typography>
+            </div>
 
-            <Field
-              oneLine
-              label={`${t(TranslationKey.Updated)}:`}
-              containerClasses={classNames.storekeeperField}
-              inputComponent={
-                <Typography className={classNames.updatedAt}>{formatShortDateTime(box.updatedAt)}</Typography>
-              }
-            />
+            <div className={classNames.UpdatedWrapper}>
+              <Field
+                oneLine
+                label={`${t(TranslationKey.Updated)}:`}
+                containerClasses={classNames.UpdatedField}
+                inputComponent={
+                  <Typography className={classNames.updatedAt}>{formatShortDateTime(box.updatedAt)}</Typography>
+                }
+              />
+            </div>
           </div>
         </div>
 

@@ -23,6 +23,9 @@ export class MyRequestsViewModel {
   showRequestForm = false
   showConfirmModal = false
 
+  showAcceptMessage = undefined
+  acceptMessage = undefined
+
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
@@ -46,10 +49,30 @@ export class MyRequestsViewModel {
     return UserModel.userInfo || {}
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
 
+    if (location.state) {
+      this.acceptMessage = location.state.acceptMessage
+      this.showAcceptMessage = location.state.showAcceptMessage
+
+      const state = {...history.location.state}
+      delete state.acceptMessage
+      delete state.showAcceptMessage
+      history.replace({...history.location, state})
+    }
+
+    console.log('acceptMessage', this.acceptMessage)
+    console.log('showAcceptMessage', this.showAcceptMessage)
+
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    if (this.showAcceptMessage) {
+      setTimeout(() => {
+        this.acceptMessage = ''
+        this.showAcceptMessage = false
+      }, 3000)
+    }
 
     reaction(
       () => SettingsModel.languageTag,
