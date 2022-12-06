@@ -368,7 +368,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 210,
+    width: 240,
     marginLeft: 10,
   },
 
@@ -434,7 +434,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 160,
+    width: 170,
     margin: '0 10px',
   },
 
