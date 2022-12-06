@@ -225,13 +225,13 @@ export const OrderModalBodyRow = ({
                       }`
                     : 'none'
                 }`
-              : t(TranslationKey.Add)}
+              : t(TranslationKey.Select)}
           </Button>
         </TableCell>
 
         <TableCell className={classNames.cell}>
           <WithSearchSelect
-            width={160}
+            width={220}
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }

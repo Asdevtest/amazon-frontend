@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
+import {Checkbox, Divider, Grid, Link, Typography, Tooltip, fabClasses} from '@mui/material'
 
 import {React, useState} from 'react'
 
@@ -16,6 +16,8 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
+import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UserLink} from '@components/user-link'
@@ -35,19 +37,27 @@ export const BoxViewForm = observer(
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
+    const isEdit = isClient || isStorekeeper
+
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
     }
 
-    const [formFields, setFormFields] = useState(box)
+    const [formFields, setFormFields] = useState({...box, tmpTrackNumberFile: []})
 
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
       newFormFields[fieldName] = event.target.value
 
       setFormFields(newFormFields)
+    }
+
+    const setTmpTrackNumberFile = () => value => {
+      onChangeField('tmpTrackNumberFile')({target: {value}})
     }
 
     // const dimensionsConfig = {
@@ -166,7 +176,7 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        disabled
+                        // disabled
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
@@ -445,7 +455,59 @@ export const BoxViewForm = observer(
                 />
               </div>
 
-              <Field
+              <div className={classNames.labelsInfoWrapper}>
+                <Field
+                  disabled={!isEdit}
+                  labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  inputProps={{maxLength: 255}}
+                  label={t(TranslationKey['Reference id'])}
+                  value={formFields.referenceId}
+                  onChange={onChangeField('referenceId')}
+                />
+
+                <Field
+                  disabled
+                  labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  inputProps={{maxLength: 255}}
+                  label={'FBA number'}
+                  // value={formFields.referenceId}
+                />
+              </div>
+
+              <div className={classNames.labelsInfoWrapper}>
+                <div>
+                  <Field
+                    disabled // ={!isEdit}
+                    labelClasses={classNames.label}
+                    containerClasses={classNames.containerField}
+                    inputClasses={classNames.inputField}
+                    inputProps={{maxLength: 255}}
+                    label={t(TranslationKey['Track number'])}
+                    value={formFields.trackNumberText}
+                    onChange={onChangeField('trackNumberText')}
+                  />
+
+                  <Button
+                    disabled // ={!isEdit}
+                    className={classNames.trackNumberPhotoBtn}
+                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                  >
+                    {'Photo track numbers'}
+                  </Button>
+                </div>
+
+                <img
+                  className={classNames.trackNumberPhoto}
+                  // src={formFields.trackNumberFile ? formFields.trackNumberFile }
+                />
+              </div>
+
+              {/* <Field
+                disabled={!isEdit}
                 labelClasses={classNames.label}
                 containerClasses={classNames.containerField}
                 inputClasses={classNames.inputField}
@@ -453,7 +515,7 @@ export const BoxViewForm = observer(
                 label={t(TranslationKey['Reference id'])}
                 value={formFields.referenceId}
                 onChange={onChangeField('referenceId')}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -487,7 +549,7 @@ export const BoxViewForm = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          {onSubmitChangeFields && (
+          {isEdit && (
             <Button success onClick={() => onSubmitChangeFields(formFields)}>
               {t(TranslationKey.Save)}
             </Button>
@@ -497,6 +559,19 @@ export const BoxViewForm = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            title={'Track number'}
+            tmpCode={formFields.tmpTrackNumberFile}
+            item={formFields}
+            onClickSaveBarcode={value => {
+              setTmpTrackNumberFile()(value)
+              setShowSetBarcodeModal(!showSetBarcodeModal)
+            }}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
       </div>
     )
   },

@@ -18,6 +18,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
+import {GetFilesForm} from '@components/forms/get-files-form'
 import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -56,6 +57,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      receivedFiles,
       batchesData,
       currentData,
       userInfo,
@@ -113,6 +115,7 @@ export class ClientInventoryViewRaw extends Component {
       showAddSuppliersModal,
       showCircularProgressModal,
       showProductLotDataModal,
+      showGetFilesModal,
       destinationsFavourites,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
@@ -175,8 +178,8 @@ export class ClientInventoryViewRaw extends Component {
                   <WithSearchSelect
                     selectedItemName={
                       (!withProduct && !withoutProduct && !currentShop?._id && t(TranslationKey['All Products'])) ||
-                      (withProduct && t(TranslationKey['Products in shops'])) ||
-                      (withoutProduct && t(TranslationKey['Products without shops'])) ||
+                      // (withProduct && t(TranslationKey['Products in shops'])) ||
+                      // (withoutProduct && t(TranslationKey['Products without shops'])) ||
                       (currentShop && currentShop.name)
                     }
                     data={shopsData
@@ -541,6 +544,10 @@ export class ClientInventoryViewRaw extends Component {
             onSubmit={uploadTemplateFile}
             onClose={() => onTriggerOpenModal('showAddSuppliersModal')}
           />
+        </Modal>
+
+        <Modal openModal={showGetFilesModal} setOpenModal={() => onTriggerOpenModal('showGetFilesModal')}>
+          <GetFilesForm receivedFiles={receivedFiles} onClose={() => onTriggerOpenModal('showGetFilesModal')} />
         </Modal>
 
         <SuccessInfoModal

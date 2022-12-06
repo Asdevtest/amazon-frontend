@@ -1189,7 +1189,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '40px',
-    padding: '20px 0',
+    padding: '15px 0',
   },
 
   editOrRemoveIconBtnsSubCell: {

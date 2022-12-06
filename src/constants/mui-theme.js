@@ -406,9 +406,7 @@ export const darkTheme = createTheme({
           cursor: 'pointer !important',
         },
         '::-webkit-scrollbar-thumb': {
-          // backgroundColor: '#2B2B34',
           backgroundColor: '#001029',
-          // borderRadius: 10,
 
           '&:hover': {
             backgroundColor: 'rgba(0, 16, 41, 0.7)',
@@ -416,13 +414,28 @@ export const darkTheme = createTheme({
         },
 
         '::-webkit-scrollbar-button': {
-          // backgroundColor: '#21212B',
           backgroundColor: '#2B2B34',
           outline: '1px solid #21212B',
 
           '&:hover': {
             backgroundColor: 'rgba(43, 43, 52, 0.7)',
           },
+        },
+
+        '::-webkit-scrollbar-button:vertical:start:increment': {
+          display: 'none',
+        },
+
+        '::-webkit-scrollbar-button:vertical:end:decrement': {
+          display: 'none',
+        },
+
+        '::-webkit-scrollbar-button:horizontal:start:increment': {
+          display: 'none',
+        },
+
+        '::-webkit-scrollbar-button:horizontal:end:decrement': {
+          display: 'none',
         },
 
         '::-webkit-scrollbar-corner': {

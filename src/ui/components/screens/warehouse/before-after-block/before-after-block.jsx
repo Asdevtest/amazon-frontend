@@ -115,7 +115,8 @@ const Box = observer(
     //     : dimensionsConfig.PRIMARY,
     // )
 
-    const needAccent = taskType === TaskOperationType.EDIT && isNewBox
+    const needAccent =
+      (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
 
     return (
       <div className={classNames.mainPaper}>
@@ -244,7 +245,16 @@ const Box = observer(
 
                 {
                   /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
-                    <div className={classNames.demensionsWrapper}>
+                    <div
+                      className={cx(classNames.demensionsWrapper, {
+                        [classNames.editAccent]:
+                          isNewBox &&
+                          (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
+                            box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
+                            box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
+                            box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
+                      })}
+                    >
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
 
@@ -338,7 +348,16 @@ const Box = observer(
                       </Typography>
                     </div>
                   ) : (
-                    <div className={classNames.demensionsWrapper}>
+                    <div
+                      className={cx(classNames.demensionsWrapper, {
+                        [classNames.editAccent]:
+                          isNewBox &&
+                          (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
+                            box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
+                            box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
+                            box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
+                      })}
+                    >
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
                         {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}

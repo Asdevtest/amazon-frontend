@@ -69,6 +69,12 @@ class InlineObject89 {
             if (data.hasOwnProperty('referenceId')) {
                 obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
@@ -80,6 +86,9 @@ class InlineObject89 {
             }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperTaskComment')) {
+                obj['storekeeperTaskComment'] = ApiClient.convertToType(data['storekeeperTaskComment'], 'String');
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
@@ -134,6 +143,18 @@ InlineObject89.prototype['storekeeperComment'] = undefined;
 InlineObject89.prototype['referenceId'] = undefined;
 
 /**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject89.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+InlineObject89.prototype['trackNumberFile'] = undefined;
+
+/**
  * Это номер конкретной коробки при отправке в амазон.
  * @member {String} fbaShipment
  */
@@ -156,6 +177,12 @@ InlineObject89.prototype['images'] = undefined;
  * @member {String} destinationId
  */
 InlineObject89.prototype['destinationId'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperTaskComment
+ */
+InlineObject89.prototype['storekeeperTaskComment'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items

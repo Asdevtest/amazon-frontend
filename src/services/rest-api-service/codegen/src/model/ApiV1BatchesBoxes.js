@@ -130,6 +130,12 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
@@ -334,6 +340,18 @@ ApiV1BatchesBoxes.prototype['referenceId'] = undefined;
  * @member {String} storekeeperComment
  */
 ApiV1BatchesBoxes.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+ApiV1BatchesBoxes.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+ApiV1BatchesBoxes.prototype['trackNumberFile'] = undefined;
 
 /**
  * Сторкипер взявший коробку в работу.

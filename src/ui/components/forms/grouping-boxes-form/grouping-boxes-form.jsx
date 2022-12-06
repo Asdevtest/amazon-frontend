@@ -435,7 +435,10 @@ export const GroupingBoxesForm = observer(
     const leftToRedistribute =
       oldBoxes.reduce((ac, cur) => (ac += cur.amount), 0) - newBoxes.reduce((ac, cur) => (ac += cur.amount), 0)
 
-    const disabledSubmitBtn = !basicBox || (basicBox && leftToRedistribute !== 0) || oldBoxes.length === newBoxes.length
+    const disabledSubmitBtn =
+      !basicBox ||
+      (basicBox && leftToRedistribute !== 0) ||
+      JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort())
 
     return (
       <div className={classNames.root}>

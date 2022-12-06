@@ -40,6 +40,7 @@ import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -59,6 +60,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      curDestination,
       rowCount,
       userInfo,
 
@@ -138,6 +140,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSubmitGroupingBoxes,
 
       onSubmitChangeBoxFields,
+      onClickDestinationBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -194,6 +197,30 @@ export class ClientWarehouseViewRaw extends Component {
                   onSubmit={onSearchSubmit}
                 />
               </div>
+              <WithSearchSelect
+                selectedItemName={
+                  (!curDestination?._id && t(TranslationKey['All Products'])) || (curDestination && curDestination.name)
+                }
+                data={destinations.filter(shop => curDestination?.id !== shop._id)}
+                searchFields={['name']}
+                favourites={destinationsFavourites}
+                firstItems={
+                  <>
+                    {!!curDestination?._id && (
+                      <Button
+                        disabled={!currentData}
+                        className={classNames.button}
+                        variant="text"
+                        onClick={onClickDestinationBtn}
+                      >
+                        {t(TranslationKey['All Products'])}
+                      </Button>
+                    )}
+                  </>
+                }
+                onClickSelect={destination => onClickDestinationBtn(destination)}
+                onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+              />
 
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
@@ -314,6 +341,8 @@ export class ClientWarehouseViewRaw extends Component {
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onSubmit={onClickSubmitEditMultipleBoxes}
             onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
           />

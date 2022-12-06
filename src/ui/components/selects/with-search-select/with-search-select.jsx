@@ -1,6 +1,7 @@
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import {Button, ClickAwayListener, Popover, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -160,7 +161,7 @@ const WithSearchSelectRaw = observer(
                               {el[fieldName]}
                             </Typography>
                           ))}
-                          {favourites ? (
+                          {/* {favourites ? (
                             <div
                               className={cx(classNames.setFavouriteBtn, {
                                 [classNames.setFavouriteBtnIsSelected]: favourites.find(favouriteItem =>
@@ -176,6 +177,24 @@ const WithSearchSelectRaw = observer(
                                 e.stopPropagation()
                               }}
                             ></div>
+                          ) : undefined} */}
+
+                          {favourites ? (
+                            <StarOutlinedIcon
+                              className={cx(classNames.setFavouriteBtn, {
+                                [classNames.setFavouriteBtnIsSelected]: favourites.find(favouriteItem =>
+                                  isEqual(
+                                    favouriteItem,
+                                    searchFields.map(searchField => el[searchField]),
+                                  ),
+                                ),
+                              })}
+                              onClick={e => {
+                                onClickSetDestinationFavourite(searchFields.map(searchField => el[searchField]))
+                                e.preventDefault()
+                                e.stopPropagation()
+                              }}
+                            />
                           ) : undefined}
                         </div>
                       </Button>

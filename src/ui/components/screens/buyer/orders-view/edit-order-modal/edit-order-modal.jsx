@@ -345,6 +345,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            boxes={boxes}
             disableSubmit={disableSubmit}
             hsCode={hsCode}
             setHsCode={setHsCode}

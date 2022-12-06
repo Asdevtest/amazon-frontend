@@ -98,7 +98,8 @@ class ShopsViewRaw extends Component {
               pageSize={rowsPerPage}
               rowsPerPageOptions={[15, 25, 50, 100]}
               rows={getCurrentData()}
-              rowHeight={100}
+              // rowHeight={100}
+              getRowHeight={() => 'auto'}
               components={{
                 Toolbar: GridToolbar,
               }}

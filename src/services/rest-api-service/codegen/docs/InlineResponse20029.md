@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20029Rows]**](InlineResponse20029Rows.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**products** | [**InlineResponse20029Products**](InlineResponse20029Products.md) |  | [optional] 
+**finances** | [**InlineResponse20027Finances**](InlineResponse20027Finances.md) |  | [optional] 
 
 

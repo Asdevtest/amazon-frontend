@@ -27,6 +27,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  boxes,
   disableSubmit,
   hsCode,
   setHsCode,
@@ -52,6 +53,17 @@ export const SelectFields = ({
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
+  const deliveredGoodsCount =
+    boxes
+      ?.filter(el => !el.isDraft)
+      .reduce(
+        (acc, cur) =>
+          (acc +=
+            cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
+            cur.amount),
+        0,
+      ) || 0
+
   return (
     <Grid container justifyContent="space-around" className={classNames.container}>
       <Grid item>
@@ -61,6 +73,40 @@ export const SelectFields = ({
           </div>
 
           <div>
+            {Number(orderFields.status) >= Number(OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) && (
+              <Field
+                label={t(TranslationKey['Quantity of goods delivered'])}
+                inputComponent={
+                  <div
+                    className={cx(classNames.deliveredGoodsWrapper, {
+                      [classNames.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
+                    })}
+                  >
+                    <div className={classNames.deliveredGoodsSubWrapper}>
+                      <Typography
+                        className={cx(classNames.deliveredGoodsLeftText, {
+                          [classNames.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                        })}
+                      >
+                        {deliveredGoodsCount}
+                      </Typography>
+                      <Typography className={classNames.deliveredGoodsMiddleText}>
+                        {t(TranslationKey['out of'])}
+                      </Typography>
+                      <Typography
+                        className={cx(classNames.deliveredGoodsRightText, {
+                          [classNames.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                        })}
+                      >
+                        {order.amount}
+                      </Typography>
+                    </div>
+                    {deliveredGoodsCount < order.amount && <img src="/assets/icons/attention.svg" />}
+                  </div>
+                }
+              />
+            )}
+
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
@@ -364,14 +410,14 @@ export const SelectFields = ({
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <Field
-            disabled={disableSubmit}
+            disabled // ={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
             value={orderFields.trackingNumberChina}
             label={t(TranslationKey['Track number'])}
             labelClasses={classNames.label}
             inputClasses={classNames.input}
             inputProps={{maxLength: 50}}
-            onChange={setOrderField('trackingNumberChina')}
+            // onChange={setOrderField('trackingNumberChina')}
           />
 
           <Field

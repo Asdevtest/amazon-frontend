@@ -97,6 +97,8 @@ export class ClientInventoryViewModel {
   isArchive = false
   batchesData = []
 
+  receivedFiles = undefined
+
   nameSearchValue = ''
 
   selectedRowId = undefined
@@ -122,6 +124,7 @@ export class ClientInventoryViewModel {
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
   showProductLotDataModal = false
+  showGetFilesModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -310,9 +313,16 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.showProgress = true
-      await OtherModel.postTemplate(file)
+      const result = await OtherModel.postTemplate(file)
       this.showProgress = false
       this.onTriggerOpenModal('showAddSuppliersModal')
+
+      const blob = new Blob([result.data], {type: result.headers['content-type']})
+      const url = window.URL.createObjectURL(blob)
+
+      this.receivedFiles = url
+
+      this.onTriggerOpenModal('showGetFilesModal')
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
