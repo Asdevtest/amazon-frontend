@@ -159,6 +159,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '480px',
+    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
