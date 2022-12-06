@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './set-barcode-modal.style'
 
-export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item}) => {
+export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item, title}) => {
   const {classes: classNames} = useClassNames()
 
   const barCode = item?.barCode || ''
@@ -23,7 +23,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add barcode'])}</Typography>
+      <Typography className={classNames.modalTitle}>{title ? title : t(TranslationKey['Add barcode'])}</Typography>
 
       {barCode && (
         <Field

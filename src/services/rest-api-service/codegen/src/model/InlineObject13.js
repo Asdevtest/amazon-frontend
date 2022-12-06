@@ -60,6 +60,12 @@ class InlineObject13 {
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
             if (data.hasOwnProperty('widthCmSupplier')) {
                 obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
             }
@@ -83,6 +89,15 @@ class InlineObject13 {
             }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
@@ -123,6 +138,18 @@ InlineObject13.prototype['isDraft'] = undefined;
  * @member {Number} lengthCmSupplier
  */
 InlineObject13.prototype['lengthCmSupplier'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject13.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+InlineObject13.prototype['trackNumberFile'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
@@ -171,6 +198,24 @@ InlineObject13.prototype['weighGrossKgWarehouse'] = undefined;
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject13.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+InlineObject13.prototype['clientComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineObject13.prototype['referenceId'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineObject13.prototype['storekeeperComment'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.

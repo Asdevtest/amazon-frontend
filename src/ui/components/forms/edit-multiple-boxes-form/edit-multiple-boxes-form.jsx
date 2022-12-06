@@ -30,7 +30,17 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-multiple-boxes-form.style'
 
-const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBoxes, setNewBoxes}) => {
+const Box = ({
+  destinations,
+  storekeepers,
+  box,
+  onChangeField,
+  onRemoveBox,
+  newBoxes,
+  setNewBoxes,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -199,6 +209,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                 inputComponent={
                   <WithSearchSelect
                     width={230}
+                    favourites={destinationsFavourites}
                     selectedItemName={
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
@@ -206,6 +217,7 @@ const Box = ({destinations, storekeepers, box, onChangeField, onRemoveBox, newBo
                     searchFields={['name']}
                     onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
+                    onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   />
                 }
               />
@@ -346,6 +358,8 @@ const NewBoxes = ({
   setVisibleBoxes,
   onRemoveBox,
   setNewBoxes,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -392,6 +406,8 @@ const NewBoxes = ({
             storekeepers={storekeepers}
             index={boxIndex}
             box={box}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             setNewBoxes={setNewBoxes}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
@@ -410,6 +426,9 @@ export const EditMultipleBoxesForm = observer(
     onCloseModal,
 
     selectedBoxes,
+
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -627,6 +646,7 @@ export const EditMultipleBoxesForm = observer(
                   inputComponent={
                     <WithSearchSelect
                       width={230}
+                      favourites={destinationsFavourites}
                       selectedItemName={
                         destinations.find(el => el._id === sharedFields.destinationId)?.name ||
                         t(TranslationKey['Not chosen'])
@@ -635,6 +655,7 @@ export const EditMultipleBoxesForm = observer(
                       searchFields={['name']}
                       onClickNotChosen={() => onChangeSharedFields({target: {value: null}}, 'destinationId')}
                       onClickSelect={el => onChangeSharedFields({target: {value: el._id}}, 'destinationId')}
+                      onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                     />
                   }
                 />
@@ -796,6 +817,8 @@ export const EditMultipleBoxesForm = observer(
             newBoxes={newBoxes}
             destinations={destinations}
             storekeepers={storekeepers}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             setVisibleBoxes={setVisibleBoxes}
             setNewBoxes={setNewBoxes}
             onChangeField={onChangeField}

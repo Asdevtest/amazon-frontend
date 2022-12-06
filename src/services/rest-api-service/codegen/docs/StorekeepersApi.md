@@ -25,6 +25,7 @@ Method | HTTP request | Description
 [**apiV1StorekeepersTasksDoneGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksDoneGuidPost) | **POST** /api/v1/storekeepers/tasks/done/{guid} | # Отметить задачу, как выполненную.
 [**apiV1StorekeepersTasksGuidPatch**](StorekeepersApi.md#apiV1StorekeepersTasksGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/{guid} | # Изменить задачу.
 [**apiV1StorekeepersTasksLightMyGet**](StorekeepersApi.md#apiV1StorekeepersTasksLightMyGet) | **GET** /api/v1/storekeepers/tasks_light/my | # Получить задачи закрепленные за данным сборщиком..
+[**apiV1StorekeepersTasksLightPagMyGet**](StorekeepersApi.md#apiV1StorekeepersTasksLightPagMyGet) | **GET** /api/v1/storekeepers/tasks_light/pag/my | # Получить задачи закрепленные за данным сторкипером с пагинацией
 [**apiV1StorekeepersTasksLightVacGet**](StorekeepersApi.md#apiV1StorekeepersTasksLightVacGet) | **GET** /api/v1/storekeepers/tasks_light/vac | # Получить задачи не закрепленные за сотрудниками склада.
 [**apiV1StorekeepersTasksMyGet**](StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 [**apiV1StorekeepersTasksPickupGuidPost**](StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
@@ -306,7 +307,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20049] apiV1StorekeepersGet(opts)
+> [InlineResponse20050] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -346,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20049]**](InlineResponse20049.md)
+[**[InlineResponse20050]**](InlineResponse20050.md)
 
 ### Authorization
 
@@ -416,7 +417,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersPagBoxesGet
 
-> InlineResponse20048 apiV1StorekeepersPagBoxesGet(opts)
+> InlineResponse20049 apiV1StorekeepersPagBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 
@@ -464,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20048**](InlineResponse20048.md)
+[**InlineResponse20049**](InlineResponse20049.md)
 
 ### Authorization
 
@@ -1173,6 +1174,70 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[InlineResponse2004]**](InlineResponse2004.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1StorekeepersTasksLightPagMyGet
+
+> InlineResponse20048 apiV1StorekeepersTasksLightPagMyGet(opts)
+
+# Получить задачи закрепленные за данным сторкипером с пагинацией
+
+## олучить задачи закрепленные за данным сторкипером с пагинацией  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.StorekeepersApi();
+let opts = {
+  'status': 56, // Number | Статус задачи для фильтра.
+  'offset': 56, // Number | Отступ от первой записи получаемой в запросе
+  'limit': 56, // Number | Кол-во получаемых записей
+  'filters': "filters_example", // String |                Примеры: /tasks_light/pag/my?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /tasks_light/pag/my?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1StorekeepersTasksLightPagMyGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **Number**| Статус задачи для фильтра. | [optional] 
+ **offset** | **Number**| Отступ от первой записи получаемой в запросе | [optional] 
+ **limit** | **Number**| Кол-во получаемых записей | [optional] 
+ **filters** | **String**|                Примеры: /tasks_light/pag/my?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /tasks_light/pag/my?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта               | [optional] 
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20048**](InlineResponse20048.md)
 
 ### Authorization
 

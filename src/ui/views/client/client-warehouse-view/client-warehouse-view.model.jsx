@@ -76,6 +76,8 @@ export class ClientWarehouseViewModel {
   storekeepersData = []
   destinations = []
 
+  curDestination = undefined
+
   currentData = []
 
   boxesIdsToTask = []
@@ -501,6 +503,11 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
   }
 
+  onClickDestinationBtn(destination) {
+    this.curDestination = destination ? destination : undefined
+    this.getBoxesMy()
+  }
+
   async loadData() {
     try {
       this.getDataGridState()
@@ -511,6 +518,12 @@ export class ClientWarehouseViewModel {
       // this.getDataGridState()
 
       this.getBoxesMy()
+
+      const destinations = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = destinations
+      })
 
       // this.getDataGridState()
 
@@ -1182,6 +1195,8 @@ export class ClientWarehouseViewModel {
         filters: this.nameSearchValue ? filter : null,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+        destinationId: this.curDestination && this.curDestination._id,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,

@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
+**trackNumberText** | **String** | Текст трек номера | [optional] 
+**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **clientComment** | **String** | Комментарии к коробке | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 

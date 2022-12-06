@@ -317,7 +317,10 @@ export class ClientInventoryViewModel {
       this.showProgress = false
       this.onTriggerOpenModal('showAddSuppliersModal')
 
-      this.receivedFiles = result
+      const blob = new Blob([result.data], {type: result.headers['content-type']})
+      const url = window.URL.createObjectURL(blob)
+
+      this.receivedFiles = url
 
       this.onTriggerOpenModal('showGetFilesModal')
       this.setRequestStatus(loadingStatuses.success)

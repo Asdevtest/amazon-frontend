@@ -30,6 +30,8 @@ Name | Type | Description | Notes
 **clientComment** | **String** | Комментарии к коробке | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
+**trackNumberText** | **String** | Текст трек номера | [optional] 
+**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
 **storekeeperId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
 **clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 
 **createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 

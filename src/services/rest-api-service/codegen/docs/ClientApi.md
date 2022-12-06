@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiV1ClientsBoxesReturnBoxesToStockPost**](ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
 [**apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost**](ClientApi.md#apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost) | **POST** /api/v1/clients/boxes/update_tariff_if_tariff_was_deleted | Обновить тариф если тариф был удален.
 [**apiV1ClientsDestinationGet**](ClientApi.md#apiV1ClientsDestinationGet) | **GET** /api/v1/clients/destination | #  Получить все склады назначения.
+[**apiV1ClientsDestinationsGet**](ClientApi.md#apiV1ClientsDestinationsGet) | **GET** /api/v1/clients/destinations | Отдает дестинейшны со статусом коробки указаным в квери
 [**apiV1ClientsGetOrdersByProductIdGuidGet**](ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
 [**apiV1ClientsOrdersGet**](ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
@@ -291,6 +292,60 @@ apiInstance.apiV1ClientsDestinationGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1AdminsOrdersDestination]**](ApiV1AdminsOrdersDestination.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1ClientsDestinationsGet
+
+> [ApiV1AdminsOrdersDestination] apiV1ClientsDestinationsGet(opts)
+
+Отдает дестинейшны со статусом коробки указаным в квери
+
+Отдает дестинейшны со статусом коробки указаным в квери
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'status': "status_example", // String | 
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsDestinationsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**|  | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -747,7 +802,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsPagOrdersGet
 
-> InlineResponse20030 apiV1ClientsPagOrdersGet(opts)
+> InlineResponse20024 apiV1ClientsPagOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -797,7 +852,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20030**](InlineResponse20030.md)
+[**InlineResponse20024**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -865,7 +920,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20031 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20025 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -905,7 +960,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20025**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1087,7 +1142,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20031 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20025 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1127,7 +1182,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20025**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1253,7 +1308,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20028] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20022] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1291,7 +1346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20028]**](InlineResponse20028.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 
@@ -1305,7 +1360,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20029Rows] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20023Rows] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1347,7 +1402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20029Rows]**](InlineResponse20029Rows.md)
+[**[InlineResponse20023Rows]**](InlineResponse20023Rows.md)
 
 ### Authorization
 
@@ -1361,7 +1416,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20029 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20023 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1411,7 +1466,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20029**](InlineResponse20029.md)
+[**InlineResponse20023**](InlineResponse20023.md)
 
 ### Authorization
 
@@ -1479,7 +1534,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20027] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20021] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1517,7 +1572,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20027]**](InlineResponse20027.md)
+[**[InlineResponse20021]**](InlineResponse20021.md)
 
 ### Authorization
 

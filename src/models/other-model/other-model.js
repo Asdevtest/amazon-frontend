@@ -59,6 +59,8 @@ class OtherModelStatic {
       url: `${BACKEND_API_URL}/api/v1/other/suppliers/suppliers_xlsx`,
       data: fileData,
 
+      responseType: 'blob',
+
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
 

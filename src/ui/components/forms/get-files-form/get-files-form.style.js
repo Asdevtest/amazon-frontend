@@ -6,6 +6,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     flexDirection: 'column',
+
+    gap: 40,
+    alignItems: 'center',
   },
 
   modalText: {

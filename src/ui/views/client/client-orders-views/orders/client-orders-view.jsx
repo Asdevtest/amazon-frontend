@@ -38,6 +38,7 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      destinationsFavourites,
       rowCount,
       confirmModalSettings,
       successModalText,
@@ -76,6 +77,7 @@ class ClientOrdersViewRaw extends Component {
       onDoubleClickBarcode,
       onConfirmSubmitOrderProductModal,
       onSearchSubmit,
+      setDestinationsFavouritesItem,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -152,6 +154,8 @@ class ClientOrdersViewRaw extends Component {
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}
+                destinationsFavourites={destinationsFavourites}
+                setDestinationsFavouritesItem={setDestinationsFavouritesItem}
                 onTriggerOpenModal={onTriggerOpenModal}
                 onDoubleClickBarcode={onDoubleClickBarcode}
                 onSubmit={onConfirmSubmitOrderProductModal}

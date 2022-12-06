@@ -68,6 +68,10 @@ export class ClientOrdersViewModel {
   densityModel = 'compact'
   columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
   constructor({history, location}) {
     this.history = history
 
@@ -94,6 +98,10 @@ export class ClientOrdersViewModel {
         this.currentData = this.getCurrentData()
       },
     )
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
   }
 
   async updateColumnsModel() {

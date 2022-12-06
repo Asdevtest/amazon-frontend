@@ -13,14 +13,12 @@ import {useClassNames} from './get-files-form.style'
 export const GetFilesForm = ({receivedFiles, onClose}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('receivedFiles', receivedFiles)
-
   return (
     <div className={classNames.root}>
-      <Typography className={classNames.modalText}>{t(TranslationKey['Add files'])}</Typography>
+      <Typography className={classNames.modalText}>{t(TranslationKey['Received files'])}</Typography>
 
-      <Link href={receivedFiles.data} download="application/xlsx">
-        {t(TranslationKey['download the list template'])}
+      <Link href={receivedFiles} download="file.xlsx" target="_blank">
+        {t(TranslationKey.download)}
       </Link>
 
       <Button onClick={onClose}>{t(TranslationKey.Ok)}</Button>

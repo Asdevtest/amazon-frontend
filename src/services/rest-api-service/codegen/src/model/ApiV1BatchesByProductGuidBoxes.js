@@ -57,6 +57,12 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
             if (data.hasOwnProperty('logicsTariff')) {
                 obj['logicsTariff'] = ApiV1BatchesByProductGuidLogicsTariff.constructFromObject(data['logicsTariff']);
             }
@@ -90,6 +96,18 @@ ApiV1BatchesByProductGuidBoxes.prototype['shippingLabel'] = undefined;
  * @member {String} fbaShipment
  */
 ApiV1BatchesByProductGuidBoxes.prototype['fbaShipment'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['trackNumberFile'] = undefined;
 
 /**
  * @member {module:model/ApiV1BatchesByProductGuidLogicsTariff} logicsTariff

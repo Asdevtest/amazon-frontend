@@ -178,8 +178,8 @@ export class ClientInventoryViewRaw extends Component {
                   <WithSearchSelect
                     selectedItemName={
                       (!withProduct && !withoutProduct && !currentShop?._id && t(TranslationKey['All Products'])) ||
-                      (withProduct && t(TranslationKey['Products in shops'])) ||
-                      (withoutProduct && t(TranslationKey['Products without shops'])) ||
+                      // (withProduct && t(TranslationKey['Products in shops'])) ||
+                      // (withoutProduct && t(TranslationKey['Products without shops'])) ||
                       (currentShop && currentShop.name)
                     }
                     data={shopsData

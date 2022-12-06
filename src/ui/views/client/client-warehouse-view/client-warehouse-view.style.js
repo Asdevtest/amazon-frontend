@@ -19,6 +19,7 @@ export const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: '0 0 10px',
+    marginTop: 10,
   },
   leftBtnsWrapper: {
     display: 'flex',

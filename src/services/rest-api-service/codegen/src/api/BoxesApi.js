@@ -590,6 +590,7 @@ export default class BoxesApi {
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
      */
@@ -605,7 +606,8 @@ export default class BoxesApi {
       };
       let queryParams = {
         'status': status,
-        'storekeeperId': opts['storekeeperId']
+        'storekeeperId': opts['storekeeperId'],
+        'destinationId': opts['destinationId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -630,6 +632,7 @@ export default class BoxesApi {
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
      */
@@ -1067,6 +1070,7 @@ export default class BoxesApi {
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -1088,6 +1092,7 @@ export default class BoxesApi {
       let queryParams = {
         'filters': opts['filters'],
         'status': status,
+        'destinationId': opts['destinationId'],
         'storekeeperId': opts['storekeeperId'],
         'limit': opts['limit'],
         'offset': opts['offset'],
@@ -1117,6 +1122,7 @@ export default class BoxesApi {
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)

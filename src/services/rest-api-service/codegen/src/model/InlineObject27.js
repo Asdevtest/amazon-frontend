@@ -56,6 +56,12 @@ class InlineObject27 {
             if (data.hasOwnProperty('referenceId')) {
                 obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
         }
         return obj;
     }
@@ -78,6 +84,18 @@ InlineObject27.prototype['storekeeperComment'] = undefined;
  * @member {String} referenceId
  */
 InlineObject27.prototype['referenceId'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject27.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+InlineObject27.prototype['trackNumberFile'] = undefined;
 
 
 

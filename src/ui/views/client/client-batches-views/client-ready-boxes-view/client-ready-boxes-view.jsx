@@ -20,6 +20,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -39,6 +40,9 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      destinationsFavourites,
+      destinations,
+      curDestination,
       userInfo,
       warningInfoModalSettings,
       showWarningInfoModal,
@@ -77,6 +81,8 @@ export class ClientReadyBoxesViewRaw extends Component {
       returnBoxesToStock,
       onChangeNameSearchValue,
       onSubmitChangeBoxFields,
+      onClickDestinationBtn,
+      setDestinationsFavouritesItem,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -120,6 +126,26 @@ export class ClientReadyBoxesViewRaw extends Component {
                   </Button>
                 ))}
               </div>
+
+              <WithSearchSelect
+                selectedItemName={
+                  (!curDestination?._id && t(TranslationKey['All Products'])) || (curDestination && curDestination.name)
+                }
+                data={destinations.filter(shop => curDestination?.id !== shop._id)}
+                searchFields={['name']}
+                favourites={destinationsFavourites}
+                firstItems={
+                  <>
+                    {!!curDestination?._id && (
+                      <Button className={classNames.button} variant="text" onClick={onClickDestinationBtn}>
+                        {t(TranslationKey['All Products'])}
+                      </Button>
+                    )}
+                  </>
+                }
+                onClickSelect={destination => onClickDestinationBtn(destination)}
+                onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+              />
 
               <div className={classNames.btnsWrapper}>
                 <Button

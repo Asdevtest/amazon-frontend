@@ -30,10 +30,17 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  trackNumberPhoto: {
+    width: 225,
+    height: 130,
+    objectFit: 'contain',
+  },
+
   commentsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     gap: 40,
+    marginTop: 20,
   },
 
   commentField: {
@@ -210,12 +217,17 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: '27px',
-    marginTop: '20px',
+    // marginTop: '20px',
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       display: 'flex',
       flexDirection: 'column',
     },
+  },
+
+  trackNumberPhotoBtn: {
+    width: 225,
   },
 
   imgSizesWrapper: {

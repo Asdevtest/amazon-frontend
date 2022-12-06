@@ -198,7 +198,9 @@ export class LogisticsTariffsModel {
     try {
       const result = await ClientModel.getDestinations()
 
-      const storekeeperDestination = result.find(el => el.storekeeper?._id === this.userInfo._id)
+      const storekeeperDestination = result.find(
+        el => el.storekeeper?._id === this.userInfo._id || el.storekeeper?._id === this.userInfo.masterUser,
+      )
       if (storekeeperDestination) {
         runInAction(() => {
           this.storekeeperDestination = storekeeperDestination

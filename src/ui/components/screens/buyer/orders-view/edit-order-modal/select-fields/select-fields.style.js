@@ -23,6 +23,49 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid red',
   },
 
+  deliveredGoodsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 32,
+    width: 208,
+    background: theme.palette.input.customDisabled,
+    borderRadius: 4,
+    padding: '0 8px',
+
+    border: '2px solid red',
+  },
+
+  deliveredGoodsSuccessWrapper: {
+    border: `2px solid #388E3C !important`,
+  },
+
+  deliveredGoodsSuccessText: {
+    color: '#388E3C',
+  },
+
+  deliveredGoodsSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  deliveredGoodsLeftText: {
+    color: 'red',
+    fontSize: 18,
+    fontWeight: 600,
+  },
+
+  deliveredGoodsMiddleText: {
+    color: theme.palette.text.disabled,
+  },
+
+  deliveredGoodsRightText: {
+    color: theme.palette.primary.main,
+    fontSize: 18,
+    fontWeight: 600,
+  },
+
   commentInput: {
     fontSize: '14px',
     height: 'auto',
