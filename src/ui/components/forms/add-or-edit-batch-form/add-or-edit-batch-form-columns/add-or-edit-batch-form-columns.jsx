@@ -113,7 +113,9 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    renderCell: params => (
+      <ToFixedWithKgSignCell amount={params.row.originalData.amount} value={params.value} fix={2} />
+    ),
     // type: 'number',
     width: 100,
   },

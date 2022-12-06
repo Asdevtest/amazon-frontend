@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -72,6 +73,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
         <OrderCell
           product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          superboxProductAmount={params.row.originalData}
         />
       ),
     filterable: false,

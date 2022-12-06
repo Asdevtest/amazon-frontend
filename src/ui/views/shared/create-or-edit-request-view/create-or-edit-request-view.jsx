@@ -9,7 +9,6 @@ import {Appbar} from '@components/appbar'
 import {CreateOrEditRequestContent} from '@components/contents/create-or-edit-request-content'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
@@ -30,14 +29,10 @@ export class CreateOrEditRequestView extends Component {
       progressValue,
       showProgress,
       requestToEdit,
-      infoModalText,
       drawerOpen,
-      showInfoModal,
       onTriggerDrawerOpen,
-      onTriggerOpenModal,
       onSubmitCreateRequest,
       onSubmitEditRequest,
-      onClickOkInfoModal,
     } = this.viewModel
 
     return (
@@ -62,14 +57,6 @@ export class CreateOrEditRequestView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={infoModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={onClickOkInfoModal}
-        />
       </React.Fragment>
     )
   }

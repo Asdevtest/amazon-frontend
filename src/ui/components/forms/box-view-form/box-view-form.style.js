@@ -23,6 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
+    marginBottom: 20,
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
@@ -51,7 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '20px',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'start',
@@ -61,13 +61,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   storekeeperField: {
-    maxWidth: '250px',
-    margin: '0',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0,
+  },
+  UpdatedField: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   userLinkWrapper: {
-    marginLeft: '20px',
-    display: 'flex',
-    alignItems: 'flex-end',
+    marginLeft: '10px',
   },
 
   blocksWrapper: {
@@ -154,6 +159,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '480px',
+    overflow: 'hidden',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
@@ -339,9 +345,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   barCode: {display: 'flex', gap: '5px'},
   titleSubWrapper: {
-    width: '650px',
+    // width: '650px',
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -351,6 +357,19 @@ export const useClassNames = makeStyles()(theme => ({
       gap: '20px',
       marginBottom: '10px',
     },
+  },
+  storekeeperFieldWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 10px',
+  },
+  UpdatedWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 240,
+    marginLeft: 10,
   },
 
   divider: {
@@ -411,7 +430,16 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  batchIdWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 170,
+    margin: '0 10px',
+  },
+
   batchId: {
+    marginBottom: 20,
     color: theme.palette.text.second,
   },
 
