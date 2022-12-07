@@ -44,6 +44,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      destinationsFavourites,
       userInfo,
       rowCount,
       destinations,
@@ -98,6 +99,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onClickSubmitEditBox,
       onSubmitChangeBoxFields,
       onClickSubmitEditMultipleBoxes,
+      setDestinationsFavouritesItem,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -218,6 +220,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
             formItem={curBox}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onSubmit={onClickSubmitEditBox}
             onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
           />
@@ -232,6 +236,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={currentData.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onSubmit={onClickSubmitEditMultipleBoxes}
             onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
           />

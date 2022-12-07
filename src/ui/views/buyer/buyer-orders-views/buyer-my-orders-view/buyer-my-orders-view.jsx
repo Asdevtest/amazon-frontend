@@ -127,7 +127,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50 /* , 100*/]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
                   rowHeight={100}
                   components={{

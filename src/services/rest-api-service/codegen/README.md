@@ -177,7 +177,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 *TestSwagger.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 *TestSwagger.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
-*TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGroupsGet**](docs/BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить сгруппированные коробки
+*TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGet**](docs/BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
+*TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGroupsGet**](docs/BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить группы
 *TestSwagger.BoxesApi* | [**apiV1BoxesManyPatch**](docs/BoxesApi.md#apiV1BoxesManyPatch) | **PATCH** /api/v1/boxes/many | # Изменить несколько коробок сторкипером.
 *TestSwagger.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesPagClientsLightGet**](docs/BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
@@ -197,6 +198,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPagMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
+*TestSwagger.BuyerApi* | [**apiV1BuyersOrdersSetInStockGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersSetInStockGuidPatch) | **PATCH** /api/v1/buyers/orders/set_in_stock/{guid} | # Редактировать номер заказа на inStock (30).
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersVacGet**](docs/BuyerApi.md#apiV1BuyersOrdersVacGet) | **GET** /api/v1/buyers/orders/vac | # Получить список свободных заказов.
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsGuidPatch**](docs/BuyerApi.md#apiV1BuyersProductsGuidPatch) | **PATCH** /api/v1/buyers/products/{guid} | # Внести изменения в продукт.
 *TestSwagger.BuyerApi* | [**apiV1BuyersProductsLightGet**](docs/BuyerApi.md#apiV1BuyersProductsLightGet) | **GET** /api/v1/buyers/products/light | # Получить список товаров, где пользователь - баер товара(не архив).
@@ -467,6 +469,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject100](docs/InlineObject100.md)
  - [TestSwagger.InlineObject101](docs/InlineObject101.md)
  - [TestSwagger.InlineObject102](docs/InlineObject102.md)
+ - [TestSwagger.InlineObject103](docs/InlineObject103.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)

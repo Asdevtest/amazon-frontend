@@ -47,14 +47,8 @@ class InlineObject68 {
         if (data) {
             obj = obj || new InlineObject68();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -64,22 +58,10 @@ class InlineObject68 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject68.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
- * @member {String} reason
- */
-InlineObject68.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject68.prototype['linksToMediaFiles'] = undefined;
+InlineObject68.prototype['suppliersIds'] = undefined;
 
 
 

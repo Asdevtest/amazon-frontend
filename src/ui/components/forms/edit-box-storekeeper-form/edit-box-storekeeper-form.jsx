@@ -168,7 +168,18 @@ const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoefficient, se
 }
 
 export const EditBoxStorekeeperForm = observer(
-  ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
+  ({
+    formItem,
+    onSubmit,
+    onTriggerOpenModal,
+    requestStatus,
+    volumeWeightCoefficient,
+    destinations,
+    storekeepers,
+
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -597,6 +608,7 @@ export const EditBoxStorekeeperForm = observer(
                       inputComponent={
                         <WithSearchSelect
                           width={230}
+                          favourites={destinationsFavourites}
                           selectedItemName={
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
@@ -605,6 +617,7 @@ export const EditBoxStorekeeperForm = observer(
                           searchFields={['name']}
                           onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
+                          onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }
                     />

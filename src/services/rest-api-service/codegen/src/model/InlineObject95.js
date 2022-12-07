@@ -50,23 +50,11 @@ class InlineObject95 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -76,46 +64,22 @@ class InlineObject95 {
 }
 
 /**
- * Название склада.
+ * Название услуги
  * @member {String} name
  */
 InlineObject95.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject95.prototype['country'] = undefined;
+InlineObject95.prototype['description'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject95.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject95.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject95.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject95.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject95.prototype['fontColor'] = undefined;
+InlineObject95.prototype['price'] = undefined;
 
 
 

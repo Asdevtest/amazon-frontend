@@ -21,13 +21,14 @@ import ApiClient from '../ApiClient';
 class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
-     * Схема редактирования в первый раз shippingLabel коробки
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject45
-     * @param shippingLabel {String} shippingLabel
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor(shippingLabel) { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject45.initialize(this, shippingLabel);
+        InlineObject45.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -35,8 +36,9 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, shippingLabel) { 
-        obj['shippingLabel'] = shippingLabel;
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -50,8 +52,11 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -61,10 +66,16 @@ class InlineObject45 {
 }
 
 /**
- * shippingLabel
- * @member {String} shippingLabel
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject45.prototype['shippingLabel'] = undefined;
+InlineObject45.prototype['boxId'] = undefined;
+
+/**
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
+ */
+InlineObject45.prototype['logicsTariffId'] = undefined;
 
 
 

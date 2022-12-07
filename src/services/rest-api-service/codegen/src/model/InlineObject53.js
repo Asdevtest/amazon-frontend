@@ -47,8 +47,8 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('suppliersId')) {
-                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject53 {
 }
 
 /**
- * GUID поставщика, который нужно удалить в БД.
- * @member {String} suppliersId
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject53.prototype['suppliersId'] = undefined;
+InlineObject53.prototype['suppliersIds'] = undefined;
 
 
 

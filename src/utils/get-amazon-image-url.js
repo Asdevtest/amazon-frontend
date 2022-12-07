@@ -7,6 +7,8 @@ export const getAmazonImageUrl = (str, big) => {
       return big ? str : str + '.preview.webp'
     } else if (str.includes('http')) {
       return str
+    } else if (str.includes('base64')) {
+      return str
     } else {
       return `${amazonImageUrlPrefix}${str}${big ? amazonImageUrlBigPostfix : amazonImageUrlSmallPostfix}`
     }

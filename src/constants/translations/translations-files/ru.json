@@ -1629,5 +1629,6 @@
   "Reference id": "Reference id",
   "Received files": "Полученные файлы",
   "Quantity of goods delivered": "Кол-во поставленного товара",
-  "Batch title": "Название партии"
+  "Batch title": "Название партии",
+  "Set track number for new boxes": "Установить трек номер для новых коробок"
 }

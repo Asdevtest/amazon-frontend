@@ -86,6 +86,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
             if (data.hasOwnProperty('totalPrice')) {
                 obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
@@ -192,7 +195,7 @@ InlineResponse2001.prototype['item'] = undefined;
 InlineResponse2001.prototype['buyerComment'] = undefined;
 
 /**
- *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
+ *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
  * @member {Number} status
  */
 InlineResponse2001.prototype['status'] = undefined;
@@ -214,6 +217,12 @@ InlineResponse2001.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineResponse2001.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineResponse2001.PriorityEnum} priority
+ */
+InlineResponse2001.prototype['priority'] = undefined;
 
 /**
  * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
@@ -320,6 +329,45 @@ InlineResponse2001.prototype['createdBy'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2001['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

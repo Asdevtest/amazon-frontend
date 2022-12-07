@@ -20,7 +20,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -40,8 +39,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
-      destinationsFavourites,
-      destinations,
+      clientDestinations,
       curDestination,
       userInfo,
       warningInfoModalSettings,
@@ -82,7 +80,6 @@ export class ClientReadyBoxesViewRaw extends Component {
       onChangeNameSearchValue,
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
-      setDestinationsFavouritesItem,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -127,7 +124,38 @@ export class ClientReadyBoxesViewRaw extends Component {
                 ))}
               </div>
 
-              <WithSearchSelect
+              <div className={classNames.boxesFiltersWrapper}>
+                <Button
+                  disabled={!curDestination?._id}
+                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+                  variant="text"
+                  onClick={onClickDestinationBtn}
+                >
+                  {'All destinations'}
+                </Button>
+
+                {clientDestinations
+                  .slice()
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(destination =>
+                    destination.boxesCount !== 0 ? (
+                      <Button
+                        key={destination._id}
+                        disabled={curDestination?._id === destination._id}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
+                        })}
+                        variant="text"
+                        onClick={() => onClickDestinationBtn(destination)}
+                      >
+                        {destination.name}
+                      </Button>
+                    ) : null,
+                  )}
+              </div>
+
+              {/* <WithSearchSelect
                 selectedItemName={
                   (!curDestination?._id && t(TranslationKey['All Products'])) || (curDestination && curDestination.name)
                 }
@@ -145,7 +173,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                 }
                 onClickSelect={destination => onClickDestinationBtn(destination)}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              />
+              /> */}
 
               <div className={classNames.btnsWrapper}>
                 <Button

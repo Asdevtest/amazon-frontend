@@ -20,6 +20,7 @@ import InlineObject29 from '../model/InlineObject29';
 import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
+import InlineObject33 from '../model/InlineObject33';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20014 from '../model/InlineResponse20014';
 import InlineResponse20015 from '../model/InlineResponse20015';
@@ -599,6 +600,62 @@ export default class BuyerApi {
      */
     apiV1BuyersOrdersPickupGuidPost(guid, opts) {
       return this.apiV1BuyersOrdersPickupGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Редактировать номер заказа на inStock (30).
+     * ## Редактировать номер заказа на inStock (30)
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BuyersOrdersSetInStockGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersSetInStockGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/set_in_stock/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Редактировать номер заказа на inStock (30).
+     * ## Редактировать номер заказа на inStock (30)
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BuyersOrdersSetInStockGuidPatch(guid, opts) {
+      return this.apiV1BuyersOrdersSetInStockGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

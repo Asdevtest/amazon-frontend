@@ -17,6 +17,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
+  labelsInfoWrapper: {
+    display: 'flex',
+    gap: '27px',
+  },
+
   stantartSelect: {
     '&:hover': {
       backgroundColor: theme.palette.background.second,
@@ -80,6 +85,39 @@ export const useClassNames = makeStyles()(theme => ({
 
   label: {
     fontSize: '18px',
+    whiteSpace: 'nowrap',
+  },
+
+  inputField: {
+    width: 225,
+    height: 40,
+  },
+
+  trackNumberPhotoBtn: {
+    width: 225,
+  },
+
+  trackNumberPhotoWrapper: {
+    width: 225,
+    height: 137,
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  trackNumberPhoto: {
+    width: 225,
+    height: 137,
+    objectFit: 'contain',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
   },
 
   addBtn: {},

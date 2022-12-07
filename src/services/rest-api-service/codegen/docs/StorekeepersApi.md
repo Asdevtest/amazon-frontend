@@ -56,7 +56,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1StorekeepersBoxesCommentGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 
@@ -164,7 +164,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
+  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
 };
 apiInstance.apiV1StorekeepersBoxesGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
+ **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
 
 ### Return type
 
@@ -219,7 +219,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject95() // InlineObject95 | 
+  'body': new TestSwagger.InlineObject96() // InlineObject96 | 
 };
 apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -235,7 +235,7 @@ apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject95**](InlineObject95.md)|  | [optional] 
+ **body** | [**InlineObject96**](InlineObject96.md)|  | [optional] 
 
 ### Return type
 
@@ -382,7 +382,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject88() // InlineObject88 | 
+  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject88**](InlineObject88.md)|  | [optional] 
+ **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
 
 ### Return type
 
@@ -554,7 +554,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
+  'body': new TestSwagger.InlineObject93() // InlineObject93 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
+ **body** | [**InlineObject93**](InlineObject93.md)|  | [optional] 
 
 ### Return type
 
@@ -663,7 +663,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
+  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -679,7 +679,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
+ **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
 
 ### Return type
 
@@ -772,7 +772,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject94() // InlineObject94 | 
+  'body': new TestSwagger.InlineObject95() // InlineObject95 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehouseGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -789,7 +789,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject94**](InlineObject94.md)|  | [optional] 
+ **body** | [**InlineObject95**](InlineObject95.md)|  | [optional] 
 
 ### Return type
 
@@ -879,7 +879,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject93() // InlineObject93 | 
+  'body': new TestSwagger.InlineObject94() // InlineObject94 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -895,7 +895,7 @@ apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject93**](InlineObject93.md)|  | [optional] 
+ **body** | [**InlineObject94**](InlineObject94.md)|  | [optional] 
 
 ### Return type
 
@@ -1042,7 +1042,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject86() // InlineObject86 | 
+  'body': new TestSwagger.InlineObject87() // InlineObject87 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1059,7 +1059,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject86**](InlineObject86.md)|  | [optional] 
+ **body** | [**InlineObject87**](InlineObject87.md)|  | [optional] 
 
 ### Return type
 
@@ -1098,7 +1098,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject87() // InlineObject87 | 
+  'body': new TestSwagger.InlineObject88() // InlineObject88 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1115,7 +1115,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject87**](InlineObject87.md)|  | [optional] 
+ **body** | [**InlineObject88**](InlineObject88.md)|  | [optional] 
 
 ### Return type
 

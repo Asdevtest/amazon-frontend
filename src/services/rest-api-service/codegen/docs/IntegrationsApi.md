@@ -37,7 +37,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IntegrationsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
+  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
 };
 apiInstance.apiV1IntegrationsCreateAndLinkSkuProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -53,7 +53,7 @@ apiInstance.apiV1IntegrationsCreateAndLinkSkuProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
+ **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
 
 ### Return type
 
@@ -253,7 +253,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IntegrationsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject57() // InlineObject57 | 
+  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
 };
 apiInstance.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -269,7 +269,7 @@ apiInstance.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts).then
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject57**](InlineObject57.md)|  | [optional] 
+ **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
 
 ### Return type
 
@@ -307,7 +307,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.IntegrationsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
+  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
 };
 apiInstance.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -323,7 +323,7 @@ apiInstance.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts).th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
+ **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
 
 ### Return type
 

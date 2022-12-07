@@ -1629,7 +1629,7 @@ export enum TranslationKey {
   'Received files' = 'Received files',
   'Quantity of goods delivered' = 'Quantity of goods delivered',
   'Batch title' = 'Batch title',
-  // '' = '',
+  'Set track number for new boxes' = 'Set track number for new boxes',
   // '' = '',
   // '' = '',
   // '' = '',

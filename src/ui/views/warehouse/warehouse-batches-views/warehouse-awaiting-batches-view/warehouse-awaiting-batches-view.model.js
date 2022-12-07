@@ -178,9 +178,18 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         storekeeperComment: data.storekeeperComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       await this.loadData()

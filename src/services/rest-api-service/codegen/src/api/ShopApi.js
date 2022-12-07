@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject84 from '../model/InlineObject84';
 import InlineObject85 from '../model/InlineObject85';
+import InlineObject86 from '../model/InlineObject86';
 import InlineResponse20047 from '../model/InlineResponse20047';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
@@ -149,7 +149,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject85} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ShopsGuidPatchWithHttpInfo(guid, opts) {
@@ -188,7 +188,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject85} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ShopsGuidPatch(guid, opts) {
@@ -204,7 +204,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject84} opts.body 
+     * @param {module:model/InlineObject85} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ShopsPostWithHttpInfo(opts) {
@@ -237,7 +237,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject84} opts.body 
+     * @param {module:model/InlineObject85} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ShopsPost(opts) {

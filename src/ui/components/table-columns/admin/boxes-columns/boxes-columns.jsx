@@ -144,7 +144,7 @@ export const adminBoxesViewColumns = () => [
   },
 
   {
-    field: 'trackingNumberChina',
+    field: 'trackNumber',
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 

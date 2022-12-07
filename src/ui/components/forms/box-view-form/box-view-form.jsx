@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography, Tooltip, fabClasses} from '@mui/material'
+import {Checkbox, Divider, Grid, Link, Typography, Tooltip, fabClasses, Avatar} from '@mui/material'
 
 import {React, useState} from 'react'
 
@@ -17,6 +17,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -33,6 +34,9 @@ import {useClassNames} from './box-view-form.style'
 export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
     const {classes: classNames} = useClassNames()
+
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
@@ -480,14 +484,13 @@ export const BoxViewForm = observer(
                   inputClasses={classNames.inputField}
                   inputProps={{maxLength: 255}}
                   label={'FBA number'}
-                  // value={formFields.referenceId}
                 />
               </div>
 
               <div className={classNames.labelsInfoWrapper}>
                 <div>
                   <Field
-                    disabled // ={!isEdit}
+                    disabled={!isEdit}
                     labelClasses={classNames.label}
                     containerClasses={classNames.containerField}
                     inputClasses={classNames.inputField}
@@ -498,30 +501,46 @@ export const BoxViewForm = observer(
                   />
 
                   <Button
-                    disabled // ={!isEdit}
+                    disabled={!isEdit}
                     className={classNames.trackNumberPhotoBtn}
                     onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                   >
-                    {'Photo track numbers'}
+                    {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
                   </Button>
                 </div>
 
-                <img
-                  className={classNames.trackNumberPhoto}
-                  // src={formFields.trackNumberFile ? formFields.trackNumberFile }
-                />
-              </div>
+                <div className={classNames.trackNumberPhotoWrapper}>
+                  {formFields.trackNumberFile || formFields.tmpTrackNumberFile[0] ? (
+                    <Avatar
+                      className={classNames.trackNumberPhoto}
+                      src={
+                        formFields.tmpTrackNumberFile[0]
+                          ? typeof formFields.tmpTrackNumberFile[0] === 'string'
+                            ? formFields.tmpTrackNumberFile[0]
+                            : formFields.tmpTrackNumberFile[0]?.data_url
+                          : formFields.trackNumberFile
+                      }
+                      variant="square"
+                      onClick={() => {
+                        setShowPhotosModal(!showPhotosModal)
+                        setBigImagesOptions({
+                          ...bigImagesOptions,
 
-              {/* <Field
-                disabled={!isEdit}
-                labelClasses={classNames.label}
-                containerClasses={classNames.containerField}
-                inputClasses={classNames.inputField}
-                inputProps={{maxLength: 255}}
-                label={t(TranslationKey['Reference id'])}
-                value={formFields.referenceId}
-                onChange={onChangeField('referenceId')}
-              /> */}
+                          images: [
+                            formFields.tmpTrackNumberFile[0]
+                              ? typeof formFields.tmpTrackNumberFile[0] === 'string'
+                                ? formFields.tmpTrackNumberFile[0]
+                                : formFields.tmpTrackNumberFile[0]?.data_url
+                              : formFields.trackNumberFile,
+                          ],
+                        })
+                      }}
+                    />
+                  ) : (
+                    <Typography>{'no photo track number...'}</Typography>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -578,6 +597,13 @@ export const BoxViewForm = observer(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
+
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
       </div>
     )
   },

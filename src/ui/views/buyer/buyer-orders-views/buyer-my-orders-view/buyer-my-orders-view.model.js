@@ -274,7 +274,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
+  async onSubmitSaveOrder({order, orderFields, boxesForCreation, photosToLoad, hsCode, trackNumber}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -305,7 +305,7 @@ export class BuyerMyOrdersViewModel {
         !isMismatchOrderPrice &&
         orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
       ) {
-        await this.onSubmitCreateBoxes(order, boxesForCreation)
+        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber})
       }
 
       if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
@@ -357,14 +357,23 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes(order, formFieldsArr) {
+  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber}) {
     try {
       this.error = undefined
 
       this.createBoxesResult = []
 
-      for (let i = 0; i < formFieldsArr.length; i++) {
-        const elementOrderBox = formFieldsArr[i]
+      this.readyImages = []
+      if (trackNumber?.files.length) {
+        await onSubmitPostImages.call(this, {images: trackNumber.files, type: 'readyImages'})
+      }
+
+      for (let i = 0; i < boxesForCreation.length; i++) {
+        const elementOrderBox = {
+          ...boxesForCreation[i],
+          trackNumberText: trackNumber?.text || '',
+          trackNumberFile: this.readyImages.length ? this.readyImages[0] : '',
+        }
 
         await this.onCreateBox(elementOrderBox, order)
 
@@ -428,6 +437,7 @@ export class BuyerMyOrdersViewModel {
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
+
         items: [
           {
             productId: formFields.items[0].product._id,

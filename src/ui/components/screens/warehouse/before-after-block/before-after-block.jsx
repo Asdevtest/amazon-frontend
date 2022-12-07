@@ -575,48 +575,67 @@ const Box = observer(
               </div>
             </div>
             <div className={classNames.footerWrapper}>
-              <div
-                className={cx(classNames.chipWrapper, {
-                  [classNames.chipWrapperEditAccent]:
-                    needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-                })}
-              >
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-                  className={classNames.subTitle}
+              <div className={classNames.footerSubWrapper}>
+                <div
+                  className={cx(classNames.chipWrapper, {
+                    [classNames.chipWrapperEditAccent]:
+                      needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
+                  })}
                 >
-                  {t(TranslationKey['Shipping label']) + ':'}
-                </Text>
+                  <Text
+                    tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+                    className={classNames.subTitle}
+                  >
+                    {t(TranslationKey['Shipping label']) + ':'}
+                  </Text>
 
-                {box.shippingLabel ? (
-                  <div className={classNames.barCode}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-                    <CopyValue text={box.shippingLabel} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
-                )}
+                  {box.shippingLabel ? (
+                    <div className={classNames.barCode}>
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                        <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                      </Link>
+                      <CopyValue text={box.shippingLabel} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
+                  )}
+                </div>
+                <div>
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxContainer}
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                    inputComponent={
+                      <Checkbox
+                        color="primary"
+                        disabled={!box.shippingLabel || !isNewBox || readOnly}
+                        checked={box.isShippingLabelAttachedByStorekeeper}
+                        onClick={() =>
+                          onChangeField(
+                            !box.isShippingLabelAttachedByStorekeeper,
+                            'isShippingLabelAttachedByStorekeeper',
+                          )
+                        }
+                      />
+                    }
+                  />
+                </div>
               </div>
-              <div>
-                <Field
-                  oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      disabled={!box.shippingLabel || !isNewBox || readOnly}
-                      checked={box.isShippingLabelAttachedByStorekeeper}
-                      onClick={() =>
-                        onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
-                      }
-                    />
-                  }
-                />
-              </div>
+
+              <Field
+                oneLine
+                // containerClasses={classNames.countSubWrapper}
+                label={t(TranslationKey['Track number'])}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <Tooltip title={box.trackNumberText}>
+                    <Typography className={classNames.trackNum}>
+                      {box.trackNumberText || t(TranslationKey['Not available'])}
+                    </Typography>
+                  </Tooltip>
+                }
+              />
             </div>
           </Paper>
         )}

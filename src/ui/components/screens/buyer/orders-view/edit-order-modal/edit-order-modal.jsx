@@ -1,6 +1,6 @@
 import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography} from '@mui/material'
+import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -24,7 +24,9 @@ import {Field} from '@components/field/field'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
@@ -69,11 +71,17 @@ export const EditOrderModal = observer(
 
     const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
 
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
     const [showWarningInfoModal, setShowWarningInfoModal] = useState(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
+
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [trackNumber, setTrackNumber] = useState({text: '', files: []})
 
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -186,7 +194,14 @@ export const EditOrderModal = observer(
           return setOrderFields(tmpNewOrderFieldsState)
 
         case 'SUBMIT':
-          return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+          return onSubmitSaveOrder({
+            order,
+            orderFields,
+            boxesForCreation,
+            photosToLoad,
+            hsCode,
+            trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+          })
       }
     }
 
@@ -393,7 +408,14 @@ export const EditOrderModal = observer(
                 setConfirmModalMode(confirmModalModes.SUBMIT)
                 setShowConfirmModal(!showConfirmModal)
               } else {
-                onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+                onSubmitSaveOrder({
+                  order,
+                  orderFields,
+                  boxesForCreation,
+                  photosToLoad,
+                  hsCode,
+                  trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+                })
               }
             }}
           >
@@ -425,15 +447,64 @@ export const EditOrderModal = observer(
         )}
 
         {boxesForCreation.length > 0 && (
-          <BoxesToCreateTable
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            barcodeIsExist={order.product.barCode}
-            newBoxes={boxesForCreation}
-            onRemoveBox={onRemoveForCreationBox}
-            onEditBox={onEditForCreationBox}
-            onClickBarcodeCheckbox={onClickBarcodeCheckbox}
-            onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
-          />
+          <>
+            <BoxesToCreateTable
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              barcodeIsExist={order.product.barCode}
+              newBoxes={boxesForCreation}
+              onRemoveBox={onRemoveForCreationBox}
+              onEditBox={onEditForCreationBox}
+              onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+              onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
+            />
+
+            <div className={classNames.labelsInfoWrapper}>
+              <div>
+                <Field
+                  labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  inputProps={{maxLength: 255}}
+                  label={t(TranslationKey['Set track number for new boxes']) + ':'}
+                  value={trackNumber.text}
+                  onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
+                />
+
+                <Button
+                  className={classNames.trackNumberPhotoBtn}
+                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                >
+                  {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                </Button>
+              </div>
+
+              <div className={classNames.trackNumberPhotoWrapper}>
+                {trackNumber.files[0] ? (
+                  <Avatar
+                    className={classNames.trackNumberPhoto}
+                    src={
+                      typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
+                    }
+                    variant="square"
+                    onClick={() => {
+                      setShowPhotosModal(!showPhotosModal)
+                      setBigImagesOptions({
+                        ...bigImagesOptions,
+
+                        images: [
+                          typeof trackNumber.files[0] === 'string'
+                            ? trackNumber.files[0]
+                            : trackNumber.files[0]?.data_url,
+                        ],
+                      })
+                    }}
+                  />
+                ) : (
+                  <Typography>{'no photo track number...'}</Typography>
+                )}
+              </div>
+            </div>
+          </>
         )}
 
         <div className={classNames.tableWrapper}>
@@ -498,6 +569,25 @@ export const EditOrderModal = observer(
           onClickBtn={() => {
             setShowWarningInfoModal(!showWarningInfoModal)
           }}
+        />
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            title={'Track number'}
+            tmpCode={trackNumber.files}
+            onClickSaveBarcode={value => {
+              setTrackNumber({...trackNumber, files: value})
+              setShowSetBarcodeModal(!showSetBarcodeModal)
+            }}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
         />
       </Box>
     )

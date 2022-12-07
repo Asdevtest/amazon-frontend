@@ -31,10 +31,27 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  trackNumberPhotoWrapper: {
+    width: 225,
+    height: 130,
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   trackNumberPhoto: {
     width: 225,
     height: 130,
     objectFit: 'contain',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
   },
 
   commentsWrapper: {

@@ -75,6 +75,7 @@ export class ClientWarehouseViewModel {
   currentStorekeeper = undefined
   storekeepersData = []
   destinations = []
+  clientDestinations = []
 
   curDestination = undefined
 
@@ -303,9 +304,18 @@ export class ClientWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       this.getBoxesMy()
@@ -519,10 +529,10 @@ export class ClientWarehouseViewModel {
 
       this.getBoxesMy()
 
-      const destinations = await ClientModel.getDestinations()
+      const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.IN_STOCK)
 
       runInAction(() => {
-        this.destinations = destinations
+        this.clientDestinations = clientDestinations
       })
 
       // this.getDataGridState()
@@ -969,7 +979,7 @@ export class ClientWarehouseViewModel {
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
             items: isMultipleEdit
               ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
-              : getNewItems,
+              : getNewItems(),
             shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           },
           updateBoxWhiteList,

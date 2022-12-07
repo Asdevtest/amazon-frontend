@@ -23,10 +23,12 @@ class InlineObject92 {
     /**
      * Constructs a new <code>InlineObject92</code>.
      * @alias module:model/InlineObject92
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject92.initialize(this);
+        InlineObject92.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject92 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
