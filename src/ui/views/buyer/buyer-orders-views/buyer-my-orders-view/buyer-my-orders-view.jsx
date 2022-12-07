@@ -43,6 +43,8 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
+      userInfo,
       rowCount,
       showSuccessModalText,
       volumeWeightCoefficient,
@@ -64,6 +66,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
       showOrderPriceMismatchModal,
+      showWarningInfoModal,
       showConfirmModal,
 
       showProgress,
@@ -84,7 +87,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onSaveOrderItem,
 
       onSearchSubmit,
-
+      onSubmitChangeBoxFields,
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -158,6 +161,7 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            userInfo={userInfo}
             volumeWeightCoefficient={volumeWeightCoefficient}
             photosToLoad={photosToLoad}
             requestStatus={requestStatus}
@@ -170,6 +174,7 @@ class BuyerMyOrdersViewRaw extends Component {
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSaveOrderItem={onSaveOrderItem}
+            onSubmitChangeBoxFields={onSubmitChangeBoxFields}
           />
         </Modal>
 
@@ -202,6 +207,17 @@ class BuyerMyOrdersViewRaw extends Component {
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningNewBoxesModal')
+          }}
+        />
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
           }}
         />
 

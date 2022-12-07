@@ -245,16 +245,7 @@ const Box = observer(
 
                 {
                   /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
-                    <div
-                      className={cx(classNames.demensionsWrapper, {
-                        [classNames.editAccent]:
-                          isNewBox &&
-                          (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
-                            box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
-                            box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
-                            box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
-                      })}
-                    >
+                    <div className={classNames.demensionsWrapper}>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
 
@@ -715,7 +706,7 @@ const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
 
 const NewBoxes = observer(
   ({
-    referenceEditingBox,
+    referenceEditingBoxes,
     newBoxes,
     onClickEditBox,
     isEdit,
@@ -748,7 +739,7 @@ const NewBoxes = observer(
               readOnly={readOnly}
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}
-              referenceEditingBox={referenceEditingBox}
+              referenceEditingBox={referenceEditingBoxes[boxIndex]}
               box={box}
               curBox={curBox}
               setCurBox={setCurBox}
@@ -868,7 +859,7 @@ export const BeforeAfterBlock = observer(
             readOnly={readOnly}
             isEdit={isEdit}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            referenceEditingBox={incomingBoxes[0]}
+            referenceEditingBoxes={incomingBoxes}
             newBoxes={desiredBoxes}
             taskType={taskType}
             setNewBoxes={setNewBoxes}

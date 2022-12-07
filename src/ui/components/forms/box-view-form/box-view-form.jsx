@@ -24,7 +24,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsClient, checkIsStorekeeper} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
@@ -40,8 +40,9 @@ export const BoxViewForm = observer(
 
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
     const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
+    const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
 
-    const isEdit = isClient || isStorekeeper
+    const isEdit = isClient || isStorekeeper || isBuyer
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -467,7 +468,7 @@ export const BoxViewForm = observer(
 
               <div className={classNames.labelsInfoWrapper}>
                 <Field
-                  disabled={!isEdit}
+                  disabled={!isEdit || isBuyer}
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.inputField}

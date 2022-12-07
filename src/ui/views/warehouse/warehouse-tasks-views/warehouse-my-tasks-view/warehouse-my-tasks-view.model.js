@@ -387,7 +387,7 @@ export class WarehouseVacantViewModel {
         await this.resolveTask(task._id, requestBoxes)
 
         await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
-          status: OrderStatusByKey[OrderStatus.IN_STOCK],
+          status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
         })
       } else {
         await this.onSubmitUpdateBoxes(newBoxes)

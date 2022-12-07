@@ -66,12 +66,18 @@ export class BuyerMyOrdersViewModel {
   showSuccessModal = false
   showOrderPriceMismatchModal = false
   showConfirmModal = false
+  showWarningInfoModal = false
 
   showSuccessModalText = ''
 
   dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
 
   firstRowId = undefined
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   rowCount = 0
   sortModel = []
@@ -85,6 +91,10 @@ export class BuyerMyOrdersViewModel {
   progressValue = 0
   showProgress = false
   readyImages = []
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history, location}) {
     this.history = history
@@ -323,6 +333,10 @@ export class BuyerMyOrdersViewModel {
           await BuyerModel.orderTrackNumberIssued(order._id)
         }
 
+        if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+          await BuyerModel.orderSetInStock(order._id, {refundPrice: 0.1})
+        }
+
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
           this.onTriggerOpenModal('showConfirmModal')
@@ -340,6 +354,34 @@ export class BuyerMyOrdersViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async onSubmitChangeBoxFields(data, inModal) {
+    try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
+      await BoxesModel.editAdditionalInfo(data._id, {
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+      })
+
+      this.getBoxesOfOrder(this.selectedOrder._id)
+
+      !inModal && this.onTriggerOpenModal('showBoxViewModal')
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
       console.log(error)
     }
   }

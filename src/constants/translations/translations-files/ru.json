@@ -1630,5 +1630,7 @@
   "Received files": "Полученные файлы",
   "Quantity of goods delivered": "Кол-во поставленного товара",
   "Batch title": "Название партии",
-  "Set track number for new boxes": "Установить трек номер для новых коробок"
+  "Set track number for new boxes": "Установить трек номер для новых коробок",
+  "Verify receipt": "Подтвердить получение",
+  "All destinations": "Все пункты назначения"
 }

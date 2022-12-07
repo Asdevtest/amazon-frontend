@@ -199,7 +199,7 @@ export class ClientWarehouseViewRaw extends Component {
                 />
               </div>
 
-              <div className={classNames.boxesFiltersWrapper}>
+              {/* <div className={classNames.boxesFiltersWrapper}>
                 <Button
                   disabled={!curDestination?._id}
                   tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
@@ -228,32 +228,33 @@ export class ClientWarehouseViewRaw extends Component {
                       </Button>
                     ) : null,
                   )}
-              </div>
+              </div> */}
 
-              {/* <WithSearchSelect
+              <WithSearchSelect
                 selectedItemName={
-                  (!curDestination?._id && t(TranslationKey['All Products'])) || (curDestination && curDestination.name)
+                  (!clientDestinations?._id && t(TranslationKey['All destinations'])) ||
+                  (curDestination && curDestination.name)
                 }
-                data={destinations.filter(shop => curDestination?.id !== shop._id)}
+                data={clientDestinations.filter(shop => curDestination?.id !== shop._id)}
                 searchFields={['name']}
                 favourites={destinationsFavourites}
                 firstItems={
                   <>
-                    {!!curDestination?._id && (
+                    {!!clientDestinations?._id && (
                       <Button
                         disabled={!currentData}
                         className={classNames.button}
                         variant="text"
                         onClick={onClickDestinationBtn}
                       >
-                        {t(TranslationKey['All Products'])}
+                        {t(TranslationKey['All destinations'])}
                       </Button>
                     )}
                   </>
                 }
                 onClickSelect={destination => onClickDestinationBtn(destination)}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              /> */}
+              />
 
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>

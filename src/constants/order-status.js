@@ -14,7 +14,9 @@ export const OrderStatus = {
 
   PAID_TO_SUPPLIER: 'PAID_TO_SUPPLIER',
   TRACK_NUMBER_ISSUED: 'TRACK_NUMBER_ISSUED',
+  VERIFY_RECEIPT: 'VERIFY_RECEIPT',
   IN_STOCK: 'IN_STOCK',
+
   CANCELED_BY_BUYER: 'CANCELED_BY_BUYER',
   CANCELED_BY_CLIENT: 'CANCELED_BY_CLIENT',
   AWAITING_SHIPMENT: 'AWAITING_SHIPMENT',
@@ -29,6 +31,7 @@ export const OrderStatusByCode = {
   19: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
   20: OrderStatus.PAID_TO_SUPPLIER, // закупщик оплатил заказ - статус "оплачен"
   25: OrderStatus.TRACK_NUMBER_ISSUED, // выдан и принят трек номер - статус "выдан трек номер"
+  27: OrderStatus.VERIFY_RECEIPT, //
   30: OrderStatus.IN_STOCK, // Товар пришёл на склад - "Пришёл на склад"
   35: OrderStatus.CANCELED_BY_BUYER, // Отменен байером
   40: OrderStatus.CANCELED_BY_CLIENT, // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)
@@ -81,6 +84,8 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey['Paid to supplier'])
     case OrderStatus.TRACK_NUMBER_ISSUED:
       return t(TranslationKey['Track number issued' + `${isClient ? ' (In transit in stock)' : ''}`])
+    case OrderStatus.VERIFY_RECEIPT:
+      return t(TranslationKey['Verify receipt'])
     case OrderStatus.IN_STOCK:
       return t(TranslationKey['In stock'])
     case OrderStatus.CANCELED_BY_BUYER:
@@ -127,6 +132,11 @@ export const ORDER_STATUS_OPTIONS = [
     key: OrderStatus.TRACK_NUMBER_ISSUED,
     label: 'Track number issued',
   },
+
+  {
+    key: OrderStatus.VERIFY_RECEIPT,
+    label: 'Verify receipt',
+  },
   {
     key: OrderStatus.IN_STOCK,
     label: 'In stock',
@@ -157,6 +167,7 @@ export const orderColorByStatus = status => {
       OrderStatus.PAID_TO_SUPPLIER,
       OrderStatus.READY_TO_PROCESS,
       OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+      OrderStatus.VERIFY_RECEIPT,
     ].includes(status)
   ) {
     return '#F3AF00'
@@ -177,6 +188,7 @@ export const OrderStatusText = ({className, status, isClient}) => {
         OrderStatus.PAID_TO_SUPPLIER,
         OrderStatus.READY_TO_PROCESS,
         OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+        OrderStatus.VERIFY_RECEIPT,
       ].includes(status)
     ) {
       return '#F3AF00'

@@ -52,6 +52,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    userInfo,
     requestStatus,
     order,
     boxes,
@@ -62,6 +63,7 @@ export const EditOrderModal = observer(
     progressValue,
     volumeWeightCoefficient,
     onSaveOrderItem,
+    onSubmitChangeBoxFields,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -210,6 +212,8 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
       `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
@@ -219,7 +223,16 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      // `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+    ]
+
+    const submitDisabledOrderStatuses = [
+      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
@@ -227,7 +240,7 @@ export const EditOrderModal = observer(
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
     const disableSubmit =
-      requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
+      requestStatus === loadingStatuses.isLoading || submitDisabledOrderStatuses.includes(order.status + '')
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -283,7 +296,8 @@ export const EditOrderModal = observer(
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                         `${orderFields.status}` ===
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                       [classNames.green]:
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -304,7 +318,8 @@ export const EditOrderModal = observer(
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                                 `${orderFields.status}` ===
                                   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                               [classNames.green]:
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -335,7 +350,8 @@ export const EditOrderModal = observer(
                           [classNames.orange]:
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                           [classNames.green]:
                             statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -523,7 +539,9 @@ export const EditOrderModal = observer(
               BodyRow={WarehouseBodyRow}
               renderHeadRow={renderHeadRow()}
               mainProductId={order.product._id}
+              userInfo={userInfo}
               volumeWeightCoefficient={volumeWeightCoefficient}
+              onSubmitChangeBoxFields={onSubmitChangeBoxFields}
             />
           ) : (
             <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
