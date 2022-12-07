@@ -149,6 +149,7 @@ export class WarehouseMyTasksViewRaw extends Component {
         </Modal>
 
         <ConfirmWithCommentModal
+          isWarning
           openModal={showCancelTaskModal}
           setOpenModal={() => {
             onTriggerOpenModal('showCancelTaskModal')
@@ -156,7 +157,7 @@ export class WarehouseMyTasksViewRaw extends Component {
           }}
           titleText={t(TranslationKey['Cancel task'])}
           commentLabelText={t(TranslationKey['Reason for canceling the task'])}
-          okBtnText={t(TranslationKey.Ok)}
+          okBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
           onSubmit={onClickConfirmCancelTask}
         />
