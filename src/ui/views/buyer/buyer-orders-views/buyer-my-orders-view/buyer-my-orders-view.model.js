@@ -123,7 +123,9 @@ export class BuyerMyOrdersViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
@@ -134,7 +136,9 @@ export class BuyerMyOrdersViewModel {
     }
 
     if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
+      runInAction(() => {
+        this.startFilterModel = location.state.dataGridFilter
+      })
     }
 
     // else {
@@ -155,9 +159,10 @@ export class BuyerMyOrdersViewModel {
 
     reaction(
       () => this.ordersMy,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -165,7 +170,9 @@ export class BuyerMyOrdersViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
+      runInAction(() => {
+        this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
+      })
     }
   }
 
@@ -218,17 +225,23 @@ export class BuyerMyOrdersViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
     this.setDataGridState()
   }
 
   setFirstRowId(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
   }
 
   setDataGridState() {
@@ -246,22 +259,24 @@ export class BuyerMyOrdersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
 
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-          }
-        : state.filter.filterModel
+        this.filterModel = this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            }
+          : state.filter.filterModel
 
-      this.rowsPerPage = state.pagination.pageSize
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
+        this.densityModel = state.density.value
 
-      this.columnVisibilityModel = state.columnVisibilityModel
-    }
+        this.columnVisibilityModel = state.columnVisibilityModel
+      }
+    })
   }
 
   // setDataGridState(state) {
@@ -299,24 +314,32 @@ export class BuyerMyOrdersViewModel {
   // }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
-    this.curPage = 0
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
     this.setDataGridState()
     this.getOrdersMy()
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-    this.setDataGridState()
-    this.getOrdersMy()
+    runInAction(() => {
+      this.sortModel = sortModel
+      this.setDataGridState()
+      this.getOrdersMy()
+    })
   }
 
   getCurrentData() {
@@ -334,7 +357,9 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -343,7 +368,9 @@ export class BuyerMyOrdersViewModel {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
-      this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
+      runInAction(() => {
+        this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
+      })
 
       this.onTriggerOpenModal('showSuccessModal')
 
@@ -361,7 +388,9 @@ export class BuyerMyOrdersViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.curBoxesOfOrder = []
+      runInAction(() => {
+        this.curBoxesOfOrder = []
+      })
     }
   }
 
@@ -369,12 +398,16 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      this.selectedOrder = orderData
+      runInAction(() => {
+        this.selectedOrder = orderData
+      })
       this.getBoxesOfOrder(orderId)
 
       const result = await UserModel.getPlatformSettings()
 
-      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -412,7 +445,9 @@ export class BuyerMyOrdersViewModel {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
-      this.readyImages = []
+      runInAction(() => {
+        this.readyImages = []
+      })
       if (photosToLoad.length) {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
@@ -456,7 +491,9 @@ export class BuyerMyOrdersViewModel {
         }
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
-          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+          runInAction(() => {
+            this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+          })
           this.onTriggerOpenModal('showConfirmModal')
           // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
         }
@@ -464,7 +501,9 @@ export class BuyerMyOrdersViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
-        this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+        runInAction(() => {
+          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+        })
         this.onTriggerOpenModal('showOrderModal')
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
@@ -512,16 +551,20 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
 
   async onSubmitCreateBoxes({order, boxesForCreation, trackNumber}) {
     try {
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
 
-      this.createBoxesResult = []
+        this.createBoxesResult = []
+      })
 
       this.readyImages = []
       if (trackNumber?.files.length) {
@@ -565,7 +608,9 @@ export class BuyerMyOrdersViewModel {
       })
 
       if (!this.error) {
-        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+        runInAction(() => {
+          this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
+        })
 
         this.onTriggerOpenModal('showSuccessModal')
       }
@@ -613,7 +658,9 @@ export class BuyerMyOrdersViewModel {
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
-      this.createBoxesResult = [...this.createBoxesResult, createBoxResult.guid]
+      runInAction(() => {
+        this.createBoxesResult = [...this.createBoxesResult, createBoxResult.guid]
+      })
 
       // await BuyerModel.postTask({
       //   taskId: 0,
@@ -634,7 +681,9 @@ export class BuyerMyOrdersViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     this.getOrdersMy()
   }
@@ -664,26 +713,36 @@ export class BuyerMyOrdersViewModel {
         this.ordersMy = buyerMyOrdersDataConverter(result.rows)
       })
     } catch (error) {
-      this.baseNoConvertedOrders = []
-      this.ordersMy = []
+      runInAction(() => {
+        this.baseNoConvertedOrders = []
+        this.ordersMy = []
+      })
       console.log(error)
     }
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
+    runInAction(() => {
+      this.showBarcodeModal = !this.showBarcodeModal
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
     this.setDataGridState()
     this.getOrdersMy()
   }

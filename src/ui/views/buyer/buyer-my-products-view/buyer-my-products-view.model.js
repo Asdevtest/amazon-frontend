@@ -39,10 +39,14 @@ export class BuyerMyProductsViewModel {
   columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
 
     if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
+      runInAction(() => {
+        this.startFilterModel = location.state.dataGridFilter
+      })
     }
     // else {
     //       this.startFilterModel = resetDataGridFilter
@@ -57,9 +61,10 @@ export class BuyerMyProductsViewModel {
 
     reaction(
       () => this.productsMy,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -67,7 +72,9 @@ export class BuyerMyProductsViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.productsMy = buyerProductsDataConverter(this.baseNoConvertedProducts)
+      runInAction(() => {
+        this.productsMy = buyerProductsDataConverter(this.baseNoConvertedProducts)
+      })
     }
   }
 
@@ -82,7 +89,9 @@ export class BuyerMyProductsViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -101,44 +110,56 @@ export class BuyerMyProductsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-          }
-        : state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            }
+          : state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = buyerProductsViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = buyerProductsViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
-    this.curPage = 0
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
 
     this.getProductsMy()
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
     this.getProductsMy()
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   getCurrentData() {
@@ -146,20 +167,28 @@ export class BuyerMyProductsViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     this.getProductsMy()
   }
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+      })
 
       this.getDataGridState()
       await this.getProductsMy()
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
       console.log(error)
     }
   }
@@ -167,7 +196,9 @@ export class BuyerMyProductsViewModel {
   async getProductsMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
 
       // const result = await BuyerModel.getProductsMy()
 
@@ -194,10 +225,14 @@ export class BuyerMyProductsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.baseNoConvertedProducts = []
-      this.productsMy = []
+      runInAction(() => {
+        this.baseNoConvertedProducts = []
+        this.productsMy = []
+      })
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -210,11 +245,15 @@ export class BuyerMyProductsViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
 
     this.getProductsMy()
   }
