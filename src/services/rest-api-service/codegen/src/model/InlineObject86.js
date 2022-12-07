@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject13 from './InlineObject13';
 
 /**
  * The InlineObject86 model module.
@@ -22,6 +21,7 @@ import InlineObject13 from './InlineObject13';
 class InlineObject86 {
     /**
      * Constructs a new <code>InlineObject86</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject86
      */
     constructor() { 
@@ -48,8 +48,14 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject13]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -59,10 +65,22 @@ class InlineObject86 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject13>} additionalBoxes
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject86.prototype['additionalBoxes'] = undefined;
+InlineObject86.prototype['name'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineObject86.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject86.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

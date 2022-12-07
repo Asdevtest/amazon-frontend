@@ -381,12 +381,26 @@ export const useClassNames = makeStyles()(theme => ({
   },
   footerWrapper: {
     display: 'flex',
+    flexDirection: 'column',
+    gap: '14px',
+  },
+
+  footerSubWrapper: {
+    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '14px',
     },
+  },
+
+  trackNum: {
+    marginLeft: 20,
+    maxWidth: 200,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
   },
 
   barCodeField: {

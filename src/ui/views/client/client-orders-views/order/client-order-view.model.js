@@ -9,6 +9,7 @@ import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ClientOrderViewModel {
   history = undefined
@@ -31,6 +32,8 @@ export class ClientOrderViewModel {
     isWarning: false,
     title: '',
   }
+
+  uploadedFiles = []
 
   get userInfo() {
     return UserModel.userInfo
@@ -73,9 +76,18 @@ export class ClientOrderViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       this.getBoxesOfOrder(this.orderId)

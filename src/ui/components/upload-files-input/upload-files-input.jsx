@@ -201,17 +201,18 @@ export const UploadFilesInput = observer(
                         <Grid key={index} item>
                           <div className={classNames.imageListItem}>
                             <Tooltip
-                              title={renderImageInfo(image.data_url, image.file.name)}
+                              title={renderImageInfo(image?.data_url, image?.file.name)}
                               classes={{popper: classNames.imgTooltip}}
                             >
-                              <img
+                              <Avatar
                                 className={classNames.image}
-                                src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
-                                alt={image.file.name}
+                                src={image?.file.type.includes('image') ? image?.data_url : '/assets/icons/file.png'}
+                                alt={image?.file.name}
+                                variant="square"
                               />
                             </Tooltip>
 
-                            <Typography className={classNames.fileName}>{image.file.name} </Typography>
+                            <Typography className={classNames.fileName}>{image?.file.name} </Typography>
 
                             <div className={classNames.actionIconsWrapper}>
                               <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />

@@ -245,16 +245,7 @@ const Box = observer(
 
                 {
                   /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
-                    <div
-                      className={cx(classNames.demensionsWrapper, {
-                        [classNames.editAccent]:
-                          isNewBox &&
-                          (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
-                            box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
-                            box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
-                            box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
-                      })}
-                    >
+                    <div className={classNames.demensionsWrapper}>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
 
@@ -575,48 +566,67 @@ const Box = observer(
               </div>
             </div>
             <div className={classNames.footerWrapper}>
-              <div
-                className={cx(classNames.chipWrapper, {
-                  [classNames.chipWrapperEditAccent]:
-                    needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-                })}
-              >
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-                  className={classNames.subTitle}
+              <div className={classNames.footerSubWrapper}>
+                <div
+                  className={cx(classNames.chipWrapper, {
+                    [classNames.chipWrapperEditAccent]:
+                      needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
+                  })}
                 >
-                  {t(TranslationKey['Shipping label']) + ':'}
-                </Text>
+                  <Text
+                    tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+                    className={classNames.subTitle}
+                  >
+                    {t(TranslationKey['Shipping label']) + ':'}
+                  </Text>
 
-                {box.shippingLabel ? (
-                  <div className={classNames.barCode}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-                    <CopyValue text={box.shippingLabel} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
-                )}
+                  {box.shippingLabel ? (
+                    <div className={classNames.barCode}>
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                        <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                      </Link>
+                      <CopyValue text={box.shippingLabel} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
+                  )}
+                </div>
+                <div>
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxContainer}
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                    inputComponent={
+                      <Checkbox
+                        color="primary"
+                        disabled={!box.shippingLabel || !isNewBox || readOnly}
+                        checked={box.isShippingLabelAttachedByStorekeeper}
+                        onClick={() =>
+                          onChangeField(
+                            !box.isShippingLabelAttachedByStorekeeper,
+                            'isShippingLabelAttachedByStorekeeper',
+                          )
+                        }
+                      />
+                    }
+                  />
+                </div>
               </div>
-              <div>
-                <Field
-                  oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  labelClasses={classNames.label}
-                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      disabled={!box.shippingLabel || !isNewBox || readOnly}
-                      checked={box.isShippingLabelAttachedByStorekeeper}
-                      onClick={() =>
-                        onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
-                      }
-                    />
-                  }
-                />
-              </div>
+
+              <Field
+                oneLine
+                // containerClasses={classNames.countSubWrapper}
+                label={t(TranslationKey['Track number'])}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <Tooltip title={box.trackNumberText}>
+                    <Typography className={classNames.trackNum}>
+                      {box.trackNumberText || t(TranslationKey['Not available'])}
+                    </Typography>
+                  </Tooltip>
+                }
+              />
             </div>
           </Paper>
         )}
@@ -696,7 +706,7 @@ const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
 
 const NewBoxes = observer(
   ({
-    referenceEditingBox,
+    referenceEditingBoxes,
     newBoxes,
     onClickEditBox,
     isEdit,
@@ -729,7 +739,7 @@ const NewBoxes = observer(
               readOnly={readOnly}
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}
-              referenceEditingBox={referenceEditingBox}
+              referenceEditingBox={referenceEditingBoxes[boxIndex]}
               box={box}
               curBox={curBox}
               setCurBox={setCurBox}
@@ -849,7 +859,7 @@ export const BeforeAfterBlock = observer(
             readOnly={readOnly}
             isEdit={isEdit}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            referenceEditingBox={incomingBoxes[0]}
+            referenceEditingBoxes={incomingBoxes}
             newBoxes={desiredBoxes}
             taskType={taskType}
             setNewBoxes={setNewBoxes}

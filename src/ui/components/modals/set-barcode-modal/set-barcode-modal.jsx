@@ -46,9 +46,9 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
       <Box className={classNames.saveBox}>
         <Button
           success
-          disabled={!files.length}
+          disabled={!files.length && !tmpCode?.length}
           className={classNames.saveBtn}
-          onClick={() => onClickSaveBarcode([files[0]])}
+          onClick={() => onClickSaveBarcode(files)}
         >
           {t(TranslationKey.Save)}
         </Button>

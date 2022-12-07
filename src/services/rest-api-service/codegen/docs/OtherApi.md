@@ -204,7 +204,7 @@ let apiInstance = new TestSwagger.OtherApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
+  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
 };
 apiInstance.apiV1OtherCheckAsinsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
+ **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
 
 ### Return type
 
@@ -313,7 +313,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
+  'body': new TestSwagger.InlineObject63() // InlineObject63 | 
 };
 apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -329,7 +329,7 @@ apiInstance.apiV1OtherFeedbackPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
+ **body** | [**InlineObject63**](InlineObject63.md)|  | [optional] 
 
 ### Return type
 
@@ -685,7 +685,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -701,7 +701,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
 
 ### Return type
 

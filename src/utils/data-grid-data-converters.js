@@ -487,12 +487,7 @@ export const warehouseTasksDataConverter = data =>
       .join(', '),
 
     trackNumber: Array.from(
-      new Set(
-        `${item.boxesBefore.reduce(
-          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.trackingNumberChina + ', '), '')),
-          '',
-        )}`.split(', '),
-      ),
+      new Set(`${item.boxesBefore.reduce((ac, c) => (ac += c.trackNumberText + ', '), '')}`.split(', ')),
     )
       .filter(el => !!parseInt(el))
       .join(', '),
@@ -568,7 +563,7 @@ export const adminBoxesDataConverter = data =>
 
     amazonPrice: calcPriceForBox(item),
 
-    trackingNumberChina: item.items[0]?.order?.trackingNumberChina,
+    trackNumber: item.trackNumberText,
     finalWeight: calcFinalWeightForBox(item),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
 

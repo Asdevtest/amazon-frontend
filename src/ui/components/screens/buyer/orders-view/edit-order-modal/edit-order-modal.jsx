@@ -1,6 +1,6 @@
 import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography} from '@mui/material'
+import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -24,7 +24,9 @@ import {Field} from '@components/field/field'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
@@ -50,6 +52,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    userInfo,
     requestStatus,
     order,
     boxes,
@@ -60,6 +63,7 @@ export const EditOrderModal = observer(
     progressValue,
     volumeWeightCoefficient,
     onSaveOrderItem,
+    onSubmitChangeBoxFields,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -69,11 +73,17 @@ export const EditOrderModal = observer(
 
     const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
 
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
     const [showWarningInfoModal, setShowWarningInfoModal] = useState(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
+
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [trackNumber, setTrackNumber] = useState({text: '', files: []})
 
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -186,7 +196,14 @@ export const EditOrderModal = observer(
           return setOrderFields(tmpNewOrderFieldsState)
 
         case 'SUBMIT':
-          return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+          return onSubmitSaveOrder({
+            order,
+            orderFields,
+            boxesForCreation,
+            photosToLoad,
+            hsCode,
+            trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+          })
       }
     }
 
@@ -195,6 +212,8 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
       `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
@@ -204,7 +223,16 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      // `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+    ]
+
+    const submitDisabledOrderStatuses = [
+      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
@@ -212,7 +240,7 @@ export const EditOrderModal = observer(
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
     const disableSubmit =
-      requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
+      requestStatus === loadingStatuses.isLoading || submitDisabledOrderStatuses.includes(order.status + '')
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -268,7 +296,8 @@ export const EditOrderModal = observer(
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                         `${orderFields.status}` ===
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                       [classNames.green]:
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -289,7 +318,8 @@ export const EditOrderModal = observer(
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                                 `${orderFields.status}` ===
                                   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                               [classNames.green]:
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -320,7 +350,8 @@ export const EditOrderModal = observer(
                           [classNames.orange]:
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
 
                           [classNames.green]:
                             statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
@@ -393,7 +424,14 @@ export const EditOrderModal = observer(
                 setConfirmModalMode(confirmModalModes.SUBMIT)
                 setShowConfirmModal(!showConfirmModal)
               } else {
-                onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+                onSubmitSaveOrder({
+                  order,
+                  orderFields,
+                  boxesForCreation,
+                  photosToLoad,
+                  hsCode,
+                  trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+                })
               }
             }}
           >
@@ -425,15 +463,64 @@ export const EditOrderModal = observer(
         )}
 
         {boxesForCreation.length > 0 && (
-          <BoxesToCreateTable
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            barcodeIsExist={order.product.barCode}
-            newBoxes={boxesForCreation}
-            onRemoveBox={onRemoveForCreationBox}
-            onEditBox={onEditForCreationBox}
-            onClickBarcodeCheckbox={onClickBarcodeCheckbox}
-            onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
-          />
+          <>
+            <BoxesToCreateTable
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              barcodeIsExist={order.product.barCode}
+              newBoxes={boxesForCreation}
+              onRemoveBox={onRemoveForCreationBox}
+              onEditBox={onEditForCreationBox}
+              onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+              onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
+            />
+
+            <div className={classNames.labelsInfoWrapper}>
+              <div>
+                <Field
+                  labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  inputProps={{maxLength: 255}}
+                  label={t(TranslationKey['Set track number for new boxes']) + ':'}
+                  value={trackNumber.text}
+                  onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
+                />
+
+                <Button
+                  className={classNames.trackNumberPhotoBtn}
+                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                >
+                  {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                </Button>
+              </div>
+
+              <div className={classNames.trackNumberPhotoWrapper}>
+                {trackNumber.files[0] ? (
+                  <Avatar
+                    className={classNames.trackNumberPhoto}
+                    src={
+                      typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
+                    }
+                    variant="square"
+                    onClick={() => {
+                      setShowPhotosModal(!showPhotosModal)
+                      setBigImagesOptions({
+                        ...bigImagesOptions,
+
+                        images: [
+                          typeof trackNumber.files[0] === 'string'
+                            ? trackNumber.files[0]
+                            : trackNumber.files[0]?.data_url,
+                        ],
+                      })
+                    }}
+                  />
+                ) : (
+                  <Typography>{'no photo track number...'}</Typography>
+                )}
+              </div>
+            </div>
+          </>
         )}
 
         <div className={classNames.tableWrapper}>
@@ -452,7 +539,9 @@ export const EditOrderModal = observer(
               BodyRow={WarehouseBodyRow}
               renderHeadRow={renderHeadRow()}
               mainProductId={order.product._id}
+              userInfo={userInfo}
               volumeWeightCoefficient={volumeWeightCoefficient}
+              onSubmitChangeBoxFields={onSubmitChangeBoxFields}
             />
           ) : (
             <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
@@ -498,6 +587,25 @@ export const EditOrderModal = observer(
           onClickBtn={() => {
             setShowWarningInfoModal(!showWarningInfoModal)
           }}
+        />
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            title={'Track number'}
+            tmpCode={trackNumber.files}
+            onClickSaveBarcode={value => {
+              setTrackNumber({...trackNumber, files: value})
+              setShowSetBarcodeModal(!showSetBarcodeModal)
+            }}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
         />
       </Box>
     )

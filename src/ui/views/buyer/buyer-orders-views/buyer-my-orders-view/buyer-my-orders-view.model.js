@@ -66,12 +66,18 @@ export class BuyerMyOrdersViewModel {
   showSuccessModal = false
   showOrderPriceMismatchModal = false
   showConfirmModal = false
+  showWarningInfoModal = false
 
   showSuccessModalText = ''
 
   dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
 
   firstRowId = undefined
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   rowCount = 0
   sortModel = []
@@ -85,6 +91,10 @@ export class BuyerMyOrdersViewModel {
   progressValue = 0
   showProgress = false
   readyImages = []
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history, location}) {
     this.history = history
@@ -274,7 +284,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
+  async onSubmitSaveOrder({order, orderFields, boxesForCreation, photosToLoad, hsCode, trackNumber}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -305,7 +315,7 @@ export class BuyerMyOrdersViewModel {
         !isMismatchOrderPrice &&
         orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
       ) {
-        await this.onSubmitCreateBoxes(order, boxesForCreation)
+        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber})
       }
 
       if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
@@ -321,6 +331,10 @@ export class BuyerMyOrdersViewModel {
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`) {
           await BuyerModel.orderTrackNumberIssued(order._id)
+        }
+
+        if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+          await BuyerModel.orderSetInStock(order._id, {refundPrice: 0.1})
         }
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
@@ -344,6 +358,34 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async onSubmitChangeBoxFields(data, inModal) {
+    try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
+      await BoxesModel.editAdditionalInfo(data._id, {
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+      })
+
+      this.getBoxesOfOrder(this.selectedOrder._id)
+
+      !inModal && this.onTriggerOpenModal('showBoxViewModal')
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onSaveOrder(order, updateOrderData) {
     try {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
@@ -357,14 +399,23 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes(order, formFieldsArr) {
+  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber}) {
     try {
       this.error = undefined
 
       this.createBoxesResult = []
 
-      for (let i = 0; i < formFieldsArr.length; i++) {
-        const elementOrderBox = formFieldsArr[i]
+      this.readyImages = []
+      if (trackNumber?.files.length) {
+        await onSubmitPostImages.call(this, {images: trackNumber.files, type: 'readyImages'})
+      }
+
+      for (let i = 0; i < boxesForCreation.length; i++) {
+        const elementOrderBox = {
+          ...boxesForCreation[i],
+          trackNumberText: trackNumber?.text || '',
+          trackNumberFile: this.readyImages.length ? this.readyImages[0] : '',
+        }
 
         await this.onCreateBox(elementOrderBox, order)
 
@@ -428,6 +479,7 @@ export class BuyerMyOrdersViewModel {
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
+
         items: [
           {
             productId: formFields.items[0].product._id,

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject91 model module.
@@ -23,12 +22,11 @@ class InlineObject91 {
     /**
      * Constructs a new <code>InlineObject91</code>.
      * @alias module:model/InlineObject91
-     * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
+     * @param storekeeperComment {String} 
      */
-    constructor(name, conditionsByRegion) { 
+    constructor(storekeeperComment) { 
         
-        InlineObject91.initialize(this, name, conditionsByRegion);
+        InlineObject91.initialize(this, storekeeperComment);
     }
 
     /**
@@ -36,9 +34,8 @@ class InlineObject91 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, conditionsByRegion) { 
-        obj['name'] = name;
-        obj['conditionsByRegion'] = conditionsByRegion;
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -52,32 +49,8 @@ class InlineObject91 {
         if (data) {
             obj = obj || new InlineObject91();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('deliveryTimeInDay')) {
-                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
-            }
-            if (data.hasOwnProperty('etd')) {
-                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
-            }
-            if (data.hasOwnProperty('eta')) {
-                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
-            }
-            if (data.hasOwnProperty('minWeightInKg')) {
-                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
-            }
-            if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -87,57 +60,9 @@ class InlineObject91 {
 }
 
 /**
- * Название тарифа
- * @member {String} name
+ * @member {String} storekeeperComment
  */
-InlineObject91.prototype['name'] = undefined;
-
-/**
- * Описание тарифа
- * @member {String} description
- */
-InlineObject91.prototype['description'] = undefined;
-
-/**
- * Время доставки, днях
- * @member {String} deliveryTimeInDay
- */
-InlineObject91.prototype['deliveryTimeInDay'] = undefined;
-
-/**
- * Дата закрытия приема новых грузов.
- * @member {Date} cls
- */
-InlineObject91.prototype['cls'] = undefined;
-
-/**
- * Ожидаема дата отбытия.
- * @member {Date} etd
- */
-InlineObject91.prototype['etd'] = undefined;
-
-/**
- * Ожидаема дата прибытия.
- * @member {Date} eta
- */
-InlineObject91.prototype['eta'] = undefined;
-
-/**
- * Минимальный вес, в кг
- * @member {Number} minWeightInKg
- */
-InlineObject91.prototype['minWeightInKg'] = undefined;
-
-/**
- * Заархивирован ли тариф
- * @member {Boolean} archive
- */
-InlineObject91.prototype['archive'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
- */
-InlineObject91.prototype['conditionsByRegion'] = undefined;
+InlineObject91.prototype['storekeeperComment'] = undefined;
 
 
 

@@ -16,6 +16,7 @@ import {clientBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
@@ -26,6 +27,8 @@ export class ClientAwaitingBatchesViewModel {
   batches = []
   selectedBatches = []
   curBatch = {}
+
+  uploadedFiles = []
 
   drawerOpen = false
 
@@ -157,9 +160,18 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       await this.loadData()

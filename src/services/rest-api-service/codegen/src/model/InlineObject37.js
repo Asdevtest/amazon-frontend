@@ -22,10 +22,14 @@ class InlineObject37 {
     /**
      * Constructs a new <code>InlineObject37</code>.
      * @alias module:model/InlineObject37
+     * @param storekeeperId {String} GUID storekeeper-a
+     * @param logicsTariffId {String} GUID тарифа доставки
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(storekeeperId, logicsTariffId, amount, productId) { 
         
-        InlineObject37.initialize(this);
+        InlineObject37.initialize(this, storekeeperId, logicsTariffId, amount, productId);
     }
 
     /**
@@ -33,7 +37,11 @@ class InlineObject37 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
+        obj['storekeeperId'] = storekeeperId;
+        obj['logicsTariffId'] = logicsTariffId;
+        obj['amount'] = amount;
+        obj['productId'] = productId;
     }
 
     /**
@@ -62,6 +70,9 @@ class InlineObject37 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
@@ -73,6 +84,9 @@ class InlineObject37 {
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -114,6 +128,12 @@ InlineObject37.prototype['trackNumberText'] = undefined;
 InlineObject37.prototype['trackNumberFile'] = undefined;
 
 /**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject37.PriorityEnum} priority
+ */
+InlineObject37.prototype['priority'] = undefined;
+
+/**
  * GUID пункта назначения.
  * @member {String} destinationId
  */
@@ -138,6 +158,12 @@ InlineObject37.prototype['deliveryCostToTheWarehouse'] = undefined;
 InlineObject37.prototype['clientComment'] = undefined;
 
 /**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject37.prototype['productId'] = undefined;
+
+/**
  * Массив изображений.
  * @member {Array.<String>} images
  */
@@ -145,6 +171,45 @@ InlineObject37.prototype['images'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject37['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

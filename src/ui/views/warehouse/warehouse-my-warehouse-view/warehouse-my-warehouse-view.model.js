@@ -104,6 +104,10 @@ export class WarehouseMyWarehouseViewModel {
     return UserModel.userInfo
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -124,6 +128,10 @@ export class WarehouseMyWarehouseViewModel {
         this.currentData = this.getCurrentData()
       },
     )
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
   }
 
   async updateColumnsModel() {
@@ -224,9 +232,18 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         storekeeperComment: data.storekeeperComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       this.getBoxesMy()
@@ -417,7 +434,7 @@ export class WarehouseMyWarehouseViewModel {
         {
           ...boxData,
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
-          items: isMultipleEdit ? boxData.items : getNewItems,
+          items: isMultipleEdit ? boxData.items : getNewItems(),
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
         },
         updateBoxWhiteList,

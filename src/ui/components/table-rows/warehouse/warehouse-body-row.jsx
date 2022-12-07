@@ -158,9 +158,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            <TableCell className={classNames.cellValueNumber}>
-              {order.order.trackingNumberChina || t(TranslationKey.Missing)}
-            </TableCell>
+            {orderIndex === 0 && (
+              <TableCell className={classNames.cellValueNumber}>
+                {box.trackNumberText || t(TranslationKey.Missing)}
+              </TableCell>
+            )}
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>

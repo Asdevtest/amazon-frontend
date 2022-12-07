@@ -53,6 +53,12 @@ class ApiV1AdminsTasksLightBoxes {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [Object]);
             }
@@ -74,6 +80,18 @@ ApiV1AdminsTasksLightBoxes.prototype['_id'] = undefined;
  * @member {Number} amount
  */
 ApiV1AdminsTasksLightBoxes.prototype['amount'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+ApiV1AdminsTasksLightBoxes.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+ApiV1AdminsTasksLightBoxes.prototype['trackNumberFile'] = undefined;
 
 /**
  * @member {Array.<Object>} items

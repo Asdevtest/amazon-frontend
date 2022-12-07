@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Checkbox, Link, Tooltip, Typography} from '@mui/material'
+import {Checkbox, Link, Typography} from '@mui/material'
 
 import React from 'react'
 
@@ -104,19 +104,6 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subTitle}>{'item'}</Typography>
                 <Typography className={classNames.subValue}>{item.order.item}</Typography>
               </div>
-
-              <Field
-                // containerClasses={classNames.countSubWrapper}
-                label={t(TranslationKey['Track number'])}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Tooltip title={item.order.trackingNumberChina}>
-                    <Typography className={classNames.trackNum}>
-                      {item.order.trackingNumberChina || t(TranslationKey['Not available'])}
-                    </Typography>
-                  </Tooltip>
-                }
-              />
 
               {/* <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Track number'])}</Typography>
@@ -301,28 +288,33 @@ export const BoxItemCard = ({
                   />
                 )}
 
-                {isNewBox && !readOnly && boxIndex === 0 && index === 0 && taskType !== 'merge' && taskType !== 'edit' && (
-                  <Field
-                    oneLine
-                    containerClasses={classNames.checkboxContainer}
-                    labelClasses={classNames.label}
-                    label={t(TranslationKey['Apply to all boxes'])}
-                    tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
-                    inputComponent={
-                      <Button
-                        className={classNames.applyButton}
-                        onClick={() =>
-                          onApplyGluedBarcodeToAllBoxes(
-                            item.isBarCodeAlreadyAttachedByTheSupplier,
-                            item.isBarCodeAttachedByTheStorekeeper,
-                          )
-                        }
-                      >
-                        {t(TranslationKey.Apply)}
-                      </Button>
-                    }
-                  />
-                )}
+                {isNewBox &&
+                  !readOnly &&
+                  boxIndex === 0 &&
+                  index === 0 &&
+                  taskType !== 'merge' &&
+                  taskType !== 'edit' && (
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      labelClasses={classNames.label}
+                      label={t(TranslationKey['Apply to all boxes'])}
+                      tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                      inputComponent={
+                        <Button
+                          className={classNames.applyButton}
+                          onClick={() =>
+                            onApplyGluedBarcodeToAllBoxes(
+                              item.isBarCodeAlreadyAttachedByTheSupplier,
+                              item.isBarCodeAttachedByTheStorekeeper,
+                            )
+                          }
+                        >
+                          {t(TranslationKey.Apply)}
+                        </Button>
+                      }
+                    />
+                  )}
               </div>
             )}
           </div>

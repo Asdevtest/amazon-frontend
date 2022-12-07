@@ -50,9 +50,9 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
 
       <Box className={classNames.saveBox}>
         <Button
-          disabled={!files.length}
+          disabled={!files.length && !tmpShippingLabel?.length}
           className={classNames.actionButton}
-          onClick={() => onClickSaveShippingLabel([files[0]])}
+          onClick={() => onClickSaveShippingLabel(files)}
         >
           {t(TranslationKey.Save)}
         </Button>

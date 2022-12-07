@@ -17,6 +17,7 @@ import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ClientReadyBoxesViewModel {
   history = undefined
@@ -31,13 +32,15 @@ export class ClientReadyBoxesViewModel {
   selectedBoxes = []
   currentStorekeeper = undefined
   storekeepersData = []
-  destinations = []
+  clientDestinations = []
 
   curDestination = undefined
 
   showBoxViewModal = false
   showConfirmModal = false
   showWarningInfoModal = false
+
+  uploadedFiles = []
 
   sortModel = []
   filterModel = {items: []}
@@ -197,10 +200,10 @@ export class ClientReadyBoxesViewModel {
 
       this.getBoxesMy()
 
-      const destinations = await ClientModel.getDestinations()
+      const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
       runInAction(() => {
-        this.destinations = destinations
+        this.clientDestinations = clientDestinations
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -212,9 +215,18 @@ export class ClientReadyBoxesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       this.loadData()

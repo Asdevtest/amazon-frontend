@@ -20,7 +20,8 @@ Method | HTTP request | Description
 [**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
-[**apiV1BoxesGroupedGroupsGet**](BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить сгруппированные коробки
+[**apiV1BoxesGroupedGet**](BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
+[**apiV1BoxesGroupedGroupsGet**](BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить группы
 [**apiV1BoxesManyPatch**](BoxesApi.md#apiV1BoxesManyPatch) | **PATCH** /api/v1/boxes/many | # Изменить несколько коробок сторкипером.
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 [**apiV1BoxesPagClientsLightGet**](BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
@@ -909,13 +910,71 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1BoxesGroupedGroupsGet
+## apiV1BoxesGroupedGet
 
-> InlineResponse20013 apiV1BoxesGroupedGroupsGet(opts)
+> InlineResponse20013 apiV1BoxesGroupedGet(opts)
 
 # Получить сгруппированные коробки
 
 ## Получить сгруппированные коробки
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let opts = {
+  'additionalGroupParameter': "additionalGroupParameter_example", // String |                Пример: /boxes/grouped?fields=orderId,logicsTariffId,destinationId,amount             
+  'limit': 56, // Number | Сколько вернуть полей
+  'offset': 56, // Number | Сколько отступить от начала полей
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesGroupedGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **additionalGroupParameter** | **String**|                Пример: /boxes/grouped?fields&#x3D;orderId,logicsTariffId,destinationId,amount              | [optional] 
+ **limit** | **Number**| Сколько вернуть полей | [optional] 
+ **offset** | **Number**| Сколько отступить от начала полей | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20013**](InlineResponse20013.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BoxesGroupedGroupsGet
+
+> InlineResponse20013 apiV1BoxesGroupedGroupsGet(opts)
+
+# Получить группы
+
+## Получить группы
 
 ### Example
 

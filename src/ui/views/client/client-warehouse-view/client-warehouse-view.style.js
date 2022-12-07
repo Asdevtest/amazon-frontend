@@ -71,6 +71,7 @@ export const styles = theme => ({
     marginBottom: '10px',
     display: 'flex',
     gap: '10px',
+    flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {

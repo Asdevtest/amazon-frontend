@@ -20,6 +20,7 @@ import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ClientBoxesTariffsNotificationsViewModel {
   history = undefined
@@ -48,6 +49,8 @@ export class ClientBoxesTariffsNotificationsViewModel {
     isWarning: false,
     title: '',
   }
+
+  uploadedFiles = []
 
   sortModel = []
   filterModel = {items: []}
@@ -117,9 +120,18 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
+      this.uploadedFiles = []
+
+      if (data.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+      }
+
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
+
+        trackNumberText: data.trackNumberText,
+        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
       this.loadData()

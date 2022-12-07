@@ -118,6 +118,11 @@ class BuyerModelStatic {
     return response
   }
 
+  orderSetInStock = async (id, data) => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersSetInStockGuidPatch(id, {body: data})
+    return response
+  }
+
   returnOrder = async (id, data) => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidReturnOrderPatch(id, {
       body: data,

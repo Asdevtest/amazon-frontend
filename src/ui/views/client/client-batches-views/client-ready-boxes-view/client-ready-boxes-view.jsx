@@ -41,7 +41,7 @@ export class ClientReadyBoxesViewRaw extends Component {
   render() {
     const {
       destinationsFavourites,
-      destinations,
+      clientDestinations,
       curDestination,
       userInfo,
       warningInfoModalSettings,
@@ -127,18 +127,50 @@ export class ClientReadyBoxesViewRaw extends Component {
                 ))}
               </div>
 
+              {/* <div className={classNames.boxesFiltersWrapper}>
+                <Button
+                  disabled={!curDestination?._id}
+                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+                  variant="text"
+                  onClick={onClickDestinationBtn}
+                >
+                  {'All destinations'}
+                </Button>
+
+                {clientDestinations
+                  .slice()
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(destination =>
+                    destination.boxesCount !== 0 ? (
+                      <Button
+                        key={destination._id}
+                        disabled={curDestination?._id === destination._id}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
+                        })}
+                        variant="text"
+                        onClick={() => onClickDestinationBtn(destination)}
+                      >
+                        {destination.name}
+                      </Button>
+                    ) : null,
+                  )}
+              </div> */}
+
               <WithSearchSelect
                 selectedItemName={
-                  (!curDestination?._id && t(TranslationKey['All Products'])) || (curDestination && curDestination.name)
+                  (!curDestination?._id && t(TranslationKey['All destinations'])) ||
+                  (curDestination && curDestination.name)
                 }
-                data={destinations.filter(shop => curDestination?.id !== shop._id)}
+                data={clientDestinations.filter(shop => curDestination?.id !== shop._id)}
                 searchFields={['name']}
                 favourites={destinationsFavourites}
                 firstItems={
                   <>
                     {!!curDestination?._id && (
                       <Button className={classNames.button} variant="text" onClick={onClickDestinationBtn}>
-                        {t(TranslationKey['All Products'])}
+                        {t(TranslationKey['All destinations'])}
                       </Button>
                     )}
                   </>
