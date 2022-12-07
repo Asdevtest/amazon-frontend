@@ -26,12 +26,16 @@ export class ClientExchangePrivateLabelViewModel {
   showSuccessModal = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   async loadData() {
@@ -58,10 +62,14 @@ export class ClientExchangePrivateLabelViewModel {
           .sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt'))
       })
     } catch (error) {
-      this.productsVacant = []
+      runInAction(() => {
+        this.productsVacant = []
+      })
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -82,7 +90,9 @@ export class ClientExchangePrivateLabelViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -95,7 +105,9 @@ export class ClientExchangePrivateLabelViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -126,7 +138,9 @@ export class ClientExchangePrivateLabelViewModel {
   async onClickBuyProductBtn(shops) {
     try {
       await ClientModel.makePayments([this.productToPay._id])
-      this.selectedShops = shops
+      runInAction(() => {
+        this.selectedShops = shops
+      })
 
       await this.onSaveProductData()
       this.onTriggerOpenModal('showConfirmPayModal')
@@ -138,22 +152,30 @@ export class ClientExchangePrivateLabelViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
 
   setProductToPay(selectedProduct) {
-    this.productToPay = selectedProduct
+    runInAction(() => {
+      this.productToPay = selectedProduct
+    })
 
     this.onTriggerOpenModal('showConfirmPayModal')
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

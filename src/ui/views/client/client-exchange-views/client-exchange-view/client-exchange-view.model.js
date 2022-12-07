@@ -76,7 +76,9 @@ export class ClientExchangeViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -97,7 +99,9 @@ export class ClientExchangeViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onDoubleClickBarcode = item => {
@@ -106,7 +110,9 @@ export class ClientExchangeViewModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
 
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -122,37 +128,49 @@ export class ClientExchangeViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_EXCHANGE]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   getCurrentData() {
@@ -190,9 +208,13 @@ export class ClientExchangeViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.productsVacant = []
+      runInAction(() => {
+        this.productsVacant = []
+      })
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -213,16 +235,18 @@ export class ClientExchangeViewModel {
   // }
 
   onClickLaunchPrivateLabelBtn(product) {
-    this.selectedProduct = product
-    // this.getProductById(product)
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['Purchasing a product card']),
-      confirmMessage: `${t(TranslationKey['You will be charged'])} ${
-        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
-      }`,
-      onClickConfirm: () => this.onClickBuyProductBtn(),
-    }
+    runInAction(() => {
+      this.selectedProduct = product
+      // this.getProductById(product)
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['Purchasing a product card']),
+        confirmMessage: `${t(TranslationKey['You will be charged'])} ${
+          this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+        }`,
+        onClickConfirm: () => this.onClickBuyProductBtn(),
+      }
+    })
 
     this.onTriggerOpenModal('showSelectShopsModal')
   }
@@ -235,13 +259,17 @@ export class ClientExchangeViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async createOrder(orderObject) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
@@ -273,11 +301,15 @@ export class ClientExchangeViewModel {
         await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
       }
 
-      this.selectedProduct = {}
+      runInAction(() => {
+        this.selectedProduct = {}
+      })
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
       throw new Error('Failed to create order')
     }
   }
@@ -305,7 +337,9 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -330,7 +364,9 @@ export class ClientExchangeViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -339,7 +375,9 @@ export class ClientExchangeViewModel {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
-      this.selectedShops = shops
+      runInAction(() => {
+        this.selectedShops = shops
+      })
 
       await this.onSaveProductData()
       this.onTriggerOpenModal('showSelectShopsModal')
@@ -349,12 +387,16 @@ export class ClientExchangeViewModel {
       this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      this.showWarningModalText = t(TranslationKey["You can't buy the product"])
+      runInAction(() => {
+        this.showWarningModalText = t(TranslationKey["You can't buy the product"])
+      })
       this.onTriggerOpenModal('showWarningModal')
 
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -380,19 +422,27 @@ export class ClientExchangeViewModel {
   }
 
   setDataToPay(data) {
-    this.dataToPay = data
+    runInAction(() => {
+      this.dataToPay = data
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onChangeManager(e) {
-    this.modalManagerIndex = Number(e.target.value)
+    runInAction(() => {
+      this.modalManagerIndex = Number(e.target.value)
+    })
   }
 
   onChangeModalQty(e) {
-    this.modalQty = Number(e.target.value)
+    runInAction(() => {
+      this.modalQty = Number(e.target.value)
+    })
   }
 
   onClickUsername() {
@@ -402,32 +452,40 @@ export class ClientExchangeViewModel {
   onClickCancelBtn = () => {
     this.onTriggerOpenModal('showOrderModal')
 
-    this.selectedProduct = {}
+    runInAction(() => {
+      this.selectedProduct = {}
+    })
 
     this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
     this.onTriggerOpenModal('showWarningModal')
   }
 
   onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
-    this.ordersDataStateToSubmit = ordersDataState[0]
+    runInAction(() => {
+      this.ordersDataStateToSubmit = ordersDataState[0]
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-        ? t(TranslationKey['Pending order will be created'])
-        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onLaunchPrivateLabel(),
-    }
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+        onClickConfirm: () => this.onLaunchPrivateLabel(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

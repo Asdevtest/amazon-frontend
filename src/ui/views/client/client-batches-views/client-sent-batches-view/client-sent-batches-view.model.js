@@ -53,7 +53,9 @@ export class ClientSentBatchesViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -84,40 +86,54 @@ export class ClientSentBatchesViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BATCHES]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedBatches = model
+    runInAction(() => {
+      this.selectedBatches = model
+    })
   }
 
   onChangeNameSearchValue(e) {
@@ -174,12 +190,14 @@ export class ClientSentBatchesViewModel {
 
       await this.loadData()
 
-      this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
+      runInAction(() => {
+        this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -188,11 +206,15 @@ export class ClientSentBatchesViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async getBatches() {
@@ -211,13 +233,17 @@ export class ClientSentBatchesViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async setCurrentOpenedBatch(row) {
     try {
-      this.curBatch = row
+      runInAction(() => {
+        this.curBatch = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -227,11 +253,15 @@ export class ClientSentBatchesViewModel {
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

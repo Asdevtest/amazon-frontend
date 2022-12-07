@@ -44,7 +44,9 @@ export class ClientOrdersNotificationsViewModel {
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -57,16 +59,20 @@ export class ClientOrdersNotificationsViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.orders = clientOrdersNotificationsDataConverter(
-        this.baseNoConvertedOrders.filter(
-          order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-        ),
-      ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      runInAction(() => {
+        this.orders = clientOrdersNotificationsDataConverter(
+          this.baseNoConvertedOrders.filter(
+            order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+          ),
+        ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -84,61 +90,79 @@ export class ClientOrdersNotificationsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_ORDERS_NOTIFICATIONS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   onTriggerOpenConfirmModal(row) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
-        row.totalPriceChanged - row.totalPrice,
-        2,
-      )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
-      onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
+          row.totalPriceChanged - row.totalPrice,
+          2,
+        )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
+        onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
+      }
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenRejectModal(row) {
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Do you want to cancel?']),
-      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        message: t(TranslationKey['Do you want to cancel?']),
+        onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+      }
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
   }
 
   getCurrentData() {
@@ -156,7 +180,9 @@ export class ClientOrdersNotificationsViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -175,7 +201,9 @@ export class ClientOrdersNotificationsViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -188,11 +216,15 @@ export class ClientOrdersNotificationsViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async onClickConfirmOrderPriceChangeBtn(order) {
@@ -223,6 +255,8 @@ export class ClientOrdersNotificationsViewModel {
   }
 
   setLoadingStatus(loadingStatus) {
-    this.loadingStatus = loadingStatus
+    runInAction(() => {
+      this.loadingStatus = loadingStatus
+    })
   }
 }

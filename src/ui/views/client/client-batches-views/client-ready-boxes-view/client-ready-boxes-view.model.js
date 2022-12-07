@@ -59,7 +59,9 @@ export class ClientReadyBoxesViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -80,7 +82,9 @@ export class ClientReadyBoxesViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeNameSearchValue(e) {
@@ -105,36 +109,48 @@ export class ClientReadyBoxesViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientBoxesReadyToBatchViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = clientBoxesReadyToBatchViewColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedBoxes = model
+    runInAction(() => {
+      this.selectedBoxes = model
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   // getCurrentData() {
@@ -161,9 +177,10 @@ export class ClientReadyBoxesViewModel {
   }
 
   onClickStorekeeperBtn(storekeeper) {
-    this.selectedBoxes = []
-
-    this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    runInAction(() => {
+      this.selectedBoxes = []
+      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    })
 
     this.getBoxesMy()
   }
@@ -239,10 +256,12 @@ export class ClientReadyBoxesViewModel {
       this.loadData()
 
       this.onTriggerOpenModal('showBoxViewModal')
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -251,16 +270,22 @@ export class ClientReadyBoxesViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async setCurrentOpenedBox(row) {
     try {
-      this.curBox = row
+      runInAction(() => {
+        this.curBox = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -270,31 +295,41 @@ export class ClientReadyBoxesViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 
   async returnBoxesToStock() {
     try {
       await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
-      this.selectedBoxes = []
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey.Error),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey.Error),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     }
@@ -320,9 +355,11 @@ export class ClientReadyBoxesViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
 
-      this.boxesMy = []
+        this.boxesMy = []
+      })
     }
   }
 }

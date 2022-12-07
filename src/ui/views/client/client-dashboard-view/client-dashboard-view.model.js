@@ -40,45 +40,65 @@ export class ClientDashboardViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onClickAddMoney() {
-    this.transferModalSettings.isWithdraw = false
+    runInAction(() => {
+      this.transferModalSettings.isWithdraw = false
+    })
     this.onTriggerOpenModal('showTransferModal')
   }
 
   onClickWithdrawMoney() {
-    this.transferModalSettings.isWithdraw = true
+    runInAction(() => {
+      this.transferModalSettings.isWithdraw = true
+    })
     this.onTriggerOpenModal('showTransferModal')
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onChangeCategory(index) {
-    this.activeCategory = index
+    runInAction(() => {
+      this.activeCategory = index
+    })
   }
 
   onChangeSubCategory(index) {
-    this.activeSubCategory = index
+    runInAction(() => {
+      this.activeSubCategory = index
+    })
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+      })
 
       this.getElementCount()
 
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
       console.log(error)
     }
   }
@@ -109,7 +129,9 @@ export class ClientDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
