@@ -187,6 +187,25 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  setOrderStatus = pathname => {
+    if (pathname) {
+      switch (pathname) {
+        case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
+          return '20'
+        case routsPathes.BUYER_MY_ORDERS_INBOUND:
+          return '25'
+        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
+          return '27'
+        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
+          return '30, 35, 40'
+        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
+          return ''
+        default:
+          return '15, 19'
+      }
+    }
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -583,6 +602,7 @@ export class BuyerMyOrdersViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        status: this.setOrderStatus(this.history.location.pathname),
       })
 
       runInAction(() => {
