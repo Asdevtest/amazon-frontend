@@ -842,7 +842,7 @@ export default class ClientApi {
      * # Получить заказы текущего клиента.
      * ## Получить заказы текущего клиента.   
      * @param {Object} opts Optional parameters
-     * @param {String} opts.status GUID сторкипера
+     * @param {String} opts.status Статусы заказов, по которым идет фильтрация, разделенные запятыми
      * @param {String} opts.filters                Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -886,7 +886,7 @@ export default class ClientApi {
      * # Получить заказы текущего клиента.
      * ## Получить заказы текущего клиента.   
      * @param {Object} opts Optional parameters
-     * @param {String} opts.status GUID сторкипера
+     * @param {String} opts.status Статусы заказов, по которым идет фильтрация, разделенные запятыми
      * @param {String} opts.filters                Примеры: /clients/pag/orders?filtersProduct=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /clients/pag/orders?filtersProduct=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
