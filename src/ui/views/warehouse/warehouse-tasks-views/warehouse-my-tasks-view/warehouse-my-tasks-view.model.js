@@ -378,6 +378,8 @@ export class WarehouseVacantViewModel {
               'items',
               'images',
               'fitsInitialDimensions',
+              'trackNumberText',
+              'trackNumberFile',
             ],
           )
 

@@ -334,7 +334,7 @@ export class BuyerMyOrdersViewModel {
         }
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
-          await BuyerModel.orderSetInStock(order._id, {refundPrice: 0.1})
+          await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
         }
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {

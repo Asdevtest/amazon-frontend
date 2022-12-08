@@ -21,6 +21,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -67,11 +68,24 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    const deliveredGoodsCount =
+      boxes
+        ?.filter(el => !el.isDraft)
+        .reduce(
+          (acc, cur) =>
+            (acc +=
+              cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
+              cur.amount),
+          0,
+        ) || 0
+
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
 
     const [showConfirmModal, setShowConfirmModal] = useState(false)
 
     const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
+
+    const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
@@ -148,12 +162,17 @@ export const EditOrderModal = observer(
       totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
       yuanToDollarRate: order?.yuanToDollarRate || 6.3,
       item: order?.item || 0,
+      tmpRefundToClient: 0,
     })
 
     const setOrderField = filedName => e => {
       const newOrderFieldsState = {...orderFields}
 
-      if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate', 'item'].includes(filedName)) {
+      if (
+        ['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate', 'item', 'tmpRefundToClient'].includes(
+          filedName,
+        )
+      ) {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
           return
         }
@@ -167,8 +186,15 @@ export const EditOrderModal = observer(
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
 
-        setConfirmModalMode(confirmModalModes.STATUS)
-        setShowConfirmModal(!showConfirmModal)
+        console.log('e.target.value', e.target.value)
+
+        if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` && deliveredGoodsCount < order.amount) {
+          setShowCheckQuantityModal(!showCheckQuantityModal)
+        } else {
+          setConfirmModalMode(confirmModalModes.STATUS)
+          setShowConfirmModal(!showConfirmModal)
+        }
+
         return
       } else {
         newOrderFieldsState[filedName] = e.target.value
@@ -232,7 +258,7 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-      `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+      // `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
@@ -339,7 +365,12 @@ export const EditOrderModal = observer(
                   {Object.keys({
                     ...getObjectFilteredByKeyArrayWhiteList(
                       OrderStatusByCode,
-                      allowOrderStatuses.filter(el => el >= order.status),
+                      allowOrderStatuses.filter(
+                        el =>
+                          el >= order.status ||
+                          (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                            order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
+                      ),
                     ),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
@@ -363,7 +394,11 @@ export const EditOrderModal = observer(
                           [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
                         }),
                       )}
-                      disabled={disabledOrderStatuses.includes(statusCode)}
+                      disabled={
+                        disabledOrderStatuses.includes(statusCode) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                          order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
+                      }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
                     </MenuItem>
@@ -376,7 +411,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
-            boxes={boxes}
+            deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
             hsCode={hsCode}
             setHsCode={setHsCode}
@@ -607,6 +642,27 @@ export const EditOrderModal = observer(
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
         />
+
+        <Modal
+          openModal={showCheckQuantityModal}
+          setOpenModal={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
+        >
+          <CheckQuantityForm
+            withRefund
+            title={t(TranslationKey['Setting the stock status'])}
+            description={t(TranslationKey['Enter the amount of goods that should have entered the warehouse']) + ':'}
+            acceptText={t(TranslationKey.Continue) + '?'}
+            comparisonQuantity={deliveredGoodsCount}
+            onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
+            onSubmit={({refundValue}) => {
+              setTmpNewOrderFieldsState({...tmpNewOrderFieldsState, tmpRefundToClient: refundValue})
+
+              setConfirmModalMode(confirmModalModes.STATUS)
+              setShowConfirmModal(!showConfirmModal)
+              setShowCheckQuantityModal(!showCheckQuantityModal)
+            }}
+          />
+        </Modal>
       </Box>
     )
   },

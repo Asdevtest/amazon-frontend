@@ -27,7 +27,6 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
-  boxes,
   disableSubmit,
   hsCode,
   setHsCode,
@@ -38,6 +37,7 @@ export const SelectFields = ({
   showProgress,
   progressValue,
   setPhotosToLoad,
+  deliveredGoodsCount,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -52,17 +52,6 @@ export const SelectFields = ({
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const deliveredGoodsCount =
-    boxes
-      ?.filter(el => !el.isDraft)
-      .reduce(
-        (acc, cur) =>
-          (acc +=
-            cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
-            cur.amount),
-        0,
-      ) || 0
 
   return (
     <Grid container justifyContent="space-around" className={classNames.container}>
@@ -432,7 +421,7 @@ export const SelectFields = ({
           />
         </Box>
 
-        <Box>
+        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <div className={classNames.barCodeWrapper}>
             <div className={classNames.barCodeLinkWrapper}>
               <div>
@@ -458,6 +447,18 @@ export const SelectFields = ({
               </div>
             </div>
           </div>
+
+          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
+            <Field
+              disabled={disableSubmit}
+              value={orderFields.tmpRefundToClient}
+              label={t(TranslationKey['Return to Client']) + ', $'}
+              labelClasses={classNames.label}
+              inputClasses={classNames.input}
+              inputProps={{maxLength: 50}}
+              onChange={setOrderField('tmpRefundToClient')}
+            />
+          ) : null}
         </Box>
 
         <div>

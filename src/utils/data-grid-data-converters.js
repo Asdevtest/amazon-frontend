@@ -489,8 +489,8 @@ export const warehouseTasksDataConverter = data =>
     trackNumber: Array.from(
       new Set(`${item.boxesBefore.reduce((ac, c) => (ac += c.trackNumberText + ', '), '')}`.split(', ')),
     )
-      .filter(el => !!parseInt(el))
-      .join(', '),
+      .join(', ')
+      .slice(0, -2),
   }))
 
 export const adminProductsDataConverter = data =>
