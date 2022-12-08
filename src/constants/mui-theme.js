@@ -149,6 +149,15 @@ export const lightTheme = createTheme({
             opacity: 0.7,
           },
         },
+
+        'input[type="number"]::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0,
+        },
+        'input[type="number"]::-webkit-inner-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0,
+        },
       },
     },
   },
@@ -441,6 +450,29 @@ export const darkTheme = createTheme({
         '::-webkit-scrollbar-corner': {
           backgroundColor: '#21212B',
         },
+
+        'input[type="number"]::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0,
+        },
+        'input[type="number"]::-webkit-inner-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: 0,
+        },
+
+        // 'input[type='number']': {
+        //     appearance: 'none',
+        //     '-moz-appearance': 'textfield',
+        // },
+
+        // 'input[type="number"]:hover': {
+        //     appearance: 'none',
+        //     '-moz-appearance': 'textfield',
+        // },
+        // 'input[type="number"]:focus': {
+        //     appearance: 'none',
+        //     '-moz-appearance': 'textfield',
+        // },
 
         textarea: {
           cursor: 'auto',

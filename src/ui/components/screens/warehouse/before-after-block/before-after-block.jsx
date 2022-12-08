@@ -343,6 +343,7 @@ const Box = observer(
                       className={cx(classNames.demensionsWrapper, {
                         [classNames.editAccent]:
                           isNewBox &&
+                          (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) &&
                           (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
                             box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
                             box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
@@ -739,7 +740,7 @@ const NewBoxes = observer(
               readOnly={readOnly}
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}
-              referenceEditingBox={referenceEditingBoxes[boxIndex]}
+              referenceEditingBox={referenceEditingBoxes[0]}
               box={box}
               curBox={curBox}
               setCurBox={setCurBox}

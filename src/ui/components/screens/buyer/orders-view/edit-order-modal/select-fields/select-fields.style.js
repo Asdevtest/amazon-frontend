@@ -100,6 +100,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
   barCodeWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',

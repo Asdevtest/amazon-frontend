@@ -479,12 +479,14 @@ export const BoxViewForm = observer(
                 />
 
                 <Field
-                  disabled
+                  disabled={!isEdit || isBuyer}
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.inputField}
                   inputProps={{maxLength: 255}}
                   label={'FBA number'}
+                  value={formFields.fbaNumber}
+                  onChange={onChangeField('fbaNumber')}
                 />
               </div>
 

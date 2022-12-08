@@ -7,6 +7,7 @@ import React, {useRef, useState, useEffect} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {appVersion} from '@constants/app-version'
 import {navbarConfig} from '@constants/navbar'
 import {Feedback} from '@constants/navbar-svg-icons'
 import {UiTheme} from '@constants/themes'
@@ -98,6 +99,9 @@ export const Navbar = observer(
             )}
           </List>
         ) : null}
+
+        <Typography className={classNames.appVersion}>{appVersion}</Typography>
+
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>

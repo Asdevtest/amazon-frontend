@@ -22,10 +22,14 @@ class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
      * @alias module:model/InlineObject38
+     * @param storekeeperId {String} GUID storekeeper-a
+     * @param logicsTariffId {String} GUID тарифа доставки
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(storekeeperId, logicsTariffId, amount, productId) { 
         
-        InlineObject38.initialize(this);
+        InlineObject38.initialize(this, storekeeperId, logicsTariffId, amount, productId);
     }
 
     /**
@@ -33,7 +37,11 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
+        obj['storekeeperId'] = storekeeperId;
+        obj['logicsTariffId'] = logicsTariffId;
+        obj['amount'] = amount;
+        obj['productId'] = productId;
     }
 
     /**
@@ -77,8 +85,14 @@ class InlineObject38 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
             }
         }
         return obj;
@@ -147,10 +161,22 @@ InlineObject38.prototype['deliveryCostToTheWarehouse'] = undefined;
 InlineObject38.prototype['clientComment'] = undefined;
 
 /**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject38.prototype['productId'] = undefined;
+
+/**
  * Массив изображений.
  * @member {Array.<String>} images
  */
 InlineObject38.prototype['images'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject38.prototype['expressChinaDelivery'] = undefined;
 
 
 

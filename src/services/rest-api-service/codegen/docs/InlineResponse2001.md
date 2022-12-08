@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
 **buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **amount** | **Number** | кол-во | [optional] 
+**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
 **createdById** | **String** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 **updatedAt** | **String** |  | [optional] 

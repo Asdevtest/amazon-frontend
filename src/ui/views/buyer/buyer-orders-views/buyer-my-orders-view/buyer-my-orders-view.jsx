@@ -30,7 +30,11 @@ import {styles} from './buyer-my-orders-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
-const attentionStatuses = [OrderStatusByKey[OrderStatus.AT_PROCESS], OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]]
+const attentionStatuses = [
+  OrderStatusByKey[OrderStatus.AT_PROCESS],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+]
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -92,7 +96,8 @@ class BuyerMyOrdersViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => attentionStatuses.includes(params.row.status) && classNames.attentionRow
+    const getRowClassName = params =>
+      attentionStatuses.includes(params.row.originalData.status) && classNames.attentionRow
 
     return (
       <React.Fragment>

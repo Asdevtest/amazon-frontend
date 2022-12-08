@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject81 from '../model/InlineObject81';
 import InlineObject82 from '../model/InlineObject82';
+import InlineObject83 from '../model/InlineObject83';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20044 from '../model/InlineResponse20044';
-import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -265,7 +265,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject82} opts.body 
+     * @param {module:model/InlineObject83} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -304,7 +304,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject82} opts.body 
+     * @param {module:model/InlineObject83} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -320,8 +320,8 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject81} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
+     * @param {module:model/InlineObject82} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2016} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -340,7 +340,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2016;
       return this.apiClient.callApi(
         '/api/v1/researchers/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -353,8 +353,8 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject81} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
+     * @param {module:model/InlineObject82} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2016}
      */
     apiV1ResearchersProductsPost(opts) {
       return this.apiV1ResearchersProductsPostWithHttpInfo(opts)

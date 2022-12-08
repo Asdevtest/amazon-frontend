@@ -297,6 +297,7 @@ export const EditBoxStorekeeperForm = observer(
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
       clientComment: formItem?.clientComment || '',
+      storekeeperTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
@@ -798,7 +799,6 @@ export const EditBoxStorekeeperForm = observer(
           />
 
           <Field
-            disabled
             multiline
             className={classNames.multiline}
             minRows={25}
@@ -806,7 +806,8 @@ export const EditBoxStorekeeperForm = observer(
             inputProps={{maxLength: 1000}}
             label={t(TranslationKey['Write a comment on the task'])}
             placeholder={t(TranslationKey.Comment)}
-            // onChange={setFormField('clientComment')}
+            value={boxFields.storekeeperTaskComment}
+            onChange={setFormField('storekeeperTaskComment')}
           />
         </div>
 

@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2016 {
     /**
      * Constructs a new <code>InlineResponse2016</code>.
+     * Успешный ответ
      * @alias module:model/InlineResponse2016
      */
     constructor() { 
@@ -47,11 +48,8 @@ class InlineResponse2016 {
         if (data) {
             obj = obj || new InlineResponse2016();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('wsUrl')) {
-                obj['wsUrl'] = ApiClient.convertToType(data['wsUrl'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -61,16 +59,10 @@ class InlineResponse2016 {
 }
 
 /**
- * Тестовый статус запуска
- * @member {String} status
+ * guid созданного объекта
+ * @member {String} guid
  */
-InlineResponse2016.prototype['status'] = undefined;
-
-/**
- * Строка подключения к WS соединению
- * @member {String} wsUrl
- */
-InlineResponse2016.prototype['wsUrl'] = undefined;
+InlineResponse2016.prototype['guid'] = undefined;
 
 
 

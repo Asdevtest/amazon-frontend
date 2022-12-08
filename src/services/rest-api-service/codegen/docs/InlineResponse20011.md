@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **deliveryTotalPrice** | **Number** | Итого за доставку. | [optional] 
 **deliveryTotalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 

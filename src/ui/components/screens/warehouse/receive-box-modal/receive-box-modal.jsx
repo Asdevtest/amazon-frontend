@@ -15,6 +15,7 @@ import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
 // import {Field} from '@components/field/field'
 import {AddFilesForm} from '@components/forms/add-files-form'
+import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -465,7 +466,13 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
+  const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
+
   const isManyItemsInSomeBox = boxesBefore.some(box => box.items.length > 1)
+
+  const noTariffInSomeBox = boxesBefore.some(box => !box.logicsTariff)
+
+  const receiveNotFromBuyer = isManyItemsInSomeBox || noTariffInSomeBox
 
   const emptyProducts = boxesBefore[0].items.map(product => ({...product, amount: ''}))
 
@@ -740,7 +747,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     <div className={classNames.root}>
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
-        {!isManyItemsInSomeBox && (
+        {!receiveNotFromBuyer && (
           <div className={classNames.addButtonWrapper}>
             <Button
               className={classNames.addButton}
@@ -769,8 +776,8 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           </CustomCarousel>
         </div> */}
 
-        {!isManyItemsInSomeBox && <CurrentBox />}
-        {!isManyItemsInSomeBox && <Divider flexItem className={classNames.divider} orientation="vertical" />}
+        {!receiveNotFromBuyer && <CurrentBox />}
+        {!receiveNotFromBuyer && <Divider flexItem className={classNames.divider} orientation="vertical" />}
         <NewBoxes
           newBoxes={newBoxes}
           addDouble={addDouble}
@@ -799,7 +806,11 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           disabled={disableSubmit}
           className={classNames.button}
           onClick={() => {
-            onClickRedistributeBtn()
+            receiveNotFromBuyer
+              ? onClickRedistributeBtn()
+              : totalProductsAmount === 0
+              ? onClickRedistributeBtn()
+              : setShowCheckQuantityModal(!showCheckQuantityModal)
           }}
         >
           {t(TranslationKey.Save)}
@@ -829,6 +840,17 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           allItemsArray={newBoxes}
           setAllItemsArray={setNewBoxes}
           onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
+        />
+      </Modal>
+
+      <Modal openModal={showCheckQuantityModal} setOpenModal={() => setShowCheckQuantityModal(!showCheckQuantityModal)}>
+        <CheckQuantityForm
+          title={t(TranslationKey['Confirmation of goods quantity'])}
+          description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
+          acceptText={t(TranslationKey.Save) + '?'}
+          comparisonQuantity={actuallyAssembled}
+          onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
+          onSubmit={onClickRedistributeBtn}
         />
       </Modal>
     </div>

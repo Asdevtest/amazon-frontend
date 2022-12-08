@@ -41,7 +41,7 @@ export const styles = theme => ({
   },
 
   attentionRow: {
-    boxShadow: 'inset 0 0 30px rgba(247, 179, 7,1)',
+    boxShadow: 'inset 0 0 30px rgba(247, 179, 7, .3)',
   },
   datagridWrapper: {
     marginTop: '10px',

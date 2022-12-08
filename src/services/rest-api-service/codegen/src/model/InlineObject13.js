@@ -102,6 +102,9 @@ class InlineObject13 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
             }
@@ -222,6 +225,12 @@ InlineObject13.prototype['storekeeperComment'] = undefined;
  * @member {String} fbaShipment
  */
 InlineObject13.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject13.prototype['fbaNumber'] = undefined;
 
 /**
  * Массив коробок.

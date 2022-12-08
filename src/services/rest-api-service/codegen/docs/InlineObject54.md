@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersId** | **String** | GUID поставщика, который нужно удалить в БД. | [optional] 
+**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
 
 

@@ -91,6 +91,9 @@ class InlineObject37 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -168,6 +171,12 @@ InlineObject37.prototype['productId'] = undefined;
  * @member {Array.<String>} images
  */
 InlineObject37.prototype['images'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject37.prototype['expressChinaDelivery'] = undefined;
 
 
 

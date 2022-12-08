@@ -203,7 +203,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject103() // InlineObject103 | 
+  'body': new TestSwagger.InlineObject104() // InlineObject104 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject103**](InlineObject103.md)|  | [optional] 
+ **body** | [**InlineObject104**](InlineObject104.md)|  | [optional] 
 
 ### Return type
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomPost
 
-> InlineResponse2015 apiV1RequestsCustomPost(opts)
+> InlineResponse2016 apiV1RequestsCustomPost(opts)
 
 # Создать универсальную заявку.
 
@@ -258,7 +258,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject102() // InlineObject102 | 
+  'body': new TestSwagger.InlineObject103() // InlineObject103 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -274,11 +274,11 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject102**](InlineObject102.md)|  | [optional] 
+ **body** | [**InlineObject103**](InlineObject103.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 
@@ -369,7 +369,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject80() // InlineObject80 | 
+  'body': new TestSwagger.InlineObject81() // InlineObject81 | 
 };
 apiInstance.apiV1RequestsGuidAbortPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject80**](InlineObject80.md)|  | [optional] 
+ **body** | [**InlineObject81**](InlineObject81.md)|  | [optional] 
 
 ### Return type
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGuidPickupPost
 
-> InlineResponse2018 apiV1RequestsGuidPickupPost(guid, opts)
+> InlineResponse2019 apiV1RequestsGuidPickupPost(guid, opts)
 
 # Этот метод вызывает тот кто бронирует место в заявке.
 
@@ -533,7 +533,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject79() // InlineObject79 | 
+  'body': new TestSwagger.InlineObject80() // InlineObject80 | 
 };
 apiInstance.apiV1RequestsGuidPickupPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -550,11 +550,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject79**](InlineObject79.md)|  | [optional] 
+ **body** | [**InlineObject80**](InlineObject80.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2018**](InlineResponse2018.md)
+[**InlineResponse2019**](InlineResponse2019.md)
 
 ### Authorization
 
@@ -589,7 +589,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject78() // InlineObject78 | 
+  'body': new TestSwagger.InlineObject79() // InlineObject79 | 
 };
 apiInstance.apiV1RequestsGuidToPublishPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -606,7 +606,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject78**](InlineObject78.md)|  | [optional] 
+ **body** | [**InlineObject79**](InlineObject79.md)|  | [optional] 
 
 ### Return type
 

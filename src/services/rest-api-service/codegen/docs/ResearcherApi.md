@@ -252,7 +252,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject82() // InlineObject82 | 
+  'body': new TestSwagger.InlineObject83() // InlineObject83 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject82**](InlineObject82.md)|  | [optional] 
+ **body** | [**InlineObject83**](InlineObject83.md)|  | [optional] 
 
 ### Return type
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2015 apiV1ResearchersProductsPost(opts)
+> InlineResponse2016 apiV1ResearchersProductsPost(opts)
 
 # Добавить новый продукт.
 
@@ -307,7 +307,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject81() // InlineObject81 | 
+  'body': new TestSwagger.InlineObject82() // InlineObject82 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -323,11 +323,11 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject81**](InlineObject81.md)|  | [optional] 
+ **body** | [**InlineObject82**](InlineObject82.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 

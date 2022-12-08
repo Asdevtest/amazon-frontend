@@ -20,6 +20,14 @@ export const useClassNames = makeStyles()(theme => ({
     width: '40px',
   },
 
+  appVersion: {
+    color: theme.palette.primary.main,
+
+    position: 'absolute',
+    bottom: 70,
+    left: 30,
+  },
+
   paper: {
     // boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
     //             0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
@@ -87,9 +95,9 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: '20px',
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '20px',
+    padding: '0 30px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   feedBackText: {

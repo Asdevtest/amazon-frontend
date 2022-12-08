@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**apiV1ClientsDestinationsGet**](ClientApi.md#apiV1ClientsDestinationsGet) | **GET** /api/v1/clients/destinations | Отдает дестинейшны со статусом коробки указаным в квери
 [**apiV1ClientsGetOrdersByProductIdGuidGet**](ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 [**apiV1ClientsMakePaymentsPost**](ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
+[**apiV1ClientsOrdersFormedPost**](ClientApi.md#apiV1ClientsOrdersFormedPost) | **POST** /api/v1/clients/orders/formed | # Создать заказ в статусе formed.
 [**apiV1ClientsOrdersGet**](ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
 [**apiV1ClientsOrdersGuidCancelPost**](ClientApi.md#apiV1ClientsOrdersGuidCancelPost) | **POST** /api/v1/clients/orders/{guid}/cancel | Отменить заказ.
 [**apiV1ClientsOrdersGuidConfirmPriceChangePost**](ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Подтвердить измение цены.
@@ -115,7 +116,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID коробки
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
+  'body': new TestSwagger.InlineObject47() // InlineObject47 | 
 };
 apiInstance.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -132,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID коробки | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
+ **body** | [**InlineObject47**](InlineObject47.md)|  | [optional] 
 
 ### Return type
 
@@ -224,7 +225,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
+  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
 };
 apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -240,7 +241,7 @@ apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
+ **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
 
 ### Return type
 
@@ -459,6 +460,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsOrdersFormedPost
+
+> InlineResponse2015 apiV1ClientsOrdersFormedPost(opts)
+
+# Создать заказ в статусе formed.
+
+## Создать заказ в статусе formed.   ## Статус автоматом ставиться formed: 0  Стоимость заказа &#x3D; 0  Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика тариф доставки должен принадлежать данному сторкиперу
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+};
+apiInstance.apiV1ClientsOrdersFormedPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse2015**](InlineResponse2015.md)
 
 ### Authorization
 
@@ -713,7 +768,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID заказа, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1ClientsOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -730,7 +785,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -886,7 +941,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
 apiInstance.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -902,7 +957,7 @@ apiInstance.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
@@ -940,7 +995,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
+  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
 };
 apiInstance.apiV1ClientsProductsGetPriceForClientPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -956,7 +1011,7 @@ apiInstance.apiV1ClientsProductsGetPriceForClientPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
+ **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
 
 ### Return type
 
@@ -1107,7 +1162,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
+  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
 };
 apiInstance.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1124,7 +1179,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
+ **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
 
 ### Return type
 
@@ -1480,7 +1535,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsPost
 
-> InlineResponse2015 apiV1ClientsProductsPost(opts)
+> InlineResponse2016 apiV1ClientsProductsPost(opts)
 
 # Добавить новый продукт клиентом.
 
@@ -1500,7 +1555,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
+  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
 };
 apiInstance.apiV1ClientsProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1516,11 +1571,11 @@ apiInstance.apiV1ClientsProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
+ **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2016**](InlineResponse2016.md)
 
 ### Authorization
 
@@ -1607,7 +1662,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | guid отменяемой задачи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
+  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
 };
 apiInstance.apiV1ClientsTasksCancelGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1624,7 +1679,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| guid отменяемой задачи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
+ **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
 
 ### Return type
 
@@ -1716,7 +1771,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
+  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
 };
 apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1732,7 +1787,7 @@ apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
+ **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
 
 ### Return type
 

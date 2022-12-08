@@ -6,11 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID коробки. | [optional] 
 **humanFriendlyId** | **Number** | Номер коробки. | [optional] 
-**amount** | **Number** | ККоличества в коробке. | [optional] 
+**amount** | **Number** | Количества в коробке. | [optional] 
 **status** | **String** | Статус коробки | [optional] 
 **isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
 **lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 

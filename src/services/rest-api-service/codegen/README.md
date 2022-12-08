@@ -220,6 +220,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsDestinationsGet**](docs/ClientApi.md#apiV1ClientsDestinationsGet) | **GET** /api/v1/clients/destinations | Отдает дестинейшны со статусом коробки указаным в квери
 *TestSwagger.ClientApi* | [**apiV1ClientsGetOrdersByProductIdGuidGet**](docs/ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsMakePaymentsPost**](docs/ClientApi.md#apiV1ClientsMakePaymentsPost) | **POST** /api/v1/clients/make_payments | # Оплатить товары.
+*TestSwagger.ClientApi* | [**apiV1ClientsOrdersFormedPost**](docs/ClientApi.md#apiV1ClientsOrdersFormedPost) | **POST** /api/v1/clients/orders/formed | # Создать заказ в статусе formed.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGet**](docs/ClientApi.md#apiV1ClientsOrdersGet) | **GET** /api/v1/clients/orders | # Получить заказы текущего клиента.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidCancelPost**](docs/ClientApi.md#apiV1ClientsOrdersGuidCancelPost) | **POST** /api/v1/clients/orders/{guid}/cancel | Отменить заказ.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidConfirmPriceChangePost**](docs/ClientApi.md#apiV1ClientsOrdersGuidConfirmPriceChangePost) | **POST** /api/v1/clients/orders/{guid}/confirm_price_change | # Подтвердить измение цены.
@@ -470,6 +471,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject101](docs/InlineObject101.md)
  - [TestSwagger.InlineObject102](docs/InlineObject102.md)
  - [TestSwagger.InlineObject103](docs/InlineObject103.md)
+ - [TestSwagger.InlineObject104](docs/InlineObject104.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
@@ -648,6 +650,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)
+ - [TestSwagger.InlineResponse20110](docs/InlineResponse20110.md)
  - [TestSwagger.InlineResponse2012](docs/InlineResponse2012.md)
  - [TestSwagger.InlineResponse2013](docs/InlineResponse2013.md)
  - [TestSwagger.InlineResponse2014](docs/InlineResponse2014.md)

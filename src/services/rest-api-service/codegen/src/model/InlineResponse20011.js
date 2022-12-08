@@ -106,6 +106,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('deliveryTotalPrice')) {
                 obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
             }
@@ -256,6 +259,12 @@ InlineResponse20011.prototype['isShippingLabelAttachedByStorekeeper'] = undefine
  * @member {String} fbaShipment
  */
 InlineResponse20011.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineResponse20011.prototype['fbaNumber'] = undefined;
 
 /**
  * Итого за доставку.

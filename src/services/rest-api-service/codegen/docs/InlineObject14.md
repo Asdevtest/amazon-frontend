@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **destinationId** | **String** | destination GUID  | [optional] 

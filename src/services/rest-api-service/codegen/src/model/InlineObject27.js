@@ -56,6 +56,9 @@ class InlineObject27 {
             if (data.hasOwnProperty('referenceId')) {
                 obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
@@ -84,6 +87,12 @@ InlineObject27.prototype['storekeeperComment'] = undefined;
  * @member {String} referenceId
  */
 InlineObject27.prototype['referenceId'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject27.prototype['fbaNumber'] = undefined;
 
 /**
  * Текст трек номера
