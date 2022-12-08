@@ -159,7 +159,7 @@ export class BuyerFreeOrdersViewModel {
 
   goToMyOrders() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-    this.history.push('/buyer/my-orders', {orderId: this.curOrder._id})
+    this.history.push('/buyer/not-paid-orders', {orderId: this.curOrder._id})
   }
 
   async onClickTableRowBtn(order, noPush) {

@@ -11,6 +11,8 @@ import {
   MultilineTextHeaderCell,
   DownloadAndCopyBtnsCell,
   MultilineTextAlignLeftCell,
+  IconHeaderCell,
+  PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -23,6 +25,21 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 60,
     renderCell: params => <MultilineTextCell text={params.value} />,
+  },
+
+  {
+    field: 'priorityAndChinaDelivery',
+    headerName: 'priorityAndChinaDelivery',
+    renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
+    width: 60,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        priority={params.row.originalData.priority}
+        chinaDelivery={params.row.originalData.expressChinaDelivery}
+      />
+    ),
+    sortable: false,
+    filterable: false,
   },
 
   {

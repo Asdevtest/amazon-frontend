@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Chip, Typography, TableCell, TableRow, IconButton} from '@mui/material'
+import {Chip, Typography, TableCell, TableRow, IconButton, Checkbox} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -33,7 +33,9 @@ export const OrderModalBodyRow = ({
   itemIndex,
   setOrderStateFiled,
   onClickBarcode,
+  onClickExpressChinaDelivery,
   onDoubleClickBarcode,
+  onClickPriority,
   onDeleteBarcode,
   orderState,
   onRemoveProduct,
@@ -42,6 +44,8 @@ export const OrderModalBodyRow = ({
   onClickSetDestinationFavourite,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log(item)
 
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
@@ -348,6 +352,22 @@ export const OrderModalBodyRow = ({
               label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
               inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
             />
+          </div>
+          <div className={classNames.mainCheckboxWrapper}>
+            <div className={classNames.checkboxWrapper}>
+              <div className={classNames.expressWrapper} onClick={onClickPriority}>
+                <Checkbox className={classNames.checkbox} checked={item.priority === '40'} color="primary" />
+                <Typography className={classNames.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
+                <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
+              </div>
+              <div className={classNames.expressWrapper} onClick={onClickExpressChinaDelivery}>
+                <Checkbox className={classNames.checkbox} checked={item.expressChinaDelivery} color="primary" />
+                <Typography className={classNames.sumText}>
+                  {t(TranslationKey['Order express delivery in China'])}
+                </Typography>
+                <img className={classNames.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+              </div>
+            </div>
           </div>
         </TableCell>
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
@@ -12,6 +13,8 @@ import {
   DownloadAndCopyBtnsCell,
   RenderFieldValueCell,
   MultilineTextAlignLeftCell,
+  IconHeaderCell,
+  PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -24,6 +27,21 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
     width: 60,
     renderCell: params => <MultilineTextCell text={params.value} />,
+  },
+
+  {
+    field: 'priorityAndChinaDelivery',
+    headerName: 'priorityAndChinaDelivery',
+    renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
+    width: 60,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        priority={params.row.originalData.priority}
+        chinaDelivery={params.row.originalData.expressChinaDelivery}
+      />
+    ),
+    sortable: false,
+    filterable: false,
   },
 
   {
