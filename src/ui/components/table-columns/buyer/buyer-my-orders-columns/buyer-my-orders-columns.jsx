@@ -34,13 +34,12 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: 'priorityAndChinaDelivery',
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
     width: 60,
-    renderCell: params => console.log(params.row.originalData),
-    // (
-    //   <PriorityAndChinaDeliverCell
-    //     priority={params.row.originalData.priority}
-    //     chinaDelivery={params.row.originalData.expressChinaDelivery}
-    //   />
-    // ),
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        priority={params.row.originalData.priority}
+        chinaDelivery={params.row.originalData.expressChinaDelivery}
+      />
+    ),
     sortable: false,
   },
 

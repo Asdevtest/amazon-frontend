@@ -300,6 +300,28 @@ export const EditOrderModal = observer(
               ? order.product.amazonTitle.slice(0, 130) + '...'
               : order.product.amazonTitle}
           </Typography>
+
+          <div className={classNames.priorityWrapper}>
+            <Typography className={classNames.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
+            {order.priority === '40' ? (
+              <div className={classNames.rushOrderWrapper}>
+                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
+                <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+              </div>
+            ) : null}
+            {order.expressChinaDelivery ? (
+              <div className={classNames.rushOrderWrapper}>
+                <img className={classNames.rushOrderImg} src="/assets/icons/truck.svg" />
+                <Typography className={classNames.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
+              </div>
+            ) : null}
+            {order.priority !== '40' && !order.expressChinaDelivery ? (
+              <div className={classNames.rushOrderWrapper}>
+                <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+              </div>
+            ) : null}
+          </div>
+
           <div className={classNames.orderStatusWrapper}>
             <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
             <Field

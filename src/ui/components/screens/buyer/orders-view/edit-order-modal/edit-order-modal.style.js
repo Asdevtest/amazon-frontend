@@ -149,7 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   amazonTitle: {
-    width: '417px',
+    width: '210px',
     color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
@@ -217,5 +217,26 @@ export const useClassNames = makeStyles()(theme => ({
 
   green: {
     color: `${theme.palette.text.green} !important`,
+  },
+  priorityWrapper: {
+    width: 210,
+  },
+
+  priorityTitle: {
+    color: theme.palette.text.second,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+    marginBottom: 10,
+  },
+  rushOrderWrapper: {
+    display: 'flex',
+    marginBottom: 15,
+  },
+  rushOrderImg: {
+    marginRight: 10,
+  },
+  rushOrder: {
+    color: theme.palette.text.main,
   },
 }))
