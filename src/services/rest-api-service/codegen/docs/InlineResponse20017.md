@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
+**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
 **createdById** | **String** |  | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **product** | [**ApiV1BuyersOrdersMyProduct**](ApiV1BuyersOrdersMyProduct.md) |  | [optional] 

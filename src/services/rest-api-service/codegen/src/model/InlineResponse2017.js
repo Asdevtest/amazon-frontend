@@ -47,8 +47,11 @@ class InlineResponse2017 {
         if (data) {
             obj = obj || new InlineResponse2017();
 
-            if (data.hasOwnProperty('fileName')) {
-                obj['fileName'] = ApiClient.convertToType(data['fileName'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('wsUrl')) {
+                obj['wsUrl'] = ApiClient.convertToType(data['wsUrl'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineResponse2017 {
 }
 
 /**
- * Имя файла для доступа к нему.
- * @member {String} fileName
+ * Тестовый статус запуска
+ * @member {String} status
  */
-InlineResponse2017.prototype['fileName'] = undefined;
+InlineResponse2017.prototype['status'] = undefined;
+
+/**
+ * Строка подключения к WS соединению
+ * @member {String} wsUrl
+ */
+InlineResponse2017.prototype['wsUrl'] = undefined;
 
 
 

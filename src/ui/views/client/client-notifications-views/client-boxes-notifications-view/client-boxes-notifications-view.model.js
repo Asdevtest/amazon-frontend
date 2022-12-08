@@ -184,7 +184,7 @@ export class ClientBoxesNotificationsViewModel {
       await BoxesModel.editAdditionalInfo(data._id, {
         clientComment: data.clientComment,
         referenceId: data.referenceId,
-
+        fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **clientComment** | **String** | Комментарии клиента. | [optional] 
 **productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
+**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
 
 
 

@@ -52,6 +52,7 @@ export const CheckQuantityForm = ({
       <Typography className={classNames.normalText}>{description}</Typography>
 
       <Field
+        inputProps={{maxLength: 10}}
         containerClasses={classNames.inputContainer}
         inputClasses={classNames.input}
         classes={{input: classNames.input}}
@@ -67,6 +68,7 @@ export const CheckQuantityForm = ({
           </Typography>
 
           <Field
+            inputProps={{maxLength: 8}}
             containerClasses={classNames.inputContainer}
             inputClasses={classNames.input}
             classes={{input: classNames.input}}

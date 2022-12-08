@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **destinationId** | **String** | id склада - склады куда отправляют. | [optional] 
 **logicsTariffId** | **String** | id тарифа доставки. | 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 
 

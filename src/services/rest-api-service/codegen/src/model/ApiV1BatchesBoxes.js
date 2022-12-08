@@ -73,6 +73,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -198,7 +201,7 @@ ApiV1BatchesBoxes.prototype['_id'] = undefined;
 ApiV1BatchesBoxes.prototype['humanFriendlyId'] = undefined;
 
 /**
- * ККоличества в коробке.
+ * Количества в коробке.
  * @member {Number} amount
  */
 ApiV1BatchesBoxes.prototype['amount'] = undefined;
@@ -226,6 +229,12 @@ ApiV1BatchesBoxes.prototype['isDraft'] = undefined;
  * @member {String} fbaShipment
  */
 ApiV1BatchesBoxes.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+ApiV1BatchesBoxes.prototype['fbaNumber'] = undefined;
 
 /**
  * Ссылка на наклейку для коробки

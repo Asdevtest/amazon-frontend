@@ -64,6 +64,9 @@ class InlineObject16 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
@@ -106,6 +109,12 @@ InlineObject16.prototype['shippingLabel'] = undefined;
  * @member {String} fbaShipment
  */
 InlineObject16.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject16.prototype['fbaNumber'] = undefined;
 
 /**
  * Гуид модели destination

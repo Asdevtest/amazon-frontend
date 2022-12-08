@@ -81,6 +81,9 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
@@ -163,6 +166,12 @@ InlineResponse20017.prototype['trackNumberFile'] = undefined;
  * @member {module:model/InlineResponse20017.PriorityEnum} priority
  */
 InlineResponse20017.prototype['priority'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineResponse20017.prototype['expressChinaDelivery'] = undefined;
 
 /**
  * @member {String} createdById

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**ApiV1RequestsCustomGuidRequest**](ApiV1RequestsCustomGuidRequest.md) |  | [optional] 
-**details** | [**ApiV1RequestProposalsRequestDetailsCustom**](ApiV1RequestProposalsRequestDetailsCustom.md) |  | [optional] 
+**request** | [**ApiV1RequestsCustomRequest**](ApiV1RequestsCustomRequest.md) |  | 
+**details** | [**ApiV1RequestsCustomDetails**](ApiV1RequestsCustomDetails.md) |  | 
 
 

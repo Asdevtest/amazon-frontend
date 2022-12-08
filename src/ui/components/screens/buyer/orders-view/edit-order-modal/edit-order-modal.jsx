@@ -397,7 +397,9 @@ export const EditOrderModal = observer(
                       disabled={
                         disabledOrderStatuses.includes(statusCode) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                          order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
+                          order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.IN_STOCK])
                       }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
@@ -650,7 +652,7 @@ export const EditOrderModal = observer(
           <CheckQuantityForm
             withRefund
             title={t(TranslationKey['Setting the stock status'])}
-            description={t(TranslationKey['Enter the amount of goods that should have entered the warehouse']) + ':'}
+            description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
             acceptText={t(TranslationKey.Continue) + '?'}
             comparisonQuantity={deliveredGoodsCount}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}

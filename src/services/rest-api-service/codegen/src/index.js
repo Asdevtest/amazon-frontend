@@ -81,6 +81,7 @@ import InlineObject100 from './model/InlineObject100';
 import InlineObject101 from './model/InlineObject101';
 import InlineObject102 from './model/InlineObject102';
 import InlineObject103 from './model/InlineObject103';
+import InlineObject104 from './model/InlineObject104';
 import InlineObject11 from './model/InlineObject11';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject13 from './model/InlineObject13';
@@ -259,6 +260,7 @@ import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
+import InlineResponse20110 from './model/InlineResponse20110';
 import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
@@ -773,6 +775,12 @@ export {
      * @property {module:model/InlineObject103}
      */
     InlineObject103,
+
+    /**
+     * The InlineObject104 model constructor.
+     * @property {module:model/InlineObject104}
+     */
+    InlineObject104,
 
     /**
      * The InlineObject11 model constructor.
@@ -1841,6 +1849,12 @@ export {
      * @property {module:model/InlineResponse2011}
      */
     InlineResponse2011,
+
+    /**
+     * The InlineResponse20110 model constructor.
+     * @property {module:model/InlineResponse20110}
+     */
+    InlineResponse20110,
 
     /**
      * The InlineResponse2012 model constructor.

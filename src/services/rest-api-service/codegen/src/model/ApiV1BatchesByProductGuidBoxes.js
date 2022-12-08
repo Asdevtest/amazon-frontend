@@ -57,6 +57,9 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
@@ -96,6 +99,12 @@ ApiV1BatchesByProductGuidBoxes.prototype['shippingLabel'] = undefined;
  * @member {String} fbaShipment
  */
 ApiV1BatchesByProductGuidBoxes.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['fbaNumber'] = undefined;
 
 /**
  * Текст трек номера

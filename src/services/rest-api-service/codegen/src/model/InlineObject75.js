@@ -50,8 +50,11 @@ class InlineObject75 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -67,10 +70,16 @@ class InlineObject75 {
 InlineObject75.prototype['rating'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject75.prototype['review'] = undefined;
+InlineObject75.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject75.prototype['linksToMediaFiles'] = undefined;
 
 
 
