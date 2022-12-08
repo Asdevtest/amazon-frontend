@@ -59,11 +59,13 @@ export const OrderProductModal = ({
               .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
+            expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
           },
         ]
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
+          expressChinaDelivery: false,
         })),
   )
 
@@ -90,6 +92,7 @@ export const OrderProductModal = ({
               .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
+            expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
           },
         ]
       : selectedProductsData.map(product => ({
@@ -104,6 +107,7 @@ export const OrderProductModal = ({
 
           storekeeperId: '',
           logicsTariffId: '',
+          expressChinaDelivery: false,
         })),
   )
 
@@ -126,7 +130,11 @@ export const OrderProductModal = ({
 
     const newRenderOrderState = [...productsForRender]
 
-    if (['amount'].includes(fieldsName)) {
+    if (['expressChinaDelivery'].includes(fieldsName)) {
+      newStateOrderState[index][fieldsName] = value
+
+      newRenderOrderState[index][fieldsName] = value
+    } else if (['amount'].includes(fieldsName)) {
       if (!checkIsPositiveNum(value)) {
         return
       }
@@ -276,6 +284,9 @@ export const OrderProductModal = ({
                 destinationsFavourites={destinationsFavourites}
                 setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}
+                onClickExpressChinaDelivery={() => {
+                  setOrderStateFiled(index)('expressChinaDelivery')(!product.expressChinaDelivery)
+                }}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                 onClickBarcode={() => {
                   setTmpOrderIndex(index)

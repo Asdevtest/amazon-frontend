@@ -202,6 +202,23 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: '-20px',
     // gap: '45px',
   },
+  mainCheckboxWrapper: {
+    width: '100%',
+  },
+  checkboxWrapper: {
+    display: 'flex',
+  },
+  expressWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: 22,
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  deliveryImg: {
+    marginLeft: 10,
+  },
 
   containerField: {
     display: 'flex',

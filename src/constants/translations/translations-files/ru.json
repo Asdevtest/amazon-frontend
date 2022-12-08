@@ -1644,5 +1644,7 @@
   "All orders": "Все заказы",
   "Need track number": "Нужен трек номер",
   "Confirmation required": "Требуется подтверждение",
-  "Closed and canceled": "Закрытые и отмененные"
+  "Closed and canceled": "Закрытые и отмененные",
+  "Mark an order as urgent": "Отметить заказ как срочный",
+  "Order express delivery in China": "Заказать экспресс доставку по Китаю"
 }
