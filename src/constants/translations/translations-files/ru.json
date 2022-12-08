@@ -1639,5 +1639,10 @@
   "Setting the stock status": "Установка статуса на складе",
   "Enter the amount of goods that should have entered the warehouse": "Введите количество товара, которое должно было поступить на склад",
   "Enter the amount of the refund to the Client": "Введите сумму возврата Клиенту",
-  "Return to Client": "Возврат Клиенту"
+  "Return to Client": "Возврат Клиенту",
+  "Not paid": "Не оплачено",
+  "All orders": "Все заказы",
+  "Need track number": "Нужен трек номер",
+  "Confirmation required": "Требуется подтверждение",
+  "Closed and canceled": "Закрытые и отмененные"
 }

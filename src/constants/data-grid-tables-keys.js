@@ -54,7 +54,15 @@ export const DataGridTablesKeys = {
   SUPERVISOR_SETTINGS: 'supervisorSettingsDataGridState',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
-  BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
+  BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
+
+  BUYER_MY_ORDERS_NOT_PAID: 'buyerMyOrdersNotPaidDataGridState',
+  BUYER_MY_ORDERS_NEED_TRACK_NUMBER: 'buyerMyOrdersNeedTrackNumberDataGridState',
+  BUYER_MY_ORDERS_INBOUND: 'buyerMyOrdersInboundDataGridState',
+  BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: 'buyerMyOrdersConfirmationRequiredDataGridState',
+  BUYER_MY_ORDERS_CLOSED_AND_CANCELED: 'buyerMyOrdersClosedAndCanceledDataGridState',
+  BUYER_MY_ORDERS_ALL_ORDERS: 'buyerMyOrdersAllDataGridState',
+
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
   BUYER_BATCHES: 'buyerBatchesDataGridState',

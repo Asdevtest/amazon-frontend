@@ -1638,5 +1638,10 @@
   "Setting the stock status": "Setting the stock status",
   "Enter the amount of goods that should have entered the warehouse": "Enter the amount of goods that should have entered the warehouse",
   "Enter the amount of the refund to the Client": "Enter the amount of the refund to the Client",
-  "Return to Client": "Return to Client"
+  "Return to Client": "Return to Client",
+  "Not paid": "Not paid",
+  "All orders": "All orders",
+  "Need track number": "Need track number",
+  "Confirmation required": "Confirmation required",
+  "Closed and canceled": "Closed and canceled"
 }

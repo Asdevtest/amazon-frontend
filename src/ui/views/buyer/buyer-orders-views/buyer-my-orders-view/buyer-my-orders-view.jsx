@@ -72,6 +72,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showOrderPriceMismatchModal,
       showWarningInfoModal,
       showConfirmModal,
+      navbarActiveSubCategory,
 
       showProgress,
       progressValue,
@@ -101,7 +102,12 @@ class BuyerMyOrdersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
 
         <Main>
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>

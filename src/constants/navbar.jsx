@@ -44,7 +44,14 @@ const permissionsKeys = {
     SHOW_PAYMENTS_BUYER: 'SHOW_PAYMENTS_BUYER',
     SHOW_USERS_BUYER: 'SHOW_USERS_BUYER',
     SHOW_VAC_ORDERS_BUYER: 'SHOW_VAC_ORDERS_BUYER',
+
     SHOW_ORDERS_BUYER: 'SHOW_ORDERS_BUYER',
+    SHOW_NOT_PAID_ORDERS_BUYER: 'SHOW_NOT_PAID_ORDERS_BUYER',
+    SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER: 'SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER',
+    SHOW_INBOUND_ORDERS_BUYER: 'SHOW_INBOUND_ORDERS_BUYER',
+    SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER: 'SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER',
+    SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER: 'SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER',
+
     SHOW_PRODUCTS_BUYER: 'SHOW_PRODUCTS_BUYER',
     SHOW_VAC_BY_CLIENT_BUYER: 'SHOW_VAC_BY_CLIENT_BUYER',
     SHOW_VAC_BY_SUP_BUYER: 'SHOW_VAC_BY_SUP_BUYER',
@@ -500,10 +507,67 @@ export const navbarConfig = () => ({
       icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),
       route: '/buyer/my-orders',
-      subtitles: null,
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['Not paid']),
+          subRoute: '/buyer/not-paid-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_NOT_PAID_ORDERS_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey['Need track number']),
+          subRoute: '/buyer/need-track-number-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey.Inbound),
+          subRoute: '/buyer/inbound-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_INBOUND_ORDERS_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey['Confirmation required']),
+          subRoute: '/buyer/confirmation-required-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey['Closed and canceled']),
+          subRoute: '/buyer/closed-and-canceled-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey['All orders']),
+          subRoute: '/buyer/all-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
+        !isMasterUser(user) ||
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_NOT_PAID_ORDERS_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_INBOUND_ORDERS_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER,
+        ),
     },
 
     {

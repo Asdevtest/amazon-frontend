@@ -3,7 +3,9 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -37,6 +39,25 @@ const updateOrderKeys = [
 
   'item',
 ]
+
+const setNavbarActiveSubCategory = pathname => {
+  if (pathname) {
+    switch (pathname) {
+      case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER
+      case routsPathes.BUYER_MY_ORDERS_INBOUND:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND
+      case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED
+      case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
+      case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
+      default:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
+    }
+  }
+}
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -96,6 +117,10 @@ export class BuyerMyOrdersViewModel {
     return UserModel.userInfo
   }
 
+  get navbarActiveSubCategory() {
+    return setNavbarActiveSubCategory(this.history.location.pathname)
+  }
+
   constructor({history, location}) {
     this.history = history
 
@@ -112,6 +137,8 @@ export class BuyerMyOrdersViewModel {
     } else {
       this.startFilterModel = resetDataGridFilter
     }
+
+    console.log('this.history', this.history.location.pathname)
 
     makeAutoObservable(this, undefined, {autoBind: true})
 
@@ -141,6 +168,25 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  setDataGridTablesKeys = pathname => {
+    if (pathname) {
+      switch (pathname) {
+        case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
+        case routsPathes.BUYER_MY_ORDERS_INBOUND:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_NEED_TRACK_NUMBER
+        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_INBOUND
+        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED
+        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_CLOSED_AND_CANCELED
+        default:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_ALL_ORDERS
+      }
+    }
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -155,11 +201,11 @@ export class BuyerMyOrdersViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_MY_ORDERS)
+    SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_MY_ORDERS]
+    const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
