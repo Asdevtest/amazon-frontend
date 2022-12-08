@@ -35,6 +35,7 @@ export const OrderModalBodyRow = ({
   onClickBarcode,
   onClickExpressChinaDelivery,
   onDoubleClickBarcode,
+  onClickPriority,
   onDeleteBarcode,
   orderState,
   onRemoveProduct,
@@ -354,8 +355,8 @@ export const OrderModalBodyRow = ({
           </div>
           <div className={classNames.mainCheckboxWrapper}>
             <div className={classNames.checkboxWrapper}>
-              <div className={classNames.expressWrapper}>
-                <Checkbox className={classNames.checkbox} color="primary" />
+              <div className={classNames.expressWrapper} onClick={onClickPriority}>
+                <Checkbox className={classNames.checkbox} checked={item.priority === '40'} color="primary" />
                 <Typography className={classNames.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
                 <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
