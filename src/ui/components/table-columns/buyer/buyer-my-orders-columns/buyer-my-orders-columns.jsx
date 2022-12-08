@@ -41,6 +41,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       />
     ),
     sortable: false,
+    filterable: false,
   },
 
   {

@@ -155,6 +155,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
     textAlign: 'left',
+    height: 80,
+
+    display: '-webkit-box',
+    '-webkitLineClamp': 3,
+    '-webkitBoxOrient': 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   orderStatus: {

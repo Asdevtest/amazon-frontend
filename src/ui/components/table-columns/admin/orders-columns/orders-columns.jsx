@@ -11,6 +11,8 @@ import {
   MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
+  IconHeaderCell,
+  PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -18,31 +20,25 @@ import {t} from '@utils/translations'
 
 export const adminOrdersViewColumns = () => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
-
-  {
     field: 'id',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
+  },
+  {
+    field: 'priorityAndChinaDelivery',
+    headerName: 'priorityAndChinaDelivery',
+    renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
+    width: 60,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        priority={params.row.originalData.priority}
+        chinaDelivery={params.row.originalData.expressChinaDelivery}
+      />
+    ),
+    sortable: false,
+    filterable: false,
   },
 
   {
@@ -161,5 +157,24 @@ export const adminOrdersViewColumns = () => [
 
     width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
+  },
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    width: 150,
+    type: 'date',
   },
 ]

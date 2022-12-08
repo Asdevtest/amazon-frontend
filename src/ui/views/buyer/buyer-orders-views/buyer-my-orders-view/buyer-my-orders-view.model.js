@@ -191,17 +191,21 @@ export class BuyerMyOrdersViewModel {
     if (pathname) {
       switch (pathname) {
         case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-          return '20'
+          return OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
         case routsPathes.BUYER_MY_ORDERS_INBOUND:
-          return '25'
+          return OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]
         case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
-          return '27'
+          return OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]
         case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
-          return '30, 35, 40'
+          return `${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
+            OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
+          }`
         case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
           return ''
         default:
-          return '15, 19'
+          return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
+            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+          }`
       }
     }
   }
