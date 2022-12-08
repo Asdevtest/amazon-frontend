@@ -824,6 +824,28 @@ export const MultilineTextHeaderCell = React.memo(
   ),
 )
 
+export const IconHeaderCell = React.memo(withStyles(({classes: classNames, url}) => <img src={url} />, styles))
+
+export const PriorityAndChinaDeliverCell = React.memo(
+  withStyles(
+    ({classes: classNames, priority, chinaDelivery}) => (
+      <div className={classNames.priorityAndChinaDeliveryWrapper}>
+        {priority === '40' ? (
+          <div className={classNames.priority}>
+            <img src="/assets/icons/fire.svg" />
+          </div>
+        ) : null}
+        {chinaDelivery === true ? (
+          <div className={classNames.chinaDelivery}>
+            <img src="/assets/icons/truck.svg" />
+          </div>
+        ) : null}
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const BoxesAndQuantity = React.memo(
   withStyles(({classes: classNames, boxesData}) => {
     const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
