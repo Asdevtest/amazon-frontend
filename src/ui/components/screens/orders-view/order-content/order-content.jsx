@@ -65,7 +65,9 @@ export const OrderContent = ({
   const renderHeadRow = () => (
     <TableRow>
       {headCells.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
+        <TableCell key={index}>
+          <div className={classNames[item.className]}>{item.label}</div>
+        </TableCell>
       ))}
     </TableRow>
   )

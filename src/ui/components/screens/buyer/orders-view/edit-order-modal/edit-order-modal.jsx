@@ -69,6 +69,9 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    const filteredBoxes = console.log('boxes', boxes)
+    console.log('filteredBoxes', filteredBoxes)
+
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
@@ -108,7 +111,9 @@ export const EditOrderModal = observer(
     const renderHeadRow = () => (
       <TableRow>
         {headCells.map((item, index) => (
-          <TableCell key={index}>{item.label}</TableCell>
+          <TableCell key={index}>
+            <div className={classNames[item.className]}>{item.label}</div>
+          </TableCell>
         ))}
       </TableRow>
     )

@@ -246,4 +246,23 @@ export const useClassNames = makeStyles()(theme => ({
   rushOrder: {
     color: theme.palette.text.main,
   },
+  sharpCell: {
+    width: 10,
+  },
+  statusCell: {
+    width: 70,
+  },
+  productCell: {
+    width: 210,
+  },
+  finalWeightCell: {
+    width: 100,
+    whiteSpace: 'pre-wrap',
+    textAlign: 'center',
+  },
+  grossWeightCell: {
+    width: 100,
+    whiteSpace: 'pre-wrap',
+    textAlign: 'center',
+  },
 }))

@@ -141,4 +141,86 @@ export const useClassNames = makeStyles()(theme => ({
 
     // borderColor: theme.palette.background.border,
   },
+  sharpCell: {
+    textAlign: 'center',
+  },
+  asinCell: {
+    padding: '12px 0px',
+    height: '88px',
+    scope: 'row',
+    position: 'relative',
+    width: 185,
+  },
+  asinCellContainer: {
+    display: 'inline-flex',
+    width: '100%',
+  },
+  quantityCell: {
+    textAlign: 'center',
+  },
+  csCodeTypoWrapper: {
+    width: '100%',
+  },
+  csCodeTypo: {
+    fontSize: '14px',
+    lineHeight: '18px',
+    fontWeight: 500,
+    whiteSpace: 'nowrap',
+    maxWidth: '150px',
+    // maxWidth: '100%',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  finalWeightCell: {
+    textAlign: 'center',
+  },
+  grossWeightCell: {
+    textAlign: 'center',
+  },
+  copyAsin: {
+    display: 'flex',
+    gap: '2px',
+    alignItems: 'center',
+  },
+  typoCell: {
+    fontSize: '14px',
+    lineHeight: '21px',
+    color: 'rgba(189, 194, 209, 1)',
+  },
+  normalizeLink: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+    },
+  },
+  linkSpan: {
+    marginLeft: 10,
+    color: theme.palette.primary.main,
+  },
+  typoSpan: {
+    marginLeft: 10,
+    color: theme.palette.text.second,
+  },
+  shortDateCellTypo: {
+    textAlign: 'center',
+    width: 65,
+    whiteSpace: 'pre-line',
+    fontSize: '12px',
+    lineHeight: '16px',
+    fontWeight: '400',
+  },
+  multilineTextWrapper: {
+    width: 70,
+    whiteSpace: 'pre-wrap',
+  },
+  multilineText: {
+    maxHeight: '100%',
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+    color: theme.palette.text.main,
+  },
 }))

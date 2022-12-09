@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Checkbox, TableCell, TableRow, Typography, Table, TableBody} from '@mui/material'
 
@@ -7,18 +8,20 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus} from '@constants/box-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcPriceForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
-import {formatNormDateTime} from '@utils/date-time'
+import {formatShortDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './warehouse-body-row.style'
@@ -26,7 +29,6 @@ import {styles} from './warehouse-body-row.style'
 const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, areSubBoxes, ...restProps}) => {
   const classNames = restProps.classes
   const ordersQty = box.items.length
-  const boxCreatedAt = formatNormDateTime(box.createdAt)
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -34,46 +36,107 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  const onTriggerIsMaximizedMasterBox = () => {
-    setIsMaximizedMasterBox(!isMaximizedMasterBox)
+  // const onTriggerIsMaximizedMasterBox = () => {
+  //   setIsMaximizedMasterBox(!isMaximizedMasterBox)
+  // }
+
+  const setStatus = status => {
+    switch (status) {
+      case BoxStatus.NEW:
+        return 'В пути на склад'
+      case BoxStatus.IN_STOCK:
+        return 'На складе'
+      case BoxStatus.REQUESTED_SEND_TO_BATCH:
+        return 'Ожидает отправления в партии'
+      case BoxStatus.IN_BATCH_ON_THE_WAY:
+        return 'Отправлена в партии'
+      case BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE:
+        return 'Нуждается в подтверждении цены доставки'
+    }
   }
 
-  const ProductCell = ({imgSrc, title}) => (
-    <TableCell className={classNames.productCell}>
-      <img className={classNames.img} src={imgSrc} />
-      <Typography className={classNames.productCellTitle}>{title}</Typography>
-    </TableCell>
+  const BoxCreatedAt = ({product}) => (
+    <Typography className={classNames.shortDateCellTypo}>
+      {product.createdAt ? formatShortDateTime(product.createdAt) : '-'}
+    </Typography>
+  )
+
+  const ProductStatus = ({product}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineText}>{setStatus(product)}</Typography>
+    </div>
+  )
+
+  const ProductCell = ({product}) => (
+    <div className={classNames.asinCell}>
+      <div className={classNames.asinCellContainer}>
+        <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images.slice()[0])} />
+
+        <div className={classNames.csCodeTypoWrapper}>
+          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+          <div className={classNames.copyAsin}>
+            <Typography className={classNames.typoCell}>
+              {t(TranslationKey.ASIN)}
+
+              {product.asin ? (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${product.asin}`}
+                  className={classNames.normalizeLink}
+                >
+                  <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+                </a>
+              ) : (
+                <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+              )}
+            </Typography>
+            {product.asin ? <CopyValue text={product.asin} /> : null}
+          </div>
+
+          <div className={classNames.copyAsin}>
+            <Typography className={classNames.typoCell}>
+              {t(TranslationKey.SKU)}
+              <span className={classNames.typoSpan}>
+                {product.skusByClient.slice()[0]
+                  ? shortSku(product.skusByClient.slice()[0])
+                  : t(TranslationKey.Missing)}
+              </span>
+            </Typography>
+            {product.skusByClient.slice()[0] ? <CopyValue text={product.skusByClient.slice()[0]} /> : null}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 
   const isMasterBox = !(!box.amount || box.amount === 1) && !areSubBoxes
 
-  const getBoxSecondTableCellContent = () => {
-    if (areSubBoxes) {
-      return
-    }
-    if (box.isDraft) {
-      return <Typography>{'isDraft'}</Typography>
-    } else {
-      return (
-        <div className={classNames.checkboxRow}>
-          {handlers?.checkbox ? (
-            <Checkbox
-              color="primary"
-              checked={rowsDatas?.selectedBoxes.includes(box._id)}
-              onChange={() => handlers.checkbox(box._id)}
-            />
-          ) : undefined}
-          {isMasterBox ? (
-            isMaximizedMasterBox ? (
-              <ArrowDropUpIcon onClick={onTriggerIsMaximizedMasterBox} />
-            ) : (
-              <ArrowDropDownIcon onClick={onTriggerIsMaximizedMasterBox} />
-            )
-          ) : undefined}
-        </div>
-      )
-    }
-  }
+  // const getBoxSecondTableCellContent = () => {
+  //   if (areSubBoxes) {
+  //     return
+  //   }
+  //   {
+  //     return (
+  //       <div className={classNames.checkboxRow}>
+  //         {handlers?.checkbox ? (
+  //           <Checkbox
+  //             color="primary"
+  //             checked={rowsDatas?.selectedBoxes.includes(box._id)}
+  //             onChange={() => handlers.checkbox(box._id)}
+  //           />
+  //         ) : undefined}
+  //         {isMasterBox ? (
+  //           isMaximizedMasterBox ? (
+  //             <ArrowDropUpIcon onClick={onTriggerIsMaximizedMasterBox} />
+  //           ) : (
+  //             <ArrowDropDownIcon onClick={onTriggerIsMaximizedMasterBox} />
+  //           )
+  //         ) : undefined}
+  //       </div>
+  //     )
+  //   }
+  // }
 
   return (
     <>
@@ -86,13 +149,17 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             {orderIndex === 0 && (
               <React.Fragment>
                 <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
-                <TableCell rowSpan={ordersQty} className={classNames.centerCell}>
-                  {getBoxSecondTableCellContent()}
-                </TableCell>
               </React.Fragment>
             )}
-            <TableCell>{boxCreatedAt}</TableCell>
-            <ProductCell imgSrc={getAmazonImageUrl(order.product.images[0])} title={order.product.amazonTitle} />
+            <TableCell>
+              <ProductStatus product={box.status} />
+            </TableCell>
+            <TableCell>
+              <BoxCreatedAt product={order.product} />
+            </TableCell>
+            <TableCell>
+              <ProductCell product={order.product} />
+            </TableCell>
 
             {orderIndex === 0 && (
               <React.Fragment>
@@ -133,8 +200,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             )}
 
             {orderIndex === 0 && (
-              <TableCell rowSpan={ordersQty} className={classNames.cellValueNumber}>
-                {toFixedWithDollarSign(calcPriceForBox(box), 2)}
+              <TableCell rowSpan={ordersQty}>
+                <div className={classNames.cellValueNumber}>{toFixedWithDollarSign(calcPriceForBox(box), 2)}</div>
               </TableCell>
             )}
 
@@ -159,8 +226,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             </TableCell>
 
             {orderIndex === 0 && (
-              <TableCell className={classNames.cellValueNumber}>
-                {box.trackNumberText || t(TranslationKey.Missing)}
+              <TableCell>
+                <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
               </TableCell>
             )}
           </TableRow>

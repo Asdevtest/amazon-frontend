@@ -48,18 +48,18 @@ export const CLIENT_EXCHANGE_HEAD_CELLS = [
 ]
 
 export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
-  {id: 'img', label: '#'},
-  {id: 'img', label: ''},
-  {id: 'img', label: t(TranslationKey.Created)},
-  {id: 'img', label: t(TranslationKey.Product)},
-  {id: 'img', label: t(TranslationKey.Photos)},
-  {id: 'img', label: t(TranslationKey.Quantity)},
-  {id: 'img', label: t(TranslationKey.Warehouse)},
-  {id: 'img', label: t(TranslationKey.Boxes)},
-  {id: 'img', label: t(TranslationKey.Price)},
-  {id: 'img', label: t(TranslationKey['Final weight'])},
-  {id: 'img', label: t(TranslationKey['Gross weight'])},
-  {id: 'img', label: 'Track ID'},
+  {id: 'img', label: '#', className: 'sharpCell'},
+  {id: 'img', label: t(TranslationKey.Status), className: 'statusCell'},
+  {id: 'img', label: t(TranslationKey.Created), className: 'createdCell'},
+  {id: 'img', label: t(TranslationKey.Product), className: 'productCell'},
+  {id: 'img', label: t(TranslationKey.Photos), className: 'photosCell'},
+  {id: 'img', label: t(TranslationKey.Quantity), className: 'quantityCell'},
+  {id: 'img', label: t(TranslationKey.Warehouse), className: 'warehouseCell'},
+  {id: 'img', label: t(TranslationKey.Boxes), className: 'boxesCell'},
+  {id: 'img', label: t(TranslationKey.Price), className: 'priceCell'},
+  {id: 'img', label: t(TranslationKey['Final weight']), className: 'finalWeightCell'},
+  {id: 'img', label: t(TranslationKey['Gross weight']), className: 'grossWeightCell'},
+  {id: 'img', label: 'Track ID', className: 'trackIDCell'},
 ]
 
 export const BATCHES_HEAD_CELLS = [
