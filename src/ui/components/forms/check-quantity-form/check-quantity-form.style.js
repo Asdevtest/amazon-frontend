@@ -44,4 +44,8 @@ export const useClassNames = makeStyles()(theme => ({
   inputContainer: {
     width: 'min-content',
   },
+
+  button: {
+    width: 100,
+  },
 }))

@@ -82,7 +82,11 @@ export const CheckQuantityForm = ({
       <Typography className={classNames.normalText}>{acceptText}</Typography>
 
       <div className={classNames.buttonsWrapper}>
-        <Button disabled={isBadValue || !valueIsEntered || !quantityValue} onClick={() => onSubmit({refundValue})}>
+        <Button
+          disabled={isBadValue || !valueIsEntered || !quantityValue}
+          className={classNames.button}
+          onClick={() => onSubmit({refundValue})}
+        >
           {t(TranslationKey.Yes)}
         </Button>
 

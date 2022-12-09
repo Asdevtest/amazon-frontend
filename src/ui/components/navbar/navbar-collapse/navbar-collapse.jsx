@@ -5,6 +5,8 @@ import React from 'react'
 
 import {Link} from 'react-router-dom'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
+
 import {Button} from '@components/buttons/button'
 
 import {renderAttentionTooltipTitle, renderTooltipTitle} from '@utils/renders'
@@ -84,7 +86,7 @@ export const NavbarCollapse = ({
   )
 
   return (
-    <Collapse in={index === activeCategory}>
+    <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_MY_ORDERS}>
       <List disablePadding>
         {category.subtitles?.map((subCategory, subIndex) =>
           subCategory.checkHideSubBlock

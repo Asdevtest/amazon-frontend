@@ -30,7 +30,7 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
         <Typography className={classNames.customBtnName}>{item.name}</Typography>
       </div>
 
-      <Typography className={classNames.customBtnEmail}>{item.email}</Typography>
+      {/* <Typography className={classNames.customBtnEmail}>{item.email}</Typography> */}
     </div>
   )
 
@@ -47,9 +47,9 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
             selectedItemName={
               usersData.find(el => el.email === chosenUser?.email)?.name || t(TranslationKey['Not chosen'])
             }
-            placeholder={t(TranslationKey['Search by Email, Nickname...'])}
+            placeholder={t(TranslationKey.search) + '...'}
             data={usersData.sort((a, b) => a.name.localeCompare(b.name))}
-            searchFields={['name', 'email']}
+            searchFields={['name' /* , 'email'*/]}
             CustomBtn={CustomBtn}
             onClickNotChosen={() => setChoseUser(null)}
             onClickSelect={el => setChoseUser(el)}

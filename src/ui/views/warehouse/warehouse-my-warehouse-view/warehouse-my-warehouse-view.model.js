@@ -40,6 +40,8 @@ const updateBoxWhiteList = [
   'logicsTariffId',
   'referenceId',
   'storekeeperTaskComment',
+  'trackNumberFile',
+  'trackNumberText',
 ]
 
 export class WarehouseMyWarehouseViewModel {
@@ -369,12 +371,21 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.selectedBoxes = []
       this.uploadedFiles = []
+      this.uploadedTrackNumber = []
       this.uploadedImages = []
 
       if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
         await onSubmitPostImages.call(this, {
           images: boxData.tmpShippingLabel,
           type: 'uploadedFiles',
+          withoutShowProgress: true,
+        })
+      }
+
+      if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
+        await onSubmitPostImages.call(this, {
+          images: boxData.tmpTrackNumberFile,
+          type: 'uploadedTrackNumber',
           withoutShowProgress: true,
         })
       }
@@ -437,6 +448,7 @@ export class WarehouseMyWarehouseViewModel {
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
           items: isMultipleEdit ? boxData.items : getNewItems(),
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          trackNumberFile: this.uploadedTrackNumber?.length ? this.uploadedTrackNumber[0] : boxData.trackNumberFile,
         },
         updateBoxWhiteList,
       )

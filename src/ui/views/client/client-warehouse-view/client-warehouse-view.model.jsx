@@ -50,6 +50,8 @@ const updateBoxWhiteList = [
   'logicsTariffId',
   'fbaShipment',
   'referenceId',
+  'trackNumberFile',
+  'trackNumberText',
 ]
 
 export class ClientWarehouseViewModel {
