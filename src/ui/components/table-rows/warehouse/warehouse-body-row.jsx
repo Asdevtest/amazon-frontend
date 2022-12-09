@@ -8,7 +8,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from 'tss-react/mui'
 
-import {BoxStatus} from '@constants/box-status'
+import {BoxStatus, boxStatusTranslateKey} from '@constants/box-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -40,21 +40,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   //   setIsMaximizedMasterBox(!isMaximizedMasterBox)
   // }
 
-  const setStatus = status => {
-    switch (status) {
-      case BoxStatus.NEW:
-        return 'В пути на склад'
-      case BoxStatus.IN_STOCK:
-        return 'На складе'
-      case BoxStatus.REQUESTED_SEND_TO_BATCH:
-        return 'Ожидает отправления в партии'
-      case BoxStatus.IN_BATCH_ON_THE_WAY:
-        return 'Отправлена в партии'
-      case BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE:
-        return 'Нуждается в подтверждении цены доставки'
-    }
-  }
-
   const BoxCreatedAt = ({product}) => (
     <Typography className={classNames.shortDateCellTypo}>
       {product.createdAt ? formatShortDateTime(product.createdAt) : '-'}
@@ -63,7 +48,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const ProductStatus = ({product}) => (
     <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineText}>{setStatus(product)}</Typography>
+      <Typography className={classNames.multilineText}>{t(boxStatusTranslateKey(product))}</Typography>
     </div>
   )
 

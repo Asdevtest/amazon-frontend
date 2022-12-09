@@ -1654,5 +1654,9 @@
   "Pending orders": "Pending orders",
   "Pending": "Pending",
   "Ready to buy": "Ready to buy",
-  "Pending order will be created": "Pending order will be created"
+  "Pending order will be created": "Pending order will be created",
+  "On the way to the warehouse": "On the way to the warehouse",
+  "Awaiting shipment in batches": "Awaiting shipment in batches",
+  "Sent in batches": "Sent in batches",
+  "Needs confirmation of shipping cost": "Needs confirmation of shipping cost"
 }
