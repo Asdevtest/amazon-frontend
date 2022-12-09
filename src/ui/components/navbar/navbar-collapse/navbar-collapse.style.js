@@ -22,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'black',
+    color: '#fff',
   },
 
   menuItem: {

@@ -89,7 +89,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   categoriesWrapper: {
     backgroundColor: theme.palette.background.general,
-    height: '85%',
+    height: '80%',
     overflow: 'auto',
   },
   feedBackButton: {
