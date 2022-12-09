@@ -392,8 +392,8 @@ export class ClientExchangeViewModel {
     this.onTriggerOpenModal('showWarningModal')
   }
 
-  onClickOrderNowBtn = (orderData, totalOrdersCost) => {
-    this.ordersDataStateToSubmit = orderData[0]
+  onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
+    this.ordersDataStateToSubmit = ordersDataState[0]
 
     this.confirmModalSettings = {
       isWarning: false,

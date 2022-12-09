@@ -345,11 +345,10 @@ export const EditOrderModal = observer(
                         `${orderFields.status}` ===
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
-
-                      [classNames.green]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+
+                      [classNames.green]: `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                       [classNames.red]:
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
@@ -367,11 +366,11 @@ export const EditOrderModal = observer(
                                 `${orderFields.status}` ===
                                   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                               [classNames.green]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                               [classNames.red]:
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
@@ -404,11 +403,10 @@ export const EditOrderModal = observer(
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                            `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                          [classNames.green]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                          [classNames.green]: statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                           [classNames.red]:
                             statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||

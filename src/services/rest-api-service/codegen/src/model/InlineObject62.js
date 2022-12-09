@@ -22,11 +22,10 @@ class InlineObject62 {
     /**
      * Constructs a new <code>InlineObject62</code>.
      * @alias module:model/InlineObject62
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor(fileUrl) { 
+    constructor() { 
         
-        InlineObject62.initialize(this, fileUrl);
+        InlineObject62.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject62 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,17 @@ class InlineObject62 {
         if (data) {
             obj = obj || new InlineObject62();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
         }
         return obj;
@@ -60,10 +67,28 @@ class InlineObject62 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject62.prototype['fileUrl'] = undefined;
+InlineObject62.prototype['amount'] = undefined;
+
+/**
+ * Гуид сапплаера
+ * @member {String} orderSupplierId
+ */
+InlineObject62.prototype['orderSupplierId'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject62.prototype['images'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject62.prototype['totalPrice'] = undefined;
 
 
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow} from '@mui/material'
+import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Checkbox} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -29,12 +29,15 @@ export const OrderProductModal = ({
   reorderOrder,
   destinationsFavourites,
   setDestinationsFavouritesItem,
+  isPendingOrdering,
 }) => {
   const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
+
+  const [isPendingOrder, setIsPendingOrder] = useState(false)
 
   const triggerBarcodeModal = () => {
     setShowSetBarcodeModal(!showSetBarcodeModal)
@@ -162,10 +165,14 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    onSubmit(
-      orderState.map(el => ({...el, destinationId: el.destinationId ? el.destinationId : null})),
+    onSubmit({
+      ordersDataState: orderState.map(el => ({
+        ...el,
+        destinationId: el.destinationId ? el.destinationId : null,
+        tmpIsPendingOrder: isPendingOrder,
+      })),
       totalOrdersCost,
-    )
+    })
     setSubmitIsClicked(true)
 
     setTimeout(() => setSubmitIsClicked(false), 3000)
@@ -317,6 +324,13 @@ export const OrderProductModal = ({
       </div>
 
       <div className={classNames.buttonsWrapper}>
+        {!isPendingOrdering ? (
+          <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
+            <Checkbox checked={isPendingOrder} color="primary" />
+            <Typography className={classNames.sumText}>{t(TranslationKey['Pending order'])}</Typography>
+          </div>
+        ) : null}
+
         <Button
           tooltipInfoContent={t(
             TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],

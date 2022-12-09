@@ -274,6 +274,9 @@ Class | Method | HTTP request | Description
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отвязать товар от SKU.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseStocksGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseStocksGet) | **GET** /api/v1/integrations/sellerboard_warehouse_stocks | Получить днанные со склада.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsWarehouseReportGet**](docs/IntegrationsApi.md#apiV1IntegrationsWarehouseReportGet) | **GET** /api/v1/integrations/warehouse_report | Поиск по товарам со склада по: asin, sku, title..
+*TestSwagger.OrderApi* | [**apiV1OrdersCommentGuidPatch**](docs/OrderApi.md#apiV1OrdersCommentGuidPatch) | **PATCH** /api/v1/orders/comment/{guid} | # Изменение ордера в статусе pending(2).
+*TestSwagger.OrderApi* | [**apiV1OrdersPendingGuidPatch**](docs/OrderApi.md#apiV1OrdersPendingGuidPatch) | **PATCH** /api/v1/orders/pending/{guid} | # Изменение ордера в статусе pending(2).
+*TestSwagger.OrderApi* | [**apiV1OrdersReadyToBuyoutGuidPatch**](docs/OrderApi.md#apiV1OrdersReadyToBuyoutGuidPatch) | **PATCH** /api/v1/orders/ready_to_buyout/{guid} | # Перевести ордер со статуса pending(2) в статус readyForBuyout(3)
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsDelete) | **DELETE** /api/v1/other/check_asins | # Удаление массива из списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGet**](docs/OtherApi.md#apiV1OtherCheckAsinsGet) | **GET** /api/v1/other/check_asins | # Получение списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление из списка асинов на проверку
@@ -472,6 +475,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject102](docs/InlineObject102.md)
  - [TestSwagger.InlineObject103](docs/InlineObject103.md)
  - [TestSwagger.InlineObject104](docs/InlineObject104.md)
+ - [TestSwagger.InlineObject105](docs/InlineObject105.md)
+ - [TestSwagger.InlineObject106](docs/InlineObject106.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)

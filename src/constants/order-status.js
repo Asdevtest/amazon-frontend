@@ -7,6 +7,8 @@ import {TranslationKey} from './translations/translation-key'
 
 export const OrderStatus = {
   FORMED: 'FORMED',
+  PENDING: 'PENDING',
+  READY_FOR_BUYOUT: 'READY_FOR_BUYOUT',
   NEW: 'NEW',
   READY_TO_PROCESS: 'READY_TO_PROCESS',
   AT_PROCESS: 'AT_PROCESS',
@@ -26,6 +28,8 @@ export const OrderStatus = {
 export const OrderStatusByCode = {
   0: OrderStatus.FORMED, // Корзина - статус "Формируется"
   1: OrderStatus.NEW, // Клиент создал заказ - статус "Новый"
+  2: OrderStatus.PENDING,
+  3: OrderStatus.READY_FOR_BUYOUT,
   10: OrderStatus.READY_TO_PROCESS, // Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус "доступен для обработки"
   15: OrderStatus.AT_PROCESS, // Закупщик взял заказ в обработку - статус "в обработке"
   19: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
@@ -74,6 +78,10 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey.Formed)
     case OrderStatus.NEW:
       return t(TranslationKey.New)
+    case OrderStatus.PENDING:
+      return t(TranslationKey.Pending)
+    case OrderStatus.READY_FOR_BUYOUT:
+      return t(TranslationKey['Ready to buy'])
     case OrderStatus.READY_TO_PROCESS:
       return t(TranslationKey['Ready to process'])
     case OrderStatus.AT_PROCESS:
@@ -105,6 +113,16 @@ export const ORDER_STATUS_OPTIONS = [
   {
     key: OrderStatus.FORMED,
     label: 'Formed',
+  },
+
+  {
+    key: OrderStatus.PENDING,
+    label: 'Pending',
+  },
+
+  {
+    key: OrderStatus.READY_FOR_BUYOUT,
+    label: 'Ready to buy',
   },
   {
     key: OrderStatus.NEW,
@@ -163,15 +181,20 @@ export const ORDER_STATUS_OPTIONS = [
 export const orderColorByStatus = status => {
   if (
     [
+      OrderStatus.FORMED,
+      OrderStatus.PENDING,
+
       OrderStatus.AT_PROCESS,
       OrderStatus.PAID_TO_SUPPLIER,
+
       OrderStatus.READY_TO_PROCESS,
+      OrderStatus.TRACK_NUMBER_ISSUED,
       OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
       OrderStatus.VERIFY_RECEIPT,
     ].includes(status)
   ) {
     return '#F3AF00'
-  } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
+  } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT].includes(status)) {
     return '#00B746'
   } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
     return '#FF1616'
@@ -184,15 +207,19 @@ export const OrderStatusText = ({className, status, isClient}) => {
   const colorByStatus = () => {
     if (
       [
+        OrderStatus.FORMED,
+        OrderStatus.PENDING,
+
         OrderStatus.AT_PROCESS,
         OrderStatus.PAID_TO_SUPPLIER,
+        OrderStatus.TRACK_NUMBER_ISSUED,
         OrderStatus.READY_TO_PROCESS,
         OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
         OrderStatus.VERIFY_RECEIPT,
       ].includes(status)
     ) {
       return '#F3AF00'
-    } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
+    } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT].includes(status)) {
       return '#00B746'
     } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
       return '#FF1616'

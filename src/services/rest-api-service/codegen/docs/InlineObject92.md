@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**status** | **Number** | Статус | [optional] 
 
 

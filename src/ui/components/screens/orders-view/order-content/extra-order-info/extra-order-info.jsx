@@ -2,6 +2,7 @@ import {Typography} from '@mui/material'
 
 import React from 'react'
 
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
@@ -12,7 +13,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './extra-order-info.style'
 
-export const ExtraOrderInfo = ({order}) => {
+export const ExtraOrderInfo = ({order, isClient, onChangeField, formFields}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -55,14 +56,15 @@ export const ExtraOrderInfo = ({order}) => {
         />
 
         <Field
-          disabled
           multiline
+          disabled={!(isClient && order.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
           minRows={6}
           maxRows={6}
-          value={order.clientComment}
+          value={formFields.clientComment}
           containerClasses={classNames.textField}
           inputClasses={classNames.input}
           label={t(TranslationKey.Client)}
+          onChange={onChangeField('clientComment')}
         />
       </div>
     </div>

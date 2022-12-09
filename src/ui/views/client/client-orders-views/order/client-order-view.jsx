@@ -34,6 +34,7 @@ class ClientOrderViewRaw extends Component {
 
   render() {
     const {
+      navbarActiveSubCategory,
       userInfo,
       volumeWeightCoefficient,
       warningInfoModalSettings,
@@ -48,6 +49,7 @@ class ClientOrderViewRaw extends Component {
       onClickCancelOrder,
       onSubmitCancelOrder,
       onSubmitChangeBoxFields,
+      onSubmitSaveOrder,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -56,7 +58,12 @@ class ClientOrderViewRaw extends Component {
     }
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
         <Main>
           <Appbar
             title={t(TranslationKey.Order)}
@@ -76,9 +83,9 @@ class ClientOrderViewRaw extends Component {
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
-                  history={history}
                   onClickCancelOrder={onClickCancelOrder}
                   onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+                  onSubmitSaveOrder={onSubmitSaveOrder}
                 />
               ) : null}
             </MainContent>

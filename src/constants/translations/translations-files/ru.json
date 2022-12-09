@@ -284,7 +284,7 @@
   "Order number": "Номер заказа",
   "Order amount": "Сумма заказа",
   "Documents": "Документы",
-  "Purchase price": "Цена закупки (мин)",
+  "Purchase price": "Цена закупки",
   "Quantity (pcs.)": "Количество (шт)",
   "Supplier": "Поставщик",
   "Maximum delivery price per unit": "Макс цена доставки за ед.",
@@ -1650,5 +1650,9 @@
   "Priority": "Приоритет",
   "Rush order": "Срочный заказ",
   "Express delivery": "Экспресс-доставка",
-  "Medium priority": "Средний приоритет"
+  "Medium priority": "Средний приоритет",
+  "Pending order": "Отложенный заказ",
+  "Pending orders": "Отложенные заказы",
+  "Pending": "Отложен",
+  "Ready to buy": "Готов к закупе"
 }

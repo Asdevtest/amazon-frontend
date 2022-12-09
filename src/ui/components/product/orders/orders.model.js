@@ -169,7 +169,17 @@ export class OrdersModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode', 'tmpBarCode']))
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
 
       await this.updateUserInfo()
     } catch (error) {
@@ -216,7 +226,7 @@ export class OrdersModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
+  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
     this.ordersDataStateToSubmit = ordersDataState
 
     this.confirmModalSettings = {

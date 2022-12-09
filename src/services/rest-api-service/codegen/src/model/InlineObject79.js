@@ -22,11 +22,10 @@ class InlineObject79 {
     /**
      * Constructs a new <code>InlineObject79</code>.
      * @alias module:model/InlineObject79
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(totalCost) { 
+    constructor() { 
         
-        InlineObject79.initialize(this, totalCost);
+        InlineObject79.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject79 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,14 @@ class InlineObject79 {
         if (data) {
             obj = obj || new InlineObject79();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -60,10 +64,22 @@ class InlineObject79 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject79.prototype['totalCost'] = undefined;
+InlineObject79.prototype['rating'] = undefined;
+
+/**
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
+ */
+InlineObject79.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject79.prototype['linksToMediaFiles'] = undefined;
 
 
 

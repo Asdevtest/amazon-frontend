@@ -75,6 +75,11 @@ class ClientModelStatic {
     return response
   }
 
+  createFormedOrder = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersFormedPost({body: data})
+    return response
+  }
+
   getOrders = async status => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGet({status})
     return response

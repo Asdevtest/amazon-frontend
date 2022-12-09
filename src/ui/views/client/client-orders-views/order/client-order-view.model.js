@@ -1,15 +1,32 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {OrderModel} from '@models/order-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
+
+const setNavbarActiveSubCategory = pathname => {
+  if (pathname) {
+    switch (pathname) {
+      case routsPathes.CLIENT_ORDERS + '/order':
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
+      case routsPathes.CLIENT_PENDING_ORDERS + '/order':
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
+
+      default:
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
+    }
+  }
+}
 
 export class ClientOrderViewModel {
   history = undefined
@@ -37,6 +54,10 @@ export class ClientOrderViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get navbarActiveSubCategory() {
+    return setNavbarActiveSubCategory(this.history.location.pathname)
   }
 
   constructor({history}) {
@@ -69,6 +90,21 @@ export class ClientOrderViewModel {
       runInAction(() => {
         this.order = result
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSaveOrder(data) {
+    try {
+      await OrderModel.changeOrderComments(this.orderId, {clientComment: data.clientComment})
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['Data saved successfully']),
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.log(error)
     }

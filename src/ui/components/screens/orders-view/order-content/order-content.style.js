@@ -40,7 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: '40px',
+    // marginTop: '40px',
     marginRight: '20px',
   },
 
@@ -48,8 +48,20 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '16px 32px',
   },
 
+  btnsSubWrapper: {
+    display: 'flex',
+    width: 300,
+    justifyContent: 'space-between',
+  },
+
+  button: {
+    height: 40,
+    padding: '0 40px',
+  },
+
   cancelBtn: {
     height: '36px',
+    color: theme.palette.text.general,
   },
 
   orderNumWrapper: {
@@ -125,7 +137,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   divider: {
-    height: '660px',
+    height: '720px',
 
     // borderColor: theme.palette.background.border,
   },

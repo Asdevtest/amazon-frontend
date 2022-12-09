@@ -18,6 +18,18 @@ export const styles = theme => ({
     whiteSpace: 'normal',
   },
 
+  priorityAndChinaDeliveryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  clockIcon: {
+    width: 5,
+    height: 5,
+    color: theme.palette.primary.main,
+  },
+
   productWrapper: {
     display: 'flex',
     flexDirection: 'column',

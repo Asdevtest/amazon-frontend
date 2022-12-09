@@ -6,6 +6,7 @@ import {
   ChatsApi,
   IdeaApi,
   IntegrationsApi,
+  OrderApi,
   PermissionsApi,
   RequestProposalsApi,
   RequestsApi,
@@ -59,6 +60,7 @@ class RestApiService {
     this.shopSellApi = new ShopSellApi(this.apiClient)
     this.ideaApi = new IdeaApi(this.apiClient)
     this.chatsApi = new ChatsApi(this.apiClient)
+    this.orderApi = new OrderApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

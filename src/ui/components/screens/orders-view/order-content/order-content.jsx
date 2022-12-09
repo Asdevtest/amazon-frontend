@@ -2,6 +2,8 @@ import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow
 
 import React, {useEffect, useState} from 'react'
 
+import {useHistory} from 'react-router-dom'
+
 import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -33,8 +35,11 @@ export const OrderContent = ({
   userInfo,
   onSubmitChangeBoxFields,
   isClient,
+  onSubmitSaveOrder,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  const history = useHistory()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
@@ -42,6 +47,16 @@ export const OrderContent = ({
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+
+  const [formFields, setFormFields] = useState(order)
+
+  const onChangeField = fieldName => event => {
+    const newFormFields = {...formFields}
+
+    newFormFields[fieldName] = event.target.value
+
+    setFormFields(newFormFields)
+  }
 
   // useEffect(() => {
   //   setUpdatedProduct(() => ({...product}))
@@ -118,10 +133,15 @@ export const OrderContent = ({
 
             <Divider orientation={'vertical'} className={classNames.divider} />
 
-            <ExtraOrderInfo order={updatedOrder} />
+            <ExtraOrderInfo
+              order={updatedOrder}
+              isClient={isClient}
+              formFields={formFields}
+              onChangeField={onChangeField}
+            />
           </div>
 
-          <Divider orientation={'horizontal'} />
+          {/* <Divider orientation={'horizontal'} /> */}
 
           <div className={classNames.btnsWrapper}>
             {updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
@@ -134,6 +154,22 @@ export const OrderContent = ({
                 {t(TranslationKey['Cancel order'])}
               </Button>
             )}
+            {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+              <div className={classNames.btnsSubWrapper}>
+                <Button
+                  variant="text"
+                  className={classNames.cancelBtn}
+                  // className={classNames.cancelBtn}
+                  onClick={() => history.goBack()}
+                >
+                  {t(TranslationKey.Cancel)}
+                </Button>
+
+                <Button className={classNames.button} onClick={() => onSubmitSaveOrder(formFields)}>
+                  {t(TranslationKey.Save)}
+                </Button>
+              </div>
+            ) : null}
           </div>
 
           <div className={classNames.tableWrapper}>

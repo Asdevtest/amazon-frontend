@@ -25,6 +25,7 @@ import {useHistory} from 'react-router-dom'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
+import {ClockIcon} from '@constants/navbar-svg-icons'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
@@ -827,23 +828,28 @@ export const MultilineTextHeaderCell = React.memo(
 export const IconHeaderCell = React.memo(withStyles(({classes: classNames, url}) => <img src={url} />, styles))
 
 export const PriorityAndChinaDeliverCell = React.memo(
-  withStyles(
-    ({classes: classNames, priority, chinaDelivery}) => (
+  withStyles(({classes: classNames, priority, chinaDelivery, status}) => {
+    const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+
+    return (
       <div className={classNames.priorityAndChinaDeliveryWrapper}>
-        {priority === '40' ? (
-          <div className={classNames.priority}>
-            <img src="/assets/icons/fire.svg" />
-          </div>
-        ) : null}
-        {chinaDelivery === true ? (
-          <div className={classNames.chinaDelivery}>
-            <img src="/assets/icons/truck.svg" />
-          </div>
-        ) : null}
+        {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
+
+        <div>
+          {priority === '40' ? (
+            <div className={classNames.priority}>
+              <img src="/assets/icons/fire.svg" />
+            </div>
+          ) : null}
+          {chinaDelivery === true ? (
+            <div className={classNames.chinaDelivery}>
+              <img src="/assets/icons/truck.svg" />
+            </div>
+          ) : null}
+        </div>
       </div>
-    ),
-    styles,
-  ),
+    )
+  }, styles),
 )
 
 export const BoxesAndQuantity = React.memo(
