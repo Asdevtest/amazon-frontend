@@ -507,7 +507,9 @@ export const styles = theme => ({
   manyItemsImgWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: '2px',
+    whiteSpace: 'nowrap',
   },
 
   manyItemsOrderTitle: {

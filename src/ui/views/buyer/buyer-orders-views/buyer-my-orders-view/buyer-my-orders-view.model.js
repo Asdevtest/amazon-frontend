@@ -172,17 +172,17 @@ export class BuyerMyOrdersViewModel {
     if (pathname) {
       switch (pathname) {
         case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
+          return OrderStatusByKey[DataGridTablesKeys.BUYER_MY_ORDERS_NEED_TRACK_NUMBER]
         case routsPathes.BUYER_MY_ORDERS_INBOUND:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_NEED_TRACK_NUMBER
-        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
           return DataGridTablesKeys.BUYER_MY_ORDERS_INBOUND
-        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
+        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
           return DataGridTablesKeys.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED
-        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
+        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
           return DataGridTablesKeys.BUYER_MY_ORDERS_CLOSED_AND_CANCELED
-        default:
+        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
           return DataGridTablesKeys.BUYER_MY_ORDERS_ALL_ORDERS
+        default:
+          return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
       }
     }
   }
@@ -223,6 +223,8 @@ export class BuyerMyOrdersViewModel {
       'density',
       'columns',
     ])
+
+    console.log(this.firstRowId)
 
     SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
