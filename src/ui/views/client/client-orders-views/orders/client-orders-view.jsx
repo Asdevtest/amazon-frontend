@@ -38,6 +38,8 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      isPendingOrdering,
+      navbarActiveSubCategory,
       destinationsFavourites,
       rowCount,
       confirmModalSettings,
@@ -83,7 +85,12 @@ class ClientOrdersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
         <Main>
           <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
@@ -150,6 +157,7 @@ class ClientOrdersViewRaw extends Component {
               setOpenModal={() => onTriggerOpenModal('showOrderModal')}
             >
               <OrderProductModal
+                isPendingOrdering={isPendingOrdering}
                 reorderOrder={getCurrentReorderData()}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}

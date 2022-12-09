@@ -2,6 +2,9 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -17,6 +20,20 @@ import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
+
+const setNavbarActiveSubCategory = pathname => {
+  if (pathname) {
+    switch (pathname) {
+      case routsPathes.CLIENT_ORDERS:
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
+      case routsPathes.CLIENT_PENDING_ORDERS:
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
+
+      default:
+        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
+    }
+  }
+}
 
 export class ClientOrdersViewModel {
   history = undefined
@@ -38,6 +55,8 @@ export class ClientOrdersViewModel {
   showConfirmModal = false
   showSuccessModal = false
 
+  isPendingOrdering = false
+
   ordersDataStateToSubmit = undefined
   selectedProduct = undefined
   reorderOrder = undefined
@@ -56,6 +75,7 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: item => this.onClickReorder(item),
+    onClickToPendingOrder: item => this.onClickToPendingOrder(item),
   }
 
   rowCount = 0
@@ -70,6 +90,10 @@ export class ClientOrdersViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get navbarActiveSubCategory() {
+    return setNavbarActiveSubCategory(this.history.location.pathname)
   }
 
   constructor({history, location}) {
@@ -209,6 +233,30 @@ export class ClientOrdersViewModel {
     }
   }
 
+  setOrderStatus = pathname => {
+    if (pathname) {
+      switch (pathname) {
+        case routsPathes.CLIENT_ORDERS:
+          return `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}, ${
+            OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]
+          }, ${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}, ${
+            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+          }, ${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
+            OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
+          }`
+        case routsPathes.CLIENT_PENDING_ORDERS:
+          return `${OrderStatusByKey[OrderStatus.FORMED]}, ${OrderStatusByKey[OrderStatus.PENDING]}, ${
+            OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
+          }`
+
+        default:
+          return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
+            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+          }`
+      }
+    }
+  }
+
   async getOrders() {
     try {
       const filter = isNaN(this.nameSearchValue)
@@ -218,7 +266,7 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrdersPag({
         filters: this.nameSearchValue ? filter : null,
 
-        status: null,
+        status: this.setOrderStatus(this.history.location.pathname),
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
@@ -246,6 +294,34 @@ export class ClientOrdersViewModel {
     }
   }
 
+  async onClickToPendingOrder(item) {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      const destinations = await ClientModel.getDestinations()
+
+      const result = await UserModel.getPlatformSettings()
+
+      const order = await ClientModel.getOrderById(item._id)
+
+      runInAction(() => {
+        this.isPendingOrdering = true
+
+        this.storekeepers = storekeepers
+
+        this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.reorderOrder = order
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onClickReorder(item) {
     try {
       const storekeepers = await StorekeeperModel.getStorekeepers()
@@ -257,6 +333,8 @@ export class ClientOrdersViewModel {
       const order = await ClientModel.getOrderById(item._id)
 
       runInAction(() => {
+        this.isPendingOrdering = false
+
         this.storekeepers = storekeepers
 
         this.destinations = destinations
@@ -299,7 +377,17 @@ export class ClientOrdersViewModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode', 'tmpBarCode']))
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
 
       await this.updateUserInfo()
     } catch (error) {
@@ -317,19 +405,19 @@ export class ClientOrdersViewModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const product = this.ordersDataStateToSubmit[i]
+        const orderObject = this.ordersDataStateToSubmit[i]
 
         this.uploadedFiles = []
 
-        if (product.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
+        if (orderObject.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
 
-          await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
-        } else if (!product.barCode) {
-          await ClientModel.updateProductBarCode(product.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        } else if (!orderObject.barCode) {
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
         }
 
-        await this.createOrder(product)
+        await this.createOrder(orderObject)
       }
 
       this.loadData()
@@ -348,17 +436,15 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
+  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
     this.ordersDataStateToSubmit = ordersDataState
-
-    console.log('this.ordersDataStateToSubmit', this.ordersDataStateToSubmit)
 
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
-        TranslationKey['Confirm order'],
-      )}?`,
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
       onClickConfirm: () => this.onSubmitOrderProductModal(),
     }
 
@@ -367,7 +453,9 @@ export class ClientOrdersViewModel {
 
   onClickTableRow(order) {
     this.history.push({
-      pathname: '/client/orders/order',
+      // pathname: '/client/orders/order',
+      pathname: `${this.history.location.pathname}/order`,
+
       search: order.originalData._id,
     })
   }

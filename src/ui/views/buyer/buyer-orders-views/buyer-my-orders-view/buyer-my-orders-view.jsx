@@ -8,6 +8,7 @@ import {withStyles} from 'tss-react/mui'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {routsPathes} from '@constants/routs-pathes'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -34,6 +35,7 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 ]
 
 @observer
@@ -98,7 +100,9 @@ class BuyerMyOrdersViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const getRowClassName = params =>
-      attentionStatuses.includes(params.row.originalData.status) && classNames.attentionRow
+      attentionStatuses.includes(params.row.originalData.status) &&
+      this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
+      classNames.attentionRow
 
     return (
       <React.Fragment>

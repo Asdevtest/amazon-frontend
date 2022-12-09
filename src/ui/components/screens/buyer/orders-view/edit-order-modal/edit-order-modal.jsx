@@ -53,6 +53,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    isPendingOrder,
     userInfo,
     requestStatus,
     order,
@@ -234,6 +235,8 @@ export const EditOrderModal = observer(
     }
 
     const allowOrderStatuses = [
+      `${OrderStatusByKey[OrderStatus.PENDING]}`,
+      `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
       `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
@@ -341,15 +344,17 @@ export const EditOrderModal = observer(
                   classes={{
                     select: cx({
                       [classNames.orange]:
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                         `${orderFields.status}` ===
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                       [classNames.green]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                       [classNames.red]:
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
@@ -363,15 +368,17 @@ export const EditOrderModal = observer(
                           <FiberManualRecordRoundedIcon
                             className={cx({
                               [classNames.orange]:
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                                 `${orderFields.status}` ===
                                   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                               [classNames.green]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                               [classNames.red]:
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
@@ -387,12 +394,14 @@ export const EditOrderModal = observer(
                   {Object.keys({
                     ...getObjectFilteredByKeyArrayWhiteList(
                       OrderStatusByCode,
-                      allowOrderStatuses.filter(
-                        el =>
-                          el >= order.status ||
-                          (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
-                            order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
-                      ),
+                      allowOrderStatuses
+                        .filter(
+                          el =>
+                            el >= order.status ||
+                            (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                              order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
+                        )
+                        .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
                     ),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
@@ -401,14 +410,16 @@ export const EditOrderModal = observer(
                       className={cx(
                         cx(classNames.stantartSelect, {
                           [classNames.orange]:
+                            statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}`,
+                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                           [classNames.green]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                            statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
 
                           [classNames.red]:
                             statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
@@ -435,6 +446,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            isPendingOrder={isPendingOrder}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
             hsCode={hsCode}

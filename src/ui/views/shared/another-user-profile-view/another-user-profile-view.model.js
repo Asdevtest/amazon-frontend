@@ -289,15 +289,15 @@ export class AnotherProfileViewModel {
     await UserModel.getUserInfo()
   }
 
-  onClickOrderNowBtn = (orderData, totalOrdersCost) => {
-    this.ordersDataStateToSubmit = orderData[0]
+  onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
+    this.ordersDataStateToSubmit = ordersDataState[0]
 
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
-        TranslationKey['Confirm order'],
-      )}?`,
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
       onClickConfirm: () => this.onLaunchPrivateLabel(),
     }
 

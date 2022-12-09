@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject98 from '../model/InlineObject98';
-import InlineObject99 from '../model/InlineObject99';
+import InlineObject100 from '../model/InlineObject100';
+import InlineObject101 from '../model/InlineObject101';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20015 from '../model/InlineResponse20015';
 import InternalServerError from '../model/InternalServerError';
@@ -48,7 +48,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject98} opts.body 
+     * @param {module:model/InlineObject100} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -87,7 +87,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject98} opts.body 
+     * @param {module:model/InlineObject100} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -151,7 +151,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
@@ -190,7 +190,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {

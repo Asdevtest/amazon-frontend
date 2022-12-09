@@ -2,7 +2,13 @@ import React from 'react'
 
 import {t} from 'i18n-js'
 
-import {orderColorByStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
+import {
+  orderColorByStatus,
+  OrderStatus,
+  OrderStatusByCode,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -16,6 +22,7 @@ import {
   NormalActionBtnCell,
   IconHeaderCell,
   PriorityAndChinaDeliverCell,
+  SuccessActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -38,6 +45,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
+        status={params.row.originalData.status}
       />
     ),
     sortable: false,
@@ -75,10 +83,20 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey['Repeat order'])}
-        onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
-      />
+      <>
+        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          <NormalActionBtnCell
+            bTnText={t(TranslationKey['Repeat order'])}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+          />
+        ) : null}
+        {Number(params.row.originalData.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          <SuccessActionBtnCell
+            bTnText={t(TranslationKey['To order'])}
+            onClickOkBtn={() => handlers.onClickToPendingOrder(params.row.originalData)}
+          />
+        ) : null}
+      </>
     ),
     filterable: false,
     sortable: false,

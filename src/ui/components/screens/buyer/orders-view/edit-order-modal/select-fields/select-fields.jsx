@@ -27,6 +27,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  isPendingOrder,
   disableSubmit,
   hsCode,
   setHsCode,
@@ -410,7 +411,7 @@ export const SelectFields = ({
           />
 
           <Field
-            disabled={disableSubmit}
+            disabled={disableSubmit || isPendingOrder}
             tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
             value={hsCode}
             label={t(TranslationKey['HS code'])}

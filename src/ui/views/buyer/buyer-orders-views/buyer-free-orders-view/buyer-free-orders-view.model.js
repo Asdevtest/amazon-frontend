@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
@@ -159,7 +160,13 @@ export class BuyerFreeOrdersViewModel {
 
   goToMyOrders() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-    this.history.push('/buyer/not-paid-orders', {orderId: this.curOrder._id})
+
+    this.history.push(
+      this.curOrder.status === OrderStatusByKey[OrderStatus.FORMED]
+        ? '/buyer/pending-orders'
+        : '/buyer/not-paid-orders',
+      {orderId: this.curOrder._id},
+    )
   }
 
   async onClickTableRowBtn(order, noPush) {

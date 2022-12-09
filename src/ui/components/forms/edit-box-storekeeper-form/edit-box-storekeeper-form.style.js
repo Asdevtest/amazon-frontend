@@ -23,6 +23,41 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  labelsInfoWrapper: {
+    width: '480px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '27px',
+    // marginTop: '20px',
+  },
+
+  trackNumberPhotoBtn: {
+    width: 230,
+  },
+
+  trackNumberPhotoWrapper: {
+    width: 230,
+    height: 130,
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  trackNumberPhoto: {
+    width: 230,
+    height: 130,
+    objectFit: 'contain',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

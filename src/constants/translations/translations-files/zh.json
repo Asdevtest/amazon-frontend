@@ -1650,5 +1650,10 @@
   "Priority": "Priority",
   "Rush order": "Rush order",
   "Express delivery": "Express delivery",
-  "Medium priority": "Medium priority"
+  "Medium priority": "Medium priority",
+  "Pending order": "Pending order",
+  "Pending orders": "Pending orders",
+  "Pending": "Pending",
+  "Ready to buy": "Ready to buy",
+  "Pending order will be created": "Pending order will be created"
 }

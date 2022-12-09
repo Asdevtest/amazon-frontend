@@ -24,6 +24,13 @@ export const useClassNames = makeStyles()(theme => ({
   inputWrapper: {
     marginBottom: '16px',
   },
+
+  pendingOrderWrapper: {
+    display: 'flex',
+    gap: 20,
+    cursor: 'pointer',
+    marginRight: 20,
+  },
   input: {
     width: '100%',
   },

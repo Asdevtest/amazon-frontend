@@ -59,7 +59,7 @@ export const UserProfile = observer(
                 <Box flexGrow={1}>
                   <Typography className={classNames.username}>{user?.name}</Typography>
 
-                  <Typography className={classNames.userEmail}>{user?.email}</Typography>
+                  {!isAnotherUser && <Typography className={classNames.userEmail}>{user?.email}</Typography>}
 
                   <div className={classNames.ratingWrapper}>
                     <Typography className={classNames.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>

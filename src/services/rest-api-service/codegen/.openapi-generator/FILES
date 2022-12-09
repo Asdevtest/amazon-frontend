@@ -80,6 +80,8 @@ docs/InlineObject101.md
 docs/InlineObject102.md
 docs/InlineObject103.md
 docs/InlineObject104.md
+docs/InlineObject105.md
+docs/InlineObject106.md
 docs/InlineObject11.md
 docs/InlineObject12.md
 docs/InlineObject13.md
@@ -272,6 +274,7 @@ docs/InternalServerError.md
 docs/LinkSubuserInputSchema.md
 docs/MePatchInputSchema.md
 docs/NotFoundError.md
+docs/OrderApi.md
 docs/OtherApi.md
 docs/ParamsGuid.md
 docs/PasteSuccessfully.md
@@ -331,6 +334,7 @@ src/api/DashboardApi.js
 src/api/GoLoginApi.js
 src/api/IdeaApi.js
 src/api/IntegrationsApi.js
+src/api/OrderApi.js
 src/api/OtherApi.js
 src/api/PermissionsApi.js
 src/api/ProductApi.js
@@ -413,6 +417,8 @@ src/model/InlineObject101.js
 src/model/InlineObject102.js
 src/model/InlineObject103.js
 src/model/InlineObject104.js
+src/model/InlineObject105.js
+src/model/InlineObject106.js
 src/model/InlineObject11.js
 src/model/InlineObject12.js
 src/model/InlineObject13.js
@@ -637,4 +643,6 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineObject104.spec.js
+test/api/OrderApi.spec.js
+test/model/InlineObject105.spec.js
+test/model/InlineObject106.spec.js

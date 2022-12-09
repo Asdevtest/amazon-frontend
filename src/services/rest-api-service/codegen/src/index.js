@@ -82,6 +82,8 @@ import InlineObject101 from './model/InlineObject101';
 import InlineObject102 from './model/InlineObject102';
 import InlineObject103 from './model/InlineObject103';
 import InlineObject104 from './model/InlineObject104';
+import InlineObject105 from './model/InlineObject105';
+import InlineObject106 from './model/InlineObject106';
 import InlineObject11 from './model/InlineObject11';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject13 from './model/InlineObject13';
@@ -316,6 +318,7 @@ import DashboardApi from './api/DashboardApi';
 import GoLoginApi from './api/GoLoginApi';
 import IdeaApi from './api/IdeaApi';
 import IntegrationsApi from './api/IntegrationsApi';
+import OrderApi from './api/OrderApi';
 import OtherApi from './api/OtherApi';
 import PermissionsApi from './api/PermissionsApi';
 import ProductApi from './api/ProductApi';
@@ -781,6 +784,18 @@ export {
      * @property {module:model/InlineObject104}
      */
     InlineObject104,
+
+    /**
+     * The InlineObject105 model constructor.
+     * @property {module:model/InlineObject105}
+     */
+    InlineObject105,
+
+    /**
+     * The InlineObject106 model constructor.
+     * @property {module:model/InlineObject106}
+     */
+    InlineObject106,
 
     /**
      * The InlineObject11 model constructor.
@@ -2185,6 +2200,12 @@ export {
     * @property {module:api/IntegrationsApi}
     */
     IntegrationsApi,
+
+    /**
+    * The OrderApi service constructor.
+    * @property {module:api/OrderApi}
+    */
+    OrderApi,
 
     /**
     * The OtherApi service constructor.

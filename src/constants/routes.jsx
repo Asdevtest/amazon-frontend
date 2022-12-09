@@ -189,6 +189,12 @@ const BuyerFreeOrdersView = lazy(() =>
     default: module.BuyerFreeOrdersView,
   })),
 )
+
+const BuyerPendingOrdersView = lazy(() =>
+  import('@views/buyer/buyer-orders-views/buyer-pending-orders-view').then(module => ({
+    default: module.BuyerPendingOrdersView,
+  })),
+)
 const BuyerMyOrdersView = lazy(() =>
   import('@views/buyer/buyer-orders-views/buyer-my-orders-view').then(module => ({default: module.BuyerMyOrdersView})),
 )
@@ -601,6 +607,15 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey['My products'],
   },
+
+  {
+    routePath: '/buyer/pending-orders',
+    component: BuyerPendingOrdersView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['Pending orders'],
+  },
+
   {
     routePath: '/buyer/all-orders',
     component: BuyerMyOrdersView,
@@ -982,6 +997,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/pending-orders',
+    component: ClientOrdersView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Pending orders'],
+  },
+
+  {
     routePath: '/client/settings',
     component: ClientSettingsView,
     exact: true,
@@ -990,6 +1013,14 @@ export const privateRoutesConfigs = [
   },
   {
     routePath: '/client/orders/order',
+    component: ClientOrderView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Order,
+  },
+
+  {
+    routePath: '/client/pending-orders/order',
     component: ClientOrderView,
     exact: false,
     permission: [UserRole.CLIENT],

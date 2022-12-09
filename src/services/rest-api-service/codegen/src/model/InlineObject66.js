@@ -22,10 +22,11 @@ class InlineObject66 {
     /**
      * Constructs a new <code>InlineObject66</code>.
      * @alias module:model/InlineObject66
+     * @param text {String} текст отзыва/репорта
      */
-    constructor() { 
+    constructor(text) { 
         
-        InlineObject66.initialize(this);
+        InlineObject66.initialize(this, text);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject66 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -47,8 +49,11 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -58,10 +63,16 @@ class InlineObject66 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject66.prototype['suppliersIds'] = undefined;
+InlineObject66.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
+ */
+InlineObject66.prototype['media'] = undefined;
 
 
 

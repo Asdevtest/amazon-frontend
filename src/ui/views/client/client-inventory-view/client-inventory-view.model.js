@@ -619,15 +619,15 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
+  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
     this.ordersDataStateToSubmit = ordersDataState
 
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
-        TranslationKey['Confirm order'],
-      )}?`,
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
       onClickConfirm: () => this.onSubmitOrderProductModal(),
     }
 
@@ -641,19 +641,19 @@ export class ClientInventoryViewModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const product = this.ordersDataStateToSubmit[i]
+        const orderObject = this.ordersDataStateToSubmit[i]
 
         this.uploadedFiles = []
 
-        if (product.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
+        if (orderObject.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
 
-          await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
-        } else if (!product.barCode) {
-          await ClientModel.updateProductBarCode(product.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        } else if (!orderObject.barCode) {
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
         }
 
-        await this.createOrder(product)
+        await this.createOrder(orderObject)
       }
 
       if (!this.error) {
@@ -675,7 +675,17 @@ export class ClientInventoryViewModel {
 
   async createOrder(orderObject) {
     try {
-      await ClientModel.createOrder(getObjectFilteredByKeyArrayBlackList(orderObject, ['barCode', 'tmpBarCode']))
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
 
       await this.updateUserInfo()
     } catch (error) {

@@ -36,6 +36,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
+        status={params.row.originalData.status}
       />
     ),
     sortable: false,

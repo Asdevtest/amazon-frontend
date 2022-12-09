@@ -4,6 +4,7 @@ import {t} from '@utils/translations'
 import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
 import {
   Addresses,
+  ClockIcon,
   DashboardIcon,
   ExchangeIcon,
   Feedback,
@@ -51,6 +52,7 @@ const permissionsKeys = {
     SHOW_INBOUND_ORDERS_BUYER: 'SHOW_INBOUND_ORDERS_BUYER',
     SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER: 'SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER',
     SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER: 'SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER',
+    SHOW_PENDING_ORDERS_BUYER: 'SHOW_PENDING_ORDERS_BUYER',
 
     SHOW_PRODUCTS_BUYER: 'SHOW_PRODUCTS_BUYER',
     SHOW_VAC_BY_CLIENT_BUYER: 'SHOW_VAC_BY_CLIENT_BUYER',
@@ -179,7 +181,20 @@ export const navbarConfig = () => ({
       icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),
       route: '/client/orders',
-      subtitles: null,
+      // subtitles: null,
+      subtitles: [
+        {
+          subtitle: t(TranslationKey.Orders),
+          subRoute: '/client/orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
+        },
+        {
+          subtitle: t(TranslationKey['Pending orders']),
+          subRoute: '/client/pending-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
+        },
+      ],
+
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
@@ -501,6 +516,17 @@ export const navbarConfig = () => ({
       route: '/buyer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: () => true,
+    },
+
+    {
+      icon: ClockIcon,
+      title: t(TranslationKey['Pending orders']),
+      route: '/buyer/pending-orders',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
 
     {

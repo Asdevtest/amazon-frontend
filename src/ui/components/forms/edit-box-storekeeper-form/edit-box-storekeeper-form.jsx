@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Chip, Divider, Typography} from '@mui/material'
+import {Avatar, Checkbox, Chip, Divider, Typography} from '@mui/material'
 
 import {useState} from 'react'
 
@@ -219,17 +219,6 @@ export const EditBoxStorekeeperForm = observer(
       setShowAddOrEditHsCodeInBox(false)
     }
 
-    const onClickBarcode = item => {
-      setCurProductToEditBarcode(item)
-
-      setShowSetBarcodeModal(!showSetBarcodeModal)
-    }
-
-    const onDoubleClickBarcode = item => {
-      setCurProductToEditBarcode(item)
-      setShowSetBarcodeModal(!showSetBarcodeModal)
-    }
-
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = {...boxFields}
 
@@ -241,7 +230,7 @@ export const EditBoxStorekeeperForm = observer(
 
       setBoxFields(newFormFields)
 
-      setShowSetBarcodeModal(!showSetBarcodeModal)
+      setShowSetBarcodeModal(false)
     }
 
     const onClickGluedCheckbox = (field, itemId) => e => {
@@ -292,7 +281,7 @@ export const EditBoxStorekeeperForm = observer(
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
-      logicsTariffId: formItem?.logicsTariff?._id || '',
+      logicsTariffId: formItem?.logicsTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -302,6 +291,7 @@ export const EditBoxStorekeeperForm = observer(
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items ? [...formItem.items.map(el => ({...el, tmpBarCode: []}))] : [],
+      tmpTrackNumberFile: [],
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
@@ -397,6 +387,38 @@ export const EditBoxStorekeeperForm = observer(
       setBoxFields({...boxFields, storekeeperId, logicsTariffId: tariffId})
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+    }
+
+    const [barcodeModalSetting, setBarcodeModalSetting] = useState({
+      title: '',
+      tmpCode: curProductToEditBarcode?.tmpBarCode,
+      item: curProductToEditBarcode,
+      onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
+    })
+
+    const onClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+
+      setBarcodeModalSetting({
+        title: '',
+        tmpCode: item?.tmpBarCode,
+        item,
+        onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
+      })
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onDoubleClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+
+      setBarcodeModalSetting({
+        title: '',
+        tmpCode: item?.tmpBarCode,
+        item,
+        onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
+      })
+      setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
     const disableSubmit =
@@ -616,7 +638,7 @@ export const EditBoxStorekeeperForm = observer(
                           }
                           data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
+                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: null})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
@@ -723,6 +745,71 @@ export const EditBoxStorekeeperForm = observer(
                         </Button>
                       }
                     />
+                  </div>
+
+                  <div className={classNames.labelsInfoWrapper}>
+                    <div>
+                      <Field
+                        labelClasses={classNames.standartLabel}
+                        containerClasses={classNames.field}
+                        inputClasses={classNames.inputField}
+                        inputProps={{maxLength: 255}}
+                        label={t(TranslationKey['Track number'])}
+                        value={boxFields.trackNumberText}
+                        onChange={setFormField('trackNumberText')}
+                      />
+
+                      <Button
+                        className={classNames.trackNumberPhotoBtn}
+                        onClick={() => {
+                          setBarcodeModalSetting({
+                            title: 'Track number',
+                            tmpCode: boxFields.tmpTrackNumberFile,
+                            item: null,
+                            onClickSaveBarcode: value => {
+                              setFormField('tmpTrackNumberFile')({target: {value}})
+                              setShowSetBarcodeModal(false)
+                            },
+                          })
+
+                          setShowSetBarcodeModal(!showSetBarcodeModal)
+                        }}
+                      >
+                        {boxFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                      </Button>
+                    </div>
+
+                    <div className={classNames.trackNumberPhotoWrapper}>
+                      {boxFields.trackNumberFile || boxFields.tmpTrackNumberFile[0] ? (
+                        <Avatar
+                          className={classNames.trackNumberPhoto}
+                          src={
+                            boxFields.tmpTrackNumberFile[0]
+                              ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
+                                ? boxFields.tmpTrackNumberFile[0]
+                                : boxFields.tmpTrackNumberFile[0]?.data_url
+                              : boxFields.trackNumberFile
+                          }
+                          variant="square"
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+                            setBigImagesOptions({
+                              ...bigImagesOptions,
+
+                              images: [
+                                boxFields.tmpTrackNumberFile[0]
+                                  ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
+                                    ? boxFields.tmpTrackNumberFile[0]
+                                    : boxFields.tmpTrackNumberFile[0]?.data_url
+                                  : boxFields.trackNumberFile,
+                              ],
+                            })
+                          }}
+                        />
+                      ) : (
+                        <Typography>{'no photo track number...'}</Typography>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -877,12 +964,22 @@ export const EditBoxStorekeeperForm = observer(
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
+            title={barcodeModalSetting.title}
+            tmpCode={barcodeModalSetting.tmpCode}
+            item={barcodeModalSetting.item}
+            onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+          />
+        </Modal>
+
+        {/* <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
             tmpCode={curProductToEditBarcode?.tmpBarCode}
             item={curProductToEditBarcode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
-        </Modal>
+        </Modal> */}
 
         <Modal
           openModal={showAddOrEditHsCodeInBox}

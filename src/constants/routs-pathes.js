@@ -5,4 +5,7 @@ export const routsPathes = {
   BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: '/buyer/confirmation-required-orders',
   BUYER_MY_ORDERS_CLOSED_AND_CANCELED: '/buyer/closed-and-canceled-orders',
   BUYER_MY_ORDERS_ALL_ORDERS: '/buyer/all-orders',
+
+  CLIENT_ORDERS: '/client/orders',
+  CLIENT_PENDING_ORDERS: '/client/pending-orders',
 }

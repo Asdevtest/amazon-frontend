@@ -22,11 +22,11 @@ class InlineObject64 {
     /**
      * Constructs a new <code>InlineObject64</code>.
      * @alias module:model/InlineObject64
-     * @param text {String} текст отзыва/репорта
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor(text) { 
+    constructor(fileUrl) { 
         
-        InlineObject64.initialize(this, text);
+        InlineObject64.initialize(this, fileUrl);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject64 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, text) { 
-        obj['text'] = text;
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -63,16 +60,10 @@ class InlineObject64 {
 }
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject64.prototype['text'] = undefined;
-
-/**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<String>} media
- */
-InlineObject64.prototype['media'] = undefined;
+InlineObject64.prototype['fileUrl'] = undefined;
 
 
 
