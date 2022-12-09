@@ -17,7 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     left: 20,
     height: 20,
     width: 20,
-    backgroundColor: 'rgba(0,0,0, .1)',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: 30,
     display: 'flex',
     justifyContent: 'center',

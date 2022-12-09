@@ -224,7 +224,7 @@ export class BuyerMyOrdersViewModel {
       'columns',
     ])
 
-    console.log(this.firstRowId)
+    console.log(requestState)
 
     SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
