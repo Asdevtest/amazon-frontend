@@ -1654,7 +1654,7 @@ export enum TranslationKey {
   'Pending orders' = 'Pending orders',
   'Pending' = 'Pending',
   'Ready to buy' = 'Ready to buy',
-  // '' = '',
+  'Pending order will be created' = 'Pending order will be created',
   // '' = '',
   // '' = '',
   // '' = '',

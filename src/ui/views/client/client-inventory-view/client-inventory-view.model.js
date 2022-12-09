@@ -625,9 +625,9 @@ export class ClientInventoryViewModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
-        TranslationKey['Confirm order'],
-      )}?`,
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
       onClickConfirm: () => this.onSubmitOrderProductModal(),
     }
 

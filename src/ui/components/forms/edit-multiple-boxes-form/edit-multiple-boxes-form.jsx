@@ -215,7 +215,7 @@ const Box = ({
                     }
                     data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeperId)}
                     searchFields={['name']}
-                    onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
+                    onClickNotChosen={() => onChangeField({target: {value: null}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   />

@@ -281,7 +281,7 @@ export const EditBoxStorekeeperForm = observer(
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
-      logicsTariffId: formItem?.logicsTariff?._id || '',
+      logicsTariffId: formItem?.logicsTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -638,7 +638,7 @@ export const EditBoxStorekeeperForm = observer(
                           }
                           data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
+                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: null})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />

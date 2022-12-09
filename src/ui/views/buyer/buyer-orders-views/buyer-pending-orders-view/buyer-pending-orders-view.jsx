@@ -155,6 +155,7 @@ class BuyerPendingOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            isPendingOrder
             userInfo={userInfo}
             volumeWeightCoefficient={volumeWeightCoefficient}
             photosToLoad={photosToLoad}
