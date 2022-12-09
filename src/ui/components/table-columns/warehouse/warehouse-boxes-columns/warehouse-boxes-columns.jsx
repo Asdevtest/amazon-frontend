@@ -49,6 +49,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
           box={params.row.originalData}
           product={params.row.originalData.items[0]?.product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          superboxProductAmount={params.row.originalData}
         />
       ),
     filterable: false,

@@ -81,7 +81,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 0,
   },
   UpdatedField: {
     display: 'flex',
