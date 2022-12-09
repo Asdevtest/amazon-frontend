@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
+import {orderColorByStatus, OrderStatus} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -60,12 +60,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 130,
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
-      />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} color={orderColorByStatus(OrderStatus.AT_PROCESS)} />,
   },
 
   {

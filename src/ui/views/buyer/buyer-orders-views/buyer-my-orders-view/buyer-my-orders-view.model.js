@@ -640,5 +640,6 @@ export class BuyerMyOrdersViewModel {
   onChangeCurPage(e) {
     this.curPage = e
     this.getOrdersMy()
+    this.setDataGridState()
   }
 }
