@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -9,7 +10,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
 import {OrderModel} from '@models/order-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
@@ -17,7 +20,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {resetDataGridFilter} from '@utils/filters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -38,6 +41,7 @@ export class BuyerMyOrdersViewModel {
   createBoxesResult = []
 
   volumeWeightCoefficient = undefined
+  yuanToDollarRate = undefined
 
   nameSearchValue = ''
 
@@ -262,6 +266,8 @@ export class BuyerMyOrdersViewModel {
 
       const result = await UserModel.getPlatformSettings()
 
+      this.yuanToDollarRate = result.yuanToDollarRate
+
       this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
       this.onTriggerOpenModal('showOrderModal')
@@ -342,9 +348,57 @@ export class BuyerMyOrdersViewModel {
 
   async onSaveOrder(order, updateOrderData) {
     try {
-      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
+      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
+        {...updateOrderData, orderSupplierId: updateOrderData.orderSupplier?._id},
+        updateOrderKeys,
+        true,
+      )
 
       await OrderModel.changeOrderData(order._id, updateOrderDataFiltered)
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, successCallBack}) {
+    try {
+      this.readyImages = []
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+
+      if (supplier._id) {
+        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+      } else {
+        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+      }
+
+      const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+      this.selectedOrder = orderData
+
+      successCallBack()
+
+      // await BuyerModel.updateProduct(
+      //           productId,
+      //           getObjectFilteredByKeyArrayWhiteList(
+      //             this.product, ['currentSupplierId']
+      //           ),
+      //         )
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {

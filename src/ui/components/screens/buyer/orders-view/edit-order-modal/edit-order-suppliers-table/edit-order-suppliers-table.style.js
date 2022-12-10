@@ -14,6 +14,20 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '22px',
   },
+
+  clickedRow: {
+    cursor: 'pointer',
+
+    transition: '.3s ease',
+    '&:hover': {
+      transform: 'scale(0.99)',
+    },
+  },
+
+  curSelectedSupplier: {
+    boxShadow: 'inset 0 0 30px rgba(0, 123, 255, 1)',
+  },
+
   iconButton: {
     height: '40px',
     width: '40px',

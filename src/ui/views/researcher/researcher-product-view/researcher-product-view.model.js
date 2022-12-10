@@ -478,7 +478,7 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 

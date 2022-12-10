@@ -105,7 +105,6 @@ class SettingsModelStatic {
 
   setDataGridState(state, tableKey) {
     this.dataGridState = {...this.dataGridState, [tableKey]: state}
-    console.log('this.dataGridState', this.dataGridState)
   }
 
   setActiveSubCategoryState(state, tableKey) {

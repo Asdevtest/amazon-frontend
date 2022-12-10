@@ -1,9 +1,14 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
+import AddIcon from '@material-ui/icons/Add'
+import AcceptIcon from '@material-ui/icons/Check'
+import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -29,6 +34,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
@@ -53,6 +59,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    yuanToDollarRate,
     isPendingOrder,
     userInfo,
     requestStatus,
@@ -66,11 +73,9 @@ export const EditOrderModal = observer(
     volumeWeightCoefficient,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
+    onClickSaveSupplierBtn,
   }) => {
     const {classes: classNames} = useClassNames()
-
-    const filteredBoxes = console.log('boxes', boxes)
-    console.log('filteredBoxes', filteredBoxes)
 
     const deliveredGoodsCount =
       boxes
@@ -92,6 +97,8 @@ export const EditOrderModal = observer(
     const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
+    const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
 
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
@@ -171,6 +178,12 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
     })
 
+    useEffect(() => {
+      setOrderFields({...orderFields, product: order.product})
+    }, [order])
+
+    const [selectedSupplier, setSelectedSupplier] = useState(null)
+
     const setOrderField = filedName => e => {
       const newOrderFieldsState = {...orderFields}
 
@@ -239,6 +252,20 @@ export const EditOrderModal = observer(
       }
     }
 
+    const onClickSubmitSaveSupplierBtn = requestData => {
+      const successCallBack = selectedSupplier
+        ? () => console.log('EDIT_SUCCESS')
+        : () => console.log('SUPPLIER_CREATE')
+
+      setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+
+      const data = {...requestData, productId: order.product?._id, successCallBack}
+
+      console.log('data', data)
+
+      onClickSaveSupplierBtn(data)
+    }
+
     const allowOrderStatuses = [
       `${OrderStatusByKey[OrderStatus.PENDING]}`,
       `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
@@ -274,7 +301,11 @@ export const EditOrderModal = observer(
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
     const disableSubmit =
-      requestStatus === loadingStatuses.isLoading || submitDisabledOrderStatuses.includes(order.status + '')
+      requestStatus === loadingStatuses.isLoading ||
+      submitDisabledOrderStatuses.includes(order.status + '') ||
+      !orderFields.orderSupplier
+
+    const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -484,9 +515,60 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Suppliers)}
           </Text>
 
+          {isPendingOrder ? (
+            <div className={classNames.supplierActionsWrapper}>
+              <div className={classNames.supplierContainer}>
+                <div className={classNames.supplierButtonWrapper}>
+                  <Button
+                    className={classNames.iconBtn}
+                    onClick={() => {
+                      setSelectedSupplier(null)
+                      setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+                    }}
+                  >
+                    <AddIcon />
+                  </Button>
+                </div>
+
+                {selectedSupplier ? (
+                  <>
+                    <div className={classNames.supplierButtonWrapper}>
+                      <Button
+                        className={classNames.iconBtn}
+                        onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+                      >
+                        <EditOutlinedIcon />
+                      </Button>
+                    </div>
+
+                    <div className={classNames.supplierButtonWrapper}>
+                      <Button
+                        className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                          [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                        })}
+                        onClick={() => {
+                          if (isSupplierAcceptRevokeActive) {
+                            setOrderField('orderSupplier')({target: {value: null}})
+                          } else {
+                            setOrderField('orderSupplier')({target: {value: selectedSupplier}})
+                          }
+                        }}
+                      >
+                        {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                      </Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+
           <EditOrderSuppliersTable
+            isPendingOrder={isPendingOrder}
             selectedSupplier={orderFields.orderSupplier}
+            curSelectedSupplier={selectedSupplier}
             suppliers={orderFields.product.suppliers}
+            setSelectedSupplier={setSelectedSupplier}
           />
         </Paper>
 
@@ -702,6 +784,24 @@ export const EditOrderModal = observer(
               setShowConfirmModal(!showConfirmModal)
               setShowCheckQuantityModal(!showCheckQuantityModal)
             }}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+        >
+          <AddOrEditSupplierModalContent
+            requestStatus={requestStatus}
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            title={t(TranslationKey['Adding and editing a supplier'])}
+            supplier={selectedSupplier}
+            // showProgress={showProgress}
+            // progressValue={progressValue}
+            onClickSaveBtn={onClickSubmitSaveSupplierBtn}
+            onTriggerShowModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
           />
         </Modal>
       </Box>

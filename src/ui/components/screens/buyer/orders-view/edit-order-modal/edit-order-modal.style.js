@@ -17,6 +17,31 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
+  supplierActionsWrapper: {
+    display: 'flex',
+  },
+  supplierContainer: {
+    marginBottom: '20px',
+    display: 'flex',
+    gap: '16px',
+  },
+
+  iconBtnAcceptRevoke: {
+    backgroundColor: 'rgba(224, 32, 32, 1)',
+  },
+
+  iconBtn: {
+    maxHeight: '40px',
+    maxWidth: '40px',
+    color: 'white',
+    backgroundColor: 'rgba(0, 123, 255, 1)',
+    borderRadius: '4px',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 123, 255, 1)',
+    },
+  },
+
   labelsInfoWrapper: {
     display: 'flex',
     gap: '27px',

@@ -86,7 +86,7 @@ export const NavbarCollapse = ({
   )
 
   return (
-    <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_MY_ORDERS}>
+    <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS}>
       <List disablePadding>
         {category.subtitles?.map((subCategory, subIndex) =>
           subCategory.checkHideSubBlock
