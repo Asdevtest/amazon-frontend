@@ -582,7 +582,7 @@ export const navbarConfig = () => ({
             !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
         },
       ],
-      key: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      key: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(

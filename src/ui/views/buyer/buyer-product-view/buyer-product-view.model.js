@@ -403,7 +403,7 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 

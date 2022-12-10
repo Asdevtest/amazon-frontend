@@ -13,7 +13,12 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
+import {
+  calcExchangeDollarsInYuansPrice,
+  calcExchangePrice,
+  calcPriceForItem,
+  calcOrderTotalPrice,
+} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {
   checkAndMakeAbsoluteUrl,
@@ -267,7 +272,11 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   labelClasses={classNames.greenLabel}
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
-                  value={orderFields.totalPriceChanged}
+                  value={
+                    isPendingOrder
+                      ? toFixed(calcOrderTotalPrice(orderFields.orderSupplier, order.amount), 2)
+                      : orderFields.totalPriceChanged
+                  }
                   onChange={setOrderField('totalPriceChanged')}
                 />
               </div>

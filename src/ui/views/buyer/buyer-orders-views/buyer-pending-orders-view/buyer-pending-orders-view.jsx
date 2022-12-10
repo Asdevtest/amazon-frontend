@@ -40,6 +40,7 @@ class BuyerPendingOrdersViewRaw extends Component {
 
   render() {
     const {
+      yuanToDollarRate,
       warningInfoModalSettings,
       userInfo,
       rowCount,
@@ -86,6 +87,7 @@ class BuyerPendingOrdersViewRaw extends Component {
       onSearchSubmit,
       onSubmitChangeBoxFields,
       setPhotosToLoad,
+      onClickSaveSupplierBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -156,6 +158,7 @@ class BuyerPendingOrdersViewRaw extends Component {
         >
           <EditOrderModal
             isPendingOrder
+            yuanToDollarRate={yuanToDollarRate}
             userInfo={userInfo}
             volumeWeightCoefficient={volumeWeightCoefficient}
             photosToLoad={photosToLoad}
@@ -170,6 +173,7 @@ class BuyerPendingOrdersViewRaw extends Component {
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSaveOrderItem={onSaveOrderItem}
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+            onClickSaveSupplierBtn={onClickSaveSupplierBtn}
           />
         </Modal>
 

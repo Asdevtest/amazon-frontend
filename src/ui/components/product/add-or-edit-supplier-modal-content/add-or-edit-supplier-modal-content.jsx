@@ -175,12 +175,12 @@ export const AddOrEditSupplierModalContent = observer(
                 className={classNames.saveBtnClient}
                 variant="contained"
                 onClick={() => {
-                  onClickSaveBtn(
-                    {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
+                  onClickSaveBtn({
+                    supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                     photosOfSupplier,
-                    false,
+                    addMore: false,
                     makeMainSupplier,
-                  )
+                  })
                 }}
               >
                 {t(TranslationKey['Save and bind'])}
@@ -193,12 +193,12 @@ export const AddOrEditSupplierModalContent = observer(
                 className={classNames.saveBtnClient}
                 variant="contained"
                 onClick={() => {
-                  onClickSaveBtn(
-                    {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
+                  onClickSaveBtn({
+                    supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                     photosOfSupplier,
-                    true,
+                    addMore: false,
                     makeMainSupplier,
-                  )
+                  })
                   setTmpSupplier({
                     amount: '',
                     comment: '',
@@ -251,7 +251,10 @@ export const AddOrEditSupplierModalContent = observer(
               className={classNames.saveBtn}
               variant="contained"
               onClick={() => {
-                onClickSaveBtn({...calculateFieldsToSubmit(), _id: supplier && supplier._id}, photosOfSupplier)
+                onClickSaveBtn({
+                  supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
+                  photosOfSupplier,
+                })
 
                 setPhotosOfSupplier(() => [])
               }}

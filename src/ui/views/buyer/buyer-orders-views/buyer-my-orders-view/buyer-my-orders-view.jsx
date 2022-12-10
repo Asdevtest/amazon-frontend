@@ -29,7 +29,7 @@ import {t} from '@utils/translations'
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
 import {styles} from './buyer-my-orders-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],

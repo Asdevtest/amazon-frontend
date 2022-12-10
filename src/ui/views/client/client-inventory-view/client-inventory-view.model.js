@@ -727,7 +727,7 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onSubmitSaveSupplier(supplier, photosOfSupplier, addMore, makeMainSupplier) {
+  async onSubmitSaveSupplier({supplier, photosOfSupplier, addMore, makeMainSupplier}) {
     try {
       this.readyImages = []
 

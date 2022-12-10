@@ -364,7 +364,7 @@ export class StockReportModel {
     }
   }
 
-  async onSubmitSaveSupplier(supplier, photosOfSupplier, addMore, makeMainSupplier) {
+  async onSubmitSaveSupplier({supplier, photosOfSupplier, addMore, makeMainSupplier}) {
     try {
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
