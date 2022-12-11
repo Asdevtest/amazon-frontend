@@ -363,7 +363,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, successCallBack}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
     try {
       this.readyImages = []
 
@@ -390,8 +390,6 @@ export class BuyerMyOrdersViewModel {
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
       this.selectedOrder = orderData
-
-      successCallBack()
 
       // await BuyerModel.updateProduct(
       //           productId,

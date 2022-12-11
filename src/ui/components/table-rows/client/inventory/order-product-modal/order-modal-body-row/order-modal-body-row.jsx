@@ -45,8 +45,6 @@ export const OrderModalBodyRow = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log(item)
-
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
   }

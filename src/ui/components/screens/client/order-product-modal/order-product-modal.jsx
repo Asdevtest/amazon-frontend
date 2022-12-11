@@ -12,7 +12,7 @@ import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-p
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './order-product-modal.style'
@@ -48,6 +48,9 @@ export const OrderProductModal = ({
       ? [
           {
             ...reorderOrder.product,
+
+            currentSupplier: reorderOrder.orderSupplier, // при реордере меняем текущего поставщика продукта на постащика заказа
+
             amount: reorderOrder.amount,
 
             destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
@@ -166,9 +169,10 @@ export const OrderProductModal = ({
 
   const onClickSubmit = () => {
     onSubmit({
-      ordersDataState: orderState.map(el => ({
+      ordersDataState: orderState.map((el, i) => ({
         ...el,
         destinationId: el.destinationId ? el.destinationId : null,
+        totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
         tmpIsPendingOrder: isPendingOrder,
       })),
       totalOrdersCost,

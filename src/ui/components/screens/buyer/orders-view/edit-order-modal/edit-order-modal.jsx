@@ -253,15 +253,9 @@ export const EditOrderModal = observer(
     }
 
     const onClickSubmitSaveSupplierBtn = requestData => {
-      const successCallBack = selectedSupplier
-        ? () => console.log('EDIT_SUCCESS')
-        : () => console.log('SUPPLIER_CREATE')
-
       setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
 
-      const data = {...requestData, productId: order.product?._id, successCallBack}
-
-      console.log('data', data)
+      const data = {...requestData, productId: order.product?._id}
 
       onClickSaveSupplierBtn(data)
     }

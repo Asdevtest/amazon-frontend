@@ -8,9 +8,12 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {OrderModel} from '@models/order-model'
+import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -37,13 +40,26 @@ export class ClientOrderViewModel {
   orderBoxes = []
 
   volumeWeightCoefficient = undefined
+  storekeepers = []
+  destinations = []
+  selectedProduct = undefined
 
   drawerOpen = false
   order = undefined
 
   showConfirmModal = false
-
+  showSetBarcodeModal = false
   showWarningInfoModal = false
+  showOrderModal = false
+
+  ordersDataStateToSubmit = undefined
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -58,6 +74,10 @@ export class ClientOrderViewModel {
 
   get navbarActiveSubCategory() {
     return setNavbarActiveSubCategory(this.history.location.pathname)
+  }
+
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
   }
 
   constructor({history}) {
@@ -80,6 +100,138 @@ export class ClientOrderViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async onClickReorder() {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      const destinations = await ClientModel.getDestinations()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.isPendingOrdering = false
+
+        this.storekeepers = storekeepers
+
+        this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
+  onDoubleClickBarcode = item => {
+    this.selectedProduct = item
+
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  async onClickSaveBarcode(tmpBarCode) {
+    this.uploadedFiles = []
+
+    if (tmpBarCode.length) {
+      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+    }
+
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+
+    this.onTriggerOpenModal('showSetBarcodeModal')
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
+  }
+
+  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
+    this.ordersDataStateToSubmit = ordersDataState
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitOrderProductModal() {
+    try {
+      this.error = undefined
+      this.onTriggerOpenModal('showOrderModal')
+
+      for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
+        const orderObject = this.ordersDataStateToSubmit[i]
+
+        this.uploadedFiles = []
+
+        if (orderObject.tmpBarCode.length) {
+          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        } else if (!orderObject.barCode) {
+          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+        }
+
+        await this.createOrder(orderObject)
+      }
+
+      if (!this.error) {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['The order has been created']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async createOrder(orderObject) {
+    try {
+      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+        'barCode',
+        'tmpBarCode',
+        'tmpIsPendingOrder',
+      ])
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(requestData)
+      } else {
+        await ClientModel.createOrder(requestData)
+      }
+
+      await this.updateUserInfo()
+    } catch (error) {
+      console.log(error)
+
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+      this.error = error
     }
   }
 
@@ -163,6 +315,13 @@ export class ClientOrderViewModel {
   }
 
   onClickCancelOrder() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      confirmTitle: t(TranslationKey.Attention),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onClickConfirm: () => this.onSubmitCancelOrder(),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 

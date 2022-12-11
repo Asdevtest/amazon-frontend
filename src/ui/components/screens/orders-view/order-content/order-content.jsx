@@ -1,8 +1,7 @@
+import {cx} from '@emotion/css'
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
-
-import {useHistory} from 'react-router-dom'
 
 import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
@@ -36,10 +35,9 @@ export const OrderContent = ({
   onSubmitChangeBoxFields,
   isClient,
   onSubmitSaveOrder,
+  onClickReorder,
 }) => {
   const {classes: classNames} = useClassNames()
-
-  const history = useHistory()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
@@ -143,29 +141,31 @@ export const OrderContent = ({
             />
           </div>
 
-          {/* <Divider orientation={'horizontal'} /> */}
+          <Divider orientation={'horizontal'} />
 
           <div className={classNames.btnsWrapper}>
-            {updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
-              <Button
-                danger
-                tooltipInfoContent={t(TranslationKey['Cancel order, refund of frozen funds'])}
-                className={classNames.cancelBtn}
-                onClick={onClickCancelOrder}
-              >
-                {t(TranslationKey['Cancel order'])}
-              </Button>
-            )}
+            {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
+              (isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) &&
+              onClickCancelOrder && (
+                <Button
+                  danger
+                  tooltipInfoContent={
+                    updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
+                    t(TranslationKey['Cancel order, refund of frozen funds'])
+                  }
+                  className={cx(classNames.button, classNames.cancelBtn)}
+                  onClick={onClickCancelOrder}
+                >
+                  {t(TranslationKey['Cancel order'])}
+                </Button>
+              )}
             {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
               <div className={classNames.btnsSubWrapper}>
-                <Button
-                  variant="text"
-                  className={classNames.cancelBtn}
-                  // className={classNames.cancelBtn}
-                  onClick={() => history.goBack()}
-                >
-                  {t(TranslationKey.Cancel)}
-                </Button>
+                {isClient && updatedOrder.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
+                  <Button success className={classNames.button} onClick={onClickReorder}>
+                    {t(TranslationKey['To order'])}
+                  </Button>
+                )}
 
                 <Button className={classNames.button} onClick={() => onSubmitSaveOrder(formFields)}>
                   {t(TranslationKey.Save)}
