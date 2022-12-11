@@ -49,6 +49,9 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('boxesIds')) {
                 obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
@@ -58,6 +61,12 @@ class InlineObject8 {
 
 
 }
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineObject8.prototype['title'] = undefined;
 
 /**
  * @member {Array.<String>} boxesIds

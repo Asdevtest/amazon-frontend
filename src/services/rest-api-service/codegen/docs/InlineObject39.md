@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | 
 **item** | **String** |  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
-**trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки | 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **clientComment** | **String** | Комментарии клиента. | [optional] 
+**productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
+**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 
 
 

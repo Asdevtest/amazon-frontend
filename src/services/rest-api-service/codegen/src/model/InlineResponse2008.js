@@ -61,6 +61,9 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('shipId')) {
                 obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('attachedDocuments')) {
                 obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
@@ -118,6 +121,12 @@ InlineResponse2008.prototype['status'] = undefined;
  * @member {String} shipId
  */
 InlineResponse2008.prototype['shipId'] = undefined;
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineResponse2008.prototype['title'] = undefined;
 
 /**
  * Массив ссылок на файлов документации к партии.

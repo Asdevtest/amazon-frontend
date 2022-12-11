@@ -54,6 +54,9 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
             }
@@ -78,6 +81,12 @@ InlineResponse20010.prototype['_id'] = undefined;
  * @member {Number} humanFriendlyId
  */
 InlineResponse20010.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineResponse20010.prototype['title'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes

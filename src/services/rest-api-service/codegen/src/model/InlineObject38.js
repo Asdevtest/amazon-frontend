@@ -64,12 +64,6 @@ class InlineObject38 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
-            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
@@ -94,6 +88,9 @@ class InlineObject38 {
             if (data.hasOwnProperty('expressChinaDelivery')) {
                 obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
             }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            }
         }
         return obj;
     }
@@ -117,18 +114,6 @@ InlineObject38.prototype['item'] = undefined;
  * @member {String} logicsTariffId
  */
 InlineObject38.prototype['logicsTariffId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject38.prototype['trackNumberText'] = undefined;
-
-/**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
- */
-InlineObject38.prototype['trackNumberFile'] = undefined;
 
 /**
  * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
@@ -177,6 +162,12 @@ InlineObject38.prototype['images'] = undefined;
  * @member {Boolean} expressChinaDelivery
  */
 InlineObject38.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject38.prototype['totalPrice'] = undefined;
 
 
 

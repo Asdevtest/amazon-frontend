@@ -22,10 +22,11 @@ class InlineObject67 {
     /**
      * Constructs a new <code>InlineObject67</code>.
      * @alias module:model/InlineObject67
+     * @param text {String} текст отзыва/репорта
      */
-    constructor() { 
+    constructor(text) { 
         
-        InlineObject67.initialize(this);
+        InlineObject67.initialize(this, text);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject67 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -47,11 +49,11 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -61,14 +63,16 @@ class InlineObject67 {
 }
 
 /**
- * @member {String} userId
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject67.prototype['userId'] = undefined;
+InlineObject67.prototype['text'] = undefined;
 
 /**
- * @member {Array.<String>} productIds
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
  */
-InlineObject67.prototype['productIds'] = undefined;
+InlineObject67.prototype['media'] = undefined;
 
 
 

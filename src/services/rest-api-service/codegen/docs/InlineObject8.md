@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**title** | **String** | Название партии | [optional] 
 **boxesIds** | **[String]** |  | 
 
 

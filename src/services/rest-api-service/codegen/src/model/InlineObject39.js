@@ -22,10 +22,14 @@ class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
      * @alias module:model/InlineObject39
+     * @param storekeeperId {String} GUID storekeeper-a
+     * @param logicsTariffId {String} GUID тарифа доставки
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(storekeeperId, logicsTariffId, amount, productId) { 
         
-        InlineObject39.initialize(this);
+        InlineObject39.initialize(this, storekeeperId, logicsTariffId, amount, productId);
     }
 
     /**
@@ -33,7 +37,11 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
+        obj['storekeeperId'] = storekeeperId;
+        obj['logicsTariffId'] = logicsTariffId;
+        obj['amount'] = amount;
+        obj['productId'] = productId;
     }
 
     /**
@@ -56,12 +64,6 @@ class InlineObject39 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
-            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
@@ -77,11 +79,17 @@ class InlineObject39 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('expressChinaDelivery')) {
                 obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
         }
         return obj;
@@ -106,18 +114,6 @@ InlineObject39.prototype['item'] = undefined;
  * @member {String} logicsTariffId
  */
 InlineObject39.prototype['logicsTariffId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject39.prototype['trackNumberText'] = undefined;
-
-/**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
- */
-InlineObject39.prototype['trackNumberFile'] = undefined;
 
 /**
  * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
@@ -150,6 +146,12 @@ InlineObject39.prototype['deliveryCostToTheWarehouse'] = undefined;
 InlineObject39.prototype['clientComment'] = undefined;
 
 /**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject39.prototype['productId'] = undefined;
+
+/**
  * Массив изображений.
  * @member {Array.<String>} images
  */
@@ -160,6 +162,12 @@ InlineObject39.prototype['images'] = undefined;
  * @member {Boolean} expressChinaDelivery
  */
 InlineObject39.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject39.prototype['totalPrice'] = undefined;
 
 
 
