@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**destinationId** | **String** | GUID дестинейшна | [optional] 
 **logicsTariff** | [**ApiV1BatchesByProductGuidLogicsTariff**](ApiV1BatchesByProductGuidLogicsTariff.md) |  | [optional] 
 **boxAmount** | **Number** | Общее кол-во коробок с этим продуктом | [optional] 
 **itemAmount** | **Number** | Общее кол-во в коробке | [optional] 

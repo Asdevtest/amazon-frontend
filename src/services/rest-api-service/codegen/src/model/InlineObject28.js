@@ -47,29 +47,23 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
         }
         return obj;
@@ -79,52 +73,38 @@ class InlineObject28 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * @member {String} clientComment
  */
-InlineObject28.prototype['amazon'] = undefined;
+InlineObject28.prototype['clientComment'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * @member {String} storekeeperComment
  */
-InlineObject28.prototype['reffee'] = undefined;
+InlineObject28.prototype['storekeeperComment'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject28.prototype['fbafee'] = undefined;
+InlineObject28.prototype['referenceId'] = undefined;
 
 /**
- * ФБА кол-во
- * @member {Number} fbaamount
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject28.prototype['fbaamount'] = undefined;
+InlineObject28.prototype['fbaNumber'] = undefined;
 
 /**
- * Код статуса
- * @member {Number} status
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject28.prototype['status'] = undefined;
+InlineObject28.prototype['trackNumberText'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
  */
-InlineObject28.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject28.prototype['margin'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject28.prototype['buyersComment'] = undefined;
+InlineObject28.prototype['trackNumberFile'] = undefined;
 
 
 

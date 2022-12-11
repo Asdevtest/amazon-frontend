@@ -47,11 +47,23 @@ class InlineObject63 {
         if (data) {
             obj = obj || new InlineObject63();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
             if (data.hasOwnProperty('buyerComment')) {
                 obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
         }
         return obj;
@@ -61,16 +73,40 @@ class InlineObject63 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * Кол-во продукта по этой позиции.
+ * @member {Number} amount
  */
-InlineObject63.prototype['clientComment'] = undefined;
+InlineObject63.prototype['amount'] = undefined;
+
+/**
+ * Гуид сапплаера
+ * @member {String} orderSupplierId
+ */
+InlineObject63.prototype['orderSupplierId'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject63.prototype['images'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineObject63.prototype['totalPrice'] = undefined;
 
 /**
  * Комментарий баера
  * @member {String} buyerComment
  */
 InlineObject63.prototype['buyerComment'] = undefined;
+
+/**
+ * Не настоящий ключ, используется только для нужд юзера
+ * @member {String} item
+ */
+InlineObject63.prototype['item'] = undefined;
 
 
 

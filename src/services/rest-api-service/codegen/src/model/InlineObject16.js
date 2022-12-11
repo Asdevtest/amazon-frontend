@@ -22,11 +22,10 @@ class InlineObject16 {
     /**
      * Constructs a new <code>InlineObject16</code>.
      * @alias module:model/InlineObject16
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject16.initialize(this, boxesIds);
+        InlineObject16.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject16 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,17 +47,11 @@ class InlineObject16 {
         if (data) {
             obj = obj || new InlineObject16();
 
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
@@ -67,11 +59,23 @@ class InlineObject16 {
             if (data.hasOwnProperty('fbaNumber')) {
                 obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
         }
         return obj;
@@ -81,28 +85,16 @@ class InlineObject16 {
 }
 
 /**
- * Штрихкод продукта
- * @member {String} barCode
+ * GUID пункта назначения коробки
+ * @member {String} destinationId
  */
-InlineObject16.prototype['barCode'] = undefined;
+InlineObject16.prototype['destinationId'] = undefined;
 
 /**
- *  logicsTariff GUID
+ * GUID тарифа к сторкипера
  * @member {String} logicsTariffId
  */
 InlineObject16.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID сотрудника склада
- * @member {String} storekeeperId
- */
-InlineObject16.prototype['storekeeperId'] = undefined;
-
-/**
- * Ссылка на наклейку для коробки
- * @member {String} shippingLabel
- */
-InlineObject16.prototype['shippingLabel'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.
@@ -117,15 +109,40 @@ InlineObject16.prototype['fbaShipment'] = undefined;
 InlineObject16.prototype['fbaNumber'] = undefined;
 
 /**
- * Гуид модели destination
- * @member {String} destinationId
+ * Комментарии к коробке
+ * @member {String} clientComment
  */
-InlineObject16.prototype['destinationId'] = undefined;
+InlineObject16.prototype['clientComment'] = undefined;
 
 /**
- * @member {Array.<String>} boxesIds
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject16.prototype['boxesIds'] = undefined;
+InlineObject16.prototype['referenceId'] = undefined;
+
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject16.prototype['trackNumberText'] = undefined;
+
+/**
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
+ */
+InlineObject16.prototype['trackNumberFile'] = undefined;
+
+/**
+ * shippingLabel коробки
+ * @member {String} shippingLabel
+ */
+InlineObject16.prototype['shippingLabel'] = undefined;
+
+/**
+ * shippingLabel проклеен сторкипером
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject16.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 
 

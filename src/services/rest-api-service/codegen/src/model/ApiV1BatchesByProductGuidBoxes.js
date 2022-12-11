@@ -66,6 +66,9 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
             if (data.hasOwnProperty('logicsTariff')) {
                 obj['logicsTariff'] = ApiV1BatchesByProductGuidLogicsTariff.constructFromObject(data['logicsTariff']);
             }
@@ -117,6 +120,12 @@ ApiV1BatchesByProductGuidBoxes.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 ApiV1BatchesByProductGuidBoxes.prototype['trackNumberFile'] = undefined;
+
+/**
+ * GUID дестинейшна
+ * @member {String} destinationId
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['destinationId'] = undefined;
 
 /**
  * @member {module:model/ApiV1BatchesByProductGuidLogicsTariff} logicsTariff

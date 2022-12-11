@@ -161,6 +161,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidRemoveBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesPost**](docs/BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesRequestSendBoxesToBatchPost**](docs/BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
+*TestSwagger.BatchesApi* | [**apiV1BatchesTitleGuidPatch**](docs/BatchesApi.md#apiV1BatchesTitleGuidPatch) | **PATCH** /api/v1/batches/title/{guid} | # Изменение названия партии
 *TestSwagger.BoxesApi* | [**apiV1BoxesAdditionalInfoGuidPatch**](docs/BoxesApi.md#apiV1BoxesAdditionalInfoGuidPatch) | **PATCH** /api/v1/boxes/additional_info/{guid} | # Изменить дополнительную информацию коробки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesApprovePost**](docs/BoxesApi.md#apiV1BoxesApprovePost) | **POST** /api/v1/boxes/approve | # Подтвердить операцию объединения/разъединения коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesByOrderGuidGuidGet**](docs/BoxesApi.md#apiV1BoxesByOrderGuidGuidGet) | **GET** /api/v1/boxes/by_order_guid/{guid} | # Получить коробки и их строки по GUID заказа.
@@ -477,6 +478,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject104](docs/InlineObject104.md)
  - [TestSwagger.InlineObject105](docs/InlineObject105.md)
  - [TestSwagger.InlineObject106](docs/InlineObject106.md)
+ - [TestSwagger.InlineObject107](docs/InlineObject107.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)

@@ -4,13 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**barCode** | **String** | Штрихкод продукта | [optional] 
-**logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
-**storekeeperId** | **String** | GUID сотрудника склада | [optional] 
-**shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
+**destinationId** | **String** | GUID пункта назначения коробки | [optional] 
+**logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
-**destinationId** | **String** | Гуид модели destination | [optional] 
-**boxesIds** | **[String]** |  | 
+**clientComment** | **String** | Комментарии к коробке | [optional] 
+**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
+**trackNumberText** | **String** | Текст трек номера | [optional] 
+**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**shippingLabel** | **String** | shippingLabel коробки | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
 
 

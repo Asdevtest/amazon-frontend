@@ -72,12 +72,6 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
-            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
@@ -148,18 +142,6 @@ InlineResponse20017.prototype['destination'] = undefined;
  * @member {String} item
  */
 InlineResponse20017.prototype['item'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineResponse20017.prototype['trackNumberText'] = undefined;
-
-/**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
- */
-InlineResponse20017.prototype['trackNumberFile'] = undefined;
 
 /**
  * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно

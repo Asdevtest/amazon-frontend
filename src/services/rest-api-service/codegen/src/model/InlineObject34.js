@@ -22,11 +22,10 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param email {String} 
      */
-    constructor(email) { 
+    constructor() { 
         
-        InlineObject34.initialize(this, email);
+        InlineObject34.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
-        obj['email'] = email;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -60,9 +58,10 @@ class InlineObject34 {
 }
 
 /**
- * @member {String} email
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject34.prototype['email'] = undefined;
+InlineObject34.prototype['refundPrice'] = undefined;
 
 
 

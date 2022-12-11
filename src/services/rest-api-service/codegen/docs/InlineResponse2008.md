@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **humanFriendlyId** | **Number** | Человекочитаемый id партии. | [optional] 
 **status** | **String** | Статус партии. | [optional] 
 **shipId** | **String** | id корабля. | [optional] 
+**title** | **String** | Название партии | [optional] 
 **attachedDocuments** | **[String]** | Массив ссылок на файлов документации к партии. | [optional] 
 **finalWeightAsOneBox** | **Number** | Финальный вес партии, если считать все коробки как одну большую коробу. | [optional] 
 **finalWeightSumEachBoxAmount** | **Number** | Финальный вес партии, если сложить все веса коробок по отдельности. | [optional] 

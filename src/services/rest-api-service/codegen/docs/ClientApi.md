@@ -116,7 +116,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID коробки
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject47() // InlineObject47 | 
+  'body': new TestSwagger.InlineObject48() // InlineObject48 | 
 };
 apiInstance.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID коробки | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject47**](InlineObject47.md)|  | [optional] 
+ **body** | [**InlineObject48**](InlineObject48.md)|  | [optional] 
 
 ### Return type
 
@@ -225,7 +225,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
+  'body': new TestSwagger.InlineObject47() // InlineObject47 | 
 };
 apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -241,7 +241,7 @@ apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
+ **body** | [**InlineObject47**](InlineObject47.md)|  | [optional] 
 
 ### Return type
 
@@ -439,7 +439,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
 };
 apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -455,7 +455,7 @@ apiInstance.apiV1ClientsMakePaymentsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
 
 ### Return type
 
@@ -493,7 +493,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1ClientsOrdersFormedPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -509,7 +509,7 @@ apiInstance.apiV1ClientsOrdersFormedPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -768,7 +768,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID заказа, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
+  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
 };
 apiInstance.apiV1ClientsOrdersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -785,7 +785,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
+ **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
 
 ### Return type
 
@@ -823,7 +823,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
 };
 apiInstance.apiV1ClientsOrdersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -839,7 +839,7 @@ apiInstance.apiV1ClientsOrdersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
 
 ### Return type
 
@@ -941,7 +941,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
+  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
 };
 apiInstance.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -957,7 +957,7 @@ apiInstance.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
+ **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
 
 ### Return type
 
@@ -995,7 +995,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
 apiInstance.apiV1ClientsProductsGetPriceForClientPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1011,7 +1011,7 @@ apiInstance.apiV1ClientsProductsGetPriceForClientPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
@@ -1162,7 +1162,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
+  'body': new TestSwagger.InlineObject46() // InlineObject46 | 
 };
 apiInstance.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1179,7 +1179,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
+ **body** | [**InlineObject46**](InlineObject46.md)|  | [optional] 
 
 ### Return type
 
@@ -1272,7 +1272,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
 };
 apiInstance.apiV1ClientsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1289,7 +1289,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
 
 ### Return type
 
@@ -1555,7 +1555,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
+  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
 };
 apiInstance.apiV1ClientsProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1571,7 +1571,7 @@ apiInstance.apiV1ClientsProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
+ **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
 
 ### Return type
 
@@ -1662,7 +1662,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | guid отменяемой задачи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
+  'body': new TestSwagger.InlineObject42() // InlineObject42 | 
 };
 apiInstance.apiV1ClientsTasksCancelGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1679,7 +1679,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| guid отменяемой задачи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
+ **body** | [**InlineObject42**](InlineObject42.md)|  | [optional] 
 
 ### Return type
 
@@ -1771,7 +1771,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
+  'body': new TestSwagger.InlineObject41() // InlineObject41 | 
 };
 apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1787,7 +1787,7 @@ apiInstance.apiV1ClientsTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
+ **body** | [**InlineObject41**](InlineObject41.md)|  | [optional] 
 
 ### Return type
 

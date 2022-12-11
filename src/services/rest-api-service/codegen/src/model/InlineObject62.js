@@ -22,10 +22,12 @@ class InlineObject62 {
     /**
      * Constructs a new <code>InlineObject62</code>.
      * @alias module:model/InlineObject62
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor() { 
+    constructor(productId, skus) { 
         
-        InlineObject62.initialize(this);
+        InlineObject62.initialize(this, productId, skus);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject62 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject62 {
         if (data) {
             obj = obj || new InlineObject62();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -67,28 +65,14 @@ class InlineObject62 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
+ * @member {String} productId
  */
-InlineObject62.prototype['amount'] = undefined;
+InlineObject62.prototype['productId'] = undefined;
 
 /**
- * Гуид сапплаера
- * @member {String} orderSupplierId
+ * @member {Array.<String>} skus
  */
-InlineObject62.prototype['orderSupplierId'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject62.prototype['images'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineObject62.prototype['totalPrice'] = undefined;
+InlineObject62.prototype['skus'] = undefined;
 
 
 

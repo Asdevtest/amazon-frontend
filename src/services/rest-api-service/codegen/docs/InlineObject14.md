@@ -25,7 +25,6 @@ Name | Type | Description | Notes
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **destinationId** | **String** | destination GUID  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
-**storekeeperId** | **String** | GUID сторкипера | [optional] 
+**logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
 
 

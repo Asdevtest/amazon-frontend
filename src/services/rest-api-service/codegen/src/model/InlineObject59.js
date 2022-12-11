@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject59 model module.
@@ -23,12 +22,10 @@ class InlineObject59 {
     /**
      * Constructs a new <code>InlineObject59</code>.
      * @alias module:model/InlineObject59
-     * @param productId {String} 
-     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor(productId, warehouseStocks) { 
+    constructor() { 
         
-        InlineObject59.initialize(this, productId, warehouseStocks);
+        InlineObject59.initialize(this);
     }
 
     /**
@@ -36,9 +33,7 @@ class InlineObject59 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, warehouseStocks) { 
-        obj['productId'] = productId;
-        obj['warehouseStocks'] = warehouseStocks;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +47,8 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('warehouseStocks')) {
-                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -66,14 +58,10 @@ class InlineObject59 {
 }
 
 /**
- * @member {String} productId
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject59.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
- */
-InlineObject59.prototype['warehouseStocks'] = undefined;
+InlineObject59.prototype['requestStatus'] = undefined;
 
 
 
