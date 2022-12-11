@@ -10,9 +10,12 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {OrderContent} from '@components/screens/orders-view/order-content'
 
 import {t} from '@utils/translations'
@@ -34,6 +37,11 @@ class ClientOrderViewRaw extends Component {
 
   render() {
     const {
+      confirmModalSettings,
+      selectedProduct,
+      destinationsFavourites,
+      destinations,
+      storekeepers,
       navbarActiveSubCategory,
       userInfo,
       volumeWeightCoefficient,
@@ -44,12 +52,18 @@ class ClientOrderViewRaw extends Component {
       history,
       showConfirmModal,
       showWarningInfoModal,
+      showOrderModal,
+      showSetBarcodeModal,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickCancelOrder,
-      onSubmitCancelOrder,
       onSubmitChangeBoxFields,
       onSubmitSaveOrder,
+      onClickReorder,
+      setDestinationsFavouritesItem,
+      onDoubleClickBarcode,
+      onClickSaveBarcode,
+      onConfirmSubmitOrderProductModal,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -86,22 +100,44 @@ class ClientOrderViewRaw extends Component {
                   onClickCancelOrder={onClickCancelOrder}
                   onSubmitChangeBoxFields={onSubmitChangeBoxFields}
                   onSubmitSaveOrder={onSubmitSaveOrder}
+                  onClickReorder={onClickReorder}
                 />
               ) : null}
             </MainContent>
           </Appbar>
 
+          <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+            <OrderProductModal
+              isPendingOrdering
+              reorderOrder={order}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              destinations={destinations}
+              storekeepers={storekeepers}
+              destinationsFavourites={destinationsFavourites}
+              setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+              onTriggerOpenModal={onTriggerOpenModal}
+              onDoubleClickBarcode={onDoubleClickBarcode}
+              onSubmit={onConfirmSubmitOrderProductModal}
+            />
+          </Modal>
+
+          <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+            <SetBarcodeModal
+              item={selectedProduct}
+              onClickSaveBarcode={onClickSaveBarcode}
+              onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+            />
+          </Modal>
+
           <ConfirmationModal
-            isWarning
             openModal={showConfirmModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Are you sure you want to cancel the order?'])}
+            isWarning={confirmModalSettings.isWarning}
+            title={confirmModalSettings.confirmTitle}
+            message={confirmModalSettings.confirmMessage}
             successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={() => {
-              onSubmitCancelOrder()
-            }}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onClickSuccessBtn={confirmModalSettings.onClickConfirm}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
 

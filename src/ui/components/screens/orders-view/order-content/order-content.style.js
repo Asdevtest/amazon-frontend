@@ -38,10 +38,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    // marginTop: '40px',
-    marginRight: '20px',
+    marginTop: 10,
+    padding: '0 20px',
+
+    width: '100%',
   },
 
   goBackBtn: {
@@ -50,8 +52,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnsSubWrapper: {
     display: 'flex',
-    width: 300,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    gap: 40,
   },
 
   button: {
@@ -60,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    height: '36px',
+    height: 40,
     color: theme.palette.text.general,
   },
 
