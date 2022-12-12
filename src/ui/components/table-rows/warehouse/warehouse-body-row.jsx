@@ -8,7 +8,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from 'tss-react/mui'
 
-import {BoxStatus, boxStatusTranslateKey} from '@constants/box-status'
+import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -36,9 +36,8 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  // const onTriggerIsMaximizedMasterBox = () => {
-  //   setIsMaximizedMasterBox(!isMaximizedMasterBox)
-  // }
+  const style = colorByBoxStatus(box.status)
+  console.log('style', style)
 
   const BoxCreatedAt = ({product}) => (
     <Typography className={classNames.shortDateCellTypo}>
@@ -48,7 +47,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const ProductStatus = ({product}) => (
     <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineText}>{t(boxStatusTranslateKey(product))}</Typography>
+      <Typography className={classNames.multilineText} style={colorByBoxStatus(product)}>
+        {t(boxStatusTranslateKey(product))}
+      </Typography>
     </div>
   )
 
@@ -97,32 +98,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const isMasterBox = !(!box.amount || box.amount === 1) && !areSubBoxes
 
-  // const getBoxSecondTableCellContent = () => {
-  //   if (areSubBoxes) {
-  //     return
-  //   }
-  //   {
-  //     return (
-  //       <div className={classNames.checkboxRow}>
-  //         {handlers?.checkbox ? (
-  //           <Checkbox
-  //             color="primary"
-  //             checked={rowsDatas?.selectedBoxes.includes(box._id)}
-  //             onChange={() => handlers.checkbox(box._id)}
-  //           />
-  //         ) : undefined}
-  //         {isMasterBox ? (
-  //           isMaximizedMasterBox ? (
-  //             <ArrowDropUpIcon onClick={onTriggerIsMaximizedMasterBox} />
-  //           ) : (
-  //             <ArrowDropDownIcon onClick={onTriggerIsMaximizedMasterBox} />
-  //           )
-  //         ) : undefined}
-  //       </div>
-  //     )
-  //   }
-  // }
-
   return (
     <>
       {box.items.map((order, orderIndex) => (
@@ -136,9 +111,15 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
                 <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
               </React.Fragment>
             )}
-            <TableCell>
-              <ProductStatus product={box.status} />
-            </TableCell>
+
+            {orderIndex === 0 && (
+              <React.Fragment>
+                <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
+                  <ProductStatus product={box.status} />
+                </TableCell>
+              </React.Fragment>
+            )}
+
             <TableCell>
               <BoxCreatedAt product={order.product} />
             </TableCell>
@@ -170,7 +151,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             )}
 
             <TableCell className={classNames.centerCell}>
-              {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
+              <div className={classNames.amountCell}>
+                {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
+              </div>
             </TableCell>
 
             {orderIndex === 0 && (
@@ -211,7 +194,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             </TableCell>
 
             {orderIndex === 0 && (
-              <TableCell>
+              <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
                 <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
               </TableCell>
             )}

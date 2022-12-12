@@ -120,14 +120,14 @@ export const styles = theme => ({
   },
   shortDateCellTypo: {
     textAlign: 'center',
-    width: 65,
+    width: 60,
     whiteSpace: 'pre-line',
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
   },
   multilineTextWrapper: {
-    width: 70,
+    width: 80,
     whiteSpace: 'pre-wrap',
   },
   multilineText: {
@@ -136,5 +136,9 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: theme.palette.text.main,
+  },
+  amountCell: {
+    width: 80,
+    whiteSpace: 'pre-wrap',
   },
 })

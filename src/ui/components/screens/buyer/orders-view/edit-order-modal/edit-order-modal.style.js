@@ -274,19 +274,22 @@ export const useClassNames = makeStyles()(theme => ({
   sharpCell: {
     width: 10,
   },
+  createdCell: {
+    width: 65,
+  },
   statusCell: {
-    width: 70,
+    width: 60,
   },
   productCell: {
     width: 210,
   },
   finalWeightCell: {
-    width: 100,
+    width: 90,
     whiteSpace: 'pre-wrap',
     textAlign: 'center',
   },
   grossWeightCell: {
-    width: 100,
+    width: 90,
     whiteSpace: 'pre-wrap',
     textAlign: 'center',
   },

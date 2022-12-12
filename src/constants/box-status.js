@@ -24,3 +24,24 @@ export const boxStatusTranslateKey = status => {
       return TranslationKey['Needs confirmation of shipping cost']
   }
 }
+
+export const colorByBoxStatus = status => {
+  if (
+    [BoxStatus.NEW, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE].includes(
+      status,
+    )
+  ) {
+    return {
+      color: 'red',
+    }
+  }
+  if ([BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.IN_BATCH_ON_THE_WAY].includes(status)) {
+    return {
+      background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+      backgroundClip: 'text',
+      textFillColor: 'transparent',
+    }
+  }
+}
