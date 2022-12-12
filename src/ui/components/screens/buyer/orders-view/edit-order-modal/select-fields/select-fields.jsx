@@ -71,6 +71,7 @@ export const SelectFields = ({
             {Number(orderFields.status) >= Number(OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) && (
               <Field
                 label={t(TranslationKey['Quantity of goods delivered'])}
+                labelClasses={classNames.label}
                 inputComponent={
                   <div
                     className={cx(classNames.deliveredGoodsWrapper, {
@@ -274,7 +275,7 @@ export const SelectFields = ({
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
                   value={
                     isPendingOrder
-                      ? toFixed(calcOrderTotalPrice(orderFields.orderSupplier, order.amount), 2)
+                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, order?.amount), 2)
                       : orderFields.totalPriceChanged
                   }
                   onChange={setOrderField('totalPriceChanged')}

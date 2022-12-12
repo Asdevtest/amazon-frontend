@@ -15,8 +15,6 @@ import {UserModel} from '@models/user-model'
 import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -101,9 +99,10 @@ export class ClientOrdersViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
-    } else {
-      this.startFilterModel = resetDataGridFilter
     }
+    // else {
+    //       this.startFilterModel = resetDataGridFilter
+    //     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
@@ -133,9 +132,7 @@ export class ClientOrdersViewModel {
       this.getDataGridState()
 
       runInAction(() => {
-        this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders).sort(
-          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
-        )
+        this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
       })
     }
   }

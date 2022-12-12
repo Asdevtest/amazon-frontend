@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -15,6 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
@@ -61,6 +62,7 @@ class BuyerMyOrdersViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      columnVisibilityModel,
 
       curBoxesOfOrder,
       drawerOpen,
@@ -86,8 +88,9 @@ class BuyerMyOrdersViewRaw extends Component {
       onSubmitSaveOrder,
       onTriggerOpenModal,
 
-      onSelectionModel,
-      setDataGridState,
+      // setDataGridState,
+      onColumnVisibilityModelChange,
+      setFirstRowId,
       onChangeSortingModel,
       onChangeFilterModel,
       onSubmitCancelOrder,
@@ -95,6 +98,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
+
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -125,7 +129,7 @@ class BuyerMyOrdersViewRaw extends Component {
               </div>
 
               <div className={classNames.dataGridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   disableVirtualization
                   pagination
                   useResizeContainer
@@ -151,18 +155,17 @@ class BuyerMyOrdersViewRaw extends Component {
                   components={{
                     Toolbar: GridToolbar,
                   }}
+                  columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
+                  onFilterModelChange={onChangeFilterModel}
+                  onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+                  onStateChange={setFirstRowId}
                   onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
                 />
               </div>
             </MainContent>

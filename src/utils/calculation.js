@@ -26,10 +26,10 @@ export const calcProductsPriceWithDelivery = (product, order) =>
     (parseFloat(
       product.currentSupplier && product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount,
     ) || 0)) *
-  (parseInt(order.amount) || 0)
+  (parseInt(order?.amount) || 0)
 
 export const calcOrderTotalPrice = (supplier, goodsAmount) =>
-  ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier.amount) || 0)) *
+  ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
   (parseInt(goodsAmount) || 0)
 
 export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 0) / (parseFloat(rate) || 0), 2)

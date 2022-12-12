@@ -94,7 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   barCodeText: {
-    width: '300px',
+    width: 230,
     height: '46px',
     overflowX: 'auto',
     color: theme.palette.text.second,

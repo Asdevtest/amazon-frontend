@@ -49,7 +49,7 @@ export const OrderProductModal = ({
           {
             ...reorderOrder.product,
 
-            currentSupplier: reorderOrder.orderSupplier, // при реордере меняем текущего поставщика продукта на постащика заказа
+            // currentSupplier: reorderOrder.orderSupplier, // при реордере меняем текущего поставщика продукта на постащика заказа
 
             amount: reorderOrder.amount,
 

@@ -22,6 +22,33 @@ export const useClassNames = makeStyles()(theme => ({
   },
   buttonsWrapper: {},
 
+  trackNumberPhotoWrapper: {
+    width: 230,
+    height: 80,
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  trackNumberPhoto: {
+    width: 230,
+    height: 80,
+    objectFit: 'contain',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+
+  trackNumberNoPhotoText: {
+    textAlign: 'center',
+  },
+
   currentBox: {
     marginBottom: '20px',
     width: '690px',
@@ -388,7 +415,7 @@ export const useClassNames = makeStyles()(theme => ({
   footerSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    // alignItems: 'center',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '14px',
@@ -396,7 +423,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNum: {
-    marginLeft: 20,
+    // marginLeft: 20,
     maxWidth: 200,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
