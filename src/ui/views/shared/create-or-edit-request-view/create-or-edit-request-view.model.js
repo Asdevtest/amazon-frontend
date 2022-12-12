@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -26,18 +26,22 @@ export class CreateOrEditRequestViewModel {
   showProgress = false
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.requestToEdit = location.state.request
-    }
+      if (location.state) {
+        this.requestToEdit = location.state.request
+      }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   async onSubmitCreateRequest(data, files) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
@@ -47,8 +51,10 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.createRequest(dataWithFiles)
 
-      this.showAcceptMessage = true
-      this.acceptMessage = t(TranslationKey['An request has been created'])
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['An request has been created'])
+      })
 
       this.history.push('/client/freelance/my-requests', {
         showAcceptMessage: this.showAcceptMessage,
@@ -57,15 +63,19 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
 
-      this.showAcceptMessage = true
-      this.acceptMessage = t(TranslationKey['The request was not created'])
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['The request was not created'])
+      })
 
       this.history.push('/client/freelance/my-requests', {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
       })
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -82,8 +92,10 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 
-      this.showAcceptMessage = true
-      this.acceptMessage = t(TranslationKey['The request has been changed'])
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['The request has been changed'])
+      })
 
       this.history.push('/client/freelance/my-requests/custom-request', {
         showAcceptMessage: this.showAcceptMessage,
@@ -93,8 +105,10 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.log(error)
 
-      this.showAcceptMessage = true
-      this.acceptMessage = t(TranslationKey['The request has not been changed'])
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['The request has not been changed'])
+      })
 
       this.history.push('/client/freelance/my-requests/custom-request', {
         showAcceptMessage: this.showAcceptMessage,
@@ -102,11 +116,15 @@ export class CreateOrEditRequestViewModel {
         request: this.requestToEdit.request,
       })
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

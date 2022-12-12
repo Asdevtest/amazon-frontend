@@ -42,21 +42,23 @@ export class MessagesViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state?.anotherUserId) {
-      this.chatSelectedId = this.simpleChats.find(el =>
-        el.users.map(e => e._id).includes(location.state.anotherUserId),
-      )?._id
+      if (location.state?.anotherUserId) {
+        this.chatSelectedId = this.simpleChats.find(el =>
+          el.users.map(e => e._id).includes(location.state.anotherUserId),
+        )?._id
 
-      if (!this.chatSelectedId) {
-        this.showProgress = true
+        if (!this.chatSelectedId) {
+          this.showProgress = true
 
-        setTimeout(() => {
-          this.showProgress = false
-        }, 5000)
+          setTimeout(() => {
+            this.showProgress = false
+          }, 5000)
+        }
       }
-    }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
 
@@ -67,7 +69,9 @@ export class MessagesViewModel {
           location.state?.anotherUserId &&
           this.simpleChats.some(el => el.users.map(e => e._id).includes(location.state?.anotherUserId))
         ) {
-          this.showProgress = false
+          runInAction(() => {
+            this.showProgress = false
+          })
         }
       },
     )
@@ -75,20 +79,24 @@ export class MessagesViewModel {
     reaction(
       () => this.chatSelectedId,
       () => {
-        this.mesSearchValue = ''
+        runInAction(() => {
+          this.mesSearchValue = ''
+        })
       },
     )
 
     reaction(
       () => this.mesSearchValue,
       () => {
-        if (this.mesSearchValue && this.chatSelectedId) {
-          this.messagesFound = this.simpleChats
-            .find(el => el._id === this.chatSelectedId)
-            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
-        } else {
-          this.messagesFound = []
-        }
+        runInAction(() => {
+          if (this.mesSearchValue && this.chatSelectedId) {
+            this.messagesFound = this.simpleChats
+              .find(el => el._id === this.chatSelectedId)
+              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+          } else {
+            this.messagesFound = []
+          }
+        })
       },
     )
   }
@@ -110,7 +118,9 @@ export class MessagesViewModel {
         [],
       )
 
-      this.usersData = res.filter(el => !existedChatsEmails.includes(el.email))
+      runInAction(() => {
+        this.usersData = res.filter(el => !existedChatsEmails.includes(el.email))
+      })
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
@@ -139,11 +149,13 @@ export class MessagesViewModel {
   }
 
   onClickChat(chat) {
-    if (this.chatSelectedId === chat._id) {
-      this.chatSelectedId = undefined
-    } else {
-      this.chatSelectedId = chat._id
-    }
+    runInAction(() => {
+      if (this.chatSelectedId === chat._id) {
+        this.chatSelectedId = undefined
+      } else {
+        this.chatSelectedId = chat._id
+      }
+    })
   }
 
   onChangeNameSearchValue(e) {
@@ -171,22 +183,32 @@ export class MessagesViewModel {
   }
 
   onClickBackButton() {
-    this.chatSelectedId = undefined
+    runInAction(() => {
+      this.chatSelectedId = undefined
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

@@ -32,12 +32,16 @@ export class VacantDealsViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onChangeViewMode(event, nextView) {
-    this.viewMode = nextView
+    runInAction(() => {
+      this.viewMode = nextView
+    })
   }
 
   getCurrentData() {
@@ -53,18 +57,22 @@ export class VacantDealsViewModel {
   getTableModeState() {
     const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_DEALS]
 
-    if (state) {
-      this.viewMode = state.viewMode
-      this.sortMode = state.sortMode
-    }
+    runInAction(() => {
+      if (state) {
+        this.viewMode = state.viewMode
+        this.sortMode = state.sortMode
+      }
+    })
   }
 
   onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
+    runInAction(() => {
+      if (this.sortMode === tableSortMode.DESK) {
+        this.sortMode = tableSortMode.ASC
+      } else {
+        this.sortMode = tableSortMode.DESK
+      }
+    })
 
     this.setTableModeState()
   }
@@ -119,21 +127,29 @@ export class VacantDealsViewModel {
   }
 
   onClickGetToWorkModal(proposalId, requestId) {
-    this.proposalId = proposalId
-    this.requestId = requestId
+    runInAction(() => {
+      this.proposalId = proposalId
+      this.requestId = requestId
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

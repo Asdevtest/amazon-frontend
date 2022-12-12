@@ -61,20 +61,22 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   constructor({history, location, scrollToChat}) {
-    this.history = history
-    this.scrollToChat = scrollToChat
-    if (location.state) {
-      this.requestId = location.state.request._id
-      this.acceptMessage = location.state.acceptMessage
-      this.showAcceptMessage = location.state.showAcceptMessage
+    runInAction(() => {
+      this.history = history
+      this.scrollToChat = scrollToChat
+      if (location.state) {
+        this.requestId = location.state.request._id
+        this.acceptMessage = location.state.acceptMessage
+        this.showAcceptMessage = location.state.showAcceptMessage
 
-      console.log('requestIdMain', this.requestId)
+        console.log('requestIdMain', this.requestId)
 
-      const state = {...history.location.state}
-      delete state.acceptMessage
-      delete state.showAcceptMessage
-      history.replace({...history.location, state})
-    }
+        const state = {...history.location.state}
+        delete state.acceptMessage
+        delete state.showAcceptMessage
+        history.replace({...history.location, state})
+      }
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
       if (ChatModel.isConnected) {
@@ -99,12 +101,14 @@ export class OwnerRequestDetailCustomViewModel {
       console.warn(error)
     }
 
-    if (this.showAcceptMessage) {
-      setTimeout(() => {
-        this.acceptMessage = ''
-        this.showAcceptMessage = false
-      }, 3000)
-    }
+    runInAction(() => {
+      if (this.showAcceptMessage) {
+        setTimeout(() => {
+          this.acceptMessage = ''
+          this.showAcceptMessage = false
+        }, 3000)
+      }
+    })
   }
 
   onTypingMessage(chatId) {
@@ -130,11 +134,13 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickChat(chat) {
-    if (this.chatSelectedId === chat._id) {
-      this.chatSelectedId = undefined
-    } else {
-      this.chatSelectedId = chat._id
-    }
+    runInAction(() => {
+      if (this.chatSelectedId === chat._id) {
+        this.chatSelectedId = undefined
+      } else {
+        this.chatSelectedId = chat._id
+      }
+    })
   }
 
   async getCustomRequestCur() {
@@ -146,7 +152,9 @@ export class OwnerRequestDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -163,9 +171,11 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
-    this.acceptProposalResultSetting = {
-      onSubmit: () => this.onClickProposalResultAcceptForm(proposalId),
-    }
+    runInAction(() => {
+      this.acceptProposalResultSetting = {
+        onSubmit: () => this.onClickProposalResultAcceptForm(proposalId),
+      }
+    })
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
   }
 
@@ -186,7 +196,9 @@ export class OwnerRequestDetailCustomViewModel {
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
     this.triggerShowResultToCorrectFormModal()
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
       }
@@ -216,7 +228,9 @@ export class OwnerRequestDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -229,20 +243,28 @@ export class OwnerRequestDetailCustomViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onClickContactWithExecutor(proposal) {
-    this.chatSelectedId = proposal.chatId
+    runInAction(() => {
+      this.chatSelectedId = proposal.chatId
+    })
     if (this.scrollToChat) {
       this.scrollToChat()
     }
-    this.showChat = true
+    runInAction(() => {
+      this.showChat = true
+    })
   }
 
   onClickHideChat() {
-    this.showChat = false
+    runInAction(() => {
+      this.showChat = false
+    })
   }
 
   async onClickAcceptProposal(proposalId) {
@@ -254,7 +276,9 @@ export class OwnerRequestDetailCustomViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -263,25 +287,30 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickOrderProposal(proposalId, price) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(price, 2)} $. ${t(
-        TranslationKey.Continue,
-      )} ?`,
-      onSubmit: () => this.onClickAcceptProposal(proposalId),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(
+          price,
+          2,
+        )} $. ${t(TranslationKey.Continue)} ?`,
+        onSubmit: () => this.onClickAcceptProposal(proposalId),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickRejectProposal(proposalId) {
-    this.curProposalId = proposalId
+    runInAction(() => {
+      this.curProposalId = proposalId
 
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Reject the proposal']),
-      onSubmit: () => this.onSubmitRejectProposal(),
-    }
+      this.confirmModalSettings = {
+        isWarning: true,
+        message: t(TranslationKey['Reject the proposal']),
+        onSubmit: () => this.onSubmitRejectProposal(),
+      }
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -294,7 +323,9 @@ export class OwnerRequestDetailCustomViewModel {
       await this.getCustomProposalsForRequestCur()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -302,18 +333,23 @@ export class OwnerRequestDetailCustomViewModel {
     try {
       const result = await RequestModel.calculateRequestCost(this.requestId)
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: `${t(TranslationKey['The exact cost of the request will be:'])} ${toFixed(result.totalCost, 2)} $. ${t(
-          TranslationKey['Confirm the publication?'],
-        )}`,
-        onSubmit: () => this.toPublishRequest(result.totalCost),
-      }
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: `${t(TranslationKey['The exact cost of the request will be:'])} ${toFixed(
+            result.totalCost,
+            2,
+          )} $. ${t(TranslationKey['Confirm the publication?'])}`,
+          onSubmit: () => this.toPublishRequest(result.totalCost),
+        }
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -333,7 +369,9 @@ export class OwnerRequestDetailCustomViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -350,16 +388,20 @@ export class OwnerRequestDetailCustomViewModel {
       this.history.goBack()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickCancelBtn() {
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Delete request?']),
-      onSubmit: () => this.onDeleteRequest(),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        message: t(TranslationKey['Delete request?']),
+        onSubmit: () => this.onDeleteRequest(),
+      }
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -371,24 +413,34 @@ export class OwnerRequestDetailCustomViewModel {
       this.getCustomRequestById()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   triggerShowResultToCorrectFormModal() {
-    this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
+    runInAction(() => {
+      this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   resetChats() {

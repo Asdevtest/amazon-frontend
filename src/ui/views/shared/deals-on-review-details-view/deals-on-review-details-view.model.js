@@ -28,12 +28,14 @@ export class VacantDealsDetailsViewModel {
   requestProposals = []
 
   constructor({history, location}) {
-    this.history = history
-    if (location.state) {
-      this.requestId = location.state.requestId
-      this.curProposalId = location.state.curProposalId
-      this.requester = location.state.requester
-    }
+    runInAction(() => {
+      this.history = history
+      if (location.state) {
+        this.requestId = location.state.requestId
+        this.curProposalId = location.state.curProposalId
+        this.requester = location.state.requester
+      }
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -58,7 +60,9 @@ export class VacantDealsDetailsViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -69,7 +73,9 @@ export class VacantDealsDetailsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -80,13 +86,17 @@ export class VacantDealsDetailsViewModel {
       this.onTriggerOpenModal('showRejectModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onClickReworkDeal(data, files) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
@@ -99,34 +109,48 @@ export class VacantDealsDetailsViewModel {
       this.onTriggerOpenModal('showReworkModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickConfirmDealModal(id) {
-    this.proposalId = id
+    runInAction(() => {
+      this.proposalId = id
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickReworkDealModal(id) {
-    this.proposalId = id
+    runInAction(() => {
+      this.proposalId = id
+    })
     this.onTriggerOpenModal('showReworkModal')
   }
 
   onClickRejectDealModal(id) {
-    this.proposalId = id
+    runInAction(() => {
+      this.proposalId = id
+    })
     this.onTriggerOpenModal('showRejectModal')
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

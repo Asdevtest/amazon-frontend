@@ -50,29 +50,30 @@ export class MyRequestsViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.acceptMessage = location.state.acceptMessage
-      this.showAcceptMessage = location.state.showAcceptMessage
+      if (location.state) {
+        this.acceptMessage = location.state.acceptMessage
+        this.showAcceptMessage = location.state.showAcceptMessage
 
-      const state = {...history.location.state}
-      delete state.acceptMessage
-      delete state.showAcceptMessage
-      history.replace({...history.location, state})
-    }
-
-    console.log('acceptMessage', this.acceptMessage)
-    console.log('showAcceptMessage', this.showAcceptMessage)
+        const state = {...history.location.state}
+        delete state.acceptMessage
+        delete state.showAcceptMessage
+        history.replace({...history.location, state})
+      }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
 
-    if (this.showAcceptMessage) {
-      setTimeout(() => {
-        this.acceptMessage = ''
-        this.showAcceptMessage = false
-      }, 3000)
-    }
+    runInAction(() => {
+      if (this.showAcceptMessage) {
+        setTimeout(() => {
+          this.acceptMessage = ''
+          this.showAcceptMessage = false
+        }, 3000)
+      }
+    })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -87,7 +88,9 @@ export class MyRequestsViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -97,34 +100,44 @@ export class MyRequestsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.curPage = state.pagination.page
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.curPage = state.pagination.page
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = myRequestsViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = myRequestsViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   getCurrentData() {
@@ -149,11 +162,13 @@ export class MyRequestsViewModel {
   }
 
   onClickEditBtn(row) {
-    this.requestFormSettings = {
-      request: row,
-      isEdit: true,
-      onSubmit: (data, requestId) => this.onSubmitEditCustomSearchRequest(data, requestId),
-    }
+    runInAction(() => {
+      this.requestFormSettings = {
+        request: row,
+        isEdit: true,
+        onSubmit: (data, requestId) => this.onSubmitEditCustomSearchRequest(data, requestId),
+      }
+    })
     this.onTriggerOpenModal('showRequestForm')
   }
 
@@ -165,7 +180,9 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -177,7 +194,9 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -186,7 +205,9 @@ export class MyRequestsViewModel {
       await RequestModel.updateCustomRequest(requestId, data)
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -195,12 +216,16 @@ export class MyRequestsViewModel {
       await RequestModel.createCustomSearchRequest(data)
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickRemoveBtn(row) {
-    this.researchIdToRemove = row.request._id
+    runInAction(() => {
+      this.researchIdToRemove = row.request._id
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -214,7 +239,9 @@ export class MyRequestsViewModel {
       this.getCustomRequests()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -227,7 +254,9 @@ export class MyRequestsViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -239,7 +268,9 @@ export class MyRequestsViewModel {
     } else {
       newSelectedRequests.push(index)
     }
-    this.selectedRequests = newSelectedRequests
+    runInAction(() => {
+      this.selectedRequests = newSelectedRequests
+    })
   }
 
   onClickTableRow(item) {
@@ -249,14 +280,20 @@ export class MyRequestsViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

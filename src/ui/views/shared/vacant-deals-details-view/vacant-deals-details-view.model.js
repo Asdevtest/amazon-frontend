@@ -22,12 +22,14 @@ export class VacantDealsDetailsViewModel {
   requestProposals = []
 
   constructor({history, location}) {
-    this.history = history
-    if (location.state) {
-      this.requestId = location.state.requestId
-      this.curProposalId = location.state.curProposalId
-      this.requester = location.state.requester
-    }
+    runInAction(() => {
+      this.history = history
+      if (location.state) {
+        this.requestId = location.state.requestId
+        this.curProposalId = location.state.curProposalId
+        this.requester = location.state.requester
+      }
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -52,7 +54,9 @@ export class VacantDealsDetailsViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -75,14 +79,20 @@ export class VacantDealsDetailsViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }
