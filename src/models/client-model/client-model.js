@@ -224,8 +224,8 @@ class ClientModelStatic {
     return response
   }
 
-  getClientDestinations = async status => {
-    const response = await restApiService.clientApi.apiV1ClientsDestinationsGet({status})
+  getClientDestinations = async filtersData => {
+    const response = await restApiService.clientApi.apiV1ClientsDestinationsGet(filtersData)
     return response
   }
 

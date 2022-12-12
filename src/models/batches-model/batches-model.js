@@ -20,9 +20,16 @@ export class BatchesModelStatic {
     return response
   }
 
-  createBatch = async boxesIds => {
+  createBatch = async data => {
     const response = await restApiService.batchesApi.apiV1BatchesPost({
-      body: {boxesIds},
+      body: data,
+    })
+    return response
+  }
+
+  changeTitle = async (id, data) => {
+    const response = await restApiService.batchesApi.apiV1BatchesTitleGuidPatch(id, {
+      body: data,
     })
     return response
   }

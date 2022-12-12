@@ -26,7 +26,7 @@ export const productLotDataFormColumns = handlers => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.boxes[0].batchTitle} />,
+    renderCell: params => <MultilineTextCell text={params.row.title} />,
     width: 80,
   },
 

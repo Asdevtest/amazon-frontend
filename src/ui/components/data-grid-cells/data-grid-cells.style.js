@@ -254,6 +254,7 @@ export const styles = theme => ({
   order: {
     display: 'flex',
     alignItems: 'center',
+    padding: '10px 0',
   },
   orderImg: {
     height: '64px',

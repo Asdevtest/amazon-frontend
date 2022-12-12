@@ -71,6 +71,10 @@ export class ClientExchangeViewModel {
     onClickConfirm: () => {},
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -172,6 +176,10 @@ export class ClientExchangeViewModel {
     await UserModel.getUserInfo()
   }
 
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
+  }
+
   async getProductsVacant() {
     try {
       const result = await ClientModel.getProductsVacant()
@@ -250,8 +258,16 @@ export class ClientExchangeViewModel {
         storekeeperId: orderObject.storekeeperId,
         destinationId: orderObject.destinationId,
         logicsTariffId: orderObject.logicsTariffId,
+        totalPrice: orderObject.totalPrice,
+        priority: orderObject.priority,
+        expressChinaDelivery: orderObject.expressChinaDelivery,
       }
-      await ClientModel.createOrder(createorderData)
+
+      if (orderObject.tmpIsPendingOrder) {
+        await ClientModel.createFormedOrder(createorderData)
+      } else {
+        await ClientModel.createOrder(createorderData)
+      }
 
       if (this.uploadedFiles.length) {
         await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})

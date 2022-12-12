@@ -199,17 +199,7 @@ export class ClientWarehouseViewRaw extends Component {
                 />
               </div>
 
-              {/* <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!curDestination?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
-                  variant="text"
-                  onClick={onClickDestinationBtn}
-                >
-                  {'All destinations'}
-                </Button>
-
+              <div className={classNames.boxesFiltersWrapper}>
                 {clientDestinations
                   .slice()
                   .sort((a, b) => a.name?.localeCompare(b.name))
@@ -228,9 +218,19 @@ export class ClientWarehouseViewRaw extends Component {
                       </Button>
                     ) : null,
                   )}
-              </div> */}
 
-              <WithSearchSelect
+                <Button
+                  disabled={!curDestination?._id}
+                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+                  variant="text"
+                  onClick={onClickDestinationBtn}
+                >
+                  {t(TranslationKey.All)}
+                </Button>
+              </div>
+
+              {/* <WithSearchSelect
                 selectedItemName={
                   (!curDestination?._id && t(TranslationKey['All destinations'])) ||
                   (curDestination && curDestination.name)
@@ -254,7 +254,7 @@ export class ClientWarehouseViewRaw extends Component {
                 }
                 onClickSelect={destination => onClickDestinationBtn(destination)}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              />
+              /> */}
 
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>

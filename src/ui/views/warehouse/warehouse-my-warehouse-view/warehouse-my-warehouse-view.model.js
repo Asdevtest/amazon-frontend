@@ -612,7 +612,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds, filesToAdd) {
+  async onSubmitAddBatch({boxesIds, filesToAdd, batchTitle}) {
     try {
       this.uploadedFiles = []
 
@@ -620,7 +620,7 @@ export class WarehouseMyWarehouseViewModel {
         await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
       }
 
-      const batchId = await BatchesModel.createBatch(boxesIds)
+      const batchId = await BatchesModel.createBatch({title: batchTitle, boxesIds})
 
       if (filesToAdd.length) {
         await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)

@@ -20,7 +20,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -40,7 +39,6 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
-      destinationsFavourites,
       clientDestinations,
       curDestination,
       userInfo,
@@ -82,7 +80,6 @@ export class ClientReadyBoxesViewRaw extends Component {
       onChangeNameSearchValue,
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
-      setDestinationsFavouritesItem,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -101,16 +98,6 @@ export class ClientReadyBoxesViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes ready to send'])}>
             <MainContent>
               <div className={classNames.boxesFiltersWrapper}>
-                {/* <Button
-                  disabled={!currentStorekeeper?._id}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickStorekeeperBtn}
-                >
-                  {t(TranslationKey['All warehouses'])}
-                </Button> */}
-
                 {storekeepersData.slice().map(storekeeper => (
                   <Button
                     key={storekeeper._id}
@@ -125,19 +112,19 @@ export class ClientReadyBoxesViewRaw extends Component {
                     {storekeeper.name}
                   </Button>
                 ))}
+
+                <Button
+                  disabled={!currentStorekeeper?._id}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickStorekeeperBtn}
+                >
+                  {t(TranslationKey['All warehouses'])}
+                </Button>
               </div>
 
-              {/* <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!curDestination?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
-                  variant="text"
-                  onClick={onClickDestinationBtn}
-                >
-                  {'All destinations'}
-                </Button>
-
+              <div className={classNames.boxesFiltersWrapper}>
                 {clientDestinations
                   .slice()
                   .sort((a, b) => a.name?.localeCompare(b.name))
@@ -156,9 +143,19 @@ export class ClientReadyBoxesViewRaw extends Component {
                       </Button>
                     ) : null,
                   )}
-              </div> */}
 
-              <WithSearchSelect
+                <Button
+                  disabled={!curDestination?._id}
+                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+                  variant="text"
+                  onClick={onClickDestinationBtn}
+                >
+                  {'All destinations'}
+                </Button>
+              </div>
+
+              {/* <WithSearchSelect
                 selectedItemName={
                   (!curDestination?._id && t(TranslationKey['All destinations'])) ||
                   (curDestination && curDestination.name)
@@ -177,7 +174,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                 }
                 onClickSelect={destination => onClickDestinationBtn(destination)}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              />
+              /> */}
 
               <div className={classNames.btnsWrapper}>
                 <Button
@@ -224,7 +221,8 @@ export class ClientReadyBoxesViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={150}
+                  // rowHeight={150}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}

@@ -148,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filterField: {
-    width: '220px',
+    width: 200,
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },

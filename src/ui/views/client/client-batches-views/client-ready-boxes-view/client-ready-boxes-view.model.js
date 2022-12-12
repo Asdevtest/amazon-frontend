@@ -58,10 +58,6 @@ export class ClientReadyBoxesViewModel {
     return UserModel.userInfo
   }
 
-  get destinationsFavourites() {
-    return SettingsModel.destinationsFavourites
-  }
-
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -70,10 +66,11 @@ export class ClientReadyBoxesViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
-  }
 
-  setDestinationsFavouritesItem(item) {
-    SettingsModel.setDestinationsFavouritesItem(item)
+    reaction(
+      () => this.currentStorekeeper,
+      () => this.getClientDestinations(),
+    )
   }
 
   async updateColumnsModel() {
@@ -192,6 +189,22 @@ export class ClientReadyBoxesViewModel {
     this.getBoxesMy()
   }
 
+  async getClientDestinations() {
+    try {
+      const clientDestinations = await ClientModel.getClientDestinations({
+        status: BoxStatus.REQUESTED_SEND_TO_BATCH,
+        storekeeperId: this.currentStorekeeper ? this.currentStorekeeper._id : null,
+      })
+
+      runInAction(() => {
+        this.clientDestinations = clientDestinations
+      })
+      this.getDataGridState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -200,11 +213,11 @@ export class ClientReadyBoxesViewModel {
 
       this.getBoxesMy()
 
-      const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.REQUESTED_SEND_TO_BATCH)
+      // const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
-      runInAction(() => {
-        this.clientDestinations = clientDestinations
-      })
+      // runInAction(() => {
+      //   this.clientDestinations = clientDestinations
+      // })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -295,10 +308,14 @@ export class ClientReadyBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(BoxStatus.REQUESTED_SEND_TO_BATCH, {
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
-        destinationId: this.curDestination && this.curDestination._id,
-      })
+      const result = await BoxesModel.getBoxesForCurClient(
+        `${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE}`,
+        {
+          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+          destinationId: this.curDestination && this.curDestination._id,
+          hasBatch: false,
+        },
+      )
 
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()
 

@@ -587,8 +587,9 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
+     * @param {String} status Статусы коробок разделенные запятой
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.hasBatch Должна ли коробка иметь свою партию
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.Accept_Encoding 
@@ -606,6 +607,7 @@ export default class BoxesApi {
       };
       let queryParams = {
         'status': status,
+        'hasBatch': opts['hasBatch'],
         'storekeeperId': opts['storekeeperId'],
         'destinationId': opts['destinationId']
       };
@@ -629,8 +631,9 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
+     * @param {String} status Статусы коробок разделенные запятой
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.hasBatch Должна ли коробка иметь свою партию
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.Accept_Encoding 

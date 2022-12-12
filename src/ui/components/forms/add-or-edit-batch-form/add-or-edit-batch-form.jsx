@@ -35,6 +35,8 @@ export const AddOrEditBatchForm = observer(
 
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
+    const [batchTitle, setBatchTitle] = useState('')
+
     const [filesToAdd, setfilesToAdd] = useState([])
 
     const [chosenBoxes, setChosenBoxes] = useState(
@@ -63,8 +65,6 @@ export const AddOrEditBatchForm = observer(
 
       return newArr
     }
-
-    console.log('chosenBoxes', chosenBoxes)
 
     useEffect(() => {
       if (batchToEdit) {
@@ -139,7 +139,7 @@ export const AddOrEditBatchForm = observer(
 
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
-      onSubmit(chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit)
+      onSubmit({boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchTitle})
 
       setSubmitIsClicked(true)
     }
@@ -152,6 +152,15 @@ export const AddOrEditBatchForm = observer(
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
+            <div>
+              <Field
+                className={classNames.filterField}
+                label={t(TranslationKey['Batch title'])}
+                value={batchTitle}
+                onChange={e => setBatchTitle(e.target.value)}
+              />
+            </div>
+
             <div>
               <Field
                 disabled
