@@ -26,7 +26,9 @@ export class ModeratorAppealsViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -78,21 +80,29 @@ export class ModeratorAppealsViewModel {
   }
 
   onClickGetToWorkModal(proposalId, requestId) {
-    this.proposalId = proposalId
-    this.requestId = requestId
+    runInAction(() => {
+      this.proposalId = proposalId
+      this.requestId = requestId
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

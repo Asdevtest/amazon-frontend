@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 export class ClientShopsViewModel {
   history = undefined
@@ -9,14 +9,18 @@ export class ClientShopsViewModel {
   openModal = null
 
   constructor({history, location}) {
-    this.history = history
-    if (location.state) {
-      this.openModal = location.state.openModal
-    }
+    runInAction(() => {
+      this.history = history
+      if (location.state) {
+        this.openModal = location.state.openModal
+      }
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

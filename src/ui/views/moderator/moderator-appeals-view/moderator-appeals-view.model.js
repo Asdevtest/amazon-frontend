@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
@@ -18,7 +18,9 @@ export class ModeratorAppealsViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -27,7 +29,9 @@ export class ModeratorAppealsViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   // setActionStatus(actionStatus) {
@@ -35,6 +39,8 @@ export class ModeratorAppealsViewModel {
   // }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

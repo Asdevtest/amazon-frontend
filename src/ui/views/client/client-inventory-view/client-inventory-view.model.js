@@ -338,7 +338,7 @@ export class ClientInventoryViewModel {
       runInAction(() => {
         this.showProgress = true
       })
-      await OtherModel.postTemplate(file)
+      const result = await OtherModel.postTemplate(file)
       runInAction(() => {
         this.showProgress = false
       })
@@ -347,7 +347,9 @@ export class ClientInventoryViewModel {
       const blob = new Blob([result.data], {type: result.headers['content-type']})
       const url = window.URL.createObjectURL(blob)
 
-      this.receivedFiles = url
+      runInAction(() => {
+        this.receivedFiles = url
+      })
 
       this.onTriggerOpenModal('showGetFilesModal')
       this.setRequestStatus(loadingStatuses.success)
@@ -676,16 +678,16 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
+  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState
 
       this.confirmModalSettings = {
         isWarning: false,
         confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
-          TranslationKey['Confirm order'],
-        )}?`,
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
         onClickConfirm: () => this.onSubmitOrderProductModal(),
       }
     })

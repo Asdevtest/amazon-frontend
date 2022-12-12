@@ -146,9 +146,11 @@ export class ClientProductViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    this.productId = history.location.search.slice(1)
+      this.productId = history.location.search.slice(1)
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -183,7 +185,9 @@ export class ClientProductViewModel {
 
   onChangeProductFields = fieldName =>
     action(e => {
-      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      runInAction(() => {
+        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      })
       if (
         [
           'icomment',
@@ -199,10 +203,14 @@ export class ClientProductViewModel {
           'shopIds',
         ].includes(fieldName)
       ) {
-        this.product = {...this.product, [fieldName]: e.target.value}
+        runInAction(() => {
+          this.product = {...this.product, [fieldName]: e.target.value}
+        })
       } else {
         if (['asin'].includes(fieldName)) {
-          this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
+          runInAction(() => {
+            this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
+          })
         }
 
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -221,10 +229,14 @@ export class ClientProductViewModel {
         }
 
         if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          this.product[fieldName] = parseInt(e.target.value)
+          runInAction(() => {
+            this.product[fieldName] = parseInt(e.target.value)
+          })
         }
 
-        this.product = {...this.product, [fieldName]: e.target.value}
+        runInAction(() => {
+          this.product = {...this.product, [fieldName]: e.target.value}
+        })
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
@@ -233,22 +245,30 @@ export class ClientProductViewModel {
     })
 
   onChangeProduct(e, value) {
-    this.product = value
+    runInAction(() => {
+      this.product = value
+    })
   }
 
   onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
-      this.storekeepersData = result
+      runInAction(() => {
+        this.storekeepersData = result
+      })
     } catch (error) {
       console.log(error)
     }
@@ -262,7 +282,9 @@ export class ClientProductViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -277,28 +299,32 @@ export class ClientProductViewModel {
           : this.history.push('/client/inventory', {isArchive: this.product.archive})
         break
       case 'delete':
-        this.confirmModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Delete a card']),
-          message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
-          successBtnText: t(TranslationKey.Delete),
-          cancelBtnText: t(TranslationKey.Cancel),
-          onClickOkBtn: () => this.onDeleteProduct(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['Delete a card']),
+            message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+            successBtnText: t(TranslationKey.Delete),
+            cancelBtnText: t(TranslationKey.Cancel),
+            onClickOkBtn: () => this.onDeleteProduct(),
+          }
+        })
 
         this.onTriggerOpenModal('showConfirmModal')
 
         break
 
       case 'restore':
-        this.confirmModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Return to Inventory']),
-          message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
-          successBtnText: t(TranslationKey.Yes),
-          cancelBtnText: t(TranslationKey.Cancel),
-          onClickOkBtn: () => this.onRestoreProduct(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Return to Inventory']),
+            message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
+            successBtnText: t(TranslationKey.Yes),
+            cancelBtnText: t(TranslationKey.Cancel),
+            onClickOkBtn: () => this.onRestoreProduct(),
+          }
+        })
 
         this.onTriggerOpenModal('showConfirmModal')
 
@@ -316,7 +342,9 @@ export class ClientProductViewModel {
       this.history.goBack()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -332,13 +360,17 @@ export class ClientProductViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async openConfirmModalWithTextByStatus(withoutStatus) {
     try {
-      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      runInAction(() => {
+        this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      })
 
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         toJS(this.product),
@@ -375,9 +407,13 @@ export class ClientProductViewModel {
       )
 
       if (withoutStatus) {
-        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+        runInAction(() => {
+          this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+        })
       } else {
-        this.curUpdateProductData = curUpdateProductData
+        runInAction(() => {
+          this.curUpdateProductData = curUpdateProductData
+        })
       }
 
       await this.onSaveProductData()
@@ -387,7 +423,9 @@ export class ClientProductViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -395,12 +433,16 @@ export class ClientProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      this.uploadedImages = []
+      runInAction(() => {
+        this.uploadedImages = []
+      })
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
 
-        this.imagesForLoad = []
+        runInAction(() => {
+          this.imagesForLoad = []
+        })
       }
 
       await ClientModel.updateProduct(
@@ -415,10 +457,12 @@ export class ClientProductViewModel {
           ['suppliers'],
         ),
       )
-      this.acceptMessage = t(TranslationKey['Data was successfully saved'])
-      setTimeout(() => {
-        this.acceptMessage = ''
-      }, 3000)
+      runInAction(() => {
+        this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+        setTimeout(() => {
+          this.acceptMessage = ''
+        }, 3000)
+      })
 
       // this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
 
@@ -440,7 +484,9 @@ export class ClientProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'view':
-        this.supplierModalReadOnly = true
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
 
         this.onTriggerAddOrEditSupplierModal()
         break
@@ -452,17 +498,21 @@ export class ClientProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-        this.product = {...this.product, currentSupplier: this.selectedSupplier}
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
+          this.product = {...this.product, currentSupplier: this.selectedSupplier}
+          this.selectedSupplier = undefined
+        })
         updateProductAutoCalculatedFields.call(this)
 
         this.onSaveForceProductData()
         break
       case 'acceptRevoke':
-        this.product = {...this.product, currentSupplierId: null}
-        this.product = {...this.product, currentSupplier: undefined}
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.product = {...this.product, currentSupplierId: null}
+          this.product = {...this.product, currentSupplier: undefined}
+          this.selectedSupplier = undefined
+        })
         updateProductAutoCalculatedFields.call(this)
 
         this.onSaveForceProductData()
@@ -486,7 +536,9 @@ export class ClientProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.readyImages = []
+      runInAction(() => {
+        this.readyImages = []
+      })
 
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
@@ -506,7 +558,9 @@ export class ClientProductViewModel {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
-          this.product.currentSupplier = supplier
+          runInAction(() => {
+            this.product.currentSupplier = supplier
+          })
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
@@ -525,7 +579,9 @@ export class ClientProductViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -567,48 +623,64 @@ export class ClientProductViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
 
         await this.getStorekeepers()
 
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        runInAction(() => {
+          this.yuanToDollarRate = result.yuanToDollarRate
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
       }
 
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
     } catch (error) {
       console.log(error)
     }
   }
 
   onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
+    runInAction(() => {
+      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+        this.selectedSupplier = undefined
+      } else {
+        this.selectedSupplier = supplier
+      }
+    })
   }
 
   async onClickParseProductData(productDataParser, product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      runInAction(() => {
+        this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      })
 
       if (product.asin) {
         const parseResult = await (() => {
@@ -623,24 +695,28 @@ export class ClientProductViewModel {
         runInAction(() => {
           if (Object.keys(parseResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            this.product = getObjectFilteredByKeyArrayBlackList(
-              {
-                ...this.product,
-                ...parseFieldsAdapter(parseResult, productDataParser),
-                weight:
-                  this.product.weight > parseResult.weight * poundsWeightCoefficient
-                    ? this.product.weight
-                    : parseResult.weight * poundsWeightCoefficient,
-                amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-                amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-              },
-              ['fbafee'],
-            )
+            runInAction(() => {
+              this.product = getObjectFilteredByKeyArrayBlackList(
+                {
+                  ...this.product,
+                  ...parseFieldsAdapter(parseResult, productDataParser),
+                  weight:
+                    this.product.weight > parseResult.weight * poundsWeightCoefficient
+                      ? this.product.weight
+                      : parseResult.weight * poundsWeightCoefficient,
+                  amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+                  amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+                },
+                ['fbafee'],
+              )
+            })
           }
           updateProductAutoCalculatedFields.call(this)
         })
       } else {
-        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+        runInAction(() => {
+          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+        })
       }
 
       this.setActionStatus(loadingStatuses.success)
@@ -648,7 +724,9 @@ export class ClientProductViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }

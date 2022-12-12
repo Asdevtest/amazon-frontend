@@ -95,11 +95,13 @@ export class ClientOrdersViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
-    }
+      if (location?.state?.dataGridFilter) {
+        this.startFilterModel = location.state.dataGridFilter
+      }
+    })
     // else {
     //       this.startFilterModel = resetDataGridFilter
     //     }
@@ -118,7 +120,9 @@ export class ClientOrdersViewModel {
     reaction(
       () => this.orders,
       () => {
-        this.currentData = this.getCurrentData()
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
       },
     )
   }
@@ -138,11 +142,15 @@ export class ClientOrdersViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
 
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -158,53 +166,67 @@ export class ClientOrdersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_ORDERS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-          }
-        : state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            }
+          : state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
-    this.curPage = 0
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
 
     this.getOrders()
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
 
     this.getOrders()
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
 
     this.getOrders()
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
   }
 
   getCurrentData() {
@@ -224,9 +246,11 @@ export class ClientOrdersViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
   setOrderStatus = pathname => {
@@ -281,11 +305,15 @@ export class ClientOrdersViewModel {
     } catch (error) {
       console.log(error)
 
-      this.baseNoConvertedOrders = []
-      this.orders = []
+      runInAction(() => {
+        this.baseNoConvertedOrders = []
+        this.orders = []
+      })
 
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -347,13 +375,17 @@ export class ClientOrdersViewModel {
   }
 
   onDoubleClickBarcode = item => {
-    this.selectedProduct = item
+    runInAction(() => {
+      this.selectedProduct = item
+    })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    this.uploadedFiles = []
+    runInAction(() => {
+      this.uploadedFiles = []
+    })
 
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
@@ -389,21 +421,29 @@ export class ClientOrdersViewModel {
     } catch (error) {
       console.log(error)
 
-      this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
+      runInAction(() => {
+        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
+      })
       this.onTriggerOpenModal('showInfoModal')
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
 
-        this.uploadedFiles = []
+        runInAction(() => {
+          this.uploadedFiles = []
+        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
@@ -419,27 +459,33 @@ export class ClientOrdersViewModel {
       this.loadData()
 
       if (!this.error) {
-        this.successModalText = t(TranslationKey['The order has been created'])
+        runInAction(() => {
+          this.successModalText = t(TranslationKey['The order has been created'])
+        })
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
-    this.ordersDataStateToSubmit = ordersDataState
+    runInAction(() => {
+      this.ordersDataStateToSubmit = ordersDataState
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-        ? t(TranslationKey['Pending order will be created'])
-        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onSubmitOrderProductModal(),
-    }
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+        onClickConfirm: () => this.onSubmitOrderProductModal(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -454,16 +500,22 @@ export class ClientOrdersViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
     this.getOrders()
     this.setDataGridState()
   }
 
   onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 }

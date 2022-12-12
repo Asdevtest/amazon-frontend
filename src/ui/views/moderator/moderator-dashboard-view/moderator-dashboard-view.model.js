@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 // import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 // import {loadingStatuses} from '@constants/loading-statuses'
@@ -28,7 +28,9 @@ export class ModeratorDashboardViewModel {
   // }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -78,7 +80,9 @@ export class ModeratorDashboardViewModel {
   // }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   // setRequestStatus(requestStatus) {

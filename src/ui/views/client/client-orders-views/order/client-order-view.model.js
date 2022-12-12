@@ -81,9 +81,11 @@ export class ClientOrderViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    this.orderId = history.location.search.slice(1)
+      this.orderId = history.location.search.slice(1)
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -132,13 +134,17 @@ export class ClientOrderViewModel {
   }
 
   onDoubleClickBarcode = item => {
-    this.selectedProduct = item
+    runInAction(() => {
+      this.selectedProduct = item
+    })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    this.uploadedFiles = []
+    runInAction(() => {
+      this.uploadedFiles = []
+    })
 
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
@@ -148,7 +154,9 @@ export class ClientOrderViewModel {
 
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
-      this.selectedProduct = undefined
+      runInAction(() => {
+        this.selectedProduct = undefined
+      })
     })
   }
 
@@ -157,29 +165,35 @@ export class ClientOrderViewModel {
   }
 
   onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
-    this.ordersDataStateToSubmit = ordersDataState
+    runInAction(() => {
+      this.ordersDataStateToSubmit = ordersDataState
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-        ? t(TranslationKey['Pending order will be created'])
-        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onSubmitOrderProductModal(),
-    }
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+        onClickConfirm: () => this.onSubmitOrderProductModal(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
 
-        this.uploadedFiles = []
+        runInAction(() => {
+          this.uploadedFiles = []
+        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
@@ -193,17 +207,21 @@ export class ClientOrderViewModel {
       }
 
       if (!this.error) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['The order has been created']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['The order has been created']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -225,13 +243,17 @@ export class ClientOrderViewModel {
     } catch (error) {
       console.log(error)
 
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -251,10 +273,12 @@ export class ClientOrderViewModel {
     try {
       await OrderModel.changeOrderComments(this.orderId, {clientComment: data.clientComment})
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -264,7 +288,9 @@ export class ClientOrderViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
@@ -280,10 +306,12 @@ export class ClientOrderViewModel {
 
       this.getBoxesOfOrder(this.orderId)
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -315,12 +343,14 @@ export class ClientOrderViewModel {
   }
 
   onClickCancelOrder() {
-    this.confirmModalSettings = {
-      isWarning: true,
-      confirmTitle: t(TranslationKey.Attention),
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-      onClickConfirm: () => this.onSubmitCancelOrder(),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+        onClickConfirm: () => this.onSubmitCancelOrder(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -338,13 +368,19 @@ export class ClientOrderViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -27,18 +27,22 @@ export class CreateOrEditTradingShopViewModel {
   showProgress = false
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.requestToEdit = location.state.request
-    }
+      if (location.state) {
+        this.requestToEdit = location.state.request
+      }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   async onSubmitCreateShopSell(data, files) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
@@ -48,15 +52,21 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.createShopSell(dataWithFiles)
 
-      this.infoModalText = t(TranslationKey['An request has been created'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['An request has been created'])
+      })
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = t(TranslationKey['The request was not created'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The request was not created'])
+      })
       this.onTriggerOpenModal('showInfoModal')
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -70,15 +80,21 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.editShopSell(this.requestToEdit._id, dataWithFiles)
 
-      this.infoModalText = t(TranslationKey['The request has been changed'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The request has been changed'])
+      })
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = t(TranslationKey['The request has not been changed'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['The request has not been changed'])
+      })
       this.onTriggerOpenModal('showInfoModal')
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -88,10 +104,14 @@ export class CreateOrEditTradingShopViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

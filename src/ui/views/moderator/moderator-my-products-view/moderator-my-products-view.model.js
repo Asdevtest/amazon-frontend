@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 // import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 // import {loadingStatuses} from '@constants/loading-statuses'
@@ -35,7 +35,9 @@ export class ModeratorMyProductsViewModel {
   // columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     // reaction(
@@ -101,7 +103,9 @@ export class ModeratorMyProductsViewModel {
   // }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   // onChangeSortingModel(e) {
@@ -155,7 +159,9 @@ export class ModeratorMyProductsViewModel {
   // }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   // onChangeCurPage(e) {
