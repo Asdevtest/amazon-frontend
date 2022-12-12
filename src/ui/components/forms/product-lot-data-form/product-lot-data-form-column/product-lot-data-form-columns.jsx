@@ -58,7 +58,7 @@ export const productLotDataFormColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.row.boxes[0].destination.name} />,
-    width: 120,
+    width: 100,
   },
 
   {
