@@ -32,7 +32,7 @@ export const colorByBoxStatus = status => {
     )
   ) {
     return {
-      color: 'red',
+      color: '#C69109',
     }
   }
   if ([BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.IN_BATCH_ON_THE_WAY].includes(status)) {
