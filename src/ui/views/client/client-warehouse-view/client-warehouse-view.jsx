@@ -232,7 +232,7 @@ export class ClientWarehouseViewRaw extends Component {
 
               <WithSearchSelect
                 selectedItemName={
-                  (!clientDestinations?._id && t(TranslationKey['All destinations'])) ||
+                  (!curDestination?._id && t(TranslationKey['All destinations'])) ||
                   (curDestination && curDestination.name)
                 }
                 data={clientDestinations.filter(shop => curDestination?.id !== shop._id)}
@@ -240,7 +240,7 @@ export class ClientWarehouseViewRaw extends Component {
                 favourites={destinationsFavourites}
                 firstItems={
                   <>
-                    {!!clientDestinations?._id && (
+                    {!!curDestination?._id && (
                       <Button
                         disabled={!currentData}
                         className={classNames.button}

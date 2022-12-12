@@ -17,6 +17,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -48,6 +49,10 @@ const Box = observer(
     const {classes: classNames} = useClassNames()
 
     const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]._id === box._id ? true : false*/)
+
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -615,19 +620,41 @@ const Box = observer(
                 </div>
               </div>
 
-              <Field
-                oneLine
-                // containerClasses={classNames.countSubWrapper}
-                label={t(TranslationKey['Track number'])}
-                labelClasses={classNames.label}
-                inputComponent={
-                  <Tooltip title={box.trackNumberText}>
-                    <Typography className={classNames.trackNum}>
-                      {box.trackNumberText || t(TranslationKey['Not available'])}
-                    </Typography>
-                  </Tooltip>
-                }
-              />
+              <div className={classNames.footerSubWrapper}>
+                <Field
+                  // oneLine
+                  // containerClasses={classNames.countSubWrapper}
+                  label={t(TranslationKey['Track number'])}
+                  labelClasses={classNames.label}
+                  inputComponent={
+                    <Tooltip title={box.trackNumberText}>
+                      <Typography className={classNames.trackNum}>
+                        {box.trackNumberText || t(TranslationKey['Not available'])}
+                      </Typography>
+                    </Tooltip>
+                  }
+                />
+
+                <div className={classNames.trackNumberPhotoWrapper}>
+                  {box.trackNumberFile ? (
+                    <Avatar
+                      className={classNames.trackNumberPhoto}
+                      src={box.trackNumberFile}
+                      variant="square"
+                      onClick={() => {
+                        setShowPhotosModal(!showPhotosModal)
+                        setBigImagesOptions({
+                          ...bigImagesOptions,
+
+                          images: [box.trackNumberFile],
+                        })
+                      }}
+                    />
+                  ) : (
+                    <Typography className={classNames.trackNumberNoPhotoText}>{'no photo track number...'}</Typography>
+                  )}
+                </div>
+              </div>
             </div>
           </Paper>
         )}
@@ -672,6 +699,13 @@ const Box = observer(
             </div>
           </div>
         )}
+
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
       </div>
     )
   },

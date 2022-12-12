@@ -274,7 +274,7 @@ export const SelectFields = ({
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
                   value={
                     isPendingOrder
-                      ? toFixed(calcOrderTotalPrice(orderFields.orderSupplier, order.amount), 2)
+                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, order?.amount), 2)
                       : orderFields.totalPriceChanged
                   }
                   onChange={setOrderField('totalPriceChanged')}
