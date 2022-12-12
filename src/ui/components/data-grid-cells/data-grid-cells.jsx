@@ -583,10 +583,11 @@ export const OrderCell = React.memo(
             </div>
           )}
 
-          {box && box.totalPrice - box.totalPriceChanged < 0 && (
+          {((box && box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0) ||
+            box?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) && (
             <span className={classNames.needPay}>{`${t(
               TranslationKey['Extra payment required!'],
-            )} (${toFixedWithDollarSign(box.totalPriceChanged - box.totalPrice, 2)})`}</span>
+            )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
           )}
 
           {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
@@ -1535,11 +1536,13 @@ export const OrderManyItemsCell = React.memo(
                 {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
               </Typography>
 
-              {item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
-                <span className={classNames.needPay}>{`${t(
-                  TranslationKey['Extra payment required!'],
-                )} (${toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)})`}</span>
-              )}
+              {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
+                item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
+                itemIndex === 0 && (
+                  <span className={classNames.needPay}>{`${t(
+                    TranslationKey['Extra payment required!'],
+                  )} (${toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)})`}</span>
+                )}
 
               {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
                 <span className={classNames.needPay}>

@@ -221,7 +221,8 @@ export class ClientReadyBoxesViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={150}
+                  // rowHeight={150}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}

@@ -598,8 +598,9 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BoxesApi();
-let status = "status_example"; // String | 
+let status = "status_example"; // String | Статусы коробок разделенные запятой
 let opts = {
+  'hasBatch': true, // Boolean | Должна ли коробка иметь свою партию
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'destinationId': null, // String | GUID дестинейшна, который должен быть у боксов.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
@@ -617,7 +618,8 @@ apiInstance.apiV1BoxesClientsGet(status, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **String**|  | 
+ **status** | **String**| Статусы коробок разделенные запятой | 
+ **hasBatch** | **Boolean**| Должна ли коробка иметь свою партию | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **destinationId** | [**String**](.md)| GUID дестинейшна, который должен быть у боксов. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 

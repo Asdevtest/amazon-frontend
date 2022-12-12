@@ -40,6 +40,7 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
+      destinationsFavourites,
       confirmModalSettings,
       volumeWeightCoefficient,
       showOrderModal,
@@ -76,6 +77,7 @@ export class ClientExchangeViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      setDestinationsFavouritesItem,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -132,6 +134,8 @@ export class ClientExchangeViewRaw extends Component {
             storekeepers={storekeepers}
             requestStatus={requestStatus}
             selectedProductsData={[selectedProduct]}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onClickOrderNowBtn}
