@@ -615,9 +615,11 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   }
 
   const addDouble = boxId => {
-    const foundedBox = JSON.parse(JSON.stringify(newBoxes.find(box => box._id === boxId)))
+    const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const updatedNewBoxes = [...newBoxes, {...foundedBox, _id: `${foundedBox._id} + 'double' ${Date.now()}`}]
+    const copyedBox = {...JSON.parse(JSON.stringify(foundedBox)), tmpImages: foundedBox.tmpImages}
+
+    const updatedNewBoxes = [...newBoxes, {...copyedBox, _id: `${copyedBox._id} + 'double' ${Date.now()}`}]
     setNewBoxes(updatedNewBoxes)
   }
 
@@ -626,6 +628,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const onAddImages = boxId => {
     setShowAddImagesModal(!showAddImagesModal)
     const editingBox = newBoxes.find(box => box._id === boxId)
+
     setBoxForImageEdit(editingBox)
   }
 

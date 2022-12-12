@@ -10,7 +10,6 @@ import {SettingsModel} from '@models/settings-model'
 import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
 
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
-import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -44,9 +43,10 @@ export class BuyerMyProductsViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
-    } else {
-      this.startFilterModel = resetDataGridFilter
     }
+    // else {
+    //       this.startFilterModel = resetDataGridFilter
+    //     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
 

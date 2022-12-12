@@ -71,6 +71,7 @@ export const SelectFields = ({
             {Number(orderFields.status) >= Number(OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) && (
               <Field
                 label={t(TranslationKey['Quantity of goods delivered'])}
+                labelClasses={classNames.label}
                 inputComponent={
                   <div
                     className={cx(classNames.deliveredGoodsWrapper, {

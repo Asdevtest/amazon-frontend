@@ -14,7 +14,6 @@ import {researcherProductsViewColumns} from '@components/table-columns/researche
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {resetDataGridFilter} from '@utils/filters'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
@@ -77,9 +76,10 @@ export class ResearcherProductsViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
-    } else {
-      this.startFilterModel = resetDataGridFilter
     }
+    // else {
+    //       this.startFilterModel = resetDataGridFilter
+    //     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
 

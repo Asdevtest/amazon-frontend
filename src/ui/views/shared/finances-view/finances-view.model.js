@@ -10,7 +10,6 @@ import {financesViewColumns} from '@components/table-columns/admin/finances-colu
 
 import {financesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class FinancesViewModel {
@@ -37,9 +36,10 @@ export class FinancesViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
-    } else {
-      this.startFilterModel = resetDataGridFilter
     }
+    // else {
+    //       this.startFilterModel = resetDataGridFilter
+    //     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
 
