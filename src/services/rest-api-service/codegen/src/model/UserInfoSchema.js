@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserInfoSchemaMasterUser from './UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
@@ -92,7 +93,7 @@ class UserInfoSchema {
                 obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [UserInfoSchemaPermissionGroups]);
             }
             if (data.hasOwnProperty('masterUser')) {
-                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+                obj['masterUser'] = UserInfoSchemaMasterUser.constructFromObject(data['masterUser']);
             }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
@@ -197,8 +198,7 @@ UserInfoSchema.prototype['permissions'] = undefined;
 UserInfoSchema.prototype['permissionGroups'] = undefined;
 
 /**
- * GUID мастер пользователя к которму относится данный субпользователь.
- * @member {String} masterUser
+ * @member {module:model/UserInfoSchemaMasterUser} masterUser
  */
 UserInfoSchema.prototype['masterUser'] = undefined;
 

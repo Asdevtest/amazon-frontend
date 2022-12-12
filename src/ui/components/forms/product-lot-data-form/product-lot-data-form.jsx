@@ -25,7 +25,6 @@ import {productLotDataFormColumns} from './product-lot-data-form-column'
 import {useClassNames} from './product-lot-data-form.style'
 
 export const ProductLotDataForm = observer(({product, batchesData}) => {
-  console.log('batchesData', batchesData)
   const {classes: classNames} = useClassNames()
 
   const [batches, setBatches] = useState(batchesData)
@@ -33,8 +32,6 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
-
-  console.log('nameSearchValue', nameSearchValue)
 
   useEffect(() => {
     if (nameSearchValue) {
@@ -56,7 +53,6 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
   const onClickShowBatchBtn = async rowId => {
     try {
       const result = await BatchesModel.getBatchesByGuid(rowId)
-      console.log('result', result)
       setBatchInfo(result)
       setOpenBatchInfoModal()
     } catch (error) {
