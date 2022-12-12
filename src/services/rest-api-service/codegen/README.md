@@ -378,6 +378,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksLightVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksLightVacGet) | **GET** /api/v1/storekeepers/tasks_light/vac | # Получить задачи не закрепленные за сотрудниками склада.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksPickupManyPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupManyPost) | **POST** /api/v1/storekeepers/tasks/pickup/many | # Взять несколько задач сторкипером
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsLightGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsLightGet) | **GET** /api/v1/supervisors/products/light | # Получить облегченный список товаров взятых на проверку супервайзером.
@@ -426,6 +427,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BatchesBatch](docs/ApiV1BatchesBatch.md)
  - [TestSwagger.ApiV1BatchesBoxes](docs/ApiV1BatchesBoxes.md)
  - [TestSwagger.ApiV1BatchesByProductGuidBoxes](docs/ApiV1BatchesByProductGuidBoxes.md)
+ - [TestSwagger.ApiV1BatchesByProductGuidDestination](docs/ApiV1BatchesByProductGuidDestination.md)
  - [TestSwagger.ApiV1BatchesByProductGuidLogicsTariff](docs/ApiV1BatchesByProductGuidLogicsTariff.md)
  - [TestSwagger.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)
  - [TestSwagger.ApiV1BatchesStorekeeper](docs/ApiV1BatchesStorekeeper.md)
@@ -693,6 +695,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UserAdminFullSchema](docs/UserAdminFullSchema.md)
  - [TestSwagger.UserFullSchema](docs/UserFullSchema.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
+ - [TestSwagger.UserInfoSchemaMasterUser](docs/UserInfoSchemaMasterUser.md)
  - [TestSwagger.UserInfoSchemaNeedConfirmPriceChange](docs/UserInfoSchemaNeedConfirmPriceChange.md)
  - [TestSwagger.UserInfoSchemaNeedUpdateTariff](docs/UserInfoSchemaNeedUpdateTariff.md)
  - [TestSwagger.UserInfoSchemaPermissionGroups](docs/UserInfoSchemaPermissionGroups.md)

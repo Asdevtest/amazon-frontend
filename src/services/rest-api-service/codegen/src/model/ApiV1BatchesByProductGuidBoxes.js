@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BatchesByProductGuidDestination from './ApiV1BatchesByProductGuidDestination';
 import ApiV1BatchesByProductGuidLogicsTariff from './ApiV1BatchesByProductGuidLogicsTariff';
 
 /**
@@ -66,8 +67,8 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1BatchesByProductGuidDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
                 obj['logicsTariff'] = ApiV1BatchesByProductGuidLogicsTariff.constructFromObject(data['logicsTariff']);
@@ -122,10 +123,9 @@ ApiV1BatchesByProductGuidBoxes.prototype['trackNumberText'] = undefined;
 ApiV1BatchesByProductGuidBoxes.prototype['trackNumberFile'] = undefined;
 
 /**
- * GUID дестинейшна
- * @member {String} destinationId
+ * @member {module:model/ApiV1BatchesByProductGuidDestination} destination
  */
-ApiV1BatchesByProductGuidBoxes.prototype['destinationId'] = undefined;
+ApiV1BatchesByProductGuidBoxes.prototype['destination'] = undefined;
 
 /**
  * @member {module:model/ApiV1BatchesByProductGuidLogicsTariff} logicsTariff

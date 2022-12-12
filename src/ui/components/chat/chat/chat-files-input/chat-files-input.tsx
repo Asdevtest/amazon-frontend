@@ -24,7 +24,7 @@ export const ChatFilesInput: FC<Props> = ({files, setFiles}) => {
         images={files}
         setImages={setFiles}
         maxNumber={50}
-        acceptType={['jpg', 'gif', 'png', 'pdf', 'jpeg']}
+        acceptType={['']}
       />
     </div>
   )

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
 **permissions** | [**[UserInfoSchemaPermissions]**](UserInfoSchemaPermissions.md) | Массив permission-ов. | [optional] 
 **permissionGroups** | [**[UserInfoSchemaPermissionGroups]**](UserInfoSchemaPermissionGroups.md) | Массив групп permission-ов. | [optional] 
-**masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
+**masterUser** | [**UserInfoSchemaMasterUser**](UserInfoSchemaMasterUser.md) |  | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 

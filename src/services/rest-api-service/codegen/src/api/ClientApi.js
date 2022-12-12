@@ -319,7 +319,8 @@ export default class ClientApi {
      * Отдает дестинейшны со статусом коробки указаным в квери
      * Отдает дестинейшны со статусом коробки указаным в квери
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.status 
+     * @param {module:model/String} opts.status Статус коробки, по которому будут отфильтрованы дестинейшны
+     * @param {String} opts.storekeeperId Гуид сторкипера дестинейшна
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsOrdersDestination>} and HTTP response
      */
@@ -330,7 +331,8 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
-        'status': opts['status']
+        'status': opts['status'],
+        'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -353,7 +355,8 @@ export default class ClientApi {
      * Отдает дестинейшны со статусом коробки указаным в квери
      * Отдает дестинейшны со статусом коробки указаным в квери
      * @param {Object} opts Optional parameters
-     * @param {module:model/String} opts.status 
+     * @param {module:model/String} opts.status Статус коробки, по которому будут отфильтрованы дестинейшны
+     * @param {String} opts.storekeeperId Гуид сторкипера дестинейшна
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsOrdersDestination>}
      */

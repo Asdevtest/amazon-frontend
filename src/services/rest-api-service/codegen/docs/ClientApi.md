@@ -330,7 +330,8 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
-  'status': "status_example", // String | 
+  'status': "status_example", // String | Статус коробки, по которому будут отфильтрованы дестинейшны
+  'storekeeperId': null, // String | Гуид сторкипера дестинейшна
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1ClientsDestinationsGet(opts).then((data) => {
@@ -346,7 +347,8 @@ apiInstance.apiV1ClientsDestinationsGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **String**|  | [optional] 
+ **status** | **String**| Статус коробки, по которому будут отфильтрованы дестинейшны | [optional] 
+ **storekeeperId** | [**String**](.md)| Гуид сторкипера дестинейшна | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

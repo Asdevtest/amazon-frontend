@@ -837,7 +837,6 @@ export class ClientInventoryViewModel {
   async onClickProductLotDataBtn() {
     try {
       const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0])
-      console.log('result', result)
       this.batchesData = result
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {

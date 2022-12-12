@@ -32,6 +32,7 @@ import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStore
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesByProductGuidBoxes from './model/ApiV1BatchesByProductGuidBoxes';
+import ApiV1BatchesByProductGuidDestination from './model/ApiV1BatchesByProductGuidDestination';
 import ApiV1BatchesByProductGuidLogicsTariff from './model/ApiV1BatchesByProductGuidLogicsTariff';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
@@ -299,6 +300,7 @@ import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
@@ -485,6 +487,12 @@ export {
      * @property {module:model/ApiV1BatchesByProductGuidBoxes}
      */
     ApiV1BatchesByProductGuidBoxes,
+
+    /**
+     * The ApiV1BatchesByProductGuidDestination model constructor.
+     * @property {module:model/ApiV1BatchesByProductGuidDestination}
+     */
+    ApiV1BatchesByProductGuidDestination,
 
     /**
      * The ApiV1BatchesByProductGuidLogicsTariff model constructor.
@@ -2087,6 +2095,12 @@ export {
      * @property {module:model/UserInfoSchema}
      */
     UserInfoSchema,
+
+    /**
+     * The UserInfoSchemaMasterUser model constructor.
+     * @property {module:model/UserInfoSchemaMasterUser}
+     */
+    UserInfoSchemaMasterUser,
 
     /**
      * The UserInfoSchemaNeedConfirmPriceChange model constructor.

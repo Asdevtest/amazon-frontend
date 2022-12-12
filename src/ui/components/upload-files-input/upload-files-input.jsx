@@ -122,7 +122,7 @@ export const UploadFilesInput = observer(
 
           <ImageUploading
             multiple
-            acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf', 'jpeg']}
+            acceptType={acceptType}
             value={images}
             maxNumber={maxNumber}
             dataURLKey="data_url"
