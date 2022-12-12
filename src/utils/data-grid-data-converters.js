@@ -357,6 +357,8 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
+    title: item.title,
+
     updatedAt: item.updatedAt,
 
     volumeWeight: item.boxes.reduce(
@@ -424,6 +426,8 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     destination: item.boxes[0].destination?.name,
     tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
+
+    title: item.title,
 
     updatedAt: item.updatedAt,
 

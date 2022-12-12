@@ -266,7 +266,7 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch(boxesIds, filesToAdd, sourceBoxesIds, batchToEdit) {
+  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchTitle}) {
     try {
       this.uploadedFiles = []
 
@@ -275,7 +275,7 @@ export class WarehouseAwaitingBatchesViewModel {
       }
 
       if (!batchToEdit) {
-        const batchId = await BatchesModel.createBatch(boxesIds)
+        const batchId = await BatchesModel.createBatch({title: batchTitle, boxesIds})
 
         if (filesToAdd.length) {
           await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
@@ -283,6 +283,8 @@ export class WarehouseAwaitingBatchesViewModel {
       } else {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
+
+        await BatchesModel.changeTitle(batchToEdit.id, {title: batchTitle})
 
         if (newBoxesIds.length) {
           await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)

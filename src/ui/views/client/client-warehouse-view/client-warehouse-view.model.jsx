@@ -185,6 +185,11 @@ export class ClientWarehouseViewModel {
         this.currentData = this.getCurrentData()
       },
     )
+
+    reaction(
+      () => this.currentStorekeeper,
+      () => this.getClientDestinations(),
+    )
   }
 
   async updateColumnsModel() {
@@ -520,6 +525,22 @@ export class ClientWarehouseViewModel {
     this.getBoxesMy()
   }
 
+  async getClientDestinations() {
+    try {
+      const clientDestinations = await ClientModel.getClientDestinations({
+        status: BoxStatus.IN_STOCK,
+        storekeeperId: this.currentStorekeeper ? this.currentStorekeeper._id : null,
+      })
+
+      runInAction(() => {
+        this.clientDestinations = clientDestinations
+      })
+      this.getDataGridState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async loadData() {
     try {
       this.getDataGridState()
@@ -527,17 +548,7 @@ export class ClientWarehouseViewModel {
 
       await this.getStorekeepers()
 
-      // this.getDataGridState()
-
       this.getBoxesMy()
-
-      const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.IN_STOCK)
-
-      runInAction(() => {
-        this.clientDestinations = clientDestinations
-      })
-
-      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
       this.getTasksMy()

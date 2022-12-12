@@ -202,7 +202,13 @@ export class BuyerMyOrdersViewModel {
             OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
           }`
         case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-          return ''
+          return `${OrderStatusByKey[OrderStatus.READY_TO_PROCESS]}, ${
+            OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
+          }, ${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}, ${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}, ${
+            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+          }, ${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
+            OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
+          }`
         default:
           return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
             OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]

@@ -27,6 +27,15 @@ export const clientBatchesViewColumns = () => [
   },
 
   {
+    field: 'title',
+    headerName: t(TranslationKey['Batch title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
+  },
+
+  {
     field: 'updatedAt',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),

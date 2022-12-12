@@ -310,6 +310,7 @@ export const EditOrderModal = observer(
             </Typography>
 
             <Input
+              disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
               className={classNames.itemInput}
               inputProps={{maxLength: 9}}
               value={orderFields.item}
@@ -365,8 +366,10 @@ export const EditOrderModal = observer(
                 <Select
                   disabled={
                     order.status !== orderFields.status ||
-                    +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
-                    orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]
+                    (Number(orderFields.totalPriceChanged) - orderFields.totalPrice > 0 &&
+                      Number(order.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
+                    orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                    Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
                     // orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                   }
                   variant="filled"
@@ -509,7 +512,7 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Suppliers)}
           </Text>
 
-          {isPendingOrder ? (
+          {isPendingOrder && Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
             <div className={classNames.supplierActionsWrapper}>
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>

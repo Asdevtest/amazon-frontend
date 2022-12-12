@@ -473,7 +473,7 @@ export const SelectFields = ({
         </Box>
 
         <div>
-          {!disableSubmit && (
+          {!disableSubmit && Number(order.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
             <div className={classNames.imageFileInputWrapper}>
               <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
             </div>
