@@ -300,7 +300,7 @@ export class ClientWarehouseViewModel {
 
         this.currentStorekeeper = this.currentStorekeeper
           ? this.currentStorekeeper
-          : result.sort((a, b) => a.name?.localeCompare(b.name))[0]
+          : result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
       })
 
       this.getDataGridState()

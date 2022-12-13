@@ -60,7 +60,9 @@ export class WarehouseDashboardViewModel {
       const result = await ClientModel.getDestinations()
 
       const storekeeperDestination = result.find(
-        el => el.storekeeper?._id === this.userInfo._id || el.storekeeper?._id === this.userInfo.masterUser,
+        el =>
+          el.storekeeper?._id === this.userInfo._id ||
+          (el.storekeeper?._id === this.userInfo.masterUser && el.storekeeper),
       )
       if (storekeeperDestination) {
         runInAction(() => {

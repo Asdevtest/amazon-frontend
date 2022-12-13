@@ -44,14 +44,15 @@ const permissionsKeys = {
   buyer: {
     SHOW_PAYMENTS_BUYER: 'SHOW_PAYMENTS_BUYER',
     SHOW_USERS_BUYER: 'SHOW_USERS_BUYER',
-    SHOW_VAC_ORDERS_BUYER: 'SHOW_VAC_ORDERS_BUYER',
 
+    SHOW_VAC_ORDERS_BUYER: 'SHOW_VAC_ORDERS_BUYER',
     SHOW_ORDERS_BUYER: 'SHOW_ORDERS_BUYER',
-    SHOW_NOT_PAID_ORDERS_BUYER: 'SHOW_NOT_PAID_ORDERS_BUYER',
-    SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER: 'SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER',
-    SHOW_INBOUND_ORDERS_BUYER: 'SHOW_INBOUND_ORDERS_BUYER',
-    SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER: 'SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER',
-    SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER: 'SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER',
+
+    SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER: 'SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER',
+    SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER: 'SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER',
+    SHOW_ORDERS_INBOUND_BUYER: 'SHOW_ORDERS_INBOUND_BUYER',
+    SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER: 'SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER',
+    SHOW_ORDERS_NOT_PAID_BUYER: 'SHOW_ORDERS_NOT_PAID_BUYER',
     SHOW_PENDING_ORDERS_BUYER: 'SHOW_PENDING_ORDERS_BUYER',
 
     SHOW_PRODUCTS_BUYER: 'SHOW_PRODUCTS_BUYER',
@@ -70,7 +71,10 @@ const permissionsKeys = {
     SHOW_VACANT_CLIENT: 'SHOW_VACANT_CLIENT',
     SHOW_INVENTORY_CLIENT: 'SHOW_INVENTORY_CLIENT',
     SHOW_REQUESTS_CLIENT: 'SHOW_REQUESTS_CLIENT',
+
     SHOW_ORDERS_CLIENT: 'SHOW_ORDERS_CLIENT',
+    SHOW_PENDING_ORDERS_CLIENT: 'SHOW_PENDING_ORDERS_CLIENT',
+
     SHOW_WAREHOUSE_CLIENT: 'SHOW_WAREHOUSE_CLIENT',
     SHOW_BATCHES_CLIENT: 'SHOW_BATCHES_CLIENT',
     SHOW_USERS_CLIENT: 'SHOW_USERS_CLIENT',
@@ -187,17 +191,28 @@ export const navbarConfig = () => ({
           subtitle: t(TranslationKey.Orders),
           subRoute: '/client/orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Pending orders']),
           subRoute: '/client/pending-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT),
         },
       ],
 
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
+        !isMasterUser(user) ||
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT ||
+            item.key === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
+        ),
     },
     {
       icon: MyWarehouseIcon,
@@ -540,7 +555,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_NOT_PAID_ORDERS_BUYER),
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER),
         },
         {
           subtitle: t(TranslationKey['Need track number']),
@@ -548,7 +563,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER),
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER),
         },
         {
           subtitle: t(TranslationKey.Inbound),
@@ -556,7 +571,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_INBOUND_ORDERS_BUYER),
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER),
         },
         {
           subtitle: t(TranslationKey['Confirmation required']),
@@ -564,7 +579,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER),
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER),
         },
         {
           subtitle: t(TranslationKey['Closed and canceled']),
@@ -572,7 +587,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER),
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER),
         },
         {
           subtitle: t(TranslationKey['All orders']),
@@ -588,11 +603,11 @@ export const navbarConfig = () => ({
         user?.permissions.some(
           item =>
             item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER ||
-            item.key === permissionsKeys.buyer.SHOW_NOT_PAID_ORDERS_BUYER ||
-            item.key === permissionsKeys.buyer.SHOW_NEED_TRACK_NUMBER_ORDERS_BUYER ||
-            item.key === permissionsKeys.buyer.SHOW_INBOUND_ORDERS_BUYER ||
-            item.key === permissionsKeys.buyer.SHOW_CONFIRMATION_REQUIRED_ORDERS_BUYER ||
-            item.key === permissionsKeys.buyer.SHOW_CLOSED_AND_CANCELED_ORDERS_BUYER,
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
         ),
     },
 

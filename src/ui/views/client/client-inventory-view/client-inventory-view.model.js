@@ -215,7 +215,7 @@ export class ClientInventoryViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.productsMy = clientInventoryDataConverter(this.baseNoConvertedProducts.rows)
+      this.productsMy = clientInventoryDataConverter(this.baseNoConvertedProducts.rows, this.shopsData)
     }
   }
 
@@ -509,10 +509,10 @@ export class ClientInventoryViewModel {
 
         this.rowCount = result.count
 
-        this.productsMy = clientInventoryDataConverter(result.rows)
+        this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
 
         if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result.rows)
+          this.productsMyBase = clientInventoryDataConverter(result.rows, this.shopsData)
         }
       })
       this.setRequestStatus(loadingStatuses.success)

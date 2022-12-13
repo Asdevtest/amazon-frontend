@@ -37,6 +37,17 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
   },
 
   {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: params => <MultilineTextCell /* key={`${params.field}_${params.row.id}`}*/ text={params.value} />,
+    width: 90,
+    sortable: false,
+    filterable: false,
+  },
+
+  {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,

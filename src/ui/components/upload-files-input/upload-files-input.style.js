@@ -28,9 +28,22 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     backgroundColor: theme.palette.background.second,
 
+    position: 'relative',
+
     '&:hover': {
       transform: 'scale(1.02)',
     },
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   actionBtnsWrapper: {

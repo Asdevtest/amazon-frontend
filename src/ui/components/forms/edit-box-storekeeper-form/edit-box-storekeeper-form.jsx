@@ -32,7 +32,6 @@ import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteLi
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
-import {AddOrEditHsCodeInBox} from '../add-or-edit-hs-code-in-box-form'
 import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-storekeeper-form.style'
 
@@ -198,27 +197,6 @@ export const EditBoxStorekeeperForm = observer(
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-    const [showAddOrEditHsCodeInBox, setShowAddOrEditHsCodeInBox] = useState(false)
-
-    // const sourceDataToSubmitHsCode = formItem.items.map(item => ({
-    //   productId: item.product._id,
-    //   hsCode: item.product.hsCode,
-
-    //   asin: item.product.asin,
-    //   qty: item.amount,
-    //   amazonTitle: item.product.amazonTitle,
-    //   image: item.product.images[0],
-    // }))
-
-    // console.log('sourceDataToSubmitHsCode', sourceDataToSubmitHsCode)
-
-    const [dataToSubmitHsCode, setDataToSubmitHsCode] = useState(null)
-
-    const onSubmitAddOrEditHsCode = data => {
-      setDataToSubmitHsCode(data)
-      setShowAddOrEditHsCodeInBox(false)
-    }
-
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = {...boxFields}
 
@@ -306,6 +284,13 @@ export const EditBoxStorekeeperForm = observer(
       }
 
       newFormFields[fieldName] = e.target.value
+
+      setBoxFields(newFormFields)
+    }
+
+    const setHsCode = index => e => {
+      const newFormFields = JSON.parse(JSON.stringify(boxFields))
+      newFormFields.items[index].product.hsCode = e.target.value
 
       setBoxFields(newFormFields)
     }
@@ -425,9 +410,7 @@ export const EditBoxStorekeeperForm = observer(
       (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
         JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
         boxFields.storekeeperId === '') &&
-      !imagesOfBox.length &&
-      !dataToSubmitHsCode
-    // || boxFields.logicsTariffId === ''
+      !imagesOfBox.length
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
 
@@ -612,6 +595,16 @@ export const EditBoxStorekeeperForm = observer(
                             label={t(TranslationKey['Comments on order'])}
                             value={item.order.clientComment}
                           />
+
+                          <Field
+                            labelClasses={classNames.standartLabel}
+                            containerClasses={classNames.field}
+                            inputClasses={classNames.inputField}
+                            inputProps={{maxLength: 255}}
+                            label={t(TranslationKey['HS code'])}
+                            value={item.product.hsCode}
+                            onChange={setHsCode(index)}
+                          />
                         </div>
                       </div>
                     ))}
@@ -730,20 +723,6 @@ export const EditBoxStorekeeperForm = observer(
                       label={t(TranslationKey['FBA Shipment'])}
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
-                    />
-
-                    <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      label={t(TranslationKey['HS code'])}
-                      inputComponent={
-                        <Button
-                          className={classNames.hsCodeBtn}
-                          onClick={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
-                        >
-                          {t(TranslationKey['Add HS Code'])}
-                        </Button>
-                      }
                     />
                   </div>
 
@@ -909,9 +888,7 @@ export const EditBoxStorekeeperForm = observer(
                 boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
                 imagesOfBox,
-                dataToSubmitHsCode: dataToSubmitHsCode?.map(el =>
-                  getObjectFilteredByKeyArrayWhiteList(el, ['productId', 'hsCode']),
-                ),
+                dataToSubmitHsCode: boxFields.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode})),
               })
             }}
           >
@@ -969,27 +946,6 @@ export const EditBoxStorekeeperForm = observer(
             item={barcodeModalSetting.item}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-          />
-        </Modal>
-
-        {/* <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
-          <SetBarcodeModal
-            tmpCode={curProductToEditBarcode?.tmpBarCode}
-            item={curProductToEditBarcode}
-            onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
-            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-          />
-        </Modal> */}
-
-        <Modal
-          openModal={showAddOrEditHsCodeInBox}
-          setOpenModal={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
-        >
-          <AddOrEditHsCodeInBox
-            box={formItem}
-            startData={dataToSubmitHsCode}
-            setOpenModal={() => setShowAddOrEditHsCodeInBox(!showAddOrEditHsCodeInBox)}
-            onSubmit={onSubmitAddOrEditHsCode}
           />
         </Modal>
       </div>
