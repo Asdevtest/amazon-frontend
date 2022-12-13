@@ -541,9 +541,20 @@ export const BuyerDashboardCardDataKey = {
   IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
   REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
 
-  IN_PROCESS_ORDERS: 'IN_PROCESS_ORDERS',
+  PENDING_ORDERS: 'PENDING_ORDERS',
+
+  MY_ORDERS_NOT_PAID: 'MY_ORDERS_NOT_PAID',
+  MY_ORDERS_NEED_TRACK_NUMBER: 'MY_ORDERS_NEED_TRACK_NUMBER',
+  MY_ORDERS_INBOUND: 'MY_ORDERS_INBOUND',
+  MY_ORDERS_CONFIRMATION_REQUIRED: 'MY_ORDERS_CONFIRMATION_REQUIRED',
+  MY_ORDERS_CLOSED_AND_CANCELED: 'MY_ORDERS_CLOSED_AND_CANCELED',
+  MY_ORDERS_ALL_ORDERS: 'MY_ORDERS_ALL_ORDERS',
+
   FREE_ORDERS: 'FREE_ORDERS',
-  CLOSED_ORDERS: 'CLOSED_ORDERS',
+
+  // IN_PROCESS_ORDERS: 'IN_PROCESS_ORDERS',
+  // FREE_ORDERS: 'FREE_ORDERS',
+  // CLOSED_ORDERS: 'CLOSED_ORDERS',
 
   REPLENISH: 'REPLENISH',
   FINES: 'FINES',
@@ -675,47 +686,111 @@ export const getBuyerDashboardCardConfig = () => [
     title: t(TranslationKey.Orders),
     subTitle: t(TranslationKey['Your order data']),
     items: [
-      {
-        dataKey: BuyerDashboardCardDataKey.IN_PROCESS_ORDERS,
-        title: t(TranslationKey['In the process of processing']),
+      // {
+      //   dataKey: BuyerDashboardCardDataKey.IN_PROCESS_ORDERS,
+      //   title: t(TranslationKey['In the process of processing']),
 
-        route: '/buyer/my-orders',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['At process'],
-                TranslationKey['Need confirming to price change'],
-                TranslationKey['Paid to supplier'],
-                TranslationKey['Paid to supplier'],
-                TranslationKey['Track number issued'],
-              ],
-            },
-          ],
-        },
+      //   route: '/buyer/my-orders',
+      //   dataGridFilter: {
+      //     items: [
+      //       {
+      //         columnField: 'status',
+      //         operatorValue: 'isAnyOf',
+      //         value: [
+      //           TranslationKey['At process'],
+      //           TranslationKey['Need confirming to price change'],
+      //           TranslationKey['Paid to supplier'],
+      //           TranslationKey['Paid to supplier'],
+      //           TranslationKey['Track number issued'],
+      //         ],
+      //       },
+      //     ],
+      //   },
+      // },
+      // {
+      //   dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
+      //   title: t(TranslationKey.Free),
+      //   color: '#006CFF',
+      //   route: '/buyer/free-orders',
+      // },
+      // {
+      //   dataKey: BuyerDashboardCardDataKey.CLOSED_ORDERS,
+      //   title: t(TranslationKey.Completed),
+
+      //   route: '/buyer/my-orders',
+      //   dataGridFilter: {
+      //     items: [
+      //       {
+      //         columnField: 'status',
+      //         operatorValue: 'isAnyOf',
+      //         value: [TranslationKey['In stock']],
+      //       },
+      //     ],
+      //   },
+      // },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_NOT_PAID,
+        title: t(TranslationKey['Not paid']),
+        color: '#006CFF',
+        route: '/buyer/not-paid-orders',
       },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_NEED_TRACK_NUMBER,
+        title: t(TranslationKey['Need track number']),
+        color: '#006CFF',
+        route: '/buyer/need-track-number-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_INBOUND,
+        title: t(TranslationKey.Inbound),
+        color: '#006CFF',
+        route: '/buyer/inbound-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_CONFIRMATION_REQUIRED,
+        title: t(TranslationKey['Confirmation required']),
+        color: '#006CFF',
+        route: '/buyer/confirmation-required-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_CLOSED_AND_CANCELED,
+        title: t(TranslationKey['Closed and canceled']),
+        color: '#006CFF',
+        route: '/buyer/closed-and-canceled-orders',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.MY_ORDERS_ALL_ORDERS,
+        title: t(TranslationKey['All orders']),
+        color: '#006CFF',
+        route: '/buyer/all-orders',
+      },
+    ],
+  },
+
+  {
+    key: 'PENDING ORDERS',
+    title: t(TranslationKey['Pending orders']),
+    subTitle: t(TranslationKey['Pending orders data']),
+    items: [
+      {
+        dataKey: BuyerDashboardCardDataKey.PENDING_ORDERS,
+        title: t(TranslationKey['Pending orders']),
+        route: '/buyer/pending-orders',
+        color: '#006CFF',
+      },
+    ],
+  },
+
+  {
+    key: 'FREE ORDERS',
+    title: t(TranslationKey['Free Orders']),
+    subTitle: t(TranslationKey['Free orders data']),
+    items: [
       {
         dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-        title: t(TranslationKey.Free),
-        color: '#006CFF',
+        title: t(TranslationKey['Free Orders']),
         route: '/buyer/free-orders',
-      },
-      {
-        dataKey: BuyerDashboardCardDataKey.CLOSED_ORDERS,
-        title: t(TranslationKey.Completed),
-
-        route: '/buyer/my-orders',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['In stock']],
-            },
-          ],
-        },
+        color: '#006CFF',
       },
     ],
   },

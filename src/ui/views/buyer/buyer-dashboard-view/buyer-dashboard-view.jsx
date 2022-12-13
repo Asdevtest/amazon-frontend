@@ -32,7 +32,6 @@ export class BuyerDashboardViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    console.log('getBuyerDashboardCardConfig()', getBuyerDashboardCardConfig())
   }
 
   render() {

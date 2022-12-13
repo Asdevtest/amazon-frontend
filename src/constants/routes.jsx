@@ -621,7 +621,7 @@ export const privateRoutesConfigs = [
     component: BuyerMyOrdersView,
     exact: false,
     permission: [UserRole.BUYER],
-    crumbNameKey: TranslationKey['My orders'],
+    crumbNameKey: TranslationKey['All orders'],
   },
   {
     routePath: '/buyer/not-paid-orders',
