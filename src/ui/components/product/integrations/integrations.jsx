@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Modal} from '@components/modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
@@ -78,7 +79,7 @@ export const Integrations = observer(({productId}) => {
         rows={getCurrentData()}
         rowHeight={100}
         components={{
-          Toolbar: GridToolbar,
+          Toolbar: DataGridCustomToolbar,
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}

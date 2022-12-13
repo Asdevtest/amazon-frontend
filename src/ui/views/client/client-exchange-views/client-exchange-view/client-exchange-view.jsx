@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -40,7 +41,6 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
-      destinationsFavourites,
       confirmModalSettings,
       volumeWeightCoefficient,
       showOrderModal,
@@ -77,7 +77,6 @@ export class ClientExchangeViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
-      setDestinationsFavouritesItem,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -109,7 +108,7 @@ export class ClientExchangeViewRaw extends Component {
                 rows={getCurrentData()}
                 rowHeight={100}
                 components={{
-                  Toolbar: GridToolbar,
+                  Toolbar: DataGridCustomToolbar,
                 }}
                 density={densityModel}
                 columns={columnsModel}
@@ -134,8 +133,6 @@ export class ClientExchangeViewRaw extends Component {
             storekeepers={storekeepers}
             requestStatus={requestStatus}
             selectedProductsData={[selectedProduct]}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onClickOrderNowBtn}

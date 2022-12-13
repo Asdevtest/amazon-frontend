@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
@@ -77,7 +78,7 @@ export const Orders = observer(({productId}) => {
         rows={getCurrentData()}
         rowHeight={100}
         components={{
-          Toolbar: GridToolbar,
+          Toolbar: DataGridCustomToolbar,
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}

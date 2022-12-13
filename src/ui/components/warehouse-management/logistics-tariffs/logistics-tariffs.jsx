@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -10,6 +10,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
 import {Modal} from '@components/modal'
@@ -127,7 +128,7 @@ export const LogisticsTariffs = observer(() => {
         rows={getCurrentData()}
         getRowHeight={() => 'auto'}
         components={{
-          Toolbar: GridToolbar,
+          Toolbar: DataGridCustomToolbar,
         }}
         density={densityModel}
         columns={columnsModel}

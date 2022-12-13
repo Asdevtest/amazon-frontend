@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -167,7 +168,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   rows={getCurrentData()}
                   getRowHeight={() => 'auto'}
                   components={{
-                    Toolbar: GridToolbar,
+                    Toolbar: DataGridCustomToolbar,
                   }}
                   density={densityModel}
                   columns={columnsModel}

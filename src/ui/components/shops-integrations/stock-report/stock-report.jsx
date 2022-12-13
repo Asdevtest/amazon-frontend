@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -168,7 +169,7 @@ class StockReportRaw extends Component {
             // rowHeight={100}
             getRowHeight={() => 'auto'}
             components={{
-              Toolbar: GridToolbar,
+              Toolbar: DataGridCustomToolbar,
             }}
             density={densityModel}
             columns={columnsModel}

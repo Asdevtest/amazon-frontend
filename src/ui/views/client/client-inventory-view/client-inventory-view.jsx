@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -15,6 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -386,7 +387,7 @@ export class ClientInventoryViewRaw extends Component {
                   // getRowHeight={() => 'auto'}
                   rowHeight={120}
                   components={{
-                    Toolbar: GridToolbar,
+                    Toolbar: DataGridCustomToolbar,
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}

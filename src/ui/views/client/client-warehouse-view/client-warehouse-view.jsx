@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 // import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
 // import {
@@ -20,6 +20,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
@@ -287,7 +288,7 @@ export class ClientWarehouseViewRaw extends Component {
                 rows={currentData || []}
                 getRowHeight={() => 'auto'}
                 components={{
-                  Toolbar: GridToolbar,
+                  Toolbar: DataGridCustomToolbar,
                 }}
                 density={densityModel}
                 columns={columnsModel}
@@ -318,7 +319,7 @@ export class ClientWarehouseViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   // rowHeight={150}
                   components={{
-                    Toolbar: GridToolbar,
+                    Toolbar: DataGridCustomToolbar,
                   }}
                   columns={taskColumnsModel}
                 />

@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -12,6 +12,7 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {Main} from '@components/main'
@@ -139,7 +140,7 @@ class SubUsersViewRaw extends Component {
                   rows={getCurrentData()}
                   rowHeight={220}
                   components={{
-                    Toolbar: GridToolbar,
+                    Toolbar: DataGridCustomToolbar,
                   }}
                   density={densityModel}
                   columns={columnsModel}

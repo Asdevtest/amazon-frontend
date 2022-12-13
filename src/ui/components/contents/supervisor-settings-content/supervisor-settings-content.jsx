@@ -1,5 +1,5 @@
 import {Box, Tabs} from '@mui/material'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -9,6 +9,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {ITab} from '@components/i-tab/i-tab'
 import {Modal} from '@components/modal'
 import {AsinCheckerModal} from '@components/modals/asin-checker-modal'
@@ -150,7 +151,7 @@ export const SupervisorSettingsContent = observer(() => {
             getRowId={row => row._id}
             rowHeight={120}
             components={{
-              Toolbar: GridToolbar,
+              Toolbar: DataGridCustomToolbar,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -210,7 +211,7 @@ export const SupervisorSettingsContent = observer(() => {
             getRowId={row => row._id}
             rowHeight={120}
             components={{
-              Toolbar: GridToolbar,
+              Toolbar: DataGridCustomToolbar,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -270,7 +271,7 @@ export const SupervisorSettingsContent = observer(() => {
             getRowId={row => row._id}
             rowHeight={120}
             components={{
-              Toolbar: GridToolbar,
+              Toolbar: DataGridCustomToolbar,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -330,7 +331,7 @@ export const SupervisorSettingsContent = observer(() => {
             getRowId={row => row._id}
             rowHeight={120}
             components={{
-              Toolbar: GridToolbar,
+              Toolbar: DataGridCustomToolbar,
             }}
             density={densityModel}
             columns={columnsModel}

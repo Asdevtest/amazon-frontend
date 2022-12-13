@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
@@ -99,7 +100,7 @@ class BuyerFreeOrdersViewRaw extends Component {
                   rows={getCurrentData()}
                   rowHeight={100}
                   components={{
-                    Toolbar: GridToolbar,
+                    Toolbar: DataGridCustomToolbar,
                   }}
                   density={densityModel}
                   columns={columnsModel}
