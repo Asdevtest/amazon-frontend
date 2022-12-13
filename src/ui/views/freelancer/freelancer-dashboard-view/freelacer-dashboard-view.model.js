@@ -27,7 +27,9 @@ export class FreelancerDashboardViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -63,7 +65,9 @@ export class FreelancerDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -75,10 +79,14 @@ export class FreelancerDashboardViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

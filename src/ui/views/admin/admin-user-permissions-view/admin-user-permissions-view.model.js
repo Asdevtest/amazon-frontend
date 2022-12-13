@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -11,9 +11,13 @@ export class AdminUserPermissionsViewModel {
   order = undefined
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     if (location.state) {
-      this.order = location.state.order
+      runInAction(() => {
+        this.order = location.state.order
+      })
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -29,9 +33,13 @@ export class AdminUserPermissionsViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 }

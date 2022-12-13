@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {AdministratorModel} from '@models/administrator-model'
 
@@ -12,7 +12,9 @@ export class AdminTechnicalViewModel {
   serverWorkOn = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -25,7 +27,9 @@ export class AdminTechnicalViewModel {
     try {
       const result = await AdministratorModel.getSettings()
 
-      this.serverWorkOn = !result.dynamicSettings.tech_pause
+      runInAction(() => {
+        this.serverWorkOn = !result.dynamicSettings.tech_pause
+      })
     } catch (err) {
       console.log(err)
     }
@@ -35,13 +39,17 @@ export class AdminTechnicalViewModel {
     try {
       const res = await AdministratorModel.toggleServer()
 
-      this.serverWorkOn = !res.tech_pause
+      runInAction(() => {
+        this.serverWorkOn = !res.tech_pause
+      })
     } catch (err) {
       console.log(err)
     }
   }
 
   onTriggerDrawer = () => {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

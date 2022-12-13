@@ -31,7 +31,9 @@ export class BuyerSearchSupplierBySupervisorModel {
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -40,28 +42,40 @@ export class BuyerSearchSupplierBySupervisorModel {
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
   }
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+      })
       await this.getProductsVacant()
       // this.updateProductsHead()
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
       console.log(error)
     }
   }
 
   async getProductsVacant() {
     try {
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
@@ -71,9 +85,13 @@ export class BuyerSearchSupplierBySupervisorModel {
     } catch (error) {
       console.log(error)
 
-      this.productsVacant = []
+      runInAction(() => {
+        this.productsVacant = []
+      })
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -86,13 +104,17 @@ export class BuyerSearchSupplierBySupervisorModel {
         await this.onClickTableRowBtn({_id: itemId}, true)
       }
 
-      this.selectedRowIds = []
+      runInAction(() => {
+        this.selectedRowIds = []
+      })
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -110,24 +132,34 @@ export class BuyerSearchSupplierBySupervisorModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

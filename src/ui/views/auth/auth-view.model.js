@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, reaction} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {privateRoutesConfigs} from '@constants/routes'
@@ -27,7 +27,9 @@ export class AuthViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -36,7 +38,9 @@ export class AuthViewModel {
   }
 
   onLoadPage() {
-    this.language = SettingsModel.languageTag
+    runInAction(() => {
+      this.language = SettingsModel.languageTag
+    })
 
     SettingsModel.setLanguageTag(this.language)
 
@@ -49,34 +53,48 @@ export class AuthViewModel {
 
   setField = fieldName =>
     action(value => {
-      this.formValidationErrors[fieldName] = null
+      runInAction(() => {
+        this.formValidationErrors[fieldName] = null
+      })
 
       if (fieldName === 'remember') {
-        this[fieldName] = !this.remember
+        runInAction(() => {
+          this[fieldName] = !this.remember
+        })
       } else {
-        this[fieldName] = value
+        runInAction(() => {
+          this[fieldName] = value
+        })
       }
     })
 
   async onSubmitForm() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.error = undefined
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+        this.error = undefined
+      })
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
       if (UserModel.accessToken) {
-        this.requestStatus = loadingStatuses.success
+        runInAction(() => {
+          this.requestStatus = loadingStatuses.success
+        })
         const allowedRoutes = privateRoutesConfigs.filter(route =>
           route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
         )
         this.history.push(allowedRoutes[0].routePath)
       } else {
-        this.requestStatus = loadingStatuses.failed
-        this.error = new Error(t(TranslationKey['The user is waiting for confirmation by the Administrator']))
+        runInAction(() => {
+          this.requestStatus = loadingStatuses.failed
+          this.error = new Error(t(TranslationKey['The user is waiting for confirmation by the Administrator']))
+        })
       }
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
-      this.error = error
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+        this.error = error
+      })
     }
   }
 }

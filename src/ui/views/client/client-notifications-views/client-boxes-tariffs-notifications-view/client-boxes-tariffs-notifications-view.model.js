@@ -68,7 +68,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -84,7 +86,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -102,20 +106,24 @@ export class ClientBoxesTariffsNotificationsViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientBoxesTariffsNotificationsViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = clientBoxesTariffsNotificationsViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   async onSubmitChangeBoxFields(data) {
@@ -137,10 +145,12 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.loadData()
 
       this.onTriggerOpenModal('showBoxViewModal')
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -152,7 +162,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
     try {
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
-      this.storekeepersData = result
+      runInAction(() => {
+        this.storekeepersData = result
+      })
     } catch (error) {
       console.log(error)
     }
@@ -160,7 +172,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onTriggerOpenConfirmModal(row) {
     try {
-      this.curBox = row
+      runInAction(() => {
+        this.curBox = row
+      })
 
       await this.getStorekeepers()
       this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
@@ -183,7 +197,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onClickConfirmTarrifChangeBtn(storekeeperId, tariffId) {
     try {
-      this.tariffIdToChange = tariffId
+      runInAction(() => {
+        this.tariffIdToChange = tariffId
+      })
 
       const platformSettings = await UserModel.getPlatformSettings()
 
@@ -201,11 +217,13 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       const finalSum = curBoxFinalWeight * tariffRate
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: $${toFixed(finalSum, 2)}`,
-        onClickOkBtn: () => this.onSubmitSelectTariff(),
-      }
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: `${t(TranslationKey['The total cost of shipping the box will be'])}: $${toFixed(finalSum, 2)}`,
+          onClickOkBtn: () => this.onSubmitSelectTariff(),
+        }
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -214,32 +232,44 @@ export class ClientBoxesTariffsNotificationsViewModel {
   }
 
   onTriggerOpenRejectModal(row) {
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Do you want to cancel?']),
-      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        message: t(TranslationKey['Do you want to cancel?']),
+        onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+      }
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
   }
 
   getCurrentData() {
@@ -257,7 +287,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -284,7 +316,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      this.curBox = row
+      runInAction(() => {
+        this.curBox = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -294,16 +328,22 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async onClickRejectOrderPriceChangeBtn(box) {
@@ -317,6 +357,8 @@ export class ClientBoxesTariffsNotificationsViewModel {
   }
 
   setLoadingStatus(loadingStatus) {
-    this.loadingStatus = loadingStatus
+    runInAction(() => {
+      this.loadingStatus = loadingStatus
+    })
   }
 }

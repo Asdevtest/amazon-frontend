@@ -42,7 +42,9 @@ export class WarehouseCanceledTasksViewModel {
   showTaskInfoModal = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -62,11 +64,15 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
 
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -82,37 +88,49 @@ export class WarehouseCanceledTasksViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   getCurrentData() {
@@ -154,9 +172,11 @@ export class WarehouseCanceledTasksViewModel {
 
       const platformSettingsResult = await UserModel.getPlatformSettings()
 
-      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+      runInAction(() => {
+        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
 
-      this.curOpenedTask = result
+        this.curOpenedTask = result
+      })
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)
@@ -164,11 +184,15 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onChangeTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async getTasksMy() {
@@ -184,11 +208,15 @@ export class WarehouseCanceledTasksViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

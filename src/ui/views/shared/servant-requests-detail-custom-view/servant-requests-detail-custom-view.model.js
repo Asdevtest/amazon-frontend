@@ -46,11 +46,13 @@ export class RequestDetailCustomViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.requestId = location.state.requestId
-    }
+      if (location.state) {
+        this.requestId = location.state.requestId
+      }
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
       if (ChatModel.isConnected) {
@@ -95,11 +97,13 @@ export class RequestDetailCustomViewModel {
   }
 
   onClickChat(chat) {
-    if (this.chatSelectedId === chat._id) {
-      this.chatSelectedId = undefined
-    } else {
-      this.chatSelectedId = chat._id
-    }
+    runInAction(() => {
+      if (this.chatSelectedId === chat._id) {
+        this.chatSelectedId = undefined
+      } else {
+        this.chatSelectedId = chat._id
+      }
+    })
   }
 
   async onSubmitMessage(message, files, chatIdId) {
@@ -123,7 +127,9 @@ export class RequestDetailCustomViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -135,10 +141,14 @@ export class RequestDetailCustomViewModel {
         this.requestProposals = result
       })
     } catch (error) {
-      this.requestProposals = []
+      runInAction(() => {
+        this.requestProposals = []
+      })
 
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -152,7 +162,9 @@ export class RequestDetailCustomViewModel {
         return
       }
 
-      this.loadedFiles = []
+      runInAction(() => {
+        this.loadedFiles = []
+      })
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'loadedFiles'})
       }
@@ -185,7 +197,9 @@ export class RequestDetailCustomViewModel {
       // this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -201,7 +215,9 @@ export class RequestDetailCustomViewModel {
       await this.getRequestProposals()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -219,15 +235,21 @@ export class RequestDetailCustomViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onClickBackBtn() {
@@ -235,7 +257,9 @@ export class RequestDetailCustomViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onSubmitOfferDeal() {

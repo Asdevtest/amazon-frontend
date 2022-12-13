@@ -65,7 +65,9 @@ export class WarehouseVacantViewModel {
   tmpDataForCancelTask = {}
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
 
     if (location.state?.task) {
       this.onClickResolveBtn(location.state?.task)
@@ -94,11 +96,15 @@ export class WarehouseVacantViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
 
     SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
@@ -106,34 +112,44 @@ export class WarehouseVacantViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_MY_TASKS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.curPage = state.pagination.page
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.curPage = state.pagination.page
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   getCurrentData() {
@@ -170,24 +186,34 @@ export class WarehouseVacantViewModel {
   }
 
   onChangeTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerEditTaskModal() {
-    this.showEditTaskModal = !this.showEditTaskModal
+    runInAction(() => {
+      this.showEditTaskModal = !this.showEditTaskModal
+    })
   }
 
   onSelectTask(task) {
-    this.selectedTask = task
+    runInAction(() => {
+      this.selectedTask = task
+    })
   }
 
   onTriggerShowEditBoxModal(box) {
-    this.currentBox = box
-    this.showEditBoxModal = !this.showEditBoxModal
+    runInAction(() => {
+      this.currentBox = box
+      this.showEditBoxModal = !this.showEditBoxModal
+    })
   }
 
   async getTasksMy() {
@@ -203,7 +229,9 @@ export class WarehouseVacantViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -226,7 +254,9 @@ export class WarehouseVacantViewModel {
 
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -270,7 +300,9 @@ export class WarehouseVacantViewModel {
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -278,7 +310,9 @@ export class WarehouseVacantViewModel {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -287,7 +321,9 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.resolveTask(taskId, {additionalBoxes: newBoxes})
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -327,7 +363,9 @@ export class WarehouseVacantViewModel {
         for (let i = 0; i < newBoxes.length; i++) {
           const box = newBoxes[i]
 
-          this.imagesOfBox = []
+          runInAction(() => {
+            this.imagesOfBox = []
+          })
 
           if (box.tmpImages.length > 0) {
             await onSubmitPostImages.call(this, {images: box.tmpImages, type: 'imagesOfBox'})
@@ -399,7 +437,9 @@ export class WarehouseVacantViewModel {
       if (photos.length > 0) {
         await onSubmitPostImages.call(this, {images: photos, type: 'imagesOfTask'})
       } else {
-        this.imagesOfTask = []
+        runInAction(() => {
+          this.imagesOfTask = []
+        })
       }
 
       await this.updateTask(this.selectedTask._id, comment)
@@ -411,7 +451,9 @@ export class WarehouseVacantViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
 
       if (error[0]) {
         this.onTriggerOpenModal('showNoDimensionsErrorModal')
@@ -428,12 +470,16 @@ export class WarehouseVacantViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickCancelTask(boxId, taskId, taskType) {
-    this.tmpDataForCancelTask = {boxId, taskId, taskType}
+    runInAction(() => {
+      this.tmpDataForCancelTask = {boxId, taskId, taskType}
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -457,7 +503,9 @@ export class WarehouseVacantViewModel {
       this.onTriggerOpenModal('showCancelTaskModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -468,7 +516,9 @@ export class WarehouseVacantViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -479,7 +529,9 @@ export class WarehouseVacantViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -490,12 +542,16 @@ export class WarehouseVacantViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   async onClickResolveBtn(item) {
@@ -504,7 +560,9 @@ export class WarehouseVacantViewModel {
 
       const platformSettingsResult = await UserModel.getPlatformSettings()
 
-      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+      runInAction(() => {
+        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+      })
 
       this.onSelectTask(result)
       this.onTriggerEditTaskModal()

@@ -171,7 +171,9 @@ export class ClientWarehouseViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -182,7 +184,9 @@ export class ClientWarehouseViewModel {
     reaction(
       () => this.boxesMy,
       () => {
-        this.currentData = this.getCurrentData()
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
       },
     )
 
@@ -194,7 +198,9 @@ export class ClientWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+      runInAction(() => {
+        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+      })
 
       this.getDataGridState()
     }
@@ -205,7 +211,9 @@ export class ClientWarehouseViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -223,21 +231,23 @@ export class ClientWarehouseViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-      this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+        this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   get destinationsFavourites() {
@@ -249,28 +259,38 @@ export class ClientWarehouseViewModel {
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
-    this.curPage = 0
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
 
     this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
 
     this.getBoxesMy()
   }
 
   onSelectionModel(model) {
-    this.selectedBoxes = model
+    runInAction(() => {
+      this.selectedBoxes = model
+    })
   }
 
   getCurrentData() {
@@ -282,9 +302,11 @@ export class ClientWarehouseViewModel {
   }
 
   onClickStorekeeperBtn(storekeeper) {
-    this.selectedBoxes = []
+    runInAction(() => {
+      this.selectedBoxes = []
 
-    this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    })
 
     this.getBoxesMy()
 
@@ -311,7 +333,9 @@ export class ClientWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
@@ -329,10 +353,12 @@ export class ClientWarehouseViewModel {
 
       !inModal && this.onTriggerOpenModal('showBoxViewModal')
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -341,7 +367,9 @@ export class ClientWarehouseViewModel {
   }
 
   setSelectedBox(item) {
-    this.selectedBox = item
+    runInAction(() => {
+      this.selectedBox = item
+    })
   }
 
   onClickShippingLabel(item) {
@@ -368,7 +396,9 @@ export class ClientWarehouseViewModel {
   }
 
   async onClickSaveShippingLabel(tmpShippingLabel) {
-    this.uploadedFiles = []
+    runInAction(() => {
+      this.uploadedFiles = []
+    })
 
     if (tmpShippingLabel.length) {
       await onSubmitPostImages.call(this, {images: tmpShippingLabel, type: 'uploadedFiles'})
@@ -378,13 +408,15 @@ export class ClientWarehouseViewModel {
       await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {shippingLabel: this.uploadedFiles[0]})
       this.loadData()
     } else {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmMessage: t(
-          TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
-        ),
-        onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
-      }
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          confirmMessage: t(
+            TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
+          ),
+          onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
+        }
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
     }
@@ -431,9 +463,11 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
-        this.selectedBox?.storekeeper?.name
-      } ${t(TranslationKey['to change the Box'])} № ${this.selectedBox?.humanFriendlyId}`
+      runInAction(() => {
+        this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+          this.selectedBox?.storekeeper?.name
+        } ${t(TranslationKey['to change the Box'])} № ${this.selectedBox?.humanFriendlyId}`
+      })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
       this.onTriggerOpenModal('showConfirmModal')
@@ -441,48 +475,56 @@ export class ClientWarehouseViewModel {
       this.loadData()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
   onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-        sourceBox?.storekeeper?.name
-      } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
-      onClickConfirm: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+          sourceBox?.storekeeper?.name
+        } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
+        onClickConfirm: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox),
+      }
+    })
   }
   onClickConfirmCreateChangeTasks(id, boxData, sourceData) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmMessage:
-        !boxData.clientTaskComment &&
-        boxData.items.every(item => !item.tmpBarCode.length) &&
-        // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
-        (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
-          : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
-              TranslationKey['to change the Box'],
-            )} № ${boxData?.humanFriendlyId}`,
-      onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmMessage:
+          !boxData.clientTaskComment &&
+          boxData.items.every(item => !item.tmpBarCode.length) &&
+          // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+          (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
+            ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+            : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
+                TranslationKey['to change the Box'],
+              )} № ${boxData?.humanFriendlyId}`,
+        onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData),
+      }
+    })
   }
 
   onClickConfirmCreateMergeTasks(boxBody, boxData, comment) {
     this.onTriggerOpenModal('showConfirmModal')
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-        boxData?.storekeeper?.name
-      } ${t(TranslationKey['to merge boxes'])}`,
-      onClickConfirm: () => this.onClickMerge(boxBody, comment),
-    }
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+          boxData?.storekeeper?.name
+        } ${t(TranslationKey['to merge boxes'])}`,
+        onClickConfirm: () => this.onClickMerge(boxBody, comment),
+      }
+    })
   }
 
   onClickFbaShipment(item) {
@@ -517,11 +559,15 @@ export class ClientWarehouseViewModel {
   }
 
   onClickRemoveBoxFromBatch(boxId) {
-    this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
+    runInAction(() => {
+      this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
+    })
   }
 
   onClickDestinationBtn(destination) {
-    this.curDestination = destination ? destination : undefined
+    runInAction(() => {
+      this.curDestination = destination ? destination : undefined
+    })
     this.getBoxesMy()
   }
 
@@ -577,41 +623,55 @@ export class ClientWarehouseViewModel {
   }
 
   onModalRedistributeBoxAddNewBox(value) {
-    this.modalRedistributeBoxAddNewBox = value
+    runInAction(() => {
+      this.modalRedistributeBoxAddNewBox = value
+    })
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
 
     this.getBoxesMy()
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
     this.getBoxesMy()
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.selectedBoxes = []
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
 
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The box is not split!']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The box is not split!']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
       } else {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          this.uploadedFiles = []
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
 
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
@@ -646,16 +706,20 @@ export class ClientWarehouseViewModel {
         this.setRequestStatus(loadingStatuses.success)
 
         if (splitBoxesResult) {
-          this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
-            this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
-          } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`
+          runInAction(() => {
+            this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+              this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
+            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`
+          })
 
           this.onTriggerOpenModal('showSuccessInfoModal')
         } else {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The box is not split!']),
-          }
+          runInAction(() => {
+            this.warningInfoModalSettings = {
+              isWarning: true,
+              title: t(TranslationKey['The box is not split!']),
+            }
+          })
 
           this.onTriggerOpenModal('showWarningInfoModal')
         }
@@ -666,7 +730,9 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -680,10 +746,12 @@ export class ClientWarehouseViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -716,10 +784,12 @@ export class ClientWarehouseViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -749,7 +819,9 @@ export class ClientWarehouseViewModel {
   }
 
   onRemoveBoxFromSelected(boxId) {
-    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+    runInAction(() => {
+      this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+    })
 
     if (this.selectedBoxes.length < 2) {
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -787,7 +859,9 @@ export class ClientWarehouseViewModel {
 
       const uploadedBarcodes = []
 
-      this.boxesIdsToTask = []
+      runInAction(() => {
+        this.boxesIdsToTask = []
+      })
 
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = {...newBoxes[i]}
@@ -795,7 +869,9 @@ export class ClientWarehouseViewModel {
         const isMultipleEdit = true
 
         if (newBox.tmpShippingLabel?.length) {
-          this.uploadedFiles = []
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
 
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
@@ -878,13 +954,15 @@ export class ClientWarehouseViewModel {
         await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
       }
 
-      this.modalEditSuccessMessage = this.boxesIdsToTask.length
-        ? `${t(TranslationKey['Editing completed'])}, ${t(
-            TranslationKey['Tasks were created for the following boxes'],
-          )}: ${this.boxesIdsToTask.join(', ')}`
-        : t(TranslationKey['Editing completed'])
+      runInAction(() => {
+        this.modalEditSuccessMessage = this.boxesIdsToTask.length
+          ? `${t(TranslationKey['Editing completed'])}, ${t(
+              TranslationKey['Tasks were created for the following boxes'],
+            )}: ${this.boxesIdsToTask.join(', ')}`
+          : t(TranslationKey['Editing completed'])
 
-      this.boxesIdsToTask = []
+        this.boxesIdsToTask = []
+      })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
 
@@ -893,16 +971,20 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit) {
     try {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
-      this.selectedBoxes = []
+      runInAction(() => {
+        this.selectedBoxes = []
 
-      this.uploadedFiles = []
+        this.uploadedFiles = []
+      })
 
       if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
         await onSubmitPostImages.call(this, {
@@ -932,9 +1014,11 @@ export class ClientWarehouseViewModel {
           referenceId: boxData.referenceId,
         })
 
-        this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(
-          TranslationKey['has been changed'],
-        )}`
+        runInAction(() => {
+          this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(
+            TranslationKey['has been changed'],
+          )}`
+        })
 
         !isMultipleEdit && this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
@@ -1009,9 +1093,11 @@ export class ClientWarehouseViewModel {
           clientComment: boxData.clientTaskComment,
         })
 
-        this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
-          sourceData.storekeeper?.name
-        } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
+        runInAction(() => {
+          this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+            sourceData.storekeeper?.name
+          } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
+        })
 
         !isMultipleEdit
           ? this.onTriggerOpenModal('showSuccessInfoModal')
@@ -1026,7 +1112,9 @@ export class ClientWarehouseViewModel {
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1036,7 +1124,9 @@ export class ClientWarehouseViewModel {
 
       const selectedIds = this.selectedBoxes
 
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (boxBody.tmpShippingLabel.length) {
         await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
@@ -1050,15 +1140,19 @@ export class ClientWarehouseViewModel {
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
 
       if (mergeBoxesResult) {
-        this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
-          this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
-        } ${t(TranslationKey['to merge boxes'])} `
+        runInAction(() => {
+          this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+            this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
+          } ${t(TranslationKey['to merge boxes'])} `
+        })
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The boxes are not joined!']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The boxes are not joined!']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
       }
@@ -1077,14 +1171,18 @@ export class ClientWarehouseViewModel {
 
       await this.getBoxesMy()
 
-      this.selectedBoxes = []
+      runInAction(() => {
+        this.selectedBoxes = []
 
-      this.tmpClientComment = ''
+        this.tmpClientComment = ''
+      })
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1095,12 +1193,14 @@ export class ClientWarehouseViewModel {
         newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
       })
 
-      this.selectedBoxes = []
+      runInAction(() => {
+        this.selectedBoxes = []
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data was successfully saved']),
-      }
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data was successfully saved']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -1109,13 +1209,17 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
-      this.curBox = row
+      runInAction(() => {
+        this.curBox = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -1125,7 +1229,9 @@ export class ClientWarehouseViewModel {
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1140,7 +1246,9 @@ export class ClientWarehouseViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1153,14 +1261,18 @@ export class ClientWarehouseViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
 
-      this.tasksMy = []
+        this.tasksMy = []
+      })
     }
   }
 
   onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 
   async editBox(box) {
@@ -1170,7 +1282,9 @@ export class ClientWarehouseViewModel {
       return result
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1181,7 +1295,9 @@ export class ClientWarehouseViewModel {
       return result
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1193,7 +1309,9 @@ export class ClientWarehouseViewModel {
       return result
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1204,7 +1322,9 @@ export class ClientWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1241,7 +1361,9 @@ export class ClientWarehouseViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
 
       runInAction(() => {
         this.boxesMy = []
@@ -1258,7 +1380,9 @@ export class ClientWarehouseViewModel {
       await this.getTasksMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1282,14 +1406,18 @@ export class ClientWarehouseViewModel {
       if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
         this.getTasksMy()
 
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The warehouse has already taken the task to work']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The warehouse has already taken the task to work']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
       } else {
-        this.toCancelData = {id, taskId, type}
+        runInAction(() => {
+          this.toCancelData = {id, taskId, type}
+        })
 
         this.onTriggerOpenModal('showConfirmWithCommentModal')
       }
@@ -1309,7 +1437,9 @@ export class ClientWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1320,7 +1450,9 @@ export class ClientWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1331,7 +1463,9 @@ export class ClientWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -1342,12 +1476,16 @@ export class ClientWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   triggerRequestToSendBatchModal() {
-    this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
+    runInAction(() => {
+      this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
+    })
   }
 
   async onClickRequestToSendBatch() {
@@ -1360,14 +1498,16 @@ export class ClientWarehouseViewModel {
       })
 
       if (boxesWithoutTariffOrDestinationIds.length) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: `${t(
-            TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
-          )}: ${boxesWithoutTariffOrDestinationIds
-            .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
-            .join(', ')} `,
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: `${t(
+              TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
+            )}: ${boxesWithoutTariffOrDestinationIds
+              .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
+              .join(', ')} `,
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -1376,7 +1516,9 @@ export class ClientWarehouseViewModel {
         return
       }
 
-      this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
+      runInAction(() => {
+        this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
+      })
 
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
@@ -1413,10 +1555,12 @@ export class ClientWarehouseViewModel {
 
       this.triggerRequestToSendBatchModal()
     } catch (error) {
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: error.body.message,
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: error.body.message,
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -1433,10 +1577,12 @@ export class ClientWarehouseViewModel {
       })
 
       if (isMasterBoxSelected) {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Cannot be merged with a Superbox']),
-        }
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Cannot be merged with a Superbox']),
+          }
+        })
 
         this.onTriggerOpenModal('showWarningInfoModal')
 

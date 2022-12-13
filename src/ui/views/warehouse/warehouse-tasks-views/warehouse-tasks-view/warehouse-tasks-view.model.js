@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 export class WarehouseTasksViewModel {
   history = undefined
@@ -8,12 +8,16 @@ export class WarehouseTasksViewModel {
   drawerOpen = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onClickVacantTask() {

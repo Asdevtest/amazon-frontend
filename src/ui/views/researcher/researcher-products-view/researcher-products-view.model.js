@@ -72,11 +72,13 @@ export class ResearcherProductsViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
-    }
+      if (location?.state?.dataGridFilter) {
+        this.startFilterModel = location.state.dataGridFilter
+      }
+    })
     // else {
     //       this.startFilterModel = resetDataGridFilter
     //     }
@@ -93,14 +95,18 @@ export class ResearcherProductsViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
 
-      this.products = researcherProductsDataConverter(
-        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
-      )
+      runInAction(() => {
+        this.products = researcherProductsDataConverter(
+          this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+        )
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -118,42 +124,54 @@ export class ResearcherProductsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.RESEARCHER_PRODUCTS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-          }
-        : state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            }
+          : state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = researcherProductsViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = researcherProductsViewColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   getCurrentData() {
@@ -174,10 +192,12 @@ export class ResearcherProductsViewModel {
   }
 
   async onClickCheckBtn() {
-    if (!this.formFields.productCode) {
-      this.error = 'Product code field is required for this action'
-      return
-    }
+    runInAction(() => {
+      if (!this.formFields.productCode) {
+        this.error = 'Product code field is required for this action'
+        return
+      }
+    })
 
     const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
 
@@ -188,8 +208,10 @@ export class ResearcherProductsViewModel {
         return
       })
     } else {
-      this.error = ''
-      this.reasonError = ''
+      runInAction(() => {
+        this.error = ''
+        this.reasonError = ''
+      })
     }
 
     runInAction(() => {
@@ -254,10 +276,12 @@ export class ResearcherProductsViewModel {
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
 
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: error.body.message,
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: error.body.message,
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
 
@@ -324,8 +348,10 @@ export class ResearcherProductsViewModel {
 
   onChangeFormFields = fieldName =>
     action(e => {
-      this.error = undefined
-      this.actionStatus = undefined
+      runInAction(() => {
+        this.error = undefined
+        this.actionStatus = undefined
+      })
 
       if (
         ['avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
@@ -333,44 +359,58 @@ export class ResearcherProductsViewModel {
       ) {
         return
       }
-      if (['avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
-        this.formFields[fieldName] = parseInt(e.target.value) || ''
-      } else {
-        this.formFields[fieldName] = e.target.value
-      }
-
-      if (fieldName === 'amazonLink') {
-        this.chekedCode = ''
-        this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
-      }
-
-      if (fieldName === 'strategyStatus') {
-        if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
-          this.formFields.niche = ''
-          this.formFields.asins = ''
-          this.formFields.avgRevenue = ''
-          this.formFields.avgBSR = ''
-          this.formFields.totalRevenue = ''
-          this.formFields.coefficient = ''
-          this.formFields.avgPrice = ''
-          this.formFields.avgReviews = ''
+      runInAction(() => {
+        if (['avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+          this.formFields[fieldName] = parseInt(e.target.value) || ''
+        } else {
+          this.formFields[fieldName] = e.target.value
         }
-      }
+      })
+
+      runInAction(() => {
+        if (fieldName === 'amazonLink') {
+          this.chekedCode = ''
+          this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
+        }
+      })
+
+      runInAction(() => {
+        if (fieldName === 'strategyStatus') {
+          if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
+            this.formFields.niche = ''
+            this.formFields.asins = ''
+            this.formFields.avgRevenue = ''
+            this.formFields.avgBSR = ''
+            this.formFields.totalRevenue = ''
+            this.formFields.coefficient = ''
+            this.formFields.avgPrice = ''
+            this.formFields.avgReviews = ''
+          }
+        }
+      })
     })
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 }

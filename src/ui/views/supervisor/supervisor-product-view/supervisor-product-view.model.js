@@ -153,9 +153,11 @@ export class SupervisorProductViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    this.productId = history.location.search.slice(1)
+      this.productId = history.location.search.slice(1)
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -184,19 +186,25 @@ export class SupervisorProductViewModel {
   }
 
   onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
   }
 
   onChangeProductFields = fieldName =>
     action(e => {
-      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      runInAction(() => {
+        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      })
 
       if (
         ['checkednotes', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
           fieldName,
         )
       ) {
-        this.product = {...this.product, [fieldName]: e.target.value}
+        runInAction(() => {
+          this.product = {...this.product, [fieldName]: e.target.value}
+        })
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -211,9 +219,13 @@ export class SupervisorProductViewModel {
           return
         }
         if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
+          runInAction(() => {
+            this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
+          })
         } else {
-          this.product = {...this.product, [fieldName]: e.target.value}
+          runInAction(() => {
+            this.product = {...this.product, [fieldName]: e.target.value}
+          })
         }
       }
 
@@ -221,38 +233,42 @@ export class SupervisorProductViewModel {
     })
 
   onClickSetProductStatusBtn(statusKey) {
-    if (
-      (statusKey === ProductStatus.COMPLETE_SUCCESS ||
-        statusKey === ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE ||
-        statusKey === ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE) &&
-      !this.product.currentSupplierId
-      // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
-      // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
-    ) {
+    runInAction(() => {
       if (
-        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] &&
-        this.product.currentSupplierId
+        (statusKey === ProductStatus.COMPLETE_SUCCESS ||
+          statusKey === ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE ||
+          statusKey === ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE) &&
+        !this.product.currentSupplierId
+        // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
+        // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
       ) {
-        this.warningModalTitle = warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE
-      } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
-        this.warningModalTitle = warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER
-      } else if (!this.product.currentSupplierId) {
-        this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
-      } else {
-        this.warningModalTitle = warningModalTitleVariants().ERROR
-      }
+        if (
+          this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] &&
+          this.product.currentSupplierId
+        ) {
+          this.warningModalTitle = warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE
+        } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
+          this.warningModalTitle = warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER
+        } else if (!this.product.currentSupplierId) {
+          this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
+        } else {
+          this.warningModalTitle = warningModalTitleVariants().ERROR
+        }
 
-      this.onTriggerOpenModal('showWarningModal')
-    } else {
-      this.product = {...this.product, status: ProductStatusByKey[statusKey]}
-    }
+        this.onTriggerOpenModal('showWarningModal')
+      } else {
+        this.product = {...this.product, status: ProductStatusByKey[statusKey]}
+      }
+    })
   }
 
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
-      this.storekeepersData = result
+      runInAction(() => {
+        this.storekeepersData = result
+      })
     } catch (error) {
       console.log(error)
     }
@@ -272,55 +288,63 @@ export class SupervisorProductViewModel {
 
   async openConfirmModalWithTextByStatus(withoutStatus) {
     try {
-      this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        this.product,
-        fieldsOfProductAllowedToUpdate,
-        false,
-        (key, value) => {
-          switch (key) {
-            case 'checkednotes':
-              return value || ''
-            case 'bsr':
-              return (value && parseInt(value)) || 0
-            case 'amazon':
-              return value && parseFloat(value)
-            case 'weight':
-              return value && parseFloat(value)
-            case 'length':
-              return value && parseFloat(value)
-            case 'width':
-              return value && parseFloat(value)
-            case 'height':
-              return value && parseFloat(value)
-            case 'fbaamount':
-              return value && parseFloat(value)
-            case 'reffee':
-              return value && parseFloat(value)
-            case 'fbafee':
-              return value && parseFloat(value)
-            case 'profit':
-              return value && parseFloat(value)
-            case 'totalFba':
-              return value && parseFloat(value)
-            default:
-              return value
-          }
-        },
-      )
-      if (withoutStatus) {
-        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
-      }
+      runInAction(() => {
+        this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+          this.product,
+          fieldsOfProductAllowedToUpdate,
+          false,
+          (key, value) => {
+            switch (key) {
+              case 'checkednotes':
+                return value || ''
+              case 'bsr':
+                return (value && parseInt(value)) || 0
+              case 'amazon':
+                return value && parseFloat(value)
+              case 'weight':
+                return value && parseFloat(value)
+              case 'length':
+                return value && parseFloat(value)
+              case 'width':
+                return value && parseFloat(value)
+              case 'height':
+                return value && parseFloat(value)
+              case 'fbaamount':
+                return value && parseFloat(value)
+              case 'reffee':
+                return value && parseFloat(value)
+              case 'fbafee':
+                return value && parseFloat(value)
+              case 'profit':
+                return value && parseFloat(value)
+              case 'totalFba':
+                return value && parseFloat(value)
+              default:
+                return value
+            }
+          },
+        )
+      })
+      runInAction(() => {
+        if (withoutStatus) {
+          this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
+        }
+      })
 
       await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
-      this.confirmMessage = withoutStatus
-        ? confirmMessageWithoutStatus()
-        : confirmMessageByProductStatus()[this.curUpdateProductData.status]
+      runInAction(() => {
+        this.confirmMessage = withoutStatus
+          ? confirmMessageWithoutStatus()
+          : confirmMessageByProductStatus()[this.curUpdateProductData.status]
+      })
 
       if (this.confirmMessage) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
+        runInAction(() => {
+          this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
+        })
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
@@ -348,7 +372,9 @@ export class SupervisorProductViewModel {
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
-        this.imagesForLoad = []
+        runInAction(() => {
+          this.imagesForLoad = []
+        })
       }
 
       const statusesToClearBuyer = [
@@ -386,17 +412,21 @@ export class SupervisorProductViewModel {
   }
 
   onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
+    runInAction(() => {
+      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+        this.selectedSupplier = undefined
+      } else {
+        this.selectedSupplier = supplier
+      }
+    })
   }
 
   async onClickSupplierButtons(actionType) {
     switch (actionType) {
       case 'view':
-        this.supplierModalReadOnly = true
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
 
         this.onTriggerAddOrEditSupplierModal()
         break
@@ -413,42 +443,58 @@ export class SupervisorProductViewModel {
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
 
         await this.getStorekeepers()
 
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        runInAction(() => {
+          this.yuanToDollarRate = result.yuanToDollarRate
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
       }
 
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
     } catch (error) {
       console.log(error)
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   async onClickParseProductData(productDataParser, product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      runInAction(() => {
+        this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      })
       if (product.asin) {
         const parseResult = await (() => {
           switch (productDataParser) {
@@ -462,24 +508,28 @@ export class SupervisorProductViewModel {
         runInAction(() => {
           if (Object.keys(parseResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            this.product = getObjectFilteredByKeyArrayBlackList(
-              {
-                ...this.product,
-                ...parseFieldsAdapter(parseResult, productDataParser),
-                weight:
-                  this.product.weight > parseResult.weight * poundsWeightCoefficient
-                    ? this.product.weight
-                    : parseResult.weight * poundsWeightCoefficient,
-                amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-                amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-              },
-              ['fbafee'],
-            )
+            runInAction(() => {
+              this.product = getObjectFilteredByKeyArrayBlackList(
+                {
+                  ...this.product,
+                  ...parseFieldsAdapter(parseResult, productDataParser),
+                  weight:
+                    this.product.weight > parseResult.weight * poundsWeightCoefficient
+                      ? this.product.weight
+                      : parseResult.weight * poundsWeightCoefficient,
+                  amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+                  amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+                },
+                ['fbafee'],
+              )
+            })
           }
           updateProductAutoCalculatedFields.call(this)
         })
       } else {
-        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
+        runInAction(() => {
+          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
+        })
       }
 
       this.setActionStatus(loadingStatuses.success)
@@ -487,7 +537,9 @@ export class SupervisorProductViewModel {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }

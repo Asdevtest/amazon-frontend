@@ -36,19 +36,27 @@ export class BuyerDashboardViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+      })
 
       this.getDashboardElementCount()
 
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
       console.log(error)
     }
   }
@@ -88,11 +96,15 @@ export class BuyerDashboardViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

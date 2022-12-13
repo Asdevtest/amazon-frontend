@@ -106,9 +106,11 @@ export class AnotherProfileViewModel {
       : vacByUserIdExchangeColumns()
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    this.userId = history.location.search.slice(1)
+      this.userId = history.location.search.slice(1)
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
@@ -128,7 +130,9 @@ export class AnotherProfileViewModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -143,21 +147,23 @@ export class AnotherProfileViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.PROFILE_VAC_PRODUCTS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = (
-        this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-          ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
-          : vacByUserIdExchangeColumns()
-      ).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = (
+          this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
+            ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
+            : vacByUserIdExchangeColumns()
+        ).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onDoubleClickBarcode = item => {
@@ -168,23 +174,27 @@ export class AnotherProfileViewModel {
   onClickCancelBtn = () => {
     this.onTriggerOpenModal('showOrderModal')
 
-    this.selectedProduct = {}
+    runInAction(() => {
+      this.selectedProduct = {}
 
-    this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
-    this.onTriggerOpenModal('showWarningModal')
+      this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
+      this.onTriggerOpenModal('showWarningModal')
+    })
   }
 
   onClickLaunchPrivateLabelBtn(product) {
-    this.selectedProduct = product
+    runInAction(() => {
+      this.selectedProduct = product
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
-      confirmMessage: `${t(TranslationKey['You will be charged'])} (${
-        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
-      })?`,
-      onClickConfirm: () => this.onClickBuyProductBtn(),
-    }
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
+        confirmMessage: `${t(TranslationKey['You will be charged'])} (${
+          this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+        })?`,
+        onClickConfirm: () => this.onClickBuyProductBtn(),
+      }
+    })
 
     this.onTriggerOpenModal('showSelectShopsModal')
   }
@@ -197,7 +207,9 @@ export class AnotherProfileViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -239,7 +251,9 @@ export class AnotherProfileViewModel {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
-      this.selectedShops = shops
+      runInAction(() => {
+        this.selectedShops = shops
+      })
 
       await this.onSaveProductData()
 
@@ -255,7 +269,9 @@ export class AnotherProfileViewModel {
 
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -280,7 +296,9 @@ export class AnotherProfileViewModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -290,16 +308,18 @@ export class AnotherProfileViewModel {
   }
 
   onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
-    this.ordersDataStateToSubmit = ordersDataState[0]
+    runInAction(() => {
+      this.ordersDataStateToSubmit = ordersDataState[0]
 
-    this.confirmModalSettings = {
-      isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-        ? t(TranslationKey['Pending order will be created'])
-        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onLaunchPrivateLabel(),
-    }
+      this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+          ? t(TranslationKey['Pending order will be created'])
+          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+        onClickConfirm: () => this.onLaunchPrivateLabel(),
+      }
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -326,15 +346,19 @@ export class AnotherProfileViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
   async createOrder(orderObject) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
@@ -358,7 +382,9 @@ export class AnotherProfileViewModel {
         await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
       }
 
-      this.selectedProduct = {}
+      runInAction(() => {
+        this.selectedProduct = {}
+      })
       await this.updateUserInfo()
     } catch (error) {
       console.log(error)
@@ -368,23 +394,33 @@ export class AnotherProfileViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   getCurrentData() {
@@ -420,10 +456,12 @@ export class AnotherProfileViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.productsVacant = []
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        this.productsVacant = []
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
@@ -453,26 +491,38 @@ export class AnotherProfileViewModel {
   // }
 
   onChangeTabReview(e, value) {
-    this.tabReview = value
+    runInAction(() => {
+      this.tabReview = value
+    })
   }
 
   onChangeTabHistory(e, value) {
-    this.tabHistory = value
+    runInAction(() => {
+      this.tabHistory = value
+    })
   }
 
   onChangeTabExchange(e, value) {
-    this.tabExchange = value
+    runInAction(() => {
+      this.tabExchange = value
+    })
   }
 
   onTriggerDrawerOpen = () => {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

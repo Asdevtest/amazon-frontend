@@ -71,7 +71,9 @@ export class SubUsersViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -92,11 +94,15 @@ export class SubUsersViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
 
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -112,21 +118,25 @@ export class SubUsersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_SUB_USERS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   getCurrentData() {
@@ -142,27 +152,39 @@ export class SubUsersViewModel {
   }
 
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   async loadData() {
@@ -195,7 +217,9 @@ export class SubUsersViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -245,7 +269,9 @@ export class SubUsersViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -275,11 +301,15 @@ export class SubUsersViewModel {
 
   async onClickEditBtn(row) {
     try {
-      this.selectedSubUser = row
+      runInAction(() => {
+        this.selectedSubUser = row
+      })
 
       const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
 
-      this.curUserProductPermissions = result
+      runInAction(() => {
+        this.curUserProductPermissions = result
+      })
 
       const methodByRole = () => {
         switch (UserRoleCodeMap[this.userInfo.role]) {
@@ -302,19 +332,25 @@ export class SubUsersViewModel {
 
       const productPermissionsData = await methodByRole()
 
-      this.productPermissionsData = clientInventoryDataConverter(productPermissionsData)
-        .filter(el => !el.originalData.archive)
-        .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+      runInAction(() => {
+        this.productPermissionsData = clientInventoryDataConverter(productPermissionsData)
+          .filter(el => !el.originalData.archive)
+          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+      })
 
       this.onTriggerOpenModal('showPermissionModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickRemoveBtn(row) {
-    this.selectedSubUser = row
+    runInAction(() => {
+      this.selectedSubUser = row
+    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -324,22 +360,28 @@ export class SubUsersViewModel {
 
       await PermissionsModel.setProductsPermissionsForUser({userId: id, productIds: allowedProductsIds})
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['User permissions were changed']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['User permissions were changed']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey['User permissions are not changed']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['User permissions are not changed']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningModal')
 
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -350,7 +392,9 @@ export class SubUsersViewModel {
       await this.getUsers()
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -358,20 +402,24 @@ export class SubUsersViewModel {
     try {
       await UserModel.linkSubUser(data)
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Sub-user added']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Sub-user added']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
 
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: error.body.message || t(TranslationKey['Sub-user not added!']),
-      }
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: error.body.message || t(TranslationKey['Sub-user not added!']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningModal')
     }
@@ -381,15 +429,19 @@ export class SubUsersViewModel {
     try {
       await UserModel.unlinkSubUser({userId: this.selectedSubUser._id})
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Sub-user removed']),
-      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Sub-user removed']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -400,7 +452,9 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showAddSubUserModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -411,19 +465,27 @@ export class SubUsersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onChangeModalEditSubUser() {
-    this.modalEditSubUser = !this.modalEditSubUser
+    runInAction(() => {
+      this.modalEditSubUser = !this.modalEditSubUser
+    })
   }
 
   onChangeModalPermission() {
-    this.modalPermission = !this.modalPermission
+    runInAction(() => {
+      this.modalPermission = !this.modalPermission
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

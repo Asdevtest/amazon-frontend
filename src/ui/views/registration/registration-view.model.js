@@ -35,7 +35,9 @@ export class RegistrationViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -55,8 +57,10 @@ export class RegistrationViewModel {
 
   async onSubmitForm() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
-      this.error = undefined
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+        this.error = undefined
+      })
       const result = await UserModel.isCheckUniqueUser({name: this.name, email: this.email.toLowerCase()})
 
       runInAction(() => {
@@ -71,24 +75,32 @@ export class RegistrationViewModel {
 
       this.onTriggerOpenModal('showSuccessRegistrationModal')
 
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
 
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
     }
   }
 
   onLoadPage() {
-    this.language = SettingsModel.languageTag
+    runInAction(() => {
+      this.language = SettingsModel.languageTag
+    })
     SettingsModel.setLanguageTag(this.language)
     setI18nConfig()
   }
 
   onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 
   onClickRedirect = () => {
@@ -102,9 +114,11 @@ export class RegistrationViewModel {
       this.setField(fieldName)(event.target.value.replace(/^\s+|\s(?=\s)/g, ''))
     } else {
       this.setField(fieldName)(event.target.value)
-      if (this.name === '' || this.email === '') {
-        this.checkValidationNameOrEmail = {}
-      }
+      runInAction(() => {
+        if (this.name === '' || this.email === '') {
+          this.checkValidationNameOrEmail = {}
+        }
+      })
     }
   }
 }

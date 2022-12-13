@@ -32,11 +32,13 @@ export class FinancesViewModel {
   columnsModel = financesViewColumns()
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
-    }
+      if (location?.state?.dataGridFilter) {
+        this.startFilterModel = location.state.dataGridFilter
+      }
+    })
     // else {
     //       this.startFilterModel = resetDataGridFilter
     //     }
@@ -56,7 +58,9 @@ export class FinancesViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -74,27 +78,33 @@ export class FinancesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.SHARED_FINANCES]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = financesViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = financesViewColumns().map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   async getPayments() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
       this.getDataGridState()
       const result = await OtherModel.getMyPayments()
       runInAction(() => {
@@ -106,8 +116,10 @@ export class FinancesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-      this.error = error
-      this.currentFinancesData = []
+      runInAction(() => {
+        this.error = error
+        this.currentFinancesData = []
+      })
     }
   }
 
@@ -116,22 +128,32 @@ export class FinancesViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 }

@@ -15,11 +15,13 @@ export class ClientShopViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.shopSellId = location.state.shopSellId
-    }
+      if (location.state) {
+        this.shopSellId = location.state.shopSellId
+      }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -48,6 +50,8 @@ export class ClientShopViewModel {
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

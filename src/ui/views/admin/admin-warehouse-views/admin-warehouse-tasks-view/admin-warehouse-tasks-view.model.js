@@ -39,7 +39,9 @@ export class AdminWarehouseTasksViewModel {
   showTaskInfoModal = false
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -67,7 +69,9 @@ export class AdminWarehouseTasksViewModel {
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   setDataGridState(state) {
@@ -86,32 +90,42 @@ export class AdminWarehouseTasksViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TASKS]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminTasksViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    runInAction(() => {
+      this.selectionModel = model
+    })
   }
 
   getCurrentData() {
@@ -129,7 +143,9 @@ export class AdminWarehouseTasksViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
 
       if (error.body.message === 'По данному запросу ничего не найдено.') {
         runInAction(() => {
@@ -158,14 +174,20 @@ export class AdminWarehouseTasksViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onChangeCurPage = e => {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 }

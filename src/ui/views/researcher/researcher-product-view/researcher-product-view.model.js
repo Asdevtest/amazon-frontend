@@ -187,13 +187,15 @@ export class ResearcherProductViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.startParse = location.state.startParse
-    }
+      if (location.state) {
+        this.startParse = location.state.startParse
+      }
 
-    this.productId = history.location.search.slice(1)
+      this.productId = history.location.search.slice(1)
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -229,22 +231,28 @@ export class ResearcherProductViewModel {
   }
 
   onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
+    runInAction(() => {
+      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+        this.selectedSupplier = undefined
+      } else {
+        this.selectedSupplier = supplier
+      }
+    })
   }
 
   onChangeProductFields = fieldName =>
     action(e => {
-      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      runInAction(() => {
+        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+      })
       if (
         ['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
           fieldName,
         )
       ) {
-        this.product = {...this.product, [fieldName]: e.target.value}
+        runInAction(() => {
+          this.product = {...this.product, [fieldName]: e.target.value}
+        })
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
@@ -261,17 +269,21 @@ export class ResearcherProductViewModel {
           return
         }
 
-        if (['strategyStatus'].includes(fieldName)) {
-          this.product = {...this.product, [fieldName]: e.target.value}
+        runInAction(() => {
+          if (['strategyStatus'].includes(fieldName)) {
+            this.product = {...this.product, [fieldName]: e.target.value}
 
-          this.product = {...this.product, status: this.productBase.status}
-        }
+            this.product = {...this.product, status: this.productBase.status}
+          }
+        })
 
-        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
-        } else {
-          this.product = {...this.product, [fieldName]: e.target.value}
-        }
+        runInAction(() => {
+          if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
+            this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
+          } else {
+            this.product = {...this.product, [fieldName]: e.target.value}
+          }
+        })
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
@@ -280,11 +292,15 @@ export class ResearcherProductViewModel {
     })
 
   onChangeActiveChip(e, value) {
-    this.activeChip = value
+    runInAction(() => {
+      this.activeChip = value
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   async onClickSupplierButtons(actionType) {
@@ -298,7 +314,9 @@ export class ResearcherProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'view':
-        this.supplierModalReadOnly = true
+        runInAction(() => {
+          this.supplierModalReadOnly = true
+        })
 
         this.onTriggerAddOrEditSupplierModal()
         break
@@ -310,27 +328,33 @@ export class ResearcherProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-        this.product = {...this.product, currentSupplier: this.selectedSupplier}
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
+          this.product = {...this.product, currentSupplier: this.selectedSupplier}
+          this.selectedSupplier = undefined
+        })
         updateProductAutoCalculatedFields.call(this)
 
         this.onSaveForceProductData()
         break
       case 'acceptRevoke':
-        this.product = {...this.product, currentSupplierId: null}
-        this.product = {...this.product, currentSupplier: undefined}
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.product = {...this.product, currentSupplierId: null}
+          this.product = {...this.product, currentSupplier: undefined}
+          this.selectedSupplier = undefined
+        })
         updateProductAutoCalculatedFields.call(this)
 
         this.onSaveForceProductData()
         break
       case 'delete':
-        this.confirmModalSettings = {
-          isWarning: true,
-          message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-          onClickOkBtn: () => this.onRemoveSupplier(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+            onClickOkBtn: () => this.onRemoveSupplier(),
+          }
+        })
 
         this.onTriggerOpenModal('showConfirmModal')
         break
@@ -351,16 +375,20 @@ export class ResearcherProductViewModel {
       this.onSaveForceProductData()
 
       this.product.suppliers
-      this.selectedSupplier = undefined
+      runInAction(() => {
+        this.selectedSupplier = undefined
+      })
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
@@ -374,11 +402,13 @@ export class ResearcherProductViewModel {
         this.history.goBack()
         break
       case 'delete':
-        this.confirmModalSettings = {
-          isWarning: true,
-          message: t(TranslationKey['Are you sure you want to remove the product?']),
-          onClickOkBtn: () => this.onDeleteProduct(),
-        }
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            message: t(TranslationKey['Are you sure you want to remove the product?']),
+            onClickOkBtn: () => this.onDeleteProduct(),
+          }
+        })
 
         this.onTriggerOpenModal('showConfirmModal')
 
@@ -387,18 +417,22 @@ export class ResearcherProductViewModel {
   }
 
   onClickSetProductStatusBtn(statusKey) {
-    if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
-      this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
+    runInAction(() => {
+      if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
+        this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
 
-      this.onTriggerOpenModal('showWarningModal')
-    } else {
-      this.product = {...this.product, status: ProductStatusByKey[statusKey]}
-    }
+        this.onTriggerOpenModal('showWarningModal')
+      } else {
+        this.product = {...this.product, status: ProductStatusByKey[statusKey]}
+      }
+    })
   }
 
   async openConfirmModalWithTextByStatus(withoutStatus) {
     try {
-      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      runInAction(() => {
+        this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      })
 
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         toJS(this.product),
@@ -437,24 +471,30 @@ export class ResearcherProductViewModel {
 
       // await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData) // пока убрали валидацию
 
-      if (withoutStatus) {
-        this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
-      } else {
-        this.curUpdateProductData = curUpdateProductData
-      }
+      runInAction(() => {
+        if (withoutStatus) {
+          this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+        } else {
+          this.curUpdateProductData = curUpdateProductData
+        }
+      })
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: withoutStatus
-          ? confirmMessageWithoutStatus()
-          : confirmMessageByProductStatus()[this.curUpdateProductData.status],
-        onClickOkBtn: () => this.onSaveProductData(),
-      }
+      runInAction(() => {
+        this.confirmModalSettings = {
+          isWarning: false,
+          message: withoutStatus
+            ? confirmMessageWithoutStatus()
+            : confirmMessageByProductStatus()[this.curUpdateProductData.status],
+          onClickOkBtn: () => this.onSaveProductData(),
+        }
+      })
 
       if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
+        runInAction(() => {
+          this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
+        })
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
@@ -470,8 +510,8 @@ export class ResearcherProductViewModel {
         })
       } else {
         console.warn('error ', error)
-        this.alertFailedText = undefined
         runInAction(() => {
+          this.alertFailedText = undefined
           this.error = error
         })
       }
@@ -482,7 +522,9 @@ export class ResearcherProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      this.readyImages = []
+      runInAction(() => {
+        this.readyImages = []
+      })
 
       if (photosOfSupplier.length) {
         await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
@@ -519,16 +561,20 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
   async onClickParseProductData(productDataParser, product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
-      this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      runInAction(() => {
+        this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+      })
       const parseResult = await (() => {
         switch (productDataParser) {
           case ProductDataParser.AMAZON:
@@ -562,14 +608,18 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
   onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
   }
 
   async onSaveProductData(editingСontinues) {
@@ -652,16 +702,20 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+      })
     }
   }
 
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
 
@@ -679,14 +733,20 @@ export class ResearcherProductViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

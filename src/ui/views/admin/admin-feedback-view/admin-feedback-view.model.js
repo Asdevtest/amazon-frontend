@@ -48,7 +48,9 @@ export class AdminFeedbackViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -62,7 +64,9 @@ export class AdminFeedbackViewModel {
     }
   }
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   setDataGridState(state) {
@@ -81,40 +85,54 @@ export class AdminFeedbackViewModel {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_FEEDBACK]
 
     if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+      runInAction(() => {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = adminFeedbackViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
+        this.densityModel = state.density.value
+        this.columnsModel = adminFeedbackViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      })
     }
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedBatches = model
+    runInAction(() => {
+      this.selectedBatches = model
+    })
   }
 
   getCurrentData() {
@@ -142,11 +160,15 @@ export class AdminFeedbackViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   async getFeedbackList() {
@@ -154,16 +176,22 @@ export class AdminFeedbackViewModel {
       const result = await AdministratorModel.getFeedback()
 
       runInAction(() => {
-        this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
+        runInAction(() => {
+          this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
+        })
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   onClickOpenFeedbackBtn(feedback) {
-    this.selectedFeedback = feedback
+    runInAction(() => {
+      this.selectedFeedback = feedback
+    })
 
     this.onTriggerOpenModal('showReplyFeedbackModal')
   }
@@ -183,6 +211,8 @@ export class AdminFeedbackViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

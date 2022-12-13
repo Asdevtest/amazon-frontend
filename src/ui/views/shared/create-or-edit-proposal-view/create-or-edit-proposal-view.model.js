@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -37,13 +37,15 @@ export class CreateOrEditProposalViewModel {
   }
 
   constructor({history, location}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
 
-    if (location.state) {
-      this.request = location.state.request
+      if (location.state) {
+        this.request = location.state.request
 
-      this.proposalToEdit = location.state.proposalToEdit
-    }
+        this.proposalToEdit = location.state.proposalToEdit
+      }
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -64,21 +66,29 @@ export class CreateOrEditProposalViewModel {
           linksToMediaFiles: dataWithFiles.linksToMediaFiles,
         })
       }
-      this.infoModalText = t(TranslationKey['Proposal changed'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Proposal changed'])
+      })
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = error.body.message
+      runInAction(() => {
+        this.infoModalText = error.body.message
+      })
       this.onTriggerOpenModal('showInfoModal')
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onSubmitCreateProposal(data, files) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
@@ -88,15 +98,21 @@ export class CreateOrEditProposalViewModel {
 
       await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
-      this.infoModalText = t(TranslationKey['Proposal created by'])
+      runInAction(() => {
+        this.infoModalText = t(TranslationKey['Proposal created by'])
+      })
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = error.body.message
+      runInAction(() => {
+        this.infoModalText = error.body.message
+      })
       this.onTriggerOpenModal('showInfoModal')
 
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -120,10 +136,14 @@ export class CreateOrEditProposalViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 }

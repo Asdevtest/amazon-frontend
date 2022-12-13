@@ -33,7 +33,9 @@ export class BuyerSearchSupplierForIdeaModel {
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -42,20 +44,30 @@ export class BuyerSearchSupplierForIdeaModel {
   }
 
   onSelectionModel(model) {
-    this.selectedRowIds = model
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    runInAction(() => {
+      this.firstRowId = state.sorting.sortedRows[0]
+    })
   }
 
   async loadData() {
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.isLoading
+      })
       await this.getSupplierSearchRequestsVacant()
-      this.requestStatus = loadingStatuses.success
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.success
+      })
     } catch (error) {
-      this.requestStatus = loadingStatuses.failed
+      runInAction(() => {
+        this.requestStatus = loadingStatuses.failed
+      })
       console.log(error)
     }
   }
@@ -63,7 +75,9 @@ export class BuyerSearchSupplierForIdeaModel {
   async getSupplierSearchRequestsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.error = undefined
+      runInAction(() => {
+        this.error = undefined
+      })
 
       const result = await IdeaModel.getSupplierSearchRequests()
       runInAction(() => {
@@ -75,10 +89,14 @@ export class BuyerSearchSupplierForIdeaModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
 
-      this.supplierSearchRequestsVacant = []
+      runInAction(() => {
+        this.supplierSearchRequestsVacant = []
+      })
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -91,13 +109,17 @@ export class BuyerSearchSupplierForIdeaModel {
         await this.onClickTableRowBtn({_id: itemId}, true)
       }
 
-      this.selectedRowIds = []
+      runInAction(() => {
+        this.selectedRowIds = []
+      })
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
@@ -115,24 +137,34 @@ export class BuyerSearchSupplierForIdeaModel {
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        this.error = error.body.message
+        runInAction(() => {
+          this.error = error.body.message
+        })
       }
     }
   }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }

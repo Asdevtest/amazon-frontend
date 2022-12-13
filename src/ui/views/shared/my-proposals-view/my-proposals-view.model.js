@@ -34,12 +34,16 @@ export class MyProposalsViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onChangeViewMode(event, nextView) {
-    this.viewMode = nextView
+    runInAction(() => {
+      this.viewMode = nextView
+    })
   }
 
   getCurrentData() {
@@ -47,7 +51,9 @@ export class MyProposalsViewModel {
   }
 
   onClickDeleteBtn(item) {
-    this.selectedProposal = item
+    runInAction(() => {
+      this.selectedProposal = item
+    })
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -61,18 +67,22 @@ export class MyProposalsViewModel {
   getTableModeState() {
     const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.MY_PROPOSALS]
 
-    if (state) {
-      this.viewMode = state.viewMode
-      this.sortMode = state.sortMode
-    }
+    runInAction(() => {
+      if (state) {
+        this.viewMode = state.viewMode
+        this.sortMode = state.sortMode
+      }
+    })
   }
 
   onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
+    runInAction(() => {
+      if (this.sortMode === tableSortMode.DESK) {
+        this.sortMode = tableSortMode.ASC
+      } else {
+        this.sortMode = tableSortMode.DESK
+      }
+    })
 
     this.setTableModeState()
   }
@@ -155,14 +165,20 @@ export class MyProposalsViewModel {
   // }
 
   onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
+    runInAction(() => {
+      this.actionStatus = actionStatus
+    })
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }
