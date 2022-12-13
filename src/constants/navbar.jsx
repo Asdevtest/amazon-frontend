@@ -207,7 +207,12 @@ export const navbarConfig = () => ({
 
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
+        !isMasterUser(user) ||
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT ||
+            item.key === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
+        ),
     },
     {
       icon: MyWarehouseIcon,
