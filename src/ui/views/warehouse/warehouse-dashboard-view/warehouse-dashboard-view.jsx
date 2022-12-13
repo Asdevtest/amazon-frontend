@@ -19,6 +19,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -93,6 +94,14 @@ export class WarehouseDashboardViewRaw extends Component {
                 </div>
 
                 <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
+
+                {userInfo.masterUser && (
+                  <>
+                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+                  </>
+                )}
               </Paper>
               {getWarehouseDashboardCardConfig().map(item => (
                 <DashboardOneLineCardsList
