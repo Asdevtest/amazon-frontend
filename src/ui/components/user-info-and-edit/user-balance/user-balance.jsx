@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Modal} from '@components/modal'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
@@ -95,7 +96,7 @@ export const UserBalance = observer(({userId}) => {
           rows={getCurrentData()}
           rowHeight={75}
           components={{
-            Toolbar: GridToolbar,
+            Toolbar: DataGridCustomToolbar,
           }}
           density={densityModel}
           columns={columnsModel}

@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -9,6 +9,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditGroupPermissionForm} from '@components/forms/add-or-edit-group-permission-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -82,7 +83,7 @@ export const GroupPermissions = observer(() => {
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
           components={{
-            Toolbar: GridToolbar,
+            Toolbar: DataGridCustomToolbar,
           }}
           density={densityModel}
           columns={columnsModel}

@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -9,6 +9,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -99,7 +100,7 @@ class GoodsDaysReportRaw extends Component {
               // rowHeight={100}
               getRowHeight={() => 'auto'}
               components={{
-                Toolbar: GridToolbar,
+                Toolbar: DataGridCustomToolbar,
               }}
               density={densityModel}
               columns={columnsModel}

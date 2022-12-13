@@ -1,5 +1,5 @@
 import {Box} from '@mui/material'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditShopForm} from '@components/forms/add-or-edit-shop-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -101,7 +102,7 @@ class ShopsViewRaw extends Component {
               // rowHeight={100}
               getRowHeight={() => 'auto'}
               components={{
-                Toolbar: GridToolbar,
+                Toolbar: DataGridCustomToolbar,
               }}
               density={densityModel}
               columns={columnsModel}

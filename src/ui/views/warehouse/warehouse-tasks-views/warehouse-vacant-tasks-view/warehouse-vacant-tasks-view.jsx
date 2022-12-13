@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -109,7 +110,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 rows={getCurrentData()}
                 getRowHeight={() => 'auto'}
                 components={{
-                  Toolbar: GridToolbar,
+                  Toolbar: DataGridCustomToolbar,
                 }}
                 density={densityModel}
                 columns={columnsModel}

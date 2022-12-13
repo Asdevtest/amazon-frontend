@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -100,7 +101,7 @@ export class AdminFeedbackViewRaw extends Component {
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
-                  Toolbar: GridToolbar,
+                  Toolbar: DataGridCustomToolbar,
                 }}
                 getRowHeight={() => 'auto'}
                 rows={getCurrentData()}

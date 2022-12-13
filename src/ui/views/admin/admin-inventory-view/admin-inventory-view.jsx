@@ -1,4 +1,4 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -91,7 +92,7 @@ export class AdminInventoryViewRaw extends Component {
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
-                  Toolbar: GridToolbar,
+                  Toolbar: DataGridCustomToolbar,
                 }}
                 rows={currentData}
                 onSelectionModelChange={newSelection => {

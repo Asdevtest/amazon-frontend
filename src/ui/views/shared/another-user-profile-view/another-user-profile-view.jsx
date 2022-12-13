@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -131,7 +132,7 @@ class AnotherUserProfileViewRaw extends Component {
                     rows={getCurrentData()}
                     rowHeight={100}
                     components={{
-                      Toolbar: GridToolbar,
+                      Toolbar: DataGridCustomToolbar,
                     }}
                     density={densityModel}
                     columns={columnsModel}
