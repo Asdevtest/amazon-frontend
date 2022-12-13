@@ -213,12 +213,6 @@ export class ClientReadyBoxesViewModel {
 
       this.getBoxesMy()
 
-      // const clientDestinations = await ClientModel.getClientDestinations(BoxStatus.REQUESTED_SEND_TO_BATCH)
-
-      // runInAction(() => {
-      //   this.clientDestinations = clientDestinations
-      // })
-
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

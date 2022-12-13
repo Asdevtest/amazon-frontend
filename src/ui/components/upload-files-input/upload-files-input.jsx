@@ -66,6 +66,28 @@ export const UploadFilesInput = observer(
       setImages(imageList)
     }
 
+    const onPasteFiles = async evt => {
+      if (evt.clipboardData.files.length === 0) {
+        return
+      } else {
+        const filesArr = Array.from(evt.clipboardData.files)
+
+        const filesAlowLength = maxNumber - images.length
+
+        evt.preventDefault()
+
+        const readyFilesArr = filesArr.map(el => ({
+          data_url: URL.createObjectURL(el),
+          file: new File([el], el.name?.replace(/ /g, ''), {
+            type: el.type,
+            lastModified: el.lastModified,
+          }),
+        }))
+
+        setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
+      }
+    }
+
     const renderImageInfo = (img, imgName) => (
       <div className={classNames.tooltipWrapper}>
         <Avatar
@@ -152,6 +174,7 @@ export const UploadFilesInput = observer(
                     {...dragProps}
                   >
                     {t(TranslationKey['Click or Drop here'])}
+                    <input className={classNames.pasteInput} value={''} onPaste={evt => onPasteFiles(evt)} />
                   </button>
 
                   <div className={classNames.actionBtnsWrapper}>
