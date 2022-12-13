@@ -78,7 +78,9 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   constructor({history}) {
-    this.history = history
+    runInAction(() => {
+      this.history = history
+    })
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -108,41 +110,55 @@ export class WarehouseAwaitingBatchesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-      this.densityModel = state.density.value
-      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+        this.densityModel = state.density.value
+        this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
   }
 
   onChangeFilterModel(model) {
-    this.filterModel = model
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 
   onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      this.rowsPerPage = e
+    })
   }
 
   setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    runInAction(() => {
+      this.requestStatus = requestStatus
+    })
   }
 
   onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
+    runInAction(() => {
+      this.drawerOpen = value
+    })
   }
 
   onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
   }
 
   onSelectionModel(model) {
-    this.selectedBatches = model
+    runInAction(() => {
+      this.selectedBatches = model
+    })
   }
 
   getCurrentData() {
@@ -178,7 +194,9 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
@@ -194,12 +212,14 @@ export class WarehouseAwaitingBatchesViewModel {
 
       await this.loadData()
 
-      this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
+      runInAction(() => {
+        this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
 
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
@@ -208,11 +228,15 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   onTriggerDrawer() {
-    this.drawerOpen = !this.drawerOpen
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
   }
 
   onChangeCurPage(e) {
-    this.curPage = e
+    runInAction(() => {
+      this.curPage = e
+    })
   }
 
   onChangeNameSearchValue(e) {
@@ -237,17 +261,21 @@ export class WarehouseAwaitingBatchesViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
 
-      this.batches = []
+        this.batches = []
+      })
     }
   }
 
   async onClickAddOrEditBatch(setting) {
     try {
-      if (setting.isAdding) {
-        this.selectedBatches = []
-      }
+      runInAction(() => {
+        if (setting.isAdding) {
+          this.selectedBatches = []
+        }
+      })
 
       const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
@@ -262,13 +290,17 @@ export class WarehouseAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchTitle}) {
     try {
-      this.uploadedFiles = []
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
 
       if (filesToAdd.length) {
         await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
@@ -307,13 +339,17 @@ export class WarehouseAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async setCurrentOpenedBatch(row) {
     try {
-      this.curBatch = row
+      runInAction(() => {
+        this.curBatch = row
+      })
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
@@ -323,7 +359,9 @@ export class WarehouseAwaitingBatchesViewModel {
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
@@ -357,7 +395,9 @@ export class WarehouseAwaitingBatchesViewModel {
         }
       }
 
-      this.selectedBatches = []
+      runInAction(() => {
+        this.selectedBatches = []
+      })
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
@@ -367,6 +407,8 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    runInAction(() => {
+      this[modal] = !this[modal]
+    })
   }
 }
