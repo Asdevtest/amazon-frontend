@@ -124,6 +124,7 @@ export const UploadFilesInput = observer(
                     classes={{root: classNames.loadImageInput, input: classNames.inputColor}}
                     value={linkInput}
                     onChange={e => onChangeLinkInput(e.target.value)}
+                    onPaste={onPasteFiles}
                   />
 
                   <Button
@@ -174,7 +175,7 @@ export const UploadFilesInput = observer(
                     {...dragProps}
                   >
                     {t(TranslationKey['Click or Drop here'])}
-                    <input className={classNames.pasteInput} value={''} onPaste={evt => onPasteFiles(evt)} />
+                    <input className={classNames.pasteInput} value={''} onPaste={onPasteFiles} />
                   </button>
 
                   <div className={classNames.actionBtnsWrapper}>

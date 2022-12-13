@@ -71,7 +71,10 @@ const permissionsKeys = {
     SHOW_VACANT_CLIENT: 'SHOW_VACANT_CLIENT',
     SHOW_INVENTORY_CLIENT: 'SHOW_INVENTORY_CLIENT',
     SHOW_REQUESTS_CLIENT: 'SHOW_REQUESTS_CLIENT',
+
     SHOW_ORDERS_CLIENT: 'SHOW_ORDERS_CLIENT',
+    SHOW_PENDING_ORDERS_CLIENT: 'SHOW_PENDING_ORDERS_CLIENT',
+
     SHOW_WAREHOUSE_CLIENT: 'SHOW_WAREHOUSE_CLIENT',
     SHOW_BATCHES_CLIENT: 'SHOW_BATCHES_CLIENT',
     SHOW_USERS_CLIENT: 'SHOW_USERS_CLIENT',
@@ -188,11 +191,17 @@ export const navbarConfig = () => ({
           subtitle: t(TranslationKey.Orders),
           subRoute: '/client/orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
         },
         {
           subtitle: t(TranslationKey['Pending orders']),
           subRoute: '/client/pending-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT),
         },
       ],
 
