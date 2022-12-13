@@ -1,4 +1,4 @@
-import {Avatar, Paper} from '@mui/material'
+import {Avatar, Paper, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -17,6 +17,7 @@ import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-li
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -55,6 +56,14 @@ export class BuyerDashboardViewRaw extends Component {
                 </div>
 
                 <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
+
+                {userInfo.masterUser && (
+                  <>
+                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+                  </>
+                )}
               </Paper>
               {getBuyerDashboardCardConfig().map(item => (
                 <DashboardOneLineCardsList

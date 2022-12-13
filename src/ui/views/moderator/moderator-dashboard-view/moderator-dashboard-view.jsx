@@ -15,6 +15,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {UserLink} from '@components/user-link'
 
 import {t} from '@utils/translations'
 
@@ -47,6 +48,14 @@ export class ModeratorDashboardViewRaw extends Component {
           <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+
+              {userInfo.masterUser && (
+                <>
+                  <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+                  <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+                </>
+              )}
             </MainContent>
           </Appbar>
         </Main>

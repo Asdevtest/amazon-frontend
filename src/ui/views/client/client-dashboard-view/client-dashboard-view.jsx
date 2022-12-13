@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Avatar, Paper} from '@mui/material'
+import {Avatar, Paper, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -20,6 +20,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
 import {Navbar} from '@components/navbar'
+import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -90,6 +91,14 @@ export class ClientDashboardViewRaw extends Component {
                 </div>
 
                 <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
+
+                {userInfo.masterUser && (
+                  <>
+                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+                  </>
+                )}
               </Paper>
               <DashboardWidgetsCard
                 config={getClientDashboardCardConfig()}
