@@ -1663,6 +1663,8 @@ export enum TranslationKey {
   'Free orders data' = 'Free orders data',
   'Undistributed' = 'Undistributed',
   'Cancel selected orders' = 'Cancel selected orders',
+  'Client task' = 'Client task',
+  'Proposed solution' = 'Proposed solution',
   // '' = '',
   // '' = '',
   // '' = '',
