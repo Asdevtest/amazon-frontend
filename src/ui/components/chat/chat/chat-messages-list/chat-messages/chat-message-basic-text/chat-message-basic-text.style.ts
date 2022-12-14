@@ -63,6 +63,19 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  highlightText: {
+    whiteSpace: 'pre-wrap',
+
+    fontSize: 18,
+    lineHeight: '140%',
+    color: theme.palette.primary.main,
+  },
+
+  highlight: {
+    backgroundColor: 'crimson',
+    color: 'white',
+  },
+
   filesMainWrapper: {
     padding: '14px 10px',
     borderRadius: '4px',

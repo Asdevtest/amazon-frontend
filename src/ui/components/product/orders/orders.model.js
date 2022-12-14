@@ -112,7 +112,10 @@ export class OrdersModel {
       })
     } catch (error) {
       console.log(error)
-      this.error = error
+      runInAction(() => {
+        this.orders = []
+        this.error = error
+      })
     }
   }
 
@@ -182,6 +185,8 @@ export class OrdersModel {
       }
 
       await this.updateUserInfo()
+
+      this.loadData()
     } catch (error) {
       console.log(error)
 

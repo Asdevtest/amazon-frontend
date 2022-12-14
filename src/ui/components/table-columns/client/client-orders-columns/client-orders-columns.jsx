@@ -29,7 +29,7 @@ import {toFixedWithDollarSign} from '@utils/text'
 
 export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
-    field: 'id',
+    field: 'idItem',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
@@ -89,13 +89,12 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
           />
-        ) : null}
-        {Number(params.row.originalData.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+        ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickToPendingOrder(params.row.originalData)}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
           />
-        ) : null}
+        )}
       </>
     ),
     filterable: false,

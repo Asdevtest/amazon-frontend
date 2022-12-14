@@ -13,3 +13,5 @@ declare module '@mui/material/styles' {
 }
 
 declare module 'react-ec-highlighter'
+
+declare module 'react-highlight-words'

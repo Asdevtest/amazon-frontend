@@ -26,7 +26,7 @@ export const OrderProductModal = ({
   onDoubleClickBarcode,
   onSubmit,
   onClickCancel,
-  reorderOrder,
+  reorderOrdersData,
   destinationsFavourites,
   setDestinationsFavouritesItem,
   isPendingOrdering,
@@ -44,31 +44,27 @@ export const OrderProductModal = ({
   }
 
   const [productsForRender, setProductsForRender] = useState(
-    reorderOrder
-      ? [
-          {
-            ...reorderOrder.product,
+    reorderOrdersData?.length
+      ? reorderOrdersData.map(reorderOrder => ({
+          ...reorderOrder.product,
 
-            // currentSupplier: reorderOrder.orderSupplier, // при реордере меняем текущего поставщика продукта на постащика заказа
+          amount: reorderOrder.amount,
 
-            amount: reorderOrder.amount,
-
-            destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-              ? reorderOrder.destination?._id
-              : '',
-            storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-              ? reorderOrder.storekeeper?._id
-              : '',
-            logicsTariffId: storekeepers
-              .find(el => el._id === reorderOrder.storekeeper?._id)
-              ?.tariffLogistics.map(el => el._id)
-              .includes(reorderOrder.logicsTariff?._id)
-              ? reorderOrder.logicsTariff?._id
-              : '',
-            expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
-            priority: reorderOrder.priority || '30',
-          },
-        ]
+          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
+            ? reorderOrder.destination?._id
+            : '',
+          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
+            ? reorderOrder.storekeeper?._id
+            : '',
+          logicsTariffId: storekeepers
+            .find(el => el._id === reorderOrder.storekeeper?._id)
+            ?.tariffLogistics.map(el => el._id)
+            .includes(reorderOrder.logicsTariff?._id)
+            ? reorderOrder.logicsTariff?._id
+            : '',
+          expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
+          priority: reorderOrder.priority || '30',
+        }))
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
@@ -78,32 +74,30 @@ export const OrderProductModal = ({
   )
 
   const [orderState, setOrderState] = useState(
-    reorderOrder
-      ? [
-          {
-            amount: reorderOrder.amount,
-            clientComment: '',
-            barCode: reorderOrder.product.barCode || '',
-            productId: reorderOrder.product._id,
-            images: [],
-            tmpBarCode: [],
+    reorderOrdersData?.length
+      ? reorderOrdersData.map(reorderOrder => ({
+          amount: reorderOrder.amount,
+          clientComment: '',
+          barCode: reorderOrder.product.barCode || '',
+          productId: reorderOrder.product._id,
+          images: [],
+          tmpBarCode: [],
 
-            destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-              ? reorderOrder.destination?._id
-              : '',
-            storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-              ? reorderOrder.storekeeper?._id
-              : '',
-            logicsTariffId: storekeepers
-              .find(el => el._id === reorderOrder.storekeeper?._id)
-              ?.tariffLogistics.map(el => el._id)
-              .includes(reorderOrder.logicsTariff?._id)
-              ? reorderOrder.logicsTariff?._id
-              : '',
-            expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
-            priority: reorderOrder.priority || '30',
-          },
-        ]
+          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
+            ? reorderOrder.destination?._id
+            : '',
+          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
+            ? reorderOrder.storekeeper?._id
+            : '',
+          logicsTariffId: storekeepers
+            .find(el => el._id === reorderOrder.storekeeper?._id)
+            ?.tariffLogistics.map(el => el._id)
+            .includes(reorderOrder.logicsTariff?._id)
+            ? reorderOrder.logicsTariff?._id
+            : '',
+          expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
+          priority: reorderOrder.priority || '30',
+        }))
       : selectedProductsData.map(product => ({
           amount: 1,
           clientComment: '',

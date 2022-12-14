@@ -221,6 +221,15 @@ export class ClientWarehouseViewRaw extends Component {
                   )}
 
                 <Button
+                  disabled={curDestination?._id === 'null'}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curDestination?._id === 'null'})}
+                  variant="text"
+                  onClick={() => onClickDestinationBtn({_id: 'null'})}
+                >
+                  {t(TranslationKey.Undistributed)}
+                </Button>
+
+                <Button
                   disabled={!curDestination?._id}
                   tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
                   className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}

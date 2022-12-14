@@ -5,6 +5,7 @@ import React, {FC} from 'react'
 
 import {observer} from 'mobx-react'
 // import ECHighlighter from 'react-ec-highlighter'
+// import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
@@ -23,8 +24,42 @@ interface Props {
   searchPhrase?: string
 }
 
+// const findChunks = ({autoEscape, caseSensitive, sanitize, searchWords, textToHighlight}: any) => {
+//   const chunks: any[] = []
+//   const textLow = textToHighlight.toLowerCase()
+//   const sep = /[\s]+/
+
+//   const singleTextWords = textLow.split(sep)
+
+//   let fromIndex = 0
+//   const singleTextWordsWithPos = singleTextWords.map((s: any) => {
+//     const indexInWord = textLow.indexOf(s, fromIndex)
+//     fromIndex = indexInWord
+//     return {
+//       word: s,
+//       index: indexInWord,
+//     }
+//   })
+
+//   searchWords.forEach((sw: any) => {
+//     const swLow = sw.toLowerCase()
+//     singleTextWordsWithPos.forEach((s: any) => {
+//       if (s.word.includes(swLow)) {
+//         const start = s.index
+//         const end = s.index + s.word.length
+//         chunks.push({
+//           start,
+//           end,
+//         })
+//       }
+//     })
+//   })
+
+//   return chunks
+// }
+
 export const ChatMessageBasicText: FC<Props> = observer(
-  ({message, isIncomming, unReadMessage, isFound /* searchPhrase*/}) => {
+  ({message, isIncomming, unReadMessage, isFound /* , searchPhrase*/}) => {
     const {classes: classNames} = useClassNames()
 
     return (
@@ -37,12 +72,32 @@ export const ChatMessageBasicText: FC<Props> = observer(
         )}
       >
         <div className={classNames.subWrapper}>
-          <Linkify
-          // properties={{target: '_blank', style: {color: 'red', fontWeight: 'bold', textDecoration: 'none'}}} // ЗАЯВЛЕННЫЕ ПРОПЫ НЕ РАБОТАЮТ
-          >
+          <Linkify>
             <Typography paragraph className={classNames.messageText}>
               {message.text}
             </Typography>
+
+            {/* {message.text && (
+              <Highlighter
+                autoEscape
+                highlightClassName="YourHighlightClass"
+                searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
+                textToHighlight={message.text}
+                className={classNames.messageText}
+                findChunks={findChunks}
+                highlightTag={({children, highlightIndex}: any) => (
+                  <Linkify>
+                    <span
+                      className={cx(classNames.highlightText, {
+                        [classNames.highlight]: searchPhrase ? message.text.includes(searchPhrase) : false,
+                      })}
+                    >
+                      {children}
+                    </span>
+                  </Linkify>
+                )}
+              />
+            )} */}
 
             {/* {message.text && (
               <ECHighlighter

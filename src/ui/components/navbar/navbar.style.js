@@ -5,9 +5,26 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     backgroundColor: theme.palette.background.general,
 
-    position: 'relative',
+    // position: 'relative',
 
     height: '100vh',
+    // height: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  mainSubWrapper: {
+    backgroundColor: theme.palette.background.general,
+
+    // position: 'relative',
+
+    height: '100vh',
+    // height: '100%',
+    flexGrow: 1,
+
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   root: {
@@ -23,9 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
   appVersion: {
     color: theme.palette.primary.main,
 
-    position: 'absolute',
-    bottom: 70,
-    left: 30,
+    marginLeft: 15,
   },
 
   paper: {
@@ -89,17 +104,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   categoriesWrapper: {
     backgroundColor: theme.palette.background.general,
-    height: '80%',
+    height: '100%',
     overflow: 'auto',
   },
+
+  bottomCategories: {
+    justifySelf: 'flex-end',
+    marginBottom: 20,
+  },
+
   feedBackButton: {
-    position: 'absolute',
-    bottom: '20px',
+    // position: 'absolute',
+    // bottom: '20px',
+
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0 30px',
+    padding: '0 15px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   feedBackText: {

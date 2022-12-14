@@ -121,7 +121,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   color="primary"
                   onClick={onClickStorekeeperBtn}
                 >
-                  {t(TranslationKey['All warehouses'])}
+                  {t(TranslationKey.All)}
                 </Button>
               </div>
 

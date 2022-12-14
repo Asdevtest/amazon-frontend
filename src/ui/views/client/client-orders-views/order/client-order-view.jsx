@@ -109,7 +109,7 @@ class ClientOrderViewRaw extends Component {
           <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
             <OrderProductModal
               isPendingOrdering
-              reorderOrder={order}
+              reorderOrdersData={[order]}
               volumeWeightCoefficient={volumeWeightCoefficient}
               destinations={destinations}
               storekeepers={storekeepers}

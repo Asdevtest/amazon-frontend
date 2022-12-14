@@ -52,7 +52,7 @@ export const Navbar = observer(
     }, [shortNavbar])
 
     const drawerContent = (
-      <div className={classNames.mainWrapper}>
+      <div className={classNames.mainSubWrapper}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
             <img
@@ -68,7 +68,43 @@ export const Navbar = observer(
         ) : null}
         {!shortNavbar ? (
           <List className={classNames.categoriesWrapper}>
-            {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
+            {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
+              .filter(el => !el.route?.includes('/messages'))
+              .map((category, index) =>
+                category.checkHideBlock(viewModel.current.userInfo) ? (
+                  <React.Fragment key={index}>
+                    <NavbarCategory
+                      button
+                      isSelected={category.key === activeCategory}
+                      userInfo={viewModel.current.userInfo}
+                      category={category}
+                      badge={
+                        category.route?.includes('/client/notifications') &&
+                        viewModel.current.userInfo.needConfirmPriceChange.boxes +
+                          viewModel.current.userInfo.needConfirmPriceChange.orders +
+                          viewModel.current.userInfo.needUpdateTariff.boxes
+                      }
+                    />
+
+                    <NavbarCollapse
+                      activeCategory={activeCategory}
+                      activeSubCategory={activeSubCategory}
+                      category={category}
+                      index={category.key}
+                      userInfo={viewModel.current.userInfo}
+                      currentViewModel={viewModel.current}
+                      onChangeSubCategory={onChangeSubCategory}
+                    />
+                  </React.Fragment>
+                ) : null,
+              )}
+          </List>
+        ) : null}
+
+        <div className={classNames.bottomCategories}>
+          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
+            .filter(el => el.route?.includes('/messages'))
+            .map((category, index) =>
               category.checkHideBlock(viewModel.current.userInfo) ? (
                 <React.Fragment key={index}>
                   <NavbarCategory
@@ -76,39 +112,30 @@ export const Navbar = observer(
                     isSelected={category.key === activeCategory}
                     userInfo={viewModel.current.userInfo}
                     category={category}
-                    badge={
-                      (category.route?.includes('/client/notifications') &&
-                        viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                          viewModel.current.userInfo.needConfirmPriceChange.orders +
-                          viewModel.current.userInfo.needUpdateTariff.boxes) ||
-                      (category.route?.includes('/messages') && viewModel.current.unreadMessages)
-                    }
-                  />
-
-                  <NavbarCollapse
-                    activeCategory={activeCategory}
-                    activeSubCategory={activeSubCategory}
-                    category={category}
-                    index={category.key}
-                    userInfo={viewModel.current.userInfo}
-                    currentViewModel={viewModel.current}
-                    onChangeSubCategory={onChangeSubCategory}
+                    badge={category.route?.includes('/messages') && viewModel.current.unreadMessages}
                   />
                 </React.Fragment>
               ) : null,
             )}
-          </List>
-        ) : null}
 
-        <Typography className={classNames.appVersion}>{appVersion}</Typography>
+          {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
+            <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
+              <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
+              <Feedback className={classNames.feedbackIcon} />
+            </div>
+          ) : null}
+
+          <Typography className={classNames.appVersion}>{appVersion}</Typography>
+        </div>
+
+        {/* <Typography className={classNames.appVersion}>{appVersion}</Typography>
 
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            {/* <img src={'/assets/icons/FB-icon.svg'} className={classNames.feedbackIcon} /> */}
             <Feedback className={classNames.feedbackIcon} />
           </div>
-        ) : null}
+        ) : null} */}
 
         <Modal openModal={showFeedbackModal} setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}>
           <FeedBackModal onSubmit={sendFeedbackAboutPlatform} onClose={() => onTriggerOpenModal('showFeedbackModal')} />

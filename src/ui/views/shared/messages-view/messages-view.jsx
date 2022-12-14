@@ -95,6 +95,7 @@ class MessagesViewRaw extends Component {
                           <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
                         </div>
                       </Link>
+
                       {/* <SearchInput
                         inputClasses={classNames.searchInput}
                         placeholder={t(TranslationKey['Message Search'])}
