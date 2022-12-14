@@ -152,7 +152,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   variant="text"
                   onClick={onClickDestinationBtn}
                 >
-                  {'All destinations'}
+                  {t(TranslationKey.All)}
                 </Button>
               </div>
 
