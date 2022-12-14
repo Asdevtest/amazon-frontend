@@ -69,8 +69,6 @@ export class OwnerRequestDetailCustomViewModel {
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
-        console.log('requestIdMain', this.requestId)
-
         const state = {...history.location.state}
         delete state.acceptMessage
         delete state.showAcceptMessage
