@@ -1348,4 +1348,7 @@ export const styles = theme => ({
     width: '2px',
     height: '10px',
   },
+  fixedTextWidth: {
+    width: 35,
+  },
 })

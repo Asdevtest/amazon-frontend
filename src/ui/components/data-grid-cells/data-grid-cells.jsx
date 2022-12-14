@@ -614,7 +614,9 @@ export const OrderBoxesCell = React.memo(
         </div>
       ) : (
         <div className={classNames.orderBoxesWrapper}>
-          <MultilineTextCell text={`x${qty}`} />
+          <div className={classNames.fixedTextWidth}>
+            <MultilineTextCell text={`x${qty}`} />
+          </div>
           <OrderCell product={product} superbox={superboxQty} box={box} />
         </div>
       ),
