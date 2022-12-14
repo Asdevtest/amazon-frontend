@@ -1661,5 +1661,6 @@
   "Sent in batches": "Отправлена в партии",
   "Needs confirmation of shipping cost": "Needs confirmation of shipping cost",
   "Pending orders data": "Данные по отложенным заказам",
-  "Free orders data": "Данные по свободным заказам"
+  "Free orders data": "Данные по свободным заказам",
+  "Undistributed": "Не распределённые"
 }

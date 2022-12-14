@@ -203,6 +203,8 @@ export class ClientOrdersNotificationsViewModel {
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
+          this.baseNoConvertedOrders = []
+          this.orders = []
         })
       }
     }

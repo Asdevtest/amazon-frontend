@@ -1661,7 +1661,7 @@ export enum TranslationKey {
   'Needs confirmation of shipping cost' = 'Needs confirmation of shipping cost',
   'Pending orders data' = 'Pending orders data',
   'Free orders data' = 'Free orders data',
-  // '' = '',
+  'Undistributed' = 'Undistributed',
   // '' = '',
   // '' = '',
   // '' = '',
