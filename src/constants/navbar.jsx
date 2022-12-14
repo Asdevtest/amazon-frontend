@@ -534,6 +534,16 @@ export const navbarConfig = () => ({
     },
 
     {
+      icon: FreeOrdersIcon,
+      title: t(TranslationKey['Free Orders']),
+      route: '/buyer/free-orders',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
+    },
+
+    {
       icon: ClockIcon,
       title: t(TranslationKey['Pending orders']),
       route: '/buyer/pending-orders',
@@ -609,16 +619,6 @@ export const navbarConfig = () => ({
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
         ),
-    },
-
-    {
-      icon: FreeOrdersIcon,
-      title: t(TranslationKey['Free Orders']),
-      route: '/buyer/free-orders',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
     },
 
     {
