@@ -803,7 +803,7 @@ export const styles = theme => ({
   },
 
   commentOfSbWrapper: {
-    padding: '10px 0',
+    padding: '5px 0',
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -811,7 +811,7 @@ export const styles = theme => ({
   },
 
   commentOfSbSubWrapper: {
-    maxHeight: 200,
+    maxHeight: '100%',
     width: '100%',
     overflow: 'auto',
   },
