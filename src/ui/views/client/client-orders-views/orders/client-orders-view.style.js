@@ -18,6 +18,15 @@ export const styles = theme => ({
     height: '100%',
   },
 
+  button: {
+    padding: '0 25px',
+  },
+
+  topHeaderBtnsSubWrapper: {
+    display: 'flex',
+    gap: 30,
+  },
+
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -41,7 +50,7 @@ export const styles = theme => ({
     paddingTop: 5,
     display: 'flex',
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
   datagridWrapper: {

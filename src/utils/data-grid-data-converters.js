@@ -291,7 +291,9 @@ export const depersonalizedPickDataConverter = data =>
 export const clientOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: `${item.id} / ${item.item ? item.item : '-'}`,
+    id: item._id,
+
+    idItem: `${item.id} / ${item.item ? item.item : '-'}`,
 
     barCode: item.product.barCode,
     totalPrice: item.totalPrice,

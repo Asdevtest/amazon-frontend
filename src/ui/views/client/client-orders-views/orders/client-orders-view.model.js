@@ -47,17 +47,16 @@ export class ClientOrdersViewModel {
   drawerOpen = false
 
   currentData = []
+  selectedRowIds = []
 
   showOrderModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
   showSuccessModal = false
 
-  isPendingOrdering = false
-
   ordersDataStateToSubmit = undefined
   selectedProduct = undefined
-  reorderOrder = undefined
+  reorderOrdersData = []
   uploadedFiles = []
 
   storekeepers = []
@@ -73,7 +72,6 @@ export class ClientOrdersViewModel {
 
   rowHandlers = {
     onClickReorder: item => this.onClickReorder(item),
-    onClickToPendingOrder: item => this.onClickToPendingOrder(item),
   }
 
   rowCount = 0
@@ -233,9 +231,9 @@ export class ClientOrdersViewModel {
     return toJS(this.orders)
   }
 
-  getCurrentReorderData() {
-    return toJS(this.reorderOrder)
-  }
+  // getCurrentReorderData() {
+  //   return toJS(this.reorderOrder)
+  // }
 
   async loadData() {
     try {
@@ -318,7 +316,7 @@ export class ClientOrdersViewModel {
     }
   }
 
-  async onClickToPendingOrder(item) {
+  async onClickManyReorder() {
     try {
       const storekeepers = await StorekeeperModel.getStorekeepers()
 
@@ -326,21 +324,60 @@ export class ClientOrdersViewModel {
 
       const result = await UserModel.getPlatformSettings()
 
-      const order = await ClientModel.getOrderById(item._id)
+      for (let i = 0; i < this.selectedRowIds.length; i++) {
+        const orderId = this.selectedRowIds[i]
+
+        const order = await ClientModel.getOrderById(orderId)
+
+        runInAction(() => {
+          this.reorderOrdersData = [...this.reorderOrdersData, order]
+        })
+      }
 
       runInAction(() => {
-        this.isPendingOrdering = true
-
         this.storekeepers = storekeepers
 
         this.destinations = destinations
 
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.reorderOrder = order
       })
 
       this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onConfirmCancelManyReorder() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: t(TranslationKey['Cancel selected orders']) + '?',
+        onClickConfirm: () => this.onClickCancelManyReorder(),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitCancelOrder(orderId) {
+    try {
+      await ClientModel.cancelOrder(orderId)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickCancelManyReorder() {
+    try {
+      for (let i = 0; i < this.selectedRowIds.length; i++) {
+        const orderId = this.selectedRowIds[i]
+        await this.onSubmitCancelOrder(orderId)
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
     }
@@ -357,15 +394,13 @@ export class ClientOrdersViewModel {
       const order = await ClientModel.getOrderById(item._id)
 
       runInAction(() => {
-        this.isPendingOrdering = false
-
         this.storekeepers = storekeepers
 
         this.destinations = destinations
 
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.reorderOrder = order
+        this.reorderOrdersData = [order]
       })
 
       this.onTriggerOpenModal('showOrderModal')

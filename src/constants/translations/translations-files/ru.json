@@ -1662,5 +1662,6 @@
   "Needs confirmation of shipping cost": "Needs confirmation of shipping cost",
   "Pending orders data": "Данные по отложенным заказам",
   "Free orders data": "Данные по свободным заказам",
-  "Undistributed": "Не распределённые"
+  "Undistributed": "Не распределённые",
+  "Cancel selected orders": "Отменить выбранные заказы"
 }

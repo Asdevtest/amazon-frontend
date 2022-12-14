@@ -96,7 +96,7 @@ export const Orders = observer(({productId}) => {
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          reorderOrder={reorderOrder}
+          reorderOrdersData={[reorderOrder]}
           volumeWeightCoefficient={volumeWeightCoefficient}
           destinations={destinations}
           storekeepers={storekeepers}

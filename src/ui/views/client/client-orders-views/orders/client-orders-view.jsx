@@ -7,9 +7,11 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -39,13 +41,13 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
-      isPendingOrdering,
+      selectedRowIds,
       navbarActiveSubCategory,
       destinationsFavourites,
       rowCount,
       confirmModalSettings,
       successModalText,
-      getCurrentReorderData,
+      reorderOrdersData,
 
       selectedProduct,
       storekeepers,
@@ -81,8 +83,12 @@ class ClientOrdersViewRaw extends Component {
       onConfirmSubmitOrderProductModal,
       onSearchSubmit,
       setDestinationsFavouritesItem,
+      onConfirmCancelManyReorder,
+      onClickManyReorder,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const isPendingOrdering = this.props.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
 
     return (
       <React.Fragment>
@@ -96,17 +102,43 @@ class ClientOrdersViewRaw extends Component {
           <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
+                {isPendingOrdering ? (
+                  <div className={classNames.topHeaderBtnsSubWrapper}>
+                    <Button
+                      success
+                      disabled={!selectedRowIds.length}
+                      className={classNames.button}
+                      onClick={onClickManyReorder}
+                    >
+                      {t(TranslationKey['To order'])}
+                    </Button>
+
+                    <Button
+                      danger
+                      disabled={!selectedRowIds.length}
+                      className={classNames.button}
+                      onClick={onConfirmCancelManyReorder}
+                    >
+                      {t(TranslationKey['Cancel order'])}
+                    </Button>
+                  </div>
+                ) : (
+                  <div />
+                )}
+
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
+                <div />
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid
                   disableVirtualization
                   pagination
                   useResizeContainer
+                  checkboxSelection={isPendingOrdering}
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
@@ -122,18 +154,17 @@ class ClientOrdersViewRaw extends Component {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50 /* , 100*/]}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                   }}
+                  selectionModel={selectedRowIds}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
@@ -159,7 +190,7 @@ class ClientOrdersViewRaw extends Component {
             >
               <OrderProductModal
                 isPendingOrdering={isPendingOrdering}
-                reorderOrder={getCurrentReorderData()}
+                reorderOrdersData={reorderOrdersData}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}

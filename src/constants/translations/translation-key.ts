@@ -1662,7 +1662,7 @@ export enum TranslationKey {
   'Pending orders data' = 'Pending orders data',
   'Free orders data' = 'Free orders data',
   'Undistributed' = 'Undistributed',
-  // '' = '',
+  'Cancel selected orders' = 'Cancel selected orders',
   // '' = '',
   // '' = '',
   // '' = '',
