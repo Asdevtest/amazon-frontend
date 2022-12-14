@@ -318,6 +318,10 @@ export class ClientOrdersViewModel {
 
   async onClickManyReorder() {
     try {
+      runInAction(() => {
+        this.reorderOrdersData = []
+      })
+
       const storekeepers = await StorekeeperModel.getStorekeepers()
 
       const destinations = await ClientModel.getDestinations()
