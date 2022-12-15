@@ -34,7 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
     // color: `${theme.palette.text.negativeMain} !important`,
     // color: '#fff',
 
-    backgroundColor: '#ff0000 !important',
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
     '&:hover': {
       backgroundColor: '#c51a1c !important',
 
