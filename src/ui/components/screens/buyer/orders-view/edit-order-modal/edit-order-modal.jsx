@@ -651,12 +651,11 @@ export const EditOrderModal = observer(
 
               <div className={classNames.trackNumberPhotoWrapper}>
                 {trackNumber.files[0] ? (
-                  <Avatar
+                  <img
                     className={classNames.trackNumberPhoto}
                     src={
                       typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
                     }
-                    variant="square"
                     onClick={() => {
                       setShowPhotosModal(!showPhotosModal)
                       setBigImagesOptions({

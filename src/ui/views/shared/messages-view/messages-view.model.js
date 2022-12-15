@@ -22,6 +22,7 @@ export class MessagesViewModel {
 
   usersData = []
   messagesFound = []
+  curFoundedMessage = undefined
 
   showProgress = false
 
@@ -90,15 +91,26 @@ export class MessagesViewModel {
       () => {
         runInAction(() => {
           if (this.mesSearchValue && this.chatSelectedId) {
-            this.messagesFound = this.simpleChats
+            const mesAr = this.simpleChats
               .find(el => el._id === this.chatSelectedId)
               .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+
+            this.messagesFound = mesAr
+
+            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
           } else {
+            this.curFoundedMessage = undefined
+
             this.messagesFound = []
           }
         })
       },
     )
+  }
+  onChangeCurFoundedMessage(index) {
+    runInAction(() => {
+      this.curFoundedMessage = this.messagesFound[index]
+    })
   }
 
   async loadData() {

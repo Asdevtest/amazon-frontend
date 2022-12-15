@@ -4,8 +4,7 @@ import {Typography} from '@mui/material'
 import React, {FC} from 'react'
 
 import {observer} from 'mobx-react'
-// import ECHighlighter from 'react-ec-highlighter'
-// import Highlighter from 'react-highlight-words'
+import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
@@ -24,42 +23,62 @@ interface Props {
   searchPhrase?: string
 }
 
-// const findChunks = ({autoEscape, caseSensitive, sanitize, searchWords, textToHighlight}: any) => {
-//   const chunks: any[] = []
-//   const textLow = textToHighlight.toLowerCase()
-//   const sep = /[\s]+/
+interface SingleTextWordsWithPos {
+  word: string
+  index: number
+}
 
-//   const singleTextWords = textLow.split(sep)
+interface HighlightTag {
+  children: string
+  highlightIndex: number
+}
 
-//   let fromIndex = 0
-//   const singleTextWordsWithPos = singleTextWords.map((s: any) => {
-//     const indexInWord = textLow.indexOf(s, fromIndex)
-//     fromIndex = indexInWord
-//     return {
-//       word: s,
-//       index: indexInWord,
-//     }
-//   })
+interface Chunk {
+  start: number
+  end: number
+}
 
-//   searchWords.forEach((sw: any) => {
-//     const swLow = sw.toLowerCase()
-//     singleTextWordsWithPos.forEach((s: any) => {
-//       if (s.word.includes(swLow)) {
-//         const start = s.index
-//         const end = s.index + s.word.length
-//         chunks.push({
-//           start,
-//           end,
-//         })
-//       }
-//     })
-//   })
+interface FindChunksProps {
+  searchWords: string[]
+  textToHighlight: string
+}
 
-//   return chunks
-// }
+const findChunks = ({/* autoEscape, caseSensitive, sanitize, */ searchWords, textToHighlight}: FindChunksProps) => {
+  const chunks: Chunk[] = []
+  const textLow = textToHighlight.toLowerCase()
+  const sep = /[\s]+/
+
+  const singleTextWords = textLow.split(sep)
+
+  let fromIndex = 0
+  const singleTextWordsWithPos = singleTextWords.map((s: string) => {
+    const indexInWord = textLow.indexOf(s, fromIndex)
+    fromIndex = indexInWord
+    return {
+      word: s,
+      index: indexInWord,
+    }
+  })
+
+  searchWords.forEach((sw: string) => {
+    const swLow = sw.toLowerCase()
+    singleTextWordsWithPos.forEach((s: SingleTextWordsWithPos) => {
+      if (s.word.includes(swLow)) {
+        const start = s.index
+        const end = s.index + s.word.length
+        chunks.push({
+          start,
+          end,
+        })
+      }
+    })
+  })
+
+  return chunks
+}
 
 export const ChatMessageBasicText: FC<Props> = observer(
-  ({message, isIncomming, unReadMessage, isFound /* , searchPhrase*/}) => {
+  ({message, isIncomming, unReadMessage, isFound, searchPhrase}) => {
     const {classes: classNames} = useClassNames()
 
     return (
@@ -72,45 +91,31 @@ export const ChatMessageBasicText: FC<Props> = observer(
         )}
       >
         <div className={classNames.subWrapper}>
-          <Linkify>
-            <Typography paragraph className={classNames.messageText}>
+          {/* <Typography paragraph className={classNames.messageText}> // КОНТРОЛЬНЫЙ ТЕКСТ
               {message.text}
-            </Typography>
+            </Typography> */}
 
-            {/* {message.text && (
-              <Highlighter
-                autoEscape
-                highlightClassName="YourHighlightClass"
-                searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
-                textToHighlight={message.text}
-                className={classNames.messageText}
-                findChunks={findChunks}
-                highlightTag={({children, highlightIndex}: any) => (
-                  <Linkify>
-                    <span
-                      className={cx(classNames.highlightText, {
-                        [classNames.highlight]: searchPhrase ? message.text.includes(searchPhrase) : false,
-                      })}
-                    >
-                      {children}
-                    </span>
-                  </Linkify>
-                )}
-              />
-            )} */}
-
-            {/* {message.text && (
-              <ECHighlighter
-                searchPhrase={searchPhrase || ''}
-                text={message.text}
-                highlightClassName={classNames.highlightClassName}
-                className={classNames.messageText}
-
-                // highlightClassName="color: red"
-                // highlightStyle={{color: 'red !important', backgroundColor: 'red'}}
-              />
-            )} */}
-          </Linkify>
+          {message.text && (
+            <Highlighter
+              autoEscape
+              highlightClassName="YourHighlightClass"
+              searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
+              textToHighlight={message.text}
+              className={classNames.messageText}
+              findChunks={findChunks}
+              highlightTag={({children /* , highlightIndex*/}: HighlightTag) => (
+                <Linkify>
+                  <span
+                    className={cx(classNames.highlightText, {
+                      [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                    })}
+                  >
+                    {children}
+                  </span>
+                </Linkify>
+              )}
+            />
+          )}
 
           {message.files.length ? (
             <div className={classNames.filesMainWrapper}>

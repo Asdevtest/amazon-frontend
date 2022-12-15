@@ -408,6 +408,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.input.customDisabled,
     borderRadius: 4,
     padding: '6px 8px',
+    height: 36,
   },
 
   inputDisabled: {

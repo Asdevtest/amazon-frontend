@@ -1,16 +1,12 @@
 import {cx} from '@emotion/css'
 import {Avatar, Typography, Link} from '@mui/material'
 
-import React, {
-  FC,
-  useEffect,
-  /* useRef, useMemo*/
-} from 'react'
+import React, {FC, useEffect} from 'react'
 
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
+import {useScrollToElement} from 'react-use-scroll-to-element-hook'
 
-// import {useScrollToElement} from 'react-use-scroll-to-element-hook'
 import {ChatModel} from '@models/chat-model'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
@@ -45,38 +41,22 @@ interface Props {
 }
 
 export const ChatMessagesList: FC<Props> = observer(
-  ({messages, userId, handlers, /* toScrollMesId, messagesFound,*/ searchPhrase}) => {
+  ({messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase}) => {
     const {classes: classNames} = useClassNames()
 
-    // console.log('CHAT_messagesFound', messagesFound)
+    const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
-    // const messagesFoundIds = messagesFound?.map(el => el._id) || []
+    const messagesIds = messages ? messages.map(mes => mes._id) : []
 
-    // const messagesIds = messages ? messages.map(mes => mes._id) : []
+    const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds, {
+      behavior: 'smooth',
+    })
 
-    // const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds)
-
-    // const messagesRefs = useMemo(() => messagesIds.map(() => useRef()), [])
-
-    // useEffect(() => {
-    //   if (toScrollMesId) {
-    //     scrollToElementClickHandler(toScrollMesId)
-
-    //     console.log('toScrollMesId', toScrollMesId)
-    //   }
-    // }, [toScrollMesId])
-
-    // useEffect(() => {
-    //   if (toScrollMesId) {
-    //     const ref = (messagesRefs as {[key: string]: string})[toScrollMesId]
-
-    //     ref.current.scrollIntoView()
-
-    //     //  {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-
-    //     console.log('toScrollMesId', toScrollMesId)
-    //   }
-    // }, [toScrollMesId])
+    useEffect(() => {
+      if (toScrollMesId) {
+        scrollToElementClickHandler(toScrollMesId)
+      }
+    }, [toScrollMesId])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.userId !== userId && !el.isRead)
@@ -125,7 +105,7 @@ export const ChatMessagesList: FC<Props> = observer(
             isIncomming={isIncomming}
             message={messageItem}
             unReadMessage={unReadMessage}
-            // isFound={messagesFoundIds.includes(messageItem?._id)}
+            isFound={messagesFoundIds.includes(messageItem?._id)}
             searchPhrase={searchPhrase}
           />
         )
@@ -148,19 +128,10 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 const unReadMessage = !messageItem.isRead
 
-                // const mesRef = getScrollToElementRef(messageItem._id)
-
-                // console.log('mesRef', mesRef)
-                // const mesRef = useRef(null)
-
                 return (
                   <div
                     key={`chatMessage_${messageItem._id}`}
-                    // ref={getScrollToElementRef(messageItem._id)}
-                    // ref={sec => getScrollToElementRef(messageItem._id)(sec)}
-                    // ref={mesRef}
-                    // ref={mesRef}
-                    // ref={messagesRefs[messageItem._id]}
+                    ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
                     className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
                   >
                     {index === 0 ||

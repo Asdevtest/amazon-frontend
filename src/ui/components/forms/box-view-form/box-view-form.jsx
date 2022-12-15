@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography, Tooltip, fabClasses, Avatar} from '@mui/material'
+import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
 
 import {React, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-// import Carousel from 'react-material-ui-carousel'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
@@ -514,7 +513,7 @@ export const BoxViewForm = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {formFields.trackNumberFile || formFields.tmpTrackNumberFile[0] ? (
-                    <Avatar
+                    <img
                       className={classNames.trackNumberPhoto}
                       src={
                         formFields.tmpTrackNumberFile[0]
@@ -523,7 +522,7 @@ export const BoxViewForm = observer(
                             : formFields.tmpTrackNumberFile[0]?.data_url
                           : formFields.trackNumberFile
                       }
-                      variant="square"
+                      // variant="square"
                       onClick={() => {
                         setShowPhotosModal(!showPhotosModal)
                         setBigImagesOptions({

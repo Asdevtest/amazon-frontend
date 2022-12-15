@@ -1,8 +1,11 @@
 import {cx} from '@emotion/css'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import {Avatar, Typography, Link} from '@mui/material'
 
 import React, {Component} from 'react'
 
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
@@ -38,6 +41,7 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      curFoundedMessage,
       messagesFound,
       mesSearchValue,
       usersData,
@@ -57,17 +61,20 @@ class MessagesViewRaw extends Component {
       onSubmitMessage,
       onClickBackButton,
       onChangeNameSearchValue,
-      // onChangeMesSearchValue,
+      onChangeMesSearchValue,
       onTriggerNoticeOfSimpleChats,
       onTriggerOpenModal,
       onClickAddNewChatByEmail,
       onSubmitAddNewChat,
+      onChangeCurFoundedMessage,
     } = this.viewModel
     const {classes: classNames} = this.props
 
     const currentOpponent = simpleChats.find(el => el._id === chatSelectedId)?.users.find(el => el._id !== user._id)
 
     // console.log('messagesFound', messagesFound)
+
+    const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
 
     return (
       <React.Fragment>
@@ -96,7 +103,7 @@ class MessagesViewRaw extends Component {
                         </div>
                       </Link>
 
-                      {/* <SearchInput
+                      <SearchInput
                         inputClasses={classNames.searchInput}
                         placeholder={t(TranslationKey['Message Search'])}
                         value={mesSearchValue}
@@ -109,9 +116,37 @@ class MessagesViewRaw extends Component {
                             {t(TranslationKey['Search results']) + ':'}
                           </Typography>
 
-                          <Typography className={classNames.searchResultNum}>{messagesFound.length}</Typography>
+                          <Typography className={classNames.searchResultNum}>{`${curFoundedMessageIndex + 1} ${t(
+                            TranslationKey['out of'],
+                          )} ${messagesFound.length}`}</Typography>
+
+                          <div className={classNames.dropUpOrDownWrapper}>
+                            <ArrowDropUpIcon
+                              className={cx(classNames.searchIconBtn, {
+                                [classNames.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
+                              })}
+                              onClick={() =>
+                                curFoundedMessageIndex !== 0 && onChangeCurFoundedMessage(curFoundedMessageIndex - 1)
+                              }
+                            />
+
+                            <ArrowDropDownIcon
+                              className={cx(classNames.searchIconBtn, {
+                                [classNames.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
+                              })}
+                              onClick={() =>
+                                curFoundedMessageIndex + 1 !== messagesFound.length &&
+                                onChangeCurFoundedMessage(curFoundedMessageIndex + 1)
+                              }
+                            />
+                          </div>
+
+                          <CloseOutlinedIcon
+                            className={classNames.searchIconBtn}
+                            onClick={() => onChangeMesSearchValue({target: {value: ''}})}
+                          />
                         </div>
-                      ) : null} */}
+                      ) : null}
                     </div>
                   ) : null}
                 </div>
@@ -139,7 +174,7 @@ class MessagesViewRaw extends Component {
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
-                  // toScrollMesId={messagesFound[0]?._id}
+                  toScrollMesId={curFoundedMessage?._id}
                   searchPhrase={mesSearchValue}
                   messagesFound={messagesFound}
                   typingUsers={typingUsers}

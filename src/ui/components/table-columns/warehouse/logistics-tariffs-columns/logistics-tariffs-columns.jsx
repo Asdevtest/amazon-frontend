@@ -47,6 +47,17 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
   },
 
   {
+    field: 'inYuansRates',
+    headerName: t(TranslationKey.Rate) + ', ¥',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', ¥'} />,
+
+    renderCell: params => <WarehouseTariffRatesCell inYuans conditionsByRegion={params.row.conditionsByRegion} />,
+    width: 95,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
     field: 'rates',
     headerName: t(TranslationKey['Rate, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Rate, $'])} />,
