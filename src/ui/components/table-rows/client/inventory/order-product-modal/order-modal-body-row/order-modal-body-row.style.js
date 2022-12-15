@@ -211,7 +211,7 @@ export const useClassNames = makeStyles()(theme => ({
   expressWrapper: {
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: 22,
+    marginLeft: 22,
     '&:hover': {
       cursor: 'pointer',
     },

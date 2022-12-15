@@ -311,6 +311,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
+    paddingTop: 1,
   },
 
   unitsText: {

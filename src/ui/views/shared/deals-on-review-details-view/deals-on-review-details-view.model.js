@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
+import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
@@ -25,6 +26,7 @@ export class VacantDealsDetailsViewModel {
 
   uploadedFiles = []
 
+  request = []
   requestProposals = []
 
   constructor({history, location}) {
@@ -46,14 +48,34 @@ export class VacantDealsDetailsViewModel {
   async loadData() {
     try {
       await this.getDealsVacantCur()
+      await this.getCustomRequestById()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getCustomRequestById() {
+    try {
+      const result = await RequestModel.getCustomRequestById(this.requestId)
+
+      console.log('result getCustomRequestById', result)
+
+      runInAction(() => {
+        this.request = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
   async getDealsVacantCur() {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
+
+      console.log('result getDealsVacantCur', result)
 
       runInAction(() => {
         this.requestProposals = result

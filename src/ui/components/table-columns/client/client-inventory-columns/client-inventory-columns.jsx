@@ -107,7 +107,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
         onClickSubmit={stockUsHandlers.onClickSaveStockUs}
       />
     ),
-    width: 130,
+    width: 150,
   },
 
   {

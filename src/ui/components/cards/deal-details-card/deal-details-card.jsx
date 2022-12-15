@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Avatar, Grid, Typography} from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -27,13 +28,12 @@ export const DealDetailsCard = ({
   onClickRejectDealModal,
   onClickReworkDealModal,
   dealsOnReview,
-  item,
+  request,
+  requestProposals,
   proposalId,
 }) => {
   const {classes: classNames} = useClassNames()
-  const curProposal = item.find(el => el?.proposal._id === proposalId)
-
-  console.log('curProposal', curProposal)
+  const curProposal = requestProposals.find(el => el?.proposal._id === proposalId)
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -49,7 +49,7 @@ export const DealDetailsCard = ({
                   <UserLink
                     blackText
                     name={curProposal?.request?.createdBy?.name}
-                    userId={item?.request?.createdBy?._id}
+                    userId={requestProposals?.request?.createdBy?._id}
                   />
                   {curProposal && <Rating disabled value={curProposal?.request?.createdBy?.rating} />}
                 </div>
@@ -73,6 +73,10 @@ export const DealDetailsCard = ({
           </div>
           <div className={classNames.cardTitleBlockWrapper}>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
+              <Typography className={classNames.cardTitle}>{`${t(TranslationKey['Client task'])}:`}</Typography>
+              <Typography className={classNames.cardTitle}>{request?.request?.title}</Typography>
+              <Typography className={classNames.cardDescription}>{request?.details?.conditions}</Typography>
+              <Typography className={classNames.cardTitle}>{`${t(TranslationKey['Proposed solution'])}:`}</Typography>
               <Typography className={classNames.cardTitle}>{curProposal?.proposal.title}</Typography>
               <Typography className={classNames.cardDescription}>{curProposal?.proposal.comment}</Typography>
             </div>

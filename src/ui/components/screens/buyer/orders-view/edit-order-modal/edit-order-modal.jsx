@@ -205,8 +205,6 @@ export const EditOrderModal = observer(
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
 
-        console.log('e.target.value', e.target.value)
-
         if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` && deliveredGoodsCount < order.amount) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {

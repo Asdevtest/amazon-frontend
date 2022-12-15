@@ -803,7 +803,7 @@ export const styles = theme => ({
   },
 
   commentOfSbWrapper: {
-    padding: '10px 0',
+    padding: '5px 0',
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -811,7 +811,7 @@ export const styles = theme => ({
   },
 
   commentOfSbSubWrapper: {
-    maxHeight: 200,
+    maxHeight: '100%',
     width: '100%',
     overflow: 'auto',
   },
@@ -1347,5 +1347,25 @@ export const styles = theme => ({
     backgroundColor: '#006CFF',
     width: '2px',
     height: '10px',
+  },
+  fixedTextWidth: {
+    width: 35,
+  },
+  doneIcon: {
+    color: theme.palette.text.green,
+  },
+  clearIcon: {
+    width: '20px !important',
+    height: '20px !important',
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+    color: theme.palette.text.second,
+  },
+  iconWrapper: {
+    display: 'flex',
+    gap: 5,
   },
 })

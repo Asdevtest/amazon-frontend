@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: '710px',
+    minHeight: '710px',
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -63,6 +63,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
+    overflow: 'auto',
+    height: 57,
   },
 
   cardDescription: {
