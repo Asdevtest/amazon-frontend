@@ -41,7 +41,7 @@ import {Input} from '@components/input'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {calcFinalWeightForBox, calcVolumeWeightForBox, roundHalf} from '@utils/calculation'
 import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
@@ -639,11 +639,32 @@ export const WarehouseTariffDestinationCell = React.memo(
 
 export const WarehouseTariffRatesCell = React.memo(
   withStyles(
-    ({classes: classNames, conditionsByRegion}) => (
+    ({classes: classNames, conditionsByRegion, inYuans}) => (
       <div className={classNames.tariffRatesWrapper}>
-        <Typography>{toFixed(conditionsByRegion.west.rate, 2) || '-'}</Typography>
-        <Typography>{toFixed(conditionsByRegion.central.rate, 2) || '-'}</Typography>
-        <Typography>{toFixed(conditionsByRegion.east.rate, 2) || '-'}</Typography>
+        <Typography>
+          {toFixed(
+            inYuans
+              ? roundHalf(conditionsByRegion.west.rate * conditionsByRegion.yuanToDollarRate)
+              : conditionsByRegion.west.rate,
+            2,
+          ) || '-'}
+        </Typography>
+        <Typography>
+          {toFixed(
+            inYuans
+              ? roundHalf(conditionsByRegion.central.rate * conditionsByRegion.yuanToDollarRate)
+              : conditionsByRegion.central.rate,
+            2,
+          ) || '-'}
+        </Typography>
+        <Typography>
+          {toFixed(
+            inYuans
+              ? roundHalf(conditionsByRegion.east.rate * conditionsByRegion.yuanToDollarRate)
+              : conditionsByRegion.east.rate,
+            2,
+          ) || '-'}
+        </Typography>
       </div>
     ),
     styles,
