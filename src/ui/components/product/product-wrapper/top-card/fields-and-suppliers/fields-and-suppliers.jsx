@@ -93,7 +93,32 @@ export const FieldsAndSuppliers = observer(
           inputComponent={
             <div>
               <div className={classNames.copyLink}>
-                <Link
+                {edit && product.lamazon ? (
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    href={checkAndMakeAbsoluteUrl(product.lamazon)}
+                    className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
+                  >
+                    <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
+                  </Link>
+                ) : (
+                  <Input
+                    disabled={edit}
+                    classes={{
+                      input: cx(
+                        classNames.inputLink,
+                        {[classNames.inputDisabled]: edit},
+                        {[classNames.linkOnEdit]: edit && product.lamazon},
+                      ),
+                    }}
+                    placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
+                    value={product.lamazon}
+                    onChange={onChangeField('lamazon')}
+                  />
+                )}
+
+                {/* <Link
                   suppressContentEditableWarning
                   contentEditable={!edit || !product.lamazon}
                   target="_blank"
@@ -118,7 +143,7 @@ export const FieldsAndSuppliers = observer(
                       onChange={onChangeField('lamazon')}
                     />
                   )}
-                </Link>
+                </Link> */}
                 {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
               </div>
 

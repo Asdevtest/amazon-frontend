@@ -9,6 +9,10 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',

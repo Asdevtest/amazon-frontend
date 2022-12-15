@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Link, Typography, Avatar} from '@mui/material'
 
 import React from 'react'
@@ -10,7 +11,7 @@ import {getUserAvatarSrc} from '@utils/get-user-avatar'
 
 import {useClassNames} from './user-link.style'
 
-export const UserLink = observer(({name, userId, blackText, withAvatar}) => {
+export const UserLink = observer(({name, userId, blackText, withAvatar, maxNameWidth}) => {
   const {classes: classNames} = useClassNames()
 
   const curUserId = UserModel.userId
@@ -32,7 +33,14 @@ export const UserLink = observer(({name, userId, blackText, withAvatar}) => {
             <Avatar src={getUserAvatarSrc(userId)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
           ) : null}
 
-          <Typography className={blackText ? classNames.blackLinkText : classNames.linkText}>{name}</Typography>
+          {/* <Typography className={blackText ? classNames.blackLinkText : classNames.linkText}>{name}</Typography> */}
+
+          <Typography
+            className={cx(classNames.linkText, {[classNames.blackLinkText]: blackText})}
+            style={maxNameWidth && {maxWidth: maxNameWidth}}
+          >
+            {name}
+          </Typography>
         </Link>
       ) : (
         <Typography>{'-'}</Typography>

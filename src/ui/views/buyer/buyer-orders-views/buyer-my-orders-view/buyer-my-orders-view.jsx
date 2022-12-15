@@ -35,7 +35,6 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 ]
 
 @observer

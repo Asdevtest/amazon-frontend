@@ -101,7 +101,7 @@ export const InStockCell = React.memo(
       <div className={classNames.inStockWrapper}>
         {boxAmounts?.map(el => (
           <div key={el._id} className={classNames.inStockSubWrapper}>
-            <UserLink name={el.storekeeper?.name} userId={el.storekeeper?._id} />
+            <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
 
             <Typography>{el.amountInBoxes}</Typography>
           </div>

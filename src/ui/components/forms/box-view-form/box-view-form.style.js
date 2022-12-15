@@ -46,6 +46,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: 225,
     height: 130,
     objectFit: 'contain',
+    // objectPosition: 'center',
+
     cursor: 'pointer',
     transition: '.3s ease',
 

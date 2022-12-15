@@ -637,10 +637,9 @@ const Box = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {box.trackNumberFile ? (
-                    <Avatar
+                    <img
                       className={classNames.trackNumberPhoto}
                       src={box.trackNumberFile}
-                      variant="square"
                       onClick={() => {
                         setShowPhotosModal(!showPhotosModal)
                         setBigImagesOptions({

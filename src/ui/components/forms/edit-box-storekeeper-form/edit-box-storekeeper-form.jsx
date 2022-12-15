@@ -760,7 +760,7 @@ export const EditBoxStorekeeperForm = observer(
 
                     <div className={classNames.trackNumberPhotoWrapper}>
                       {boxFields.trackNumberFile || boxFields.tmpTrackNumberFile[0] ? (
-                        <Avatar
+                        <img
                           className={classNames.trackNumberPhoto}
                           src={
                             boxFields.tmpTrackNumberFile[0]
@@ -769,7 +769,6 @@ export const EditBoxStorekeeperForm = observer(
                                 : boxFields.tmpTrackNumberFile[0]?.data_url
                               : boxFields.trackNumberFile
                           }
-                          variant="square"
                           onClick={() => {
                             setShowPhotosModal(!showPhotosModal)
                             setBigImagesOptions({
