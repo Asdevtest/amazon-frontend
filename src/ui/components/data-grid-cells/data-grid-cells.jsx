@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
@@ -402,18 +403,19 @@ export const ChangeInputCell = React.memo(
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
+    const defaultValue = sourceValue
 
     const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
-    const [copied, setCopied] = useState(false)
+    const [isShow, setShow] = useState(false)
 
     useEffect(() => {
       const listener = event => {
         if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
           event.preventDefault()
-          setCopied(true)
+          setShow(true)
           setTimeout(() => {
-            setCopied(false)
+            setShow(false)
           }, 2000)
           onClickSubmit(row, value)
         }
@@ -436,20 +438,23 @@ export const ChangeInputCell = React.memo(
           value={value}
           endAdornment={
             <InputAdornment position="start">
-              {copied && sourceValue !== value ? (
+              {isShow && sourceValue !== value ? (
                 <DoneIcon classes={{root: classNames.doneIcon}} />
               ) : sourceValue !== value ? (
-                <img
-                  src={'/assets/icons/save-discet.svg'}
-                  className={classNames.changeInputIcon}
-                  onClick={() => {
-                    setCopied(true)
-                    setTimeout(() => {
-                      setCopied(false)
-                    }, 2000)
-                    onClickSubmit(row, value)
-                  }}
-                />
+                <div className={classNames.iconWrapper}>
+                  <img
+                    src={'/assets/icons/save-discet.svg'}
+                    className={classNames.changeInputIcon}
+                    onClick={() => {
+                      setShow(true)
+                      setTimeout(() => {
+                        setShow(false)
+                      }, 2000)
+                      onClickSubmit(row, value)
+                    }}
+                  />
+                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(defaultValue)} />
+                </div>
               ) : null}
             </InputAdornment>
           }

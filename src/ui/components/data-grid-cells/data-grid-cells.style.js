@@ -1354,4 +1354,18 @@ export const styles = theme => ({
   doneIcon: {
     color: theme.palette.text.green,
   },
+  clearIcon: {
+    width: '20px !important',
+    height: '20px !important',
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+    color: theme.palette.text.second,
+  },
+  iconWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
 })
