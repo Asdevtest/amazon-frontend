@@ -1351,4 +1351,7 @@ export const styles = theme => ({
   fixedTextWidth: {
     width: 35,
   },
+  doneIcon: {
+    color: theme.palette.text.green,
+  },
 })

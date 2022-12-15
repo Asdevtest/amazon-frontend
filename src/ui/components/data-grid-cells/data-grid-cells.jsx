@@ -2,6 +2,7 @@
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DoneIcon from '@mui/icons-material/Done'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {
@@ -404,10 +405,16 @@ export const ChangeInputCell = React.memo(
 
     const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
+    const [copied, setCopied] = useState(false)
+
     useEffect(() => {
       const listener = event => {
         if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
           event.preventDefault()
+          setCopied(true)
+          setTimeout(() => {
+            setCopied(false)
+          }, 2000)
           onClickSubmit(row, value)
         }
       }
@@ -429,11 +436,19 @@ export const ChangeInputCell = React.memo(
           value={value}
           endAdornment={
             <InputAdornment position="start">
-              {sourceValue !== value ? (
+              {copied && sourceValue !== value ? (
+                <DoneIcon classes={{root: classNames.doneIcon}} />
+              ) : sourceValue !== value ? (
                 <img
                   src={'/assets/icons/save-discet.svg'}
                   className={classNames.changeInputIcon}
-                  onClick={() => onClickSubmit(row, value)}
+                  onClick={() => {
+                    setCopied(true)
+                    setTimeout(() => {
+                      setCopied(false)
+                    }, 2000)
+                    onClickSubmit(row, value)
+                  }}
                 />
               ) : null}
             </InputAdornment>
