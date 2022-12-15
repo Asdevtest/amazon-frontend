@@ -419,17 +419,6 @@ export const SelectFields = ({
             inputProps={{maxLength: 50}}
             // onChange={setOrderField('trackingNumberChina')}
           />
-
-          <Field
-            disabled={disableSubmit || isPendingOrder}
-            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-            value={hsCode}
-            label={t(TranslationKey['HS code'])}
-            labelClasses={classNames.label}
-            inputClasses={classNames.input}
-            inputProps={{maxLength: 50}}
-            onChange={e => setHsCode(e.target.value)}
-          />
         </Box>
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
@@ -458,6 +447,17 @@ export const SelectFields = ({
               </div>
             </div>
           </div>
+
+          <Field
+            disabled={disableSubmit || isPendingOrder}
+            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
+            value={hsCode}
+            label={t(TranslationKey['HS code'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 50}}
+            onChange={e => setHsCode(e.target.value)}
+          />
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
             <Field

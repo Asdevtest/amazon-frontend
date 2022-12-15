@@ -1665,7 +1665,7 @@ export enum TranslationKey {
   'Cancel selected orders' = 'Cancel selected orders',
   'Client task' = 'Client task',
   'Proposed solution' = 'Proposed solution',
-  // '' = '',
+  'Commentary to the warehouse' = 'Commentary to the warehouse',
   // '' = '',
   // '' = '',
   // '' = '',
