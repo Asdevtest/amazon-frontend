@@ -15,7 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
 import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
 import {Main} from '@components/main'

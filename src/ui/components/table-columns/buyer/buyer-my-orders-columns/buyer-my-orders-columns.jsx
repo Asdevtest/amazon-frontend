@@ -101,6 +101,15 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   },
 
   {
+    field: 'needsResearch',
+    headerName: t(TranslationKey['Re-search supplier']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
+
+    width: 100,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+  },
+
+  {
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,

@@ -14,13 +14,14 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
@@ -46,14 +47,14 @@ import {WithSearchSelect} from '@components/selects/with-search-select'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {ClientWarehouseViewModel} from './client-warehouse-view.model'
-import {styles} from './client-warehouse-view.style'
+import {ClientInStockBoxesViewModel} from './client-in-stock-boxes-view.model'
+import {styles} from './client-in-stock-boxes-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = null
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
-export class ClientWarehouseViewRaw extends Component {
-  viewModel = new ClientWarehouseViewModel({history: this.props.history})
+export class ClientInStockBoxesViewRaw extends Component {
+  viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -61,6 +62,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      isFormed,
       clientDestinations,
       curDestination,
       rowCount,
@@ -143,6 +145,7 @@ export class ClientWarehouseViewRaw extends Component {
 
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
+      onChangeIsFormed,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -296,8 +299,15 @@ export class ClientWarehouseViewRaw extends Component {
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={currentData || []}
                 getRowHeight={() => 'auto'}
+                // components={{
+                //   Toolbar: DataGridCustomToolbar,
+                // }}
                 components={{
                   Toolbar: DataGridCustomToolbar,
+                  ColumnMenu: DataGridCustomColumnMenuComponent,
+                }}
+                componentsProps={{
+                  columnMenu: {isFormedData: {isFormed, onChangeIsFormed}},
                 }}
                 density={densityModel}
                 columns={columnsModel}
@@ -583,4 +593,4 @@ export class ClientWarehouseViewRaw extends Component {
   }
 }
 
-export const ClientWarehouseView = withStyles(ClientWarehouseViewRaw, styles)
+export const ClientInStockBoxesView = withStyles(ClientInStockBoxesViewRaw, styles)

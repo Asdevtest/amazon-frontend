@@ -217,8 +217,20 @@ export const navbarConfig = () => ({
     {
       icon: MyWarehouseIcon,
       title: t(TranslationKey['My warehouse']),
-      route: '/client/warehouse',
-      subtitles: null,
+      route: '/client/warehouse/in-stock',
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['Boxes in stock']),
+          subRoute: '/client/warehouse/in-stock',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
+        },
+
+        {
+          subtitle: t(TranslationKey['Boxes ready to send']),
+          subRoute: '/client/warehouse/boxes-ready-to-batch',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -227,13 +239,8 @@ export const navbarConfig = () => ({
     {
       icon: MyBatchesIcon,
       title: t(TranslationKey['My batches']),
-      route: '/client/batches/boxes-ready-to-batch',
+      route: '/client/batches/awaiting-batch',
       subtitles: [
-        {
-          subtitle: t(TranslationKey['Boxes ready to send']),
-          subRoute: '/client/batches/boxes-ready-to-batch',
-          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
-        },
         {
           subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/client/batches/awaiting-batch',

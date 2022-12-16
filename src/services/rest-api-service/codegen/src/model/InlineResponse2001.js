@@ -113,6 +113,12 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('expressChinaDelivery')) {
                 obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
             }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
@@ -267,6 +273,18 @@ InlineResponse2001.prototype['amount'] = undefined;
  * @member {Boolean} expressChinaDelivery
  */
 InlineResponse2001.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineResponse2001.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineResponse2001.prototype['deadline'] = undefined;
 
 /**
  * @member {String} createdById

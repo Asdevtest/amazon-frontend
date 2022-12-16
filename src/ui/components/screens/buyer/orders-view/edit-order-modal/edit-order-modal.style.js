@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    minWidth: '800px',
+    minWidth: 800,
   },
   paper: {
     height: 'max-content',

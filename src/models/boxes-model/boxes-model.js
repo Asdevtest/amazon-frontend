@@ -54,6 +54,11 @@ class BoxesModelStatic {
     return response
   }
 
+  editIsFormed = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesIsFormedGuidPatch(id, {body: data})
+    return response
+  }
+
   regroupBoxes = async data => {
     const response = await restApiService.boxesApi.apiV1BoxesSuperboxRegroupPatch({body: data})
     return response

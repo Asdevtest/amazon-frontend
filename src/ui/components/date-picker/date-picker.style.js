@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     color: theme.palette.text.general,
     padding: '5px',
-    width: 'max-content',
+    width: '100%',
     border: 'none !important',
     // outline: 'none',
   },

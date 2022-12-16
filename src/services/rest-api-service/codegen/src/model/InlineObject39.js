@@ -88,6 +88,12 @@ class InlineObject39 {
             if (data.hasOwnProperty('expressChinaDelivery')) {
                 obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
             }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
             if (data.hasOwnProperty('totalPrice')) {
                 obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
@@ -162,6 +168,18 @@ InlineObject39.prototype['images'] = undefined;
  * @member {Boolean} expressChinaDelivery
  */
 InlineObject39.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject39.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject39.prototype['deadline'] = undefined;
 
 /**
  * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком

@@ -303,7 +303,7 @@ export const getClientDashboardCardConfig = () => ({
         dataKey: ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE,
         title: t(TranslationKey['Boxes in store']),
         icon: '/assets/icons/warehouse.svg',
-        route: '/client/warehouse',
+        route: '/client/warehouse/in-stock',
       },
       {
         dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
@@ -311,7 +311,7 @@ export const getClientDashboardCardConfig = () => ({
         icon: '/assets/icons/party.svg',
         subIcon: '/assets/icons/check.svg',
         color: '#C69109',
-        route: '/client/batches/boxes-ready-to-batch',
+        route: '/client/warehouse/boxes-ready-to-batch',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,

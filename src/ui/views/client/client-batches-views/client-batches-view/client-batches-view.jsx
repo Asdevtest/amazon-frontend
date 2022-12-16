@@ -27,8 +27,7 @@ class ClientBatchesViewRaw extends Component {
   viewModel = new ClientBatchesViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickBoxesReadyToSend, onClickAwaitingSend, onClickSentBatches} =
-      this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, onClickAwaitingSend, onClickSentBatches} = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -42,18 +41,6 @@ class ClientBatchesViewRaw extends Component {
                 <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
 
                 <div className={classNames.btnsWrapper}>
-                  <Button
-                    className={classNames.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickBoxesReadyToSend}
-                  >
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button>
-
                   <Button
                     className={classNames.button}
                     color="primary"

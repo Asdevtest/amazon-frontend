@@ -12,6 +12,7 @@ import {
   MultilineTextCell,
   ShortBoxDimensions,
   OrdersIdsItemsCell,
+  CheckboxCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
@@ -94,6 +95,22 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'isFormed',
+    headerName: t(TranslationKey.Formed),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} />,
+
+    renderCell: params =>
+      params.row.originalData ? (
+        <CheckboxCell checked={params.value} onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)} />
+      ) : (
+        ''
+      ),
+    width: 110,
+    sortable: false,
+    filterable: false,
   },
 
   {

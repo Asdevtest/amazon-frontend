@@ -416,20 +416,39 @@ export const BoxViewForm = observer(
             </div>
 
             <div>
-              <Field
-                oneLine
-                containerClasses={classNames.checkboxContainer}
-                labelClasses={classNames.label}
-                label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
-              />
-              {/* <Field
-                oneLine
-                containerClasses={classNames.checkboxContainer}
-                labelClasses={classNames.label}
-                label={t(TranslationKey['The primary size suitable for shipment'])}
-                inputComponent={<Checkbox disabled />}
-              /> */}
+              <div className={cx(classNames.labelsInfoWrapper, classNames.checkboxWrapper)}>
+                <div className={classNames.checkboxContainer}>
+                  <Checkbox
+                    disabled
+                    className={classNames.checkbox}
+                    checked={box.isShippingLabelAttachedByStorekeeper}
+                  />
+
+                  <Typography className={classNames.label}>
+                    {t(TranslationKey['Shipping label was glued to the warehouse'])}
+                  </Typography>
+                </div>
+
+                <div className={classNames.checkboxContainer}>
+                  <Checkbox disabled className={classNames.checkbox} checked={box.isFormed} />
+                  <Typography className={classNames.label}>{t(TranslationKey.Formed)}</Typography>
+                </div>
+
+                {/* <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                  inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
+                />
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey.Formed)}
+                  inputComponent={<Checkbox disabled checked={box.isFormed} />}
+                /> */}
+              </div>
 
               <div className={classNames.labelsInfoWrapper}>
                 <Field

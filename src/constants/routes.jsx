@@ -227,7 +227,7 @@ const ClientBatchesView = lazy(() =>
   })),
 )
 const ClientReadyBoxesView = lazy(() =>
-  import('@views/client/client-batches-views/client-ready-boxes-view').then(module => ({
+  import('@views/client/client-warehouse-views/client-ready-boxes-view').then(module => ({
     default: module.ClientReadyBoxesView,
   })),
 )
@@ -316,8 +316,17 @@ const CreateOrEditTradingShopView = lazy(() =>
     default: module.CreateOrEditTradingShopView,
   })),
 )
+
 const ClientWarehouseView = lazy(() =>
-  import('@views/client/client-warehouse-view').then(module => ({default: module.ClientWarehouseView})),
+  import('@views/client/client-warehouse-views/client-warehouse-view').then(module => ({
+    default: module.ClientWarehouseView,
+  })),
+)
+
+const ClientInStockBoxesView = lazy(() =>
+  import('@views/client/client-warehouse-views/client-in-stock-boxes-view').then(module => ({
+    default: module.ClientInStockBoxesView,
+  })),
 )
 const FreelancerDashboardView = lazy(() =>
   import('@views/freelancer/freelancer-dashboard-view').then(module => ({default: module.FreelancerDashboardView})),
@@ -950,7 +959,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/batches/boxes-ready-to-batch',
+    routePath: '/client/warehouse/boxes-ready-to-batch',
     component: ClientReadyBoxesView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -984,9 +993,17 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/warehouse',
     component: ClientWarehouseView,
-    exact: false,
+    exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['My warehouse'],
+  },
+
+  {
+    routePath: '/client/warehouse/in-stock',
+    component: ClientInStockBoxesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Boxes in stock'],
   },
   {
     routePath: '/client/orders',

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **status** | **String** | Статус коробки | [optional] 
 **isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
 **isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
+**isFormed** | **Boolean** | Сформирована ли коробка | [optional] 
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 

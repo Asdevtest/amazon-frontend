@@ -601,7 +601,7 @@
   "The data will not be saved!": "Данные не будут сохранены!",
   "numeric format, example:": "числовой формат, пример:",
   "Quick search by name:": "Быстрый поиск по имени:",
-  "Rate": "Тариф",
+  "Rate": "Рейт",
   "Role": "Роль",
   "User status": "Статус пользователя",
   "Sub status": "Cуб-статус",
@@ -1128,7 +1128,7 @@
   "Supplier for a product card": "Поставщик для карточки товара",
   "Choose a supplier": "Выбрать поставщика",
   "Archive": "Архив",
-  "Formed": "Сформирован",
+  "Formed": "Сформировано",
   "Ready to process": "Готов к обработке",
   "At process": "В обработке",
   "Need confirming to price change": "Необходимо подтверждение изменения цены",
@@ -1666,5 +1666,8 @@
   "Cancel selected orders": "Отменить выбранные заказы",
   "Client task": "Задача клиента",
   "Proposed solution": "Предложенное решения",
-  "Commentary to the warehouse": "Комментарий складу"
+  "Commentary to the warehouse": "Комментарий складу",
+  "Boxes in stock": "Коробки на складе",
+  "Not formed": "Не сформировано",
+  "Re-search supplier": "Перепоиск поставщика"
 }

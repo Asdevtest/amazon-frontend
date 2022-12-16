@@ -26,6 +26,7 @@ const WithSearchSelectRaw = observer(
     selectedItemName,
     firstItems,
     width,
+    widthPopover,
     disabled,
     onClickNotChosen,
     placeholder,
@@ -112,7 +113,7 @@ const WithSearchSelectRaw = observer(
               }}
               onClose={handleClose}
             >
-              <div className={classNames.subMainWrapper} style={width && {width}}>
+              <div className={classNames.subMainWrapper} style={widthPopover && {width: widthPopover || width}}>
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}

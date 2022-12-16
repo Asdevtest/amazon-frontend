@@ -17,6 +17,7 @@ import {
   Typography,
   Rating,
   InputAdornment,
+  Checkbox,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -711,6 +712,25 @@ export const WarehouseTariffDatesCell = React.memo(
           <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
           <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
         </div>
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const CheckboxCell = React.memo(
+  withStyles(
+    ({classes: classNames, checked, disabled, onClick}) => (
+      <div className={classNames.checkboxWrapper}>
+        <Checkbox
+          disabled={disabled}
+          checked={checked}
+          onClick={e => {
+            e.stopPropagation()
+
+            onClick()
+          }}
+        />
       </div>
     ),
     styles,

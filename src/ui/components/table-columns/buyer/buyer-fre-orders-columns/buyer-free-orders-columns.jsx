@@ -15,6 +15,7 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {formatDateDistanceFromNowStrict} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
@@ -87,6 +88,26 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 200,
     renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+  },
+
+  {
+    field: 'deadline',
+    headerName: 'Deadline',
+    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+
+    renderCell: params => (
+      <MultilineTextCell text={params.value ? formatDateDistanceFromNowStrict(params.value) : ''} />
+    ),
+    width: 200,
+  },
+
+  {
+    field: 'needsResearch',
+    headerName: t(TranslationKey['Re-search supplier']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
+
+    width: 100,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
   },
 
   {

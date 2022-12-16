@@ -1665,5 +1665,8 @@
   "Cancel selected orders": "Cancel selected orders",
   "Client task": "Client task",
   "Proposed solution": "Proposed solution",
-  "Commentary to the warehouse": "Commentary to the warehouse"
+  "Commentary to the warehouse": "Commentary to the warehouse",
+  "Boxes in stock": "Boxes in stock",
+  "Not formed": "Not formed",
+  "Re-search supplier": "Re-search supplier"
 }

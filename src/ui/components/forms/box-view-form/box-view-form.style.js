@@ -250,6 +250,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  checkboxWrapper: {
+    marginBottom: '20px',
+  },
+
   trackNumberPhotoBtn: {
     width: 225,
   },
@@ -296,9 +300,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   checkboxContainer: {
     display: 'flex',
-    justifyContent: 'end',
+    // justifyContent: 'end',
+    alignItems: 'center',
     width: '100%',
+    // width: 225,
     marginBottom: '0',
+  },
+
+  checkbox: {
+    padding: 0,
+    marginRight: 10,
   },
 
   alertText: {

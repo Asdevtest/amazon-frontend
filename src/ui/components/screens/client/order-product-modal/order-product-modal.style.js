@@ -115,20 +115,20 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productCell: {
-    width: '368px',
-    padding: '0 200px 0 20px',
+    width: 250,
+    padding: '0 20px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   priceCell: {
-    width: '160px',
-    padding: '0 10px 0 10px',
+    width: 50,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
   },
 
   priceCellBtn: {
-    width: '130px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -144,8 +144,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deliveryCell: {
-    width: '190px',
-    padding: '0 10px 0 10px',
+    width: 50,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
 
     textAlign: 'center',
@@ -153,7 +153,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deliveryCellBtn: {
-    width: '150px',
+    width: '100%',
+
+    height: 'auto',
 
     cursor: 'auto',
     border: 'none',
@@ -170,14 +172,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   qntCell: {
-    width: '140px',
-    padding: '0 10px 0 10px',
+    width: 80,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   qntCellBtn: {
-    width: '110px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -193,14 +195,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   totalCell: {
-    width: '140px',
-    padding: '0 10px 0 10px',
+    width: 80,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   totalCellBtn: {
-    width: '110px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -216,14 +218,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   barCodeCell: {
-    width: '140px',
-    padding: '0 10px 0 10px',
+    width: 90,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   barCodeCellBtn: {
-    width: '110px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -239,14 +241,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warehouseCell: {
-    width: '200px',
-    padding: '0 10px 0 10px',
+    width: 120,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   warehouseCellBtn: {
-    width: '170px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -262,14 +264,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tariffCell: {
-    width: '210px',
-    padding: '0 10px 0 10px',
+    width: 140,
+    padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
   tariffCellBtn: {
-    width: '180px',
+    width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -285,13 +287,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   commentCell: {
-    width: '310px',
-    padding: '0 10px 0 10px',
+    width: 250,
+    padding: '0 10px',
+    borderRight: '1px solid #e0e0e0',
+
+    margin: 0,
+  },
+
+  deadlineCell: {
+    width: 180,
+    padding: '0 10px',
 
     margin: 0,
   },
 
   commentCellBtn: {
+    width: '100%',
+
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,

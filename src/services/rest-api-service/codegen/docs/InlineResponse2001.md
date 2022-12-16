@@ -24,6 +24,8 @@ Name | Type | Description | Notes
 **buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **amount** | **Number** | кол-во | [optional] 
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
+**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
+**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
 **createdById** | **String** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 **updatedAt** | **String** |  | [optional] 

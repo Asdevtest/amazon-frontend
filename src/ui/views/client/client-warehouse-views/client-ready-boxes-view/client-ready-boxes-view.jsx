@@ -12,7 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -28,7 +28,7 @@ import {t} from '@utils/translations'
 import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
 import {styles} from './client-ready-boxes-view.style'
 
-const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
+const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH
 @observer
 export class ClientReadyBoxesViewRaw extends Component {

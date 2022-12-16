@@ -162,6 +162,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '32px',
   },
 
+  datePickerWrapper: {
+    width: 150,
+  },
+
   commentInput: {
     height: '70px',
   },
