@@ -11,6 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   toolbarText: {
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: 600,
   },
 }))
