@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {ToggleButton} from '@mui/material'
 
 import {withStyles} from 'tss-react/mui'
@@ -22,6 +23,15 @@ export const ToggleBtn = withStyles(ToggleButton, theme => ({
       color: 'white !important',
       backgroundColor: `${theme.palette.primary.main} !important`, // '#006CFF',
     },
+  },
+}))
+
+export const ToggleBtnFreelancer = withStyles(ToggleButton, theme => ({
+  root: {
+    border: 'none',
+    width: '50px',
+    height: '100%',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))
 
