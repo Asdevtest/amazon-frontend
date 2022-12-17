@@ -54,6 +54,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    type: 'number',
     minWidth: 150,
     flex: 1,
   },
@@ -64,6 +65,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     minWidth: 150,
 
     flex: 1,

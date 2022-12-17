@@ -56,6 +56,7 @@ export const batchesViewColumns = () => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 80,
   },
 

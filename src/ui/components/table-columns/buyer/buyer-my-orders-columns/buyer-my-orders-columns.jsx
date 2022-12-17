@@ -76,6 +76,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     width: 90,
+    type: 'number',
     sortable: false,
     type: 'number',
   },

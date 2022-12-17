@@ -60,6 +60,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    type: 'number',
     width: 100,
   },
 
@@ -69,6 +70,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    type: 'number',
     width: 70,
   },
 
@@ -78,6 +80,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 90,
   },
 

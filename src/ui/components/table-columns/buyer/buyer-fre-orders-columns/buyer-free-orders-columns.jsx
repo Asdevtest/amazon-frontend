@@ -26,6 +26,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 60,
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
   },
 
   {

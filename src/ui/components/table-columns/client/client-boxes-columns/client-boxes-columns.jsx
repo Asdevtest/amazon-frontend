@@ -44,6 +44,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 60,
     type: 'number',
   },
@@ -129,6 +130,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         // )
         ''
       ),
+    type: 'number',
     width: 90,
     sortable: false,
     type: 'number',
@@ -159,6 +161,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    type: 'number',
     width: 110,
     sortable: false,
     type: 'number',

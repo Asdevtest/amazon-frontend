@@ -46,6 +46,7 @@ export const warehouseTariffsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Service cost per kg, $']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
 
+    type: 'number',
     width: 250,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },

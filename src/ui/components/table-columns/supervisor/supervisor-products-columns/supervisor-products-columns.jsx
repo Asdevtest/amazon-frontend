@@ -53,6 +53,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    type: 'number',
     width: 100,
   },
 
@@ -82,6 +83,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 70,
   },
 
@@ -91,6 +93,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
+    type: 'number',
     minWidth: 100,
   },
   {
