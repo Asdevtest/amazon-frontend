@@ -79,10 +79,10 @@ class VacantRequestsViewRaw extends Component {
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
                   <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleBtnFreelancer value={tableViewMode.BLOCKS}>
+                    <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
                       <ViewCarts fill={viewMode === tableViewMode.BLOCKS ? 'url(#ViewCartsGradient)' : '#C4C4C4'} />
                     </ToggleBtnFreelancer>
-                    <ToggleBtnFreelancer value={tableViewMode.LIST}>
+                    <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
                       <ViewCartsLine
                         fill={viewMode === tableViewMode.LIST ? 'url(#ViewCartsLineGradient)' : '#C4C4C4'}
                       />

@@ -27,6 +27,11 @@ export const ToggleBtn = withStyles(ToggleButton, theme => ({
 }))
 
 export const ToggleBtnFreelancer = withStyles(ToggleButton, theme => ({
+  disabled: {
+    backgroundColor: `none !important`, // '#006CFF',
+    border: 'none !important',
+  },
+
   root: {
     border: 'none',
     width: '50px',
