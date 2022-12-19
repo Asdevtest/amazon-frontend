@@ -72,6 +72,7 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    type: 'number',
     width: 150,
   },
 

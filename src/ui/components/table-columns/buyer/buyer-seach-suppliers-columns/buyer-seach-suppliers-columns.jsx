@@ -17,6 +17,7 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
     headerName: '№',
     renderHeader: () => <MultilineTextHeaderCell text={'№'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 300,
   },
 

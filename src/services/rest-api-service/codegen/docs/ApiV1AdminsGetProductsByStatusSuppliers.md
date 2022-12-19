@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | [optional] 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
+**multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
 **priceInYuan** | **Number** | Цена за еденицу, yuan | [optional] 
 **batchDeliveryCostInDollar** | **Number** | Доставка партии, dollar | [optional] 
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 

@@ -49,7 +49,7 @@ export const productLotDataFormColumns = handlers => [
     ),
 
     renderCell: params => <BoxesAndQuantity boxesData={params.row.boxes} />,
-    width: 200,
+    width: 180,
   },
 
   {

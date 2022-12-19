@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **amount** | **Number** | сколько таких же коробок в одной коробке | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **items** | **[Object]** |  | [optional] 
 
 

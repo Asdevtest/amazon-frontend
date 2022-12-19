@@ -136,6 +136,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
@@ -355,6 +358,12 @@ ApiV1BatchesBoxes.prototype['storekeeperComment'] = undefined;
  * @member {String} trackNumberText
  */
 ApiV1BatchesBoxes.prototype['trackNumberText'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+ApiV1BatchesBoxes.prototype['upsTrackNumber'] = undefined;
 
 /**
  * Ссылка на фото трек номера

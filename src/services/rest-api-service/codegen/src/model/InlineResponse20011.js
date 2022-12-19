@@ -82,6 +82,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('referenceId')) {
                 obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
@@ -214,6 +217,12 @@ InlineResponse20011.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineResponse20011.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineResponse20011.prototype['upsTrackNumber'] = undefined;
 
 /**
  * Дополнительное поле shippingLabel для доставки грузовиками

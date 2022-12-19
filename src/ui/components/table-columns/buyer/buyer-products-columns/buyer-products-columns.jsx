@@ -72,6 +72,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    type: 'number',
     minWidth: 90,
   },
 
@@ -81,6 +82,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    type: 'number',
     width: 90,
   },
 
@@ -90,6 +92,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     minWidth: 50,
   },
 
@@ -99,6 +102,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     minWidth: 150,
   },
   {

@@ -66,6 +66,9 @@ class InlineObject15 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('widthCmSupplier')) {
                 obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
             }
@@ -156,6 +159,12 @@ InlineObject15.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineObject15.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject15.prototype['upsTrackNumber'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).

@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import InlineResponse20028Finances from './InlineResponse20028Finances';
 import InlineResponse20028Orders from './InlineResponse20028Orders';
+import InlineResponse20028PendingOrders from './InlineResponse20028PendingOrders';
 import InlineResponse20028Products from './InlineResponse20028Products';
 
 /**
@@ -56,6 +57,9 @@ class InlineResponse20028 {
             if (data.hasOwnProperty('orders')) {
                 obj['orders'] = InlineResponse20028Orders.constructFromObject(data['orders']);
             }
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20028PendingOrders.constructFromObject(data['pendingOrders']);
+            }
             if (data.hasOwnProperty('finances')) {
                 obj['finances'] = InlineResponse20028Finances.constructFromObject(data['finances']);
             }
@@ -75,6 +79,11 @@ InlineResponse20028.prototype['products'] = undefined;
  * @member {module:model/InlineResponse20028Orders} orders
  */
 InlineResponse20028.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20028PendingOrders} pendingOrders
+ */
+InlineResponse20028.prototype['pendingOrders'] = undefined;
 
 /**
  * @member {module:model/InlineResponse20028Finances} finances

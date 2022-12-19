@@ -59,6 +59,9 @@ class ApiV1AdminsTasksLightBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [Object]);
             }
@@ -92,6 +95,12 @@ ApiV1AdminsTasksLightBoxes.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 ApiV1AdminsTasksLightBoxes.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+ApiV1AdminsTasksLightBoxes.prototype['upsTrackNumber'] = undefined;
 
 /**
  * @member {Array.<Object>} items

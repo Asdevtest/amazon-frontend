@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **price** | **Number** | Цена за еденицу, dollar | [optional] 
 **amount** | **Number** | кол-во | [optional] 
 **minlot** | **Number** | Минимальный лот. | [optional] 
+**multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | [optional] 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 

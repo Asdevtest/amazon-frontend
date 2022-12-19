@@ -121,9 +121,9 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
 
+    type: 'number',
     width: 150,
     sortable: false,
-    type: 'number',
   },
 
   {
@@ -176,8 +176,8 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    width: 140,
     type: 'number',
+    width: 140,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -186,10 +186,10 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
 
+    type: 'number',
     width: 110,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     sortable: false,
-    type: 'number',
   },
   {
     field: 'trackingNumberChina',

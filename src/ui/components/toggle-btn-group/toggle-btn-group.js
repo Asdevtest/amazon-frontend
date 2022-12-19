@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {ToggleButtonGroup} from '@mui/material'
 
 import {withStyles} from 'tss-react/mui'
@@ -23,6 +24,17 @@ export const ToggleBtnGroup = withStyles(ToggleButtonGroup, theme => ({
   '& > .MuiToggleButtonGroup-grouped:not(:first-of-type)': {
     borderTopLeftRadius: '4px',
     borderBottomLeftRadius: '4px',
+  },
+}))
+
+export const ToggleBtnGroupFreelance = withStyles(ToggleButtonGroup, theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 'fit-content',
+    height: '100%',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))
 

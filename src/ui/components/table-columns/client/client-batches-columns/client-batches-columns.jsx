@@ -58,6 +58,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 60,
   },
 
@@ -87,6 +88,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeightAsOneBox} fix={2} />,
 
+    type: 'number',
     width: 100,
   },
 
@@ -96,6 +98,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
 
+    type: 'number',
     width: 110,
   },
 
@@ -106,6 +109,7 @@ export const clientBatchesViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
 
+    type: 'number',
     width: 120,
   },
 

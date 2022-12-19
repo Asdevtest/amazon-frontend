@@ -76,6 +76,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 160,
   },
 

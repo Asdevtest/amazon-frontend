@@ -84,9 +84,9 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
+    type: 'number',
     width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
   },
 
   {
@@ -94,6 +94,7 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
+    type: 'number',
     width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },

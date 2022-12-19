@@ -77,6 +77,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('yuanRate')) {
                 obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
             }
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            }
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
@@ -161,6 +164,12 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['comment'] = undefined;
  * @member {Number} yuanRate
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['yuanRate'] = undefined;
+
+/**
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['multiplicity'] = undefined;
 
 /**
  * Цена за еденицу, yuan

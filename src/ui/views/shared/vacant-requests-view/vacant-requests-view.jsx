@@ -1,7 +1,5 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import TableRowsIcon from '@mui/icons-material/TableRows'
-import ViewModuleIcon from '@mui/icons-material/ViewModule'
 import {Box, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -20,8 +18,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import {ViewCartsLine} from '@components/view-carts-icons/view-carts-line/view-carts-line'
+import {ViewCarts} from '@components/view-carts-icons/view-carts/view-carts'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
@@ -78,15 +78,19 @@ class VacantRequestsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
-                  <ToggleBtnGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleBtn value={tableViewMode.LIST}>
-                      <TableRowsIcon color="#fff" />
-                    </ToggleBtn>
-                    <ToggleBtn value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="#fff" />
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
+                    <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
+                      <ViewCarts fill={viewMode === tableViewMode.BLOCKS ? 'url(#ViewCartsGradient)' : '#C4C4C4'} />
+                    </ToggleBtnFreelancer>
+                    <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
+                      <ViewCartsLine
+                        fill={viewMode === tableViewMode.LIST ? 'url(#ViewCartsLineGradient)' : '#C4C4C4'}
+                      />
+                    </ToggleBtnFreelancer>
+                  </ToggleBtnGroupFreelance>
                 </div>
+
+                {/* <ViewModuleIcon color="#fff" /> */}
 
                 <SearchInput
                   inputClasses={classNames.searchInput}

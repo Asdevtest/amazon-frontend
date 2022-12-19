@@ -22,7 +22,7 @@ export class VacantRequestsViewModel {
   searchMyRequestsIds = []
   requests = []
   openModal = null
-  viewMode = tableViewMode.LIST
+  viewMode = tableViewMode.BLOCKS
   sortMode = tableSortMode.DESK
 
   get user() {

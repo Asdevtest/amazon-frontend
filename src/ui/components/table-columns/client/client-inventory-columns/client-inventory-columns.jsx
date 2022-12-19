@@ -60,6 +60,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 70,
     sortable: false,
   },
@@ -70,6 +71,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 65,
     sortable: false,
   },
@@ -80,6 +82,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 70,
     sortable: false,
   },
@@ -90,6 +93,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 60,
   },
 
@@ -116,6 +120,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
     width: 80,
   },
 
@@ -162,6 +167,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
+    type: 'number',
     width: 80,
     headerAlign: 'center',
   },
@@ -172,6 +178,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
+    type: 'number',
     width: 90,
   },
 

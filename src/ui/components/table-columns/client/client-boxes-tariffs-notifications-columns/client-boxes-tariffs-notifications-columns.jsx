@@ -24,8 +24,8 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
     type: 'number',
+    width: 60,
   },
 
   {
@@ -81,8 +81,8 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 100,
     type: 'number',
+    width: 100,
   },
 
   {

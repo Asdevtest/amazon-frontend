@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **products** | [**InlineResponse20028Products**](InlineResponse20028Products.md) |  | [optional] 
 **orders** | [**InlineResponse20028Orders**](InlineResponse20028Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20028PendingOrders**](InlineResponse20028PendingOrders.md) |  | [optional] 
 **finances** | [**InlineResponse20028Finances**](InlineResponse20028Finances.md) |  | [optional] 
 
 
