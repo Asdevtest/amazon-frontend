@@ -63,7 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     height: 40,
-    color: theme.palette.text.general,
+    color: '#FFF',
   },
 
   orderNumWrapper: {
