@@ -236,7 +236,7 @@ export const CreateOrEditProposalContent = ({
             <Field
               disabled={!checked}
               label={t(TranslationKey['Enter the offer price'])}
-              inputProps={{maxLength: 8}}
+              inputProps={{maxLength: 10}}
               value={formFields.price}
               onChange={onChangeField('price')}
             />

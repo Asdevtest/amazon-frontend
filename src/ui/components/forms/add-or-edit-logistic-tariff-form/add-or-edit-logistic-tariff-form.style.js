@@ -154,7 +154,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blockItemContainer: {
-    width: 'min-content',
+    width: '100%',
   },
 
   deadlineError: {

@@ -15,6 +15,7 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -27,6 +28,10 @@ import {useClassNames} from './order-content.style'
 const MEDIA_SCALE_POINTS = '1812'
 
 export const OrderContent = ({
+  storekeepers,
+  destinationsFavourites,
+  setDestinationsFavouritesItem,
+  destinations,
   order,
   boxes,
   onClickCancelOrder,
@@ -46,12 +51,27 @@ export const OrderContent = ({
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
-  const [formFields, setFormFields] = useState(order)
+  const [formFields, setFormFields] = useState({
+    ...order,
+    destinationId: order?.destination?._id || null,
+    storekeeperId: order?.storekeeper?._id || '',
+    logicsTariffId: order?.logicsTariff?._id || '',
+  })
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
 
-    newFormFields[fieldName] = event.target.value
+    if ('deadline' === fieldName) {
+      newFormFields[fieldName] = event
+    } else if ('amount' === fieldName) {
+      if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)) {
+        return
+      }
+
+      newFormFields[fieldName] = event.target.value
+    } else {
+      newFormFields[fieldName] = event.target.value
+    }
 
     setFormFields(newFormFields)
   }
@@ -77,6 +97,8 @@ export const OrderContent = ({
   useEffect(() => {
     setUpdatedOrder(() => ({...order}))
   }, [SettingsModel.languageTag, order])
+
+  const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
   return (
     <Paper>
@@ -105,7 +127,12 @@ export const OrderContent = ({
                 containerClasses={classNames.field}
                 inputComponent={
                   <Typography className={classNames.titleSpan}>
-                    {toFixedWithDollarSign(updatedOrder.totalPrice, 2)}
+                    {toFixedWithDollarSign(
+                      formFields.amount *
+                        (formFields.orderSupplier?.price +
+                          formFields.orderSupplier?.batchDeliveryCostInDollar / formFields.orderSupplier?.amount),
+                      2,
+                    )}
                   </Typography>
                 }
               />
@@ -125,11 +152,29 @@ export const OrderContent = ({
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.panelsWrapper}>
-            <LeftPanel order={updatedOrder} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
+            <LeftPanel
+              isCanChange={isCanChange}
+              order={updatedOrder}
+              formFields={formFields}
+              collapsed={collapsed}
+              narrow={narrow}
+              setCollapsed={setCollapsed}
+              onChangeField={onChangeField}
+            />
 
             <Divider orientation={'vertical'} className={classNames.divider} />
 
-            <DeliveryParameters order={updatedOrder} />
+            <DeliveryParameters
+              isCanChange={isCanChange}
+              storekeepers={storekeepers}
+              order={updatedOrder}
+              formFields={formFields}
+              destinations={destinations}
+              destinationsFavourites={destinationsFavourites}
+              setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+              setFormFields={setFormFields}
+              onChangeField={onChangeField}
+            />
 
             <Divider orientation={'vertical'} className={classNames.divider} />
 
@@ -144,8 +189,7 @@ export const OrderContent = ({
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.btnsWrapper}>
-            {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
-              (isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) &&
+            {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isCanChange)) &&
               onClickCancelOrder && (
                 <Button
                   danger
@@ -159,7 +203,7 @@ export const OrderContent = ({
                   {t(TranslationKey['Cancel order'])}
                 </Button>
               )}
-            {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+            {isClient && isCanChange ? (
               <div className={classNames.btnsSubWrapper}>
                 {isClient && updatedOrder.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
                   <Button success className={classNames.button} onClick={onClickReorder}>

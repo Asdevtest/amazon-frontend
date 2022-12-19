@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './left-panel.style'
 import {ProductParameters} from './product-parameters'
 
-export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
+export const LeftPanel = ({order, collapsed, narrow, setCollapsed, formFields, onChangeField, isCanChange}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -45,7 +45,13 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
         {t(TranslationKey.Documents)}
       </Button>
 
-      <ProductParameters order={order} collapsed={collapsed} />
+      <ProductParameters
+        isCanChange={isCanChange}
+        order={order}
+        collapsed={collapsed}
+        formFields={formFields}
+        onChangeField={onChangeField}
+      />
 
       <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
         <Typography className={classNames.containerTitle}>

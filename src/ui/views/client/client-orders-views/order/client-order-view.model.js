@@ -13,7 +13,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -93,6 +93,13 @@ export class ClientOrderViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      const destinations = await ClientModel.getDestinations()
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.destinations = destinations
+        this.storekeepers = storekeepers
+      })
 
       await this.getOrderById()
       await this.getBoxesOfOrder(this.orderId)
@@ -271,7 +278,20 @@ export class ClientOrderViewModel {
 
   async onSubmitSaveOrder(data) {
     try {
-      await OrderModel.changeOrderComments(this.orderId, {clientComment: data.clientComment})
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(data, [
+        'amount',
+        'orderSupplierId',
+        'images',
+        'totalPrice',
+        'item',
+        'needsResearch',
+        'deadline',
+        'priority',
+        'expressChinaDelivery',
+        'clientComment',
+      ])
+
+      await OrderModel.changeOrderData(this.orderId, dataToRequest)
 
       runInAction(() => {
         this.warningInfoModalSettings = {

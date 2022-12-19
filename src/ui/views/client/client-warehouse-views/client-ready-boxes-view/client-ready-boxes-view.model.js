@@ -338,7 +338,7 @@ export class ClientReadyBoxesViewModel {
   async getBoxesMy() {
     try {
       const result = await BoxesModel.getBoxesForCurClient(
-        `${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE}`,
+        `${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`,
         {
           storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
           destinationId: this.curDestination && this.curDestination._id,

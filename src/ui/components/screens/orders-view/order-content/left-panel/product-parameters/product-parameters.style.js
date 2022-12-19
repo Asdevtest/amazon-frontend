@@ -13,6 +13,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '30px',
   },
 
+  amountInput: {
+    textAlign: 'center',
+    width: 150,
+  },
+
   containerTitle: {
     fontSize: '14px',
     fontWeight: 500,

@@ -93,10 +93,14 @@ class ClientOrderViewRaw extends Component {
               {order ? (
                 <OrderContent
                   isClient
+                  storekeepers={storekeepers}
+                  destinations={destinations}
                   userInfo={userInfo}
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
+                  destinationsFavourites={destinationsFavourites}
+                  setDestinationsFavouritesItem={setDestinationsFavouritesItem}
                   onClickCancelOrder={onClickCancelOrder}
                   onSubmitChangeBoxFields={onSubmitChangeBoxFields}
                   onSubmitSaveOrder={onSubmitSaveOrder}

@@ -480,6 +480,11 @@ export const SelectFields = ({
           ) : null}
         </Box>
 
+        <div className={classNames.researchWrapper}>
+          <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
+          <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+        </div>
+
         <div>
           {!disableSubmit && Number(order.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
             <div className={classNames.imageFileInputWrapper}>

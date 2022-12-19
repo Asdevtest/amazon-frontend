@@ -198,7 +198,8 @@ export const OrderProductModal = ({
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
-        !Number.isInteger(Number(order.amount)),
+        !Number.isInteger(Number(order.amount)) ||
+        (isPendingOrder && !order.deadline),
     ) ||
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||

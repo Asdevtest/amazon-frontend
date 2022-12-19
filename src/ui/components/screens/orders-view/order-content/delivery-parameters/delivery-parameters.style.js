@@ -3,6 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '15px 15px',
+    width: 450,
   },
 
   parameterTableCell: {
@@ -10,10 +11,48 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '12px 16px',
   },
 
+  checkbox: {
+    padding: 0,
+    marginRight: 10,
+  },
+
+  expressWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 20,
+    transition: '.3s ease',
+    '&:hover': {
+      cursor: 'pointer',
+      transform: 'scale(1.01)',
+    },
+  },
+
+  disabledExpressWrapper: {
+    '&:hover': {
+      cursor: 'auto',
+      transform: 'none',
+    },
+  },
+
+  researchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  deliveryImg: {
+    marginLeft: 10,
+  },
+
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '340px',
+    width: '100%',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  deadlineWrapper: {
+    width: 160,
   },
 
   containerTitle: {
@@ -54,6 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     color: theme.palette.text.general,
+    margin: 0,
   },
 
   buyerWrapper: {

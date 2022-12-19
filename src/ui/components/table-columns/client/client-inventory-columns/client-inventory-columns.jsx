@@ -143,6 +143,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
     sortable: false,
+    type: 'number',
   },
 
   {

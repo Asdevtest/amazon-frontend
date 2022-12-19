@@ -199,7 +199,7 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
             placeholder,
             className: classNames.root,
           }}
-          value={value}
+          value={value ? value : null}
           renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
           onChange={newValue => {
             onChange(newValue)

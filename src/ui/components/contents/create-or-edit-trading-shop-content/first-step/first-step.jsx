@@ -109,7 +109,6 @@ export const FirstStep = ({
               labelClasses={classNames.spanLabelSmall}
               inputComponent={
                 <div className={cx({[classNames.deadlineError]: deadlineError})}>
-                  {/* <DatePickerDate value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} /> */}
                   <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
                   {deadlineError && (

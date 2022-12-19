@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './product-parameters.style'
 
-export const ProductParameters = ({order, collapsed}) => {
+export const ProductParameters = ({order, collapsed, formFields, onChangeField, isCanChange}) => {
   const {classes: classNames} = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
@@ -36,8 +36,19 @@ export const ProductParameters = ({order, collapsed}) => {
 
   return (
     <div className={classNames.container}>
-      {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.product.minpurchase, 2)} /> */}
-      <OrderParameter label={t(TranslationKey['Quantity (pcs.)'])} value={order.amount} />
+      <Field
+        oneLine
+        disabled={!isCanChange}
+        inputProps={{maxLength: 8}}
+        label={t(TranslationKey['Quantity (pcs.)'])}
+        inputClasses={classNames.amountInput}
+        classes={{input: classNames.amountInput}}
+        containerClasses={classNames.parameterTableCellWrapper}
+        labelClasses={classNames.fieldLabel}
+        value={formFields.amount}
+        onChange={onChangeField('amount')}
+      />
+
       <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} />
 
       <Field
@@ -57,6 +68,8 @@ export const ProductParameters = ({order, collapsed}) => {
           </div>
         }
       />
+
+      <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
 
       <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}

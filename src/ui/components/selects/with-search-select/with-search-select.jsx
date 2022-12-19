@@ -95,7 +95,11 @@ const WithSearchSelectRaw = observer(
               className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
               onClick={e => !disabled && handleClick(e)}
             >
-              <Typography className={classNames.selectedItemName}>{selectedItemName}</Typography>
+              <Typography
+                className={cx(classNames.selectedItemName, {[classNames.disabledSelectedItemName]: disabled})}
+              >
+                {selectedItemName}
+              </Typography>
 
               {open ? (
                 <ArrowDropUpIcon className={classNames.icon} />

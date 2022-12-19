@@ -20,6 +20,10 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
   },
 
+  disabledSelectedItemName: {
+    color: '#001029',
+  },
+
   mainWrapper: {
     width: '100%',
 

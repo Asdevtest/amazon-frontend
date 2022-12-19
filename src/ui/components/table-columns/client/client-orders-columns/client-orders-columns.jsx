@@ -122,7 +122,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     type: 'number',
-    width: 150,
+    width: 80,
     sortable: false,
   },
 
@@ -134,7 +134,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 160,
+    width: 130,
     sortable: false,
   },
 

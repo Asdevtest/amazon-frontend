@@ -194,6 +194,23 @@ export const useClassNames = makeStyles()(theme => ({
     width: '231px',
   },
 
+  researchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+
+    marginBottom: 20,
+  },
+
+  researchLabel: {
+    maxWidth: '231px',
+
+    color: theme.palette.text.second,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+
   label: {
     maxWidth: '231px',
 
