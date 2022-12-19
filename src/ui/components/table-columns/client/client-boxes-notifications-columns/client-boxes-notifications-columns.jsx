@@ -92,6 +92,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
         <MultilineTextCell text={params.value} />
       ),
     width: 100,
+    type: 'number',
   },
 
   {
@@ -130,6 +131,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 100,
+    type: 'number',
   },
 
   {
@@ -138,7 +140,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-
+    type: 'number',
     width: 100,
   },
 
@@ -148,7 +150,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-
+    type: 'number',
     width: 100,
   },
 ]

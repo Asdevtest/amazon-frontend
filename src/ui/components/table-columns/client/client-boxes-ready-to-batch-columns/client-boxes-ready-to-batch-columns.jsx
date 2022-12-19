@@ -23,6 +23,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+    type: 'number',
   },
 
   {
@@ -62,6 +63,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
     width: 100,
+    type: 'number',
   },
 
   {
@@ -100,6 +102,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 140,
+    type: 'number',
   },
 
   {
@@ -108,7 +111,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-
+    type: 'number',
     width: 150,
   },
 
@@ -118,7 +121,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-
+    type: 'number',
     width: 120,
   },
 ]

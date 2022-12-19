@@ -55,6 +55,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
         text={(params.row.originalData.totalPriceChanged - params.row.originalData.totalPrice).toFixed(2)}
       />
     ),
+    type: 'number',
   },
 
   {
@@ -114,6 +115,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     width: 100,
+    type: 'number',
   },
 
   {
@@ -130,7 +132,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Planned cost'])} />,
 
     width: 110,
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -140,7 +142,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost'])} />,
 
     width: 110,
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -150,7 +152,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of purchase per piece.'])} />,
 
     width: 150,
-
+    type: 'number',
     renderCell: params => (
       <MultilineTextCell
         text={toFixedWithDollarSign(params.row.originalData.totalPriceChanged / params.row.amount, 2)}
@@ -162,7 +164,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'grossWeightKg',
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
-
+    type: 'number',
     width: 100,
     renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
   },

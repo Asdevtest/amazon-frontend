@@ -40,6 +40,7 @@ import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {formatDateDistanceFromNowStrict, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -302,29 +303,49 @@ export const EditOrderModal = observer(
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
-          <div className={classNames.idItemWrapper}>
-            <Typography className={classNames.modalText}>
-              {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={classNames.modalSpanText}>{'item'}</span>
-            </Typography>
+          <div>
+            <div className={classNames.idItemWrapper}>
+              <Typography className={classNames.modalText}>
+                {`${t(TranslationKey.Order)} № ${order.id} / `}{' '}
+                <span className={classNames.modalSpanText}>{'item'}</span>
+              </Typography>
 
-            <Input
-              disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-              className={classNames.itemInput}
-              inputProps={{maxLength: 9}}
-              value={orderFields.item}
-              endAdornment={
-                <InputAdornment position="start">
-                  {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
-                    <img
-                      src={'/assets/icons/save-discet.svg'}
-                      className={classNames.itemInputIcon}
-                      onClick={() => onSaveOrderItem(order._id, orderFields.item)}
-                    />
-                  ) : null}
-                </InputAdornment>
-              }
-              onChange={setOrderField('item')}
-            />
+              <Input
+                disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
+                className={classNames.itemInput}
+                inputProps={{maxLength: 9}}
+                value={orderFields.item}
+                endAdornment={
+                  <InputAdornment position="start">
+                    {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
+                      <img
+                        src={'/assets/icons/save-discet.svg'}
+                        className={classNames.itemInputIcon}
+                        onClick={() => onSaveOrderItem(order._id, orderFields.item)}
+                      />
+                    ) : null}
+                  </InputAdornment>
+                }
+                onChange={setOrderField('item')}
+              />
+            </div>
+
+            {orderFields.deadline && (
+              <Field
+                oneLine
+                label={t(TranslationKey['Time to process the order']) + ':'}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <Typography
+                    className={cx(classNames.deadlineText, {
+                      [classNames.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
+                    })}
+                  >
+                    {orderFields.deadline ? formatDateDistanceFromNowStrict(orderFields.deadline) : ''}
+                  </Typography>
+                }
+              />
+            )}
           </div>
 
           <Typography className={classNames.amazonTitle}>
@@ -355,10 +376,11 @@ export const EditOrderModal = observer(
           </div>
 
           <div className={classNames.orderStatusWrapper}>
-            <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
+            {/* <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography> */}
             <Field
               tooltipInfoContent={t(TranslationKey['Current order status'])}
               value={order.storekeeper?.name}
+              label={t(TranslationKey['Order status'])}
               labelClasses={classNames.label}
               inputComponent={
                 <Select

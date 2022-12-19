@@ -64,6 +64,7 @@ export const productIntegrationsColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
+    type: 'number',
   },
 
   {
@@ -113,7 +114,7 @@ export const productIntegrationsColumns = () => [
     field: 'fbaPrepStock',
     headerName: t(TranslationKey.FbaPrepStock),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },

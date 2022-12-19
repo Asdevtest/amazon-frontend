@@ -160,6 +160,8 @@ export const buyerMyOrdersDataConverter = data =>
     warehouses: item.destination?.name,
     client: item.product.client?.name,
     needsResearch: item.needsResearch,
+
+    deadline: item.deadline,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -312,6 +314,8 @@ export const clientOrdersDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
+    deadline: item.deadline,
+    needsResearch: item.needsResearch,
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>

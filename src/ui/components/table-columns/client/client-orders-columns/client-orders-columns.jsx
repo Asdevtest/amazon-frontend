@@ -25,6 +25,7 @@ import {
   SuccessActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {formatDateDistanceFromNowStrict, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 
 export const clientOrdersViewColumns = (handlers, firstRowId) => [
@@ -34,6 +35,8 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+    type: 'number',
+    sortable: false,
   },
 
   {
@@ -120,6 +123,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 150,
     sortable: false,
+    type: 'number',
   },
 
   {
@@ -145,12 +149,35 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'deadline',
+    headerName: 'Deadline',
+    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+
+    renderCell: params => (
+      <MultilineTextCell
+        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
+        text={params.value ? formatDateDistanceFromNowStrict(params.value) : ''}
+      />
+    ),
+    width: 200,
+  },
+
+  {
+    field: 'needsResearch',
+    headerName: t(TranslationKey['Re-search supplier']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
+
+    width: 100,
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+  },
+
+  {
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     width: 140,
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -162,6 +189,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     width: 110,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     sortable: false,
+    type: 'number',
   },
   {
     field: 'trackingNumberChina',
