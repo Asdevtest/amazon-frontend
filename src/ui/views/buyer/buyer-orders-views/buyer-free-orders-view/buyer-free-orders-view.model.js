@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -171,13 +172,19 @@ export class BuyerFreeOrdersViewModel {
 
   async onClickTableRowBtn(order, noPush) {
     try {
-      await BuyerModel.pickupOrder(order.originalData._id)
+      if (order.originalData.buyer) {
+        await BuyerModel.setOrdersAtProcess(order.originalData._id)
+      } else {
+        await BuyerModel.pickupOrder(order.originalData._id)
+      }
 
       if (!noPush) {
         this.curOrder = order.originalData
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
+
+      console.log(order.originalData.buyer)
     } catch (error) {
       this.warningTitle = t(TranslationKey['Not found'])
 
