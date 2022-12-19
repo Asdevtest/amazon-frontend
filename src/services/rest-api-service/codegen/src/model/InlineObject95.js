@@ -75,6 +75,9 @@ class InlineObject95 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
@@ -156,6 +159,12 @@ InlineObject95.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineObject95.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject95.prototype['upsTrackNumber'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.

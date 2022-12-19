@@ -78,6 +78,9 @@ class InlineObject104 {
             if (data.hasOwnProperty('minlot')) {
                 obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -144,6 +147,12 @@ InlineObject104.prototype['amount'] = undefined;
  * @member {Number} minlot
  */
 InlineObject104.prototype['minlot'] = undefined;
+
+/**
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
+ */
+InlineObject104.prototype['multiplicity'] = undefined;
 
 /**
  * Массив картинок.

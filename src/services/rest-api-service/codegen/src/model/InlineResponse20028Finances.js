@@ -53,6 +53,9 @@ class InlineResponse20028Finances {
             if (data.hasOwnProperty('fines')) {
                 obj['fines'] = ApiClient.convertToType(data['fines'], 'Number');
             }
+            if (data.hasOwnProperty('refunds')) {
+                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
+            }
         }
         return obj;
     }
@@ -69,6 +72,11 @@ InlineResponse20028Finances.prototype['accruals'] = undefined;
  * @member {Number} fines
  */
 InlineResponse20028Finances.prototype['fines'] = undefined;
+
+/**
+ * @member {Number} refunds
+ */
+InlineResponse20028Finances.prototype['refunds'] = undefined;
 
 
 

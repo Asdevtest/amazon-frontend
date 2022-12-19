@@ -114,7 +114,7 @@ InlineObject34.prototype['operationType'] = undefined;
 InlineObject34.prototype['clientComment'] = '';
 
 /**
- * Комментарий баера.
+ * Комментарий баера
  * @member {String} buyerComment
  */
 InlineObject34.prototype['buyerComment'] = undefined;

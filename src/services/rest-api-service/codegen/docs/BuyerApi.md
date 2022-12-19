@@ -716,6 +716,8 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
+  'sortField': "sortField_example", // String | Поле, по которому сортировать запрос
+  'sortType': "sortType_example", // String | Тип сортировки
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BuyersOrdersVacGet(opts).then((data) => {
@@ -731,6 +733,8 @@ apiInstance.apiV1BuyersOrdersVacGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **sortField** | **String**| Поле, по которому сортировать запрос | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

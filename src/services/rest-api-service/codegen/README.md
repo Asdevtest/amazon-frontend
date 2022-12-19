@@ -616,6 +616,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
  - [TestSwagger.InlineResponse20028Finances](docs/InlineResponse20028Finances.md)
  - [TestSwagger.InlineResponse20028Orders](docs/InlineResponse20028Orders.md)
+ - [TestSwagger.InlineResponse20028PendingOrders](docs/InlineResponse20028PendingOrders.md)
  - [TestSwagger.InlineResponse20028Products](docs/InlineResponse20028Products.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
  - [TestSwagger.InlineResponse20029Batches](docs/InlineResponse20029Batches.md)

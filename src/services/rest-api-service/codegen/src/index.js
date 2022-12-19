@@ -218,6 +218,7 @@ import InlineResponse20027Shops from './model/InlineResponse20027Shops';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20028Finances from './model/InlineResponse20028Finances';
 import InlineResponse20028Orders from './model/InlineResponse20028Orders';
+import InlineResponse20028PendingOrders from './model/InlineResponse20028PendingOrders';
 import InlineResponse20028Products from './model/InlineResponse20028Products';
 import InlineResponse20029 from './model/InlineResponse20029';
 import InlineResponse20029Batches from './model/InlineResponse20029Batches';
@@ -1607,6 +1608,12 @@ export {
      * @property {module:model/InlineResponse20028Orders}
      */
     InlineResponse20028Orders,
+
+    /**
+     * The InlineResponse20028PendingOrders model constructor.
+     * @property {module:model/InlineResponse20028PendingOrders}
+     */
+    InlineResponse20028PendingOrders,
 
     /**
      * The InlineResponse20028Products model constructor.

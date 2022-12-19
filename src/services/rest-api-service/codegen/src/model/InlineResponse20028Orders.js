@@ -65,6 +65,21 @@ class InlineResponse20028Orders {
             if (data.hasOwnProperty('canceled')) {
                 obj['canceled'] = ApiClient.convertToType(data['canceled'], 'Number');
             }
+            if (data.hasOwnProperty('notPaid')) {
+                obj['notPaid'] = ApiClient.convertToType(data['notPaid'], 'Number');
+            }
+            if (data.hasOwnProperty('needTrackNumber')) {
+                obj['needTrackNumber'] = ApiClient.convertToType(data['needTrackNumber'], 'Number');
+            }
+            if (data.hasOwnProperty('inbound')) {
+                obj['inbound'] = ApiClient.convertToType(data['inbound'], 'Number');
+            }
+            if (data.hasOwnProperty('confirmationRequired')) {
+                obj['confirmationRequired'] = ApiClient.convertToType(data['confirmationRequired'], 'Number');
+            }
+            if (data.hasOwnProperty('closedAndCanceled')) {
+                obj['closedAndCanceled'] = ApiClient.convertToType(data['closedAndCanceled'], 'Number');
+            }
         }
         return obj;
     }
@@ -101,6 +116,31 @@ InlineResponse20028Orders.prototype['paid'] = undefined;
  * @member {Number} canceled
  */
 InlineResponse20028Orders.prototype['canceled'] = undefined;
+
+/**
+ * @member {Number} notPaid
+ */
+InlineResponse20028Orders.prototype['notPaid'] = undefined;
+
+/**
+ * @member {Number} needTrackNumber
+ */
+InlineResponse20028Orders.prototype['needTrackNumber'] = undefined;
+
+/**
+ * @member {Number} inbound
+ */
+InlineResponse20028Orders.prototype['inbound'] = undefined;
+
+/**
+ * @member {Number} confirmationRequired
+ */
+InlineResponse20028Orders.prototype['confirmationRequired'] = undefined;
+
+/**
+ * @member {Number} closedAndCanceled
+ */
+InlineResponse20028Orders.prototype['closedAndCanceled'] = undefined;
 
 
 

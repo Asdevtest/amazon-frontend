@@ -90,6 +90,36 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property notPaid (base name: "notPaid")', function() {
+      // uncomment below and update the code to test the property notPaid
+      //var instance = new TestSwagger.InlineResponse20028Orders();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property needTrackNumber (base name: "needTrackNumber")', function() {
+      // uncomment below and update the code to test the property needTrackNumber
+      //var instance = new TestSwagger.InlineResponse20028Orders();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inbound (base name: "inbound")', function() {
+      // uncomment below and update the code to test the property inbound
+      //var instance = new TestSwagger.InlineResponse20028Orders();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property confirmationRequired (base name: "confirmationRequired")', function() {
+      // uncomment below and update the code to test the property confirmationRequired
+      //var instance = new TestSwagger.InlineResponse20028Orders();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property closedAndCanceled (base name: "closedAndCanceled")', function() {
+      // uncomment below and update the code to test the property closedAndCanceled
+      //var instance = new TestSwagger.InlineResponse20028Orders();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

@@ -71,6 +71,9 @@ class InlineObject16 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -131,6 +134,12 @@ InlineObject16.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineObject16.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject16.prototype['upsTrackNumber'] = undefined;
 
 /**
  * shippingLabel коробки

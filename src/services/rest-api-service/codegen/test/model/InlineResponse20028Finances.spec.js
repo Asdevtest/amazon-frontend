@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property refunds (base name: "refunds")', function() {
+      // uncomment below and update the code to test the property refunds
+      //var instance = new TestSwagger.InlineResponse20028Finances();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

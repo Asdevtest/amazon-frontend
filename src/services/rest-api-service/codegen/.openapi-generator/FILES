@@ -216,6 +216,7 @@ docs/InlineResponse20027Shops.md
 docs/InlineResponse20028.md
 docs/InlineResponse20028Finances.md
 docs/InlineResponse20028Orders.md
+docs/InlineResponse20028PendingOrders.md
 docs/InlineResponse20028Products.md
 docs/InlineResponse20029.md
 docs/InlineResponse20029Batches.md
@@ -560,6 +561,7 @@ src/model/InlineResponse20027Shops.js
 src/model/InlineResponse20028.js
 src/model/InlineResponse20028Finances.js
 src/model/InlineResponse20028Orders.js
+src/model/InlineResponse20028PendingOrders.js
 src/model/InlineResponse20028Products.js
 src/model/InlineResponse20029.js
 src/model/InlineResponse20029Batches.js
@@ -665,6 +667,7 @@ test/model/InlineResponse20027Requests.spec.js
 test/model/InlineResponse20027Shops.spec.js
 test/model/InlineResponse20028Finances.spec.js
 test/model/InlineResponse20028Orders.spec.js
+test/model/InlineResponse20028PendingOrders.spec.js
 test/model/InlineResponse20029Batches.spec.js
 test/model/InlineResponse20029Boxes.spec.js
 test/model/InlineResponse20029Tasks.spec.js

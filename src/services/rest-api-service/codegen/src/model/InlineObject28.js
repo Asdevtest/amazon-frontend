@@ -59,6 +59,9 @@ class InlineObject28 {
             if (data.hasOwnProperty('fbaNumber')) {
                 obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
@@ -93,6 +96,12 @@ InlineObject28.prototype['referenceId'] = undefined;
  * @member {String} fbaNumber
  */
 InlineObject28.prototype['fbaNumber'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject28.prototype['upsTrackNumber'] = undefined;
 
 /**
  * Текст трек номера

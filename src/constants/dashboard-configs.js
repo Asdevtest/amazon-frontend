@@ -541,23 +541,20 @@ export const BuyerDashboardCardDataKey = {
   IN_SEARCH_PRODUCTS: 'IN_SEARCH_PRODUCTS',
   REJECTED_PRODUCTS: 'REJECTED_PRODUCTS',
 
-  PENDING_ORDERS: 'PENDING_ORDERS',
-
   MY_ORDERS_NOT_PAID: 'MY_ORDERS_NOT_PAID',
   MY_ORDERS_NEED_TRACK_NUMBER: 'MY_ORDERS_NEED_TRACK_NUMBER',
   MY_ORDERS_INBOUND: 'MY_ORDERS_INBOUND',
   MY_ORDERS_CONFIRMATION_REQUIRED: 'MY_ORDERS_CONFIRMATION_REQUIRED',
   MY_ORDERS_CLOSED_AND_CANCELED: 'MY_ORDERS_CLOSED_AND_CANCELED',
+  FREE_ORDERS: 'FREE_ORDERS',
   MY_ORDERS_ALL_ORDERS: 'MY_ORDERS_ALL_ORDERS',
 
-  FREE_ORDERS: 'FREE_ORDERS',
+  PENDING_ORDERS_PEDING: 'PENDING_ORDERS_PEDING',
+  PENDING_ORDERS_READY_TO_BUY: 'PENDING_ORDERS_READY_TO_BUY',
 
-  // IN_PROCESS_ORDERS: 'IN_PROCESS_ORDERS',
-  // FREE_ORDERS: 'FREE_ORDERS',
-  // CLOSED_ORDERS: 'CLOSED_ORDERS',
-
-  REPLENISH: 'REPLENISH',
-  FINES: 'FINES',
+  FINANCES_ACCRUALS: 'ACCRUALS',
+  FINANCES_FINES: 'FINES',
+  FINANCES_REFUNDS: 'REFUNDS',
 }
 
 export const getBuyerDashboardCardConfig = () => [
@@ -773,8 +770,14 @@ export const getBuyerDashboardCardConfig = () => [
     subTitle: t(TranslationKey['Pending orders data']),
     items: [
       {
-        dataKey: BuyerDashboardCardDataKey.PENDING_ORDERS,
-        title: t(TranslationKey['Pending orders']),
+        dataKey: BuyerDashboardCardDataKey.PENDING_ORDERS_PEDING,
+        title: t(TranslationKey.Pending),
+        route: '/buyer/pending-orders',
+        color: '#006CFF',
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.PENDING_ORDERS_READY_TO_BUY,
+        title: t(TranslationKey['Ready to buy']),
         route: '/buyer/pending-orders',
         color: '#006CFF',
       },
@@ -801,7 +804,7 @@ export const getBuyerDashboardCardConfig = () => [
     subTitle: t(TranslationKey['Accrual data']),
     items: [
       {
-        dataKey: BuyerDashboardCardDataKey.REPLENISH,
+        dataKey: BuyerDashboardCardDataKey.FINANCES_ACCRUALS,
         title: t(TranslationKey.Accruals),
 
         route: '/buyer/finances',
@@ -816,7 +819,7 @@ export const getBuyerDashboardCardConfig = () => [
         },
       },
       {
-        dataKey: BuyerDashboardCardDataKey.FINES,
+        dataKey: BuyerDashboardCardDataKey.FINANCES_FINES,
         title: t(TranslationKey.Fines),
         isNegative: true,
         route: '/buyer/finances',
@@ -829,6 +832,12 @@ export const getBuyerDashboardCardConfig = () => [
             },
           ],
         },
+      },
+      {
+        dataKey: BuyerDashboardCardDataKey.FINANCES_REFUNDS,
+        title: t(TranslationKey.Fines),
+        isNegative: true,
+        route: '/buyer/finances',
       },
     ],
   },
