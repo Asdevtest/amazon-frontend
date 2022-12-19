@@ -12,6 +12,7 @@ import {
   MultilineTextCell,
   ShortBoxDimensions,
   OrdersIdsItemsCell,
+  CheckboxCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
@@ -44,6 +45,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
+    type: 'number',
   },
 
   {
@@ -97,6 +99,22 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
   },
 
   {
+    field: 'isFormed',
+    headerName: t(TranslationKey.Formed),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} />,
+
+    renderCell: params =>
+      params.row.originalData ? (
+        <CheckboxCell checked={params.value} onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)} />
+      ) : (
+        ''
+      ),
+    width: 110,
+    sortable: false,
+    filterable: false,
+  },
+
+  {
     field: 'qty',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
@@ -113,6 +131,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       ),
     width: 90,
     sortable: false,
+    type: 'number',
   },
 
   {
@@ -142,6 +161,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 110,
     sortable: false,
+    type: 'number',
   },
 
   {

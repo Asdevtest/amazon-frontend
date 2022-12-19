@@ -54,7 +54,7 @@ const updateBoxWhiteList = [
   'trackNumberText',
 ]
 
-export class ClientWarehouseViewModel {
+export class ClientInStockBoxesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -78,6 +78,7 @@ export class ClientWarehouseViewModel {
   storekeepersData = []
   destinations = []
   clientDestinations = []
+  isFormed = null
 
   curDestination = undefined
 
@@ -129,6 +130,7 @@ export class ClientWarehouseViewModel {
     onClickShippingLabel: item => this.onClickShippingLabel(item),
     onDoubleClickShippingLabel: item => this.onDoubleClickShippingLabel(item),
     onDeleteShippingLabel: item => this.onDeleteShippingLabel(item),
+    onChangeIsFormedInBox: item => this.onChangeIsFormedInBox(item),
   }
 
   confirmModalSettings = {
@@ -380,6 +382,26 @@ export class ClientWarehouseViewModel {
   onDoubleClickShippingLabel = item => {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  onChangeIsFormed(value) {
+    runInAction(() => {
+      this.isFormed = value
+    })
+
+    this.getBoxesMy()
+  }
+
+  async onChangeIsFormedInBox(box) {
+    try {
+      await BoxesModel.editIsFormed(box._id, {
+        isFormed: !box.isFormed,
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onDeleteShippingLabel(box) {
@@ -1340,6 +1362,8 @@ export class ClientWarehouseViewModel {
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
         destinationId: this.curDestination && this.curDestination._id,
+
+        isFormed: this.isFormed,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,

@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 [**apiV1BoxesGroupedGet**](BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
 [**apiV1BoxesGroupedGroupsGet**](BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить группы
+[**apiV1BoxesIsFormedGuidPatch**](BoxesApi.md#apiV1BoxesIsFormedGuidPatch) | **PATCH** /api/v1/boxes/is_formed/{guid} | # Изменить поле isFormed
 [**apiV1BoxesManyPatch**](BoxesApi.md#apiV1BoxesManyPatch) | **PATCH** /api/v1/boxes/many | # Изменить несколько коробок сторкипером.
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 [**apiV1BoxesPagClientsLightGet**](BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
@@ -602,7 +603,7 @@ let status = "status_example"; // String | Статусы коробок раз�
 let opts = {
   'hasBatch': true, // Boolean | Должна ли коробка иметь свою партию
   'storekeeperId': null, // String | GUID склада который нужно получить.
-  'destinationId': null, // String | GUID дестинейшна, который должен быть у боксов.
+  'destinationId': "destinationId_example", // String | GUID дестинейшна, который должен быть у боксов. Может быть null
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesClientsGet(status, opts).then((data) => {
@@ -621,7 +622,7 @@ Name | Type | Description  | Notes
  **status** | **String**| Статусы коробок разделенные запятой | 
  **hasBatch** | **Boolean**| Должна ли коробка иметь свою партию | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
- **destinationId** | [**String**](.md)| GUID дестинейшна, который должен быть у боксов. | [optional] 
+ **destinationId** | **String**| GUID дестинейшна, который должен быть у боксов. Может быть null | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -914,7 +915,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGet
 
-> InlineResponse20013 apiV1BoxesGroupedGet(opts)
+> InlineResponse20014 apiV1BoxesGroupedGet(opts)
 
 # Получить сгруппированные коробки
 
@@ -958,7 +959,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
@@ -1025,6 +1026,62 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BoxesIsFormedGuidPatch
+
+> String apiV1BoxesIsFormedGuidPatch(guid, opts)
+
+# Изменить поле isFormed
+
+# Изменить поле isFormed
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let guid = null; // String | GUID коробки.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject29() // InlineObject29 | 
+};
+apiInstance.apiV1BoxesIsFormedGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID коробки. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject29**](InlineObject29.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1159,8 +1216,9 @@ let apiInstance = new TestSwagger.BoxesApi();
 let status = "status_example"; // String | 
 let opts = {
   'filters': "filters_example", // String |                Примеры: /boxes/pag/clients_light?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
-  'destinationId': null, // String | GUID дестинейшна, который должен быть у боксов.
+  'destinationId': "destinationId_example", // String | GUID дестинейшна, который должен быть у боксов.
   'storekeeperId': null, // String | GUID склада который нужно получить.
+  'isFormed': true, // Boolean | Сформирована ли коробка
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
@@ -1182,8 +1240,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**|  | 
  **filters** | **String**|                Примеры: /boxes/pag/clients_light?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /boxes/pag/clients_light?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
- **destinationId** | [**String**](.md)| GUID дестинейшна, который должен быть у боксов. | [optional] 
+ **destinationId** | **String**| GUID дестинейшна, который должен быть у боксов. | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
+ **isFormed** | **Boolean**| Сформирована ли коробка | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 

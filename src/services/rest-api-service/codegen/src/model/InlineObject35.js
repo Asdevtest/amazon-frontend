@@ -22,11 +22,10 @@ class InlineObject35 {
     /**
      * Constructs a new <code>InlineObject35</code>.
      * @alias module:model/InlineObject35
-     * @param email {String} 
      */
-    constructor(email) { 
+    constructor() { 
         
-        InlineObject35.initialize(this, email);
+        InlineObject35.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject35 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
-        obj['email'] = email;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject35 {
         if (data) {
             obj = obj || new InlineObject35();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -60,9 +58,10 @@ class InlineObject35 {
 }
 
 /**
- * @member {String} email
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject35.prototype['email'] = undefined;
+InlineObject35.prototype['refundPrice'] = undefined;
 
 
 

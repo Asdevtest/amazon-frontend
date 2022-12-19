@@ -70,6 +70,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -187,6 +190,12 @@ InlineResponse20011.prototype['isActual'] = undefined;
  * @member {Boolean} isDraft
  */
 InlineResponse20011.prototype['isDraft'] = undefined;
+
+/**
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
+ */
+InlineResponse20011.prototype['isFormed'] = undefined;
 
 /**
  * Ссылка на наклейку для коробки

@@ -159,6 +159,9 @@ export const buyerMyOrdersDataConverter = data =>
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
     client: item.product.client?.name,
+    needsResearch: item.needsResearch,
+
+    deadline: item.deadline,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -180,6 +183,8 @@ export const buyerVacantOrdersDataConverter = data =>
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     client: item.product.client?.name,
+    needsResearch: item.needsResearch,
+    deadline: item.deadline,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -309,6 +314,8 @@ export const clientOrdersDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
+    deadline: item.deadline,
+    needsResearch: item.needsResearch,
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
@@ -330,6 +337,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     client: item.client?.name,
 
     isDraft: item.isDraft,
+    isFormed: item.isFormed,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

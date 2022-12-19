@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2001 from './InlineResponse2001';
+import InlineResponse20024Rows from './InlineResponse20024Rows';
 
 /**
  * The InlineResponse20024 model module.
@@ -53,7 +53,7 @@ class InlineResponse20024 {
                 obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20024Rows]);
             }
         }
         return obj;
@@ -69,8 +69,8 @@ class InlineResponse20024 {
 InlineResponse20024.prototype['count'] = undefined;
 
 /**
- * Массив заказов c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse2001>} rows
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20024Rows>} rows
  */
 InlineResponse20024.prototype['rows'] = undefined;
 

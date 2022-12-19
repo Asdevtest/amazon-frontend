@@ -79,9 +79,9 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{`${t(
-              TranslationKey['Rate, $'],
-            )} (US ${regionOfDeliveryName})`}</Typography>
+            <Typography className={classNames.headerTitle}>{`${
+              t(TranslationKey.Rate) + ', $'
+            } (US ${regionOfDeliveryName})`}</Typography>
 
             <Typography className={classNames.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
           </div>

@@ -150,6 +150,7 @@ export const adminOrdersViewColumns = () => [
 
     width: 160,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    type: 'number',
   },
   {
     field: 'trackingNumberChina',

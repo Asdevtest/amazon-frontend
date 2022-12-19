@@ -60,7 +60,7 @@ export const SelectFields = ({
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   return (
-    <Grid container justifyContent="space-around" className={classNames.container}>
+    <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
         <div className={classNames.photoAndFieldsWrapper}>
           <div className={classNames.photoWrapper}>
@@ -202,6 +202,7 @@ export const SelectFields = ({
                 disabled
                 inputProps={{maxLength: 10}}
                 inputClasses={classNames.input}
+                labelClasses={classNames.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
                 value={toFixedWithYuanSign(
                   calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount) * orderFields.yuanToDollarRate,
@@ -230,6 +231,7 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                 label={t(TranslationKey['Yuan to USD exchange rate'])}
+                labelClasses={classNames.label}
                 value={orderFields.yuanToDollarRate}
                 onChange={e => {
                   if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
@@ -245,7 +247,8 @@ export const SelectFields = ({
               <Field
                 oneLine
                 label={t(TranslationKey['Use the price in dollars'])}
-                labelClasses={classNames.checkboxLabel}
+                // labelClasses={classNames.checkboxLabel}
+                labelClasses={classNames.label}
                 containerClasses={classNames.checkboxContainer}
                 inputComponent={
                   <Checkbox
@@ -304,6 +307,7 @@ export const SelectFields = ({
               disabled
               inputProps={{maxLength: 10}}
               inputClasses={classNames.input}
+              labelClasses={classNames.label}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
               value={toFixedWithDollarSign(calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount), 2)}
             />
@@ -327,6 +331,7 @@ export const SelectFields = ({
                 ],
               )}
               label={t(TranslationKey['The actual cost is the same as the planned'])}
+              labelClasses={classNames.label}
               containerClasses={classNames.checkboxContainer}
               inputComponent={
                 <div className={classNames.checkboxWithLabelWrapper}>
@@ -390,6 +395,7 @@ export const SelectFields = ({
             minRows={4}
             maxRows={4}
             inputClasses={classNames.commentInput}
+            labelClasses={classNames.label}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}
             onChange={setOrderField('clientComment')}
@@ -403,6 +409,7 @@ export const SelectFields = ({
             inputProps={{maxLength: 500}}
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}
+            labelClasses={classNames.label}
             label={t(TranslationKey['Buyer comment'])}
             onChange={setOrderField('buyerComment')}
           />
@@ -419,6 +426,17 @@ export const SelectFields = ({
             inputProps={{maxLength: 50}}
             // onChange={setOrderField('trackingNumberChina')}
           />
+
+          <Field
+            disabled={disableSubmit || isPendingOrder}
+            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
+            value={hsCode}
+            label={t(TranslationKey['HS code'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 50}}
+            onChange={e => setHsCode(e.target.value)}
+          />
         </Box>
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
@@ -427,6 +445,7 @@ export const SelectFields = ({
               <div>
                 <Field
                   label={t(TranslationKey.BarCode)}
+                  labelClasses={classNames.label}
                   inputComponent={
                     orderFields.product.barCode ? (
                       <div className={classNames.barCode}>
@@ -447,17 +466,6 @@ export const SelectFields = ({
               </div>
             </div>
           </div>
-
-          <Field
-            disabled={disableSubmit || isPendingOrder}
-            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-            value={hsCode}
-            label={t(TranslationKey['HS code'])}
-            labelClasses={classNames.label}
-            inputClasses={classNames.input}
-            inputProps={{maxLength: 50}}
-            onChange={e => setHsCode(e.target.value)}
-          />
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
             <Field

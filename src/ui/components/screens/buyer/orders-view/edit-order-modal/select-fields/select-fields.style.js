@@ -196,6 +196,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   label: {
     maxWidth: '231px',
+
+    color: theme.palette.text.second,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+    marginBottom: 10,
+    // whiteSpace: 'nowrap',
   },
 
   yuanToDollarRate: {

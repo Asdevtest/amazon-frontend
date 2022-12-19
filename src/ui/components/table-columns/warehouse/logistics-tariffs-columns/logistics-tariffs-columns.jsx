@@ -59,8 +59,8 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
 
   {
     field: 'rates',
-    headerName: t(TranslationKey['Rate, $']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Rate, $'])} />,
+    headerName: t(TranslationKey.Rate) + ', $',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
 
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
     width: 95,

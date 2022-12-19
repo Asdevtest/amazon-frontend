@@ -20,7 +20,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
@@ -108,6 +108,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
     width: 110,
+    type: 'number',
   },
 
   {

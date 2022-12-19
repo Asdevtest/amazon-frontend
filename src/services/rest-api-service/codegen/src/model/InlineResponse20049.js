@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
+import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20049 model module.
@@ -22,7 +22,6 @@ import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 class InlineResponse20049 {
     /**
      * Constructs a new <code>InlineResponse20049</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20049
      */
     constructor() { 
@@ -53,7 +52,7 @@ class InlineResponse20049 {
                 obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BatchesBoxes]);
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
             }
         }
         return obj;
@@ -63,14 +62,13 @@ class InlineResponse20049 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
+ * Общее кол-во записей
  * @member {Number} count
  */
 InlineResponse20049.prototype['count'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/ApiV1BatchesBoxes>} rows
+ * @member {Array.<module:model/InlineResponse2004>} rows
  */
 InlineResponse20049.prototype['rows'] = undefined;
 

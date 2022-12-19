@@ -11,6 +11,7 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
@@ -46,7 +47,11 @@ export const OrderModalBodyRow = ({
   const {classes: classNames} = useClassNames()
 
   const onChangeInput = (event, nameInput) => {
-    setOrderStateFiled(nameInput)(event.target.value)
+    if (nameInput === 'deadline') {
+      setOrderStateFiled(nameInput)(event)
+    } else {
+      setOrderStateFiled(nameInput)(event.target.value)
+    }
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
@@ -233,7 +238,8 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <WithSearchSelect
-            width={220}
+            width={160}
+            widthPopover={220}
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
@@ -255,6 +261,12 @@ export const OrderModalBodyRow = ({
             className={classNames.commentInput}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
+        </TableCell>
+
+        <TableCell className={classNames.cell}>
+          <div className={classNames.datePickerWrapper}>
+            <NewDatePicker disablePast value={item.deadline} onChange={e => onChangeInput(e, 'deadline')} />
+          </div>
         </TableCell>
 
         {withRemove && (

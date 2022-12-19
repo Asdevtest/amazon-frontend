@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
+**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
+**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
 **totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 
 

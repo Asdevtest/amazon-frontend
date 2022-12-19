@@ -38,6 +38,13 @@ export const OrderProductModal = ({
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
 
   const [isPendingOrder, setIsPendingOrder] = useState(false)
+  const [isResearchSupplier, setIsResearchSupplier] = useState(false)
+
+  useEffect(() => {
+    if (!isPendingOrder) {
+      setIsResearchSupplier(false)
+    }
+  }, [isPendingOrder])
 
   const triggerBarcodeModal = () => {
     setShowSetBarcodeModal(!showSetBarcodeModal)
@@ -82,6 +89,7 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
           tmpBarCode: [],
+          deadline: null,
 
           destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
             ? reorderOrder.destination?._id
@@ -95,8 +103,10 @@ export const OrderProductModal = ({
             .includes(reorderOrder.logicsTariff?._id)
             ? reorderOrder.logicsTariff?._id
             : '',
-          expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
-          priority: reorderOrder.priority || '30',
+          // expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
+          // priority: reorderOrder.priority || '30',
+          expressChinaDelivery: false,
+          priority: '30',
         }))
       : selectedProductsData.map(product => ({
           amount: 1,
@@ -104,6 +114,7 @@ export const OrderProductModal = ({
           barCode: product.barCode || '',
           productId: product._id,
           images: [],
+          deadline: null,
           tmpBarCode: [],
 
           destinationId: null,
@@ -167,6 +178,7 @@ export const OrderProductModal = ({
         ...el,
         destinationId: el.destinationId ? el.destinationId : null,
         totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
+        needsResearch: isResearchSupplier,
         tmpIsPendingOrder: isPendingOrder,
       })),
       totalOrdersCost,
@@ -278,6 +290,7 @@ export const OrderProductModal = ({
                   {t(TranslationKey['Client comment'])}
                 </Button>
               </TableCell>
+              <TableCell className={classNames.deadlineCell}>{'Deadline'}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -322,6 +335,13 @@ export const OrderProductModal = ({
       </div>
 
       <div className={classNames.buttonsWrapper}>
+        {isPendingOrder ? (
+          <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
+            <Checkbox checked={isResearchSupplier} color="primary" />
+            <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+          </div>
+        ) : null}
+
         {!isPendingOrdering ? (
           <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
             <Checkbox checked={isPendingOrder} color="primary" />

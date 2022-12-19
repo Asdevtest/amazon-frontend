@@ -41,6 +41,15 @@ export const formatNormDateTimeWithParseISO = dateString => format(parseISO(date
 
 const now = new Date()
 
+export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
+  const date1 = parseISO(firstDate)
+  const date2 = secondDate ? parseISO(secondDate) : now
+
+  const timeDiff = Math.round((date1.getTime() - date2.getTime()) / 1000)
+
+  return timeDiff
+}
+
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   formatDistanceStrict(parseISO(date), tryNow ? tryNow : now, {
     addSuffix: true,

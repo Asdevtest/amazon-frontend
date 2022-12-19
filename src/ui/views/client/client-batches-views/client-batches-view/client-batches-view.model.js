@@ -20,12 +20,6 @@ export class ClientBatchesViewModel {
     })
   }
 
-  onClickBoxesReadyToSend() {
-    this.history.push({
-      pathname: '/client/batches/boxes-ready-to-batch',
-    })
-  }
-
   onClickAwaitingSend() {
     this.history.push({
       pathname: '/client/batches/awaiting-batch',

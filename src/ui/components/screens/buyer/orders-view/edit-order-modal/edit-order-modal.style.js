@@ -57,6 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
   idItemWrapper: {
     display: 'flex',
     gap: 15,
+    marginBottom: 10,
   },
 
   itemInputIcon: {
@@ -77,7 +78,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    minWidth: '800px',
+    minWidth: 800,
   },
   paper: {
     height: 'max-content',
@@ -109,8 +110,20 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   label: {
-    fontSize: '18px',
+    color: theme.palette.text.second,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+    marginBottom: 10,
     whiteSpace: 'nowrap',
+  },
+
+  deadlineText: {
+    marginLeft: 20,
+  },
+
+  alertText: {
+    color: '#FF1616',
   },
 
   inputField: {

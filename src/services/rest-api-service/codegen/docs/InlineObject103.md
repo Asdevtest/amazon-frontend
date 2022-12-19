@@ -4,20 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название поставщика. | 
-**link** | **String** | Ссылка на поставщика. | 
-**price** | **Number** | Цена за еденицу, dollar | 
-**amount** | **Number** | кол-во | 
-**minlot** | **Number** | Минимальный лот. | 
-**images** | **[String]** | Массив картинок. | [optional] 
-**comment** | **String** | Комментарий | 
-**yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
-**priceInYuan** | **Number** | Цена за еденицу, yuan | [optional] 
-**batchDeliveryCostInDollar** | **Number** | Доставка партии, dollar | 
-**batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
-**batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
-**batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
-**productionTerm** | **Number** |  | [optional] 
-**boxProperties** | [**ApiV1SuppliersBoxProperties**](ApiV1SuppliersBoxProperties.md) |  | [optional] 
+**listingName** | **String** |  | [optional] 
+**listingBulletPoints** | **[String]** | Массив ... | [optional] 
+**listingProductDetails** | **String** |  | [optional] 
+**listingSearchTerms** | **String** |  | [optional] 
+**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
+**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
+**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 
 

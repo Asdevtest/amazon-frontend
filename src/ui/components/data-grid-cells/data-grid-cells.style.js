@@ -18,6 +18,13 @@ export const styles = theme => ({
     whiteSpace: 'normal',
   },
 
+  checkboxWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   priorityAndChinaDeliveryWrapper: {
     display: 'flex',
     alignItems: 'center',

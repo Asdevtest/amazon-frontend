@@ -156,6 +156,7 @@ export const styles = theme => ({
 
   opponentWrapper: {
     display: 'flex',
+    alignItems: 'center',
     marginLeft: 20,
   },
 
