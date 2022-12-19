@@ -177,6 +177,7 @@ export const EditOrderModal = observer(
       yuanToDollarRate: order?.yuanToDollarRate || 6.3,
       item: order?.item || 0,
       tmpRefundToClient: 0,
+      tmpCommentToWarehouse: '',
     })
 
     useEffect(() => {
@@ -649,49 +650,66 @@ export const EditOrderModal = observer(
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
             />
 
-            <div className={classNames.labelsInfoWrapper}>
-              <div>
-                <Field
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 255}}
-                  label={t(TranslationKey['Set track number for new boxes']) + ':'}
-                  value={trackNumber.text}
-                  onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
-                />
-
-                <Button
-                  className={classNames.trackNumberPhotoBtn}
-                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                >
-                  {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
-                </Button>
-              </div>
-
-              <div className={classNames.trackNumberPhotoWrapper}>
-                {trackNumber.files[0] ? (
-                  <img
-                    className={classNames.trackNumberPhoto}
-                    src={
-                      typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
-                    }
-                    onClick={() => {
-                      setShowPhotosModal(!showPhotosModal)
-                      setBigImagesOptions({
-                        ...bigImagesOptions,
-
-                        images: [
-                          typeof trackNumber.files[0] === 'string'
-                            ? trackNumber.files[0]
-                            : trackNumber.files[0]?.data_url,
-                        ],
-                      })
-                    }}
+            <div className={classNames.InfoWrapper}>
+              <div className={classNames.labelsInfoWrapper}>
+                <div>
+                  <Field
+                    labelClasses={classNames.label}
+                    containerClasses={classNames.containerField}
+                    inputClasses={classNames.inputField}
+                    inputProps={{maxLength: 255}}
+                    label={t(TranslationKey['Set track number for new boxes']) + ':'}
+                    value={trackNumber.text}
+                    onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
                   />
-                ) : (
-                  <Typography>{'no photo track number...'}</Typography>
-                )}
+
+                  <Button
+                    className={classNames.trackNumberPhotoBtn}
+                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                  >
+                    {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                  </Button>
+                </div>
+
+                <div className={classNames.trackNumberPhotoWrapper}>
+                  {trackNumber.files[0] ? (
+                    <img
+                      className={classNames.trackNumberPhoto}
+                      src={
+                        typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
+                      }
+                      onClick={() => {
+                        setShowPhotosModal(!showPhotosModal)
+                        setBigImagesOptions({
+                          ...bigImagesOptions,
+
+                          images: [
+                            typeof trackNumber.files[0] === 'string'
+                              ? trackNumber.files[0]
+                              : trackNumber.files[0]?.data_url,
+                          ],
+                        })
+                      }}
+                    />
+                  ) : (
+                    <Typography>{'no photo track number...'}</Typography>
+                  )}
+                </div>
+              </div>
+              <div className={classNames.fieldWrapper}>
+                <div>
+                  <Field
+                    multiline
+                    minRows={4}
+                    maxRows={4}
+                    inputProps={{maxLength: 500}}
+                    inputClasses={classNames.commentInput}
+                    value={orderFields.tmpCommentToWarehouse}
+                    labelClasses={classNames.label}
+                    label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+                    onChange={setOrderField('tmpCommentToWarehouse')}
+                  />
+                </div>
               </div>
             </div>
           </>

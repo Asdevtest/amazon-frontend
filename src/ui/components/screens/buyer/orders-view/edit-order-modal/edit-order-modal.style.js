@@ -42,9 +42,20 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  InfoWrapper: {
+    width: '100%',
+    display: 'flex',
+  },
+
   labelsInfoWrapper: {
     display: 'flex',
     gap: '27px',
+  },
+
+  fieldWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 
   stantartSelect: {
@@ -305,5 +316,15 @@ export const useClassNames = makeStyles()(theme => ({
     width: 90,
     whiteSpace: 'pre-wrap',
     textAlign: 'center',
+  },
+  commentInput: {
+    fontSize: '14px',
+    height: 'auto',
+    marginTop: '2px',
+    width: 510,
+    padding: 0,
+  },
+  tmpContainerField: {
+    margin: 0,
   },
 }))

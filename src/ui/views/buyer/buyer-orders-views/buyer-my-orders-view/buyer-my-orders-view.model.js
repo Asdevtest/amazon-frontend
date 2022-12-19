@@ -468,7 +468,7 @@ export class BuyerMyOrdersViewModel {
         !isMismatchOrderPrice &&
         orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
       ) {
-        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber})
+        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber, orderFields})
       }
 
       if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
@@ -561,7 +561,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber}) {
+  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber, orderFields}) {
     try {
       runInAction(() => {
         this.error = undefined
@@ -608,6 +608,7 @@ export class BuyerMyOrdersViewModel {
         boxesBefore: [...this.createBoxesResult /* createBoxResult.guid*/],
         operationType: 'receive',
         clientComment: order.clientComment || '',
+        buyerComment: orderFields.tmpCommentToWarehouse || '',
       })
 
       if (!this.error) {
