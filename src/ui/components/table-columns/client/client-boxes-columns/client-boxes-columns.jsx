@@ -46,7 +46,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 60,
-    type: 'number',
   },
 
   {
@@ -133,7 +132,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     type: 'number',
     width: 90,
     sortable: false,
-    type: 'number',
   },
 
   {
@@ -164,7 +162,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     type: 'number',
     width: 110,
     sortable: false,
-    type: 'number',
   },
 
   {

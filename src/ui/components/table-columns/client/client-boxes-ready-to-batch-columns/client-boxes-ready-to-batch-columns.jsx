@@ -24,7 +24,6 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 60,
-    type: 'number',
   },
 
   {
@@ -65,7 +64,6 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value * params.row.originalData.amount} />,
     type: 'number',
     width: 100,
-    type: 'number',
   },
 
   {
@@ -105,7 +103,6 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 140,
-    type: 'number',
   },
 
   {

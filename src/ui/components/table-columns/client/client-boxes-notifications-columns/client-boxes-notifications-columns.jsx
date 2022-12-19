@@ -94,7 +94,6 @@ export const clientBoxesNotificationsViewColumns = handlers => [
       ),
     type: 'number',
     width: 100,
-    type: 'number',
   },
 
   {
@@ -134,7 +133,6 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 100,
-    type: 'number',
   },
 
   {

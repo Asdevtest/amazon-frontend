@@ -78,7 +78,6 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     width: 90,
     type: 'number',
     sortable: false,
-    type: 'number',
   },
 
   {

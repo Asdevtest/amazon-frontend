@@ -124,7 +124,6 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     type: 'number',
     width: 150,
     sortable: false,
-    type: 'number',
   },
 
   {
@@ -179,7 +178,6 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     type: 'number',
     width: 140,
-    type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -192,7 +190,6 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     width: 110,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     sortable: false,
-    type: 'number',
   },
   {
     field: 'trackingNumberChina',
