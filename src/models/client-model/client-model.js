@@ -266,6 +266,11 @@ class ClientModelStatic {
     })
     return response
   }
+
+  updateOrderStatusToReadyToProcess = async id => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersToReadyToProcessGuidPatch(id)
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

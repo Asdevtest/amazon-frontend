@@ -108,6 +108,7 @@ export const OrderProductModal = ({
           // priority: reorderOrder.priority || '30',
           expressChinaDelivery: false,
           priority: '30',
+          _id: reorderOrder._id,
         }))
       : selectedProductsData.map(product => ({
           amount: 1,

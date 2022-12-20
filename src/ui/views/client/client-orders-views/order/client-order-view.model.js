@@ -13,7 +13,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -210,7 +210,28 @@ export class ClientOrderViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
         }
 
-        await this.createOrder(orderObject)
+        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+        ])
+
+        await OrderModel.changeOrderData(orderObject._id, dataToRequest)
+
+        await ClientModel.updateOrderStatusToReadyToProcess(orderObject._id)
+
+        // await this.createOrder(orderObject)
       }
 
       if (!this.error) {
@@ -220,6 +241,8 @@ export class ClientOrderViewModel {
             title: t(TranslationKey['The order has been created']),
           }
         })
+
+        await this.getOrderById()
 
         this.onTriggerOpenModal('showWarningInfoModal')
       }
@@ -232,37 +255,37 @@ export class ClientOrderViewModel {
     }
   }
 
-  async createOrder(orderObject) {
-    try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-      ])
+  // async createOrder(orderObject) {
+  //   try {
+  //     const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+  //       'barCode',
+  //       'tmpBarCode',
+  //       'tmpIsPendingOrder',
+  //     ])
 
-      if (orderObject.tmpIsPendingOrder) {
-        await ClientModel.createFormedOrder(requestData)
-      } else {
-        await ClientModel.createOrder(requestData)
-      }
+  //     if (orderObject.tmpIsPendingOrder) {
+  //       await ClientModel.createFormedOrder(requestData)
+  //     } else {
+  //       await ClientModel.createOrder(requestData)
+  //     }
 
-      await this.updateUserInfo()
-    } catch (error) {
-      console.log(error)
+  //     await this.updateUserInfo()
+  //   } catch (error) {
+  //     console.log(error)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
-        }
-      })
+  //     runInAction(() => {
+  //       this.warningInfoModalSettings = {
+  //         isWarning: true,
+  //         title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
+  //       }
+  //     })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
+  //     this.onTriggerOpenModal('showWarningInfoModal')
+  //     runInAction(() => {
+  //       this.error = error
+  //     })
+  //   }
+  // }
 
   async getOrderById() {
     try {
@@ -301,6 +324,10 @@ export class ClientOrderViewModel {
         'priority',
         'expressChinaDelivery',
         'clientComment',
+
+        'destinationId',
+        'storekeeperId',
+        'logicsTariffId',
       ])
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)

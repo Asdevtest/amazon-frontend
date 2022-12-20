@@ -157,6 +157,16 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
+  clickableCell: {
+    transition: '.3s ease',
+
+    '&:hover': {
+      borderRadius: 10,
+      boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
+      transform: 'scale(0.9)',
+    },
+  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,
