@@ -276,8 +276,20 @@ export class ClientOrderViewModel {
     }
   }
 
-  async onSubmitSaveOrder(data) {
+  async onSubmitSaveOrder({data}) {
     try {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (data.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, {images: data.tmpBarCode, type: 'uploadedFiles'})
+
+        await ClientModel.updateProductBarCode(data.product._id, {barCode: this.uploadedFiles[0]})
+      } else if (!data.product.barCode) {
+        await ClientModel.updateProductBarCode(data.product._id, {barCode: null})
+      }
+
       const dataToRequest = getObjectFilteredByKeyArrayWhiteList(data, [
         'amount',
         'orderSupplierId',
@@ -292,6 +304,8 @@ export class ClientOrderViewModel {
       ])
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
+
+      this.loadData()
 
       runInAction(() => {
         this.warningInfoModalSettings = {

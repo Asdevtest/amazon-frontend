@@ -1,6 +1,8 @@
-import {Typography, Link} from '@mui/material'
+import {Typography, Link, Chip} from '@mui/material'
 
 import React, {useState} from 'react'
+
+import clsx from 'clsx'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -10,12 +12,20 @@ import {Field} from '@components/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {toFixed, checkAndMakeAbsoluteUrl, trimBarcode} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './product-parameters.style'
 
-export const ProductParameters = ({order, collapsed, formFields, onChangeField, isCanChange}) => {
+export const ProductParameters = ({
+  order,
+  collapsed,
+  formFields,
+  onChangeField,
+  isCanChange,
+  onClickBarcode,
+  onDeleteBarcode,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
@@ -114,18 +124,42 @@ export const ProductParameters = ({order, collapsed, formFields, onChangeField, 
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         inputComponent={
-          <div>
-            {order.product.barCode ? (
-              <div className={classNames.barCodeWrapper}>
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
-                  <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
-                </Link>
-                <CopyValue text={order.product.barCode} />
-              </div>
+          <>
+            {isCanChange ? (
+              <Chip
+                classes={{
+                  root: classNames.barcodeChip,
+                  clickable: classNames.barcodeChipHover,
+                  deletable: classNames.barcodeChipHover,
+                  deleteIcon: classNames.barcodeChipIcon,
+                }}
+                className={clsx({[classNames.barcodeChipExists]: formFields.product.barCode})}
+                size="small"
+                label={
+                  formFields.tmpBarCode.length
+                    ? t(TranslationKey['File added'])
+                    : formFields.product.barCode
+                    ? trimBarcode(formFields.product.barCode)
+                    : t(TranslationKey['Set Barcode'])
+                }
+                onClick={() => onClickBarcode()}
+                onDelete={!formFields.product.barCode ? undefined : () => onDeleteBarcode()}
+              />
             ) : (
-              <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
+              <div>
+                {order.product.barCode ? (
+                  <div className={classNames.barCodeWrapper}>
+                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
+                      <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
+                    </Link>
+                    <CopyValue text={order.product.barCode} />
+                  </div>
+                ) : (
+                  <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
+                )}
+              </div>
             )}
-          </div>
+          </>
         }
       />
 

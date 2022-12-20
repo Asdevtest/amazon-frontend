@@ -14,7 +14,17 @@ import {t} from '@utils/translations'
 import {useClassNames} from './left-panel.style'
 import {ProductParameters} from './product-parameters'
 
-export const LeftPanel = ({order, collapsed, narrow, setCollapsed, formFields, onChangeField, isCanChange}) => {
+export const LeftPanel = ({
+  order,
+  collapsed,
+  narrow,
+  setCollapsed,
+  formFields,
+  onChangeField,
+  isCanChange,
+  onClickBarcode,
+  onDeleteBarcode,
+}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -51,6 +61,8 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed, formFields, o
         collapsed={collapsed}
         formFields={formFields}
         onChangeField={onChangeField}
+        onClickBarcode={onClickBarcode}
+        onDeleteBarcode={onDeleteBarcode}
       />
 
       <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>

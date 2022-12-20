@@ -337,6 +337,9 @@ export class BuyerMyOrdersViewModel {
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
+      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+
       this.getBoxesOfOrder(this.selectedOrder._id)
 
       !inModal && this.onTriggerOpenModal('showBoxViewModal')

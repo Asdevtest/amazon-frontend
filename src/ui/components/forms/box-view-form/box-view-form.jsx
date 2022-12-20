@@ -60,6 +60,13 @@ export const BoxViewForm = observer(
       setFormFields(newFormFields)
     }
 
+    const onChangeHsCode = index => event => {
+      const newFormFields = {...formFields}
+      newFormFields.items[index].product.hsCode = event.target.value
+
+      setFormFields(newFormFields)
+    }
+
     const setTmpTrackNumberFile = () => value => {
       onChangeField('tmpTrackNumberFile')({target: {value}})
     }
@@ -150,7 +157,7 @@ export const BoxViewForm = observer(
 
             <div className={classNames.productsWrapper}>
               <CustomCarousel alignButtons="end">
-                {box.items.map((item, index) => (
+                {formFields.items.map((item, index) => (
                   <div key={index} className={classNames.productWrapper}>
                     <div className={classNames.leftColumn}>
                       <div className={classNames.photoWrapper}>
@@ -186,12 +193,13 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        // disabled
+                        disabled={isClient}
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
-                        value={item.product.hsCode || t(TranslationKey['Not available'])}
+                        value={item.product.hsCode}
                         placeholder={'N/A'}
+                        onChange={onChangeHsCode(index)}
                       />
                       <Field
                         label={t(TranslationKey.BarCode)}
