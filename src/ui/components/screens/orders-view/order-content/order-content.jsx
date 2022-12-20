@@ -11,6 +11,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {Modal} from '@components/modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
@@ -49,6 +51,8 @@ export const OrderContent = ({
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
+  const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
   const [formFields, setFormFields] = useState({
@@ -56,6 +60,7 @@ export const OrderContent = ({
     destinationId: order?.destination?._id || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
+    tmpBarCode: [],
   })
 
   const onChangeField = fieldName => event => {
@@ -69,16 +74,16 @@ export const OrderContent = ({
       }
 
       newFormFields[fieldName] = event.target.value
+    } else if ('barCode' === fieldName) {
+      newFormFields.product[fieldName] = event
+    } else if ('tmpBarCode' === fieldName) {
+      newFormFields[fieldName] = event
     } else {
       newFormFields[fieldName] = event.target.value
     }
 
     setFormFields(newFormFields)
   }
-
-  // useEffect(() => {
-  //   setUpdatedProduct(() => ({...product}))
-  // }, [SettingsModel.languageTag, product])
 
   const renderHeadRow = () => (
     <TableRow>
@@ -97,6 +102,10 @@ export const OrderContent = ({
   useEffect(() => {
     setUpdatedOrder(() => ({...order}))
   }, [SettingsModel.languageTag, order])
+
+  const triggerBarcodeModal = () => {
+    setShowSetBarcodeModal(!showSetBarcodeModal)
+  }
 
   const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
@@ -160,6 +169,12 @@ export const OrderContent = ({
               narrow={narrow}
               setCollapsed={setCollapsed}
               onChangeField={onChangeField}
+              onClickBarcode={() => {
+                triggerBarcodeModal()
+              }}
+              onDeleteBarcode={() => {
+                onChangeField('barCode')('')
+              }}
             />
 
             <Divider orientation={'vertical'} className={classNames.divider} />
@@ -211,7 +226,7 @@ export const OrderContent = ({
                   </Button>
                 )}
 
-                <Button className={classNames.button} onClick={() => onSubmitSaveOrder(formFields)}>
+                <Button className={classNames.button} onClick={() => onSubmitSaveOrder({data: formFields})}>
                   {t(TranslationKey.Save)}
                 </Button>
               </div>
@@ -243,6 +258,18 @@ export const OrderContent = ({
             )}
           </div>
         </div>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
+          <SetBarcodeModal
+            tmpCode={formFields.tmpBarCode}
+            item={formFields.product}
+            onClickSaveBarcode={barCode => {
+              onChangeField('tmpBarCode')(barCode)
+              triggerBarcodeModal()
+            }}
+            onCloseModal={triggerBarcodeModal}
+          />
+        </Modal>
       </Container>
     </Paper>
   )

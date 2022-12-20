@@ -336,12 +336,10 @@ export const OrderProductModal = ({
       </div>
 
       <div className={classNames.buttonsWrapper}>
-        {isPendingOrder ? (
-          <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-            <Checkbox checked={isResearchSupplier} color="primary" />
-            <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
-          </div>
-        ) : null}
+        <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
+          <Checkbox checked={isResearchSupplier} color="primary" />
+          <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+        </div>
 
         {!isPendingOrdering ? (
           <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>

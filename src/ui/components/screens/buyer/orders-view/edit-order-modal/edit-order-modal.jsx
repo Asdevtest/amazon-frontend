@@ -333,7 +333,7 @@ export const EditOrderModal = observer(
             {orderFields.deadline && (
               <Field
                 oneLine
-                label={t(TranslationKey['Time to process the order']) + ':'}
+                label={t(TranslationKey['Deadline for processing']) + ':'}
                 labelClasses={classNames.label}
                 inputComponent={
                   <Typography

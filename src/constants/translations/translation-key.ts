@@ -1669,7 +1669,7 @@ export enum TranslationKey {
   'Boxes in stock' = 'Boxes in stock',
   'Not formed' = 'Not formed',
   'Re-search supplier' = 'Re-search supplier',
-  'Time to process the order' = 'Time to process the order',
+  'Deadline for processing' = 'Deadline for processing',
   // '' = '',
   // '' = '',
   // '' = '',
