@@ -1669,5 +1669,10 @@
   "Boxes in stock": "Boxes in stock",
   "Not formed": "Not formed",
   "Re-search supplier": "Re-search supplier",
-  "Deadline for processing": "Deadline for processing"
+  "Deadline for processing": "Deadline for processing",
+  "Time to process the order": "Time to process the order",
+  "Buyer comment to the warehouse": "Buyer comment to the warehouse",
+  "Order complete": "Order complete",
+  "Waiting to be processed by a buyer": "Waiting to be processed by a buyer",
+  "Buyer comments to the order": "Buyer comments to the order"
 }

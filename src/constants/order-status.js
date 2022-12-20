@@ -83,7 +83,7 @@ export const OrderStatusTranslate = (status, isClient) => {
     case OrderStatus.READY_FOR_BUYOUT:
       return t(TranslationKey['Ready to buy'])
     case OrderStatus.READY_TO_PROCESS:
-      return t(TranslationKey['Ready to process'])
+      return t(TranslationKey['Waiting to be processed by a buyer'])
     case OrderStatus.AT_PROCESS:
       return t(TranslationKey['At process'])
     case OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE:
@@ -95,7 +95,7 @@ export const OrderStatusTranslate = (status, isClient) => {
     case OrderStatus.VERIFY_RECEIPT:
       return t(TranslationKey['Verify receipt'])
     case OrderStatus.IN_STOCK:
-      return t(TranslationKey['In stock'])
+      return t(TranslationKey['Order complete'])
     case OrderStatus.CANCELED_BY_BUYER:
       return t(TranslationKey['Canceled by Buyer'])
     case OrderStatus.CANCELED_BY_CLIENT:

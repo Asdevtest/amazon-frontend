@@ -1670,5 +1670,10 @@
   "Boxes in stock": "Коробки на складе",
   "Not formed": "Не сформировано",
   "Re-search supplier": "Перепоиск поставщика",
-  "Deadline for processing": "Крайний срок обработки"
+  "Deadline for processing": "Крайний срок обработки",
+  "Time to process the order": "Время на обработку заказа",
+  "Buyer comment to the warehouse": "Комментарий байера к складу",
+  "Order complete": "Заказ выполнен",
+  "Waiting to be processed by a buyer": "Ожидает обработки байером",
+  "Buyer comments to the order": "Комментарий байера к заказу"
 }

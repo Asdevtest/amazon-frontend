@@ -107,6 +107,8 @@ export const EditOrderModal = observer(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
 
+    const [commentToWarehouse, setCommentToWarehouse] = useState('')
+
     const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [trackNumber, setTrackNumber] = useState({text: '', files: []})
@@ -247,6 +249,7 @@ export const EditOrderModal = observer(
             photosToLoad,
             hsCode,
             trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+            commentToWarehouse,
           })
       }
     }
@@ -606,6 +609,7 @@ export const EditOrderModal = observer(
                   photosToLoad,
                   hsCode,
                   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+                  commentToWarehouse,
                 })
               }
             }}
@@ -649,49 +653,66 @@ export const EditOrderModal = observer(
               onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
             />
 
-            <div className={classNames.labelsInfoWrapper}>
-              <div>
-                <Field
-                  labelClasses={classNames.label}
-                  containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 255}}
-                  label={t(TranslationKey['Set track number for new boxes']) + ':'}
-                  value={trackNumber.text}
-                  onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
-                />
-
-                <Button
-                  className={classNames.trackNumberPhotoBtn}
-                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                >
-                  {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
-                </Button>
-              </div>
-
-              <div className={classNames.trackNumberPhotoWrapper}>
-                {trackNumber.files[0] ? (
-                  <img
-                    className={classNames.trackNumberPhoto}
-                    src={
-                      typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
-                    }
-                    onClick={() => {
-                      setShowPhotosModal(!showPhotosModal)
-                      setBigImagesOptions({
-                        ...bigImagesOptions,
-
-                        images: [
-                          typeof trackNumber.files[0] === 'string'
-                            ? trackNumber.files[0]
-                            : trackNumber.files[0]?.data_url,
-                        ],
-                      })
-                    }}
+            <div className={classNames.InfoWrapper}>
+              <div className={classNames.labelsInfoWrapper}>
+                <div>
+                  <Field
+                    labelClasses={classNames.label}
+                    containerClasses={classNames.containerField}
+                    inputClasses={classNames.inputField}
+                    inputProps={{maxLength: 255}}
+                    label={t(TranslationKey['Set track number for new boxes']) + ':'}
+                    value={trackNumber.text}
+                    onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
                   />
-                ) : (
-                  <Typography>{'no photo track number...'}</Typography>
-                )}
+
+                  <Button
+                    className={classNames.trackNumberPhotoBtn}
+                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                  >
+                    {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                  </Button>
+                </div>
+
+                <div className={classNames.trackNumberPhotoWrapper}>
+                  {trackNumber.files[0] ? (
+                    <img
+                      className={classNames.trackNumberPhoto}
+                      src={
+                        typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
+                      }
+                      onClick={() => {
+                        setShowPhotosModal(!showPhotosModal)
+                        setBigImagesOptions({
+                          ...bigImagesOptions,
+
+                          images: [
+                            typeof trackNumber.files[0] === 'string'
+                              ? trackNumber.files[0]
+                              : trackNumber.files[0]?.data_url,
+                          ],
+                        })
+                      }}
+                    />
+                  ) : (
+                    <Typography>{'no photo track number...'}</Typography>
+                  )}
+                </div>
+              </div>
+              <div className={classNames.fieldWrapper}>
+                <div className={classNames.inputWrapper}>
+                  <Field
+                    multiline
+                    minRows={4}
+                    maxRows={4}
+                    inputProps={{maxLength: 500}}
+                    inputClasses={classNames.commentInput}
+                    value={commentToWarehouse}
+                    labelClasses={classNames.label}
+                    label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+                    onChange={e => setCommentToWarehouse(e.target.value)}
+                  />
+                </div>
               </div>
             </div>
           </>

@@ -44,6 +44,8 @@ export const EditTaskModal = observer(
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
     const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
+    console.log('task', task)
+
     useEffect(() => {
       const resizeScreen = () => {
         setCurrentScreenWidth(window.innerWidth)
@@ -130,22 +132,34 @@ export const EditTaskModal = observer(
 
           <div className={classNames.commentsAndFilesWrapper}>
             <div className={classNames.commentsWrapper}>
-              <Field
-                multiline
-                disabled
-                className={classNames.heightFieldAuto}
-                minRows={currentScreenWidth < 768 ? 4 : 8}
-                maxRows={currentScreenWidth < 768 ? 4 : 8}
-                label={t(TranslationKey['Client comment'])}
-                placeholder={t(TranslationKey['Client comment on the task'])}
-                value={task.clientComment || ''}
-              />
+              <div>
+                <Field
+                  multiline
+                  disabled
+                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
+                  minRows={currentScreenWidth < 768 ? 2 : 4}
+                  maxRows={currentScreenWidth < 768 ? 2 : 4}
+                  label={t(TranslationKey['Client comment'])}
+                  placeholder={t(TranslationKey['Client comment on the task'])}
+                  value={task.clientComment || ''}
+                />
+                <Field
+                  multiline
+                  disabled
+                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
+                  minRows={currentScreenWidth < 768 ? 2 : 4}
+                  maxRows={currentScreenWidth < 768 ? 2 : 4}
+                  label={t(TranslationKey['Buyer comment'])}
+                  placeholder={t(TranslationKey['Buyer comments to the order'])}
+                  value={task.buyerComment || ''}
+                />
+              </div>
               <Field
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-                minRows={currentScreenWidth < 768 ? 4 : 8}
-                maxRows={currentScreenWidth < 768 ? 4 : 8}
+                minRows={currentScreenWidth < 768 ? 4 : 11}
+                maxRows={currentScreenWidth < 768 ? 4 : 11}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}

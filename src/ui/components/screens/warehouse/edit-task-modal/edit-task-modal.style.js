@@ -182,8 +182,8 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
   heightFieldAuto: {
-    height: '185px',
-    width: '330px',
+    height: 258,
+    width: 330,
 
     padding: 0,
     border: `1px solid ${theme.palette.input.customBorder}`,
@@ -193,6 +193,15 @@ export const useClassNames = makeStyles()(theme => ({
       padding: 0,
     },
   },
+
+  clientAndBuyerComment: {
+    height: '100px',
+  },
+
+  inputField: {
+    width: 10,
+  },
+
   commentsWrapper: {
     width: '400px',
     display: 'flex',
