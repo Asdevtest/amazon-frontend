@@ -107,6 +107,8 @@ export const EditOrderModal = observer(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
 
+    const [commentToWarehouse, setCommentToWarehouse] = useState('')
+
     const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [trackNumber, setTrackNumber] = useState({text: '', files: []})
@@ -177,7 +179,6 @@ export const EditOrderModal = observer(
       yuanToDollarRate: order?.yuanToDollarRate || 6.3,
       item: order?.item || 0,
       tmpRefundToClient: 0,
-      tmpCommentToWarehouse: '',
     })
 
     useEffect(() => {
@@ -248,6 +249,7 @@ export const EditOrderModal = observer(
             photosToLoad,
             hsCode,
             trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+            commentToWarehouse,
           })
       }
     }
@@ -607,6 +609,7 @@ export const EditOrderModal = observer(
                   photosToLoad,
                   hsCode,
                   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+                  commentToWarehouse,
                 })
               }
             }}
@@ -704,10 +707,10 @@ export const EditOrderModal = observer(
                     maxRows={4}
                     inputProps={{maxLength: 500}}
                     inputClasses={classNames.commentInput}
-                    value={orderFields.tmpCommentToWarehouse}
+                    value={commentToWarehouse}
                     labelClasses={classNames.label}
                     label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
-                    onChange={setOrderField('tmpCommentToWarehouse')}
+                    onChange={e => setCommentToWarehouse(e.target.value)}
                   />
                 </div>
               </div>

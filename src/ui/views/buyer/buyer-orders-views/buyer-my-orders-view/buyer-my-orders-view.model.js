@@ -435,7 +435,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder({order, orderFields, boxesForCreation, photosToLoad, hsCode, trackNumber}) {
+  async onSubmitSaveOrder({
+    order,
+    orderFields,
+    boxesForCreation,
+    photosToLoad,
+    hsCode,
+    trackNumber,
+    commentToWarehouse,
+  }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -468,7 +476,7 @@ export class BuyerMyOrdersViewModel {
         !isMismatchOrderPrice &&
         orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
       ) {
-        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber, orderFields})
+        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber, commentToWarehouse})
       }
 
       if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
@@ -561,7 +569,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber, orderFields}) {
+  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber, commentToWarehouse}) {
     try {
       runInAction(() => {
         this.error = undefined
@@ -608,7 +616,7 @@ export class BuyerMyOrdersViewModel {
         boxesBefore: [...this.createBoxesResult /* createBoxResult.guid*/],
         operationType: 'receive',
         clientComment: order.clientComment || '',
-        buyerComment: orderFields.tmpCommentToWarehouse || '',
+        buyerComment: commentToWarehouse || '',
       })
 
       if (!this.error) {
