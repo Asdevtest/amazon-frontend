@@ -84,7 +84,6 @@ docs/InlineObject104.md
 docs/InlineObject105.md
 docs/InlineObject106.md
 docs/InlineObject107.md
-docs/InlineObject108.md
 docs/InlineObject11.md
 docs/InlineObject12.md
 docs/InlineObject13.md
@@ -429,7 +428,6 @@ src/model/InlineObject104.js
 src/model/InlineObject105.js
 src/model/InlineObject106.js
 src/model/InlineObject107.js
-src/model/InlineObject108.js
 src/model/InlineObject11.js
 src/model/InlineObject12.js
 src/model/InlineObject13.js

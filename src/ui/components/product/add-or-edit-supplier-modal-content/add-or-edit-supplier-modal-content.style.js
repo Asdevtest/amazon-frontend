@@ -107,6 +107,22 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
   },
 
+  multiplicityWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+
+  checkbox: {
+    padding: 0,
+    marginRight: 10,
+  },
+
   checkboxText: {
     fontSize: '16px',
     lineHeight: '20px',
@@ -228,6 +244,13 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     marginLeft: 20,
+  },
+
+  boxInfoExtraSubWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
 
   calculationBtnWrapper: {

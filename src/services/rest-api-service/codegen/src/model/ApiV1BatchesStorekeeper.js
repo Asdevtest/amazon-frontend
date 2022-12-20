@@ -23,11 +23,10 @@ class ApiV1BatchesStorekeeper {
      * Constructs a new <code>ApiV1BatchesStorekeeper</code>.
      * @alias module:model/ApiV1BatchesStorekeeper
      * @param name {String} Имя пользователя.
-     * @param email {String} email
      */
-    constructor(name, email) { 
+    constructor(name) { 
         
-        ApiV1BatchesStorekeeper.initialize(this, name, email);
+        ApiV1BatchesStorekeeper.initialize(this, name);
     }
 
     /**
@@ -35,9 +34,8 @@ class ApiV1BatchesStorekeeper {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, email) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['email'] = email;
     }
 
     /**
@@ -57,9 +55,6 @@ class ApiV1BatchesStorekeeper {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
         }
         return obj;
     }
@@ -78,12 +73,6 @@ ApiV1BatchesStorekeeper.prototype['_id'] = undefined;
  * @member {String} name
  */
 ApiV1BatchesStorekeeper.prototype['name'] = undefined;
-
-/**
- * email
- * @member {String} email
- */
-ApiV1BatchesStorekeeper.prototype['email'] = undefined;
 
 
 

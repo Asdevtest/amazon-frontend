@@ -751,7 +751,7 @@ export const EditOrderModal = observer(
           <CreateBoxForm
             isEdit={isEdit}
             order={order}
-            currentSupplier={order.product.currentSupplier}
+            currentSupplier={order.orderSupplier}
             volumeWeightCoefficient={volumeWeightCoefficient}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}

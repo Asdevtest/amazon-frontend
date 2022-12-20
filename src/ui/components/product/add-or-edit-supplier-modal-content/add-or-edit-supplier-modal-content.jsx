@@ -86,6 +86,7 @@ export const AddOrEditSupplierModalContent = observer(
       name: supplier?.name || '',
       price: supplier?.price || '',
       images: supplier?.images || [],
+      multiplicity: supplier?.multiplicity || false,
 
       productionTerm: supplier?.productionTerm || '',
 
@@ -280,9 +281,15 @@ export const AddOrEditSupplierModalContent = observer(
         fieldName !== 'name' &&
         fieldName !== 'comment' &&
         fieldName !== 'link' &&
+        fieldName !== 'multiplicity' &&
         (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value) || +event.target.value >= 1000000)
       ) {
         return
+      } else if ('multiplicity' === fieldName) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          [fieldName]: !tmpSupplier.multiplicity,
+        })
       } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
       } else if (['amountInBox'].includes(fieldName)) {
@@ -747,37 +754,48 @@ export const AddOrEditSupplierModalContent = observer(
                   />
                 </div>
 
-                <Field
-                  disabled={onlyRead}
-                  label={t(TranslationKey['Number of units in box'])}
-                  inputProps={{maxLength: 10}}
-                  containerClasses={classNames.shortContainer}
-                  labelClasses={classNames.normalLabel}
-                  value={tmpSupplier.boxProperties.amountInBox}
-                  onChange={onChangeField('amountInBox')}
-                />
+                <div>
+                  <div className={classNames.multiplicityWrapper} onClick={onChangeField('multiplicity')}>
+                    <Checkbox className={classNames.checkbox} checked={tmpSupplier.multiplicity} color="primary" />
+                    <Typography className={classNames.normalLabel}>
+                      {t(TranslationKey['Use multiples of items when creating boxes'])}
+                    </Typography>
+                  </div>
 
-                <Field
-                  disabled
-                  tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
-                  label={t(TranslationKey['Volume weight, kg'])}
-                  inputProps={{maxLength: 15}}
-                  containerClasses={classNames.shortContainer}
-                  labelClasses={classNames.normalLabel}
-                  value={toFixed(
-                    (sizeSetting === sizesType.INCHES
-                      ? tmpSupplier.boxProperties.boxHeightCm *
-                        inchesCoefficient *
-                        tmpSupplier.boxProperties.boxWidthCm *
-                        inchesCoefficient *
-                        tmpSupplier.boxProperties.boxLengthCm *
-                        inchesCoefficient
-                      : tmpSupplier.boxProperties.boxHeightCm *
-                        tmpSupplier.boxProperties.boxWidthCm *
-                        tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
-                    2,
-                  )}
-                />
+                  <div className={classNames.boxInfoExtraSubWrapper}>
+                    <Field
+                      disabled={onlyRead}
+                      label={t(TranslationKey['Number of units in box'])}
+                      inputProps={{maxLength: 10}}
+                      containerClasses={classNames.shortContainer}
+                      labelClasses={classNames.normalLabel}
+                      value={tmpSupplier.boxProperties.amountInBox}
+                      onChange={onChangeField('amountInBox')}
+                    />
+
+                    <Field
+                      disabled
+                      tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
+                      label={t(TranslationKey['Volume weight, kg'])}
+                      inputProps={{maxLength: 15}}
+                      containerClasses={classNames.shortContainer}
+                      labelClasses={classNames.normalLabel}
+                      value={toFixed(
+                        (sizeSetting === sizesType.INCHES
+                          ? tmpSupplier.boxProperties.boxHeightCm *
+                            inchesCoefficient *
+                            tmpSupplier.boxProperties.boxWidthCm *
+                            inchesCoefficient *
+                            tmpSupplier.boxProperties.boxLengthCm *
+                            inchesCoefficient
+                          : tmpSupplier.boxProperties.boxHeightCm *
+                            tmpSupplier.boxProperties.boxWidthCm *
+                            tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
+                        2,
+                      )}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

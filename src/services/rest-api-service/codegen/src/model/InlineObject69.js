@@ -47,11 +47,8 @@ class InlineObject69 {
         if (data) {
             obj = obj || new InlineObject69();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
-            }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -61,14 +58,10 @@ class InlineObject69 {
 }
 
 /**
- * @member {String} userId
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject69.prototype['userId'] = undefined;
-
-/**
- * @member {Array.<String>} productIds
- */
-InlineObject69.prototype['productIds'] = undefined;
+InlineObject69.prototype['suppliersIds'] = undefined;
 
 
 

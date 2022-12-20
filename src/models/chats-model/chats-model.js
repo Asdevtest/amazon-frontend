@@ -15,6 +15,11 @@ class ChatsModelStatic {
     const response = await restApiService.chatsApi.apiV1ChatsEmailsGet()
     return response
   }
+
+  getUsersNames = async () => {
+    const response = await restApiService.chatsApi.apiV1ChatsNamesGet()
+    return response
+  }
 }
 
 export const ChatsModel = new ChatsModelStatic()

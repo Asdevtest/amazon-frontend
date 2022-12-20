@@ -48,7 +48,7 @@ class InlineObject54 {
             obj = obj || new InlineObject54();
 
             if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -57,7 +57,7 @@ class InlineObject54 {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
             if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
             }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
@@ -88,8 +88,8 @@ class InlineObject54 {
 }
 
 /**
- * Image URL
- * @member {Array.<String>} media
+ * Images URLs
+ * @member {Array.<Object>} media
  */
 InlineObject54.prototype['media'] = undefined;
 
@@ -107,7 +107,7 @@ InlineObject54.prototype['productName'] = undefined;
 
 /**
  * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * @member {Array.<Object>} productLinks
  */
 InlineObject54.prototype['productLinks'] = undefined;
 

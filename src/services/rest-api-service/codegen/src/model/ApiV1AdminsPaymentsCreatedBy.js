@@ -23,11 +23,10 @@ class ApiV1AdminsPaymentsCreatedBy {
      * Constructs a new <code>ApiV1AdminsPaymentsCreatedBy</code>.
      * @alias module:model/ApiV1AdminsPaymentsCreatedBy
      * @param name {String} Имя пользователя.
-     * @param email {String} email
      */
-    constructor(name, email) { 
+    constructor(name) { 
         
-        ApiV1AdminsPaymentsCreatedBy.initialize(this, name, email);
+        ApiV1AdminsPaymentsCreatedBy.initialize(this, name);
     }
 
     /**
@@ -35,9 +34,8 @@ class ApiV1AdminsPaymentsCreatedBy {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, email) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['email'] = email;
     }
 
     /**
@@ -57,9 +55,6 @@ class ApiV1AdminsPaymentsCreatedBy {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
         }
         return obj;
     }
@@ -78,12 +73,6 @@ ApiV1AdminsPaymentsCreatedBy.prototype['_id'] = undefined;
  * @member {String} name
  */
 ApiV1AdminsPaymentsCreatedBy.prototype['name'] = undefined;
-
-/**
- * email
- * @member {String} email
- */
-ApiV1AdminsPaymentsCreatedBy.prototype['email'] = undefined;
 
 
 

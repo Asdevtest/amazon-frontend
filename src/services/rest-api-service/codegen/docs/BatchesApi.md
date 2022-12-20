@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**apiV1BatchesGuidGet**](BatchesApi.md#apiV1BatchesGuidGet) | **GET** /api/v1/batches/{guid} | # Получить партии.
 [**apiV1BatchesGuidRemoveBoxesPatch**](BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 [**apiV1BatchesPost**](BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
+[**apiV1BatchesReportBatchIdGet**](BatchesApi.md#apiV1BatchesReportBatchIdGet) | **GET** /api/v1/batches/report/{batchId} | # Получить партии по гуиду продукта
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
 [**apiV1BatchesTitleGuidPatch**](BatchesApi.md#apiV1BatchesTitleGuidPatch) | **PATCH** /api/v1/batches/title/{guid} | # Изменение названия партии
 
@@ -509,6 +510,60 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BatchesReportBatchIdGet
+
+> File apiV1BatchesReportBatchIdGet(batchId, opts)
+
+# Получить партии по гуиду продукта
+
+## Получить партии по гуиду продукта.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BatchesApi();
+let batchId = 3.4; // Number | GUID продукта.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BatchesReportBatchIdGet(batchId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **batchId** | **Number**| GUID продукта. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**File**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

@@ -530,6 +530,60 @@ export default class BatchesApi {
 
 
     /**
+     * # Получить партии по гуиду продукта
+     * ## Получить партии по гуиду продукта.   
+     * @param {Number} batchId GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
+     */
+    apiV1BatchesReportBatchIdGetWithHttpInfo(batchId, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'batchId' is set
+      if (batchId === undefined || batchId === null) {
+        throw new Error("Missing the required parameter 'batchId' when calling apiV1BatchesReportBatchIdGet");
+      }
+
+      let pathParams = {
+        'batchId': batchId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = File;
+      return this.apiClient.callApi(
+        '/api/v1/batches/report/{batchId}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить партии по гуиду продукта
+     * ## Получить партии по гуиду продукта.   
+     * @param {Number} batchId GUID продукта.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
+     */
+    apiV1BatchesReportBatchIdGet(batchId, opts) {
+      return this.apiV1BatchesReportBatchIdGetWithHttpInfo(batchId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Запросить отправку набора коробок в партию.
      * ## Запросить отправку набора коробок в партию.  при выполнении этого запроса у всех этих коробок поле статус меняется на  REQUESTED_SEND_TO_BATCH.         У клиента замораживаются средства.         Стоимость доставки записывается в поле deliveryTotalPrice         Проверки:         Доступно только для клиента         Коробку нельзя повторно отправлять для набора в партию, статус должен быть IN_STOCK         Наличие шипинг лейбла у всех коробок.         Актуальный тариф доставки всех коробок.
      * @param {Object} opts Optional parameters

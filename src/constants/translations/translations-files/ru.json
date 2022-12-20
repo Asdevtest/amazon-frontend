@@ -1675,5 +1675,7 @@
   "Buyer comment to the warehouse": "Комментарий байера к складу",
   "Order complete": "Заказ выполнен",
   "Waiting to be processed by a buyer": "Ожидает обработки байером",
-  "Buyer comments to the order": "Комментарий байера к заказу"
+  "Buyer comments to the order": "Комментарий байера к заказу",
+  "Use multiples of items when creating boxes": "Использовать кратное количество единиц товара при создании коробок",
+  "Value is not a multiple of": "Значение не кратно"
 }

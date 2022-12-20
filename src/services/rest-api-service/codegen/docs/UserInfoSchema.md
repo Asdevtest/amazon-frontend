@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID пользователя в БД. | [optional] 
 **name** | **String** | Имя пользователя. | 
-**email** | **String** | email | 
+**email** | **String** | email | [optional] 
 **role** | **Number** |  | [optional] 
 **fba** | **Boolean** | Флаг fba. | [optional] 
 **active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | [optional] 

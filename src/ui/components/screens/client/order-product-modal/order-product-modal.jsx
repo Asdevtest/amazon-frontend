@@ -12,6 +12,7 @@ import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-p
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -173,14 +174,21 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
+    const ordersData = orderState.map((el, i) =>
+      getObjectFilteredByKeyArrayBlackList(
+        {
+          ...el,
+          destinationId: el.destinationId ? el.destinationId : null,
+          totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
+          needsResearch: isResearchSupplier,
+          tmpIsPendingOrder: isPendingOrder,
+        },
+        el.deadline ? [] : ['deadline'],
+      ),
+    )
+
     onSubmit({
-      ordersDataState: orderState.map((el, i) => ({
-        ...el,
-        destinationId: el.destinationId ? el.destinationId : null,
-        totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
-        needsResearch: isResearchSupplier,
-        tmpIsPendingOrder: isPendingOrder,
-      })),
+      ordersDataState: ordersData,
       totalOrdersCost,
     })
     setSubmitIsClicked(true)
