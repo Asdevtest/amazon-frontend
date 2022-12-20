@@ -697,7 +697,7 @@ export const EditOrderModal = observer(
                 </div>
               </div>
               <div className={classNames.fieldWrapper}>
-                <div>
+                <div className={classNames.inputWrapper}>
                   <Field
                     multiline
                     minRows={4}

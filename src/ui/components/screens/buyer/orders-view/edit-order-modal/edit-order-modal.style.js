@@ -54,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   fieldWrapper: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -319,12 +320,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
   commentInput: {
     fontSize: '14px',
-    height: 'auto',
     marginTop: '2px',
     width: 510,
+    height: 107,
     padding: 0,
   },
   tmpContainerField: {
-    margin: 0,
+    margin: '0 !important',
+  },
+  inputWrapper: {
+    height: 'auto',
   },
 }))
