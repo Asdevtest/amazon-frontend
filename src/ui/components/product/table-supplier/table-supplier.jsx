@@ -13,6 +13,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
+import {formatNormDateTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -20,6 +21,8 @@ import {useClassNames} from './table-supplier.style'
 
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('product', product)
 
   const renderHeader = () => (
     <TableHead>
@@ -38,7 +41,8 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
-        <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey.Updated)}</TableCell>
       </TableRow>
     </TableHead>
   )
@@ -107,6 +111,12 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={classNames.createdByCell}>
                   <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
+                </TableCell>
+
+                <TableCell className={classNames.createdByCell}>
+                  <Typography className={classNames.normDateCellTypo}>
+                    {!(supplier && supplier.updatedAt) ? '-' : formatNormDateTime(supplier.updatedAt)}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))

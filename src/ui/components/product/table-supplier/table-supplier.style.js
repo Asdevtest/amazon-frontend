@@ -191,4 +191,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '120px',
     textAlign: 'center',
   },
+  normDateCellTypo: {
+    fontSize: '10px',
+    fontWeight: '600',
+
+    textAlign: 'center',
+  },
 }))

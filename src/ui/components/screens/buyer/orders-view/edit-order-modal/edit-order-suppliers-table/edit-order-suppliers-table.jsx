@@ -11,8 +11,8 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {priceCalculation} from '@utils/price-calculation'
-import {toFixedWithDollarSign, withDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {formatNormDateTime} from '@utils/date-time'
+import {toFixedWithDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-order-suppliers-table.style'
@@ -26,19 +26,22 @@ export const EditOrderSuppliersTable = observer(
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className={(classNames.tableCellPadding, classNames.alignCenter)}>
-                {t(TranslationKey.Title)}
+              <TableCell className={cx(classNames.tableCellPadding, classNames.alignCenter)}>
+                {t(TranslationKey.Name)}
               </TableCell>
               <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Price)}</TableCell>
-              <TableCell className={classNames.alignRight}>{t(TranslationKey.Delivery)}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Quantity)}</TableCell>
+
+              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
+
               <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
               <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
-              <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
+
+              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+
               <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
-              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
               <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
+              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
+              <TableCell className={classNames.alignCenter}>{t(TranslationKey.Updated)}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -77,16 +80,11 @@ export const EditOrderSuppliersTable = observer(
                       <Typography>{t(TranslationKey['Link not available'])}</Typography>
                     )}
                   </TableCell>
+
                   <TableCell className={classNames.alignRight}>
-                    <Typography className={classNames.priceCell}>{toFixedWithDollarSign(supplier.price, 2)}</Typography>
-                  </TableCell>
-                  <TableCell className={classNames.alignRight}>
-                    <Typography className={classNames.deliveryCell}>
-                      {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
+                    <Typography className={classNames.priceCell}>
+                      {toFixedWithDollarSign(supplier.price + supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
                     </Typography>
-                  </TableCell>
-                  <TableCell className={classNames.alignCenter}>
-                    <Typography className={classNames.amountCell}>{supplier.amount}</Typography>
                   </TableCell>
                   <TableCell className={classNames.alignCenter}>
                     <Typography className={classNames.amountCell}>{supplier.minlot}</Typography>
@@ -96,21 +94,20 @@ export const EditOrderSuppliersTable = observer(
                       {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                     </Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>
-                    <Typography className={classNames.amountCell}>
-                      {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
-                    </Typography>
-                  </TableCell>
-
+                  <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
                   <TableCell className={classNames.alignCenter}>
                     <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                   </TableCell>
-
+                  <TableCell>
+                    <PhotoAndFilesCarousel small files={supplier.images} width="400px" />
+                  </TableCell>
                   <TableCell className={classNames.alignCenter}>
                     <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                   </TableCell>
-                  <TableCell>
-                    <PhotoAndFilesCarousel small files={supplier.images} width="400px" />
+                  <TableCell className={classNames.createdByCell}>
+                    <Typography className={classNames.normDateCellTypo}>
+                      {supplier.updatedAt ? formatNormDateTime(supplier.updatedAt) : '-'}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))

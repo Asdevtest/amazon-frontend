@@ -659,6 +659,7 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+<<<<<<< HEAD
 test/model/ApiV1BuyersOrdersMyOrderSupplier.spec.js
 test/model/InlineResponse20022Batch.spec.js
 test/model/InlineResponse20022Boxes.spec.js
@@ -670,3 +671,5 @@ test/model/InlineResponse20024Batches.spec.js
 test/model/InlineResponse20024Tasks.spec.js
 test/model/InlineResponse20027Checking.spec.js
 test/model/InlineResponse20030Rows.spec.js
+=======
+>>>>>>> fc4e503f (as)
