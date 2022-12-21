@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
 **amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
 **barCode** | **String** | Штрихкод продукта | [optional] 
 **hsCode** | **String** | hsCode продукта. | [optional] 

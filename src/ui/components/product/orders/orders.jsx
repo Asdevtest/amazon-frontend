@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -29,6 +30,8 @@ export const Orders = observer(({productId}) => {
   const model = useRef(new OrdersModel({history, productId}))
 
   const {
+    orderStatusData,
+
     volumeWeightCoefficient,
     storekeepers,
     destinations,
@@ -79,6 +82,10 @@ export const Orders = observer(({productId}) => {
         rowHeight={100}
         components={{
           Toolbar: DataGridCustomToolbar,
+          ColumnMenu: DataGridCustomColumnMenuComponent,
+        }}
+        componentsProps={{
+          columnMenu: {orderStatusData},
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}

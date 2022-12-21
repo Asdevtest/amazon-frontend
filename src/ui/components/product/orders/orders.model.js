@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -15,6 +16,13 @@ import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
+
+const chosenStatusSettings = {
+  ALL: 'ALL',
+  AT_PROCESS: 'AT_PROCESS',
+  CANCELED: 'CANCELED',
+  COMPLETED: 'COMPLETED',
+}
 
 export class OrdersModel {
   history = undefined
@@ -38,6 +46,8 @@ export class OrdersModel {
   reorderOrder = undefined
   uploadedFiles = []
 
+  chosenStatus = chosenStatusSettings.ALL
+
   storekeepers = []
   destinations = []
   volumeWeightCoefficient = undefined
@@ -56,6 +66,14 @@ export class OrdersModel {
   firstRowId = undefined
 
   columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
+
+  get orderStatusData() {
+    return {
+      chosenStatusSettings,
+      chosenStatus: this.chosenStatus,
+      onChangeOrderStatusData: this.onChangeOrderStatusData,
+    }
+  }
 
   constructor({history, productId}) {
     this.history = history
@@ -89,7 +107,48 @@ export class OrdersModel {
   }
 
   getCurrentData() {
-    return toJS(this.orders)
+    switch (this.chosenStatus) {
+      case chosenStatusSettings.ALL:
+        return toJS(this.orders)
+      case chosenStatusSettings.AT_PROCESS:
+        return toJS(
+          this.orders.filter(
+            el =>
+              el.originalData.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+          ),
+        )
+      case chosenStatusSettings.CANCELED:
+        return toJS(
+          this.orders.filter(
+            el =>
+              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+          ),
+        )
+      case chosenStatusSettings.COMPLETED:
+        return toJS(
+          this.orders.filter(
+            el =>
+              el.originalData.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+          ),
+        )
+
+      default:
+        return toJS(this.orders)
+    }
+
+    // return toJS(this.orders)
+  }
+
+  onChangeOrderStatusData(status) {
+    runInAction(() => {
+      this.chosenStatus = status === this.chosenStatus ? chosenStatusSettings.ALL : status
+    })
   }
 
   async loadData() {

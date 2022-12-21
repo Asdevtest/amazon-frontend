@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1BuyersOrdersMyOrderSupplier from './ApiV1BuyersOrdersMyOrderSupplier';
 import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
 
 /**
@@ -72,6 +73,9 @@ class InlineResponse20018 {
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
+            if (data.hasOwnProperty('orderSupplier')) {
+                obj['orderSupplier'] = ApiV1BuyersOrdersMyOrderSupplier.constructFromObject(data['orderSupplier']);
+            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
@@ -83,6 +87,12 @@ class InlineResponse20018 {
             }
             if (data.hasOwnProperty('deadline')) {
                 obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
             if (data.hasOwnProperty('createdById')) {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
@@ -150,6 +160,11 @@ InlineResponse20018.prototype['destination'] = undefined;
 InlineResponse20018.prototype['item'] = undefined;
 
 /**
+ * @member {module:model/ApiV1BuyersOrdersMyOrderSupplier} orderSupplier
+ */
+InlineResponse20018.prototype['orderSupplier'] = undefined;
+
+/**
  * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
  * @member {module:model/InlineResponse20018.PriorityEnum} priority
  */
@@ -172,6 +187,18 @@ InlineResponse20018.prototype['needsResearch'] = undefined;
  * @member {Date} deadline
  */
 InlineResponse20018.prototype['deadline'] = undefined;
+
+/**
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
+ */
+InlineResponse20018.prototype['totalPrice'] = undefined;
+
+/**
+ * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
+ * @member {Number} totalPriceChanged
+ */
+InlineResponse20018.prototype['totalPriceChanged'] = undefined;
 
 /**
  * @member {String} createdById

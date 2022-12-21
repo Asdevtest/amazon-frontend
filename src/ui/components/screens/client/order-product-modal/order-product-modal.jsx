@@ -3,7 +3,7 @@ import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, Tabl
 
 import React, {useEffect, useState} from 'react'
 
-import {isFuture, isValid} from 'date-fns'
+import {addDays, isPast, isToday, isValid} from 'date-fns'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -211,7 +211,7 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (order.deadline && (!isValid(order.deadline) || !isFuture(order.deadline))),
+        (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))),
     ) ||
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||

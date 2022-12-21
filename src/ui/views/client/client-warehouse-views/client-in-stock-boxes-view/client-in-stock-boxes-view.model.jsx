@@ -14,6 +14,7 @@ import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -86,6 +87,7 @@ export class ClientInStockBoxesViewModel {
   currentData = []
 
   boxesIdsToTask = []
+  shopsData = []
 
   volumeWeightCoefficient = undefined
 
@@ -220,7 +222,7 @@ export class ClientInStockBoxesViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient, this.shopsData)
       })
 
       this.getDataGridState()
@@ -644,6 +646,8 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getStorekeepers()
+
+      await this.getShops()
 
       await this.getDestinations()
       await this.getBoxesMy()
@@ -1415,6 +1419,20 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
   async getBoxesMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
@@ -1446,7 +1464,7 @@ export class ClientInStockBoxesViewModel {
 
         this.rowCount = result.count
 
-        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient)
+        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient, this.shopsData)
       })
     } catch (error) {
       console.log(error)
