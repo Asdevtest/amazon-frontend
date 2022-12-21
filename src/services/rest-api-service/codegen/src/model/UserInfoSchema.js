@@ -28,11 +28,10 @@ class UserInfoSchema {
      * Constructs a new <code>UserInfoSchema</code>.
      * @alias module:model/UserInfoSchema
      * @param name {String} Имя пользователя.
-     * @param email {String} email
      */
-    constructor(name, email) { 
+    constructor(name) { 
         
-        UserInfoSchema.initialize(this, name, email);
+        UserInfoSchema.initialize(this, name);
     }
 
     /**
@@ -40,9 +39,8 @@ class UserInfoSchema {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, email) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['email'] = email;
     }
 
     /**

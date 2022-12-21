@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**media** | **[String]** | Image URL | [optional] 
+**media** | **[Object]** | Images URLs | [optional] 
 **comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
-**productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 
+**productLinks** | **[Object]** | Ссылки на продукт, если есть | [optional] 
 **criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
 **quantity** | **Number** | Количество товаров | [optional] 
 **price** | **Number** | Желаемая цена | [optional] 

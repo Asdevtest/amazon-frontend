@@ -53,9 +53,6 @@ class ApiV1AdminsOrdersDestinationStorekeeper {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
         }
         return obj;
     }
@@ -73,11 +70,6 @@ ApiV1AdminsOrdersDestinationStorekeeper.prototype['_id'] = undefined;
  * @member {String} name
  */
 ApiV1AdminsOrdersDestinationStorekeeper.prototype['name'] = undefined;
-
-/**
- * @member {String} email
- */
-ApiV1AdminsOrdersDestinationStorekeeper.prototype['email'] = undefined;
 
 
 

@@ -24,15 +24,14 @@ class ApiV1AdminsProductsVacCheckedby {
      * @alias module:model/ApiV1AdminsProductsVacCheckedby
      * @param _id {String} GUID пользователя в БД.
      * @param name {String} Имя пользователя.
-     * @param email {String} email
      * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    
      * @param fba {Boolean} Флаг fba.
      * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
      * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor(_id, name, email, role, fba, active, rate) { 
+    constructor(_id, name, role, fba, active, rate) { 
         
-        ApiV1AdminsProductsVacCheckedby.initialize(this, _id, name, email, role, fba, active, rate);
+        ApiV1AdminsProductsVacCheckedby.initialize(this, _id, name, role, fba, active, rate);
     }
 
     /**
@@ -40,10 +39,9 @@ class ApiV1AdminsProductsVacCheckedby {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+    static initialize(obj, _id, name, role, fba, active, rate) { 
         obj['_id'] = _id;
         obj['name'] = name;
-        obj['email'] = email;
         obj['role'] = role;
         obj['fba'] = fba;
         obj['active'] = active;
@@ -66,9 +64,6 @@ class ApiV1AdminsProductsVacCheckedby {
             }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
@@ -121,12 +116,6 @@ ApiV1AdminsProductsVacCheckedby.prototype['_id'] = undefined;
  * @member {String} name
  */
 ApiV1AdminsProductsVacCheckedby.prototype['name'] = undefined;
-
-/**
- * email
- * @member {String} email
- */
-ApiV1AdminsProductsVacCheckedby.prototype['email'] = undefined;
 
 /**
  * Код роли присвоенный пользователю.    roles.root = 0    roles.director = 1    roles.super = 2    roles.researcher = 3    roles.buyer = 4    roles.candidate = 5    

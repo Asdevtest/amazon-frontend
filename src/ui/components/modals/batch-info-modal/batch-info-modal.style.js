@@ -36,6 +36,16 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
+  pricesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 'auto',
+    flexGrow: 1,
+
+    gap: 45,
+  },
+
   imgBox: {
     width: '50px',
     height: '50px',

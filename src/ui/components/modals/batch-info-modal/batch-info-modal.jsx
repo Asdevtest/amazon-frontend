@@ -16,7 +16,12 @@ import {SearchInput} from '@components/search-input'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
-import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {
+  calcFinalWeightForBox,
+  calcPriceForBox,
+  calcSupplierPriceForUnit,
+  calcVolumeWeightForBox,
+} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
 import {formatDateWithoutTime, formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -84,7 +89,13 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{toFixedWithDollarSign(calcPriceForBox(item), 2)}</Typography>
+        <div className={classNames.pricesWrapper}>
+          {item.items.map((el, i) => (
+            <Typography key={i}>
+              {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)}
+            </Typography>
+          ))}
+        </div>
       </TableCell>
     </TableRow>
   )
@@ -102,7 +113,7 @@ export const BatchInfoModal = observer(
       {title: t(TranslationKey.Destination)},
       {title: t(TranslationKey.Updated)},
       {title: t(TranslationKey['Final weight'])},
-      {title: t(TranslationKey['Total price'])},
+      {title: t(TranslationKey['price per unit'])},
     ]
 
     const renderHeadRow = <TableHeadRow headCells={BATCH_INFO_HEAD_CELLS} />

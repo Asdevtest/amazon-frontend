@@ -8,6 +8,7 @@ import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+import {OrderModel} from '@models/order-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -90,6 +91,10 @@ export class ClientOrdersViewModel {
 
   get navbarActiveSubCategory() {
     return setNavbarActiveSubCategory(this.history.location.pathname)
+  }
+
+  get isPendingOrdering() {
+    return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
   }
 
   constructor({history, location}) {
@@ -492,7 +497,30 @@ export class ClientOrdersViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
         }
 
-        await this.createOrder(orderObject)
+        if (this.isPendingOrdering) {
+          const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
+            'amount',
+            'orderSupplierId',
+            'images',
+            'totalPrice',
+            'item',
+            'needsResearch',
+            'deadline',
+            'priority',
+            'expressChinaDelivery',
+            'clientComment',
+
+            'destinationId',
+            'storekeeperId',
+            'logicsTariffId',
+          ])
+
+          await OrderModel.changeOrderData(orderObject._id, dataToRequest)
+
+          await ClientModel.updateOrderStatusToReadyToProcess(orderObject._id)
+        } else {
+          await this.createOrder(orderObject)
+        }
       }
 
       this.loadData()

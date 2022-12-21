@@ -32,98 +32,107 @@ const BlockOfNewBox = ({
   onRemoveBox,
   sizeSetting,
   volumeWeightCoefficient,
+  currentSupplier,
 }) => {
   const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box length'])}`}
-          value={orderBox.lengthCmSupplier}
-          onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
-        />
-        <Field
-          containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box width'])}`}
-          value={orderBox.widthCmSupplier}
-          onChange={setFormField('widthCmSupplier', orderBoxIndex)}
-        />
-      </div>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box height'])}`}
-          value={orderBox.heightCmSupplier}
-          onChange={setFormField('heightCmSupplier', orderBoxIndex)}
-        />
-        <Field
-          containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 6}}
-          label={t(TranslationKey['Real weight'])}
-          value={orderBox.weighGrossKgSupplier}
-          onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
-        />
-      </div>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          disabled
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Volume weight, kg'])}
-          value={toFixed(
-            (sizeSetting === sizesType.INCHES
-              ? orderBox.heightCmSupplier *
-                inchesCoefficient *
-                orderBox.widthCmSupplier *
-                inchesCoefficient *
-                orderBox.lengthCmSupplier *
-                inchesCoefficient
-              : orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
-              volumeWeightCoefficient,
-            2,
-          )}
-        />
-        <Field
-          disabled
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Final weight, kg'])}
-          value={toFixed(
-            Math.max(
-              toFixed(
-                (sizeSetting === sizesType.INCHES
-                  ? roundSafely(orderBox.heightCmSupplier * inchesCoefficient) *
-                    roundSafely(orderBox.widthCmSupplier * inchesCoefficient) *
-                    roundSafely(orderBox.lengthCmSupplier * inchesCoefficient)
-                  : roundSafely(orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier)) /
-                  volumeWeightCoefficient,
-                2,
+      <div className={classNames.numberInputFieldsBlocksSubWrapper}>
+        <div className={classNames.numberInputFieldsWrapper}>
+          <Field
+            containerClasses={classNames.numberInputField}
+            inputProps={{maxLength: 6}}
+            label={`${t(TranslationKey['Box length'])}`}
+            value={orderBox.lengthCmSupplier}
+            onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
+          />
+          <Field
+            containerClasses={classNames.numberInputField}
+            inputProps={{maxLength: 6}}
+            label={`${t(TranslationKey['Box width'])}`}
+            value={orderBox.widthCmSupplier}
+            onChange={setFormField('widthCmSupplier', orderBoxIndex)}
+          />
+        </div>
+        <div className={classNames.numberInputFieldsWrapper}>
+          <Field
+            containerClasses={classNames.numberInputField}
+            inputProps={{maxLength: 6}}
+            label={`${t(TranslationKey['Box height'])}`}
+            value={orderBox.heightCmSupplier}
+            onChange={setFormField('heightCmSupplier', orderBoxIndex)}
+          />
+          <Field
+            containerClasses={classNames.numberInputField}
+            inputProps={{maxLength: 6}}
+            label={t(TranslationKey['Real weight'])}
+            value={orderBox.weighGrossKgSupplier}
+            onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
+          />
+        </div>
+        <div className={classNames.numberInputFieldsWrapper}>
+          <Field
+            disabled
+            containerClasses={classNames.numberInputField}
+            label={t(TranslationKey['Volume weight, kg'])}
+            value={toFixed(
+              (sizeSetting === sizesType.INCHES
+                ? orderBox.heightCmSupplier *
+                  inchesCoefficient *
+                  orderBox.widthCmSupplier *
+                  inchesCoefficient *
+                  orderBox.lengthCmSupplier *
+                  inchesCoefficient
+                : orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
+                volumeWeightCoefficient,
+              2,
+            )}
+          />
+          <Field
+            disabled
+            containerClasses={classNames.numberInputField}
+            label={t(TranslationKey['Final weight, kg'])}
+            value={toFixed(
+              Math.max(
+                toFixed(
+                  (sizeSetting === sizesType.INCHES
+                    ? roundSafely(orderBox.heightCmSupplier * inchesCoefficient) *
+                      roundSafely(orderBox.widthCmSupplier * inchesCoefficient) *
+                      roundSafely(orderBox.lengthCmSupplier * inchesCoefficient)
+                    : roundSafely(orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier)) /
+                    volumeWeightCoefficient,
+                  2,
+                ),
+                orderBox.weighGrossKgSupplier,
               ),
-              orderBox.weighGrossKgSupplier,
-            ),
-            2,
-          )}
-        />
-      </div>
+              2,
+            )}
+          />
+        </div>
 
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          containerClasses={classNames.numberInputField}
-          error={orderBox.amount < 1}
-          inputProps={{maxLength: 3}}
-          label={t(TranslationKey['Quantity of boxes'])}
-          value={orderBox.amount}
-          onChange={setFormField('amount', orderBoxIndex)}
-        />
-        <Field
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Products in a box'])}
-          value={orderBox.items[0].amount}
-          onChange={setAmountField(orderBoxIndex)}
-        />
+        <div className={classNames.numberInputFieldsWrapper}>
+          <Field
+            containerClasses={classNames.numberInputField}
+            error={orderBox.amount < 1}
+            inputProps={{maxLength: 3}}
+            label={t(TranslationKey['Quantity of boxes'])}
+            value={orderBox.amount}
+            onChange={setFormField('amount', orderBoxIndex)}
+          />
+          <Field
+            containerClasses={classNames.numberInputField}
+            error={
+              currentSupplier.multiplicity &&
+              currentSupplier.boxProperties?.amountInBox &&
+              orderBox.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0 &&
+              ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier.boxProperties?.amountInBox} !`
+            }
+            label={t(TranslationKey['Products in a box'])}
+            value={orderBox.items[0].amount}
+            onChange={setAmountField(orderBoxIndex)}
+          />
+        </div>
       </div>
 
       <div className={classNames.checkboxWithLabelWrapper}>
@@ -281,12 +290,6 @@ export const CreateBoxForm = observer(
       }
       let newFormFields = {...formFieldsArr[orderBoxIndex]}
 
-      console.log('orderBoxIndex', orderBoxIndex)
-
-      // console.log('formFieldsArr', formFieldsArr)
-
-      console.log('e.target.value', e.target.value)
-
       newFormFields = {
         ...newFormFields,
         items: [
@@ -298,15 +301,9 @@ export const CreateBoxForm = observer(
         tmpUseCurrentSupplierDimensions: false,
       }
 
-      console.log('newFormFields', newFormFields)
-
       const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
 
-      console.log('newFormFields', updatedNewBoxes)
-
       setFormFieldsArr([...updatedNewBoxes])
-
-      console.log('formFieldsArr', formFieldsArr)
 
       // const newStateFormFields = [...formFieldsArr]
 
@@ -329,7 +326,14 @@ export const CreateBoxForm = observer(
       setFormFieldsArr(updatedNewBoxes)
     }
 
-    const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1 || el.amount < 1)
+    const disableSubmit =
+      formFieldsArr.length < 1 ||
+      formFieldsArr.some(
+        el =>
+          el.items[0].amount < 1 ||
+          el.amount < 1 ||
+          (currentSupplier.multiplicity && el.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0),
+      )
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -420,6 +424,7 @@ export const CreateBoxForm = observer(
               {formFieldsArr.map((orderBox, orderBoxIndex) => (
                 <BlockOfNewBox
                   key={orderBoxIndex}
+                  currentSupplier={currentSupplier}
                   order={order}
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   sizeSetting={sizeSetting}

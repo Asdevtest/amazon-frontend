@@ -8,12 +8,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {OrderModel} from '@models/order-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -210,7 +211,28 @@ export class ClientOrderViewModel {
           await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
         }
 
-        await this.createOrder(orderObject)
+        const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+        ])
+
+        await OrderModel.changeOrderData(orderObject._id, dataToRequest)
+
+        await ClientModel.updateOrderStatusToReadyToProcess(orderObject._id)
+
+        // await this.createOrder(orderObject)
       }
 
       if (!this.error) {
@@ -220,6 +242,8 @@ export class ClientOrderViewModel {
             title: t(TranslationKey['The order has been created']),
           }
         })
+
+        await this.getOrderById()
 
         this.onTriggerOpenModal('showWarningInfoModal')
       }
@@ -232,37 +256,37 @@ export class ClientOrderViewModel {
     }
   }
 
-  async createOrder(orderObject) {
-    try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-      ])
+  // async createOrder(orderObject) {
+  //   try {
+  //     const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
+  //       'barCode',
+  //       'tmpBarCode',
+  //       'tmpIsPendingOrder',
+  //     ])
 
-      if (orderObject.tmpIsPendingOrder) {
-        await ClientModel.createFormedOrder(requestData)
-      } else {
-        await ClientModel.createOrder(requestData)
-      }
+  //     if (orderObject.tmpIsPendingOrder) {
+  //       await ClientModel.createFormedOrder(requestData)
+  //     } else {
+  //       await ClientModel.createOrder(requestData)
+  //     }
 
-      await this.updateUserInfo()
-    } catch (error) {
-      console.log(error)
+  //     await this.updateUserInfo()
+  //   } catch (error) {
+  //     console.log(error)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
-        }
-      })
+  //     runInAction(() => {
+  //       this.warningInfoModalSettings = {
+  //         isWarning: true,
+  //         title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
+  //       }
+  //     })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
+  //     this.onTriggerOpenModal('showWarningInfoModal')
+  //     runInAction(() => {
+  //       this.error = error
+  //     })
+  //   }
+  // }
 
   async getOrderById() {
     try {
@@ -290,18 +314,30 @@ export class ClientOrderViewModel {
         await ClientModel.updateProductBarCode(data.product._id, {barCode: null})
       }
 
-      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(data, [
-        'amount',
-        'orderSupplierId',
-        'images',
-        'totalPrice',
-        'item',
-        'needsResearch',
-        'deadline',
-        'priority',
-        'expressChinaDelivery',
-        'clientComment',
-      ])
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...data,
+          totalPrice:
+            data.amount *
+            (data.orderSupplier?.price + data.orderSupplier?.batchDeliveryCostInDollar / data.orderSupplier?.amount),
+        },
+        [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
+
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+        ],
+      )
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
 
@@ -337,6 +373,9 @@ export class ClientOrderViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
+
+      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.orderId)
 

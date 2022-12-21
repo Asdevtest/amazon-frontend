@@ -53,9 +53,6 @@ class InlineResponse20021 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
         }
         return obj;
     }
@@ -74,12 +71,6 @@ InlineResponse20021.prototype['_id'] = undefined;
  * @member {String} name
  */
 InlineResponse20021.prototype['name'] = undefined;
-
-/**
- * Почта юзера
- * @member {String} email
- */
-InlineResponse20021.prototype['email'] = undefined;
 
 
 

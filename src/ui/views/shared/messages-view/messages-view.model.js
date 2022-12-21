@@ -123,15 +123,12 @@ export class MessagesViewModel {
 
   async onClickAddNewChatByEmail() {
     try {
-      const res = await ChatsModel.getUsersEmails()
+      const res = await ChatsModel.getUsersNames()
 
-      const existedChatsEmails = this.simpleChats.reduce(
-        (acc, cur) => acc.concat(cur.users.map(user => user.email)),
-        [],
-      )
+      const existedChatsUsers = this.simpleChats.reduce((acc, cur) => acc.concat(cur.users.map(user => user._id)), [])
 
       runInAction(() => {
-        this.usersData = res.filter(el => !existedChatsEmails.includes(el.email))
+        this.usersData = res.filter(el => !existedChatsUsers.includes(el._id))
       })
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
@@ -142,9 +139,7 @@ export class MessagesViewModel {
 
   async onSubmitAddNewChat(user) {
     try {
-      const response = await ChatsModel.createSimpleChatByUserEmail(user.email)
-
-      console.log('response', response)
+      await ChatsModel.createSimpleChatByUserId(user._id)
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {

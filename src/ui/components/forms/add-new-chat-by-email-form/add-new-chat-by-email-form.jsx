@@ -44,9 +44,7 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
         inputComponent={
           <WithSearchSelect
             width={586}
-            selectedItemName={
-              usersData.find(el => el.email === chosenUser?.email)?.name || t(TranslationKey['Not chosen'])
-            }
+            selectedItemName={usersData.find(el => el._id === chosenUser?._id)?.name || t(TranslationKey['Not chosen'])}
             placeholder={t(TranslationKey.search) + '...'}
             data={usersData.sort((a, b) => a.name.localeCompare(b.name))}
             searchFields={['name' /* , 'email'*/]}

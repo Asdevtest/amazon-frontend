@@ -51,20 +51,28 @@ export const useClassNames = makeStyles()(theme => ({
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     width: '100%',
     gap: '10px',
   },
+
+  numberInputFieldsBlocksSubWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: '100%',
+    gap: '10px',
+  },
+
   numberInputFieldsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
   numberInputField: {
-    margin: '0 5px',
+    // margin: '0 5px',
   },
   blockOfNewBoxWrapper: {
     display: 'flex',

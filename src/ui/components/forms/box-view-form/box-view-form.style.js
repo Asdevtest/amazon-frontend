@@ -477,6 +477,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
+  shortInputField: {
+    // width: 225,
+    height: 40,
+  },
+
   updatedAt: {
     color: theme.palette.text.second,
     marginLeft: 10,

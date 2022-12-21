@@ -3,6 +3,8 @@ import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, Tabl
 
 import React, {useEffect, useState} from 'react'
 
+import {isFuture, isValid} from 'date-fns'
+
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -12,6 +14,7 @@ import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-p
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -107,6 +110,7 @@ export const OrderProductModal = ({
           // priority: reorderOrder.priority || '30',
           expressChinaDelivery: false,
           priority: '30',
+          _id: reorderOrder._id,
         }))
       : selectedProductsData.map(product => ({
           amount: 1,
@@ -173,14 +177,21 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
+    const ordersData = orderState.map((el, i) =>
+      getObjectFilteredByKeyArrayBlackList(
+        {
+          ...el,
+          destinationId: el.destinationId ? el.destinationId : null,
+          totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
+          needsResearch: isResearchSupplier,
+          tmpIsPendingOrder: isPendingOrder,
+        },
+        el.deadline ? [] : ['deadline'],
+      ),
+    )
+
     onSubmit({
-      ordersDataState: orderState.map((el, i) => ({
-        ...el,
-        destinationId: el.destinationId ? el.destinationId : null,
-        totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
-        needsResearch: isResearchSupplier,
-        tmpIsPendingOrder: isPendingOrder,
-      })),
+      ordersDataState: ordersData,
       totalOrdersCost,
     })
     setSubmitIsClicked(true)
@@ -199,7 +210,8 @@ export const OrderProductModal = ({
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
-        (isPendingOrder && !order.deadline),
+        (isPendingOrder && !order.deadline) ||
+        (order.deadline && (!isValid(order.deadline) || !isFuture(order.deadline))),
     ) ||
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||

@@ -168,6 +168,10 @@ export class ClientInventoryViewRaw extends Component {
 
     const disableSelectionCells = ['asin', 'stockUSA', 'fourMonthesStock']
 
+    const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
+
+    const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
+
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
@@ -374,6 +378,7 @@ export class ClientInventoryViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
+                  getCellClassName={getCellClassName}
                   sortingMode="server"
                   paginationMode="server"
                   rowCount={rowCount}
@@ -401,6 +406,9 @@ export class ClientInventoryViewRaw extends Component {
                   onFilterModelChange={onChangeFilterModel}
                   onCellClick={(params, event) => {
                     event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+
+                    // console.log('params', params)
+                    // console.log('event', event)
                   }}
                   onCellDoubleClick={params =>
                     !disableSelectionCells.includes(params.field) && onClickShowProduct(params.row)

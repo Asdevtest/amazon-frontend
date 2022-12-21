@@ -193,10 +193,10 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        disabled={isClient}
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
+                        inputProps={{maxLength: 250}}
                         value={item.product.hsCode}
                         placeholder={'N/A'}
                         onChange={onChangeHsCode(index)}
@@ -497,8 +497,8 @@ export const BoxViewForm = observer(
                   disabled={!isEdit || isBuyer}
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 255}}
+                  inputClasses={classNames.shortInputField}
+                  inputProps={{maxLength: 250}}
                   label={t(TranslationKey['Reference id'])}
                   value={formFields.referenceId}
                   onChange={onChangeField('referenceId')}
@@ -508,11 +508,22 @@ export const BoxViewForm = observer(
                   disabled={!isEdit || isBuyer}
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
-                  inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 255}}
+                  inputClasses={classNames.shortInputField}
+                  inputProps={{maxLength: 250}}
                   label={'FBA number'}
                   value={formFields.fbaNumber}
                   onChange={onChangeField('fbaNumber')}
+                />
+
+                <Field
+                  disabled={isClient || isBuyer}
+                  labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
+                  inputClasses={classNames.inputField}
+                  inputProps={{maxLength: 250}}
+                  label={'UPS Track number'}
+                  value={formFields.upsTrackNumber}
+                  onChange={onChangeField('upsTrackNumber')}
                 />
               </div>
 
@@ -523,7 +534,7 @@ export const BoxViewForm = observer(
                     labelClasses={classNames.label}
                     containerClasses={classNames.containerField}
                     inputClasses={classNames.inputField}
-                    inputProps={{maxLength: 255}}
+                    inputProps={{maxLength: 250}}
                     label={t(TranslationKey['Track number'])}
                     value={formFields.trackNumberText}
                     onChange={onChangeField('trackNumberText')}
