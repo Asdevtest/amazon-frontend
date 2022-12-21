@@ -1576,6 +1576,7 @@
   "Add Address": "Add Address",
   "Reply to a User Feedback": "Reply to a User Feedback",
   "Search by ASIN, Order ID, Item": "Search by ASIN, Order ID, Item",
+  "Search by ASIN, Order ID, Item, Track number": "Search by ASIN, Order ID, Item, Track number",
   "Your feedback has been sent and will be reviewed shortly": "Your feedback has been sent and will be reviewed shortly",
   "Message Search": "Message Search",
   "Search results": "Search results",
@@ -1680,5 +1681,6 @@
   "Order returns": "Order returns",
   "Overdue by": "Overdue by",
   "s.": "s.",
-  "Canceled": "Canceled"
+  "Canceled": "Canceled",
+  "Production time, days": "Production time, days"
 }

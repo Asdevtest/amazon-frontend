@@ -62,6 +62,26 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
     ) || 0,
   )
 
+export const calcFinalWeightForBoxWithoutAmount = (box, coefficient, isShipping) =>
+  Math.max(
+    parseFloat(calcVolumeWeightForBoxWithoutAmount(box, coefficient, isShipping)) || 0,
+    parseFloat(
+      isShipping ? box.deliveryMass : box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier,
+    ) || 0,
+  )
+
+export const calcVolumeWeightForBoxWithoutAmount = (box, coefficient, isShipping) => {
+  if (isShipping) {
+    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight) / coefficient) || 0
+  }
+
+  if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
+    return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
+  } else {
+    return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
+  }
+}
+
 export const calcTotalFbaForProduct = product =>
   (parseFloat(product.fbafee) || 0) + (parseFloat(product.reffee) || 0) /* (parseFloat(product.amazon) || 0) * 0.15*/
 

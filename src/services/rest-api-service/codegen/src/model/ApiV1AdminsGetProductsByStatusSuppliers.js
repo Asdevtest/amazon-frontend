@@ -104,6 +104,12 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
         }
         return obj;
     }
@@ -215,6 +221,18 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['productionTerm'] = undefined;
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления
+ * @member {Date} updatedAt
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['updatedAt'] = undefined;
 
 
 

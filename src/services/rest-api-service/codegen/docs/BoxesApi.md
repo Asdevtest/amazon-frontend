@@ -1223,6 +1223,7 @@ let opts = {
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
   'sortType': "sortType_example", // String | Тип сортировки
+  'productGuid': "productGuid_example", // String | 
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesPagClientsLightGet(status, opts).then((data) => {
@@ -1247,6 +1248,7 @@ Name | Type | Description  | Notes
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 
  **sortType** | **String**| Тип сортировки | [optional] 
+ **productGuid** | **String**|  | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

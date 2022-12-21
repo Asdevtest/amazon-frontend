@@ -1382,8 +1382,9 @@ export const styles = theme => ({
     gap: 5,
   },
   storekeeperBtn: {
-    height: '32px',
-    width: '230px',
+    height: 'auto',
+    width: '100%',
+    whiteSpace: 'normal',
   },
   destination: {
     display: 'flex',

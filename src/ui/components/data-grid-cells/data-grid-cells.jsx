@@ -733,8 +733,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       setShowSelectionStorekeeperAndTariffModal,
       onClickSetTariff,
     }) => {
-      const formItem = boxesMy
-
       const tariffName = storekeepers
         .find(el => el._id === boxesMy?.storekeeper?._id)
         ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.name
@@ -755,7 +753,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         <div className={classNames.destinationAndTariffWrapper}>
           <div className={classNames.destination}>
             <WithSearchSelect
-              width={230}
+              width={160}
               selectedItemName={
                 destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
               }

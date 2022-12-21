@@ -1577,6 +1577,7 @@
   "Add Address": "Добавить адрес",
   "Reply to a User Feedback": "Ответ на обращение пользователя",
   "Search by ASIN, Order ID, Item": "Поиск по ASIN, ID заказа, Item",
+  "Search by ASIN, Order ID, Item, Track number": "Поиск по ASIN, ID заказа, Item, Трек номер",
   "Your feedback has been sent and will be reviewed shortly": "Ваше предложение отправлено и в скором времени будет рассмотрено",
   "Message Search": "Поиск по сообщениям",
   "Search results": "Результаты поиска",
@@ -1680,5 +1681,6 @@
   "Value is not a multiple of": "Значение не кратно",
   "Order returns": "Возвраты по заказам",
   "Overdue by": "Просрочено на",
-  "s.": "c."
+  "s.": "c.",
+  "Production time, days": "Cрок изготовления, дн."
 }
