@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {OrderModel} from '@models/order-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -313,22 +314,30 @@ export class ClientOrderViewModel {
         await ClientModel.updateProductBarCode(data.product._id, {barCode: null})
       }
 
-      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(data, [
-        'amount',
-        'orderSupplierId',
-        'images',
-        'totalPrice',
-        'item',
-        'needsResearch',
-        'deadline',
-        'priority',
-        'expressChinaDelivery',
-        'clientComment',
+      const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...data,
+          totalPrice:
+            data.amount *
+            (data.orderSupplier?.price + data.orderSupplier?.batchDeliveryCostInDollar / data.orderSupplier?.amount),
+        },
+        [
+          'amount',
+          'orderSupplierId',
+          'images',
+          'totalPrice',
+          'item',
+          'needsResearch',
+          'deadline',
+          'priority',
+          'expressChinaDelivery',
+          'clientComment',
 
-        'destinationId',
-        'storekeeperId',
-        'logicsTariffId',
-      ])
+          'destinationId',
+          'storekeeperId',
+          'logicsTariffId',
+        ],
+      )
 
       await OrderModel.changeOrderData(this.orderId, dataToRequest)
 
@@ -364,6 +373,9 @@ export class ClientOrderViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
+
+      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.orderId)
 

@@ -8,6 +8,7 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -141,6 +142,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
+
+      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.loadData()
 

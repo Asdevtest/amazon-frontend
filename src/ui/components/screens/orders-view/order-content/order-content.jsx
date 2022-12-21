@@ -19,6 +19,7 @@ import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -60,6 +61,7 @@ export const OrderContent = ({
     destinationId: order?.destination?._id || null,
     storekeeperId: order?.storekeeper?._id || '',
     logicsTariffId: order?.logicsTariff?._id || '',
+    deadline: order?.deadline || null,
     tmpBarCode: [],
   })
 
@@ -220,13 +222,20 @@ export const OrderContent = ({
               )}
             {isClient && isCanChange ? (
               <div className={classNames.btnsSubWrapper}>
-                {isClient && updatedOrder.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
+                {isClient && updatedOrder.status < OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
                   <Button success className={classNames.button} onClick={onClickReorder}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
 
-                <Button className={classNames.button} onClick={() => onSubmitSaveOrder({data: formFields})}>
+                <Button
+                  className={classNames.button}
+                  onClick={() =>
+                    onSubmitSaveOrder({
+                      data: getObjectFilteredByKeyArrayBlackList(formFields, formFields.deadline ? [] : ['deadline']),
+                    })
+                  }
+                >
                   {t(TranslationKey.Save)}
                 </Button>
               </div>

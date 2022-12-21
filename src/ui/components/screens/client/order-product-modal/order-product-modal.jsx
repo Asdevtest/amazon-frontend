@@ -3,6 +3,8 @@ import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, Tabl
 
 import React, {useEffect, useState} from 'react'
 
+import {isFuture, isValid} from 'date-fns'
+
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -208,7 +210,8 @@ export const OrderProductModal = ({
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
-        (isPendingOrder && !order.deadline),
+        (isPendingOrder && !order.deadline) ||
+        (order.deadline && (!isValid(order.deadline) || !isFuture(order.deadline))),
     ) ||
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||

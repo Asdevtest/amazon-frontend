@@ -165,6 +165,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
+    maxWidth: 250,
   },
 
   leftMargin: {
