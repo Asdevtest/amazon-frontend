@@ -1677,6 +1677,8 @@ export enum TranslationKey {
   'Buyer comments to the order' = 'Buyer comments to the order',
   'Use multiples of items when creating boxes' = 'Use multiples of items when creating boxes',
   'Value is not a multiple of' = 'Value is not a multiple of',
+  'Order returns' = 'Order returns',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

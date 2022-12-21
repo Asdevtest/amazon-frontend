@@ -27,6 +27,7 @@ import {EditBoxForm} from '@components/forms/edit-box-form'
 import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
 import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
+import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -62,6 +63,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      changeItem,
       isFormed,
       clientDestinations,
       curDestination,
@@ -107,6 +109,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       showWarningInfoModal,
       showRequestToSendBatchModal,
       showSuccessInfoModal,
+      showSelectionStorekeeperAndTariffModal,
       boxesDeliveryCosts,
       modalEditSuccessMessage,
       warningInfoModalSettings,
@@ -146,6 +149,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
       onChangeIsFormed,
+      editTariff,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -534,6 +538,20 @@ export class ClientInStockBoxesViewRaw extends Component {
             item={selectedBox}
             onClickSaveShippingLabel={onClickSaveShippingLabel}
             onCloseModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+        >
+          <SelectStorekeeperAndTariffForm
+            storekeepers={storekeepersData.filter(el => el._id === changeItem?.storekeeper._id)}
+            curStorekeeperId={changeItem?.storekeeper?._id}
+            curTariffId={changeItem?.logicsTariff?._id}
+            onSubmit={(storekeeperId, tariffId) =>
+              editTariff(changeItem?._id, {logicsTariffId: tariffId, storekeeperId})
+            }
           />
         </Modal>
 

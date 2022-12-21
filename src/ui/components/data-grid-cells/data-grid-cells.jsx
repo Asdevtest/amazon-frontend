@@ -36,11 +36,13 @@ import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-
 import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Input} from '@components/input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -714,6 +716,83 @@ export const WarehouseTariffDatesCell = React.memo(
         </div>
       </div>
     ),
+    styles,
+  ),
+)
+
+export const WarehouseDestinationAndTariffCell = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      boxesMy,
+      destinations,
+      destinationsFavourites,
+      setDestinationsFavouritesItem,
+      storekeepers,
+      onSelectDestination,
+      setShowSelectionStorekeeperAndTariffModal,
+      onClickSetTariff,
+    }) => {
+      const formItem = boxesMy
+
+      const tariffName = storekeepers
+        .find(el => el._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.name
+
+      const curDestination = destinations.find(el => el._id === boxesMy?.destination?._id)
+
+      const firstNumOfCode = curDestination?.zipCode[0]
+
+      const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+      const tariffRate = storekeepers
+        .find(el => el._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
+        regionOfDeliveryName
+      ]?.rate
+
+      return (
+        <div className={classNames.destinationAndTariffWrapper}>
+          <div className={classNames.destination}>
+            <WithSearchSelect
+              width={230}
+              selectedItemName={
+                destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+              }
+              data={destinations.filter(el => el.storekeeper?._id !== boxesMy?.storekeeper._id)}
+              searchFields={['name']}
+              favourites={destinationsFavourites}
+              onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+              onClickNotChosen={() => onSelectDestination(boxesMy?._id, {destinationId: null})}
+              onClickSelect={el => onSelectDestination(boxesMy?._id, {destinationId: el._id})}
+            />
+          </div>
+          <div className={classNames.tatiff}>
+            <Button
+              disableElevation
+              color="primary"
+              variant={boxesMy?.storekeeper?._id && 'text'}
+              className={classNames.storekeeperBtn}
+              onClick={() => {
+                onClickSetTariff(boxesMy)
+                setShowSelectionStorekeeperAndTariffModal()
+              }}
+            >
+              {boxesMy?.storekeeper?._id
+                ? `${storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name || 'N/A'} /  
+                        ${
+                          boxesMy?.storekeeper?._id
+                            ? `${tariffName ? tariffName + ' / ' : ''}${
+                                regionOfDeliveryName ? regionOfDeliveryName : ''
+                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                            : 'none'
+                        }`
+                : t(TranslationKey.Select)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
     styles,
   ),
 )
