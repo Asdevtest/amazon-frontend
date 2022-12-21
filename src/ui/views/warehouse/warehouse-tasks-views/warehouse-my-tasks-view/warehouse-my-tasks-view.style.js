@@ -109,4 +109,11 @@ export const styles = theme => ({
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
   },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: 405,
+    height: '40px',
+    fontSize: '16px',
+    paddingLeft: '7px',
+  },
 })

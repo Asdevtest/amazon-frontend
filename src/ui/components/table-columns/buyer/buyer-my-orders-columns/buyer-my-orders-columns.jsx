@@ -17,8 +17,8 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatDateDistanceFromNowStrict, formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins} from '@utils/text'
+import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = firstRowId => [
@@ -82,6 +82,16 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   },
 
   {
+    field: 'totalPrice',
+    headerName: t(TranslationKey.Price),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
+    type: 'number',
+    width: 90,
+  },
+
+  {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
@@ -100,6 +110,16 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 160,
+    sortable: false,
+  },
+
+  {
+    field: 'productionTerm',
+    headerName: t(TranslationKey['Production time']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    width: 120,
     sortable: false,
   },
 

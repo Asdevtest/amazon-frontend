@@ -165,7 +165,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
       ) : (
         ''
       ),
-    width: 240,
+    width: 215,
     filterable: false,
     sortable: false,
   },

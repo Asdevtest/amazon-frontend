@@ -94,7 +94,8 @@ export class WarehouseMyTasksViewRaw extends Component {
               <div className={classNames.headerWrapper}>
                 <SearchInput
                   value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
                   onChange={onChangeNameSearchValue}
                 />
               </div>

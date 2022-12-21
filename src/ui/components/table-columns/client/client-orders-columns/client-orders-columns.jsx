@@ -148,6 +148,16 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'productionTerm',
+    headerName: t(TranslationKey['Production time']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    width: 120,
+    sortable: false,
+  },
+
+  {
     field: 'deadline',
     headerName: 'Deadline',
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
@@ -199,6 +209,26 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 160,
     renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
+  },
+
+  {
+    field: 'buyerComment',
+    headerName: t(TranslationKey['Buyer comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 120,
+    sortable: false,
+  },
+
+  {
+    field: 'clientComment',
+    headerName: t(TranslationKey['Client comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
+
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 120,
+    sortable: false,
   },
 
   {

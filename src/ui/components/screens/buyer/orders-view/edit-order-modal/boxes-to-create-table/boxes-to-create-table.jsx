@@ -15,7 +15,7 @@ import {Table} from '@components/table'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {calcFinalWeightForBoxWithoutAmount, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -140,7 +140,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           <Input
             disabled
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            value={toFixed(calcFinalWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
+            value={toFixed(calcFinalWeightForBoxWithoutAmount(item, restProps.volumeWeightCoefficient), 2)}
           />
         </div>
       </TableCell>

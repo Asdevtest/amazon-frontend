@@ -16,7 +16,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins} from '@utils/text'
+import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
@@ -81,6 +81,16 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 150,
+  },
+
+  {
+    field: 'totalPrice',
+    headerName: t(TranslationKey.Price),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
+    type: 'number',
+    width: 90,
   },
 
   {

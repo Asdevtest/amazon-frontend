@@ -140,7 +140,10 @@ export class WarehouseCanceledTasksViewModel {
           el =>
             el.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
             el.orderId?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.originalData?.beforeBoxes.some(box =>
+              box?.trackNumberText.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ),
         ),
       )
     } else {
