@@ -118,6 +118,10 @@ export class ClientInStockBoxesViewModel {
 
   showWarningInfoModal = false
 
+  showSelectionStorekeeperAndTariffModal = false
+
+  changeItem = null
+
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -132,6 +136,15 @@ export class ClientInStockBoxesViewModel {
     onDoubleClickShippingLabel: item => this.onDoubleClickShippingLabel(item),
     onDeleteShippingLabel: item => this.onDeleteShippingLabel(item),
     onChangeIsFormedInBox: item => this.onChangeIsFormedInBox(item),
+
+    onClickSetDestinationFavourite: item => SettingsModel.setDestinationsFavouritesItem(item),
+    onSelectDestination: (id, boxData) => this.editDestination(id, boxData),
+    setShowSelectionStorekeeperAndTariffModal: () => this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal'),
+    onClickSetTariff: item => this.setChangeItem(item),
+  }
+
+  setChangeItem(item) {
+    this.changeItem = item
   }
 
   confirmModalSettings = {
@@ -147,7 +160,12 @@ export class ClientInStockBoxesViewModel {
   rowsPerPage = 15
 
   densityModel = 'compact'
-  columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData)
+  columnsModel = clientBoxesViewColumns(
+    this.rowHandlers,
+    this.storekeepersData,
+    this.destinations,
+    SettingsModel.destinationsFavourites,
+  )
 
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
@@ -209,6 +227,10 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
+  async getDestinations() {
+    this.destinations = await ClientModel.getDestinations()
+  }
+
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }
@@ -241,7 +263,12 @@ export class ClientInStockBoxesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData).map(el => ({
+        this.columnsModel = clientBoxesViewColumns(
+          this.rowHandlers,
+          this.storekeepersData,
+          this.destinations,
+          SettingsModel.destinationsFavourites,
+        ).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -615,15 +642,15 @@ export class ClientInStockBoxesViewModel {
 
   async loadData() {
     try {
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.isLoading)
-
       await this.getStorekeepers()
 
-      this.getBoxesMy()
+      await this.getDestinations()
+      await this.getBoxesMy()
+      this.getTasksMy()
+      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
-      this.getTasksMy()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
@@ -997,6 +1024,40 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async editDestination(id, boxData) {
+    try {
+      await BoxesModel.editBoxAtClient(id, {
+        destinationId: boxData.destinationId,
+      })
+
+      await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async editTariff(id, boxData) {
+    try {
+      await BoxesModel.editBoxAtClient(id, {
+        logicsTariffId: boxData.logicsTariffId,
+      })
+
+      await this.getBoxesMy()
+
+      this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+    } catch (error) {
+      console.log(error)
+
       runInAction(() => {
         this.error = error
       })

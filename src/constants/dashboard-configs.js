@@ -683,48 +683,6 @@ export const getBuyerDashboardCardConfig = () => [
     title: t(TranslationKey.Orders),
     subTitle: t(TranslationKey['Your order data']),
     items: [
-      // {
-      //   dataKey: BuyerDashboardCardDataKey.IN_PROCESS_ORDERS,
-      //   title: t(TranslationKey['In the process of processing']),
-
-      //   route: '/buyer/my-orders',
-      //   dataGridFilter: {
-      //     items: [
-      //       {
-      //         columnField: 'status',
-      //         operatorValue: 'isAnyOf',
-      //         value: [
-      //           TranslationKey['At process'],
-      //           TranslationKey['Need confirming to price change'],
-      //           TranslationKey['Paid to supplier'],
-      //           TranslationKey['Paid to supplier'],
-      //           TranslationKey['Track number issued'],
-      //         ],
-      //       },
-      //     ],
-      //   },
-      // },
-      // {
-      //   dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-      //   title: t(TranslationKey.Free),
-      //   color: '#006CFF',
-      //   route: '/buyer/free-orders',
-      // },
-      // {
-      //   dataKey: BuyerDashboardCardDataKey.CLOSED_ORDERS,
-      //   title: t(TranslationKey.Completed),
-
-      //   route: '/buyer/my-orders',
-      //   dataGridFilter: {
-      //     items: [
-      //       {
-      //         columnField: 'status',
-      //         operatorValue: 'isAnyOf',
-      //         value: [TranslationKey['In stock']],
-      //       },
-      //     ],
-      //   },
-      // },
       {
         dataKey: BuyerDashboardCardDataKey.MY_ORDERS_NOT_PAID,
         title: t(TranslationKey['Not paid']),
@@ -835,7 +793,7 @@ export const getBuyerDashboardCardConfig = () => [
       },
       {
         dataKey: BuyerDashboardCardDataKey.FINANCES_REFUNDS,
-        title: t(TranslationKey.Fines),
+        title: t(TranslationKey['Order returns']),
         isNegative: true,
         route: '/buyer/finances',
       },

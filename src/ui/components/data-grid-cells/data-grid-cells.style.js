@@ -1375,4 +1375,18 @@ export const styles = theme => ({
     display: 'flex',
     gap: 5,
   },
+  destinationAndTariffWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+  storekeeperBtn: {
+    height: '32px',
+    width: '230px',
+  },
+  destination: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 })

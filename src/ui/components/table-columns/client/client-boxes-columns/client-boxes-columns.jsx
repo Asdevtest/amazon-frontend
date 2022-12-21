@@ -13,13 +13,14 @@ import {
   ShortBoxDimensions,
   OrdersIdsItemsCell,
   CheckboxCell,
+  WarehouseDestinationAndTariffCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBoxesViewColumns = (handlers, storekeepersData) => [
+export const clientBoxesViewColumns = (handlers, storekeepersData, destinations, destinationsFavourites) => [
   // {
   //   field: 'isDraft',
   //   headerName: '',
@@ -141,14 +142,20 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params =>
       params.row.originalData ? (
-        <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%'}}>
-          <MultilineTextCell text={params.row.destination} />
-          <MultilineTextCell text={params.row.logicsTariff} />
-        </div>
+        <WarehouseDestinationAndTariffCell
+          destinations={destinations}
+          boxesMy={params.row.originalData}
+          destinationsFavourites={destinationsFavourites}
+          setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
+          storekeepers={storekeepersData}
+          setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
+          onSelectDestination={handlers.onSelectDestination}
+          onClickSetTariff={handlers.onClickSetTariff}
+        />
       ) : (
         ''
       ),
-    width: 170,
+    width: 240,
     filterable: false,
     sortable: false,
   },
