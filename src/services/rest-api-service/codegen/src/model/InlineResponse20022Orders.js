@@ -47,15 +47,6 @@ class InlineResponse20022Orders {
         if (data) {
             obj = obj || new InlineResponse20022Orders();
 
-            if (data.hasOwnProperty('inProcess')) {
-                obj['inProcess'] = ApiClient.convertToType(data['inProcess'], 'Number');
-            }
-            if (data.hasOwnProperty('free')) {
-                obj['free'] = ApiClient.convertToType(data['free'], 'Number');
-            }
-            if (data.hasOwnProperty('completed')) {
-                obj['completed'] = ApiClient.convertToType(data['completed'], 'Number');
-            }
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
@@ -71,21 +62,6 @@ class InlineResponse20022Orders {
 
 
 }
-
-/**
- * @member {Number} inProcess
- */
-InlineResponse20022Orders.prototype['inProcess'] = undefined;
-
-/**
- * @member {Number} free
- */
-InlineResponse20022Orders.prototype['free'] = undefined;
-
-/**
- * @member {Number} completed
- */
-InlineResponse20022Orders.prototype['completed'] = undefined;
 
 /**
  * @member {Number} all

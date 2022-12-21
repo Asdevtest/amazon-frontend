@@ -138,12 +138,7 @@ export const OrderContent = ({
                 containerClasses={classNames.field}
                 inputComponent={
                   <Typography className={classNames.titleSpan}>
-                    {toFixedWithDollarSign(
-                      formFields.amount *
-                        (formFields.orderSupplier?.price +
-                          formFields.orderSupplier?.batchDeliveryCostInDollar / formFields.orderSupplier?.amount),
-                      2,
-                    )}
+                    {toFixedWithDollarSign(formFields.totalPrice, 2)}
                   </Typography>
                 }
               />

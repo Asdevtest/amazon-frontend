@@ -15,7 +15,8 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatDateDistanceFromNowStrict, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {timeToDeadlineInHoursAndMins} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
@@ -98,8 +99,10 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => (
       <MultilineTextCell
+        withLineBreaks
+        tooltipText={formatNormDateTime(params.value)}
         color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDateDistanceFromNowStrict(params.value) : ''}
+        text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
       />
     ),
     width: 200,

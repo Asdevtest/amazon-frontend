@@ -50,3 +50,54 @@ export const IsFormedMenuItem = React.memo(
     styles,
   ),
 )
+
+export const OrderStatusMenuItem = React.memo(
+  withStyles(
+    ({classes: classNames, orderStatusData}) => (
+      <div className={classNames.isFormedWrapper}>
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey.All)}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.ALL}
+            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.ALL)}
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['At process'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.AT_PROCESS}
+            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.AT_PROCESS)}
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey.Canceled)}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.CANCELED}
+            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.CANCELED)}
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey.Completed)}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.COMPLETED}
+            onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.COMPLETED)}
+          />
+        </div>
+
+        <Divider />
+      </div>
+    ),
+    styles,
+  ),
+)

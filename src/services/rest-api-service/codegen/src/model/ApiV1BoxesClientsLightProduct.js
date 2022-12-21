@@ -59,6 +59,9 @@ class ApiV1BoxesClientsLightProduct {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
@@ -67,6 +70,10 @@ class ApiV1BoxesClientsLightProduct {
             }
             if (data.hasOwnProperty('hsCode')) {
                 obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
+
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -97,6 +104,12 @@ ApiV1BoxesClientsLightProduct.prototype['skusByClient'] = undefined;
  * @member {Array.<String>} images
  */
 ApiV1BoxesClientsLightProduct.prototype['images'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+ApiV1BoxesClientsLightProduct.prototype['shopIds'] = undefined;
 
 /**
  * Заголовок на товар с сайта амазон.

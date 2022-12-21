@@ -254,7 +254,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
 
-    shop: shopsData?.find(el => el._id === item.shopIds?.[0])?.name,
+    shop: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -306,7 +306,7 @@ export const clientOrdersDataConverter = data =>
     warehouses: item.destination?.name,
     // status: OrderStatusByCode[item.status],
 
-    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
+    orderStatus: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -318,7 +318,7 @@ export const clientOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
   }))
 
-export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
+export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -356,6 +356,19 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
       .slice(0, -2)}  item №: ${item.items
       .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
+
+    shops: Array.from(
+      new Set(
+        `${item.items.reduce(
+          (ac, cur) => (ac += shopsData?.find(el => el._id === cur.product.shopIds?.[0])?.name + ', '),
+          '',
+        )}`
+          .replace(/undefined/g, '')
+          .split(', '),
+      ),
+    )
+      .join(', ')
+      .slice(0, -2),
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>

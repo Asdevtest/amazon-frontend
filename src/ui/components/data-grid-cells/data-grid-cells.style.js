@@ -706,7 +706,7 @@ export const styles = theme => ({
     maxHeight: '100%',
     // userSelect: 'none',
     textAlign: 'center',
-    whiteSpace: 'normal',
+    whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
 

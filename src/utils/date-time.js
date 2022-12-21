@@ -43,9 +43,10 @@ const now = new Date()
 
 export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
   const date1 = parseISO(firstDate)
-  const date2 = secondDate ? parseISO(secondDate) : now
+  const date2 = secondDate ? secondDate : now
 
   const timeDiff = Math.round((date1.getTime() - date2.getTime()) / 1000)
+  // const timeDiff = (date1.getTime() - date2.getTime()) / 1000
 
   return timeDiff
 }

@@ -116,6 +116,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '28px',
     marginBottom: '24px',
   },
+  deadlineWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 
   hidden: {
     display: 'none',
@@ -131,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deadlineText: {
-    marginLeft: 20,
+    marginLeft: 5,
   },
 
   alertText: {

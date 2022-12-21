@@ -25,8 +25,8 @@ import {
   SuccessActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatDateDistanceFromNowStrict, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {toFixedWithDollarSign} from '@utils/text'
+import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 
 export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
@@ -65,7 +65,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'status',
+    field: 'orderStatus',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
@@ -154,8 +154,10 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => (
       <MultilineTextCell
+        withLineBreaks
+        tooltipText={formatNormDateTime(params.value)}
         color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDateDistanceFromNowStrict(params.value) : ''}
+        text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
       />
     ),
     width: 200,
