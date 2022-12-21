@@ -827,16 +827,16 @@ export const RenderFieldValueCell = React.memo(
 
 export const MultilineTextCell = React.memo(
   withStyles(
-    ({classes: classNames, text, noTextText, color, withTooltip, leftAlign}) => (
+    ({classes: classNames, text, noTextText, color, withTooltip, leftAlign, tooltipText, withLineBreaks}) => (
       <>
-        {withTooltip ? (
-          <Tooltip title={text}>
+        {withTooltip || tooltipText ? (
+          <Tooltip title={tooltipText || text}>
             <div className={classNames.multilineTextWrapper}>
               <Typography
                 className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
                 style={color && {color}}
               >
-                {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+                {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
               </Typography>
             </div>
           </Tooltip>
@@ -846,7 +846,7 @@ export const MultilineTextCell = React.memo(
               className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
               style={color && {color}}
             >
-              {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+              {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
             </Typography>
           </div>
         )}

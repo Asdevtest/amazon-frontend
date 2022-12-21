@@ -1,3 +1,4 @@
+import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
 import * as Showdown from 'showdown'
 import * as xssFilter from 'showdown-xss-filter'
 
@@ -5,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {checkIsAbsoluteUrl} from './checks'
+import {getDistanceBetweenDatesInSeconds} from './date-time'
 import {t} from './translations'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
@@ -88,4 +90,24 @@ export const shortSku = value => {
 export const shortAsin = value => {
   const shortTitle = value.length > 10 ? value.slice(0, 10) + '...' : value
   return shortTitle
+}
+
+export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
+  const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
+
+  const isExpired = secondsToDeadline < 0
+
+  const absSecondsToDeadline = Math.abs(secondsToDeadline)
+
+  const hours = secondsToHours(absSecondsToDeadline)
+
+  const mins = secondsToMinutes(absSecondsToDeadline - hoursToSeconds(hours))
+
+  const seconds = secondsToMinutes(absSecondsToDeadline - hoursToSeconds(hours))
+
+  // console.log({secondsToDeadline, isExpired, hours, mins})
+
+  return `${isExpired ? t(TranslationKey['Overdue by']) + '\n' : ''} ${hours} ${t(TranslationKey.hour)} ${mins} ${
+    t(TranslationKey.minute) + '.'
+  }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }

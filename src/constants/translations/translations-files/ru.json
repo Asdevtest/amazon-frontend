@@ -1678,5 +1678,7 @@
   "Buyer comments to the order": "Комментарий байера к заказу",
   "Use multiples of items when creating boxes": "Использовать кратное количество единиц товара при создании коробок",
   "Value is not a multiple of": "Значение не кратно",
-  "Order returns": "Возвраты по заказам"
+  "Order returns": "Возвраты по заказам",
+  "Overdue by": "Просрочено на",
+  "s.": "c."
 }

@@ -289,6 +289,8 @@ export class ClientExchangeViewModel {
         totalPrice: orderObject.totalPrice,
         priority: orderObject.priority,
         expressChinaDelivery: orderObject.expressChinaDelivery,
+        deadline: orderObject.deadline,
+        needsResearch: orderObject.needsResearch,
       }
 
       if (orderObject.tmpIsPendingOrder) {

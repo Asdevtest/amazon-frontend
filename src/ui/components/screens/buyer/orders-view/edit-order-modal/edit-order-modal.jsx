@@ -40,9 +40,14 @@ import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {formatDateDistanceFromNowStrict, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {
+  formatDateDistanceFromNowStrict,
+  formatDateWithoutTime,
+  formatNormDateTime,
+  getDistanceBetweenDatesInSeconds,
+} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed} from '@utils/text'
+import {timeToDeadlineInHoursAndMins, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -181,11 +186,13 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
     })
 
-    useEffect(() => {
-      setOrderFields({...orderFields, product: order.product})
-    }, [order])
-
     const [selectedSupplier, setSelectedSupplier] = useState(null)
+
+    useEffect(() => {
+      setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
+
+      setSelectedSupplier(null)
+    }, [order])
 
     const setOrderField = filedName => e => {
       const newOrderFieldsState = {...orderFields}
@@ -303,6 +310,34 @@ export const EditOrderModal = observer(
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
 
+    // const [deadlineState, setDeadlineState] = useState({
+    //       secondsToDeadline: getDistanceBetweenDatesInSeconds(orderFields.deadline, new Date()),
+    //       deadlineText: `(${timeToDeadlineInHoursAndMins({
+    //         date: orderFields.deadline,
+    //         withSeconds: true,
+    //         now: new Date(),
+    //       })})`,
+    //     })
+
+    //     setInterval(
+    //       () =>
+    //         setDeadlineState(() => {
+    //           // console.log('!!!')
+    //           const now = new Date()
+
+    //           console.log('now', now)
+    //           return {
+    //             secondsToDeadline: getDistanceBetweenDatesInSeconds(orderFields.deadline, new Date()),
+    //             deadlineText: `(${timeToDeadlineInHoursAndMins({
+    //               date: orderFields.deadline,
+    //               withSeconds: true,
+    //               now,
+    //             })})`,
+    //           }
+    //         }),
+    //       1000,
+    //     )
+
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
@@ -336,16 +371,22 @@ export const EditOrderModal = observer(
             {orderFields.deadline && (
               <Field
                 oneLine
-                label={t(TranslationKey['Deadline for processing']) + ':'}
+                label={'Deadline:'}
                 labelClasses={classNames.label}
                 inputComponent={
-                  <Typography
-                    className={cx(classNames.deadlineText, {
-                      [classNames.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
-                    })}
-                  >
-                    {orderFields.deadline ? formatDateDistanceFromNowStrict(orderFields.deadline) : ''}
-                  </Typography>
+                  <div className={classNames.deadlineWrapper}>
+                    <Typography className={cx(classNames.deadlineText)}>
+                      {formatDateWithoutTime(orderFields.deadline)}
+                    </Typography>
+
+                    <Typography
+                      className={cx(classNames.deadlineText, {
+                        [classNames.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
+                      })}
+                    >
+                      {`(${timeToDeadlineInHoursAndMins({date: orderFields.deadline, withSeconds: true})})`}
+                    </Typography>
+                  </div>
                 }
               />
             )}
