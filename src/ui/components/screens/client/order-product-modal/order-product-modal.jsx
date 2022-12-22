@@ -106,10 +106,8 @@ export const OrderProductModal = ({
             .includes(reorderOrder.logicsTariff?._id)
             ? reorderOrder.logicsTariff?._id
             : '',
-          // expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
-          // priority: reorderOrder.priority || '30',
-          expressChinaDelivery: false,
-          priority: '30',
+          expressChinaDelivery: reorderOrder.expressChinaDelivery || false,
+          priority: reorderOrder.priority || '30',
           _id: reorderOrder._id,
         }))
       : selectedProductsData.map(product => ({

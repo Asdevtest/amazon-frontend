@@ -39,6 +39,7 @@ class ShopsViewRaw extends Component {
 
   render() {
     const {
+      selectionModel,
       showConfirmModal,
       showWarningModal,
       showAddOrEditShopModal,
@@ -65,6 +66,8 @@ class ShopsViewRaw extends Component {
       onTriggerOpenModal,
       onSubmitShopForm,
       onSubmitRemoveShop,
+      onSelectionModel,
+      updateShops,
     } = this.viewModel
 
     const {classes: className} = this.props
@@ -72,13 +75,13 @@ class ShopsViewRaw extends Component {
     return (
       <React.Fragment>
         <div>
-          <Box className={this.props.classes.buttonBox}>
-            <Button
-              tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
-              color="primary"
-              onClick={() => onClickAddBtn()}
-            >
+          <Box className={className.buttonBox}>
+            <Button tooltipInfoContent={t(TranslationKey['Open the window to add a store'])} onClick={onClickAddBtn}>
               {t(TranslationKey['Add shop'])}
+            </Button>
+
+            <Button disabled={!selectionModel.length} onClick={updateShops}>
+              {t(TranslationKey.Update)}
             </Button>
           </Box>
 
@@ -86,6 +89,7 @@ class ShopsViewRaw extends Component {
             <DataGrid
               pagination
               useResizeContainer
+              checkboxSelection
               classes={{
                 root: className.root,
                 footerContainer: className.footerContainer,
@@ -107,11 +111,13 @@ class ShopsViewRaw extends Component {
               density={densityModel}
               columns={columnsModel}
               loading={requestStatus === loadingStatuses.isLoading}
+              selectionModel={selectionModel}
+              onSelectionModelChange={onSelectionModel}
               onSortModelChange={onChangeSortingModel}
               onPageSizeChange={onChangeRowsPerPage}
               onPageChange={onChangeCurPage}
               onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
+              onFilterModelChange={onChangeFilterModel}
             />
           </div>
 
