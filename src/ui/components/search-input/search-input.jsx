@@ -14,12 +14,12 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './search-input.style'
 
-export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit}) => {
+export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit, startText}) => {
   const {classes: classNames} = useClassNames()
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
-  const [internalValue, setInternalValue] = useState('')
+  const [internalValue, setInternalValue] = useState(startText ? startText : '')
 
   const onClickCloseIcon = () => {
     setInternalValue('')

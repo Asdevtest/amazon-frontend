@@ -1685,7 +1685,7 @@ export enum TranslationKey {
   'Production time, days' = 'Production time, days',
   'Filter by PRODUCT applied' = 'Filter by PRODUCT applied',
   'Available' = 'Available',
-  // '' = '',
+  'Update' = 'Update',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -89,7 +89,7 @@ export class ClientInStockBoxesViewModel {
   boxesIdsToTask = []
   shopsData = []
 
-  productSearchGuid = null
+  // productSearchGuid = null
 
   volumeWeightCoefficient = undefined
 
@@ -199,7 +199,7 @@ export class ClientInStockBoxesViewModel {
     if (location.state?.inStockFilter) {
       runInAction(() => {
         this.currentStorekeeper = location.state.inStockFilter.storekeeper
-        this.productSearchGuid = location.state.inStockFilter.searchText
+        this.nameSearchValue = location.state.inStockFilter.searchText
       })
 
       const state = {...history.location.state}
@@ -1446,19 +1446,19 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  resetProductSearchGuid() {
-    runInAction(() => {
-      this.productSearchGuid = null
-    })
+  // resetProductSearchGuid() {
+  //   runInAction(() => {
+  //     this.productSearchGuid = null
+  //   })
 
-    this.getBoxesMy()
-  }
+  //   this.getBoxesMy()
+  // }
 
   async getBoxesMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
         filters: this.nameSearchValue ? filter : null,
@@ -1467,7 +1467,7 @@ export class ClientInStockBoxesViewModel {
 
         destinationId: this.curDestination && this.curDestination._id,
 
-        productGuid: this.productSearchGuid,
+        // productGuid: this.productSearchGuid,
 
         isFormed: this.isFormed,
 

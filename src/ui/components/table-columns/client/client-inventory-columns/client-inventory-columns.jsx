@@ -137,11 +137,11 @@ export const clientInventoryColumns = (
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
-        onClickText={e => {
-          e.stopPropagation()
+        // onClickText={e => {
+        //   e.stopPropagation()
 
-          otherHandlers.onClickInTransfer(params.row.originalData._id)
-        }}
+        //   otherHandlers.onClickInTransfer(params.row.originalData._id)
+        // }}
       />
     ),
     type: 'number',

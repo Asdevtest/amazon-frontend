@@ -4,6 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
 
@@ -31,7 +32,7 @@ export class ShopsViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = undefined
+  selectionModel = []
 
   activeSubCategory = 0
 
@@ -184,6 +185,27 @@ export class ShopsViewModel {
       this.error = error
 
       this.shopsData = []
+    }
+  }
+
+  async updateShops() {
+    try {
+      await ClientModel.updateShops(this.selectionModel)
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey.Updated),
+      }
+      this.onTriggerOpenModal('showWarningModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey.Error),
+      }
+      this.onTriggerOpenModal('showWarningModal')
     }
   }
 

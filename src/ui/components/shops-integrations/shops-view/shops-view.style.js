@@ -7,6 +7,7 @@ export const styles = theme => ({
     marginRight: '0',
     padding: '16px',
     display: 'flex',
+    gap: 30,
   },
 
   datagridWrapper: {

@@ -65,7 +65,8 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
-      productSearchGuid,
+      nameSearchValue,
+      // productSearchGuid,
       changeItem,
       isFormed,
       clientDestinations,
@@ -153,7 +154,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickDestinationBtn,
       onChangeIsFormed,
       editTariff,
-      resetProductSearchGuid,
+      // resetProductSearchGuid,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -207,6 +208,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                   key={'client_warehouse_search_input'}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+                  startText={nameSearchValue}
                   onSubmit={onSearchSubmit}
                 />
               </div>
@@ -280,7 +282,7 @@ export class ClientInStockBoxesViewRaw extends Component {
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
 
-                {productSearchGuid ? (
+                {/* {productSearchGuid ? (
                   <div className={classNames.productFilterWrapper}>
                     <Typography className={classNames.productFilterText}>
                       {t(TranslationKey['Filter by PRODUCT applied'])}
@@ -290,7 +292,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                       <CloseOutlinedIcon />
                     </IconButton>
                   </div>
-                ) : null}
+                ) : null} */}
               </div>
 
               <MemoDataGrid
