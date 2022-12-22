@@ -43,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
     '&:disabled': {
-      backgroundColor: 'rgba(210, 35, 35, 0.5) !important',
+      background: 'linear-gradient(180deg, #952024 0%, rgb(223, 12, 12, 0.5) 100%)',
     },
   },
   // disabled: { работает
