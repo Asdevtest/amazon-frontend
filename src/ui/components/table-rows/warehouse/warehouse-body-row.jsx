@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, TableCell, TableRow, Typography, Table, TableBody} from '@mui/material'
+import {Checkbox, TableCell, TableRow, Typography, Table, TableBody, Tooltip} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -194,7 +194,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
             {orderIndex === 0 && (
               <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
-                <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
+                <Tooltip title={box.trackNumberText ? box.trackNumberText : null}>
+                  <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
+                </Tooltip>
               </TableCell>
             )}
           </TableRow>

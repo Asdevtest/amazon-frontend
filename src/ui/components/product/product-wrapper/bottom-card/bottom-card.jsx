@@ -247,7 +247,16 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey['The status in which the product card is at the moment'])}
-              inputProps={{style: {color: colorByProductStatus(ProductStatusByCode[product.status])}}}
+              inputProps={{
+                style: {color: colorByProductStatus(ProductStatusByCode[product.status])},
+              }}
+              // sx={{
+              //   '& .MuiInputBase-input.Mui-disabled': {
+              //     WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
+              //     // backgroundColor: '#36363F',
+              //     // border: 'none',
+              //   },
+              // }}
               error={formFieldsValidationErrors.status}
               label={t(TranslationKey.Status)}
               value={t(productStatusTranslateKey(ProductStatusByCode[product.status]))}
