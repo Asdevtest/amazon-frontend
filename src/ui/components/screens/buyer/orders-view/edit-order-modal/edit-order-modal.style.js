@@ -303,7 +303,7 @@ export const useClassNames = makeStyles()(theme => ({
   sharpCell: {
     width: 10,
   },
-  createdCell: {
+  updatedCell: {
     width: 65,
   },
   statusCell: {

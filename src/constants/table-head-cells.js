@@ -50,7 +50,7 @@ export const CLIENT_EXCHANGE_HEAD_CELLS = [
 export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
   {id: 'img', label: '#', className: 'sharpCell'},
   {id: 'img', label: t(TranslationKey.Status), className: 'statusCell'},
-  {id: 'img', label: t(TranslationKey.Created), className: 'createdCell'},
+  {id: 'img', label: t(TranslationKey.Updated), className: 'updatedCell'},
   {id: 'img', label: t(TranslationKey.Product), className: 'productCell'},
   {id: 'img', label: t(TranslationKey.Photos), className: 'photosCell'},
   {id: 'img', label: t(TranslationKey.Quantity), className: 'quantityCell'},

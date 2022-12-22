@@ -38,9 +38,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const style = colorByBoxStatus(box.status)
 
-  const BoxCreatedAt = ({product}) => (
+  console.log('box', box)
+
+  const BoxUpdatedAt = ({product}) => (
     <Typography className={classNames.shortDateCellTypo}>
-      {product.createdAt ? formatShortDateTime(product.createdAt) : '-'}
+      {product.updatedAt ? formatShortDateTime(product.updatedAt) : '-'}
     </Typography>
   )
 
@@ -120,7 +122,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             )}
 
             <TableCell>
-              <BoxCreatedAt product={order.product} />
+              <BoxUpdatedAt product={order.product} />
             </TableCell>
             <TableCell>
               <ProductCell product={order.product} />
