@@ -150,7 +150,7 @@ export const useClassNames = makeStyles()(theme => ({
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    // alignItems: 'center',
     marginBottom: '20px',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -265,5 +265,15 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       justifyContent: 'center',
     },
+  },
+  batchTitleWrapper: {
+    display: 'flex',
+    width: 300,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  batchTitle: {
+    marginLeft: 5,
   },
 }))
