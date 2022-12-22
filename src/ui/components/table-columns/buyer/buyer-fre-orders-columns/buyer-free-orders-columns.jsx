@@ -103,6 +103,16 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'productionTerm',
+    headerName: t(TranslationKey['Production time']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    width: 120,
+    sortable: false,
+  },
+
+  {
     field: 'deadline',
     headerName: 'Deadline',
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,

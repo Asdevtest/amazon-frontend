@@ -22,14 +22,19 @@ export const boxStatusTranslateKey = status => {
       return TranslationKey['Sent in batches']
     case BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE:
       return TranslationKey['Needs confirmation of shipping cost']
+    case BoxStatus.IN_BATCH:
+      return TranslationKey['Awaiting shipment in batches']
   }
 }
 
 export const colorByBoxStatus = status => {
   if (
-    [BoxStatus.NEW, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE].includes(
-      status,
-    )
+    [
+      BoxStatus.NEW,
+      BoxStatus.REQUESTED_SEND_TO_BATCH,
+      BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+      BoxStatus.IN_BATCH,
+    ].includes(status)
   ) {
     return {
       color: '#C69109',
