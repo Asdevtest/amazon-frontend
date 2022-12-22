@@ -134,15 +134,16 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
+    const nameSearchValue = this.nameSearchValue.trim()
+    if (nameSearchValue) {
       return toJS(
         this.tasksMy.filter(
           el =>
-            el.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
             el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
             ),
         ),
       )
