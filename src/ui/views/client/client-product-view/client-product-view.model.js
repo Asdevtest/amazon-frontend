@@ -121,6 +121,8 @@ export class ClientProductViewModel {
 
   supplierModalReadOnly = false
 
+  showAtProcessOrders = false
+
   confirmModalSettings = {
     isWarning: false,
     title: '',
@@ -145,12 +147,18 @@ export class ClientProductViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     runInAction(() => {
       this.history = history
 
       this.productId = history.location.search.slice(1)
     })
+
+    if (location.state?.showAtProcessOrders) {
+      runInAction(() => {
+        this.showAtProcessOrders = location.state?.showAtProcessOrders
+      })
+    }
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }

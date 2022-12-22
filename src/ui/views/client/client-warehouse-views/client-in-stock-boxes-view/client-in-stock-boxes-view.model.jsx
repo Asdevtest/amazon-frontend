@@ -89,6 +89,8 @@ export class ClientInStockBoxesViewModel {
   boxesIdsToTask = []
   shopsData = []
 
+  productSearchGuid = null
+
   volumeWeightCoefficient = undefined
 
   showMergeBoxModal = false
@@ -193,7 +195,18 @@ export class ClientInStockBoxesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
+    if (location.state?.inStockFilter) {
+      runInAction(() => {
+        this.currentStorekeeper = location.state.inStockFilter.storekeeper
+        this.productSearchGuid = location.state.inStockFilter.searchText
+      })
+
+      const state = {...history.location.state}
+      delete state.inStockFilter
+      history.replace({...history.location, state})
+    }
+
     runInAction(() => {
       this.history = history
     })
@@ -1433,6 +1446,14 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
+  resetProductSearchGuid() {
+    runInAction(() => {
+      this.productSearchGuid = null
+    })
+
+    this.getBoxesMy()
+  }
+
   async getBoxesMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
@@ -1445,6 +1466,8 @@ export class ClientInStockBoxesViewModel {
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
         destinationId: this.curDestination && this.curDestination._id,
+
+        productGuid: this.productSearchGuid,
 
         isFormed: this.isFormed,
 

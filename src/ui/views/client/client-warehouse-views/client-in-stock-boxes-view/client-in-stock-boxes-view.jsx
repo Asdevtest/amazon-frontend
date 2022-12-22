@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import {IconButton, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 // import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
@@ -55,7 +57,7 @@ const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
-  viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
+  viewModel = new ClientInStockBoxesViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -63,6 +65,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      productSearchGuid,
       changeItem,
       isFormed,
       clientDestinations,
@@ -150,6 +153,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickDestinationBtn,
       onChangeIsFormed,
       editTariff,
+      resetProductSearchGuid,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -275,6 +279,18 @@ export class ClientInStockBoxesViewRaw extends Component {
 
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
+
+                {productSearchGuid ? (
+                  <div className={classNames.productFilterWrapper}>
+                    <Typography className={classNames.productFilterText}>
+                      {t(TranslationKey['Filter by PRODUCT applied'])}
+                    </Typography>
+
+                    <IconButton onClick={resetProductSearchGuid}>
+                      <CloseOutlinedIcon />
+                    </IconButton>
+                  </div>
+                ) : null}
               </div>
 
               <MemoDataGrid

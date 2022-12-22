@@ -75,10 +75,15 @@ export class OrdersModel {
     }
   }
 
-  constructor({history, productId}) {
-    this.history = history
+  constructor({history, productId, showAtProcessOrders}) {
+    runInAction(() => {
+      this.history = history
 
-    this.productId = productId
+      this.chosenStatus = showAtProcessOrders ? chosenStatusSettings.AT_PROCESS : chosenStatusSettings.ALL
+
+      this.productId = productId
+    })
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(

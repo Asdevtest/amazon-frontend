@@ -44,6 +44,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const ProductWrapper = observer(
   ({
+    showAtProcessOrders,
     user,
     imagesForLoad,
     showProgress,
@@ -70,7 +71,7 @@ export const ProductWrapper = observer(
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
-    const [tabIndex, setTabIndex] = React.useState(tabsValues.MAIN_INFO)
+    const [tabIndex, setTabIndex] = React.useState(showAtProcessOrders ? tabsValues.ORDERS : tabsValues.MAIN_INFO)
 
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
@@ -153,7 +154,7 @@ export const ProductWrapper = observer(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} />
+              <Orders productId={product._id} showAtProcessOrders={showAtProcessOrders} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>

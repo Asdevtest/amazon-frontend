@@ -1262,6 +1262,17 @@ export const styles = theme => ({
     height: '40px',
   },
 
+  multilineLink: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+      textDecoration: 'underline',
+    },
+  },
+
   userLink: {
     display: 'inline-flex',
   },
@@ -1272,6 +1283,10 @@ export const styles = theme => ({
     '&:hover': {
       opacity: '.7',
     },
+  },
+
+  linkWrapper: {
+    cursor: 'pointer',
   },
 
   shortBoxDimensionsWrapper: {
@@ -1380,6 +1395,7 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+    padding: '10px 0',
   },
   storekeeperBtn: {
     height: 'auto',

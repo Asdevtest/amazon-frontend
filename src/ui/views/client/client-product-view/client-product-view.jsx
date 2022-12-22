@@ -24,6 +24,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 export class ClientProductView extends Component {
   viewModel = new ClientProductViewModel({
     history: this.props.history,
+    location: this.props.location,
   })
 
   componentDidMount() {
@@ -32,6 +33,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      showAtProcessOrders,
       storekeepersData,
       getCurrentData,
       shopsData,
@@ -75,6 +77,7 @@ export class ClientProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  showAtProcessOrders={showAtProcessOrders}
                   user={userInfo}
                   userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}

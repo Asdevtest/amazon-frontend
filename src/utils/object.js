@@ -1,4 +1,4 @@
-import {isUndefined} from './checks'
+import {isNull, isUndefined} from './checks'
 
 /**
  * Returns typed array of object keys.
@@ -49,7 +49,7 @@ export const getObjectFilteredByKeyArrayBlackList = (obj, keyArr, skipUndefined,
   Object.keys(obj)
     .filter(key => !keyArr.includes(key))
     .reduce((acc, key) => {
-      if (skipUndefined && isUndefined(obj[key])) {
+      if ((skipUndefined && isUndefined(obj[key])) || isNull(obj[key])) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]

@@ -24,7 +24,13 @@ import {
 
 import {t} from '@utils/translations'
 
-export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers, stockUsHandlers) => [
+export const clientInventoryColumns = (
+  barCodeHandlers,
+  hsCodeHandlers,
+  fourMonthesStockHandlers,
+  stockUsHandlers,
+  otherHandlers,
+) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -92,7 +98,16 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: 'Order',
     renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        onClickText={e => {
+          e.stopPropagation()
+
+          otherHandlers.onClickOrderCell(params.row.originalData._id)
+        }}
+      />
+    ),
     type: 'number',
     width: 60,
   },
@@ -119,7 +134,16 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: 'in Transfer',
     renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        onClickText={e => {
+          e.stopPropagation()
+
+          otherHandlers.onClickInTransfer(params.row.originalData._id)
+        }}
+      />
+    ),
     type: 'number',
     width: 80,
   },
@@ -129,7 +153,13 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: 'In stock',
     renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
 
-    renderCell: params => <InStockCell boxAmounts={params.row.originalData.boxAmounts} />,
+    renderCell: params => (
+      <InStockCell
+        boxAmounts={params.row.originalData.boxAmounts}
+        box={params.row.originalData}
+        onClickInStock={otherHandlers.onClickInStock}
+      />
+    ),
     width: 160,
     sortable: false,
     type: 'actions',
