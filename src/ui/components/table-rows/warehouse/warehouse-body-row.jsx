@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, TableCell, TableRow, Typography, Table, TableBody} from '@mui/material'
+import {Checkbox, TableCell, TableRow, Typography, Table, TableBody, Tooltip} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -38,9 +38,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const style = colorByBoxStatus(box.status)
 
-  const BoxCreatedAt = ({product}) => (
+  console.log('box', box)
+
+  const BoxUpdatedAt = ({product}) => (
     <Typography className={classNames.shortDateCellTypo}>
-      {product.createdAt ? formatShortDateTime(product.createdAt) : '-'}
+      {product.updatedAt ? formatShortDateTime(product.updatedAt) : '-'}
     </Typography>
   )
 
@@ -120,7 +122,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             )}
 
             <TableCell>
-              <BoxCreatedAt product={order.product} />
+              <BoxUpdatedAt product={order.product} />
             </TableCell>
             <TableCell>
               <ProductCell product={order.product} />
@@ -194,7 +196,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
             {orderIndex === 0 && (
               <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
-                <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
+                <Tooltip title={box.trackNumberText ? box.trackNumberText : null}>
+                  <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
+                </Tooltip>
               </TableCell>
             )}
           </TableRow>

@@ -68,11 +68,29 @@ export const productIntegrationsColumns = () => [
   },
 
   {
+    field: 'available',
+    headerName: t(TranslationKey.Available),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Available)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.fbaFbmStock} />,
+    width: 150,
+  },
+
+  {
     field: 'reserved',
     headerName: t(TranslationKey.Reserved),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
+  },
+
+  {
+    field: 'inbound',
+    headerName: t(TranslationKey.Inbound),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.sentToFba} />,
     width: 150,
   },
 
@@ -98,14 +116,6 @@ export const productIntegrationsColumns = () => [
     field: 'daysOfStockLeft',
     headerName: t(TranslationKey.DaysOfStockLeft),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
-  },
-  {
-    field: 'sentToFba',
-    headerName: t(TranslationKey.SentToFba),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,

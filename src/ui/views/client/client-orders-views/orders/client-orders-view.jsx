@@ -97,7 +97,10 @@ class ClientOrdersViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={isPendingOrdering ? t(TranslationKey['Pending orders']) : t(TranslationKey.Orders)}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
                 {isPendingOrdering ? (

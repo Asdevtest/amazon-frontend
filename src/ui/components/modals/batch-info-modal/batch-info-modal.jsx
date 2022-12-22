@@ -140,6 +140,8 @@ export const BatchInfoModal = observer(
       }
     }, [nameSearchValue, batch])
 
+    console.log('batch', batch)
+
     const [curBox, setCurBox] = useState({})
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -156,6 +158,13 @@ export const BatchInfoModal = observer(
             <Typography className={classNames.modalTitle} variant="h5">
               {t(TranslationKey['Viewing the batch'])}
             </Typography>
+
+            <div className={classNames.batchTitleWrapper}>
+              <Typography variant="h5">{t(TranslationKey['Batch title']) + ': '}</Typography>
+              <Typography className={classNames.batchTitle} variant="h6">
+                {batch.title}
+              </Typography>
+            </div>
 
             <Field
               oneLine

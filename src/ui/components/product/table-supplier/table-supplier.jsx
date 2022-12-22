@@ -22,8 +22,6 @@ import {useClassNames} from './table-supplier.style'
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('product', product)
-
   const renderHeader = () => (
     <TableHead>
       <TableRow>

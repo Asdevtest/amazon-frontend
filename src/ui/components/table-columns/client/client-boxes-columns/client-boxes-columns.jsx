@@ -159,6 +159,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
           setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
           storekeepers={storekeepersData}
           setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
+          isDraft={params.row.isDraft}
           onSelectDestination={handlers.onSelectDestination}
           onClickSetTariff={handlers.onClickSetTariff}
         />

@@ -19,7 +19,6 @@ export const styles = theme => ({
   img: {
     height: '64px',
     width: '64px',
-    marginRight: '8px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -111,7 +110,7 @@ export const styles = theme => ({
     },
   },
   linkSpan: {
-    marginLeft: 10,
+    marginLeft: 5,
     color: theme.palette.primary.main,
   },
   typoSpan: {
