@@ -169,7 +169,7 @@ export class ClientInStockBoxesViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.boxesFiltersWrapper}>
