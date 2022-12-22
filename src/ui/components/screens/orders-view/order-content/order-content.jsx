@@ -217,7 +217,7 @@ export const OrderContent = ({
               )}
             {isClient && isCanChange ? (
               <div className={classNames.btnsSubWrapper}>
-                {isClient && updatedOrder.status < OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
+                {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
                   <Button success className={classNames.button} onClick={onClickReorder}>
                     {t(TranslationKey['To order'])}
                   </Button>
@@ -227,7 +227,11 @@ export const OrderContent = ({
                   className={classNames.button}
                   onClick={() =>
                     onSubmitSaveOrder({
-                      data: getObjectFilteredByKeyArrayBlackList(formFields, formFields.deadline ? [] : ['deadline']),
+                      data: getObjectFilteredByKeyArrayBlackList(
+                        {...formFields, images: formFields.images ? formFields.images : []},
+                        formFields.deadline ? [] : ['deadline'],
+                        true,
+                      ),
                     })
                   }
                 >

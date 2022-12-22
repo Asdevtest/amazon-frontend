@@ -99,6 +99,8 @@ export class ClientInventoryViewModel {
 
   receivedFiles = undefined
 
+  curProduct = undefined
+
   nameSearchValue = ''
 
   selectedRowId = undefined
@@ -133,6 +135,7 @@ export class ClientInventoryViewModel {
   currentBarcode = ''
   currentHscode = ''
   isModalOpen = false
+
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
     onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
@@ -153,6 +156,12 @@ export class ClientInventoryViewModel {
 
   stockUsHandlers = {
     onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
+  }
+
+  otherHandlers = {
+    onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
+    onClickInTransfer: productId => this.onClickInTransfer(productId),
+    onClickOrderCell: productId => this.onClickOrderCell(productId),
   }
 
   confirmModalSettings = {
@@ -179,6 +188,7 @@ export class ClientInventoryViewModel {
     this.hsCodeHandlers,
     this.fourMonthesStockHandlers,
     this.stockUsHandlers,
+    this.otherHandlers,
   )
 
   get userInfo() {
@@ -250,6 +260,18 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
+  onClickInStock(row, storekeeper) {
+    this.history.push('/client/warehouse/in-stock', {
+      inStockFilter: {storekeeper, searchText: row._id},
+    })
+  }
+
+  onClickOrderCell(productId) {
+    this.history.push(`/client/inventory/product?${productId}`, {
+      showAtProcessOrders: true,
+    })
+  }
+
   setDataGridState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
@@ -277,6 +299,7 @@ export class ClientInventoryViewModel {
           this.hsCodeHandlers,
           this.fourMonthesStockHandlers,
           this.stockUsHandlers,
+          this.otherHandlers,
         ).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
@@ -929,11 +952,29 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onClickInTransfer(productId) {
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(productId) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+      runInAction(() => {
+        this.batchesData = result.filter(el => el.boxes[0].destination.name.includes('PREP')) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+
+        this.curProduct = this.currentData.filter(product => productId === product.id).map(prod => prod.originalData)
+      })
+      this.onTriggerOpenModal('showProductLotDataModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onClickProductLotDataBtn() {
     try {
       const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0])
       runInAction(() => {
         this.batchesData = result
+
+        this.curProduct = this.currentData
+          .filter(product => this.selectedRowIds.includes(product.id))
+          .map(prod => prod.originalData)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {

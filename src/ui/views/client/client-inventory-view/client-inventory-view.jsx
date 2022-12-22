@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
+import {Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -58,6 +59,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      curProduct,
       receivedFiles,
       batchesData,
       currentData,
@@ -431,7 +433,8 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showProductLotDataModal} setOpenModal={() => onTriggerOpenModal('showProductLotDataModal')}>
           <ProductLotDataForm
-            product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            // product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            product={curProduct}
             batchesData={batchesData}
           />
         </Modal>

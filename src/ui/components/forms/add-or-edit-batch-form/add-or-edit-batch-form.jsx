@@ -35,7 +35,7 @@ export const AddOrEditBatchForm = observer(
 
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
-    const [batchTitle, setBatchTitle] = useState('')
+    const [batchTitle, setBatchTitle] = useState(batchToEdit ? batchToEdit.title : '')
 
     const [filesToAdd, setfilesToAdd] = useState([])
 

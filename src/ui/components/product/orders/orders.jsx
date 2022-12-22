@@ -24,10 +24,10 @@ import {t} from '@utils/translations'
 import {OrdersModel} from './orders.model'
 import {useClassNames} from './orders.style'
 
-export const Orders = observer(({productId}) => {
+export const Orders = observer(({productId, showAtProcessOrders}) => {
   const {classes: classNames} = useClassNames()
   const history = useHistory()
-  const model = useRef(new OrdersModel({history, productId}))
+  const model = useRef(new OrdersModel({history, productId, showAtProcessOrders}))
 
   const {
     orderStatusData,
@@ -68,11 +68,6 @@ export const Orders = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
-        // sx={{
-        //   border: 0,
-        //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-        //   backgroundColor: theme.palette.background.general,
-        // }}
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,

@@ -17,7 +17,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     padding: '0 0 10px',
     marginTop: 10,
   },
@@ -25,6 +25,19 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     gap: '10px',
+  },
+
+  productFilterWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: 50,
+  },
+
+  productFilterText: {
+    fontSize: 22,
+    fontWeight: 600,
+    color: 'rgba(247, 179, 7, .8)',
+    letterSpacing: 5,
   },
 
   heightFieldAuto: {

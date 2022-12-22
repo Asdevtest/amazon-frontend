@@ -188,7 +188,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
 
     renderCell: params =>
       params.row.originalData ? (
-        <div style={{display: 'flex', flexDirection: 'column', gap: '7px'}}>
+        <div style={{display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0'}}>
           <ChangeChipCell
             label={t(TranslationKey['Shipping label']) + ':'}
             disabled={params.row.originalData?.isDraft}

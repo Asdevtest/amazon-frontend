@@ -102,13 +102,20 @@ export const UserCell = React.memo(
 
 export const InStockCell = React.memo(
   withStyles(
-    ({classes: classNames, boxAmounts}) => (
+    ({classes: classNames, boxAmounts, box, onClickInStock}) => (
       <div className={classNames.inStockWrapper}>
         {boxAmounts?.map(el => (
           <div key={el._id} className={classNames.inStockSubWrapper}>
             <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
 
-            <Typography>{el.amountInBoxes}</Typography>
+            <Link
+              target="_blank"
+              underline={'hover'}
+              className={classNames.linkWrapper}
+              onClick={() => onClickInStock(box, el.storekeeper)}
+            >
+              <Typography>{el.amountInBoxes}</Typography>
+            </Link>
           </div>
         ))}
       </div>
@@ -825,14 +832,29 @@ export const RenderFieldValueCell = React.memo(
 
 export const MultilineTextCell = React.memo(
   withStyles(
-    ({classes: classNames, text, noTextText, color, withTooltip, leftAlign, tooltipText, withLineBreaks}) => (
+    ({
+      classes: classNames,
+      text,
+      noTextText,
+      color,
+      withTooltip,
+      leftAlign,
+      tooltipText,
+      withLineBreaks,
+      onClickText,
+    }) => (
       <>
         {withTooltip || tooltipText ? (
           <Tooltip title={tooltipText || text}>
             <div className={classNames.multilineTextWrapper}>
               <Typography
-                className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+                className={cx(
+                  classNames.multilineText,
+                  {[classNames.multilineLeftAlignText]: leftAlign},
+                  {[classNames.multilineLink]: onClickText && text},
+                )}
                 style={color && {color}}
+                onClick={onClickText && onClickText}
               >
                 {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
               </Typography>
@@ -841,8 +863,13 @@ export const MultilineTextCell = React.memo(
         ) : (
           <div className={classNames.multilineTextWrapper}>
             <Typography
-              className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}
+              className={cx(
+                classNames.multilineText,
+                {[classNames.multilineLeftAlignText]: leftAlign},
+                {[classNames.multilineLink]: onClickText && text},
+              )}
               style={color && {color}}
+              onClick={onClickText && onClickText}
             >
               {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
             </Typography>
