@@ -83,7 +83,9 @@ export const useClassNames = makeStyles()(theme => ({
     zIndex: 1200,
     width: '40px',
     height: '40px',
-    backgroundColor: '#d1d1d1a8',
+    // backgroundColor: '#d1d1d1a8', // старый цвет
+    backgroundColor: '#FFFFFF',
+    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
