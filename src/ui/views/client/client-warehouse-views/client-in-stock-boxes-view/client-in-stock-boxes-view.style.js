@@ -17,7 +17,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     padding: '0 0 10px',
     marginTop: 10,
   },

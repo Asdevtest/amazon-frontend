@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusStorekeeper from './ApiV1AdminsGetProductsByStatusStorekeeper';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1AdminsGetProductsByStatusBoxAmounts model module.
@@ -52,7 +52,7 @@ class ApiV1AdminsGetProductsByStatusBoxAmounts {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusStorekeeper.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('amountInBoxes')) {
                 obj['amountInBoxes'] = ApiClient.convertToType(data['amountInBoxes'], 'Number');
@@ -71,7 +71,7 @@ class ApiV1AdminsGetProductsByStatusBoxAmounts {
 ApiV1AdminsGetProductsByStatusBoxAmounts.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusStorekeeper} storekeeper
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
 ApiV1AdminsGetProductsByStatusBoxAmounts.prototype['storekeeper'] = undefined;
 

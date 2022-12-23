@@ -362,7 +362,10 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     shops: Array.from(
       new Set(
         `${item.items.reduce(
-          (ac, cur) => (ac += shopsData?.find(el => el._id === cur.product.shopIds?.[0])?.name + ', '),
+          (ac, cur) =>
+            (ac +=
+              cur.product.shopIds?.reduce((a, c) => (a += shopsData?.find(el => el._id === c)?.name + ', '), '') +
+              ', '),
           '',
         )}`
           .replace(/undefined/g, '')

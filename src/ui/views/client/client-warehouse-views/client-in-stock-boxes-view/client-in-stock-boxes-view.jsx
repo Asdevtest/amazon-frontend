@@ -57,8 +57,9 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      curShop,
+      shopsData,
       nameSearchValue,
-      // productSearchGuid,
       changeItem,
       isFormed,
       clientDestinations,
@@ -146,7 +147,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickDestinationBtn,
       onChangeIsFormed,
       editTariff,
-      // resetProductSearchGuid,
+      onClickShopBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -274,17 +275,26 @@ export class ClientInStockBoxesViewRaw extends Component {
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
 
-                {/* {productSearchGuid ? (
-                  <div className={classNames.productFilterWrapper}>
-                    <Typography className={classNames.productFilterText}>
-                      {t(TranslationKey['Filter by PRODUCT applied'])}
-                    </Typography>
-
-                    <IconButton onClick={resetProductSearchGuid}>
-                      <CloseOutlinedIcon />
-                    </IconButton>
-                  </div>
-                ) : null} */}
+                <WithSearchSelect
+                  selectedItemName={(!curShop?._id && t(TranslationKey['All shops'])) || (curShop && curShop.name)}
+                  data={shopsData.filter(shop => curShop?.id !== shop._id)}
+                  searchFields={['name']}
+                  firstItems={
+                    <>
+                      {!!curShop?._id && (
+                        <Button
+                          disabled={!currentData}
+                          className={classNames.button}
+                          variant="text"
+                          onClick={onClickShopBtn}
+                        >
+                          {t(TranslationKey['All shops'])}
+                        </Button>
+                      )}
+                    </>
+                  }
+                  onClickSelect={shop => onClickShopBtn(shop)}
+                />
               </div>
 
               <MemoDataGrid

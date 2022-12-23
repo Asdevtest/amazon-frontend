@@ -717,6 +717,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let status = "status_example"; // String | 
 let opts = {
+  'shopIds': "shopIds_example", // String | Гуиды магазинов
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -734,6 +735,7 @@ apiInstance.apiV1BoxesClientsLightGet(status, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**|  | 
+ **shopIds** | **String**| Гуиды магазинов | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
@@ -1219,6 +1221,7 @@ let opts = {
   'destinationId': "destinationId_example", // String | GUID дестинейшна, который должен быть у боксов.
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'isFormed': true, // Boolean | Сформирована ли коробка
+  'shopIds': "shopIds_example", // String | Гуиды магазинов
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
@@ -1244,6 +1247,7 @@ Name | Type | Description  | Notes
  **destinationId** | **String**| GUID дестинейшна, который должен быть у боксов. | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **isFormed** | **Boolean**| Сформирована ли коробка | [optional] 
+ **shopIds** | **String**| Гуиды магазинов | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 
