@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -13,6 +11,7 @@ import {Appbar} from '@components/appbar'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 // import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
@@ -92,7 +91,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                 />
               </div>
 
-              <DataGrid
+              <MemoDataGrid
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}

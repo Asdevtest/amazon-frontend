@@ -1,5 +1,4 @@
 import {Box} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef, useState} from 'react'
 
@@ -13,6 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -288,7 +288,7 @@ export const AdminSettingsContent = observer(() => {
                 </Button>
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   classes={{

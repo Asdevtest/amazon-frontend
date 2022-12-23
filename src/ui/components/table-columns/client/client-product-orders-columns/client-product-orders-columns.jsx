@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {t} from 'i18n-js'
@@ -28,7 +30,7 @@ import {
 import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 
-export const clientOrdersViewColumns = (handlers, firstRowId) => [
+export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -67,7 +69,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
 
     width: 160,
     renderCell: params => (

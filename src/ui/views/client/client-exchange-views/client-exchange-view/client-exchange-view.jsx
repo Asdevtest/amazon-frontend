@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -13,6 +11,7 @@ import {Appbar} from '@components/appbar'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectShopsModal} from '@components/modals/select-shops-modal/select-shops-modal'
@@ -90,7 +89,7 @@ export class ClientExchangeViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Surebets exchange'])}>
             <MainContent>
-              <DataGrid
+              <MemoDataGrid
                 pagination
                 useResizeContainer
                 classes={{

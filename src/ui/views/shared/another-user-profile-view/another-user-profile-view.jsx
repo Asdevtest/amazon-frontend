@@ -1,5 +1,4 @@
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -14,6 +13,7 @@ import {Appbar} from '@components/appbar'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectShopsModal} from '@components/modals/select-shops-modal'
@@ -114,7 +114,7 @@ class AnotherUserProfileViewRaw extends Component {
                     {t(TranslationKey['Active offers on the commodity exchange'])}
                   </Typography>
 
-                  <DataGrid
+                  <MemoDataGrid
                     pagination
                     useResizeContainer
                     classes={{

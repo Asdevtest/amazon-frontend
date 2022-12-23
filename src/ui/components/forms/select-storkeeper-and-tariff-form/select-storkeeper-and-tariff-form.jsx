@@ -4,7 +4,6 @@ import {
   Tabs,
   /* Tab, */
 } from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
@@ -15,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {ITab} from '@components/i-tab/i-tab'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
@@ -111,7 +111,7 @@ export const SelectStorekeeperAndTariffForm = observer(
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
-            <DataGrid
+            <MemoDataGrid
               hideFooter
               // sx={{
               //   border: 0,
@@ -144,7 +144,7 @@ export const SelectStorekeeperAndTariffForm = observer(
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <div className={classNames.tableWrapper}>
-            <DataGrid
+            <MemoDataGrid
               hideFooter
               // sx={{
               //   border: 0,

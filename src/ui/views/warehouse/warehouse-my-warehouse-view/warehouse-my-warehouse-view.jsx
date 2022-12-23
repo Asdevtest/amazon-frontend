@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -22,6 +20,7 @@ import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
@@ -127,7 +126,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                 <div />
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   disableVirtualization
                   checkboxSelection
                   pagination

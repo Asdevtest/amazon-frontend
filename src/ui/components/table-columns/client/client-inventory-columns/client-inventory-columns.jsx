@@ -121,7 +121,6 @@ export const clientInventoryColumns = (
       <ChangeInputCell
         isInts
         row={params.row.originalData}
-        // text={Number(params.value) > 0 ? params.value : `-`}
         text={params.value}
         onClickSubmit={stockUsHandlers.onClickSaveStockUs}
       />
@@ -234,7 +233,6 @@ export const clientInventoryColumns = (
       params.row.originalData.archive ? (
         <ShowBarcodeOrHscodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
       ) : (
-        // <ActiveBarcodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
         <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
       ),
     minWidth: 100,
@@ -253,7 +251,6 @@ export const clientInventoryColumns = (
       params.row.originalData.archive ? (
         <ShowBarcodeOrHscodeCell hsCode={params.row.originalData.hsCode} handlers={barCodeHandlers} />
       ) : (
-        // <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
         <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
       ),
     minWidth: 100,

@@ -9,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
+import {clientProductOrdersViewColumns} from '@components/table-columns/client/client-product-orders-columns'
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -65,7 +65,7 @@ export class OrdersModel {
 
   firstRowId = undefined
 
-  columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
 
   get orderStatusData() {
     return {
@@ -99,7 +99,7 @@ export class OrdersModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
+      this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
     }
   }
 
@@ -240,6 +240,7 @@ export class OrdersModel {
         'barCode',
         'tmpBarCode',
         'tmpIsPendingOrder',
+        '_id',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

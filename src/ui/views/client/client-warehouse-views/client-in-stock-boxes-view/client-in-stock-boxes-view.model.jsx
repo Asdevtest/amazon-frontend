@@ -195,17 +195,15 @@ export class ClientInStockBoxesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
-    if (location.state?.inStockFilter) {
-      runInAction(() => {
-        this.currentStorekeeper = location.state.inStockFilter.storekeeper
-        this.nameSearchValue = location.state.inStockFilter.searchText
-      })
+  constructor({history}) {
+    const url = new URL(window.location.href)
 
-      const state = {...history.location.state}
-      delete state.inStockFilter
-      history.replace({...history.location, state})
-    }
+    runInAction(() => {
+      this.history = history
+
+      this.currentStorekeeper = {_id: url.searchParams.get('storekeeper-id')}
+      this.nameSearchValue = url.searchParams.get('search-text')
+    })
 
     runInAction(() => {
       this.history = history

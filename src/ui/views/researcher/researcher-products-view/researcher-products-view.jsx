@@ -1,5 +1,4 @@
 import {Paper} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -15,6 +14,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
@@ -92,7 +92,7 @@ class ResearcherProductsViewRaw extends Component {
                 </div>
               </Paper>
               <div className={classNames.tableWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   localeText={getLocalizationByLanguageTag()}

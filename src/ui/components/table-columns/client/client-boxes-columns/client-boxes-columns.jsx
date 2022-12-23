@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -112,7 +114,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'isFormed',
     headerName: t(TranslationKey.Formed),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} Icon={FilterAltOutlinedIcon} />,
 
     renderCell: params =>
       params.row.originalData ? (

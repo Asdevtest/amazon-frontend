@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -11,6 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
@@ -79,7 +78,7 @@ export const UserBalance = observer(({userId}) => {
         {t(TranslationKey.Withdraw)}
       </Button>
       <div className={classNames.tableWrapper}>
-        <DataGrid
+        <MemoDataGrid
           pagination
           useResizeContainer
           // sx={{

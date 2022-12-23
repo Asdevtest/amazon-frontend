@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {Modal, Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
@@ -12,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BatchesModel} from '@models/batches-model'
 
 import {CopyValue} from '@components/copy-value'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {SearchInput} from '@components/search-input'
 
@@ -104,7 +104,7 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
         </div>
       </div>
       <div className={classNames.tableWrapper}>
-        <DataGrid
+        <MemoDataGrid
           hideFooter
           localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches._id}

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
@@ -12,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {MemoDataGrid} from '@components/memo-data-grid'
 
 import {calcTotalFbaForProduct, roundSafely} from '@utils/calculation'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
@@ -93,7 +93,7 @@ export const SupplierApproximateCalculationsForm = observer(
         </div>
 
         <div className={classNames.tableWrapper}>
-          <DataGrid
+          <MemoDataGrid
             hideFooter
             // sx={{
             //   border: 0,

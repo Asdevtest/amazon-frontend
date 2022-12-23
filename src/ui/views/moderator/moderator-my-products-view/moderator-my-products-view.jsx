@@ -1,8 +1,9 @@
-// import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+// import { GridToolbar} from '@mui/x-data-grid'
 import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
+// import {MemoDataGrid} from '@components/memo-data-grid'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
@@ -67,7 +68,7 @@ export class ModeratorMyProductsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-              {/* <DataGrid
+              {/* <MemoDataGrid
                 pagination
                 useResizeContainer
                 sx={{

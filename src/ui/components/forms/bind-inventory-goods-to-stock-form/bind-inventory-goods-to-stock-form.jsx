@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
@@ -11,6 +10,7 @@ import qs from 'qs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
@@ -167,7 +167,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         </div>
 
         <div className={classNames.tableWrapper}>
-          <DataGrid
+          <MemoDataGrid
             hideFooter
             checkboxSelection
             // sx={{
@@ -199,7 +199,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <DataGrid
+          <MemoDataGrid
             hideFooter
             // sx={{
             //   border: 0,

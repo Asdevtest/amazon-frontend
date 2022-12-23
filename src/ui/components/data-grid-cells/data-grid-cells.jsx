@@ -985,9 +985,11 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({classes: classNames, text}) => (
+    ({classes: classNames, text, Icon}) => (
       <div className={classNames.multilineTextHeaderWrapper}>
         <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+
+        {Icon ? <Icon className={classNames.headerIcon} /> : null}
       </div>
     ),
     styles,

@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
 import {Grid} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -17,6 +16,7 @@ import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -98,7 +98,7 @@ class AdminOrdersViewsRaw extends Component {
                 ))}
               </Grid>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   localeText={getLocalizationByLanguageTag()}

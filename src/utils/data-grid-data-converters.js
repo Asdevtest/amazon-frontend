@@ -316,6 +316,8 @@ export const clientOrdersDataConverter = data =>
     storekeeper: item.storekeeper?.name,
     deadline: item.deadline,
     needsResearch: item.needsResearch,
+    buyerComment: item.buyerComment,
+    clientComment: item.clientComment,
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>

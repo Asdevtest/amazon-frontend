@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -15,6 +13,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
@@ -89,7 +88,7 @@ class AdminDestinationsViewRaw extends Component {
                 </Button>
               </div>
 
-              <DataGrid
+              <MemoDataGrid
                 pagination
                 useResizeContainer
                 classes={{

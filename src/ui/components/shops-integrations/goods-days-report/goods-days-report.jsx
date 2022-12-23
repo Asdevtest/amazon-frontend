@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -10,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -80,7 +79,7 @@ class GoodsDaysReportRaw extends Component {
           </div>
 
           <div className={className.dataGridWrapper}>
-            <DataGrid
+            <MemoDataGrid
               pagination
               useResizeContainer
               localeText={getLocalizationByLanguageTag()}

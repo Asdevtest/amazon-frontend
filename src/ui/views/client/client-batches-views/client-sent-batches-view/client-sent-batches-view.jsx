@@ -1,6 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -16,6 +15,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -98,7 +98,7 @@ class ClientSentBatchesViewRaw extends Component {
                 onChange={onChangeNameSearchValue}
               />
 
-              <DataGrid
+              <MemoDataGrid
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}

@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -14,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -80,7 +79,7 @@ class BuyerFreeOrdersViewRaw extends Component {
                 </Button>
               </div>
               <div className={classNames.dataGridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   disableVirtualization
                   checkboxSelection
                   pagination

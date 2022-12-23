@@ -24,7 +24,6 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 export class ClientProductView extends Component {
   viewModel = new ClientProductViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
 
   componentDidMount() {

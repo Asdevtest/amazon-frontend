@@ -1,5 +1,4 @@
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -20,6 +19,7 @@ import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
 import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -115,7 +115,7 @@ class UserProfileViewRaw extends Component {
                     {t(TranslationKey['Active offers on the commodity exchange'])}
                   </Typography>
 
-                  <DataGrid
+                  <MemoDataGrid
                     pagination
                     useResizeContainer
                     classes={{

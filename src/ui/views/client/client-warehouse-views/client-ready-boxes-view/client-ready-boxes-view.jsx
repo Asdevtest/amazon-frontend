@@ -1,5 +1,4 @@
 import {cx} from '@emotion/css'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -16,6 +15,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -201,7 +201,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                 <div />
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   checkboxSelection

@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -14,6 +12,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
@@ -80,7 +79,7 @@ export class AdminFeedbackViewRaw extends Component {
                 />
               </div>
 
-              <DataGrid
+              <MemoDataGrid
                 disableVirtualization
                 pagination
                 useResizeContainer

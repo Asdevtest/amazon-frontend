@@ -106,9 +106,11 @@ export const ChatMessageBasicText: FC<Props> = observer(
               highlightTag={({children /* , highlightIndex*/}: HighlightTag) => (
                 <Linkify>
                   <span
-                    className={cx(classNames.highlightText, {
-                      [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
-                    })}
+                    className={cx(
+                      /* classNames.highlightText, */ {
+                        [classNames.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                      },
+                    )}
                   >
                     {children}
                   </span>

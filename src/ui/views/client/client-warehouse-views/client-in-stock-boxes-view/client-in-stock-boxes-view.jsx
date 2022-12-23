@@ -1,14 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import {IconButton, Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
-// import {DataGridPremium, useGridApiRef} from '@mui/x-data-grid-premium'
-// import {
-//   /* DataGrid,*/
-//   GridToolbar,
-// } from '@mui/x-data-grid-pro'
 import React, {Component} from 'react'
 
 import {toJS} from 'mobx'
@@ -57,7 +49,7 @@ const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
-  viewModel = new ClientInStockBoxesViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -321,9 +313,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={currentData || []}
                 getRowHeight={() => 'auto'}
-                // components={{
-                //   Toolbar: DataGridCustomToolbar,
-                // }}
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenu: DataGridCustomColumnMenuComponent,
@@ -344,7 +333,7 @@ export class ClientInStockBoxesViewRaw extends Component {
               />
 
               <div className={classNames.tasksWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   // disableVirtualization
                   pagination
                   classes={{
