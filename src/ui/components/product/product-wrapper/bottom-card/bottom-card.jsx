@@ -250,13 +250,11 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               inputProps={{
                 style: {color: colorByProductStatus(ProductStatusByCode[product.status])},
               }}
-              // sx={{
-              //   '& .MuiInputBase-input.Mui-disabled': {
-              //     WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
-              //     // backgroundColor: '#36363F',
-              //     // border: 'none',
-              //   },
-              // }}
+              sx={{
+                '& .MuiInputBase-input.Mui-disabled': {
+                  WebkitTextFillColor: colorByProductStatus(ProductStatusByCode[product.status]),
+                },
+              }}
               error={formFieldsValidationErrors.status}
               label={t(TranslationKey.Status)}
               value={t(productStatusTranslateKey(ProductStatusByCode[product.status]))}

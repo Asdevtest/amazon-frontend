@@ -348,6 +348,17 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
+      //
+      defaultProps: {
+        // добавлен весь объект defaultProps, удалить если нужно вернуться к прошлому виду
+        sx: {
+          '& .MuiInputBase-input.Mui-disabled': {
+            backgroundColor: '#36363F',
+            WebkitTextFillColor: '#fff',
+          },
+        },
+      },
+      //
       styleOverrides: {
         root: {
           color: '#fff',
@@ -558,12 +569,14 @@ export const darkTheme = createTheme({
       },
 
       input: {
-        customDisabled: '#a0a0a4',
-        // customDisabled: '#21212B',
+        // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
+        // customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду
 
+        // customDisabled: '#21212B',
         // customDisabled: '#EBEBEB', // макет
 
-        customBorder: '#424250',
+        customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
+        customBorder: 'none', // удалить это если нужно будет вернуться к прошлому виду
       },
     },
   },
