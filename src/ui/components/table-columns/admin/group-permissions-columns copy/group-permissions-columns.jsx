@@ -18,7 +18,7 @@ export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Key)} />,
 
     width: 280,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,
   },
 
   {
@@ -27,7 +27,7 @@ export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Role)} />,
 
     width: 140,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,
   },
 
   {
@@ -36,7 +36,7 @@ export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Title)} />,
 
     width: 200,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,
   },
 
   {
@@ -45,7 +45,7 @@ export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 450,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,
   },
 
   {

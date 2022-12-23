@@ -940,7 +940,7 @@ export const CommentOfSbCell = React.memo(
 
 export const MultilineTextAlignLeftCell = React.memo(
   withStyles(
-    ({classes: classNames, text, withTooltip, isAsin}) =>
+    ({classes: classNames, text, withTooltip, isAsin, pointer}) =>
       withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextAlignLeftWrapper}>
@@ -948,7 +948,7 @@ export const MultilineTextAlignLeftCell = React.memo(
               disabled
               value={checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
               // value={text.length > 10 ? text.slice(0, 7) + '...' : text}
-              className={classNames.multilineTextAlignLeft}
+              className={cx(classNames.multilineTextAlignLeft, {[classNames.cursorPointer]: pointer})}
             />
           </div>
         </Tooltip>
@@ -962,7 +962,10 @@ export const MultilineTextAlignLeftCell = React.memo(
             <TextareaAutosize
               disabled
               value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-              className={cx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
+              className={cx(classNames.multilineTextAlignLeft, {
+                [classNames.multilineTextAlignLeftSub]: isAsin,
+                [classNames.cursorPointer]: pointer,
+              })}
             />
           )}
           {isAsin ? <CopyValue text={text} /> : null}
