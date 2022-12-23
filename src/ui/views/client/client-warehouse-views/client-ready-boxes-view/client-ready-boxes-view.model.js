@@ -194,9 +194,12 @@ export class ClientReadyBoxesViewModel {
         this.storekeepersData = result
           .filter(storekeeper => storekeeper.boxesCount !== 0)
           .sort((a, b) => a.name.localeCompare(b.name))
+
+        this.currentStorekeeper = this.storekeepersData[0]
+        this.selectedBoxes = []
       })
 
-      this.onClickStorekeeperBtn(this.storekeepersData[0])
+      // this.onClickStorekeeperBtn(this.storekeepersData[0])
     } catch (error) {
       console.log(error)
     }
