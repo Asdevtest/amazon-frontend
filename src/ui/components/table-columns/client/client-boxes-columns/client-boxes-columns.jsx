@@ -122,7 +122,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
       ) : (
         ''
       ),
-    width: 110,
+    width: 130,
     sortable: false,
     filterable: false,
   },
@@ -217,7 +217,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
       ) : (
         ''
       ),
-    minWidth: 220,
+    minWidth: 150,
     headerAlign: 'center',
     sortable: false,
   },
