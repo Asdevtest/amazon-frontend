@@ -166,6 +166,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '720px',
+    gap: 10,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '10px',

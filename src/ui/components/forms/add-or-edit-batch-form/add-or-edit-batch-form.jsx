@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Field} from '@components/field/field'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
@@ -258,6 +259,13 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
+              components={{
+                Toolbar: DataGridCustomToolbar,
+              }}
+              sx={{
+                border: `1px solid  #EBEBEB !important`,
+                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
+              }}
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
@@ -286,11 +294,18 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
+              sx={{
+                // border: 0,
+                boxShadow: '0px 2px 10px 2px #EBEBEB',
+                // backgroundColor: theme.palette.background.general,
+                border: `1px solid  #EBEBEB !important`,
+              }}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+              }}
+              classes={{
+                root: classNames.rootDataGrid,
+              }}
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
