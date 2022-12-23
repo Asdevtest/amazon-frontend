@@ -311,6 +311,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   productCell: {
     width: 210,
+    textAlign: 'center',
   },
   finalWeightCell: {
     width: 90,

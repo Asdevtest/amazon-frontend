@@ -844,6 +844,7 @@ export const styles = theme => ({
     resize: 'none',
     height: '100%',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+
     // textOverflow: 'ellipsis ',
 
     // whiteSpace: 'normal',
@@ -1409,5 +1410,8 @@ export const styles = theme => ({
   destination: {
     display: 'flex',
     justifyContent: 'center',
+  },
+  cursorPointer: {
+    cursor: 'pointer',
   },
 })
