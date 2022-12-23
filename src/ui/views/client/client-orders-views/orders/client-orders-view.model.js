@@ -453,6 +453,7 @@ export class ClientOrdersViewModel {
         'barCode',
         'tmpBarCode',
         'tmpIsPendingOrder',
+        '_id',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

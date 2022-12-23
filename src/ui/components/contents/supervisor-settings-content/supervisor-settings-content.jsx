@@ -1,5 +1,4 @@
 import {Box, Tabs} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -11,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {ITab} from '@components/i-tab/i-tab'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {AsinCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -129,7 +129,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <DataGrid
+          <MemoDataGrid
             disableVirtualization
             pagination
             checkboxSelection
@@ -189,7 +189,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <DataGrid
+          <MemoDataGrid
             disableVirtualization
             pagination
             useResizeContainer
@@ -249,7 +249,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <DataGrid
+          <MemoDataGrid
             disableVirtualization
             pagination
             useResizeContainer
@@ -309,7 +309,7 @@ export const SupervisorSettingsContent = observer(() => {
           </div>
         </div>
         <div className={classNames.dataGridWrapper}>
-          <DataGrid
+          <MemoDataGrid
             disableVirtualization
             pagination
             useResizeContainer

@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -13,6 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -63,7 +62,7 @@ export const Integrations = observer(({productId}) => {
         </div>
       )}
 
-      <DataGrid
+      <MemoDataGrid
         pagination
         useResizeContainer
         // sx={{

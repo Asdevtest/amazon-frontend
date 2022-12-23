@@ -251,25 +251,34 @@ export class ClientInventoryViewModel {
   }
 
   onClickShowProduct(row) {
-    // this.history.push({
-    //   pathname: '/client/inventory/product',
-    //   search: row.originalData._id,
-    // })
+    const win = window.open(
+      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
+      '_blank',
+    )
 
-    const win = window.open(`${window.location.origin}/client/inventory/product?${row.originalData._id}`, '_blank')
     win.focus()
   }
 
   onClickInStock(row, storekeeper) {
-    this.history.push('/client/warehouse/in-stock', {
-      inStockFilter: {storekeeper, searchText: row._id},
-    })
+    // this.history.push('/client/warehouse/in-stock', {
+    //   inStockFilter: {storekeeper, searchText: row._id},
+    // })
+
+    const win = window.open(
+      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${row._id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   onClickOrderCell(productId) {
-    this.history.push(`/client/inventory/product?${productId}`, {
-      showAtProcessOrders: true,
-    })
+    const win = window.open(
+      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-at-process-orders=true`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   setDataGridState(state) {
@@ -771,6 +780,7 @@ export class ClientInventoryViewModel {
         'barCode',
         'tmpBarCode',
         'tmpIsPendingOrder',
+        '_id',
       ])
 
       if (orderObject.tmpIsPendingOrder) {

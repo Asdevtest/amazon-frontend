@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -12,6 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
@@ -65,9 +64,10 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <DataGrid
+      <MemoDataGrid
         pagination
         useResizeContainer
+        disableVirtualization
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,

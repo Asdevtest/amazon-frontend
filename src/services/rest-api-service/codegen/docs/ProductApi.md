@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse20028] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20022] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20028]**](InlineResponse20028.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 

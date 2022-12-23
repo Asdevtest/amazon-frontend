@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -14,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
@@ -75,7 +74,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Tasks)} history={history} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
-              <DataGrid
+              <MemoDataGrid
                 pagination
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}

@@ -1,5 +1,4 @@
 import {Box} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
@@ -12,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditShopForm} from '@components/forms/add-or-edit-shop-form'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -86,7 +86,7 @@ class ShopsViewRaw extends Component {
           </Box>
 
           <div className={className.datagridWrapper}>
-            <DataGrid
+            <MemoDataGrid
               pagination
               useResizeContainer
               checkboxSelection

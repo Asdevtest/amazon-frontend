@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
@@ -13,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -254,7 +254,7 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
-            <DataGrid
+            <MemoDataGrid
               // autoHeight
               hideFooter
               checkboxSelection
@@ -282,7 +282,7 @@ export const AddOrEditBatchForm = observer(
           <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
           <div className={classNames.tableWrapper}>
-            <DataGrid
+            <MemoDataGrid
               // autoHeight
               hideFooter
               checkboxSelection

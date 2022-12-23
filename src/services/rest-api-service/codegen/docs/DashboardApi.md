@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1DashboardBuyerCountsGet
 
-> InlineResponse20023 apiV1DashboardBuyerCountsGet(opts)
+> InlineResponse20028 apiV1DashboardBuyerCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20023**](InlineResponse20023.md)
+[**InlineResponse20028**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ## apiV1DashboardClientCountsGet
 
-> InlineResponse20022 apiV1DashboardClientCountsGet(opts)
+> InlineResponse20027 apiV1DashboardClientCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20022**](InlineResponse20022.md)
+[**InlineResponse20027**](InlineResponse20027.md)
 
 ### Authorization
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ## apiV1DashboardFreelancerCountsGet
 
-> InlineResponse20026 apiV1DashboardFreelancerCountsGet(opts)
+> InlineResponse20031 apiV1DashboardFreelancerCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20026**](InlineResponse20026.md)
+[**InlineResponse20031**](InlineResponse20031.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ## apiV1DashboardResearcherCountsGet
 
-> InlineResponse20025 apiV1DashboardResearcherCountsGet(opts)
+> InlineResponse20030 apiV1DashboardResearcherCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20025**](InlineResponse20025.md)
+[**InlineResponse20030**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## apiV1DashboardStorekeeperCountsGet
 
-> InlineResponse20024 apiV1DashboardStorekeeperCountsGet(opts)
+> InlineResponse20029 apiV1DashboardStorekeeperCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20024**](InlineResponse20024.md)
+[**InlineResponse20029**](InlineResponse20029.md)
 
 ### Authorization
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 ## apiV1DashboardSupervisorCountsGet
 
-> InlineResponse20027 apiV1DashboardSupervisorCountsGet(opts)
+> InlineResponse20032 apiV1DashboardSupervisorCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20027**](InlineResponse20027.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 

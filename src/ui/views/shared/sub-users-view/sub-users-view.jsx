@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -17,6 +15,7 @@ import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-p
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -121,7 +120,7 @@ class SubUsersViewRaw extends Component {
                 </div>
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   classes={{

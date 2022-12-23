@@ -1273,6 +1273,10 @@ export const styles = theme => ({
     },
   },
 
+  headerIcon: {
+    color: theme.palette.primary.main,
+  },
+
   userLink: {
     display: 'inline-flex',
   },

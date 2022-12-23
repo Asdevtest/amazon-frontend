@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -14,6 +12,7 @@ import {Appbar} from '@components/appbar'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
@@ -108,7 +107,7 @@ class BuyerPendingOrdersViewRaw extends Component {
               </div>
 
               <div className={classNames.dataGridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   disableVirtualization
                   pagination
                   useResizeContainer

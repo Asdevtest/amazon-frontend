@@ -83,6 +83,7 @@ export class ClientInStockBoxesViewModel {
   isFormed = null
 
   curDestination = undefined
+  curShop = undefined
 
   currentData = []
 
@@ -195,17 +196,15 @@ export class ClientInStockBoxesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
-    if (location.state?.inStockFilter) {
-      runInAction(() => {
-        this.currentStorekeeper = location.state.inStockFilter.storekeeper
-        this.nameSearchValue = location.state.inStockFilter.searchText
-      })
+  constructor({history}) {
+    const url = new URL(window.location.href)
 
-      const state = {...history.location.state}
-      delete state.inStockFilter
-      history.replace({...history.location, state})
-    }
+    runInAction(() => {
+      this.history = history
+
+      this.currentStorekeeper = {_id: url.searchParams.get('storekeeper-id')}
+      this.nameSearchValue = url.searchParams.get('search-text')
+    })
 
     runInAction(() => {
       this.history = history
@@ -630,6 +629,13 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.selectedBoxes = this.selectedBoxes.filter(el => el !== boxId)
     })
+  }
+
+  onClickShopBtn(shop) {
+    runInAction(() => {
+      this.curShop = shop ? shop : undefined
+    })
+    this.getBoxesMy()
   }
 
   onClickDestinationBtn(destination) {
@@ -1446,14 +1452,6 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  // resetProductSearchGuid() {
-  //   runInAction(() => {
-  //     this.productSearchGuid = null
-  //   })
-
-  //   this.getBoxesMy()
-  // }
-
   async getBoxesMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
@@ -1467,7 +1465,7 @@ export class ClientInStockBoxesViewModel {
 
         destinationId: this.curDestination && this.curDestination._id,
 
-        // productGuid: this.productSearchGuid,
+        shopIds: this.curShop ? [this.curShop._id] : null,
 
         isFormed: this.isFormed,
 

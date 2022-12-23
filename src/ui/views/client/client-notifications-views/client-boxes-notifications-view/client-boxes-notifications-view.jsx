@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -14,6 +12,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -81,7 +80,7 @@ class ClientBoxesNotificationsViewRaw extends Component {
           <Appbar title={t(TranslationKey['Box notifications'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tableWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   pagination
                   useResizeContainer
                   localeText={getLocalizationByLanguageTag()}

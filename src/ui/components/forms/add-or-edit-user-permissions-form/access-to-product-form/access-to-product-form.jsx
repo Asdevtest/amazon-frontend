@@ -12,7 +12,6 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
@@ -21,6 +20,7 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
@@ -187,7 +187,7 @@ export const AccessToProductForm = React.memo(
 
               {selectedShop === shop?._id ? (
                 <div className={classNames.tableWrapper}>
-                  <DataGrid
+                  <MemoDataGrid
                     disableVirtualization
                     hideFooter
                     disableSelectionOnClick

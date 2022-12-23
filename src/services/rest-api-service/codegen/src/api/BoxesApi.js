@@ -710,6 +710,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
@@ -726,6 +727,7 @@ export default class BoxesApi {
       };
       let queryParams = {
         'status': status,
+        'shopIds': opts['shopIds'],
         'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
@@ -750,6 +752,7 @@ export default class BoxesApi {
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
      * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
@@ -1190,6 +1193,7 @@ export default class BoxesApi {
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
@@ -1214,6 +1218,7 @@ export default class BoxesApi {
         'destinationId': opts['destinationId'],
         'storekeeperId': opts['storekeeperId'],
         'isFormed': opts['isFormed'],
+        'shopIds': opts['shopIds'],
         'limit': opts['limit'],
         'offset': opts['offset'],
         'sortField': opts['sortField'],
@@ -1246,6 +1251,7 @@ export default class BoxesApi {
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля

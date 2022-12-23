@@ -147,18 +147,16 @@ export class ClientProductViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({history}) {
+    const url = new URL(window.location.href)
+
     runInAction(() => {
       this.history = history
 
-      this.productId = history.location.search.slice(1)
-    })
+      this.productId = url.searchParams.get('product-id')
 
-    if (location.state?.showAtProcessOrders) {
-      runInAction(() => {
-        this.showAtProcessOrders = location.state?.showAtProcessOrders
-      })
-    }
+      this.showAtProcessOrders = !!url.searchParams.get('show-at-process-orders')
+    })
 
     makeAutoObservable(this, undefined, {autoBind: true})
   }

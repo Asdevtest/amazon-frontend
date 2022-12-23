@@ -1,5 +1,4 @@
 import {Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -13,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
@@ -108,7 +108,7 @@ export const LogisticsTariffs = observer(() => {
         )}
       </div>
 
-      <DataGrid
+      <MemoDataGrid
         disableVirtualization
         pagination
         useResizeContainer

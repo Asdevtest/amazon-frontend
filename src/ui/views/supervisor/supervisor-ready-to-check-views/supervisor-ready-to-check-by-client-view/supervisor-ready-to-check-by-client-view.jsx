@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -13,6 +11,7 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
@@ -75,7 +74,7 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
                 </Button>
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   checkboxSelection
                   pagination
                   useResizeContainer

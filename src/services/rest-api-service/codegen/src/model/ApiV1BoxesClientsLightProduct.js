@@ -71,10 +71,6 @@ class ApiV1BoxesClientsLightProduct {
             if (data.hasOwnProperty('hsCode')) {
                 obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
             }
-
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
-            }
         }
         return obj;
     }

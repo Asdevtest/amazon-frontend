@@ -65,6 +65,19 @@ export const lightTheme = createTheme({
       },
     },
 
+    MuiNativeSelect: {
+      styleOverrides: {
+        select: {
+          '& > option': {
+            textAlign: 'center',
+          },
+        },
+        // icon: {
+        //   color: '#fff',
+        // },
+      },
+    },
+
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -72,7 +85,7 @@ export const lightTheme = createTheme({
 
           overflow: 'hidden',
 
-          border: `1px solid #E0E0E0`,
+          // border: `1px solid #E0E0E0`,
         },
 
         // input: {
@@ -308,6 +321,8 @@ export const darkTheme = createTheme({
         select: {
           '& > option': {
             backgroundColor: '#2B2B34 !important',
+            // paddingLeft: '10px !important',
+            textAlign: 'center',
           },
         },
         icon: {
@@ -337,7 +352,7 @@ export const darkTheme = createTheme({
         root: {
           color: '#fff',
           overflow: 'hidden',
-          border: '1px solid #424250',
+          // border: '1px solid #424250',
         },
       },
     },

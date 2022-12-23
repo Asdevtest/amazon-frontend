@@ -16,13 +16,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   isFound: {
-    borderLeft: `8px solid ${theme.palette.primary.main}`,
+    // borderLeft: `8px solid ${theme.palette.primary.main}`,
+    borderLeft: `8px solid #D8B704`,
   },
 
   isFoundIncomming: {
     borderLeft: 'none',
 
-    borderRight: `8px solid ${theme.palette.primary.main}`,
+    // borderRight: `8px solid ${theme.palette.primary.main}`,
+    borderRight: `8px solid #D8B704`,
   },
 
   rootIsIncomming: {
@@ -72,8 +74,20 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   highlight: {
-    backgroundColor: 'crimson',
-    color: 'white',
+    backgroundColor: '#D8B704',
+    // backgroundColor: '#F5CF00',
+
+    // backgroundColor: 'crimson',
+
+    // backgroundColor: theme.palette.primary.main,
+
+    // color: 'white !important',
+
+    color: '#001029 !important',
+
+    borderRadius: 4,
+
+    padding: 3,
   },
 
   filesMainWrapper: {

@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -11,6 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditSinglePermissionForm} from '@components/forms/add-or-edit-single-permission-form'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
@@ -63,7 +62,7 @@ export const SinglePermissions = observer(() => {
         </Button>
       </div>
       <div className={classNames.datagridWrapper}>
-        <DataGrid
+        <MemoDataGrid
           disableVirtualization
           pagination
           useResizeContainer

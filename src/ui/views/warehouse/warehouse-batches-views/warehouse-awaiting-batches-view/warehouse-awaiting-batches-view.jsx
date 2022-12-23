@@ -1,5 +1,3 @@
-import {DataGrid} from '@mui/x-data-grid'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -15,6 +13,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -146,7 +145,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 </Button>
               </div>
               <div className={classNames.datagridWrapper}>
-                <DataGrid
+                <MemoDataGrid
                   checkboxSelection
                   pagination
                   useResizeContainer
