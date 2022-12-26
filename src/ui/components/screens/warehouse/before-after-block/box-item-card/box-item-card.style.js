@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    paddingBottom: '20px',
+    marginBottom: 30,
     width: '630px',
     gap: '20px',
     [theme.breakpoints.down(768)]: {
@@ -75,7 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subValue: {
-    fontSize: '14px',
+    fontSize: '16px',
 
     color: theme.palette.text.general,
     lineHeight: '19px',
@@ -95,7 +95,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   asinTitle: {
-    fontSize: '14px',
+    fontSize: '16px',
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,

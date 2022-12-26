@@ -85,7 +85,7 @@ export const lightTheme = createTheme({
 
           overflow: 'hidden',
 
-          border: `1px solid #E0E0E0`,
+          border: '1px solid #E0E0E0',
         },
 
         // input: {
@@ -566,7 +566,6 @@ export const darkTheme = createTheme({
         // customDisabled: '#EBEBEB', // макет
 
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
-        // customBorder: 'none', // удалить это если нужно будет вернуться к прошлому виду
       },
     },
   },
