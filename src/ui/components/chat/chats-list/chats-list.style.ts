@@ -20,6 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottomStyle: 'solid',
   },
   chatWrapperIsSelected: {
-    borderBottomColor: theme.palette.primary.main,
+    borderBottomColor: `${theme.palette.primary.main} !important`,
   },
 }))

@@ -7,6 +7,8 @@ import {observer} from 'mobx-react'
 import {SettingsModel} from '@models/settings-model'
 
 export const MemoDataGrid = observer(({...restProps}) => {
+  // console.log('restProps.rows', restProps.rows)
+
   const result = useMemo(
     () => <DataGrid {...restProps} />,
 

@@ -85,7 +85,7 @@ export const lightTheme = createTheme({
 
           overflow: 'hidden',
 
-          // border: `1px solid #E0E0E0`,
+          border: `1px solid #E0E0E0`,
         },
 
         // input: {
@@ -164,11 +164,13 @@ export const lightTheme = createTheme({
         },
 
         'input[type="number"]::-webkit-outer-spin-button': {
-          '-webkit-appearance': 'none',
+          // '-webkit-appearance': 'none',
+          WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          '-webkit-appearance': 'none',
+          // '-webkit-appearance': 'none',
+          WebkitAppearance: 'none',
           margin: 0,
         },
       },
@@ -363,7 +365,7 @@ export const darkTheme = createTheme({
         root: {
           color: '#fff',
           overflow: 'hidden',
-          // border: '1px solid #424250',
+          border: '1px solid #424250',
         },
       },
     },
@@ -478,27 +480,15 @@ export const darkTheme = createTheme({
         },
 
         'input[type="number"]::-webkit-outer-spin-button': {
-          '-webkit-appearance': 'none',
+          // '-webkit-appearance': 'none',
+          WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          '-webkit-appearance': 'none',
+          // '-webkit-appearance': 'none',
+          WebkitAppearance: 'none',
           margin: 0,
         },
-
-        // 'input[type='number']': {
-        //     appearance: 'none',
-        //     '-moz-appearance': 'textfield',
-        // },
-
-        // 'input[type="number"]:hover': {
-        //     appearance: 'none',
-        //     '-moz-appearance': 'textfield',
-        // },
-        // 'input[type="number"]:focus': {
-        //     appearance: 'none',
-        //     '-moz-appearance': 'textfield',
-        // },
 
         textarea: {
           cursor: 'auto',
@@ -570,13 +560,13 @@ export const darkTheme = createTheme({
 
       input: {
         // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
-        // customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду
+        customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду
 
         // customDisabled: '#21212B',
         // customDisabled: '#EBEBEB', // макет
 
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
-        customBorder: 'none', // удалить это если нужно будет вернуться к прошлому виду
+        // customBorder: 'none', // удалить это если нужно будет вернуться к прошлому виду
       },
     },
   },

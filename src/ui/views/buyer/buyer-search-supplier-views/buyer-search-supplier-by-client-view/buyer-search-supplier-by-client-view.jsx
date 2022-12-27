@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -76,6 +77,7 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
+                  disableVirtualization
                   checkboxSelection
                   pagination
                   useResizeContainer
@@ -94,7 +96,7 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
                   rowHeight={100}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSelectionModelChange={onSelectionModel}
                   onStateChange={setDataGridState}
                 />
               </div>

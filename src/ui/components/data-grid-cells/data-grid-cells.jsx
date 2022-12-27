@@ -909,15 +909,19 @@ export const CommentOfSbCell = React.memo(
         {productsInWarehouse?.length === 1 ? (
           <Tooltip title={productsInWarehouse[0].comment}>
             <div className={classNames.multilineTextAlignLeftWrapper}>
-              <TextareaAutosize
-                disabled
-                value={
-                  (checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
-                    ? productsInWarehouse[0].comment.slice(0, 147) + '...'
-                    : productsInWarehouse[0].comment) || ''
-                }
+              <Typography
+                // disabled
+                // value={
+                //   (checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
+                //     ? productsInWarehouse[0].comment.slice(0, 147) + '...'
+                //     : productsInWarehouse[0].comment) || ''
+                // }
                 className={classNames.multilineTextAlignLeft}
-              />
+              >
+                {(checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
+                  ? productsInWarehouse[0].comment.slice(0, 147) + '...'
+                  : productsInWarehouse[0].comment) || ''}
+              </Typography>
             </div>
           </Tooltip>
         ) : (
@@ -944,12 +948,14 @@ export const MultilineTextAlignLeftCell = React.memo(
       withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextAlignLeftWrapper}>
-            <TextareaAutosize
-              disabled
-              value={checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
+            <Typography
+              // disabled
+              // value={checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
               // value={text.length > 10 ? text.slice(0, 7) + '...' : text}
               className={cx(classNames.multilineTextAlignLeft, {[classNames.cursorPointer]: pointer})}
-            />
+            >
+              {checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
+            </Typography>
           </div>
         </Tooltip>
       ) : (
@@ -959,14 +965,16 @@ export const MultilineTextAlignLeftCell = React.memo(
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
             </Typography>
           ) : (
-            <TextareaAutosize
-              disabled
-              value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+            <Typography
+              // disabled
+              // value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
               className={cx(classNames.multilineTextAlignLeft, {
                 [classNames.multilineTextAlignLeftSub]: isAsin,
                 [classNames.cursorPointer]: pointer,
               })}
-            />
+            >
+              {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+            </Typography>
           )}
           {isAsin ? <CopyValue text={text} /> : null}
         </div>

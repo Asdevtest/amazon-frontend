@@ -63,7 +63,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottom: '1px solid #e0e0e0',
 
     '& >::-webkit-outer-spin-button,::-webkit-inner-spin-button': {
-      '-webkit-appearance': 'none',
+      // '-webkit-appearance': 'none',
+      WebkitAppearance: 'none',
       margin: 0,
       padding: 0,
     },

@@ -237,11 +237,13 @@ export class BuyerMyProductsViewModel {
     }
   }
 
-  onClickTableRow(item) {
-    this.history.push({
-      pathname: '/buyer/my-products/product',
-      search: item.originalData._id,
-    })
+  onClickTableRow(row) {
+    const win = window.open(
+      `${window.location.origin}/buyer/my-products/product?product-id=${row.originalData._id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   onTriggerDrawerOpen() {

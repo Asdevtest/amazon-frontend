@@ -153,10 +153,12 @@ export class SupervisorProductViewModel {
   }
 
   constructor({history}) {
+    const url = new URL(window.location.href)
+
     runInAction(() => {
       this.history = history
 
-      this.productId = history.location.search.slice(1)
+      this.productId = url.searchParams.get('product-id')
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
