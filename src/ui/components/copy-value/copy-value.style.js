@@ -18,6 +18,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   copyImgWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'relative',
   },
   disabledIcon: {

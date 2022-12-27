@@ -245,4 +245,7 @@ export const useClassNames = makeStyles()(theme => ({
   disabledTablePanelSortWrapper: {
     cursor: 'default',
   },
+  iconsWrapper: {
+    display: 'flex',
+  },
 }))
