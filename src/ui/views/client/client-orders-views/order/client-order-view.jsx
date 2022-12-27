@@ -15,6 +15,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {OrderContent} from '@components/screens/orders-view/order-content'
 
@@ -38,6 +39,9 @@ class ClientOrderViewRaw extends Component {
   render() {
     const {
       confirmModalSettings,
+      requestStatus,
+      yuanToDollarRate,
+      selectedSupplier,
       selectedProduct,
       destinationsFavourites,
       destinations,
@@ -54,6 +58,8 @@ class ClientOrderViewRaw extends Component {
       showWarningInfoModal,
       showOrderModal,
       showSetBarcodeModal,
+      showAddOrEditSupplierModal,
+      onTriggerAddOrEditSupplierModal,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickCancelOrder,
@@ -155,6 +161,23 @@ class ClientOrderViewRaw extends Component {
               onTriggerOpenModal('showWarningInfoModal')
             }}
           />
+
+          <Modal missClickModalOn openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+            <AddOrEditSupplierModalContent
+              onlyRead
+              product={order}
+              storekeepersData={storekeepers}
+              requestStatus={requestStatus}
+              sourceYuanToDollarRate={yuanToDollarRate}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              title={t(TranslationKey['Adding and editing a supplier'])}
+              supplier={selectedSupplier}
+              // showProgress={showProgress}
+              // progressValue={progressValue}
+              // onClickSaveBtn={onClickSaveSupplierBtn}
+              onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+            />
+          </Modal>
         </Main>
       </React.Fragment>
     )
