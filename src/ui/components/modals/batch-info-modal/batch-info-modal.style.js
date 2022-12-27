@@ -113,7 +113,6 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(0.99)',
-      backgroundColor: 'rgba(123, 163, 255, 0.3)',
     },
   },
 
@@ -275,5 +274,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   batchTitle: {
     marginLeft: 5,
+  },
+  tableWrapper: {
+    height: '600px',
+    width: '100%',
   },
 }))

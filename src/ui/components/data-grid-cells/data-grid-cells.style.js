@@ -1414,4 +1414,61 @@ export const styles = theme => ({
   cursorPointer: {
     cursor: 'pointer',
   },
+  ManyItemsPriceCellWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'auto',
+  },
+  imgBlock: {
+    display: 'flex',
+  },
+  imgBox: {
+    width: '50px',
+    height: '50px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+  imgSubBlock: {
+    display: 'flex',
+    marginLeft: '10px',
+    flexDirection: 'column',
+  },
+  countBlock: {
+    display: 'flex',
+  },
+  amount: {
+    marginLeft: '5px',
+  },
+  productTitle: {
+    whiteSpace: 'nowrap',
+    width: '250px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  superboxTypof: {
+    marginLeft: '10px',
+    color: theme.palette.primary.main,
+    fontSize: '20px',
+    fontWeight: '900px',
+  },
+  ManyItemsPriceCellMainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '5px 0',
+    gap: 10,
+  },
+  pricesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 'auto',
+    flexGrow: 1,
+
+    gap: 70,
+  },
 })
