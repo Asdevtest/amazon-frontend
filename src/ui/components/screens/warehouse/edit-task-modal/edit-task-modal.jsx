@@ -44,8 +44,6 @@ export const EditTaskModal = observer(
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
     const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
-    console.log('task', task)
-
     useEffect(() => {
       const resizeScreen = () => {
         setCurrentScreenWidth(window.innerWidth)

@@ -72,9 +72,6 @@ export const OrderContent = ({
     tmpBarCode: [],
   })
 
-  console.log('updatedOrder', updatedOrder)
-  console.log('updatedOrder.product', updatedOrder.product)
-
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
 

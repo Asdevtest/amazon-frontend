@@ -104,8 +104,6 @@ export class BuyerMyOrdersViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    console.log('this.history', this.history.location.pathname)
-
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(

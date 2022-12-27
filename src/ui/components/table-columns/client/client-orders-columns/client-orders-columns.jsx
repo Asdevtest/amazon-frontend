@@ -202,14 +202,6 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     sortable: false,
   },
-  {
-    field: 'trackingNumberChina',
-    headerName: t(TranslationKey['Track number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-
-    width: 160,
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
-  },
 
   {
     field: 'buyerComment',

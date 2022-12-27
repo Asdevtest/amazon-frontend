@@ -50,16 +50,11 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       fba: true,
     }
 
-    console.log('ideas', ideas)
-    console.log('product', product)
-
     const [linkLine, setLinkLine] = useState('')
 
     const [curIdeaId, setCurIdeaId] = useState(null)
 
     const [formFields, setFormFields] = useState(sourceFormFields)
-
-    console.log('formFields', formFields)
 
     useEffect(() => {
       if (curIdeaId) {
@@ -80,8 +75,6 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
         })
       }
     }, [curIdeaId])
-
-    console.log(curIdeaId)
 
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
