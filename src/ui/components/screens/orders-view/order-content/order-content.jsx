@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -13,6 +15,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {EditOrderSuppliersTable} from '@components/screens/buyer/orders-view/edit-order-modal/edit-order-suppliers-table'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
@@ -20,7 +23,7 @@ import {Text} from '@components/text'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {DeliveryParameters} from './delivery-parameters'
@@ -55,6 +58,25 @@ export const OrderContent = ({
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+
+  const [orderFields, setOrderFields] = useState({
+    ...order,
+    status: order?.status || undefined,
+    clientComment: order?.clientComment || '',
+    buyerComment: order?.buyerComment || '',
+    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
+    trackId: '',
+    material: order?.product?.material || '',
+    amount: order?.amount || 0,
+    trackingNumberChina: order?.trackingNumberChina,
+    batchPrice: 0,
+    totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
+    yuanToDollarRate: order?.yuanToDollarRate || 6.3,
+    item: order?.item || 0,
+    tmpRefundToClient: 0,
+  })
+
+  const [selectedSupplier, setSelectedSupplier] = useState(null)
 
   const [formFields, setFormFields] = useState({
     ...order,
@@ -199,6 +221,37 @@ export const OrderContent = ({
           </div>
 
           <Divider orientation={'horizontal'} />
+
+          {/* <EditOrderSuppliersTable
+            isPendingOrder
+            selectedSupplier={orderFields.orderSupplier}
+            curSelectedSupplier={selectedSupplier}
+            suppliers={orderFields.product.suppliers}
+            setSelectedSupplier={setSelectedSupplier}
+          /> */}
+
+          <div className={classNames.suppliersWrapper}>
+            <Typography variant="h6" className={classNames.supplierTitle}>
+              {t(TranslationKey['List of suppliers'])}
+            </Typography>
+          </div>
+          <div className={classNames.supplierActionsWrapper}>
+            <div className={classNames.supplierContainer}>
+              <div className={classNames.supplierButtonWrapper}>
+                <Button
+                  disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                  tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                  className={classNames.iconBtn}
+                  // onClick={() => onClickSupplierBtns('view')}
+                >
+                  <VisibilityOutlinedIcon />
+                </Button>
+                <Typography className={classNames.supplierButtonText}>
+                  {t(TranslationKey['Open the parameters supplier'])}
+                </Typography>
+              </div>
+            </div>
+          </div>
 
           <div className={classNames.btnsWrapper}>
             {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isCanChange)) &&

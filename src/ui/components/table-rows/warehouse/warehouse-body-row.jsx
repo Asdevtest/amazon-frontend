@@ -36,9 +36,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  const style = colorByBoxStatus(box.status)
-
-  console.log('box', box)
+  // const style = colorByBoxStatus(box.status)
 
   const BoxUpdatedAt = ({product}) => (
     <Typography className={classNames.shortDateCellTypo}>
@@ -122,7 +120,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             )}
 
             <TableCell>
-              <BoxUpdatedAt product={order.product} />
+              <BoxUpdatedAt product={box} />
             </TableCell>
             <TableCell>
               <ProductCell product={order.product} />

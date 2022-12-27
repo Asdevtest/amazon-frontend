@@ -46,7 +46,7 @@ import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox, roundHalf} from '@utils/calculation'
+import {calcFinalWeightForBox, calcSupplierPriceForUnit, calcVolumeWeightForBox, roundHalf} from '@utils/calculation'
 import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
@@ -1785,6 +1785,60 @@ export const MultilineCell = React.memo(
       <React.Fragment>
         <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
       </React.Fragment>
+    ),
+    styles,
+  ),
+)
+
+export const ManyItemsPriceCell = React.memo(
+  withStyles(
+    ({classes: classNames, item}) => {
+      const cell = item?.items?.map((el, itemIndex) => (
+        <div key={el.product._id} className={classNames.ManyItemsPriceCellWrapper}>
+          {item.totalPrice && item.totalPriceChanged
+            ? item.totalPrice - item.totalPriceChanged < 0 &&
+              itemIndex === 0 && (
+                <span className={classNames.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
+              )
+            : null}
+          <div className={classNames.imgBlock}>
+            <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
+            <div className={classNames.imgSubBlock}>
+              <div className={classNames.countBlock}>
+                <Typography>{t(TranslationKey.Quantity)}</Typography>
+                <Typography className={classNames.amount}>{el.amount}</Typography>
+
+                {item.amount > 1 && (
+                  <Typography className={classNames.superboxTypof}>{`Superbox x ${item.amount}`}</Typography>
+                )}
+              </div>
+
+              <Typography className={classNames.boxTitle}>{el.product.asin}</Typography>
+            </div>
+          </div>
+          <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>
+        </div>
+      ))
+
+      return <div className={classNames.ManyItemsPriceCellMainWrapper}>{cell}</div>
+    },
+
+    styles,
+  ),
+)
+
+export const PricePerUnitCell = React.memo(
+  withStyles(
+    ({classes: classNames, item}) => (
+      <div className={classNames.pricesWrapper}>
+        {item.items.map((el, i) => (
+          <Typography key={i} className={classNames.multilineText}>
+            {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)}
+          </Typography>
+        ))}
+      </div>
     ),
     styles,
   ),

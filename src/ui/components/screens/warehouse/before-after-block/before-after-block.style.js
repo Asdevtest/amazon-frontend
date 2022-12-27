@@ -7,6 +7,10 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '20px 30px',
     margin: '0 2px',
 
+    background: theme.palette.background.second,
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    borderRadius: 4,
+
     [theme.breakpoints.down(768)]: {
       padding: '20px 20px',
     },
@@ -173,6 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     // gap: '46px',
     justifyContent: 'space-between',
+    marginBottom: 20,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '30px',
@@ -202,6 +207,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoSubWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     height: '100px',
     marginTop: '10px',
     marginBottom: 25,

@@ -7,6 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     paddingBottom: '20px',
+
     width: '630px',
     gap: '20px',
     [theme.breakpoints.down(768)]: {
@@ -54,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   count: {
-    fontSize: '14px',
+    fontSize: '16px',
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
