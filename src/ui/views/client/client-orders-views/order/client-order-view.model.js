@@ -119,90 +119,49 @@ export class ClientOrderViewModel {
     }
   }
 
+  onChangeSelectedSupplier(supplier) {
+    runInAction(() => {
+      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+        this.selectedSupplier = undefined
+      } else {
+        this.selectedSupplier = supplier
+      }
+    })
+  }
+
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
-        this.selectedSupplier = undefined
+        runInAction(() => {
+          this.selectedSupplier = undefined
+        })
       } else {
         const result = await UserModel.getPlatformSettings()
-
         await this.getStorekeepers()
-
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        runInAction(() => {
+          this.yuanToDollarRate = result.yuanToDollarRate
+          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        })
       }
-
-      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      runInAction(() => {
+        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+      })
     } catch (error) {
       console.log(error)
     }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepersData = result
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
-
-  // async onClickSupplierButtons(actionType) {
-  //   switch (actionType) {
-  //     case 'add':
-  //       runInAction(() => {
-  //         this.selectedSupplier = undefined
-  //         this.supplierModalReadOnly = false
-  //       })
-
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'view':
-  //       runInAction(() => {
-  //         this.supplierModalReadOnly = true
-  //       })
-
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'edit':
-  //       runInAction(() => {
-  //         this.supplierModalReadOnly = false
-  //       })
-
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'accept':
-  //       runInAction(() => {
-  //         this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-  //         this.product = {...this.product, currentSupplier: this.selectedSupplier}
-  //         this.selectedSupplier = undefined
-  //       })
-  //       updateProductAutoCalculatedFields.call(this)
-
-  //       this.onSaveForceProductData()
-  //       break
-  //     case 'acceptRevoke':
-  //       runInAction(() => {
-  //         this.product = {...this.product, currentSupplierId: null}
-  //         this.product = {...this.product, currentSupplier: undefined}
-  //         this.selectedSupplier = undefined
-  //       })
-  //       updateProductAutoCalculatedFields.call(this)
-
-  //       this.onSaveForceProductData()
-  //       break
-  //     case 'delete':
-  //       runInAction(() => {
-  //         this.confirmModalSettings = {
-  //           isWarning: true,
-  //           message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-  //           onClickOkBtn: () => this.onRemoveSupplier(),
-  //         }
-  //       })
-
-  //       this.onTriggerOpenModal('showConfirmModal')
-  //       break
-  //   }
-  // }
 
   async onClickReorder() {
     try {

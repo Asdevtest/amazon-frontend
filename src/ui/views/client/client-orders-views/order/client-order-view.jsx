@@ -38,9 +38,9 @@ class ClientOrderViewRaw extends Component {
 
   render() {
     const {
-      confirmModalSettings,
-      requestStatus,
       yuanToDollarRate,
+      showAddOrEditSupplierModal,
+      confirmModalSettings,
       selectedSupplier,
       selectedProduct,
       destinationsFavourites,
@@ -58,8 +58,8 @@ class ClientOrderViewRaw extends Component {
       showWarningInfoModal,
       showOrderModal,
       showSetBarcodeModal,
-      showAddOrEditSupplierModal,
       onTriggerAddOrEditSupplierModal,
+      onChangeSelectedSupplier,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickCancelOrder,
@@ -105,12 +105,15 @@ class ClientOrderViewRaw extends Component {
                   volumeWeightCoefficient={volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
+                  selectedSupplier={selectedSupplier}
                   destinationsFavourites={destinationsFavourites}
                   setDestinationsFavouritesItem={setDestinationsFavouritesItem}
                   onClickCancelOrder={onClickCancelOrder}
                   onSubmitChangeBoxFields={onSubmitChangeBoxFields}
                   onSubmitSaveOrder={onSubmitSaveOrder}
                   onClickReorder={onClickReorder}
+                  onChangeSelectedSupplier={onChangeSelectedSupplier}
+                  onTriggerAddOrEditSupplierModal={onTriggerAddOrEditSupplierModal}
                 />
               ) : null}
             </MainContent>
@@ -162,19 +165,15 @@ class ClientOrderViewRaw extends Component {
             }}
           />
 
-          <Modal missClickModalOn openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+          <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
             <AddOrEditSupplierModalContent
               onlyRead
               product={order}
               storekeepersData={storekeepers}
-              requestStatus={requestStatus}
               sourceYuanToDollarRate={yuanToDollarRate}
               volumeWeightCoefficient={volumeWeightCoefficient}
               title={t(TranslationKey['Adding and editing a supplier'])}
               supplier={selectedSupplier}
-              // showProgress={showProgress}
-              // progressValue={progressValue}
-              // onClickSaveBtn={onClickSaveSupplierBtn}
               onTriggerShowModal={onTriggerAddOrEditSupplierModal}
             />
           </Modal>
