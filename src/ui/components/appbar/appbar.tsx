@@ -13,6 +13,7 @@ import React, {useRef, useState, FC, useEffect, ReactElement} from 'react'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
+import {useSnackbar} from 'notistack'
 import {useHistory, useLocation} from 'react-router-dom'
 
 import {UiTheme} from '@constants/themes'
@@ -24,6 +25,7 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
+import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -46,6 +48,27 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const location = useLocation()
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
+
+  const {enqueueSnackbar} = useSnackbar()
+
+  const {snackBarMessageLast} = componentModel.current
+
+  useEffect(() => {
+    if (snackBarMessageLast) {
+      enqueueSnackbar(snackBarMessageLast, {
+        persist: true,
+
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+
+        content: (key, message) => (
+          <SimpleMessagesSnack id={key} snackBarMessageLast={snackBarMessageLast} autoHideDuration={5000} />
+        ),
+      })
+    }
+  }, [snackBarMessageLast])
 
   useEffect(() => {
     if (lastCrumbAdditionalText !== undefined) {

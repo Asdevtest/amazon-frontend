@@ -260,10 +260,6 @@ export class ClientInventoryViewModel {
   }
 
   onClickInStock(row, storekeeper) {
-    // this.history.push('/client/warehouse/in-stock', {
-    //   inStockFilter: {storekeeper, searchText: row._id},
-    // })
-
     const win = window.open(
       `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${row._id}`,
       '_blank',

@@ -76,6 +76,7 @@ export class BuyerSearchSupplierBySupervisorViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
+                  disableVirtualization
                   checkboxSelection
                   pagination
                   useResizeContainer

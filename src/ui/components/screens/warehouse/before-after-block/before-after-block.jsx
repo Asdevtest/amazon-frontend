@@ -620,7 +620,7 @@ const Box = observer(
                 </div>
               </div>
 
-              <div className={classNames.footerSubWrapper}>
+              <div className={classNames.footerTrackNumberWrapper}>
                 <Field
                   // oneLine
                   // containerClasses={classNames.countSubWrapper}

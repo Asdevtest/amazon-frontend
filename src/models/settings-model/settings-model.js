@@ -35,6 +35,8 @@ class SettingsModelStatic {
 
   destinationsFavourites = []
 
+  snackBarMessageLast = null
+
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
     makePersistable(this, {name: stateModelName, properties: persistProperties})
@@ -129,6 +131,10 @@ class SettingsModelStatic {
 
   setBreadcrumbsForProfile(pathname) {
     this.breadcrumbsForProfile = pathname
+  }
+
+  setSnackBarMessageLast(message) {
+    this.snackBarMessageLast = message
   }
 }
 

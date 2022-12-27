@@ -108,6 +108,8 @@ class ChatModelStatic {
       return
     }
     try {
+      console.log('getSimpleChats')
+
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
@@ -115,6 +117,8 @@ class ChatModelStatic {
           messages: chat.messages,
         }))
       })
+
+      console.log('getSimpleChatsResult', getSimpleChatsResult)
     } catch (error) {
       console.warn(error)
     }
@@ -222,6 +226,8 @@ class ChatModelStatic {
       newMessage,
     )
 
+    // console.log('***NEW_MESSAGE_IS_COME!!!', message)
+
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
@@ -236,8 +242,12 @@ class ChatModelStatic {
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findSimpleChatIndexById !== -1) {
+      // console.log('***NEW_MESSAGE_IS_COME!!!', message)
+
       if (this.noticeOfSimpleChats && message.userId !== this.userId) {
         noticeSound.play()
+
+        SettingsModel.setSnackBarMessageLast(message)
       }
 
       runInAction(() => {

@@ -38,6 +38,10 @@ export class AppbarModel {
     return SettingsModel.showHints
   }
 
+  get snackBarMessageLast() {
+    return SettingsModel.snackBarMessageLast
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})

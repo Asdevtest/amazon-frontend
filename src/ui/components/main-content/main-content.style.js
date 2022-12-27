@@ -10,6 +10,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     // marginRight: 'calc(-1*(100vw - 100% - 240px))',
 
+    position: 'relative',
+
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(1),
     },

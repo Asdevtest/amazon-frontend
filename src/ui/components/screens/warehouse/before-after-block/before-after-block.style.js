@@ -26,7 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 230,
     height: 80,
 
-    border: `1px solid ${theme.palette.input.customBorder}`,
+    // border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
@@ -413,6 +413,20 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: '14px',
+    },
+  },
+
+  footerTrackNumberWrapper: {
+    borderRadius: 4,
+    padding: 5,
+    border: `1px solid ${theme.palette.input.customBorder}`,
+
     display: 'flex',
     justifyContent: 'space-between',
     // alignItems: 'center',

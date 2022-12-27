@@ -833,7 +833,7 @@ export const styles = theme => ({
   multilineTextAlignLeft: {
     width: '100%',
     textAlign: 'left',
-    // whiteSpace: 'wrap',
+    whiteSpace: 'pre',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
@@ -842,7 +842,7 @@ export const styles = theme => ({
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
     resize: 'none',
-    height: '100%',
+    // height: '100%',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
 
     // textOverflow: 'ellipsis ',

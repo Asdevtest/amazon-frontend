@@ -127,7 +127,7 @@ class SupervisorProductsViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onFilterModelChange={onChangeFilterModel}
                 />
               </div>
             </MainContent>
