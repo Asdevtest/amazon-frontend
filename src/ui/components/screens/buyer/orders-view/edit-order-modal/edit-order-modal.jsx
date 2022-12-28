@@ -500,41 +500,48 @@ export const EditOrderModal = observer(
                         )
                         .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
                     ),
-                  }).map((statusCode, statusIndex) => (
-                    <MenuItem
-                      key={statusIndex}
-                      value={statusCode}
-                      className={cx(
-                        cx(classNames.stantartSelect, {
-                          [classNames.orange]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                  }).map((statusCode, statusIndex) => {
+                    console.log('statusCode', statusCode)
+                    console.log('order.status', order.status)
 
-                          [classNames.green]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+                    return (
+                      <MenuItem
+                        key={statusIndex}
+                        value={statusCode}
+                        className={cx(
+                          cx(classNames.stantartSelect, {
+                            [classNames.orange]:
+                              statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                          [classNames.red]:
-                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-                          [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                        }),
-                      )}
-                      disabled={
-                        disabledOrderStatuses.includes(statusCode) ||
-                        (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                          order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
-                        (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                          order.status === OrderStatusByKey[OrderStatus.IN_STOCK])
-                      }
-                    >
-                      {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
-                    </MenuItem>
-                  ))}
+                            [classNames.green]:
+                              statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+
+                            [classNames.red]:
+                              statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                              statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                            [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                          }),
+                        )}
+                        disabled={
+                          disabledOrderStatuses.includes(statusCode) ||
+                          (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                            order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                          (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                            order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
+                          (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                            order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
+                        }
+                      >
+                        {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
+                      </MenuItem>
+                    )
+                  })}
                 </Select>
               }
             />
