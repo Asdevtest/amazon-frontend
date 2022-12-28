@@ -99,7 +99,7 @@ export const ConfirmWithCommentModal = ({
           <Button
             disabled={submitIsClicked}
             color="primary"
-            variant="contained"
+            variant="text"
             className={classNames.buttonCancel}
             onClick={onClose}
           >
