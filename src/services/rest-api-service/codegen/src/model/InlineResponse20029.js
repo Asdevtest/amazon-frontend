@@ -12,9 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20029Batches from './InlineResponse20029Batches';
+import InlineResponse20029Batch from './InlineResponse20029Batch';
 import InlineResponse20029Boxes from './InlineResponse20029Boxes';
-import InlineResponse20029Tasks from './InlineResponse20029Tasks';
+import InlineResponse20029Orders from './InlineResponse20029Orders';
+import InlineResponse20029Products from './InlineResponse20029Products';
+import InlineResponse20029Requests from './InlineResponse20029Requests';
+import InlineResponse20029Shops from './InlineResponse20029Shops';
 
 /**
  * The InlineResponse20029 model module.
@@ -50,14 +53,23 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20029Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20029Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('shops')) {
+                obj['shops'] = InlineResponse20029Shops.constructFromObject(data['shops']);
+            }
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = InlineResponse20029Requests.constructFromObject(data['requests']);
+            }
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20029Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = InlineResponse20029Batch.constructFromObject(data['batch']);
             }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = InlineResponse20029Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20029Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -67,19 +79,34 @@ class InlineResponse20029 {
 }
 
 /**
- * @member {module:model/InlineResponse20029Tasks} tasks
+ * @member {module:model/InlineResponse20029Orders} orders
  */
-InlineResponse20029.prototype['tasks'] = undefined;
+InlineResponse20029.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20029Shops} shops
+ */
+InlineResponse20029.prototype['shops'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20029Requests} requests
+ */
+InlineResponse20029.prototype['requests'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20029Products} products
+ */
+InlineResponse20029.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20029Batch} batch
+ */
+InlineResponse20029.prototype['batch'] = undefined;
 
 /**
  * @member {module:model/InlineResponse20029Boxes} boxes
  */
 InlineResponse20029.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20029Batches} batches
- */
-InlineResponse20029.prototype['batches'] = undefined;
 
 
 

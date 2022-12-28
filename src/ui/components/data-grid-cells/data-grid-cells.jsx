@@ -840,6 +840,7 @@ export const MultilineTextCell = React.memo(
       text,
       noTextText,
       color,
+      otherStyles,
       withTooltip,
       leftAlign,
       tooltipText,
@@ -856,7 +857,7 @@ export const MultilineTextCell = React.memo(
                   {[classNames.multilineLeftAlignText]: leftAlign},
                   {[classNames.multilineLink]: onClickText && text},
                 )}
-                style={color && {color}}
+                style={otherStyles || (color && {color})}
                 onClick={onClickText && onClickText}
               >
                 {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -871,7 +872,7 @@ export const MultilineTextCell = React.memo(
                 {[classNames.multilineLeftAlignText]: leftAlign},
                 {[classNames.multilineLink]: onClickText && text},
               )}
-              style={color && {color}}
+              style={otherStyles || (color && {color})}
               onClick={onClickText && onClickText}
             >
               {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1036,22 +1037,32 @@ export const PriorityAndChinaDeliverCell = React.memo(
 
 export const BoxesAndQuantity = React.memo(
   withStyles(({classes: classNames, boxesData}) => {
-    const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
-    const filteredBoxes = [...new Set(mergedBoxes)]
-    const count = mergedBoxes.reduce((acc, el) => {
-      acc[el] = (acc[el] || 0) + 1
-      return acc
-    }, {})
-    const boxes = filteredBoxes.map((item, i) =>
-      item ? (
-        <Typography key={i} className={classNames.boxesAndQuantityText}>
-          {item}
-          {count[item] !== 1 ? ` x ${count[item]}` : ''}
-          {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
-        </Typography>
-      ) : null,
-    )
-    return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>
+    if (Array.isArray(boxesData)) {
+      const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
+      const filteredBoxes = [...new Set(mergedBoxes)]
+      const count = mergedBoxes.reduce((acc, el) => {
+        acc[el] = (acc[el] || 0) + 1
+        return acc
+      }, {})
+      const boxes = filteredBoxes.map((item, i) =>
+        item ? (
+          <Typography key={i} className={classNames.boxesAndQuantityText}>
+            {item}
+            {count[item] !== 1 ? ` x ${count[item]}` : ''}
+            {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
+          </Typography>
+        ) : null,
+      )
+      return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>
+    } else {
+      return (
+        <div className={classNames.boxesAndQuantityWrapper}>
+          <Typography className={classNames.boxesAndQuantityText}>
+            {`${boxesData.amount}x${boxesData.items[0].amount}`}
+          </Typography>
+        </div>
+      )
+    }
   }, styles),
 )
 

@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherCheckAsinsPost
 
-> InlineResponse20038 apiV1OtherCheckAsinsPost(opts)
+> InlineResponse20040 apiV1OtherCheckAsinsPost(opts)
 
 # Заполнение списка асинов на проверку
 
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20038**](InlineResponse20038.md)
+[**InlineResponse20040**](InlineResponse20040.md)
 
 ### Authorization
 

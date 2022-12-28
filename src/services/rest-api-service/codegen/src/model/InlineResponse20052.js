@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20052 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20052 {
     /**
      * Constructs a new <code>InlineResponse20052</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20052
      */
     constructor() { 
@@ -47,14 +49,11 @@ class InlineResponse20052 {
         if (data) {
             obj = obj || new InlineResponse20052();
 
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('volumeWeightCoefficient')) {
-                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
-            }
-            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
-                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BatchesBoxes]);
             }
         }
         return obj;
@@ -64,22 +63,16 @@ class InlineResponse20052 {
 }
 
 /**
- * Курс юаня к доллару.
- * @member {Number} yuanToDollarRate
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20052.prototype['yuanToDollarRate'] = undefined;
+InlineResponse20052.prototype['count'] = undefined;
 
 /**
- * Коэффициент расчета объемного веса.
- * @member {Number} volumeWeightCoefficient
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} rows
  */
-InlineResponse20052.prototype['volumeWeightCoefficient'] = undefined;
-
-/**
- * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
- * @member {Number} requestMinAmountPriceOfProposal
- */
-InlineResponse20052.prototype['requestMinAmountPriceOfProposal'] = undefined;
+InlineResponse20052.prototype['rows'] = undefined;
 
 
 

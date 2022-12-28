@@ -9,6 +9,7 @@ import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
+import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
 import {OtherModel} from '@models/other-model'
@@ -136,6 +137,8 @@ export class ClientInventoryViewModel {
   currentBarcode = ''
   currentHscode = ''
   isModalOpen = false
+
+  isTransfer = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -975,11 +978,15 @@ export class ClientInventoryViewModel {
 
   async onClickInTransfer(productId) {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(productId) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+      const result = await BoxesModel.getBoxesInTransfer(productId) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
       runInAction(() => {
-        this.batchesData = result.filter(el => el.boxes[0].destination.name.includes('PREP')) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+        this.isTransfer = true
+
+        this.batchesData = result // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
 
         this.curProduct = this.currentData.filter(product => productId === product.id).map(prod => prod.originalData)
+
+        console.log('result', result)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
@@ -991,6 +998,7 @@ export class ClientInventoryViewModel {
     try {
       const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0])
       runInAction(() => {
+        this.isTransfer = false
         this.batchesData = result
 
         this.curProduct = this.currentData

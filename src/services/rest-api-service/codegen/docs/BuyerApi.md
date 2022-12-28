@@ -471,7 +471,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [InlineResponse20018] apiV1BuyersOrdersMyGet(opts)
+> [InlineResponse20020] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20018]**](InlineResponse20018.md)
+[**[InlineResponse20020]**](InlineResponse20020.md)
 
 ### Authorization
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPagMyGet
 
-> InlineResponse20019 apiV1BuyersOrdersPagMyGet(opts)
+> InlineResponse20021 apiV1BuyersOrdersPagMyGet(opts)
 
 # Получить список заказов текущего байера с пагинацией.
 
@@ -573,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20019**](InlineResponse20019.md)
+[**InlineResponse20021**](InlineResponse20021.md)
 
 ### Authorization
 
@@ -809,7 +809,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsLightGet
 
-> [InlineResponse20016] apiV1BuyersProductsLightGet(opts)
+> [InlineResponse20018] apiV1BuyersProductsLightGet(opts)
 
 # Получить список товаров, где пользователь - баер товара(не архив).
 
@@ -849,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20016]**](InlineResponse20016.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -863,7 +863,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsMyGet
 
-> [InlineResponse20015] apiV1BuyersProductsMyGet(opts)
+> [InlineResponse20017] apiV1BuyersProductsMyGet(opts)
 
 # Получить список товаров взятых в работу байером.
 
@@ -901,7 +901,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20015]**](InlineResponse20015.md)
+[**[InlineResponse20017]**](InlineResponse20017.md)
 
 ### Authorization
 
@@ -915,7 +915,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsPagMyGet
 
-> InlineResponse20017 apiV1BuyersProductsPagMyGet(opts)
+> InlineResponse20019 apiV1BuyersProductsPagMyGet(opts)
 
 # Получить список товаров взятых в работу байером с пагинацией.
 
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20017**](InlineResponse20017.md)
+[**InlineResponse20019**](InlineResponse20019.md)
 
 ### Authorization
 
@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [InlineResponse20015] apiV1BuyersProductsVacGet(opts)
+> [InlineResponse20017] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1071,7 +1071,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20015]**](InlineResponse20015.md)
+[**[InlineResponse20017]**](InlineResponse20017.md)
 
 ### Authorization
 
@@ -1139,7 +1139,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse20020] apiV1BuyersTasksGet(opts)
+> [InlineResponse20022] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -1177,7 +1177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20020]**](InlineResponse20020.md)
+[**[InlineResponse20022]**](InlineResponse20022.md)
 
 ### Authorization
 

@@ -137,6 +137,15 @@ class InlineResponse200 {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
+            if (data.hasOwnProperty('material')) {
+                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            }
+            if (data.hasOwnProperty('productUsage')) {
+                obj['productUsage'] = ApiClient.convertToType(data['productUsage'], 'String');
+            }
+            if (data.hasOwnProperty('chinaTitle')) {
+                obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
+            }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
@@ -433,6 +442,24 @@ InlineResponse200.prototype['amazonDetail'] = undefined;
  * @member {String} amazonTitle
  */
 InlineResponse200.prototype['amazonTitle'] = undefined;
+
+/**
+ * Материл продукта
+ * @member {String} material
+ */
+InlineResponse200.prototype['material'] = undefined;
+
+/**
+ * Применение продукта
+ * @member {String} productUsage
+ */
+InlineResponse200.prototype['productUsage'] = undefined;
+
+/**
+ * chinese title?
+ * @member {String} chinaTitle
+ */
+InlineResponse200.prototype['chinaTitle'] = undefined;
 
 /**
  * Баркод

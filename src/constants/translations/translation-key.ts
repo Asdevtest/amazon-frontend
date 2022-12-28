@@ -1687,7 +1687,7 @@ export enum TranslationKey {
   'Available' = 'Available',
   'Update' = 'Update',
   'Current tariffs' = 'Current tariffs',
-  // '' = '',
+  'Data of product boxes to be shipped' = 'Data of product boxes to be shipped',
   // '' = '',
   // '' = '',
   // '' = '',

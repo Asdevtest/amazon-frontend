@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20022 model module.
@@ -52,80 +52,44 @@ class InlineResponse20022 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
             }
-            if (data.hasOwnProperty('skusByClient')) {
-                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
             }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('currentSupplier')) {
-                obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['currentSupplier']);
-            }
-            if (data.hasOwnProperty('currentSupplierId')) {
-                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('checkedBy')) {
-                obj['checkedBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['checkedBy']);
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('checkedAt')) {
-                obj['checkedAt'] = ApiClient.convertToType(data['checkedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['buyer']);
-            }
-            if (data.hasOwnProperty('supervisorRate')) {
-                obj['supervisorRate'] = ApiClient.convertToType(data['supervisorRate'], 'Number');
-            }
-            if (data.hasOwnProperty('buyerRate')) {
-                obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
-            }
-            if (data.hasOwnProperty('avgRevenue')) {
-                obj['avgRevenue'] = ApiClient.convertToType(data['avgRevenue'], 'String');
-            }
-            if (data.hasOwnProperty('avgBSR')) {
-                obj['avgBSR'] = ApiClient.convertToType(data['avgBSR'], 'String');
-            }
-            if (data.hasOwnProperty('avgPrice')) {
-                obj['avgPrice'] = ApiClient.convertToType(data['avgPrice'], 'String');
-            }
-            if (data.hasOwnProperty('avgReviews')) {
-                obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
+            if (data.hasOwnProperty('updateDate')) {
+                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
             }
         }
         return obj;
@@ -135,57 +99,58 @@ class InlineResponse20022 {
 }
 
 /**
- * GUID продукта в базе данных
+ * GUID
  * @member {String} _id
  */
 InlineResponse20022.prototype['_id'] = undefined;
 
 /**
- * Категория
- * @member {String} category
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineResponse20022.prototype['category'] = undefined;
+InlineResponse20022.prototype['taskId'] = undefined;
 
 /**
- * 
- * @member {Number} bsr
+ * Тип операции
+ * @member {module:model/InlineResponse20022.OperationTypeEnum} operationType
  */
-InlineResponse20022.prototype['bsr'] = undefined;
+InlineResponse20022.prototype['operationType'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
  */
-InlineResponse20022.prototype['asin'] = undefined;
+InlineResponse20022.prototype['boxesBefore'] = undefined;
 
 /**
- * @member {Array.<String>} skusByClient
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
-InlineResponse20022.prototype['skusByClient'] = undefined;
+InlineResponse20022.prototype['boxes'] = undefined;
 
 /**
- * 
- * @member {Number} amazon
- */
-InlineResponse20022.prototype['amazon'] = undefined;
-
-/**
- * Вес
- * @member {Number} weight
- */
-InlineResponse20022.prototype['weight'] = undefined;
-
-/**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
-InlineResponse20022.prototype['fbaamount'] = undefined;
-
-/**
- * Код текущего статуса
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
  * @member {Number} status
  */
 InlineResponse20022.prototype['status'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineResponse20022.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ */
+InlineResponse20022.prototype['clientComment'] = undefined;
+
+/**
+ * Комментарий баера.
+ * @member {String} buyerComment
+ */
+InlineResponse20022.prototype['buyerComment'] = undefined;
 
 /**
  * Массив картинок.
@@ -194,99 +159,57 @@ InlineResponse20022.prototype['status'] = undefined;
 InlineResponse20022.prototype['images'] = undefined;
 
 /**
- * Цена для клиента
- * @member {Number} priceForClient
+ * GUID сотрудника склада, который выполняет задачу.
+ * @member {String} storekeeperId
  */
-InlineResponse20022.prototype['priceForClient'] = undefined;
+InlineResponse20022.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} currentSupplier
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
-InlineResponse20022.prototype['currentSupplier'] = undefined;
+InlineResponse20022.prototype['storekeeper'] = undefined;
 
 /**
- * GUID поставщика в базе данных
- * @member {String} currentSupplierId
- */
-InlineResponse20022.prototype['currentSupplierId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20022.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} checkedBy
- */
-InlineResponse20022.prototype['checkedBy'] = undefined;
-
-/**
- * Дата создания
+ * Дата создания.
  * @member {Date} createdAt
  */
 InlineResponse20022.prototype['createdAt'] = undefined;
 
 /**
- * Дата изменения
- * @member {Date} updatedAt
+ * Дата обновления.
+ * @member {Date} updateDate
  */
-InlineResponse20022.prototype['updatedAt'] = undefined;
+InlineResponse20022.prototype['updateDate'] = undefined;
+
+
+
+
 
 /**
- * Дата проверки
- * @member {Date} checkedAt
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineResponse20022.prototype['checkedAt'] = undefined;
+InlineResponse20022['OperationTypeEnum'] = {
 
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} buyer
- */
-InlineResponse20022.prototype['buyer'] = undefined;
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
 
-/**
- * Савка супервайзера.
- * @member {Number} supervisorRate
- */
-InlineResponse20022.prototype['supervisorRate'] = undefined;
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
 
-/**
- * Савка байера.
- * @member {Number} buyerRate
- */
-InlineResponse20022.prototype['buyerRate'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineResponse20022.prototype['strategyStatus'] = undefined;
-
-/**
- * Средний доход
- * @member {String} avgRevenue
- */
-InlineResponse20022.prototype['avgRevenue'] = undefined;
-
-/**
- * Средний BSR
- * @member {String} avgBSR
- */
-InlineResponse20022.prototype['avgBSR'] = undefined;
-
-/**
- * Средняя цена
- * @member {String} avgPrice
- */
-InlineResponse20022.prototype['avgPrice'] = undefined;
-
-/**
- * Средний отзывы
- * @member {String} avgReviews
- */
-InlineResponse20022.prototype['avgReviews'] = undefined;
-
-
-
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 

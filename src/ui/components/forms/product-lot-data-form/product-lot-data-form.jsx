@@ -21,10 +21,11 @@ import {shortAsin} from '@utils/text'
 // import {Button} from '@components/buttons/button'
 import {t} from '@utils/translations'
 
+import {productInTransferColumns} from './poduct-in-transfer-column'
 import {productLotDataFormColumns} from './product-lot-data-form-column'
 import {useClassNames} from './product-lot-data-form.style'
 
-export const ProductLotDataForm = observer(({product, batchesData}) => {
+export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) => {
   const {classes: classNames} = useClassNames()
 
   const [batches, setBatches] = useState(batchesData)
@@ -33,16 +34,29 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
 
   const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
+  console.log('product', product)
+  console.log('batches', batches)
+
   useEffect(() => {
-    if (nameSearchValue) {
+    if (isTransfer) {
       setBatches(
         batchesData.filter(item =>
-          item.humanFriendlyId.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+          item.batch.humanFriendlyId.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
         ),
       )
-    }
-    if (!nameSearchValue) {
-      setBatches(batchesData)
+    } else {
+      if (nameSearchValue) {
+        setBatches(
+          batchesData.filter(item =>
+            item.boxes.some(item =>
+              item.humanFriendlyId.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+            ),
+          ),
+        )
+      }
+      if (!nameSearchValue) {
+        setBatches(batchesData)
+      }
     }
   }, [nameSearchValue])
 
@@ -62,7 +76,9 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
 
   return (
     <div className={classNames.productLotDataBlock}>
-      <div className={classNames.title}>{t(TranslationKey['Product lot data'])}</div>
+      <div className={classNames.title}>
+        {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product lot data'}`])}
+      </div>
       <div className={classNames.aboutProduct}>
         <div className={classNames.productInfo}>
           <img className={classNames.img} src={getAmazonImageUrl(product[0].images[0])} />
@@ -108,7 +124,11 @@ export const ProductLotDataForm = observer(({product, batchesData}) => {
           hideFooter
           localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches._id}
-          columns={productLotDataFormColumns({onClickShowBatchBtn})}
+          columns={
+            isTransfer
+              ? productInTransferColumns({onClickShowBatchBtn})
+              : productLotDataFormColumns({onClickShowBatchBtn})
+          }
           rows={toJS(batches)}
           headerHeight={64}
           rowHeight={100}

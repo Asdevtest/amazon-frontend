@@ -12,8 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20044 from './InlineResponse20044';
-import InlineResponse20056Details from './InlineResponse20056Details';
+import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
+import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
+import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20056 model module.
@@ -23,7 +24,7 @@ import InlineResponse20056Details from './InlineResponse20056Details';
 class InlineResponse20056 {
     /**
      * Constructs a new <code>InlineResponse20056</code>.
-     * Схема детали на поиск ниш.
+     * Схема универсального предложения
      * @alias module:model/InlineResponse20056
      */
     constructor() { 
@@ -50,11 +51,14 @@ class InlineResponse20056 {
         if (data) {
             obj = obj || new InlineResponse20056();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20044.constructFromObject(data['request']);
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
             }
             if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineResponse20056Details.constructFromObject(data['details']);
+                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            }
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
             }
         }
         return obj;
@@ -64,14 +68,19 @@ class InlineResponse20056 {
 }
 
 /**
- * @member {module:model/InlineResponse20044} request
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
  */
-InlineResponse20056.prototype['request'] = undefined;
+InlineResponse20056.prototype['proposal'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20056Details} details
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
  */
 InlineResponse20056.prototype['details'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ */
+InlineResponse20056.prototype['request'] = undefined;
 
 
 

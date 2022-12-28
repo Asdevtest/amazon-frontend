@@ -146,6 +146,11 @@ class BoxesModelStatic {
     return response
   }
 
+  getBoxesInTransfer = async id => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsInTransferGuidGet(id)
+    return response
+  }
+
   sendBoxesToBatch = async boxesIds => {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
     return response

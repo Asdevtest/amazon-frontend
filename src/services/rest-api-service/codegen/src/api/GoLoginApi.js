@@ -18,7 +18,7 @@ import InlineObject49 from '../model/InlineObject49';
 import InlineObject50 from '../model/InlineObject50';
 import InlineObject51 from '../model/InlineObject51';
 import InlineObject52 from '../model/InlineObject52';
-import InlineResponse20033 from '../model/InlineResponse20033';
+import InlineResponse20035 from '../model/InlineResponse20035';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -49,7 +49,7 @@ export default class GoLoginApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject49} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20033} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20035} and HTTP response
      */
     apiV1GologinProfilePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -68,7 +68,7 @@ export default class GoLoginApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['text/html'];
-      let returnType = InlineResponse20033;
+      let returnType = InlineResponse20035;
       return this.apiClient.callApi(
         '/api/v1/gologin/profile', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -82,7 +82,7 @@ export default class GoLoginApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject49} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20033}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20035}
      */
     apiV1GologinProfilePost(opts) {
       return this.apiV1GologinProfilePostWithHttpInfo(opts)

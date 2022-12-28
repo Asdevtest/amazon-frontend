@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ## apiV1PermissionsProductsGet
 
-> [InlineResponse20039] apiV1PermissionsProductsGet(opts)
+> [InlineResponse20041] apiV1PermissionsProductsGet(opts)
 
 Получить список разрешений для продуктов всех сабъюзеров.
 
@@ -495,7 +495,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20039]**](InlineResponse20039.md)
+[**[InlineResponse20041]**](InlineResponse20041.md)
 
 ### Authorization
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## apiV1PermissionsProductsGuidGet
 
-> [InlineResponse20040] apiV1PermissionsProductsGuidGet(guid, opts)
+> [InlineResponse20042] apiV1PermissionsProductsGuidGet(guid, opts)
 
 Получить список разрешений для продуктов юзера по его айди.
 
@@ -549,7 +549,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20040]**](InlineResponse20040.md)
+[**[InlineResponse20042]**](InlineResponse20042.md)
 
 ### Authorization
 

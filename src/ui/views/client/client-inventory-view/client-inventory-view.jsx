@@ -59,6 +59,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      isTransfer,
       curProduct,
       receivedFiles,
       batchesData,
@@ -438,6 +439,7 @@ export class ClientInventoryViewRaw extends Component {
         <Modal openModal={showProductLotDataModal} setOpenModal={() => onTriggerOpenModal('showProductLotDataModal')}>
           <ProductLotDataForm
             // product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            isTransfer={isTransfer}
             product={curProduct}
             batchesData={batchesData}
           />
