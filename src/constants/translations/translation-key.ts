@@ -1686,7 +1686,7 @@ export enum TranslationKey {
   'Filter by PRODUCT applied' = 'Filter by PRODUCT applied',
   'Available' = 'Available',
   'Update' = 'Update',
-  // '' = '',
+  'Current tariffs' = 'Current tariffs',
   // '' = '',
   // '' = '',
   // '' = '',
