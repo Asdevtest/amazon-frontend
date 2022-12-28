@@ -110,6 +110,7 @@ export class ClientInventoryViewModel {
   drawerOpen = false
   showOrderModal = false
   showSuccessModal = false
+
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showAddOrEditSupplierModal = false
@@ -135,6 +136,9 @@ export class ClientInventoryViewModel {
   currentBarcode = ''
   currentHscode = ''
   isModalOpen = false
+
+  showAcceptMessage = undefined
+  acceptMessage = undefined
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
@@ -750,10 +754,21 @@ export class ClientInventoryViewModel {
       }
 
       if (!this.error) {
+        // runInAction(() => {
+        //   this.successModalText = t(TranslationKey['The order has been created'])
+        // })
+        // this.onTriggerOpenModal('showSuccessModal')
+
         runInAction(() => {
-          this.successModalText = t(TranslationKey['The order has been created'])
+          this.acceptMessage = t(TranslationKey['The order has been created'])
+          this.showAcceptMessage = true
+          if (this.showAcceptMessage) {
+            setTimeout(() => {
+              this.acceptMessage = ''
+              this.showAcceptMessage = false
+            }, 3000)
+          }
         })
-        this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
       // this.onTriggerOpenModal('showOrderModal')

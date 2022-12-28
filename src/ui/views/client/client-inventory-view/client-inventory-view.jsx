@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {Typography} from '@mui/material'
+import {Alert, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -74,6 +74,7 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
+
       confirmModalSettings,
       storekeepers,
       destinations,
@@ -96,6 +97,9 @@ export class ClientInventoryViewRaw extends Component {
       showSetBarcodeModal,
       showSelectionSupplierModal,
       showSetChipValueModal,
+
+      showAcceptMessage,
+      acceptMessage,
 
       // showSetStockUsValueModal,
       showConfirmModal,
@@ -593,6 +597,13 @@ export class ClientInventoryViewRaw extends Component {
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }
