@@ -40,6 +40,7 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
+      destinationsFavourites,
       confirmModalSettings,
       volumeWeightCoefficient,
       showOrderModal,
@@ -64,6 +65,7 @@ export class ClientExchangeViewRaw extends Component {
       showSuccessModal,
       showWarningModal,
       showSelectShopsModal,
+      setDestinationsFavouritesItem,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -132,6 +134,8 @@ export class ClientExchangeViewRaw extends Component {
             storekeepers={storekeepers}
             requestStatus={requestStatus}
             selectedProductsData={[selectedProduct]}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onClickOrderNowBtn}
