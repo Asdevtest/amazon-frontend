@@ -11,6 +11,7 @@ import {ShopModel} from '@models/shop-model'
 import {shopsColumns} from '@components/table-columns/shops-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -175,7 +176,7 @@ export class ShopsViewModel {
       const result = await ShopModel.getMyShops()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       if (this.openModal) {
         this.onTriggerOpenModal('showAddOrEditShopModal')

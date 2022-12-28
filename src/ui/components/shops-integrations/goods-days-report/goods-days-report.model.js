@@ -138,7 +138,7 @@ export class GoodsDaysReportModel {
 
       runInAction(() => {
         this.sellerBoardLast30DayData = stockReportDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('date'),
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {
