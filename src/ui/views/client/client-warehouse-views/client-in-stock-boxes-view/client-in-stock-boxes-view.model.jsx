@@ -346,10 +346,12 @@ export class ClientInStockBoxesViewModel {
   }
 
   onClickStorekeeperBtn(storekeeper) {
+    console.log('storekeeper', storekeeper)
     runInAction(() => {
       this.selectedBoxes = []
 
       this.currentStorekeeper = storekeeper ? storekeeper : undefined
+      console.log('this.currentStorekeeper', this.currentStorekeeper)
     })
 
     this.getBoxesMy()
@@ -665,6 +667,7 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getStorekeepers()
+      await this.getClientDestinations()
 
       await this.getShops()
 
