@@ -195,7 +195,7 @@ export const MergeBoxesModal = ({
                     selectedItemName={
                       destinations.find(el => el._id === boxBody.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper._id)}
+                    data={destinations.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -217,7 +217,7 @@ export const MergeBoxesModal = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
-                      ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
+                      ? `${storekeepers.find(el => el._id === boxBody.storekeeperId)?.name} /  
                 ${
                   boxBody.logicsTariffId
                     ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -234,7 +234,7 @@ export const MergeBoxesModal = ({
                 containerClasses={classNames.field}
                 inputClasses={cx(classNames.fieldInput, {
                   [classNames.inputAccent]:
-                    (boxBody.shippingLabel || boxBody.tmpShippingLabel.length) &&
+                    (boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
                     !boxBody.fbaShipment &&
                     !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper,
                 })}
@@ -298,9 +298,7 @@ export const MergeBoxesModal = ({
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
             disabled={disabledSubmit}
             className={classNames.button}
-            onClick={() => {
-              onSubmitBoxesModal()
-            }}
+            onClick={onSubmitBoxesModal}
           >
             {t(TranslationKey.Merge)}
           </Button>
@@ -309,9 +307,7 @@ export const MergeBoxesModal = ({
             disabled={requestStatus === loadingStatuses.isLoading}
             variant="text"
             className={cx(classNames.button, classNames.cancelButton)}
-            onClick={() => {
-              onCloseBoxesModal()
-            }}
+            onClick={onCloseBoxesModal}
           >
             {t(TranslationKey.Cancel)}
           </Button>
