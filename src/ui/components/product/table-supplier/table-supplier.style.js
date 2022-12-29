@@ -171,6 +171,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   nameCell: {
+    position: 'relative',
     minWidth: 200,
   },
 
@@ -196,5 +197,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
 
     textAlign: 'center',
+  },
+  imgWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 'auto',
+    height: 'auto',
   },
 }))

@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20028Finances from './InlineResponse20028Finances';
-import InlineResponse20032Checking from './InlineResponse20032Checking';
+import InlineResponse20030Finances from './InlineResponse20030Finances';
 import InlineResponse20032Products from './InlineResponse20032Products';
 
 /**
@@ -53,11 +52,8 @@ class InlineResponse20032 {
             if (data.hasOwnProperty('products')) {
                 obj['products'] = InlineResponse20032Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('checking')) {
-                obj['checking'] = InlineResponse20032Checking.constructFromObject(data['checking']);
-            }
             if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20028Finances.constructFromObject(data['finances']);
+                obj['finances'] = InlineResponse20030Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -72,12 +68,7 @@ class InlineResponse20032 {
 InlineResponse20032.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20032Checking} checking
- */
-InlineResponse20032.prototype['checking'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20028Finances} finances
+ * @member {module:model/InlineResponse20030Finances} finances
  */
 InlineResponse20032.prototype['finances'] = undefined;
 

@@ -225,4 +225,40 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
     color: theme.palette.text.main,
   },
+  supplierActionsWrapper: {
+    display: 'flex',
+  },
+  supplierContainer: {
+    marginBottom: '20px',
+    display: 'flex',
+    gap: '16px',
+  },
+  supplierButtonWrapper: {
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'center',
+  },
+  iconBtn: {
+    maxHeight: '40px',
+    maxWidth: '40px',
+    color: 'white',
+    backgroundColor: 'rgba(0, 123, 255, 1)',
+    borderRadius: '4px',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 123, 255, 1)',
+    },
+  },
+  supplierButtonText: {
+    maxWidth: '98px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    // color: theme.palette.text.second,
+
+    color: theme.palette.text.second,
+  },
+  suppliersWrapper: {
+    padding: '0 20px',
+  },
 }))

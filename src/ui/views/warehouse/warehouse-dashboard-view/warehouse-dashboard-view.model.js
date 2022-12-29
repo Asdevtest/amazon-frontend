@@ -100,7 +100,6 @@ export class WarehouseDashboardViewModel {
   async getDashboardElementCount() {
     try {
       const result = await DashboardModel.getStorekeeperDashboadItems()
-      console.log(result)
       runInAction(() => {
         this.dashboardData = {
           [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.tasks.vacant,

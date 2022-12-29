@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {Typography} from '@mui/material'
+import {Alert, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -59,6 +59,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      isTransfer,
       curProduct,
       receivedFiles,
       batchesData,
@@ -74,6 +75,7 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
+
       confirmModalSettings,
       storekeepers,
       destinations,
@@ -96,6 +98,9 @@ export class ClientInventoryViewRaw extends Component {
       showSetBarcodeModal,
       showSelectionSupplierModal,
       showSetChipValueModal,
+
+      showAcceptMessage,
+      acceptMessage,
 
       // showSetStockUsValueModal,
       showConfirmModal,
@@ -170,7 +175,7 @@ export class ClientInventoryViewRaw extends Component {
 
     const disableSelectionCells = ['asin', 'stockUSA', 'fourMonthesStock']
 
-    const clickableCells = [/* 'inTransfer',*/ 'amountInBoxes', 'amountInOrders']
+    const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
@@ -434,6 +439,7 @@ export class ClientInventoryViewRaw extends Component {
         <Modal openModal={showProductLotDataModal} setOpenModal={() => onTriggerOpenModal('showProductLotDataModal')}>
           <ProductLotDataForm
             // product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            isTransfer={isTransfer}
             product={curProduct}
             batchesData={batchesData}
           />
@@ -593,6 +599,13 @@ export class ClientInventoryViewRaw extends Component {
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }

@@ -40,7 +40,6 @@ export class ClientOrdersViewModel {
   actionStatus = undefined
   error = undefined
 
-  successModalText = ''
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
@@ -53,7 +52,9 @@ export class ClientOrdersViewModel {
   showOrderModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
-  showSuccessModal = false
+
+  showAcceptMessage = undefined
+  acceptMessage = undefined
 
   ordersDataStateToSubmit = undefined
   selectedProduct = undefined
@@ -528,9 +529,15 @@ export class ClientOrdersViewModel {
 
       if (!this.error) {
         runInAction(() => {
-          this.successModalText = t(TranslationKey['The order has been created'])
+          this.acceptMessage = t(TranslationKey['The order has been created'])
+          this.showAcceptMessage = true
+          if (this.showAcceptMessage) {
+            setTimeout(() => {
+              this.acceptMessage = ''
+              this.showAcceptMessage = false
+            }, 3000)
+          }
         })
-        this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

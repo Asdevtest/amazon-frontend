@@ -65,6 +65,15 @@ class ApiV1BoxesClientsLightProduct {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
+            if (data.hasOwnProperty('material')) {
+                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            }
+            if (data.hasOwnProperty('productUsage')) {
+                obj['productUsage'] = ApiClient.convertToType(data['productUsage'], 'String');
+            }
+            if (data.hasOwnProperty('chinaTitle')) {
+                obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
+            }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
@@ -112,6 +121,24 @@ ApiV1BoxesClientsLightProduct.prototype['shopIds'] = undefined;
  * @member {String} amazonTitle
  */
 ApiV1BoxesClientsLightProduct.prototype['amazonTitle'] = undefined;
+
+/**
+ * Материл продукта
+ * @member {String} material
+ */
+ApiV1BoxesClientsLightProduct.prototype['material'] = undefined;
+
+/**
+ * Применение продукта
+ * @member {String} productUsage
+ */
+ApiV1BoxesClientsLightProduct.prototype['productUsage'] = undefined;
+
+/**
+ * chinese title?
+ * @member {String} chinaTitle
+ */
+ApiV1BoxesClientsLightProduct.prototype['chinaTitle'] = undefined;
 
 /**
  * Штрихкод продукта

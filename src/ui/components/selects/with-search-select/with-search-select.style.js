@@ -8,7 +8,7 @@ export const styles = theme => ({
   },
 
   disableRoot: {
-    opacity: '.7',
+    opacity: '.8',
   },
 
   searchInput: {
@@ -21,7 +21,7 @@ export const styles = theme => ({
   },
 
   disabledSelectedItemName: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   mainWrapper: {

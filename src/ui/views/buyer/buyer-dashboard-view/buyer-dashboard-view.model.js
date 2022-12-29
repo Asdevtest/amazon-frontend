@@ -77,7 +77,6 @@ export class BuyerDashboardViewModel {
   async getDashboardElementCount() {
     try {
       const result = await DashboardModel.getBuyerDashboadItems()
-      console.log(result)
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

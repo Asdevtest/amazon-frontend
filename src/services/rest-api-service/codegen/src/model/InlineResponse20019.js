@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20018 from './InlineResponse20018';
+import InlineResponse20017 from './InlineResponse20017';
 
 /**
  * The InlineResponse20019 model module.
@@ -53,7 +53,7 @@ class InlineResponse20019 {
                 obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20018]);
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20017]);
             }
         }
         return obj;
@@ -70,7 +70,7 @@ InlineResponse20019.prototype['count'] = undefined;
 
 /**
  * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20018>} rows
+ * @member {Array.<module:model/InlineResponse20017>} rows
  */
 InlineResponse20019.prototype['rows'] = undefined;
 

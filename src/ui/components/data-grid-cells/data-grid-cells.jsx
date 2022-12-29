@@ -840,6 +840,7 @@ export const MultilineTextCell = React.memo(
       text,
       noTextText,
       color,
+      otherStyles,
       withTooltip,
       leftAlign,
       tooltipText,
@@ -856,7 +857,7 @@ export const MultilineTextCell = React.memo(
                   {[classNames.multilineLeftAlignText]: leftAlign},
                   {[classNames.multilineLink]: onClickText && text},
                 )}
-                style={color && {color}}
+                style={otherStyles || (color && {color})}
                 onClick={onClickText && onClickText}
               >
                 {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -871,7 +872,7 @@ export const MultilineTextCell = React.memo(
                 {[classNames.multilineLeftAlignText]: leftAlign},
                 {[classNames.multilineLink]: onClickText && text},
               )}
-              style={color && {color}}
+              style={otherStyles || (color && {color})}
               onClick={onClickText && onClickText}
             >
               {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1036,22 +1037,32 @@ export const PriorityAndChinaDeliverCell = React.memo(
 
 export const BoxesAndQuantity = React.memo(
   withStyles(({classes: classNames, boxesData}) => {
-    const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
-    const filteredBoxes = [...new Set(mergedBoxes)]
-    const count = mergedBoxes.reduce((acc, el) => {
-      acc[el] = (acc[el] || 0) + 1
-      return acc
-    }, {})
-    const boxes = filteredBoxes.map((item, i) =>
-      item ? (
-        <Typography key={i} className={classNames.boxesAndQuantityText}>
-          {item}
-          {count[item] !== 1 ? ` x ${count[item]}` : ''}
-          {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
-        </Typography>
-      ) : null,
-    )
-    return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>
+    if (Array.isArray(boxesData)) {
+      const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
+      const filteredBoxes = [...new Set(mergedBoxes)]
+      const count = mergedBoxes.reduce((acc, el) => {
+        acc[el] = (acc[el] || 0) + 1
+        return acc
+      }, {})
+      const boxes = filteredBoxes.map((item, i) =>
+        item ? (
+          <Typography key={i} className={classNames.boxesAndQuantityText}>
+            {item}
+            {count[item] !== 1 ? ` x ${count[item]}` : ''}
+            {filteredBoxes.length > 1 && i + 1 !== filteredBoxes.length ? ',' : ''}
+          </Typography>
+        ) : null,
+      )
+      return <div className={classNames.boxesAndQuantityWrapper}>{boxes}</div>
+    } else {
+      return (
+        <div className={classNames.boxesAndQuantityWrapper}>
+          <Typography className={classNames.boxesAndQuantityText}>
+            {`${boxesData.amount}x${boxesData.items[0].amount}`}
+          </Typography>
+        </div>
+      )
+    }
   }, styles),
 )
 
@@ -1792,34 +1803,15 @@ export const MultilineCell = React.memo(
 
 export const ManyItemsPriceCell = React.memo(
   withStyles(
-    ({classes: classNames, item}) => {
-      const cell = item?.items?.map((el, itemIndex) => (
-        <div key={el.product._id} className={classNames.ManyItemsPriceCellWrapper}>
-          {item.totalPrice && item.totalPriceChanged
-            ? item.totalPrice - item.totalPriceChanged < 0 &&
-              itemIndex === 0 && (
-                <span className={classNames.needPay}>{`${t(
-                  TranslationKey['Extra payment required!'],
-                )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
-              )
-            : null}
-          <div className={classNames.imgBlock}>
-            <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
-            <div className={classNames.imgSubBlock}>
-              <div className={classNames.countBlock}>
-                <Typography>{t(TranslationKey.Quantity)}</Typography>
-                <Typography className={classNames.amount}>{el.amount}</Typography>
-
-                {item.amount > 1 && (
-                  <Typography className={classNames.superboxTypof}>{`Superbox x ${item.amount}`}</Typography>
-                )}
-              </div>
-
-              <Typography className={classNames.boxTitle}>{el.product.asin}</Typography>
-            </div>
-          </div>
-          <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>
-        </div>
+    ({classes: classNames, params}) => {
+      const cell = params?.items?.map((el, itemIndex) => (
+        <OrderCell
+          key={itemIndex}
+          box={params}
+          product={el?.product}
+          superbox={params.amount > 1 && params.amount}
+          superboxProductAmount={params}
+        />
       ))
 
       return <div className={classNames.ManyItemsPriceCellMainWrapper}>{cell}</div>

@@ -72,9 +72,6 @@ export class AdminWarehouseBoxesViewModel {
       this.nameSearchValue = searchValue
     })
 
-    console.log('this.nameSearchValue', this.nameSearchValue)
-    console.log('this.boxesData', this.boxesData[0].originalData.items[0].product.asin)
-
     if (this.nameSearchValue) {
       runInAction(() => {
         this.boxes = this.boxesData.filter(box =>

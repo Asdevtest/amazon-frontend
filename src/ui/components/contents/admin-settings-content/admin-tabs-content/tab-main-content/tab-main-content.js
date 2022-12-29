@@ -122,14 +122,16 @@ export const TabMainContent = ({
                   <Typography className={cx(classNames.proxy, {[classNames.unselectable]: disabled})}>
                     {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
                   </Typography>
-                  <CopyValue text={proxy} disabled={disabled} />
                 </div>
-                <IconButton size="small" disabled={disabledAddButton}>
-                  <DeleteOutlineOutlinedIcon
-                    className={classNames.deleteProxy}
-                    onClick={() => onClickDeleteProxy(proxy)}
-                  />
-                </IconButton>
+                <div className={classNames.iconsWrapper}>
+                  <CopyValue text={proxy} disabled={disabled} />
+                  <IconButton size="small" disabled={disabledAddButton}>
+                    <DeleteOutlineOutlinedIcon
+                      className={classNames.deleteProxy}
+                      onClick={() => onClickDeleteProxy(proxy)}
+                    />
+                  </IconButton>
+                </div>
               </div>
             ))}
         </div>

@@ -12,10 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
-import ApiV1BuyersOrdersMyOrderSupplier from './ApiV1BuyersOrdersMyOrderSupplier';
-import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
 
 /**
  * The InlineResponse20018 model module.
@@ -25,7 +21,6 @@ import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
 class InlineResponse20018 {
     /**
      * Constructs a new <code>InlineResponse20018</code>.
-     * Заказ.
      * @alias module:model/InlineResponse20018
      */
     constructor() { 
@@ -52,65 +47,20 @@ class InlineResponse20018 {
         if (data) {
             obj = obj || new InlineResponse20018();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
-            }
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
-            }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplier')) {
-                obj['orderSupplier'] = ApiV1BuyersOrdersMyOrderSupplier.constructFromObject(data['orderSupplier']);
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
-            }
-            if (data.hasOwnProperty('expressChinaDelivery')) {
-                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
-            }
-            if (data.hasOwnProperty('needsResearch')) {
-                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1BuyersOrdersMyProduct.constructFromObject(data['product']);
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
         }
         return obj;
@@ -120,158 +70,36 @@ class InlineResponse20018 {
 }
 
 /**
- * id заказ.
- * @member {Number} id
- */
-InlineResponse20018.prototype['id'] = undefined;
-
-/**
- * GUID данной записи в БД.
+ * GUID продукта в базе данных
  * @member {String} _id
  */
 InlineResponse20018.prototype['_id'] = undefined;
 
 /**
- * кол-во
- * @member {Number} amount
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20018.prototype['amount'] = undefined;
+InlineResponse20018.prototype['asin'] = undefined;
 
 /**
- * Комментарии клиента.
- * @member {String} clientComment
+ * @member {Array.<String>} skusByClient
  */
-InlineResponse20018.prototype['clientComment'] = undefined;
+InlineResponse20018.prototype['skusByClient'] = undefined;
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineResponse20018.prototype['buyerComment'] = undefined;
+InlineResponse20018.prototype['images'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
  */
-InlineResponse20018.prototype['destination'] = undefined;
-
-/**
- * @member {String} item
- */
-InlineResponse20018.prototype['item'] = undefined;
-
-/**
- * @member {module:model/ApiV1BuyersOrdersMyOrderSupplier} orderSupplier
- */
-InlineResponse20018.prototype['orderSupplier'] = undefined;
-
-/**
- * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
- * @member {module:model/InlineResponse20018.PriorityEnum} priority
- */
-InlineResponse20018.prototype['priority'] = undefined;
-
-/**
- * Флаг , обозначающий оплату за экспресс доставку по китаю
- * @member {Boolean} expressChinaDelivery
- */
-InlineResponse20018.prototype['expressChinaDelivery'] = undefined;
-
-/**
- * Нуждается ли заказ в повторном поиске поставщика
- * @member {Boolean} needsResearch
- */
-InlineResponse20018.prototype['needsResearch'] = undefined;
-
-/**
- * Дедлайн выкупа заказа
- * @member {Date} deadline
- */
-InlineResponse20018.prototype['deadline'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineResponse20018.prototype['totalPrice'] = undefined;
-
-/**
- * Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа. 
- * @member {Number} totalPriceChanged
- */
-InlineResponse20018.prototype['totalPriceChanged'] = undefined;
-
-/**
- * @member {String} createdById
- */
-InlineResponse20018.prototype['createdById'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
- */
-InlineResponse20018.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1BuyersOrdersMyProduct} product
- */
-InlineResponse20018.prototype['product'] = undefined;
-
-/**
- *    formed: 0,  Корзина - статус \"Формируется\"      new: 1,  Клиент создал заказ - статус \"Новый\"      readyToProcess: 10,  Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус \"доступен для обработки\"      atProcess: 15,  Закупщик взял заказ в обработку - статус \"в обработке\"        Варианты обработки - \"Что-то не так - требуется уточнение у клиента\" - уведомить клиента. - закупщику контрольное         уведомление (т.к. будет суброль)        Необходим поиск нового поставщика. - уведомить клиента. - закупщику контрольное уведомление (т.к. будет суброль)      needConfirmingToPriceChange: 19,  \"требуется подтверждение для изменения цены \"        paid: 20, закупщик оплатил заказ - статус \"оплачен\"       trackNumberIssued: 25, выдан и принят трек номер - статус \"выдан трек номер\"      needConfirmingReceiving: 27 - Этот статус промежуточный между 25 и 30     С этого статуса заказ можно переводить в статусы 25,30,35     inStock: 30, Товар пришёл на склад - \"Пришёл на склад\"      canceledByBuyer: 35, // Отменен байером      canceledByClient: 40 // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)   
- * @member {Number} status
- */
-InlineResponse20018.prototype['status'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20018.prototype['createdAt'] = undefined;
-
-/**
- * @member {String} updatedAt
- */
-InlineResponse20018.prototype['updatedAt'] = undefined;
+InlineResponse20018.prototype['amazonTitle'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20018['PriorityEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
-
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
 
 
 

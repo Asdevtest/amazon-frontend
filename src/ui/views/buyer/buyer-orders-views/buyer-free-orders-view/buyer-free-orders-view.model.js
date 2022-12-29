@@ -183,8 +183,6 @@ export class BuyerFreeOrdersViewModel {
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
-
-      console.log(order.originalData.buyer)
     } catch (error) {
       this.warningTitle = t(TranslationKey['Not found'])
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20026Rows]**](InlineResponse20026Rows.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

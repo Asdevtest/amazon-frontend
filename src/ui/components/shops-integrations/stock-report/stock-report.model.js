@@ -243,7 +243,9 @@ export class StockReportModel {
       const result = await SellerBoardModel.getStockGoods(this.currentShop && {shopId: this.currentShop._id})
 
       runInAction(() => {
-        this.sellerBoardDailyData = stockReportDataConverter(result)
+        this.sellerBoardDailyData = stockReportDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
     } catch (error) {
       console.log(error)

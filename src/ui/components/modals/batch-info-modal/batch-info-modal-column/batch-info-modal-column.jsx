@@ -5,7 +5,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   BatchBoxesCell,
-  ManyItemsPriceCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -14,6 +13,9 @@ import {
   BatchInfoModal,
   ProductCell,
   PricePerUnitCell,
+  OrderManyItemsCell,
+  OrderCell,
+  ManyItemsPriceCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox, calcSupplierPriceForUnit} from '@utils/calculation'
@@ -26,7 +28,7 @@ export const batchInfoModalColumn = volumeWeightCoefficient => [
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => <ManyItemsPriceCell item={params.row} />,
+    renderCell: params => <ManyItemsPriceCell params={params.row} />,
     width: 300,
   },
 

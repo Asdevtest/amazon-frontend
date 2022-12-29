@@ -16,12 +16,14 @@ Method | HTTP request | Description
 [**apiV1BoxesChangeDimensionsGuidPatch**](BoxesApi.md#apiV1BoxesChangeDimensionsGuidPatch) | **PATCH** /api/v1/boxes/change-dimensions/{guid} | # Изменить полей габаритов, массы коробки.
 [**apiV1BoxesClientsGet**](BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesClientsGuidPatch**](BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
+[**apiV1BoxesClientsInTransferGuidGet**](BoxesApi.md#apiV1BoxesClientsInTransferGuidGet) | **GET** /api/v1/boxes/clients/in_transfer/{guid} | # Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
 [**apiV1BoxesClientsLightGet**](BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 [**apiV1BoxesGroupedGet**](BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
 [**apiV1BoxesGroupedGroupsGet**](BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить группы
+[**apiV1BoxesGroupedSimilarGet**](BoxesApi.md#apiV1BoxesGroupedSimilarGet) | **GET** /api/v1/boxes/grouped/similar | # Получить похожие коробки
 [**apiV1BoxesIsFormedGuidPatch**](BoxesApi.md#apiV1BoxesIsFormedGuidPatch) | **PATCH** /api/v1/boxes/is_formed/{guid} | # Изменить поле isFormed
 [**apiV1BoxesManyPatch**](BoxesApi.md#apiV1BoxesManyPatch) | **PATCH** /api/v1/boxes/many | # Изменить несколько коробок сторкипером.
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
@@ -695,9 +697,63 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1BoxesClientsInTransferGuidGet
+
+> [InlineResponse20013] apiV1BoxesClientsInTransferGuidGet(guid, opts)
+
+# Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
+
+# Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let guid = null; // String | poroduct GUID
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesClientsInTransferGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| poroduct GUID | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20013]**](InlineResponse20013.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1BoxesClientsLightGet
 
-> [InlineResponse20011] apiV1BoxesClientsLightGet(status, opts)
+> [InlineResponse20012] apiV1BoxesClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -741,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20011]**](InlineResponse20011.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -917,7 +973,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGet
 
-> InlineResponse20014 apiV1BoxesGroupedGet(opts)
+> InlineResponse20016 apiV1BoxesGroupedGet(opts)
 
 # Получить сгруппированные коробки
 
@@ -961,7 +1017,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20014**](InlineResponse20014.md)
+[**InlineResponse20016**](InlineResponse20016.md)
 
 ### Authorization
 
@@ -975,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGroupsGet
 
-> InlineResponse20013 apiV1BoxesGroupedGroupsGet(opts)
+> InlineResponse20015 apiV1BoxesGroupedGroupsGet(opts)
 
 # Получить группы
 
@@ -1019,7 +1075,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20013**](InlineResponse20013.md)
+[**InlineResponse20015**](InlineResponse20015.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BoxesGroupedSimilarGet
+
+> [InlineResponse20011] apiV1BoxesGroupedSimilarGet(opts)
+
+# Получить похожие коробки
+
+## Получить похожие коробки  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesGroupedSimilarGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -1197,7 +1305,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPagClientsLightGet
 
-> InlineResponse20012 apiV1BoxesPagClientsLightGet(status, opts)
+> InlineResponse20014 apiV1BoxesPagClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -1257,7 +1365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20012**](InlineResponse20012.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 

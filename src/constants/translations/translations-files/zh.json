@@ -1686,5 +1686,7 @@
   "Search by ASIN, Order ID, Item, Track number": "Search by ASIN, Order ID, Item, Track number",
   "Filter by PRODUCT applied": "Filter by PRODUCT applied",
   "Available": "Available",
-  "Update": "Update"
+  "Update": "Update",
+  "Current tariffs": "Current tariffs",
+  "Data of product boxes to be shipped": "Data of product boxes to be shipped"
 }

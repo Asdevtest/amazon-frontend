@@ -175,12 +175,14 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesChangeDimensionsGuidPatch**](docs/BoxesApi.md#apiV1BoxesChangeDimensionsGuidPatch) | **PATCH** /api/v1/boxes/change-dimensions/{guid} | # Изменить полей габаритов, массы коробки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGuidPatch**](docs/BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
+*TestSwagger.BoxesApi* | [**apiV1BoxesClientsInTransferGuidGet**](docs/BoxesApi.md#apiV1BoxesClientsInTransferGuidGet) | **GET** /api/v1/boxes/clients/in_transfer/{guid} | # Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsLightGet**](docs/BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 *TestSwagger.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 *TestSwagger.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGet**](docs/BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
 *TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGroupsGet**](docs/BoxesApi.md#apiV1BoxesGroupedGroupsGet) | **GET** /api/v1/boxes/grouped/groups | # Получить группы
+*TestSwagger.BoxesApi* | [**apiV1BoxesGroupedSimilarGet**](docs/BoxesApi.md#apiV1BoxesGroupedSimilarGet) | **GET** /api/v1/boxes/grouped/similar | # Получить похожие коробки
 *TestSwagger.BoxesApi* | [**apiV1BoxesIsFormedGuidPatch**](docs/BoxesApi.md#apiV1BoxesIsFormedGuidPatch) | **PATCH** /api/v1/boxes/is_formed/{guid} | # Изменить поле isFormed
 *TestSwagger.BoxesApi* | [**apiV1BoxesManyPatch**](docs/BoxesApi.md#apiV1BoxesManyPatch) | **PATCH** /api/v1/boxes/many | # Изменить несколько коробок сторкипером.
 *TestSwagger.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
@@ -313,6 +315,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ProductApi* | [**apiV1ProductsByCreatorGuidGet**](docs/ProductApi.md#apiV1ProductsByCreatorGuidGet) | **GET** /api/v1/products/by_creator/{guid} | Получение продуктов по ID создателя
 *TestSwagger.ProductApi* | [**apiV1ProductsEditHsCodePatch**](docs/ProductApi.md#apiV1ProductsEditHsCodePatch) | **PATCH** /api/v1/products/edit_hsCode | # Редактирование поля hsCode в продукте.
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
+*TestSwagger.ProductApi* | [**apiV1ProductsHsCodeGuidGet**](docs/ProductApi.md#apiV1ProductsHsCodeGuidGet) | **GET** /api/v1/products/hs_code/{guid} | # Получить  “chinaTitle“, “material“ , “productUsage“, “hsCode“ по id.
 *TestSwagger.ProductApi* | [**apiV1ProductsParseAmazonIdGet**](docs/ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *TestSwagger.ProductApi* | [**apiV1ProductsParseSellercentralGet**](docs/ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
 *TestSwagger.ProductApi* | [**apiV1ProductsRemoveShopsGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveShopsGuidPost) | **POST** /api/v1/products/remove_shops/{guid} | Удалить магазины из продукта.
@@ -434,6 +437,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BatchesByProductGuidLogicsTariff](docs/ApiV1BatchesByProductGuidLogicsTariff.md)
  - [TestSwagger.ApiV1BatchesItems](docs/ApiV1BatchesItems.md)
  - [TestSwagger.ApiV1BatchesStorekeeper](docs/ApiV1BatchesStorekeeper.md)
+ - [TestSwagger.ApiV1BoxesClientsInTransferGuidBatch](docs/ApiV1BoxesClientsInTransferGuidBatch.md)
+ - [TestSwagger.ApiV1BoxesClientsInTransferGuidLogicsTariff](docs/ApiV1BoxesClientsInTransferGuidLogicsTariff.md)
  - [TestSwagger.ApiV1BoxesClientsLightBatch](docs/ApiV1BoxesClientsLightBatch.md)
  - [TestSwagger.ApiV1BoxesClientsLightDestination](docs/ApiV1BoxesClientsLightDestination.md)
  - [TestSwagger.ApiV1BoxesClientsLightItems](docs/ApiV1BoxesClientsLightItems.md)
@@ -588,12 +593,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20011](docs/InlineResponse20011.md)
  - [TestSwagger.InlineResponse20012](docs/InlineResponse20012.md)
  - [TestSwagger.InlineResponse20013](docs/InlineResponse20013.md)
- - [TestSwagger.InlineResponse20013Rows](docs/InlineResponse20013Rows.md)
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
- - [TestSwagger.InlineResponse20014Group](docs/InlineResponse20014Group.md)
- - [TestSwagger.InlineResponse20014Rows](docs/InlineResponse20014Rows.md)
  - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
+ - [TestSwagger.InlineResponse20015Rows](docs/InlineResponse20015Rows.md)
  - [TestSwagger.InlineResponse20016](docs/InlineResponse20016.md)
+ - [TestSwagger.InlineResponse20016Group](docs/InlineResponse20016Group.md)
+ - [TestSwagger.InlineResponse20016Rows](docs/InlineResponse20016Rows.md)
  - [TestSwagger.InlineResponse20017](docs/InlineResponse20017.md)
  - [TestSwagger.InlineResponse20018](docs/InlineResponse20018.md)
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
@@ -603,46 +608,46 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
- - [TestSwagger.InlineResponse20024Rows](docs/InlineResponse20024Rows.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
  - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)
+ - [TestSwagger.InlineResponse20026Rows](docs/InlineResponse20026Rows.md)
  - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
- - [TestSwagger.InlineResponse20027Batch](docs/InlineResponse20027Batch.md)
- - [TestSwagger.InlineResponse20027Boxes](docs/InlineResponse20027Boxes.md)
- - [TestSwagger.InlineResponse20027Orders](docs/InlineResponse20027Orders.md)
- - [TestSwagger.InlineResponse20027Products](docs/InlineResponse20027Products.md)
- - [TestSwagger.InlineResponse20027Requests](docs/InlineResponse20027Requests.md)
- - [TestSwagger.InlineResponse20027Shops](docs/InlineResponse20027Shops.md)
  - [TestSwagger.InlineResponse20028](docs/InlineResponse20028.md)
- - [TestSwagger.InlineResponse20028Finances](docs/InlineResponse20028Finances.md)
- - [TestSwagger.InlineResponse20028Orders](docs/InlineResponse20028Orders.md)
- - [TestSwagger.InlineResponse20028PendingOrders](docs/InlineResponse20028PendingOrders.md)
- - [TestSwagger.InlineResponse20028Products](docs/InlineResponse20028Products.md)
  - [TestSwagger.InlineResponse20029](docs/InlineResponse20029.md)
- - [TestSwagger.InlineResponse20029Batches](docs/InlineResponse20029Batches.md)
+ - [TestSwagger.InlineResponse20029Batch](docs/InlineResponse20029Batch.md)
  - [TestSwagger.InlineResponse20029Boxes](docs/InlineResponse20029Boxes.md)
- - [TestSwagger.InlineResponse20029Tasks](docs/InlineResponse20029Tasks.md)
+ - [TestSwagger.InlineResponse20029Orders](docs/InlineResponse20029Orders.md)
+ - [TestSwagger.InlineResponse20029Products](docs/InlineResponse20029Products.md)
+ - [TestSwagger.InlineResponse20029Requests](docs/InlineResponse20029Requests.md)
+ - [TestSwagger.InlineResponse20029Shops](docs/InlineResponse20029Shops.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
  - [TestSwagger.InlineResponse2002SubUsers](docs/InlineResponse2002SubUsers.md)
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse20030](docs/InlineResponse20030.md)
+ - [TestSwagger.InlineResponse20030Finances](docs/InlineResponse20030Finances.md)
+ - [TestSwagger.InlineResponse20030Orders](docs/InlineResponse20030Orders.md)
+ - [TestSwagger.InlineResponse20030PendingOrders](docs/InlineResponse20030PendingOrders.md)
  - [TestSwagger.InlineResponse20030Products](docs/InlineResponse20030Products.md)
  - [TestSwagger.InlineResponse20031](docs/InlineResponse20031.md)
+ - [TestSwagger.InlineResponse20031Batches](docs/InlineResponse20031Batches.md)
+ - [TestSwagger.InlineResponse20031Boxes](docs/InlineResponse20031Boxes.md)
+ - [TestSwagger.InlineResponse20031Tasks](docs/InlineResponse20031Tasks.md)
  - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
- - [TestSwagger.InlineResponse20032Checking](docs/InlineResponse20032Checking.md)
  - [TestSwagger.InlineResponse20032Products](docs/InlineResponse20032Products.md)
  - [TestSwagger.InlineResponse20033](docs/InlineResponse20033.md)
  - [TestSwagger.InlineResponse20034](docs/InlineResponse20034.md)
+ - [TestSwagger.InlineResponse20034Checking](docs/InlineResponse20034Checking.md)
+ - [TestSwagger.InlineResponse20034Products](docs/InlineResponse20034Products.md)
  - [TestSwagger.InlineResponse20035](docs/InlineResponse20035.md)
  - [TestSwagger.InlineResponse20036](docs/InlineResponse20036.md)
  - [TestSwagger.InlineResponse20037](docs/InlineResponse20037.md)
  - [TestSwagger.InlineResponse20038](docs/InlineResponse20038.md)
- - [TestSwagger.InlineResponse20038Failed](docs/InlineResponse20038Failed.md)
  - [TestSwagger.InlineResponse20039](docs/InlineResponse20039.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse20040](docs/InlineResponse20040.md)
+ - [TestSwagger.InlineResponse20040Failed](docs/InlineResponse20040Failed.md)
  - [TestSwagger.InlineResponse20041](docs/InlineResponse20041.md)
  - [TestSwagger.InlineResponse20042](docs/InlineResponse20042.md)
  - [TestSwagger.InlineResponse20043](docs/InlineResponse20043.md)
@@ -660,7 +665,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20054](docs/InlineResponse20054.md)
  - [TestSwagger.InlineResponse20055](docs/InlineResponse20055.md)
  - [TestSwagger.InlineResponse20056](docs/InlineResponse20056.md)
- - [TestSwagger.InlineResponse20056Details](docs/InlineResponse20056Details.md)
+ - [TestSwagger.InlineResponse20057](docs/InlineResponse20057.md)
+ - [TestSwagger.InlineResponse20058](docs/InlineResponse20058.md)
+ - [TestSwagger.InlineResponse20058Details](docs/InlineResponse20058Details.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)

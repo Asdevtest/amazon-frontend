@@ -300,7 +300,7 @@ export const BatchInfoModal = observer(
               getRowId={dataToRender => dataToRender._id}
               columns={batchInfoModalColumn({volumeWeightCoefficient})}
               rows={toJS(dataToRender)}
-              rowHeight={'auto'}
+              getRowHeight={() => 'auto'}
               onRowDoubleClick={e => openBoxView(e.row)}
             />
           </div>

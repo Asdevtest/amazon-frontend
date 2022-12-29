@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**yuanToDollarRate** | **Number** | Курс юаня к доллару. | [optional] 
-**volumeWeightCoefficient** | **Number** | Коэффициент расчета объемного веса. | [optional] 
-**requestMinAmountPriceOfProposal** | **Number** | Минимальная стоимость предложения (может быть .01 для практического отсутствия) | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

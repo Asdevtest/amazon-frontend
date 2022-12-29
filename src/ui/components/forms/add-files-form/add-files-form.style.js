@@ -9,6 +9,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  saveButton: {
+    marginTop: 15,
+  },
+
   '@media (max-width: 768px)': {
     root: {
       minWidth: '280px',

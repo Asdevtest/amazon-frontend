@@ -273,7 +273,7 @@ export const styles = theme => ({
   orderTitle: {
     fontWeight: 500,
     whiteSpace: 'nowrap',
-    maxWidth: '300px',
+    maxWidth: 190,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -1444,18 +1444,6 @@ export const styles = theme => ({
   amount: {
     marginLeft: '5px',
   },
-  productTitle: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  superboxTypof: {
-    marginLeft: '10px',
-    color: theme.palette.primary.main,
-    fontSize: '20px',
-    fontWeight: '900px',
-  },
   ManyItemsPriceCellMainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -1469,6 +1457,6 @@ export const styles = theme => ({
     height: 'auto',
     flexGrow: 1,
 
-    gap: 70,
+    gap: 77,
   },
 })

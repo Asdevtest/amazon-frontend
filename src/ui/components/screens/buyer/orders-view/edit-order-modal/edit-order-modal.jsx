@@ -83,16 +83,18 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    const deliveredGoodsCount =
-      boxes
-        ?.filter(el => !el.isDraft)
-        .reduce(
-          (acc, cur) =>
-            (acc +=
-              cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
-              cur.amount),
-          0,
-        ) || 0
+    // const deliveredGoodsCount =
+    //   boxes
+    //     ?.filter(el => !el.isDraft)
+    //     .reduce(
+    //       (acc, cur) =>
+    //         (acc +=
+    //           cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
+    //           cur.amount),
+    //       0,
+    //     ) || 0
+
+    const deliveredGoodsCount = order.amount || 0
 
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
 
@@ -529,7 +531,9 @@ export const EditOrderModal = observer(
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                          order.status === OrderStatusByKey[OrderStatus.IN_STOCK])
+                          order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
                       }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}

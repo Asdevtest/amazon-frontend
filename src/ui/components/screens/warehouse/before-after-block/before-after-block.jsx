@@ -48,8 +48,6 @@ const Box = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('boxBeforeAfter', box)
-
     const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]._id === box._id ? true : false*/)
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)

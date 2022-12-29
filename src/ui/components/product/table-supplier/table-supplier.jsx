@@ -5,6 +5,7 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
+import {NewSupplier} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -19,7 +20,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './table-supplier.style'
 
-export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
+export const TableSupplier = observer(({isClient, product, productBaseData, selectedSupplier, onClickSupplier}) => {
   const {classes: classNames} = useClassNames()
 
   const renderHeader = () => (
@@ -60,14 +61,23 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             ).map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
-                className={cx({
+                className={cx(classNames.tableRowPosition, {
                   [classNames.tableRowAcceptedSupplier]:
                     product.currentSupplierId && product.currentSupplierId === supplier._id,
                   [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >
-                <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>{supplier.name}</TableCell>
+                <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>
+                  {isClient ? (
+                    productBaseData.createdAt > supplier.createdAt ? (
+                      <div className={classNames.imgWrapper}>
+                        <NewSupplier fontSize={'large'} />
+                      </div>
+                    ) : null
+                  ) : null}
+                  {supplier.name}
+                </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
                   {supplier.link !== 'access denied' ? (

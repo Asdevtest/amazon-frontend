@@ -9,12 +9,14 @@ import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from 
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {TableSupplier} from '@components/product/table-supplier'
 import {EditOrderSuppliersTable} from '@components/screens/buyer/orders-view/edit-order-modal/edit-order-suppliers-table'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
@@ -47,6 +49,9 @@ export const OrderContent = ({
   isClient,
   onSubmitSaveOrder,
   onClickReorder,
+  selectedSupplier,
+  onChangeSelectedSupplier,
+  onTriggerAddOrEditSupplierModal,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -59,25 +64,6 @@ export const OrderContent = ({
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
-  const [orderFields, setOrderFields] = useState({
-    ...order,
-    status: order?.status || undefined,
-    clientComment: order?.clientComment || '',
-    buyerComment: order?.buyerComment || '',
-    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    trackId: '',
-    material: order?.product?.material || '',
-    amount: order?.amount || 0,
-    trackingNumberChina: order?.trackingNumberChina,
-    batchPrice: 0,
-    totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
-    yuanToDollarRate: order?.yuanToDollarRate || 6.3,
-    item: order?.item || 0,
-    tmpRefundToClient: 0,
-  })
-
-  const [selectedSupplier, setSelectedSupplier] = useState(null)
-
   const [formFields, setFormFields] = useState({
     ...order,
     destinationId: order?.destination?._id || null,
@@ -86,6 +72,13 @@ export const OrderContent = ({
     deadline: order?.deadline || null,
     tmpBarCode: [],
   })
+
+  useEffect(() => {
+    setFormFields({
+      ...formFields,
+      ...order,
+    })
+  }, [order])
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -222,35 +215,35 @@ export const OrderContent = ({
 
           <Divider orientation={'horizontal'} />
 
-          {/* <EditOrderSuppliersTable
-            isPendingOrder
-            selectedSupplier={orderFields.orderSupplier}
-            curSelectedSupplier={selectedSupplier}
-            suppliers={orderFields.product.suppliers}
-            setSelectedSupplier={setSelectedSupplier}
-          /> */}
-
           <div className={classNames.suppliersWrapper}>
             <Typography variant="h6" className={classNames.supplierTitle}>
               {t(TranslationKey['List of suppliers'])}
             </Typography>
-          </div>
-          <div className={classNames.supplierActionsWrapper}>
-            <div className={classNames.supplierContainer}>
-              <div className={classNames.supplierButtonWrapper}>
-                <Button
-                  disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
-                  tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                  className={classNames.iconBtn}
-                  // onClick={() => onClickSupplierBtns('view')}
-                >
-                  <VisibilityOutlinedIcon />
-                </Button>
-                <Typography className={classNames.supplierButtonText}>
-                  {t(TranslationKey['Open the parameters supplier'])}
-                </Typography>
+
+            <div className={classNames.supplierActionsWrapper}>
+              <div className={classNames.supplierContainer}>
+                <div className={classNames.supplierButtonWrapper}>
+                  <Button
+                    disabled={!selectedSupplier}
+                    tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                    className={classNames.iconBtn}
+                    onClick={onTriggerAddOrEditSupplierModal}
+                  >
+                    <VisibilityOutlinedIcon />
+                  </Button>
+                  <Typography className={classNames.supplierButtonText}>
+                    {t(TranslationKey['Open the parameters supplier'])}
+                  </Typography>
+                </div>
               </div>
             </div>
+            <TableSupplier
+              isClient
+              product={updatedOrder.product}
+              productBaseData={updatedOrder}
+              selectedSupplier={selectedSupplier}
+              onClickSupplier={onChangeSelectedSupplier}
+            />
           </div>
 
           <div className={classNames.btnsWrapper}>
@@ -278,15 +271,18 @@ export const OrderContent = ({
 
                 <Button
                   className={classNames.button}
-                  onClick={() =>
-                    onSubmitSaveOrder({
-                      data: getObjectFilteredByKeyArrayBlackList(
-                        {...formFields, images: formFields.images ? formFields.images : []},
-                        formFields.deadline ? [] : ['deadline'],
-                        true,
-                      ),
-                    })
-                  }
+                  onClick={() => {
+                    onSubmitSaveOrder(
+                      {
+                        data: getObjectFilteredByKeyArrayBlackList(
+                          {...formFields, images: formFields.images ? formFields.images : []},
+                          formFields.deadline ? [] : ['deadline'],
+                          true,
+                        ),
+                      },
+                      // update(),
+                    )
+                  }}
                 >
                   {t(TranslationKey.Save)}
                 </Button>

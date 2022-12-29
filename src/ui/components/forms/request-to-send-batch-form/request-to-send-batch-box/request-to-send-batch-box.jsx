@@ -31,8 +31,6 @@ export const RequestToSendBatchBox = ({
 
   const tableCellClsx = cx(classNames.tableCell)
 
-  console.log('price', price)
-
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )

@@ -1,3 +1,5 @@
+import {Alert} from '@mui/material'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -16,7 +18,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
+// import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {SearchInput} from '@components/search-input'
@@ -39,14 +41,18 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      // showSuccessModal,
+      // successModalText,
       isPendingOrdering,
       selectedRowIds,
       navbarActiveSubCategory,
       destinationsFavourites,
       rowCount,
       confirmModalSettings,
-      successModalText,
       reorderOrdersData,
+
+      showAcceptMessage,
+      acceptMessage,
 
       selectedProduct,
       storekeepers,
@@ -60,7 +66,6 @@ class ClientOrdersViewRaw extends Component {
       columnsModel,
       showOrderModal,
       showSetBarcodeModal,
-      showSuccessModal,
       showConfirmModal,
 
       drawerOpen,
@@ -202,7 +207,7 @@ class ClientOrdersViewRaw extends Component {
               />
             </Modal>
 
-            <SuccessInfoModal
+            {/* <SuccessInfoModal
               openModal={showSuccessModal}
               setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
               title={successModalText}
@@ -210,7 +215,7 @@ class ClientOrdersViewRaw extends Component {
               onClickSuccessBtn={() => {
                 onTriggerOpenModal('showSuccessModal')
               }}
-            />
+            /> */}
 
             <ConfirmationModal
               openModal={showConfirmModal}
@@ -225,6 +230,13 @@ class ClientOrdersViewRaw extends Component {
             />
           </Appbar>
         </Main>
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }
