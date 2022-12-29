@@ -75,7 +75,6 @@ class SettingsModelStatic {
   }
 
   setDestinationsFavouritesItem(item) {
-    console.log('setDestinationsFavouritesItem')
     const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(destinationsFavouritesItem =>
       isEqual(destinationsFavouritesItem, item),
     )

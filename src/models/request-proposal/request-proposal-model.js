@@ -85,7 +85,6 @@ class RequestProposalModelStatic {
   }
 
   requestProposalResultToCorrect = async (proposalId, data) => {
-    console.log('proposalId, data ', proposalId, data)
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultToCorrectPatch(
       proposalId,
       {body: data},

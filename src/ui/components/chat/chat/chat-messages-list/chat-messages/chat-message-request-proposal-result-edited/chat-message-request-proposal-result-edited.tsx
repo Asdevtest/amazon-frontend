@@ -40,7 +40,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
 
   const curUserId: string | undefined = UserModel.userId
 
-  console.log(chatRequestAndRequestProposal.requestProposal?.proposal?.status)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
