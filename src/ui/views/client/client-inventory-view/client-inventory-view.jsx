@@ -175,7 +175,7 @@ export class ClientInventoryViewRaw extends Component {
 
     const disableSelectionCells = ['asin', 'stockUSA', 'fourMonthesStock']
 
-    const clickableCells = [/* 'inTransfer',*/ 'amountInBoxes', 'amountInOrders']
+    const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
