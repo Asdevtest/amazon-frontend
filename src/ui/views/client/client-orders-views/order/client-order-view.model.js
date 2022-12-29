@@ -342,8 +342,6 @@ export class ClientOrderViewModel {
     try {
       const result = await ClientModel.getOrderById(this.orderId)
 
-      console.log('this.orderId', this.orderId)
-
       runInAction(() => {
         this.order = result
       })

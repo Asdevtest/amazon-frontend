@@ -978,15 +978,13 @@ export class ClientInventoryViewModel {
 
   async onClickInTransfer(productId) {
     try {
-      const result = await BoxesModel.getBoxesInTransfer(productId) // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+      const result = await BoxesModel.getBoxesInTransfer(productId)
       runInAction(() => {
         this.isTransfer = true
 
-        this.batchesData = result // НУЖЕН ОТДЕЛЬНЫЙ МЕТОД ДЛЯ ФИЛЬТРА
+        this.batchesData = result
 
         this.curProduct = this.currentData.filter(product => productId === product.id).map(prod => prod.originalData)
-
-        console.log('result', result)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
