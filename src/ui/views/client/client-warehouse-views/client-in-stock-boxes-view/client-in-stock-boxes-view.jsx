@@ -89,6 +89,8 @@ export class ClientInStockBoxesViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      curPageForTask,
+      rowsPerPageForTask,
       boxesMy,
       selectedBoxes,
       showMergeBoxModal,
@@ -115,6 +117,8 @@ export class ClientInStockBoxesViewRaw extends Component {
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
+      onChangeCurPageForTask,
+      onChangeRowsPerPageForTask,
       onClickConfirmCreateSplitTasks,
 
       onClickConfirmCreateChangeTasks,
@@ -353,14 +357,18 @@ export class ClientInStockBoxesViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                   }}
                   localeText={getLocalizationByLanguageTag()}
-                  // rowsPerPageOptions={[15, 25 , 50, 100]}
-                  pageSize={25}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  page={curPageForTask}
+                  pageSize={rowsPerPageForTask}
+                  // pageSize={15}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                   }}
                   columns={taskColumnsModel}
+                  onPageSizeChange={onChangeRowsPerPageForTask}
+                  onPageChange={onChangeCurPageForTask}
                 />
               </div>
             </MainContent>

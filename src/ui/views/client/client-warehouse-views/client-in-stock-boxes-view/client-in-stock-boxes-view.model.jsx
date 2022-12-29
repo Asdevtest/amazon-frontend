@@ -162,8 +162,12 @@ export class ClientInStockBoxesViewModel {
   rowCount = 0
   sortModel = []
   filterModel = {items: []}
+
   curPage = 0
   rowsPerPage = 15
+
+  curPageForTask = 0
+  rowsPerPageForTask = 15
 
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
@@ -307,6 +311,15 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.rowsPerPage = e
       this.curPage = 0
+    })
+
+    this.getBoxesMy()
+  }
+
+  onChangeRowsPerPageForTask(e) {
+    runInAction(() => {
+      this.rowsPerPageForTask = e
+      this.curPageForTask = 0
     })
 
     this.getBoxesMy()
@@ -715,6 +728,14 @@ export class ClientInStockBoxesViewModel {
   onChangeCurPage = e => {
     runInAction(() => {
       this.curPage = e
+    })
+
+    this.getBoxesMy()
+  }
+
+  onChangeCurPageForTask = e => {
+    runInAction(() => {
+      this.curPageForTask = e
     })
 
     this.getBoxesMy()
