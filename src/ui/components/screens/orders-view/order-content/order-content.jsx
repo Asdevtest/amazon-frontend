@@ -9,6 +9,7 @@ import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from 
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
@@ -71,6 +72,13 @@ export const OrderContent = ({
     deadline: order?.deadline || null,
     tmpBarCode: [],
   })
+
+  useEffect(() => {
+    setFormFields({
+      ...formFields,
+      ...order,
+    })
+  }, [order])
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -263,15 +271,18 @@ export const OrderContent = ({
 
                 <Button
                   className={classNames.button}
-                  onClick={() =>
-                    onSubmitSaveOrder({
-                      data: getObjectFilteredByKeyArrayBlackList(
-                        {...formFields, images: formFields.images ? formFields.images : []},
-                        formFields.deadline ? [] : ['deadline'],
-                        true,
-                      ),
-                    })
-                  }
+                  onClick={() => {
+                    onSubmitSaveOrder(
+                      {
+                        data: getObjectFilteredByKeyArrayBlackList(
+                          {...formFields, images: formFields.images ? formFields.images : []},
+                          formFields.deadline ? [] : ['deadline'],
+                          true,
+                        ),
+                      },
+                      // update(),
+                    )
+                  }}
                 >
                   {t(TranslationKey.Save)}
                 </Button>
