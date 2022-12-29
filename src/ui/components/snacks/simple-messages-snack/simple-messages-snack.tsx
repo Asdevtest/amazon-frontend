@@ -1,27 +1,5 @@
-/* eslint-disable no-unused-vars */
-// import CloseIcon from '@mui/icons-material/Close'
-// import {SnackbarContent, Typography} from '@mui/material'
-// import IconButton from '@mui/material/IconButton'
-// import {forwardRef} from 'react'
-// import {useClassNames} from './simple-messages-snack.style'
-// export const SimpleMessagesSnack = forwardRef(({message}, ref) => {
-//   const {classes: classNames} = useClassNames()
-//   // const handleDismiss = useCallback(() => {
-//   //   closeSnackbar(id)
-//   // }, [id, closeSnackbar])
-//   // console.log('props', props)
-//   return (
-//     <SnackbarContent ref={ref} className={classNames.root}>
-//       <Typography>{message.text}</Typography>
-//       <IconButton size="small" className={classNames.expand} /* onClick={handleDismiss}*/>
-//         <CloseIcon fontSize="small" />
-//       </IconButton>
-//     </SnackbarContent>
-//   )
-// })
 import CloseIcon from '@mui/icons-material/Close'
 import {Avatar, Typography} from '@mui/material'
-import IconButton from '@mui/material/IconButton'
 
 import {forwardRef, useCallback} from 'react'
 
@@ -39,14 +17,15 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './simple-messages-snack.style'
 
-interface ReportCompleteProps {
+interface SimpleMessagesSnackProps {
   snackBarMessageLast: ChatMessageContract
-  id: any
+  id: SnackbarKey
   autoHideDuration?: number
+  onClickMessage: (anotherUserId: string) => void
 }
 
-export const SimpleMessagesSnack = forwardRef<HTMLDivElement, ReportCompleteProps>(
-  ({id, /* style,*/ snackBarMessageLast, autoHideDuration /* , ...props*/}, ref) => {
+export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
+  ({id, /* style,*/ snackBarMessageLast, autoHideDuration, onClickMessage /* , ...props*/}, ref) => {
     const {classes: classNames} = useClassNames()
 
     const {closeSnackbar} = useSnackbar()
@@ -57,21 +36,24 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, ReportCompleteProp
 
     // console.log('props', props)
 
-    // console.log('snackBarMessageLast22', snackBarMessageLast)
-
-    // const noticeSound = new Audio('/assets/sounds/notice3.mp3')
-
-    // noticeSound.play()
+    console.log('snackBarMessageLast22', snackBarMessageLast)
 
     setTimeout(() => closeSnackbar(id), autoHideDuration)
 
     return (
       <SnackbarContent ref={ref} /* style={style}*/>
-        <div className={classNames.mainWrapper}>
+        <div
+          className={classNames.mainWrapper}
+          onClick={() => {
+            onClickMessage(snackBarMessageLast?.userId)
+            closeSnackbar(id)
+          }}
+        >
           <Avatar src={getUserAvatarSrc(snackBarMessageLast?.userId)} className={classNames.avatarWrapper} />
-
           <div className={classNames.centerWrapper}>
             <UserLink
+              // name={snackBarMessageLast?.user?.name}
+              // userId={snackBarMessageLast?.user?._id}
               name={'Аноним'}
               userId={snackBarMessageLast?.userId}
               blackText={undefined}
@@ -79,21 +61,33 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, ReportCompleteProp
               maxNameWidth={undefined}
             />
 
-            <Typography>{snackBarMessageLast?.text}</Typography>
+            {snackBarMessageLast?.text ? (
+              <Typography className={classNames.messageText}>
+                {snackBarMessageLast.text?.length > 150
+                  ? snackBarMessageLast.text.slice(0, 147) + '...'
+                  : snackBarMessageLast.text}
+              </Typography>
+            ) : null}
 
             {snackBarMessageLast?.files?.length ? (
-              <Typography /* className={classNames.lastMessageText}*/>
-                {snackBarMessageLast?.files?.length ? `*${t(TranslationKey.Files)}*` : ''}
+              <Typography className={classNames.filesText}>
+                {`*${snackBarMessageLast?.files?.length} ${t(TranslationKey.Files)}*`}
               </Typography>
             ) : null}
           </div>
 
           <div className={classNames.rightSiteWrapper}>
-            <IconButton size="small" onClick={handleDismiss}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
+            <CloseIcon
+              fontSize="small"
+              className={classNames.closeIcon}
+              onClick={e => {
+                e.stopPropagation()
 
-            <Typography /* className={classNames.messageDate}*/>
+                handleDismiss()
+              }}
+            />
+
+            <Typography className={classNames.messageDate}>
               {formatDateTimeHourAndMinutes(snackBarMessageLast?.createdAt)}
             </Typography>
           </div>

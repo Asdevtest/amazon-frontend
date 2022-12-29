@@ -483,7 +483,11 @@ export const AdminUserEditContent = observer(
             <div className={classNames.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+                disabled={
+                  editUserFormFields.masterUser ||
+                  formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+                  editUserFormFields.subUsers?.length
+                }
                 checked={formFields.canByMasterUser}
                 onChange={onChangeFormField('canByMasterUser')}
               />

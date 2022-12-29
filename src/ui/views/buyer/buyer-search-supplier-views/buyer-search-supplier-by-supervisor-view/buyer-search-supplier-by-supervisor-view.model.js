@@ -126,7 +126,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       if (!noPush) {
         this.history.push({
           pathname: '/buyer/search-supplier-by-supervisor/product',
-          search: item._id,
+          search: 'product-id=' + item._id,
         })
       }
     } catch (error) {

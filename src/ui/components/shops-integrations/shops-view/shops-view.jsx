@@ -80,7 +80,10 @@ class ShopsViewRaw extends Component {
               {t(TranslationKey['Add shop'])}
             </Button>
 
-            <Button disabled={!selectionModel.length} onClick={updateShops}>
+            <Button
+              disabled={!selectionModel.length || requestStatus === loadingStatuses.isLoading}
+              onClick={updateShops}
+            >
               {t(TranslationKey.Update)}
             </Button>
           </Box>

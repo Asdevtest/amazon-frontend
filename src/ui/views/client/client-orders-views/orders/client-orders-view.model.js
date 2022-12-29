@@ -578,7 +578,6 @@ export class ClientOrdersViewModel {
       this.curPage = e
     })
     this.getOrders()
-    this.setDataGridState()
   }
 
   onTriggerOpenModal(modalState) {

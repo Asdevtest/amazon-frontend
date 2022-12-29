@@ -4,10 +4,7 @@ import {ThemeProvider} from '@mui/material/styles'
 import {useMemo, useEffect, useRef, Suspense} from 'react'
 
 import {observer} from 'mobx-react'
-import {
-  SnackbarProvider,
-  /* , useSnackbar*/
-} from 'notistack'
+import {SnackbarProvider} from 'notistack'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
 
 import {darkTheme, lightTheme} from '@constants/mui-theme'
@@ -17,7 +14,6 @@ import {SettingsModel} from '@models/settings-model'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 
-// import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 import {PrivateRoutes} from './private-routes'
 import {generatePublicRoutes} from './public-routes'
 import {generateRedirects} from './redirects'
@@ -39,31 +35,6 @@ export const MainNav = observer(() => {
     () => (SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme),
     [SettingsModel.uiTheme],
   )
-
-  // const {enqueueSnackbar} = useSnackbar()
-
-  // const snackBarMessageLast = SettingsModel.snackBarMessageLast
-
-  // useEffect(() => {
-  //   if (snackBarMessageLast) {
-  //     enqueueSnackbar(snackBarMessageLast?.text, {
-  //       persist: true,
-
-  //       anchorOrigin: {
-  //         vertical: 'bottom',
-  //         horizontal: 'right',
-  //       },
-  //       content: (key, message) => (
-  //         <SimpleMessagesSnack
-  //           id={key}
-  //           message={message}
-  //           snackBarMessageLast={snackBarMessageLast}
-  //           autoHideDuration={5000}
-  //         />
-  //       ),
-  //     })
-  //   }
-  // }, [snackBarMessageLast])
 
   return (
     <ThemeProvider theme={theme}>

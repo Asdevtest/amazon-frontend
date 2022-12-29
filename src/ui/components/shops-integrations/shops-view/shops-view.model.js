@@ -190,7 +190,10 @@ export class ShopsViewModel {
 
   async updateShops() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       await ClientModel.updateShops(this.selectionModel)
+
+      this.setRequestStatus(loadingStatuses.success)
 
       this.warningInfoModalSettings = {
         isWarning: false,
@@ -206,6 +209,7 @@ export class ShopsViewModel {
         title: t(TranslationKey.Error),
       }
       this.onTriggerOpenModal('showWarningModal')
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
