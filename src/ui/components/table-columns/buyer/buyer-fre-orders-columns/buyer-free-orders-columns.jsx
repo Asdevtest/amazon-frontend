@@ -15,7 +15,7 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatNormDateTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -118,11 +118,17 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
 
     renderCell: params => (
+      // <MultilineTextCell
+      //   withLineBreaks
+      //   tooltipText={formatNormDateTime(params.value)}
+      //   color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
+      //   text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+      // />
       <MultilineTextCell
         withLineBreaks
-        tooltipText={formatNormDateTime(params.value)}
+        tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
         color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+        text={params.value ? formatDate(params.value) : ''}
       />
     ),
     width: 200,
