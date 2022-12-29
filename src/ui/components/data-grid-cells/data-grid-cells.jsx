@@ -1803,34 +1803,15 @@ export const MultilineCell = React.memo(
 
 export const ManyItemsPriceCell = React.memo(
   withStyles(
-    ({classes: classNames, item}) => {
-      const cell = item?.items?.map((el, itemIndex) => (
-        <div key={el.product._id} className={classNames.ManyItemsPriceCellWrapper}>
-          {item.totalPrice && item.totalPriceChanged
-            ? item.totalPrice - item.totalPriceChanged < 0 &&
-              itemIndex === 0 && (
-                <span className={classNames.needPay}>{`${t(
-                  TranslationKey['Extra payment required!'],
-                )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
-              )
-            : null}
-          <div className={classNames.imgBlock}>
-            <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
-            <div className={classNames.imgSubBlock}>
-              <div className={classNames.countBlock}>
-                <Typography>{t(TranslationKey.Quantity)}</Typography>
-                <Typography className={classNames.amount}>{el.amount}</Typography>
-
-                {item.amount > 1 && (
-                  <Typography className={classNames.superboxTypof}>{`Superbox x ${item.amount}`}</Typography>
-                )}
-              </div>
-
-              <Typography className={classNames.boxTitle}>{el.product.asin}</Typography>
-            </div>
-          </div>
-          <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>
-        </div>
+    ({classes: classNames, params}) => {
+      const cell = params?.items?.map((el, itemIndex) => (
+        <OrderCell
+          key={itemIndex}
+          box={params}
+          product={el?.product}
+          superbox={params.amount > 1 && params.amount}
+          superboxProductAmount={params}
+        />
       ))
 
       return <div className={classNames.ManyItemsPriceCellMainWrapper}>{cell}</div>
