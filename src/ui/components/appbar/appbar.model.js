@@ -70,4 +70,14 @@ export class AppbarModel {
   changeUiTheme(theme) {
     SettingsModel.setUiTheme(theme)
   }
+
+  onClickMessage(anotherUserId) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.role]}/messages`, {
+      anotherUserId,
+    })
+  }
+
+  clearSnackBarMessageLast() {
+    SettingsModel.setSnackBarMessageLast(null)
+  }
 }

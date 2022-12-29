@@ -51,10 +51,10 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const {enqueueSnackbar} = useSnackbar()
 
-  const {snackBarMessageLast} = componentModel.current
+  const {snackBarMessageLast, clearSnackBarMessageLast, onClickMessage} = componentModel.current
 
   useEffect(() => {
-    if (snackBarMessageLast) {
+    if (snackBarMessageLast && !location.pathname.includes('/messages')) {
       enqueueSnackbar(snackBarMessageLast, {
         persist: true,
 
@@ -63,11 +63,18 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
           horizontal: 'right',
         },
 
-        content: (key, message) => (
-          <SimpleMessagesSnack id={key} snackBarMessageLast={snackBarMessageLast} autoHideDuration={5000} />
+        content: (key /* , message*/) => (
+          <SimpleMessagesSnack
+            id={key}
+            snackBarMessageLast={snackBarMessageLast}
+            autoHideDuration={5000}
+            onClickMessage={onClickMessage}
+          />
         ),
       })
     }
+
+    clearSnackBarMessageLast()
   }, [snackBarMessageLast])
 
   useEffect(() => {

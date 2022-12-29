@@ -131,7 +131,7 @@ export class SupervisorReadyToCheckByClientViewModel {
       if (!noPush) {
         this.history.push({
           pathname: '/supervisor/ready-to-check-by-client/product',
-          search: item._id,
+          search: 'product-id=' + item._id,
         })
       }
     } catch (error) {

@@ -9,6 +9,7 @@ import {
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
 } from './chat-message-data.contract'
+import {ChatUserContract} from './chat-user.contract'
 
 export {ChatMessageType} from '@services/websocket-chat-service'
 
@@ -57,4 +58,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsString()
   public updatedAt!: string
   public data!: T
+
+  @IsOptional()
+  public user?: ChatUserContract
 }

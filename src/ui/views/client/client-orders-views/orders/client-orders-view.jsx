@@ -72,7 +72,7 @@ class ClientOrdersViewRaw extends Component {
       onClickTableRow,
 
       onSelectionModel,
-      // setDataGridState,
+      setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
 
@@ -168,9 +168,9 @@ class ClientOrdersViewRaw extends Component {
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  // onStateChange={setDataGridState}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickTableRow(e.row)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onFilterModelChange={onChangeFilterModel}
                 />
               </div>
             </MainContent>
