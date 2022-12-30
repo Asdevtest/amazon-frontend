@@ -17,7 +17,7 @@ class StorekeeperModelStatic {
   }
 
   pickupManyTasks = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost(data)
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost({body: data})
     return response
   }
 
