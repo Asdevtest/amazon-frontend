@@ -155,13 +155,6 @@ export const BatchInfoModal = observer(
               {t(TranslationKey['Viewing the batch'])}
             </Typography>
 
-            <div className={classNames.batchTitleWrapper}>
-              <Typography variant="h5">{t(TranslationKey['Batch title']) + ': '}</Typography>
-              <Typography className={classNames.batchTitle} variant="h6">
-                {batch.title}
-              </Typography>
-            </div>
-
             <Field
               oneLine
               label={t(TranslationKey['Int warehouse']) + ': '}
@@ -176,6 +169,15 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.infoWrapper}>
+            <Field
+              disabled
+              containerClasses={classNames.infoField}
+              labelClasses={classNames.subFieldLabel}
+              label={t(TranslationKey['Batch title'])}
+              value={batch?.title}
+              placeholder={t(TranslationKey['Not available'])}
+            />
+
             <Field
               disabled
               containerClasses={classNames.infoField}
@@ -226,22 +228,22 @@ export const BatchInfoModal = observer(
               )}
               placeholder={'0'}
             />
-
-            <Field
-              disabled
-              containerClasses={classNames.sumField}
-              labelClasses={classNames.subFieldLabel}
-              label={t(TranslationKey['Total price'])}
-              value={toFixed(
-                batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
-                2,
-              )}
-              placeholder={'0'}
-            />
           </div>
 
           <div className={classNames.headerSubWrapper}>
             <div className={classNames.datesWrapper}>
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey['Total price'])}
+                value={toFixed(
+                  batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
+                  2,
+                )}
+                placeholder={'0'}
+              />
+
               <Field
                 disabled
                 containerClasses={classNames.sumField}
@@ -292,6 +294,8 @@ export const BatchInfoModal = observer(
               hideFooter
               localeText={getLocalizationByLanguageTag()}
               classes={{
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
               }}
               components={{

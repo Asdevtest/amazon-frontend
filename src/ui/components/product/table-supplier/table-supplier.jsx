@@ -14,7 +14,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -22,6 +22,9 @@ import {useClassNames} from './table-supplier.style'
 
 export const TableSupplier = observer(({isClient, product, productBaseData, selectedSupplier, onClickSupplier}) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('product', product)
+  console.log('productBaseData', productBaseData)
 
   const renderHeader = () => (
     <TableHead>
@@ -70,7 +73,8 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
               >
                 <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>
                   {isClient ? (
-                    productBaseData.createdAt > supplier.createdAt ? (
+                    formatNormDateTimeWithParseISO(productBaseData.createdAt) >
+                    formatNormDateTimeWithParseISO(supplier.createdAt) ? (
                       <div className={classNames.imgWrapper}>
                         <NewSupplier fontSize={'large'} />
                       </div>

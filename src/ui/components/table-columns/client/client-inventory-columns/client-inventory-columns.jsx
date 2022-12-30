@@ -230,12 +230,7 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params =>
-      params.row.originalData.archive ? (
-        <ShowBarcodeOrHscodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
-      ) : (
-        <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
-      ),
+    renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
@@ -248,12 +243,7 @@ export const clientInventoryColumns = (
     headerName: 'HS code',
     renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
 
-    renderCell: params =>
-      params.row.originalData.archive ? (
-        <ShowBarcodeOrHscodeCell hsCode={params.row.originalData.hsCode} handlers={barCodeHandlers} />
-      ) : (
-        <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
-      ),
+    renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',

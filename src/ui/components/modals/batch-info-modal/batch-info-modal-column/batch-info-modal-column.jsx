@@ -4,22 +4,16 @@ import {Typography} from '@mui/material'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  BatchBoxesCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  ToFixedWithKgSignCell,
   UserLinkCell,
-  BatchInfoModal,
-  ProductCell,
   PricePerUnitCell,
-  OrderManyItemsCell,
-  OrderCell,
   ManyItemsPriceCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {calcFinalWeightForBox, calcSupplierPriceForUnit} from '@utils/calculation'
-import {toFixedWithKg, getFullTariffTextForBoxOrOrder, toFixedWithDollarSign} from '@utils/text'
+import {calcFinalWeightForBox} from '@utils/calculation'
+import {toFixedWithKg, getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const batchInfoModalColumn = volumeWeightCoefficient => [
@@ -79,7 +73,7 @@ export const batchInfoModalColumn = volumeWeightCoefficient => [
 
   {
     field: 'finalWeight',
-    headerName: t(TranslationKey['Final weight']),
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
       <MultilineTextCell text={toFixedWithKg(calcFinalWeightForBox(params.row, volumeWeightCoefficient), 2)} />
     ),
@@ -89,7 +83,7 @@ export const batchInfoModalColumn = volumeWeightCoefficient => [
 
   {
     field: 'pricePerUnit',
-    headerName: t(TranslationKey['Price per unit']),
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
     width: 140,

@@ -13,9 +13,9 @@ export const styles = theme => ({
   },
 
   headerWrapper: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
 
@@ -90,5 +90,10 @@ export const styles = theme => ({
     height: '40px',
     fontSize: '16px',
     paddingLeft: '7px',
+  },
+
+  pickupOrdersButton: {
+    padding: '0 25px',
+    height: 40,
   },
 })

@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
     // right: 0,
 
     position: 'sticky',
-    bottom: '0',
+    bottom: -15,
     right: '0',
   },
 

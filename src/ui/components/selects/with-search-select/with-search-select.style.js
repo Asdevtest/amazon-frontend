@@ -135,6 +135,8 @@ export const styles = theme => ({
 
   fieldName: {
     height: 20,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
   },
 

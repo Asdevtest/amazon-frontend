@@ -1,3 +1,5 @@
+import {Button} from '@mui/material'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -82,17 +84,29 @@ export class WarehouseVacantTasksViewRaw extends Component {
           <Appbar title={t(TranslationKey['New tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  /* disabled={!selectedBoxes.length} */ className={
+                    classNames.pickupOrdersButton
+                  } /* onClick={onEditBox} */
+                >
+                  {t(TranslationKey['Take on the work of the selected'])}
+                </Button>
+
                 <SearchInput
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
                   onChange={onChangeNameSearchValue}
                 />
+                <div />
               </div>
 
               <MemoDataGrid
                 pagination
                 useResizeContainer
+                checkboxSelection
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
@@ -115,9 +129,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
+                onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
