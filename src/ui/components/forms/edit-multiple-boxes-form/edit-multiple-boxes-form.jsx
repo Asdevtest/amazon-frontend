@@ -234,7 +234,10 @@ const Box = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {box.logicsTariffId
-                      ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
+                      ? `${
+                          storekeepers.find(el => el._id === box.storekeeperId)?.name ||
+                          t(TranslationKey['Not available'])
+                        } /  
                         ${
                           box.logicsTariffId
                             ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -684,7 +687,10 @@ export const EditMultipleBoxesForm = observer(
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId
-                        ? `${storekeepers.find(el => el._id === sharedFields.storekeeperId)?.name || 'N/A'} /
+                        ? `${
+                            storekeepers.find(el => el._id === sharedFields.storekeeperId)?.name ||
+                            t(TranslationKey['Not available'])
+                          } /
                             ${
                               sharedFields.logicsTariffId
                                 ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${

@@ -31,7 +31,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
     </TableCell>
     <TableCell>
       <Button color="primary" onClick={() => handlers.onClickUsername()}>
-        {item.buyer ? item.buyer.name : 'N/A'}
+        {item.buyer ? item.buyer.name : t(TranslationKey['Not available'])}
       </Button>
     </TableCell>
     <TableCell>

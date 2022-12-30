@@ -167,7 +167,10 @@ const Box = ({
                         }
                       >
                         {box.logicsTariffId
-                          ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
+                          ? `${
+                              storekeepers.find(el => el._id === box.storekeeperId)?.name ||
+                              t(TranslationKey['Not available'])
+                            } /  
                             ${
                               box.logicsTariffId
                                 ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -179,7 +182,8 @@ const Box = ({
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name || 'N/A'
+                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name ||
+                        t(TranslationKey['Not available'])
                       } /  
                         ${
                           box.logicsTariff?._id

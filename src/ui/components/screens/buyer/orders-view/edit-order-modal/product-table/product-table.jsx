@@ -2,9 +2,12 @@ import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typogr
 
 import React from 'react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './product-table.style'
 
@@ -35,7 +38,9 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
               <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
               <Typography>{`ASIN: ${order.product.asin}`}</Typography>
             </TableCell>
-            <TableCell>{order.orderSupplier ? order.orderSupplier.price : 'N/A'}</TableCell>
+            <TableCell>
+              {order.orderSupplier ? order.orderSupplier.price : `${t(TranslationKey['Not available'])}`}
+            </TableCell>
             <TableCell className={classNames.tableCell}>
               {toFixed(order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount, 2)}
             </TableCell>
@@ -43,7 +48,9 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>
             <TableCell>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <Typography className={classNames.link}>{order.orderSupplier?.link || 'N/A'}</Typography>
+                <Typography className={classNames.link}>
+                  {order.orderSupplier?.link || `${t(TranslationKey['Not available'])}`}
+                </Typography>
               </Link>
             </TableCell>
           </TableRow>

@@ -182,7 +182,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={batch?.humanFriendlyId}
-              placeholder={'N/A'}
+              placeholder={t(TranslationKey['Not available'])}
             />
 
             <Field
@@ -191,7 +191,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
               value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
-              placeholder={'N/A'}
+              placeholder={t(TranslationKey['Not available'])}
             />
 
             <Field
@@ -200,7 +200,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={batch.boxes?.[0].destination?.name}
-              placeholder={'N/A'}
+              placeholder={t(TranslationKey['Not available'])}
             />
 
             <Field
