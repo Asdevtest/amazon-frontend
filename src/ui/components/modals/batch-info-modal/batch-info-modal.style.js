@@ -265,16 +265,6 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
     },
   },
-  batchTitleWrapper: {
-    display: 'flex',
-    width: 300,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  batchTitle: {
-    marginLeft: 5,
-  },
   tableWrapper: {
     height: '600px',
     width: '100%',
