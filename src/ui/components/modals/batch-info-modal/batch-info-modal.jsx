@@ -292,6 +292,8 @@ export const BatchInfoModal = observer(
               hideFooter
               localeText={getLocalizationByLanguageTag()}
               classes={{
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
               }}
               components={{

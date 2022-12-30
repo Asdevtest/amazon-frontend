@@ -279,4 +279,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '600px',
     width: '100%',
   },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
 }))
