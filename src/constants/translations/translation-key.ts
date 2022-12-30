@@ -1690,6 +1690,8 @@ export enum TranslationKey {
   'Data of product boxes to be shipped' = 'Data of product boxes to be shipped',
   'Total final weight' = 'Total final weight',
   'Client notification time before Deadline of the pending order' = 'Client notification time before Deadline of the pending order',
+  'Priority and Express Delivery' = 'Priority and Express Delivery',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

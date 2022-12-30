@@ -1690,5 +1690,6 @@
   "Current tariffs": "Актуальные тарифы",
   "Data of product boxes to be shipped": "Данные отправляемых коробок продукта",
   "Total final weight": "Общий финальный вес",
-  "Client notification time before Deadline of the pending order": "Время уведомления Клиента до Deadline отложенного заказа"
+  "Client notification time before Deadline of the pending order": "Время уведомления Клиента до Deadline отложенного заказа",
+  "Priority and Express Delivery": "Приоритет и экспресс доставка"
 }
