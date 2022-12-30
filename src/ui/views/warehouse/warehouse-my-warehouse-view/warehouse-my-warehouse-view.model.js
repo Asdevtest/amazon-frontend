@@ -65,6 +65,7 @@ export class WarehouseMyWarehouseViewModel {
 
   drawerOpen = false
   selectedBoxes = []
+
   curOpenedTask = {}
   toCancelData = {}
 

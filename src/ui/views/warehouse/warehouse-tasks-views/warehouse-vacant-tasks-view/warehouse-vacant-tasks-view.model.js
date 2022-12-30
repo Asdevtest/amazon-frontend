@@ -25,6 +25,8 @@ export class WarehouseVacantViewModel {
   selectedTask = undefined
   curOpenedTask = {}
 
+  selectedTasks = []
+
   nameSearchValue = ''
 
   volumeWeightCoefficient = undefined
@@ -57,6 +59,11 @@ export class WarehouseVacantViewModel {
     reaction(
       () => this.firstRowId,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.selectedTasks,
+      () => console.log('this.selectedTasks', this.selectedTasks),
     )
   }
 
@@ -105,6 +112,14 @@ export class WarehouseVacantViewModel {
     })
   }
 
+  onSelectionModel(model) {
+    const tasks = this.tasksVacant.filter(task => model.includes(task.id))
+    const res = tasks.reduce((ac, el) => ac.concat(el.id), [])
+    runInAction(() => {
+      this.selectedTasks = res
+    })
+  }
+
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
@@ -132,12 +147,6 @@ export class WarehouseVacantViewModel {
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
-    })
-  }
-
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.selectionModel = model
     })
   }
 
