@@ -13,7 +13,6 @@ import {useClassNames} from './failed-asins-modal.style'
 
 export const FailedAsinsModal = ({failedData, onClickSuccessBtn}) => {
   const {classes: classNames} = useClassNames()
-  console.log(failedData)
   return (
     <div className={classNames.modalMessageWrapper}>
       <Typography paragraph className={classNames.title}>

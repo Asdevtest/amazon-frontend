@@ -33,7 +33,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
   {
     field: 'priorityAndChinaDelivery',
-    headerName: 'priorityAndChinaDelivery',
+    headerName: t(TranslationKey['Priority and Express Delivery']),
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
     width: 60,
     renderCell: params => (

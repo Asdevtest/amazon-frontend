@@ -61,6 +61,7 @@ class AnotherUserProfileViewRaw extends Component {
       tabHistory,
       tabReview,
       user,
+      curUser,
       headerInfoData,
       shopsData,
       onTriggerDrawerOpen,
@@ -96,6 +97,7 @@ class AnotherUserProfileViewRaw extends Component {
                 <UserProfile
                   isAnotherUser
                   user={user}
+                  curUser={curUser}
                   headerInfoData={headerInfoData}
                   tabReview={tabReview}
                   tabHistory={tabHistory}

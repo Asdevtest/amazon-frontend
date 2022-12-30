@@ -48,7 +48,7 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
                   <Typography className={classNames.barCodeField}>{item.barCode}</Typography>
                 </Link>
               ) : (
-                <Typography className={classNames.barCodeField}>{'N/A'}</Typography>
+                <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
               )}
             </div>
 

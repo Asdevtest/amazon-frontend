@@ -9,10 +9,12 @@ import React from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {formatDate, formatDateDistanceFromNow} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import {useClassNames} from './table-body-row.style'
@@ -92,7 +94,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Button color="primary">{item.buyer ? item.buyer.name : 'N/A'}</Button>
+        <Button color="primary">{item.buyer ? item.buyer.name : t(TranslationKey['Not available'])}</Button>
       </TableCell>
 
       <TableCell className={classNames.bsrCell}>{item.bsr}</TableCell>

@@ -787,7 +787,10 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               }}
             >
               {boxesMy?.storekeeper?._id
-                ? `${storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name || 'N/A'} /  
+                ? `${
+                    storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
+                    t(TranslationKey['Not available'])
+                  } /  
                         ${
                           boxesMy?.storekeeper?._id
                             ? `${tariffName ? tariffName + ' / ' : ''}${

@@ -123,7 +123,10 @@ export const DeliveryParameters = ({
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {formFields.storekeeperId
-              ? `${storekeepers.find(el => el._id === formFields.storekeeperId)?.name || 'N/A'} /  
+              ? `${
+                  storekeepers.find(el => el._id === formFields.storekeeperId)?.name ||
+                  `${t(TranslationKey['Not available'])}`
+                } /  
                         ${
                           formFields.storekeeperId
                             ? `${tariffName ? tariffName + ' / ' : ''}${

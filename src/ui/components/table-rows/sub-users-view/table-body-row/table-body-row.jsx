@@ -23,7 +23,7 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Typography>{item.email}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{'N/A'}</Typography>
+        <Typography>{t(TranslationKey['Not available'])}</Typography>
       </TableCell>
       <TableCell>
         <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit(item)}>

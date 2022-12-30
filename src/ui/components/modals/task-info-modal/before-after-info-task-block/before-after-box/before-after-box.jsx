@@ -23,7 +23,11 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
       <div className={classNames.fieldsWrapper}>
         <Field disabled label={t(TranslationKey.Warehouse)} value={box.destination?.name} />
 
-        <Field disabled label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
+        <Field
+          disabled
+          label={t(TranslationKey.Tariff)}
+          value={getFullTariffTextForBoxOrOrder(box) || t(TranslationKey['Not available'])}
+        />
 
         {taskType === TaskOperationType.RECEIVE && (
           <Field
@@ -185,7 +189,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
               <Typography className={classNames.shippingLabelField}>{box.shippingLabel}</Typography>
             </Link>
           ) : (
-            <Typography className={classNames.shippingLabelField}>{'N/A'}</Typography>
+            <Typography className={classNames.shippingLabelField}>{t(TranslationKey['Not available'])}</Typography>
           )}
         </div>
 

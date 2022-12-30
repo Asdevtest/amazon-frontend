@@ -58,8 +58,6 @@ export class VacantDealsDetailsViewModel {
     try {
       const result = await RequestModel.getCustomRequestById(this.requestId)
 
-      console.log('result getCustomRequestById', result)
-
       runInAction(() => {
         this.request = result
       })
@@ -74,8 +72,6 @@ export class VacantDealsDetailsViewModel {
   async getDealsVacantCur() {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
-
-      console.log('result getDealsVacantCur', result)
 
       runInAction(() => {
         this.requestProposals = result

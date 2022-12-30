@@ -150,7 +150,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   label={t(TranslationKey.Tariff)}
                   value={getFullTariffTextForBoxOrOrder(box) || ''}
-                  placeholder={'N/A'}
+                  placeholder={t(TranslationKey['Not available'])}
                 />
               </Grid>
             </Grid>
@@ -198,7 +198,7 @@ export const BoxViewForm = observer(
                         label={t(TranslationKey['HS code'])}
                         inputProps={{maxLength: 250}}
                         value={item.product.hsCode}
-                        placeholder={'N/A'}
+                        placeholder={t(TranslationKey['Not available'])}
                         onChange={onChangeHsCode(index)}
                       />
                       <Field
@@ -247,7 +247,7 @@ export const BoxViewForm = observer(
                         labelClasses={classNames.label}
                         label={t(TranslationKey.Quantity)}
                         value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                        placeholder={'N/A'}
+                        placeholder={t(TranslationKey['Not available'])}
                       />
 
                       <Field
