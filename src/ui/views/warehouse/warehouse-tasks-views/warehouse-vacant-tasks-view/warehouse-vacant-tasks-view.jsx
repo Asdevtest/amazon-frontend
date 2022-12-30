@@ -39,6 +39,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
+      selectedTasks,
       nameSearchValue,
       volumeWeightCoefficient,
       curOpenedTask,
@@ -56,6 +57,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       rowsPerPage,
 
       goToMyTasks,
+      onClickPickupManyTasksBtn,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -87,9 +89,11 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 <Button
                   color="primary"
                   variant="contained"
-                  /* disabled={!selectedBoxes.length} */ className={
-                    classNames.pickupOrdersButton
-                  } /* onClick={onEditBox} */
+                  disabled={!selectedTasks.length}
+                  className={classNames.pickupOrdersButton}
+                  onClick={() => {
+                    onClickPickupManyTasksBtn()
+                  }}
                 >
                   {t(TranslationKey['Take on the work of the selected'])}
                 </Button>

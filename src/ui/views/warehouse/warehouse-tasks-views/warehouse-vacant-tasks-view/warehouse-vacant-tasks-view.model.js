@@ -113,8 +113,10 @@ export class WarehouseVacantViewModel {
   }
 
   onSelectionModel(model) {
+    console.log('model', model)
     const tasks = this.tasksVacant.filter(task => model.includes(task.id))
     const res = tasks.reduce((ac, el) => ac.concat(el.id), [])
+    console.log('res', res)
     runInAction(() => {
       this.selectedTasks = res
     })
@@ -200,6 +202,26 @@ export class WarehouseVacantViewModel {
       runInAction(() => {
         this.curTask = item
       })
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickPickupManyTasksBtn() {
+    try {
+      await StorekeeperModel.pickupManyTasks(this.selectedTasks)
+
+      this.loadData()
+      runInAction(() => {
+        // console.log('tasks', tasks)
+        this.selectedTasks = []
+      })
+
+      // console.log('tasks', tasks)
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
       console.log(error)
