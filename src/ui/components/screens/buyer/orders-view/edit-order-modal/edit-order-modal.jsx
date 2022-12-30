@@ -691,6 +691,7 @@ export const EditOrderModal = observer(
             <BoxesToCreateTable
               volumeWeightCoefficient={volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
+              isNoBuyerSupplier={userInfo._id !== order.orderSupplier.createdBy?._id && order.orderSupplier.createdBy}
               newBoxes={boxesForCreation}
               onRemoveBox={onRemoveForCreationBox}
               onEditBox={onEditForCreationBox}

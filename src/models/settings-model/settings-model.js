@@ -4,6 +4,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
 import {appVersion} from '@constants/app-version'
+import {snackNoticeKey} from '@constants/snack-notifications'
 import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
 
@@ -36,6 +37,8 @@ class SettingsModelStatic {
   destinationsFavourites = []
 
   snackBarMessageLast = null
+
+  snackNotifications = {[snackNoticeKey.SIMPLE_MESSAGE]: null, [snackNoticeKey.ORDER_DEADLINE]: null}
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -132,8 +135,10 @@ class SettingsModelStatic {
     this.breadcrumbsForProfile = pathname
   }
 
-  setSnackBarMessageLast(message) {
-    this.snackBarMessageLast = message
+  setSnackNotifications({key, notice}) {
+    runInAction(() => {
+      this.snackNotifications = {...this.snackNotifications, [key]: notice}
+    })
   }
 }
 

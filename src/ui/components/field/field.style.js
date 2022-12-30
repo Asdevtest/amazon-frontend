@@ -45,6 +45,17 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     fontSize: '12px',
   },
+
+  successText: {
+    marginTop: '2px',
+    color: theme.palette.text.green,
+    maxWidth: '100%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '12px',
+  },
+
   errorActive: {
     border: '1px solid red',
   },

@@ -17,7 +17,23 @@ export const useClassNames = makeStyles()(theme => ({
     left: 20,
     height: 20,
     width: 20,
-    backgroundColor: theme.palette.primary.main,
+    background: theme.palette.primary.main,
+
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+  },
+
+  redBadge: {
+    position: 'absolute',
+    top: 15,
+    left: 20,
+    height: 20,
+    width: 20,
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+
     borderRadius: 30,
     display: 'flex',
     justifyContent: 'center',

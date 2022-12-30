@@ -38,8 +38,8 @@ export class AppbarModel {
     return SettingsModel.showHints
   }
 
-  get snackBarMessageLast() {
-    return SettingsModel.snackBarMessageLast
+  get snackNotifications() {
+    return SettingsModel.snackNotifications
   }
 
   constructor({history}) {
@@ -77,7 +77,7 @@ export class AppbarModel {
     })
   }
 
-  clearSnackBarMessageLast() {
-    SettingsModel.setSnackBarMessageLast(null)
+  clearSnackNoticeByKey(key) {
+    SettingsModel.setSnackNotifications({key, notice: null})
   }
 }

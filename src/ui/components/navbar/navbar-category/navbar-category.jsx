@@ -23,6 +23,8 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     )
     .filter(el => el !== null)
 
+  const isRedBadge = category.route?.includes('/client/orders')
+
   return (
     <Button
       tooltipPosition="center"
@@ -48,7 +50,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
             component={category.icon}
           />
 
-          {badge ? <div className={classNames.badge}>{badge}</div> : undefined}
+          {badge ? <div className={cx(classNames.badge, {[classNames.redBadge]: isRedBadge})}>{badge}</div> : undefined}
         </ListItemIcon>
         <ListItemText
           disableTypography

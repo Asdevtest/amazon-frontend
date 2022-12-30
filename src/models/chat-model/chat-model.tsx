@@ -3,6 +3,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {BACKEND_API_URL} from '@constants/env'
+import {snackNoticeKey} from '@constants/snack-notifications'
 import {noticeSound} from '@constants/sounds.js'
 
 import {OtherModel} from '@models/other-model'
@@ -66,6 +67,7 @@ class ChatModelStatic {
           onConnectionError: this.onConnectionError,
           onNewMessage: this.onNewMessage,
           onNewChat: this.onNewChat,
+          onNewOrderDeadlineNotification: this.onNewOrderDeadlineNotification,
           onReadMessage: this.onReadMessage,
           onTypingMessage: this.onTypingMessage,
         },
@@ -220,6 +222,12 @@ class ChatModelStatic {
     this.isConnected = false
   }
 
+  private onNewOrderDeadlineNotification(notification: any) {
+    // console.log('notification', notification)
+
+    SettingsModel.setSnackNotifications({key: snackNoticeKey.ORDER_DEADLINE, notice: notification})
+  }
+
   private onNewMessage(newMessage: ChatMessageContract) {
     const message = plainToInstance<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
       ChatMessageContract,
@@ -247,7 +255,7 @@ class ChatModelStatic {
       if (this.noticeOfSimpleChats && message.userId !== this.userId) {
         noticeSound.play()
 
-        SettingsModel.setSnackBarMessageLast(message)
+        SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
       }
 
       runInAction(() => {

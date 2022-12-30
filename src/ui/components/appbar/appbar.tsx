@@ -16,6 +16,7 @@ import {observer} from 'mobx-react'
 import {useSnackbar} from 'notistack'
 import {useHistory, useLocation} from 'react-router-dom'
 
+import {snackNoticeKey} from '@constants/snack-notifications'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
@@ -25,6 +26,7 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
+import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
 import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -49,14 +51,14 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
+  const {snackNotifications, clearSnackNoticeByKey, onClickMessage} = componentModel.current
+
   const {enqueueSnackbar} = useSnackbar()
 
-  const {snackBarMessageLast, clearSnackBarMessageLast, onClickMessage} = componentModel.current
-
   useEffect(() => {
-    if (snackBarMessageLast && !location.pathname.includes('/messages')) {
-      enqueueSnackbar(snackBarMessageLast, {
-        persist: true,
+    if (snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] && !location.pathname.includes('/messages')) {
+      enqueueSnackbar('', {
+        // persist: true,
 
         anchorOrigin: {
           vertical: 'bottom',
@@ -66,16 +68,37 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         content: (key /* , message*/) => (
           <SimpleMessagesSnack
             id={key}
-            snackBarMessageLast={snackBarMessageLast}
             autoHideDuration={5000}
+            snackBarMessageLast={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
             onClickMessage={onClickMessage}
           />
         ),
       })
+
+      clearSnackNoticeByKey(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
-    clearSnackBarMessageLast()
-  }, [snackBarMessageLast])
+    if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
+      enqueueSnackbar('', {
+        // persist: true,
+
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+
+        content: key => (
+          <OrderDeadlineSnack
+            id={key}
+            autoHideDuration={15000}
+            noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]}
+          />
+        ),
+      })
+
+      clearSnackNoticeByKey(snackNoticeKey.ORDER_DEADLINE)
+    }
+  }, [snackNotifications])
 
   useEffect(() => {
     if (lastCrumbAdditionalText !== undefined) {

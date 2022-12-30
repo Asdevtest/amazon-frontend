@@ -162,20 +162,23 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           />
         </div>
 
-        <div className={classNames.checkboxWithLabelWrapper}>
-          <Checkbox
-            color="primary"
-            checked={item.tmpUseToUpdateSupplierBoxDimensions}
-            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
-          />
-          <Field
-            tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
-            label={t(TranslationKey['Make the supplier standard'])}
-            inputClasses={classNames.hidden}
-            labelClasses={classNames.label}
-            containerClasses={classNames.labelWrapper}
-          />
-        </div>
+        {!restProps.isNoBuyerSupplier ? (
+          <div className={classNames.checkboxWithLabelWrapper}>
+            <Checkbox
+              color="primary"
+              disabled={restProps.isNoBuyerSupplier}
+              checked={item.tmpUseToUpdateSupplierBoxDimensions}
+              onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+            />
+            <Field
+              tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
+              label={t(TranslationKey['Make the supplier standard'])}
+              inputClasses={classNames.hidden}
+              labelClasses={classNames.label}
+              containerClasses={classNames.labelWrapper}
+            />
+          </div>
+        ) : null}
       </TableCell>
 
       <TableCell>
@@ -199,6 +202,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
 export const BoxesToCreateTable = ({
   barcodeIsExist,
   newBoxes,
+  isNoBuyerSupplier,
   onRemoveBox,
   onEditBox,
   onClickBarcodeCheckbox,
@@ -239,6 +243,7 @@ export const BoxesToCreateTable = ({
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}
+        isNoBuyerSupplier={isNoBuyerSupplier}
       />
     </div>
   )

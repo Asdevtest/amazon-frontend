@@ -594,7 +594,7 @@ export class BuyerMyOrdersViewModel {
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
           const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(
             {
-              ...order.product.currentSupplier,
+              ...order.orderSupplier,
               boxProperties: {
                 amountInBox: elementOrderBox.items[0].amount || 0,
                 boxHeightCm: parseFloat(elementOrderBox?.heightCmSupplier) || 0,
@@ -606,7 +606,7 @@ export class BuyerMyOrdersViewModel {
             ['_id', 'yuanRate', 'createdAt', 'updatedAt'],
           )
 
-          await SupplierModel.updateSupplier(order.product.currentSupplier._id, supplierUpdateData)
+          await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)
         }
       }
 

@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**apiV1AdminsProxyGet**](AdministratorApi.md#apiV1AdminsProxyGet) | **GET** /api/v1/admins/proxy | #  Получить список прокси
 [**apiV1AdminsProxyPost**](AdministratorApi.md#apiV1AdminsProxyPost) | **POST** /api/v1/admins/proxy | #  Изменить список прокси
 [**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
+[**apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch**](AdministratorApi.md#apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch) | **PATCH** /api/v1/admins/set_timeToDeadlinePendingOrder/{value} | # Изменить интервал нотификаций касательно дедлайна ордера
 [**apiV1AdminsTasksLightGet**](AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
 [**apiV1AdminsToggleServerPatch**](AdministratorApi.md#apiV1AdminsToggleServerPatch) | **PATCH** /api/v1/admins/toggle_server | # Включить/выключить сервер
 [**apiV1AdminsUsersGet**](AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
@@ -987,6 +988,60 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch
+
+> InlineResponse2005 apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts)
+
+# Изменить интервал нотификаций касательно дедлайна ордера
+
+## Изменить интервал нотификаций касательно дедлайна ордера
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let value = 56; // Number | интервал нотификаций касательно дедлайна ордера
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch(value, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **value** | **Number**| интервал нотификаций касательно дедлайна ордера | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse2005**](InlineResponse2005.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 

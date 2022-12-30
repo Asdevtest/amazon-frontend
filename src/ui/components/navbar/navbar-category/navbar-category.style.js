@@ -45,7 +45,7 @@ export const styles = theme => ({
     left: 25,
     height: 18,
     width: 18,
-    backgroundColor: theme.palette.primary.main,
+    background: theme.palette.primary.main,
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
@@ -54,6 +54,10 @@ export const styles = theme => ({
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',
+  },
+
+  redBadge: {
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
   icon: {

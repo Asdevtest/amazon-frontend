@@ -146,6 +146,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsProxyGet**](docs/AdministratorApi.md#apiV1AdminsProxyGet) | **GET** /api/v1/admins/proxy | #  Получить список прокси
 *TestSwagger.AdministratorApi* | [**apiV1AdminsProxyPost**](docs/AdministratorApi.md#apiV1AdminsProxyPost) | **POST** /api/v1/admins/proxy | #  Изменить список прокси
 *TestSwagger.AdministratorApi* | [**apiV1AdminsSetSettingPatch**](docs/AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
+*TestSwagger.AdministratorApi* | [**apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch**](docs/AdministratorApi.md#apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch) | **PATCH** /api/v1/admins/set_timeToDeadlinePendingOrder/{value} | # Изменить интервал нотификаций касательно дедлайна ордера
 *TestSwagger.AdministratorApi* | [**apiV1AdminsTasksLightGet**](docs/AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsToggleServerPatch**](docs/AdministratorApi.md#apiV1AdminsToggleServerPatch) | **PATCH** /api/v1/admins/toggle_server | # Включить/выключить сервер
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
