@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '15px 20px',
     zIndex: 999,
 
-    marginBottom: 20,
+    // marginBottom: 20,
 
     display: 'flex',
     // alignItems: 'center',

@@ -18,14 +18,14 @@ import {t} from '@utils/translations'
 import {useClassNames} from './simple-messages-snack.style'
 
 interface SimpleMessagesSnackProps {
-  snackBarMessageLast: ChatMessageContract
+  snackBarMessageLast: ChatMessageContract | null
   id: SnackbarKey
   autoHideDuration?: number
   onClickMessage: (anotherUserId: string) => void
 }
 
 export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
-  ({id, /* style,*/ snackBarMessageLast, autoHideDuration, onClickMessage /* , ...props*/}, ref) => {
+  ({id, snackBarMessageLast, autoHideDuration, onClickMessage /* , ...props*/}, ref) => {
     const {classes: classNames} = useClassNames()
 
     const {closeSnackbar} = useSnackbar()
@@ -34,18 +34,16 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
       closeSnackbar(id)
     }, [id, closeSnackbar])
 
-    // console.log('props', props)
-
     // console.log('snackBarMessageLast22', snackBarMessageLast)
 
     setTimeout(() => closeSnackbar(id), autoHideDuration)
 
     return (
-      <SnackbarContent ref={ref} /* style={style}*/>
+      <SnackbarContent ref={ref}>
         <div
           className={classNames.mainWrapper}
           onClick={() => {
-            onClickMessage(snackBarMessageLast?.userId)
+            onClickMessage(snackBarMessageLast?.userId || '')
             closeSnackbar(id)
           }}
         >
@@ -63,8 +61,8 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
 
             {snackBarMessageLast?.text ? (
               <Typography className={classNames.messageText}>
-                {snackBarMessageLast.text?.length > 150
-                  ? snackBarMessageLast.text.slice(0, 147) + '...'
+                {snackBarMessageLast.text?.length > 50
+                  ? snackBarMessageLast.text.slice(0, 47) + '...'
                   : snackBarMessageLast.text}
               </Typography>
             ) : null}

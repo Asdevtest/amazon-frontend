@@ -9,7 +9,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './tab-orders-content.style'
 
-export const TabOrdersContent = ({disabled, disabledSubmit, onSubmit /* onChangeField, formFields*/}) => {
+export const TabOrdersContent = ({disabled, disabledSubmit, onSubmit, onChangeField, formFields}) => {
   const {classes: classNames} = useClassNames()
   return (
     <>
@@ -20,8 +20,8 @@ export const TabOrdersContent = ({disabled, disabledSubmit, onSubmit /* onChange
         )}`}
         labelClasses={disabled && classNames.unselectable}
         classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
-        // value={formFields.costOfFindingSupplier}
-        // onChange={onChangeField('costOfFindingSupplier')}
+        value={formFields.timeToDeadlinePendingOrder}
+        onChange={onChangeField('timeToDeadlinePendingOrder')}
       />
 
       <div className={classNames.placeAddBtnWrapper}>

@@ -108,6 +108,10 @@ export const AdminSettingsContent = observer(() => {
         adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
 
       volumeWeightCoefficient: adminSettings?.dynamicSettings?.volumeWeightCoefficient || 0,
+
+      timeToDeadlinePendingOrder: adminSettings?.dynamicSettings?.timeToDeadlinePendingOrder || 0,
+
+      tech_pause: adminSettings?.dynamicSettings?.tech_pause || 0,
     }
 
     setFormFields(sourceFormFields)
@@ -286,8 +290,8 @@ export const AdminSettingsContent = observer(() => {
               }
             >
               <TabOrdersContent
-                disabled // ={activeTab !== tabsValues.ORDERS}
-                disabledSubmit // ={disabledSubmitThirdBlock || activeTab !== tabsValues.ORDERS}
+                disabled={activeTab !== tabsValues.ORDERS}
+                disabledSubmit={disabledSubmitThirdBlock || activeTab !== tabsValues.ORDERS}
                 formFields={formFields}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}

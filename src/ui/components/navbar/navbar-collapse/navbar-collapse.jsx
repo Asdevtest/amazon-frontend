@@ -52,6 +52,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/client/pending-orders':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.redBadge}>{currentViewModel.userInfo.purchaseOrderRequired?.length}</div>}
+          </ListItemIcon>
+        )
+
       default:
         return null
     }

@@ -177,10 +177,32 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Input
+          {/* <Input
+            
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
             className={classNames.amountCell}
+            onChange={e => onChangeInput(e, 'amount')}
+          /> */}
+
+          <Field
+            containerClasses={classNames.containerField}
+            inputClasses={classNames.amountCell}
+            error={
+              item.currentSupplier.multiplicity &&
+              item.currentSupplier.boxProperties?.amountInBox &&
+              (orderState.amount % item.currentSupplier.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
+              ` ${t(TranslationKey['Value is not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox} !`
+            }
+            successText={
+              item.currentSupplier.multiplicity &&
+              item.currentSupplier.boxProperties?.amountInBox &&
+              orderState.amount % item.currentSupplier.boxProperties?.amountInBox === 0 &&
+              !!orderState.amount &&
+              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox} !`
+            }
+            inputProps={{maxLength: 6, min: 0}}
+            value={orderState.amount}
             onChange={e => onChangeInput(e, 'amount')}
           />
         </TableCell>

@@ -25,5 +25,6 @@ Name | Type | Description | Notes
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **needConfirmPriceChange** | [**UserInfoSchemaNeedConfirmPriceChange**](UserInfoSchemaNeedConfirmPriceChange.md) |  | [optional] 
 **needUpdateTariff** | [**UserInfoSchemaNeedUpdateTariff**](UserInfoSchemaNeedUpdateTariff.md) |  | [optional] 
+**purchaseOrderRequired** | **[String]** |  | [optional] 
 
 

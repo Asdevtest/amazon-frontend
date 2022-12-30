@@ -24,6 +24,7 @@ interface Props {
   inputClasses?: ClassNamesArg | undefined
   inputComponent?: React.ComponentType
   error?: string
+  successText?: string
   oneLine?: boolean
   withIcon?: boolean
   // children?: React.ReactNode
@@ -38,6 +39,7 @@ export const Field: FC<Props> = observer(
     inputClasses,
     inputComponent,
     error,
+    successText,
     oneLine,
     tooltipAttentionContent,
     tooltipInfoContent,
@@ -117,6 +119,7 @@ export const Field: FC<Props> = observer(
               />
             ))}
           {error && <Typography className={classNames.errorText}>{error}</Typography>}
+          {successText && <Typography className={classNames.successText}>{successText}</Typography>}
         </>
       </div>
     )

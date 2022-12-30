@@ -39,7 +39,7 @@ export const MainNav = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider maxSnack={5}>
         <Router>
           <Suspense fallback={<CircularProgressWithLabel />}>
             <Switch>

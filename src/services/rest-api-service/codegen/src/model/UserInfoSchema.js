@@ -117,6 +117,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('needUpdateTariff')) {
                 obj['needUpdateTariff'] = UserInfoSchemaNeedUpdateTariff.constructFromObject(data['needUpdateTariff']);
             }
+            if (data.hasOwnProperty('purchaseOrderRequired')) {
+                obj['purchaseOrderRequired'] = ApiClient.convertToType(data['purchaseOrderRequired'], ['String']);
+            }
         }
         return obj;
     }
@@ -245,6 +248,11 @@ UserInfoSchema.prototype['needConfirmPriceChange'] = undefined;
  * @member {module:model/UserInfoSchemaNeedUpdateTariff} needUpdateTariff
  */
 UserInfoSchema.prototype['needUpdateTariff'] = undefined;
+
+/**
+ * @member {Array.<String>} purchaseOrderRequired
+ */
+UserInfoSchema.prototype['purchaseOrderRequired'] = undefined;
 
 
 
