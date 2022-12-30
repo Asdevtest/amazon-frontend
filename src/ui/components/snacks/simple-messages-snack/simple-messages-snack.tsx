@@ -36,7 +36,7 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
 
     // console.log('props', props)
 
-    console.log('snackBarMessageLast22', snackBarMessageLast)
+    // console.log('snackBarMessageLast22', snackBarMessageLast)
 
     setTimeout(() => closeSnackbar(id), autoHideDuration)
 

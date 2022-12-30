@@ -231,6 +231,16 @@ export const RequestToSendBatchBox = ({
         {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
           <span className={classNames.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</span>
         ) : null}
+
+        {box.amount > 1 ? (
+          <div className={classNames.dementionsSubWrapper}>
+            <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Total final weight'])}</Typography>
+
+            <Typography className={classNames.dementionsSpanText}>
+              {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}
+            </Typography>
+          </div>
+        ) : null}
       </td>
 
       <td className={cx(tableCellClsx, classNames.shippingLabelCell)}>

@@ -54,6 +54,7 @@ const updateBoxWhiteList = [
   'referenceId',
   'trackNumberFile',
   'trackNumberText',
+  'fbaNumber',
 ]
 
 export class ClientInStockBoxesViewModel {
@@ -1125,6 +1126,7 @@ export class ClientInStockBoxesViewModel {
               : sourceData.isShippingLabelAttachedByStorekeeper,
           clientComment: boxData.clientComment,
           referenceId: boxData.referenceId,
+          fbaNumber: boxData.fbaNumber,
         })
 
         runInAction(() => {

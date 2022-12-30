@@ -357,7 +357,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                   pageSize={25}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
-                  // rowHeight={150}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                   }}

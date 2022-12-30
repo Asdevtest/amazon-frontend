@@ -39,11 +39,9 @@ export const formatDateWithoutTime = dateString => (dateString ? format(parseISO
 export const formatDateTimeWithParseISO = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
 
-const now = new Date()
-
 export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
   const date1 = parseISO(firstDate)
-  const date2 = secondDate ? secondDate : now
+  const date2 = secondDate ? secondDate : new Date()
 
   const timeDiff = Math.round((date1.getTime() - date2.getTime()) / 1000)
   // const timeDiff = (date1.getTime() - date2.getTime()) / 1000
@@ -52,7 +50,7 @@ export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
 }
 
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
-  formatDistanceStrict(parseISO(date), tryNow ? tryNow : now, {
+  formatDistanceStrict(parseISO(date), tryNow ? tryNow : new Date(), {
     addSuffix: true,
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
     partialMethod: 'ceil',
@@ -79,7 +77,7 @@ export const formatDateDayMonthYear = date =>
   })
 
 export const formatDateDistanceFromNow = date =>
-  formatDistance(parseISO(date), now, {addSuffix: true, locale: ruLocale})
+  formatDistance(parseISO(date), new Date(), {addSuffix: true, locale: ruLocale})
 
 export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 

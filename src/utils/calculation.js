@@ -57,8 +57,8 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
       isShipping
         ? box.deliveryMass * box.amount
         : box.weighGrossKgWarehouse
-        ? box.weighGrossKgWarehouse * box.amount
-        : box.weighGrossKgSupplier * box.amount,
+        ? box.weighGrossKgWarehouse /* box.amount*/
+        : box.weighGrossKgSupplier /* * box.amount*/,
     ) || 0,
   )
 

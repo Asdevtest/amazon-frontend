@@ -25,6 +25,7 @@ import {AdminSettingsModel} from './admin-settings-content.model'
 import {useClassNames} from './admin-settings-content.style'
 import {TabFreelanceContent} from './admin-tabs-content/tab-freelance-content'
 import {TabMainContent} from './admin-tabs-content/tab-main-content'
+import {TabOrdersContent} from './admin-tabs-content/tab-orders-content'
 import {TabSearchSupplierContent} from './admin-tabs-content/tab-search-supplier-content'
 
 const fieldsWithoutCharactersAfterDote = [
@@ -39,6 +40,7 @@ const tabsValues = {
   MAIN: 'MAIN',
   FREELANCE: 'FREELANCE',
   SEARCH_SUPPLIER: 'SEARCH_SUPPLIER',
+  ORDERS: 'ORDERS',
   DESTINATIONS: 'DESTINATIONS',
 }
 
@@ -203,6 +205,14 @@ export const AdminSettingsContent = observer(() => {
           >
             {t(TranslationKey['Supplier search'])}
           </Button>
+
+          <Button
+            className={activeTab === tabsValues.ORDERS ? classNames.tabItemActiveButton : classNames.tabItemButton}
+            onClick={() => setActiveTab(tabsValues.ORDERS)}
+          >
+            {t(TranslationKey.Orders)}
+          </Button>
+
           <Button
             className={
               activeTab === tabsValues.DESTINATIONS ? classNames.tabItemActiveButton : classNames.tabItemButton
@@ -268,6 +278,23 @@ export const AdminSettingsContent = observer(() => {
               />
             </div>
           </Box>
+
+          <Box className={activeTab === tabsValues.DESTINATIONS ? classNames.hideBlock : classNames.tabItemWrapper}>
+            <div
+              className={
+                activeTab === tabsValues.ORDERS ? classNames.tabItemActiveContent : classNames.tabItemNoActiveContent
+              }
+            >
+              <TabOrdersContent
+                disabled // ={activeTab !== tabsValues.ORDERS}
+                disabledSubmit // ={disabledSubmitThirdBlock || activeTab !== tabsValues.ORDERS}
+                formFields={formFields}
+                onChangeField={onChangeField}
+                onSubmit={onCreateSubmit}
+              />
+            </div>
+          </Box>
+
           <Box
             className={
               activeTab !== tabsValues.DESTINATIONS

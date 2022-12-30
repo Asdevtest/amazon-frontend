@@ -295,8 +295,12 @@ export class ClientOrdersViewModel {
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        sortField: this.sortModel.length ? this.sortModel[0].field : this.isPendingOrdering ? 'deadline' : 'updatedAt',
+        sortType: this.sortModel.length
+          ? this.sortModel[0].sort.toUpperCase()
+          : this.isPendingOrdering
+          ? 'ASC'
+          : 'DESC',
       })
 
       runInAction(() => {

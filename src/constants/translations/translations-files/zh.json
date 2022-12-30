@@ -1688,5 +1688,7 @@
   "Available": "Available",
   "Update": "Update",
   "Current tariffs": "Current tariffs",
-  "Data of product boxes to be shipped": "Data of product boxes to be shipped"
+  "Data of product boxes to be shipped": "Data of product boxes to be shipped",
+  "Total final weight": "Total final weight",
+  "Client notification time before Deadline of the pending order": "Client notification time before Deadline of the pending order"
 }

@@ -560,7 +560,7 @@ export const darkTheme = createTheme({
 
       input: {
         // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
-        // customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду
+        customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду
 
         // customDisabled: '#21212B',
         // customDisabled: '#EBEBEB', // макет
