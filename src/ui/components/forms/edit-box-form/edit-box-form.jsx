@@ -558,6 +558,16 @@ export const EditBoxForm = observer(
                       value={boxFields.referenceId}
                       onChange={setFormField('referenceId')}
                     />
+
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={cx(classNames.fbaShipmentInput)}
+                      inputProps={{maxLength: 255}}
+                      label={'FBA Number'}
+                      value={boxFields.fbaNumber}
+                      onChange={setFormField('fbaNumber')}
+                    />
                   </div>
                 </div>
               </div>

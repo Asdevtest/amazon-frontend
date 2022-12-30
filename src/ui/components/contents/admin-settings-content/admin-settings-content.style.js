@@ -98,7 +98,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tabsWrapper: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(5, 1fr)',
     width: '100%',
   },
 
