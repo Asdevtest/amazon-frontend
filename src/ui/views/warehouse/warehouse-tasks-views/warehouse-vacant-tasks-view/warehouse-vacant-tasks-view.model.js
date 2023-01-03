@@ -108,10 +108,8 @@ export class WarehouseVacantViewModel {
   }
 
   onSelectionModel(model) {
-    console.log('model', model)
     const tasks = this.tasksVacant.filter(task => model.includes(task.id))
     const res = tasks.reduce((ac, el) => ac.concat(el.id), [])
-    console.log('res', res)
     runInAction(() => {
       this.selectedTasks = res
     })
