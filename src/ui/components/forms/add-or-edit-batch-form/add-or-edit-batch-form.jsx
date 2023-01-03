@@ -30,7 +30,9 @@ export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
     const {classes: classNames} = useClassNames()
 
-    const [nameSearchValue, setNameSearchValue] = useState('')
+    const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
+
+    const [nameSearchValueBoxesToDeliteIds, setNameSearchValueBoxesToDeliteIds] = useState('')
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -39,6 +41,8 @@ export const AddOrEditBatchForm = observer(
     const [batchTitle, setBatchTitle] = useState(batchToEdit ? batchToEdit.title : '')
 
     const [filesToAdd, setfilesToAdd] = useState([])
+
+    const [chosenBoxesBase, setChosenBoxesBase] = useState([])
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
@@ -73,18 +77,27 @@ export const AddOrEditBatchForm = observer(
       }
     }, [])
 
-    const filterBySearchValue = boxesArr =>
+    const filterBySearchValueBoxesToAddData = boxesArr =>
       boxesArr?.filter(el =>
         el.originalData.items.some(
           item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+            item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
+        ),
+      )
+
+    const filterBySearchValueChosenBoxes = boxesArr =>
+      boxesArr?.filter(el =>
+        el.originalData.items.some(
+          item =>
+            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToDeliteIds.toLowerCase()) ||
+            item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToDeliteIds.toLowerCase()),
         ),
       )
 
     useEffect(() => {
       if (chosenBoxes.length && !batchToEdit) {
-        setBoxesToAddData(() => filterBySearchValue([...filterBoxesToAddData()]))
+        setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...filterBoxesToAddData()]))
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
@@ -94,7 +107,7 @@ export const AddOrEditBatchForm = observer(
         )
 
         setBoxesToAddData(() =>
-          filterBySearchValue([
+          filterBySearchValueBoxesToAddData([
             ...[
               ...boxesData.filter(
                 box =>
@@ -106,14 +119,25 @@ export const AddOrEditBatchForm = observer(
             ...deletedBoxes,
           ]),
         )
-      } else {
-        setBoxesToAddData(() => filterBySearchValue([...[...boxesData]]))
+      } else if (!nameSearchValueBoxesToDeliteIds && !chosenBoxesBase) {
+        setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...[...boxesData]]))
       }
-    }, [chosenBoxes, nameSearchValue])
+    }, [chosenBoxes, nameSearchValueBoxesToAddData])
+
+    useEffect(() => {
+      if (nameSearchValueBoxesToDeliteIds) {
+        setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase]))
+      } else {
+        setChosenBoxes(chosenBoxesBase)
+      }
+    }, [chosenBoxes, nameSearchValueBoxesToDeliteIds])
+
+    useEffect(() => {}, [boxesToDeliteIds, nameSearchValueBoxesToDeliteIds])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
       setChosenBoxes(() => filteredArray)
+      setChosenBoxesBase(() => filteredArray)
     }
 
     const onClickAdd = () => {
@@ -123,6 +147,7 @@ export const AddOrEditBatchForm = observer(
 
       const newSelectedItems = toJS(boxesToAddData).filter(el => newRowIds.includes(el.id))
       setChosenBoxes(() => [...chosenBoxes, ...newSelectedItems])
+      setChosenBoxesBase(() => [...chosenBoxes, ...newSelectedItems])
 
       setBoxesToAddIds([])
     }
@@ -248,9 +273,9 @@ export const AddOrEditBatchForm = observer(
 
             <SearchInput
               inputClasses={classNames.searchInput}
-              value={nameSearchValue}
+              value={nameSearchValueBoxesToAddData}
               placeholder={t(TranslationKey['Search by ASIN, Title'])}
-              onChange={e => setNameSearchValue(e.target.value)}
+              onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
 
@@ -287,7 +312,16 @@ export const AddOrEditBatchForm = observer(
             </Button>
           </div>
 
-          <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+          <div className={classNames.searchWrapper}>
+            <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={nameSearchValueBoxesToDeliteIds}
+              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              onChange={e => setNameSearchValueBoxesToDeliteIds(e.target.value)}
+            />
+          </div>
 
           <div className={classNames.tableWrapper}>
             <MemoDataGrid

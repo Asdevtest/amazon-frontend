@@ -40,7 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    margin: '24px 0 4px',
+    // margin: '24px 0 4px',
     color: theme.palette.text.general,
   },
 
@@ -266,10 +266,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
     marginTop: '15px',
+    marginBottom: 24,
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'end',
       marginTop: '15px',
+      marginBottom: 24,
     },
   },
   imageAndFileInputWrapper: {
