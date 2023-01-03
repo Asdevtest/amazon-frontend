@@ -844,6 +844,7 @@ export const MultilineTextCell = React.memo(
       noTextText,
       color,
       otherStyles,
+      threeLines,
       withTooltip,
       leftAlign,
       tooltipText,
@@ -859,6 +860,7 @@ export const MultilineTextCell = React.memo(
                   classNames.multilineText,
                   {[classNames.multilineLeftAlignText]: leftAlign},
                   {[classNames.multilineLink]: onClickText && text},
+                  {[classNames.threeMultilineText]: threeLines},
                 )}
                 style={otherStyles || (color && {color})}
                 onClick={onClickText && onClickText}
@@ -874,6 +876,7 @@ export const MultilineTextCell = React.memo(
                 classNames.multilineText,
                 {[classNames.multilineLeftAlignText]: leftAlign},
                 {[classNames.multilineLink]: onClickText && text},
+                {[classNames.threeMultilineText]: threeLines},
               )}
               style={otherStyles || (color && {color})}
               onClick={onClickText && onClickText}
