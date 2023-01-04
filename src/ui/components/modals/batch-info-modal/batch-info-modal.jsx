@@ -35,7 +35,7 @@ import {batchInfoModalColumn} from './batch-info-modal-column'
 import {useClassNames} from './batch-info-modal.style'
 
 export const BatchInfoModal = observer(
-  ({openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields}) => {
+  ({openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields, onClickHsCode}) => {
     const {classes: classNames} = useClassNames()
 
     const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -264,6 +264,7 @@ export const BatchInfoModal = observer(
                 onSubmitChangeBoxFields(data)
                 setShowBoxViewModal(!showBoxViewModal)
               }}
+              onClickHsCode={onClickHsCode}
             />
           </Modal>
 

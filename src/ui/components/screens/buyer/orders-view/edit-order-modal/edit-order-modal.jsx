@@ -80,6 +80,7 @@ export const EditOrderModal = observer(
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -559,6 +560,7 @@ export const EditOrderModal = observer(
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
+            onClickHsCode={onClickHsCode}
           />
 
           <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>

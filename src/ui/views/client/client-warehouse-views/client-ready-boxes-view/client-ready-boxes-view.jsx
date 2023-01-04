@@ -18,6 +18,7 @@ import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
@@ -59,12 +60,17 @@ export class ClientReadyBoxesViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      showEditHSCodeModal,
+
+      hsCodeData,
 
       drawerOpen,
       curPage,
       rowsPerPage,
       selectedBoxes,
+      onClickHsCode,
       onTriggerDrawer,
+      onClickSaveHsCode,
       onChangeCurPage,
       onChangeRowsPerPage,
 
@@ -252,6 +258,15 @@ export class ClientReadyBoxesViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
             onSubmitChangeFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 

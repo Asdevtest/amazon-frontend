@@ -71,6 +71,10 @@ export class WarehouseMyWarehouseViewModel {
 
   currentData = []
 
+  hsCodeData = {}
+
+  showEditHSCodeModal = false
+
   showBoxViewModal = false
   showBoxMoveToBatchModal = false
   showAddBatchModal = false
@@ -275,8 +279,8 @@ export class WarehouseMyWarehouseViewModel {
         upsTrackNumber: data.upsTrackNumber,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesMy()
 
@@ -288,6 +292,31 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
@@ -491,10 +520,6 @@ export class WarehouseMyWarehouseViewModel {
       )
 
       await StorekeeperModel.editBox(id, requestBox)
-
-      if (dataToSubmitHsCode) {
-        await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-      }
 
       if (!isMultipleEdit) {
         this.loadData()

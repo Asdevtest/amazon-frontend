@@ -89,6 +89,10 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showWarningInfoModal = false
 
+  hsCodeData = {}
+
+  showEditHSCodeModal = false
+
   showSuccessModalText = ''
 
   dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
@@ -342,6 +346,31 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+  }
+
   getCurrentData() {
     return toJS(this.ordersMy)
   }
@@ -415,13 +444,13 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveHsCode(productId, hsCode) {
-    try {
-      await ProductModel.editProductsHsCods([{productId, hsCode}])
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // async onSubmitSaveHsCode(productId, hsCode) {
+  //   try {
+  //     await ProductModel.editProductsHsCods([{productId, hsCode}])
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   async onSubmitCancelOrder() {
     try {
@@ -440,7 +469,7 @@ export class BuyerMyOrdersViewModel {
     orderFields,
     boxesForCreation,
     photosToLoad,
-    hsCode,
+    // hsCode,
     trackNumber,
     commentToWarehouse,
   }) {
@@ -467,9 +496,9 @@ export class BuyerMyOrdersViewModel {
 
       await this.onSaveOrder(order, orderFieldsToSave)
 
-      if (hsCode) {
-        await this.onSubmitSaveHsCode(order.product._id, hsCode)
-      }
+      // if (hsCode) {
+      //   await this.onSubmitSaveHsCode(order.product._id, hsCode)
+      // }
 
       if (
         boxesForCreation.length > 0 &&
@@ -536,8 +565,8 @@ export class BuyerMyOrdersViewModel {
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.selectedOrder._id)
 

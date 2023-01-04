@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -59,6 +60,8 @@ class BuyerPendingOrdersViewRaw extends Component {
       curPage,
       rowsPerPage,
       selectedOrder,
+      hsCodeData,
+      showEditHSCodeModal,
       showOrderModal,
       showSuccessModal,
       showNoDimensionsErrorModal,
@@ -70,6 +73,8 @@ class BuyerPendingOrdersViewRaw extends Component {
       showProgress,
       progressValue,
 
+      onClickHsCode,
+      onClickSaveHsCode,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -174,6 +179,7 @@ class BuyerPendingOrdersViewRaw extends Component {
             onSaveOrderItem={onSaveOrderItem}
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
             onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+            onClickHsCode={onClickHsCode}
           />
         </Modal>
 
@@ -188,6 +194,14 @@ class BuyerPendingOrdersViewRaw extends Component {
           onClickSuccessBtn={onSubmitCancelOrder}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}

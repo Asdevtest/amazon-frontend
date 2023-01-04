@@ -31,7 +31,16 @@ import {t} from '@utils/translations'
 import {useClassNames} from './box-view-form.style'
 
 export const BoxViewForm = observer(
-  ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper, userInfo, onSubmitChangeFields}) => {
+  ({
+    box,
+    setOpenModal,
+    volumeWeightCoefficient,
+    batchHumanFriendlyId,
+    storekeeper,
+    userInfo,
+    onSubmitChangeFields,
+    onClickHsCode,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
@@ -196,9 +205,14 @@ export const BoxViewForm = observer(
                         inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
-                        inputProps={{maxLength: 250}}
+                        inputProps={{maxLength: 255}}
                         value={item.product.hsCode}
                         placeholder={t(TranslationKey['Not available'])}
+                        inputComponent={
+                          <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                            {t(TranslationKey['HS code'])}
+                          </Button>
+                        }
                         onChange={onChangeHsCode(index)}
                       />
                       <Field

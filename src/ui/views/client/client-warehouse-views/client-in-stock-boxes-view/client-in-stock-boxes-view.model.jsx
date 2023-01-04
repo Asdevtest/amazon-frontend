@@ -95,6 +95,9 @@ export class ClientInStockBoxesViewModel {
 
   volumeWeightCoefficient = undefined
 
+  hsCodeData = {}
+
+  showEditHSCodeModal = false
   showMergeBoxModal = false
   showTaskInfoModal = false
   showSendOwnProductModal = false
@@ -407,8 +410,8 @@ export class ClientInStockBoxesViewModel {
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesMy()
 
@@ -711,6 +714,31 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   onModalRedistributeBoxAddNewBox(value) {

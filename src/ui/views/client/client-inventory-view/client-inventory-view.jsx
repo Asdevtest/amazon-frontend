@@ -28,6 +28,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
@@ -67,6 +68,7 @@ export class ClientInventoryViewRaw extends Component {
       userInfo,
       showInfoModalTitle,
       requestStatus,
+      hsCodeData,
       getCurrentData,
 
       rowCount,
@@ -98,6 +100,7 @@ export class ClientInventoryViewRaw extends Component {
       showSetBarcodeModal,
       showSelectionSupplierModal,
       showSetChipValueModal,
+      showEditHSCodeModal,
 
       showAcceptMessage,
       acceptMessage,
@@ -481,6 +484,14 @@ export class ClientInventoryViewRaw extends Component {
             sourceValue={selectedProduct?.hsCode}
             onSubmit={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 

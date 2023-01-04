@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Box, Grid, Typography, Checkbox, Link} from '@mui/material'
+import {Box, Grid, Typography, Checkbox, Link, Button} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -44,6 +44,7 @@ export const SelectFields = ({
   progressValue,
   setPhotosToLoad,
   deliveredGoodsCount,
+  onClickHsCode,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -435,6 +436,16 @@ export const SelectFields = ({
             labelClasses={classNames.label}
             inputClasses={classNames.input}
             inputProps={{maxLength: 50}}
+            inputComponent={
+              <Button
+                variant="contained"
+                color="primary"
+                className={classNames.hsCodeBtn}
+                onClick={() => onClickHsCode(orderFields.product._id)}
+              >
+                {t(TranslationKey['HS code'])}
+              </Button>
+            }
             onChange={e => setHsCode(e.target.value)}
           />
         </Box>
