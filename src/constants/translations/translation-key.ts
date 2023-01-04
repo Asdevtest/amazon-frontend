@@ -1694,7 +1694,7 @@ export enum TranslationKey {
   'Value multiple of' = 'Value multiple of',
   'Notice' = 'Notice',
   'The redemption deadline expires in' = 'The redemption deadline expires in',
-  // '' = '',
+  'Download the batch file' = 'Download the batch file',
   // '' = '',
   // '' = '',
   // '' = '',

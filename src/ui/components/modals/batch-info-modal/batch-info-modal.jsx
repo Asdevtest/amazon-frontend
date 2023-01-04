@@ -1,12 +1,17 @@
 /* eslint-disable no-unused-vars */
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import {TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
 
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
+import {Link} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+
+import {BatchesModel} from '@models/batches-model'
+import {OtherModel} from '@models/other-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -29,98 +34,21 @@ import {BigImagesModal} from '../big-images-modal'
 import {batchInfoModalColumn} from './batch-info-modal-column'
 import {useClassNames} from './batch-info-modal.style'
 
-// const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
-//   const {classes: classNames} = useClassNames()
-
-//   return (
-//     <TableRow className={classNames.row} onDoubleClick={() => handlers.openBoxView(item)}>
-//       <TableCell>
-//         {item.items.map((el, itemIndex) => (
-//           <div key={el.product._id} className={classNames.descriptionWrapper}>
-//             {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
-//               <span className={classNames.needPay}>{`${t(
-//                 TranslationKey['Extra payment required!'],
-//               )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
-//             )}
-//             <div className={classNames.imgBlock}>
-//               <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
-//               <div className={classNames.imgSubBlock}>
-//                 <div className={classNames.countBlock}>
-//                   <Typography>{t(TranslationKey.Quantity)}</Typography>
-//                   <Typography className={classNames.amount}>{el.amount}</Typography>
-
-//                   {item.amount > 1 && (
-//                     <Typography className={classNames.superboxTypo}>{`Superbox x ${item.amount}`}</Typography>
-//                   )}
-//                 </div>
-
-//                 <Typography className={classNames.boxTitle}>{el.product.asin}</Typography>
-//               </div>
-//             </div>
-//             <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>
-//           </div>
-//         ))}
-//       </TableCell>
-
-//       <TableCell>
-//         <Typography>{item.humanFriendlyId}</Typography>
-//       </TableCell>
-
-//       <TableCell>
-//         <UserLinkCell blackText name={item.client.name} userId={item.client._id} />
-//       </TableCell>
-
-//       <TableCell>
-//         <Typography>{getFullTariffTextForBoxOrOrder(item)}</Typography>
-//       </TableCell>
-
-//       <TableCell>
-//         <Typography className={classNames.textEllipsis}>{item.destination?.name}</Typography>
-//       </TableCell>
-
-//       <TableCell>
-//         <Typography>{formatNormDateTime(item.updatedAt)}</Typography>
-//       </TableCell>
-
-//       <TableCell>
-//         <Typography>{toFixedWithKg(calcFinalWeightForBox(item, restProps.volumeWeightCoefficient), 2)}</Typography>
-//       </TableCell>
-
-//       <TableCell>
-//         <div className={classNames.pricesWrapper}>
-//           {item.items.map((el, i) => (
-//             <Typography key={i}>
-//               {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)}
-//             </Typography>
-//           ))}
-//         </div>
-//       </TableCell>
-//     </TableRow>
-//   )
-// }
-
 export const BatchInfoModal = observer(
   ({openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields}) => {
     const {classes: classNames} = useClassNames()
-
-    // const BATCH_INFO_HEAD_CELLS = [
-    //   {title: t(TranslationKey.Boxes)},
-    //   {title: t(TranslationKey.ID)},
-    //   {title: t(TranslationKey.Client)},
-    //   {title: t(TranslationKey.Tariff)},
-    //   {title: t(TranslationKey.Destination)},
-    //   {title: t(TranslationKey.Updated)},
-    //   {title: t(TranslationKey['Final weight'])},
-    //   {title: t(TranslationKey['price per unit'])},
-    // ]
-
-    // const renderHeadRow = <TableHeadRow headCells={BATCH_INFO_HEAD_CELLS} />
 
     const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     const [dataToRender, setDataToRender] = useState(batch.boxes || [])
+
+    const [receivedFiles, setReceivedFiles] = useState(null)
+
+    // console.log('dataToRender', dataToRender)
+    // console.log('batch.boxes', batch.boxes)
+    // console.log('batch', batch)
 
     useEffect(() => {
       if (batch?.boxes && nameSearchValue) {
@@ -145,6 +73,10 @@ export const BatchInfoModal = observer(
     const openBoxView = box => {
       setShowBoxViewModal(!showBoxViewModal)
       setCurBox(box)
+    }
+
+    const uploadTemplateFile = async () => {
+      await OtherModel.getReportBatchByHumanFriendlyId(batch.humanFriendlyId)
     }
 
     return (
@@ -280,15 +212,6 @@ export const BatchInfoModal = observer(
             />
           </div>
 
-          {/* <Table
-            rowsOnly
-            data={dataToRender}
-            BodyRow={TableBodyBoxRow}
-            renderHeadRow={renderHeadRow}
-            rowsHandlers={{openBoxView}}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-          /> */}
-
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter
@@ -319,6 +242,11 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.buttonsWrapper}>
+            <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+              {t(TranslationKey['Download the batch file'])}
+              <FileDownloadIcon />
+            </Button>
+
             <Button className={classNames.actionButton} onClick={setOpenModal}>
               {t(TranslationKey.Close)}
             </Button>

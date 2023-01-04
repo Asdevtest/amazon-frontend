@@ -1,8 +1,12 @@
 import axios from 'axios'
 
+// import * as fs from 'fs'
+// import fs from 'fs'
 import {BACKEND_API_URL} from '@constants/env'
 
 import {restApiService} from '@services/rest-api-service/rest-api-service'
+
+// const fs = require('fs')
 
 class OtherModelStatic {
   getImage = async guid => {
@@ -69,6 +73,33 @@ class OtherModelStatic {
     })
 
     return response
+  }
+
+  getReportBatchByHumanFriendlyId = async id => {
+    await axios({
+      method: 'get',
+      url: `${BACKEND_API_URL}/api/v1/batches/report/${id}`,
+
+      responseType: 'blob',
+
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+
+        Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
+      },
+    })
+      .then(res => {
+        const aElement = document.createElement('a')
+        aElement.setAttribute('download', `batchReport_${id}.xlsx`)
+        const href = URL.createObjectURL(res.data)
+        aElement.href = href
+        aElement.setAttribute('target', '_blank')
+        aElement.click()
+        URL.revokeObjectURL(href)
+      })
+      .catch(error => {
+        console.log('error', error)
+      })
   }
 
   getAllImages = async () => {
