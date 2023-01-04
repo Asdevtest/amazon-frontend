@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import {Button, ClickAwayListener, Popover, Typography} from '@mui/material'
+import {Button, ClickAwayListener, Popover, Tooltip, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -126,16 +126,18 @@ const WithSearchSelectRaw = observer(
                 />
                 <div className={classNames.itemsWrapper}>
                   {onClickNotChosen && (
-                    <Button
-                      className={classNames.button}
-                      variant="text"
-                      onClick={() => {
-                        onClickNotChosen()
-                        handleClose()
-                      }}
-                    >
-                      {t(TranslationKey['Not chosen'])}
-                    </Button>
+                    <Tooltip title={t(TranslationKey['Not chosen'])}>
+                      <Button
+                        className={classNames.button}
+                        variant="text"
+                        onClick={() => {
+                          onClickNotChosen()
+                          handleClose()
+                        }}
+                      >
+                        {t(TranslationKey['Not chosen'])}
+                      </Button>
+                    </Tooltip>
                   )}
 
                   {firstItems}
@@ -162,9 +164,9 @@ const WithSearchSelectRaw = observer(
                       >
                         <div className={classNames.fieldNamesWrapper}>
                           {searchFields.map((fieldName, index) => (
-                            <Typography key={index} className={classNames.fieldName}>
-                              {el[fieldName]}
-                            </Typography>
+                            <Tooltip key={index} title={el[fieldName]}>
+                              <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
+                            </Tooltip>
                           ))}
                           {/* {favourites ? (
                             <div
