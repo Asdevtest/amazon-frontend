@@ -178,6 +178,7 @@ export const EditBoxStorekeeperForm = observer(
 
     destinationsFavourites,
     setDestinationsFavouritesItem,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -603,6 +604,16 @@ export const EditBoxStorekeeperForm = observer(
                             inputProps={{maxLength: 255}}
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
+                            inputComponent={
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                className={classNames.hsCodeBtn}
+                                onClick={() => onClickHsCode(item.product._id)}
+                              >
+                                {t(TranslationKey['HS code'])}
+                              </Button>
+                            }
                             onChange={setHsCode(index)}
                           />
                         </div>

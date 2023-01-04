@@ -28,6 +28,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
@@ -70,6 +71,8 @@ export class ClientInStockBoxesViewRaw extends Component {
       confirmModalSettings,
       selectedBox,
       curBox,
+      hsCodeData,
+      showEditHSCodeModal,
       showBoxViewModal,
       volumeWeightCoefficient,
       taskColumnsModel,
@@ -113,6 +116,8 @@ export class ClientInStockBoxesViewRaw extends Component {
       modalEditSuccessMessage,
       warningInfoModalSettings,
       destinationsFavourites,
+      onClickHsCode,
+      onClickSaveHsCode,
       setDestinationsFavouritesItem,
       onTriggerDrawer,
       onChangeCurPage,
@@ -542,6 +547,7 @@ export class ClientInStockBoxesViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
             onSubmitChangeFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
           />
         </Modal>
 
@@ -562,6 +568,14 @@ export class ClientInStockBoxesViewRaw extends Component {
             item={selectedBox}
             onClickSaveShippingLabel={onClickSaveShippingLabel}
             onCloseModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 

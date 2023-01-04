@@ -100,6 +100,8 @@ export class ClientInventoryViewModel {
 
   receivedFiles = undefined
 
+  hsCodeData = {}
+
   curProduct = undefined
 
   nameSearchValue = ''
@@ -129,6 +131,7 @@ export class ClientInventoryViewModel {
   showSetStockUsValueModal = false
   showProductLotDataModal = false
   showGetFilesModal = false
+  showEditHSCodeModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -619,9 +622,17 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([{productId: this.selectedProduct._id, hsCode}])
+    await ProductModel.editProductsHsCods([
+      {
+        productId: this.selectedProduct._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
 
-    this.onTriggerOpenModal('showSetChipValueModal')
+    this.onTriggerOpenModal('showEditHSCodeModal')
     this.loadData()
 
     runInAction(() => {
@@ -678,9 +689,12 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  onClickHsCode(item) {
+  async onClickHsCode(item) {
     this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+    console.log(this.hsCodeData)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSaveFourMonthesStockValue(item, fourMonthesStock) {

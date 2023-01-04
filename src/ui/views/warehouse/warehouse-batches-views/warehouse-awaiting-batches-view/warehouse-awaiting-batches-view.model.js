@@ -51,6 +51,10 @@ export class WarehouseAwaitingBatchesViewModel {
   progressValue = 0
   showProgress = false
 
+  hsCodeData = {}
+
+  showEditHSCodeModal = false
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -212,8 +216,8 @@ export class WarehouseAwaitingBatchesViewModel {
         upsTrackNumber: data.upsTrackNumber,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       await this.loadData()
 
@@ -248,6 +252,34 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.nameSearchValue = e.target.value
     })
+  }
+
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    console.log('this.hsCodeData', this.hsCodeData)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    console.log('this.showEditHSCodeModal', this.showEditHSCodeModal)
   }
 
   async getBatches() {

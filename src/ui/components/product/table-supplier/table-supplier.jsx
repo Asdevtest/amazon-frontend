@@ -81,7 +81,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                         </div>
                       ) : null
                     ) : null}
-                    {product.currentSupplier.multiplicity && product.currentSupplier.boxProperties.amountInBox ? (
+                    {supplier.multiplicity && supplier.boxProperties.amountInBox ? (
                       <div className={classNames.multiplicityWrapper}>
                         <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
                         <Typography className={classNames.amountInBoxText}>

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -22,6 +21,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
@@ -77,6 +77,10 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       curPage,
       rowsPerPage,
       selectedBoxes,
+      showEditHSCodeModal,
+      hsCodeData,
+      onClickSaveHsCode,
+      onClickHsCode,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -183,6 +187,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
             onSubmitChangeFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
           />
         </Modal>
 
@@ -224,6 +229,15 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onSubmit={onClickSubmitEditBox}
             onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
+            onClickHsCode={onClickHsCode}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 

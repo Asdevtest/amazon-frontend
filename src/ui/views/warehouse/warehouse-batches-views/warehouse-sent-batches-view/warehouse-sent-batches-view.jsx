@@ -12,8 +12,10 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
+import {Modal} from '@components/modal'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
@@ -54,11 +56,14 @@ export class WarehouseSentBatchesViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      showEditHSCodeModal,
+      hsCodeData,
+      onClickSaveHsCode,
+      onClickHsCode,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
       showWarningInfoModal,
-
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
@@ -147,6 +152,14 @@ export class WarehouseSentBatchesViewRaw extends Component {
           </Appbar>
         </Main>
 
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
+
         <ConfirmationModal
           isWarning={isWarning}
           openModal={showConfirmModal}
@@ -166,6 +179,7 @@ export class WarehouseSentBatchesViewRaw extends Component {
           batch={curBatch}
           userInfo={userInfo}
           onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+          onClickHsCode={onClickHsCode}
         />
 
         <WarningInfoModal

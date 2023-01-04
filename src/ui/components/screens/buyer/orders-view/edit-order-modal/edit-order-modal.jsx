@@ -80,8 +80,12 @@ export const EditOrderModal = observer(
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
+
+    console.log('order', order)
+    console.log('boxes', boxes)
 
     // const deliveredGoodsCount =
     //   boxes
@@ -559,6 +563,7 @@ export const EditOrderModal = observer(
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
+            onClickHsCode={onClickHsCode}
           />
 
           <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>

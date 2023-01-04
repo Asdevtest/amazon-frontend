@@ -258,6 +258,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 225,
   },
 
+  hsCodeBtn: {
+    width: '100%',
+  },
+
   imgSizesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

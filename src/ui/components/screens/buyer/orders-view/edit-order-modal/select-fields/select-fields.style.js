@@ -255,4 +255,8 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.2)',
     },
   },
+  hsCodeBtn: {
+    width: '100%',
+    height: 32,
+  },
 }))
