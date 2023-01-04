@@ -23,6 +23,9 @@ import {useClassNames} from './table-supplier.style'
 export const TableSupplier = observer(({isClient, product, productBaseData, selectedSupplier, onClickSupplier}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('product', product)
+  console.log('productBaseData', productBaseData)
+
   const renderHeader = () => (
     <TableHead>
       <TableRow>
@@ -69,14 +72,25 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                 onClick={() => onClickSupplier(supplier, index)}
               >
                 <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>
-                  {isClient ? (
-                    formatNormDateTimeWithParseISO(productBaseData.createdAt) >
-                    formatNormDateTimeWithParseISO(supplier.createdAt) ? (
-                      <div className={classNames.imgWrapper}>
-                        <NewSupplier fontSize={'large'} />
+                  <div className={classNames.StatsWrapper}>
+                    {isClient ? (
+                      formatNormDateTimeWithParseISO(productBaseData.createdAt) >
+                      formatNormDateTimeWithParseISO(supplier.createdAt) ? (
+                        <div className={classNames.imgWrapper}>
+                          <NewSupplier fontSize={'large'} />
+                        </div>
+                      ) : null
+                    ) : null}
+                    {product.currentSupplier.multiplicity && product.currentSupplier.boxProperties.amountInBox ? (
+                      <div className={classNames.multiplicityWrapper}>
+                        <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
+                        <Typography className={classNames.amountInBoxText}>
+                          {product.currentSupplier.boxProperties.amountInBox}
+                        </Typography>
                       </div>
-                    ) : null
-                  ) : null}
+                    ) : null}
+                  </div>
+
                   {supplier.name}
                 </TableCell>
 
