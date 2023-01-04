@@ -355,7 +355,13 @@ export const TopCard = observer(
             )}
           </div>
 
-          <TableSupplier product={product} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
+          <TableSupplier
+            // isClient
+            product={product}
+            productBaseData={productBase}
+            selectedSupplier={selectedSupplier}
+            onClickSupplier={onClickSupplier}
+          />
 
           {showProgress && (
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />

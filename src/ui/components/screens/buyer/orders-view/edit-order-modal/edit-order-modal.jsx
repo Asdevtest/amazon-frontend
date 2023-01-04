@@ -84,6 +84,9 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    console.log('order', order)
+    console.log('boxes', boxes)
+
     // const deliveredGoodsCount =
     //   boxes
     //     ?.filter(el => !el.isDraft)

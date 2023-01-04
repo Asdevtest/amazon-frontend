@@ -21,6 +21,8 @@ export const EditOrderSuppliersTable = observer(
   ({suppliers, selectedSupplier, setSelectedSupplier, curSelectedSupplier, isPendingOrder}) => {
     const {classes: classNames} = useClassNames()
 
+    console.log('suppliers', suppliers)
+
     return (
       <TableContainer className={classNames.table}>
         <Table>
@@ -63,6 +65,16 @@ export const EditOrderSuppliersTable = observer(
                   onClick={() => setSelectedSupplier(supplier)}
                 >
                   <TableCell className={cx(classNames.alignCenter, classNames.alignCenter)}>
+                    <div className={classNames.StatsWrapper}>
+                      {supplier.multiplicity && supplier.boxProperties.amountInBox ? (
+                        <div className={classNames.multiplicityWrapper}>
+                          <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
+                          <Typography className={classNames.amountInBoxText}>
+                            {supplier.boxProperties.amountInBox}
+                          </Typography>
+                        </div>
+                      ) : null}
+                    </div>
                     <Typography className={classNames.nameCell}>{supplier.name}</Typography>
                   </TableCell>
 

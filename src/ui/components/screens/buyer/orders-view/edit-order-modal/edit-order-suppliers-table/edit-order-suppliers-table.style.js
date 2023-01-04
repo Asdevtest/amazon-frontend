@@ -105,6 +105,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '16px 24px',
   },
   alignCenter: {
+    position: 'relative',
     textAlign: 'center',
     minWidth: 100,
   },
@@ -205,5 +206,31 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
 
     textAlign: 'center',
+  },
+  StatsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 'auto',
+    height: 'auto',
+  },
+  multiplicityWrapper: {
+    display: 'flex',
+    gap: 5,
+    marginLeft: 5,
+  },
+  amountInBoxText: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    fontSize: 12,
+    lineHeight: '140%',
+  },
+  multiplicityText: {
+    color: theme.palette.text.second,
+    fontWeight: 400,
+    fontSize: 12,
   },
 }))
