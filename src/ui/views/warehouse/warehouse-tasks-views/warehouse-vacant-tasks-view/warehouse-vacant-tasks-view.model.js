@@ -60,11 +60,6 @@ export class WarehouseVacantViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
-
-    reaction(
-      () => this.selectedTasks,
-      () => console.log('this.selectedTasks', this.selectedTasks),
-    )
   }
 
   async updateColumnsModel() {
@@ -200,6 +195,23 @@ export class WarehouseVacantViewModel {
       runInAction(() => {
         this.curTask = item
       })
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickPickupManyTasksBtn() {
+    try {
+      await StorekeeperModel.pickupManyTasks(this.selectedTasks)
+      this.loadData()
+      runInAction(() => {
+        this.selectedTasks = []
+      })
+
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
       console.log(error)

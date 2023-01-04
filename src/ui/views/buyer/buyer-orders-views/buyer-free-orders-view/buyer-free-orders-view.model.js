@@ -195,11 +195,13 @@ export class BuyerFreeOrdersViewModel {
 
   async onPickupSomeItems() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const itemId = this.selectedRowIds[i]
+      await this.selectedRowIds.forEach(selectedRowId => {
+        const selectedItem = this.ordersVacant.filter(item => item.originalData._id === selectedRowId)
 
-        await this.onClickTableRowBtn({originalData: {_id: itemId}}, true)
-      }
+        if (selectedItem) {
+          this.onClickTableRowBtn(selectedItem[0], true)
+        }
+      })
 
       this.selectedRowIds = []
 

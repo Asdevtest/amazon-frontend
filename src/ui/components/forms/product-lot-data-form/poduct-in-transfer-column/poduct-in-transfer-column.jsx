@@ -19,7 +19,7 @@ export const productInTransferColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.humanFriendlyId} />,
+    renderCell: params => <MultilineTextCell text={params?.row?.humanFriendlyId} />,
     type: 'number',
     width: 60,
   },
@@ -40,7 +40,7 @@ export const productInTransferColumns = handlers => [
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.batch.humanFriendlyId} />,
+    renderCell: params => <MultilineTextCell text={params?.row?.batch?.humanFriendlyId} />,
     width: 60,
   },
 
@@ -49,8 +49,8 @@ export const productInTransferColumns = handlers => [
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.row.batch.title} />,
-    width: 120,
+    renderCell: params => <MultilineTextCell leftAlign text={params?.row?.batch?.title} />,
+    width: 110,
   },
 
   {
@@ -60,7 +60,7 @@ export const productInTransferColumns = handlers => [
       <MultilineTextHeaderCell text={t(TranslationKey['Boxes and the quantity of the selected product in them'])} />
     ),
 
-    renderCell: params => <BoxesAndQuantity boxesData={params.row} />,
+    renderCell: params => <BoxesAndQuantity boxesData={params?.row} />,
     width: 154,
   },
 
@@ -79,7 +79,7 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
-    width: 110,
+    width: 105,
   },
 
   {
@@ -99,7 +99,7 @@ export const productInTransferColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Watch the batch'])}
-        onClickOkBtn={() => handlers.onClickShowBatchBtn(params.row.batch._id)}
+        onClickOkBtn={() => handlers.onClickShowBatchBtn(params?.row?.batch?._id)}
       />
     ),
     width: 190,

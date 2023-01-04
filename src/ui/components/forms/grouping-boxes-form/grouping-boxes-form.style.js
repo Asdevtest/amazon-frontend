@@ -325,7 +325,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
     padding: '6px 7px',
 
-    color: '#001029',
+    // color: '#001029',
 
     backgroundColor: theme.palette.input.customDisabled,
   },

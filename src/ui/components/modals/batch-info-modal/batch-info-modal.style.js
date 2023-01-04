@@ -88,11 +88,18 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'end',
+    gap: 40,
   },
 
   actionButton: {
     width: '126px',
     height: '40px',
+  },
+
+  downloadButton: {
+    width: 216,
+    height: 40,
+    gap: 5,
   },
 
   superboxTypo: {

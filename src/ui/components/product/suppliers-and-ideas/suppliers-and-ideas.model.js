@@ -174,8 +174,6 @@ export class SuppliersAndIdeasModel {
       } else {
         const createdIdeaId = await this.createIdea({...submitData, productId: this.productId}, isForceUpdate)
 
-        console.log('createdIdeaId', createdIdeaId)
-
         const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
 
         this.curIdea = createdIdea
@@ -211,8 +209,6 @@ export class SuppliersAndIdeasModel {
         amazonDetail: this.dataToCreateProduct.criteria,
         clientComment: this.dataToCreateProduct.comments,
       }
-
-      console.log('this.dataToCreateProduct', this.dataToCreateProduct)
 
       const result = await ClientModel.createProduct(createData)
 

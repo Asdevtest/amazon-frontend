@@ -198,11 +198,36 @@ export const useClassNames = makeStyles()(theme => ({
 
     textAlign: 'center',
   },
-  imgWrapper: {
+  StatsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
     position: 'absolute',
     top: 0,
     left: 0,
     width: 'auto',
     height: 'auto',
+  },
+  imgWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 'auto',
+    height: 'auto',
+  },
+  multiplicityWrapper: {
+    display: 'flex',
+    gap: 5,
+    marginLeft: 5,
+  },
+  multiplicityText: {
+    color: theme.palette.text.second,
+    fontWeight: 400,
+    fontSize: 12,
+  },
+  amountInBoxText: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    fontSize: 12,
+    lineHeight: '140%',
   },
 }))

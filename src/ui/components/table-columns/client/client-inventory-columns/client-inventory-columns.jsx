@@ -134,7 +134,6 @@ export const clientInventoryColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
 
     renderCell: params => (
-      // console.log(params),
       <MultilineTextCell
         text={params.value}
         onClickText={e => {

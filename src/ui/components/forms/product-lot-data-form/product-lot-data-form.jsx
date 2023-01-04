@@ -32,21 +32,25 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
 
+  console.log('product', product)
+  console.log('batches', batches)
+  console.log('batchesData', batchesData)
+
   const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
   useEffect(() => {
     if (isTransfer) {
       setBatches(
-        batchesData.filter(item =>
-          item.batch.humanFriendlyId.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+        batchesData?.filter(item =>
+          item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
         ),
       )
     } else {
       if (nameSearchValue) {
         setBatches(
-          batchesData.filter(item =>
-            item.boxes.some(item =>
-              item.humanFriendlyId.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+          batchesData?.filter(item =>
+            item?.boxes?.some(item =>
+              item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
             ),
           ),
         )
@@ -78,8 +82,8 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
       </div>
       <div className={classNames.aboutProduct}>
         <div className={classNames.productInfo}>
-          <img className={classNames.img} src={getAmazonImageUrl(product[0].images[0])} />
-          <Typography className={classNames.productTitle}>{product[0].amazonTitle}</Typography>
+          <img className={classNames.img} src={getAmazonImageUrl(product[0]?.images[0])} />
+          <Typography className={classNames.productTitle}>{product[0]?.amazonTitle}</Typography>
           <div className={classNames.attributeWrapper}>
             <div className={classNames.attribute}>
               <Typography className={classNames.attributeTitle}>{t(TranslationKey.ASIN)}</Typography>
@@ -91,9 +95,9 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
                     rel="noreferrer"
                     href={`https://www.amazon.com/dp/${product[0].asin}`}
                   >
-                    {shortAsin(product[0].asin)}
+                    {shortAsin(product[0]?.asin)}
                   </a>
-                  <CopyValue text={product[0].asin} />
+                  <CopyValue text={product[0]?.asin} />
                 </>
               ) : (
                 <Typography className={classNames.asin}>{t(TranslationKey['Not found'])}</Typography>
@@ -102,7 +106,7 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
             <div className={classNames.attribute}>
               <Typography className={classNames.attributeTitle}>{t(TranslationKey.SKU)}</Typography>
               <Typography className={classNames.sku}>
-                {product[0].skusByClient[0] ? product[0].skusByClient[0] : t(TranslationKey['Not found'])}
+                {product[0]?.skusByClient[0] ? product[0]?.skusByClient[0] : t(TranslationKey['Not found'])}
               </Typography>
             </div>
           </div>
@@ -120,7 +124,7 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
         <MemoDataGrid
           hideFooter
           localeText={getLocalizationByLanguageTag()}
-          getRowId={batches => batches._id}
+          getRowId={batches => batches?._id}
           columns={
             isTransfer
               ? productInTransferColumns({onClickShowBatchBtn})
