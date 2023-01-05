@@ -688,4 +688,64 @@ export default class BatchesApi {
     }
 
 
+    /**
+     * # Получить партии.
+     * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
+     * @param {module:model/String} status GUID склада который нужно получить.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Примеры: /batches/with_filters?filters=or[0][asin][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /batches/with_filters?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     */
+    apiV1BatchesWithFiltersGetWithHttpInfo(status, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'status' is set
+      if (status === undefined || status === null) {
+        throw new Error("Missing the required parameter 'status' when calling apiV1BatchesWithFiltersGet");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': status,
+        'filters': opts['filters'],
+        'storekeeperId': opts['storekeeperId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2008];
+      return this.apiClient.callApi(
+        '/api/v1/batches/with_filters', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить партии.
+     * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
+     * @param {module:model/String} status GUID склада который нужно получить.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.filters                Примеры: /batches/with_filters?filters=or[0][asin][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /batches/with_filters?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     */
+    apiV1BatchesWithFiltersGet(status, opts) {
+      return this.apiV1BatchesWithFiltersGetWithHttpInfo(status, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
 }

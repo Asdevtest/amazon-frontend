@@ -319,9 +319,9 @@ export const SupplierCell = React.memo(
 
 export const UserLinkCell = React.memo(
   withStyles(
-    ({classes: classNames, name, userId, blackText}) => (
+    ({classes: classNames, name, userId, blackText, customStyles}) => (
       <div className={classNames.userLinkWrapper}>
-        <UserLink withAvatar name={name} userId={userId} blackText={blackText} />
+        <UserLink withAvatar name={name} userId={userId} blackText={blackText} customStyles={customStyles} />
       </div>
     ),
     styles,

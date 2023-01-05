@@ -107,10 +107,10 @@ class InlineResponse20020 {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -222,12 +222,12 @@ InlineResponse20020.prototype['product'] = undefined;
 InlineResponse20020.prototype['status'] = undefined;
 
 /**
- * @member {String} createdAt
+ * @member {Date} createdAt
  */
 InlineResponse20020.prototype['createdAt'] = undefined;
 
 /**
- * @member {String} updatedAt
+ * @member {Date} updatedAt
  */
 InlineResponse20020.prototype['updatedAt'] = undefined;
 

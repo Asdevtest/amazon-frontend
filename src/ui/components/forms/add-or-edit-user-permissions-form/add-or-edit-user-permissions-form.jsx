@@ -68,13 +68,13 @@ export const AddOrEditUserPermissionsForm = observer(
           name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
           tmpProductsIds:
             curUserProductPermissions
-              ?.filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
-              ?.map(el => el.productId) || [],
+              ?.filter(el => (isWithoutShopsDepends ? true : !el?.shopIds?.length))
+              ?.map(el => el?.productId) || [],
         },
         ...shops.map(shop => ({
           ...shop,
           tmpProductsIds:
-            curUserProductPermissions?.filter(el => el.shopIds.includes(shop._id))?.map(el => el.productId) || [],
+            curUserProductPermissions?.filter(el => el?.shopIds?.includes(shop?._id))?.map(el => el?.productId) || [],
         })),
       ],
       [curUserProductPermissions],

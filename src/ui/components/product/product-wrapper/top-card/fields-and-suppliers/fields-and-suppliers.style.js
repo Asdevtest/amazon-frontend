@@ -426,4 +426,45 @@ export const useClassNames = makeStyles()(theme => ({
   selectMenu: {
     width: '317px',
   },
+  subUsersBodyWrapper: {
+    width: 270,
+    maxHeight: 175,
+    overflowY: 'auto',
+
+    border: '1px solid #E0E0E0',
+    borderRadius: '4px',
+
+    padding: 5,
+  },
+  subUsersBody: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    width: '100%',
+    padding: '6px 0 6px 10px',
+
+    background: '#FFFFFF',
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+
+    gap: 10,
+  },
+  subUsersTitleWrapper: {
+    marginBottom: 10,
+  },
+  subUsersTitle: {
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+  subUsersWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 270,
+  },
+  strategyAndSubUsersWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
 }))

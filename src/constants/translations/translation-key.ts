@@ -1696,7 +1696,7 @@ export enum TranslationKey {
   'The redemption deadline expires in' = 'The redemption deadline expires in',
   'Download the batch file' = 'Download the batch file',
   'Product usage' = 'Product usage',
-  // '' = '',
+  'Users with access to the product' = 'Users with access to the product',
   // '' = '',
   // '' = '',
   // '' = '',

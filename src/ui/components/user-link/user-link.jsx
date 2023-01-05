@@ -11,7 +11,7 @@ import {getUserAvatarSrc} from '@utils/get-user-avatar'
 
 import {useClassNames} from './user-link.style'
 
-export const UserLink = observer(({name, userId, blackText, withAvatar, maxNameWidth}) => {
+export const UserLink = observer(({name, userId, blackText, withAvatar, maxNameWidth, customStyles}) => {
   const {classes: classNames} = useClassNames()
 
   const curUserId = UserModel.userId
@@ -36,8 +36,11 @@ export const UserLink = observer(({name, userId, blackText, withAvatar, maxNameW
           {/* <Typography className={blackText ? classNames.blackLinkText : classNames.linkText}>{name}</Typography> */}
 
           <Typography
-            className={cx(classNames.linkText, {[classNames.blackLinkText]: blackText})}
-            style={maxNameWidth && {maxWidth: maxNameWidth}}
+            className={cx(classNames.linkText, {
+              [classNames.blackLinkText]: blackText,
+              // [classNames.customStyles]: customStyles,
+            })}
+            style={customStyles || (maxNameWidth && {maxWidth: maxNameWidth})}
           >
             {name}
           </Typography>

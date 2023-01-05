@@ -86,7 +86,7 @@ class ApiV1AdminsOrdersLogicsTariff {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -159,7 +159,7 @@ ApiV1AdminsOrdersLogicsTariff.prototype['_id'] = undefined;
 ApiV1AdminsOrdersLogicsTariff.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {String} updatedAt
+ * @member {Date} updatedAt
  */
 ApiV1AdminsOrdersLogicsTariff.prototype['updatedAt'] = undefined;
 

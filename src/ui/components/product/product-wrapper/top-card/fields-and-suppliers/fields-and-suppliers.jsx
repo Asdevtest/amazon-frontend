@@ -18,6 +18,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
@@ -38,6 +39,8 @@ const clientToEditStatuses = [
 export const FieldsAndSuppliers = observer(
   ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
     const {classes: classNames} = useClassNames()
+
+    console.log('product', product)
 
     const [edit, setEdit] = useState(true)
 
@@ -329,85 +332,110 @@ export const FieldsAndSuppliers = observer(
               </div>
             </Box>
           </div>
-
-          {Number(product.strategyStatus) ===
-            mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
-            <div>
-              <div className={classNames.rightBlockWrapper}>
-                <div className={classNames.fieldsWrapper}>
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 255}}
-                    label={t(TranslationKey.Niche)}
-                    value={product.niche}
-                    onChange={onChangeField('niche')}
-                  />
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 255}}
-                    label={'Asins'}
-                    value={product.asins}
-                    onChange={onChangeField('asins')}
-                  />
-
-                  <div className={classNames.fieldsSubWrapper}>
+          <div className={classNames.strategyAndSubUsersWrapper}>
+            {Number(product.strategyStatus) ===
+              mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
+              <div>
+                <div className={classNames.rightBlockWrapper}>
+                  <div className={classNames.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      inputProps={{maxLength: 10}}
-                      containerClasses={classNames.shortInput}
-                      label={t(TranslationKey['Average revenue'])}
-                      value={product.avgRevenue}
-                      onChange={onChangeField('avgRevenue')}
+                      inputProps={{maxLength: 255}}
+                      label={t(TranslationKey.Niche)}
+                      value={product.niche}
+                      onChange={onChangeField('niche')}
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      containerClasses={classNames.shortInput}
-                      inputProps={{maxLength: 10}}
-                      label={t(TranslationKey['Average BSR'])}
-                      value={product.avgBSR}
-                      onChange={onChangeField('avgBSR')}
+                      inputProps={{maxLength: 255}}
+                      label={'Asins'}
+                      value={product.asins}
+                      onChange={onChangeField('asins')}
                     />
+
+                    <div className={classNames.fieldsSubWrapper}>
+                      <Field
+                        disabled={disabledPrivateLabelFields}
+                        inputProps={{maxLength: 10}}
+                        containerClasses={classNames.shortInput}
+                        label={t(TranslationKey['Average revenue'])}
+                        value={product.avgRevenue}
+                        onChange={onChangeField('avgRevenue')}
+                      />
+                      <Field
+                        disabled={disabledPrivateLabelFields}
+                        containerClasses={classNames.shortInput}
+                        inputProps={{maxLength: 10}}
+                        label={t(TranslationKey['Average BSR'])}
+                        value={product.avgBSR}
+                        onChange={onChangeField('avgBSR')}
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className={classNames.fieldsWrapper}>
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 10}}
-                    label={t(TranslationKey['Total Revenue'])}
-                    value={product.totalRevenue}
-                    onChange={onChangeField('totalRevenue')}
-                  />
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 10}}
-                    label={t(TranslationKey.Coefficient)}
-                    value={product.coefficient}
-                    onChange={onChangeField('coefficient')}
-                  />
-
-                  <div className={classNames.fieldsSubWrapper}>
+                  <div className={classNames.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 10}}
-                      containerClasses={classNames.shortInput}
-                      label={t(TranslationKey['Average Price'])}
-                      value={product.avgPrice}
-                      onChange={onChangeField('avgPrice')}
+                      label={t(TranslationKey['Total Revenue'])}
+                      value={product.totalRevenue}
+                      onChange={onChangeField('totalRevenue')}
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      containerClasses={classNames.shortInput}
                       inputProps={{maxLength: 10}}
-                      label={t(TranslationKey['Average Review'])}
-                      value={product.avgReviews}
-                      onChange={onChangeField('avgReviews')}
+                      label={t(TranslationKey.Coefficient)}
+                      value={product.coefficient}
+                      onChange={onChangeField('coefficient')}
                     />
+
+                    <div className={classNames.fieldsSubWrapper}>
+                      <Field
+                        disabled={disabledPrivateLabelFields}
+                        inputProps={{maxLength: 10}}
+                        containerClasses={classNames.shortInput}
+                        label={t(TranslationKey['Average Price'])}
+                        value={product.avgPrice}
+                        onChange={onChangeField('avgPrice')}
+                      />
+                      <Field
+                        disabled={disabledPrivateLabelFields}
+                        containerClasses={classNames.shortInput}
+                        inputProps={{maxLength: 10}}
+                        label={t(TranslationKey['Average Review'])}
+                        value={product.avgReviews}
+                        onChange={onChangeField('avgReviews')}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+            {checkIsClient(curUserRole) ? (
+              <div className={classNames.subUsersWrapper}>
+                <div className={classNames.subUsersTitleWrapper}>
+                  <Typography className={classNames.subUsersTitle}>
+                    {t(TranslationKey['Users with access to the product'])}
+                  </Typography>
+                </div>
+                <div className={classNames.subUsersBodyWrapper}>
+                  <div className={classNames.subUsersBody}>
+                    {product.subUsers.map((subUser, index) => (
+                      <div key={index} className={classNames.subUserBodyWrapper}>
+                        <UserLinkCell
+                          withAvatar
+                          name={subUser.name}
+                          userId={subUser._id}
+                          customStyles={{fontWeight: 600, marginLeft: 5}}
+                          maxNameWidth={100}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </Box>
         {checkIsClient(curUserRole) ? (
           <div className={classNames.shopsWrapper}>

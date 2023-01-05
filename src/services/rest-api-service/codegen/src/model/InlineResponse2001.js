@@ -90,7 +90,7 @@ class InlineResponse2001 {
                 obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
             if (data.hasOwnProperty('paidAt')) {
-                obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'String');
+                obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'Date');
             }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
@@ -123,10 +123,10 @@ class InlineResponse2001 {
                 obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
             if (data.hasOwnProperty('destination')) {
                 obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
@@ -228,7 +228,7 @@ InlineResponse2001.prototype['totalPrice'] = undefined;
 InlineResponse2001.prototype['totalPriceChanged'] = undefined;
 
 /**
- * @member {String} paidAt
+ * @member {Date} paidAt
  */
 InlineResponse2001.prototype['paidAt'] = undefined;
 
@@ -292,12 +292,12 @@ InlineResponse2001.prototype['deadline'] = undefined;
 InlineResponse2001.prototype['createdById'] = undefined;
 
 /**
- * @member {String} createdAt
+ * @member {Date} createdAt
  */
 InlineResponse2001.prototype['createdAt'] = undefined;
 
 /**
- * @member {String} updatedAt
+ * @member {Date} updatedAt
  */
 InlineResponse2001.prototype['updatedAt'] = undefined;
 

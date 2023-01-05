@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20040Failed from './InlineResponse20040Failed';
 
 /**
  * The InlineResponse20040 model module.
@@ -48,8 +47,11 @@ class InlineResponse20040 {
         if (data) {
             obj = obj || new InlineResponse20040();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20040Failed]);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
         }
         return obj;
@@ -59,9 +61,16 @@ class InlineResponse20040 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20040Failed>} failed
+ * GUID заказа
+ * @member {String} _id
  */
-InlineResponse20040.prototype['failed'] = undefined;
+InlineResponse20040.prototype['_id'] = undefined;
+
+/**
+ * id заказа
+ * @member {Number} id
+ */
+InlineResponse20040.prototype['id'] = undefined;
 
 
 

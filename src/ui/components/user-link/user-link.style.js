@@ -38,6 +38,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  customStyles: {
+    fontWeight: '600',
+  },
+
   avatarWrapper: {
     marginRight: 10,
 

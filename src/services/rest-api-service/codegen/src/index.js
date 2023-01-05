@@ -245,8 +245,8 @@ import InlineResponse20038 from './model/InlineResponse20038';
 import InlineResponse20039 from './model/InlineResponse20039';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse20040 from './model/InlineResponse20040';
-import InlineResponse20040Failed from './model/InlineResponse20040Failed';
 import InlineResponse20041 from './model/InlineResponse20041';
+import InlineResponse20041Failed from './model/InlineResponse20041Failed';
 import InlineResponse20042 from './model/InlineResponse20042';
 import InlineResponse20043 from './model/InlineResponse20043';
 import InlineResponse20044 from './model/InlineResponse20044';
@@ -265,7 +265,8 @@ import InlineResponse20055 from './model/InlineResponse20055';
 import InlineResponse20056 from './model/InlineResponse20056';
 import InlineResponse20057 from './model/InlineResponse20057';
 import InlineResponse20058 from './model/InlineResponse20058';
-import InlineResponse20058Details from './model/InlineResponse20058Details';
+import InlineResponse20059 from './model/InlineResponse20059';
+import InlineResponse20059Details from './model/InlineResponse20059Details';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
@@ -1775,16 +1776,16 @@ export {
     InlineResponse20040,
 
     /**
-     * The InlineResponse20040Failed model constructor.
-     * @property {module:model/InlineResponse20040Failed}
-     */
-    InlineResponse20040Failed,
-
-    /**
      * The InlineResponse20041 model constructor.
      * @property {module:model/InlineResponse20041}
      */
     InlineResponse20041,
+
+    /**
+     * The InlineResponse20041Failed model constructor.
+     * @property {module:model/InlineResponse20041Failed}
+     */
+    InlineResponse20041Failed,
 
     /**
      * The InlineResponse20042 model constructor.
@@ -1895,10 +1896,16 @@ export {
     InlineResponse20058,
 
     /**
-     * The InlineResponse20058Details model constructor.
-     * @property {module:model/InlineResponse20058Details}
+     * The InlineResponse20059 model constructor.
+     * @property {module:model/InlineResponse20059}
      */
-    InlineResponse20058Details,
+    InlineResponse20059,
+
+    /**
+     * The InlineResponse20059Details model constructor.
+     * @property {module:model/InlineResponse20059Details}
+     */
+    InlineResponse20059Details,
 
     /**
      * The InlineResponse2006 model constructor.

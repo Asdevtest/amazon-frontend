@@ -15,6 +15,6 @@ Name | Type | Description | Notes
 **conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | 
 **_id** | **String** |  | [optional] 
 **storekeeperId** | **String** |  | [optional] 
-**updatedAt** | **String** |  | [optional] 
+**updatedAt** | **Date** |  | [optional] 
 
 
