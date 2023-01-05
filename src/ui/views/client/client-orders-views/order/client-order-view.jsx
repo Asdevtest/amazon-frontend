@@ -12,6 +12,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -53,11 +54,15 @@ class ClientOrderViewRaw extends Component {
       orderBoxes,
       drawerOpen,
       order,
+      hsCodeData,
       history,
       showConfirmModal,
       showWarningInfoModal,
       showOrderModal,
       showSetBarcodeModal,
+      showEditHSCodeModal,
+      onClickSaveHsCode,
+      onClickHsCode,
       onTriggerAddOrEditSupplierModal,
       onChangeSelectedSupplier,
       onTriggerDrawerOpen,
@@ -114,6 +119,7 @@ class ClientOrderViewRaw extends Component {
                   onClickReorder={onClickReorder}
                   onChangeSelectedSupplier={onChangeSelectedSupplier}
                   onTriggerAddOrEditSupplierModal={onTriggerAddOrEditSupplierModal}
+                  onClickHsCode={onClickHsCode}
                 />
               ) : null}
             </MainContent>
@@ -131,6 +137,14 @@ class ClientOrderViewRaw extends Component {
               onTriggerOpenModal={onTriggerOpenModal}
               onDoubleClickBarcode={onDoubleClickBarcode}
               onSubmit={onConfirmSubmitOrderProductModal}
+            />
+          </Modal>
+
+          <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+            <EditHSCodeModal
+              hsCodeData={hsCodeData}
+              onClickSaveHsCode={onClickSaveHsCode}
+              onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
             />
           </Modal>
 

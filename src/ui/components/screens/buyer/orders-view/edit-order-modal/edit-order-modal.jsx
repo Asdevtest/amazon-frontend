@@ -788,6 +788,7 @@ export const EditOrderModal = observer(
               userInfo={userInfo}
               volumeWeightCoefficient={volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+              onClickHsCode={onClickHsCode}
             />
           ) : (
             <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
