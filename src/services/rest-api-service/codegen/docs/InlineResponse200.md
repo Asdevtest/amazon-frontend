@@ -76,5 +76,6 @@ Name | Type | Description | Notes
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Каков должен быть сток за 4 месяца | [optional] 
 **stockUSA** | **Number** |  | [optional] 
+**subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 

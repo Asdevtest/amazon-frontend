@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**apiV1BatchesReportBatchIdGet**](BatchesApi.md#apiV1BatchesReportBatchIdGet) | **GET** /api/v1/batches/report/{batchId} | # Получить партии по гуиду продукта
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
 [**apiV1BatchesTitleGuidPatch**](BatchesApi.md#apiV1BatchesTitleGuidPatch) | **PATCH** /api/v1/batches/title/{guid} | # Изменение названия партии
+[**apiV1BatchesWithFiltersGet**](BatchesApi.md#apiV1BatchesWithFiltersGet) | **GET** /api/v1/batches/with_filters | # Получить партии.
 
 
 
@@ -674,5 +675,63 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BatchesWithFiltersGet
+
+> [InlineResponse2008] apiV1BatchesWithFiltersGet(status, opts)
+
+# Получить партии.
+
+## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BatchesApi();
+let status = "status_example"; // String | GUID склада который нужно получить.
+let opts = {
+  'filters': "filters_example", // String |                Примеры: /batches/with_filters?filters=or[0][asin][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /batches/with_filters?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+  'storekeeperId': null, // String | GUID склада который нужно получить.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BatchesWithFiltersGet(status, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**| GUID склада который нужно получить. | 
+ **filters** | **String**|                Примеры: /batches/with_filters?filters&#x3D;or[0][asin][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /batches/with_filters?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта               | [optional] 
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2008]**](InlineResponse2008.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 

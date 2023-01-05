@@ -57,6 +57,7 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
               blackText={undefined}
               withAvatar={undefined}
               maxNameWidth={undefined}
+              customStyles={undefined}
             />
 
             {snackBarMessageLast?.text ? (

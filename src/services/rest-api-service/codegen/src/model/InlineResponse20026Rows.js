@@ -267,6 +267,9 @@ class InlineResponse20026Rows {
             if (data.hasOwnProperty('stockUSA')) {
                 obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
             }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
+            }
             if (data.hasOwnProperty('checkedby')) {
                 obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
             }
@@ -701,6 +704,11 @@ InlineResponse20026Rows.prototype['fourMonthesStock'] = undefined;
  * @member {Number} stockUSA
  */
 InlineResponse20026Rows.prototype['stockUSA'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ */
+InlineResponse20026Rows.prototype['subUsers'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby

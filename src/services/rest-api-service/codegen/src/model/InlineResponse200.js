@@ -266,6 +266,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('stockUSA')) {
                 obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
             }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
+            }
         }
         return obj;
     }
@@ -695,6 +698,11 @@ InlineResponse200.prototype['fourMonthesStock'] = undefined;
  * @member {Number} stockUSA
  */
 InlineResponse200.prototype['stockUSA'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ */
+InlineResponse200.prototype['subUsers'] = undefined;
 
 
 
