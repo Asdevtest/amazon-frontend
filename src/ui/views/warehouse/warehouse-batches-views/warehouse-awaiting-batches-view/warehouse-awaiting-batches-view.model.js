@@ -308,6 +308,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onClickAddOrEditBatch(setting) {
     try {
+      console.log('this.selectedBatches', this.selectedBatches[0])
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
