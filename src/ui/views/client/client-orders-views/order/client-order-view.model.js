@@ -49,6 +49,9 @@ export class ClientOrderViewModel {
   destinations = []
   selectedProduct = undefined
 
+  hsCodeData = {}
+  showEditHSCodeModal = false
+
   drawerOpen = false
   order = undefined
 
@@ -197,6 +200,31 @@ export class ClientOrderViewModel {
     })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onClickSaveBarcode(tmpBarCode) {

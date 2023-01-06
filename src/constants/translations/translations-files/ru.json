@@ -1697,5 +1697,8 @@
   "The redemption deadline expires in": "Срок выкупа истекает через",
   "Download the batch file": "Скачать файл партии",
   "Product usage": "Использование продукта",
-  "Users with access to the product": "Пользователи имеющие доступ к товару"
+  "Users with access to the product": "Пользователи имеющие доступ к товару",
+  "Taken on board": "Взято в работу",
+  "With the products": "С продуктами",
+  "there are already pending orders": "уже существует отложенные заказы"
 }

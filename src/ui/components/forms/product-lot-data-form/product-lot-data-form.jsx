@@ -28,7 +28,7 @@ import {useClassNames} from './product-lot-data-form.style'
 export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) => {
   const {classes: classNames} = useClassNames()
 
-  const [batches, setBatches] = useState(batchesData)
+  const [batches, setBatches] = useState([...batchesData])
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -39,7 +39,7 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
   const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
   useEffect(() => {
-    if (isTransfer) {
+    if (isTransfer && nameSearchValue) {
       setBatches(
         batchesData?.filter(item =>
           item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),

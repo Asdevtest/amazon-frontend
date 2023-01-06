@@ -20,6 +20,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
+import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
 import {GetFilesForm} from '@components/forms/get-files-form'
 import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
 import {Main} from '@components/main'
@@ -118,6 +119,7 @@ export class ClientInventoryViewRaw extends Component {
       showSuccessModal,
       showSendOwnProductModal,
       showAddOrEditSupplierModal,
+      showCheckPendingOrderFormModal,
       showBindInventoryGoodsToStockModal,
       showAddSupplierToIdeaFromInventoryModal,
       showBarcodeOrHscodeModal,
@@ -128,6 +130,10 @@ export class ClientInventoryViewRaw extends Component {
       showProductLotDataModal,
       showGetFilesModal,
       destinationsFavourites,
+      existingOrders,
+      checkPendingData,
+      onClickPandingOrder,
+      onClickContinueBtn,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
       onClickShowProduct,
@@ -445,6 +451,19 @@ export class ClientInventoryViewRaw extends Component {
             isTransfer={isTransfer}
             product={curProduct}
             batchesData={batchesData}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showCheckPendingOrderFormModal}
+          setOpenModal={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
+        >
+          <CheckPendingOrderForm
+            existingOrders={existingOrders}
+            checkPendingData={checkPendingData}
+            onClickPandingOrder={onClickPandingOrder}
+            onClickContinueBtn={onClickContinueBtn}
+            onClickCancelBtn={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
           />
         </Modal>
 

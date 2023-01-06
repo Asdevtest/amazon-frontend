@@ -15,6 +15,11 @@ class OrderModelStatic {
     const response = await restApiService.orderApi.apiV1OrdersReadyToBuyoutGuidPatch(id)
     return response
   }
+
+  checkPendingOrderByProductGuid = async id => {
+    const response = await restApiService.orderApi.apiV1OrdersCheckPendingOrderByProductGuidGet(id)
+    return response
+  }
 }
 
 export const OrderModel = new OrderModelStatic()

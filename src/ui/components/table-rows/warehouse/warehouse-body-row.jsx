@@ -26,7 +26,15 @@ import {t} from '@utils/translations'
 
 import {styles} from './warehouse-body-row.style'
 
-const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, areSubBoxes, ...restProps}) => {
+const WarehouseBodyRowRaw = ({
+  item: box,
+  itemIndex: boxIndex,
+  handlers,
+  rowsDatas,
+  areSubBoxes,
+  onClickHsCode,
+  ...restProps
+}) => {
   const classNames = restProps.classes
   const ordersQty = box.items.length
   const [isMaximizedMasterBox, setIsMaximizedMasterBox] = useState(false)
@@ -229,6 +237,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             restProps.onSubmitChangeBoxFields(data)
             setShowBoxViewModal(!showBoxViewModal)
           }}
+          onClickHsCode={onClickHsCode}
         />
       </Modal>
 

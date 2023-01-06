@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -12,6 +13,7 @@ import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
+import {OrderModel} from '@models/order-model'
 import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
@@ -102,6 +104,9 @@ export class ClientInventoryViewModel {
 
   hsCodeData = {}
 
+  existingOrders = {}
+  checkPendingData = {}
+
   curProduct = undefined
 
   nameSearchValue = ''
@@ -114,6 +119,7 @@ export class ClientInventoryViewModel {
   showOrderModal = false
   showSuccessModal = false
 
+  showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showAddOrEditSupplierModal = false
@@ -266,6 +272,11 @@ export class ClientInventoryViewModel {
       '_blank',
     )
 
+    win.focus()
+  }
+
+  onClickPandingOrder(id) {
+    const win = window.open(`${window.location.origin}/client/pending-orders/order?${id}`, '_blank')
     win.focus()
   }
 
@@ -481,23 +492,51 @@ export class ClientInventoryViewModel {
 
   async onClickOrderBtn() {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
+      const pendingOrders = []
+      const correctIds = []
 
-      const destinations = await ClientModel.getDestinations()
+      for await (const id of this.selectedRowIds) {
+        const res = await OrderModel.checkPendingOrderByProductGuid(id)
 
-      const result = await UserModel.getPlatformSettings()
+        if (res.length > 0) {
+          correctIds.push(id)
+          pendingOrders.push(res)
+        }
+      }
 
-      runInAction(() => {
-        this.storekeepers = storekeepers
+      this.checkPendingData = pendingOrders
 
-        this.destinations = destinations
+      console.log('pendingOrders', pendingOrders)
+      console.log('correctIds', correctIds)
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
+      if (this.checkPendingData.length > 0) {
+        this.existingOrders = this.currentData
+          .filter(product => correctIds.includes(product.id))
+          .map(prod => prod.originalData)
 
-      this.onTriggerOpenModal('showOrderModal')
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      } else {
+        this.onClickContinueBtn()
+      }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async onClickContinueBtn() {
+    const storekeepers = await StorekeeperModel.getStorekeepers()
+    const destinations = await ClientModel.getDestinations()
+    const result = await UserModel.getPlatformSettings()
+    runInAction(() => {
+      this.storekeepers = storekeepers
+      this.destinations = destinations
+      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+    })
+
+    this.onTriggerOpenModal('showOrderModal')
+
+    if (this.showCheckPendingOrderFormModal) {
+      this.onTriggerOpenModal('showCheckPendingOrderFormModal')
     }
   }
 

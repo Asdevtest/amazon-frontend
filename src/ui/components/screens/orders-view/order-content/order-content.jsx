@@ -52,6 +52,7 @@ export const OrderContent = ({
   selectedSupplier,
   onChangeSelectedSupplier,
   onTriggerAddOrEditSupplierModal,
+  onClickHsCode,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -309,6 +310,7 @@ export const OrderContent = ({
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 userInfo={userInfo}
                 onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+                onClickHsCode={onClickHsCode}
               />
             ) : (
               <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>

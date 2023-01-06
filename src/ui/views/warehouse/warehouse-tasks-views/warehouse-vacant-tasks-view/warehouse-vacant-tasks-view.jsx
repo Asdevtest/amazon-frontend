@@ -1,4 +1,4 @@
-import {Button} from '@mui/material'
+import {Alert, Button} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -40,6 +40,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
   render() {
     const {
       selectedTasks,
+      showAcceptMessage,
+      acceptMessage,
       nameSearchValue,
       volumeWeightCoefficient,
       curOpenedTask,
@@ -163,6 +165,14 @@ export class WarehouseVacantTasksViewRaw extends Component {
           onClickTopBtn={() => goToMyTasks()}
           onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
         />
+
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }

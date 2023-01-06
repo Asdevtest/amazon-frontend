@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -13,6 +14,7 @@ import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehou
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -28,6 +30,9 @@ export class WarehouseVacantViewModel {
   selectedTasks = []
 
   nameSearchValue = ''
+
+  showAcceptMessage = undefined
+  acceptMessage = undefined
 
   volumeWeightCoefficient = undefined
 
@@ -212,7 +217,16 @@ export class WarehouseVacantViewModel {
         this.selectedTasks = []
       })
 
-      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+      runInAction(() => {
+        this.acceptMessage = t(TranslationKey['Taken on board'])
+        this.showAcceptMessage = true
+        if (this.showAcceptMessage) {
+          setTimeout(() => {
+            this.acceptMessage = ''
+            this.showAcceptMessage = false
+          }, 3000)
+        }
+      })
     } catch (error) {
       console.log(error)
       runInAction(() => {

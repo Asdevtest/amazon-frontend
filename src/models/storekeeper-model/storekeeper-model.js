@@ -11,6 +11,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  getLightTasksWithPag = async data => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(data)
+    return response
+  }
+
   pickupTask = async id => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupGuidPost(id)
     return response
