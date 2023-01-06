@@ -1697,7 +1697,7 @@ export enum TranslationKey {
   'Download the batch file' = 'Download the batch file',
   'Product usage' = 'Product usage',
   'Users with access to the product' = 'Users with access to the product',
-  // '' = '',
+  'Taken on board' = 'Taken on board',
   // '' = '',
   // '' = '',
   // '' = '',
