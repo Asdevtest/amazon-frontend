@@ -420,12 +420,12 @@ export const FieldsAndSuppliers = observer(
                 </div>
                 <div className={classNames.subUsersBodyWrapper}>
                   <div className={classNames.subUsersBody}>
-                    {product.subUsers.map((subUser, index) => (
+                    {product?.subUsers?.map((subUser, index) => (
                       <div key={index} className={classNames.subUserBodyWrapper}>
                         <UserLinkCell
                           withAvatar
-                          name={subUser.name}
-                          userId={subUser._id}
+                          name={subUser?.name}
+                          userId={subUser?._id}
                           customStyles={{fontWeight: 600, marginLeft: 5}}
                           maxNameWidth={100}
                         />
