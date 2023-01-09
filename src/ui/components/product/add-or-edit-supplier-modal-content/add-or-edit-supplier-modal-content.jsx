@@ -755,8 +755,16 @@ export const AddOrEditSupplierModalContent = observer(
                 </div>
 
                 <div>
-                  <div className={classNames.multiplicityWrapper} onClick={onChangeField('multiplicity')}>
-                    <Checkbox className={classNames.checkbox} checked={tmpSupplier.multiplicity} color="primary" />
+                  <div
+                    className={cx(classNames.multiplicityWrapper, {[classNames.disabledMultiplicityWrapper]: onlyRead})}
+                    onClick={!onlyRead && onChangeField('multiplicity')}
+                  >
+                    <Checkbox
+                      disabled={onlyRead}
+                      className={classNames.checkbox}
+                      checked={tmpSupplier.multiplicity}
+                      color="primary"
+                    />
                     <Typography className={classNames.normalLabel}>
                       {t(TranslationKey['Use multiples of items when creating boxes'])}
                     </Typography>

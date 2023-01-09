@@ -50,7 +50,7 @@ class ClientProductExchangeViewRaw extends Component {
                     onClick={onClickForksExchange}
                   >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Surebets exchange'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Deal exchange'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>

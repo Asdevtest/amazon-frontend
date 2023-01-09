@@ -151,7 +151,7 @@ export const navbarConfig = () => ({
       title: t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange/forks-exchange',
       subtitles: [
-        {subtitle: t(TranslationKey['Surebets exchange']), subRoute: '/client/product-exchange/forks-exchange'},
+        {subtitle: t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange'},
         {subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label'},
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -165,12 +165,12 @@ export const navbarConfig = () => ({
       route: '/client/trading-shops/sell-shops',
       subtitles: [
         {
-          subtitle: t(TranslationKey['Buy Shop']),
+          subtitle: t(TranslationKey['Buy store']),
           subRoute: '/client/trading-shops/buy-shops',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
         },
         {
-          subtitle: t(TranslationKey['Sell the Shop']),
+          subtitle: t(TranslationKey['Sell the store']),
           subRoute: '/client/trading-shops/sell-shops',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
         },
@@ -953,7 +953,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
         },
         {
-          subtitle: t(TranslationKey['Sell the Shop']),
+          subtitle: t(TranslationKey['Sell the store']),
           subRoute: '/client/trading-shops/sell-shops',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
         },

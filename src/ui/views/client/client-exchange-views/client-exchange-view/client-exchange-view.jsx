@@ -89,7 +89,7 @@ export class ClientExchangeViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Surebets exchange'])}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Deal exchange'])}>
             <MainContent>
               <MemoDataGrid
                 pagination

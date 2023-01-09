@@ -59,7 +59,7 @@ export const ChatMessagesList: FC<Props> = observer(
     }, [toScrollMesId])
 
     useEffect(() => {
-      const unReadMessages = messages?.filter(el => el.userId !== userId && !el.isRead)
+      const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
 
       if (unReadMessages?.length) {
         ChatModel.readMessages(unReadMessages.map(el => el._id))
@@ -117,14 +117,14 @@ export const ChatMessagesList: FC<Props> = observer(
         <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
           {messages
             ? messages.map((messageItem: ChatMessageContract, index: number) => {
-                const isIncomming = userId !== messageItem.userId
+                const isIncomming = userId !== messageItem.user?._id
 
-                const isNotPersonal = !messageItem.userId
+                const isNotPersonal = !messageItem.user?._id
 
                 const isLastMessage = index === messages.length - 1
 
                 const isNextMessageSameAuthor =
-                  !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
+                  !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
                 const unReadMessage = !messageItem.isRead
 
@@ -156,13 +156,13 @@ export const ChatMessagesList: FC<Props> = observer(
                         <Link
                           target="_blank"
                           href={
-                            userId === messageItem.userId
+                            userId === messageItem.user?._id
                               ? `${window.location.origin}/profile`
-                              : `${window.location.origin}/another-user?${messageItem.userId}`
+                              : `${window.location.origin}/another-user?${messageItem.user?._id}`
                           }
                         >
                           <Avatar
-                            src={getUserAvatarSrc(messageItem.userId)}
+                            src={getUserAvatarSrc(messageItem.user?._id)}
                             className={cx(classNames.messageAvatarWrapper, {
                               [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
                             })}

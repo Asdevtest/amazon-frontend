@@ -541,60 +541,62 @@ export const BoxViewForm = observer(
                 />
               </div>
 
-              <div className={classNames.labelsInfoWrapper}>
-                <div>
-                  <Field
-                    disabled={!isEdit}
-                    labelClasses={classNames.label}
-                    containerClasses={classNames.containerField}
-                    inputClasses={classNames.inputField}
-                    inputProps={{maxLength: 250}}
-                    label={t(TranslationKey['Track number'])}
-                    value={formFields.trackNumberText}
-                    onChange={onChangeField('trackNumberText')}
-                  />
-
-                  <Button
-                    disabled={!isEdit}
-                    className={classNames.trackNumberPhotoBtn}
-                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                  >
-                    {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
-                  </Button>
-                </div>
-
-                <div className={classNames.trackNumberPhotoWrapper}>
-                  {formFields.trackNumberFile || formFields.tmpTrackNumberFile[0] ? (
-                    <img
-                      className={classNames.trackNumberPhoto}
-                      src={
-                        formFields.tmpTrackNumberFile[0]
-                          ? typeof formFields.tmpTrackNumberFile[0] === 'string'
-                            ? formFields.tmpTrackNumberFile[0]
-                            : formFields.tmpTrackNumberFile[0]?.data_url
-                          : formFields.trackNumberFile
-                      }
-                      // variant="square"
-                      onClick={() => {
-                        setShowPhotosModal(!showPhotosModal)
-                        setBigImagesOptions({
-                          ...bigImagesOptions,
-
-                          images: [
-                            formFields.tmpTrackNumberFile[0]
-                              ? typeof formFields.tmpTrackNumberFile[0] === 'string'
-                                ? formFields.tmpTrackNumberFile[0]
-                                : formFields.tmpTrackNumberFile[0]?.data_url
-                              : formFields.trackNumberFile,
-                          ],
-                        })
-                      }}
+              {!isClient ? (
+                <div className={classNames.labelsInfoWrapper}>
+                  <div>
+                    <Field
+                      disabled={!isEdit}
+                      labelClasses={classNames.label}
+                      containerClasses={classNames.containerField}
+                      inputClasses={classNames.inputField}
+                      inputProps={{maxLength: 250}}
+                      label={t(TranslationKey['Track number'])}
+                      value={formFields.trackNumberText}
+                      onChange={onChangeField('trackNumberText')}
                     />
-                  ) : (
-                    <Typography>{'no photo track number...'}</Typography>
-                  )}
+
+                    <Button
+                      disabled={!isEdit}
+                      className={classNames.trackNumberPhotoBtn}
+                      onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
+                    >
+                      {formFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                    </Button>
+                  </div>
+
+                  <div className={classNames.trackNumberPhotoWrapper}>
+                    {formFields.trackNumberFile || formFields.tmpTrackNumberFile[0] ? (
+                      <img
+                        className={classNames.trackNumberPhoto}
+                        src={
+                          formFields.tmpTrackNumberFile[0]
+                            ? typeof formFields.tmpTrackNumberFile[0] === 'string'
+                              ? formFields.tmpTrackNumberFile[0]
+                              : formFields.tmpTrackNumberFile[0]?.data_url
+                            : formFields.trackNumberFile
+                        }
+                        // variant="square"
+                        onClick={() => {
+                          setShowPhotosModal(!showPhotosModal)
+                          setBigImagesOptions({
+                            ...bigImagesOptions,
+
+                            images: [
+                              formFields.tmpTrackNumberFile[0]
+                                ? typeof formFields.tmpTrackNumberFile[0] === 'string'
+                                  ? formFields.tmpTrackNumberFile[0]
+                                  : formFields.tmpTrackNumberFile[0]?.data_url
+                                : formFields.trackNumberFile,
+                            ],
+                          })
+                        }}
+                      />
+                    ) : (
+                      <Typography>{'no photo track number...'}</Typography>
+                    )}
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>

@@ -26,6 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 5,
     color: theme.palette.text.general,
     whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
     overflow: 'hidden',
     minHeight: 50,
     maxHeight: 150,

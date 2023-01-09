@@ -43,17 +43,15 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
         <div
           className={classNames.mainWrapper}
           onClick={() => {
-            onClickMessage(snackBarMessageLast?.userId || '')
+            onClickMessage(snackBarMessageLast?.user?._id || '')
             closeSnackbar(id)
           }}
         >
-          <Avatar src={getUserAvatarSrc(snackBarMessageLast?.userId)} className={classNames.avatarWrapper} />
+          <Avatar src={getUserAvatarSrc(snackBarMessageLast?.user?._id)} className={classNames.avatarWrapper} />
           <div className={classNames.centerWrapper}>
             <UserLink
-              // name={snackBarMessageLast?.user?.name}
-              // userId={snackBarMessageLast?.user?._id}
-              name={'Аноним'}
-              userId={snackBarMessageLast?.userId}
+              name={snackBarMessageLast?.user?.name}
+              userId={snackBarMessageLast?.user?._id}
               blackText={undefined}
               withAvatar={undefined}
               maxNameWidth={undefined}
@@ -62,8 +60,8 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
 
             {snackBarMessageLast?.text ? (
               <Typography className={classNames.messageText}>
-                {snackBarMessageLast.text?.length > 50
-                  ? snackBarMessageLast.text.slice(0, 47) + '...'
+                {snackBarMessageLast.text?.length > 40
+                  ? snackBarMessageLast.text.slice(0, 37) + '...'
                   : snackBarMessageLast.text}
               </Typography>
             ) : null}

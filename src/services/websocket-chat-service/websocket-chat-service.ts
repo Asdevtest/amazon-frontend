@@ -66,6 +66,11 @@ export class WebsocketChatService {
     })
   }
 
+  public disconnect(): void {
+    this.socket.disconnect()
+    console.log('IN_DISCONNECT')
+  }
+
   public async getChats(crmItemId?: string | null, crmItemType?: string | null): Promise<Chat[]> {
     // if (!crmItemId || !crmItemType) {
     //   throw new Error('crmItemId and crmItemType should be both in parameters')

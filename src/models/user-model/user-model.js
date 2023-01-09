@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
+import {ChatModel} from '@models/chat-model'
+
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
@@ -40,6 +42,8 @@ class UserModelStatic {
     this.userInfo = undefined
     this.userId = undefined
     restApiService.removeAccessToken()
+
+    ChatModel.disconnect()
   }
 
   async signIn(email, password) {

@@ -19,7 +19,7 @@ import {
   OrderStatusByKey,
   OrderStatusTranslate,
 } from '@constants/order-status'
-import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
+import {BUYER_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -127,7 +127,7 @@ export const EditOrderModal = observer(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
 
-    const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+    const [headCells, setHeadCells] = useState(BUYER_WAREHOUSE_HEAD_CELLS)
 
     const renderHeadRow = () => (
       <TableRow>
@@ -140,7 +140,7 @@ export const EditOrderModal = observer(
     )
 
     useEffect(() => {
-      setHeadCells(CLIENT_WAREHOUSE_HEAD_CELLS)
+      setHeadCells(BUYER_WAREHOUSE_HEAD_CELLS)
     }, [SettingsModel.languageTag])
 
     const onRemoveForCreationBox = boxIndex => {

@@ -51,7 +51,7 @@ export class CreateOrEditTradingShopView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Sell the Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Sell the store'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {SettingsModel.languageTag && (
                 <CreateOrEditTradingShopContent

@@ -794,7 +794,7 @@ export const privateRoutesConfigs = [
     component: ClientBuyShopsView,
     exact: true,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Buy Shop'],
+    crumbNameKey: TranslationKey['Buy store'],
   },
 
   {
@@ -802,7 +802,7 @@ export const privateRoutesConfigs = [
     component: ClientSellShopsView,
     exact: true,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Sell the Shop'],
+    crumbNameKey: TranslationKey['Sell the store'],
   },
 
   {
@@ -940,7 +940,7 @@ export const privateRoutesConfigs = [
     component: ClientExchangeView,
     exact: true,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Surebets exchange'],
+    crumbNameKey: TranslationKey['Deal exchange'],
   },
   {
     routePath: '/client/product-exchange/private-label',
