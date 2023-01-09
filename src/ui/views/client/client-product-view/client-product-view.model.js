@@ -719,6 +719,8 @@ export class ClientProductViewModel {
           }
           updateProductAutoCalculatedFields.call(this)
         })
+
+        this.getProductById()
       } else {
         runInAction(() => {
           this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
