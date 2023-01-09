@@ -200,13 +200,13 @@ const WarehouseBodyRowRaw = ({
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            {orderIndex === 0 && (
+            {/* {orderIndex === 0 && (
               <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
                 <Tooltip title={box.trackNumberText ? box.trackNumberText : null}>
                   <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
                 </Tooltip>
               </TableCell>
-            )}
+            )} */}
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>

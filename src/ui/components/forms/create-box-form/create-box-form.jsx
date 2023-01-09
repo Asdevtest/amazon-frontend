@@ -126,7 +126,7 @@ const BlockOfNewBox = ({
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&
               orderBox.items[0].amount % currentSupplier.boxProperties?.amountInBox !== 0 &&
-              ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier.boxProperties?.amountInBox} !`
+              ` ${t(TranslationKey['Value is not a multiple of'])} ${currentSupplier.boxProperties?.amountInBox}`
             }
             label={t(TranslationKey['Products in a box'])}
             value={orderBox.items[0].amount}

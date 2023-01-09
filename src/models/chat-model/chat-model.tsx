@@ -105,6 +105,14 @@ class ChatModelStatic {
     }
   }
 
+  public disconnect() {
+    if (!this.websocketChatService) {
+      return
+    }
+
+    this.websocketChatService.disconnect()
+  }
+
   public async getSimpleChats(): Promise<void> {
     if (!this.websocketChatService) {
       return
@@ -222,7 +230,7 @@ class ChatModelStatic {
     this.isConnected = false
   }
 
-  private onNewOrderDeadlineNotification(notification: any) {
+  private onNewOrderDeadlineNotification(notification: object[]) {
     // console.log('notification', notification)
 
     SettingsModel.setSnackNotifications({key: snackNoticeKey.ORDER_DEADLINE, notice: notification})
@@ -252,7 +260,7 @@ class ChatModelStatic {
     if (findSimpleChatIndexById !== -1) {
       // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
-      if (this.noticeOfSimpleChats && message.userId !== this.userId) {
+      if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
         noticeSound.play()
 
         SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})

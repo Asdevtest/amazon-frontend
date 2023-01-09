@@ -45,14 +45,14 @@ class ClientTradingShopsViewRaw extends Component {
                 <div className={classNames.btnsWrapper}>
                   <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickBuyShops}>
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Buy Shop'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Buy store'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
 
                   <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickSellShops}>
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Sell the Shop'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>

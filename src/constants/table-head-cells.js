@@ -59,7 +59,7 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
   {id: 'img', label: t(TranslationKey.Price), className: 'priceCell'},
   {id: 'img', label: t(TranslationKey['Final weight']), className: 'finalWeightCell'},
   {id: 'img', label: t(TranslationKey['Gross weight']), className: 'grossWeightCell'},
-  {id: 'img', label: 'Track ID', className: 'trackIDCell'},
+  // {id: 'img', label: 'Track ID', className: 'trackIDCell'},
 ]
 
 export const BATCHES_HEAD_CELLS = [

@@ -41,7 +41,7 @@ class ClientBuyShopsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Buy Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Buy store'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <ClientBuyShopsContent />
             </MainContent>

@@ -168,12 +168,4 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     width: 100,
     renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
   },
-  {
-    field: 'trackingNumberChina',
-    headerName: t(TranslationKey['Track number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-
-    width: 100,
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
-  },
 ]

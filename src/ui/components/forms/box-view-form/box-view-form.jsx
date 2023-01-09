@@ -541,7 +541,7 @@ export const BoxViewForm = observer(
                 />
               </div>
 
-              <div className={classNames.labelsInfoWrapper}>
+              {/* <div className={classNames.labelsInfoWrapper}>
                 <div>
                   <Field
                     disabled={!isEdit}
@@ -594,7 +594,7 @@ export const BoxViewForm = observer(
                     <Typography>{'no photo track number...'}</Typography>
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
