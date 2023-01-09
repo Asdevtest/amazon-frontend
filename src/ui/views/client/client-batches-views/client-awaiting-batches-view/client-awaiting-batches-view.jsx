@@ -49,7 +49,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       showConfirmModal,
       onTriggerOpenModal,
 
-      getCurrentData,
+      currentData,
+      rowCount,
       sortModel,
       filterModel,
       requestStatus,
@@ -124,12 +125,15 @@ class ClientAwaitingBatchesViewRaw extends Component {
                     footerCell: className.footerCell,
                     toolbarContainer: className.toolbarContainer,
                   }}
+                  sortingMode="server"
+                  paginationMode="server"
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
+                  rowCount={rowCount}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,

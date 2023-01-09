@@ -1,6 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -25,6 +25,7 @@ export class ClientAwaitingBatchesViewModel {
   error = undefined
 
   nameSearchValue = ''
+  batchesBaseData = []
   batches = []
   selectedBatches = []
   curBatch = {}
@@ -63,6 +64,15 @@ export class ClientAwaitingBatchesViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.batches,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
     )
   }
 
@@ -162,6 +172,46 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
+  async getBatches() {
+    try {
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};or[5][humanFriendlyId][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag(BoxStatus.IN_STOCK, {
+        filters: this.nameSearchValue ? filter : null,
+
+        storekeeperId: null,
+      })
+
+      const res = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.batchesBaseData = result.rows
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
+
+        this.rowCount = result.count
+
+        this.batches = clientBatchesDataConverter(
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          this.volumeWeightCoefficient,
+        )
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+
+      runInAction(() => {
+        this.batches = []
+
+        this.batchesBaseData = []
+      })
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -221,30 +271,6 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
-  }
-
-  async getBatches() {
-    try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
-
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.batches = clientBatchesDataConverter(
-          batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-          this.volumeWeightCoefficient,
-        )
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-
-        this.batches = []
-      })
-    }
   }
 
   async setCurrentOpenedBatch(row) {

@@ -145,7 +145,7 @@ const WithSearchSelectRaw = observer(
 
                   {firstItems}
 
-                  {dataToRenderSortedByFavourites.map((el, index) =>
+                  {dataToRenderSortedByFavourites?.map((el, index) =>
                     CustomBtn ? (
                       <CustomBtn
                         key={index}
@@ -166,7 +166,7 @@ const WithSearchSelectRaw = observer(
                         }}
                       >
                         <div className={classNames.fieldNamesWrapper}>
-                          {searchFields.map((fieldName, index) => (
+                          {searchFields?.map((fieldName, index) => (
                             <Tooltip key={index} title={el[fieldName]}>
                               <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
                             </Tooltip>

@@ -53,18 +53,18 @@ export const DeliveryParameters = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
-  const curDestination = destinations.find(el => el._id === formFields.destinationId)
+  const curDestination = destinations?.find(el => el?._id === formFields.destinationId)
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
   const tariffName = storekeepers
-    .find(el => el._id === formFields.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === formFields.logicsTariffId)?.name
+    ?.find(el => el?._id === formFields?.storekeeperId)
+    ?.tariffLogistics?.find(el => el?._id === formFields?.logicsTariffId)?.name
 
   const tariffRate = storekeepers
-    .find(el => el._id === formFields.storekeeperId)
+    ?.find(el => el._id === formFields.storekeeperId)
     ?.tariffLogistics.find(el => el._id === formFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   return (
@@ -96,9 +96,9 @@ export const DeliveryParameters = ({
             disabled={!isCanChange}
             width={220}
             selectedItemName={
-              destinations.find(el => el._id === formFields.destinationId)?.name || t(TranslationKey['Not chosen'])
+              destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations.filter(el => el.storekeeper?._id !== formFields?.storekeeperId)}
+            data={destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)}
             searchFields={['name']}
             favourites={destinationsFavourites}
             onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -122,13 +122,13 @@ export const DeliveryParameters = ({
             className={cx({[classNames.storekeeperBtn]: !formFields.storekeeperId})}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {formFields.storekeeperId
+            {formFields?.storekeeperId
               ? `${
-                  storekeepers.find(el => el._id === formFields.storekeeperId)?.name ||
+                  storekeepers?.find(el => el._id === formFields?.storekeeperId)?.name ||
                   `${t(TranslationKey['Not available'])}`
                 } /  
                         ${
-                          formFields.storekeeperId
+                          formFields?.storekeeperId
                             ? `${tariffName ? tariffName + ' / ' : ''}${
                                 regionOfDeliveryName ? regionOfDeliveryName : ''
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
@@ -247,7 +247,7 @@ export const DeliveryParameters = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers.filter(el => el._id === formFields?.storekeeper._id)}
+          storekeepers={storekeepers?.filter(el => el?._id === formFields?.storekeeper?._id)}
           curStorekeeperId={formFields.storekeeperId}
           curTariffId={formFields.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
