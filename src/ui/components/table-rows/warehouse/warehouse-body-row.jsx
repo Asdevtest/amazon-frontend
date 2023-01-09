@@ -10,6 +10,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value'
@@ -18,7 +19,7 @@ import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcPriceForBox} from '@utils/calculation'
-import {checkIsImageLink} from '@utils/checks'
+import {checkIsClient, checkIsImageLink} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -200,13 +201,13 @@ const WarehouseBodyRowRaw = ({
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            {/* {orderIndex === 0 && (
+            {orderIndex === 0 && !checkIsClient(UserRoleCodeMap[restProps.userInfo?.role]) && (
               <TableCell rowSpan={ordersQty} className={[classNames.textEllipsis, classNames.cellValueNumber]}>
                 <Tooltip title={box.trackNumberText ? box.trackNumberText : null}>
                   <div className={classNames.cellValueNumber}>{box.trackNumberText || t(TranslationKey.Missing)}</div>
                 </Tooltip>
               </TableCell>
-            )} */}
+            )}
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>

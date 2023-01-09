@@ -118,6 +118,13 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  disabledMultiplicityWrapper: {
+    cursor: 'auto',
+    '&:hover': {
+      transform: 'none',
+    },
+  },
+
   checkbox: {
     padding: 0,
     marginRight: 10,

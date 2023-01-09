@@ -62,6 +62,20 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
   // {id: 'img', label: 'Track ID', className: 'trackIDCell'},
 ]
 
+export const BUYER_WAREHOUSE_HEAD_CELLS = () => [
+  {id: 'img', label: '#', className: 'sharpCell'},
+  {id: 'img', label: t(TranslationKey.Status), className: 'statusCell'},
+  {id: 'img', label: t(TranslationKey.Updated), className: 'updatedCell'},
+  {id: 'img', label: t(TranslationKey.Product), className: 'productCell'},
+  {id: 'img', label: t(TranslationKey.Photos), className: 'photosCell'},
+  {id: 'img', label: t(TranslationKey.Quantity), className: 'quantityCell'},
+  {id: 'img', label: t(TranslationKey.Warehouse), className: 'warehouseCell'},
+  {id: 'img', label: t(TranslationKey.Boxes), className: 'boxesCell'},
+  {id: 'img', label: t(TranslationKey.Price), className: 'priceCell'},
+  {id: 'img', label: t(TranslationKey['Final weight']), className: 'finalWeightCell'},
+  {id: 'img', label: t(TranslationKey['Gross weight']), className: 'grossWeightCell'},
+  {id: 'img', label: 'Track ID', className: 'trackIDCell'},
+]
 export const BATCHES_HEAD_CELLS = [
   {title: 'ClientID'},
   {title: 'Dispatch Date'},

@@ -81,6 +81,7 @@ class ClientOrderViewRaw extends Component {
     const goBack = () => {
       history.goBack()
     }
+
     return (
       <React.Fragment>
         <Navbar
@@ -182,7 +183,7 @@ class ClientOrderViewRaw extends Component {
           <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
             <AddOrEditSupplierModalContent
               onlyRead
-              product={order}
+              product={order?.product}
               storekeepersData={storekeepers}
               sourceYuanToDollarRate={yuanToDollarRate}
               volumeWeightCoefficient={volumeWeightCoefficient}

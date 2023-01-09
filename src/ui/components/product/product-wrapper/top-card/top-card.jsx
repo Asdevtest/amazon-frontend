@@ -239,7 +239,9 @@ export const TopCard = observer(
                         checkIsBuyer(curUserRole)) ||
                       selectedSupplier.name !== 'access denied' ? (
                         <>
-                          {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
+                          {checkIsAdmin(curUserRole) ||
+                          checkIsSupervisor(curUserRole) ||
+                          (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
                                 tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
@@ -253,18 +255,20 @@ export const TopCard = observer(
                               </Typography>
                             </div>
                           ) : null}
-                          <div className={classNames.supplierButtonWrapper}>
-                            <Button
-                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                              className={classNames.iconBtn}
-                              onClick={() => onClickSupplierBtns('edit')}
-                            >
-                              <EditOutlinedIcon />
-                            </Button>
-                            <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Edit a supplier'])}
-                            </Typography>
-                          </div>
+                          {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                                className={classNames.iconBtn}
+                                onClick={() => onClickSupplierBtns('edit')}
+                              >
+                                <EditOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Edit a supplier'])}
+                              </Typography>
+                            </div>
+                          ) : null}
 
                           {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                             <div className={classNames.supplierButtonWrapper}>

@@ -322,7 +322,7 @@ export class BuyerProductViewModel {
           !this.product.isCreatedByClient) ||
         (this.curUpdateProductData.currentSupplierId &&
           this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
-          this.product.isCreatedByClient) ||
+          !this.product.isCreatedByClient) ||
         (this.curUpdateProductData.status ===
           ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
           this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
