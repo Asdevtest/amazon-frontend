@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20031Finances from './InlineResponse20031Finances';
+import InlineResponse20035Checking from './InlineResponse20035Checking';
+import InlineResponse20035Products from './InlineResponse20035Products';
 
 /**
  * The InlineResponse20035 model module.
@@ -47,8 +50,14 @@ class InlineResponse20035 {
         if (data) {
             obj = obj || new InlineResponse20035();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20035Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20035Checking.constructFromObject(data['checking']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20031Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -58,10 +67,19 @@ class InlineResponse20035 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {module:model/InlineResponse20035Products} products
  */
-InlineResponse20035.prototype['profileId'] = undefined;
+InlineResponse20035.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20035Checking} checking
+ */
+InlineResponse20035.prototype['checking'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20031Finances} finances
+ */
+InlineResponse20035.prototype['finances'] = undefined;
 
 
 

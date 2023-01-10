@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID партии. | [optional] 
-**humanFriendlyId** | **Number** | Человекочитаемый id партии. | [optional] 
-**title** | **String** | Название партии | [optional] 
-**boxes** | [**[ApiV1BatchesByProductGuidBoxes]**](ApiV1BatchesByProductGuidBoxes.md) |  | [optional] 
-**amountInBatch** | **Number** | Общее кол-во продуктов | [optional] 
+**guid** | **String** | The unique identifier of the box. | [optional] 
+**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
+**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
+**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
+**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
 
 

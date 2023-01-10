@@ -116,6 +116,8 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
@@ -123,7 +125,7 @@ export class ClientAwaitingBatchesViewModel {
       this.rowsPerPage = e
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -143,7 +145,7 @@ export class ClientAwaitingBatchesViewModel {
       this.sortModel = sortModel
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
@@ -162,7 +164,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.getDataGridState()
       // await this.getBatches()
-      await this.getPagMy()
+      await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -217,7 +219,7 @@ export class ClientAwaitingBatchesViewModel {
       this.curPage = e
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   // async getBatches() {
@@ -244,7 +246,7 @@ export class ClientAwaitingBatchesViewModel {
   //   }
   // }
 
-  async getPagMy() {
+  async getBatchesPagMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
@@ -253,10 +255,15 @@ export class ClientAwaitingBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
         options: {
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
           filters: this.nameSearchValue ? filter : null,
           storekeeperId: null,
         },
       })
+
+      console.log('result', result)
 
       const res = await UserModel.getPlatformSettings()
 
@@ -266,7 +273,7 @@ export class ClientAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = clientBatchesDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
           this.volumeWeightCoefficient,
         )
       })
@@ -282,7 +289,7 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   async setCurrentOpenedBatch(row) {

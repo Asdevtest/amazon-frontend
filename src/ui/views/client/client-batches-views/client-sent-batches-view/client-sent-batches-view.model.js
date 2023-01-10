@@ -116,7 +116,7 @@ export class ClientSentBatchesViewModel {
       this.filterModel = model
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
@@ -124,7 +124,7 @@ export class ClientSentBatchesViewModel {
       this.rowsPerPage = e
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -144,7 +144,7 @@ export class ClientSentBatchesViewModel {
       this.sortModel = sortModel
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
@@ -168,7 +168,7 @@ export class ClientSentBatchesViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       // await this.getBatches()
-      await this.getPagMy()
+      await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -223,32 +223,32 @@ export class ClientSentBatchesViewModel {
       this.curPage = e
     })
 
-    this.getPagMy()
+    this.getBatchesPagMy()
   }
 
-  async getBatches() {
-    try {
-      const batches = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
+  // async getBatches() {
+  //   try {
+  //     const batches = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
 
-      const result = await UserModel.getPlatformSettings()
+  //     const result = await UserModel.getPlatformSettings()
 
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+  //     runInAction(() => {
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.batches = clientBatchesDataConverter(
-          batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-          this.volumeWeightCoefficient,
-        )
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
+  //       this.batches = clientBatchesDataConverter(
+  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+  //         this.volumeWeightCoefficient,
+  //       )
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     runInAction(() => {
+  //       this.error = error
+  //     })
+  //   }
+  // }
 
-  async getPagMy() {
+  async getBatchesPagMy() {
     console.log('Pag')
     try {
       const filter = isNaN(this.nameSearchValue)
@@ -258,6 +258,9 @@ export class ClientSentBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
           filters: this.nameSearchValue ? filter : null,
           storekeeperId: null,
         },
@@ -271,7 +274,7 @@ export class ClientSentBatchesViewModel {
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = clientBatchesDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
           this.volumeWeightCoefficient,
         )
       })
@@ -287,8 +290,8 @@ export class ClientSentBatchesViewModel {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    console.log('this.nameSearchValue', this.nameSearchValue)
-    this.getPagMy()
+
+    this.getBatchesPagMy()
   }
 
   async setCurrentOpenedBatch(row) {

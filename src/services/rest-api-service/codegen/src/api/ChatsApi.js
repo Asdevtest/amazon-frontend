@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineResponse20023 from '../model/InlineResponse20023';
+import InlineResponse20024 from '../model/InlineResponse20024';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -97,7 +97,7 @@ export default class ChatsApi {
      * Получить все имена юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20023>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20024>} and HTTP response
      */
     apiV1ChatsNamesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -116,7 +116,7 @@ export default class ChatsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20023];
+      let returnType = [InlineResponse20024];
       return this.apiClient.callApi(
         '/api/v1/chats/names', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -129,7 +129,7 @@ export default class ChatsApi {
      * Получить все имена юзеров (не считая модераторов и адмиинов)   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20023>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20024>}
      */
     apiV1ChatsNamesGet(opts) {
       return this.apiV1ChatsNamesGetWithHttpInfo(opts)

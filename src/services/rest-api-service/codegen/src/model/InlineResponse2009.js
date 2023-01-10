@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse2008 from './InlineResponse2008';
 
 /**
  * The InlineResponse2009 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2009 {
     /**
      * Constructs a new <code>InlineResponse2009</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse2009
      */
     constructor() { 
@@ -47,20 +49,11 @@ class InlineResponse2009 {
         if (data) {
             obj = obj || new InlineResponse2009();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2008]);
             }
         }
         return obj;
@@ -70,34 +63,16 @@ class InlineResponse2009 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse2009.prototype['guid'] = undefined;
+InlineResponse2009.prototype['count'] = undefined;
 
 /**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
+ * Массив батчей c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse2008>} rows
  */
-InlineResponse2009.prototype['deliveryCost'] = undefined;
-
-/**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineResponse2009.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-InlineResponse2009.prototype['weightFinalAccountingKgWarehouse'] = undefined;
-
-/**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
- */
-InlineResponse2009.prototype['deliveryRate'] = undefined;
+InlineResponse2009.prototype['rows'] = undefined;
 
 
 
