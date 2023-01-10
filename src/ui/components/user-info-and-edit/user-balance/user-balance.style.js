@@ -39,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   greenRow: {
-    color: 'green',
+    color: theme.palette.text.green,
   },
 
   balanceWrapper: {
