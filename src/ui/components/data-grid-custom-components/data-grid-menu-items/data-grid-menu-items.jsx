@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Checkbox, Divider} from '@mui/material'
+import {Typography, Checkbox, Divider, Button} from '@mui/material'
+import {consoleSandbox} from '@sentry/utils'
 
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {t} from '@utils/translations'
 
@@ -100,4 +104,53 @@ export const OrderStatusMenuItem = React.memo(
     ),
     styles,
   ),
+)
+
+export const ShopMenuItem = React.memo(
+  withStyles(({classes: classNames, shopsDataBase}) => {
+    console.log('shopsDataBase', shopsDataBase)
+
+    const {shopsData, curShops, onClickShopBtn} = shopsDataBase
+
+    const [shopsForRender, setShopsForRender] = useState(shopsData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = shopsData?.filter(shop => shop.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        setShopsForRender(filter)
+      } else {
+        setShopsForRender(shopsData)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            {shopsForRender.map(shop => (
+              <div key={shop._id} className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={curShops.some(item => item._id === shop._id)}
+                  onClick={() => onClickShopBtn(shop)}
+                />
+                <div className={classNames.shopName}>{shop.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }, styles),
 )

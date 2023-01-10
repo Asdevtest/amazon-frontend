@@ -16,13 +16,14 @@ import {
   OrdersIdsItemsCell,
   CheckboxCell,
   WarehouseDestinationAndTariffCell,
+  ShopsDataCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBoxesViewColumns = (handlers, storekeepersData, destinations, destinationsFavourites) => [
+export const clientBoxesViewColumns = (handlers, storekeepersData, destinations, destinationsFavourites, shopsData) => [
   // {
   //   field: 'isDraft',
   //   headerName: '',
@@ -44,12 +45,23 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'shops',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} Icon={FilterAltOutlinedIcon} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
     sortable: false,
   },
+
+  // {
+  //   field: 'store',
+  //   headerName: t(TranslationKey.Store),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Store)}  />,
+
+  //   renderCell: params => <ShopsDataCell shopsData={shopsData} curShop={params.row.originalData} />,
+  //   width: 130,
+  //   sortable: false,
+  //   filterable: false,
+  // },
 
   {
     field: 'humanFriendlyId',

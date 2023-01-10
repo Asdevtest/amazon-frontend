@@ -6,10 +6,10 @@ import {
   // GridColumnsMenuItem,
 } from '@mui/x-data-grid'
 
-import {IsFormedMenuItem, OrderStatusMenuItem} from '../data-grid-menu-items/data-grid-menu-items'
+import {IsFormedMenuItem, OrderStatusMenuItem, ShopMenuItem} from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
-  const {hideMenu, currentColumn, isFormedData, orderStatusData, ...other} = props
+  const {hideMenu, currentColumn, isFormedData, orderStatusData, shopsDataBase, ...other} = props
 
   // const renderStandartItems = () => (
   //   <div>
@@ -33,6 +33,15 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <OrderStatusMenuItem orderStatusData={orderStatusData} />
+        {/* {renderStandartItems()} */}
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.field === 'shops') {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ShopMenuItem shopsDataBase={shopsDataBase} />
         {/* {renderStandartItems()} */}
       </GridColumnMenuContainer>
     )

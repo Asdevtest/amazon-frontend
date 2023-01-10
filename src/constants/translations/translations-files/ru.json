@@ -1707,5 +1707,7 @@
   "By volume weight": "По объемному весу",
   "Method of box weight calculation": "Метод подсчета веса коробки",
   "Divider": "Делитель",
-  "Product code* must be filled out": "Код продукта* должен быть заполнен"
+  "Product code* must be filled out": "Код продукта* должен быть заполнен",
+  "Store": "Магазин",
+  "Search": "Поиск"
 }

@@ -58,7 +58,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
-      curShop,
+      curShops,
       shopsData,
       nameSearchValue,
       changeItem,
@@ -89,6 +89,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       columnsModel,
 
       curOpenedTask,
+      read,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -283,14 +284,13 @@ export class ClientInStockBoxesViewRaw extends Component {
 
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
-
-                <WithSearchSelect
-                  selectedItemName={(!curShop?._id && t(TranslationKey['All shops'])) || (curShop && curShop.name)}
-                  data={shopsData.filter(shop => curShop?.id !== shop._id)}
+                {/* <WithSearchSelect
+                  selectedItemName={(!curShops?._id && t(TranslationKey['All shops'])) || (curShops && curShops.name)}
+                  data={shopsData.filter(shop => curShops?.id !== shop._id)}
                   searchFields={['name']}
                   firstItems={
                     <>
-                      {!!curShop?._id && (
+                      {!!curShops?._id && (
                         <Button
                           disabled={!currentData}
                           className={classNames.button}
@@ -303,7 +303,13 @@ export class ClientInStockBoxesViewRaw extends Component {
                     </>
                   }
                   onClickSelect={shop => onClickShopBtn(shop)}
-                />
+                /> */}
+                <Button
+                  disabled={!storekeepersData}
+                  onClick={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+                >
+                  {t(TranslationKey['Current tariffs'])}
+                </Button>
               </div>
 
               <MemoDataGrid
@@ -337,7 +343,10 @@ export class ClientInStockBoxesViewRaw extends Component {
                   ColumnMenu: DataGridCustomColumnMenuComponent,
                 }}
                 componentsProps={{
-                  columnMenu: {isFormedData: {isFormed, onChangeIsFormed}},
+                  columnMenu: {
+                    isFormedData: {isFormed, onChangeIsFormed},
+                    shopsDataBase: {shopsData, curShops, onClickShopBtn},
+                  },
                 }}
                 density={densityModel}
                 columns={columnsModel}
@@ -584,7 +593,10 @@ export class ClientInStockBoxesViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
         >
           <SelectStorekeeperAndTariffForm
-            storekeepers={storekeepersData.filter(el => el._id === changeItem?.storekeeper._id)}
+            inNotifications={!changeItem}
+            storekeepers={
+              changeItem ? storekeepersData.filter(el => el._id === changeItem?.storekeeper._id) : storekeepersData
+            }
             curStorekeeperId={changeItem?.storekeeper?._id}
             curTariffId={changeItem?.logicsTariff?._id}
             onSubmit={(storekeeperId, tariffId) =>
