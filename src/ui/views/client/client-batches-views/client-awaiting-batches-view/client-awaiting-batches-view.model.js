@@ -1,6 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -25,10 +25,11 @@ export class ClientAwaitingBatchesViewModel {
   error = undefined
 
   nameSearchValue = ''
-  batchesBaseData = []
   batches = []
   selectedBatches = []
   curBatch = {}
+
+  currentData = []
 
   uploadedFiles = []
 
@@ -68,11 +69,10 @@ export class ClientAwaitingBatchesViewModel {
 
     reaction(
       () => this.batches,
-      () => {
+      () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()
-        })
-      },
+        }),
     )
   }
 
@@ -112,12 +112,6 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -128,6 +122,8 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -146,6 +142,8 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getPagMy()
   }
 
   onSelectionModel(model) {
@@ -155,61 +153,7 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.batches).filter(
-        el =>
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item =>
-              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ),
-          ),
-      )
-    } else {
-      return toJS(this.batches)
-    }
-  }
-
-  async getBatches() {
-    try {
-      const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};or[5][humanFriendlyId][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
-
-      const result = await BatchesModel.getBatchesWithFiltersPag(BoxStatus.IN_STOCK, {
-        filters: this.nameSearchValue ? filter : null,
-
-        storekeeperId: null,
-      })
-
-      const res = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.batchesBaseData = result.rows
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.rowCount = result.count
-
-        this.batches = clientBatchesDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-          this.volumeWeightCoefficient,
-        )
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-
-      runInAction(() => {
-        this.batches = []
-
-        this.batchesBaseData = []
-      })
-    }
+    return toJS(this.batches)
   }
 
   async loadData() {
@@ -217,7 +161,8 @@ export class ClientAwaitingBatchesViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.getDataGridState()
-      await this.getBatches()
+      // await this.getBatches()
+      await this.getPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -271,6 +216,73 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getPagMy()
+  }
+
+  // async getBatches() {
+  //   try {
+  //     const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+
+  //     const result = await UserModel.getPlatformSettings()
+
+  //     runInAction(() => {
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+  //       this.batches = clientBatchesDataConverter(
+  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+  //         this.volumeWeightCoefficient,
+  //       )
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     runInAction(() => {
+  //       this.error = error
+
+  //       this.batches = []
+  //     })
+  //   }
+  // }
+
+  async getPagMy() {
+    try {
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag({
+        status: BatchStatus.IS_BEING_COLLECTED,
+        options: {
+          filters: this.nameSearchValue ? filter : null,
+          storekeeperId: null,
+        },
+      })
+
+      const res = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.rowCount = result.count
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
+
+        this.batches = clientBatchesDataConverter(
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          this.volumeWeightCoefficient,
+        )
+      })
+    } catch (error) {
+      runInAction(() => {
+        this.batches = []
+      })
+      console.log(error)
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getPagMy()
   }
 
   async setCurrentOpenedBatch(row) {

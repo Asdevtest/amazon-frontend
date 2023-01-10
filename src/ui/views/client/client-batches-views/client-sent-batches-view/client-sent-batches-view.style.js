@@ -55,4 +55,12 @@ export const styles = theme => ({
     width: '300px',
     height: 36,
   },
+  btnsWrapper: {
+    width: '100%',
+
+    margin: '10px 0 15px',
+    display: 'flex',
+
+    justifyContent: 'center',
+  },
 })

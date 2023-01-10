@@ -29,6 +29,8 @@ export class ClientSentBatchesViewModel {
   selectedBatches = []
   curBatch = {}
 
+  currentData = []
+
   drawerOpen = false
 
   showBatchInfoModal = false
@@ -62,6 +64,14 @@ export class ClientSentBatchesViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.batches,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -105,12 +115,16 @@ export class ClientSentBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getPagMy()
   }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -129,6 +143,8 @@ export class ClientSentBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getPagMy()
   }
 
   onSelectionModel(model) {
@@ -144,28 +160,15 @@ export class ClientSentBatchesViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.batches).filter(
-        el =>
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item =>
-              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ),
-          ),
-      )
-    } else {
-      return toJS(this.batches)
-    }
+    return toJS(this.batches)
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getBatches()
+      // await this.getBatches()
+      await this.getPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -219,6 +222,8 @@ export class ClientSentBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getPagMy()
   }
 
   async getBatches() {
@@ -241,6 +246,49 @@ export class ClientSentBatchesViewModel {
         this.error = error
       })
     }
+  }
+
+  async getPagMy() {
+    console.log('Pag')
+    try {
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag({
+        status: BatchStatus.HAS_DISPATCHED,
+        options: {
+          filters: this.nameSearchValue ? filter : null,
+          storekeeperId: null,
+        },
+      })
+
+      const res = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.rowCount = result.count
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
+
+        this.batches = clientBatchesDataConverter(
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          this.volumeWeightCoefficient,
+        )
+      })
+    } catch (error) {
+      runInAction(() => {
+        this.batches = []
+      })
+      console.log(error)
+    }
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    console.log('this.nameSearchValue', this.nameSearchValue)
+    this.getPagMy()
   }
 
   async setCurrentOpenedBatch(row) {

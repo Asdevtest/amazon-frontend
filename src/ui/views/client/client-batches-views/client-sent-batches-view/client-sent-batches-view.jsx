@@ -1,6 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
-
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -12,13 +9,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -55,6 +52,7 @@ class ClientSentBatchesViewRaw extends Component {
       columnsModel,
       showWarningInfoModal,
 
+      rowCount,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -68,7 +66,7 @@ class ClientSentBatchesViewRaw extends Component {
       onChangeFilterModel,
 
       setCurrentOpenedBatch,
-      onChangeNameSearchValue,
+      onSearchSubmit,
       onSubmitChangeBoxFields,
     } = this.viewModel
     const {classes: className} = this.props
@@ -85,18 +83,15 @@ class ClientSentBatchesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Sent boxes'])} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
-              <Field
-                containerClasses={className.searchContainer}
-                inputClasses={className.searchInput}
-                value={nameSearchValue}
-                placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                endAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                }
-                onChange={onChangeNameSearchValue}
-              />
+              <div className={className.btnsWrapper}>
+                <SearchInput
+                  key={'client_batches_awaiting-batch_search_input'}
+                  inputClasses={className.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  onSubmit={onSearchSubmit}
+                />
+              </div>
 
               <MemoDataGrid
                 pagination
@@ -109,6 +104,9 @@ class ClientSentBatchesViewRaw extends Component {
                   footerCell: className.footerCell,
                   toolbarContainer: className.toolbarContainer,
                 }}
+                sortingMode="server"
+                paginationMode="server"
+                rowCount={rowCount}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

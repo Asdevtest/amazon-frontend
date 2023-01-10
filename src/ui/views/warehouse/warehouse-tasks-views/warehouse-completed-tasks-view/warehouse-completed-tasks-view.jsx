@@ -43,6 +43,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      rowCount,
       volumeWeightCoefficient,
 
       curOpenedTask,
@@ -59,7 +60,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       setCurrentOpenedTask,
-      onChangeNameSearchValue,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -80,7 +81,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
 
@@ -96,6 +97,9 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                   toolbarContainer: classNames.toolbarContainer,
                   filterForm: classNames.filterForm,
                 }}
+                sortingMode="server"
+                paginationMode="server"
+                rowCount={rowCount}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
