@@ -290,7 +290,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectorsWrapper: {
-    width: '80px',
+    width: 130,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
