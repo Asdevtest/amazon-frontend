@@ -189,15 +189,15 @@ export const OrderModalBodyRow = ({
             containerClasses={classNames.containerField}
             inputClasses={classNames.amountCell}
             error={
-              item.currentSupplier.multiplicity &&
-              item.currentSupplier.boxProperties?.amountInBox &&
-              (orderState.amount % item.currentSupplier.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
+              item.currentSupplier?.multiplicity &&
+              item.currentSupplier?.boxProperties?.amountInBox &&
+              (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
               ` ${t(TranslationKey['Value is not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
             }
             successText={
-              item.currentSupplier.multiplicity &&
-              item.currentSupplier.boxProperties?.amountInBox &&
-              orderState.amount % item.currentSupplier.boxProperties?.amountInBox === 0 &&
+              item.currentSupplier?.multiplicity &&
+              item.currentSupplier?.boxProperties?.amountInBox &&
+              orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
               !!orderState.amount &&
               ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox} !`
             }

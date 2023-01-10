@@ -1700,5 +1700,11 @@
   "Users with access to the product": "Пользователи имеющие доступ к товару",
   "Taken on board": "Взято в работу",
   "With the products": "С продуктами",
-  "there are already pending orders": "уже существует отложенные заказы"
+  "there are already pending orders": "уже существует отложенные заказы",
+  "By more weight": "По большему весу",
+  "By more total weight": "По большему суммарному весу",
+  "By actual weight": "По фактическому весу",
+  "By volume weight": "По объемному весу",
+  "Method of box weight calculation": "Метод подсчета веса коробки",
+  "Divider": "Делитель"
 }

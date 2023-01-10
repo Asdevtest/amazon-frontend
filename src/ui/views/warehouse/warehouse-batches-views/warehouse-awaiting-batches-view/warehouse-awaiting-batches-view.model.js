@@ -15,7 +15,7 @@ import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
-import {clientWarehouseDataConverter, warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
@@ -322,10 +322,11 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.boxesData = clientWarehouseDataConverter(
-          boxes.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-          this.volumeWeightCoefficient,
-        )
+        this.boxesData = boxes
+        // clientWarehouseDataConverter(
+        //   boxes.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+        //   this.volumeWeightCoefficient,
+        // )
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
@@ -337,7 +338,7 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchTitle}) {
+  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields}) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
@@ -348,7 +349,7 @@ export class WarehouseAwaitingBatchesViewModel {
       }
 
       if (!batchToEdit) {
-        const batchId = await BatchesModel.createBatch({title: batchTitle, boxesIds})
+        const batchId = await BatchesModel.createBatch({title: batchFields.title, boxesIds})
 
         if (filesToAdd.length) {
           await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
@@ -357,7 +358,7 @@ export class WarehouseAwaitingBatchesViewModel {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeTitle(batchToEdit.id, {title: batchTitle})
+        await BatchesModel.changeBatch(batchToEdit.id, {title: batchFields.title})
 
         if (newBoxesIds.length) {
           await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)

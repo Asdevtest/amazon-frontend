@@ -76,6 +76,15 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
             }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('finalWeight')) {
+                obj['finalWeight'] = ApiClient.convertToType(data['finalWeight'], 'Number');
+            }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
             }
@@ -151,6 +160,24 @@ InlineResponse2008.prototype['finalWeightSumEachBoxAmount'] = undefined;
  * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
  */
 InlineResponse2008.prototype['boxes'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineResponse2008.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineResponse2008.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Масса партии
+ * @member {Number} finalWeight
+ */
+InlineResponse2008.prototype['finalWeight'] = undefined;
 
 /**
  * @member {module:model/ApiV1BatchesStorekeeper} storekeeper

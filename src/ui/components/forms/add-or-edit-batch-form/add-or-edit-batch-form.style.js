@@ -262,9 +262,9 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  addButtonWrapper: {
+  tableSubWrapper: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
     marginTop: '15px',
     marginBottom: 24,
     [theme.breakpoints.down(768)]: {
@@ -274,6 +274,18 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: 24,
     },
   },
+
+  weigthCalcWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  volumeWeightDivider: {
+    margin: '0 40px',
+    color: theme.palette.text.second,
+  },
+
   imageAndFileInputWrapper: {
     [theme.breakpoints.down(768)]: {
       width: '280px',

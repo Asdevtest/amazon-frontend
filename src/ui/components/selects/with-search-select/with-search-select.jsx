@@ -33,6 +33,7 @@ const WithSearchSelectRaw = observer(
     searchFields,
     CustomBtn,
     favourites,
+    withoutSearch,
     onClickSetDestinationFavourite,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -118,12 +119,14 @@ const WithSearchSelectRaw = observer(
               onClose={handleClose}
             >
               <div className={classNames.subMainWrapper} style={widthPopover && {width: widthPopover || width}}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={placeholder ? placeholder : t(TranslationKey.search)}
-                  onChange={e => setNameSearchValue(e.target.value)}
-                />
+                {!withoutSearch ? (
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    placeholder={placeholder ? placeholder : t(TranslationKey.search)}
+                    onChange={e => setNameSearchValue(e.target.value)}
+                  />
+                ) : null}
                 <div className={classNames.itemsWrapper}>
                   {onClickNotChosen && (
                     <Tooltip title={t(TranslationKey['Not chosen'])}>

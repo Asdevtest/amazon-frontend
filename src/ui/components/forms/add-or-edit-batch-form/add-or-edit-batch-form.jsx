@@ -1,11 +1,17 @@
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import {FormControlLabel, Radio, RadioGroup, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
+import {
+  BatchWeightCalculationMethod,
+  BatchWeightCalculationMethodByKey,
+  BatchWeightCalculationMethodTranslateKey,
+  getBatchWeightCalculationMethodsData,
+} from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -15,6 +21,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Field} from '@components/field/field'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
@@ -27,7 +34,15 @@ import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
 import {useClassNames} from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
-  ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
+  ({
+    boxesData,
+    onClose,
+    /* volumeWeightCoefficient,*/ onSubmit,
+    batchToEdit,
+    sourceBox,
+    showProgress,
+    progressValue,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
@@ -36,9 +51,24 @@ export const AddOrEditBatchForm = observer(
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
-    const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
+    const [batchFields, setBatchFields] = useState({
+      title: batchToEdit?.title || '',
+      calculationMethod:
+        batchToEdit?.calculationMethod ||
+        BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT],
+      volumeWeightDivide: batchToEdit?.volumeWeightDivide || 5000,
+    })
 
-    const [batchTitle, setBatchTitle] = useState(batchToEdit ? batchToEdit.title : '')
+    const [boxesToAddData, setBoxesToAddData] = useState(
+      clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide),
+    )
+
+    const changeBatchFields = fieldName => value => {
+      const newFields = {...batchFields}
+
+      newFields[fieldName] = value
+      setBatchFields(newFields)
+    }
 
     const [filesToAdd, setfilesToAdd] = useState([])
 
@@ -46,15 +76,15 @@ export const AddOrEditBatchForm = observer(
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
-        ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes, volumeWeightCoefficient)
+        ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes, batchFields.volumeWeightDivide)
         : sourceBox
-        ? [...clientWarehouseDataConverter([sourceBox], volumeWeightCoefficient)]
+        ? [...clientWarehouseDataConverter([sourceBox], batchFields.volumeWeightDivide)]
         : [],
     )
 
-    console.log('chosenBoxes', chosenBoxes)
-    console.log('batchToEdit', batchToEdit)
-    console.log('sourceBox', sourceBox)
+    // console.log('chosenBoxes', chosenBoxes)
+    // console.log('batchToEdit', batchToEdit)
+    // console.log('sourceBox', sourceBox)
 
     const [boxesToAddIds, setBoxesToAddIds] = useState([])
 
@@ -65,7 +95,7 @@ export const AddOrEditBatchForm = observer(
     const filterBoxesToAddData = () => {
       const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
-      const newArr = boxesData.filter(
+      const newArr = clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide).filter(
         box =>
           box.originalData?.destination?.name === chosenBoxes[0]?.originalData?.destination?.name &&
           box.originalData?.logicsTariff?.name === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
@@ -107,26 +137,30 @@ export const AddOrEditBatchForm = observer(
 
         const deletedBoxes = clientWarehouseDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
-          volumeWeightCoefficient,
+          batchFields.volumeWeightDivide,
+          /* volumeWeightCoefficient*/
         )
 
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData([
-            ...[
-              ...boxesData.filter(
-                box =>
-                  box.originalData?.destination?.name === batchToEdit.destination &&
-                  box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-                  !chosenBoxesIds.includes(box._id),
-              ),
-            ],
+            ...clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide).filter(
+              box =>
+                box.originalData?.destination?.name === batchToEdit.destination &&
+                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                !chosenBoxesIds.includes(box._id),
+            ),
+
             ...deletedBoxes,
           ]),
         )
-      } else if (!nameSearchValueBoxesToAddData && !chosenBoxesBase) {
-        setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...[...boxesData]]))
+      } else {
+        // if (/* !nameSearchValueBoxesToAddData && */ !chosenBoxesBase) {
+        console.log('!!! *** 3')
+        setBoxesToAddData(() =>
+          filterBySearchValueBoxesToAddData(clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide)),
+        )
       }
-    }, [chosenBoxes, nameSearchValueBoxesToAddData])
+    }, [chosenBoxes, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide])
 
     useEffect(() => {
       if (nameSearchValueChosenBoxes && !batchToEdit) {
@@ -136,7 +170,7 @@ export const AddOrEditBatchForm = observer(
 
         const deletedBoxes = clientWarehouseDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
-          volumeWeightCoefficient,
+          batchFields.volumeWeightDivide,
         )
 
         setChosenBoxesBase(() =>
@@ -160,7 +194,14 @@ export const AddOrEditBatchForm = observer(
       // }
     }, [nameSearchValueChosenBoxes])
 
-    useEffect(() => {}, [boxesToDeliteIds, nameSearchValueChosenBoxes])
+    useEffect(() => {
+      setChosenBoxes(() => [
+        ...clientWarehouseDataConverter(
+          chosenBoxes.map(el => el.originalData),
+          batchFields.volumeWeightDivide,
+        ),
+      ])
+    }, [batchFields.volumeWeightDivide])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -193,7 +234,7 @@ export const AddOrEditBatchForm = observer(
 
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
-      onSubmit({boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchTitle})
+      onSubmit({boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields})
 
       setSubmitIsClicked(true)
     }
@@ -210,8 +251,8 @@ export const AddOrEditBatchForm = observer(
               <Field
                 className={classNames.filterField}
                 label={t(TranslationKey['Batch title'])}
-                value={batchTitle}
-                onChange={e => setBatchTitle(e.target.value)}
+                value={batchFields.title}
+                onChange={e => changeBatchFields('title')(e.target.value)}
               />
             </div>
 
@@ -327,7 +368,36 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.addButtonWrapper}>
+          <div className={classNames.tableSubWrapper}>
+            <div className={classNames.weigthCalcWrapper}>
+              <WithSearchSelect
+                withoutSearch
+                width={343}
+                widthPopover={343}
+                selectedItemName={
+                  !batchFields.calculationMethod
+                    ? t(TranslationKey['Method of box weight calculation'])
+                    : t(BatchWeightCalculationMethodTranslateKey(batchFields.calculationMethod))
+                }
+                data={getBatchWeightCalculationMethodsData().filter(
+                  el => batchFields.calculationMethod?.methodStatus !== el.methodStatus,
+                )}
+                searchFields={['name']}
+                onClickSelect={item => changeBatchFields('calculationMethod')(item.methodStatus)}
+              />
+
+              <Typography className={classNames.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
+
+              <RadioGroup
+                row
+                value={batchFields.volumeWeightDivide}
+                onChange={e => changeBatchFields('volumeWeightDivide')(e.target.value)}
+              >
+                <FormControlLabel value={5000} control={<Radio />} label="5000" />
+                <FormControlLabel value={6000} control={<Radio />} label="6000" />
+              </RadioGroup>
+            </div>
+
             <Button
               tooltipAttentionContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
@@ -384,7 +454,7 @@ export const AddOrEditBatchForm = observer(
                 label={t(TranslationKey['Volume weight'])}
                 value={toFixed(
                   chosenBoxes.reduce(
-                    (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                    (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
                     0,
                   ),
                   4,
@@ -399,7 +469,7 @@ export const AddOrEditBatchForm = observer(
                 label={t(TranslationKey['Final weight'])}
                 value={toFixed(
                   chosenBoxes.reduce(
-                    (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                    (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
                     0,
                   ),
                   4,
