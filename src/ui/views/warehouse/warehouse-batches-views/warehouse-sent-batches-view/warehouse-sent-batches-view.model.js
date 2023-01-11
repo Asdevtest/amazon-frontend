@@ -32,6 +32,9 @@ export class WarehouseSentBatchesViewModel {
 
   showEditHSCodeModal = false
 
+  rowCount = 0
+  currentData = []
+
   curBatch = {}
   showConfirmModal = false
   drawerOpen = false
@@ -67,6 +70,15 @@ export class WarehouseSentBatchesViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.batches,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
     )
   }
 
@@ -110,12 +122,16 @@ export class WarehouseSentBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -134,6 +150,8 @@ export class WarehouseSentBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
@@ -189,7 +207,7 @@ export class WarehouseSentBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getBatches()
+      await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -246,6 +264,8 @@ export class WarehouseSentBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeNameSearchValue(e) {
@@ -254,17 +274,55 @@ export class WarehouseSentBatchesViewModel {
     })
   }
 
-  async getBatches() {
+  // async getBatches() {
+  //   try {
+  //     const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
+
+  //     runInAction(() => {
+  //       this.batches = warehouseBatchesDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     runInAction(() => {
+  //       this.error = error
+  //     })
+  //   }
+  // }
+
+  async getBatchesPagMy() {
     try {
-      const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag({
+        status: BatchStatus.HAS_DISPATCHED,
+        options: {
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
+          filters: this.nameSearchValue ? filter : null,
+          storekeeperId: null,
+        },
+      })
+
+      const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
+        this.rowCount = result.count
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
+
+        this.batches = warehouseBatchesDataConverter(
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+        )
       })
     } catch (error) {
       console.log(error)
+
       runInAction(() => {
         this.error = error
+        this.batches = []
       })
     }
   }

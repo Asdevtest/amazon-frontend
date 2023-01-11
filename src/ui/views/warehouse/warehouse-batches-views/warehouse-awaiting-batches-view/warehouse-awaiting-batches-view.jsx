@@ -51,6 +51,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       boxesData,
       selectedBatches,
       curBatch,
+      currentData,
+      rowCount,
       showBatchInfoModal,
       onTriggerOpenModal,
       showConfirmModal,
@@ -164,12 +166,15 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     filterForm: classNames.filterForm,
                   }}
                   selectionModel={selectedBatches}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,

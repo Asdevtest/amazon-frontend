@@ -46,8 +46,9 @@ export class WarehouseSentBatchesViewRaw extends Component {
       showBatchInfoModal,
       onTriggerOpenModal,
       showConfirmModal,
-      getCurrentData,
       sortModel,
+      rowCount,
+      currentData,
       filterModel,
       requestStatus,
       densityModel,
@@ -124,12 +125,15 @@ export class WarehouseSentBatchesViewRaw extends Component {
                     toolbarContainer: classNames.toolbarContainer,
                     filterForm: classNames.filterForm,
                   }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
