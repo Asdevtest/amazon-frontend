@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {Typography} from '@mui/material'
 
+import {getBatchWeightCalculationMethodForBox} from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -16,7 +17,7 @@ import {calcFinalWeightForBox} from '@utils/calculation'
 import {toFixedWithKg, getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const batchInfoModalColumn = volumeWeightCoefficient => [
+export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod) => [
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
@@ -75,7 +76,12 @@ export const batchInfoModalColumn = volumeWeightCoefficient => [
     field: 'finalWeight',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
-      <MultilineTextCell text={toFixedWithKg(calcFinalWeightForBox(params.row, volumeWeightCoefficient), 2)} />
+      <MultilineTextCell
+        text={toFixedWithKg(
+          getBatchWeightCalculationMethodForBox(calculationMethod)(params.row, volumeWeightCoefficient),
+          2,
+        )}
+      />
     ),
     type: 'number',
     width: 120,

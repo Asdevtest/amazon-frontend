@@ -22,6 +22,15 @@ export const useClassNames = makeStyles()(theme => ({
     // },
   },
 
+  itemWrapper: {
+    borderRadius: 4,
+    cursor: 'pointer',
+    transition: '.3s ease',
+    '&:hover': {
+      transform: 'scale(0.99)',
+    },
+  },
+
   titleWrapper: {
     display: 'flex',
   },

@@ -632,7 +632,7 @@ export class BuyerMyOrdersViewModel {
                 boxWidthCm: parseFloat(elementOrderBox?.widthCmSupplier) || 0,
               },
             },
-            ['_id', 'yuanRate', 'createdAt', 'updatedAt'],
+            ['_id', 'yuanRate', 'createdAt', 'updatedAt', 'createdBy'],
           )
 
           await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)

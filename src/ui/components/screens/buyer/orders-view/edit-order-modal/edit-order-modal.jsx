@@ -2,6 +2,7 @@
 import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -83,9 +84,6 @@ export const EditOrderModal = observer(
     onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
-
-    console.log('order', order)
-    console.log('boxes', boxes)
 
     // const deliveredGoodsCount =
     //   boxes
@@ -343,6 +341,8 @@ export const EditOrderModal = observer(
     //         }),
     //       1000,
     //     )
+
+    console.log('selectedSupplier', selectedSupplier)
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -607,7 +607,11 @@ export const EditOrderModal = observer(
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
-                        <EditOutlinedIcon />
+                        {selectedSupplier?.createdBy._id !== userInfo._id ? (
+                          <VisibilityOutlinedIcon />
+                        ) : (
+                          <EditOutlinedIcon />
+                        )}
                       </Button>
                     </div>
 
@@ -696,7 +700,11 @@ export const EditOrderModal = observer(
             <BoxesToCreateTable
               volumeWeightCoefficient={volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
-              isNoBuyerSupplier={userInfo._id !== order.orderSupplier.createdBy?._id && order.orderSupplier.createdBy}
+              isNoBuyerSupplier={
+                userInfo._id !== order.orderSupplier.createdBy?._id &&
+                userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
+                order.orderSupplier.createdBy
+              }
               newBoxes={boxesForCreation}
               onRemoveBox={onRemoveForCreationBox}
               onEditBox={onEditForCreationBox}
@@ -887,6 +895,7 @@ export const EditOrderModal = observer(
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
+            onlyRead={selectedSupplier?.createdBy._id !== userInfo._id}
             // showProgress={showProgress}
             // progressValue={progressValue}
             onClickSaveBtn={onClickSubmitSaveSupplierBtn}

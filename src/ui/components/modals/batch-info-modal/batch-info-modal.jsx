@@ -151,10 +151,7 @@ export const BatchInfoModal = observer(
               containerClasses={classNames.sumField}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Final weight'])}
-              value={toFixed(
-                batch.boxes?.reduce((ac, cur) => (ac += calcFinalWeightForBox(cur, volumeWeightCoefficient)), 0),
-                4,
-              )}
+              value={toFixed(batch.finalWeight, 4)}
               placeholder={'0'}
             />
 
@@ -238,7 +235,7 @@ export const BatchInfoModal = observer(
                 Toolbar: DataGridCustomToolbar,
               }}
               getRowId={dataToRender => dataToRender._id}
-              columns={batchInfoModalColumn({volumeWeightCoefficient})}
+              columns={batchInfoModalColumn(batch.volumeWeightDivide, batch.calculationMethod)}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}
               onRowDoubleClick={e => openBoxView(e.row)}
