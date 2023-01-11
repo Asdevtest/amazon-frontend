@@ -93,9 +93,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   variant="contained"
                   disabled={!selectedTasks.length}
                   className={classNames.pickupOrdersButton}
-                  onClick={() => {
-                    onClickPickupManyTasksBtn()
-                  }}
+                  onClick={onClickPickupManyTasksBtn}
                 >
                   {t(TranslationKey['Take on the work of the selected'])}
                 </Button>

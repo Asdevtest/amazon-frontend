@@ -18,9 +18,6 @@ export const CheckPendingOrderForm = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('existingOrders', existingOrders)
-  console.log('checkPendingData', checkPendingData)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.productsWrapper}>

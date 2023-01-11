@@ -20,7 +20,12 @@ export class WarehouseCompletedViewModel {
   error = undefined
 
   completedTasks = []
+  completedTasksBase = []
   curOpenedTask = {}
+
+  currentData = []
+
+  rowCount = 0
 
   volumeWeightCoefficient = undefined
 
@@ -64,6 +69,14 @@ export class WarehouseCompletedViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.completedTasks,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async updateColumnsModel() {
@@ -82,6 +95,8 @@ export class WarehouseCompletedViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getCompletedTasksPagMy()
   }
 
   setDataGridState(state) {
@@ -133,6 +148,8 @@ export class WarehouseCompletedViewModel {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getCompletedTasksPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -151,25 +168,12 @@ export class WarehouseCompletedViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getCompletedTasksPagMy()
   }
 
   getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.completedTasks.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.completedTasks)
-    }
+    return toJS(this.completedTasks)
   }
 
   onChangeNameSearchValue(e) {
@@ -182,7 +186,7 @@ export class WarehouseCompletedViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getTasksMy()
+      await this.getCompletedTasksPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -190,23 +194,45 @@ export class WarehouseCompletedViewModel {
     }
   }
 
-  async getTasksMy() {
+  async getCompletedTasksPagMy() {
     try {
-      const result = await StorekeeperModel.getLightTasksMy({
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
+
+      const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
+        offset: this.curPage * this.rowsPerPage,
+        limit: this.rowsPerPage,
+        filters: this.nameSearchValue ? filter : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
+        this.rowCount = result.count
+
+        this.completedTasksBase = result.rows
+
         this.completedTasks = warehouseTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          this.completedTasksBase
+            .sort(sortObjectsArrayByFiledDate('updatedAt'))
+            .map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
     } catch (error) {
-      console.log(error)
       runInAction(() => {
-        this.error = error
+        this.batches = []
       })
+      console.log(error)
     }
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getCompletedTasksPagMy()
   }
 
   async setCurrentOpenedTask(item) {
@@ -236,6 +262,8 @@ export class WarehouseCompletedViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getCompletedTasksPagMy()
   }
 
   onTriggerOpenModal(modal) {

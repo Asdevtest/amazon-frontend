@@ -22,6 +22,7 @@ import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
 import InlineResponse20010 from '../model/InlineResponse20010';
+import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse201 from '../model/InlineResponse201';
@@ -54,7 +55,7 @@ export default class BatchesApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
     apiV1BatchesByProductGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -78,7 +79,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20010];
+      let returnType = [InlineResponse20011];
       return this.apiClient.callApi(
         '/api/v1/batches/by_product/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -92,7 +93,7 @@ export default class BatchesApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
     apiV1BatchesByProductGuidGet(guid, opts) {
       return this.apiV1BatchesByProductGuidGetWithHttpInfo(guid, opts)
@@ -127,7 +128,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2009];
+      let returnType = [InlineResponse20010];
       return this.apiClient.callApi(
         '/api/v1/batches/calculate_box_delivery_costs_in_batch', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -694,9 +695,13 @@ export default class BatchesApi {
      * @param {module:model/String} status GUID склада который нужно получить.
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /batches/with_filters?filters=or[0][asin][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /batches/with_filters?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
      */
     apiV1BatchesWithFiltersGetWithHttpInfo(status, opts) {
       opts = opts || {};
@@ -711,6 +716,10 @@ export default class BatchesApi {
       let queryParams = {
         'status': status,
         'filters': opts['filters'],
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType'],
         'storekeeperId': opts['storekeeperId']
       };
       let headerParams = {
@@ -722,7 +731,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2008];
+      let returnType = InlineResponse2009;
       return this.apiClient.callApi(
         '/api/v1/batches/with_filters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -736,9 +745,13 @@ export default class BatchesApi {
      * @param {module:model/String} status GUID склада который нужно получить.
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /batches/with_filters?filters=or[0][asin][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /batches/with_filters?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта              
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
      */
     apiV1BatchesWithFiltersGet(status, opts) {
       return this.apiV1BatchesWithFiltersGetWithHttpInfo(status, opts)

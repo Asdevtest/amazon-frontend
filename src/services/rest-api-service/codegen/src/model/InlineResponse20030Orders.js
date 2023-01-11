@@ -47,15 +47,6 @@ class InlineResponse20030Orders {
         if (data) {
             obj = obj || new InlineResponse20030Orders();
 
-            if (data.hasOwnProperty('inProcess')) {
-                obj['inProcess'] = ApiClient.convertToType(data['inProcess'], 'Number');
-            }
-            if (data.hasOwnProperty('free')) {
-                obj['free'] = ApiClient.convertToType(data['free'], 'Number');
-            }
-            if (data.hasOwnProperty('completed')) {
-                obj['completed'] = ApiClient.convertToType(data['completed'], 'Number');
-            }
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
@@ -65,42 +56,12 @@ class InlineResponse20030Orders {
             if (data.hasOwnProperty('canceled')) {
                 obj['canceled'] = ApiClient.convertToType(data['canceled'], 'Number');
             }
-            if (data.hasOwnProperty('notPaid')) {
-                obj['notPaid'] = ApiClient.convertToType(data['notPaid'], 'Number');
-            }
-            if (data.hasOwnProperty('needTrackNumber')) {
-                obj['needTrackNumber'] = ApiClient.convertToType(data['needTrackNumber'], 'Number');
-            }
-            if (data.hasOwnProperty('inbound')) {
-                obj['inbound'] = ApiClient.convertToType(data['inbound'], 'Number');
-            }
-            if (data.hasOwnProperty('confirmationRequired')) {
-                obj['confirmationRequired'] = ApiClient.convertToType(data['confirmationRequired'], 'Number');
-            }
-            if (data.hasOwnProperty('closedAndCanceled')) {
-                obj['closedAndCanceled'] = ApiClient.convertToType(data['closedAndCanceled'], 'Number');
-            }
         }
         return obj;
     }
 
 
 }
-
-/**
- * @member {Number} inProcess
- */
-InlineResponse20030Orders.prototype['inProcess'] = undefined;
-
-/**
- * @member {Number} free
- */
-InlineResponse20030Orders.prototype['free'] = undefined;
-
-/**
- * @member {Number} completed
- */
-InlineResponse20030Orders.prototype['completed'] = undefined;
 
 /**
  * @member {Number} all
@@ -116,31 +77,6 @@ InlineResponse20030Orders.prototype['paid'] = undefined;
  * @member {Number} canceled
  */
 InlineResponse20030Orders.prototype['canceled'] = undefined;
-
-/**
- * @member {Number} notPaid
- */
-InlineResponse20030Orders.prototype['notPaid'] = undefined;
-
-/**
- * @member {Number} needTrackNumber
- */
-InlineResponse20030Orders.prototype['needTrackNumber'] = undefined;
-
-/**
- * @member {Number} inbound
- */
-InlineResponse20030Orders.prototype['inbound'] = undefined;
-
-/**
- * @member {Number} confirmationRequired
- */
-InlineResponse20030Orders.prototype['confirmationRequired'] = undefined;
-
-/**
- * @member {Number} closedAndCanceled
- */
-InlineResponse20030Orders.prototype['closedAndCanceled'] = undefined;
 
 
 

@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ChatsNamesGet
 
-> [InlineResponse20023] apiV1ChatsNamesGet(opts)
+> [InlineResponse20024] apiV1ChatsNamesGet(opts)
 
 Получить все имена юзеров
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20023]**](InlineResponse20023.md)
+[**[InlineResponse20024]**](InlineResponse20024.md)
 
 ### Authorization
 

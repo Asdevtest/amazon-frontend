@@ -650,7 +650,6 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.curBox = row
       })
-      console.log(row)
       this.onTriggerShowEditBoxModal()
     } catch (error) {
       console.log(error)

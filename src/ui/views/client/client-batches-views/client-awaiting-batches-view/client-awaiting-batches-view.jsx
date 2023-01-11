@@ -49,7 +49,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       showConfirmModal,
       onTriggerOpenModal,
 
-      getCurrentData,
+      rowCount,
+      currentData,
       sortModel,
       filterModel,
       requestStatus,
@@ -59,6 +60,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      onSearchSubmit,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -71,7 +73,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
       setCurrentOpenedBatch,
       onClickCancelSendToBatchBtn,
 
-      onChangeNameSearchValue,
       onSubmitChangeBoxFields,
     } = this.viewModel
     const {classes: className} = this.props
@@ -103,10 +104,11 @@ class ClientAwaitingBatchesViewRaw extends Component {
                 </Button>
 
                 <SearchInput
+                  key={'client_batches_awaiting-batch_search_input'}
                   inputClasses={className.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
 
                 <div />
@@ -124,12 +126,15 @@ class ClientAwaitingBatchesViewRaw extends Component {
                     footerCell: className.footerCell,
                     toolbarContainer: className.toolbarContainer,
                   }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
                   sortModel={sortModel}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,

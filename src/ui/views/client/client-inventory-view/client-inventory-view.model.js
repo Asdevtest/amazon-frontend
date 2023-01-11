@@ -506,9 +506,6 @@ export class ClientInventoryViewModel {
 
       this.checkPendingData = pendingOrders
 
-      console.log('pendingOrders', pendingOrders)
-      console.log('correctIds', correctIds)
-
       if (this.checkPendingData.length > 0) {
         this.existingOrders = this.currentData
           .filter(product => correctIds.includes(product.id))

@@ -21,8 +21,6 @@ export const EditOrderSuppliersTable = observer(
   ({suppliers, selectedSupplier, setSelectedSupplier, curSelectedSupplier, isPendingOrder}) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('suppliers', suppliers)
-
     return (
       <TableContainer className={classNames.table}>
         <Table>

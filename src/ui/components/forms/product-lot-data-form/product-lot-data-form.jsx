@@ -32,10 +32,6 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  console.log('product', product)
-  console.log('batches', batches)
-  console.log('batchesData', batchesData)
-
   const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
   useEffect(() => {

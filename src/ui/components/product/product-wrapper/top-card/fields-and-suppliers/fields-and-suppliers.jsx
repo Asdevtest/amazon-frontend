@@ -40,8 +40,6 @@ export const FieldsAndSuppliers = observer(
   ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('product', product)
-
     const [edit, setEdit] = useState(true)
 
     const [clearSelect, setClearSelect] = useState(true)

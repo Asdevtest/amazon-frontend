@@ -29,6 +29,8 @@ export class ClientAwaitingBatchesViewModel {
   selectedBatches = []
   curBatch = {}
 
+  currentData = []
+
   uploadedFiles = []
 
   drawerOpen = false
@@ -63,6 +65,14 @@ export class ClientAwaitingBatchesViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.batches,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
     )
   }
 
@@ -102,22 +112,20 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -136,6 +144,8 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
@@ -145,21 +155,7 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.batches).filter(
-        el =>
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item =>
-              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ),
-          ),
-      )
-    } else {
-      return toJS(this.batches)
-    }
+    return toJS(this.batches)
   }
 
   async loadData() {
@@ -167,7 +163,8 @@ export class ClientAwaitingBatchesViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.getDataGridState()
-      await this.getBatches()
+      // await this.getBatches()
+      await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -221,30 +218,76 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
-  async getBatches() {
-    try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+  // async getBatches() {
+  //   try {
+  //     const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
-      const result = await UserModel.getPlatformSettings()
+  //     const result = await UserModel.getPlatformSettings()
+
+  //     runInAction(() => {
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+  //       this.batches = clientBatchesDataConverter(
+  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+  //         this.volumeWeightCoefficient,
+  //       )
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     runInAction(() => {
+  //       this.error = error
+
+  //       this.batches = []
+  //     })
+  //   }
+  // }
+
+  async getBatchesPagMy() {
+    try {
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag({
+        status: BatchStatus.IS_BEING_COLLECTED,
+        options: {
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
+          filters: this.nameSearchValue ? filter : null,
+          storekeeperId: null,
+        },
+      })
+
+      const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.rowCount = result.count
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = clientBatchesDataConverter(
-          batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
           this.volumeWeightCoefficient,
         )
       })
     } catch (error) {
-      console.log(error)
       runInAction(() => {
-        this.error = error
-
         this.batches = []
       })
+      console.log(error)
     }
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getBatchesPagMy()
   }
 
   async setCurrentOpenedBatch(row) {

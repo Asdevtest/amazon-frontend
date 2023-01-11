@@ -84,7 +84,7 @@ export class ClientInStockBoxesViewModel {
   isFormed = null
 
   curDestination = undefined
-  curShop = undefined
+  curShops = []
 
   currentData = []
 
@@ -178,6 +178,7 @@ export class ClientInStockBoxesViewModel {
     this.storekeepersData,
     this.destinations,
     SettingsModel.destinationsFavourites,
+    this.shopsData,
   )
 
   rowTaskHandlers = {
@@ -290,6 +291,7 @@ export class ClientInStockBoxesViewModel {
           this.storekeepersData,
           this.destinations,
           SettingsModel.destinationsFavourites,
+          this.shopsData,
         ).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
@@ -650,7 +652,14 @@ export class ClientInStockBoxesViewModel {
 
   onClickShopBtn(shop) {
     runInAction(() => {
-      this.curShop = shop ? shop : undefined
+      // если магазин по которому нажали существует и есть в массиве, то он удаляется, если нет - добавялется
+      if (shop) {
+        if (this.curShops.some(item => item._id === shop._id)) {
+          this.curShops = this.curShops.filter(item => item._id !== shop._id)
+        } else {
+          this.curShops.push(shop)
+        }
+      }
     })
     this.getBoxesMy()
   }
@@ -1437,6 +1446,12 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
+  async onClickCurrentTariffsBtn() {
+    await this.getStorekeepers()
+
+    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+  }
+
   async editBox(box) {
     try {
       const result = await BoxesModel.editBox(box)
@@ -1510,6 +1525,8 @@ export class ClientInStockBoxesViewModel {
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
 
+      const curShops = this.curShops?.map(shop => shop._id).join(',')
+
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
         filters: this.nameSearchValue ? filter : null,
 
@@ -1517,7 +1534,7 @@ export class ClientInStockBoxesViewModel {
 
         destinationId: this.curDestination && this.curDestination._id,
 
-        shopIds: this.curShop ? [this.curShop._id] : null,
+        shopIds: this.curShops ? curShops : null,
 
         isFormed: this.isFormed,
 

@@ -31,8 +31,13 @@ export const LanguageSelector = () => {
       {/* <Typography className={classNames.title} onClick={handleClick}>{`${t(TranslationKey.language)} (${
         SettingsModel.languageTag
       })`}</Typography> */}
+      <div className={classNames.languageTagWrapper} onClick={handleClick}>
+        <img src={`/assets/icons/${SettingsModel.languageTag}.svg`} />
 
-      <Typography className={classNames.title} onClick={handleClick}>{`${SettingsModel.languageTag}`}</Typography>
+        <Typography className={classNames.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x =>
+          x.toUpperCase(),
+        )}`}</Typography>
+      </div>
 
       <div>
         <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
@@ -49,7 +54,10 @@ export const LanguageSelector = () => {
                   handleClose()
                 }}
               >
-                {languageOption.key}
+                <div className={classNames.languageOptionWrapper}>
+                  <img src={`/assets/icons/${languageOption.key}.svg`} />
+                  {languageOption.key.replace(/(^)[a-z]/g, x => x.toUpperCase())}
+                </div>
               </MenuItem>
             ))}
         </Menu>

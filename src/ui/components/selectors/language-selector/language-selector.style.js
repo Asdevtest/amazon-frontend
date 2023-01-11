@@ -3,32 +3,31 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {},
   title: {
-    backgroundColor: theme.palette.primary.main,
-    color: '#fff',
+    // backgroundColor: theme.palette.primary.main,
+    // color: '#fff',
     borderRadius: 4,
-    width: 30,
+    width: 'auto',
     height: 30,
     margin: 0,
     textAlign: 'center',
 
-    // color: theme.palette.primary.main,
+    color: theme.palette.primary.main,
     fontSize: '18px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      opacity: '.8',
-    },
   },
 
   option: {
-    width: 30,
+    width: 'auto',
     padding: '6px',
     textAlign: 'center',
 
     transition: '.3s ease',
 
+    // '&:hover': {
+    //   backgroundColor: theme.palette.primary.main,
+    //   borderRadius: 4,
+    // },
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      opacity: '.8',
       borderRadius: 4,
     },
   },
@@ -53,4 +52,24 @@ export const useClassNames = makeStyles()(theme => ({
   //   justifyContent: 'center',
   //   gap: '20px',
   // },
+  languageTagWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    gap: 10,
+
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      opacity: '.8',
+    },
+  },
+  languageOptionWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    gap: 10,
+  },
 }))
