@@ -528,6 +528,8 @@ export class SupervisorProductViewModel {
           }
           updateProductAutoCalculatedFields.call(this)
         })
+
+        this.getProductById()
       } else {
         runInAction(() => {
           this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
