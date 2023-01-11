@@ -32,6 +32,11 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
       closeSnackbar(id)
     }, [id, closeSnackbar])
 
+    const onClickNoticeItem = (orderId: string) => {
+      const win = window.open(`${window.location.origin}/client/pending-orders/order?${orderId}`, '_blank')
+      win?.focus()
+    }
+
     // console.log('noticeItem', noticeItem)
 
     setTimeout(() => closeSnackbar(id), autoHideDuration)
@@ -47,13 +52,11 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
           />
 
           <div className={classNames.centerWrapper}>
-            {noticeItem.map((el: any, index: number) => (
-              <div key={index}>
-                <div className={classNames.titleWrapper}>
-                  <Typography className={classNames.attentionTitle}>
-                    {`${t(TranslationKey.Notice).toUpperCase()} /`}
-                  </Typography>
+            <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
 
+            {noticeItem.map((el: any, index: number) => (
+              <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
+                <div className={classNames.titleWrapper}>
                   <Typography className={classNames.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
                 </div>
 

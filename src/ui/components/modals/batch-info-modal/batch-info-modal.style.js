@@ -36,6 +36,21 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
+  methodInput: {
+    width: 280,
+  },
+  tariffInput: {
+    width: 210,
+  },
+
+  sumField: {
+    width: 'min-content',
+  },
+
+  shortInput: {
+    width: 150,
+  },
+
   pricesWrapper: {
     display: 'flex',
     flexDirection: 'column',

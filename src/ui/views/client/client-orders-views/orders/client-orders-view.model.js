@@ -164,11 +164,11 @@ export class ClientOrdersViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_ORDERS)
+    SettingsModel.setDataGridState(requestState, this.getDataGridTableKey(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_ORDERS]
+    const state = SettingsModel.dataGridState[this.getDataGridTableKey(this.history.location.pathname)]
 
     runInAction(() => {
       if (state) {
@@ -257,6 +257,21 @@ export class ClientOrdersViewModel {
       })
     }
   }
+
+  getDataGridTableKey = pathname => {
+    if (pathname) {
+      switch (pathname) {
+        case routsPathes.CLIENT_ORDERS:
+          return DataGridTablesKeys.CLIENT_ORDERS
+        case routsPathes.CLIENT_PENDING_ORDERS:
+          return DataGridTablesKeys.CLIENT_PENDING_ORDERS
+
+        default:
+          return DataGridTablesKeys.CLIENT_ORDERS
+      }
+    }
+  }
+
   setOrderStatus = pathname => {
     if (pathname) {
       switch (pathname) {

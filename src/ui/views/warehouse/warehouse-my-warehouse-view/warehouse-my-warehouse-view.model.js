@@ -695,7 +695,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddBatch({boxesIds, filesToAdd, batchTitle}) {
+  async onSubmitAddBatch({boxesIds, filesToAdd, batchFields}) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
@@ -705,7 +705,12 @@ export class WarehouseMyWarehouseViewModel {
         await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
       }
 
-      const batchId = await BatchesModel.createBatch({title: batchTitle, boxesIds})
+      const batchId = await BatchesModel.createBatch({
+        title: batchFields.title,
+        boxesIds,
+        calculationMethod: batchFields.calculationMethod,
+        volumeWeightDivide: batchFields.volumeWeightDivide,
+      })
 
       if (filesToAdd.length) {
         await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
@@ -782,7 +787,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxesData = clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
+        this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
 
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
