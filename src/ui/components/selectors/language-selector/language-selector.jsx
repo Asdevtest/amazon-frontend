@@ -26,10 +26,6 @@ export const LanguageSelector = () => {
     setAnchorEl(null)
   }
 
-  console.log('languageOptions', languageOptions)
-
-  console.log('SettingsModel', SettingsModel)
-
   return (
     <div>
       {/* <Typography className={classNames.title} onClick={handleClick}>{`${t(TranslationKey.language)} (${

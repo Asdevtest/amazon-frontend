@@ -108,8 +108,6 @@ export const OrderStatusMenuItem = React.memo(
 
 export const ShopMenuItem = React.memo(
   withStyles(({classes: classNames, shopsDataBase}) => {
-    console.log('shopsDataBase', shopsDataBase)
-
     const {shopsData, curShops, onClickShopBtn} = shopsDataBase
 
     const [shopsForRender, setShopsForRender] = useState(shopsData || [])

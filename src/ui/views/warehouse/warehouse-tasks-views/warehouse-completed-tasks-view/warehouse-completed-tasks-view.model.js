@@ -195,7 +195,6 @@ export class WarehouseCompletedViewModel {
   }
 
   async getCompletedTasksPagMy() {
-    console.log('trackNumberText')
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
@@ -209,8 +208,6 @@ export class WarehouseCompletedViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
-      console.log('result', result)
 
       runInAction(() => {
         this.rowCount = result.count
@@ -235,7 +232,6 @@ export class WarehouseCompletedViewModel {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    console.log('this.nameSearchValue', this.nameSearchValue)
     this.getCompletedTasksPagMy()
   }
 

@@ -47,10 +47,6 @@ export const BatchInfoModal = observer(
 
     const [receivedFiles, setReceivedFiles] = useState(null)
 
-    // console.log('dataToRender', dataToRender)
-    // console.log('batch.boxes', batch.boxes)
-    // console.log('batch', batch)
-
     useEffect(() => {
       if (batch?.boxes && nameSearchValue) {
         setDataToRender(

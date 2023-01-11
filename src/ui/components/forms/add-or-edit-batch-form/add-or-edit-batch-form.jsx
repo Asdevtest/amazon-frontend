@@ -98,7 +98,6 @@ export const AddOrEditBatchForm = observer(
     )
 
     // console.log('chosenBoxes', chosenBoxes)
-    console.log('batchToEdit', batchToEdit)
     // console.log('sourceBox', sourceBox)
 
     const [boxesToAddIds, setBoxesToAddIds] = useState([])

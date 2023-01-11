@@ -276,10 +276,7 @@ export class WarehouseAwaitingBatchesViewModel {
   async onClickHsCode(id) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
 
-    console.log('this.hsCodeData', this.hsCodeData)
-
     this.onTriggerOpenModal('showEditHSCodeModal')
-    console.log('this.showEditHSCodeModal', this.showEditHSCodeModal)
   }
 
   async getBatches() {
@@ -308,7 +305,6 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onClickAddOrEditBatch(setting) {
     try {
-      console.log('this.selectedBatches', this.selectedBatches[0])
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []

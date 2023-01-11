@@ -36,8 +36,6 @@ export const OrderProductModal = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('selectedProductsData', selectedProductsData)
-
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)

@@ -263,8 +263,6 @@ export class ClientAwaitingBatchesViewModel {
         },
       })
 
-      console.log('result', result)
-
       const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {

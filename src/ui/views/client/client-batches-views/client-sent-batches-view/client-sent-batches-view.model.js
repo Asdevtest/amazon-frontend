@@ -249,7 +249,6 @@ export class ClientSentBatchesViewModel {
   // }
 
   async getBatchesPagMy() {
-    console.log('Pag')
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
