@@ -35,7 +35,7 @@ export const CheckPendingOrderForm = ({
             {existingOrders?.map((item, itemIndex) => (
               <Typography key={itemIndex} className={classNames.text}>
                 {`${t(TranslationKey.ASIN)} ${item?.asin}${
-                  checkPendingData.length > 1 && itemIndex + 1 !== checkPendingData.length ? ',' : ''
+                  existingOrders.length > 1 && itemIndex + 1 !== existingOrders.length ? ',' : ''
                 }`}
               </Typography>
             ))}
@@ -55,9 +55,7 @@ export const CheckPendingOrderForm = ({
                   className={[classNames.text, classNames.orderInfo]}
                   onClick={() => onClickPandingOrder(order?._id)}
                 >
-                  {`№${order?.id}${
-                    checkPendingData.length > 1 && itemIndex + 1 !== checkPendingData.length ? ',' : ''
-                  }`}
+                  {`№${order?.id}${item.length > 1 && itemIndex + 1 !== item.length ? ',' : ''}`}
                 </Link>
               )),
             )}
