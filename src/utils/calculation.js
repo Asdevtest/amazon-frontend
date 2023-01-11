@@ -1,3 +1,9 @@
+import {
+  BatchWeightCalculationMethod,
+  BatchWeightCalculationMethodByKey,
+} from '@constants/batch-weight-calculations-method'
+import {zipCodeGroups} from '@constants/zip-code-groups'
+
 import {toFixed} from './text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
@@ -50,6 +56,20 @@ export const calcVolumeWeightForBox = (box, coefficient, isShipping) => {
     return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
   }
 }
+
+export const getTariffRateForBoxOrOrder = box => {
+  if (!box || (!box.destination && !box.logicsTariff)) {
+    return 0
+  }
+
+  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+
+  const regionOfDeliveryName =
+    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  return box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
+}
+
 export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
@@ -61,6 +81,34 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
         : box.weighGrossKgSupplier /* * box.amount*/,
     ) || 0,
   )
+
+export const getBatchWeightCalculationMethodForBatch = batch => {
+  switch (batch.calculationMethod) {
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
+      return batch.boxes.reduce((prev, box) => (prev = prev + calcFinalWeightForBox(box, batch.volumeWeightDivide)), 0)
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
+      return calcFinalWeightForBatchByMoreTotalWeight(batch.boxes, batch.volumeWeightDivide)
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
+      return batch.boxes.reduce((prev, box) => (prev = prev + box.weighGrossKgWarehouse * box.amount), 0)
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT]:
+      return batch.boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide, true)), 0)
+  }
+}
+
+export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient, isShipping) =>
+  Math.max(
+    parseFloat(boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping)), 0)) || 0,
+    parseFloat(
+      boxes.reduce(
+        (ac, cur) =>
+          (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
+        0,
+      ),
+    ) || 0,
+  )
+
+export const calcFinalWeightForBoxByMoreActualWeight = box =>
+  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) * box.amount
 
 export const calcFinalWeightForBoxWithoutAmount = (box, coefficient, isShipping) =>
   Math.max(

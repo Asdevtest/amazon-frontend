@@ -349,7 +349,12 @@ export class WarehouseAwaitingBatchesViewModel {
       }
 
       if (!batchToEdit) {
-        const batchId = await BatchesModel.createBatch({title: batchFields.title, boxesIds})
+        const batchId = await BatchesModel.createBatch({
+          title: batchFields.title,
+          boxesIds,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
 
         if (filesToAdd.length) {
           await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
@@ -358,7 +363,11 @@ export class WarehouseAwaitingBatchesViewModel {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeBatch(batchToEdit.id, {title: batchFields.title})
+        await BatchesModel.changeBatch(batchToEdit.id, {
+          title: batchFields.title,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
 
         if (newBoxesIds.length) {
           await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)

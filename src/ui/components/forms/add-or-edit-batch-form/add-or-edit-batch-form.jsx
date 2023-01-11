@@ -10,6 +10,7 @@ import {
   BatchWeightCalculationMethod,
   BatchWeightCalculationMethodByKey,
   BatchWeightCalculationMethodTranslateKey,
+  getBatchWeightCalculationMethodForBox,
   getBatchWeightCalculationMethodsData,
 } from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -24,8 +25,8 @@ import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
+import {calcFinalWeightForBatchByMoreTotalWeight, calcVolumeWeightForBox} from '@utils/calculation'
+import {addOrEditBatchDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -52,15 +53,19 @@ export const AddOrEditBatchForm = observer(
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
     const [batchFields, setBatchFields] = useState({
-      title: batchToEdit?.title || '',
+      title: batchToEdit?.originalData.title || '',
       calculationMethod:
-        batchToEdit?.calculationMethod ||
+        batchToEdit?.originalData.calculationMethod ||
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT],
-      volumeWeightDivide: batchToEdit?.volumeWeightDivide || 5000,
+      volumeWeightDivide: batchToEdit?.originalData.volumeWeightDivide || 5000,
     })
 
     const [boxesToAddData, setBoxesToAddData] = useState(
-      clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide),
+      addOrEditBatchDataConverter(
+        boxesData,
+        batchFields.volumeWeightDivide,
+        getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+      ),
     )
 
     const changeBatchFields = fieldName => value => {
@@ -76,14 +81,24 @@ export const AddOrEditBatchForm = observer(
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
-        ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes, batchFields.volumeWeightDivide)
+        ? addOrEditBatchDataConverter(
+            batchToEdit.originalData?.boxes,
+            batchFields.volumeWeightDivide,
+            getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+          )
         : sourceBox
-        ? [...clientWarehouseDataConverter([sourceBox], batchFields.volumeWeightDivide)]
+        ? [
+            ...addOrEditBatchDataConverter(
+              [sourceBox],
+              batchFields.volumeWeightDivide,
+              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+            ),
+          ]
         : [],
     )
 
     // console.log('chosenBoxes', chosenBoxes)
-    // console.log('batchToEdit', batchToEdit)
+    console.log('batchToEdit', batchToEdit)
     // console.log('sourceBox', sourceBox)
 
     const [boxesToAddIds, setBoxesToAddIds] = useState([])
@@ -95,7 +110,11 @@ export const AddOrEditBatchForm = observer(
     const filterBoxesToAddData = () => {
       const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
-      const newArr = clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide).filter(
+      const newArr = addOrEditBatchDataConverter(
+        boxesData,
+        batchFields.volumeWeightDivide,
+        getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+      ).filter(
         box =>
           box.originalData?.destination?.name === chosenBoxes[0]?.originalData?.destination?.name &&
           box.originalData?.logicsTariff?.name === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
@@ -135,15 +154,19 @@ export const AddOrEditBatchForm = observer(
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
-        const deletedBoxes = clientWarehouseDataConverter(
+        const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
-          /* volumeWeightCoefficient*/
+          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
         )
 
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData([
-            ...clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide).filter(
+            ...addOrEditBatchDataConverter(
+              boxesData,
+              batchFields.volumeWeightDivide,
+              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+            ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
                 box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
@@ -157,10 +180,16 @@ export const AddOrEditBatchForm = observer(
         // if (/* !nameSearchValueBoxesToAddData && */ !chosenBoxesBase) {
         console.log('!!! *** 3')
         setBoxesToAddData(() =>
-          filterBySearchValueBoxesToAddData(clientWarehouseDataConverter(boxesData, batchFields.volumeWeightDivide)),
+          filterBySearchValueBoxesToAddData(
+            addOrEditBatchDataConverter(
+              boxesData,
+              batchFields.volumeWeightDivide,
+              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
+            ),
+          ),
         )
       }
-    }, [chosenBoxes, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide])
+    }, [chosenBoxes, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     useEffect(() => {
       if (nameSearchValueChosenBoxes && !batchToEdit) {
@@ -168,9 +197,10 @@ export const AddOrEditBatchForm = observer(
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
-        const deletedBoxes = clientWarehouseDataConverter(
+        const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
+          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
         )
 
         setChosenBoxesBase(() =>
@@ -196,12 +226,13 @@ export const AddOrEditBatchForm = observer(
 
     useEffect(() => {
       setChosenBoxes(() => [
-        ...clientWarehouseDataConverter(
+        ...addOrEditBatchDataConverter(
           chosenBoxes.map(el => el.originalData),
           batchFields.volumeWeightDivide,
+          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod),
         ),
       ])
-    }, [batchFields.volumeWeightDivide])
+    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -467,13 +498,29 @@ export const AddOrEditBatchForm = observer(
                 containerClasses={classNames.sumField}
                 tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
                 label={t(TranslationKey['Final weight'])}
-                value={toFixed(
-                  chosenBoxes.reduce(
-                    (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
-                    0,
-                  ),
-                  4,
-                )}
+                // value={toFixed(
+                //   chosenBoxes.reduce(
+                //     (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
+                //     0,
+                //   ),
+                //   4,
+                // )}
+
+                value={
+                  batchFields.calculationMethod ===
+                  BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]
+                    ? toFixed(
+                        calcFinalWeightForBatchByMoreTotalWeight(
+                          chosenBoxes.map(el => el.originalData),
+                          batchFields.volumeWeightDivide,
+                        ),
+                        4,
+                      )
+                    : toFixed(
+                        chosenBoxes.reduce((ac, cur) => (ac += cur.finalWeight), 0),
+                        4,
+                      )
+                }
                 placeholder={'0'}
               />
 

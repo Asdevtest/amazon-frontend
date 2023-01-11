@@ -1,3 +1,8 @@
+import {
+  calcFinalWeightForBox,
+  calcFinalWeightForBoxByMoreActualWeight,
+  calcVolumeWeightForBox,
+} from '@utils/calculation'
 import {objectFlip} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -32,6 +37,19 @@ export const BatchWeightCalculationMethodTranslateKey = code => {
   }
 }
 
+export const getBatchWeightCalculationMethodForBox = code => {
+  switch (code) {
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
+      return calcFinalWeightForBox
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
+      return calcFinalWeightForBox
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
+      return calcFinalWeightForBoxByMoreActualWeight
+    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT]:
+      return calcVolumeWeightForBox
+  }
+}
+
 export const getBatchWeightCalculationMethodsData = () => [
   {
     methodStatus: BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT],
@@ -40,6 +58,7 @@ export const getBatchWeightCalculationMethodsData = () => [
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT],
       ),
     ),
+    finalWeightCalculationMethodForBox: calcFinalWeightForBox,
   },
   {
     methodStatus: BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT],
@@ -48,6 +67,7 @@ export const getBatchWeightCalculationMethodsData = () => [
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT],
       ),
     ),
+    finalWeightCalculationMethodForBox: calcFinalWeightForBox,
   },
   {
     methodStatus: BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT],
@@ -56,6 +76,7 @@ export const getBatchWeightCalculationMethodsData = () => [
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT],
       ),
     ),
+    finalWeightCalculationMethodForBox: calcFinalWeightForBoxByMoreActualWeight,
   },
   {
     methodStatus: BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT],
@@ -64,5 +85,6 @@ export const getBatchWeightCalculationMethodsData = () => [
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT],
       ),
     ),
+    finalWeightCalculationMethodForBox: calcVolumeWeightForBox,
   },
 ]

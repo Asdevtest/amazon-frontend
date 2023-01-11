@@ -6,7 +6,13 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
-import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
+import {
+  calcFinalWeightForBox,
+  calcPriceForBox,
+  calcTotalPriceForBatch,
+  calcVolumeWeightForBox,
+  getTariffRateForBoxOrOrder,
+} from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
 import {t} from './translations'
 
@@ -376,6 +382,48 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .slice(0, -2),
   }))
 
+export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, finalWeightCalculationMethod) =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+
+    amazonPrice: calcPriceForBox(item),
+
+    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient),
+    grossWeight: item.weighGrossKgWarehouse,
+
+    destination: item.destination?.name,
+    storekeeper: item.storekeeper?.name,
+    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    client: item.client?.name,
+
+    isDraft: item.isDraft,
+    isFormed: item.isFormed,
+
+    createdAt: item.createdAt,
+
+    updatedAt: item.updatedAt,
+
+    humanFriendlyId: item.humanFriendlyId,
+    deliveryTotalPrice:
+      getTariffRateForBoxOrOrder(item) * finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+
+    deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
+
+    shippingLabel: item.shippingLabel,
+    fbaShipment: item.fbaShipment,
+    volumeWeightCoefficient,
+
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
+  }))
+
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
@@ -468,10 +516,12 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
       0,
     ),
 
-    finalWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
-      0,
-    ),
+    // finalWeight: item.boxes.reduce(
+    //   (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
+    //   0,
+    // ),
+    finalWeight: item.finalWeight,
+
     totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
     deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
   }))
