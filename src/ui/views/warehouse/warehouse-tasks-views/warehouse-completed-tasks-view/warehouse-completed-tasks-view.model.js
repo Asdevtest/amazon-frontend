@@ -205,7 +205,8 @@ export class WarehouseCompletedViewModel {
         offset: this.curPage * this.rowsPerPage,
         limit: this.rowsPerPage,
         filters: this.nameSearchValue ? filter : null,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        // sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
