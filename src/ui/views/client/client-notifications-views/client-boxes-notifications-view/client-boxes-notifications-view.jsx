@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
@@ -52,13 +53,17 @@ class ClientBoxesNotificationsViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
+      showConfirmModal,
+      showEditHSCodeModal,
+      hsCodeData,
+      showWarningInfoModal,
+      confirmModalSettings,
+      onClickSaveHsCode,
+      onClickHsCode,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       setCurrentOpenedBox,
-      showConfirmModal,
-      showWarningInfoModal,
-      confirmModalSettings,
       onTriggerOpenModal,
       onSelectionModel,
       setDataGridState,
@@ -140,6 +145,15 @@ class ClientBoxesNotificationsViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
             onSubmitChangeFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 
