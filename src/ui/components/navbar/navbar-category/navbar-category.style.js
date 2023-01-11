@@ -8,6 +8,7 @@ export const styles = theme => ({
     color: theme.palette.text.general,
     borderLeft: `5px solid transparent`,
     paddingRight: '16px',
+
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
@@ -23,6 +24,10 @@ export const styles = theme => ({
   selected: {
     color: `${theme.palette.primary.main} !important`,
     background: 'linear-gradient(90deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
+  },
+  shortNavbarRoot: {
+    paddingRight: 0,
+    width: 'unset',
   },
 
   selectedIcon: {

@@ -52,7 +52,7 @@ export const Navbar = observer(
     }, [shortNavbar])
 
     const drawerContent = (
-      <div className={classNames.mainSubWrapper}>
+      <div className={cx(classNames.mainSubWrapper, {[classNames.reverseMainSubWrapper]: shortNavbar})}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
             <img
@@ -112,6 +112,7 @@ export const Navbar = observer(
                 <React.Fragment key={index}>
                   <NavbarCategory
                     button
+                    shortNavbar={shortNavbar}
                     isSelected={category.key === activeCategory}
                     userInfo={viewModel.current.userInfo}
                     category={category}
@@ -121,14 +122,25 @@ export const Navbar = observer(
               ) : null,
             )}
 
-          {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
+          {/* {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) && !shortNavbar ? (
             <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
               <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
               <Feedback className={classNames.feedbackIcon} />
             </div>
+          ) : null} */}
+
+          {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
+            <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
+              {!shortNavbar && (
+                <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
+              )}
+              <Feedback className={classNames.feedbackIcon} />
+            </div>
           ) : null}
 
-          <Typography className={classNames.appVersion}>{appVersion}</Typography>
+          <Typography className={cx(classNames.appVersion, {[classNames.smallAppVersion]: shortNavbar})}>
+            {appVersion}
+          </Typography>
         </div>
 
         {/* <Typography className={classNames.appVersion}>{appVersion}</Typography>
