@@ -336,7 +336,7 @@ export const AddOrEditUserPermissionsForm = observer(
               .map(shop => {
                 const sourceData = useMemo(
                   () =>
-                    productPermissionsData.filter(el =>
+                    productPermissionsData?.filter(el =>
                       shop._id === PRODUCTS_WITHOUT_SHOPS_ID
                         ? isWithoutShopsDepends
                           ? true

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import {TableCell, TableRow, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
 
@@ -24,7 +24,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {SearchInput} from '@components/search-input'
 
-import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {formatDateWithoutTime} from '@utils/date-time'
@@ -109,7 +109,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              containerClasses={classNames.infoField}
+              // containerClasses={classNames.infoField}
+              containerClasses={classNames.sumField}
+              inputClasses={classNames.shortInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={batch?.humanFriendlyId}
@@ -119,6 +121,7 @@ export const BatchInfoModal = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              inputClasses={classNames.tariffInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
               value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
@@ -128,6 +131,7 @@ export const BatchInfoModal = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              inputClasses={classNames.shortInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={batch.boxes?.[0].destination?.name}
@@ -137,10 +141,11 @@ export const BatchInfoModal = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              inputClasses={classNames.shortInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
-                batch.boxes?.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, volumeWeightCoefficient)), 0),
+                batch.boxes?.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide)), 0),
                 4,
               )}
               placeholder={'0'}
@@ -149,6 +154,7 @@ export const BatchInfoModal = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              inputClasses={classNames.shortInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Final weight'])}
               value={toFixed(batch.finalWeight, 4)}
@@ -158,6 +164,7 @@ export const BatchInfoModal = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              inputClasses={classNames.methodInput}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Method of box weight calculation'])}
               value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
@@ -196,6 +203,7 @@ export const BatchInfoModal = observer(
               <Field
                 disabled
                 containerClasses={classNames.sumField}
+                inputClasses={classNames.shortInput}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
@@ -208,6 +216,7 @@ export const BatchInfoModal = observer(
               <Field
                 disabled
                 containerClasses={classNames.sumField}
+                inputClasses={classNames.shortInput}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey.Divider)}
                 value={batch.volumeWeightDivide}

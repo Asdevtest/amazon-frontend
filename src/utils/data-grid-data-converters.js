@@ -388,7 +388,7 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
     id: item._id,
     _id: item._id,
 
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    qty: item.items?.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
 
@@ -418,9 +418,9 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
-      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      ?.reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
       .slice(0, -2)}  item №: ${item.items
-      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      ?.reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 
@@ -523,7 +523,11 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     finalWeight: item.finalWeight,
 
     totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
-    deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
+    // totalPrice: getTariffRateForBoxOrOrder(item) * item.finalWeight,
+
+    // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
+
+    deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
   }))
 
 export const warehouseTasksDataConverter = data =>

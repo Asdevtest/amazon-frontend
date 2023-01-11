@@ -77,8 +77,8 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
       isShipping
         ? box.deliveryMass * box.amount
         : box.weighGrossKgWarehouse
-        ? box.weighGrossKgWarehouse /* box.amount*/
-        : box.weighGrossKgSupplier /* * box.amount*/,
+        ? box.weighGrossKgWarehouse * box.amount
+        : box.weighGrossKgSupplier * box.amount,
     ) || 0,
   )
 
@@ -227,7 +227,7 @@ export const calcSupplierPriceForUnit = supplier =>
   supplier.price + roundSafely(supplier.batchDeliveryCostInDollar / supplier.amount)
 
 export const calcPriceForBox = box => {
-  const sumsOfItems = box.items.reduce(
+  const sumsOfItems = box.items?.reduce(
     (acc, cur) => acc + calcSupplierPriceForUnit(cur.order.orderSupplier) * cur.amount,
     0,
   )

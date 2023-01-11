@@ -90,7 +90,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         content: key => (
           <OrderDeadlineSnack
             id={key}
-            autoHideDuration={15000}
+            autoHideDuration={25000}
             noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]}
           />
         ),

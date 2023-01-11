@@ -23,11 +23,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemWrapper: {
-    borderRadius: 4,
+    padding: 5,
+    borderRadius: 10,
     cursor: 'pointer',
     transition: '.3s ease',
     '&:hover': {
       transform: 'scale(0.99)',
+      backgroundColor: theme.palette.background.second,
     },
   },
 
@@ -52,11 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 5,
     color: theme.palette.text.general,
     whiteSpace: 'nowrap',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     minHeight: 25,
     maxHeight: 150,
     minWidth: 150,
-    maxWidth: 280,
+    maxWidth: 320,
   },
 
   filesText: {

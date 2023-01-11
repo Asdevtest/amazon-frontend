@@ -52,9 +52,7 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
           />
 
           <div className={classNames.centerWrapper}>
-            <Typography className={classNames.attentionTitle}>
-              {`${t(TranslationKey.Notice).toUpperCase()} /`}
-            </Typography>
+            <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
 
             {noticeItem.map((el: any, index: number) => (
               <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>

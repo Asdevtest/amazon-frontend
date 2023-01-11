@@ -22,6 +22,8 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
 
   const [chosenUser, setChoseUser] = useState(null)
 
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
   const CustomBtn = ({key, item, onClick}) => (
     <div key={key} className={classNames.customBtnWrapper} onClick={onClick}>
       <div className={classNames.customBtnNameWrapper}>
@@ -56,7 +58,14 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
       />
 
       <div className={classNames.buttonWrapper}>
-        <Button disabled={!chosenUser} className={classNames.button} onClick={() => onSubmit(chosenUser)}>
+        <Button
+          disabled={!chosenUser || submitIsClicked}
+          className={classNames.button}
+          onClick={() => {
+            setSubmitIsClicked
+            onSubmit(chosenUser)
+          }}
+        >
           {t(TranslationKey.Create)}
         </Button>
 

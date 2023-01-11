@@ -199,7 +199,7 @@ export const OrderModalBodyRow = ({
               item.currentSupplier?.boxProperties?.amountInBox &&
               orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
               !!orderState.amount &&
-              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox} !`
+              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
             }
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
