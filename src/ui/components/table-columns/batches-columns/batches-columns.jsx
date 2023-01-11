@@ -72,7 +72,7 @@ export const batchesViewColumns = () => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeightAsOneBox} fix={2} />,
+    renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
     type: 'number',
     width: 150,
   },

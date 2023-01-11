@@ -27,8 +27,8 @@ export class BatchesModelStatic {
     return response
   }
 
-  changeTitle = async (id, data) => {
-    const response = await restApiService.batchesApi.apiV1BatchesTitleGuidPatch(id, {
+  changeBatch = async (id, data) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidPatch(id, {
       body: data,
     })
     return response

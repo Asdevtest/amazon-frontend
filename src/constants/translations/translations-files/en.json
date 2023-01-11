@@ -1699,5 +1699,11 @@
   "Users with access to the product": "Users with access to the product",
   "Taken on board": "Taken on board",
   "With the products": "With the products",
-  "there are already pending orders": "there are already pending orders"
+  "there are already pending orders": "there are already pending orders",
+  "By more weight": "By more weight",
+  "By more total weight": "By more total weight",
+  "By actual weight": "By actual weight",
+  "By volume weight": "By volume weight",
+  "Method of box weight calculation": "Method of box weight calculation",
+  "Divider": "Divider"
 }

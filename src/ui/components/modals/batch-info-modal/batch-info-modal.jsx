@@ -8,6 +8,7 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {Link} from 'react-router-dom'
 
+import {BatchWeightCalculationMethodTranslateKey} from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -160,22 +161,18 @@ export const BatchInfoModal = observer(
               )}
               placeholder={'0'}
             />
+
+            <Field
+              disabled
+              containerClasses={classNames.sumField}
+              labelClasses={classNames.subFieldLabel}
+              label={t(TranslationKey['Method of box weight calculation'])}
+              value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
+            />
           </div>
 
           <div className={classNames.headerSubWrapper}>
             <div className={classNames.datesWrapper}>
-              <Field
-                disabled
-                containerClasses={classNames.sumField}
-                labelClasses={classNames.subFieldLabel}
-                label={t(TranslationKey['Total price'])}
-                value={toFixed(
-                  batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
-                  2,
-                )}
-                placeholder={'0'}
-              />
-
               <Field
                 disabled
                 containerClasses={classNames.sumField}
@@ -201,6 +198,26 @@ export const BatchInfoModal = observer(
                 label={t(TranslationKey['ETA (arrival date)'])}
                 value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.eta)}
                 placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey['Total price'])}
+                value={toFixed(
+                  batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
+                  2,
+                )}
+                placeholder={'0'}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                labelClasses={classNames.subFieldLabel}
+                label={t(TranslationKey.Divider)}
+                value={batch.volumeWeightDivide}
               />
             </div>
 
