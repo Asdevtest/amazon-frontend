@@ -38,6 +38,9 @@ export class WarehouseAwaitingBatchesViewModel {
   isWarning = false
   showBatchInfoModal = false
 
+  currentData = []
+  rowCount = 0
+
   showAddOrEditBatchModal = false
 
   showWarningInfoModal = false
@@ -92,6 +95,15 @@ export class WarehouseAwaitingBatchesViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.batches,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -134,12 +146,16 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -158,37 +174,28 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getBatchesPagMy()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedBatches = model
     })
+
+    this.getBatchesPagMy()
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.batches).filter(
-        el =>
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item =>
-              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ),
-          ),
-      )
-    } else {
-      return toJS(this.batches)
-    }
+    return toJS(this.batches)
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getBatches()
+      // await this.getBatches()
+      await this.getBatchesPagMy()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -246,6 +253,8 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getBatchesPagMy()
   }
 
   onChangeNameSearchValue(e) {
@@ -279,25 +288,64 @@ export class WarehouseAwaitingBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  async getBatches() {
-    try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+  // async getBatches() {
+  //   try {
+  //     const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
-      const result = await UserModel.getPlatformSettings()
+  //     const result = await UserModel.getPlatformSettings()
+
+  //     runInAction(() => {
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+  //       this.batches = warehouseBatchesDataConverter(
+  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+  //         this.volumeWeightCoefficient,
+  //       )
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     runInAction(() => {
+  //       this.error = error
+
+  //       this.batches = []
+  //     })
+  //   }
+  // }
+
+  async getBatchesPagMy() {
+    try {
+      const filter = isNaN(this.nameSearchValue)
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};`
+
+      const result = await BatchesModel.getBatchesWithFiltersPag({
+        status: BatchStatus.IS_BEING_COLLECTED,
+        options: {
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
+          filters: this.nameSearchValue ? filter : null,
+          storekeeperId: null,
+        },
+      })
+
+      const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.rowCount = result.count
+
+        this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
         this.batches = warehouseBatchesDataConverter(
-          batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
           this.volumeWeightCoefficient,
         )
       })
     } catch (error) {
       console.log(error)
+
       runInAction(() => {
         this.error = error
-
         this.batches = []
       })
     }

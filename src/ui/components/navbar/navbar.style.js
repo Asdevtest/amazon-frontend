@@ -14,6 +14,10 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
+  reverseMainSubWrapper: {
+    justifyContent: 'flex-end',
+  },
+
   mainSubWrapper: {
     backgroundColor: theme.palette.background.general,
 
@@ -34,7 +38,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   hideNavbar: {
-    width: '40px',
+    width: 70,
   },
 
   appVersion: {
@@ -120,11 +124,17 @@ export const useClassNames = makeStyles()(theme => ({
     // bottom: '20px',
 
     width: '100%',
+    height: 50,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 15px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0,123,255,0.3)',
+      opacity: 0.7,
+    },
   },
   feedBackText: {
     fontSize: '14px',
@@ -137,5 +147,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px !important',
     // color: `${theme.palette.text.general} !important`,
     color: theme.palette.text.general,
+  },
+  smallAppVersion: {
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
   },
 }))

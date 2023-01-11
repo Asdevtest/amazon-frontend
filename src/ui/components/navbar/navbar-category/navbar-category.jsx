@@ -12,7 +12,7 @@ import {renderTooltipTitle} from '@utils/renders'
 
 import {styles} from './navbar-category.style'
 
-const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, userInfo, category}) => {
+const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, userInfo, category, shortNavbar}) => {
   const subRoutes = category.subtitles
     ?.map(subCategory =>
       subCategory.checkHideSubBlock
@@ -36,7 +36,10 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         selected={isSelected}
         component={Link}
         to={subRoutes?.[0] || category.route}
-        classes={{root: classNames.root, selected: classNames.selected}}
+        classes={{
+          root: cx(classNames.root, {[classNames.shortNavbarRoot]: shortNavbar}),
+          selected: classNames.selected,
+        }}
       >
         <ListItemIcon
           className={cx(classNames.iconWrapper, {
@@ -52,11 +55,13 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
 
           {badge ? <div className={cx(classNames.badge, {[classNames.redBadge]: isRedBadge})}>{badge}</div> : undefined}
         </ListItemIcon>
-        <ListItemText
-          disableTypography
-          className={cx({[classNames.listItemSelected]: isSelected})}
-          primary={category.title}
-        />
+        {!shortNavbar && ( // убрать условие если нужно вернуть старый вид
+          <ListItemText
+            disableTypography
+            className={cx({[classNames.listItemSelected]: isSelected})}
+            primary={category.title}
+          />
+        )}
       </MuiListItem>
     </Button>
   )

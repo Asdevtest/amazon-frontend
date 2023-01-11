@@ -52,6 +52,11 @@ export class ClientOrdersViewModel {
   showOrderModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
+  showCheckPendingOrderFormModal = false
+
+  isOrder = []
+  existingOrders = []
+  checkPendingData = []
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -412,7 +417,65 @@ export class ClientOrdersViewModel {
     }
   }
 
+  // async onClickReorder(item) {
+  //   try {
+  //     const storekeepers = await StorekeeperModel.getStorekeepers()
+
+  //     const destinations = await ClientModel.getDestinations()
+
+  //     const result = await UserModel.getPlatformSettings()
+
+  //     const order = await ClientModel.getOrderById(item._id)
+
+  //     runInAction(() => {
+  //       this.storekeepers = storekeepers
+
+  //       this.destinations = destinations
+
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+  //       this.reorderOrdersData = [order]
+  //     })
+
+  //     this.onTriggerOpenModal('showOrderModal')
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   async onClickReorder(item) {
+    try {
+      const pendingOrders = []
+      const correctIds = []
+
+      const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
+
+      if (res.length > 0) {
+        correctIds.push(item.product._id)
+        pendingOrders.push(res)
+      }
+
+      this.checkPendingData = pendingOrders
+
+      if (this.checkPendingData.length > 0) {
+        this.existingOrders = this.currentData
+          .filter(product => correctIds.includes(product.originalData.product._id))
+          .map(prod => prod.originalData.product)
+
+        this.isOrder = this.currentData
+          .filter(product => correctIds.includes(product.originalData.product._id))
+          .map(prod => prod.originalData)
+
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      } else {
+        this.onClickContinueBtn(item)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickContinueBtn(item) {
     try {
       const storekeepers = await StorekeeperModel.getStorekeepers()
 
@@ -436,6 +499,11 @@ export class ClientOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickPandingOrder(id) {
+    const win = window.open(`${window.location.origin}/client/pending-orders/order?${id}`, '_blank')
+    win.focus()
   }
 
   onDoubleClickBarcode = item => {

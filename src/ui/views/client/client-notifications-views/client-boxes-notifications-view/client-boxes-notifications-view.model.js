@@ -30,6 +30,9 @@ export class ClientBoxesNotificationsViewModel {
   curBox = undefined
   showBoxViewModal = false
 
+  hsCodeData = {}
+  showEditHSCodeModal = false
+
   boxes = []
   drawerOpen = false
   showConfirmModal = false
@@ -48,6 +51,7 @@ export class ClientBoxesNotificationsViewModel {
   uploadedFiles = []
 
   sortModel = []
+
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
@@ -135,6 +139,31 @@ export class ClientBoxesNotificationsViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([
+      {
+        productId: hsCode._id,
+        chinaTitle: hsCode.chinaTitle || null,
+        hsCode: hsCode.hsCode || null,
+        material: hsCode.material || null,
+        productUsage: hsCode.productUsage || null,
+      },
+    ])
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
+  async onClickHsCode(id) {
+    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+
+    this.onTriggerOpenModal('showEditHSCodeModal')
+  }
+
   onTriggerOpenRejectModal(row) {
     runInAction(() => {
       this.confirmModalSettings = {
@@ -214,8 +243,8 @@ export class ClientBoxesNotificationsViewModel {
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      await ProductModel.editProductsHsCods(dataToSubmitHsCode)
+      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.loadData()
 

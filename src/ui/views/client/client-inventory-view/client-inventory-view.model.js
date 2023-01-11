@@ -104,8 +104,8 @@ export class ClientInventoryViewModel {
 
   hsCodeData = {}
 
-  existingOrders = {}
-  checkPendingData = {}
+  existingOrders = []
+  checkPendingData = []
 
   curProduct = undefined
 

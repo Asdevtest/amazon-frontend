@@ -12,6 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -54,6 +55,9 @@ class ClientOrdersViewRaw extends Component {
       showAcceptMessage,
       acceptMessage,
 
+      existingOrders,
+      checkPendingData,
+      isOrder,
       selectedProduct,
       storekeepers,
       destinations,
@@ -66,6 +70,7 @@ class ClientOrdersViewRaw extends Component {
       columnsModel,
       showOrderModal,
       showSetBarcodeModal,
+      showCheckPendingOrderFormModal,
       showConfirmModal,
 
       drawerOpen,
@@ -75,6 +80,8 @@ class ClientOrdersViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickTableRow,
+      onClickPandingOrder,
+      onClickContinueBtn,
 
       onSelectionModel,
       setDataGridState,
@@ -204,6 +211,19 @@ class ClientOrdersViewRaw extends Component {
                 onTriggerOpenModal={onTriggerOpenModal}
                 onDoubleClickBarcode={onDoubleClickBarcode}
                 onSubmit={onConfirmSubmitOrderProductModal}
+              />
+            </Modal>
+
+            <Modal
+              openModal={showCheckPendingOrderFormModal}
+              setOpenModal={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
+            >
+              <CheckPendingOrderForm
+                existingOrders={existingOrders}
+                checkPendingData={checkPendingData}
+                onClickPandingOrder={onClickPandingOrder}
+                onClickContinueBtn={() => onClickContinueBtn(isOrder[0])}
+                onClickCancelBtn={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
               />
             </Modal>
 
