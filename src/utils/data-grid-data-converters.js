@@ -246,16 +246,19 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0),
     reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
     inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
-    stockSum:
-      item.inTransfer +
-      item.amountInOrders +
-      item.boxAmounts?.reduce((ac, cur) => (ac += cur.amountInBoxes), 0) +
-      item.stockUSA +
-      item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
-      item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
-      item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
+    // stockSum:
+    //   item.inTransfer +
+    //   item.amountInOrders +
+    //   item.boxAmounts?.reduce((ac, cur) => (ac += cur.amountInBoxes), 0) +
+    //   item.stockUSA +
+    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
+    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
+    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
+    sumStock: item.sumStock,
+    purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,
+
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
@@ -312,7 +315,7 @@ export const clientOrdersDataConverter = data =>
     warehouses: item.destination?.name,
     // status: OrderStatusByCode[item.status],
 
-    orderStatus: OrderStatusTranslate(OrderStatusByCode[item.status]),
+    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

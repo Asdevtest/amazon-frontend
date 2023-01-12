@@ -35,9 +35,9 @@ import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20025 from '../model/InlineResponse20025';
 import InlineResponse20026 from '../model/InlineResponse20026';
 import InlineResponse20027 from '../model/InlineResponse20027';
-import InlineResponse20027Rows from '../model/InlineResponse20027Rows';
 import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse20029 from '../model/InlineResponse20029';
+import InlineResponse20030 from '../model/InlineResponse20030';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse2015 from '../model/InlineResponse2015';
@@ -906,7 +906,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20028} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
      */
     apiV1ClientsPagOrdersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -931,7 +931,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20028;
+      let returnType = InlineResponse20029;
       return this.apiClient.callApi(
         '/api/v1/clients/pag/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -950,7 +950,7 @@ export default class ClientApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20028}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
      */
     apiV1ClientsPagOrdersGet(opts) {
       return this.apiV1ClientsPagOrdersGetWithHttpInfo(opts)
@@ -1015,7 +1015,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject44} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20030} and HTTP response
      */
     apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -1034,7 +1034,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20029;
+      let returnType = InlineResponse20030;
       return this.apiClient.callApi(
         '/api/v1/clients/products/get_price_for_client', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1048,7 +1048,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject44} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20030}
      */
     apiV1ClientsProductsGetPriceForClientPost(opts) {
       return this.apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts)
@@ -1232,7 +1232,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20030} and HTTP response
      */
     apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -1256,7 +1256,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20029;
+      let returnType = InlineResponse20030;
       return this.apiClient.callApi(
         '/api/v1/clients/products/{guid}/get_price_for_client', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1270,7 +1270,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20030}
      */
     apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts) {
       return this.apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts)
@@ -1446,7 +1446,7 @@ export default class ClientApi {
      * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20027Rows>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20028>} and HTTP response
      */
     apiV1ClientsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1467,7 +1467,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20027Rows];
+      let returnType = [InlineResponse20028];
       return this.apiClient.callApi(
         '/api/v1/clients/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1482,7 +1482,7 @@ export default class ClientApi {
      * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20027Rows>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20028>}
      */
     apiV1ClientsProductsMyGet(opts) {
       return this.apiV1ClientsProductsMyGetWithHttpInfo(opts)
@@ -1498,6 +1498,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
+     * @param {Boolean} opts.purchaseQuantityAboveZero purchaseQuantity > 0 булевое выражение
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
@@ -1514,6 +1515,7 @@ export default class ClientApi {
       let queryParams = {
         'filters': opts['filters'],
         'shopId': opts['shopId'],
+        'purchaseQuantityAboveZero': opts['purchaseQuantityAboveZero'],
         'limit': opts['limit'],
         'offset': opts['offset'],
         'sortField': opts['sortField'],
@@ -1542,6 +1544,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
      * @param {String} opts.shopId ID магазина для фильтрации по нему
+     * @param {Boolean} opts.purchaseQuantityAboveZero purchaseQuantity > 0 булевое выражение
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля

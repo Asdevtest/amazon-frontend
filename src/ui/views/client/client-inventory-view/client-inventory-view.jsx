@@ -16,6 +16,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
@@ -61,6 +62,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      isNeedPurchaseFilter,
       isTransfer,
       curProduct,
       receivedFiles,
@@ -178,6 +180,7 @@ export class ClientInventoryViewRaw extends Component {
       onSearchSubmit,
 
       onClickPrevButton,
+      onChangeIsNeedPurchaseFilter,
       getProductsMy1,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -409,6 +412,12 @@ export class ClientInventoryViewRaw extends Component {
                   rowHeight={120}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                  }}
+                  componentsProps={{
+                    columnMenu: {
+                      isNeedPurchaseFilterData: {isNeedPurchaseFilter, onChangeIsNeedPurchaseFilter},
+                    },
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}

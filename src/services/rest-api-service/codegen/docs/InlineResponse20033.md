@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**products** | [**InlineResponse20033Products**](InlineResponse20033Products.md) |  | [optional] 
-**finances** | [**InlineResponse20031Finances**](InlineResponse20031Finances.md) |  | [optional] 
+**tasks** | [**InlineResponse20033Tasks**](InlineResponse20033Tasks.md) |  | [optional] 
+**boxes** | [**InlineResponse20033Boxes**](InlineResponse20033Boxes.md) |  | [optional] 
+**batches** | [**InlineResponse20033Batches**](InlineResponse20033Batches.md) |  | [optional] 
 
 

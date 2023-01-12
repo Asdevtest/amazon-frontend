@@ -109,7 +109,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject12} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2009>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -142,7 +142,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject12} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2009>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts) {
       return this.apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts)

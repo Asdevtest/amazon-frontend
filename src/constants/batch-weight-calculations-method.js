@@ -37,12 +37,12 @@ export const BatchWeightCalculationMethodTranslateKey = code => {
   }
 }
 
-export const getBatchWeightCalculationMethodForBox = code => {
+export const getBatchWeightCalculationMethodForBox = (code, isActualGreaterTheVolume) => {
   switch (code) {
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
       return calcFinalWeightForBox
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
-      return calcFinalWeightForBox
+      return isActualGreaterTheVolume ? calcFinalWeightForBoxByMoreActualWeight : calcVolumeWeightForBox
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
       return calcFinalWeightForBoxByMoreActualWeight
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT]:

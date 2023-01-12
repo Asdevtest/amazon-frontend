@@ -40,7 +40,7 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {
   formatDateDistanceFromNowStrict,
   formatDateWithoutTime,
@@ -607,7 +607,8 @@ export const EditOrderModal = observer(
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
-                        {selectedSupplier?.createdBy._id !== userInfo._id ? (
+                        {selectedSupplier?.createdBy._id !== userInfo._id &&
+                        userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
                           <VisibilityOutlinedIcon />
                         ) : (
                           <EditOutlinedIcon />
@@ -895,7 +896,11 @@ export const EditOrderModal = observer(
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
-            onlyRead={selectedSupplier?.createdBy._id !== userInfo._id}
+            onlyRead={
+              selectedSupplier?.createdBy._id !== userInfo._id &&
+              userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
+              isNotNull(selectedSupplier)
+            }
             // showProgress={showProgress}
             // progressValue={progressValue}
             onClickSaveBtn={onClickSubmitSaveSupplierBtn}

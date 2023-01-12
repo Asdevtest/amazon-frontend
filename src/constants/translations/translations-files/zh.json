@@ -1709,5 +1709,7 @@
   "Divider": "Divider",
   "Product code* must be filled out": "Product code* must be filled out",
   "Store": "Store",
-  "Search": "Search"
+  "Search": "Search",
+  "Need refills": "Need refills",
+  "Not need refills": "Not need refills"
 }

@@ -1416,7 +1416,7 @@ export const FourMonthesStockCell = React.memo(
     ({classes: classNames, handlers, params, value}) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-          value < params.row.stockSum ? 0 : value - params.row.stockSum
+          value // < params.row.stockSum ? 0 : value - params.row.stockSum
         }`}</Typography>
         {/* <ChangeChipCell
         row={params.row.originalData}
@@ -1430,7 +1430,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           row={params.row.originalData}
           // text={Number(params.value) > 0 ? params.value : `-`}
-          text={params.value}
+          text={params.row.fourMonthesStock}
           onClickSubmit={handlers.onClickSaveFourMonthsStock}
         />
       </div>
@@ -2191,9 +2191,11 @@ export const ShortBoxDimensions = React.memo(
           box.weighGrossKgWarehouse,
           2,
         )}`}</Typography>
+
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
           TranslationKey['Volume weight'],
         )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+
         <Typography
           className={cx(classNames.shortBoxDimensionsText, {
             [classNames.alertText]: !box.isDraft && finalWeight < 12,
@@ -2203,6 +2205,13 @@ export const ShortBoxDimensions = React.memo(
         {!box.isDraft && finalWeight < 12 ? (
           <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
         ) : null}
+
+        {box.amount > 1 ? (
+          <Typography className={classNames.shortBoxDimensionsText}>{`${t(
+            TranslationKey['Total final weight'],
+          )}: ${toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}`}</Typography>
+        ) : null}
+
         {/* {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
             disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}

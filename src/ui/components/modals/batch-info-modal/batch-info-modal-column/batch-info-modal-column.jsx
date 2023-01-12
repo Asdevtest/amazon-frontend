@@ -17,7 +17,7 @@ import {calcFinalWeightForBox} from '@utils/calculation'
 import {toFixedWithKg, getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod) => [
+export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod, isActualGreaterTheVolume) => [
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
@@ -78,7 +78,10 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod)
     renderCell: params => (
       <MultilineTextCell
         text={toFixedWithKg(
-          getBatchWeightCalculationMethodForBox(calculationMethod)(params.row, volumeWeightCoefficient),
+          getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+            params.row,
+            volumeWeightCoefficient,
+          ),
           2,
         )}
       />

@@ -65,7 +65,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'orderStatus',
+    field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 

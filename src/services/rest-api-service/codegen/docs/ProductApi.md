@@ -401,7 +401,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20045 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20046 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20045**](InlineResponse20045.md)
+[**InlineResponse20046**](InlineResponse20046.md)
 
 ### Authorization
 

@@ -276,6 +276,12 @@ class InlineResponse20027Rows {
             if (data.hasOwnProperty('productsInWarehouse')) {
                 obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
             }
+            if (data.hasOwnProperty('sumStock')) {
+                obj['sumStock'] = ApiClient.convertToType(data['sumStock'], 'Number');
+            }
+            if (data.hasOwnProperty('purchaseQuantity')) {
+                obj['purchaseQuantity'] = ApiClient.convertToType(data['purchaseQuantity'], 'Number');
+            }
         }
         return obj;
     }
@@ -719,6 +725,18 @@ InlineResponse20027Rows.prototype['checkedby'] = undefined;
  * @member {Array.<Object>} productsInWarehouse
  */
 InlineResponse20027Rows.prototype['productsInWarehouse'] = undefined;
+
+/**
+ * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
+ * @member {Number} sumStock
+ */
+InlineResponse20027Rows.prototype['sumStock'] = undefined;
+
+/**
+ * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
+ * @member {Number} purchaseQuantity
+ */
+InlineResponse20027Rows.prototype['purchaseQuantity'] = undefined;
 
 
 
