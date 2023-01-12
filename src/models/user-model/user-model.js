@@ -84,6 +84,16 @@ class UserModelStatic {
     return response
   }
 
+  async changeUserPassword({oldPassword, newPassword}) {
+    const response = await restApiService.userApi.apiV1UsersChangePasswordPatch({
+      body: {
+        oldPassword,
+        newPassword,
+      },
+    })
+    return response
+  }
+
   async getUserInfo() {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoGet()
