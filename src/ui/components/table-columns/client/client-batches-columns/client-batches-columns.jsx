@@ -50,6 +50,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
+    sortable: false,
   },
 
   {
@@ -71,6 +72,7 @@ export const clientBatchesViewColumns = () => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 150,
+    sortable: false,
   },
 
   {
@@ -80,6 +82,7 @@ export const clientBatchesViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
+    sortable: false,
   },
 
   {
@@ -100,6 +103,7 @@ export const clientBatchesViewColumns = () => [
 
     type: 'number',
     width: 110,
+    sortable: false,
   },
 
   {
@@ -111,6 +115,7 @@ export const clientBatchesViewColumns = () => [
 
     type: 'number',
     width: 120,
+    sortable: false,
   },
 
   {

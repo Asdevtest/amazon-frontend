@@ -59,6 +59,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <AsinCopyCell asinData={params.value} />,
     width: 160,
+    sortable: false,
   },
 
   {
@@ -68,6 +69,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
     width: 160,
+    sortable: false,
   },
 
   {
@@ -78,6 +80,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 160,
+    sortable: false,
   },
 
   {

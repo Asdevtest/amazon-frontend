@@ -604,6 +604,8 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
 
+      this.getProductById()
+
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

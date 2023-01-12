@@ -14,7 +14,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
+import {formatNormDateTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -71,8 +71,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                 <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>
                   <div className={classNames.StatsWrapper}>
                     {isClient ? (
-                      formatNormDateTimeWithParseISO(productBaseData.createdAt) >
-                      formatNormDateTimeWithParseISO(supplier.createdAt) ? (
+                      new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
                         <div className={classNames.imgWrapper}>
                           <NewSupplier fontSize={'large'} />
                         </div>
