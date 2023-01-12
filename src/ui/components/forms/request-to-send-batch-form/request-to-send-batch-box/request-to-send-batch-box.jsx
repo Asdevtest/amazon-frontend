@@ -237,7 +237,7 @@ export const RequestToSendBatchBox = ({
             <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Total final weight'])}</Typography>
 
             <Typography className={classNames.dementionsSpanText}>
-              {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
+              {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}
             </Typography>
           </div>
         ) : null}

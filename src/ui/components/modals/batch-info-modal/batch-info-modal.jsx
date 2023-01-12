@@ -24,7 +24,11 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {SearchInput} from '@components/search-input'
 
-import {calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {
+  calcPriceForBox,
+  calcVolumeWeightForBox,
+  checkActualBatchWeightGreaterVolumeBatchWeight,
+} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {formatDateWithoutTime} from '@utils/date-time'
@@ -46,6 +50,11 @@ export const BatchInfoModal = observer(
     const [dataToRender, setDataToRender] = useState(batch.boxes || [])
 
     const [receivedFiles, setReceivedFiles] = useState(null)
+
+    const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
+      dataToRender,
+      batch.volumeWeightDivide,
+    )
 
     useEffect(() => {
       if (batch?.boxes && nameSearchValue) {
@@ -244,7 +253,11 @@ export const BatchInfoModal = observer(
                 Toolbar: DataGridCustomToolbar,
               }}
               getRowId={dataToRender => dataToRender._id}
-              columns={batchInfoModalColumn(batch.volumeWeightDivide, batch.calculationMethod)}
+              columns={batchInfoModalColumn(
+                batch.volumeWeightDivide,
+                batch.calculationMethod,
+                isActualGreaterTheVolume,
+              )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}
               onRowDoubleClick={e => openBoxView(e.row)}

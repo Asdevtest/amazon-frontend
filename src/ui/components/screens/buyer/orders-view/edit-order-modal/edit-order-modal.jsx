@@ -607,7 +607,8 @@ export const EditOrderModal = observer(
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
-                        {selectedSupplier?.createdBy._id !== userInfo._id ? (
+                        {selectedSupplier?.createdBy._id !== userInfo._id &&
+                        userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
                           <VisibilityOutlinedIcon />
                         ) : (
                           <EditOutlinedIcon />

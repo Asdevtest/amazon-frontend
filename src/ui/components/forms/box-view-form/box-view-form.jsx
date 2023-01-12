@@ -336,6 +336,13 @@ export const BoxViewForm = observer(
                     // eslint-disable-next-line react/jsx-indent
                     <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
                   ) : null}
+
+                  {box.amount > 1 ? (
+                    <Typography className={classNames.standartText}>
+                      {t(TranslationKey['Total final weight']) + ': '}
+                      {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}
+                    </Typography>
+                  ) : null}
                 </div>
               </div>
 

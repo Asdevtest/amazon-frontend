@@ -5,7 +5,7 @@ import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow
 
 import React, {useEffect, useState} from 'react'
 
-import {isValid, parseISO} from 'date-fns'
+import {isPast, isValid, parseISO} from 'date-fns'
 
 import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
@@ -129,7 +129,7 @@ export const OrderContent = ({
 
   const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
-  const disabledSaveSubmit = !isValid(parseISO(formFields.deadline)) && !isValid(formFields.deadline)
+  const disabledSaveSubmit = !isValid(parseISO(formFields.deadline)) && isPast(formFields.deadline)
 
   return (
     <Paper>

@@ -98,19 +98,21 @@ export const getBatchWeightCalculationMethodForBatch = batch => {
   }
 }
 
+export const calcActualBatchWeight = boxes =>
+  parseFloat(
+    boxes.reduce(
+      (ac, cur) =>
+        (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
+      0,
+    ),
+  ) || 0
+
+export const calcVolumeBatchWeight = (boxes, coefficient, isShipping) =>
+  parseFloat(boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping) * cur.amount), 0)) ||
+  0
+
 export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient, isShipping) =>
-  Math.max(
-    parseFloat(
-      boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping) * cur.amount), 0),
-    ) || 0,
-    parseFloat(
-      boxes.reduce(
-        (ac, cur) =>
-          (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
-        0,
-      ),
-    ) || 0,
-  )
+  Math.max(calcVolumeBatchWeight(boxes, coefficient, isShipping), calcActualBatchWeight(boxes))
 
 export const calcFinalWeightForBoxByMoreActualWeight = box =>
   parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)
@@ -122,6 +124,9 @@ export const calcFinalWeightForBoxWithoutAmount = (box, coefficient, isShipping)
       isShipping ? box.deliveryMass : box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier,
     ) || 0,
   )
+
+export const checkActualBatchWeightGreaterVolumeBatchWeight = (boxes, coefficient, isShipping) =>
+  calcActualBatchWeight(boxes) > calcVolumeBatchWeight(boxes, coefficient, isShipping)
 
 export const calcVolumeWeightForBoxWithoutAmount = (box, coefficient, isShipping) => {
   if (isShipping) {
@@ -225,8 +230,6 @@ export const calcTotalPriceForBatch = batch =>
           ),
     0,
   )
-
-export const calcAmazonPriceForBox = box => box.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0)
 
 export const calcSupplierPriceForUnit = supplier =>
   supplier.price + roundSafely(supplier.batchDeliveryCostInDollar / supplier.amount)
