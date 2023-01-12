@@ -1709,5 +1709,7 @@
   "Divider": "Делитель",
   "Product code* must be filled out": "Код продукта* должен быть заполнен",
   "Store": "Магазин",
-  "Search": "Поиск"
+  "Search": "Поиск",
+  "Need refills": "Нужна дозакупка",
+  "Not need refills": "Не нужна дозакупка"
 }

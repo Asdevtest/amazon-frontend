@@ -116,7 +116,9 @@ export class AdminAwaitingBatchesViewModel {
       })
     } else {
       runInAction(() => {
-        this.boxes = this.boxesData
+        // this.boxes = this.boxesData
+
+        this.getBatches()
       })
     }
   }

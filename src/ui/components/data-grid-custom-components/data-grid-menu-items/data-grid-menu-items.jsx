@@ -55,6 +55,57 @@ export const IsFormedMenuItem = React.memo(
   ),
 )
 
+export const IsNeedPurchaseFilterMenuItem = React.memo(
+  withStyles(
+    ({classes: classNames, isNeedPurchaseFilterData}) => (
+      <div className={classNames.isFormedWrapper}>
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              !isNeedPurchaseFilterData.isNeedPurchaseFilter || isNeedPurchaseFilterData.isNeedPurchaseFilter === null
+            }
+            onClick={() =>
+              isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
+                isNeedPurchaseFilterData.isFormed !== null
+                  ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    : null
+                  : true,
+              )
+            }
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Need refills'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              isNeedPurchaseFilterData.isNeedPurchaseFilter || isNeedPurchaseFilterData.isNeedPurchaseFilter === null
+            }
+            onClick={() =>
+              isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
+                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
+                  ? isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    : null
+                  : false,
+              )
+            }
+          />
+        </div>
+
+        <Divider />
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const OrderStatusMenuItem = React.memo(
   withStyles(
     ({classes: classNames, orderStatusData}) => (

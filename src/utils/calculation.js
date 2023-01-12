@@ -77,15 +77,18 @@ export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
       isShipping
         ? box.deliveryMass * box.amount
         : box.weighGrossKgWarehouse
-        ? box.weighGrossKgWarehouse * box.amount
-        : box.weighGrossKgSupplier * box.amount,
+        ? box.weighGrossKgWarehouse
+        : box.weighGrossKgSupplier,
     ) || 0,
   )
 
 export const getBatchWeightCalculationMethodForBatch = batch => {
   switch (batch.calculationMethod) {
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
-      return batch.boxes.reduce((prev, box) => (prev = prev + calcFinalWeightForBox(box, batch.volumeWeightDivide)), 0)
+      return batch.boxes.reduce(
+        (prev, box) => (prev = prev + calcFinalWeightForBox(box, batch.volumeWeightDivide) * box.amount),
+        0,
+      )
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
       return calcFinalWeightForBatchByMoreTotalWeight(batch.boxes, batch.volumeWeightDivide)
     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
@@ -97,7 +100,9 @@ export const getBatchWeightCalculationMethodForBatch = batch => {
 
 export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient, isShipping) =>
   Math.max(
-    parseFloat(boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping)), 0)) || 0,
+    parseFloat(
+      boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping) * cur.amount), 0),
+    ) || 0,
     parseFloat(
       boxes.reduce(
         (ac, cur) =>
@@ -108,7 +113,7 @@ export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient, isS
   )
 
 export const calcFinalWeightForBoxByMoreActualWeight = box =>
-  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) * box.amount
+  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)
 
 export const calcFinalWeightForBoxWithoutAmount = (box, coefficient, isShipping) =>
   Math.max(

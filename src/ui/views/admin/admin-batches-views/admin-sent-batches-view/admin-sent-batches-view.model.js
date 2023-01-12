@@ -83,7 +83,9 @@ export class AdminSentBatchesViewModel {
       })
     } else {
       runInAction(() => {
-        this.batches = this.batchesBase
+        // this.batches = this.batchesBase
+
+        this.getBatches()
       })
     }
   }

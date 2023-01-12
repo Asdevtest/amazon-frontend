@@ -109,6 +109,8 @@ export class ClientInventoryViewModel {
 
   curProduct = undefined
 
+  isNeedPurchaseFilter = null
+
   nameSearchValue = ''
 
   selectedRowId = undefined
@@ -607,6 +609,14 @@ export class ClientInventoryViewModel {
     })
   }
 
+  onChangeIsNeedPurchaseFilter(value) {
+    runInAction(() => {
+      this.isNeedPurchaseFilter = value
+    })
+
+    this.getProductsMy()
+  }
+
   async getProductsMy(noProductBaseUpdate) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -619,6 +629,8 @@ export class ClientInventoryViewModel {
         filters: filter, // this.nameSearchValue ? filter : null,
 
         shopId: this.currentShop ? this.currentShop._id : null,
+
+        purchaseQuantityAboveZero: this.isNeedPurchaseFilter,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,

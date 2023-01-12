@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
@@ -166,29 +168,31 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'stockSum',
+    field: 'sumStock',
     headerName: t(TranslationKey['Stock sum']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
-    sortable: false,
     type: 'number',
   },
 
   {
-    field: 'fourMonthesStock',
+    field: 'purchaseQuantity',
     headerName: t(TranslationKey['Recommendation for additional purchases']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Recommendation for additional purchases'])}
+        Icon={FilterAltOutlinedIcon}
+      />
+    ),
     renderCell: params => (
       <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
     ),
 
     width: 150,
-    // type: 'number',
+    type: 'number',
     headerAlign: 'center',
-    type: 'actions',
     filterable: false,
-    sortable: false,
   },
 
   {

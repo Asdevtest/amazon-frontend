@@ -1416,7 +1416,7 @@ export const FourMonthesStockCell = React.memo(
     ({classes: classNames, handlers, params, value}) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-          value < params.row.stockSum ? 0 : value - params.row.stockSum
+          value // < params.row.stockSum ? 0 : value - params.row.stockSum
         }`}</Typography>
         {/* <ChangeChipCell
         row={params.row.originalData}
@@ -1430,7 +1430,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           row={params.row.originalData}
           // text={Number(params.value) > 0 ? params.value : `-`}
-          text={params.value}
+          text={params.row.fourMonthesStock}
           onClickSubmit={handlers.onClickSaveFourMonthsStock}
         />
       </div>

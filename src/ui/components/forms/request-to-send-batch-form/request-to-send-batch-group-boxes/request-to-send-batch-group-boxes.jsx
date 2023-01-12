@@ -35,7 +35,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const totalWeight = selectedGroup.boxes.reduce(
-    (acc, cur) => (acc += calcFinalWeightForBox(cur, volumeWeightCoefficient)),
+    (acc, cur) => (acc += calcFinalWeightForBox(cur, volumeWeightCoefficient) * cur.amount),
     0,
   )
 

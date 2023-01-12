@@ -6,12 +6,18 @@ import {
   // GridColumnsMenuItem,
 } from '@mui/x-data-grid'
 
-import {IsFormedMenuItem, OrderStatusMenuItem, ShopMenuItem} from '../data-grid-menu-items/data-grid-menu-items'
+import {
+  IsFormedMenuItem,
+  IsNeedPurchaseFilterMenuItem,
+  OrderStatusMenuItem,
+  ShopMenuItem,
+} from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
-  const {hideMenu, currentColumn, isFormedData, orderStatusData, shopsDataBase, ...other} = props
+  const {hideMenu, currentColumn, isFormedData, orderStatusData, shopsDataBase, isNeedPurchaseFilterData, ...other} =
+    props
 
-  // const renderStandartItems = () => (
+  // const renderStandartItems = () => ( // стандартные
   //   <div>
   //     <SortGridMenuItems column={currentColumn} onClick={hideMenu} />
   //     <GridFilterMenuItem column={currentColumn} onClick={hideMenu} />
@@ -24,7 +30,15 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <IsFormedMenuItem isFormedData={isFormedData} />
-        {/* {renderStandartItems()} */}
+        {/* {renderStandartItems()} пример*/}
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.field === 'purchaseQuantity') {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <IsNeedPurchaseFilterMenuItem isNeedPurchaseFilterData={isNeedPurchaseFilterData} />
       </GridColumnMenuContainer>
     )
   }
@@ -33,7 +47,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <OrderStatusMenuItem orderStatusData={orderStatusData} />
-        {/* {renderStandartItems()} */}
       </GridColumnMenuContainer>
     )
   }
@@ -42,7 +55,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ShopMenuItem shopsDataBase={shopsDataBase} />
-        {/* {renderStandartItems()} */}
       </GridColumnMenuContainer>
     )
   }

@@ -516,10 +516,18 @@ export const AddOrEditBatchForm = observer(
                         4,
                       )
                     : toFixed(
-                        chosenBoxes.reduce((ac, cur) => (ac += cur.finalWeight), 0),
+                        chosenBoxes.reduce((ac, cur) => (ac += Number(cur.finalWeight) * cur.originalData.amount), 0),
                         4,
                       )
                 }
+                // value={toFixed(
+                //   getBatchWeightCalculationMethodForBatch({
+                //     boxes: chosenBoxes.map(el => el.originalData),
+                //     volumeWeightDivide: batchFields.volumeWeightDivide,
+                //     calculationMethod: batchFields.calculationMethod,
+                //   }),
+                //   4,
+                // )}
                 placeholder={'0'}
               />
 
