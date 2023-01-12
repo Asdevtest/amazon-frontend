@@ -73,7 +73,7 @@ export class WarehouseSentBatchesViewRaw extends Component {
       onChangeFilterModel,
 
       setCurrentOpenedBatch,
-      onChangeNameSearchValue,
+      onSearchSubmit,
       onSubmitChangeBoxFields,
     } = this.viewModel
 
@@ -107,7 +107,7 @@ export class WarehouseSentBatchesViewRaw extends Component {
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
 

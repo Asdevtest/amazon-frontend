@@ -146,8 +146,6 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
-
-    this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
@@ -182,8 +180,6 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.selectedBatches = model
     })
-
-    this.getBatchesPagMy()
   }
 
   getCurrentData() {
@@ -257,10 +253,11 @@ export class WarehouseAwaitingBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  onChangeNameSearchValue(e) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.nameSearchValue = e.target.value
+      this.nameSearchValue = searchValue
     })
+    this.getBatchesPagMy()
   }
 
   async onClickSaveHsCode(hsCode) {

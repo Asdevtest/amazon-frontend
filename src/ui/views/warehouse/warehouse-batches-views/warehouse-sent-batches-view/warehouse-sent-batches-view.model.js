@@ -123,7 +123,7 @@ export class WarehouseSentBatchesViewModel {
       this.filterModel = model
     })
 
-    this.getBatchesPagMy()
+    // this.getBatchesPagMy()
   }
 
   onChangeRowsPerPage(e) {
@@ -268,10 +268,11 @@ export class WarehouseSentBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  onChangeNameSearchValue(e) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.nameSearchValue = e.target.value
+      this.nameSearchValue = searchValue
     })
+    this.getBatchesPagMy()
   }
 
   // async getBatches() {

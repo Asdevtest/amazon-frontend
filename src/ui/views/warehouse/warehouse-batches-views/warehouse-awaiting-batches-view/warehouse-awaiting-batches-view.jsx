@@ -86,7 +86,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       onClickAddOrEditBatch,
       onSubmitAddOrEditBatch,
       setCurrentOpenedBatch,
-      onChangeNameSearchValue,
+      onSearchSubmit,
       onSubmitChangeBoxFields,
     } = this.viewModel
 
@@ -139,7 +139,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   placeholder={t(TranslationKey['Search by ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
 
                 <Button

@@ -32,9 +32,9 @@ export const CheckPendingOrderForm = ({
               </Typography>
             }
 
-            {existingOrders?.map((item, itemIndex) => (
+            {Array.from(new Set(existingOrders.map(el => el.asin)))?.map((item, itemIndex) => (
               <Typography key={itemIndex} className={classNames.text}>
-                {`${t(TranslationKey.ASIN)} ${item?.asin}${
+                {`${t(TranslationKey.ASIN)} ${item}${
                   existingOrders.length > 1 && itemIndex + 1 !== existingOrders.length ? ',' : ''
                 }`}
               </Typography>
