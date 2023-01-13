@@ -165,10 +165,13 @@ export const styles = theme => ({
       margin: 0,
     },
   },
+
   searchInput: {
     border: '1px solid #007bff',
-    width: '300px',
-    height: 36,
+    width: 310,
+    height: '38px',
+    fontSize: '16px',
+    paddingLeft: '7px',
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },

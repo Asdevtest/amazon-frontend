@@ -15,6 +15,8 @@ export class UserEditModel {
   changeFields = {email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: ''}
   editUserFormFields = undefined
 
+  wrongPassword = null
+
   user = undefined
 
   submitEditData = undefined
@@ -99,6 +101,85 @@ export class UserEditModel {
       this.error = error?.body?.message || error
     }
   }
+
+  // async finalStepSubmitEditUserForm() {
+  //   try {
+  //     await AdministratorModel.updateUser(this.user._id, this.submitEditData)
+
+  //     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+
+  //     this.changeFields = {email: '', name: ''}
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error?.body?.message || error
+  //   }
+  // }
+
+  // async submitEditUserForm(data, sourceData, passwordChange) {
+  //   console.log('passwordChange', passwordChange)
+  //   try {
+  //     await this.changeNameAndOther(data, sourceData)
+  //     await this.changeUserPassword(passwordChange)
+
+  //     if (!this.wrongPassword) {
+  //       await this.finalStepSubmitEditUserForm()
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error?.body?.message || error
+  //   }
+  // }
+
+  // async changeNameAndOther(data, sourceData) {
+  //   try {
+  //     this.error = undefined
+  //     this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
+  //       name: this.changeFields.name,
+  //       email: this.changeFields.email,
+  //     })
+
+  //     this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+
+  //     this.availableSubUsers = undefined
+
+  //     if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
+  //       this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.user._id)).subUsers.length
+  //     }
+
+  //     if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+  //       return
+  //     } else if (this.availableSubUsers) {
+  //       this.onTriggerOpenModal('showConfirmModal')
+  //     }
+  //   } catch (error) {
+  //     this.error = error?.body?.message || error
+  //   }
+  // }
+
+  // async changeUserPassword(passwordChange) {
+  //   console.log('passwordChange', passwordChange)
+  //   try {
+  //     this.error = undefined
+
+  //     if (passwordChange.oldPassword && passwordChange.password) {
+  //       await UserModel.changeUserPassword({
+  //         oldPassword: passwordChange.oldPassword,
+  //         newPassword: passwordChange.password,
+  //       })
+  //     }
+
+  //     await UserModel.getUserInfo()
+  //   } catch (error) {
+  //     runInAction(() => {
+  //       if (error.body && error.body.message) {
+  //         this.error = error.body.message
+  //       }
+  //       if (this.error === 'Wrong password') {
+  //         this.wrongPassword = this.error
+  //       }
+  //     })
+  //   }
+  // }
 
   onClickCancelBtn() {
     this.history.goBack()

@@ -1712,5 +1712,7 @@
   "Search": "Search",
   "Need refills": "Need refills",
   "Not need refills": "Not need refills",
-  "Final price": "Final price"
+  "Final price": "Final price",
+  "Wrong password": "Wrong password",
+  "Search by ASIN, Title, Batch ID": "Search by ASIN, Title, Batch ID"
 }

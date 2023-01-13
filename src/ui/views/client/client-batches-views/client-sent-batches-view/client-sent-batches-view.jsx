@@ -94,7 +94,7 @@ class ClientSentBatchesViewRaw extends Component {
                   key={'client_batches_awaiting-batch_search_input'}
                   inputClasses={className.searchInput}
                   value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID'])}
                   onSubmit={onSearchSubmit}
                 />
               </div>

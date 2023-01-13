@@ -90,6 +90,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
+    sortable: false,
   },
   {
     field: 'updatedAt',

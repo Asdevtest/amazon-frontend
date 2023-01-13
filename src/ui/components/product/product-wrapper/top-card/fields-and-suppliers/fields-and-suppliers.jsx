@@ -22,7 +22,7 @@ import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {checkIsClient, checkIsSupervisor, checkIsResearcher} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsResearcher, checkIsBuyer} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -409,7 +409,7 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) ? (
+            {checkIsClient(curUserRole) || checkIsBuyer(curUserRole) ? (
               <div className={classNames.subUsersWrapper}>
                 <div className={classNames.subUsersTitleWrapper}>
                   <Typography className={classNames.subUsersTitle}>

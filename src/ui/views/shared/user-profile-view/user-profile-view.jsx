@@ -55,12 +55,15 @@ class UserProfileViewRaw extends Component {
       tabReview,
       showTabModal,
       selectedUser,
+      wrongPassword,
       user,
       checkValidationNameOrEmail,
       headerInfoData,
       showAvatarEditModal,
       showInfoModal,
       showUserInfoModal,
+      warningInfoModalTitle,
+      clearError,
       onTriggerDrawerOpen,
       onChangeTabHistory,
       onChangeTabReview,
@@ -168,6 +171,8 @@ class UserProfileViewRaw extends Component {
         <Modal openModal={showUserInfoModal} setOpenModal={() => onTriggerOpenModal('showUserInfoModal')}>
           <UserInfoEditForm
             user={user}
+            clearError={clearError}
+            wrongPassword={wrongPassword}
             checkValidationNameOrEmail={checkValidationNameOrEmail}
             onSubmit={onSubmitUserInfoEdit}
             onCloseModal={() => onTriggerOpenModal('showUserInfoModal')}
@@ -177,7 +182,7 @@ class UserProfileViewRaw extends Component {
         <WarningInfoModal
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.'])}
+          title={warningInfoModalTitle}
           btnText={t(TranslationKey.Close)}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')

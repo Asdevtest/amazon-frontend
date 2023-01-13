@@ -106,7 +106,7 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID'])}
                   onSubmit={onSearchSubmit}
                 />
               </div>
