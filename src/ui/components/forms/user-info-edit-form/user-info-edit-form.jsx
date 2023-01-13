@@ -9,8 +9,7 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
-
+// import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
@@ -38,8 +37,6 @@ export const UserInfoEditForm = observer(
       password: '',
       confirmPassword: '',
     }
-
-    console.log('wrongPassword', wrongPassword)
 
     const [emailInputError, setEmailInputError] = useState(false)
 
@@ -90,8 +87,6 @@ export const UserInfoEditForm = observer(
     }
 
     const onClickSubmit = () => {
-      // event.preventDefault()
-
       const emailIsValid = regExpEmailChecking.test(formFields.email)
 
       if (startChangePassword) {
@@ -107,7 +102,6 @@ export const UserInfoEditForm = observer(
 
       if (
         emailIsValid &&
-        // !wrongPassword &&
         !errorLowercaseLetter &&
         !errorMinLength &&
         !errorOneNumber &&
@@ -172,53 +166,49 @@ export const UserInfoEditForm = observer(
     const regExpRuLetter = /(?=.*[А-Яа-я])/
 
     useEffect(() => {
-      if (formFields.password.length < 6) {
-        setErrorMinLength(true)
-      } else {
-        setErrorMinLength(false)
+      if (startChangePassword) {
+        if (formFields.password.length < 6) {
+          setErrorMinLength(true)
+        } else {
+          setErrorMinLength(false)
+        }
+        if (formFields.password.length > 32) {
+          setErrorMaxLength(true)
+        } else {
+          setErrorMaxLength(false)
+        }
+        if (!formFields.password.match(regExpNumber)) {
+          setErrorOneNumber(true)
+        } else {
+          setErrorOneNumber(false)
+        }
+        if (!formFields.password.match(regExpUpperCase)) {
+          setErrorUppercaseLetter(true)
+        } else {
+          setErrorUppercaseLetter(false)
+        }
+        if (!formFields.password.match(regExpLowerCase)) {
+          setErrorLowercaseLetter(true)
+        } else {
+          setErrorLowercaseLetter(false)
+        }
+        if (!formFields.password.match(regExpEngLetter)) {
+          setErrorNoEngLetter(true)
+        } else {
+          setErrorNoEngLetter(false)
+        }
+        if (formFields.password.match(regExpRuLetter)) {
+          setErrorNoEngLetter(true)
+        } else {
+          setErrorNoEngLetter(false)
+        }
+        if (formFields.password !== formFields.confirmPassword) {
+          setEqualityError(true)
+        } else {
+          setEqualityError(false)
+        }
       }
-      if (formFields.password.length > 32) {
-        setErrorMaxLength(true)
-      } else {
-        setErrorMaxLength(false)
-      }
-      if (!formFields.password.match(regExpNumber)) {
-        setErrorOneNumber(true)
-      } else {
-        setErrorOneNumber(false)
-      }
-      if (!formFields.password.match(regExpUpperCase)) {
-        setErrorUppercaseLetter(true)
-      } else {
-        setErrorUppercaseLetter(false)
-      }
-      if (!formFields.password.match(regExpLowerCase)) {
-        setErrorLowercaseLetter(true)
-      } else {
-        setErrorLowercaseLetter(false)
-      }
-      if (!formFields.password.match(regExpEngLetter)) {
-        setErrorNoEngLetter(true)
-      } else {
-        setErrorNoEngLetter(false)
-      }
-      if (formFields.password.match(regExpRuLetter)) {
-        setErrorNoEngLetter(true)
-      } else {
-        setErrorNoEngLetter(false)
-      }
-      if (formFields.password !== formFields.confirmPassword) {
-        setEqualityError(true)
-      } else {
-        setEqualityError(false)
-      }
-    }, [
-      formFields.password,
-      formFields.confirmPassword,
-      errorOneNumber,
-      errorUppercaseLetter,
-      SettingsModel.languageTag,
-    ])
+    }, [formFields.oldPassword, formFields.password, formFields.confirmPassword])
 
     // const onSubmitForm = event => {
     //   event.preventDefault()
@@ -257,6 +247,7 @@ export const UserInfoEditForm = observer(
         />
 
         <Field
+          disabled
           label={t(TranslationKey.Email)}
           inputProps={{maxLength: 35}}
           labelClasses={classNames.labelField}

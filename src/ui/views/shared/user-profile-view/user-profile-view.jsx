@@ -62,6 +62,7 @@ class UserProfileViewRaw extends Component {
       showAvatarEditModal,
       showInfoModal,
       showUserInfoModal,
+      warningInfoModalTitle,
       clearError,
       onTriggerDrawerOpen,
       onChangeTabHistory,
@@ -181,7 +182,7 @@ class UserProfileViewRaw extends Component {
         <WarningInfoModal
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.'])}
+          title={warningInfoModalTitle}
           btnText={t(TranslationKey.Close)}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')
