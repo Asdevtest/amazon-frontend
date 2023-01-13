@@ -4,8 +4,8 @@ import {UserRole} from '@constants/user-roles'
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
 
-export const isNull = value => typeof value === null
-export const isNotNull = value => typeof value !== null
+export const isNull = value => value === null
+export const isNotNull = value => value !== null
 
 export const checkIsResearcher = userRole => userRole === UserRole.RESEARCHER
 export const checkIsSupervisor = userRole => userRole === UserRole.SUPERVISOR

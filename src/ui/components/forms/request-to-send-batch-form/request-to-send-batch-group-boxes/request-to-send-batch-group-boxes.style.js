@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 80px',
+    zIndex: 999,
 
     position: 'sticky',
     top: 0,

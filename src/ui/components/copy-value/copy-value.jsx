@@ -24,8 +24,8 @@ export const CopyValue = ({text, disabled}) => {
             className={cx(classNames.copyImg, {[classNames.disabledIcon]: disabled})}
             src="/assets/icons/copy-img.svg"
             alt=""
-            onClick={() => {
-              // e.stopPropagation()
+            onClick={e => {
+              e.stopPropagation()
               !disabled && copyValue(text)
             }}
           />

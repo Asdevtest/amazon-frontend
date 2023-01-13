@@ -10,7 +10,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 
-import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
+import {calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -38,23 +38,6 @@ export const RequestToSendBatchBox = ({
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
   const isBadBox = isNoBarCodGlued || (!box.shippingLabel && !box.destination?.storekeeperId) || !price
-
-  const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
-    if (items.length === 1 && boxWeigh) {
-      return toFixedWithDollarSign(price / amount / box.amount, 2)
-    } else if (items.length > 1 && boxWeigh) {
-      const finalWeight = toFixedWithDollarSign(
-        (price * (((boxWeigh / amountInBox) * amount) / calcFinalWeightForBox(box, volumeWeightCoefficient))) /
-          amount /
-          box.amount,
-        2,
-      )
-
-      return finalWeight
-    } else {
-      return t(TranslationKey['No data'])
-    }
-  }
 
   return (
     <tr
@@ -272,13 +255,16 @@ export const RequestToSendBatchBox = ({
 
             <div className={cx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
-                {calculateDeliveryCostPerPcs(
-                  box.items,
-                  item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
-                  price,
-                  item.amount,
-                  item.order.orderSupplier.boxProperties?.amountInBox,
-                  box.weighGrossKgWarehouse,
+                {toFixedWithDollarSign(
+                  calculateDeliveryCostPerPcs({
+                    itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+                    deliveryCost: price,
+                    itemAmount: item.amount,
+                    itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+                    boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
+                    box,
+                  }),
+                  2,
                 )}
               </Typography>
             </div>

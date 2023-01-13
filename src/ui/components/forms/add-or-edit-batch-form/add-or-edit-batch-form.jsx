@@ -31,6 +31,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
 import {addOrEditBatchDataConverter} from '@utils/data-grid-data-converters'
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -398,6 +399,7 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
               components={{
                 Toolbar: DataGridCustomToolbar,
               }}
@@ -471,6 +473,7 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
               sx={{
                 // border: 0,
                 boxShadow: '0px 2px 10px 2px #EBEBEB',

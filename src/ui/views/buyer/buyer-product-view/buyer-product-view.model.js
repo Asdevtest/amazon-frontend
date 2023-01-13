@@ -312,22 +312,34 @@ export class BuyerProductViewModel {
         },
       )
 
+      console.log('this.curUpdateProductData', this.curUpdateProductData)
+
       if (
-        (this.curUpdateProductData.currentSupplierId &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
-          !this.product.isCreatedByClient) ||
-        (this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
-          !this.product.isCreatedByClient) ||
-        (this.curUpdateProductData.currentSupplierId &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
-          !this.product.isCreatedByClient) ||
-        (this.curUpdateProductData.status ===
-          ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
-          this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH] &&
-          this.product.isCreatedByClient)
+        // (this.curUpdateProductData.currentSupplierId &&  ЭТО СТАРЫЙ ВАРИАНТ, ЕСЛИ НОВЫЙ РАБОТАЕТ ТО МОЖНО УДАЛИТЬ
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
+        //   !this.product.isCreatedByClient) ||
+        // (this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
+        //   !this.product.isCreatedByClient) ||
+        // (this.curUpdateProductData.currentSupplierId &&
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
+        //   !this.product.isCreatedByClient) ||
+        // (this.curUpdateProductData.status ===
+        //   ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] &&
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
+        //   this.curUpdateProductData.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH] &&
+        //   this.product.isCreatedByClient)
+
+        this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
+        this.curUpdateProductData.status ===
+          ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
+        ((this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER] ||
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER] ||
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
+          this.curUpdateProductData.status ===
+            ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) &&
+          this.curUpdateProductData.currentSupplierId)
       ) {
         runInAction(() => {
           this.confirmModalSettings = {

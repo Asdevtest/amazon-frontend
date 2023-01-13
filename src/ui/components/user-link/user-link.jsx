@@ -28,6 +28,7 @@ export const UserLink = observer(({name, userId, blackText, withAvatar, maxNameW
           }
           underline={blackText ? 'none' : 'hover'}
           className={classNames.linkWrapper}
+          onClick={e => e.stopPropagation()}
         >
           {withAvatar ? (
             <Avatar src={getUserAvatarSrc(userId)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />

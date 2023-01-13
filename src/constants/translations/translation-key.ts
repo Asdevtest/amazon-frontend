@@ -1711,7 +1711,7 @@ export enum TranslationKey {
   'Search' = 'Search',
   'Need refills' = 'Need refills',
   'Not need refills' = 'Not need refills',
-  // '' = '',
+  'Final price' = 'Final price',
   // '' = '',
   // '' = '',
   // '' = '',
