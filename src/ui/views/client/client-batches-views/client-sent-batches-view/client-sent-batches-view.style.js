@@ -52,7 +52,7 @@ export const styles = theme => ({
   },
   searchInput: {
     border: '1px solid #007bff',
-    width: '300px',
+    width: '310px',
     height: 36,
   },
   btnsWrapper: {

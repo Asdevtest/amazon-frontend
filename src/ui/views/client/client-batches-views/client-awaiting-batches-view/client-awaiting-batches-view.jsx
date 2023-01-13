@@ -113,7 +113,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   key={'client_batches_awaiting-batch_search_input'}
                   inputClasses={className.searchInput}
                   value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title, ID'])} // у сторкипера так же!!!!!
+                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID'])} // у сторкипера так же!!!!!
                   onSubmit={onSearchSubmit}
                 />
 
