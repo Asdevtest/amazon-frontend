@@ -126,6 +126,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property canByMasterUser (base name: "canByMasterUser")', function() {
+      // uncomment below and update the code to test the property canByMasterUser
+      //var instance = new TestSwagger.AdminUserPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property hideSuppliers (base name: "hideSuppliers")', function() {
+      // uncomment below and update the code to test the property hideSuppliers
+      //var instance = new TestSwagger.AdminUserPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

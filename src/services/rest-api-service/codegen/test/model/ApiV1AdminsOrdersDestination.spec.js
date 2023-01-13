@@ -66,6 +66,78 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property country (base name: "country")', function() {
+      // uncomment below and update the code to test the property country
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property zipCode (base name: "zipCode")', function() {
+      // uncomment below and update the code to test the property zipCode
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property state (base name: "state")', function() {
+      // uncomment below and update the code to test the property state
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property city (base name: "city")', function() {
+      // uncomment below and update the code to test the property city
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property address (base name: "address")', function() {
+      // uncomment below and update the code to test the property address
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeper (base name: "storekeeper")', function() {
+      // uncomment below and update the code to test the property storekeeper
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property isActive (base name: "isActive")', function() {
+      // uncomment below and update the code to test the property isActive
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdById (base name: "createdById")', function() {
+      // uncomment below and update the code to test the property createdById
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lastModifiedById (base name: "lastModifiedById")', function() {
+      // uncomment below and update the code to test the property lastModifiedById
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fontColor (base name: "fontColor")', function() {
+      // uncomment below and update the code to test the property fontColor
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
+      //var instance = new TestSwagger.ApiV1AdminsOrdersDestination();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

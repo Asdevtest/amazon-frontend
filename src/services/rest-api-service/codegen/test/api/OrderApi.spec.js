@@ -48,6 +48,16 @@
   }
 
   describe('OrderApi', function() {
+    describe('apiV1OrdersCheckPendingOrderByProductGuidGet', function() {
+      it('should call apiV1OrdersCheckPendingOrderByProductGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1OrdersCheckPendingOrderByProductGuidGet
+        //instance.apiV1OrdersCheckPendingOrderByProductGuidGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1OrdersCommentGuidPatch', function() {
       it('should call apiV1OrdersCommentGuidPatch successfully', function(done) {
         //uncomment below and update the code to test apiV1OrdersCommentGuidPatch

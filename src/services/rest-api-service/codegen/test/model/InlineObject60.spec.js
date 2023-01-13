@@ -54,56 +54,14 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject60);
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property productId (base name: "productId")', function() {
+      // uncomment below and update the code to test the property productId
       //var instance = new TestSwagger.InlineObject60();
       //expect(instance).to.be();
     });
 
-    it('should have the property link (base name: "link")', function() {
-      // uncomment below and update the code to test the property link
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property price (base name: "price")', function() {
-      // uncomment below and update the code to test the property price
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property delivery (base name: "delivery")', function() {
-      // uncomment below and update the code to test the property delivery
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property amount (base name: "amount")', function() {
-      // uncomment below and update the code to test the property amount
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property minlot (base name: "minlot")', function() {
-      // uncomment below and update the code to test the property minlot
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lotcost (base name: "lotcost")', function() {
-      // uncomment below and update the code to test the property lotcost
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property images (base name: "images")', function() {
-      // uncomment below and update the code to test the property images
-      //var instance = new TestSwagger.InlineObject60();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property comment (base name: "comment")', function() {
-      // uncomment below and update the code to test the property comment
+    it('should have the property warehouseStocks (base name: "warehouseStocks")', function() {
+      // uncomment below and update the code to test the property warehouseStocks
       //var instance = new TestSwagger.InlineObject60();
       //expect(instance).to.be();
     });

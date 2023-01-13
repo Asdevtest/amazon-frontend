@@ -504,6 +504,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property sumStock (base name: "sumStock")', function() {
+      // uncomment below and update the code to test the property sumStock
+      //var instance = new TestSwagger.InlineResponse20027Rows();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property purchaseQuantity (base name: "purchaseQuantity")', function() {
+      // uncomment below and update the code to test the property purchaseQuantity
+      //var instance = new TestSwagger.InlineResponse20027Rows();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

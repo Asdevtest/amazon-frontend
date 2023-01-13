@@ -60,20 +60,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property publishedOnExchange (base name: "publishedOnExchange")', function() {
-      // uncomment below and update the code to test the property publishedOnExchange
-      //var instance = new TestSwagger.InlineResponse20031Products();
-      //expect(instance).to.be();
-    });
-
     it('should have the property paid (base name: "paid")', function() {
       // uncomment below and update the code to test the property paid
-      //var instance = new TestSwagger.InlineResponse20031Products();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property rejected (base name: "rejected")', function() {
-      // uncomment below and update the code to test the property rejected
       //var instance = new TestSwagger.InlineResponse20031Products();
       //expect(instance).to.be();
     });

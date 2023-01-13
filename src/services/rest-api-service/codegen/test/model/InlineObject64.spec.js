@@ -54,14 +54,14 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject64);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
       //var instance = new TestSwagger.InlineObject64();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property buyerComment (base name: "buyerComment")', function() {
+      // uncomment below and update the code to test the property buyerComment
       //var instance = new TestSwagger.InlineObject64();
       //expect(instance).to.be();
     });

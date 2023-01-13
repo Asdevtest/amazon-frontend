@@ -54,8 +54,8 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse2018);
     });
 
-    it('should have the property boxVolumeWeightKg (base name: "boxVolumeWeightKg")', function() {
-      // uncomment below and update the code to test the property boxVolumeWeightKg
+    it('should have the property fileName (base name: "fileName")', function() {
+      // uncomment below and update the code to test the property fileName
       //var instance = new TestSwagger.InlineResponse2018();
       //expect(instance).to.be();
     });

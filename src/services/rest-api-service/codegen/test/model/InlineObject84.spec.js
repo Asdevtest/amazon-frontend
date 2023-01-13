@@ -54,14 +54,8 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject84);
     });
 
-    it('should have the property result (base name: "result")', function() {
-      // uncomment below and update the code to test the property result
-      //var instance = new TestSwagger.InlineObject84();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
-      // uncomment below and update the code to test the property linksToMediaFiles
+    it('should have the property reason (base name: "reason")', function() {
+      // uncomment below and update the code to test the property reason
       //var instance = new TestSwagger.InlineObject84();
       //expect(instance).to.be();
     });

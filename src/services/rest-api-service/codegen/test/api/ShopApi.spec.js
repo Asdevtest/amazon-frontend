@@ -58,6 +58,16 @@
         done();
       });
     });
+    describe('apiV1ShopsGuidDelete', function() {
+      it('should call apiV1ShopsGuidDelete successfully', function(done) {
+        //uncomment below and update the code to test apiV1ShopsGuidDelete
+        //instance.apiV1ShopsGuidDelete(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1ShopsGuidPatch', function() {
       it('should call apiV1ShopsGuidPatch successfully', function(done) {
         //uncomment below and update the code to test apiV1ShopsGuidPatch

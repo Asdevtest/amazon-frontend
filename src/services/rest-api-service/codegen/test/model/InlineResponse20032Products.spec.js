@@ -60,8 +60,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property publishedOnExchange (base name: "publishedOnExchange")', function() {
-      // uncomment below and update the code to test the property publishedOnExchange
+    it('should have the property success (base name: "success")', function() {
+      // uncomment below and update the code to test the property success
       //var instance = new TestSwagger.InlineResponse20032Products();
       //expect(instance).to.be();
     });
@@ -72,8 +72,26 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property rejected (base name: "rejected")', function() {
-      // uncomment below and update the code to test the property rejected
+    it('should have the property newSearchFromSupervisor (base name: "newSearchFromSupervisor")', function() {
+      // uncomment below and update the code to test the property newSearchFromSupervisor
+      //var instance = new TestSwagger.InlineResponse20032Products();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property newSearchFromClient (base name: "newSearchFromClient")', function() {
+      // uncomment below and update the code to test the property newSearchFromClient
+      //var instance = new TestSwagger.InlineResponse20032Products();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inProcessOfSearching (base name: "inProcessOfSearching")', function() {
+      // uncomment below and update the code to test the property inProcessOfSearching
+      //var instance = new TestSwagger.InlineResponse20032Products();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property canceled (base name: "canceled")', function() {
+      // uncomment below and update the code to test the property canceled
       //var instance = new TestSwagger.InlineResponse20032Products();
       //expect(instance).to.be();
     });

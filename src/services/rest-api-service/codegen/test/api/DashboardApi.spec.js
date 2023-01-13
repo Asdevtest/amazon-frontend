@@ -68,10 +68,40 @@
         done();
       });
     });
+    describe('apiV1DashboardFreelancerCountsGet', function() {
+      it('should call apiV1DashboardFreelancerCountsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1DashboardFreelancerCountsGet
+        //instance.apiV1DashboardFreelancerCountsGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1DashboardResearcherCountsGet', function() {
+      it('should call apiV1DashboardResearcherCountsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1DashboardResearcherCountsGet
+        //instance.apiV1DashboardResearcherCountsGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1DashboardStorekeeperCountsGet', function() {
       it('should call apiV1DashboardStorekeeperCountsGet successfully', function(done) {
         //uncomment below and update the code to test apiV1DashboardStorekeeperCountsGet
         //instance.apiV1DashboardStorekeeperCountsGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1DashboardSupervisorCountsGet', function() {
+      it('should call apiV1DashboardSupervisorCountsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1DashboardSupervisorCountsGet
+        //instance.apiV1DashboardSupervisorCountsGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

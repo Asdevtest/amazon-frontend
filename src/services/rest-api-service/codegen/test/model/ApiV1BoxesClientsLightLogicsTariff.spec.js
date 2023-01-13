@@ -54,6 +54,12 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1BoxesClientsLightLogicsTariff);
     });
 
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightLogicsTariff();
+      //expect(instance).to.be();
+    });
+
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.ApiV1BoxesClientsLightLogicsTariff();

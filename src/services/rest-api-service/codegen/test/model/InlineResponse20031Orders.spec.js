@@ -54,24 +54,6 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20031Orders);
     });
 
-    it('should have the property inProcess (base name: "inProcess")', function() {
-      // uncomment below and update the code to test the property inProcess
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property free (base name: "free")', function() {
-      // uncomment below and update the code to test the property free
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property completed (base name: "completed")', function() {
-      // uncomment below and update the code to test the property completed
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
     it('should have the property all (base name: "all")', function() {
       // uncomment below and update the code to test the property all
       //var instance = new TestSwagger.InlineResponse20031Orders();
@@ -86,36 +68,6 @@
 
     it('should have the property canceled (base name: "canceled")', function() {
       // uncomment below and update the code to test the property canceled
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property notPaid (base name: "notPaid")', function() {
-      // uncomment below and update the code to test the property notPaid
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property needTrackNumber (base name: "needTrackNumber")', function() {
-      // uncomment below and update the code to test the property needTrackNumber
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property inbound (base name: "inbound")', function() {
-      // uncomment below and update the code to test the property inbound
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property confirmationRequired (base name: "confirmationRequired")', function() {
-      // uncomment below and update the code to test the property confirmationRequired
-      //var instance = new TestSwagger.InlineResponse20031Orders();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property closedAndCanceled (base name: "closedAndCanceled")', function() {
-      // uncomment below and update the code to test the property closedAndCanceled
       //var instance = new TestSwagger.InlineResponse20031Orders();
       //expect(instance).to.be();
     });

@@ -132,8 +132,38 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property canByMasterUser (base name: "canByMasterUser")', function() {
+      // uncomment below and update the code to test the property canByMasterUser
+      //var instance = new TestSwagger.UserFullSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property rating (base name: "rating")', function() {
+      // uncomment below and update the code to test the property rating
+      //var instance = new TestSwagger.UserFullSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property allowedStrategies (base name: "allowedStrategies")', function() {
+      // uncomment below and update the code to test the property allowedStrategies
+      //var instance = new TestSwagger.UserFullSchema();
+      //expect(instance).to.be();
+    });
+
     it('should have the property allowedRoles (base name: "allowedRoles")', function() {
       // uncomment below and update the code to test the property allowedRoles
+      //var instance = new TestSwagger.UserFullSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.UserFullSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
       //var instance = new TestSwagger.UserFullSchema();
       //expect(instance).to.be();
     });

@@ -54,14 +54,98 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject103);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.InlineObject103();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property link (base name: "link")', function() {
+      // uncomment below and update the code to test the property link
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amount (base name: "amount")', function() {
+      // uncomment below and update the code to test the property amount
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property minlot (base name: "minlot")', function() {
+      // uncomment below and update the code to test the property minlot
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property multiplicity (base name: "multiplicity")', function() {
+      // uncomment below and update the code to test the property multiplicity
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property comment (base name: "comment")', function() {
+      // uncomment below and update the code to test the property comment
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property yuanRate (base name: "yuanRate")', function() {
+      // uncomment below and update the code to test the property yuanRate
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property priceInYuan (base name: "priceInYuan")', function() {
+      // uncomment below and update the code to test the property priceInYuan
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchDeliveryCostInDollar (base name: "batchDeliveryCostInDollar")', function() {
+      // uncomment below and update the code to test the property batchDeliveryCostInDollar
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchDeliveryCostInYuan (base name: "batchDeliveryCostInYuan")', function() {
+      // uncomment below and update the code to test the property batchDeliveryCostInYuan
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchTotalCostInDollar (base name: "batchTotalCostInDollar")', function() {
+      // uncomment below and update the code to test the property batchTotalCostInDollar
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchTotalCostInYuan (base name: "batchTotalCostInYuan")', function() {
+      // uncomment below and update the code to test the property batchTotalCostInYuan
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property productionTerm (base name: "productionTerm")', function() {
+      // uncomment below and update the code to test the property productionTerm
+      //var instance = new TestSwagger.InlineObject103();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxProperties (base name: "boxProperties")', function() {
+      // uncomment below and update the code to test the property boxProperties
       //var instance = new TestSwagger.InlineObject103();
       //expect(instance).to.be();
     });

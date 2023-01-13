@@ -54,14 +54,62 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20051);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20051();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property owner (base name: "owner")', function() {
+      // uncomment below and update the code to test the property owner
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property files (base name: "files")', function() {
+      // uncomment below and update the code to test the property files
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property monthlyMultiplier (base name: "monthlyMultiplier")', function() {
+      // uncomment below and update the code to test the property monthlyMultiplier
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property statistics (base name: "statistics")', function() {
+      // uncomment below and update the code to test the property statistics
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property businessStartDate (base name: "businessStartDate")', function() {
+      // uncomment below and update the code to test the property businessStartDate
+      //var instance = new TestSwagger.InlineResponse20051();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shopDetails (base name: "shopDetails")', function() {
+      // uncomment below and update the code to test the property shopDetails
       //var instance = new TestSwagger.InlineResponse20051();
       //expect(instance).to.be();
     });

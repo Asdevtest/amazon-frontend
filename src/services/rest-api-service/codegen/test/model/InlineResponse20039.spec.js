@@ -54,14 +54,158 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20039);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property asin (base name: "asin")', function() {
+      // uncomment below and update the code to test the property asin
       //var instance = new TestSwagger.InlineResponse20039();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property sku (base name: "sku")', function() {
+      // uncomment below and update the code to test the property sku
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property roi (base name: "roi")', function() {
+      // uncomment below and update the code to test the property roi
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaFbmStock (base name: "fbaFbmStock")', function() {
+      // uncomment below and update the code to test the property fbaFbmStock
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property stockValue (base name: "stockValue")', function() {
+      // uncomment below and update the code to test the property stockValue
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property estimatedSalesVelocity (base name: "estimatedSalesVelocity")', function() {
+      // uncomment below and update the code to test the property estimatedSalesVelocity
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property daysOfStockLeft (base name: "daysOfStockLeft")', function() {
+      // uncomment below and update the code to test the property daysOfStockLeft
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property recommendedQuantityForReordering (base name: "recommendedQuantityForReordering")', function() {
+      // uncomment below and update the code to test the property recommendedQuantityForReordering
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property runningOutOfStock (base name: "runningOutOfStock")', function() {
+      // uncomment below and update the code to test the property runningOutOfStock
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property reserved (base name: "reserved")', function() {
+      // uncomment below and update the code to test the property reserved
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sentToFba (base name: "sentToFba")', function() {
+      // uncomment below and update the code to test the property sentToFba
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaPrepStock (base name: "fbaPrepStock")', function() {
+      // uncomment below and update the code to test the property fbaPrepStock
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property ordered (base name: "ordered")', function() {
+      // uncomment below and update the code to test the property ordered
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property timeToReorder (base name: "timeToReorder")', function() {
+      // uncomment below and update the code to test the property timeToReorder
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property comment (base name: "comment")', function() {
+      // uncomment below and update the code to test the property comment
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property marketplace (base name: "marketplace")', function() {
+      // uncomment below and update the code to test the property marketplace
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property targetStockRangeAfterNewOrderDays (base name: "targetStockRangeAfterNewOrderDays")', function() {
+      // uncomment below and update the code to test the property targetStockRangeAfterNewOrderDays
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaBufferDays (base name: "fbaBufferDays")', function() {
+      // uncomment below and update the code to test the property fbaBufferDays
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property manufTimeDays (base name: "manufTimeDays")', function() {
+      // uncomment below and update the code to test the property manufTimeDays
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property useAPrepCenter (base name: "useAPrepCenter")', function() {
+      // uncomment below and update the code to test the property useAPrepCenter
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shippingToPrepCenterDays (base name: "shippingToPrepCenterDays")', function() {
+      // uncomment below and update the code to test the property shippingToPrepCenterDays
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shippingToFbaDays (base name: "shippingToFbaDays")', function() {
+      // uncomment below and update the code to test the property shippingToFbaDays
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
+      //var instance = new TestSwagger.InlineResponse20039();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shop (base name: "shop")', function() {
+      // uncomment below and update the code to test the property shop
       //var instance = new TestSwagger.InlineResponse20039();
       //expect(instance).to.be();
     });

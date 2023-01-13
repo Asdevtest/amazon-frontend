@@ -54,14 +54,26 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject77);
     });
 
-    it('should have the property result (base name: "result")', function() {
-      // uncomment below and update the code to test the property result
+    it('should have the property rating (base name: "rating")', function() {
+      // uncomment below and update the code to test the property rating
+      //var instance = new TestSwagger.InlineObject77();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property reason (base name: "reason")', function() {
+      // uncomment below and update the code to test the property reason
       //var instance = new TestSwagger.InlineObject77();
       //expect(instance).to.be();
     });
 
     it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
       // uncomment below and update the code to test the property linksToMediaFiles
+      //var instance = new TestSwagger.InlineObject77();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property timeLimitInMinutes (base name: "timeLimitInMinutes")', function() {
+      // uncomment below and update the code to test the property timeLimitInMinutes
       //var instance = new TestSwagger.InlineObject77();
       //expect(instance).to.be();
     });

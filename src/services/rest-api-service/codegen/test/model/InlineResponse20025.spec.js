@@ -54,14 +54,158 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20025);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20025();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property category (base name: "category")', function() {
+      // uncomment below and update the code to test the property category
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property bsr (base name: "bsr")', function() {
+      // uncomment below and update the code to test the property bsr
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property asin (base name: "asin")', function() {
+      // uncomment below and update the code to test the property asin
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property skusByClient (base name: "skusByClient")', function() {
+      // uncomment below and update the code to test the property skusByClient
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amazon (base name: "amazon")', function() {
+      // uncomment below and update the code to test the property amazon
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weight (base name: "weight")', function() {
+      // uncomment below and update the code to test the property weight
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaamount (base name: "fbaamount")', function() {
+      // uncomment below and update the code to test the property fbaamount
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property priceForClient (base name: "priceForClient")', function() {
+      // uncomment below and update the code to test the property priceForClient
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property currentSupplier (base name: "currentSupplier")', function() {
+      // uncomment below and update the code to test the property currentSupplier
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property currentSupplierId (base name: "currentSupplierId")', function() {
+      // uncomment below and update the code to test the property currentSupplierId
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdBy (base name: "createdBy")', function() {
+      // uncomment below and update the code to test the property createdBy
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property checkedBy (base name: "checkedBy")', function() {
+      // uncomment below and update the code to test the property checkedBy
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property checkedAt (base name: "checkedAt")', function() {
+      // uncomment below and update the code to test the property checkedAt
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property buyer (base name: "buyer")', function() {
+      // uncomment below and update the code to test the property buyer
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property supervisorRate (base name: "supervisorRate")', function() {
+      // uncomment below and update the code to test the property supervisorRate
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property buyerRate (base name: "buyerRate")', function() {
+      // uncomment below and update the code to test the property buyerRate
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property strategyStatus (base name: "strategyStatus")', function() {
+      // uncomment below and update the code to test the property strategyStatus
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property avgRevenue (base name: "avgRevenue")', function() {
+      // uncomment below and update the code to test the property avgRevenue
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property avgBSR (base name: "avgBSR")', function() {
+      // uncomment below and update the code to test the property avgBSR
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property avgPrice (base name: "avgPrice")', function() {
+      // uncomment below and update the code to test the property avgPrice
+      //var instance = new TestSwagger.InlineResponse20025();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property avgReviews (base name: "avgReviews")', function() {
+      // uncomment below and update the code to test the property avgReviews
       //var instance = new TestSwagger.InlineResponse20025();
       //expect(instance).to.be();
     });

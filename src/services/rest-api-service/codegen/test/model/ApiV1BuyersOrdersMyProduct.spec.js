@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property asin (base name: "asin")', function() {
+      // uncomment below and update the code to test the property asin
+      //var instance = new TestSwagger.ApiV1BuyersOrdersMyProduct();
+      //expect(instance).to.be();
+    });
+
     it('should have the property skusByClient (base name: "skusByClient")', function() {
       // uncomment below and update the code to test the property skusByClient
       //var instance = new TestSwagger.ApiV1BuyersOrdersMyProduct();

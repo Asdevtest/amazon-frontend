@@ -72,8 +72,50 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property fbaNumber (base name: "fbaNumber")', function() {
+      // uncomment below and update the code to test the property fbaNumber
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberText (base name: "trackNumberText")', function() {
+      // uncomment below and update the code to test the property trackNumberText
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberFile (base name: "trackNumberFile")', function() {
+      // uncomment below and update the code to test the property trackNumberFile
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property upsTrackNumber (base name: "upsTrackNumber")', function() {
+      // uncomment below and update the code to test the property upsTrackNumber
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property destination (base name: "destination")', function() {
+      // uncomment below and update the code to test the property destination
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
     it('should have the property logicsTariff (base name: "logicsTariff")', function() {
       // uncomment below and update the code to test the property logicsTariff
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxAmount (base name: "boxAmount")', function() {
+      // uncomment below and update the code to test the property boxAmount
+      //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property itemAmount (base name: "itemAmount")', function() {
+      // uncomment below and update the code to test the property itemAmount
       //var instance = new TestSwagger.ApiV1BatchesByProductGuidBoxes();
       //expect(instance).to.be();
     });

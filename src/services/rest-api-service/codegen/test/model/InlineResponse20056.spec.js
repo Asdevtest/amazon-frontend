@@ -54,14 +54,32 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20056);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20056();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instance = new TestSwagger.InlineResponse20056();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property tariffLogistics (base name: "tariffLogistics")', function() {
+      // uncomment below and update the code to test the property tariffLogistics
+      //var instance = new TestSwagger.InlineResponse20056();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property tariffWarehouses (base name: "tariffWarehouses")', function() {
+      // uncomment below and update the code to test the property tariffWarehouses
+      //var instance = new TestSwagger.InlineResponse20056();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxesCount (base name: "boxesCount")', function() {
+      // uncomment below and update the code to test the property boxesCount
       //var instance = new TestSwagger.InlineResponse20056();
       //expect(instance).to.be();
     });

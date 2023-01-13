@@ -54,14 +54,50 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject58);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property productName (base name: "productName")', function() {
+      // uncomment below and update the code to test the property productName
       //var instance = new TestSwagger.InlineObject58();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property productLinks (base name: "productLinks")', function() {
+      // uncomment below and update the code to test the property productLinks
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
+      // uncomment below and update the code to test the property linksToMediaFiles
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property criteria (base name: "criteria")', function() {
+      // uncomment below and update the code to test the property criteria
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property dimensions (base name: "dimensions")', function() {
+      // uncomment below and update the code to test the property dimensions
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property quantity (base name: "quantity")', function() {
+      // uncomment below and update the code to test the property quantity
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
+      //var instance = new TestSwagger.InlineObject58();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property productId (base name: "productId")', function() {
+      // uncomment below and update the code to test the property productId
       //var instance = new TestSwagger.InlineObject58();
       //expect(instance).to.be();
     });

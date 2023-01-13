@@ -54,14 +54,38 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20031);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property orders (base name: "orders")', function() {
+      // uncomment below and update the code to test the property orders
       //var instance = new TestSwagger.InlineResponse20031();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property shops (base name: "shops")', function() {
+      // uncomment below and update the code to test the property shops
+      //var instance = new TestSwagger.InlineResponse20031();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property requests (base name: "requests")', function() {
+      // uncomment below and update the code to test the property requests
+      //var instance = new TestSwagger.InlineResponse20031();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property products (base name: "products")', function() {
+      // uncomment below and update the code to test the property products
+      //var instance = new TestSwagger.InlineResponse20031();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batch (base name: "batch")', function() {
+      // uncomment below and update the code to test the property batch
+      //var instance = new TestSwagger.InlineResponse20031();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxes (base name: "boxes")', function() {
+      // uncomment below and update the code to test the property boxes
       //var instance = new TestSwagger.InlineResponse20031();
       //expect(instance).to.be();
     });

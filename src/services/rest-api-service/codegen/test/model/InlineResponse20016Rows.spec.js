@@ -54,14 +54,26 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20016Rows);
     });
 
-    it('should have the property group (base name: "group")', function() {
-      // uncomment below and update the code to test the property group
+    it('should have the property productId (base name: "productId")', function() {
+      // uncomment below and update the code to test the property productId
       //var instance = new TestSwagger.InlineResponse20016Rows();
       //expect(instance).to.be();
     });
 
-    it('should have the property boxes (base name: "boxes")', function() {
-      // uncomment below and update the code to test the property boxes
+    it('should have the property logicsTariffId (base name: "logicsTariffId")', function() {
+      // uncomment below and update the code to test the property logicsTariffId
+      //var instance = new TestSwagger.InlineResponse20016Rows();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property orderId (base name: "orderId")', function() {
+      // uncomment below and update the code to test the property orderId
+      //var instance = new TestSwagger.InlineResponse20016Rows();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property amount (base name: "amount")', function() {
+      // uncomment below and update the code to test the property amount
       //var instance = new TestSwagger.InlineResponse20016Rows();
       //expect(instance).to.be();
     });

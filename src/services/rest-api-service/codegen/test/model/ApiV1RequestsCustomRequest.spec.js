@@ -54,20 +54,8 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1RequestsCustomRequest);
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property type (base name: "type")', function() {
-      // uncomment below and update the code to test the property type
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property maxAmountOfProposals (base name: "maxAmountOfProposals")', function() {
-      // uncomment below and update the code to test the property maxAmountOfProposals
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
       //expect(instance).to.be();
     });
@@ -78,14 +66,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property status (base name: "status")', function() {
-      // uncomment below and update the code to test the property status
+    it('should have the property timeoutAt (base name: "timeoutAt")', function() {
+      // uncomment below and update the code to test the property timeoutAt
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
       //expect(instance).to.be();
     });
 
-    it('should have the property timeoutAt (base name: "timeoutAt")', function() {
-      // uncomment below and update the code to test the property timeoutAt
+    it('should have the property timeLimitInMinutes (base name: "timeLimitInMinutes")', function() {
+      // uncomment below and update the code to test the property timeLimitInMinutes
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
       //expect(instance).to.be();
     });
@@ -102,32 +90,20 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property needCheckBySupervisor (base name: "needCheckBySupervisor")', function() {
+      // uncomment below and update the code to test the property needCheckBySupervisor
+      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property restrictMoreThanOneProposalFromOneAssignee (base name: "restrictMoreThanOneProposalFromOneAssignee")', function() {
+      // uncomment below and update the code to test the property restrictMoreThanOneProposalFromOneAssignee
+      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
+      //expect(instance).to.be();
+    });
+
     it('should have the property roles (base name: "roles")', function() {
       // uncomment below and update the code to test the property roles
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property createdById (base name: "createdById")', function() {
-      // uncomment below and update the code to test the property createdById
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lastModifiedById (base name: "lastModifiedById")', function() {
-      // uncomment below and update the code to test the property lastModifiedById
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property createdAt (base name: "createdAt")', function() {
-      // uncomment below and update the code to test the property createdAt
-      //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property updatedAt (base name: "updatedAt")', function() {
-      // uncomment below and update the code to test the property updatedAt
       //var instance = new TestSwagger.ApiV1RequestsCustomRequest();
       //expect(instance).to.be();
     });

@@ -1855,14 +1855,15 @@ export const FinalPricePerUnitCell = React.memo(
         {box.items.map((el, i) => (
           <Typography key={i} className={classNames.multilineText}>
             {toFixedWithDollarSign(
-              calculateDeliveryCostPerPcs({
-                itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
-                deliveryCost: box.deliveryTotalPrice,
-                itemAmount: el.amount,
-                itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
-                boxFinalWeight,
-                box,
-              }),
+              calcSupplierPriceForUnit(el.order.orderSupplier) +
+                calculateDeliveryCostPerPcs({
+                  itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+                  deliveryCost: box.deliveryTotalPrice,
+                  itemAmount: el.amount,
+                  itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
+                  boxFinalWeight,
+                  box,
+                }),
               2,
             )}
           </Typography>

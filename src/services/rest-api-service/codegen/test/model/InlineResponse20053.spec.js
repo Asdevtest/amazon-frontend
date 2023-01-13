@@ -54,14 +54,56 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20053);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20053();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sellerBoardWarehouseReportUrlDaily (base name: "sellerBoardWarehouseReportUrlDaily")', function() {
+      // uncomment below and update the code to test the property sellerBoardWarehouseReportUrlDaily
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sellerBoardWarehouseReportUrlMonthly (base name: "sellerBoardWarehouseReportUrlMonthly")', function() {
+      // uncomment below and update the code to test the property sellerBoardWarehouseReportUrlMonthly
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property ownerId (base name: "ownerId")', function() {
+      // uncomment below and update the code to test the property ownerId
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdById (base name: "createdById")', function() {
+      // uncomment below and update the code to test the property createdById
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lastModifiedById (base name: "lastModifiedById")', function() {
+      // uncomment below and update the code to test the property lastModifiedById
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.InlineResponse20053();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
       //var instance = new TestSwagger.InlineResponse20053();
       //expect(instance).to.be();
     });

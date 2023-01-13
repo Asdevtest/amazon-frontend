@@ -54,6 +54,12 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1SuppliersBoxProperties);
     });
 
+    it('should have the property amountInBox (base name: "amountInBox")', function() {
+      // uncomment below and update the code to test the property amountInBox
+      //var instance = new TestSwagger.ApiV1SuppliersBoxProperties();
+      //expect(instance).to.be();
+    });
+
     it('should have the property boxLengthCm (base name: "boxLengthCm")', function() {
       // uncomment below and update the code to test the property boxLengthCm
       //var instance = new TestSwagger.ApiV1SuppliersBoxProperties();

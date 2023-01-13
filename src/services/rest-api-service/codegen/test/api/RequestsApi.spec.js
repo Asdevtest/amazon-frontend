@@ -48,6 +48,16 @@
   }
 
   describe('RequestsApi', function() {
+    describe('apiV1RequestsCalculateRequestCostGuidGet', function() {
+      it('should call apiV1RequestsCalculateRequestCostGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsCalculateRequestCostGuidGet
+        //instance.apiV1RequestsCalculateRequestCostGuidGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1RequestsCustomGet', function() {
       it('should call apiV1RequestsCustomGet successfully', function(done) {
         //uncomment below and update the code to test apiV1RequestsCustomGet
@@ -58,10 +68,10 @@
         done();
       });
     });
-    describe('apiV1RequestsCustomGuidDelete', function() {
-      it('should call apiV1RequestsCustomGuidDelete successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsCustomGuidDelete
-        //instance.apiV1RequestsCustomGuidDelete(function(error) {
+    describe('apiV1RequestsCustomGuidGet', function() {
+      it('should call apiV1RequestsCustomGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsCustomGuidGet
+        //instance.apiV1RequestsCustomGuidGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -88,80 +98,60 @@
         done();
       });
     });
-    describe('apiV1RequestsSearchNicheGet', function() {
-      it('should call apiV1RequestsSearchNicheGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchNicheGet
-        //instance.apiV1RequestsSearchNicheGet(function(error) {
+    describe('apiV1RequestsGet', function() {
+      it('should call apiV1RequestsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGet
+        //instance.apiV1RequestsGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestsSearchNicheGuidDelete', function() {
-      it('should call apiV1RequestsSearchNicheGuidDelete successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchNicheGuidDelete
-        //instance.apiV1RequestsSearchNicheGuidDelete(function(error) {
+    describe('apiV1RequestsGuidAbortPatch', function() {
+      it('should call apiV1RequestsGuidAbortPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGuidAbortPatch
+        //instance.apiV1RequestsGuidAbortPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestsSearchNicheGuidPatch', function() {
-      it('should call apiV1RequestsSearchNicheGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchNicheGuidPatch
-        //instance.apiV1RequestsSearchNicheGuidPatch(function(error) {
+    describe('apiV1RequestsGuidCancelByCreatorPatch', function() {
+      it('should call apiV1RequestsGuidCancelByCreatorPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGuidCancelByCreatorPatch
+        //instance.apiV1RequestsGuidCancelByCreatorPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestsSearchNichePost', function() {
-      it('should call apiV1RequestsSearchNichePost successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchNichePost
-        //instance.apiV1RequestsSearchNichePost(function(error) {
+    describe('apiV1RequestsGuidDelete', function() {
+      it('should call apiV1RequestsGuidDelete successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGuidDelete
+        //instance.apiV1RequestsGuidDelete(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestsSearchProductsGet', function() {
-      it('should call apiV1RequestsSearchProductsGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchProductsGet
-        //instance.apiV1RequestsSearchProductsGet(function(error) {
+    describe('apiV1RequestsGuidPickupPost', function() {
+      it('should call apiV1RequestsGuidPickupPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGuidPickupPost
+        //instance.apiV1RequestsGuidPickupPost(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestsSearchProductsGuidDelete', function() {
-      it('should call apiV1RequestsSearchProductsGuidDelete successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchProductsGuidDelete
-        //instance.apiV1RequestsSearchProductsGuidDelete(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1RequestsSearchProductsGuidPatch', function() {
-      it('should call apiV1RequestsSearchProductsGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchProductsGuidPatch
-        //instance.apiV1RequestsSearchProductsGuidPatch(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1RequestsSearchProductsPost', function() {
-      it('should call apiV1RequestsSearchProductsPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestsSearchProductsPost
-        //instance.apiV1RequestsSearchProductsPost(function(error) {
+    describe('apiV1RequestsGuidToPublishPatch', function() {
+      it('should call apiV1RequestsGuidToPublishPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestsGuidToPublishPatch
+        //instance.apiV1RequestsGuidToPublishPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

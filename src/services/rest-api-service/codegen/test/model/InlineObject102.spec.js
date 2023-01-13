@@ -54,14 +54,44 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject102);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property listingName (base name: "listingName")', function() {
+      // uncomment below and update the code to test the property listingName
       //var instance = new TestSwagger.InlineObject102();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property listingBulletPoints (base name: "listingBulletPoints")', function() {
+      // uncomment below and update the code to test the property listingBulletPoints
+      //var instance = new TestSwagger.InlineObject102();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property listingProductDetails (base name: "listingProductDetails")', function() {
+      // uncomment below and update the code to test the property listingProductDetails
+      //var instance = new TestSwagger.InlineObject102();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property listingSearchTerms (base name: "listingSearchTerms")', function() {
+      // uncomment below and update the code to test the property listingSearchTerms
+      //var instance = new TestSwagger.InlineObject102();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property listingSubjectMatters (base name: "listingSubjectMatters")', function() {
+      // uncomment below and update the code to test the property listingSubjectMatters
+      //var instance = new TestSwagger.InlineObject102();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property listingImages (base name: "listingImages")', function() {
+      // uncomment below and update the code to test the property listingImages
+      //var instance = new TestSwagger.InlineObject102();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property strategyStatus (base name: "strategyStatus")', function() {
+      // uncomment below and update the code to test the property strategyStatus
       //var instance = new TestSwagger.InlineObject102();
       //expect(instance).to.be();
     });

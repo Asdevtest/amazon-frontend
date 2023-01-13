@@ -60,6 +60,30 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property id (base name: "id")', function() {
+      // uncomment below and update the code to test the property id
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightOrder();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property item (base name: "item")', function() {
+      // uncomment below and update the code to test the property item
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightOrder();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightOrder();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property orderSupplier (base name: "orderSupplier")', function() {
+      // uncomment below and update the code to test the property orderSupplier
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightOrder();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

@@ -54,14 +54,86 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20023);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20023();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property taskId (base name: "taskId")', function() {
+      // uncomment below and update the code to test the property taskId
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property operationType (base name: "operationType")', function() {
+      // uncomment below and update the code to test the property operationType
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxesBefore (base name: "boxesBefore")', function() {
+      // uncomment below and update the code to test the property boxesBefore
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxes (base name: "boxes")', function() {
+      // uncomment below and update the code to test the property boxes
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property status (base name: "status")', function() {
+      // uncomment below and update the code to test the property status
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeperComment (base name: "storekeeperComment")', function() {
+      // uncomment below and update the code to test the property storekeeperComment
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property clientComment (base name: "clientComment")', function() {
+      // uncomment below and update the code to test the property clientComment
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property buyerComment (base name: "buyerComment")', function() {
+      // uncomment below and update the code to test the property buyerComment
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeperId (base name: "storekeeperId")', function() {
+      // uncomment below and update the code to test the property storekeeperId
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeper (base name: "storekeeper")', function() {
+      // uncomment below and update the code to test the property storekeeper
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.InlineResponse20023();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updateDate (base name: "updateDate")', function() {
+      // uncomment below and update the code to test the property updateDate
       //var instance = new TestSwagger.InlineResponse20023();
       //expect(instance).to.be();
     });

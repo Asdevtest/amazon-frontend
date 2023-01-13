@@ -54,14 +54,32 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject83);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property execution_time (base name: "execution_time")', function() {
+      // uncomment below and update the code to test the property execution_time
       //var instance = new TestSwagger.InlineObject83();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
+      //var instance = new TestSwagger.InlineObject83();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property comment (base name: "comment")', function() {
+      // uncomment below and update the code to test the property comment
+      //var instance = new TestSwagger.InlineObject83();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
+      // uncomment below and update the code to test the property linksToMediaFiles
+      //var instance = new TestSwagger.InlineObject83();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
       //var instance = new TestSwagger.InlineObject83();
       //expect(instance).to.be();
     });

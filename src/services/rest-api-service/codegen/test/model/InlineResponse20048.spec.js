@@ -54,50 +54,50 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20048);
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property requestPlatformMarginInPercent (base name: "requestPlatformMarginInPercent")', function() {
+      // uncomment below and update the code to test the property requestPlatformMarginInPercent
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property rating (base name: "rating")', function() {
-      // uncomment below and update the code to test the property rating
+    it('should have the property platformMargin (base name: "platformMargin")', function() {
+      // uncomment below and update the code to test the property platformMargin
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property numberOfPositiveFeedbacks (base name: "numberOfPositiveFeedbacks")', function() {
-      // uncomment below and update the code to test the property numberOfPositiveFeedbacks
+    it('should have the property requestSupervisorFeeInPercent (base name: "requestSupervisorFeeInPercent")', function() {
+      // uncomment below and update the code to test the property requestSupervisorFeeInPercent
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property numberOfNegativeFeedbacks (base name: "numberOfNegativeFeedbacks")', function() {
-      // uncomment below and update the code to test the property numberOfNegativeFeedbacks
+    it('should have the property supervisorFee (base name: "supervisorFee")', function() {
+      // uncomment below and update the code to test the property supervisorFee
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property country (base name: "country")', function() {
-      // uncomment below and update the code to test the property country
+    it('should have the property unitCost (base name: "unitCost")', function() {
+      // uncomment below and update the code to test the property unitCost
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property isOnline (base name: "isOnline")', function() {
-      // uncomment below and update the code to test the property isOnline
+    it('should have the property maxAmountOfProposals (base name: "maxAmountOfProposals")', function() {
+      // uncomment below and update the code to test the property maxAmountOfProposals
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });
 
-    it('should have the property countsOfDeals (base name: "countsOfDeals")', function() {
-      // uncomment below and update the code to test the property countsOfDeals
+    it('should have the property totalCost (base name: "totalCost")', function() {
+      // uncomment below and update the code to test the property totalCost
       //var instance = new TestSwagger.InlineResponse20048();
       //expect(instance).to.be();
     });

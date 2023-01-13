@@ -66,14 +66,44 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property skusByClient (base name: "skusByClient")', function() {
+      // uncomment below and update the code to test the property skusByClient
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
+      //expect(instance).to.be();
+    });
+
     it('should have the property images (base name: "images")', function() {
       // uncomment below and update the code to test the property images
       //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
       //expect(instance).to.be();
     });
 
+    it('should have the property shopIds (base name: "shopIds")', function() {
+      // uncomment below and update the code to test the property shopIds
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
+      //expect(instance).to.be();
+    });
+
     it('should have the property amazonTitle (base name: "amazonTitle")', function() {
       // uncomment below and update the code to test the property amazonTitle
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property material (base name: "material")', function() {
+      // uncomment below and update the code to test the property material
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property productUsage (base name: "productUsage")', function() {
+      // uncomment below and update the code to test the property productUsage
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property chinaTitle (base name: "chinaTitle")', function() {
+      // uncomment below and update the code to test the property chinaTitle
       //var instance = new TestSwagger.ApiV1BoxesClientsLightProduct();
       //expect(instance).to.be();
     });

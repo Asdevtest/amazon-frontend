@@ -68,6 +68,16 @@
         done();
       });
     });
+    describe('apiV1ShopSellGuidPatch', function() {
+      it('should call apiV1ShopSellGuidPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1ShopSellGuidPatch
+        //instance.apiV1ShopSellGuidPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1ShopSellPost', function() {
       it('should call apiV1ShopSellPost successfully', function(done) {
         //uncomment below and update the code to test apiV1ShopSellPost

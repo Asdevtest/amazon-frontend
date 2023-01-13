@@ -60,18 +60,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property barCode (base name: "barCode")', function() {
-      // uncomment below and update the code to test the property barCode
-      //var instance = new TestSwagger.ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property doUpdateBarCodeOnProduct (base name: "doUpdateBarCodeOnProduct")', function() {
-      // uncomment below and update the code to test the property doUpdateBarCodeOnProduct
-      //var instance = new TestSwagger.ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges();
-      //expect(instance).to.be();
-    });
-
     it('should have the property isBarCodeAttachedByTheStorekeeper (base name: "isBarCodeAttachedByTheStorekeeper")', function() {
       // uncomment below and update the code to test the property isBarCodeAttachedByTheStorekeeper
       //var instance = new TestSwagger.ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges();

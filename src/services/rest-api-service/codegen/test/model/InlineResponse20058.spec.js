@@ -54,14 +54,50 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20058);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
       //var instance = new TestSwagger.InlineResponse20058();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property rating (base name: "rating")', function() {
+      // uncomment below and update the code to test the property rating
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property numberOfPositiveFeedbacks (base name: "numberOfPositiveFeedbacks")', function() {
+      // uncomment below and update the code to test the property numberOfPositiveFeedbacks
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property numberOfNegativeFeedbacks (base name: "numberOfNegativeFeedbacks")', function() {
+      // uncomment below and update the code to test the property numberOfNegativeFeedbacks
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property country (base name: "country")', function() {
+      // uncomment below and update the code to test the property country
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property isOnline (base name: "isOnline")', function() {
+      // uncomment below and update the code to test the property isOnline
+      //var instance = new TestSwagger.InlineResponse20058();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property countsOfDeals (base name: "countsOfDeals")', function() {
+      // uncomment below and update the code to test the property countsOfDeals
       //var instance = new TestSwagger.InlineResponse20058();
       //expect(instance).to.be();
     });

@@ -78,20 +78,26 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property allowedUrl (base name: "allowedUrl")', function() {
-      // uncomment below and update the code to test the property allowedUrl
-      //var instance = new TestSwagger.PermissionGroupGetDtoSchemaPermissions();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property createdById (base name: "createdById")', function() {
-      // uncomment below and update the code to test the property createdById
+    it('should have the property allowedUrls (base name: "allowedUrls")', function() {
+      // uncomment below and update the code to test the property allowedUrls
       //var instance = new TestSwagger.PermissionGroupGetDtoSchemaPermissions();
       //expect(instance).to.be();
     });
 
     it('should have the property role (base name: "role")', function() {
       // uncomment below and update the code to test the property role
+      //var instance = new TestSwagger.PermissionGroupGetDtoSchemaPermissions();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property hierarchy (base name: "hierarchy")', function() {
+      // uncomment below and update the code to test the property hierarchy
+      //var instance = new TestSwagger.PermissionGroupGetDtoSchemaPermissions();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdById (base name: "createdById")', function() {
+      // uncomment below and update the code to test the property createdById
       //var instance = new TestSwagger.PermissionGroupGetDtoSchemaPermissions();
       //expect(instance).to.be();
     });

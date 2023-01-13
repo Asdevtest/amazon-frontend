@@ -54,14 +54,20 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20031Boxes);
     });
 
-    it('should have the property all (base name: "all")', function() {
-      // uncomment below and update the code to test the property all
+    it('should have the property inStock (base name: "inStock")', function() {
+      // uncomment below and update the code to test the property inStock
       //var instance = new TestSwagger.InlineResponse20031Boxes();
       //expect(instance).to.be();
     });
 
-    it('should have the property requestedShipment (base name: "requestedShipment")', function() {
-      // uncomment below and update the code to test the property requestedShipment
+    it('should have the property requestedSendToBatch (base name: "requestedSendToBatch")', function() {
+      // uncomment below and update the code to test the property requestedSendToBatch
+      //var instance = new TestSwagger.InlineResponse20031Boxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inBatchOnTheWay (base name: "inBatchOnTheWay")', function() {
+      // uncomment below and update the code to test the property inBatchOnTheWay
       //var instance = new TestSwagger.InlineResponse20031Boxes();
       //expect(instance).to.be();
     });

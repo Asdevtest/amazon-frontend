@@ -54,14 +54,56 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject97);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.InlineObject97();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property description (base name: "description")', function() {
+      // uncomment below and update the code to test the property description
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property deliveryTimeInDay (base name: "deliveryTimeInDay")', function() {
+      // uncomment below and update the code to test the property deliveryTimeInDay
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property cls (base name: "cls")', function() {
+      // uncomment below and update the code to test the property cls
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property etd (base name: "etd")', function() {
+      // uncomment below and update the code to test the property etd
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property eta (base name: "eta")', function() {
+      // uncomment below and update the code to test the property eta
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property minWeightInKg (base name: "minWeightInKg")', function() {
+      // uncomment below and update the code to test the property minWeightInKg
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property archive (base name: "archive")', function() {
+      // uncomment below and update the code to test the property archive
+      //var instance = new TestSwagger.InlineObject97();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property conditionsByRegion (base name: "conditionsByRegion")', function() {
+      // uncomment below and update the code to test the property conditionsByRegion
       //var instance = new TestSwagger.InlineObject97();
       //expect(instance).to.be();
     });

@@ -54,20 +54,20 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject66);
     });
 
-    it('should have the property result (base name: "result")', function() {
-      // uncomment below and update the code to test the property result
+    it('should have the property asin (base name: "asin")', function() {
+      // uncomment below and update the code to test the property asin
       //var instance = new TestSwagger.InlineObject66();
       //expect(instance).to.be();
     });
 
-    it('should have the property comment (base name: "comment")', function() {
-      // uncomment below and update the code to test the property comment
+    it('should have the property reason (base name: "reason")', function() {
+      // uncomment below and update the code to test the property reason
       //var instance = new TestSwagger.InlineObject66();
       //expect(instance).to.be();
     });
 
-    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
-      // uncomment below and update the code to test the property linksToMediaFiles
+    it('should have the property strategy (base name: "strategy")', function() {
+      // uncomment below and update the code to test the property strategy
       //var instance = new TestSwagger.InlineObject66();
       //expect(instance).to.be();
     });

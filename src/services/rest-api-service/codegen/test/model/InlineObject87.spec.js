@@ -54,14 +54,86 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject87);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
       //var instance = new TestSwagger.InlineObject87();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property price (base name: "price")', function() {
+      // uncomment below and update the code to test the property price
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property businessStartDate (base name: "businessStartDate")', function() {
+      // uncomment below and update the code to test the property businessStartDate
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shopDetails (base name: "shopDetails")', function() {
+      // uncomment below and update the code to test the property shopDetails
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shopAssets (base name: "shopAssets")', function() {
+      // uncomment below and update the code to test the property shopAssets
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property files (base name: "files")', function() {
+      // uncomment below and update the code to test the property files
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shopLink (base name: "shopLink")', function() {
+      // uncomment below and update the code to test the property shopLink
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property statistics (base name: "statistics")', function() {
+      // uncomment below and update the code to test the property statistics
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property opportunities (base name: "opportunities")', function() {
+      // uncomment below and update the code to test the property opportunities
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property risks (base name: "risks")', function() {
+      // uncomment below and update the code to test the property risks
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property requiredSkills (base name: "requiredSkills")', function() {
+      // uncomment below and update the code to test the property requiredSkills
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sellIncludes (base name: "sellIncludes")', function() {
+      // uncomment below and update the code to test the property sellIncludes
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property reasonForSale (base name: "reasonForSale")', function() {
+      // uncomment below and update the code to test the property reasonForSale
+      //var instance = new TestSwagger.InlineObject87();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property additionalInfo (base name: "additionalInfo")', function() {
+      // uncomment below and update the code to test the property additionalInfo
       //var instance = new TestSwagger.InlineObject87();
       //expect(instance).to.be();
     });

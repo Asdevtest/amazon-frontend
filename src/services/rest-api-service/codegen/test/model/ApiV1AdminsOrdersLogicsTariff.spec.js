@@ -96,6 +96,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property archive (base name: "archive")', function() {
+      // uncomment below and update the code to test the property archive
+      //var instance = new TestSwagger.ApiV1AdminsOrdersLogicsTariff();
+      //expect(instance).to.be();
+    });
+
     it('should have the property conditionsByRegion (base name: "conditionsByRegion")', function() {
       // uncomment below and update the code to test the property conditionsByRegion
       //var instance = new TestSwagger.ApiV1AdminsOrdersLogicsTariff();

@@ -54,14 +54,104 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject94);
     });
 
-    it('should have the property result (base name: "result")', function() {
-      // uncomment below and update the code to test the property result
+    it('should have the property lengthCmWarehouse (base name: "lengthCmWarehouse")', function() {
+      // uncomment below and update the code to test the property lengthCmWarehouse
       //var instance = new TestSwagger.InlineObject94();
       //expect(instance).to.be();
     });
 
-    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
-      // uncomment below and update the code to test the property linksToMediaFiles
+    it('should have the property widthCmWarehouse (base name: "widthCmWarehouse")', function() {
+      // uncomment below and update the code to test the property widthCmWarehouse
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property heightCmWarehouse (base name: "heightCmWarehouse")', function() {
+      // uncomment below and update the code to test the property heightCmWarehouse
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property weighGrossKgWarehouse (base name: "weighGrossKgWarehouse")', function() {
+      // uncomment below and update the code to test the property weighGrossKgWarehouse
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property isShippingLabelAttachedByStorekeeper (base name: "isShippingLabelAttachedByStorekeeper")', function() {
+      // uncomment below and update the code to test the property isShippingLabelAttachedByStorekeeper
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeperComment (base name: "storekeeperComment")', function() {
+      // uncomment below and update the code to test the property storekeeperComment
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property referenceId (base name: "referenceId")', function() {
+      // uncomment below and update the code to test the property referenceId
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberText (base name: "trackNumberText")', function() {
+      // uncomment below and update the code to test the property trackNumberText
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberFile (base name: "trackNumberFile")', function() {
+      // uncomment below and update the code to test the property trackNumberFile
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property upsTrackNumber (base name: "upsTrackNumber")', function() {
+      // uncomment below and update the code to test the property upsTrackNumber
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaShipment (base name: "fbaShipment")', function() {
+      // uncomment below and update the code to test the property fbaShipment
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fbaNumber (base name: "fbaNumber")', function() {
+      // uncomment below and update the code to test the property fbaNumber
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property logicsTariffId (base name: "logicsTariffId")', function() {
+      // uncomment below and update the code to test the property logicsTariffId
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property images (base name: "images")', function() {
+      // uncomment below and update the code to test the property images
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property destinationId (base name: "destinationId")', function() {
+      // uncomment below and update the code to test the property destinationId
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property storekeeperTaskComment (base name: "storekeeperTaskComment")', function() {
+      // uncomment below and update the code to test the property storekeeperTaskComment
+      //var instance = new TestSwagger.InlineObject94();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property items (base name: "items")', function() {
+      // uncomment below and update the code to test the property items
       //var instance = new TestSwagger.InlineObject94();
       //expect(instance).to.be();
     });

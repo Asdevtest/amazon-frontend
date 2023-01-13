@@ -48,6 +48,36 @@
   }
 
   describe('IntegrationsApi', function() {
+    describe('apiV1IntegrationsCreateAndLinkSkuProductsPost', function() {
+      it('should call apiV1IntegrationsCreateAndLinkSkuProductsPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsCreateAndLinkSkuProductsPost
+        //instance.apiV1IntegrationsCreateAndLinkSkuProductsPost(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IntegrationsGetSkusByProductIdGuidGet', function() {
+      it('should call apiV1IntegrationsGetSkusByProductIdGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsGetSkusByProductIdGuidGet
+        //instance.apiV1IntegrationsGetSkusByProductIdGuidGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IntegrationsRefreshProductsPatch', function() {
+      it('should call apiV1IntegrationsRefreshProductsPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsRefreshProductsPatch
+        //instance.apiV1IntegrationsRefreshProductsPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet', function() {
       it('should call apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet successfully', function(done) {
         //uncomment below and update the code to test apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet
@@ -58,10 +88,40 @@
         done();
       });
     });
-    describe('apiV1IntegrationsSellerboardWarehouseReportsDailyGet', function() {
-      it('should call apiV1IntegrationsSellerboardWarehouseReportsDailyGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1IntegrationsSellerboardWarehouseReportsDailyGet
-        //instance.apiV1IntegrationsSellerboardWarehouseReportsDailyGet(function(error) {
+    describe('apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch', function() {
+      it('should call apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch
+        //instance.apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch', function() {
+      it('should call apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch
+        //instance.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IntegrationsSellerboardWarehouseStocksGet', function() {
+      it('should call apiV1IntegrationsSellerboardWarehouseStocksGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsSellerboardWarehouseStocksGet
+        //instance.apiV1IntegrationsSellerboardWarehouseStocksGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IntegrationsWarehouseReportGet', function() {
+      it('should call apiV1IntegrationsWarehouseReportGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IntegrationsWarehouseReportGet
+        //instance.apiV1IntegrationsWarehouseReportGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

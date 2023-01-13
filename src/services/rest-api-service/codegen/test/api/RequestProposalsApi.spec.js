@@ -48,10 +48,10 @@
   }
 
   describe('RequestProposalsApi', function() {
-    describe('apiV1RequestProposalsCustomGuidDelete', function() {
-      it('should call apiV1RequestProposalsCustomGuidDelete successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestProposalsCustomGuidDelete
-        //instance.apiV1RequestProposalsCustomGuidDelete(function(error) {
+    describe('apiV1RequestProposalsCustomByRequestIdGuidGet', function() {
+      it('should call apiV1RequestProposalsCustomByRequestIdGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsCustomByRequestIdGuidGet
+        //instance.apiV1RequestProposalsCustomByRequestIdGuidGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -68,20 +68,130 @@
         done();
       });
     });
-    describe('apiV1RequestProposalsCustomGuidPatch', function() {
-      it('should call apiV1RequestProposalsCustomGuidPatch successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestProposalsCustomGuidPatch
-        //instance.apiV1RequestProposalsCustomGuidPatch(function(error) {
+    describe('apiV1RequestProposalsCustomGuidResultEditPatch', function() {
+      it('should call apiV1RequestProposalsCustomGuidResultEditPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsCustomGuidResultEditPatch
+        //instance.apiV1RequestProposalsCustomGuidResultEditPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('apiV1RequestProposalsCustomPost', function() {
-      it('should call apiV1RequestProposalsCustomPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1RequestProposalsCustomPost
-        //instance.apiV1RequestProposalsCustomPost(function(error) {
+    describe('apiV1RequestProposalsGet', function() {
+      it('should call apiV1RequestProposalsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGet
+        //instance.apiV1RequestProposalsGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidCancelBeforeDealPatch', function() {
+      it('should call apiV1RequestProposalsGuidCancelBeforeDealPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidCancelBeforeDealPatch
+        //instance.apiV1RequestProposalsGuidCancelBeforeDealPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidCancelPatch', function() {
+      it('should call apiV1RequestProposalsGuidCancelPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidCancelPatch
+        //instance.apiV1RequestProposalsGuidCancelPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch', function() {
+      it('should call apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch
+        //instance.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidProposalAcceptPatch', function() {
+      it('should call apiV1RequestProposalsGuidProposalAcceptPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidProposalAcceptPatch
+        //instance.apiV1RequestProposalsGuidProposalAcceptPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidProposalCorrectedPatch', function() {
+      it('should call apiV1RequestProposalsGuidProposalCorrectedPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidProposalCorrectedPatch
+        //instance.apiV1RequestProposalsGuidProposalCorrectedPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidProposalEditPatch', function() {
+      it('should call apiV1RequestProposalsGuidProposalEditPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidProposalEditPatch
+        //instance.apiV1RequestProposalsGuidProposalEditPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidProposalRejectPatch', function() {
+      it('should call apiV1RequestProposalsGuidProposalRejectPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidProposalRejectPatch
+        //instance.apiV1RequestProposalsGuidProposalRejectPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidReadyToVerifyPatch', function() {
+      it('should call apiV1RequestProposalsGuidReadyToVerifyPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidReadyToVerifyPatch
+        //instance.apiV1RequestProposalsGuidReadyToVerifyPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidResultAcceptPatch', function() {
+      it('should call apiV1RequestProposalsGuidResultAcceptPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidResultAcceptPatch
+        //instance.apiV1RequestProposalsGuidResultAcceptPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidResultCorrectedPatch', function() {
+      it('should call apiV1RequestProposalsGuidResultCorrectedPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidResultCorrectedPatch
+        //instance.apiV1RequestProposalsGuidResultCorrectedPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1RequestProposalsGuidResultToCorrectPatch', function() {
+      it('should call apiV1RequestProposalsGuidResultToCorrectPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1RequestProposalsGuidResultToCorrectPatch
+        //instance.apiV1RequestProposalsGuidResultToCorrectPatch(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

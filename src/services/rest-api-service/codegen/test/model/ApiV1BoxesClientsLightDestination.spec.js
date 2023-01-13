@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property storekeeperId (base name: "storekeeperId")', function() {
+      // uncomment below and update the code to test the property storekeeperId
+      //var instance = new TestSwagger.ApiV1BoxesClientsLightDestination();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

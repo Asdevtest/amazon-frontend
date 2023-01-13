@@ -60,26 +60,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property storekeeperId (base name: "storekeeperId")', function() {
-      // uncomment below and update the code to test the property storekeeperId
+    it('should have the property storekeeper (base name: "storekeeper")', function() {
+      // uncomment below and update the code to test the property storekeeper
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusBoxAmounts();
       //expect(instance).to.be();
     });
 
     it('should have the property amountInBoxes (base name: "amountInBoxes")', function() {
       // uncomment below and update the code to test the property amountInBoxes
-      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusBoxAmounts();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property createdAt (base name: "createdAt")', function() {
-      // uncomment below and update the code to test the property createdAt
-      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusBoxAmounts();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property updatedAt (base name: "updatedAt")', function() {
-      // uncomment below and update the code to test the property updatedAt
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusBoxAmounts();
       //expect(instance).to.be();
     });

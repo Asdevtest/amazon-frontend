@@ -54,20 +54,8 @@
       //expect(instance).to.be.a(TestSwagger.InlineResponse20037);
     });
 
-    it('should have the property proposal (base name: "proposal")', function() {
-      // uncomment below and update the code to test the property proposal
-      //var instance = new TestSwagger.InlineResponse20037();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
-      //var instance = new TestSwagger.InlineResponse20037();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property profileId (base name: "profileId")', function() {
+      // uncomment below and update the code to test the property profileId
       //var instance = new TestSwagger.InlineResponse20037();
       //expect(instance).to.be();
     });

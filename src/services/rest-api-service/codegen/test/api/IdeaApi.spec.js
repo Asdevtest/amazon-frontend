@@ -58,6 +58,36 @@
         done();
       });
     });
+    describe('apiV1IdeasEditRequestGuidPatch', function() {
+      it('should call apiV1IdeasEditRequestGuidPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasEditRequestGuidPatch
+        //instance.apiV1IdeasEditRequestGuidPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IdeasEditRequestsStatusGuidPatch', function() {
+      it('should call apiV1IdeasEditRequestsStatusGuidPatch successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasEditRequestsStatusGuidPatch
+        //instance.apiV1IdeasEditRequestsStatusGuidPatch(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IdeasFindSupplierGuidPost', function() {
+      it('should call apiV1IdeasFindSupplierGuidPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasFindSupplierGuidPost
+        //instance.apiV1IdeasFindSupplierGuidPost(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1IdeasGet', function() {
       it('should call apiV1IdeasGet successfully', function(done) {
         //uncomment below and update the code to test apiV1IdeasGet
@@ -68,10 +98,40 @@
         done();
       });
     });
+    describe('apiV1IdeasGetSupplierRequestsGet', function() {
+      it('should call apiV1IdeasGetSupplierRequestsGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasGetSupplierRequestsGet
+        //instance.apiV1IdeasGetSupplierRequestsGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IdeasGetSupplierRequestsGuidGet', function() {
+      it('should call apiV1IdeasGetSupplierRequestsGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasGetSupplierRequestsGuidGet
+        //instance.apiV1IdeasGetSupplierRequestsGuidGet(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('apiV1IdeasGuidDelete', function() {
       it('should call apiV1IdeasGuidDelete successfully', function(done) {
         //uncomment below and update the code to test apiV1IdeasGuidDelete
         //instance.apiV1IdeasGuidDelete(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1IdeasGuidGet', function() {
+      it('should call apiV1IdeasGuidGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasGuidGet
+        //instance.apiV1IdeasGuidGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -98,10 +158,10 @@
         done();
       });
     });
-    describe('apiV1IdeasRemoveSuppliersGuidPost', function() {
-      it('should call apiV1IdeasRemoveSuppliersGuidPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1IdeasRemoveSuppliersGuidPost
-        //instance.apiV1IdeasRemoveSuppliersGuidPost(function(error) {
+    describe('apiV1IdeasRemoveSupplierGuidPost', function() {
+      it('should call apiV1IdeasRemoveSupplierGuidPost successfully', function(done) {
+        //uncomment below and update the code to test apiV1IdeasRemoveSupplierGuidPost
+        //instance.apiV1IdeasRemoveSupplierGuidPost(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

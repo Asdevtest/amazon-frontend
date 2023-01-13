@@ -2,11 +2,9 @@ import {
   BatchWeightCalculationMethod,
   BatchWeightCalculationMethodByKey,
 } from '@constants/batch-weight-calculations-method'
-import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {toFixed} from './text'
-import {t} from './translations'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 
@@ -262,6 +260,6 @@ export const calculateDeliveryCostPerPcs = ({
 
     return res
   } else {
-    return t(TranslationKey['No data'])
+    return '' // t(TranslationKey['No data'])
   }
 }

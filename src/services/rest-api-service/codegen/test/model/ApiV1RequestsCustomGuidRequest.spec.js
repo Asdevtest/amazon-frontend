@@ -54,8 +54,8 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1RequestsCustomGuidRequest);
     });
 
-    it('should have the property maxAmountOfProposals (base name: "maxAmountOfProposals")', function() {
-      // uncomment below and update the code to test the property maxAmountOfProposals
+    it('should have the property title (base name: "title")', function() {
+      // uncomment below and update the code to test the property title
       //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
       //expect(instance).to.be();
     });
@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property timeLimitInMinutes (base name: "timeLimitInMinutes")', function() {
+      // uncomment below and update the code to test the property timeLimitInMinutes
+      //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
+      //expect(instance).to.be();
+    });
+
     it('should have the property assignees (base name: "assignees")', function() {
       // uncomment below and update the code to test the property assignees
       //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
@@ -80,6 +86,18 @@
 
     it('should have the property direction (base name: "direction")', function() {
       // uncomment below and update the code to test the property direction
+      //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property needCheckBySupervisor (base name: "needCheckBySupervisor")', function() {
+      // uncomment below and update the code to test the property needCheckBySupervisor
+      //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property restrictMoreThanOneProposalFromOneAssignee (base name: "restrictMoreThanOneProposalFromOneAssignee")', function() {
+      // uncomment below and update the code to test the property restrictMoreThanOneProposalFromOneAssignee
       //var instance = new TestSwagger.ApiV1RequestsCustomGuidRequest();
       //expect(instance).to.be();
     });

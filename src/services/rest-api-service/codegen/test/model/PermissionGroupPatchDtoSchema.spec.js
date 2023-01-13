@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property hierarchy (base name: "hierarchy")', function() {
+      // uncomment below and update the code to test the property hierarchy
+      //var instance = new TestSwagger.PermissionGroupPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
     it('should have the property permissions (base name: "permissions")', function() {
       // uncomment below and update the code to test the property permissions
       //var instance = new TestSwagger.PermissionGroupPatchDtoSchema();

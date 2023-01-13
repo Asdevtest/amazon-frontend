@@ -54,8 +54,20 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1AdminsTasksLightStorekeeper);
     });
 
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightStorekeeper();
+      //expect(instance).to.be();
+    });
+
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightStorekeeper();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property rating (base name: "rating")', function() {
+      // uncomment below and update the code to test the property rating
       //var instance = new TestSwagger.ApiV1AdminsTasksLightStorekeeper();
       //expect(instance).to.be();
     });

@@ -35,9 +35,9 @@ export const MergeBoxesModal = ({
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: selectedBoxes.some(box => box.destination?._id !== selectedBoxes[0]?.destination?._id)
+    destinationId: selectedBoxes.some(box => box?.destination?._id !== selectedBoxes[0]?.destination?._id)
       ? null
-      : selectedBoxes[0].destination?._id,
+      : selectedBoxes[0]?.destination?._id,
 
     storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
       ? ''

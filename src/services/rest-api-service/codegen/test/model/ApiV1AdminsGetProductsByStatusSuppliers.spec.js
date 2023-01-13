@@ -54,6 +54,12 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers);
     });
 
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
@@ -72,12 +78,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property delivery (base name: "delivery")', function() {
-      // uncomment below and update the code to test the property delivery
-      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
-      //expect(instance).to.be();
-    });
-
     it('should have the property amount (base name: "amount")', function() {
       // uncomment below and update the code to test the property amount
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
@@ -86,12 +86,6 @@
 
     it('should have the property minlot (base name: "minlot")', function() {
       // uncomment below and update the code to test the property minlot
-      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lotcost (base name: "lotcost")', function() {
-      // uncomment below and update the code to test the property lotcost
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
       //expect(instance).to.be();
     });
@@ -108,8 +102,74 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
+    it('should have the property yuanRate (base name: "yuanRate")', function() {
+      // uncomment below and update the code to test the property yuanRate
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property multiplicity (base name: "multiplicity")', function() {
+      // uncomment below and update the code to test the property multiplicity
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property priceInYuan (base name: "priceInYuan")', function() {
+      // uncomment below and update the code to test the property priceInYuan
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchDeliveryCostInDollar (base name: "batchDeliveryCostInDollar")', function() {
+      // uncomment below and update the code to test the property batchDeliveryCostInDollar
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchDeliveryCostInYuan (base name: "batchDeliveryCostInYuan")', function() {
+      // uncomment below and update the code to test the property batchDeliveryCostInYuan
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchTotalCostInDollar (base name: "batchTotalCostInDollar")', function() {
+      // uncomment below and update the code to test the property batchTotalCostInDollar
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property batchTotalCostInYuan (base name: "batchTotalCostInYuan")', function() {
+      // uncomment below and update the code to test the property batchTotalCostInYuan
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property boxProperties (base name: "boxProperties")', function() {
+      // uncomment below and update the code to test the property boxProperties
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property productionTerm (base name: "productionTerm")', function() {
+      // uncomment below and update the code to test the property productionTerm
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdBy (base name: "createdBy")', function() {
+      // uncomment below and update the code to test the property createdBy
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property createdAt (base name: "createdAt")', function() {
+      // uncomment below and update the code to test the property createdAt
+      //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property updatedAt (base name: "updatedAt")', function() {
+      // uncomment below and update the code to test the property updatedAt
       //var instance = new TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers();
       //expect(instance).to.be();
     });

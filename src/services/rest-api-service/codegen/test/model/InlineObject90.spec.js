@@ -54,14 +54,20 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject90);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.InlineObject90();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property sellerBoardWarehouseReportUrlDaily (base name: "sellerBoardWarehouseReportUrlDaily")', function() {
+      // uncomment below and update the code to test the property sellerBoardWarehouseReportUrlDaily
+      //var instance = new TestSwagger.InlineObject90();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property sellerBoardWarehouseReportUrlMonthly (base name: "sellerBoardWarehouseReportUrlMonthly")', function() {
+      // uncomment below and update the code to test the property sellerBoardWarehouseReportUrlMonthly
       //var instance = new TestSwagger.InlineObject90();
       //expect(instance).to.be();
     });

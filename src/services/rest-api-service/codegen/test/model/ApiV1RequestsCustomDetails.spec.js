@@ -54,44 +54,14 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1RequestsCustomDetails);
     });
 
-    it('should have the property _id (base name: "_id")', function() {
-      // uncomment below and update the code to test the property _id
-      //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
-      //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
-      //expect(instance).to.be();
-    });
-
     it('should have the property conditions (base name: "conditions")', function() {
       // uncomment below and update the code to test the property conditions
       //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
       //expect(instance).to.be();
     });
 
-    it('should have the property createdById (base name: "createdById")', function() {
-      // uncomment below and update the code to test the property createdById
-      //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property lastModifiedById (base name: "lastModifiedById")', function() {
-      // uncomment below and update the code to test the property lastModifiedById
-      //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property createdAt (base name: "createdAt")', function() {
-      // uncomment below and update the code to test the property createdAt
-      //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property updatedAt (base name: "updatedAt")', function() {
-      // uncomment below and update the code to test the property updatedAt
+    it('should have the property linksToMediaFiles (base name: "linksToMediaFiles")', function() {
+      // uncomment below and update the code to test the property linksToMediaFiles
       //var instance = new TestSwagger.ApiV1RequestsCustomDetails();
       //expect(instance).to.be();
     });

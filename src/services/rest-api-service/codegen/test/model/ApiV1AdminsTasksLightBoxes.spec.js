@@ -54,8 +54,32 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1AdminsTasksLightBoxes);
     });
 
+    it('should have the property _id (base name: "_id")', function() {
+      // uncomment below and update the code to test the property _id
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightBoxes();
+      //expect(instance).to.be();
+    });
+
     it('should have the property amount (base name: "amount")', function() {
       // uncomment below and update the code to test the property amount
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberText (base name: "trackNumberText")', function() {
+      // uncomment below and update the code to test the property trackNumberText
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property trackNumberFile (base name: "trackNumberFile")', function() {
+      // uncomment below and update the code to test the property trackNumberFile
+      //var instance = new TestSwagger.ApiV1AdminsTasksLightBoxes();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property upsTrackNumber (base name: "upsTrackNumber")', function() {
+      // uncomment below and update the code to test the property upsTrackNumber
       //var instance = new TestSwagger.ApiV1AdminsTasksLightBoxes();
       //expect(instance).to.be();
     });

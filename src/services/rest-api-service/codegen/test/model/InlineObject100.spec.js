@@ -54,14 +54,44 @@
       //expect(instance).to.be.a(TestSwagger.InlineObject100);
     });
 
-    it('should have the property request (base name: "request")', function() {
-      // uncomment below and update the code to test the property request
+    it('should have the property name (base name: "name")', function() {
+      // uncomment below and update the code to test the property name
       //var instance = new TestSwagger.InlineObject100();
       //expect(instance).to.be();
     });
 
-    it('should have the property details (base name: "details")', function() {
-      // uncomment below and update the code to test the property details
+    it('should have the property country (base name: "country")', function() {
+      // uncomment below and update the code to test the property country
+      //var instance = new TestSwagger.InlineObject100();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property zipCode (base name: "zipCode")', function() {
+      // uncomment below and update the code to test the property zipCode
+      //var instance = new TestSwagger.InlineObject100();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property state (base name: "state")', function() {
+      // uncomment below and update the code to test the property state
+      //var instance = new TestSwagger.InlineObject100();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property city (base name: "city")', function() {
+      // uncomment below and update the code to test the property city
+      //var instance = new TestSwagger.InlineObject100();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property address (base name: "address")', function() {
+      // uncomment below and update the code to test the property address
+      //var instance = new TestSwagger.InlineObject100();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fontColor (base name: "fontColor")', function() {
+      // uncomment below and update the code to test the property fontColor
       //var instance = new TestSwagger.InlineObject100();
       //expect(instance).to.be();
     });

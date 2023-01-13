@@ -138,8 +138,20 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property allowedStrategies (base name: "allowedStrategies")', function() {
+      // uncomment below and update the code to test the property allowedStrategies
+      //var instance = new TestSwagger.UserInfoSchema();
+      //expect(instance).to.be();
+    });
+
     it('should have the property canByMasterUser (base name: "canByMasterUser")', function() {
       // uncomment below and update the code to test the property canByMasterUser
+      //var instance = new TestSwagger.UserInfoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property rating (base name: "rating")', function() {
+      // uncomment below and update the code to test the property rating
       //var instance = new TestSwagger.UserInfoSchema();
       //expect(instance).to.be();
     });
@@ -152,6 +164,24 @@
 
     it('should have the property updatedAt (base name: "updatedAt")', function() {
       // uncomment below and update the code to test the property updatedAt
+      //var instance = new TestSwagger.UserInfoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property needConfirmPriceChange (base name: "needConfirmPriceChange")', function() {
+      // uncomment below and update the code to test the property needConfirmPriceChange
+      //var instance = new TestSwagger.UserInfoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property needUpdateTariff (base name: "needUpdateTariff")', function() {
+      // uncomment below and update the code to test the property needUpdateTariff
+      //var instance = new TestSwagger.UserInfoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property purchaseOrderRequired (base name: "purchaseOrderRequired")', function() {
+      // uncomment below and update the code to test the property purchaseOrderRequired
       //var instance = new TestSwagger.UserInfoSchema();
       //expect(instance).to.be();
     });

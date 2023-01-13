@@ -54,32 +54,32 @@
       //expect(instance).to.be.a(TestSwagger.ApiV1ShopSellStatistics);
     });
 
-    it('should have the property month (base name: "month")', function() {
-      // uncomment below and update the code to test the property month
+    it('should have the property monthlyProfit (base name: "monthlyProfit")', function() {
+      // uncomment below and update the code to test the property monthlyProfit
       //var instance = new TestSwagger.ApiV1ShopSellStatistics();
       //expect(instance).to.be();
     });
 
-    it('should have the property grossIncome (base name: "grossIncome")', function() {
-      // uncomment below and update the code to test the property grossIncome
+    it('should have the property monthlyPureProfit (base name: "monthlyPureProfit")', function() {
+      // uncomment below and update the code to test the property monthlyPureProfit
       //var instance = new TestSwagger.ApiV1ShopSellStatistics();
       //expect(instance).to.be();
     });
 
-    it('should have the property pureIncome (base name: "pureIncome")', function() {
-      // uncomment below and update the code to test the property pureIncome
+    it('should have the property monthlyProfitDiffPercentage (base name: "monthlyProfitDiffPercentage")', function() {
+      // uncomment below and update the code to test the property monthlyProfitDiffPercentage
       //var instance = new TestSwagger.ApiV1ShopSellStatistics();
       //expect(instance).to.be();
     });
 
-    it('should have the property uniqueCustomers (base name: "uniqueCustomers")', function() {
-      // uncomment below and update the code to test the property uniqueCustomers
+    it('should have the property monthlyPureProfitDiffPercentage (base name: "monthlyPureProfitDiffPercentage")', function() {
+      // uncomment below and update the code to test the property monthlyPureProfitDiffPercentage
       //var instance = new TestSwagger.ApiV1ShopSellStatistics();
       //expect(instance).to.be();
     });
 
-    it('should have the property webpageVisits (base name: "webpageVisits")', function() {
-      // uncomment below and update the code to test the property webpageVisits
+    it('should have the property webpageVisitsDiffPercentage (base name: "webpageVisitsDiffPercentage")', function() {
+      // uncomment below and update the code to test the property webpageVisitsDiffPercentage
       //var instance = new TestSwagger.ApiV1ShopSellStatistics();
       //expect(instance).to.be();
     });

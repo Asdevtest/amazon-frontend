@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property yuanToDollarRate (base name: "yuanToDollarRate")', function() {
+      // uncomment below and update the code to test the property yuanToDollarRate
+      //var instance = new TestSwagger.ApiV1AdminsOrdersLogicsTariffConditionsByRegion();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

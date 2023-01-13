@@ -72,8 +72,14 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property allowedUrl (base name: "allowedUrl")', function() {
-      // uncomment below and update the code to test the property allowedUrl
+    it('should have the property allowedUrls (base name: "allowedUrls")', function() {
+      // uncomment below and update the code to test the property allowedUrls
+      //var instance = new TestSwagger.PermissionPostDtoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property hierarchy (base name: "hierarchy")', function() {
+      // uncomment below and update the code to test the property hierarchy
       //var instance = new TestSwagger.PermissionPostDtoSchema();
       //expect(instance).to.be();
     });

@@ -60,6 +60,24 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property email (base name: "email")', function() {
+      // uncomment below and update the code to test the property email
+      //var instance = new TestSwagger.SubUserPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fba (base name: "fba")', function() {
+      // uncomment below and update the code to test the property fba
+      //var instance = new TestSwagger.SubUserPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property active (base name: "active")', function() {
+      // uncomment below and update the code to test the property active
+      //var instance = new TestSwagger.SubUserPatchDtoSchema();
+      //expect(instance).to.be();
+    });
+
     it('should have the property permissions (base name: "permissions")', function() {
       // uncomment below and update the code to test the property permissions
       //var instance = new TestSwagger.SubUserPatchDtoSchema();

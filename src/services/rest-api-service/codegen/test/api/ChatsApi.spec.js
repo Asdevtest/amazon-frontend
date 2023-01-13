@@ -48,30 +48,20 @@
   }
 
   describe('ChatsApi', function() {
-    describe('apiV1ChatsByEmailPost', function() {
-      it('should call apiV1ChatsByEmailPost successfully', function(done) {
-        //uncomment below and update the code to test apiV1ChatsByEmailPost
-        //instance.apiV1ChatsByEmailPost(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('apiV1ChatsEmailsGet', function() {
-      it('should call apiV1ChatsEmailsGet successfully', function(done) {
-        //uncomment below and update the code to test apiV1ChatsEmailsGet
-        //instance.apiV1ChatsEmailsGet(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('apiV1ChatsGuidPost', function() {
       it('should call apiV1ChatsGuidPost successfully', function(done) {
         //uncomment below and update the code to test apiV1ChatsGuidPost
         //instance.apiV1ChatsGuidPost(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('apiV1ChatsNamesGet', function() {
+      it('should call apiV1ChatsNamesGet successfully', function(done) {
+        //uncomment below and update the code to test apiV1ChatsNamesGet
+        //instance.apiV1ChatsNamesGet(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
