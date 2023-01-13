@@ -31,6 +31,8 @@ export class ProfileViewModel {
 
   productsVacant = []
 
+  wrongPassword = null
+
   drawerOpen = false
   productList = []
   tabExchange = 0
@@ -179,7 +181,78 @@ export class ProfileViewModel {
     this.onTriggerOpenModal('showUserInfoModal')
   }
 
+  // async onSubmitUserInfoEdit(data) {
+  //   try {
+  //     this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
+  //       name: data.name,
+  //       email: data.email,
+  //     })
+
+  //     if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+  //       return
+  //     } else {
+  //       await UserModel.changeUserInfo(data)
+
+  //       await UserModel.getUserInfo()
+
+  //       this.onTriggerOpenModal('showUserInfoModal')
+  //     }
+  //   } catch (error) {
+  //     runInAction(() => {
+  //       this.error = error
+  //     })
+  //   }
+  // }
+
   async onSubmitUserInfoEdit(data) {
+    try {
+      console.log('this.error', this.error)
+      if (data) {
+        await this.changeUserNameOrEmail(data)
+        await this.changeUserPassword(data)
+
+        if (!this.wrongPassword) {
+          this.onTriggerOpenModal('showUserInfoModal')
+        }
+      } else {
+        return
+      }
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  clearError() {
+    if (this.wrongPassword) {
+      this.wrongPassword = undefined
+    }
+  }
+
+  async changeUserPassword(data) {
+    try {
+      this.error = undefined
+
+      await UserModel.changeUserPassword({
+        oldPassword: data.oldPassword,
+        newPassword: data.password,
+      })
+
+      await UserModel.getUserInfo()
+    } catch (error) {
+      runInAction(() => {
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
+        if (this.error === 'Wrong password') {
+          this.wrongPassword = this.error
+        }
+      })
+    }
+  }
+
+  async changeUserNameOrEmail(data) {
     try {
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: data.name,
@@ -189,11 +262,9 @@ export class ProfileViewModel {
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
         return
       } else {
-        await UserModel.changeUserInfo(data)
+        await UserModel.changeUserInfo({name: data.name, email: data.email})
 
         await UserModel.getUserInfo()
-
-        this.onTriggerOpenModal('showUserInfoModal')
       }
     } catch (error) {
       runInAction(() => {

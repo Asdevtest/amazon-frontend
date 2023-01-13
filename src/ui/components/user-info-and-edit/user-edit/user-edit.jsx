@@ -24,6 +24,7 @@ export const UserEdit = observer(({user}) => {
   }, [])
 
   const {
+    // wrongPassword,
     showTwoVerticalChoicesModal,
     checkValidationNameOrEmail,
     changeFields,
@@ -41,6 +42,7 @@ export const UserEdit = observer(({user}) => {
     <div className={classNames.mainWrapper}>
       {singlePermissions ? (
         <AdminUserEditContent
+          // wrongPassword={wrongPassword}
           checkValidationNameOrEmail={checkValidationNameOrEmail}
           changeFields={changeFields}
           singlePermissions={singlePermissions}

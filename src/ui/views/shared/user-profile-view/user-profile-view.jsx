@@ -55,12 +55,14 @@ class UserProfileViewRaw extends Component {
       tabReview,
       showTabModal,
       selectedUser,
+      wrongPassword,
       user,
       checkValidationNameOrEmail,
       headerInfoData,
       showAvatarEditModal,
       showInfoModal,
       showUserInfoModal,
+      clearError,
       onTriggerDrawerOpen,
       onChangeTabHistory,
       onChangeTabReview,
@@ -168,6 +170,8 @@ class UserProfileViewRaw extends Component {
         <Modal openModal={showUserInfoModal} setOpenModal={() => onTriggerOpenModal('showUserInfoModal')}>
           <UserInfoEditForm
             user={user}
+            clearError={clearError}
+            wrongPassword={wrongPassword}
             checkValidationNameOrEmail={checkValidationNameOrEmail}
             onSubmit={onSubmitUserInfoEdit}
             onCloseModal={() => onTriggerOpenModal('showUserInfoModal')}

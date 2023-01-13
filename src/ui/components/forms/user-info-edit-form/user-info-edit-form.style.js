@@ -73,4 +73,60 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     lineHeight: '19px',
   },
+
+  field: {
+    flexBasis: '100%',
+    position: 'relative',
+  },
+  input: {
+    height: '34px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
+  },
+  visibilityIcon: {
+    position: 'absolute',
+    right: 10,
+    top: 35,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(768)]: {
+      top: 35,
+    },
+  },
+  validationMessage: {
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    marginTop: '-15px',
+
+    justifyContent: 'start',
+    gap: '5px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      flexWrap: 'wrap',
+    },
+  },
+  validationText: {
+    fontSize: '12px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+  validationHiddenMessage: {
+    display: 'flex',
+    justifyContent: 'end',
+  },
+  validationHiddenText: {
+    visibility: 'hidden',
+    fontSize: '12px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+  red: {
+    color: 'red !important',
+  },
+  visibility: {
+    visibility: 'visible',
+  },
 }))
