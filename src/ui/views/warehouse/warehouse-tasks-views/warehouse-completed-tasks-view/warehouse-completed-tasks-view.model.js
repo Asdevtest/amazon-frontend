@@ -198,7 +198,7 @@ export class WarehouseCompletedViewModel {
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],

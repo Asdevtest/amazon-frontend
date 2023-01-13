@@ -61,8 +61,10 @@ export const styles = theme => ({
   },
   searchInput: {
     border: '1px solid #007bff',
-    width: '300px',
-    height: 36,
+    width: 300,
+    height: '38px',
+    fontSize: '16px',
+    paddingLeft: '7px',
   },
 
   cancelBtn: {
