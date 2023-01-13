@@ -89,12 +89,18 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
           <NormalActionBtnCell
             bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+            onClickOkBtn={e => {
+              e.stopPropagation()
+              handlers.onClickReorder(params.row.originalData)
+            }}
           />
         ) : (
           <SuccessActionBtnCell
             bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+            onClickOkBtn={e => {
+              e.stopPropagation()
+              handlers.onClickReorder(params.row.originalData)
+            }}
           />
         )}
       </>

@@ -11,6 +11,7 @@ import {
   UserLinkCell,
   PricePerUnitCell,
   ManyItemsPriceCell,
+  FinalPricePerUnitCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
@@ -68,7 +69,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
-    width: 180,
+    width: 110,
     type: 'date',
   },
 
@@ -94,6 +95,22 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     field: 'pricePerUnit',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
+    type: 'number',
+    width: 140,
+  },
+
+  {
+    field: 'finalPrice',
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final price'])} />,
+    renderCell: params => (
+      <FinalPricePerUnitCell
+        box={params.row}
+        boxFinalWeight={getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+          params.row,
+          volumeWeightCoefficient,
+        )}
+      />
+    ),
     type: 'number',
     width: 140,
   },

@@ -738,6 +738,28 @@ export const EditBoxStorekeeperForm = observer(
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
+
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.fbaShipmentInput}
+                      inputProps={{maxLength: 255}}
+                      label={'FBA number'}
+                      value={boxFields.fbaNumber}
+                      onChange={setFormField('fbaNumber')}
+                    />
+                  </div>
+
+                  <div className={classNames.shareBoxSubWrapper}>
+                    <Field
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.fbaShipmentInput}
+                      inputProps={{maxLength: 255}}
+                      label={'UPS Track number'}
+                      value={boxFields.upsTrackNumber}
+                      onChange={setFormField('upsTrackNumber')}
+                    />
                   </div>
 
                   <div className={classNames.labelsInfoWrapper}>

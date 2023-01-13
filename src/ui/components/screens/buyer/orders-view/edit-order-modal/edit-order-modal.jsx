@@ -342,7 +342,10 @@ export const EditOrderModal = observer(
     //       1000,
     //     )
 
-    console.log('selectedSupplier', selectedSupplier)
+    const isOnlyRead =
+      selectedSupplier?.createdBy._id !== userInfo._id &&
+      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
+      isNotNull(selectedSupplier)
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -896,11 +899,7 @@ export const EditOrderModal = observer(
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
-            onlyRead={
-              selectedSupplier?.createdBy._id !== userInfo._id &&
-              userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
-              isNotNull(selectedSupplier)
-            }
+            onlyRead={isOnlyRead}
             // showProgress={showProgress}
             // progressValue={progressValue}
             onClickSaveBtn={onClickSubmitSaveSupplierBtn}

@@ -587,24 +587,20 @@ export class ResearcherProductViewModel {
       runInAction(() => {
         if (Object.keys(parseResult).length > 5) {
           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-          this.product = getObjectFilteredByKeyArrayBlackList(
-            {
-              ...this.product,
-              ...parseFieldsAdapter(parseResult, productDataParser),
-              weight:
-                this.product.weight > parseResult.weight * poundsWeightCoefficient
-                  ? this.product.weight
-                  : parseResult.weight * poundsWeightCoefficient,
-              amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-              amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-            },
-            ['fbafee'],
-          )
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(parseResult, productDataParser),
+            weight:
+              this.product.weight > parseResult.weight * poundsWeightCoefficient
+                ? this.product.weight
+                : parseResult.weight * poundsWeightCoefficient,
+            amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+            amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+            fbafee: this.product.fbafee,
+          }
         }
         updateProductAutoCalculatedFields.call(this)
       })
-
-      this.getProductById()
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {

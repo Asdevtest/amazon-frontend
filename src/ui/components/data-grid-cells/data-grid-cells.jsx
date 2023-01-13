@@ -46,7 +46,13 @@ import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
-import {calcFinalWeightForBox, calcSupplierPriceForUnit, calcVolumeWeightForBox, roundHalf} from '@utils/calculation'
+import {
+  calcFinalWeightForBox,
+  calcSupplierPriceForUnit,
+  calculateDeliveryCostPerPcs,
+  calcVolumeWeightForBox,
+  roundHalf,
+} from '@utils/calculation'
 import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
@@ -1842,6 +1848,31 @@ export const PricePerUnitCell = React.memo(
   ),
 )
 
+export const FinalPricePerUnitCell = React.memo(
+  withStyles(
+    ({classes: classNames, box, boxFinalWeight}) => (
+      <div className={classNames.pricesWrapper}>
+        {box.items.map((el, i) => (
+          <Typography key={i} className={classNames.multilineText}>
+            {toFixedWithDollarSign(
+              calculateDeliveryCostPerPcs({
+                itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+                deliveryCost: box.deliveryTotalPrice,
+                itemAmount: el.amount,
+                itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
+                boxFinalWeight,
+                box,
+              }),
+              2,
+            )}
+          </Typography>
+        ))}
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const ScrollingLinkCell = React.memo(
   withStyles(
     ({classes: classNames, value}) => (
@@ -2156,7 +2187,14 @@ export const DownloadAndCopyBtnsCell = React.memo(
         {value ? (
           <div className={classNames.shopsReportBtnsWrapper}>
             <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-              <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+              <a
+                download
+                target="_blank"
+                rel="noreferrer"
+                href={value}
+                className={classNames.downloadLink}
+                onClick={e => e.stopPropagation()}
+              >
                 {t(TranslationKey.View)}
               </a>
             </Text>

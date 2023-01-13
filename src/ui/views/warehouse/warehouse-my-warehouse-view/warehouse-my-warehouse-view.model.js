@@ -42,6 +42,8 @@ const updateBoxWhiteList = [
   'storekeeperTaskComment',
   'trackNumberFile',
   'trackNumberText',
+  'upsTrackNumber',
+  'fbaNumber',
 ]
 
 export class WarehouseMyWarehouseViewModel {
