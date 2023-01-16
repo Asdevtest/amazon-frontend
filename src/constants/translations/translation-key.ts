@@ -1715,6 +1715,7 @@ export enum TranslationKey {
   'Wrong password' = 'Wrong password',
   'Search by ASIN, Title, Batch ID' = 'Search by ASIN, Title, Batch ID',
   'Quantity of boxes in batch' = 'Quantity of boxes in batch',
+  'Quantity in group' = 'Quantity in group',
   // '' = '',
   // '' = '',
   // '' = '',

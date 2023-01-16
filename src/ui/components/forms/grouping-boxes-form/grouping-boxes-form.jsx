@@ -98,7 +98,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
     <div className={classNames.box}>
       {!isNewBox && (
         <div className={classNames.headerWrapper}>
-          <Typography className={classNames.boxNum}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
+          {/* <Typography className={classNames.boxNum}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography> */}
 
           <div className={classNames.radioWrapper}>
             {(basicBox?._id === box._id || !basicBox) && (
@@ -112,17 +112,21 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 
       <div className={classNames.orderWrapper}>
         <div className={classNames.boxHeaderWrapper}>
-          {box.amount > 1 ? (
-            <div className={classNames.iconWrapper}>
-              <img src="/assets/icons/mini-box.svg" />
-              <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
-            </div>
-          ) : (
-            <div className={cx(classNames.iconWrapper, classNames.standartIconWrapper)}>
-              <img src="/assets/icons/mini-box.svg" />
-              <Typography className={cx(classNames.iconText, classNames.standartText)}>{'Box'}</Typography>
-            </div>
-          )}
+          <div className={classNames.iconWrapperAndboxNum}>
+            {box.amount > 1 ? (
+              <div className={classNames.iconWrapper}>
+                <img src="/assets/icons/mini-box.svg" />
+                <Typography className={classNames.iconText}>{'SuperBox'}</Typography>
+              </div>
+            ) : (
+              <div className={cx(classNames.iconWrapper, classNames.standartIconWrapper)}>
+                <img src="/assets/icons/mini-box.svg" />
+                <Typography className={cx(classNames.iconText, classNames.standartText)}>{'Box'}</Typography>
+              </div>
+            )}
+
+            <Typography className={classNames.boxNum}>{`№ ${box.humanFriendlyId}`}</Typography>
+          </div>
 
           <Field
             oneLine
@@ -131,7 +135,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
             // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
             containerClasses={classNames.amountField}
             className={classNames.orderInput}
-            labelClasses={classNames.label}
+            labelClasses={[classNames.label, classNames.amountLabel]}
             value={box.amount}
             onChange={e => onChangeField(e, 'amount', index)}
           />
@@ -205,9 +209,19 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                   containerClasses={classNames.field}
                   label={t(TranslationKey.Quantity)}
                   className={classNames.orderInput}
-                  labelClasses={classNames.label}
+                  labelClasses={[classNames.label, classNames.quantityLabel]}
                   value={order.amount}
                   tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+                />
+
+                <Field
+                  disabled
+                  containerClasses={classNames.field}
+                  label={t(TranslationKey['Quantity in group'])}
+                  className={classNames.orderInput}
+                  labelClasses={[classNames.label, classNames.quantityLabel]}
+                  value={order.amount * box.amount}
+                  // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                 />
               </div>
             </div>
