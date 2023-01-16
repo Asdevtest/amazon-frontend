@@ -62,7 +62,10 @@ export const ProductParameters = ({
       />
       {/* // было */}
       {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
-      <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.totalPrice / order.amount, 2)} />
+      <OrderParameter
+        label={t(TranslationKey['Purchase price'])}
+        value={toFixed(order?.totalPrice / order?.amount, 2)}
+      />
 
       <Field
         oneLine

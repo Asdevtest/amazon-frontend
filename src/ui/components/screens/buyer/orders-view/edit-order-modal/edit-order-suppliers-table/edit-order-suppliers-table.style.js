@@ -233,4 +233,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 12,
   },
+  primary: {
+    color: theme.palette.background.yellow,
+  },
 }))
