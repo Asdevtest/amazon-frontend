@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tableWrapper: {
     marginTop: '10px',
-    height: '37vh',
+    height: 450,
     overflow: 'auto',
   },
 

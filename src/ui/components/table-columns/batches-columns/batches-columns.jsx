@@ -35,20 +35,25 @@ export const batchesViewColumns = () => [
   },
 
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
-
-  {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
+  },
+
+  {
+    field: 'boxesCount',
+    headerName: t(TranslationKey.Boxes),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
+
+    renderCell: params => (
+      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac = +cur.amount), 0)} />
+    ),
+    type: 'number',
+    width: 70,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -103,5 +108,14 @@ export const batchesViewColumns = () => [
     width: 350,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 150,
+    type: 'date',
   },
 ]

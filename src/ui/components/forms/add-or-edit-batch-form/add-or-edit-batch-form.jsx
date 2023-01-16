@@ -512,7 +512,10 @@ export const AddOrEditBatchForm = observer(
                 label={t(TranslationKey['Volume weight'])}
                 value={toFixed(
                   chosenBoxes.reduce(
-                    (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
+                    (ac, cur) =>
+                      (ac +=
+                        calcVolumeWeightForBox(cur.originalData, batchFields.volumeWeightDivide) *
+                        cur.originalData.amount),
                     0,
                   ),
                   4,
