@@ -344,6 +344,11 @@ export class ClientInventoryViewRaw extends Component {
                         disabled={!selectedRowIds.length}
                         variant="outlined"
                         className={classNames.archiveAddBtn}
+                        sx={{
+                          '&.Mui-disabled': {
+                            background: 'none',
+                          },
+                        }}
                         onClick={onClickTriggerArchOrResetProducts}
                       >
                         {t(TranslationKey['Move to archive'])}
