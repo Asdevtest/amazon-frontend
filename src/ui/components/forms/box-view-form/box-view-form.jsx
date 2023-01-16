@@ -40,6 +40,7 @@ export const BoxViewForm = observer(
     userInfo,
     onSubmitChangeFields,
     onClickHsCode,
+    calcFinalWeightForBoxFunction,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -90,6 +91,10 @@ export const BoxViewForm = observer(
     //     ? dimensionsConfig.SHIPPING
     //     : dimensionsConfig.PRIMARY,
     // )
+
+    const finalWeightForBox = calcFinalWeightForBoxFunction
+      ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
+      : calcFinalWeightForBox(box, volumeWeightCoefficient)
 
     return (
       <div className={classNames.formContainer}>
@@ -325,14 +330,14 @@ export const BoxViewForm = observer(
                   </Typography>
                   <Typography
                     className={cx(classNames.standartText, {
-                      [classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12,
+                      [classNames.alertText]: finalWeightForBox < 12,
                     })}
                   >
                     {t(TranslationKey['Final weight']) + ': '}
-                    {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
+                    {toFixedWithKg(finalWeightForBox, 2)}
                   </Typography>
 
-                  {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
+                  {finalWeightForBox < 12 ? (
                     // eslint-disable-next-line react/jsx-indent
                     <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
                   ) : null}
@@ -340,7 +345,7 @@ export const BoxViewForm = observer(
                   {box.amount > 1 ? (
                     <Typography className={classNames.standartText}>
                       {t(TranslationKey['Total final weight']) + ': '}
-                      {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}
+                      {toFixedWithKg(finalWeightForBox * box.amount, 2)}
                     </Typography>
                   ) : null}
                 </div>

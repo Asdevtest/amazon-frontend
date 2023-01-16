@@ -16,6 +16,38 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: theme.spacing(1),
     },
   },
+
+  boxCounterWrapper: {
+    padding: '8px 11px',
+    height: '52px',
+    margin: '2px',
+    display: 'flex',
+    alignItems: 'center',
+
+    position: 'absolute',
+    top: 0,
+    right: 0,
+
+    borderTop: 'none !important',
+    [theme.breakpoints.down(768)]: {
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
+        display: 'none',
+      },
+      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
+        marginLeft: '2px',
+      },
+    },
+  },
+
+  boxCounterText: {
+    color: theme.palette.text.second,
+  },
+
+  boxCounterCount: {
+    fontWeight: 600,
+    marginLeft: 5,
+  },
+
   modalTitle: {
     marginRight: '100px',
 

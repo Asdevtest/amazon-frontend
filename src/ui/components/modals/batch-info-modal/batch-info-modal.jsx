@@ -8,7 +8,10 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {Link} from 'react-router-dom'
 
-import {BatchWeightCalculationMethodTranslateKey} from '@constants/batch-weight-calculations-method'
+import {
+  BatchWeightCalculationMethodTranslateKey,
+  getBatchWeightCalculationMethodForBox,
+} from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -25,6 +28,7 @@ import {Modal} from '@components/modal'
 import {SearchInput} from '@components/search-input'
 
 import {
+  calcActualBatchWeight,
   calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
@@ -152,9 +156,22 @@ export const BatchInfoModal = observer(
               containerClasses={classNames.sumField}
               inputClasses={classNames.shortInput}
               labelClasses={classNames.subFieldLabel}
+              label={t(TranslationKey['Gross weight'])}
+              value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
+              placeholder={'0'}
+            />
+
+            <Field
+              disabled
+              containerClasses={classNames.sumField}
+              inputClasses={classNames.shortInput}
+              labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
-                batch.boxes?.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide)), 0),
+                batch.boxes?.reduce(
+                  (ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide) * cur.amount),
+                  0,
+                ),
                 4,
               )}
               placeholder={'0'}
@@ -175,7 +192,7 @@ export const BatchInfoModal = observer(
               containerClasses={classNames.sumField}
               inputClasses={classNames.methodInput}
               labelClasses={classNames.subFieldLabel}
-              label={t(TranslationKey['Method of box weight calculation'])}
+              label={t(TranslationKey['Method of batch weight calculation'])}
               value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
             />
           </div>
@@ -242,7 +259,7 @@ export const BatchInfoModal = observer(
 
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
-              hideFooter
+              // hideFooter
               localeText={getLocalizationByLanguageTag()}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
@@ -251,6 +268,16 @@ export const BatchInfoModal = observer(
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                Footer: () => (
+                  <div className={classNames.boxCounterWrapper}>
+                    <Typography className={classNames.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                    </Typography>
+                    <Typography className={classNames.boxCounterCount}>
+                      {batch.boxes.reduce((ac, cur) => (ac += cur.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
               }}
               getRowId={dataToRender => dataToRender._id}
               columns={batchInfoModalColumn(
@@ -290,7 +317,11 @@ export const BatchInfoModal = observer(
               userInfo={userInfo}
               box={curBox}
               batchHumanFriendlyId={batch.humanFriendlyId}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={batch.volumeWeightDivide}
+              calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
+                batch.calculationMethod,
+                isActualGreaterTheVolume,
+              )}
               setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
               onSubmitChangeFields={data => {
                 onSubmitChangeBoxFields(data)
