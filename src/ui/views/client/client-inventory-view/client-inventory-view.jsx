@@ -325,11 +325,11 @@ export class ClientInventoryViewRaw extends Component {
                       {'Parse all'}
                     </Button>
                     <Button
-                      tooltipInfoContent={t(TranslationKey['Product lot data'])}
+                      tooltipInfoContent={t(TranslationKey['Product batches data'])}
                       disabled={selectedRowIds.length !== 1}
                       onClick={onClickProductLotDataBtn}
                     >
-                      {t(TranslationKey['Product lot data'])}
+                      {t(TranslationKey['Product batches data'])}
                     </Button>
                   </div>
                 )}

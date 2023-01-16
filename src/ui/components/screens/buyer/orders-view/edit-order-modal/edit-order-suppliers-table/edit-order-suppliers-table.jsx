@@ -5,6 +5,7 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
+import {NewSupplier} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -18,7 +19,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(
-  ({suppliers, selectedSupplier, setSelectedSupplier, curSelectedSupplier, isPendingOrder}) => {
+  ({suppliers, selectedSupplier, setSelectedSupplier, curSelectedSupplier, isPendingOrder, productBaseData}) => {
     const {classes: classNames} = useClassNames()
 
     return (
@@ -64,6 +65,11 @@ export const EditOrderSuppliersTable = observer(
                 >
                   <TableCell className={cx(classNames.alignCenter, classNames.alignCenter)}>
                     <div className={classNames.StatsWrapper}>
+                      {new Date(productBaseData?.createdAt) < new Date(supplier?.createdAt) ? (
+                        <div className={classNames.imgWrapper}>
+                          <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
+                        </div>
+                      ) : null}
                       {supplier.multiplicity && supplier.boxProperties.amountInBox ? (
                         <div className={classNames.multiplicityWrapper}>
                           <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>

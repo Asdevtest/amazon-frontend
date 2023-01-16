@@ -85,6 +85,8 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    console.log('order', order)
+
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
@@ -642,6 +644,7 @@ export const EditOrderModal = observer(
           ) : null}
 
           <EditOrderSuppliersTable
+            productBaseData={order}
             isPendingOrder={isPendingOrder}
             selectedSupplier={orderFields.orderSupplier}
             curSelectedSupplier={selectedSupplier}

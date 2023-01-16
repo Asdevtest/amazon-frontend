@@ -201,6 +201,7 @@ export const lightTheme = createTheme({
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
+      yellow: '#007bff',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
     },
@@ -540,6 +541,7 @@ export const darkTheme = createTheme({
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
         green: '#388E3C',
+        yellow: '#F5CF00',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
 

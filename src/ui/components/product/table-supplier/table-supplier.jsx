@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
 
@@ -73,7 +74,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                     {isClient ? (
                       new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
                         <div className={classNames.imgWrapper}>
-                          <NewSupplier fontSize={'large'} />
+                          <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
                         </div>
                       ) : null
                     ) : null}

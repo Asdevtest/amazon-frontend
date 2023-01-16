@@ -44,6 +44,8 @@ export const ProductParameters = ({
     />
   )
 
+  console.log('order', order)
+
   return (
     <div className={classNames.container}>
       <Field
@@ -58,8 +60,12 @@ export const ProductParameters = ({
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
-
-      <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} />
+      {/* // было */}
+      {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
+      <OrderParameter
+        label={t(TranslationKey['Purchase price'])}
+        value={toFixed(order?.totalPrice / order?.amount, 2)}
+      />
 
       <Field
         oneLine
@@ -78,14 +84,11 @@ export const ProductParameters = ({
           </div>
         }
       />
-
       <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
-
       <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}
         value={toFixed(order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount, 2)}
       />
-
       <Field
         oneLine
         label={t(TranslationKey.Demensions)}
@@ -115,9 +118,7 @@ export const ProductParameters = ({
           </div>
         }
       />
-
       <OrderParameter label={t(TranslationKey['Weight, kg'])} value={toFixed(order.product.weight, 2)} />
-
       <Field
         oneLine
         label={t(TranslationKey.BarCode)}
@@ -162,7 +163,6 @@ export const ProductParameters = ({
           </>
         }
       />
-
       {collapsed && (
         <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
       )}

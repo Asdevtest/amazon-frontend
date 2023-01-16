@@ -64,6 +64,11 @@ export const ClientBuyShopsAds = observer(() => {
               className={cx(classNames.button, {
                 [classNames.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
               })}
+              sx={{
+                '&.Mui-disabled': {
+                  backgroundColor: 'none',
+                },
+              }}
               variant="text"
               color="primary"
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
@@ -72,10 +77,15 @@ export const ClientBuyShopsAds = observer(() => {
             </Button>
 
             <Button
-              disabled={curFilter === filtersSettings.PURCHASED_ADS}
+              disabled={curFilter === filtersSettings.PURCHASED_ADS} // Вернуть чтобы откатится
               className={cx(classNames.button, {
                 [classNames.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
               })}
+              sx={{
+                '&.Mui-disabled': {
+                  backgroundColor: 'none',
+                },
+              }}
               variant="text"
               color="primary"
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}

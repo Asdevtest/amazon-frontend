@@ -230,4 +230,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '140%',
   },
+  primary: {
+    color: theme.palette.background.yellow,
+  },
 }))
