@@ -50,7 +50,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac = +cur.amount), 0)} />
+      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac += cur.amount), 0)} />
     ),
     type: 'number',
     width: 70,
