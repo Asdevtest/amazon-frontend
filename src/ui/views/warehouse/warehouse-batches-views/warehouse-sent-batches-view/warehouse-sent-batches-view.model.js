@@ -294,7 +294,7 @@ export class WarehouseSentBatchesViewModel {
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
