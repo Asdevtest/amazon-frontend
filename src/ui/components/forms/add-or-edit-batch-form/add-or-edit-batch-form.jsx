@@ -423,7 +423,7 @@ export const AddOrEditBatchForm = observer(
                 widthPopover={343}
                 selectedItemName={
                   !batchFields.calculationMethod
-                    ? t(TranslationKey['Method of box weight calculation'])
+                    ? t(TranslationKey['Method of batch weight calculation'])
                     : t(BatchWeightCalculationMethodTranslateKey(batchFields.calculationMethod))
                 }
                 data={getBatchWeightCalculationMethodsData().filter(
@@ -471,7 +471,7 @@ export const AddOrEditBatchForm = observer(
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               // autoHeight
-              hideFooter
+              // hideFooter
               checkboxSelection
               localeText={getLocalizationByLanguageTag()}
               sx={{
@@ -482,6 +482,16 @@ export const AddOrEditBatchForm = observer(
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                Footer: () => (
+                  <div className={classNames.boxCounterWrapper}>
+                    <Typography className={classNames.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                    </Typography>
+                    <Typography className={classNames.boxCounterCount}>
+                      {chosenBoxes.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
               }}
               classes={{
                 root: classNames.rootDataGrid,

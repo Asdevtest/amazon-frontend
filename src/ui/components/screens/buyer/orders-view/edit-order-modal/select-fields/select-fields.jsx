@@ -18,6 +18,7 @@ import {
   calcExchangePrice,
   calcPriceForItem,
   calcOrderTotalPrice,
+  roundHalf,
 } from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {
@@ -146,18 +147,21 @@ export const SelectFields = ({
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.blueLabel}
                   inputClasses={classNames.input}
-                  value={
+                  value={roundHalf(
                     usePriceInDollars
                       ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
-                      : priceYuansForBatch
-                  }
+                      : priceYuansForBatch,
+                  )}
                   label={t(TranslationKey['Yuan per batch']) + ', ¥'}
                   onChange={e => {
                     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                      setPriceYuansForBatch(e.target.value)
+                      setPriceYuansForBatch(roundHalf(e.target.value))
                       setOrderField('totalPriceChanged')({
                         target: {
-                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                          value: toFixed(
+                            Number(calcExchangePrice(roundHalf(e.target.value), orderFields.yuanToDollarRate)),
+                            2,
+                          ),
                         },
                       })
                     }
@@ -171,24 +175,27 @@ export const SelectFields = ({
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.label}
                   inputClasses={classNames.input}
-                  value={
+                  value={roundHalf(
                     usePriceInDollars
                       ? calcExchangeDollarsInYuansPrice(
                           orderFields.deliveryCostToTheWarehouse,
                           orderFields.yuanToDollarRate,
                         )
-                      : priceYuansDeliveryCostToTheWarehouse
-                  }
+                      : priceYuansDeliveryCostToTheWarehouse,
+                  )}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', ¥'}
                   onChange={e => {
                     if (
                       checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
                       Number(e.target.value) < priceYuansForBatch
                     ) {
-                      setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
+                      setPriceYuansDeliveryCostToTheWarehouse(roundHalf(e.target.value))
                       setOrderField('deliveryCostToTheWarehouse')({
                         target: {
-                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                          value: toFixed(
+                            Number(calcExchangePrice(roundHalf(e.target.value), orderFields.yuanToDollarRate)),
+                            2,
+                          ),
                         },
                       })
                     }
@@ -207,6 +214,7 @@ export const SelectFields = ({
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
                 value={toFixedWithYuanSign(
                   calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount) * orderFields.yuanToDollarRate,
+
                   2,
                 )}
               />

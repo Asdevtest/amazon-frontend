@@ -1705,7 +1705,7 @@
   "By more total weight": "By more total weight",
   "By actual weight": "By actual weight",
   "By volume weight": "By volume weight",
-  "Method of box weight calculation": "Method of box weight calculation",
+  "Method of batch weight calculation": "Method of batch weight calculation",
   "Divider": "Divider",
   "Product code* must be filled out": "Product code* must be filled out",
   "Store": "Store",
@@ -1714,5 +1714,6 @@
   "Not need refills": "Not need refills",
   "Final price": "Final price",
   "Wrong password": "Wrong password",
-  "Search by ASIN, Title, Batch ID": "Search by ASIN, Title, Batch ID"
+  "Search by ASIN, Title, Batch ID": "Search by ASIN, Title, Batch ID",
+  "Quantity of boxes in batch": "Quantity of boxes in batch"
 }

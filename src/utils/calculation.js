@@ -12,12 +12,17 @@ export const roundHalf = num => {
   const roundedNum = Number(toFixed(num, 1))
   const dif = roundedNum - Math.trunc(num)
 
+  const haveDoteInEnd = (num + '').slice(-1) === '.'
+
+  console.log('num', num)
+  console.log('haveDoteInEnd', haveDoteInEnd)
+
   if (dif >= 0.25 && dif < 0.75) {
-    return Math.trunc(num) + 0.5
+    return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5
   } else if (dif < 0.5) {
-    return Math.trunc(num)
+    return haveDoteInEnd ? Math.trunc(num) + '.' : Math.trunc(num)
   } else {
-    return Math.ceil(num)
+    return haveDoteInEnd ? Math.ceil(num) + '.' : Math.ceil(num)
   }
 }
 
@@ -40,8 +45,11 @@ export const calcOrderTotalPrice = (supplier, goodsAmount) =>
 
 export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 0) / (parseFloat(rate) || 0), 2)
 
-export const calcExchangeDollarsInYuansPrice = (price, rate) =>
-  toFixed((parseFloat(price) || 0) * (parseFloat(rate) || 0), 2)
+export const calcExchangeDollarsInYuansPrice = (price, rate) => {
+  console.log('price', price)
+
+  return toFixed((parseFloat(price) || 0) * (parseFloat(rate) || 0), 2)
+}
 
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
 

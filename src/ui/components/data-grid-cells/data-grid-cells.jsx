@@ -581,7 +581,7 @@ export const NormDateWithParseISOCell = React.memo(
 
 export const OrderCell = React.memo(
   withStyles(
-    ({classes: classNames, product, superbox, box, error}) => (
+    ({classes: classNames, product, superbox, box, error, withoutSku, itemAmount}) => (
       <div className={classNames.order}>
         <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
         <div>
@@ -604,18 +604,28 @@ export const OrderCell = React.memo(
             </Typography>
             {product?.asin ? <CopyValue text={product.asin} /> : null}
           </div>
+
+          {!withoutSku && (
+            <div className={classNames.copyAsin}>
+              <Typography className={classNames.orderText}>
+                <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+                {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
+              </Typography>
+              {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
+            </div>
+          )}
+
           <div className={classNames.copyAsin}>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-              {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
+              <span className={classNames.orderTextSpan}>{t(TranslationKey.Quantity) + ': '}</span>
+              {itemAmount ? itemAmount : box?.items?.[0].amount}
             </Typography>
-            {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
           </div>
 
           {superbox && (
             <div className={classNames.superboxWrapper}>
-              <Typography className={classNames.superboxTypo}>{`SB x ${superbox}`}</Typography>{' '}
-              <Typography className={classNames.superboxTypo}>{`x ${box?.items?.[0].amount}`}</Typography>{' '}
+              <Typography className={classNames.superboxTypo}>{`SB x ${superbox}`}</Typography>
+              {/* <Typography className={classNames.superboxTypo}>{`x ${box?.items?.[0].amount}`}</Typography>{' '} */}
             </div>
           )}
 
@@ -1823,6 +1833,7 @@ export const ManyItemsPriceCell = React.memo(
           product={el?.product}
           superbox={params.amount > 1 && params.amount}
           superboxProductAmount={params}
+          itemAmount={el.amount}
         />
       ))
 
@@ -1977,21 +1988,23 @@ export const EditOrRemoveIconBtnsCell = React.memo(
           )}
         </div>
 
-        <div className={classNames.editOrRemoveBtnWrapper}>
-          <Button
-            danger
-            tooltipInfoContent={isFirstRow && tooltipSecondButton}
-            disabled={disableActionBtn}
-            // className={classNames.rowCancelBtn}
-            className={classNames.removeOrEditBtn}
-            onClick={() => {
-              handlers.onClickRemoveBtn(row)
-            }}
-          >
-            <DeleteOutlineOutlinedIcon />
-          </Button>
-          <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
-        </div>
+        {isArchive ? (
+          <div className={classNames.editOrRemoveBtnWrapper}>
+            <Button
+              danger
+              tooltipInfoContent={isFirstRow && tooltipSecondButton}
+              disabled={disableActionBtn}
+              // className={classNames.rowCancelBtn}
+              className={classNames.removeOrEditBtn}
+              onClick={() => {
+                handlers.onClickRemoveBtn(row)
+              }}
+            >
+              <DeleteOutlineOutlinedIcon />
+            </Button>
+            <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
+          </div>
+        ) : null}
       </div>
     ),
     styles,
