@@ -74,7 +74,7 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
   return (
     <div className={classNames.productLotDataBlock}>
       <div className={classNames.title}>
-        {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product lot data'}`])}
+        {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product batches data'}`])}
       </div>
       <div className={classNames.aboutProduct}>
         <div className={classNames.productInfo}>
