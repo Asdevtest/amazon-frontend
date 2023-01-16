@@ -1716,5 +1716,6 @@
   "Wrong password": "Неверный пароль",
   "Search by ASIN, Title, Batch ID": "Поиск по ASIN, Title, ID партии",
   "Quantity of boxes in batch": "Количество коробок в партии",
-  "Quantity in group": "Количество в группе"
+  "Quantity in group": "Количество в группе",
+  "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Title, ID партии, ID заказа"
 }
