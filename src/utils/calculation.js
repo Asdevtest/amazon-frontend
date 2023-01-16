@@ -12,17 +12,24 @@ export const roundHalf = num => {
   const roundedNum = Number(toFixed(num, 1))
   const dif = roundedNum - Math.trunc(num)
 
-  const haveDoteInEnd = (num + '').slice(-1) === '.'
+  // const haveDoteInEnd = (num + '').slice(-1) === '.'
+  // console.log('num', num)
+  // console.log('haveDoteInEnd', haveDoteInEnd)
 
-  console.log('num', num)
-  console.log('haveDoteInEnd', haveDoteInEnd)
+  // if (dif >= 0.25 && dif < 0.75) {
+  //   return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5
+  // } else if (dif < 0.5) {
+  //   return haveDoteInEnd ? Math.trunc(num) + '.' : Math.trunc(num)
+  // } else {
+  //   return haveDoteInEnd ? Math.ceil(num) + '.' : Math.ceil(num)
+  // }
 
   if (dif >= 0.25 && dif < 0.75) {
-    return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5
+    return Math.trunc(num) + 0.5
   } else if (dif < 0.5) {
-    return haveDoteInEnd ? Math.trunc(num) + '.' : Math.trunc(num)
+    return Math.trunc(num)
   } else {
-    return haveDoteInEnd ? Math.ceil(num) + '.' : Math.ceil(num)
+    return Math.ceil(num)
   }
 }
 
@@ -108,7 +115,7 @@ export const getBatchWeightCalculationMethodForBatch = batch => {
 
 export const calcActualBatchWeight = boxes =>
   parseFloat(
-    boxes.reduce(
+    boxes?.reduce(
       (ac, cur) =>
         (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
       0,

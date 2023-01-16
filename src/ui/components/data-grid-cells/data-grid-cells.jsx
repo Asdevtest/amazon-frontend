@@ -581,7 +581,7 @@ export const NormDateWithParseISOCell = React.memo(
 
 export const OrderCell = React.memo(
   withStyles(
-    ({classes: classNames, product, superbox, box, error, withoutSku, itemAmount}) => (
+    ({classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity}) => (
       <div className={classNames.order}>
         <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
         <div>
@@ -615,12 +615,14 @@ export const OrderCell = React.memo(
             </div>
           )}
 
-          <div className={classNames.copyAsin}>
-            <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{t(TranslationKey.Quantity) + ': '}</span>
-              {itemAmount ? itemAmount : box?.items?.[0].amount}
-            </Typography>
-          </div>
+          {withQuantity ? (
+            <div className={classNames.copyAsin}>
+              <Typography className={classNames.orderText}>
+                <span className={classNames.orderTextSpan}>{t(TranslationKey.Quantity) + ': '}</span>
+                {itemAmount ? itemAmount : box?.items?.[0].amount}
+              </Typography>
+            </div>
+          ) : null}
 
           {superbox && (
             <div className={classNames.superboxWrapper}>
@@ -652,18 +654,24 @@ export const OrderCell = React.memo(
 
 export const OrderBoxesCell = React.memo(
   withStyles(
-    ({classes: classNames, superbox, superboxQty, qty, box, product}) =>
+    ({classes: classNames, superbox, superboxQty, qty, box, product, withoutSku, withQuantity}) =>
       superbox ? (
         <div className={classNames.orderBoxesWrapper}>
           <SuperboxQtyCell qty={qty} superbox={superboxQty} />
-          <OrderManyItemsCell box={box} />
+          <OrderManyItemsCell box={box} withoutSku={withoutSku} withQuantity={withQuantity} />
         </div>
       ) : (
         <div className={classNames.orderBoxesWrapper}>
           <div className={classNames.fixedTextWidth}>
             <MultilineTextCell text={`x${qty}`} />
           </div>
-          <OrderCell product={product} superbox={superboxQty} box={box} />
+          <OrderCell
+            product={product}
+            superbox={superboxQty}
+            box={box}
+            withoutSku={withoutSku}
+            withQuantity={withQuantity}
+          />
         </div>
       ),
     styles,
@@ -1730,7 +1738,7 @@ export const SuperboxQtyCell = React.memo(
 )
 
 export const OrderManyItemsCell = React.memo(
-  withStyles(({classes: classNames, box, error}) => {
+  withStyles(({classes: classNames, box, error, withoutSku}) => {
     const renderProductInfo = () => (
       <div className={classNames.manyItemsOrderWrapper}>
         {box.items.map((item, itemIndex) => (
@@ -1747,10 +1755,12 @@ export const OrderManyItemsCell = React.memo(
                 {item.product.asin}
               </Typography>
 
-              <Typography className={classNames.orderText}>
-                <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-                {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
-              </Typography>
+              {!withoutSku ? (
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+                  {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
+                </Typography>
+              ) : null}
 
               {(item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 ||
                 item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
@@ -1825,10 +1835,12 @@ export const MultilineCell = React.memo(
 
 export const ManyItemsPriceCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => {
+    ({classes: classNames, params, withoutSku, withQuantity}) => {
       const cell = params?.items?.map((el, itemIndex) => (
         <OrderCell
           key={itemIndex}
+          withoutSku={withoutSku}
+          withQuantity={withQuantity}
           box={params}
           product={el?.product}
           superbox={params.amount > 1 && params.amount}

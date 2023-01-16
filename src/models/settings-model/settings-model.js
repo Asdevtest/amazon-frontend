@@ -71,9 +71,24 @@ class SettingsModelStatic {
       },
     })
 
+    // const cach = await caches.keys()
+    // console.log('cach', cach)
+
     if (appVersion !== response.data.version) {
       console.log('!!!*** versions do not match')
+
+      if (caches) {
+        caches.keys().then(names => {
+          for (const name of names) {
+            caches.delete(name)
+          }
+        })
+      }
       window.location.reload()
+
+      // function redirectFunc() {
+      //   window.location.href = "https://www.w3docs.com/";
+      // }
     }
   }
 

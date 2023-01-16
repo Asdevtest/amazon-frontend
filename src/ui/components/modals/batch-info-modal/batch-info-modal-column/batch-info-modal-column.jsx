@@ -24,7 +24,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => <ManyItemsPriceCell params={params.row} />,
+    renderCell: params => <ManyItemsPriceCell withoutSku withQuantity params={params.row} />,
     width: 300,
   },
 
