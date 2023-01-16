@@ -260,7 +260,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxNum: {
+    fontWeight: 400,
     fontSize: 18,
+    lineHeight: '140%',
     color: theme.palette.text.general,
   },
 
@@ -496,5 +498,14 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
+  },
+  quantityLabel: {
+    width: 'min-content',
+    whiteSpace: 'unset',
+  },
+  iconWrapperAndboxNum: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 }))
