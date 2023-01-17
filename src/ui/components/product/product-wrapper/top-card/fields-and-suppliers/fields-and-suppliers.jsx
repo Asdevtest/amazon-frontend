@@ -419,11 +419,11 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) || checkIsBuyer(curUserRole) ? (
+            {checkIsClient(curUserRole) ? (
               <div className={classNames.subUsersWrapper}>
                 <div className={classNames.subUsersTitleWrapper}>
                   <Typography className={classNames.subUsersTitle}>
-                    {t(TranslationKey['Users with access to the product'])}
+                    {t(TranslationKey['Users with access to the product']) + ':'}
                   </Typography>
                 </div>
                 <div className={classNames.subUsersBodyWrapper}>
