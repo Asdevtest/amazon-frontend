@@ -7,6 +7,7 @@ import {
 } from '@mui/x-data-grid'
 
 import {
+  ClientOrderAllStatusesMenuItem,
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
   OrderStatusMenuItem,
@@ -47,6 +48,14 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <OrderStatusMenuItem orderStatusData={orderStatusData} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.field === 'status') {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ClientOrderAllStatusesMenuItem orderStatusData={orderStatusData} />
       </GridColumnMenuContainer>
     )
   }

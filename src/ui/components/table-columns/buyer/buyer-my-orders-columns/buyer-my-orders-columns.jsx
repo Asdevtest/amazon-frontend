@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
@@ -59,7 +61,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
 
     width: 130,
     renderCell: params => (
@@ -68,6 +70,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
+    sortable: false,
   },
 
   {
