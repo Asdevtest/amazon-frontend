@@ -10,6 +10,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -34,6 +35,7 @@ export class BuyerProductView extends Component {
 
   render() {
     const {
+      hsCodeData,
       storekeepersData,
       supplierModalReadOnly,
       volumeWeightCoefficient,
@@ -47,6 +49,7 @@ export class BuyerProductView extends Component {
       drawerOpen,
       selectedSupplier,
       showAddOrEditSupplierModal,
+      showEditHSCodeModal,
       formFieldsValidationErrors,
       warningModalTitle,
       showWarningModal,
@@ -61,6 +64,8 @@ export class BuyerProductView extends Component {
       onTriggerAddOrEditSupplierModal,
       onClickSaveSupplierBtn,
       onTriggerOpenModal,
+      onClickHsCode,
+      onClickSaveHsCode,
     } = this.viewModel
 
     return (
@@ -82,6 +87,7 @@ export class BuyerProductView extends Component {
                   onClickSupplier={onChangeSelectedSupplier}
                   onClickSetProductStatusBtn={onClickSetProductStatusBtn}
                   onChangeField={onChangeProductFields}
+                  onClickHsCode={onClickHsCode}
                 />
               ) : undefined}
             </MainContent>
@@ -105,6 +111,14 @@ export class BuyerProductView extends Component {
             progressValue={progressValue}
             onClickSaveBtn={onClickSaveSupplierBtn}
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+          />
+        </Modal>
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
 

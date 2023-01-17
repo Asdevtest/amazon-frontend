@@ -19,10 +19,10 @@ import {t} from './translations'
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
 export const stockReportDataConverter = data =>
-  data.map((item, index) => ({
+  data.map(item => ({
     ...item,
     originalData: item,
-    id: item._id ? item._id : index,
+    id: item.sku,
 
     shopName: item.shop.name,
   }))
@@ -395,7 +395,7 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient),
+    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
 
     destination: item.destination?.name,

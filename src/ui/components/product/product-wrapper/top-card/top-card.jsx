@@ -65,6 +65,7 @@ export const TopCard = observer(
     handleProductActionButtons,
     onChangeImagesForLoad,
     acceptMessage,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -91,6 +92,7 @@ export const TopCard = observer(
       (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
       (checkIsResearcher(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
+      // checkIsBuyer(curUserRole)
       (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsBuyer(curUserRole) &&
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
@@ -187,6 +189,7 @@ export const TopCard = observer(
                 onChangeField={onChangeField}
                 onClickSupplierBtns={onClickSupplierBtns}
                 onClickSupplier={onClickSupplier}
+                onClickHsCode={onClickHsCode}
               />
             </Grid>
             <RightSideComments
@@ -216,7 +219,7 @@ export const TopCard = observer(
               checkIsAdmin(curUserRole) ||
               (checkIsResearcher(curUserRole) &&
                 productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-            ) ? (
+            ) || checkIsBuyer(curUserRole) ? (
               <div className={classNames.supplierActionsWrapper}>
                 <div className={classNames.supplierContainer}>
                   <div className={classNames.supplierButtonWrapper}>
@@ -287,30 +290,32 @@ export const TopCard = observer(
                         </>
                       ) : null}
 
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={
-                            isSupplierAcceptRevokeActive
-                              ? t(TranslationKey['Remove the current supplier'])
-                              : t(TranslationKey['Select a supplier as the current supplier'])
-                          }
-                          className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
-                            [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                          })}
-                          onClick={() =>
-                            isSupplierAcceptRevokeActive
-                              ? onClickSupplierBtns('acceptRevoke')
-                              : onClickSupplierBtns('accept')
-                          }
-                        >
-                          {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {isSupplierAcceptRevokeActive
-                            ? t(TranslationKey['Remove the main supplier status'])
-                            : t(TranslationKey['Make the supplier the main'])}
-                        </Typography>
-                      </div>
+                      {showActionBtns ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            tooltipInfoContent={
+                              isSupplierAcceptRevokeActive
+                                ? t(TranslationKey['Remove the current supplier'])
+                                : t(TranslationKey['Select a supplier as the current supplier'])
+                            }
+                            className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                              [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                            })}
+                            onClick={() =>
+                              isSupplierAcceptRevokeActive
+                                ? onClickSupplierBtns('acceptRevoke')
+                                : onClickSupplierBtns('accept')
+                            }
+                          >
+                            {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {isSupplierAcceptRevokeActive
+                              ? t(TranslationKey['Remove the main supplier status'])
+                              : t(TranslationKey['Make the supplier the main'])}
+                          </Typography>
+                        </div>
+                      ) : null}
                     </>
                   ) : undefined}
                 </div>

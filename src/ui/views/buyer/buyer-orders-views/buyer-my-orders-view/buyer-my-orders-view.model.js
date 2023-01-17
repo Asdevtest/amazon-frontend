@@ -38,6 +38,7 @@ const updateOrderKeys = [
   'yuanToDollarRate',
 
   'item',
+  'priceInYuan',
 ]
 
 const setNavbarActiveSubCategory = pathname => {

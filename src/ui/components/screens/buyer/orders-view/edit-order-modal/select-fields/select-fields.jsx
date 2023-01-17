@@ -34,8 +34,6 @@ import {useClassNames} from './select-fields.style'
 export const SelectFields = ({
   isPendingOrder,
   disableSubmit,
-  hsCode,
-  setHsCode,
   photosToLoad,
   order,
   setOrderField,
@@ -59,6 +57,8 @@ export const SelectFields = ({
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  console.log('orderFields.priceInYuan', orderFields.priceInYuan)
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -147,21 +147,23 @@ export const SelectFields = ({
                   labelClasses={classNames.blueLabel}
                   inputClasses={classNames.input}
                   value={
-                    usePriceInDollars
-                      ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
-                      : priceYuansForBatch
+                    // usePriceInDollars
+                    //   ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
+                    //   : priceYuansForBatch
+                    orderFields.priceInYuan
                   }
                   label={t(TranslationKey['Yuan per batch']) + ', ¥'}
-                  onChange={e => {
-                    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                      setPriceYuansForBatch(e.target.value)
-                      setOrderField('totalPriceChanged')({
-                        target: {
-                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
-                        },
-                      })
-                    }
-                  }}
+                  // onChange={e => {
+                  //   if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                  //     setPriceYuansForBatch(e.target.value)
+                  //     setOrderField('totalPriceChanged')({
+                  //       target: {
+                  //         value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                  //       },
+                  //     })
+                  //   }
+                  // }}
+                  onChange={setOrderField('priceInYuan')}
                 />
               </div>
 
@@ -196,7 +198,6 @@ export const SelectFields = ({
                 />
               </div>
             </div>
-
             <Box className={classNames.noFlexElement}>
               <Field
                 // disabled={!usePriceInDollars || checkIsPlanningPrice}
@@ -205,14 +206,19 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 labelClasses={classNames.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
+                // value={toFixedWithYuanSign(
+                //   calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount) * orderFields.yuanToDollarRate,
+
+                //   2,
+                // )}
                 value={toFixedWithYuanSign(
-                  calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount) * orderFields.yuanToDollarRate,
+                  orderFields.priceInYuan / orderFields.amount,
 
                   2,
                 )}
               />
             </Box>
-
+            priceInYuan
             <div>
               <Field
                 disabled
@@ -225,7 +231,6 @@ export const SelectFields = ({
                 )}
               />
             </div>
-
             <div className={classNames.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
@@ -311,7 +316,15 @@ export const SelectFields = ({
               inputClasses={classNames.input}
               labelClasses={classNames.label}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
-              value={toFixedWithDollarSign(calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount), 2)}
+              value={toFixedWithDollarSign(
+                calcPriceForItem(
+                  isPendingOrder
+                    ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, order?.amount), 2)
+                    : orderFields.totalPriceChanged,
+                  orderFields.amount,
+                ),
+                2,
+              )}
             />
           </Box>
           <div>
@@ -432,10 +445,8 @@ export const SelectFields = ({
           <Field
             disabled={disableSubmit || isPendingOrder}
             tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-            value={hsCode}
             label={t(TranslationKey['HS code'])}
             labelClasses={classNames.label}
-            inputClasses={classNames.input}
             inputProps={{maxLength: 50}}
             inputComponent={
               <Button
@@ -447,7 +458,6 @@ export const SelectFields = ({
                 {t(TranslationKey['HS code'])}
               </Button>
             }
-            onChange={e => setHsCode(e.target.value)}
           />
         </Box>
 

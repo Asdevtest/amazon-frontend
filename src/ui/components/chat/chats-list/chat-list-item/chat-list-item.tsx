@@ -37,7 +37,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
   const oponentUser = users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
 
-  const unReadMessages = messages.filter(el => !el.isRead && el.userId !== userId)
+  const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
 
   const message = lastMessage.text
     ? (() => {
@@ -86,8 +86,8 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
                 </p>
               </div>
             )}
-
-            {userId === lastMessage.userId ? (
+            {/* user?._id */}
+            {userId === lastMessage.user?._id ? (
               <div className={classNames.readIconsWrapper}>
                 <img src={lastMessage.isRead ? '/assets/icons/is-read.svg' : '/assets/icons/no-read.svg'} />
               </div>

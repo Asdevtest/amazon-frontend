@@ -1717,5 +1717,7 @@
   "Search by ASIN, Title, Batch ID": "Поиск по ASIN, Title, ID партии",
   "Quantity of boxes in batch": "Количество коробок в партии",
   "Quantity in group": "Количество в группе",
-  "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Title, ID партии, ID заказа"
+  "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Title, ID партии, ID заказа",
+  "Unlink an product from Amazon": "Отвязать товар с Amazon",
+  "Unlink success": "Успех отвязки"
 }

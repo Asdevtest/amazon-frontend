@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
@@ -9,6 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {productIntegrationsColumns} from '@components/table-columns/product/integrations-columns'
 
 import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
+import {t} from '@utils/translations'
 
 export class IntegrationsModel {
   history = undefined
@@ -22,8 +24,12 @@ export class IntegrationsModel {
   showSuccessModal = false
   showInfoModal = false
 
+  successInfoModalText = ''
+
   sellerBoardDailyData = []
   sellerBoardData = []
+
+  selectedRowIds = []
 
   columnsModel = productIntegrationsColumns()
 
@@ -89,6 +95,12 @@ export class IntegrationsModel {
     }
   }
 
+  onSelectionModel(model) {
+    runInAction(() => {
+      this.selectedRowIds = model
+    })
+  }
+
   async getStockGoodsByFilters(filter, isRecCall) {
     try {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
@@ -109,11 +121,27 @@ export class IntegrationsModel {
     }
   }
 
+  async onUnlinkSkuSProduct() {
+    try {
+      await SellerBoardModel.unlinkSkuProduct({
+        productId: this.productId,
+        skus: this.selectedRowIds,
+      })
+
+      this.successInfoModalText = t(TranslationKey['Unlink success'])
+      this.onTriggerOpenModal('showSuccessModal')
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onSubmitBindStockGoods(data) {
     try {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
+      this.successInfoModalText = t(TranslationKey['The product is bound'])
       this.onTriggerOpenModal('showSuccessModal')
 
       this.loadData()
@@ -134,6 +162,8 @@ export class IntegrationsModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.sellerBoardData = []
     }
   }
 

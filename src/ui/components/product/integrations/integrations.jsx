@@ -32,6 +32,8 @@ export const Integrations = observer(({productId}) => {
   }, [])
 
   const {
+    successInfoModalText,
+    selectedRowIds,
     product,
     getCurrentData,
     showBindInventoryGoodsToStockModal,
@@ -44,20 +46,20 @@ export const Integrations = observer(({productId}) => {
     getStockGoodsByFilters,
     onSubmitBindStockGoods,
     onClickBindInventoryGoodsToStockBtn,
+    onSelectionModel,
+    onUnlinkSkuSProduct,
   } = model.current
 
   return (
     <div className={classNames.mainWrapper}>
       {SettingsModel.languageTag && (
         <div className={classNames.addProductBtnsWrapper}>
-          <Button
-            disableElevation
-            className={classNames.buttonOffset}
-            variant="contained"
-            color="primary"
-            onClick={onClickBindInventoryGoodsToStockBtn}
-          >
+          <Button onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
+          </Button>
+
+          <Button disabled={!selectedRowIds.length} className={classNames.buttonOffset} onClick={onUnlinkSkuSProduct}>
+            {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
       )}
@@ -65,6 +67,7 @@ export const Integrations = observer(({productId}) => {
       <MemoDataGrid
         pagination
         useResizeContainer
+        checkboxSelection
         // sx={{
         //   border: 0,
         //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -82,6 +85,8 @@ export const Integrations = observer(({productId}) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
+        selectionModel={selectedRowIds}
+        onSelectionModelChange={onSelectionModel}
       />
 
       <Modal
@@ -99,7 +104,7 @@ export const Integrations = observer(({productId}) => {
       <SuccessInfoModal
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['The product is bound'])}
+        title={successInfoModalText}
         successBtnText={t(TranslationKey.Ok)}
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')

@@ -104,9 +104,6 @@ export const AddOrEditBatchForm = observer(
         : [],
     )
 
-    // console.log('chosenBoxes', chosenBoxes)
-    // console.log('sourceBox', sourceBox)
-
     const [boxesToAddIds, setBoxesToAddIds] = useState([])
 
     const [boxesToDeliteIds, setBoxesToDeliteIds] = useState([])
@@ -547,7 +544,7 @@ export const AddOrEditBatchForm = observer(
                         4,
                       )
                     : toFixed(
-                        chosenBoxes.reduce((ac, cur) => (ac += Number(cur.finalWeight) * cur.originalData.amount), 0),
+                        chosenBoxes.reduce((ac, cur) => (ac += Number(cur.finalWeight)), 0),
                         4,
                       )
                 }

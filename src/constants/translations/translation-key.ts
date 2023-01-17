@@ -1717,8 +1717,8 @@ export enum TranslationKey {
   'Quantity of boxes in batch' = 'Quantity of boxes in batch',
   'Quantity in group' = 'Quantity in group',
   'Search by ASIN, Title, Batch ID, Order ID' = 'Search by ASIN, Title, Batch ID, Order ID',
-  // '' = '',
-  // '' = '',
+  'Unlink an product from Amazon' = 'Unlink an product from Amazon',
+  'Unlink success' = 'Unlink success',
   // '' = '',
   // '' = '',
 }
