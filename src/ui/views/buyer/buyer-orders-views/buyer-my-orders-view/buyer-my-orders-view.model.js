@@ -65,9 +65,10 @@ export class BuyerMyOrdersViewModel {
   requestStatus = undefined
   error = undefined
 
-  // НЕ было до создания фильтрации по статусам (2 строки)
+  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
+  filteredStatus = []
 
   ordersMy = []
   baseNoConvertedOrders = []
@@ -136,6 +137,7 @@ export class BuyerMyOrdersViewModel {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
       chosenStatus: this.chosenStatus,
+      filteredStatus: this.filteredStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
   }
@@ -247,7 +249,7 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       if (status) {
         if (status === 'ALL') {
-          this.chosenStatus = this.setOrderStatus(this.history.location.pathname)
+          this.chosenStatus = []
         } else {
           if (this.chosenStatus.some(item => item === status)) {
             this.chosenStatus = this.chosenStatus.filter(item => item !== status)
@@ -263,7 +265,9 @@ export class BuyerMyOrdersViewModel {
   // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
-      this.chosenStatus = this.setOrderStatus(this.history.location.pathname)
+      this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
+    } else {
+      this.filteredStatus = this.chosenStatus
     }
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
@@ -777,7 +781,7 @@ export class BuyerMyOrdersViewModel {
 
       // НЕ было до создания фильтрации по статусам (2 строки)
       this.setDefaultStatuses()
-      const orderStatus = this.chosenStatus.map(item => OrderStatusByKey[item]).join(', ')
+      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
 
       const result = await BuyerModel.getOrdersMyPag({
         filters: this.nameSearchValue ? filter : null,

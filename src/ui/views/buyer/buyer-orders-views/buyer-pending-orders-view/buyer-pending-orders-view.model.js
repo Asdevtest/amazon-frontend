@@ -35,9 +35,10 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   baseNoConvertedOrders = []
 
-  // НЕ было до создания фильтрации по статусам (2 строки)
+  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = [OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
   chosenStatus = []
+  filteredStatus = []
 
   currentData = []
 
@@ -99,6 +100,7 @@ export class BuyerMyOrdersViewModel {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
       chosenStatus: this.chosenStatus,
+      filteredStatus: this.filteredStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
   }
@@ -466,11 +468,10 @@ export class BuyerMyOrdersViewModel {
 
   // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
-    console.log('status', status)
     runInAction(() => {
       if (status) {
         if (status === 'ALL') {
-          this.chosenStatus = this.orderStatusDataBase
+          this.chosenStatus = []
         } else {
           if (this.chosenStatus.some(item => item === status)) {
             this.chosenStatus = this.chosenStatus.filter(item => item !== status)
@@ -479,7 +480,6 @@ export class BuyerMyOrdersViewModel {
           }
         }
       }
-
       this.getOrdersMy()
     })
   }
@@ -487,9 +487,11 @@ export class BuyerMyOrdersViewModel {
   // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
-      this.chosenStatus = this.orderStatusDataBase
+      this.filteredStatus = this.orderStatusDataBase
+    } else {
+      this.filteredStatus = this.chosenStatus
     }
-    this.chosenStatus = [...this.chosenStatus]
+    this.orderStatusDataBase = [OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
   }
 
   async getOrdersMy() {
@@ -500,7 +502,7 @@ export class BuyerMyOrdersViewModel {
 
       // НЕ было до создания фильтрации по статусам (2 строки)
       this.setDefaultStatuses()
-      const orderStatus = this.chosenStatus.map(item => OrderStatusByKey[item]).join(', ')
+      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
 
       const result = await BuyerModel.getOrdersMyPag({
         filters: this.nameSearchValue ? filter : null,
