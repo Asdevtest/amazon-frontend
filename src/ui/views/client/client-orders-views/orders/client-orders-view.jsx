@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
 import {Main} from '@components/main'
@@ -42,6 +43,7 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      orderStatusData,
       // showSuccessModal,
       // successModalText,
       isPendingOrdering,
@@ -172,6 +174,10 @@ class ClientOrdersViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                  }}
+                  componentsProps={{
+                    columnMenu: {orderStatusData},
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}

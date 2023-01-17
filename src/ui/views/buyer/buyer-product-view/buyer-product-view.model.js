@@ -314,7 +314,7 @@ export class BuyerProductViewModel {
         },
       )
 
-      console.log('this.curUpdateProductData', this.curUpdateProductData)
+      // console.log('this.curUpdateProductData', this.curUpdateProductData)
 
       if (
         this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||

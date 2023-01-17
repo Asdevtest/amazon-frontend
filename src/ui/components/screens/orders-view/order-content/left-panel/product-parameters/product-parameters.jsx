@@ -44,8 +44,6 @@ export const ProductParameters = ({
     />
   )
 
-  console.log('order', order)
-
   return (
     <div className={classNames.container}>
       <Field

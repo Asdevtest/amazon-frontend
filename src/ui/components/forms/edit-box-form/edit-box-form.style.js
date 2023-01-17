@@ -147,10 +147,10 @@ export const useClassNames = makeStyles()(theme => ({
   boxTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 20,
+    marginLeft: 10,
   },
   amountSpan: {
-    margin: '0 0 0 20px',
+    margin: '0 0 0 10px',
     color: theme.palette.primary.main,
     fontSize: 18,
   },

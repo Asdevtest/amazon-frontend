@@ -23,8 +23,6 @@ export const EditHSCodeModal = ({hsCodeData, onClickSaveHsCode, onCloseModal}) =
     setFormFields(newFormFields)
   }
 
-  console.log('formFields', formFields)
-
   return (
     <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{'HS Code'}</Typography>

@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {t} from 'i18n-js'
@@ -67,7 +69,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
 
     width: 160,
     renderCell: params => (
@@ -77,6 +79,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
+    sortable: false,
   },
 
   {

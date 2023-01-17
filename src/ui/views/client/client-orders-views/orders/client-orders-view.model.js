@@ -33,7 +33,6 @@ const setNavbarActiveSubCategory = pathname => {
     }
   }
 }
-
 export class ClientOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -45,6 +44,10 @@ export class ClientOrdersViewModel {
   baseNoConvertedOrders = []
 
   drawerOpen = false
+
+  // НЕ было до создания фильтрации по статусам (2 строки)
+  orderStatusDataBase = []
+  chosenStatus = []
 
   currentData = []
   selectedRowIds = []
@@ -101,6 +104,15 @@ export class ClientOrdersViewModel {
 
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
+  }
+
+  // НЕ было до создания фильтрации по статусам
+  get orderStatusData() {
+    return {
+      orderStatusDataBase: this.orderStatusDataBase,
+      chosenStatus: this.chosenStatus,
+      onClickOrderStatusData: this.onClickOrderStatusData,
+    }
   }
 
   constructor({history, location}) {
@@ -277,28 +289,80 @@ export class ClientOrdersViewModel {
     }
   }
 
+  // Было до создания фильтрации по статусам
+  // setOrderStatus = pathname => {
+  //   if (pathname) {
+  //     switch (pathname) {
+  //       case routsPathes.CLIENT_ORDERS:
+  // return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${OrderStatusByKey[OrderStatus.READY_TO_PROCESS]}, ${
+  //           OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
+  //         }, ${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}, ${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}, ${
+  //           OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+  //         }, ${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
+  //           OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
+  //         }`
+  //       case routsPathes.CLIENT_PENDING_ORDERS:
+  //         return `${OrderStatusByKey[OrderStatus.FORMED]}, ${OrderStatusByKey[OrderStatus.PENDING]}, ${
+  //           OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
+  //         }`
+
+  //       default:
+  //         return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
+  //           OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+  //         }`
+  //     }
+  //   }
+  // }
+
+  // НЕ было до создания фильтрации по статусам
   setOrderStatus = pathname => {
     if (pathname) {
       switch (pathname) {
         case routsPathes.CLIENT_ORDERS:
-          return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${OrderStatusByKey[OrderStatus.READY_TO_PROCESS]}, ${
-            OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
-          }, ${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}, ${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}, ${
-            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-          }, ${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
-            OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
-          }`
+          return [
+            OrderStatus.AT_PROCESS,
+            OrderStatus.READY_TO_PROCESS,
+            OrderStatus.PAID_TO_SUPPLIER,
+            OrderStatus.TRACK_NUMBER_ISSUED,
+            OrderStatus.VERIFY_RECEIPT,
+            OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+            OrderStatus.IN_STOCK,
+            OrderStatus.CANCELED_BY_BUYER,
+            OrderStatus.CANCELED_BY_CLIENT,
+          ]
         case routsPathes.CLIENT_PENDING_ORDERS:
-          return `${OrderStatusByKey[OrderStatus.FORMED]}, ${OrderStatusByKey[OrderStatus.PENDING]}, ${
-            OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
-          }`
+          return [OrderStatus.FORMED, OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
 
         default:
-          return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
-            OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-          }`
+          return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       }
     }
+  }
+
+  // Убирает и добавляет статусы в массив выбранных статусов
+  onClickOrderStatusData(status) {
+    runInAction(() => {
+      if (status) {
+        if (status === 'ALL') {
+          this.chosenStatus = this.setOrderStatus(this.history.location.pathname)
+        } else {
+          if (this.chosenStatus.some(item => item === status)) {
+            this.chosenStatus = this.chosenStatus.filter(item => item !== status)
+          } else {
+            this.chosenStatus.push(status)
+          }
+        }
+      }
+      this.getOrders()
+    })
+  }
+
+  // Запускается по дефолту со всеми статусами
+  setDefaultStatuses() {
+    if (!this.chosenStatus.length) {
+      this.chosenStatus = this.setOrderStatus(this.history.location.pathname)
+    }
+    this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
   async getOrders() {
@@ -307,10 +371,17 @@ export class ClientOrdersViewModel {
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
 
+      // НЕ было до создания фильтрации по статусам (2 строки)
+      this.setDefaultStatuses()
+      const orderStatus = this.chosenStatus.map(item => OrderStatusByKey[item]).join(', ')
+
       const result = await ClientModel.getOrdersPag({
         filters: this.nameSearchValue ? filter : null,
 
-        status: this.setOrderStatus(this.history.location.pathname),
+        status: orderStatus,
+
+        // Было до создания фильтрации по статусам
+        // status: this.setOrderStatus(this.history.location.pathname),
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,

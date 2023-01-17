@@ -225,7 +225,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlus: {
-    marginTop: 40,
+    // marginTop: 40,
+    margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
 

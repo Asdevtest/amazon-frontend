@@ -7,6 +7,7 @@ import React, {useEffect, useState} from 'react'
 
 import {withStyles} from 'tss-react/mui'
 
+import {OrderStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SearchInput} from '@components/search-input'
@@ -155,6 +156,28 @@ export const OrderStatusMenuItem = React.memo(
     ),
     styles,
   ),
+)
+
+export const ClientOrderAllStatusesMenuItem = React.memo(
+  withStyles(({classes: classNames, orderStatusData}) => {
+    const {orderStatusDataBase, chosenStatus, onClickOrderStatusData} = orderStatusData
+    return (
+      <div className={classNames.orderStatusDataWrapper}>
+        <div className={classNames.orderStatusDataBody}>
+          <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
+            <Checkbox color="primary" checked={chosenStatus.length === orderStatusDataBase.length} />
+            <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
+          </div>
+          {orderStatusDataBase.map((item, itemIndex) => (
+            <div key={itemIndex} className={classNames.orderStatus} onClick={() => onClickOrderStatusData(item)}>
+              <Checkbox color="primary" checked={chosenStatus.some(status => status === item)} />
+              <div className={classNames.orderStatusName}>{OrderStatusTranslate(item)}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }, styles),
 )
 
 export const ShopMenuItem = React.memo(

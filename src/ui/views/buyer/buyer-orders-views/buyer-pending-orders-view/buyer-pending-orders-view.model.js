@@ -35,6 +35,10 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   baseNoConvertedOrders = []
 
+  // НЕ было до создания фильтрации по статусам (2 строки)
+  orderStatusDataBase = [OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
+  chosenStatus = []
+
   currentData = []
 
   curBoxesOfOrder = []
@@ -88,6 +92,15 @@ export class BuyerMyOrdersViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  // НЕ было до создания фильтрации по статусам
+  get orderStatusData() {
+    return {
+      orderStatusDataBase: this.orderStatusDataBase,
+      chosenStatus: this.chosenStatus,
+      onClickOrderStatusData: this.onClickOrderStatusData,
+    }
   }
 
   constructor({history, location}) {
@@ -451,11 +464,43 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
+  // Убирает и добавляет статусы в массив выбранных статусов
+  onClickOrderStatusData(status) {
+    console.log('status', status)
+    runInAction(() => {
+      if (status) {
+        if (status === 'ALL') {
+          this.chosenStatus = this.orderStatusDataBase
+        } else {
+          if (this.chosenStatus.some(item => item === status)) {
+            this.chosenStatus = this.chosenStatus.filter(item => item !== status)
+          } else {
+            this.chosenStatus.push(status)
+          }
+        }
+      }
+
+      this.getOrdersMy()
+    })
+  }
+
+  // Запускается по дефолту со всеми статусами
+  setDefaultStatuses() {
+    if (!this.chosenStatus.length) {
+      this.chosenStatus = this.orderStatusDataBase
+    }
+    this.chosenStatus = [...this.chosenStatus]
+  }
+
   async getOrdersMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
+
+      // НЕ было до создания фильтрации по статусам (2 строки)
+      this.setDefaultStatuses()
+      const orderStatus = this.chosenStatus.map(item => OrderStatusByKey[item]).join(', ')
 
       const result = await BuyerModel.getOrdersMyPag({
         filters: this.nameSearchValue ? filter : null,
@@ -467,7 +512,10 @@ export class BuyerMyOrdersViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        status: `${OrderStatusByKey[OrderStatus.PENDING]}, ${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
+
+        // Было до создания фильтрации по статусам
+        // status: `${OrderStatusByKey[OrderStatus.PENDING]}, ${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
+        status: orderStatus,
       })
 
       runInAction(() => {

@@ -7,6 +7,7 @@ import {
   EditOrRemoveIconBtnsCell,
   ShortDateCell,
   MultilineTextAlignLeftCell,
+  MultilineTextCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -18,7 +19,7 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
 
     width: 280,
-    renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,
+    renderCell: params => <MultilineTextCell pointer text={params.value} />,
   },
 
   {
@@ -42,7 +43,7 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextCell text={t(TranslationKey.Description)} />,
 
     width: 450,
     renderCell: params => <MultilineTextAlignLeftCell pointer text={params.value} />,

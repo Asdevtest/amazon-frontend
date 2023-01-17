@@ -9,6 +9,7 @@ import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -41,6 +42,7 @@ class BuyerPendingOrdersViewRaw extends Component {
 
   render() {
     const {
+      orderStatusData,
       yuanToDollarRate,
       warningInfoModalSettings,
       userInfo,
@@ -137,6 +139,10 @@ class BuyerPendingOrdersViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                  }}
+                  componentsProps={{
+                    columnMenu: {orderStatusData},
                   }}
                   density={densityModel}
                   columns={columnsModel}
