@@ -162,6 +162,8 @@ export class IntegrationsModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.sellerBoardData = []
     }
   }
 

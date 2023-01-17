@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **buyerComment** | **String** | комментарии байера. | [optional] 
 **storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**priceInYuan** | **Number** | Цена в юуанях | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
 **destinationId** | **String** | GUID пункта назначения. | [optional] 
 **item** | **String** |  | [optional] 

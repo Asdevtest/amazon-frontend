@@ -25,7 +25,7 @@ import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
-const updateOrderKeys = ['amount', 'orderSupplierId', 'images', 'totalPrice', 'item', 'buyerComment']
+const updateOrderKeys = ['amount', 'orderSupplierId', 'images', 'totalPrice', 'item', 'buyerComment', 'priceInYuan']
 
 export class BuyerMyOrdersViewModel {
   history = undefined

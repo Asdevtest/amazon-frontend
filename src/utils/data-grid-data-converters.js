@@ -395,7 +395,7 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient),
+    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
 
     destination: item.destination?.name,

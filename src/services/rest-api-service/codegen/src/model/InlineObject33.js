@@ -53,6 +53,9 @@ class InlineObject33 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
@@ -95,6 +98,12 @@ InlineObject33.prototype['buyerComment'] = undefined;
  * @member {String} storekeeperId
  */
 InlineObject33.prototype['storekeeperId'] = undefined;
+
+/**
+ * Цена в юуанях
+ * @member {Number} priceInYuan
+ */
+InlineObject33.prototype['priceInYuan'] = undefined;
 
 /**
  * GUID тарифа доставки.

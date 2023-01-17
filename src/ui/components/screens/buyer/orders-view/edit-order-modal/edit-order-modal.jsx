@@ -40,6 +40,7 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
+import {calcExchangeDollarsInYuansPrice, calcExchangePrice} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {
   formatDateDistanceFromNowStrict,
@@ -84,8 +85,6 @@ export const EditOrderModal = observer(
     onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
-
-    console.log('order', order)
 
     const deliveredGoodsCount =
       boxes
@@ -187,9 +186,12 @@ export const EditOrderModal = observer(
       trackingNumberChina: order?.trackingNumberChina,
       batchPrice: 0,
       totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
-      yuanToDollarRate: order?.yuanToDollarRate || 6.3,
+      yuanToDollarRate: order?.yuanToDollarRate || 6.5,
       item: order?.item || 0,
       tmpRefundToClient: 0,
+      priceInYuan: order?.priceInYuan
+        ? order?.priceInYuan
+        : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
@@ -204,19 +206,33 @@ export const EditOrderModal = observer(
       const newOrderFieldsState = {...orderFields}
 
       if (
-        ['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate', 'item', 'tmpRefundToClient'].includes(
-          filedName,
-        )
+        [
+          'totalPriceChanged',
+          'deliveryCostToTheWarehouse',
+          'yuanToDollarRate',
+          'item',
+          'tmpRefundToClient',
+          'priceInYuan',
+        ].includes(filedName)
       ) {
         if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
           return
         }
 
-        newOrderFieldsState[filedName] = e.target.value
+        console.log('filedName', filedName)
+        console.log('e.target.value', e.target.value)
+
+        // newOrderFieldsState[filedName] = e.target.value
 
         if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
           newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
+        } else if (filedName === 'priceInYuan') {
+          newOrderFieldsState.totalPriceChanged = toFixed(
+            Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)),
+            2,
+          )
         }
+        newOrderFieldsState[filedName] = e.target.value
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -236,6 +252,8 @@ export const EditOrderModal = observer(
       if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
         newOrderFieldsState.status = order.status
       }
+
+      console.log('newOrderFieldsState', newOrderFieldsState)
       setOrderFields(newOrderFieldsState)
     }
 

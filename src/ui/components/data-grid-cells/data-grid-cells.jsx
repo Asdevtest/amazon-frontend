@@ -662,9 +662,9 @@ export const OrderBoxesCell = React.memo(
         </div>
       ) : (
         <div className={classNames.orderBoxesWrapper}>
-          <div className={classNames.fixedTextWidth}>
+          {/* <div className={classNames.fixedTextWidth}>
             <MultilineTextCell text={`x${qty}`} />
-          </div>
+          </div> */}
           <OrderCell
             product={product}
             superbox={superboxQty}
@@ -1879,7 +1879,9 @@ export const FinalPricePerUnitCell = React.memo(
         {box.items.map((el, i) => (
           <Typography key={i} className={classNames.multilineText}>
             {toFixedWithDollarSign(
-              calcSupplierPriceForUnit(el.order.orderSupplier) +
+              // calcSupplierPriceForUnit(el.order.orderSupplier)
+
+              el.order.totalPrice / el.order.amount +
                 calculateDeliveryCostPerPcs({
                   itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
                   deliveryCost: box.deliveryTotalPrice,

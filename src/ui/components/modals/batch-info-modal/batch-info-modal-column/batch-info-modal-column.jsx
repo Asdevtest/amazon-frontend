@@ -82,7 +82,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
           getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
             params.row,
             volumeWeightCoefficient,
-          ),
+          ) * params.row.amount,
           2,
         )}
       />
