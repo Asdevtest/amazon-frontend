@@ -260,7 +260,7 @@ export const EditOrderModal = observer(
             orderFields,
             boxesForCreation,
             photosToLoad,
-            hsCode,
+            // hsCode,
             trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
             commentToWarehouse,
           })
@@ -307,7 +307,7 @@ export const EditOrderModal = observer(
 
     const [photosToLoad, setPhotosToLoad] = useState([])
 
-    const [hsCode, setHsCode] = useState(order.product.hsCode)
+    // const [hsCode, setHsCode] = useState(order.product.hsCode)
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
@@ -559,8 +559,6 @@ export const EditOrderModal = observer(
             isPendingOrder={isPendingOrder}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
-            hsCode={hsCode}
-            setHsCode={setHsCode}
             photosToLoad={photosToLoad}
             order={order}
             setOrderField={setOrderField}
@@ -668,7 +666,7 @@ export const EditOrderModal = observer(
                   orderFields,
                   boxesForCreation,
                   photosToLoad,
-                  hsCode,
+                  // hsCode,
                   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
                   commentToWarehouse,
                 })

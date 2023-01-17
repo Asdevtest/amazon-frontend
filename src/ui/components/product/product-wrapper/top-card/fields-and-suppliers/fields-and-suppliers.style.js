@@ -17,6 +17,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
+  hsCodeBtn: {
+    width: 300,
+    height: 32,
+  },
+
   strategyOption: {
     // color: '#001029',
 

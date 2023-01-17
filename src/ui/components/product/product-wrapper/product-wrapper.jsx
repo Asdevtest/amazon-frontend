@@ -66,6 +66,7 @@ export const ProductWrapper = observer(
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -143,6 +144,7 @@ export const ProductWrapper = observer(
                 onClickSupplier={onClickSupplier}
                 onClickParseProductData={onClickParseProductData}
                 onChangeImagesForLoad={onChangeImagesForLoad}
+                onClickHsCode={onClickHsCode}
               />
               <BottomCard
                 curUserRole={curUserRole}

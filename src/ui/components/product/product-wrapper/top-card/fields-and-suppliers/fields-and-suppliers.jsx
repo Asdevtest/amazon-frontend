@@ -37,7 +37,17 @@ const clientToEditStatuses = [
 ]
 
 export const FieldsAndSuppliers = observer(
-  ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
+  ({
+    user,
+    showActionBtns,
+    curUserRole,
+    onChangeField,
+    product,
+    productBase,
+    formFieldsValidationErrors,
+    shops,
+    onClickHsCode,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     const [edit, setEdit] = useState(true)
@@ -435,6 +445,19 @@ export const FieldsAndSuppliers = observer(
             ) : null}
           </div>
         </Box>
+
+        {checkIsBuyer(curUserRole) ? (
+          <Field
+            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
+            label={t(TranslationKey['HS code'])}
+            labelClasses={classNames.label}
+            inputComponent={
+              <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(product._id)}>
+                {t(TranslationKey['HS code'])}
+              </Button>
+            }
+          />
+        ) : null}
         {checkIsClient(curUserRole) ? (
           <div className={classNames.shopsWrapper}>
             <Field

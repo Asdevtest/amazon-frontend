@@ -47,6 +47,13 @@ class SellerBoardModelStatic {
     })
     return response
   }
+
+  unlinkSkuProduct = async data => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch({
+      body: data,
+    })
+    return response
+  }
 }
 
 export const SellerBoardModel = new SellerBoardModelStatic()

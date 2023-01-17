@@ -1862,7 +1862,8 @@ export const PricePerUnitCell = React.memo(
       <div className={classNames.pricesWrapper}>
         {item.items.map((el, i) => (
           <Typography key={i} className={classNames.multilineText}>
-            {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)}
+            {/* {toFixedWithDollarSign(calcSupplierPriceForUnit(el.order.orderSupplier), 2)} */}
+            {toFixedWithDollarSign(el.order.totalPrice / el.order.amount, 2)}
           </Typography>
         ))}
       </div>
@@ -2000,7 +2001,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
           )}
         </div>
 
-        {isArchive ? (
+        {isArchive || isArchive === undefined ? (
           <div className={classNames.editOrRemoveBtnWrapper}>
             <Button
               danger

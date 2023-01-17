@@ -11,8 +11,11 @@ export const useClassNames = makeStyles()(() => ({
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     padding: '10px',
+  },
+
+  buttonOffset: {
+    marginLeft: 20,
   },
 }))
