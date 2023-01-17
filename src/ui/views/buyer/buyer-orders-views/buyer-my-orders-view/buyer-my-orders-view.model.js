@@ -137,7 +137,6 @@ export class BuyerMyOrdersViewModel {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
       chosenStatus: this.chosenStatus,
-      filteredStatus: this.filteredStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
   }

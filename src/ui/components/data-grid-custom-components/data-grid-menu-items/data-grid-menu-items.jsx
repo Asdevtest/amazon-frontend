@@ -160,9 +160,7 @@ export const OrderStatusMenuItem = React.memo(
 
 export const ClientOrderAllStatusesMenuItem = React.memo(
   withStyles(({classes: classNames, orderStatusData}) => {
-    const {orderStatusDataBase, chosenStatus, filteredStatus, onClickOrderStatusData} = orderStatusData
-
-    console.log('chosenStatus', chosenStatus)
+    const {orderStatusDataBase, chosenStatus, onClickOrderStatusData} = orderStatusData
 
     return (
       <div className={classNames.orderStatusDataWrapper}>
