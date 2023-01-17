@@ -32,6 +32,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  usePriceInDollars,
   isPendingOrder,
   disableSubmit,
   photosToLoad,
@@ -43,13 +44,14 @@ export const SelectFields = ({
   setPhotosToLoad,
   deliveredGoodsCount,
   onClickHsCode,
+  setUsePriceInDollars,
 }) => {
   const {classes: classNames} = useClassNames()
 
-  const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
-  const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState('')
-
-  const [usePriceInDollars, setUsePriceInDollars] = useState(true)
+  // const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
+  const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState(
+    calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, orderFields.yuanToDollarRate),
+  )
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
     true,
@@ -58,7 +60,7 @@ export const SelectFields = ({
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  console.log('orderFields.priceInYuan', orderFields.priceInYuan)
+  // console.log('orderFields.priceInYuan', orderFields.priceInYuan)
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -181,16 +183,21 @@ export const SelectFields = ({
                         )
                       : priceYuansDeliveryCostToTheWarehouse
                   }
+                  // value={priceYuansDeliveryCostToTheWarehouse}
+                  // value={calcExchangeDollarsInYuansPrice(
+                  //   orderFields.deliveryCostToTheWarehouse,
+                  //   orderFields.yuanToDollarRate,
+                  // )}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', ¥'}
                   onChange={e => {
                     if (
                       checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-                      Number(e.target.value) < priceYuansForBatch
+                      Number(e.target.value) < orderFields.priceInYuan
                     ) {
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
                         target: {
-                          value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
+                          value: calcExchangePrice(e.target.value, orderFields.yuanToDollarRate),
                         },
                       })
                     }
@@ -218,7 +225,7 @@ export const SelectFields = ({
                 )}
               />
             </Box>
-            priceInYuan
+
             <div>
               <Field
                 disabled
@@ -244,8 +251,8 @@ export const SelectFields = ({
                   if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
                     setOrderField('yuanToDollarRate')({
                       target: {value: e.target.value},
-                      updateTotalPriceChanged: !usePriceInDollars,
-                      updateTotalPriceChangedValue: calcExchangePrice(priceYuansForBatch, e.target.value),
+                      // updateTotalPriceChanged: !usePriceInDollars,
+                      // updateTotalPriceChangedValue: calcExchangePrice(priceYuansForBatch, e.target.value),
                     })
                   }
                 }}
@@ -263,9 +270,9 @@ export const SelectFields = ({
                     checked={usePriceInDollars}
                     color="primary"
                     onChange={() => {
-                      setPriceYuansForBatch(
-                        calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate),
-                      )
+                      // setPriceYuansForBatch(
+                      //   calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate),
+                      // )
                       setUsePriceInDollars(!usePriceInDollars)
                     }}
                   />
@@ -300,10 +307,14 @@ export const SelectFields = ({
                   labelClasses={classNames.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
                   value={orderFields.deliveryCostToTheWarehouse}
-                  onChange={e =>
+                  onChange={e => {
                     Number(e.target.value) < orderFields.totalPriceChanged &&
-                    setOrderField('deliveryCostToTheWarehouse')(e)
-                  }
+                      setOrderField('deliveryCostToTheWarehouse')(e)
+
+                    setPriceYuansDeliveryCostToTheWarehouse(
+                      calcExchangeDollarsInYuansPrice(e.target.value, orderFields.yuanToDollarRate),
+                    )
+                  }}
                 />
               </div>
             </div>
@@ -365,9 +376,9 @@ export const SelectFields = ({
                       setOrderField('totalPriceChanged')({
                         target: {value: toFixed(orderFields.totalPrice, 2)},
                       })
-                      setPriceYuansForBatch(
-                        calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
-                      )
+                      // setPriceYuansForBatch(
+                      //   calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+                      // )
                     }}
                   />
                 </div>
