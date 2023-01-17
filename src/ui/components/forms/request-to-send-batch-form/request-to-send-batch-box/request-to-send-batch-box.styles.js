@@ -243,4 +243,12 @@ export const useClassNames = makeStyles()(theme => ({
   alertText: {
     color: 'red',
   },
+
+  priceText: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.primary.main,
+  },
 }))

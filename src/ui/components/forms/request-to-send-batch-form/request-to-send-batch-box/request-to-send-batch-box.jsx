@@ -248,13 +248,13 @@ export const RequestToSendBatchBox = ({
         {box.items.map((item, index) => (
           <div key={index}>
             <div className={cx(tableCellClsx, classNames.priceCell)}>
-              <Typography className={classNames.spanText}>
+              <Typography className={classNames.dementionsTitle}>
                 {t(TranslationKey['Average delivery cost per pc'])}
               </Typography>
             </div>
 
             <div className={cx(tableCellClsx, classNames.priceCellRight)}>
-              <Typography variant="h5">
+              <Typography className={classNames.priceText}>
                 {toFixedWithDollarSign(
                   calculateDeliveryCostPerPcs({
                     itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
@@ -276,18 +276,18 @@ export const RequestToSendBatchBox = ({
         <td className={classNames.suberboxPriceCellWrapper}>
           <div className={classNames.suberboxPriceCell}>
             <div className={classNames.priceCell}>
-              <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
+              <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Box delivery cost'])}</Typography>
             </div>
             <div className={classNames.priceCellRight}>
-              <Typography variant="h5">{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
+              <Typography className={classNames.priceText}>{toFixedWithDollarSign(price / box.amount, 2)}</Typography>
             </div>
           </div>
           <div className={classNames.suberboxPriceCell}>
             <div className={classNames.priceCell}>
-              <Typography className={classNames.spanText}>{t(TranslationKey['Delivery cost'])}</Typography>
+              <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Delivery cost'])}</Typography>
             </div>
             <div className={classNames.priceCellRight}>
-              <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+              <Typography className={classNames.priceText}>{toFixedWithDollarSign(price, 2)}</Typography>
             </div>
           </div>
         </td>
