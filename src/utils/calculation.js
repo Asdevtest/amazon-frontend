@@ -50,10 +50,11 @@ export const calcOrderTotalPrice = (supplier, goodsAmount) =>
   ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
   (parseInt(goodsAmount) || 0)
 
-export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 0) / (parseFloat(rate) || 0), 2)
+export const calcExchangePrice = (price, rate) =>
+  toFixed(Math.round(((parseFloat(price) || 0) / (parseFloat(rate) || 0)) * 100) / 100, 2)
 
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
-  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 0) * 10) / 10, 2)
+  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 0) * 100) / 100, 2)
 
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
 

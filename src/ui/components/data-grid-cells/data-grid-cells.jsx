@@ -51,6 +51,7 @@ import {
   calcSupplierPriceForUnit,
   calculateDeliveryCostPerPcs,
   calcVolumeWeightForBox,
+  getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
 import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
@@ -1881,15 +1882,16 @@ export const FinalPricePerUnitCell = React.memo(
             {toFixedWithDollarSign(
               // calcSupplierPriceForUnit(el.order.orderSupplier)
 
-              el.order.totalPrice / el.order.amount +
-                calculateDeliveryCostPerPcs({
-                  itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
-                  deliveryCost: box.deliveryTotalPrice,
-                  itemAmount: el.amount,
-                  itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
-                  boxFinalWeight,
-                  box,
-                }),
+              el.order.totalPrice / el.order.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
+              // calculateDeliveryCostPerPcs({
+              //   itemSupplierBoxWeightGrossKg: el.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+              //   deliveryCost: box.deliveryTotalPrice,
+              //   itemAmount: el.amount,
+              //   itemSupplierAmountInBox: el.order.orderSupplier.boxProperties?.amountInBox,
+              //   boxFinalWeight,
+              //   box,
+              // })
+
               2,
             )}
           </Typography>

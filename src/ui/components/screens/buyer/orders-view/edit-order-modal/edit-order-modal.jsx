@@ -99,6 +99,8 @@ export const EditOrderModal = observer(
 
     // const deliveredGoodsCount = order.amount || 0
 
+    const [usePriceInDollars, setUsePriceInDollars] = useState(false)
+
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
 
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -224,8 +226,13 @@ export const EditOrderModal = observer(
 
         // newOrderFieldsState[filedName] = e.target.value
 
-        if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
-          newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
+        if (filedName === 'yuanToDollarRate') {
+          if (usePriceInDollars) {
+            newOrderFieldsState.priceInYuan = newOrderFieldsState.priceInYuan * e.target.value
+          } else {
+            newOrderFieldsState.totalPriceChanged = calcExchangePrice(orderFields.priceInYuan, e.target.value)
+            newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.deliveryCostToTheWarehouse / e.target.value
+          }
         } else if (filedName === 'priceInYuan') {
           newOrderFieldsState.totalPriceChanged = toFixed(
             Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)),
@@ -251,6 +258,7 @@ export const EditOrderModal = observer(
 
       if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
         newOrderFieldsState.status = order.status
+        newOrderFieldsState.priceInYuan = orderFields.yuanToDollarRate * e.target.value
       }
 
       console.log('newOrderFieldsState', newOrderFieldsState)
@@ -575,6 +583,7 @@ export const EditOrderModal = observer(
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
             isPendingOrder={isPendingOrder}
+            usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
             photosToLoad={photosToLoad}
@@ -584,6 +593,7 @@ export const EditOrderModal = observer(
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
+            setUsePriceInDollars={setUsePriceInDollars}
             onClickHsCode={onClickHsCode}
           />
 
