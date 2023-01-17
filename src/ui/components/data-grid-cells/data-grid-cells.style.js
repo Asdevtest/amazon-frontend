@@ -845,7 +845,7 @@ export const styles = theme => ({
   multilineTextAlignLeft: {
     width: '100%',
     textAlign: 'left',
-    whiteSpace: 'pre',
+    whiteSpace: 'pre-wrap',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
