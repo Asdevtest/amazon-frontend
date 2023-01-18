@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
@@ -8,6 +8,7 @@ import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
+import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
@@ -152,6 +153,10 @@ export class SupervisorProductViewModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({history}) {
     const url = new URL(window.location.href)
 
@@ -162,6 +167,14 @@ export class SupervisorProductViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.product = this.product ? {...this.product} : undefined
+        }),
+    )
   }
 
   async loadData() {
@@ -170,6 +183,10 @@ export class SupervisorProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  getCurrentData() {
+    return toJS(this.product)
   }
 
   async getProductById() {

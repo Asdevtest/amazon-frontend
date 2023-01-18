@@ -198,6 +198,10 @@ export const EditOrderModal = observer(
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
+    const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState(
+      calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, orderFields.yuanToDollarRate),
+    )
+
     useEffect(() => {
       setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
 
@@ -217,21 +221,26 @@ export const EditOrderModal = observer(
           'priceInYuan',
         ].includes(filedName)
       ) {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+        if (
+          !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+          filedName !== 'deliveryCostToTheWarehouse'
+        ) {
           return
         }
 
-        console.log('filedName', filedName)
-        console.log('e.target.value', e.target.value)
-
-        // newOrderFieldsState[filedName] = e.target.value
-
         if (filedName === 'yuanToDollarRate') {
           if (usePriceInDollars) {
-            newOrderFieldsState.priceInYuan = newOrderFieldsState.priceInYuan * e.target.value
+            newOrderFieldsState.priceInYuan = newOrderFieldsState.totalPriceChanged * e.target.value
+            setPriceYuansDeliveryCostToTheWarehouse(
+              calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, e.target.value),
+            )
           } else {
             newOrderFieldsState.totalPriceChanged = calcExchangePrice(orderFields.priceInYuan, e.target.value)
-            newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.deliveryCostToTheWarehouse / e.target.value
+            // newOrderFieldsState.deliveryCostToTheWarehouse = calcExchangePrice(
+            //   priceYuansDeliveryCostToTheWarehouse,
+            //   e.target.value,
+            // )
+            newOrderFieldsState.deliveryCostToTheWarehouse = priceYuansDeliveryCostToTheWarehouse / e.target.value
           }
         } else if (filedName === 'priceInYuan') {
           newOrderFieldsState.totalPriceChanged = toFixed(
@@ -583,6 +592,7 @@ export const EditOrderModal = observer(
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
             isPendingOrder={isPendingOrder}
+            priceYuansDeliveryCostToTheWarehouse={priceYuansDeliveryCostToTheWarehouse}
             usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
@@ -594,6 +604,7 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            setPriceYuansDeliveryCostToTheWarehouse={setPriceYuansDeliveryCostToTheWarehouse}
             onClickHsCode={onClickHsCode}
           />
 

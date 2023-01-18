@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Box, Tabs} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'

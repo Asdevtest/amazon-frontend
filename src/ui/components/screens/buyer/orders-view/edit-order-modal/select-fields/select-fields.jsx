@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Box, Grid, Typography, Checkbox, Link, Button} from '@mui/material'
 
@@ -32,6 +33,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  priceYuansDeliveryCostToTheWarehouse,
   usePriceInDollars,
   isPendingOrder,
   disableSubmit,
@@ -45,13 +47,9 @@ export const SelectFields = ({
   deliveredGoodsCount,
   onClickHsCode,
   setUsePriceInDollars,
+  setPriceYuansDeliveryCostToTheWarehouse,
 }) => {
   const {classes: classNames} = useClassNames()
-
-  // const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
-  const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState(
-    calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, orderFields.yuanToDollarRate),
-  )
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
     true,
@@ -59,8 +57,6 @@ export const SelectFields = ({
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  // console.log('orderFields.priceInYuan', orderFields.priceInYuan)
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -148,23 +144,8 @@ export const SelectFields = ({
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.blueLabel}
                   inputClasses={classNames.input}
-                  value={
-                    // usePriceInDollars
-                    //   ? calcExchangeDollarsInYuansPrice(orderFields.totalPriceChanged, orderFields.yuanToDollarRate)
-                    //   : priceYuansForBatch
-                    orderFields.priceInYuan
-                  }
+                  value={orderFields.priceInYuan}
                   label={t(TranslationKey['Yuan per batch']) + ', ¥'}
-                  // onChange={e => {
-                  //   if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                  //     setPriceYuansForBatch(e.target.value)
-                  //     setOrderField('totalPriceChanged')({
-                  //       target: {
-                  //         value: toFixed(Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)), 2),
-                  //       },
-                  //     })
-                  //   }
-                  // }}
                   onChange={setOrderField('priceInYuan')}
                 />
               </div>
@@ -175,19 +156,7 @@ export const SelectFields = ({
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.label}
                   inputClasses={classNames.input}
-                  value={
-                    usePriceInDollars
-                      ? calcExchangeDollarsInYuansPrice(
-                          orderFields.deliveryCostToTheWarehouse,
-                          orderFields.yuanToDollarRate,
-                        )
-                      : priceYuansDeliveryCostToTheWarehouse
-                  }
-                  // value={priceYuansDeliveryCostToTheWarehouse}
-                  // value={calcExchangeDollarsInYuansPrice(
-                  //   orderFields.deliveryCostToTheWarehouse,
-                  //   orderFields.yuanToDollarRate,
-                  // )}
+                  value={priceYuansDeliveryCostToTheWarehouse}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', ¥'}
                   onChange={e => {
                     if (
@@ -197,7 +166,8 @@ export const SelectFields = ({
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
                         target: {
-                          value: calcExchangePrice(e.target.value, orderFields.yuanToDollarRate),
+                          // value: calcExchangePrice(e.target.value, orderFields.yuanToDollarRate),
+                          value: Number(e.target.value) / orderFields.yuanToDollarRate,
                         },
                       })
                     }

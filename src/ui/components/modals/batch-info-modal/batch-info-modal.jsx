@@ -258,13 +258,16 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
+            {/* <div style={{flexGrow: 1}}> */}
             <MemoDataGrid
               // hideFooter
+              autoHeight
               localeText={getLocalizationByLanguageTag()}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
+                // virtualScroller: classNames.virtualScroller,
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
@@ -289,6 +292,7 @@ export const BatchInfoModal = observer(
               getRowHeight={() => 'auto'}
               onRowDoubleClick={e => openBoxView(e.row)}
             />
+            {/* </div> */}
           </div>
 
           <div className={classNames.filesSubWrapper}>

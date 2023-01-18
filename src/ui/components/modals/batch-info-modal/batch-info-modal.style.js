@@ -320,8 +320,17 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    height: '600px',
+    // height: '600px',
+    // minHeight: 400,
+    // maxHeight: 600,
+    maxHeight: 600,
+    overflow: 'auto',
     width: '100%',
+  },
+
+  virtualScroller: {
+    minHeight: 150,
+    maxHeight: 450,
   },
   columnHeaderTitleContainer: {
     flexDirection: 'row !important',

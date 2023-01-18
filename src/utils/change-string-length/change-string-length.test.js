@@ -1,13 +1,22 @@
-// import {getShortenStringIfLongerThanCount} from './change-string-length'
+import {getShortenStringIfLongerThanCount} from './change-string-length'
 
-// const {getShortenStringIfLongerThanCount} = require('./change-string-length')
+describe('Test change-string-length.js', () => {
+  test('getShortenStringIfLongerThanCount(str, count)', () => {
+    const res = getShortenStringIfLongerThanCount('qwerty', 2)
 
-describe('Test getShortenStringIfLongerThanCount()', () => {
-  // test('Test 1', () => {
-  //   expect(getShortenStringIfLongerThanCount('qwerty', 2)).toBe('qw...')
+    expect(res).toBe('qw...')
+    expect(typeof res).toBe('string')
+  })
+
+  // test('str short than count', () => {
+  //   const res = getShortenStringIfLongerThanCount('qwerty', 2)
+
+  //   expect(res).toBe('qw...')
+  //   expect(typeof res).toBe('string')
   // })
 
-  test('Test 2', () => {
-    expect(Math.max(1, 5, 10)).not.toBe(5)
-  })
+  // первый пример
+  // test('Test 2', () => {
+  //   expect(Math.max(1, 5, 10)).not.toBe(5)
+  // })
 })

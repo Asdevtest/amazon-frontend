@@ -1,6 +1,7 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {ProductModel} from '@models/product-model'
+import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -67,6 +68,10 @@ export class AdminProductViewModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({history, location}) {
     runInAction(() => {
       this.history = history
@@ -79,6 +84,14 @@ export class AdminProductViewModel {
       })
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.product = this.product ? {...this.product} : undefined
+        }),
+    )
   }
 
   async loadData() {

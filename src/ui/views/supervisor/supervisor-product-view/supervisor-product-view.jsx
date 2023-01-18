@@ -64,6 +64,7 @@ export class SupervisorProductView extends Component {
       onClickParseProductData,
       onChangeImagesForLoad,
       onTriggerAddOrEditSupplierModal,
+      getCurrentData,
     } = this.viewModel
 
     return (
@@ -81,7 +82,7 @@ export class SupervisorProductView extends Component {
                 <ProductWrapper
                   imagesForLoad={imagesForLoad}
                   userRole={userInfo.role}
-                  product={product}
+                  product={getCurrentData()}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
