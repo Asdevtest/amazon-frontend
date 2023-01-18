@@ -98,6 +98,7 @@ export const productInTransferColumns = handlers => [
 
     renderCell: params => (
       <NormalActionBtnCell
+        disabled={!params.row.batch}
         bTnText={t(TranslationKey['Watch the batch'])}
         onClickOkBtn={() => handlers.onClickShowBatchBtn(params?.row?.batch?._id)}
       />
