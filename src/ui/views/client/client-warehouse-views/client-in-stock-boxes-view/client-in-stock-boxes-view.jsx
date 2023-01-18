@@ -117,6 +117,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       modalEditSuccessMessage,
       warningInfoModalSettings,
       destinationsFavourites,
+      openModalAndClear,
       onClickHsCode,
       onClickSaveHsCode,
       setDestinationsFavouritesItem,
@@ -588,10 +589,7 @@ export class ClientInStockBoxesViewRaw extends Component {
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-        >
+        <Modal openModal={showSelectionStorekeeperAndTariffModal} setOpenModal={openModalAndClear}>
           <SelectStorekeeperAndTariffForm
             inNotifications={!changeItem}
             storekeepers={

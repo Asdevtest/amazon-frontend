@@ -671,6 +671,11 @@ export class ClientInStockBoxesViewModel {
     this.getBoxesMy()
   }
 
+  openModalAndClear() {
+    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+    this.changeItem = null
+  }
+
   async getClientDestinations() {
     try {
       const clientDestinations = await ClientModel.getClientDestinations({
