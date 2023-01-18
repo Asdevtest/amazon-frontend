@@ -1719,5 +1719,6 @@
   "Quantity in group": "Количество в группе",
   "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Title, ID партии, ID заказа",
   "Unlink an product from Amazon": "Отвязать товар с Amazon",
-  "Unlink success": "Успех отвязки"
+  "Unlink success": "Успех отвязки",
+  "Buyer comments to the task": "Комментарий к задаче от байера"
 }
