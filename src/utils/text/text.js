@@ -5,9 +5,11 @@ import * as xssFilter from 'showdown-xss-filter'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {checkIsAbsoluteUrl} from './checks'
-import {getDistanceBetweenDatesInSeconds} from './date-time'
-import {t} from './translations'
+// import {TranslationKey} from '../../constants/translations/translation-key'
+// import {zipCodeGroups} from '../../constants/zip-code-groups'
+import {checkIsAbsoluteUrl} from '../checks'
+import {getDistanceBetweenDatesInSeconds} from '../date-time'
+import {t} from '../translations'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
 
