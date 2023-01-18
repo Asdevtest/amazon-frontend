@@ -574,6 +574,10 @@ export class ClientOrdersViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
+
+      if (this.showCheckPendingOrderFormModal) {
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      }
     } catch (error) {
       console.log(error)
     }
