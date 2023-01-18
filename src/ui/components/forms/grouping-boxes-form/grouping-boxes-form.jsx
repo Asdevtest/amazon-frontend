@@ -452,7 +452,9 @@ export const GroupingBoxesForm = observer(
     const disabledSubmitBtn =
       !basicBox ||
       (basicBox && leftToRedistribute !== 0) ||
-      JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort())
+      JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort()) ||
+      // Новое условие для блокировки кнопки
+      newBoxes.some(box => box.amount === 0)
 
     return (
       <div className={classNames.root}>

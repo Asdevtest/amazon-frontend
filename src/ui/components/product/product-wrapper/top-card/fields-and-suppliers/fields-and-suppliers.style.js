@@ -95,10 +95,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     // flexDirection: 'column',
     // height: '100%',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    gap: 30,
     // alignItems: 'flex-end'
   },
   productCheckboxBox: {
+    paddingTop: 5,
     alignItems: 'center',
     display: 'flex',
   },
@@ -179,7 +181,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.general,
 
-    height: 36,
+    height: 33,
 
     '& > disabled': {
       // color: theme.palette.text.general,
@@ -237,6 +239,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   productCheckboxBoxesWrapper: {
     display: 'flex',
+    flexDirection: 'column',
+  },
+  productCheckboxBoxWrapper: {
+    display: 'flex',
     gap: '20px',
   },
 
@@ -287,19 +293,30 @@ export const useClassNames = makeStyles()(theme => ({
 
   rightBlockWrapper: {
     display: 'flex',
-    marginLeft: '30px',
-    justifyContent: 'space-between',
+    // marginLeft: '30px',
+    // justifyContent: 'space-between',
+    gap: 15,
     width: '520px',
+  },
+  fieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
 
   fieldsSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '250px',
+    width: '100%',
+    // gap: 35,
   },
 
   shortInput: {
-    width: '120px',
+    width: '100%',
+    whiteSpace: 'nowrap',
+  },
+  shortInputClass: {
+    width: 100,
   },
 
   suppliersWrapper: {
@@ -359,15 +376,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputAsin: {
-    width: '300px',
+    width: 270,
     display: 'flex',
     alignItems: 'center',
     marginBottom: '10px',
     padding: '0 5px',
-    height: '50px',
+    height: 40,
 
-    borderRadius: '10px',
-    fontSize: '20px',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '22px',
+
+    borderRadius: '4px',
+    // fontSize: '20px',
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -473,5 +494,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+  },
+  field: {
+    borderRadius: '4px',
+  },
+  inputField: {
+    height: 40,
+    width: 225,
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '22px',
   },
 }))

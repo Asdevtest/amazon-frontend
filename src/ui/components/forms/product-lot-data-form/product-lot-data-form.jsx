@@ -67,7 +67,7 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
       setBatchInfo(result)
       setOpenBatchInfoModal()
     } catch (error) {
-      console.log(error)
+      console.log('error', error)
     }
   }
 

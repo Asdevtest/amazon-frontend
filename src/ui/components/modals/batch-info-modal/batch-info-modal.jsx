@@ -13,6 +13,7 @@ import {
   getBatchWeightCalculationMethodForBox,
 } from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {BatchesModel} from '@models/batches-model'
 import {OtherModel} from '@models/other-model'
@@ -33,7 +34,7 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import {checkIsImageLink} from '@utils/checks'
+import {checkIsClient, checkIsImageLink} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {toFixed, getFullTariffTextForBoxOrOrder} from '@utils/text'
@@ -305,10 +306,12 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
-              {t(TranslationKey['Download the batch file'])}
-              <FileDownloadIcon />
-            </Button>
+            {!checkIsClient(UserRoleCodeMap[userInfo.role]) && (
+              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+                {t(TranslationKey['Download the batch file'])}
+                <FileDownloadIcon />
+              </Button>
+            )}
 
             <Button className={classNames.actionButton} onClick={setOpenModal}>
               {t(TranslationKey.Close)}

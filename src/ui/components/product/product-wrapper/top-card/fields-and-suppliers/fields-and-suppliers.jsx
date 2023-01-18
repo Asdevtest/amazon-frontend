@@ -249,48 +249,49 @@ export const FieldsAndSuppliers = observer(
               />
             )}
 
-            <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
-
             <div className={classNames.productCheckboxBoxesWrapper}>
-              <Box className={classNames.productCheckboxBox}>
-                <Typography className={classNames.label}>{t(TranslationKey.FBA)}</Typography>
-                <MuiCheckbox
-                  disabled={
-                    !(
-                      checkIsSupervisor(curUserRole) ||
-                      checkIsResearcher(curUserRole) ||
-                      (checkIsClient(curUserRole) &&
-                        product.isCreatedByClient &&
-                        clientToEditStatuses.includes(productBase.status) &&
-                        checkIsClient(curUserRole) &&
-                        !product.archive)
-                    )
-                  }
-                  color="primary"
-                  checked={product.fba}
-                  onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
-                />
-              </Box>
+              <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
+              <div className={classNames.productCheckboxBoxWrapper}>
+                <Box className={classNames.productCheckboxBox}>
+                  <Typography className={classNames.label}>{t(TranslationKey.FBA)}</Typography>
+                  <MuiCheckbox
+                    disabled={
+                      !(
+                        checkIsSupervisor(curUserRole) ||
+                        checkIsResearcher(curUserRole) ||
+                        (checkIsClient(curUserRole) &&
+                          product.isCreatedByClient &&
+                          clientToEditStatuses.includes(productBase.status) &&
+                          checkIsClient(curUserRole) &&
+                          !product.archive)
+                      )
+                    }
+                    color="primary"
+                    checked={product.fba}
+                    onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                  />
+                </Box>
 
-              <Box className={classNames.productCheckboxBox}>
-                <Typography className={classNames.label}>{'FBM'}</Typography>
-                <MuiCheckbox
-                  disabled={
-                    !(
-                      checkIsSupervisor(curUserRole) ||
-                      checkIsResearcher(curUserRole) ||
-                      (checkIsClient(curUserRole) &&
-                        product.isCreatedByClient &&
-                        clientToEditStatuses.includes(productBase.status) &&
-                        checkIsClient(curUserRole) &&
-                        !product.archive)
-                    )
-                  }
-                  color="primary"
-                  checked={!product.fba}
-                  onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
-                />
-              </Box>
+                <Box className={classNames.productCheckboxBox}>
+                  <Typography className={classNames.label}>{'FBM'}</Typography>
+                  <MuiCheckbox
+                    disabled={
+                      !(
+                        checkIsSupervisor(curUserRole) ||
+                        checkIsResearcher(curUserRole) ||
+                        (checkIsClient(curUserRole) &&
+                          product.isCreatedByClient &&
+                          clientToEditStatuses.includes(productBase.status) &&
+                          checkIsClient(curUserRole) &&
+                          !product.archive)
+                      )
+                    }
+                    color="primary"
+                    checked={!product.fba}
+                    onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                  />
+                </Box>
+              </div>
             </div>
 
             <Box mt={3} className={classNames.strategyWrapper}>
@@ -349,6 +350,8 @@ export const FieldsAndSuppliers = observer(
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 255}}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.inputField}
                       label={t(TranslationKey.Niche)}
                       value={product.niche}
                       onChange={onChangeField('niche')}
@@ -356,6 +359,8 @@ export const FieldsAndSuppliers = observer(
                     <Field
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 255}}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.inputField}
                       label={'Asins'}
                       value={product.asins}
                       onChange={onChangeField('asins')}
@@ -366,6 +371,7 @@ export const FieldsAndSuppliers = observer(
                         disabled={disabledPrivateLabelFields}
                         inputProps={{maxLength: 10}}
                         containerClasses={classNames.shortInput}
+                        inputClasses={classNames.shortInputClass}
                         label={t(TranslationKey['Average revenue'])}
                         value={product.avgRevenue}
                         onChange={onChangeField('avgRevenue')}
@@ -373,6 +379,7 @@ export const FieldsAndSuppliers = observer(
                       <Field
                         disabled={disabledPrivateLabelFields}
                         containerClasses={classNames.shortInput}
+                        inputClasses={classNames.shortInputClass}
                         inputProps={{maxLength: 10}}
                         label={t(TranslationKey['Average BSR'])}
                         value={product.avgBSR}
@@ -386,6 +393,8 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 10}}
                       label={t(TranslationKey['Total Revenue'])}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.inputField}
                       value={product.totalRevenue}
                       onChange={onChangeField('totalRevenue')}
                     />
@@ -393,6 +402,8 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 10}}
                       label={t(TranslationKey.Coefficient)}
+                      containerClasses={classNames.field}
+                      inputClasses={classNames.inputField}
                       value={product.coefficient}
                       onChange={onChangeField('coefficient')}
                     />
@@ -402,6 +413,7 @@ export const FieldsAndSuppliers = observer(
                         disabled={disabledPrivateLabelFields}
                         inputProps={{maxLength: 10}}
                         containerClasses={classNames.shortInput}
+                        inputClasses={classNames.shortInputClass}
                         label={t(TranslationKey['Average Price'])}
                         value={product.avgPrice}
                         onChange={onChangeField('avgPrice')}
@@ -409,6 +421,7 @@ export const FieldsAndSuppliers = observer(
                       <Field
                         disabled={disabledPrivateLabelFields}
                         containerClasses={classNames.shortInput}
+                        inputClasses={classNames.shortInputClass}
                         inputProps={{maxLength: 10}}
                         label={t(TranslationKey['Average Review'])}
                         value={product.avgReviews}
@@ -419,7 +432,7 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) ? (
+            {checkIsClient(curUserRole) && product.subUsers.length ? (
               <div className={classNames.subUsersWrapper}>
                 <div className={classNames.subUsersTitleWrapper}>
                   <Typography className={classNames.subUsersTitle}>

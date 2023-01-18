@@ -45,6 +45,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '145px',
+    minWidth: 700,
   },
 
   icon: {
