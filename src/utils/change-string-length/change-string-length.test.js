@@ -1,19 +1,19 @@
 import {getShortenStringIfLongerThanCount} from './change-string-length'
 
-describe('Test getShortenStringIfLongerThanCount(str, count)', () => {
-  test('normal props', () => {
+describe('Test change-string-length.js', () => {
+  test('getShortenStringIfLongerThanCount(str, count)', () => {
     const res = getShortenStringIfLongerThanCount('qwerty', 2)
 
     expect(res).toBe('qw...')
     expect(typeof res).toBe('string')
   })
 
-  test('str short than count', () => {
-    const res = getShortenStringIfLongerThanCount('qwerty', 2)
+  // test('str short than count', () => {
+  //   const res = getShortenStringIfLongerThanCount('qwerty', 2)
 
-    expect(res).toBe('qw...')
-    expect(typeof res).toBe('string')
-  })
+  //   expect(res).toBe('qw...')
+  //   expect(typeof res).toBe('string')
+  // })
 
   // первый пример
   // test('Test 2', () => {
