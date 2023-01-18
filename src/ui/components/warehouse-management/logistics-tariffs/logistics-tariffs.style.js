@@ -19,6 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  btnsWrapper: {
+    display: 'flex',
+  },
+
   openArchiveBtn: {
     // width: 230,
     padding: '0 30px',

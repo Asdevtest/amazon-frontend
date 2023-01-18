@@ -4,7 +4,9 @@
 
 describe('Test getShortenStringIfLongerThanCount()', () => {
   // test('Test 1', () => {
-  //   expect(getShortenStringIfLongerThanCount('qwerty', 2)).toBe('qw...')
+  //   const res = getShortenStringIfLongerThanCount('qwerty', 2)
+
+  //   expect(res).toBe('qw...')
   // })
 
   test('Test 2', () => {

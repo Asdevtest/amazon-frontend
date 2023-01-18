@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
+import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
@@ -131,6 +132,10 @@ export class BuyerProductViewModel {
     return UserModel.userInfo
   }
 
+  get languageTag() {
+    return SettingsModel.languageTag
+  }
+
   constructor({history}) {
     const url = new URL(window.location.href)
 
@@ -141,6 +146,14 @@ export class BuyerProductViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.languageTag,
+      () =>
+        runInAction(() => {
+          this.product = this.product ? {...this.product} : undefined
+        }),
+    )
   }
 
   async loadData() {

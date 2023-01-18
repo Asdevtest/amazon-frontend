@@ -91,7 +91,7 @@ export const LogisticsTariffs = observer(() => {
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
-          <div>
+          <div className={classNames.btnsWrapper}>
             <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>

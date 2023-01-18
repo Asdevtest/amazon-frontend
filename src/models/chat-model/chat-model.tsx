@@ -44,7 +44,7 @@ class ChatModelStatic {
     return this.simpleChats.reduce(
       (ac, cur) =>
         (ac += cur.messages?.length
-          ? cur.messages.reduce((a, c) => (a += !c.isRead && c.userId !== this.userId ? 1 : 0), 0)
+          ? cur.messages.reduce((a, c) => (a += !c.isRead && c.user?._id !== this.userId ? 1 : 0), 0)
           : 0),
       0,
     )
