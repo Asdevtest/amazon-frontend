@@ -432,7 +432,7 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) ? (
+            {checkIsClient(curUserRole) && product.subUsers.length ? (
               <div className={classNames.subUsersWrapper}>
                 <div className={classNames.subUsersTitleWrapper}>
                   <Typography className={classNames.subUsersTitle}>
