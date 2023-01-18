@@ -18,6 +18,8 @@ export const CheckPendingOrderForm = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
+  const existingOrdersRander = Array.from(new Set(existingOrders.map(el => el.asin)))
+
   return (
     <div className={classNames.root}>
       <div className={classNames.productsWrapper}>
@@ -32,10 +34,10 @@ export const CheckPendingOrderForm = ({
               </Typography>
             }
 
-            {Array.from(new Set(existingOrders.map(el => el.asin)))?.map((item, itemIndex) => (
+            {existingOrdersRander?.map((item, itemIndex) => (
               <Typography key={itemIndex} className={classNames.text}>
                 {`${t(TranslationKey.ASIN)} ${item}${
-                  existingOrders.length > 1 && itemIndex + 1 !== existingOrders.length ? ',' : ''
+                  existingOrdersRander.length > 1 && itemIndex + 1 !== existingOrdersRander.length ? ',' : ''
                 }`}
               </Typography>
             ))}
@@ -49,13 +51,13 @@ export const CheckPendingOrderForm = ({
             }
 
             {checkPendingData.map((item, itemIndex) =>
-              item.map(order => (
+              item.map((order, orderIndex) => (
                 <Link
                   key={itemIndex}
                   className={[classNames.text, classNames.orderInfo]}
                   onClick={() => onClickPandingOrder(order?._id)}
                 >
-                  {`№${order?.id}${item.length > 1 && itemIndex + 1 !== item.length ? ',' : ''}`}
+                  {`№${order?.id}${item.length > 1 && orderIndex + 1 !== item.length ? ',' : ''}`}
                 </Link>
               )),
             )}

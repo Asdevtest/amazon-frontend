@@ -519,30 +519,34 @@ export class ClientOrdersViewModel {
 
   async onClickReorder(item) {
     try {
-      const pendingOrders = []
-      const correctIds = []
-
-      const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
-
-      if (res.length > 0) {
-        correctIds.push(item.product._id)
-        pendingOrders.push(res)
-      }
-
-      this.checkPendingData = pendingOrders
-
-      if (this.checkPendingData.length > 0) {
-        this.existingOrders = this.currentData
-          .filter(product => correctIds.includes(product.originalData.product._id))
-          .map(prod => prod.originalData.product)
-
-        this.isOrder = this.currentData
-          .filter(product => correctIds.includes(product.originalData.product._id))
-          .map(prod => prod.originalData)
-
-        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
-      } else {
+      if (this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS) {
         this.onClickContinueBtn(item)
+      } else {
+        const pendingOrders = []
+        const correctIds = []
+
+        const res = await OrderModel.checkPendingOrderByProductGuid(item.product._id)
+
+        if (res.length > 0) {
+          correctIds.push(item.product._id)
+          pendingOrders.push(res)
+        }
+
+        this.checkPendingData = pendingOrders
+
+        if (this.checkPendingData.length > 0) {
+          this.existingOrders = this.currentData
+            .filter(product => correctIds.includes(product.originalData.product._id))
+            .map(prod => prod.originalData.product)
+
+          this.isOrder = this.currentData
+            .filter(product => correctIds.includes(product.originalData.product._id))
+            .map(prod => prod.originalData)
+
+          this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+        } else {
+          this.onClickContinueBtn(item)
+        }
       }
     } catch (error) {
       console.log(error)
