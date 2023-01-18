@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     // color: '#fff',
     borderRadius: 4,
     width: 'auto',
-    height: 30,
+    // height: 30,
     margin: 0,
     textAlign: 'center',
 
