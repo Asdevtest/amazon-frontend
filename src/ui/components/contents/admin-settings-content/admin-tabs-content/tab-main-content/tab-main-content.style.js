@@ -194,7 +194,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   halfProxiesWrapper: {
     height: '230px',
-    overflow: 'hidden',
+    overflowY: 'auto',
   },
   proxySubWrapper: {
     display: 'flex',
