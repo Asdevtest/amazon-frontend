@@ -105,7 +105,12 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.fieldLabel}
               inputComponent={
                 <div className={classNames.userLinkWrapper}>
-                  <UserLinkCell blackText name={batch.storekeeper?.name} userId={batch.storekeeper?._id} />
+                  <UserLinkCell
+                    blackText
+                    name={batch.storekeeper?.name}
+                    userId={batch.storekeeper?._id}
+                    customStyles={{fontWeight: 400, fontSize: 14, lineHeight: '19px'}}
+                  />
                 </div>
               }
             />
@@ -114,7 +119,7 @@ export const BatchInfoModal = observer(
           <div className={classNames.infoWrapper}>
             <Field
               disabled
-              containerClasses={classNames.infoField}
+              inputClasses={[classNames.infoField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch title'])}
               value={batch?.title}
@@ -123,9 +128,8 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
-              // containerClasses={classNames.infoField}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.shortInput}
+              inputClasses={classNames.infoField}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={batch?.humanFriendlyId}

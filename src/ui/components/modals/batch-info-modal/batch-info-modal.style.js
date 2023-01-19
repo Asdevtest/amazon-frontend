@@ -80,6 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   shortInput: {
+    color: `red !important`,
     width: 150,
   },
 
@@ -215,6 +216,8 @@ export const useClassNames = makeStyles()(theme => ({
   storekeeperField: {
     maxWidth: '270px',
     margin: '0',
+    display: 'flex !important',
+    justifyContent: 'flex-end !important',
   },
   userLinkWrapper: {
     marginLeft: '20px',
@@ -294,6 +297,9 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 20,
   },
   fieldLabel: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '16px',
@@ -302,6 +308,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   subFieldLabel: {
+    color: theme.palette.text.second,
+
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
     whiteSpace: 'nowrap',
 
     [theme.breakpoints.down(768)]: {
@@ -309,6 +321,14 @@ export const useClassNames = makeStyles()(theme => ({
       lineHeight: '19px',
       color: '#656565',
     },
+  },
+  infoField: {
+    width: 186,
+    // height: 40,
+
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
   },
   filesSubWrapper: {
     [theme.breakpoints.down(768)]: {

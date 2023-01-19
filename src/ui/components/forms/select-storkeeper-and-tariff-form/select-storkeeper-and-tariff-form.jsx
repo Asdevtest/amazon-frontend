@@ -37,7 +37,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const SelectStorekeeperAndTariffForm = observer(
-  ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications}) => {
+  ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total}) => {
     const {classes: classNames} = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
@@ -125,9 +125,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
                   : []
               }
-              columns={
-                curStorekeeperId && curTariffId ? logisticsTariffsColumns({onClickSelectTariff}) : TotalTariffsColumns()
-              }
+              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({onClickSelectTariff})}
               getRowHeight={() => 'auto'}
             />
           </div>
