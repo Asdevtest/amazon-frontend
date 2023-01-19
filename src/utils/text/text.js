@@ -1,12 +1,8 @@
 import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
-import * as Showdown from 'showdown'
-import * as xssFilter from 'showdown-xss-filter'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-// import {TranslationKey} from '../../constants/translations/translation-key'
-// import {zipCodeGroups} from '../../constants/zip-code-groups'
 import {checkIsAbsoluteUrl} from '../checks'
 import {getDistanceBetweenDatesInSeconds} from '../date-time'
 import {t} from '../translations'
@@ -52,16 +48,6 @@ export const shortenDocumentString = value => {
   const strPdf = value.slice(-4, value.length)
   return `${strAfterPdf}...${strPdf}`
 }
-
-const converter = new Showdown.Converter({
-  tables: true,
-  simplifiedAutoLink: true,
-  strikethrough: true,
-  tasklists: true,
-  extensions: [xssFilter],
-})
-
-export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 
 export const minsToTime = mins =>
   `${mins / 60 >= 1 ? Math.floor(mins / 60) + t(TranslationKey.hour) : ''}  ${

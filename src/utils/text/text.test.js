@@ -1,7 +1,9 @@
 import {getModelNameWithotPostfix} from './text'
 
-describe('Text test', () => {
-  test('Valid value', () => {
-    expect(getModelNameWithotPostfix('Static test').toBe('test'))
+describe('Test getModelNameWithotPostfix(modelName)', () => {
+  test('Valid props', () => {
+    const res = getModelNameWithotPostfix('Static test')
+
+    expect(res).toBe(' test')
   })
 })
