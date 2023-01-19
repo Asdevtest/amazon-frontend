@@ -6,6 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   listItemText: {
     marginRight: '12px',
+    fontSize: 13,
   },
   selected: {
     color: `${theme.palette.primary.main} !important`,
@@ -45,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     width: '100%',
 
-    height: '50px',
+    height: 46,
     padding: 0,
     display: 'flex',
     backgroundColor: 'inherit',

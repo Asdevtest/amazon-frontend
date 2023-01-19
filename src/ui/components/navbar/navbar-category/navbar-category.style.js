@@ -1,8 +1,8 @@
 export const styles = theme => ({
   root: {
     // position: 'relative',
-    height: '50px',
-    fontSize: '13px',
+    height: 46,
+    fontSize: 13,
     lineHeight: '15px',
     fontWeight: 500,
     color: theme.palette.text.general,
