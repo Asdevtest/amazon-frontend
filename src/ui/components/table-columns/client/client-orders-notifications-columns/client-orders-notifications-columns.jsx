@@ -162,15 +162,6 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'trackNumber',
-    headerName: t(TranslationKey['Track number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
-    width: 100,
-  },
-
-  {
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment to order']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
