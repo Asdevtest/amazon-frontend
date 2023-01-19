@@ -28,6 +28,21 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  menuItemWrapper: {
+    width: 300,
+  },
+
+  shopOption: {
+    width: '100%',
+  },
+
+  shopName: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
   input: {
     height: '32px',
     borderRadius: '4px',
