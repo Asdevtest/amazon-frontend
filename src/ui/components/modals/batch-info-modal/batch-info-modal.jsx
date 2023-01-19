@@ -19,7 +19,7 @@ import {BatchesModel} from '@models/batches-model'
 import {OtherModel} from '@models/other-model'
 
 import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel, PhotoAndFilesCarouselMini} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Field} from '@components/field/field'
@@ -119,7 +119,8 @@ export const BatchInfoModal = observer(
           <div className={classNames.infoWrapper}>
             <Field
               disabled
-              inputClasses={[classNames.infoField]}
+              containerClasses={classNames.sumField}
+              inputClasses={[classNames.infoField, classNames.batchTitleField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch title'])}
               value={batch?.title}
@@ -128,8 +129,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.infoField}
+              inputClasses={[classNames.infoField, classNames.batchNumberField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={batch?.humanFriendlyId}
@@ -138,8 +140,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.tariffInput}
+              inputClasses={[classNames.infoField, classNames.tariffField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
               value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
@@ -148,8 +151,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.shortInput}
+              inputClasses={[classNames.infoField, classNames.disabledField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={batch.boxes?.[0].destination?.name}
@@ -158,18 +162,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.shortInput}
-              labelClasses={classNames.subFieldLabel}
-              label={t(TranslationKey['Gross weight'])}
-              value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
-              placeholder={'0'}
-            />
-
-            <Field
-              disabled
-              containerClasses={classNames.sumField}
-              inputClasses={classNames.shortInput}
+              inputClasses={[classNames.infoField, classNames.batchNumberField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
@@ -184,8 +179,20 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.shortInput}
+              inputClasses={[classNames.infoField, classNames.batchNumberField]}
+              labelClasses={classNames.subFieldLabel}
+              label={t(TranslationKey['Gross weight'])}
+              value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
+              placeholder={'0'}
+            />
+
+            <Field
+              disabled
+              classes={{disabled: classNames.disabled}}
+              containerClasses={classNames.sumField}
+              inputClasses={[classNames.infoField, classNames.batchNumberField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Final weight'])}
               value={toFixed(batch.finalWeight, 4)}
@@ -194,8 +201,9 @@ export const BatchInfoModal = observer(
 
             <Field
               disabled
+              classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={classNames.methodInput}
+              inputClasses={[classNames.infoField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Method of batch weight calculation'])}
               value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
@@ -206,7 +214,9 @@ export const BatchInfoModal = observer(
             <div className={classNames.datesWrapper}>
               <Field
                 disabled
+                classes={{disabled: classNames.disabled}}
                 containerClasses={classNames.sumField}
+                inputClasses={[classNames.infoField, classNames.batchTitleField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['CLS (batch closing date)'])}
                 value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.cls)}
@@ -215,7 +225,9 @@ export const BatchInfoModal = observer(
 
               <Field
                 disabled
+                classes={{disabled: classNames.disabled}}
                 containerClasses={classNames.sumField}
+                inputClasses={[classNames.infoField, classNames.batchTitleField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['ETD (date of shipment)'])}
                 value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.etd)}
@@ -224,7 +236,9 @@ export const BatchInfoModal = observer(
 
               <Field
                 disabled
+                classes={{disabled: classNames.disabled}}
                 containerClasses={classNames.sumField}
+                inputClasses={[classNames.infoField, classNames.batchTitleField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['ETA (arrival date)'])}
                 value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.eta)}
@@ -233,8 +247,9 @@ export const BatchInfoModal = observer(
 
               <Field
                 disabled
+                classes={{disabled: classNames.disabled}}
                 containerClasses={classNames.sumField}
-                inputClasses={classNames.shortInput}
+                inputClasses={[classNames.infoField, classNames.batchNumberField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
@@ -246,8 +261,9 @@ export const BatchInfoModal = observer(
 
               <Field
                 disabled
+                classes={{disabled: classNames.disabled}}
                 containerClasses={classNames.sumField}
-                inputClasses={classNames.shortInput}
+                inputClasses={[classNames.infoField, classNames.batchNumberField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey.Divider)}
                 value={batch.volumeWeightDivide}
@@ -266,13 +282,17 @@ export const BatchInfoModal = observer(
             {/* <div style={{flexGrow: 1}}> */}
             <MemoDataGrid
               // hideFooter
-              autoHeight
+              // autoHeight
               localeText={getLocalizationByLanguageTag()}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
                 // virtualScroller: classNames.virtualScroller,
+              }}
+              sx={{
+                border: `1px solid  #EBEBEB !important`,
+                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
@@ -300,26 +320,27 @@ export const BatchInfoModal = observer(
             {/* </div> */}
           </div>
 
-          <div className={classNames.filesSubWrapper}>
-            <PhotoAndFilesCarousel
-              small
-              direction={window.innerWidth < 768 ? 'column' : 'row'}
-              files={batch.attachedDocuments}
-              width="400px"
-            />
-          </div>
+          <div className={classNames.filesAndButtonWrapper}>
+            <div className={classNames.filesSubWrapper}>
+              <PhotoAndFilesCarouselMini
+                small
+                direction={window.innerWidth < 768 ? 'column' : 'row'}
+                files={batch.attachedDocuments}
+                width="400px"
+              />
+            </div>
+            <div className={classNames.buttonsWrapper}>
+              {!checkIsClient(UserRoleCodeMap[userInfo?.role]) && (
+                <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+                  {t(TranslationKey['Download the batch file'])}
+                  <FileDownloadIcon />
+                </Button>
+              )}
 
-          <div className={classNames.buttonsWrapper}>
-            {!checkIsClient(UserRoleCodeMap[userInfo?.role]) && (
-              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
-                {t(TranslationKey['Download the batch file'])}
-                <FileDownloadIcon />
+              <Button className={classNames.actionButton} onClick={setOpenModal}>
+                {t(TranslationKey.Close)}
               </Button>
-            )}
-
-            <Button className={classNames.actionButton} onClick={setOpenModal}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </div>
           </div>
 
           <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>

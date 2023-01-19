@@ -106,6 +106,13 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '20px 0 20px 0',
   },
 
+  imagesAndFilesWrapperMini: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
+
   imagesAndFilesWrapperColumn: {
     width: '100%',
     display: 'flex',
@@ -173,7 +180,23 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '24px 0 24px 0',
   },
 
+  emptyProposalsIconWrapperMini: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   emptyProposalsIcon: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  emptyProposalsIconMini: {
     backgroundColor: '#e0e0e0',
     borderRadius: '50%',
     display: 'flex',
@@ -191,6 +214,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     color: theme.palette.text.general,
     marginBottom: '10px',
+  },
+
+  emptyProposalsTitleMini: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
   },
 
   emptyProposalsDescription: {
@@ -226,6 +256,14 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  emptyIconMini: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   image: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     minWidth: 60,
@@ -252,6 +290,13 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  emptyWrapperMini: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
   },
 
   numberOfFilesFlex: {
