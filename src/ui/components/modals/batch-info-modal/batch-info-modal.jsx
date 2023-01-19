@@ -306,7 +306,7 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.buttonsWrapper}>
-            {!checkIsClient(UserRoleCodeMap[userInfo.role]) && (
+            {!checkIsClient(UserRoleCodeMap[userInfo?.role]) && (
               <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
                 <FileDownloadIcon />

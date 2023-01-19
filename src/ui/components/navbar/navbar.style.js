@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
     // bottom: '20px',
 
     width: '100%',
-    height: 50,
+    height: 46,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -137,7 +137,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   feedBackText: {
-    fontSize: '14px',
+    fontSize: 13,
     lineHeight: '140%',
     color: theme.palette.text.general,
   },

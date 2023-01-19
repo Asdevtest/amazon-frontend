@@ -91,6 +91,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
                 <MemoDataGrid
                   pagination
                   useResizeContainer
+                  disableVirtualization
                   localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,

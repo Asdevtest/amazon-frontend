@@ -326,6 +326,7 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 600,
     overflow: 'auto',
     width: '100%',
+    borderBottom: '1px solid white',
   },
 
   virtualScroller: {
