@@ -106,7 +106,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={'auto'}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                   }}

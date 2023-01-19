@@ -5,7 +5,7 @@ import React from 'react'
 
 import {useHistory} from 'react-router-dom'
 
-import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/navbar-svg-icons'
+import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 

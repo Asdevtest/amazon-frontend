@@ -929,7 +929,7 @@ export const EditOrderModal = observer(
         </Modal>
 
         <Modal
-          missClickModalOn
+          missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
           setOpenModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
         >

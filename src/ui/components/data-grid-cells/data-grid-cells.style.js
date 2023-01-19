@@ -720,8 +720,8 @@ export const styles = theme => ({
     // overflow: 'hidden',
 
     // display: '-webkit-box',
-    // '-webkitLineClamp': 3,
-    // '-webkitBoxOrient': 'vertical',
+    // WebkitLineClamp: 3,
+    // WebkitBoxOrient: 'vertical',
   },
 
   threeMultilineText: {
@@ -732,8 +732,8 @@ export const styles = theme => ({
     overflow: 'hidden',
 
     display: '-webkit-box',
-    '-webkitLineClamp': 3,
-    '-webkitBoxOrient': 'vertical',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
   },
 
   boxesAndQuantityText: {
@@ -817,8 +817,8 @@ export const styles = theme => ({
     // overflow: 'hidden',
 
     // display: '-webkit-box',
-    // '-webkitLineClamp': 4,
-    // '-webkitBoxOrient': 'vertical',
+    // WebkitLineClamp: 4,
+    // WebkitBoxOrient: 'vertical',
   },
 
   commentOfSbWrapper: {
@@ -867,8 +867,8 @@ export const styles = theme => ({
     // overflow: 'hidden',
 
     // display: '-webkit-box',
-    // '-webkitLineClamp': 3,
-    // '-webkitBoxOrient': 'vertical',
+    // WebkitLineClamp: 3,
+    // WebkitBoxOrient: 'vertical',
   },
 
   multilineTextAlignLeftSub: {

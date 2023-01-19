@@ -28,10 +28,10 @@ import {useHistory} from 'react-router-dom'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
-import {ClockIcon} from '@constants/navbar-svg-icons'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
+import {ClockIcon} from '@constants/svg-icons'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -504,9 +504,23 @@ export const ChangeChipCell = React.memo(
           className={cx(classNames.chipStock, {[classNames.barcodeChipNoExists]: !value})}
           size="small"
           label={value ? trimBarcode(value) : text}
-          onClick={() => onClickChip(row)}
-          onDoubleClick={() => onDoubleClickChip(row)}
-          onDelete={!value ? undefined : () => onDeleteChip(row)}
+          onClick={e => {
+            e.stopPropagation()
+
+            onClickChip(row)
+          }}
+          onDoubleClick={e => {
+            e.stopPropagation()
+            onDoubleClickChip(row)
+          }}
+          onDelete={
+            !value
+              ? undefined
+              : e => {
+                  e.stopPropagation()
+                  onDeleteChip(row)
+                }
+          }
         />
       </>
     ),

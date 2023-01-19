@@ -25,7 +25,7 @@ import {
   TasksIcon,
   TradingShops,
   UsersPermissionsIcon,
-} from './navbar-svg-icons'
+} from './svg-icons'
 import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
 

@@ -11,9 +11,9 @@ import React, {useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {BigPlus} from '@constants/navbar-svg-icons'
 import {operationTypes} from '@constants/operation-types'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {BigPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 

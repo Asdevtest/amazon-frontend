@@ -47,8 +47,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   productTitle: {
     display: '-webkit-box',
-    '-webkitLineClamp': 2,
-    '-webkitBoxOrient': 'vertical',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
     padding: '0 20px',
     fontWeight: '400',
     lineHeight: '19px',
