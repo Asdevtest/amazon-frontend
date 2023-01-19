@@ -359,7 +359,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
                     className={classNames.documentWrapper}
                     onClick={() => file.data_url && openPdfFile(file.data_url)}
                   >
-                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                    <InsertDriveFileIcon color="primary" style={{width: '60px', height: '60px'}} />
                     <Typography className={classNames.documentTitle}>
                       {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                     </Typography>
@@ -367,7 +367,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
                   </div>
                 ) : (
                   <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
-                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                    <InsertDriveFileIcon color="primary" style={{width: '60px', height: '60px'}} />
                     <Typography className={classNames.documentTitle}>
                       {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                     </Typography>
