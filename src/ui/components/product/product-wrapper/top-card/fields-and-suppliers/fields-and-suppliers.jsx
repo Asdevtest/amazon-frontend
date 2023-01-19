@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ClearIcon from '@mui/icons-material/Clear'
-import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@mui/material'
+import {Box, Grid, Typography, Link, Select, MenuItem, Checkbox, ListItemText, Tooltip} from '@mui/material'
 import MuiCheckbox from '@mui/material/Checkbox'
 
 import React, {useEffect, useState} from 'react'
@@ -494,15 +494,18 @@ export const FieldsAndSuppliers = observer(
                     // onClick={() => setClearSelect(false)}
                   >
                     {shops.map((shop, index) => (
-                      <MenuItem
-                        key={index}
-                        disabled={currentShops.includes(shop)}
-                        value={shop}
-                        className={classNames.strategyOption}
-                      >
-                        <Checkbox color="primary" checked={currentShops.includes(shop)} />
-                        <ListItemText primary={shop.name} />
-                      </MenuItem>
+                      <div key={index} className={classNames.menuItemWrapper}>
+                        <Tooltip title={shop.name}>
+                          <MenuItem
+                            disabled={currentShops.includes(shop)}
+                            value={shop}
+                            className={classNames.shopOption}
+                          >
+                            <Checkbox color="primary" checked={currentShops.includes(shop)} />
+                            <ListItemText primary={shop.name} className={classNames.shopName} />
+                          </MenuItem>
+                        </Tooltip>
+                      </div>
                     ))}
                   </Select>
                   <Button disabled={!shops.length} onClick={onChangeShopNamesField}>

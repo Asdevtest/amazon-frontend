@@ -57,7 +57,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deliveredGoodsMiddleText: {
-    color: theme.palette.text.disabled,
+    // color: theme.palette.text.disabled,
+    color: theme.palette.text.general,
   },
 
   deliveredGoodsRightText: {

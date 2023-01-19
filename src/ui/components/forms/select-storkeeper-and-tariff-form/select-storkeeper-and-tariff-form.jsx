@@ -22,6 +22,7 @@ import {t} from '@utils/translations'
 
 import {logisticsTariffsColumns, warehouseTariffsColumns} from './select-storkeeper-and-tariff-form-columns'
 import {useClassNames} from './select-storkeeper-and-tariff-form.style'
+import {TotalTariffsColumns} from './total-storkeeper-and-tariff-form-columns'
 
 const TabPanel = ({children, value, index, ...other}) => (
   <div
@@ -124,7 +125,9 @@ export const SelectStorekeeperAndTariffForm = observer(
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
                   : []
               }
-              columns={logisticsTariffsColumns({onClickSelectTariff})}
+              columns={
+                curStorekeeperId && curTariffId ? logisticsTariffsColumns({onClickSelectTariff}) : TotalTariffsColumns()
+              }
               getRowHeight={() => 'auto'}
             />
           </div>

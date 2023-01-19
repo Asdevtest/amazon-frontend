@@ -1267,7 +1267,9 @@ export const styles = theme => ({
 
   notificationBtnsWrapper: {
     display: 'flex',
-    gap: '30px',
+    width: '100%',
+    justifyContent: 'space-between',
+    // gap: '30px',
   },
 
   notificationBtn: {

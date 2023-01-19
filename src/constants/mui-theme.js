@@ -59,7 +59,7 @@ export const lightTheme = createTheme({
         root: {
           backgroundColor: '#fff',
           border: '0 !important',
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           color: '#001029',
         },
       },
@@ -252,7 +252,8 @@ export const darkTheme = createTheme({
         root: {
           backgroundColor: '#2B2B34',
           border: '0 !important',
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
+          boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6) !important', // Новый вид
           color: '#fff',
         },
 

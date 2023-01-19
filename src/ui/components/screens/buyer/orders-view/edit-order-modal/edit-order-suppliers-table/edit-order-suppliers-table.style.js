@@ -150,7 +150,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameCell: {
     minWidth: '164px',
+    maxHeight: '100px',
     textAlign: 'center',
+    overflowY: 'auto',
   },
 
   priceCell: {
@@ -173,6 +175,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   linkWrapper: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '209px',
   },

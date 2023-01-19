@@ -148,7 +148,7 @@ export const EditTaskModal = observer(
                   minRows={currentScreenWidth < 768 ? 2 : 4}
                   maxRows={currentScreenWidth < 768 ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
-                  placeholder={t(TranslationKey['Buyer comments to the order'])}
+                  placeholder={t(TranslationKey['Buyer comments to the task'])}
                   value={task.buyerComment || ''}
                 />
               </div>
