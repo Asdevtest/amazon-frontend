@@ -592,6 +592,7 @@ export class ClientInStockBoxesViewRaw extends Component {
         <Modal openModal={showSelectionStorekeeperAndTariffModal} setOpenModal={openModalAndClear}>
           <SelectStorekeeperAndTariffForm
             inNotifications={!changeItem}
+            total={!changeItem}
             storekeepers={
               changeItem ? storekeepersData.filter(el => el._id === changeItem?.storekeeper._id) : storekeepersData
             }
