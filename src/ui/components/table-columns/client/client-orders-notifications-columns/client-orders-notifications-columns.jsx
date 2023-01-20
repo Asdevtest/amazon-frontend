@@ -5,7 +5,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
-  NormDateCell,
   OrderCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
@@ -13,6 +12,7 @@ import {
   MultilineTextAlignLeftCell,
   IconHeaderCell,
   PriorityAndChinaDeliverCell,
+  ShortDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -24,8 +24,8 @@ export const clientOrdersNotificationsViewColumns = handlers => [
 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     headerName: t(TranslationKey.Created),
-    width: 98,
-    renderCell: params => <NormDateCell params={params} />,
+    width: 90,
+    renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
   },
 
@@ -85,6 +85,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     width: 230,
     renderCell: params => (
       <MultilineTextCell
+        leftAlign
         text={params.value}
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
