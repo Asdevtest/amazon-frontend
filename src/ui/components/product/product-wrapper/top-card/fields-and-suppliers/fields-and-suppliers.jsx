@@ -52,38 +52,10 @@ export const FieldsAndSuppliers = observer(
 
     const [edit, setEdit] = useState(true)
 
-    const [clearSelect, setClearSelect] = useState(true)
-    const [selectedItem, setSelectedItem] = useState(null)
+    const onChangeShop = e => {
+      console.log('e', e)
 
-    const shopsNames = checkIsClient(curUserRole) && shops.map(shop => shop.name)
-    const currentShop = checkIsClient(curUserRole) && shops.filter(shop => product.shopIds.includes(shop._id))
-
-    const [currentShops, setCurrentShops] = useState([])
-    const [currentShopsIds, setCurrentShopsIds] = useState([])
-
-    useEffect(() => {
-      setCurrentShops(currentShop)
-      setCurrentShopsIds(product.shopIds)
-    }, [shops])
-
-    useEffect(() => {
-      checkIsClient(curUserRole) && onChangeField('shopIds')({target: {value: [...currentShopsIds]}})
-    }, [currentShopsIds])
-
-    useEffect(() => {
-      !selectedItem && shops?.length ? setClearSelect(true) : setClearSelect(false)
-    }, [selectedItem, shops])
-
-    const onChangeShopNamesField = () => {
-      setClearSelect(true)
-      selectedItem && setCurrentShops(prev => [...new Set([...prev, selectedItem])])
-      selectedItem && setCurrentShopsIds(prev => [...new Set([...prev, selectedItem._id])])
-    }
-
-    const onRemoveShop = (name, id) => {
-      setSelectedItem(null)
-      setCurrentShops(currentShops.filter(shop => shop.name !== name))
-      currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
+      onChangeField('shopIds')({target: {value: e.target.value ? [e.target.value] : []}})
     }
 
     const disabledPrivateLabelFields = !(
@@ -479,52 +451,38 @@ export const FieldsAndSuppliers = observer(
               inputComponent={
                 <div className={classNames.shopsFieldWrapper}>
                   <Select
-                    disabled={!shops.length}
-                    value={shops?.length ? shopsNames : '' /* t(TranslationKey['No stores'])*/}
-                    renderValue={() =>
-                      clearSelect
-                        ? t(TranslationKey['Select a store'])
-                        : !shopsNames.length
-                        ? t(TranslationKey['No stores'])
-                        : selectedItem?.name
+                    displayEmpty
+                    disabled={
+                      !(
+                        shops.length ||
+                        (checkIsClient(curUserRole) &&
+                          product.isCreatedByClient &&
+                          clientToEditStatuses.includes(productBase.status) &&
+                          checkIsClient(curUserRole) &&
+                          !product.archive)
+                      )
                     }
+                    value={product.shopIds[0] || null}
                     input={<Input className={classNames.nativeSelect} />}
                     className={classNames.nativeSelect}
-                    onChange={e => setSelectedItem(e.target.value)}
-                    // onClick={() => setClearSelect(false)}
+                    onChange={onChangeShop}
                   >
+                    <MenuItem value={null} className={classNames.strategyOption}>
+                      <em>{t(TranslationKey['not selected'])}</em>
+                    </MenuItem>
                     {shops.map((shop, index) => (
-                      <div key={index} className={classNames.menuItemWrapper}>
+                      <MenuItem key={index} value={shop._id} className={classNames.shopOption}>
                         <Tooltip title={shop.name}>
-                          <MenuItem
-                            disabled={currentShops.includes(shop)}
-                            value={shop}
-                            className={classNames.shopOption}
-                          >
-                            <Checkbox color="primary" checked={currentShops.includes(shop)} />
+                          <div className={classNames.menuItemWrapper}>
                             <ListItemText primary={shop.name} className={classNames.shopName} />
-                          </MenuItem>
+                          </div>
                         </Tooltip>
-                      </div>
+                      </MenuItem>
                     ))}
                   </Select>
-                  <Button disabled={!shops.length} onClick={onChangeShopNamesField}>
-                    {t(TranslationKey.Add)}
-                  </Button>
                 </div>
               }
             />
-            <div className={classNames.selectedShopsWrapper}>
-              {currentShops.map((shop, index) => (
-                <div key={index} className={classNames.selectedShop}>
-                  <Typography className={classNames.selectedShopText}>{shop.name}</Typography>
-                  <ClearIcon
-                    className={classNames.removeShopButton}
-                    onClick={() => onRemoveShop(shop.name, shop._id)}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
         ) : null}
       </Grid>

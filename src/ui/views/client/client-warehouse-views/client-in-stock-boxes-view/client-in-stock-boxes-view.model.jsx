@@ -441,18 +441,18 @@ export class ClientInStockBoxesViewModel {
   onClickShippingLabel(item) {
     this.setSelectedBox(item)
 
-    if (!item.fbaShipment) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-        }
-      })
+    // if (!item.fbaShipment) {
+    //   runInAction(() => {
+    //     this.warningInfoModalSettings = {
+    //       isWarning: true,
+    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+    //     }
+    //   })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+    //   this.onTriggerOpenModal('showWarningInfoModal')
 
-      this.onTriggerOpenModal('showSetChipValueModal')
-    }
+    //   this.onTriggerOpenModal('showSetChipValueModal')
+    // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
@@ -460,18 +460,18 @@ export class ClientInStockBoxesViewModel {
   onDoubleClickShippingLabel = item => {
     this.setSelectedBox(item)
 
-    if (!item.fbaShipment) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-        }
-      })
+    // if (!item.fbaShipment) {
+    //   runInAction(() => {
+    //     this.warningInfoModalSettings = {
+    //       isWarning: true,
+    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+    //     }
+    //   })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+    //   this.onTriggerOpenModal('showWarningInfoModal')
 
-      this.onTriggerOpenModal('showSetChipValueModal')
-    }
+    //   this.onTriggerOpenModal('showSetChipValueModal')
+    // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
@@ -509,6 +509,29 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
+  checkAndOpenFbaShipmentEdit() {
+    console.log('this.selectedBox', this.selectedBox)
+
+    console.log('this.destinations', this.destinations)
+
+    const dest = this.destinations.find(el => el._id === this.selectedBox.destination?._id)
+    console.log('dest', dest)
+
+    if (
+      !this.selectedBox.fbaShipment &&
+      !this.destinations.find(el => el._id === this.selectedBox.destination?._id)?.storekeeper
+    ) {
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+        }
+      })
+      this.onTriggerOpenModal('showWarningInfoModal')
+      this.onTriggerOpenModal('showSetChipValueModal')
+    }
+  }
+
   async onClickSaveShippingLabel(tmpShippingLabel) {
     runInAction(() => {
       this.uploadedFiles = []
@@ -520,6 +543,9 @@ export class ClientInStockBoxesViewModel {
 
     if (this.selectedBox.shippingLabel === null) {
       await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {shippingLabel: this.uploadedFiles[0]})
+
+      this.checkAndOpenFbaShipmentEdit()
+
       this.loadData()
     } else {
       runInAction(() => {
@@ -533,6 +559,8 @@ export class ClientInStockBoxesViewModel {
       })
 
       this.onTriggerOpenModal('showConfirmModal')
+
+      this.checkAndOpenFbaShipmentEdit()
     }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
@@ -677,9 +705,9 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showSetChipValueModal')
       this.loadData()
 
-      // runInAction(() => {
-      //   this.selectedBox = undefined
-      // })
+      runInAction(() => {
+        this.selectedBox = {...this.selectedBox, fbaShipment}
+      })
     } catch (err) {
       console.log(err)
     }
