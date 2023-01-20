@@ -192,12 +192,12 @@ export class ResearcherProductsViewModel {
   }
 
   async onClickCheckBtn() {
-    runInAction(() => {
-      if (!this.formFields.productCode) {
+    if (!this.formFields.productCode) {
+      runInAction(() => {
         this.error = 'Product code field is required for this action'
-        return
-      }
-    })
+      })
+      return
+    }
 
     const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
 
