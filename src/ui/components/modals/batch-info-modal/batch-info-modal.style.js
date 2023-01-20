@@ -6,10 +6,11 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
   },
   form: {
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
+    // marginTop: theme.spacing(2.5),
+    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
+    height: 708,
     [theme.breakpoints.down(768)]: {
       width: '280px',
       overflow: 'hidden',
@@ -77,6 +78,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   sumField: {
     width: 'min-content',
+    marginBottom: '10px !important',
   },
 
   shortInput: {
@@ -136,6 +138,7 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'end',
+    alignItems: 'center',
     gap: 40,
   },
 
@@ -205,7 +208,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     // alignItems: 'center',
-    marginBottom: '20px',
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'start',
@@ -277,8 +279,8 @@ export const useClassNames = makeStyles()(theme => ({
   searchInput: {
     border: '1px solid #007bff',
     width: '300px',
-    height: 36,
-    marginBottom: 20,
+    height: 40,
+    marginBottom: 10,
     [theme.breakpoints.down(768)]: {
       border: '1px solid #007bff',
       width: '280px',
@@ -323,14 +325,14 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   infoField: {
-    width: 186,
-    // height: 40,
+    height: 40,
 
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
   },
   filesSubWrapper: {
+    height: '100%',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       minWidth: '280px',
@@ -343,7 +345,7 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '600px',
     // minHeight: 400,
     // maxHeight: 600,
-    maxHeight: 600,
+    height: 502,
     overflow: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
@@ -358,5 +360,26 @@ export const useClassNames = makeStyles()(theme => ({
   },
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
+  },
+  disabled: {
+    '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
+  },
+  batchTitleField: {
+    width: 186,
+  },
+  batchNumberField: {
+    width: 100,
+  },
+  tariffField: {
+    width: 190,
+  },
+  disabledField: {
+    width: 135,
+  },
+  filesAndButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    marginTop: 20,
   },
 }))

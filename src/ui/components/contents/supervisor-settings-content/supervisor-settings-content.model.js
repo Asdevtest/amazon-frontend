@@ -7,6 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {supervisorSettingsViewColumns} from '@components/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
@@ -40,6 +41,10 @@ export class SupervisorSettingsContentModel {
     isWarning: false,
     message: '',
     onClickSuccess: () => {},
+  }
+
+  get user() {
+    return UserModel.userInfo
   }
 
   rowHandlers = {

@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import {IconButton, Typography} from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -27,28 +28,29 @@ export const TabMainContent = ({
   disabledSubmitProxy,
   setProxyArr,
   proxyArr,
+  onClickAddProxyBtn,
 }) => {
   const {classes: classNames} = useClassNames()
-  const [proxy, setProxy] = useState('')
-  const [error, setError] = useState(false)
+  // const [proxy, setProxy] = useState('')
+  // const [error, setError] = useState(false)
   const [showFullCard, setShowFullCard] = useState(false)
 
-  const regExp =
-    /\b[a-zA-Z0-9]+:[a-zA-Z0-9]+@(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b/
+  // const regExp =
+  //   /\b[a-zA-Z0-9]+:[a-zA-Z0-9]+@(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b/
 
-  const onClickAddProxy = () => {
-    setProxyArr(prev => [...new Set([...prev, proxy])])
+  // const onClickAddProxy = () => {
+  //   setProxyArr(prev => [...new Set([...prev, proxy])])
 
-    setProxy('')
-  }
+  //   setProxy('')
+  // }
 
-  useEffect(() => {
-    if (proxy?.length && !proxy.match(regExp)) {
-      setError(true)
-    } else {
-      setError(false)
-    }
-  }, [proxy])
+  // useEffect(() => {
+  //   if (proxy?.length && !proxy.match(regExp)) {
+  //     setError(true)
+  //   } else {
+  //     setError(false)
+  //   }
+  // }, [proxy])
 
   const onClickDeleteProxy = proxy => {
     const removeProxy = proxyArr.filter(p => p !== proxy)
@@ -93,7 +95,7 @@ export const TabMainContent = ({
           {t(TranslationKey['Proxy servers for parsing'])}
         </Typography>
         <div className={classNames.proxyField}>
-          <Field
+          {/* <Field
             disabled={disabled}
             error={error && t(TranslationKey['Invalid proxy'])}
             // label={t(TranslationKey['Proxy servers for parsing'])}
@@ -101,13 +103,13 @@ export const TabMainContent = ({
             classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
             value={proxy}
             onChange={e => setProxy(e.target.value)}
-          />
+          /> */}
           <Button
-            disabled={disabledAddButton || !proxy || error}
+            disabled={disabledAddButton /* || error */}
             className={classNames.addProxyButton}
-            onClick={onClickAddProxy}
+            onClick={onClickAddProxyBtn}
           >
-            {t(TranslationKey.Add)}
+            {t(TranslationKey['Add proxy'])}
           </Button>
         </div>
         <div

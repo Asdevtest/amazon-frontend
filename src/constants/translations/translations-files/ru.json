@@ -1721,5 +1721,9 @@
   "Unlink an product from Amazon": "Отвязать товар с Amazon",
   "Unlink success": "Успешная отвязка",
   "Buyer comments to the task": "Комментарий к задаче от байера",
-  "Before you fill out the Shipping label, you need to fill out the FBA Shipment": "Перед заполнением Shipping label нужно заполнить FBA Shipment"
+  "Before you fill out the Shipping label, you need to fill out the FBA Shipment": "Перед заполнением Shipping label нужно заполнить FBA Shipment",
+  "Add proxy": "Добавить прокси",
+  "Add a list of proxy": "Добавьте список прокси",
+  "Search by Proxy": "Поиск по Прокси",
+  "Proxy": "Прокси"
 }

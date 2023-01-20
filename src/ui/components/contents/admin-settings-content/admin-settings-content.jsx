@@ -12,6 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
+import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -54,20 +55,28 @@ export const AdminSettingsContent = observer(() => {
   }, [])
 
   const {
+    user,
     adminSettings,
     serverProxy,
     infoModalText,
     showInfoModal,
-    createAdminSettings,
-    onTriggerOpenModal,
     sortModel,
     filterModel,
     curPage,
     rowsPerPage,
-    getCurrentData,
     densityModel,
     columnsModel,
     requestStatus,
+    showAsinCheckerModal,
+    showAddOrEditDestinationModal,
+    destinationToEdit,
+    confirmModalSettings,
+    showConfirmModal,
+    onSubmitCreateDestination,
+    onSubmitEditDestination,
+    createAdminSettings,
+    onTriggerOpenModal,
+    getCurrentData,
     onClickAddBtn,
     onChangeSortingModel,
     onChangeRowsPerPage,
@@ -75,12 +84,6 @@ export const AdminSettingsContent = observer(() => {
     onChangeCurPage,
     createProxy,
     setDataGridState,
-    showAddOrEditDestinationModal,
-    destinationToEdit,
-    onSubmitCreateDestination,
-    onSubmitEditDestination,
-    confirmModalSettings,
-    showConfirmModal,
     onClickCancelBtn,
     onCloseInfoModal,
   } = asModel.current
@@ -245,6 +248,7 @@ export const AdminSettingsContent = observer(() => {
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
                 onSubmitProxy={onSubmitProxy}
+                onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
               />
             </div>
           </Box>
@@ -386,6 +390,14 @@ export const AdminSettingsContent = observer(() => {
             onCloseInfoModal()
           }}
         />
+
+        <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+          <AsinProxyCheckerForm
+            user={user}
+            onSubmit={setProxyArr}
+            onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+          />
+        </Modal>
       </div>
     )
   )

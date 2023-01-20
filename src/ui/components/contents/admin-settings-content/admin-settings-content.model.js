@@ -7,6 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {AdministratorModel} from '@models/administrator-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {destinationsColumns} from '@components/table-columns/admin/destinations-columns'
 
@@ -24,6 +25,7 @@ export class AdminSettingsModel {
   destinationToEdit = undefined
   destinationIdToRemove = undefined
   showAddOrEditDestinationModal = false
+  showAsinCheckerModal = false
   showConfirmModal = false
 
   sortModel = []
@@ -39,6 +41,10 @@ export class AdminSettingsModel {
 
   showSuccessModal = false
   showInfoModal = false
+
+  get user() {
+    return UserModel.userInfo
+  }
 
   confirmModalSettings = {
     isWarning: false,
