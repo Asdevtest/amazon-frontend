@@ -117,6 +117,12 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     width: '100%',
   },
+  fieldNamesWrapperWithCheckbox: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
   setFavouriteBtn: {
     height: 30,
     width: 30,
