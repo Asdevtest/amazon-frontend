@@ -89,7 +89,7 @@ export const OrderContent = ({
     if ('deadline' === fieldName) {
       newFormFields[fieldName] = event
     } else if ('amount' === fieldName) {
-      if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)) {
+      if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 0)) {
         return
       }
 
