@@ -552,24 +552,6 @@ export class ClientInStockBoxesViewRaw extends Component {
           />
         </Modal>
 
-        <Modal
-          openModal={showSetChipValueModal}
-          setOpenModal={() => {
-            onTriggerOpenModal('showSetChipValueModal')
-            onCloseShippingLabelModal()
-          }}
-        >
-          <SetChipValueModal
-            title={t(TranslationKey['Set FBA shipment'])}
-            sourceValue={selectedBox?.fbaShipment}
-            onSubmit={onClickSaveFbaShipment}
-            onCloseModal={() => {
-              onTriggerOpenModal('showSetChipValueModal')
-              onCloseShippingLabelModal()
-            }}
-          />
-        </Modal>
-
         <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
           <EditHSCodeModal
             hsCodeData={hsCodeData}
@@ -602,6 +584,24 @@ export class ClientInStockBoxesViewRaw extends Component {
             onTriggerOpenModal('showSuccessInfoModal')
           }}
         />
+
+        <Modal
+          openModal={showSetChipValueModal}
+          setOpenModal={() => {
+            onTriggerOpenModal('showSetChipValueModal')
+            onCloseShippingLabelModal()
+          }}
+        >
+          <SetChipValueModal
+            title={t(TranslationKey['Set FBA shipment'])}
+            sourceValue={selectedBox?.fbaShipment}
+            onSubmit={onClickSaveFbaShipment}
+            onCloseModal={() => {
+              onTriggerOpenModal('showSetChipValueModal')
+              onCloseShippingLabelModal()
+            }}
+          />
+        </Modal>
 
         <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}

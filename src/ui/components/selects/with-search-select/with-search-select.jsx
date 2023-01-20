@@ -94,7 +94,10 @@ const WithSearchSelectRaw = observer(
           <div className={classNames.mainWrapper}>
             <div
               className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
-              onClick={e => !disabled && handleClick(e)}
+              onClick={e => {
+                e.stopPropagation()
+                !disabled && handleClick(e)
+              }}
             >
               <Typography
                 className={cx(classNames.selectedItemName, {[classNames.disabledSelectedItemName]: disabled})}
@@ -133,7 +136,9 @@ const WithSearchSelectRaw = observer(
                       <Button
                         className={classNames.button}
                         variant="text"
-                        onClick={() => {
+                        onClick={e => {
+                          e.stopPropagation()
+
                           onClickNotChosen()
                           handleClose()
                         }}
@@ -150,7 +155,9 @@ const WithSearchSelectRaw = observer(
                       <CustomBtn
                         key={index}
                         item={el}
-                        onClick={() => {
+                        onClick={e => {
+                          e.stopPropagation()
+
                           onClickSelect(el)
                           handleClose()
                         }}
@@ -160,7 +167,8 @@ const WithSearchSelectRaw = observer(
                         key={index}
                         className={classNames.button}
                         variant="text"
-                        onClick={() => {
+                        onClick={e => {
+                          e.stopPropagation()
                           onClickSelect(el)
                           handleClose()
                         }}
