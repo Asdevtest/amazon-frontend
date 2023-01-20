@@ -1,1 +1,1 @@
-export {AsinCheckerModal} from './asin-checker-modal'
+export {AsinProxyCheckerModal} from './asin-proxy-checker-modal'

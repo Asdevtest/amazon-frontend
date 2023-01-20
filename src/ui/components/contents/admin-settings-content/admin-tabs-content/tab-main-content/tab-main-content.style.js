@@ -152,7 +152,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   addProxyButton: {
     // marginTop: '15px',
-    marginLeft: '10px',
+    // marginLeft: '10px',
   },
 
   textContainer: {

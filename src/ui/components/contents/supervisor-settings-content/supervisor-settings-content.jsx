@@ -12,7 +12,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {ITab} from '@components/i-tab/i-tab'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
-import {AsinCheckerModal} from '@components/modals/asin-checker-modal'
+import {AsinProxyCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditAsinCheckerModal} from '@components/modals/edit-asin-checker-modal'
 import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
@@ -48,33 +48,34 @@ export const SupervisorSettingsContent = observer(() => {
   const gpModel = useRef(new SupervisorSettingsContentModel({history, tabIndex}))
 
   const {
+    user,
     showAsinCheckerModal,
     showEditAsinCheckerModal,
     showConfirmModal,
     showFailedAsinsModal,
-    onTriggerOpenModal,
     asinsToEdit,
     failedData,
     curPage,
     rowsPerPage,
-    onChangeCurPage,
-    onChangeRowsPerPage,
     filterModel,
-    onChangeFilterModel,
     sortModel,
-    onChangeSortingModel,
     densityModel,
-    setDataGridState,
     columnsModel,
     requestStatus,
-    onSubmitAsins,
-    onEditAsins,
-    getCurrentData,
     confirmModalSettings,
     nameSearchValue,
+    selectedRowIds,
+    getCurrentData,
+    onChangeCurPage,
+    onTriggerOpenModal,
+    onChangeRowsPerPage,
+    onChangeFilterModel,
+    onChangeSortingModel,
+    setDataGridState,
+    onSubmitAsins,
+    onEditAsins,
     onChangeNameSearchValue,
     onSelectionModel,
-    selectedRowIds,
     onClickRemoveSelectedBtn,
   } = gpModel.current
 
@@ -346,7 +347,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
       </TabPanel>
       <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
-        <AsinCheckerModal
+        <AsinProxyCheckerModal
+          user={user}
           strategy={tabIndex}
           onSubmit={onSubmitAsins}
           onClose={() => onTriggerOpenModal('showAsinCheckerModal')}

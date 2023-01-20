@@ -14,6 +14,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
+import {AsinProxyCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
@@ -54,20 +55,28 @@ export const AdminSettingsContent = observer(() => {
   }, [])
 
   const {
+    user,
     adminSettings,
     serverProxy,
     infoModalText,
     showInfoModal,
-    createAdminSettings,
-    onTriggerOpenModal,
     sortModel,
     filterModel,
     curPage,
     rowsPerPage,
-    getCurrentData,
     densityModel,
     columnsModel,
     requestStatus,
+    showAsinCheckerModal,
+    showAddOrEditDestinationModal,
+    destinationToEdit,
+    confirmModalSettings,
+    showConfirmModal,
+    onSubmitCreateDestination,
+    onSubmitEditDestination,
+    createAdminSettings,
+    onTriggerOpenModal,
+    getCurrentData,
     onClickAddBtn,
     onChangeSortingModel,
     onChangeRowsPerPage,
@@ -75,12 +84,6 @@ export const AdminSettingsContent = observer(() => {
     onChangeCurPage,
     createProxy,
     setDataGridState,
-    showAddOrEditDestinationModal,
-    destinationToEdit,
-    onSubmitCreateDestination,
-    onSubmitEditDestination,
-    confirmModalSettings,
-    showConfirmModal,
     onClickCancelBtn,
     onCloseInfoModal,
   } = asModel.current
@@ -245,6 +248,7 @@ export const AdminSettingsContent = observer(() => {
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
                 onSubmitProxy={onSubmitProxy}
+                onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
               />
             </div>
           </Box>
@@ -386,6 +390,14 @@ export const AdminSettingsContent = observer(() => {
             onCloseInfoModal()
           }}
         />
+
+        <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+          <AsinProxyCheckerModal
+            user={user}
+            onSubmit={setProxyArr}
+            onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+          />
+        </Modal>
       </div>
     )
   )

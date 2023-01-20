@@ -49,6 +49,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px !important',
   },
   clearCell: {
+    display: 'flex',
+    justifyContent: 'center',
     padding: 0,
     cursor: 'pointer',
   },
