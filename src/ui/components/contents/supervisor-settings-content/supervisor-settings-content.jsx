@@ -9,10 +9,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
 import {ITab} from '@components/i-tab/i-tab'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
-import {AsinProxyCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditAsinCheckerModal} from '@components/modals/edit-asin-checker-modal'
 import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
@@ -347,7 +347,7 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
       </TabPanel>
       <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
-        <AsinProxyCheckerModal
+        <AsinProxyCheckerForm
           user={user}
           strategy={tabIndex}
           onSubmit={onSubmitAsins}

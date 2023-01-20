@@ -12,9 +12,9 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
+import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
-import {AsinProxyCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
@@ -392,7 +392,7 @@ export const AdminSettingsContent = observer(() => {
         />
 
         <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
-          <AsinProxyCheckerModal
+          <AsinProxyCheckerForm
             user={user}
             onSubmit={setProxyArr}
             onClose={() => onTriggerOpenModal('showAsinCheckerModal')}

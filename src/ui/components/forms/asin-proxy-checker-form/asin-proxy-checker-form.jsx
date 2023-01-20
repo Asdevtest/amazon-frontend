@@ -14,10 +14,10 @@ import {SearchInput} from '@components/search-input'
 import {checkIsAdmin} from '@utils/checks'
 import {t} from '@utils/translations'
 
-import {useClassNames} from './asin-proxy-checker-modal.style'
+import {useClassNames} from './asin-proxy-checker-form.style'
 import {TableAsinAndReason} from './table-asin-and-reason/table-asin-and-reason'
 
-export const AsinProxyCheckerModal = ({user, strategy, onSubmit, onClose}) => {
+export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
   const {classes: classNames} = useClassNames()
 
   const userRole = UserRoleCodeMap[user.role]
