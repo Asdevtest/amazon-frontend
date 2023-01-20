@@ -432,7 +432,7 @@ export const FieldsAndSuppliers = observer(
                 </div>
               </div>
             )}
-            {checkIsClient(curUserRole) && product.subUsers.length ? (
+            {checkIsClient(curUserRole) && product.subUsers?.length ? (
               <div className={classNames.subUsersWrapper}>
                 <div className={classNames.subUsersTitleWrapper}>
                   <Typography className={classNames.subUsersTitle}>
@@ -480,7 +480,7 @@ export const FieldsAndSuppliers = observer(
                 <div className={classNames.shopsFieldWrapper}>
                   <Select
                     disabled={!shops.length}
-                    value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
+                    value={shops?.length ? shopsNames : '' /* t(TranslationKey['No stores'])*/}
                     renderValue={() =>
                       clearSelect
                         ? t(TranslationKey['Select a store'])

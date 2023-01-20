@@ -1720,7 +1720,7 @@ export enum TranslationKey {
   'Unlink an product from Amazon' = 'Unlink an product from Amazon',
   'Unlink success' = 'Unlink success',
   'Buyer comments to the task' = 'Buyer comments to the task',
-  // '' = '',
+  'Before you fill out the Shipping label, you need to fill out the FBA Shipment' = 'Before you fill out the Shipping label, you need to fill out the FBA Shipment',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -212,8 +212,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: 80,
 
     display: '-webkit-box',
-    '-webkitLineClamp': 3,
-    '-webkitBoxOrient': 'vertical',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

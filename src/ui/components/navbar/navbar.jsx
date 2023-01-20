@@ -9,7 +9,7 @@ import {observer} from 'mobx-react'
 
 import {appVersion} from '@constants/app-version'
 import {navbarConfig} from '@constants/navbar'
-import {Feedback} from '@constants/navbar-svg-icons'
+import {Feedback} from '@constants/svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'

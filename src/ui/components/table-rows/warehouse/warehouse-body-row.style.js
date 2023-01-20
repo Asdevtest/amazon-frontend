@@ -7,8 +7,8 @@ export const styles = theme => ({
 
   productCellTitle: {
     display: '-webkit-box',
-    '-webkitLineClamp': 4,
-    '-webkitBoxOrient': 'vertical',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
     width: '200px',
     height: 90,
     whiteSpace: 'normal',

@@ -440,11 +440,39 @@ export class ClientInStockBoxesViewModel {
 
   onClickShippingLabel(item) {
     this.setSelectedBox(item)
+
+    if (!item.fbaShipment) {
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      this.onTriggerOpenModal('showSetChipValueModal')
+    }
+
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
 
   onDoubleClickShippingLabel = item => {
     this.setSelectedBox(item)
+
+    if (!item.fbaShipment) {
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      this.onTriggerOpenModal('showSetChipValueModal')
+    }
+
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
 
@@ -634,14 +662,27 @@ export class ClientInStockBoxesViewModel {
   }
 
   async onClickSaveFbaShipment(fbaShipment) {
-    await BoxesModel.editBoxAtClient(this.selectedBox._id, {fbaShipment})
+    try {
+      await BoxesModel.editBoxAtClient(this.selectedBox._id, {fbaShipment})
 
-    this.onTriggerOpenModal('showSetChipValueModal')
-    this.loadData()
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data saved successfully']),
+        }
+      })
 
-    runInAction(() => {
-      this.selectedBox = undefined
-    })
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      this.onTriggerOpenModal('showSetChipValueModal')
+      this.loadData()
+
+      // runInAction(() => {
+      //   this.selectedBox = undefined
+      // })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   onClickRemoveBoxFromBatch(boxId) {
@@ -662,6 +703,10 @@ export class ClientInStockBoxesViewModel {
       }
     })
     this.getBoxesMy()
+  }
+
+  onCloseShippingLabelModal() {
+    this.showSetShippingLabelModal = false
   }
 
   onClickDestinationBtn(destination) {

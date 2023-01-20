@@ -1720,5 +1720,6 @@
   "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Title, ID партии, ID заказа",
   "Unlink an product from Amazon": "Отвязать товар с Amazon",
   "Unlink success": "Успешная отвязка",
-  "Buyer comments to the task": "Комментарий к задаче от байера"
+  "Buyer comments to the task": "Комментарий к задаче от байера",
+  "Before you fill out the Shipping label, you need to fill out the FBA Shipment": "Перед заполнением Shipping label нужно заполнить FBA Shipment"
 }

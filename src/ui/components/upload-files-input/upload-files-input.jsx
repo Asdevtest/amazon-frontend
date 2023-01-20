@@ -175,7 +175,7 @@ export const UploadFilesInput = observer(
                     {...dragProps}
                   >
                     {t(TranslationKey['Click or Drop here'])}
-                    <input className={classNames.pasteInput} value={''} onPaste={onPasteFiles} />
+                    <input className={classNames.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
                   </button>
 
                   <div className={classNames.actionBtnsWrapper}>

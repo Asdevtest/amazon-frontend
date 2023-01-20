@@ -245,31 +245,32 @@ export const RequestToSendBatchBox = ({
         </div>
       </td>
       <td className={cx(tableCellClsx, classNames.pricePerAmoutCell)}>
-        {box.items.map((item, index) => (
-          <div key={index}>
-            <div className={cx(tableCellClsx, classNames.priceCell)}>
-              <Typography className={classNames.dementionsTitle}>
-                {t(TranslationKey['Average delivery cost per pc'])}
-              </Typography>
-            </div>
+        {box.items.map((item, index) => {
+          const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
+            itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+            deliveryCost: price,
+            itemAmount: item.amount,
+            itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+            boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
+            box,
+          })
 
-            <div className={cx(tableCellClsx, classNames.priceCellRight)}>
-              <Typography className={classNames.priceText}>
-                {toFixedWithDollarSign(
-                  calculateDeliveryCostPerPcs({
-                    itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
-                    deliveryCost: price,
-                    itemAmount: item.amount,
-                    itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
-                    boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
-                    box,
-                  }),
-                  2,
-                )}
-              </Typography>
+          return (
+            <div key={index}>
+              <div className={cx(tableCellClsx, classNames.priceCell)}>
+                <Typography className={classNames.dementionsTitle}>
+                  {t(TranslationKey['Average delivery cost per pc'])}
+                </Typography>
+              </div>
+
+              <div className={cx(tableCellClsx, classNames.priceCellRight)}>
+                <Typography className={classNames.priceText}>
+                  {deliveryCostPerPcs ? toFixedWithDollarSign(deliveryCostPerPcs, 2) : t(TranslationKey['No data'])}
+                </Typography>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </td>
       {/* cx(tableCellClsx, classNames.priceCell) */}
       {box.amount > 1 ? (

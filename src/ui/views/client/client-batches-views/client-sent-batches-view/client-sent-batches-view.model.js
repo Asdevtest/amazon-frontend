@@ -47,6 +47,7 @@ export class ClientSentBatchesViewModel {
 
   uploadedFiles = []
 
+  rowCount = 0
   sortModel = []
   filterModel = {items: []}
   curPage = 0

@@ -7,7 +7,7 @@ import React, {useEffect, useState} from 'react'
 import {Navigation} from 'swiper'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
-import {InventoryIcon} from '@constants/navbar-svg-icons'
+import {InventoryIcon} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'

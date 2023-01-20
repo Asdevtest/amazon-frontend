@@ -48,6 +48,7 @@ export class ClientAwaitingBatchesViewModel {
     title: '',
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = {items: []}
   curPage = 0

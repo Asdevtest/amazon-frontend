@@ -159,6 +159,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onChangeIsFormed,
       editTariff,
       onClickShopBtn,
+      onCloseShippingLabelModal,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -491,27 +492,6 @@ export class ClientInStockBoxesViewRaw extends Component {
           />
         </Modal>
 
-        <SuccessInfoModal
-          openModal={showSuccessInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
-          title={modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showSuccessInfoModal')
-          }}
-        />
-
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
-
         <Modal missClickModalOn openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
             userInfo={userInfo}
@@ -561,15 +541,6 @@ export class ClientInStockBoxesViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
-          <SetChipValueModal
-            title={t(TranslationKey['Set FBA shipment'])}
-            sourceValue={selectedBox?.fbaShipment}
-            onSubmit={onClickSaveFbaShipment}
-            onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
-          />
-        </Modal>
-
         <Modal
           openModal={showSetShippingLabelModal}
           setOpenModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
@@ -578,6 +549,24 @@ export class ClientInStockBoxesViewRaw extends Component {
             item={selectedBox}
             onClickSaveShippingLabel={onClickSaveShippingLabel}
             onCloseModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSetChipValueModal}
+          setOpenModal={() => {
+            onTriggerOpenModal('showSetChipValueModal')
+            onCloseShippingLabelModal()
+          }}
+        >
+          <SetChipValueModal
+            title={t(TranslationKey['Set FBA shipment'])}
+            sourceValue={selectedBox?.fbaShipment}
+            onSubmit={onClickSaveFbaShipment}
+            onCloseModal={() => {
+              onTriggerOpenModal('showSetChipValueModal')
+              onCloseShippingLabelModal()
+            }}
           />
         </Modal>
 
@@ -603,6 +592,27 @@ export class ClientInStockBoxesViewRaw extends Component {
             }
           />
         </Modal>
+
+        <SuccessInfoModal
+          openModal={showSuccessInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
+          title={modalEditSuccessMessage}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessInfoModal')
+          }}
+        />
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
 
         {showProgress && <CircularProgressWithLabel />}
       </React.Fragment>
