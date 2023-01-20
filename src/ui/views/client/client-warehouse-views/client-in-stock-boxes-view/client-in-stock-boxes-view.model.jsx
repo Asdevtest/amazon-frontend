@@ -510,13 +510,6 @@ export class ClientInStockBoxesViewModel {
   }
 
   checkAndOpenFbaShipmentEdit() {
-    console.log('this.selectedBox', this.selectedBox)
-
-    console.log('this.destinations', this.destinations)
-
-    const dest = this.destinations.find(el => el._id === this.selectedBox.destination?._id)
-    console.log('dest', dest)
-
     if (
       !this.selectedBox.fbaShipment &&
       !this.destinations.find(el => el._id === this.selectedBox.destination?._id)?.storekeeper

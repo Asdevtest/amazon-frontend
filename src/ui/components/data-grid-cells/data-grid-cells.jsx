@@ -820,7 +820,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               color="primary"
               variant={boxesMy?.storekeeper?._id && 'text'}
               className={classNames.storekeeperBtn}
-              onClick={() => {
+              onClick={e => {
+                e.stopPropagation()
                 onClickSetTariff(boxesMy)
                 setShowSelectionStorekeeperAndTariffModal()
               }}
