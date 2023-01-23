@@ -83,6 +83,7 @@ export const EditOrderModal = observer(
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
     onClickHsCode,
+    pathnameNotPaid,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -625,11 +626,13 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Suppliers)}
           </Text>
 
-          {isPendingOrder && Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          {(isPendingOrder || pathnameNotPaid) &&
+          (Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) || pathnameNotPaid) ? (
             <div className={classNames.supplierActionsWrapper}>
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
                   <Button
+                    tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                     className={classNames.iconBtn}
                     onClick={() => {
                       setSelectedSupplier(null)
@@ -638,6 +641,7 @@ export const EditOrderModal = observer(
                   >
                     <AddIcon />
                   </Button>
+                  <Typography className={classNames.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
                 </div>
 
                 {selectedSupplier ? (
@@ -654,6 +658,16 @@ export const EditOrderModal = observer(
                           <EditOutlinedIcon />
                         )}
                       </Button>
+                      {selectedSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Open the parameters supplier'])}
+                        </Typography>
+                      ) : (
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Edit a supplier'])}
+                        </Typography>
+                      )}
                     </div>
 
                     <div className={classNames.supplierButtonWrapper}>
@@ -671,6 +685,11 @@ export const EditOrderModal = observer(
                       >
                         {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
                       </Button>
+                      <Typography className={classNames.supplierButtonText}>
+                        {isSupplierAcceptRevokeActive
+                          ? t(TranslationKey['Remove the main supplier status'])
+                          : t(TranslationKey['Make the supplier the main'])}
+                      </Typography>
                     </div>
                   </>
                 ) : null}
@@ -680,6 +699,7 @@ export const EditOrderModal = observer(
 
           <EditOrderSuppliersTable
             productBaseData={order}
+            pathnameNotPaid={pathnameNotPaid}
             isPendingOrder={isPendingOrder}
             selectedSupplier={orderFields.orderSupplier}
             curSelectedSupplier={selectedSupplier}

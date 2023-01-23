@@ -84,4 +84,17 @@ export const useClassNames = makeStyles()(() => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
   },
+  commentInput: {
+    fontSize: '14px',
+    // marginTop: '2px',
+    width: '100%',
+    height: 40,
+    padding: 0,
+  },
+  fieldWrapper: {
+    paddingTop: 20,
+    width: 100,
+    height: '100%',
+    display: 'flex',
+  },
 }))

@@ -19,7 +19,15 @@ import {t} from '@utils/translations'
 import {useClassNames} from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(
-  ({suppliers, selectedSupplier, setSelectedSupplier, curSelectedSupplier, isPendingOrder, productBaseData}) => {
+  ({
+    suppliers,
+    selectedSupplier,
+    setSelectedSupplier,
+    curSelectedSupplier,
+    isPendingOrder,
+    productBaseData,
+    pathnameNotPaid,
+  }) => {
     const {classes: classNames} = useClassNames()
 
     return (
@@ -55,10 +63,11 @@ export const EditOrderSuppliersTable = observer(
                       [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                     },
                     {
-                      [classNames.clickedRow]: isPendingOrder,
+                      [classNames.clickedRow]: isPendingOrder || pathnameNotPaid,
                     },
                     {
-                      [classNames.curSelectedSupplier]: isPendingOrder && supplier?._id === curSelectedSupplier?._id,
+                      [classNames.curSelectedSupplier]:
+                        (isPendingOrder || pathnameNotPaid) && supplier?._id === curSelectedSupplier?._id,
                     },
                   )}
                   onClick={() => setSelectedSupplier(supplier)}

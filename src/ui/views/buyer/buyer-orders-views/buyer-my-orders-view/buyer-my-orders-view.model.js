@@ -18,6 +18,7 @@ import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
+import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 // import {resetDataGridFilter} from '@utils/filters'
@@ -70,6 +71,8 @@ export class BuyerMyOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
 
+  yuanToDollarRate = undefined
+
   ordersMy = []
   baseNoConvertedOrders = []
 
@@ -109,6 +112,8 @@ export class BuyerMyOrdersViewModel {
     isWarning: false,
     title: '',
   }
+
+  pathnameNotPaid = false
 
   rowCount = 0
   sortModel = []
@@ -271,6 +276,57 @@ export class BuyerMyOrdersViewModel {
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
+  setPathnameNotPaid() {
+    if (this.setDataGridTablesKeys(this.history.location.pathname) === DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID) {
+      this.pathnameNotPaid = true
+    } else {
+      this.pathnameNotPaid = false
+    }
+  }
+
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
+    try {
+      this.readyImages = []
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+
+      if (supplier._id) {
+        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+      } else {
+        console.log('supplierUpdateData', supplierUpdateData)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+      }
+
+      const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+      this.selectedOrder = orderData
+
+      // await BuyerModel.updateProduct(
+      //           productId,
+      //           getObjectFilteredByKeyArrayWhiteList(
+      //             this.product, ['currentSupplierId']
+      //           ),
+      //         )
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -421,6 +477,7 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.setPathnameNotPaid()
       this.getDataGridState()
       await this.getOrdersMy()
 
@@ -478,6 +535,7 @@ export class BuyerMyOrdersViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
@@ -516,6 +574,7 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
   }) {
+    console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -537,11 +596,9 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFieldsToSave)
+      console.log('orderFieldsToSave', orderFieldsToSave)
 
-      // if (hsCode) {
-      //   await this.onSubmitSaveHsCode(order.product._id, hsCode)
-      // }
+      await this.onSaveOrder(order, orderFieldsToSave)
 
       if (
         boxesForCreation.length > 0 &&
@@ -626,17 +683,41 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  // async onSaveOrder(order, updateOrderData) {
+  //   try {
+  //     const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
+
+  // await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
+  //   } catch (error) {
+  //     console.log(error)
+  //     if (error.body && error.body.message) {
+  //       runInAction(() => {
+  //         this.error = error.body.message
+  //       })
+  //     }
+  //   }
+  // }
+
   async onSaveOrder(order, updateOrderData) {
     try {
-      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(updateOrderData, updateOrderKeys, true)
+      const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...updateOrderData,
+          orderSupplierId: updateOrderData.orderSupplier?._id,
+          totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+        },
+        updateOrderKeys,
+        true,
+      )
 
-      await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
+      await BuyerModel.editOrder(order._id, {
+        ...updateOrderDataFiltered,
+        orderSupplierId: updateOrderData.orderSupplier?._id,
+      })
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
+        this.error = error.body.message
       }
     }
   }
