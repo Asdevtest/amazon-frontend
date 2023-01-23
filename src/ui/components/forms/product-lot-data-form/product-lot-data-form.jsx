@@ -25,7 +25,7 @@ import {productInTransferColumns} from './poduct-in-transfer-column'
 import {productLotDataFormColumns} from './product-lot-data-form-column'
 import {useClassNames} from './product-lot-data-form.style'
 
-export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) => {
+export const ProductLotDataForm = observer(({product, batchesData, isTransfer, userInfo}) => {
   const {classes: classNames} = useClassNames()
 
   const [batches, setBatches] = useState([...batchesData])
@@ -132,7 +132,12 @@ export const ProductLotDataForm = observer(({product, batchesData, isTransfer}) 
         />
       </div>
 
-      <BatchInfoModal openModal={showBatchInfoModal} setOpenModal={setOpenBatchInfoModal} batch={batchInfo} />
+      <BatchInfoModal
+        userInfo={userInfo}
+        openModal={showBatchInfoModal}
+        setOpenModal={setOpenBatchInfoModal}
+        batch={batchInfo}
+      />
     </div>
   )
 })
