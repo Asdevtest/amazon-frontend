@@ -1,4 +1,11 @@
-import {getModelNameWithotPostfix, getShortenStringIfLongerThanCount} from './text'
+import {
+  getFloatOrZero,
+  getModelNameWithotPostfix,
+  getShortenStringIfLongerThanCount,
+  toFixed,
+  toFixedWithDollarSign,
+  trimBarcode,
+} from './text'
 
 describe('Test getShortenStringIfLongerThanCount(str, count)', () => {
   test('Valid props', () => {
@@ -88,6 +95,47 @@ describe('Test toFixed(int, x)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(toFixed(value.enter, value.x)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test getFloatOrZero(str)', () => {
+  const validTestValue = [
+    {enter: '10', expect: 10},
+    {enter: '33', expect: 33},
+    {enter: '110.1', expect: 110.1},
+  ]
+
+  const unvalidTestValue = [
+    {enter: 10, expect: 10},
+    {enter: null, expect: 0},
+    {enter: undefined, expect: 0},
+    {enter: false, expect: 0},
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid props', () => {
+      expect(getFloatOrZero(value.enter)).toBe(value.expect)
+    })
+  })
+
+  unvalidTestValue.forEach(value => {
+    test('Unvalid props', () => {
+      expect(getFloatOrZero(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test toFixedWithDollarSign(int, x)', () => {
+  const validTestValue = [
+    {enter: '10', x: 1, expect: '$10'},
+    {enter: '10.123', x: 2, expect: '$10.12'},
+    {enter: '10.15', x: 1, expect: '$10.2'},
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid prosp', () => {
+      expect(toFixedWithDollarSign(value.enter, value.x)).toBe(value.expect)
     })
   })
 })
