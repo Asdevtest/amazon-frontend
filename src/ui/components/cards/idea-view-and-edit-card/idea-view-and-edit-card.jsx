@@ -33,6 +33,7 @@ import {
   checkIsBuyer,
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+  checkIsSupervisor,
 } from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -449,7 +450,9 @@ export const IdeaViewAndEditCard = observer(
                 ) : (
                   <div className={classNames.supplierActionsWrapper}>
                     <div className={classNames.supplierContainer}>
-                      {checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                      {checkIsBuyer(UserRoleCodeMap[curUser.role]) ||
+                      checkIsClient(UserRoleCodeMap[curUser.role]) ||
+                      checkIsSupervisor(UserRoleCodeMap[curUser.role]) ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button
                             disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
