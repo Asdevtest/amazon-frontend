@@ -101,6 +101,7 @@ export const useClassNames = makeStyles()(theme => ({
   skuItemWrapper: {
     display: 'flex',
     alignItems: 'center',
+    width: '100%',
   },
 
   deleteBtnWrapper: {
@@ -115,6 +116,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   skuItemTitle: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     fontSize: '20px',
   },
 

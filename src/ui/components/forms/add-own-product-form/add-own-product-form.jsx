@@ -144,7 +144,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
                 <div className={classNames.inputWrapper}>
                   <Input
                     placeholder={t(TranslationKey.SKU)}
-                    inputProps={{maxLength: 1000}}
+                    inputProps={{maxLength: 256}}
                     value={skuLine}
                     className={classNames.input}
                     onChange={e => setSkuLine(e.target.value)}
