@@ -18,7 +18,7 @@ import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
-import {calcOrderTotalPrice} from '@utils/calculation'
+// import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 // import {resetDataGridFilter} from '@utils/filters'
@@ -37,6 +37,9 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+
+  'amount',
+  'orderSupplierId',
 
   'item',
   'priceInYuan',
@@ -214,6 +217,7 @@ export class BuyerMyOrdersViewModel {
         case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
           return DataGridTablesKeys.BUYER_MY_ORDERS_ALL_ORDERS
         default:
+          this.pathnameNotPaid = true
           return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
       }
     }
@@ -274,14 +278,6 @@ export class BuyerMyOrdersViewModel {
       this.filteredStatus = this.chosenStatus
     }
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
-  }
-
-  setPathnameNotPaid() {
-    if (this.setDataGridTablesKeys(this.history.location.pathname) === DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID) {
-      this.pathnameNotPaid = true
-    } else {
-      this.pathnameNotPaid = false
-    }
   }
 
   async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
@@ -477,7 +473,6 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.setPathnameNotPaid()
       this.getDataGridState()
       await this.getOrdersMy()
 
@@ -596,8 +591,6 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      console.log('orderFieldsToSave', orderFieldsToSave)
-
       await this.onSaveOrder(order, orderFieldsToSave)
 
       if (
@@ -703,16 +696,15 @@ export class BuyerMyOrdersViewModel {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         {
           ...updateOrderData,
-          orderSupplierId: updateOrderData.orderSupplier?._id,
-          totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+          orderSupplierId: updateOrderData.orderSupplier._id,
+          amount: updateOrderData?.amount,
+          // totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
         },
         updateOrderKeys,
         true,
       )
-
       await BuyerModel.editOrder(order._id, {
         ...updateOrderDataFiltered,
-        orderSupplierId: updateOrderData.orderSupplier?._id,
       })
     } catch (error) {
       console.log(error)

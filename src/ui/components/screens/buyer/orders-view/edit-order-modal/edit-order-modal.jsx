@@ -197,6 +197,8 @@ export const EditOrderModal = observer(
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
 
+    console.log('order', order)
+
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
     const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState(

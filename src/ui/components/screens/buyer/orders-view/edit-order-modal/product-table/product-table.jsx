@@ -13,7 +13,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './product-table.style'
 
-export const ProductTable = ({modalHeadCells, order, orderFields}) => {
+export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField}) => {
   const {classes: classNames} = useClassNames()
   return (
     <TableContainer className={classNames.tableContainer}>
@@ -49,10 +49,10 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             <TableCell className={classNames.tableCell}>
               <div className={classNames.fieldWrapper}>
                 <Field
-                  disabled
                   inputProps={{maxLength: 20}}
                   inputClasses={classNames.commentInput}
                   value={orderFields.amount}
+                  onChange={setOrderField('amount')}
                 />
               </div>
             </TableCell>
