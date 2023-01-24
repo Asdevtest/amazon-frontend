@@ -13,6 +13,7 @@ import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './tab-main-content.style'
@@ -122,7 +123,7 @@ export const TabMainContent = ({
               <div key={index} className={classNames.proxyWrapper}>
                 <div className={classNames.proxySubWrapper}>
                   <Typography className={cx(classNames.proxy, {[classNames.unselectable]: disabled})}>
-                    {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
+                    {getShortenStringIfLongerThanCount(proxy, 32)}
                   </Typography>
                 </div>
                 <div className={classNames.iconsWrapper}>

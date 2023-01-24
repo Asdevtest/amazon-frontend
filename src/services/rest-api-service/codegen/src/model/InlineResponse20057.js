@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
  * The InlineResponse20057 model module.
@@ -22,10 +24,11 @@ class InlineResponse20057 {
     /**
      * Constructs a new <code>InlineResponse20057</code>.
      * @alias module:model/InlineResponse20057
+     * @param _id {String} GUID сторкипера в DB
      */
-    constructor() { 
+    constructor(_id) { 
         
-        InlineResponse20057.initialize(this);
+        InlineResponse20057.initialize(this, _id);
     }
 
     /**
@@ -33,7 +36,8 @@ class InlineResponse20057 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id) { 
+        obj['_id'] = _id;
     }
 
     /**
@@ -47,14 +51,20 @@ class InlineResponse20057 {
         if (data) {
             obj = obj || new InlineResponse20057();
 
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('volumeWeightCoefficient')) {
-                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
-                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            if (data.hasOwnProperty('tariffLogistics')) {
+                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
+            }
+            if (data.hasOwnProperty('tariffWarehouses')) {
+                obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
+            }
+            if (data.hasOwnProperty('boxesCount')) {
+                obj['boxesCount'] = ApiClient.convertToType(data['boxesCount'], 'Number');
             }
         }
         return obj;
@@ -64,22 +74,34 @@ class InlineResponse20057 {
 }
 
 /**
- * Курс юаня к доллару.
- * @member {Number} yuanToDollarRate
+ * GUID сторкипера в DB
+ * @member {String} _id
  */
-InlineResponse20057.prototype['yuanToDollarRate'] = undefined;
+InlineResponse20057.prototype['_id'] = undefined;
 
 /**
- * Коэффициент расчета объемного веса.
- * @member {Number} volumeWeightCoefficient
+ * Имя сторкипера.
+ * @member {String} name
  */
-InlineResponse20057.prototype['volumeWeightCoefficient'] = undefined;
+InlineResponse20057.prototype['name'] = undefined;
 
 /**
- * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
- * @member {Number} requestMinAmountPriceOfProposal
+ * Тарифы логистики для сторкипера.
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
  */
-InlineResponse20057.prototype['requestMinAmountPriceOfProposal'] = undefined;
+InlineResponse20057.prototype['tariffLogistics'] = undefined;
+
+/**
+ * Тарифы складов для сторкипера.
+ * @member {Array.<module:model/ApiV1StorekeepersTariffWarehouses>} tariffWarehouses
+ */
+InlineResponse20057.prototype['tariffWarehouses'] = undefined;
+
+/**
+ * Количество коробок в сторкепере.
+ * @member {Number} boxesCount
+ */
+InlineResponse20057.prototype['boxesCount'] = undefined;
 
 
 

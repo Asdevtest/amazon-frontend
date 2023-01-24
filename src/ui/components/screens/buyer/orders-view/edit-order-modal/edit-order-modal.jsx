@@ -49,7 +49,7 @@ import {
   getDistanceBetweenDatesInSeconds,
 } from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {timeToDeadlineInHoursAndMins, toFixed} from '@utils/text'
+import {timeToDeadlineInHoursAndMins, toFixed, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -439,9 +439,7 @@ export const EditOrderModal = observer(
           </div>
 
           <Typography className={classNames.amazonTitle}>
-            {order.product.amazonTitle.length > 130
-              ? order.product.amazonTitle.slice(0, 130) + '...'
-              : order.product.amazonTitle}
+            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 130)}
           </Typography>
 
           <div className={classNames.priorityWrapper}>

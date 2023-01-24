@@ -24,7 +24,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithKg} from '@utils/text'
+import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
@@ -284,9 +284,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                   <img className={classNames.img} src={getAmazonImageUrl(el.product.images[0])} />
                   <div>
                     <Typography className={classNames.title}>
-                      {el.product.amazonTitle.length > 50
-                        ? el.product.amazonTitle.slice(0, 50) + '...'
-                        : el.product.amazonTitle}
+                      {getShortenStringIfLongerThanCount(el.product.amazonTitle, 50)}
                     </Typography>
 
                     <div className={classNames.unitsWrapper}>
@@ -312,9 +310,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
                 <div>
                   <Typography className={classNames.title}>
-                    {item.items[0].product.amazonTitle.length > 50
-                      ? item.items[0].product.amazonTitle.slice(0, 50) + '...'
-                      : item.items[0].product.amazonTitle}
+                      {getShortenStringIfLongerThanCount(item.items[0].product.amazonTitle, 50)}
                   </Typography>
 
                   <Input
@@ -666,9 +662,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
         <img className={classNames.img} src={getAmazonImageUrl(boxesBefore[0]?.items[0]?.product.images[0])} />
         <Tooltip title={boxesBefore[0].items[0].product.amazonTitle}>
           <Typography className={classNames.titleOfCurBox}>
-            {boxesBefore[0].items[0].product.amazonTitle.length > 225
-              ? boxesBefore[0].items[0].product.amazonTitle.slice(0, 225) + '...'
-              : boxesBefore[0].items[0].product.amazonTitle}
+            {getShortenStringIfLongerThanCount(boxesBefore[0].items[0].product.amazonTitle, 225)}
           </Typography>
         </Tooltip>
       </div>

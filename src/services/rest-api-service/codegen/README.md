@@ -217,6 +217,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksCancelGuidPost**](docs/BuyerApi.md#apiV1BuyersTasksCancelGuidPost) | **POST** /api/v1/buyers/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksGet**](docs/BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksPost**](docs/BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
+*TestSwagger.ChatsApi* | [**apiV1ChatsGroupPost**](docs/ChatsApi.md#apiV1ChatsGroupPost) | **POST** /api/v1/chats/group | Создать групповой чат
 *TestSwagger.ChatsApi* | [**apiV1ChatsGuidPost**](docs/ChatsApi.md#apiV1ChatsGuidPost) | **POST** /api/v1/chats/{guid} | Создать обычный чат
 *TestSwagger.ChatsApi* | [**apiV1ChatsNamesGet**](docs/ChatsApi.md#apiV1ChatsNamesGet) | **GET** /api/v1/chats/names | Получить все имена юзеров
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](docs/ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
@@ -319,6 +320,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ProductApi* | [**apiV1ProductsEditHsCodePatch**](docs/ProductApi.md#apiV1ProductsEditHsCodePatch) | **PATCH** /api/v1/products/edit_hsCode | # Редактирование поля hsCode в продукте.
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 *TestSwagger.ProductApi* | [**apiV1ProductsHsCodeGuidGet**](docs/ProductApi.md#apiV1ProductsHsCodeGuidGet) | **GET** /api/v1/products/hs_code/{guid} | # Получить  “chinaTitle“, “material“ , “productUsage“, “hsCode“ по id.
+*TestSwagger.ProductApi* | [**apiV1ProductsKeepaPost**](docs/ProductApi.md#apiV1ProductsKeepaPost) | **POST** /api/v1/products/keepa | # Отфильтровать и получить данные  о продуктах через Keepa
 *TestSwagger.ProductApi* | [**apiV1ProductsParseAmazonIdGet**](docs/ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *TestSwagger.ProductApi* | [**apiV1ProductsParseSellercentralGet**](docs/ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
 *TestSwagger.ProductApi* | [**apiV1ProductsRemoveShopsGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveShopsGuidPost) | **POST** /api/v1/products/remove_shops/{guid} | Удалить магазины из продукта.
@@ -460,6 +462,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1IntegrationsCreateAndLinkSkuProductsPayload](docs/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks](docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseStocksShop](docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md)
+ - [TestSwagger.ApiV1ProductsKeepaOffers](docs/ApiV1ProductsKeepaOffers.md)
+ - [TestSwagger.ApiV1ProductsKeepaStats](docs/ApiV1ProductsKeepaStats.md)
  - [TestSwagger.ApiV1RequestProposalsCreatedBy](docs/ApiV1RequestProposalsCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidDetails](docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposal](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md)
@@ -495,6 +499,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject106](docs/InlineObject106.md)
  - [TestSwagger.InlineObject107](docs/InlineObject107.md)
  - [TestSwagger.InlineObject108](docs/InlineObject108.md)
+ - [TestSwagger.InlineObject109](docs/InlineObject109.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
@@ -676,7 +681,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
- - [TestSwagger.InlineResponse20061Details](docs/InlineResponse20061Details.md)
+ - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
+ - [TestSwagger.InlineResponse20062Details](docs/InlineResponse20062Details.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)

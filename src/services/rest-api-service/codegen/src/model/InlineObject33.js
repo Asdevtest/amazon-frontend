@@ -80,6 +80,9 @@ class InlineObject33 {
             if (data.hasOwnProperty('orderSupplierId')) {
                 obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
         }
         return obj;
     }
@@ -100,7 +103,7 @@ InlineObject33.prototype['buyerComment'] = undefined;
 InlineObject33.prototype['storekeeperId'] = undefined;
 
 /**
- * Цена в юуанях
+ * Цена в юанях
  * @member {Number} priceInYuan
  */
 InlineObject33.prototype['priceInYuan'] = undefined;
@@ -151,6 +154,12 @@ InlineObject33.prototype['trackingNumberChina'] = undefined;
  * @member {String} orderSupplierId
  */
 InlineObject33.prototype['orderSupplierId'] = undefined;
+
+/**
+ * Кол-во в заказе
+ * @member {Number} amount
+ */
+InlineObject33.prototype['amount'] = undefined;
 
 
 

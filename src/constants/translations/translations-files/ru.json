@@ -1725,5 +1725,7 @@
   "Add proxy": "Добавить прокси",
   "Add a list of proxy": "Добавьте список прокси",
   "Search by Proxy": "Поиск по Прокси",
-  "Proxy": "Прокси"
+  "Proxy": "Прокси",
+  "Such dialogue already exists": "Такой диалог уже существует",
+  "Name of group chat": "Название группового чата"
 }

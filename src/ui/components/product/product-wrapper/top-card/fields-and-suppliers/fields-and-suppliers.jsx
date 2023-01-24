@@ -22,8 +22,8 @@ import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {checkIsClient, checkIsSupervisor, checkIsResearcher, checkIsBuyer} from '@utils/checks'
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 

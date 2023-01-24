@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject105 model module.
@@ -22,12 +23,10 @@ class InlineObject105 {
     /**
      * Constructs a new <code>InlineObject105</code>.
      * @alias module:model/InlineObject105
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        InlineObject105.initialize(this, oldPassword, newPassword);
+        InlineObject105.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineObject105 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,53 @@ class InlineObject105 {
         if (data) {
             obj = obj || new InlineObject105();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -65,16 +104,98 @@ class InlineObject105 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject105.prototype['oldPassword'] = undefined;
+InlineObject105.prototype['name'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject105.prototype['newPassword'] = undefined;
+InlineObject105.prototype['link'] = undefined;
+
+/**
+ * Цена за еденицу, dollar
+ * @member {Number} price
+ */
+InlineObject105.prototype['price'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject105.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject105.prototype['minlot'] = undefined;
+
+/**
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
+ */
+InlineObject105.prototype['multiplicity'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject105.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject105.prototype['comment'] = undefined;
+
+/**
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
+ */
+InlineObject105.prototype['yuanRate'] = undefined;
+
+/**
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
+ */
+InlineObject105.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject105.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject105.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject105.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject105.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject105.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject105.prototype['boxProperties'] = undefined;
 
 
 

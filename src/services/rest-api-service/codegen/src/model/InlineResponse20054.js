@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20054 model module.
@@ -22,6 +21,7 @@ import InlineResponse2004 from './InlineResponse2004';
 class InlineResponse20054 {
     /**
      * Constructs a new <code>InlineResponse20054</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20054
      */
     constructor() { 
@@ -48,11 +48,32 @@ class InlineResponse20054 {
         if (data) {
             obj = obj || new InlineResponse20054();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            }
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -62,15 +83,58 @@ class InlineResponse20054 {
 }
 
 /**
- * Общее кол-во записей
- * @member {Number} count
+ * ID магазина.
+ * @member {String} _id
  */
-InlineResponse20054.prototype['count'] = undefined;
+InlineResponse20054.prototype['_id'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse2004>} rows
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineResponse20054.prototype['rows'] = undefined;
+InlineResponse20054.prototype['name'] = undefined;
+
+/**
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineResponse20054.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineResponse20054.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+
+/**
+ * GUID, владелеца.
+ * @member {String} ownerId
+ */
+InlineResponse20054.prototype['ownerId'] = undefined;
+
+/**
+ * GUID любого, кто последний создал.
+ * @member {String} createdById
+ */
+InlineResponse20054.prototype['createdById'] = undefined;
+
+/**
+ * GUID любого, кто последний редактировал.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20054.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20054.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20054.prototype['updatedAt'] = undefined;
 
 
 

@@ -54,6 +54,8 @@ import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
+import ApiV1ProductsKeepaOffers from './model/ApiV1ProductsKeepaOffers';
+import ApiV1ProductsKeepaStats from './model/ApiV1ProductsKeepaStats';
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
@@ -89,6 +91,7 @@ import InlineObject105 from './model/InlineObject105';
 import InlineObject106 from './model/InlineObject106';
 import InlineObject107 from './model/InlineObject107';
 import InlineObject108 from './model/InlineObject108';
+import InlineObject109 from './model/InlineObject109';
 import InlineObject11 from './model/InlineObject11';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject13 from './model/InlineObject13';
@@ -270,7 +273,8 @@ import InlineResponse20059 from './model/InlineResponse20059';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
 import InlineResponse20061 from './model/InlineResponse20061';
-import InlineResponse20061Details from './model/InlineResponse20061Details';
+import InlineResponse20062 from './model/InlineResponse20062';
+import InlineResponse20062Details from './model/InlineResponse20062Details';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
@@ -633,6 +637,18 @@ export {
     ApiV1IntegrationsSellerboardWarehouseStocksShop,
 
     /**
+     * The ApiV1ProductsKeepaOffers model constructor.
+     * @property {module:model/ApiV1ProductsKeepaOffers}
+     */
+    ApiV1ProductsKeepaOffers,
+
+    /**
+     * The ApiV1ProductsKeepaStats model constructor.
+     * @property {module:model/ApiV1ProductsKeepaStats}
+     */
+    ApiV1ProductsKeepaStats,
+
+    /**
      * The ApiV1RequestProposalsCreatedBy model constructor.
      * @property {module:model/ApiV1RequestProposalsCreatedBy}
      */
@@ -841,6 +857,12 @@ export {
      * @property {module:model/InlineObject108}
      */
     InlineObject108,
+
+    /**
+     * The InlineObject109 model constructor.
+     * @property {module:model/InlineObject109}
+     */
+    InlineObject109,
 
     /**
      * The InlineObject11 model constructor.
@@ -1929,10 +1951,16 @@ export {
     InlineResponse20061,
 
     /**
-     * The InlineResponse20061Details model constructor.
-     * @property {module:model/InlineResponse20061Details}
+     * The InlineResponse20062 model constructor.
+     * @property {module:model/InlineResponse20062}
      */
-    InlineResponse20061Details,
+    InlineResponse20062,
+
+    /**
+     * The InlineResponse20062Details model constructor.
+     * @property {module:model/InlineResponse20062Details}
+     */
+    InlineResponse20062Details,
 
     /**
      * The InlineResponse2007 model constructor.

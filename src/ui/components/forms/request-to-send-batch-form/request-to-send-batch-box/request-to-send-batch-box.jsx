@@ -11,8 +11,8 @@ import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 
 import {calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs} from '@utils/calculation'
-import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 

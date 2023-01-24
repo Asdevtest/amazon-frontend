@@ -1725,5 +1725,7 @@
   "Add proxy": "Add proxy",
   "Add a list of proxy": "Add a list of proxy",
   "Search by Proxy": "Search by Proxy",
-  "Proxy": "Proxy"
+  "Proxy": "Proxy",
+  "Such dialogue already exists": "Such dialogue already exists",
+  "Name of group chat": "Name of group chat"
 }

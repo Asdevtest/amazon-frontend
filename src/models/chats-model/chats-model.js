@@ -6,6 +6,11 @@ class ChatsModelStatic {
     return response
   }
 
+  createSimpleGroupChat = async data => {
+    const response = await restApiService.chatsApi.apiV1ChatsGroupPost({body: data})
+    return response
+  }
+
   createSimpleChatByUserEmail = async email => {
     const response = await restApiService.chatsApi.apiV1ChatsByEmailPost({body: {email}})
     return response
