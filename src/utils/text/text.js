@@ -7,6 +7,9 @@ import {checkIsAbsoluteUrl} from '../checks'
 import {getDistanceBetweenDatesInSeconds} from '../date-time'
 import {t} from '../translations'
 
+export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
+  str.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
+
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
 
 export const trimBarcode = value => (value.length >= 8 ? String(value.substr(-8)) : value)
@@ -71,14 +74,9 @@ export const getFullTariffTextForBoxOrOrder = box => {
   }`
 }
 
-export const shortSku = value => {
-  const shortTitle = value.length > 12 ? value.slice(0, 12) + '...' : value
-  return shortTitle
-}
-export const shortAsin = value => {
-  const shortTitle = value.length > 10 ? value.slice(0, 10) + '...' : value
-  return shortTitle
-}
+export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
+
+export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
 
 export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)

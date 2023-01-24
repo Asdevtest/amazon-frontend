@@ -34,6 +34,8 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
 
   const lastMessage = messages[messages.length - 1] || {}
 
+  const isGroupChat = users.length > 2
+
   const oponentUser = users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
 
@@ -59,11 +61,14 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
   return (
     <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
       <div className={classNames.leftSide}>
-        <Avatar src={getUserAvatarSrc(oponentUser?._id)} className={classNames.avatarWrapper} />
+        <Avatar
+          src={isGroupChat ? chat.info?.image : getUserAvatarSrc(oponentUser?._id)}
+          className={classNames.avatarWrapper}
+        />
       </div>
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>{title}</p>
+          <p className={classNames.titleText}>{isGroupChat ? chat.info?.title : title}</p>
 
           {lastMessage?.updatedAt ? (
             <p className={classNames.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>

@@ -20,6 +20,7 @@ import {AddNewChatByEmailForm} from '@components/forms/add-new-chat-by-email-for
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -41,11 +42,13 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
       curFoundedMessage,
       messagesFound,
       mesSearchValue,
       usersData,
       showAddNewChatByEmailModal,
+      showWarningInfoModal,
       showProgress,
       typingUsers,
       noticeOfSimpleChats,
@@ -202,6 +205,17 @@ class MessagesViewRaw extends Component {
                   onSubmit={onSubmitAddNewChat}
                 />
               </Modal>
+
+              <WarningInfoModal
+                isWarning={warningInfoModalSettings.isWarning}
+                openModal={showWarningInfoModal}
+                setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+                title={warningInfoModalSettings.title}
+                btnText={t(TranslationKey.Ok)}
+                onClickBtn={() => {
+                  onTriggerOpenModal('showWarningInfoModal')
+                }}
+              />
             </MainContent>
           </Appbar>
         </Main>

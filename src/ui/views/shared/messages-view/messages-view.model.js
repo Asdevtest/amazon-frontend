@@ -1,9 +1,14 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {ChatModel} from '@models/chat-model'
 import {ChatsModel} from '@models/chats-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
+
+import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class MessagesViewModel {
   history = undefined
@@ -14,11 +19,19 @@ export class MessagesViewModel {
   drawerOpen = false
   showConfirmModal = false
   showAddNewChatByEmailModal = false
+  showWarningInfoModal = false
 
   chatSelectedId = undefined
 
   nameSearchValue = ''
   mesSearchValue = ''
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
+  readyImages = []
 
   usersData = []
   messagesFound = []
@@ -125,10 +138,14 @@ export class MessagesViewModel {
     try {
       const res = await ChatsModel.getUsersNames()
 
-      const existedChatsUsers = this.simpleChats.reduce((acc, cur) => acc.concat(cur.users.map(user => user._id)), [])
+      // const existedChatsUsers = this.simpleChats.reduce((acc, cur) => acc.concat(cur.users.map(user => user._id)), [])
+
+      // runInAction(() => {
+      //   this.usersData = res.filter(el => !existedChatsUsers.includes(el._id))
+      // })
 
       runInAction(() => {
-        this.usersData = res.filter(el => !existedChatsUsers.includes(el._id))
+        this.usersData = res
       })
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
@@ -137,9 +154,37 @@ export class MessagesViewModel {
     }
   }
 
-  async onSubmitAddNewChat(user) {
+  async onSubmitAddNewChat(formFields) {
     try {
-      await ChatsModel.createSimpleChatByUserId(user._id)
+      if (formFields.chosenUsers.length === 1) {
+        const existedChatsUsers = this.simpleChats.reduce(
+          (acc, cur) => acc.concat(cur.users.length === 2 ? cur.users.map(user => user._id) : []),
+          [],
+        )
+
+        if (existedChatsUsers.includes(formFields.chosenUsers[0]._id)) {
+          runInAction(() => {
+            this.warningInfoModalSettings = {
+              isWarning: false,
+              title: t(TranslationKey['Such dialogue already exists']),
+            }
+          })
+
+          this.onTriggerOpenModal('showWarningInfoModal')
+        } else {
+          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]._id)
+        }
+      } else {
+        if (formFields.images.length) {
+          await onSubmitPostImages.call(this, {images: formFields.images, type: 'readyImages'})
+        }
+
+        await ChatsModel.createSimpleGroupChat({
+          userIds: formFields.chosenUsers.map(el => el._id),
+          title: formFields.title,
+          image: this.readyImages[0] || '',
+        })
+      }
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {

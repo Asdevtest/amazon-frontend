@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id профайла | 
+**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
 
 

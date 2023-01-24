@@ -4,7 +4,7 @@ import {
 } from '@constants/batch-weight-calculations-method'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {toFixed} from './text'
+import {toFixed} from '@utils/text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 

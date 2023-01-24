@@ -25,6 +25,7 @@ import {UserLink} from '@components/user-link'
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsBuyer, checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -179,9 +180,7 @@ export const BoxViewForm = observer(
                       </div>
                       <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                         <Typography className={classNames.amazonTitle}>
-                          {item.product.amazonTitle.length > 225
-                            ? item.product.amazonTitle.slice(0, 225) + '...'
-                            : item.product.amazonTitle}
+                          {getShortenStringIfLongerThanCount(item.product.amazonTitle, 225)}
                         </Typography>
                       </Tooltip>
 

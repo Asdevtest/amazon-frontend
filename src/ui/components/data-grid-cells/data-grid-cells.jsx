@@ -75,6 +75,7 @@ import {
   toFixed,
   shortSku,
   shortAsin,
+  getShortenStringIfLongerThanCount,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -958,16 +959,11 @@ export const CommentOfSbCell = React.memo(
             <div className={classNames.multilineTextAlignLeftWrapper}>
               <Typography
                 // disabled
-                // value={
-                //   (checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
-                //     ? productsInWarehouse[0].comment.slice(0, 147) + '...'
-                //     : productsInWarehouse[0].comment) || ''
-                // }
                 className={classNames.multilineTextAlignLeft}
               >
-                {(checkIsString(productsInWarehouse[0].comment) && productsInWarehouse[0].comment.length > 150
-                  ? productsInWarehouse[0].comment.slice(0, 147) + '...'
-                  : productsInWarehouse[0].comment) || ''}
+                {(checkIsString(productsInWarehouse[0].comment) &&
+                  getShortenStringIfLongerThanCount(productsInWarehouse[0].comment, 147)) ||
+                  ''}
               </Typography>
             </div>
           </Tooltip>
@@ -997,11 +993,9 @@ export const MultilineTextAlignLeftCell = React.memo(
           <div className={classNames.multilineTextAlignLeftWrapper}>
             <Typography
               // disabled
-              // value={checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
-              // value={text.length > 10 ? text.slice(0, 7) + '...' : text}
               className={cx(classNames.multilineTextAlignLeft, {[classNames.cursorPointer]: pointer})}
             >
-              {checkIsString(text) && text.length > 150 ? text.slice(0, 147) + '...' : text}
+              {getShortenStringIfLongerThanCount(text, 150)}
             </Typography>
           </div>
         </Tooltip>

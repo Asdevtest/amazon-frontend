@@ -30,6 +30,7 @@ import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
 import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -229,9 +230,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               <div className={classNames.usernameAndBalanceWrapper}>
                 <Tooltip title={componentModel.current.userName}>
                   <Typography className={classNames.username}>
-                    {componentModel.current.userName.length > 10
-                      ? componentModel.current.userName.slice(0, 10) + '...'
-                      : componentModel.current.userName}
+                    {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
                   </Typography>
                 </Tooltip>
 
@@ -256,9 +255,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               <MenuItem className={classNames.menuClientInfoWrapper}>
                 <div className={classNames.menuClientInfo}>
                   <Typography className={classNames.menuClientInfoText}>
-                    {componentModel.current.userName.length > 10
-                      ? componentModel.current.userName.slice(0, 10) + '...'
-                      : componentModel.current.userName}
+                    {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
                   </Typography>
 
                   <Typography className={classNames.menuClientInfoText}>

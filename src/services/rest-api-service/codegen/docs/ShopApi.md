@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopsGet
 
-> [InlineResponse20053] apiV1ShopsGet(opts)
+> [InlineResponse20054] apiV1ShopsGet(opts)
 
 # Получить все магазины пользователя.
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20053]**](InlineResponse20053.md)
+[**[InlineResponse20054]**](InlineResponse20054.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ let apiInstance = new TestSwagger.ShopApi();
 let guid = null; // String | GUID объекта в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1ShopsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID объекта в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 
@@ -195,7 +195,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
+  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
 };
 apiInstance.apiV1ShopsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -211,7 +211,7 @@ apiInstance.apiV1ShopsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
+ **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
 
 ### Return type
 

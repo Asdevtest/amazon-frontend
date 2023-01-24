@@ -9,6 +9,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -17,10 +18,7 @@ import {useClassNames} from './set-shipping-label-modal.style'
 export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel}) => {
   const {classes: classNames} = useClassNames()
 
-  const shippingLabel =
-    (item?.shippingLabel?.length > 200
-      ? item?.shippingLabel.slice(0, 195) + '...' + item?.shippingLabel.slice(item?.shippingLabel.length - 3)
-      : item?.shippingLabel) || ''
+  const shippingLabel = getShortenStringIfLongerThanCount(item?.shippingLabel, 200, true) || ''
 
   const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
 

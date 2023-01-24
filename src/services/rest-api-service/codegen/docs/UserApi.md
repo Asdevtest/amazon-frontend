@@ -43,7 +43,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject105() // InlineObject105 | 
+  'body': new TestSwagger.InlineObject106() // InlineObject106 | 
 };
 apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -59,7 +59,7 @@ apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject105**](InlineObject105.md)|  | [optional] 
+ **body** | [**InlineObject106**](InlineObject106.md)|  | [optional] 
 
 ### Return type
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20058] apiV1UsersContactsGet(opts)
+> [InlineResponse20059] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20058]**](InlineResponse20058.md)
+[**[InlineResponse20059]**](InlineResponse20059.md)
 
 ### Authorization
 
@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20057 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20058 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20057**](InlineResponse20057.md)
+[**InlineResponse20058**](InlineResponse20058.md)
 
 ### Authorization
 
