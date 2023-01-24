@@ -19,9 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierActionsWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '20px',
   },
   supplierContainer: {
-    marginBottom: '20px',
     display: 'flex',
     gap: '16px',
   },
@@ -349,6 +350,20 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '14px',
     fontWeight: '400',
     // color: theme.palette.text.second,
+
+    color: theme.palette.text.second,
+  },
+  supplierCheckboxWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    cursor: 'pointer',
+  },
+  checkboxTitle: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
 
     color: theme.palette.text.second,
   },

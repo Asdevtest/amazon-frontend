@@ -3,7 +3,18 @@ import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
+import {
+  Box,
+  InputAdornment,
+  Select,
+  MenuItem,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Avatar,
+  Checkbox,
+} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -196,6 +207,8 @@ export const EditOrderModal = observer(
         ? order?.priceInYuan
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
+
+    const [updateSupplierData, setUpdateSupplierData] = useState(false)
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
@@ -692,6 +705,15 @@ export const EditOrderModal = observer(
                     </div>
                   </>
                 ) : null}
+              </div>
+              <div
+                className={classNames.supplierCheckboxWrapper}
+                onClick={() => setUpdateSupplierData(!updateSupplierData)}
+              >
+                <Checkbox checked={updateSupplierData} color="primary" />
+                <Typography className={classNames.checkboxTitle}>
+                  {t(TranslationKey['Update supplier data'])}
+                </Typography>
               </div>
             </div>
           ) : null}

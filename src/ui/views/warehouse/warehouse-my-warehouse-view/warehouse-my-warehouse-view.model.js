@@ -240,11 +240,17 @@ export class WarehouseMyWarehouseViewModel {
     this.getBoxesMy()
   }
 
+  // onSelectionModel(model) {
+  //   const boxes = this.boxesMy.filter(box => model.includes(box.id))
+  //   const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
+  //   runInAction(() => {
+  //     this.selectedBoxes = res
+  //   })
+  // }
+
   onSelectionModel(model) {
-    const boxes = this.boxesMy.filter(box => model.includes(box.id))
-    const res = boxes.reduce((ac, el) => ac.concat(el._id), [])
     runInAction(() => {
-      this.selectedBoxes = res
+      this.selectedBoxes = model
     })
   }
 
