@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
@@ -16,15 +17,19 @@ import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxStorekeeperForm} from '@components/forms/edit-box-storekeeper-form'
 import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
+import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
 import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
+import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
+import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -44,6 +49,16 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      boxesMy,
+      showMergeBoxModal,
+      showRedistributeBoxModal,
+      onRemoveBoxFromSelected,
+      onModalRedistributeBoxAddNewBox,
+      showRedistributeBoxAddNewBoxModal,
+      warningInfoModalSettings,
+      showWarningInfoModal,
+      showGroupingBoxesModal,
+      onClickSubmitGroupingBoxes,
       destinationsFavourites,
       userInfo,
       rowCount,
@@ -99,7 +114,6 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onSubmitEditBox,
       onSearchSubmit,
 
-      onEditBox,
       onClickSubmitEditBox,
       onSubmitChangeBoxFields,
       onClickSubmitEditMultipleBoxes,
@@ -117,9 +131,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <Button disabled={!selectedBoxes.length} className={classNames.editBtn} onClick={onEditBox}>
-                  {t(TranslationKey.Edit)}
-                </Button>
+                <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
 
                 <SearchInput
                   inputClasses={classNames.searchInput}
@@ -287,6 +299,112 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             onTriggerOpenModal('showSuccessInfoModal')
           }}
         />
+
+        <Modal
+          missClickModalOn
+          openModal={showMergeBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
+        >
+          <MergeBoxesModal
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={
+              (selectedBoxes.length &&
+                toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
+              []
+            }
+            requestStatus={requestStatus}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+            setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
+            onRemoveBoxFromSelected={onRemoveBoxFromSelected}
+            // onSubmit={onClickConfirmCreateMergeTasks}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showRedistributeBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
+        >
+          <RedistributeBox
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            requestStatus={requestStatus}
+            addNewBoxModal={showRedistributeBoxAddNewBoxModal}
+            setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
+            selectedBox={
+              selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData
+            }
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+            onTriggerOpenModal={onTriggerOpenModal}
+            // onRedistribute={onClickConfirmCreateSplitTasks}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showGroupingBoxesModal}
+          setOpenModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
+        >
+          <GroupingBoxesForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
+            onCloseModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
+            onSubmit={onClickSubmitGroupingBoxes}
+          />
+        </Modal>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
+      </React.Fragment>
+    )
+  }
+
+  renderButtons = () => {
+    const {selectedBoxes, onClickMergeBtn, onClickSplitBtn, onClickGroupingBtn, onEditBox} = this.viewModel
+    const {classes: classNames} = this.props
+    return (
+      <React.Fragment>
+        <Button
+          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
+          disabled={!selectedBoxes.length}
+          className={classNames.editBtn}
+          onClick={onEditBox}
+        >
+          {t(TranslationKey.Edit)}
+        </Button>
+
+        <Button
+          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
+          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
+          onClick={onClickMergeBtn}
+        >
+          {t(TranslationKey.Merge)}
+        </Button>
+
+        <Button
+          disabled={selectedBoxes.length !== 1}
+          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
+          onClick={onClickSplitBtn}
+        >
+          {t(TranslationKey.Redistribute)}
+        </Button>
+
+        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+          {t(TranslationKey.Grouping)}
+        </Button>
       </React.Fragment>
     )
   }

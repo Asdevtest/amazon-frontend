@@ -110,11 +110,11 @@ export const MergeBoxesModal = ({
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
   const tariffName = storekeepers
-    .find(el => el._id === boxBody.storekeeperId)
+    ?.find(el => el._id === boxBody.storekeeperId)
     ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
 
   const tariffRate = storekeepers
-    .find(el => el._id === boxBody.storekeeperId)
+    ?.find(el => el._id === boxBody.storekeeperId)
     ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
   const boxData = selectedBoxes.map(box => box.items)
 
@@ -193,9 +193,10 @@ export const MergeBoxesModal = ({
                   <WithSearchSelect
                     width={220}
                     selectedItemName={
-                      destinations.find(el => el._id === boxBody.destinationId)?.name || t(TranslationKey['Not chosen'])
+                      destinations?.find(el => el._id === boxBody.destinationId)?.name ||
+                      t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
+                    data={destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -217,7 +218,7 @@ export const MergeBoxesModal = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
-                      ? `${storekeepers.find(el => el._id === boxBody.storekeeperId)?.name} /  
+                      ? `${storekeepers?.find(el => el._id === boxBody.storekeeperId)?.name} /  
                 ${
                   boxBody.logicsTariffId
                     ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -334,7 +335,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
+          storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
           curStorekeeperId={boxBody.storekeeperId}
           curTariffId={boxBody.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}

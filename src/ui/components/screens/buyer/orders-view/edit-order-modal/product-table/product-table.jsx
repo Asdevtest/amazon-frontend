@@ -4,6 +4,8 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Field} from '@components/field'
+
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -11,7 +13,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './product-table.style'
 
-export const ProductTable = ({modalHeadCells, order, orderFields}) => {
+export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField}) => {
   const {classes: classNames} = useClassNames()
   return (
     <TableContainer className={classNames.tableContainer}>
@@ -44,7 +46,16 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             <TableCell className={classNames.tableCell}>
               {toFixed(order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount, 2)}
             </TableCell>
-            <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
+            <TableCell className={classNames.tableCell}>
+              <div className={classNames.fieldWrapper}>
+                <Field
+                  inputProps={{maxLength: 20}}
+                  inputClasses={classNames.commentInput}
+                  value={orderFields.amount}
+                  onChange={setOrderField('amount')}
+                />
+              </div>
+            </TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>
             <TableCell>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>

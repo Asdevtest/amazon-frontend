@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import {Button, ClickAwayListener, Popover, Tooltip, Typography} from '@mui/material'
+import {Button, ClickAwayListener, Popover, Tooltip, Typography, Checkbox} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -35,6 +35,7 @@ const WithSearchSelectRaw = observer(
     favourites,
     withoutSearch,
     onClickSetDestinationFavourite,
+    checkbox,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -173,11 +174,18 @@ const WithSearchSelectRaw = observer(
                           handleClose()
                         }}
                       >
-                        <div className={classNames.fieldNamesWrapper}>
+                        <div
+                          className={cx(classNames.fieldNamesWrapper, {
+                            [classNames.fieldNamesWrapperWithCheckbox]: checkbox,
+                          })}
+                        >
                           {searchFields?.map((fieldName, index) => (
-                            <Tooltip key={index} title={el[fieldName]}>
-                              <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
-                            </Tooltip>
+                            <>
+                              {checkbox && <Checkbox color="primary" />}
+                              <Tooltip key={index} title={el[fieldName]}>
+                                <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
+                              </Tooltip>
+                            </>
                           ))}
                           {/* {favourites ? (
                             <div

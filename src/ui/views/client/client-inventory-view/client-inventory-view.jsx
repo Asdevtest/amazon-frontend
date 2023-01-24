@@ -461,7 +461,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showProductLotDataModal} setOpenModal={() => onTriggerOpenModal('showProductLotDataModal')}>
           <ProductLotDataForm
-            // product={currentData.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
+            userInfo={userInfo}
             isTransfer={isTransfer}
             product={curProduct}
             batchesData={batchesData}

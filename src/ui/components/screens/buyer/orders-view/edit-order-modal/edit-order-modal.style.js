@@ -25,7 +25,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '16px',
   },
-
+  iconBtnAccept: {
+    backgroundColor: 'rgba(30, 220, 30, 1)',
+  },
   iconBtnAcceptRevoke: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
   },
@@ -335,5 +337,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
   inputWrapper: {
     height: 'auto',
+  },
+  supplierButtonWrapper: {
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'center',
+  },
+  supplierButtonText: {
+    maxWidth: '98px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    // color: theme.palette.text.second,
+
+    color: theme.palette.text.second,
   },
 }))

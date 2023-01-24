@@ -10,20 +10,21 @@ import {t} from '../translations'
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
 
-export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
+export const getModelNameWithotPostfix = modelName =>
+  modelName && typeof modelName === 'string' ? modelName.replace('Static', '') : null
 
-export const trimBarcode = value => (value.length >= 8 ? String(value.substr(-8)) : value)
+export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-export const replaceDollarSign = str => (str ? str.replace('$', '') : str)
+// export const replaceDollarSign = str => (str ? str.replace('$', '') : str) // Не используется
 
 export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
-export const getFloat = str => (str ? parseFloat(str) || 0 : str)
+// export const getFloat = str => (str ? parseFloat(str) || 0 : str) // Не используется
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
-export const getInt = str => (str ? parseFloat(str) || 0 : str)
-export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0)
+// export const getInt = str => (str ? parseFloat(str) || 0 : str) // Не используется
+// export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0) // Не используется
 
-export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str)
+// export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str) // Не используется
 
 export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))

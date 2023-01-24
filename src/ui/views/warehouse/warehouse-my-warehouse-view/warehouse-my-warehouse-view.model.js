@@ -84,6 +84,15 @@ export class WarehouseMyWarehouseViewModel {
   showEditBoxModal = false
   showFullEditBoxModal = false
   showSuccessInfoModal = false
+  showWarningInfoModal = false
+  showMergeBoxModal = false
+  showRedistributeBoxModal = false
+  showGroupingBoxesModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   showEditMultipleBoxesModal = false
 
@@ -644,6 +653,139 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.error = error
       })
+    }
+  }
+
+  async onClickMergeBtn() {
+    try {
+      const isMasterBoxSelected = this.selectedBoxes.some(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.originalData?.amount && findBox.originalData?.amount > 1
+      })
+
+      if (isMasterBoxSelected) {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Cannot be merged with a Superbox']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        return
+      }
+
+      const destinations = await ClientModel.getDestinations()
+      const storekeepersData = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.destinations = destinations
+        this.storekeepersData = storekeepersData
+      })
+
+      this.onTriggerOpenModal('showMergeBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onRemoveBoxFromSelected(boxId) {
+    runInAction(() => {
+      this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+    })
+
+    if (this.selectedBoxes.length < 2) {
+      this.onTriggerOpenModal('showMergeBoxModal')
+    }
+  }
+
+  async onClickSplitBtn() {
+    try {
+      const destinations = await ClientModel.getDestinations()
+      const storekeepersData = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.destinations = destinations
+        this.storekeepersData = storekeepersData
+      })
+
+      this.onTriggerOpenModal('showRedistributeBoxModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onModalRedistributeBoxAddNewBox(value) {
+    runInAction(() => {
+      this.modalRedistributeBoxAddNewBox = value
+    })
+  }
+
+  async onClickSubmitGroupingBoxes({oldBoxes, newBoxes}) {
+    try {
+      await BoxesModel.regroupBoxes({
+        boxIds: oldBoxes.map(el => el._id),
+        newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
+      })
+
+      runInAction(() => {
+        this.selectedBoxes = []
+
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: t(TranslationKey['Data was successfully saved']),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showGroupingBoxesModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickGroupingBtn() {
+    try {
+      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+
+      const boxesWithDifferentStorekeepers = this.selectedBoxes.filter(boxId => {
+        const findBox = this.boxesMy.find(box => box._id === boxId)
+        return findBox?.storekeeper !== firstBox?.storekeeper
+      })
+
+      if (boxesWithDifferentStorekeepers.length) {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: false,
+            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+
+        return
+      }
+
+      const destinations = await ClientModel.getDestinations()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showGroupingBoxesModal')
+    } catch (err) {
+      console.log(err)
     }
   }
 

@@ -50,6 +50,8 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      pathnameNotPaid,
+      yuanToDollarRate,
       orderStatusData,
       warningInfoModalSettings,
       userInfo,
@@ -92,6 +94,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onClickOrder,
       onSubmitSaveOrder,
       onTriggerOpenModal,
+      onClickSaveSupplierBtn,
 
       // setDataGridState,
       onColumnVisibilityModelChange,
@@ -190,6 +193,8 @@ class BuyerMyOrdersViewRaw extends Component {
         >
           <EditOrderModal
             userInfo={userInfo}
+            pathnameNotPaid={pathnameNotPaid}
+            yuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
             photosToLoad={photosToLoad}
             requestStatus={requestStatus}
@@ -204,6 +209,7 @@ class BuyerMyOrdersViewRaw extends Component {
             onSaveOrderItem={onSaveOrderItem}
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
             onClickHsCode={onClickHsCode}
+            onClickSaveSupplierBtn={onClickSaveSupplierBtn}
           />
         </Modal>
 
