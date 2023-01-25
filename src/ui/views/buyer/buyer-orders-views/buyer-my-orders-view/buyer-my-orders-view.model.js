@@ -101,6 +101,8 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showWarningInfoModal = false
 
+  updateSupplierData = false
+
   hsCodeData = {}
 
   showEditHSCodeModal = false
@@ -223,6 +225,10 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  setUpdateSupplierData() {
+    this.updateSupplierData = !this.updateSupplierData
+  }
+
   setOrderStatus = pathname => {
     if (pathname) {
       switch (pathname) {
@@ -301,7 +307,6 @@ export class BuyerMyOrdersViewModel {
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        console.log('supplierUpdateData', supplierUpdateData)
         const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
@@ -560,6 +565,13 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  // this.warningInfoModalSettings = {
+  //   isWarning: false,
+  //   title: t(TranslationKey['Data saved successfully']),
+  // }
+
+  // this.onTriggerOpenModal('showWarningInfoModal')
+
   async onSubmitSaveOrder({
     order,
     orderFields,
@@ -569,7 +581,6 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
   }) {
-    console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 

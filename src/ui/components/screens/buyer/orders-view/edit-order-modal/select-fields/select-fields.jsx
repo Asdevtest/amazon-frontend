@@ -196,7 +196,7 @@ export const SelectFields = ({
 
                 //   2,
                 // )}
-                // Убрать если что
+                // Убрать
                 value={toFixedWithYuanSign(
                   calcPriceForItem(
                     pathnameNotPaid && checkIsPlanningPrice
@@ -279,9 +279,13 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   labelClasses={classNames.greenLabel}
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
+                  // value={
+                  //   isPendingOrder
+                  //     ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
+                  //     : orderFields.totalPriceChanged
+                  // }
                   value={
-                    // Убрать pathnameNotPaid
-                    isPendingOrder || pathnameNotPaid /* && checkIsPlanningPrice */
+                    isPendingOrder || (pathnameNotPaid && checkIsPlanningPrice)
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                       : orderFields.totalPriceChanged
                   }
@@ -319,8 +323,7 @@ export const SelectFields = ({
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
               value={toFixedWithDollarSign(
                 calcPriceForItem(
-                  // Убрать pathnameNotPaid
-                  isPendingOrder || pathnameNotPaid /* && checkIsPlanningPrice */
+                  isPendingOrder || (pathnameNotPaid && checkIsPlanningPrice)
                     ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                     : orderFields.totalPriceChanged,
                   orderFields.amount,

@@ -95,6 +95,8 @@ export const EditOrderModal = observer(
     onClickSaveSupplierBtn,
     onClickHsCode,
     pathnameNotPaid,
+    updateSupplierData,
+    setUpdateSupplierData,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -207,8 +209,6 @@ export const EditOrderModal = observer(
         ? order?.priceInYuan
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
-
-    const [updateSupplierData, setUpdateSupplierData] = useState(false)
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
@@ -709,10 +709,7 @@ export const EditOrderModal = observer(
                   </>
                 ) : null}
               </div>
-              <div
-                className={classNames.supplierCheckboxWrapper}
-                onClick={() => setUpdateSupplierData(!updateSupplierData)}
-              >
+              <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
                 <Checkbox checked={updateSupplierData} color="primary" />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
