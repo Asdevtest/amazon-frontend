@@ -54,7 +54,7 @@ export const SelectFields = ({
   const {classes: classNames} = useClassNames()
 
   console.log('orderFields', orderFields)
-  console.log('order', order)
+  // console.log('order', order)
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
 
@@ -285,7 +285,7 @@ export const SelectFields = ({
                   //     : orderFields.totalPriceChanged
                   // }
                   value={
-                    isPendingOrder || (pathnameNotPaid && checkIsPlanningPrice)
+                    isPendingOrder /* || (pathnameNotPaid && checkIsPlanningPrice) */
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                       : orderFields.totalPriceChanged
                   }

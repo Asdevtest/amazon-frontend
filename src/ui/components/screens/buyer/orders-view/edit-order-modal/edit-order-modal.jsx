@@ -51,7 +51,12 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
-import {calcExchangeDollarsInYuansPrice, calcExchangePrice} from '@utils/calculation'
+import {
+  calcExchangeDollarsInYuansPrice,
+  calcExchangePrice,
+  calcOrderTotalPrice,
+  calcOrderTotalPriceInYuann,
+} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {
   formatDateDistanceFromNowStrict,
@@ -275,6 +280,17 @@ export const EditOrderModal = observer(
         }
 
         return
+      } else if (filedName === 'amount') {
+        newOrderFieldsState[filedName] = e.target.value
+
+        newOrderFieldsState.totalPriceChanged = toFixed(
+          calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
+          2,
+        )
+        newOrderFieldsState.priceInYuan = toFixed(
+          calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
+          2,
+        )
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }
