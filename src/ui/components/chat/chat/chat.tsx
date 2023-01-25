@@ -2,6 +2,10 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -10,6 +14,7 @@ import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+import {MemberPlus, Pencil} from '@constants/svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -83,6 +88,10 @@ export const Chat: FC<Props> = observer(
 
     const [showEmojis, setShowEmojis] = useState(false)
 
+    const [showGroupSettings, setShowGroupSettings] = useState(false)
+
+    const isGroupChat = chat.users.length > 2
+
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
@@ -140,6 +149,7 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
+      setShowGroupSettings(false)
     }, [chat?._id])
 
     useEffect(() => {
@@ -199,6 +209,72 @@ export const Chat: FC<Props> = observer(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
           />
+
+          {isGroupChat ? (
+            <div
+              className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
+              onClick={() => setShowGroupSettings(!showGroupSettings)}
+            >
+              {showGroupSettings ? (
+                <div className={classNames.collapseWrapper}>
+                  <Typography className={classNames.collapseText}>{t(TranslationKey.Collapse)}</Typography>
+
+                  <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
+                </div>
+              ) : (
+                <MoreVertOutlinedIcon className={classNames.arrowIcon} />
+              )}
+            </div>
+          ) : null}
+          {showGroupSettings ? (
+            <div className={classNames.groupSettingsWrapper}>
+              <div className={classNames.groupSettingsImageWrapper}>
+                <img src={chat.info?.image || '/assets/img/no-photo.jpg'} className={classNames.groupSettingsImage} />
+
+                <div className={classNames.groupSettingsInfoWrapper}>
+                  <div className={classNames.groupSettingsInfo}>
+                    <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
+                    <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
+                      TranslationKey.Members,
+                    ).toLocaleLowerCase()}`}</Typography>
+                  </div>
+
+                  {userId === chat.info?.createdBy ? <Pencil className={classNames.pencilEditIcon} /> : null}
+                </div>
+              </div>
+
+              <Button>
+                {
+                  <div className={classNames.addMemberBtnWrapper}>
+                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
+
+                    <MemberPlus className={classNames.arrowIcon} />
+                  </div>
+                }
+              </Button>
+
+              <div className={classNames.membersWrapper}>
+                {chat.users
+                  .slice()
+                  .sort((a, b) => Number(b._id === chat.info?.createdBy) - Number(a._id === chat.info?.createdBy))
+                  .map(el => (
+                    <div key={el._id} className={classNames.memberWrapper}>
+                      <div className={classNames.memberInfo}>
+                        <Avatar src={getUserAvatarSrc(el._id)} className={classNames.avatarWrapper} />
+                        <Typography className={classNames.opponentName}>{el?.name}</Typography>
+                        {el._id === chat.info?.createdBy ? (
+                          <Typography className={classNames.ownerSign}>{`(${t(TranslationKey.Owner)})`}</Typography>
+                        ) : null}
+                      </div>
+
+                      {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
+                        <CloseOutlinedIcon className={classNames.pencilEditIcon} fontSize="small" />
+                      ) : null}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : null}
         </div>
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}

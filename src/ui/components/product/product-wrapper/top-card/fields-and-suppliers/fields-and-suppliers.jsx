@@ -23,8 +23,7 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 
 import {checkIsClient, checkIsSupervisor, checkIsResearcher, checkIsBuyer} from '@utils/checks'
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './fields-and-suppliers.style'

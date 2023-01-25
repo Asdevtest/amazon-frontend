@@ -9,8 +9,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './set-shipping-label-modal.style'

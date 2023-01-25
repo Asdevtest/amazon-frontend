@@ -25,8 +25,14 @@ import {UserLink} from '@components/user-link'
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsBuyer, checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {formatShortDateTime} from '@utils/date-time'
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
+import {
+  getShortenStringIfLongerThanCount,
+  checkAndMakeAbsoluteUrl,
+  getFullTariffTextForBoxOrOrder,
+  shortAsin,
+  toFixed,
+  toFixedWithKg,
+} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './box-view-form.style'

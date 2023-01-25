@@ -35,8 +35,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   customBtnNameWrapper: {
-    display: 'flex',
+    display: 'flex !important',
+    alignItems: 'center',
     gap: 10,
+    marginLeft: 10,
+  },
+
+  isFocusedOption: {
+    transition: '.3s ease',
+
+    '&:hover': {
+      backgroundColor: '#CCE2FF',
+    },
   },
 
   customBtnName: {

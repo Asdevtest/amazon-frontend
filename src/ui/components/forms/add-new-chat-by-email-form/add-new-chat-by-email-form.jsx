@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
+import {css, cx} from '@emotion/css'
 import {Avatar, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
+// import {css} from 'emotion'
 import {toJS} from 'mobx'
-import Select from 'react-select'
+import {components} from 'react-select'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {CustomReactSelect} from '@components/selects/custom-react-select'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 import {UserLink} from '@components/user-link'
@@ -21,8 +24,6 @@ import {useClassNames} from './add-new-chat-by-email-form.style'
 
 export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
   const {classes: classNames} = useClassNames()
-
-  const [chosenUser, setChoseUser] = useState(null)
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -39,53 +40,51 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
     setFormFields(newFormFields)
   }
 
-  // const CustomBtn = ({key, item, onClick}) => (
-  //   <div key={key} className={classNames.customBtnWrapper} onClick={onClick}>
-  //     <div className={classNames.customBtnNameWrapper}>
-  //       <Avatar src={getUserAvatarSrc(item?._id)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
+  const disableSubmit =
+    !formFields.chosenUsers.length || submitIsClicked || (formFields.chosenUsers.length > 1 && !formFields.title)
 
-  //       <Typography className={classNames.customBtnName}>{item.name}</Typography>
-  //     </div>
+  const Option = ({innerRef, isFocused, ...props}) => (
+    <div
+      ref={innerRef}
+      className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
+        option: true,
+        [classNames.isFocusedOption]: isFocused,
+      })}
+    >
+      <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
+      <components.Option {...props} />
+    </div>
+  )
 
-  //     {/* <Typography className={classNames.customBtnEmail}>{item.email}</Typography> */}
-  //   </div>
-  // )
-
-  // console.log('chosenUsers', chosenUsers)
-
-  const disableSubmit = !formFields.chosenUsers.length || submitIsClicked
+  const MultiValueContainer = props => (
+    <components.MultiValueContainer {...props}>
+      {[
+        <Avatar
+          key={props.key}
+          src={getUserAvatarSrc(props.data._id)}
+          className={classNames.avatarWrapper}
+          sx={{width: 20, height: 20}}
+        />,
+        ...props.children,
+      ]}
+    </components.MultiValueContainer>
+  )
 
   return (
     <div className={classNames.mainWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Create a new dialog'])}</Typography>
 
-      {/* <Field
-        label={t(TranslationKey['Choose your speaker'])}
-        labelClasses={classNames.labelField}
-        inputComponent={
-          <WithSearchSelect
-            width={586}
-            selectedItemName={usersData.find(el => el._id === chosenUser?._id)?.name || t(TranslationKey['Not chosen'])}
-            placeholder={t(TranslationKey.search) + '...'}
-            data={usersData.sort((a, b) => a.name.localeCompare(b.name))}
-            searchFields={['name']}
-            CustomBtn={CustomBtn}
-            onClickNotChosen={() => setChoseUser(null)}
-            onClickSelect={el => setChoseUser(el)}
-          />
-        }
-      /> */}
-
       <Field
         label={t(TranslationKey['Choose your speaker'])}
         labelClasses={classNames.labelField}
         inputComponent={
-          <Select
+          <CustomReactSelect
+            // menuIsOpen
             isMulti
             closeMenuOnSelect={false}
-            styles={{menu: base => ({...base, position: 'relative'})}}
             value={formFields.chosenUsers}
             options={usersData}
+            components={{Option, MultiValueContainer}}
             getOptionValue={option => `${option._id}`}
             getOptionLabel={option => `${option.name}`}
             onChange={newValue => {

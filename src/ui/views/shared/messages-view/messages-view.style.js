@@ -145,13 +145,20 @@ export const styles = theme => ({
     fontSize: 18,
     color: theme.palette.text.general,
 
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
+    // cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    // transition: '.3s ease',
 
-    '&:hover': {
-      transform: 'scale(1.01)',
-      opacity: '0.8',
-    },
+    // '&:hover': {
+    //   transform: 'scale(1.01)',
+    //   opacity: '0.8',
+    // },
+  },
+
+  usersCount: {
+    marginLeft: 15,
+    fontWeight: 400,
+    fontSize: 14,
+    color: theme.palette.text.second,
   },
 
   opponentWrapper: {

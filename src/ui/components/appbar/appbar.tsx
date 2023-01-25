@@ -30,8 +30,7 @@ import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
 import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixedWithDollarSign, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {AppbarModel} from './appbar.model'

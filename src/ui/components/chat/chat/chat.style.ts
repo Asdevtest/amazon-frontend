@@ -17,6 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     flex: 1,
     minHeight: 278,
     maxHeight: 690,
+    display: 'flex',
   },
   bottomPartWrapper: {
     backgroundColor: theme.palette.background.general,
@@ -184,8 +185,6 @@ export const useClassNames = makeStyles()(theme => ({
       width: '100vw',
     },
   },
-  avatarWrapper: {},
-  opponentName: {},
   opponentSubWrapper: {
     [theme.breakpoints.down(768)]: {
       display: 'flex',
@@ -198,5 +197,167 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
+  },
+
+  groupSettingsWrapper: {
+    width: 350,
+    background: theme.palette.background.general,
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  hideAndShowIconWrapper: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 1200,
+    width: '40px',
+    height: '40px',
+    // backgroundColor: '#d1d1d1a8', // старый цвет
+    backgroundColor: '#FFFFFF',
+    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    [theme.breakpoints.down(900)]: {
+      display: 'none',
+    },
+  },
+  hideAndShowIcon: {
+    top: 20,
+    right: 155,
+    width: 'max-content',
+    borderRadius: 20,
+    padding: '0 5px',
+  },
+  arrowIcon: {
+    // marginLeft: 8,
+    color: theme.palette.primary.main,
+  },
+
+  collapseWrapper: {
+    display: 'flex',
+  },
+
+  collapseText: {
+    color: theme.palette.primary.main,
+    marginRight: 5,
+  },
+
+  groupSettingsImageWrapper: {
+    width: '100%',
+    height: 180,
+    display: 'flex',
+    alignItems: 'flex-end',
+    position: 'relative',
+    background: 'black',
+    padding: 10,
+    marginBottom: 15,
+  },
+
+  groupSettingsImage: {
+    width: '100%',
+    height: 180,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    objectFit: 'contain',
+    objectPosition: 'center',
+    opacity: 0.6,
+  },
+
+  groupSettingsInfoWrapper: {
+    zIndex: 99,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+
+  groupSettingsInfo: {
+    // marginLeft: 10,
+  },
+
+  groupSettingsInfoTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    // color: theme.palette.text.general,
+    color: '#fff',
+  },
+
+  usersCount: {
+    // marginLeft: 15,
+    fontWeight: 400,
+    fontSize: 14,
+    color: '#E1E1E1',
+  },
+
+  pencilEditIcon: {
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  addMemberBtnWrapper: {
+    display: 'flex',
+  },
+
+  addMemberBtnText: {
+    color: '#fff',
+    marginRight: 5,
+  },
+
+  membersWrapper: {
+    marginTop: 30,
+    width: '100%',
+
+    padding: '0 15px',
+  },
+
+  avatarWrapper: {
+    width: 30,
+    height: 30,
+
+    marginRight: 10,
+
+    // cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    // transition: '.3s ease',
+
+    // '&:hover': {
+    //   transform: 'scale(1.01)',
+    //   opacity: '0.8',
+    // },
+  },
+
+  memberWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  memberInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  opponentName: {
+    maxWidth: 180,
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  ownerSign: {
+    color: theme.palette.text.second,
+    marginLeft: 5,
   },
 }))

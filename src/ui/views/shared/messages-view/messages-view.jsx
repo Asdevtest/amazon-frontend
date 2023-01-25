@@ -75,6 +75,8 @@ class MessagesViewRaw extends Component {
 
     const currentOpponent = simpleChats.find(el => el._id === chatSelectedId)?.users.find(el => el._id !== user._id)
 
+    const currentChat = simpleChats.find(el => el._id === chatSelectedId)
+
     // console.log('messagesFound', messagesFound)
 
     const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
@@ -95,16 +97,28 @@ class MessagesViewRaw extends Component {
 
                   {chatSelectedId && simpleChats.length ? (
                     <div className={classNames.chatSelectedWrapper}>
-                      <Link
-                        target="_blank"
-                        href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                        underline="none"
-                      >
+                      {currentChat.users.length <= 2 ? (
+                        <Link
+                          target="_blank"
+                          href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                          underline="none"
+                        >
+                          <div className={classNames.opponentWrapper}>
+                            <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                            <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                          </div>
+                        </Link>
+                      ) : (
                         <div className={classNames.opponentWrapper}>
-                          <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                          <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                          <Avatar src={currentChat.info.image} className={classNames.avatarWrapper} />
+                          <div>
+                            <Typography className={classNames.opponentName}>{currentChat.info.title}</Typography>
+                            <Typography className={classNames.usersCount}>{`${currentChat.users.length} ${t(
+                              TranslationKey.Members,
+                            ).toLocaleLowerCase()}`}</Typography>
+                          </div>
                         </div>
-                      </Link>
+                      )}
 
                       <SearchInput
                         inputClasses={classNames.searchInput}
