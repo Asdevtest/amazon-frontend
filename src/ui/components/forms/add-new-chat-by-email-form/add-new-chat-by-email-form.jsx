@@ -25,8 +25,6 @@ import {useClassNames} from './add-new-chat-by-email-form.style'
 export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
   const {classes: classNames} = useClassNames()
 
-  const [chosenUser, setChoseUser] = useState(null)
-
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
   const [formFields, setFormFields] = useState({chosenUsers: [], title: '', images: []})
@@ -42,41 +40,21 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
     setFormFields(newFormFields)
   }
 
-  // const CustomBtn = ({key, item, onClick}) => (
-  //   <div key={key} className={classNames.customBtnWrapper} onClick={onClick}>
-  //     <div className={classNames.customBtnNameWrapper}>
-  //       <Avatar src={getUserAvatarSrc(item?._id)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
-
-  //       <Typography className={classNames.customBtnName}>{item.name}</Typography>
-  //     </div>
-
-  //     <Typography className={classNames.customBtnEmail}>{item.email}</Typography>
-  //   </div>
-  // )
-
-  // console.log('chosenUsers', chosenUsers)
-
   const disableSubmit =
     !formFields.chosenUsers.length || submitIsClicked || (formFields.chosenUsers.length > 1 && !formFields.title)
 
-  const Option = ({innerRef, isFocused, ...props}) => {
-    console.log('props', props)
-    console.log('getStyles', props.getStyles && props.getStyles('option', props))
-    // console.log('getClassNames', props.getClassNames && props.getClassNames('option', props))
-
-    return (
-      <div
-        ref={innerRef}
-        className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
-          option: true,
-          [classNames.isFocusedOption]: isFocused,
-        })}
-      >
-        <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
-        <components.Option {...props} />
-      </div>
-    )
-  }
+  const Option = ({innerRef, isFocused, ...props}) => (
+    <div
+      ref={innerRef}
+      className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
+        option: true,
+        [classNames.isFocusedOption]: isFocused,
+      })}
+    >
+      <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
+      <components.Option {...props} />
+    </div>
+  )
 
   const MultiValueContainer = props => (
     <components.MultiValueContainer {...props}>
@@ -95,23 +73,6 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
   return (
     <div className={classNames.mainWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Create a new dialog'])}</Typography>
-
-      {/* <Field
-        label={t(TranslationKey['Choose your speaker'])}
-        labelClasses={classNames.labelField}
-        inputComponent={
-          <WithSearchSelect
-            width={586}
-            selectedItemName={usersData.find(el => el._id === chosenUser?._id)?.name || t(TranslationKey['Not chosen'])}
-            placeholder={t(TranslationKey.search) + '...'}
-            data={usersData.sort((a, b) => a.name.localeCompare(b.name))}
-            searchFields={['name']}
-            CustomBtn={CustomBtn}
-            onClickNotChosen={() => setChoseUser(null)}
-            onClickSelect={el => setChoseUser(el)}
-          />
-        }
-      /> */}
 
       <Field
         label={t(TranslationKey['Choose your speaker'])}

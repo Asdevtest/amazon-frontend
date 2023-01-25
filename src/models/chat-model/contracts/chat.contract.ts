@@ -45,5 +45,5 @@ export class ChatContract implements TWebsocketChatService.Chat {
   @Type(() => ChatMessageContract)
   public messages!: ChatMessageContract[]
   @IsOptional()
-  public info?: {image: string; title: string; adminId: string}
+  public info?: {image: string; title: string; createdBy: string}
 }

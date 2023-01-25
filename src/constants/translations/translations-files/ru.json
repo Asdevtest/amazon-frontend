@@ -1728,5 +1728,7 @@
   "Proxy": "Прокси",
   "Such dialogue already exists": "Такой диалог уже существует",
   "Name of group chat": "Название группового чата",
-  "Members": "Участников"
+  "Members": "Участников",
+  "Add member": "Добавить усчастника",
+  "Owner": "Владелец"
 }
