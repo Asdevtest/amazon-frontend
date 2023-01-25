@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
+import {css, cx} from '@emotion/css'
 import {Avatar, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
+// import {css} from 'emotion'
 import {toJS} from 'mobx'
-import Select from 'react-select'
+import {components} from 'react-select'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {CustomReactSelect} from '@components/selects/custom-react-select'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 import {UserLink} from '@components/user-link'
@@ -47,13 +50,47 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
   //       <Typography className={classNames.customBtnName}>{item.name}</Typography>
   //     </div>
 
-  //     {/* <Typography className={classNames.customBtnEmail}>{item.email}</Typography> */}
+  //     <Typography className={classNames.customBtnEmail}>{item.email}</Typography>
   //   </div>
   // )
 
   // console.log('chosenUsers', chosenUsers)
 
-  const disableSubmit = !formFields.chosenUsers.length || submitIsClicked
+  const disableSubmit =
+    !formFields.chosenUsers.length || submitIsClicked || (formFields.chosenUsers.length > 1 && !formFields.title)
+
+  const Option = ({innerRef, isFocused, ...props}) => {
+    console.log('props', props)
+    console.log('getStyles', props.getStyles && props.getStyles('option', props))
+    // console.log('getClassNames', props.getClassNames && props.getClassNames('option', props))
+
+    return (
+      <div
+        ref={innerRef}
+        className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
+          option: true,
+          [classNames.isFocusedOption]: isFocused,
+        })}
+      >
+        <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{width: 28, height: 28}} />
+        <components.Option {...props} />
+      </div>
+    )
+  }
+
+  const MultiValueContainer = props => (
+    <components.MultiValueContainer {...props}>
+      {[
+        <Avatar
+          key={props.key}
+          src={getUserAvatarSrc(props.data._id)}
+          className={classNames.avatarWrapper}
+          sx={{width: 20, height: 20}}
+        />,
+        ...props.children,
+      ]}
+    </components.MultiValueContainer>
+  )
 
   return (
     <div className={classNames.mainWrapper}>
@@ -80,12 +117,13 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
         label={t(TranslationKey['Choose your speaker'])}
         labelClasses={classNames.labelField}
         inputComponent={
-          <Select
+          <CustomReactSelect
+            // menuIsOpen
             isMulti
             closeMenuOnSelect={false}
-            styles={{menu: base => ({...base, position: 'relative'})}}
             value={formFields.chosenUsers}
             options={usersData}
+            components={{Option, MultiValueContainer}}
             getOptionValue={option => `${option._id}`}
             getOptionLabel={option => `${option.name}`}
             onChange={newValue => {

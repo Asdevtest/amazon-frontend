@@ -12,8 +12,7 @@ import {Modal} from '@components/modal'
 
 import {calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithKg, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'

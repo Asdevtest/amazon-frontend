@@ -8,7 +8,7 @@ import {getDistanceBetweenDatesInSeconds} from '../date-time'
 import {t} from '../translations'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
-  str.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
+  str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
 
 export const getModelNameWithotPostfix = modelName =>
   modelName && typeof modelName === 'string' ? modelName.replace('Static', '') : null
