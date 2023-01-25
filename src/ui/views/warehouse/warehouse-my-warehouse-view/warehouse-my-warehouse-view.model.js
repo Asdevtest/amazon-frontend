@@ -4,6 +4,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {operationTypes} from '@constants/operation-types'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -693,6 +694,92 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  onClickConfirmCreateMergeTasks(boxBody, boxData, comment) {
+    this.onClickMerge(boxBody, comment)
+    // this.onTriggerOpenModal('showConfirmModal')
+    // runInAction(() => {
+    //   this.confirmModalSettings = {
+    //     isWarning: false,
+    //     confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+    //       boxData?.storekeeper?.name
+    //     } ${t(TranslationKey['to merge boxes'])}`,
+    //     onClickConfirm: () => this.onClickMerge(boxBody, comment),
+    //   }
+    // })
+  }
+
+  async onClickMerge(boxBody, comment) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const selectedIds = this.selectedBoxes
+
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (boxBody.tmpShippingLabel.length) {
+        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+      }
+
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
+        {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
+        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+      )
+
+      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
+
+      if (mergeBoxesResult) {
+        runInAction(() => {
+          this.modalEditSuccessMessage = `${t(TranslationKey['Data saved successfully'])}`
+        })
+        this.onTriggerOpenModal('showSuccessInfoModal')
+      } else {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The boxes are not joined!']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      }
+
+      this.onTriggerOpenModal('showMergeBoxModal')
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.setRequestStatus(loadingStatuses.success)
+
+      await this.getBoxesMy()
+
+      runInAction(() => {
+        this.selectedBoxes = []
+        this.tmpClientComment = ''
+      })
+
+      await this.getBoxesMy()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async mergeBoxes(ids, boxBody) {
+    try {
+      const result = await BoxesModel.mergeBoxes(ids, boxBody)
+
+      return result
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 

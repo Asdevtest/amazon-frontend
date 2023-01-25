@@ -52,6 +52,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       boxesMy,
       showMergeBoxModal,
       showRedistributeBoxModal,
+      onClickConfirmCreateMergeTasks,
       onRemoveBoxFromSelected,
       onModalRedistributeBoxAddNewBox,
       showRedistributeBoxAddNewBoxModal,
@@ -318,7 +319,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
             onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-            // onSubmit={onClickConfirmCreateMergeTasks}
+            onSubmit={onClickConfirmCreateMergeTasks}
           />
         </Modal>
 
