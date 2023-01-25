@@ -353,8 +353,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
-            onCloseModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
             onSubmit={onClickSubmitGroupingBoxes}
+            onCloseModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
           />
         </Modal>
 

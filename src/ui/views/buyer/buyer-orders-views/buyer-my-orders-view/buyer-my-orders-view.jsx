@@ -54,6 +54,8 @@ class BuyerMyOrdersViewRaw extends Component {
       yuanToDollarRate,
       orderStatusData,
       warningInfoModalSettings,
+      updateSupplierData,
+      setUpdateSupplierData,
       userInfo,
       rowCount,
       showSuccessModalText,
@@ -193,6 +195,7 @@ class BuyerMyOrdersViewRaw extends Component {
         >
           <EditOrderModal
             userInfo={userInfo}
+            updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
             yuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
@@ -204,6 +207,7 @@ class BuyerMyOrdersViewRaw extends Component {
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
+            setUpdateSupplierData={setUpdateSupplierData}
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSaveOrderItem={onSaveOrderItem}

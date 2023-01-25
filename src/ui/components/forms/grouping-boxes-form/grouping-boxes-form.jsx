@@ -332,6 +332,8 @@ export const GroupingBoxesForm = observer(
   ({destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes}) => {
     const {classes: classNames} = useClassNames()
 
+    console.log('selectedBoxes', selectedBoxes)
+
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
@@ -371,6 +373,7 @@ export const GroupingBoxesForm = observer(
                   'isBarCodeAttachedByTheStorekeeper',
                   'order',
                   'product',
+                  '_id',
                 ]),
               })),
             ) ===
@@ -381,6 +384,7 @@ export const GroupingBoxesForm = observer(
                     'isBarCodeAttachedByTheStorekeeper',
                     'order',
                     'product',
+                    '_id',
                   ]),
                 })),
               ),
@@ -398,6 +402,9 @@ export const GroupingBoxesForm = observer(
         ])
 
         setOldBoxes(newOldBoxes)
+        console.log('oldBoxes', oldBoxes)
+        console.log('newBoxes', newBoxes)
+        console.log('basicBox', basicBox)
       } else {
         setBasicBox(null)
 
@@ -484,19 +491,23 @@ export const GroupingBoxesForm = observer(
         <div className={classNames.boxesWrapper}>
           <div className={classNames.currentBox}>
             <div className={classNames.newBoxes}>
-              {oldBoxes.map((box, boxIndex) => (
-                <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
-                  <Box
-                    basicBox={basicBox}
-                    destinations={destinations}
-                    storekeepers={storekeepers}
-                    index={boxIndex}
-                    box={box}
-                    onRemoveBox={onRemoveOldBox}
-                    onClickBasicBoxRadio={onClickBasicBoxRadio}
-                  />
-                </div>
-              ))}
+              {oldBoxes.map((box, boxIndex) => {
+                console.log('oldBoxesMap', oldBoxes)
+
+                return (
+                  <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                    <Box
+                      basicBox={basicBox}
+                      destinations={destinations}
+                      storekeepers={storekeepers}
+                      index={boxIndex}
+                      box={box}
+                      onRemoveBox={onRemoveOldBox}
+                      onClickBasicBoxRadio={onClickBasicBoxRadio}
+                    />
+                  </div>
+                )
+              })}
             </div>
           </div>
 

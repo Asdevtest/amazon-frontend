@@ -3,7 +3,18 @@ import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Box, InputAdornment, Select, MenuItem, Paper, TableCell, TableRow, Typography, Avatar} from '@mui/material'
+import {
+  Box,
+  InputAdornment,
+  Select,
+  MenuItem,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Avatar,
+  Checkbox,
+} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -40,7 +51,12 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
-import {calcExchangeDollarsInYuansPrice, calcExchangePrice} from '@utils/calculation'
+import {
+  calcExchangeDollarsInYuansPrice,
+  calcExchangePrice,
+  calcOrderTotalPrice,
+  calcOrderTotalPriceInYuann,
+} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {
   formatDateDistanceFromNowStrict,
@@ -84,6 +100,8 @@ export const EditOrderModal = observer(
     onClickSaveSupplierBtn,
     onClickHsCode,
     pathnameNotPaid,
+    updateSupplierData,
+    setUpdateSupplierData,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -262,6 +280,17 @@ export const EditOrderModal = observer(
         }
 
         return
+      } else if (filedName === 'amount') {
+        newOrderFieldsState[filedName] = e.target.value
+
+        newOrderFieldsState.totalPriceChanged = toFixed(
+          calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
+          2,
+        )
+        newOrderFieldsState.priceInYuan = toFixed(
+          calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
+          2,
+        )
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }
@@ -590,6 +619,8 @@ export const EditOrderModal = observer(
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
             isPendingOrder={isPendingOrder}
+            updateSupplierData={updateSupplierData}
+            pathnameNotPaid={pathnameNotPaid}
             priceYuansDeliveryCostToTheWarehouse={priceYuansDeliveryCostToTheWarehouse}
             usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
@@ -611,6 +642,7 @@ export const EditOrderModal = observer(
           </Text>
 
           <ProductTable
+            pathnameNotPaid={pathnameNotPaid}
             modalHeadCells={modalHeadCells}
             order={order}
             orderFields={orderFields}
@@ -692,6 +724,12 @@ export const EditOrderModal = observer(
                     </div>
                   </>
                 ) : null}
+              </div>
+              <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
+                <Checkbox checked={updateSupplierData} color="primary" />
+                <Typography className={classNames.checkboxTitle}>
+                  {t(TranslationKey['Update supplier data'])}
+                </Typography>
               </div>
             </div>
           ) : null}

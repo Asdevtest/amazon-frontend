@@ -68,7 +68,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
 
-    width: 'min-content',
+    width: 190,
   },
 
   boxHeaderWrapper: {
