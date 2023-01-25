@@ -697,21 +697,105 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  onClickConfirmCreateMergeTasks(boxBody, boxData, comment) {
-    this.onClickMerge(boxBody, comment)
-    // this.onTriggerOpenModal('showConfirmModal')
-    // runInAction(() => {
-    //   this.confirmModalSettings = {
-    //     isWarning: false,
-    //     confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-    //       boxData?.storekeeper?.name
-    //     } ${t(TranslationKey['to merge boxes'])}`,
-    //     onClickConfirm: () => this.onClickMerge(boxBody, comment),
-    //   }
-    // })
+  async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
+
+      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The box is not split!']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      } else {
+        const resBoxes = []
+
+        for (let i = 0; i < updatedBoxes.length; i++) {
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
+
+          if (updatedBoxes[i].tmpShippingLabel.length) {
+            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+          }
+
+          const boxToPush = {
+            boxBody: {
+              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              destinationId: updatedBoxes[i].destinationId,
+              logicsTariffId: updatedBoxes[i].logicsTariffId,
+              fbaShipment: updatedBoxes[i].fbaShipment,
+              isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
+              isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
+            },
+            boxItems: [
+              ...updatedBoxes[i].items.map(item => ({
+                amount: item.amount,
+                productId: item.product._id,
+                orderId: item.order._id,
+              })),
+            ],
+          }
+
+          resBoxes.push(boxToPush)
+        }
+
+        const splitBoxesResult = await this.splitBoxes(id, resBoxes)
+
+        if (splitBoxesResult) {
+          runInAction(() => {
+            this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+          })
+          this.onTriggerOpenModal('showSuccessInfoModal')
+        } else {
+          runInAction(() => {
+            this.warningInfoModalSettings = {
+              isWarning: true,
+              title: t(TranslationKey['The box is not split!']),
+            }
+          })
+          this.onTriggerOpenModal('showWarningInfoModal')
+        }
+        this.onTriggerOpenModal('showConfirmModal')
+        if (this.showRedistributeBoxModal) {
+          this.onTriggerOpenModal('showRedistributeBoxModal')
+        }
+        this.onModalRedistributeBoxAddNewBox(null)
+      }
+
+      this.setRequestStatus(loadingStatuses.success)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
-  async onClickMerge(boxBody, comment) {
+  async splitBoxes(id, data) {
+    try {
+      const result = await BoxesModel.splitBoxes(id, data)
+
+      await this.getBoxesMy()
+      return result
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickConfirmMerge(boxBody) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -734,7 +818,7 @@ export class WarehouseMyWarehouseViewModel {
 
       if (mergeBoxesResult) {
         runInAction(() => {
-          this.modalEditSuccessMessage = `${t(TranslationKey['Data saved successfully'])}`
+          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
         })
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
