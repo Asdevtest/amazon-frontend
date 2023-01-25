@@ -603,6 +603,8 @@ export const EditOrderModal = observer(
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
             isPendingOrder={isPendingOrder}
+            updateSupplierData={updateSupplierData}
+            pathnameNotPaid={pathnameNotPaid}
             priceYuansDeliveryCostToTheWarehouse={priceYuansDeliveryCostToTheWarehouse}
             usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
@@ -624,6 +626,7 @@ export const EditOrderModal = observer(
           </Text>
 
           <ProductTable
+            pathnameNotPaid={pathnameNotPaid}
             modalHeadCells={modalHeadCells}
             order={order}
             orderFields={orderFields}
