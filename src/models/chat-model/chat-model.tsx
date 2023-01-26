@@ -12,8 +12,12 @@ import {UserModel} from '@models/user-model'
 
 import {WebsocketChatService} from '@services/websocket-chat-service'
 import {
+  AddUsersToGroupChatParams,
+  ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
+  patchInfoGroupChatParams,
+  RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
 } from '@services/websocket-chat-service/interfaces'
 
@@ -177,6 +181,30 @@ class ChatModelStatic {
     return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
+  public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    await this.websocketChatService.addUsersToGroupChat(params)
+  }
+
+  public async removeUsersFromGroupChat(params: RemoveUsersFromGroupChatParams) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    await this.websocketChatService.removeUsersFromGroupChat(params)
+  }
+
+  public async patchInfoGroupChat(params: patchInfoGroupChatParams) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    await this.websocketChatService.patchInfoGroupChat(params)
+  }
+
   public async typingMessage(params: TypingMessageRequestParams) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
@@ -237,6 +265,12 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
+    if (newMessage.type === ChatMessageType.SYSTEM) {
+      console.log('SYS')
+
+      this.getSimpleChats()
+    }
+
     const message = plainToInstance<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
       ChatMessageContract,
       newMessage,

@@ -27,6 +27,22 @@ export interface SendMessageRequestParams {
   is_draft?: boolean
 }
 
+export interface AddUsersToGroupChatParams {
+  chatId: string
+  users: string[]
+}
+
+export interface RemoveUsersFromGroupChatParams {
+  chatId: string
+  users: string[]
+}
+
+export interface patchInfoGroupChatParams {
+  chatId: string
+  title: string
+  image: string
+}
+
 export interface TypingMessageRequestParams {
   chatId: string
 }
@@ -61,6 +77,12 @@ export enum ChatMessageType {
   'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION',
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
+  'SYSTEM' = 'system:default',
+}
+
+export enum ChatMessageTextType {
+  'ADD_USERS_TO_GROUP_CHAT_BY_ADMIN' = 'ADD_USERS_TO_GROUP_CHAT_BY_ADMIN',
+  'REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN' = 'REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN',
 }
 
 export type ChatMessageDataUniversal =
@@ -68,6 +90,8 @@ export type ChatMessageDataUniversal =
   | ChatMessageDataCreatedNewProposalRequestDescription
   | ChatMessageDataProposalStatusChanged
   | ChatMessageDataProposalResultEdited
+  | ChatMessageDataAddUsersToGroupChat
+  | ChatMessageRemoveUsersFromGroupChat
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -89,6 +113,18 @@ export interface ChatMessageDataCreatedNewProposalRequestDescription {
   status: string
   price: string
   details: ChatMessageDataCreatedNewProposalRequestDescriptionDetails
+}
+
+export interface ChatMessageDataAddUsersToGroupChat {
+  createdBy: string
+  title: string
+  users: {_id: string; name: string}[]
+}
+
+export interface ChatMessageRemoveUsersFromGroupChat {
+  createdBy: string
+  title: string
+  users: {_id: string; name: string}[]
 }
 
 export interface ChatMessageDataProposalStatusChanged {

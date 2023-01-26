@@ -79,6 +79,32 @@ export class ChatMessageDataProposalStatusChangedContract
   public timeLimitInMinutes?: number
 }
 
+export class ChatMessageDataAddUsersToGroupChatContract
+  implements TWebsocketChatService.ChatMessageDataAddUsersToGroupChat
+{
+  @IsNotEmpty()
+  @IsString()
+  public createdBy!: string
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+  @IsNotEmpty()
+  public users!: {_id: string; name: string}[]
+}
+
+export class ChatMessageRemoveUsersFromGroupChatContract
+  implements TWebsocketChatService.ChatMessageRemoveUsersFromGroupChat
+{
+  @IsNotEmpty()
+  @IsString()
+  public createdBy!: string
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+  @IsNotEmpty()
+  public users!: {_id: string; name: string}[]
+}
+
 export class ChatMessageDataProposalResultEditedRequestContract
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedRequest
 {

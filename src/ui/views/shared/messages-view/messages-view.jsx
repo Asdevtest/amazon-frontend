@@ -17,6 +17,8 @@ import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {AddNewChatByEmailForm} from '@components/forms/add-new-chat-by-email-form'
+import {AddUsersToGroupChatForm} from '@components/forms/add-users-to-group-chat-form'
+import {EditGroupChatInfoForm} from '@components/forms/edit-group-chat-info-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -48,6 +50,8 @@ class MessagesViewRaw extends Component {
       mesSearchValue,
       usersData,
       showAddNewChatByEmailModal,
+      showAddUsersToGroupChatModal,
+      showEditGroupChatInfoModal,
       showWarningInfoModal,
       showProgress,
       typingUsers,
@@ -70,6 +74,11 @@ class MessagesViewRaw extends Component {
       onClickAddNewChatByEmail,
       onSubmitAddNewChat,
       onChangeCurFoundedMessage,
+      onClickAddUsersToGroupChat,
+      onSubmitAddUsersToGroupChat,
+      onRemoveUsersFromGroupChat,
+      onClickEditGroupChatInfo,
+      onSubmitPatchInfoGroupChat,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -205,9 +214,12 @@ class MessagesViewRaw extends Component {
                   onSubmitMessage={onSubmitMessage}
                   onClickChat={onClickChat}
                   onClickBackButton={onClickBackButton}
+                  onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+                  onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+                  onClickEditGroupChatInfo={onClickEditGroupChatInfo}
                 />
               </div>
-              {showProgress && <CircularProgressWithLabel title={t(TranslationKey['Creating a Chat']) + '...'} />}
+              {showProgress && <CircularProgressWithLabel title={/* t(TranslationKey['Creating a Chat']) +*/ '...'} />}
 
               <Modal
                 openModal={showAddNewChatByEmailModal}
@@ -217,6 +229,28 @@ class MessagesViewRaw extends Component {
                   closeModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
                   usersData={usersData}
                   onSubmit={onSubmitAddNewChat}
+                />
+              </Modal>
+
+              <Modal
+                openModal={showAddUsersToGroupChatModal}
+                setOpenModal={() => onTriggerOpenModal('showAddUsersToGroupChatModal')}
+              >
+                <AddUsersToGroupChatForm
+                  closeModal={() => onTriggerOpenModal('showAddUsersToGroupChatModal')}
+                  usersData={usersData}
+                  onSubmit={onSubmitAddUsersToGroupChat}
+                />
+              </Modal>
+
+              <Modal
+                openModal={showEditGroupChatInfoModal}
+                setOpenModal={() => onTriggerOpenModal('showEditGroupChatInfoModal')}
+              >
+                <EditGroupChatInfoForm
+                  chat={simpleChats.find(el => el._id === chatSelectedId)}
+                  onSubmit={onSubmitPatchInfoGroupChat}
+                  onCloseModal={() => onTriggerOpenModal('showEditGroupChatInfoModal')}
                 />
               </Modal>
 

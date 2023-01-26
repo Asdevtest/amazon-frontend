@@ -5,8 +5,11 @@ import {BACKEND_WEBSOCKET_CHAT_URL} from '@constants/env'
 import {ChatHandlerName, handlerToEventMapping} from './event-handler-mappings'
 import {EentToEmit} from './event-to-emit'
 import {
+  AddUsersToGroupChatParams,
   Chat,
   ChatMessage,
+  patchInfoGroupChatParams,
+  RemoveUsersFromGroupChatParams,
   SendMessageRequestParams,
   TypingMessageRequestParams,
   WebsocketChatResponse,
@@ -88,6 +91,46 @@ export class WebsocketChatService {
             resolve(getChatsResponse.data)
           }
         },
+      )
+    })
+  }
+
+  public async addUsersToGroupChat(params: AddUsersToGroupChatParams): Promise<{}> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN,
+        params,
+        // (sendMessageResponse: WebsocketChatResponse<ChatMessage>) => {
+        //   if (!sendMessageResponse.success || !sendMessageResponse.data) {
+        //     reject(sendMessageResponse.error)
+        //   } else {
+        //     resolve(sendMessageResponse.data)
+        //   }
+        // },
+      )
+    })
+  }
+
+  public async removeUsersFromGroupChat(params: RemoveUsersFromGroupChatParams): Promise<{}> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN,
+        params,
+        //   () => {
+        //   resolve(this.getChats())
+        // }
+      )
+    })
+  }
+
+  public async patchInfoGroupChat(params: patchInfoGroupChatParams): Promise<{}> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        EentToEmit.PATCH_CHAT_INFO,
+        params,
+        //   () => {
+        //   resolve(this.getChats())
+        // }
       )
     })
   }

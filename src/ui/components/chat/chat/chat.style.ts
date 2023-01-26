@@ -316,8 +316,11 @@ export const useClassNames = makeStyles()(theme => ({
   membersWrapper: {
     marginTop: 30,
     width: '100%',
+    height: 470,
 
     padding: '0 15px',
+
+    overflow: 'auto',
   },
 
   avatarWrapper: {

@@ -8,21 +8,25 @@ import ScrollView from 'react-inverted-scrollview'
 import {useScrollToElement} from 'react-use-scroll-to-element-hook'
 
 import {ChatModel} from '@models/chat-model'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {
+  checkIsChatMessageAddUsersToGroupChatContract,
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
   checkIsChatMessageDataProposalStatusChangedContract,
+  checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
 
 import {useClassNames} from './chat-messages-list.style'
+import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-users-to-group-chat'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
+import {ChatMessageRemoveUsersFromGroupChat} from './chat-messages/chat-message-remove-users-from-group-chat'
 import {ChatMessageRequest} from './chat-messages/chat-message-request'
 import {
   ChatMessageRequestProposalResultEdited,
@@ -99,6 +103,10 @@ export const ChatMessagesList: FC<Props> = observer(
             }}
           />
         )
+      } else if (checkIsChatMessageAddUsersToGroupChatContract(messageItem)) {
+        return <ChatMessageAddUsersToGroupChat message={messageItem} />
+      } else if (checkIsChatMessageRemoveUsersFromGroupChatContract(messageItem)) {
+        return <ChatMessageRemoveUsersFromGroupChat message={messageItem} />
       } else {
         return (
           <ChatMessageBasicText
@@ -119,7 +127,7 @@ export const ChatMessagesList: FC<Props> = observer(
             ? messages.map((messageItem: ChatMessageContract, index: number) => {
                 const isIncomming = userId !== messageItem.user?._id
 
-                const isNotPersonal = !messageItem.user?._id
+                const isNotPersonal = !messageItem.user?._id || messageItem.type === ChatMessageType.SYSTEM
 
                 const isLastMessage = index === messages.length - 1
 
