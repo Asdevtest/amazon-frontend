@@ -9,6 +9,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {chatsType} from '@constants/chats'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -106,7 +107,7 @@ class MessagesViewRaw extends Component {
 
                   {chatSelectedId && simpleChats.length ? (
                     <div className={classNames.chatSelectedWrapper}>
-                      {currentChat.users.length <= 2 ? (
+                      {currentChat.type === chatsType.DEFAULT ? (
                         <Link
                           target="_blank"
                           href={`${window.location.origin}/another-user?${currentOpponent?._id}`}

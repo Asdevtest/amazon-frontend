@@ -1735,7 +1735,7 @@ export enum TranslationKey {
   'added to the group chat' = 'added to the group chat',
   'deleted from group chat' = 'deleted from group chat',
   'Change group chat info' = 'Change group chat info',
-  // '' = '',
+  'No options' = 'No options',
   // '' = '',
   // '' = '',
   // '' = '',

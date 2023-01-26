@@ -4,8 +4,6 @@ import {Avatar, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-// import {css} from 'emotion'
-import {toJS} from 'mobx'
 import {components} from 'react-select'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,9 +11,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {CustomReactSelect} from '@components/selects/custom-react-select'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {UploadFilesInput} from '@components/upload-files-input'
-import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -29,7 +24,7 @@ export const AddUsersToGroupChatForm = ({closeModal, onSubmit, usersData}) => {
 
   const [chosenUsers, setChosenUsers] = useState([])
 
-  const disableSubmit = !setChosenUsers.length || submitIsClicked
+  const disableSubmit = !chosenUsers.length || submitIsClicked
 
   const Option = ({innerRef, isFocused, ...props}) => (
     <div

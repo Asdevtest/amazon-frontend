@@ -1734,6 +1734,7 @@
   "Update supplier data": "Обновить данные поставщика",
   "Add a member to group chat": "Добавить участника в групповой чат",
   "added to the group chat": "добавил в групповой чат",
-  "deleted from group chat": "удалил из группового чат",
-  "Change group chat info": "Изменить данные группового чата"
+  "deleted from group chat": "удалил из группового чата",
+  "Change group chat info": "Изменить данные группового чата",
+  "No options": "Нет вариантов"
 }

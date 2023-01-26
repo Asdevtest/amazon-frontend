@@ -13,6 +13,7 @@ import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+import {chatsType} from '@constants/chats'
 import {MemberPlus, Pencil} from '@constants/svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -95,7 +96,7 @@ export const Chat: FC<Props> = observer(
 
     const [showGroupSettings, setShowGroupSettings] = useState(false)
 
-    const isGroupChat = chat.users.length > 2
+    const isGroupChat = chat.type === chatsType.GROUP
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)

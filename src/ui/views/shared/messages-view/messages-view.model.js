@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
+import {chatsType} from '@constants/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatModel} from '@models/chat-model'
@@ -61,10 +62,12 @@ export class MessagesViewModel {
     runInAction(() => {
       this.history = history
 
-      if (location.state?.anotherUserId) {
-        this.chatSelectedId = this.simpleChats.find(el =>
-          el.users.map(e => e._id).includes(location.state.anotherUserId),
-        )?._id
+      if (location.state?.anotherUserId || location.state?.chatId) {
+        this.chatSelectedId =
+          location.state?.chatId ||
+          this.simpleChats
+            .filter(el => el.type === chatsType.DEFAULT)
+            .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
 
         if (!this.chatSelectedId) {
           this.showProgress = true

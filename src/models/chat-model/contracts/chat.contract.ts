@@ -37,6 +37,9 @@ export class ChatContract implements TWebsocketChatService.Chat {
   public updatedAt!: string
   @IsNotEmpty()
   @IsString()
+  public type!: string
+  @IsNotEmpty()
+  @IsString()
   public lastUpdatedBy!: {[x: string]: unknown; _id: string}
   @IsNotEmpty()
   @Type(() => ChatUserContract)

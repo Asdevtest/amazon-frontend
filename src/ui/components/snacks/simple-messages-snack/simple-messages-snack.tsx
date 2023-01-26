@@ -21,7 +21,7 @@ interface SimpleMessagesSnackProps {
   snackBarMessageLast: ChatMessageContract | null
   id: SnackbarKey
   autoHideDuration?: number
-  onClickMessage: (anotherUserId: string) => void
+  onClickMessage: (chatId: string) => void
 }
 
 export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
@@ -43,7 +43,7 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
         <div
           className={classNames.mainWrapper}
           onClick={() => {
-            onClickMessage(snackBarMessageLast?.user?._id || '')
+            onClickMessage(snackBarMessageLast?.chatId || '')
             closeSnackbar(id)
           }}
         >

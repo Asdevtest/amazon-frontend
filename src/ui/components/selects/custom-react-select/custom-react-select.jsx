@@ -2,6 +2,10 @@ import {observer} from 'mobx-react'
 import Select from 'react-select'
 import {withStyles} from 'tss-react/mui'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {t} from '@utils/translations'
+
 import {styles} from './custom-react-select.style'
 
 const CustomReactSelectRaw = observer(({classes: classNames, ...restProps}) => (
@@ -17,6 +21,9 @@ const CustomReactSelectRaw = observer(({classes: classNames, ...restProps}) => (
       input: () => classNames.input,
       menuList: () => classNames.menuList,
     }}
+    components={{...restProps.components}}
+    placeholder={t(TranslationKey.Select) + '...'}
+    noOptionsMessage={() => t(TranslationKey['No options'])}
   />
 ))
 export const CustomReactSelect = withStyles(CustomReactSelectRaw, styles)
