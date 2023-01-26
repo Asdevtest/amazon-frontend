@@ -35,7 +35,7 @@ import {t} from '@utils/translations'
 import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-storekeeper-form.style'
 
-const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoefficient, setFormField}) => {
+export const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoefficient, setFormField}) => {
   const {classes: classNames} = useClassNames()
 
   return (

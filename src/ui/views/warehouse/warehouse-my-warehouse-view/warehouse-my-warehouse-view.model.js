@@ -4,6 +4,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {operationTypes} from '@constants/operation-types'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -693,6 +694,188 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
+
+      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The box is not split!']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      } else {
+        const resBoxes = []
+
+        for (let i = 0; i < updatedBoxes.length; i++) {
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
+
+          if (updatedBoxes[i].tmpShippingLabel.length) {
+            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+          }
+
+          const boxToPush = {
+            boxBody: {
+              shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
+              destinationId: updatedBoxes[i].destinationId,
+              logicsTariffId: updatedBoxes[i].logicsTariffId,
+              fbaShipment: updatedBoxes[i].fbaShipment,
+              isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
+              isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
+            },
+            boxItems: [
+              ...updatedBoxes[i].items.map(item => ({
+                amount: item.amount,
+                productId: item.product._id,
+                orderId: item.order._id,
+              })),
+            ],
+          }
+
+          resBoxes.push(boxToPush)
+        }
+
+        const splitBoxesResult = await this.splitBoxes(id, resBoxes)
+
+        if (splitBoxesResult) {
+          runInAction(() => {
+            this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+          })
+          this.onTriggerOpenModal('showSuccessInfoModal')
+        } else {
+          runInAction(() => {
+            this.warningInfoModalSettings = {
+              isWarning: true,
+              title: t(TranslationKey['The box is not split!']),
+            }
+          })
+          this.onTriggerOpenModal('showWarningInfoModal')
+        }
+        this.onTriggerOpenModal('showConfirmModal')
+        if (this.showRedistributeBoxModal) {
+          this.onTriggerOpenModal('showRedistributeBoxModal')
+        }
+        this.onModalRedistributeBoxAddNewBox(null)
+      }
+
+      this.setRequestStatus(loadingStatuses.success)
+
+      await this.getBoxesMy()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async splitBoxes(id, data) {
+    try {
+      const result = await BoxesModel.splitBoxes(id, data)
+
+      await this.getBoxesMy()
+      return result
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickConfirmMerge(boxBody, imagesOfBox) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const selectedIds = this.selectedBoxes
+
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (boxBody.tmpShippingLabel.length) {
+        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+      }
+
+      if (imagesOfBox?.length) {
+        await onSubmitPostImages.call(this, {
+          images: imagesOfBox,
+          type: 'uploadedImages',
+          withoutShowProgress: true,
+        })
+      }
+
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
+        {
+          ...boxBody,
+          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel,
+          images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
+        },
+        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+      )
+
+      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
+
+      if (mergeBoxesResult) {
+        runInAction(() => {
+          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
+        })
+        this.onTriggerOpenModal('showSuccessInfoModal')
+      } else {
+        runInAction(() => {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The boxes are not joined!']),
+          }
+        })
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      }
+
+      this.onTriggerOpenModal('showMergeBoxModal')
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.setRequestStatus(loadingStatuses.success)
+
+      await this.getBoxesMy()
+
+      runInAction(() => {
+        this.selectedBoxes = []
+        this.tmpClientComment = ''
+      })
+
+      await this.getBoxesMy()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async mergeBoxes(ids, boxBody) {
+    try {
+      const result = await BoxesModel.mergeBoxes(ids, boxBody)
+
+      return result
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 

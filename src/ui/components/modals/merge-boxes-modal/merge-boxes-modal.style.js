@@ -230,4 +230,30 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     marginBottom: '12px',
   },
+  boxPhotoWrapperS: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  boxPhotoWrapper: {
+    marginTop: 30,
+    width: '250px',
+    height: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignSelf: 'center',
+    gap: 20,
+  },
+  standartLabel: {
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
+  boxImageClass: {
+    width: 148,
+    height: 151,
+    objectFit: 'contain',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
 }))

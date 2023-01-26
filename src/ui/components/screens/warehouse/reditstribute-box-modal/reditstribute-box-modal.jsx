@@ -90,8 +90,8 @@ const Box = ({
     <div className={classNames.box}>
       <div className={classNames.itemWrapper}>
         <div>
-          {box.items.map((order, orderIndex) => (
-            <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
+          {box?.items?.map((order, orderIndex) => (
+            <div key={`box_${box?._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
@@ -137,7 +137,7 @@ const Box = ({
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeper._id)}
+                    data={destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)}
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -321,9 +321,9 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
-          curStorekeeperId={box.storekeeperId}
-          curTariffId={box.logicsTariffId}
+          storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
+          curStorekeeperId={box?.storekeeperId}
+          curTariffId={box?.logicsTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -399,7 +399,7 @@ export const RedistributeBox = observer(
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
-    const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
+    const emptyProducts = currentBox?.items?.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
 
     const getEmptyBox = () => ({
       ...currentBox,
@@ -414,8 +414,8 @@ export const RedistributeBox = observer(
 
     const [comment, setComment] = useState('')
     const totalProductsAmount = isMasterBox
-      ? currentBox.amount - newBoxes.length
-      : currentBox.items.reduce((acc, order) => acc + order.amount, 0)
+      ? currentBox?.amount - newBoxes.length
+      : currentBox?.items?.reduce((acc, order) => acc + order.amount, 0) || 0
 
     const onChangeAmountInput = (e, _id, order) => {
       const targetBox = newBoxes.filter(box => box._id === _id)[0]
@@ -437,7 +437,7 @@ export const RedistributeBox = observer(
         return
       }
       const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
-      const updatedCurrentOrders = currentBox.items.map(product =>
+      const updatedCurrentOrders = currentBox?.items.map(product =>
         product.order === order ? updatedCurrentOrder : product,
       )
       const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
@@ -527,7 +527,7 @@ export const RedistributeBox = observer(
             <div className={classNames.currentBoxTitle}>
               <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
               <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${
-                currentBox.humanFriendlyId
+                currentBox?.humanFriendlyId
               }`}</Typography>
             </div>
 

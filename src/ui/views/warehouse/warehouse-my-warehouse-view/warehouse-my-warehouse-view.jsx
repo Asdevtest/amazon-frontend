@@ -52,13 +52,10 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       boxesMy,
       showMergeBoxModal,
       showRedistributeBoxModal,
-      onRemoveBoxFromSelected,
-      onModalRedistributeBoxAddNewBox,
       showRedistributeBoxAddNewBoxModal,
       warningInfoModalSettings,
       showWarningInfoModal,
       showGroupingBoxesModal,
-      onClickSubmitGroupingBoxes,
       destinationsFavourites,
       userInfo,
       rowCount,
@@ -94,6 +91,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       selectedBoxes,
       showEditHSCodeModal,
       hsCodeData,
+      onClickConfirmMerge,
+      onRemoveBoxFromSelected,
+      onModalRedistributeBoxAddNewBox,
+      onClickSubmitGroupingBoxes,
+      onClickConfirmSplit,
       onClickSaveHsCode,
       onClickHsCode,
       onTriggerDrawer,
@@ -306,6 +308,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
         >
           <MergeBoxesModal
+            userInfo={userInfo}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={
@@ -318,7 +322,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
             onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-            // onSubmit={onClickConfirmCreateMergeTasks}
+            onSubmit={onClickConfirmMerge}
           />
         </Modal>
 
@@ -338,8 +342,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             }
             destinationsFavourites={destinationsFavourites}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+            onRedistribute={onClickConfirmSplit}
             onTriggerOpenModal={onTriggerOpenModal}
-            // onRedistribute={onClickConfirmCreateSplitTasks}
           />
         </Modal>
 

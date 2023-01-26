@@ -1,5 +1,5 @@
 export const filterEmptyBoxes = boxes =>
-  boxes.filter(box => box.items.reduce((acc, order) => acc + order.amount, 0) !== 0)
+  boxes.filter(box => box?.items?.reduce((acc, order) => acc + order.amount, 0) !== 0)
 
 export const filterEmptyOrders = boxes =>
   boxes.map(box => ({

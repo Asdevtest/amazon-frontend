@@ -4,16 +4,26 @@ import {Chip, Typography} from '@mui/material'
 import React, {useState} from 'react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
+// import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
+import {WarehouseDemensions} from '@components/forms/edit-box-storekeeper-form/edit-box-storekeeper-form'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Modal} from '@components/modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {Text} from '@components/text'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import {UploadFilesInput} from '@components/upload-files-input'
 
+import {checkIsStorekeeper} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {SetShippingLabelModal} from '../set-shipping-label-modal'
@@ -21,6 +31,7 @@ import {BoxForMerge} from './box-for-merge'
 import {useClassNames} from './merge-boxes-modal.style'
 
 export const MergeBoxesModal = ({
+  userInfo,
   destinations,
   storekeepers,
   selectedBoxes,
@@ -30,8 +41,12 @@ export const MergeBoxesModal = ({
   onRemoveBoxFromSelected,
   destinationsFavourites,
   setDestinationsFavouritesItem,
+  volumeWeightCoefficient,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  // Добавил
+  const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
@@ -49,11 +64,36 @@ export const MergeBoxesModal = ({
     fbaShipment: '',
 
     tmpShippingLabel: [],
+
+    // Добавил возможность передавать размеры и файлы
+    lengthCmWarehouse: 0,
+    widthCmWarehouse: 0,
+    heightCmWarehouse: 0,
+    weighGrossKgWarehouse: 0,
+    images: [],
   })
+
+  // Добавил
+  const setFormField = fieldName => e => {
+    const newFormFields = {...boxBody}
+
+    if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
+      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+        return
+      }
+    }
+
+    newFormFields[fieldName] = e.target.value
+
+    setBoxBody(newFormFields)
+  }
+
+  const [imagesOfBox, setImagesOfBox] = useState([])
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
-    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, selectedBoxes[0], comment)
+    // Передаются файлы imagesOfBox
+    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, imagesOfBox)
     // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     // setComment('')
   }
@@ -103,6 +143,14 @@ export const MergeBoxesModal = ({
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper)
 
+  const disabledSubmitStorekeeper =
+    disabledSubmit ||
+    !boxBody.lengthCmWarehouse ||
+    !boxBody.lengthCmWarehouse ||
+    !boxBody.widthCmWarehouse ||
+    !boxBody.heightCmWarehouse ||
+    !boxBody.weighGrossKgWarehouse
+
   const curDestination = destinations.find(el => el._id === boxBody.destinationId)
 
   const firstNumOfCode = curDestination?.zipCode[0]
@@ -128,6 +176,30 @@ export const MergeBoxesModal = ({
       return acc
     }, {}),
   )
+
+  // Добавил
+  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+  const handleChange = (event, newAlignment) => {
+    setSizeSetting(newAlignment)
+
+    if (newAlignment === sizesType.INCHES) {
+      setBoxBody({
+        ...boxBody,
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 4),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 4),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 4),
+      })
+    } else {
+      setBoxBody({
+        ...boxBody,
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 4),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 4),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 4),
+      })
+    }
+  }
+  //
 
   return (
     <div>
@@ -273,20 +345,78 @@ export const MergeBoxesModal = ({
                 }
               />
             </div>
+
+            {/* Рендерится если это сторкипер */}
+            {isStorekeeper && (
+              <Field
+                containerClasses={classNames.blockOfNewBoxContainer}
+                label={t(TranslationKey['Box data'])}
+                inputComponent={
+                  <div className={classNames.blockOfNewBoxWrapper}>
+                    <div className={classNames.sizesTitleWrapper}>
+                      <Text
+                        tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
+                        className={classNames.standartLabel}
+                      >
+                        {t(TranslationKey.Demensions)}
+                      </Text>
+
+                      <ToggleBtnGroup
+                        exclusive
+                        size="small"
+                        color="primary"
+                        value={sizeSetting}
+                        onChange={handleChange}
+                      >
+                        <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                          {'In'}
+                        </ToggleBtn>
+                        <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                          {'Cm'}
+                        </ToggleBtn>
+                      </ToggleBtnGroup>
+                    </div>
+
+                    <WarehouseDemensions
+                      orderBox={boxBody}
+                      sizeSetting={sizeSetting}
+                      volumeWeightCoefficient={volumeWeightCoefficient}
+                      setFormField={setFormField}
+                    />
+
+                    <div className={classNames.imageFileInputWrapper}>
+                      <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
+                    </div>
+
+                    {/* <div className={classNames.boxPhotoWrapperS}>
+                      <div className={classNames.boxPhotoWrapper}>
+                        <Typography className={classNames.standartLabel}>
+                          {t(TranslationKey['Photos of the box taken at the warehouse:'])}
+                        </Typography>
+                        <PhotoCarousel files={boxBody.images} imageClass={classNames.boxImageClass} />
+                      </div>
+                    </div> */}
+                  </div>
+                }
+              />
+            )}
           </div>
         </div>
 
-        <Field
-          multiline
-          className={classNames.heightFieldAuto}
-          minRows={18}
-          maxRows={18}
-          inputProps={{maxLength: 2000}}
-          label={t(TranslationKey['Client comment on the task'])}
-          placeholder={t(TranslationKey['Client comment on the task'])}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-        />
+        {/* Рендерится не у сторкипера  */}
+        {!isStorekeeper && (
+          <Field
+            multiline
+            className={classNames.heightFieldAuto}
+            minRows={18}
+            maxRows={18}
+            inputProps={{maxLength: 2000}}
+            label={t(TranslationKey['Client comment on the task'])}
+            placeholder={t(TranslationKey['Client comment on the task'])}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+          />
+        )}
       </div>
       <div className={cx(classNames.modalFooter, {[classNames.modalAlternateFooter]: !isDifferentStorekeepers})}>
         {isDifferentStorekeepers && (
@@ -297,7 +427,8 @@ export const MergeBoxesModal = ({
         <div className={classNames.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
-            disabled={disabledSubmit}
+            // Проверка для дизейбла
+            disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={classNames.button}
             onClick={onSubmitBoxesModal}
           >
