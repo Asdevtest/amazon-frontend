@@ -1730,5 +1730,10 @@
   "Members": "Members",
   "Add member": "Add member",
   "Owner": "Owner",
-  "Update supplier data": "Update supplier data"
+  "Update supplier data": "Update supplier data",
+  "Add a member to group chat": "Add a member to group chat",
+  "added to the group chat": "added to the group chat",
+  "deleted from group chat": "deleted from group chat",
+  "Change group chat info": "Change group chat info",
+  "No options": "No options"
 }

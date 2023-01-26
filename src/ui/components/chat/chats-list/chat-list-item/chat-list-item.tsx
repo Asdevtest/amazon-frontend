@@ -5,6 +5,7 @@ import React, {FC} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {chatsType} from '@constants/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
@@ -34,7 +35,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
 
   const lastMessage = messages[messages.length - 1] || {}
 
-  const isGroupChat = users.length > 2
+  const isGroupChat = chat.type === chatsType.GROUP
 
   const oponentUser = users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'

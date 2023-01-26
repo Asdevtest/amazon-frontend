@@ -58,6 +58,9 @@ interface Props {
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
+  onClickAddUsersToGroupChat: () => void
+  onRemoveUsersFromGroupChat: (usersIds: string[]) => void
+  onClickEditGroupChatInfo: () => void
 }
 
 export const MultipleChats = observer(
@@ -80,6 +83,9 @@ export const MultipleChats = observer(
         onTypingMessage,
         currentOpponent,
         onClickBackButton,
+        onClickAddUsersToGroupChat,
+        onRemoveUsersFromGroupChat,
+        onClickEditGroupChatInfo,
       },
       ref,
     ) => {
@@ -140,6 +146,9 @@ export const MultipleChats = observer(
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}
+                  onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+                  onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+                  onClickEditGroupChatInfo={onClickEditGroupChatInfo}
                 />
               ) : (
                 <div className={classNames.noChatWrapper}>
@@ -170,6 +179,9 @@ export const MultipleChats = observer(
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}
+                  onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+                  onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+                  onClickEditGroupChatInfo={onClickEditGroupChatInfo}
                 />
               }
             </div>

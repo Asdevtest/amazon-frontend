@@ -2,7 +2,6 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
@@ -14,6 +13,7 @@ import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+import {chatsType} from '@constants/chats'
 import {MemberPlus, Pencil} from '@constants/svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -66,6 +66,9 @@ interface Props {
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
+  onClickAddUsersToGroupChat: () => void
+  onRemoveUsersFromGroupChat: (usersIds: string[]) => void
+  onClickEditGroupChatInfo: () => void
 }
 
 export const Chat: FC<Props> = observer(
@@ -83,6 +86,9 @@ export const Chat: FC<Props> = observer(
     updateData,
     onTypingMessage,
     onClickBackButton,
+    onClickAddUsersToGroupChat,
+    onRemoveUsersFromGroupChat,
+    onClickEditGroupChatInfo,
   }) => {
     const [showFiles, setShowFiles] = useState(false)
 
@@ -90,7 +96,7 @@ export const Chat: FC<Props> = observer(
 
     const [showGroupSettings, setShowGroupSettings] = useState(false)
 
-    const isGroupChat = chat.users.length > 2
+    const isGroupChat = chat.type === chatsType.GROUP
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
@@ -239,19 +245,23 @@ export const Chat: FC<Props> = observer(
                     ).toLocaleLowerCase()}`}</Typography>
                   </div>
 
-                  {userId === chat.info?.createdBy ? <Pencil className={classNames.pencilEditIcon} /> : null}
+                  {userId === chat.info?.createdBy ? (
+                    <Pencil className={classNames.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
+                  ) : null}
                 </div>
               </div>
 
-              <Button>
-                {
-                  <div className={classNames.addMemberBtnWrapper}>
-                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
+              {userId === chat.info?.createdBy ? (
+                <Button onClick={onClickAddUsersToGroupChat}>
+                  {
+                    <div className={classNames.addMemberBtnWrapper}>
+                      <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
 
-                    <MemberPlus className={classNames.arrowIcon} />
-                  </div>
-                }
-              </Button>
+                      <MemberPlus className={classNames.arrowIcon} />
+                    </div>
+                  }
+                </Button>
+              ) : null}
 
               <div className={classNames.membersWrapper}>
                 {chat.users
@@ -268,7 +278,11 @@ export const Chat: FC<Props> = observer(
                       </div>
 
                       {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                        <CloseOutlinedIcon className={classNames.pencilEditIcon} fontSize="small" />
+                        <CloseOutlinedIcon
+                          className={classNames.pencilEditIcon}
+                          fontSize="small"
+                          onClick={() => onRemoveUsersFromGroupChat([el._id])}
+                        />
                       ) : null}
                     </div>
                   ))}

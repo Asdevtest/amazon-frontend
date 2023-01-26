@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
+import {chatsType} from '@constants/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatModel} from '@models/chat-model'
@@ -8,7 +9,7 @@ import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import {dataURLtoFile, onSubmitPostImages} from '@utils/upload-files'
 
 export class MessagesViewModel {
   history = undefined
@@ -19,7 +20,9 @@ export class MessagesViewModel {
   drawerOpen = false
   showConfirmModal = false
   showAddNewChatByEmailModal = false
+  showAddUsersToGroupChatModal = false
   showWarningInfoModal = false
+  showEditGroupChatInfoModal = false
 
   chatSelectedId = undefined
 
@@ -59,10 +62,12 @@ export class MessagesViewModel {
     runInAction(() => {
       this.history = history
 
-      if (location.state?.anotherUserId) {
-        this.chatSelectedId = this.simpleChats.find(el =>
-          el.users.map(e => e._id).includes(location.state.anotherUserId),
-        )?._id
+      if (location.state?.anotherUserId || location.state?.chatId) {
+        this.chatSelectedId =
+          location.state?.chatId ||
+          this.simpleChats
+            .filter(el => el.type === chatsType.DEFAULT)
+            .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
 
         if (!this.chatSelectedId) {
           this.showProgress = true
@@ -138,17 +143,80 @@ export class MessagesViewModel {
     try {
       const res = await ChatsModel.getUsersNames()
 
-      // const existedChatsUsers = this.simpleChats.reduce((acc, cur) => acc.concat(cur.users.map(user => user._id)), [])
-
-      // runInAction(() => {
-      //   this.usersData = res.filter(el => !existedChatsUsers.includes(el._id))
-      // })
-
       runInAction(() => {
-        this.usersData = res
+        this.usersData = res.filter(el => el._id !== this.user._id)
       })
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickAddUsersToGroupChat() {
+    try {
+      const res = await ChatsModel.getUsersNames()
+
+      const currentUsersIdsInCurrentChat =
+        this.simpleChats.find(el => el._id === this.chatSelectedId)?.users.map(el => el._id) || []
+
+      runInAction(() => {
+        this.usersData = res
+          .filter(el => el._id !== this.user._id)
+          .filter(el => !currentUsersIdsInCurrentChat.includes(el._id))
+      })
+
+      this.onTriggerOpenModal('showAddUsersToGroupChatModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickEditGroupChatInfo() {
+    this.onTriggerOpenModal('showEditGroupChatInfoModal')
+  }
+
+  async onSubmitAddUsersToGroupChat(users) {
+    try {
+      this.onTriggerOpenModal('showAddUsersToGroupChatModal')
+
+      await ChatModel.addUsersToGroupChat({chatId: this.chatSelectedId, users: users.map(el => el._id)})
+
+      // await ChatModel.getSimpleChats()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onRemoveUsersFromGroupChat(usersIds) {
+    try {
+      await ChatModel.removeUsersFromGroupChat({chatId: this.chatSelectedId, users: usersIds})
+
+      // await ChatModel.getSimpleChats()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitPatchInfoGroupChat(state, sourceState) {
+    try {
+      this.onTriggerOpenModal('showEditGroupChatInfoModal')
+
+      const imageIsNeedChange = state.preview !== sourceState.preview && state.preview
+
+      if (imageIsNeedChange) {
+        const file = dataURLtoFile(state.preview, this.user._id)
+
+        await onSubmitPostImages.call(this, {images: [{file}], type: 'readyImages'})
+      }
+
+      console.log('readyImages', this.readyImages)
+
+      await ChatModel.patchInfoGroupChat({
+        chatId: this.chatSelectedId,
+        title: state.title,
+        image: imageIsNeedChange ? this.readyImages[0] : state.preview,
+      })
     } catch (error) {
       console.log(error)
     }

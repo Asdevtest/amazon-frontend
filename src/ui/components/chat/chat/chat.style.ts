@@ -287,6 +287,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     // color: theme.palette.text.general,
     color: '#fff',
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 200,
   },
 
   usersCount: {
@@ -316,8 +321,11 @@ export const useClassNames = makeStyles()(theme => ({
   membersWrapper: {
     marginTop: 30,
     width: '100%',
+    height: 470,
 
     padding: '0 15px',
+
+    overflow: 'auto',
   },
 
   avatarWrapper: {

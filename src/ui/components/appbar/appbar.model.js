@@ -71,9 +71,9 @@ export class AppbarModel {
     SettingsModel.setUiTheme(theme)
   }
 
-  onClickMessage(anotherUserId) {
+  onClickMessage(chatId) {
     this.history.push(`/${UserRoleCodeMapForRoutes[this.role]}/messages`, {
-      anotherUserId,
+      chatId,
     })
   }
 

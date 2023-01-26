@@ -430,7 +430,7 @@ export const SelectFields = ({
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}
             labelClasses={classNames.label}
-            label={t(TranslationKey['Buyer comments to the task'])}
+            label={t(TranslationKey['Buyer comments to the order'])}
             onChange={setOrderField('buyerComment')}
           />
         </Box>

@@ -125,9 +125,12 @@ export class IntegrationsModel {
     try {
       await SellerBoardModel.unlinkSkuProduct({
         productId: this.productId,
-        skus: this.selectedRowIds,
+        skus: this.sellerBoardData
+          .filter((el, index) => this.selectedRowIds.includes(index))
+          .map(el => el.originalData.sku),
       })
 
+      this.selectedRowIds = []
       this.successInfoModalText = t(TranslationKey['Unlink success'])
       this.onTriggerOpenModal('showSuccessModal')
       this.loadData()

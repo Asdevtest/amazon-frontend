@@ -982,6 +982,8 @@ export class ClientInventoryViewModel {
 
       await SellerBoardModel.refreshProducts(this.selectedRowIds)
 
+      this.loadData()
+
       runInAction(() => {
         this.successModalText = t(TranslationKey['Products will be updated soon'])
       })
@@ -1311,6 +1313,8 @@ export class ClientInventoryViewModel {
   async onClickBindInventoryGoodsToStockBtn() {
     try {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+
+      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {

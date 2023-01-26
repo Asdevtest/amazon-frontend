@@ -4,20 +4,24 @@ import {IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString} from 'class-validat
 import {TWebsocketChatService} from '@services/websocket-chat-service'
 
 import {
+  ChatMessageDataAddUsersToGroupChatContract,
   ChatMessageDataCreatedNewProposalProposalDescriptionContract,
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
+  ChatMessageRemoveUsersFromGroupChatContract,
 } from './chat-message-data.contract'
 import {ChatUserContract} from './chat-user.contract'
 
 export {ChatMessageType} from '@services/websocket-chat-service'
 
 export type TChatMessageDataUniversal =
+  | ChatMessageDataAddUsersToGroupChatContract
   | ChatMessageDataCreatedNewProposalProposalDescriptionContract
   | ChatMessageDataCreatedNewProposalRequestDescriptionContract
   | ChatMessageDataProposalStatusChangedContract
   | ChatMessageDataProposalResultEditedContract
+  | ChatMessageRemoveUsersFromGroupChatContract
   | undefined
 
 export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>
