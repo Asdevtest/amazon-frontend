@@ -275,4 +275,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '20px',
   },
+  editBtn: {
+    width: '183px',
+    height: '40px',
+    display: 'flex',
+  },
 }))

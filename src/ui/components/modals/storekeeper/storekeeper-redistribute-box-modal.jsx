@@ -19,6 +19,7 @@ import {Field} from '@components/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
+import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {checkIsPositiveNum} from '@utils/checks'
@@ -44,6 +45,8 @@ const Box = ({
   totalProductsAmount,
   destinationsFavourites,
   setDestinationsFavouritesItem,
+  onClickEditBox,
+  setCurBox,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -291,8 +294,8 @@ const Box = ({
                   className={classNames.editBtn}
                   tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                   onClick={() => {
-                    // setCurBox(box)
-                    // onClickEditBox(box)
+                    setCurBox(box)
+                    onClickEditBox(box)
                   }}
                 >
                   {t(TranslationKey.Edit)}
@@ -353,8 +356,15 @@ const NewBoxes = ({
   storekeepers,
   destinationsFavourites,
   setDestinationsFavouritesItem,
+  showEditBoxModalR,
+  onTriggerShowEditBoxModalR,
+  volumeWeightCoefficient,
+  onClickEditBox,
+  setNewBoxes,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  const [curBox, setCurBox] = useState({})
 
   return (
     <div className={classNames.newBoxes}>
@@ -372,15 +382,32 @@ const NewBoxes = ({
             box={box}
             readOnly={isMasterBox}
             isMasterBox={isMasterBox}
+            curBox={curBox}
+            setCurBox={setCurBox}
+            showEditBoxModalR={showEditBoxModalR}
             selectedBox={selectedBox}
             destinationsFavourites={destinationsFavourites}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
+            onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
+            onClickEditBox={onClickEditBox}
           />
         </div>
       ))}
+      <Modal openModal={showEditBoxModalR} setOpenModal={onTriggerShowEditBoxModalR}>
+        <EditBoxTasksModal
+          // isReceive={taskType === TaskOperationType.RECEIVE}
+          // primarySizeSuitableCheckbox={taskType === TaskOperationType.RECEIVE || taskType === TaskOperationType.EDIT}
+          volumeWeightCoefficient={volumeWeightCoefficient}
+          setEditModal={onTriggerShowEditBoxModalR}
+          box={curBox}
+          newBoxes={newBoxes}
+          setNewBoxes={setNewBoxes}
+          // operationType={taskType}
+        />
+      </Modal>
     </div>
   )
 }
@@ -397,13 +424,28 @@ export const StorekeeperRedistributeBox = observer(
     onTriggerOpenModal,
     destinationsFavourites,
     setDestinationsFavouritesItem,
+    showEditBoxModalR,
+    onEditBox,
+    onTriggerShowEditBoxModalR,
+    volumeWeightCoefficient,
   }) => {
     const {classes: classNames} = useClassNames()
+
+    const onClickEditBox = box => {
+      onEditBox(box)
+    }
+
     const [currentBox, setCurrentBox] = useState({
       ...selectedBox,
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
+
+      lengthCmWarehouse: 0,
+      widthCmWarehouse: 0,
+      heightCmWarehouse: 0,
+      weighGrossKgWarehouse: 0,
+      images: [],
     })
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
@@ -517,6 +559,13 @@ export const StorekeeperRedistributeBox = observer(
             !destinations.find(e => e._id === el.destinationId)?.storekeeper) ||
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
           newBoxes.some(item => item.items.some(el => el.amount === 0)),
+      ) ||
+      filterEmptyBoxes(newBoxes).some(
+        el =>
+          el.lengthCmWarehouse === 0 ||
+          el.widthCmWarehouse === 0 ||
+          el.heightCmWarehouse === 0 ||
+          el.weighGrossKgWarehouse === 0,
       )
 
     return (
@@ -548,10 +597,12 @@ export const StorekeeperRedistributeBox = observer(
               destinationsFavourites={destinationsFavourites}
               setDestinationsFavouritesItem={setDestinationsFavouritesItem}
               onChangeAmountInput={onChangeAmountInput}
+              onClickEditBox={onClickEditBox}
             />
           </div>
 
           <NewBoxes
+            volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}
@@ -559,9 +610,13 @@ export const StorekeeperRedistributeBox = observer(
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+            showEditBoxModalR={showEditBoxModalR}
+            setNewBoxes={setNewBoxes}
+            onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
+            onClickEditBox={onClickEditBox}
           />
         </div>
 

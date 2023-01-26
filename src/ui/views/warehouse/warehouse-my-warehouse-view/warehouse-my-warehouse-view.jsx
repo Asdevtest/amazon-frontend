@@ -334,6 +334,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
         >
           <StorekeeperRedistributeBox
+            volumeWeightCoefficient={volumeWeightCoefficient}
             showEditBoxModalR={showEditBoxModalR}
             destinations={destinations}
             storekeepers={storekeepersData}
