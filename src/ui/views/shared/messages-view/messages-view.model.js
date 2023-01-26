@@ -204,19 +204,9 @@ export class MessagesViewModel {
       if (imageIsNeedChange) {
         const file = dataURLtoFile(state.preview, this.user._id)
 
-        console.log('file', file)
-
-        // const formData = new FormData()
-        // formData.append('filename', file)
-
-        // console.log('formData', formData)
-
-        // const image = typeof state.preview === 'string' ? state.preview : {file}
-
         await onSubmitPostImages.call(this, {images: [{file}], type: 'readyImages'})
       }
 
-      // console.log('state', state)
       console.log('readyImages', this.readyImages)
 
       await ChatModel.patchInfoGroupChat({
@@ -224,8 +214,6 @@ export class MessagesViewModel {
         title: state.title,
         image: imageIsNeedChange ? this.readyImages[0] : state.preview,
       })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }

@@ -84,7 +84,7 @@ export const IdeaViewAndEditCard = observer(
       }
 
       setImages([])
-    }, [curIdea, inEdit])
+    }, [curIdea?._id, inEdit])
 
     const sourceFormFields = {
       media: idea?.media?.length ? [...idea.media] : [],

@@ -13,6 +13,10 @@ export const useClassNames = makeStyles()(() => ({
   groupTitle: {
     fontWeight: 600,
     margin: '0 5px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 200,
   },
 
   usersWrapper: {

@@ -54,14 +54,14 @@ export const MergeBoxesModal = ({
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, selectedBoxes[0], comment)
-    setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    setComment('')
+    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
+    // setComment('')
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    setComment('')
+    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
+    // setComment('')
   }
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)

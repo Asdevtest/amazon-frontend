@@ -145,6 +145,11 @@ export const styles = theme => ({
     fontSize: 18,
     color: theme.palette.text.general,
 
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 200,
+
     // cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     // transition: '.3s ease',
 

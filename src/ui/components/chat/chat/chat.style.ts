@@ -287,6 +287,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     // color: theme.palette.text.general,
     color: '#fff',
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 200,
   },
 
   usersCount: {
