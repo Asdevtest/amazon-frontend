@@ -25,7 +25,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
-import {StorekeeperRedistributeBoxModal} from '@components/modals/storekeeper-redistribute-box-modal'
+import {StorekeeperRedistributeBox} from '@components/modals/storekeeper'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -333,7 +333,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           openModal={showRedistributeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
         >
-          <StorekeeperRedistributeBoxModal
+          <StorekeeperRedistributeBox
             showEditBoxModalR={showEditBoxModalR}
             destinations={destinations}
             storekeepers={storekeepersData}

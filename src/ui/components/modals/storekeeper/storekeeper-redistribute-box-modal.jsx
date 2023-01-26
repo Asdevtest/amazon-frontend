@@ -286,6 +286,18 @@ const Box = ({
               <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
                 <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
               </IconButton>
+              <div>
+                <Button
+                  className={classNames.editBtn}
+                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                  onClick={() => {
+                    // setCurBox(box)
+                    // onClickEditBox(box)
+                  }}
+                >
+                  {t(TranslationKey.Edit)}
+                </Button>
+              </div>
               <div className={classNames.incomingBtnWrapper}>
                 <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
                   <Typography className={classNames.tablePanelViewText}>
@@ -373,7 +385,7 @@ const NewBoxes = ({
   )
 }
 
-export const StorekeeperRedistributeBoxModal = observer(
+export const StorekeeperRedistributeBox = observer(
   ({
     destinations,
     storekeepers,
@@ -409,7 +421,6 @@ export const StorekeeperRedistributeBoxModal = observer(
     const emptyBox = getEmptyBox()
     const [newBoxes, setNewBoxes] = useState([emptyBox])
 
-    const [comment, setComment] = useState('')
     const totalProductsAmount = isMasterBox
       ? currentBox?.amount - newBoxes.length
       : currentBox?.items?.reduce((acc, order) => acc + order.amount, 0) || 0
@@ -475,7 +486,6 @@ export const StorekeeperRedistributeBoxModal = observer(
         newBoxesWithoutEmptyOrders.map(el => ({...el, destinationId: el.destinationId || null})),
         operationTypes.SPLIT,
         isMasterBox,
-        comment,
         selectedBox,
       )
     }
@@ -552,18 +562,6 @@ export const StorekeeperRedistributeBoxModal = observer(
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
-          />
-
-          <Field
-            multiline
-            inputProps={{maxLength: 255}}
-            className={classNames.heightFieldAuto}
-            minRows={18}
-            maxRows={18}
-            label={t(TranslationKey['Client comment on the task'])}
-            placeholder={t(TranslationKey['Client comment on the task'])}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
           />
         </div>
 
