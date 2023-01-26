@@ -308,6 +308,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
         >
           <MergeBoxesModal
+            userInfo={userInfo}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={

@@ -53,9 +53,6 @@ export const SelectFields = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('orderFields', orderFields)
-  // console.log('order', order)
-
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)

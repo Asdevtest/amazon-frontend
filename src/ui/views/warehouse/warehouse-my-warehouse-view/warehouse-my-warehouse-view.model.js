@@ -795,7 +795,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickConfirmMerge(boxBody) {
+  async onClickConfirmMerge(boxBody, imagesOfBox) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -809,8 +809,20 @@ export class WarehouseMyWarehouseViewModel {
         await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
       }
 
+      if (imagesOfBox?.length) {
+        await onSubmitPostImages.call(this, {
+          images: imagesOfBox,
+          type: 'uploadedImages',
+          withoutShowProgress: true,
+        })
+      }
+
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
+        {
+          ...boxBody,
+          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel,
+          images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
+        },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
       )
 
