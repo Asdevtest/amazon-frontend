@@ -25,11 +25,11 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
+import {StorekeeperRedistributeBoxModal} from '@components/modals/storekeeper-redistribute-box-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
-import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -49,6 +49,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      showEditBoxModalR,
+      onTriggerShowEditBoxModalR,
       boxesMy,
       showMergeBoxModal,
       showRedistributeBoxModal,
@@ -331,7 +333,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           openModal={showRedistributeBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
         >
-          <RedistributeBox
+          <StorekeeperRedistributeBoxModal
+            showEditBoxModalR={showEditBoxModalR}
             destinations={destinations}
             storekeepers={storekeepersData}
             requestStatus={requestStatus}
@@ -344,6 +347,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onRedistribute={onClickConfirmSplit}
             onTriggerOpenModal={onTriggerOpenModal}
+            onEditBox={onTriggerShowEditBoxModalR}
+            onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
           />
         </Modal>
 

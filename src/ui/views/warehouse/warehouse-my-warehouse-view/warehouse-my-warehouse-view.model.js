@@ -90,6 +90,8 @@ export class WarehouseMyWarehouseViewModel {
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
 
+  showEditBoxModalR = false
+
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -175,6 +177,14 @@ export class WarehouseMyWarehouseViewModel {
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
+    })
+  }
+
+  onTriggerShowEditBoxModalR(box) {
+    console.log('click')
+    runInAction(() => {
+      this.curBox = box
+      this.showEditBoxModalR = !this.showEditBoxModalR
     })
   }
 
