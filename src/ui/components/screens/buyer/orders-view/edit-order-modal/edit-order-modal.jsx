@@ -222,28 +222,22 @@ export const EditOrderModal = observer(
 
     console.log('orderFields', orderFields)
 
+    const getDataForSaveOrder = () => ({
+      order,
+      orderFields,
+      boxesForCreation,
+      photosToLoad,
+      // hsCode,
+      trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+      commentToWarehouse,
+    })
+
     const onClickSaveOrder = () => {
       const cost = calcPriceForItem(
         // toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 1),
         orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse,
         orderFields.amount,
       )
-
-      const dataForSaveOrder = {
-        order,
-        orderFields: {
-          ...orderFields,
-          totalPrice:
-            orderFields.totalPriceChanged < orderFields.totalPrice
-              ? orderFields.totalPriceChanged
-              : orderFields.totalPrice,
-        },
-        boxesForCreation,
-        photosToLoad,
-        // hsCode,
-        trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-        commentToWarehouse,
-      }
 
       const dataForUpdateSupData = {
         supplier: orderFields.orderSupplier,
@@ -252,17 +246,22 @@ export const EditOrderModal = observer(
           amount: orderFields.amount,
           priceInYuan: cost,
           batchDeliveryCostInYuan: priceYuansDeliveryCostToTheWarehouse,
+          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
         },
       }
 
-      if (updateSupplierData) {
-        onSubmitSaveOrder(dataForSaveOrder)
-        onClickUpdataSupplierData(dataForUpdateSupData)
+      if (isPendingOrder) {
+        onSubmitSaveOrder(getDataForSaveOrder())
       } else {
-        if (cost !== orderFields?.orderSupplier.priceInYuan) {
-          onClickSaveWithoutUpdateSupData(dataForSaveOrder, orderFields)
+        if (updateSupplierData) {
+          onSubmitSaveOrder(getDataForSaveOrder())
+          onClickUpdataSupplierData(dataForUpdateSupData)
         } else {
-          onSubmitSaveOrder(dataForSaveOrder)
+          if (cost !== orderFields?.orderSupplier.priceInYuan) {
+            onClickSaveWithoutUpdateSupData(getDataForSaveOrder(), orderFields)
+          } else {
+            onSubmitSaveOrder(getDataForSaveOrder())
+          }
         }
       }
     }
@@ -778,7 +777,7 @@ export const EditOrderModal = observer(
                 ) : null}
               </div>
               <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
-                <Checkbox checked={updateSupplierData} color="primary" />
+                <Checkbox disabled={isPendingOrder} checked={updateSupplierData} color="primary" />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
                 </Typography>

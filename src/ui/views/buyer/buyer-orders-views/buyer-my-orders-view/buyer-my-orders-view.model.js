@@ -23,7 +23,7 @@ import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 // import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed} from '@utils/text'
+// import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -357,6 +357,8 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickUpdataSupplierData({supplier, productId, orderFields}) {
+    console.log('orderFieldsInner', orderFields)
+
     this.updateSupplierData = false
 
     const result = await UserModel.getPlatformSettings()
@@ -368,15 +370,11 @@ export class BuyerMyOrdersViewModel {
     try {
       supplier = {
         ...supplier,
-        // amount: parseFloat(supplier?.amount) || '',
-
-        // minlot: parseInt(supplier?.minlot) || '',
-        // price: parseFloat(supplier?.price) || '',
-        // images: supplier.images.concat(this.readyImages),
         yuanRate: this.yuanToDollarRate,
         amount: orderFields.amount,
         priceInYuan: orderFields.priceInYuan,
         batchDeliveryCostInYuan: orderFields.batchDeliveryCostInYuan,
+        batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
       }
       const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, [
         '_id',
@@ -385,6 +383,8 @@ export class BuyerMyOrdersViewModel {
         'paymentMethod',
         'updatedAt',
       ])
+
+      console.log('supplier', supplier)
 
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -677,6 +677,8 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
+      console.log('orderFieldsToSave', orderFieldsToSave)
+
       await this.onSaveOrder(order, orderFieldsToSave)
 
       if (
@@ -687,42 +689,42 @@ export class BuyerMyOrdersViewModel {
         await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber, commentToWarehouse})
       }
 
-      if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
-        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
-      } else {
-        if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
-          await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
-        }
+      // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
+      await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      // } else {
+      // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
+      //   await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      // }
 
-        if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`) {
-          await BuyerModel.orderPayToSupplier(order._id)
-        }
-
-        if (orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`) {
-          await BuyerModel.orderTrackNumberIssued(order._id)
-        }
-
-        if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
-          await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
-        }
-
-        if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
-          runInAction(() => {
-            this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
-          })
-
-          this.confirmModalSettings = {
-            title: t(TranslationKey['Attention. Are you sure?']),
-            isWarning: true,
-            confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-            onClickConfirm: () => {
-              this.onSubmitCancelOrder()
-            },
-          }
-          this.onTriggerOpenModal('showConfirmModal')
-          // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
-        }
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`) {
+        await BuyerModel.orderPayToSupplier(order._id)
       }
+
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`) {
+        await BuyerModel.orderTrackNumberIssued(order._id)
+      }
+
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+        await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
+      }
+
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+        runInAction(() => {
+          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+        })
+
+        this.confirmModalSettings = {
+          title: t(TranslationKey['Attention. Are you sure?']),
+          isWarning: true,
+          confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+          onClickConfirm: () => {
+            this.onSubmitCancelOrder()
+          },
+        }
+        this.onTriggerOpenModal('showConfirmModal')
+        // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
+      }
+      // }
 
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
