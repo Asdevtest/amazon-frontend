@@ -4,6 +4,7 @@ import {
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
+  ChatMessageRemovePatchInfoGroupChatContract,
   ChatMessageRemoveUsersFromGroupChatContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
@@ -46,4 +47,10 @@ export const checkIsChatMessageRemoveUsersFromGroupChatContract = (
   return (
     value.type === ChatMessageType.SYSTEM && value.text === ChatMessageTextType.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN
   )
+}
+
+export const checkIsChatMessagePatchInfoGroupChatContract = (
+  value: ChatMessageContract,
+): value is ChatMessageContract<ChatMessageRemovePatchInfoGroupChatContract> => {
+  return value.type === ChatMessageType.SYSTEM && value.text === ChatMessageTextType.PATCH_INFO
 }

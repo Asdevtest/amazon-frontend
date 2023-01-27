@@ -232,7 +232,7 @@ export const useClassNames = makeStyles()(theme => ({
     right: 155,
     width: 'max-content',
     borderRadius: 20,
-    padding: '0 5px',
+    padding: '0 10px',
   },
   arrowIcon: {
     // marginLeft: 8,
@@ -254,9 +254,19 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     position: 'relative',
-    background: 'black',
+    // background: 'black',
     padding: 10,
     marginBottom: 15,
+  },
+
+  groupSettingsImageShadow: {
+    width: '100%',
+    height: 180,
+    background: 'black',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    opacity: 0.4,
   },
 
   groupSettingsImage: {
@@ -267,7 +277,7 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     objectFit: 'contain',
     objectPosition: 'center',
-    opacity: 0.6,
+    // opacity: 0.6,
   },
 
   groupSettingsInfoWrapper: {
@@ -321,7 +331,7 @@ export const useClassNames = makeStyles()(theme => ({
   membersWrapper: {
     marginTop: 30,
     width: '100%',
-    height: 470,
+    height: 420,
 
     padding: '0 15px',
 

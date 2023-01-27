@@ -22,5 +22,7 @@ export const useClassNames = makeStyles()(() => ({
   usersWrapper: {
     display: 'flex',
     gap: 5,
+    maxWidth: 350,
+    flexWrap: 'wrap',
   },
 }))

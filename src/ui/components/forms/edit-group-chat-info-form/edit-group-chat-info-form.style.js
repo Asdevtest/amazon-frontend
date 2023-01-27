@@ -94,4 +94,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.second,
   },
+
+  avatarImage: {
+    objectFit: 'contain',
+    height: 200,
+  },
 }))

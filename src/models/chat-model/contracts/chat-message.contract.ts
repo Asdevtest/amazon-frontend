@@ -9,6 +9,7 @@ import {
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
+  ChatMessageRemovePatchInfoGroupChatContract,
   ChatMessageRemoveUsersFromGroupChatContract,
 } from './chat-message-data.contract'
 import {ChatUserContract} from './chat-user.contract'
@@ -22,6 +23,7 @@ export type TChatMessageDataUniversal =
   | ChatMessageDataProposalStatusChangedContract
   | ChatMessageDataProposalResultEditedContract
   | ChatMessageRemoveUsersFromGroupChatContract
+  | ChatMessageRemovePatchInfoGroupChatContract
   | undefined
 
 export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>

@@ -57,5 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
   linkWrapper: {
     display: 'flex',
     alignItems: 'center',
+    height: 'min-content',
   },
 }))

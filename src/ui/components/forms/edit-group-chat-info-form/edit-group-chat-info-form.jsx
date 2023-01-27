@@ -84,8 +84,8 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
             <Avatar
               width={320}
               height={210}
-              imageWidth={320}
-              imageHeight={210}
+              // imageWidth={320}
+              // imageHeight={210}
               labelStyle={{
                 width: '100%',
                 backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
@@ -102,6 +102,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
+              className={classNames.avatarImage}
               // src={state.preview}
               onCrop={onCrop}
               onClose={onClose}

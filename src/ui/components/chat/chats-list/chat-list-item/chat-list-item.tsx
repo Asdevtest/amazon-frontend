@@ -85,7 +85,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
               </div>
             ) : (
               <div className={classNames.lastMessageSubWrapper}>
-                <Avatar src={getUserAvatarSrc(lastMessage.userId)} className={classNames.miniAvatar} />
+                <Avatar src={getUserAvatarSrc(lastMessage.user?._id)} className={classNames.miniAvatar} />
 
                 <p className={classNames.lastMessageText}>
                   {message + (lastMessage?.files?.length ? `*${t(TranslationKey.Files)}*` : '')}

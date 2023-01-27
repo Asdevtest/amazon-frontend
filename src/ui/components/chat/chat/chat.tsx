@@ -223,7 +223,7 @@ export const Chat: FC<Props> = observer(
             >
               {showGroupSettings ? (
                 <div className={classNames.collapseWrapper}>
-                  <Typography className={classNames.collapseText}>{t(TranslationKey.Collapse)}</Typography>
+                  <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
 
                   <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
                 </div>
@@ -236,6 +236,7 @@ export const Chat: FC<Props> = observer(
             <div className={classNames.groupSettingsWrapper}>
               <div className={classNames.groupSettingsImageWrapper}>
                 <img src={chat.info?.image || '/assets/img/no-photo.jpg'} className={classNames.groupSettingsImage} />
+                <div className={classNames.groupSettingsImageShadow}></div>
 
                 <div className={classNames.groupSettingsInfoWrapper}>
                   <div className={classNames.groupSettingsInfo}>

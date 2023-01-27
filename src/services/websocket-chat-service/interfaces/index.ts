@@ -83,6 +83,7 @@ export enum ChatMessageType {
 export enum ChatMessageTextType {
   'ADD_USERS_TO_GROUP_CHAT_BY_ADMIN' = 'ADD_USERS_TO_GROUP_CHAT_BY_ADMIN',
   'REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN' = 'REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN',
+  'PATCH_INFO' = 'PATCH_INFO',
 }
 
 export type ChatMessageDataUniversal =
@@ -92,6 +93,7 @@ export type ChatMessageDataUniversal =
   | ChatMessageDataProposalResultEdited
   | ChatMessageDataAddUsersToGroupChat
   | ChatMessageRemoveUsersFromGroupChat
+  | ChatMessagePatchInfoGroupChat
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -125,6 +127,13 @@ export interface ChatMessageRemoveUsersFromGroupChat {
   createdBy: string
   title: string
   users: {_id: string; name: string}[]
+}
+
+export interface ChatMessagePatchInfoGroupChat {
+  createdBy: string
+  title: string
+  updatedData: {image: string; title: string}
+  prevData: {image: string; title: string}
 }
 
 export interface ChatMessageDataProposalStatusChanged {
