@@ -60,7 +60,8 @@ export const calcExchangePrice = (price, rate) =>
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
   toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 0) * 100) / 100, 2)
 
-export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
+export const calcPriceForItem = (fullPrice, amount, deliveryPrice) =>
+  ((parseFloat(fullPrice) || 0) - (parseFloat(deliveryPrice) || 0)) / (parseFloat(amount) || 0)
 
 export const calcVolumeWeightForBox = (box, coefficient, isShipping) => {
   if (isShipping) {

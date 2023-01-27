@@ -200,6 +200,7 @@ export const SelectFields = ({
                       ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
                       : orderFields.priceInYuan,
                     orderFields.amount,
+                    priceYuansDeliveryCostToTheWarehouse,
                   ),
                   2,
                 )}
@@ -324,6 +325,7 @@ export const SelectFields = ({
                     ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                     : orderFields.totalPriceChanged,
                   orderFields.amount,
+                  priceYuansDeliveryCostToTheWarehouse,
                 ),
                 2,
               )}

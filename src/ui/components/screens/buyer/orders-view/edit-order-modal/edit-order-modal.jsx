@@ -203,7 +203,9 @@ export const EditOrderModal = observer(
       status: order?.status || undefined,
       clientComment: order?.clientComment || '',
       buyerComment: order?.buyerComment || '',
-      deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
+      deliveryCostToTheWarehouse:
+        order?.deliveryCostToTheWarehouse ||
+        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
@@ -218,16 +220,24 @@ export const EditOrderModal = observer(
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
 
+    console.log('orderFields', orderFields)
+
     const onClickSaveOrder = () => {
       const cost = calcPriceForItem(
         // toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 1),
-        orderFields.priceInYuan,
+        orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse,
         orderFields.amount,
       )
 
       const dataForSaveOrder = {
         order,
-        orderFields,
+        orderFields: {
+          ...orderFields,
+          totalPrice:
+            orderFields.totalPriceChanged < orderFields.totalPrice
+              ? orderFields.totalPriceChanged
+              : orderFields.totalPrice,
+        },
         boxesForCreation,
         photosToLoad,
         // hsCode,

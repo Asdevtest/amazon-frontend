@@ -336,7 +336,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickSaveWithoutUpdateSupData(DataForSaveOrder, orderFields) {
-    if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+    if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` && orderFields.status < 20) {
       this.confirmModalSettings = {
         title: t(TranslationKey.Attention),
         isWarning: true,
