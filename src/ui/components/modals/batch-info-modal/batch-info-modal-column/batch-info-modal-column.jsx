@@ -96,7 +96,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
-    width: 100,
+    width: 90,
   },
 
   {
@@ -112,6 +112,6 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
       />
     ),
     type: 'number',
-    width: 100,
+    width: 90,
   },
 ]
