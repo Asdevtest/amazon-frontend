@@ -108,6 +108,8 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
+
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
@@ -205,7 +207,7 @@ export const EditOrderModal = observer(
       buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
-        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount,
+        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
@@ -220,6 +222,32 @@ export const EditOrderModal = observer(
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
 
+    const onClickUpdateButton = () => {
+      const newOrderFieldsState = {...orderFields}
+
+      newOrderFieldsState.deliveryCostToTheWarehouse =
+        (orderFields.orderSupplier.batchDeliveryCostInYuan /
+          orderFields.yuanToDollarRate /
+          order.orderSupplier.amount) *
+        order.amount
+
+      setPriceYuansDeliveryCostToTheWarehouse(
+        toFixed((orderFields.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount, 2),
+      )
+
+      newOrderFieldsState.priceInYuan = toFixed(
+        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount),
+        2,
+      )
+
+      newOrderFieldsState.totalPriceChanged = toFixed(
+        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount) / orderFields.yuanToDollarRate,
+        2,
+      )
+
+      setOrderFields(newOrderFieldsState)
+    }
+
     console.log('orderFields', orderFields)
 
     const getDataForSaveOrder = () => ({
@@ -233,11 +261,7 @@ export const EditOrderModal = observer(
     })
 
     const onClickSaveOrder = () => {
-      const cost = calcPriceForItem(
-        // toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 1),
-        orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse,
-        orderFields.amount,
-      )
+      const cost = calcPriceForItem(orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse, orderFields.amount)
 
       const dataForUpdateSupData = {
         supplier: orderFields.orderSupplier,
@@ -338,6 +362,12 @@ export const EditOrderModal = observer(
           calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
           2,
         )
+
+        // ((parseFloat(orderFields?.priceInYuan)/*  || 0 */) + (parseFloat(orderFields?.batchDeliveryCostInYuan / supplier?.amount)/*  || 0 */)) *
+        // (parseInt(order.amount) || 0)
+
+        // orderFields?.priceInYuan
+
         newOrderFieldsState.priceInYuan = toFixed(
           calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
           2,
@@ -669,6 +699,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            checkIsPlanningPrice={checkIsPlanningPrice}
+            setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
@@ -686,6 +718,7 @@ export const EditOrderModal = observer(
             setUsePriceInDollars={setUsePriceInDollars}
             setPriceYuansDeliveryCostToTheWarehouse={setPriceYuansDeliveryCostToTheWarehouse}
             onClickHsCode={onClickHsCode}
+            onClickUpdateButton={onClickUpdateButton}
           />
 
           <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
@@ -693,6 +726,7 @@ export const EditOrderModal = observer(
           </Text>
 
           <ProductTable
+            checkIsPlanningPrice={checkIsPlanningPrice}
             pathnameNotPaid={pathnameNotPaid}
             modalHeadCells={modalHeadCells}
             order={order}
@@ -714,6 +748,7 @@ export const EditOrderModal = observer(
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
                   <Button
+                    disabled={checkIsPlanningPrice}
                     tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                     className={classNames.iconBtn}
                     onClick={() => {
@@ -730,6 +765,7 @@ export const EditOrderModal = observer(
                   <>
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
+                        disabled={checkIsPlanningPrice}
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
@@ -754,6 +790,7 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
+                        disabled={checkIsPlanningPrice}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
