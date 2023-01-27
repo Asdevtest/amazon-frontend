@@ -57,9 +57,6 @@ class InlineObject36 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('image')) {
-                obj['image'] = ApiClient.convertToType(data['image'], 'String');
-            }
         }
         return obj;
     }
@@ -77,12 +74,6 @@ InlineObject36.prototype['userIds'] = undefined;
  * @member {String} title
  */
 InlineObject36.prototype['title'] = undefined;
-
-/**
- * Картинка чата
- * @member {String} image
- */
-InlineObject36.prototype['image'] = undefined;
 
 
 

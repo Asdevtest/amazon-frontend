@@ -39,7 +39,7 @@ import {ShowBarOrHscodeModal} from '@components/modals/show-bar-or-hs-code-modal
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'

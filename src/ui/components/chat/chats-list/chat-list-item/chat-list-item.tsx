@@ -11,7 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
 
 import {ChatMessageType} from '@services/websocket-chat-service'
-import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+import {ChatMessageTextType, OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -53,6 +53,13 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
             return t(TranslationKey['Proposal result edited'])
           case ChatMessageType.PROPOSAL_STATUS_CHANGED:
             return t(TranslationKey['Proposal status changed'])
+
+          case ChatMessageTextType.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN:
+            return t(TranslationKey['added to the group chat'])
+          case ChatMessageTextType.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN:
+            return t(TranslationKey['deleted from group chat'])
+          case ChatMessageTextType.PATCH_INFO:
+            return t(TranslationKey['changed the chat info'])
           default:
             return lastMessage.text
         }

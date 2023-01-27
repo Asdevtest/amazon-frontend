@@ -4,8 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название профиля | [optional] 
-**os** | **String** | Название ОС | [optional] [default to &#39;mac&#39;]
-**navigator** | [**ApiV1GologinProfileNavigator**](ApiV1GologinProfileNavigator.md) |  | [optional] 
+**productName** | **String** | Назавние продукта | [optional] 
+**productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 
+**linksToMediaFiles** | **[String]** | Image URL | [optional] 
+**criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
+**dimensions** | **String** | Размеры | [optional] 
+**quantity** | **Number** | Количество товаров | [optional] 
+**price** | **Number** | Желаемая цена | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 

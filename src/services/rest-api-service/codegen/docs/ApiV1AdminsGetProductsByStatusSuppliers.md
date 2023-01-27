@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **comment** | **String** | Комментарий | [optional] 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
 **multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
+**paymentMethod** | **[Number]** | Тип оплаты | [optional] 
 **priceInYuan** | **Number** | Цена за еденицу, yuan | [optional] 
 **batchDeliveryCostInDollar** | **Number** | Доставка партии, dollar | [optional] 
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 

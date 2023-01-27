@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **amount** | **Number** | кол-во | 
 **minlot** | **Number** | Минимальный лот. | 
 **multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
+**paymentMethod** | **[Number]** | Тип оплаты | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 

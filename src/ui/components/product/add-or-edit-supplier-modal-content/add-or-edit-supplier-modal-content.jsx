@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Checkbox, Container, Divider, Grid, Link, Typography} from '@mui/material'
 
@@ -6,6 +7,7 @@ import {React, useState} from 'react'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {paymentsMethod, paymentsMethodByKey} from '@constants/payments'
 import {inchesCoefficient, sizesType, poundsCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -89,6 +91,7 @@ export const AddOrEditSupplierModalContent = observer(
       multiplicity: supplier?.multiplicity || false,
 
       productionTerm: supplier?.productionTerm || '',
+      paymentMethod: supplier?.paymentMethod || [],
 
       priceInYuan: supplier?.priceInYuan || '',
       batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
@@ -273,6 +276,17 @@ export const AddOrEditSupplierModalContent = observer(
             </Button>
           </div>
         )
+      }
+    }
+
+    const onChangePaymentMethod = method => {
+      if (tmpSupplier.paymentMethod.includes(paymentsMethodByKey[method])) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          paymentMethod: tmpSupplier.paymentMethod.filter(el => el !== paymentsMethodByKey[method]),
+        })
+      } else {
+        setTmpSupplier({...tmpSupplier, paymentMethod: tmpSupplier.paymentMethod.concat(paymentsMethodByKey[method])})
       }
     }
 
@@ -678,6 +692,51 @@ export const AddOrEditSupplierModalContent = observer(
             </div>
           </div>
 
+          <div className={classNames.paymentsBlock}>
+            <Typography className={classNames.modalTitle}>{t(TranslationKey['Payment methods']) + ':'}</Typography>
+
+            <div className={classNames.paymentsWrapper}>
+              <div
+                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
+                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.ALIPAY)}
+              >
+                <Checkbox
+                  disabled={onlyRead}
+                  className={classNames.checkbox}
+                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.ALIPAY])}
+                  color="primary"
+                />
+                <Typography className={classNames.normalLabel}>{'Alipay'}</Typography>
+              </div>
+
+              <div
+                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
+                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.PAYONEER)}
+              >
+                <Checkbox
+                  disabled={onlyRead}
+                  className={classNames.checkbox}
+                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.PAYONEER])}
+                  color="primary"
+                />
+                <Typography className={classNames.normalLabel}>{'Payoneer'}</Typography>
+              </div>
+
+              <div
+                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
+                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.BANK_TRANSACTION)}
+              >
+                <Checkbox
+                  disabled={onlyRead}
+                  className={classNames.checkbox}
+                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.BANK_TRANSACTION])}
+                  color="primary"
+                />
+                <Typography className={classNames.normalLabel}>{t(TranslationKey['Bank transaction'])}</Typography>
+              </div>
+            </div>
+          </div>
+
           <div>
             <Typography className={classNames.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
 
@@ -756,7 +815,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <div>
                   <div
-                    className={cx(classNames.multiplicityWrapper, {[classNames.disabledMultiplicityWrapper]: onlyRead})}
+                    className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
                     onClick={!onlyRead && onChangeField('multiplicity')}
                   >
                     <Checkbox
@@ -845,7 +904,7 @@ export const AddOrEditSupplierModalContent = observer(
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
             label={t(TranslationKey['Make the main supplier'])}
-            containerClasses={classNames.checkboxWrapper}
+            containerClasses={classNames.makeMainSupplierСheckboxWrapper}
             inputComponent={
               <Checkbox
                 color="primary"

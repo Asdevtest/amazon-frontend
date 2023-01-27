@@ -88,6 +88,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('heightCmSupplier')) {
                 obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
             }
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            }
             if (data.hasOwnProperty('weighGrossKgSupplier')) {
                 obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
             }
@@ -262,6 +265,12 @@ ApiV1BatchesBoxes.prototype['widthCmSupplier'] = undefined;
  * @member {Number} heightCmSupplier
  */
 ApiV1BatchesBoxes.prototype['heightCmSupplier'] = undefined;
+
+/**
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
+ */
+ApiV1BatchesBoxes.prototype['isFormed'] = undefined;
 
 /**
  * Общий вес кг коробки который назвал поставщик.

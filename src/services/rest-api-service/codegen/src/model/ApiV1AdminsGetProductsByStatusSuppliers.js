@@ -80,6 +80,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('multiplicity')) {
                 obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
+            if (data.hasOwnProperty('paymentMethod')) {
+                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
+            }
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
@@ -176,6 +179,12 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['yuanRate'] = undefined;
  * @member {Boolean} multiplicity
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['multiplicity'] = undefined;
+
+/**
+ * Тип оплаты
+ * @member {Array.<Number>} paymentMethod
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['paymentMethod'] = undefined;
 
 /**
  * Цена за еденицу, yuan

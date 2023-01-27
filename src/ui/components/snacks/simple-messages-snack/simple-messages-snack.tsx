@@ -9,6 +9,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
+import {ChatMessageTextType} from '@services/websocket-chat-service/interfaces'
+
 import {UserLink} from '@components/user-link'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
@@ -34,9 +36,24 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
       closeSnackbar(id)
     }, [id, closeSnackbar])
 
-    // console.log('snackBarMessageLast22', snackBarMessageLast)
+    console.log('snackBarMessageLast22', snackBarMessageLast)
 
     setTimeout(() => closeSnackbar(id), autoHideDuration)
+
+    const message = snackBarMessageLast?.text
+      ? (() => {
+          switch (snackBarMessageLast.text) {
+            case ChatMessageTextType.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN:
+              return t(TranslationKey['added to the group chat']) + '...'
+            case ChatMessageTextType.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN:
+              return t(TranslationKey['deleted from group chat']) + '...'
+            case ChatMessageTextType.PATCH_INFO:
+              return t(TranslationKey['changed the chat info'])
+            default:
+              return snackBarMessageLast.text
+          }
+        })()
+      : ''
 
     return (
       <SnackbarContent ref={ref}>
@@ -58,11 +75,17 @@ export const SimpleMessagesSnack = forwardRef<HTMLDivElement, SimpleMessagesSnac
               customStyles={undefined}
             />
 
-            {snackBarMessageLast?.text ? (
+            {/* {snackBarMessageLast?.text ? (
               <Typography className={classNames.messageText}>
                 {snackBarMessageLast.text?.length > 40
                   ? snackBarMessageLast.text.slice(0, 37) + '...'
                   : snackBarMessageLast.text}
+              </Typography>
+            ) : null} */}
+
+            {message ? (
+              <Typography className={classNames.messageText}>
+                {message?.length > 40 ? message.slice(0, 37) + '...' : message}
               </Typography>
             ) : null}
 
