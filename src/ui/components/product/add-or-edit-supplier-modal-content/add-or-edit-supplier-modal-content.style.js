@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    marginBottom: '24px',
+    marginBottom: '15px',
   },
 
   standartText: {
@@ -141,6 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   nameContainer: {

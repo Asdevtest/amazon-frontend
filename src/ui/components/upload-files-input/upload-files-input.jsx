@@ -72,7 +72,7 @@ export const UploadFilesInput = observer(
       } else {
         const filesArr = Array.from(evt.clipboardData.files)
 
-        const filesAlowLength = maxNumber - images.length
+        const filesAlowLength = maxNumber - images?.length
 
         evt.preventDefault()
 
@@ -130,7 +130,7 @@ export const UploadFilesInput = observer(
                   <Button
                     disableElevation
                     tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
-                    disabled={linkInput === '' || images.length >= maxNumber}
+                    disabled={linkInput === '' || images?.length >= maxNumber}
                     className={classNames.loadBtn}
                     variant="contained"
                     color="primary"
@@ -180,18 +180,18 @@ export const UploadFilesInput = observer(
 
                   <div className={classNames.actionBtnsWrapper}>
                     <button
-                      disabled={images.length === 0}
+                      disabled={images?.length === 0}
                       className={classNames.showImagesBtn}
                       onClick={() => setShowImages(!showImages)}
                     >
                       {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
                     </button>
                     <Typography className={classNames.imagesCount}>
-                      {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
+                      {<span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${maxNumber}`}</span>}
                       {` ${t(TranslationKey.files)}`}
                     </Typography>
                     <button
-                      disabled={images.length === 0}
+                      disabled={images?.length === 0}
                       className={classNames.removeAllBtn}
                       onClick={onImageRemoveAll}
                     >

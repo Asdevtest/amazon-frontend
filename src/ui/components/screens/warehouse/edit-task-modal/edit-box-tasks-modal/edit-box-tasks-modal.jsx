@@ -493,7 +493,7 @@ export const EditBoxTasksModal = ({
           <PhotoAndFilesCarousel
             small
             direction={window.screen.width < 768 ? 'column' : 'row'}
-            files={box.images}
+            files={box?.images}
             width={window.screen.width < 768 ? '400px' : '300px'}
           />
         </div>

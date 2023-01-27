@@ -118,6 +118,13 @@ export class BuyerMyOrdersViewModel {
     title: '',
   }
 
+  confirmModalSettings = {
+    title: '',
+    isWarning: false,
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   pathnameNotPaid = false
 
   rowCount = 0
@@ -320,6 +327,74 @@ export class BuyerMyOrdersViewModel {
       //             this.product, ['currentSupplierId']
       //           ),
       //         )
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onClickSaveWithoutUpdateSupData(DataForSaveOrder, orderFields) {
+    if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+      this.confirmModalSettings = {
+        title: t(TranslationKey.Attention),
+        isWarning: true,
+        confirmMessage: t(
+          TranslationKey[
+            'The price per unit in the order is different from the supplier price, do you want to continue?'
+          ],
+        ),
+        onClickConfirm: () => {
+          this.onSubmitSaveOrder(DataForSaveOrder)
+          this.onTriggerOpenModal('showConfirmModal')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onSubmitSaveOrder(DataForSaveOrder)
+    }
+  }
+
+  async onClickUpdataSupplierData({supplier, productId, orderFields}) {
+    this.updateSupplierData = false
+
+    const result = await UserModel.getPlatformSettings()
+
+    runInAction(() => {
+      this.yuanToDollarRate = result.yuanToDollarRate
+    })
+
+    try {
+      supplier = {
+        ...supplier,
+        // amount: parseFloat(supplier?.amount) || '',
+
+        // minlot: parseInt(supplier?.minlot) || '',
+        // price: parseFloat(supplier?.price) || '',
+        // images: supplier.images.concat(this.readyImages),
+        yuanRate: this.yuanToDollarRate,
+        amount: orderFields.amount,
+        priceInYuan: orderFields.priceInYuan,
+        batchDeliveryCostInYuan: orderFields.batchDeliveryCostInYuan,
+      }
+      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, [
+        '_id',
+        'createdAt',
+        'createdBy',
+        'paymentMethod',
+        'updatedAt',
+      ])
+
+      if (supplier._id) {
+        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+      } else {
+        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+      }
+
+      const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+      this.selectedOrder = orderData
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -584,8 +659,6 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      console.log('orderFields', orderFields)
-
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice) {
@@ -637,6 +710,15 @@ export class BuyerMyOrdersViewModel {
           runInAction(() => {
             this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
           })
+
+          this.confirmModalSettings = {
+            title: t(TranslationKey['Attention. Are you sure?']),
+            isWarning: true,
+            confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+            onClickConfirm: () => {
+              this.onSubmitCancelOrder()
+            },
+          }
           this.onTriggerOpenModal('showConfirmModal')
           // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
         }

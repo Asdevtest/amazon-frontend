@@ -55,6 +55,9 @@ class BuyerMyOrdersViewRaw extends Component {
       orderStatusData,
       warningInfoModalSettings,
       updateSupplierData,
+      confirmModalSettings,
+      onClickUpdataSupplierData,
+      onClickSaveWithoutUpdateSupData,
       setUpdateSupplierData,
       userInfo,
       rowCount,
@@ -103,7 +106,7 @@ class BuyerMyOrdersViewRaw extends Component {
       setFirstRowId,
       onChangeSortingModel,
       onChangeFilterModel,
-      onSubmitCancelOrder,
+      // onSubmitCancelOrder,
       onSaveOrderItem,
 
       onSearchSubmit,
@@ -208,6 +211,8 @@ class BuyerMyOrdersViewRaw extends Component {
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUpdateSupplierData={setUpdateSupplierData}
+            onClickUpdataSupplierData={onClickUpdataSupplierData}
+            onClickSaveWithoutUpdateSupData={onClickSaveWithoutUpdateSupData}
             onTriggerOpenModal={onTriggerOpenModal}
             onSubmitSaveOrder={onSubmitSaveOrder}
             onSaveOrderItem={onSaveOrderItem}
@@ -217,7 +222,8 @@ class BuyerMyOrdersViewRaw extends Component {
           />
         </Modal>
 
-        <ConfirmationModal
+        {/* исправить нужно */}
+        {/* <ConfirmationModal
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -226,6 +232,18 @@ class BuyerMyOrdersViewRaw extends Component {
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onSubmitCancelOrder}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        /> */}
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={confirmModalSettings.title}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
 

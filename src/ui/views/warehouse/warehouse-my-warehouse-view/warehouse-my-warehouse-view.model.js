@@ -90,6 +90,8 @@ export class WarehouseMyWarehouseViewModel {
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
 
+  showEditBoxModalR = false
+
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -175,6 +177,14 @@ export class WarehouseMyWarehouseViewModel {
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
+    })
+  }
+
+  onTriggerShowEditBoxModalR(box) {
+    console.log('click')
+    runInAction(() => {
+      this.curBox = box
+      this.showEditBoxModalR = !this.showEditBoxModalR
     })
   }
 
@@ -698,6 +708,7 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
+    console.log('updatedBoxes', updatedBoxes)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
@@ -725,6 +736,14 @@ export class WarehouseMyWarehouseViewModel {
             await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
           }
 
+          if (updatedBoxes[i].tmpImages.length) {
+            await onSubmitPostImages.call(this, {
+              images: updatedBoxes[i].tmpImages,
+              type: 'uploadedImages',
+              withoutShowProgress: true,
+            })
+          }
+
           const boxToPush = {
             boxBody: {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
@@ -733,6 +752,13 @@ export class WarehouseMyWarehouseViewModel {
               fbaShipment: updatedBoxes[i].fbaShipment,
               isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
               isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
+              lengthCmWarehouse: updatedBoxes[i].lengthCmWarehouse,
+              widthCmWarehouse: updatedBoxes[i].widthCmWarehouse,
+              heightCmWarehouse: updatedBoxes[i].heightCmWarehouse,
+              weighGrossKgWarehouse: updatedBoxes[i].weighGrossKgWarehouse,
+              images: this.uploadedImages.length
+                ? updatedBoxes[i].images.concat(this.uploadedImages)
+                : updatedBoxes[i].images,
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({

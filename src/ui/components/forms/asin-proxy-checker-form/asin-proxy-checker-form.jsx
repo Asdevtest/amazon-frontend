@@ -84,8 +84,13 @@ export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
   }, [nameSearchValue])
 
   const onClickRemoveCell = asin => {
-    const filteredData = updatedAsinsAndReasonsData.filter(item => item.asin !== asin)
-    setUpdatedAsinsAndReasonsData(filteredData)
+    if (checkIsAdmin(userRole)) {
+      const filteredData = updatedAsinsAndReasonsData.filter(item => item !== asin)
+      setUpdatedAsinsAndReasonsData(filteredData)
+    } else {
+      const filteredData = updatedAsinsAndReasonsData.filter(item => item.asin !== asin)
+      setUpdatedAsinsAndReasonsData(filteredData)
+    }
   }
 
   return (

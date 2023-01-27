@@ -56,6 +56,7 @@ import {
   calcExchangePrice,
   calcOrderTotalPrice,
   calcOrderTotalPriceInYuann,
+  calcPriceForItem,
 } from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {
@@ -102,6 +103,8 @@ export const EditOrderModal = observer(
     pathnameNotPaid,
     updateSupplierData,
     setUpdateSupplierData,
+    onClickSaveWithoutUpdateSupData,
+    onClickUpdataSupplierData,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -214,6 +217,45 @@ export const EditOrderModal = observer(
         ? order?.priceInYuan
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
+
+    const onClickSaveOrder = () => {
+      const cost = calcPriceForItem(
+        // toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 1),
+        orderFields.priceInYuan,
+        orderFields.amount,
+      )
+
+      const dataForSaveOrder = {
+        order,
+        orderFields,
+        boxesForCreation,
+        photosToLoad,
+        // hsCode,
+        trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+        commentToWarehouse,
+      }
+
+      const dataForUpdateSupData = {
+        supplier: orderFields.orderSupplier,
+        productId: order.product?._id,
+        orderFields: {
+          amount: orderFields.amount,
+          priceInYuan: cost,
+          batchDeliveryCostInYuan: priceYuansDeliveryCostToTheWarehouse,
+        },
+      }
+
+      if (updateSupplierData) {
+        onSubmitSaveOrder(dataForSaveOrder)
+        onClickUpdataSupplierData(dataForUpdateSupData)
+      } else {
+        if (cost !== orderFields?.orderSupplier.priceInYuan) {
+          onClickSaveWithoutUpdateSupData(dataForSaveOrder, orderFields)
+        } else {
+          onSubmitSaveOrder(dataForSaveOrder)
+        }
+      }
+    }
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
@@ -755,15 +797,17 @@ export const EditOrderModal = observer(
                 setConfirmModalMode(confirmModalModes.SUBMIT)
                 setShowConfirmModal(!showConfirmModal)
               } else {
-                onSubmitSaveOrder({
-                  order,
-                  orderFields,
-                  boxesForCreation,
-                  photosToLoad,
-                  // hsCode,
-                  trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-                  commentToWarehouse,
-                })
+                onClickSaveOrder()
+                // console.log('s')
+                // onSubmitSaveOrder({
+                //   order,
+                //   orderFields,
+                //   boxesForCreation,
+                //   photosToLoad,
+                //   // hsCode,
+                //   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+                //   commentToWarehouse,
+                // })
               }
             }}
           >

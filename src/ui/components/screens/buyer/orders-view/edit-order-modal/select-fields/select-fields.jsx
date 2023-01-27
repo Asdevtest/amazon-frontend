@@ -282,7 +282,7 @@ export const SelectFields = ({
                   //     : orderFields.totalPriceChanged
                   // }
                   value={
-                    isPendingOrder /* || (pathnameNotPaid && checkIsPlanningPrice) */
+                    isPendingOrder || (pathnameNotPaid && checkIsPlanningPrice)
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                       : orderFields.totalPriceChanged
                   }

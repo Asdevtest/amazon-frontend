@@ -35,7 +35,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
 
     renderCell: params => <MultilineTextCell text={params.row.humanFriendlyId} />,
     type: 'number',
-    width: 70,
+    width: 60,
   },
 
   {
@@ -53,7 +53,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
-    width: 210,
+    width: 200,
   },
 
   {
@@ -61,7 +61,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
-    width: 120,
+    width: 110,
   },
 
   {
@@ -69,7 +69,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 100,
     type: 'date',
   },
 
@@ -88,7 +88,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
       />
     ),
     type: 'number',
-    width: 120,
+    width: 100,
   },
 
   {
@@ -96,7 +96,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
-    width: 140,
+    width: 90,
   },
 
   {
@@ -112,6 +112,6 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
       />
     ),
     type: 'number',
-    width: 140,
+    width: 90,
   },
 ]

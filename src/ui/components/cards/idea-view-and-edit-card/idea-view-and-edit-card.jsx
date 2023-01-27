@@ -324,6 +324,7 @@ export const IdeaViewAndEditCard = observer(
                 <div className={classNames.shortFieldsSubWrapper}>
                   <Field
                     disabled={disableFields}
+                    inputProps={{maxLength: 6}}
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.shortInput}
                     label={t(TranslationKey.Quantity)}
@@ -332,6 +333,7 @@ export const IdeaViewAndEditCard = observer(
                   />
                   <Field
                     disabled={disableFields}
+                    inputProps={{maxLength: 6}}
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.shortInput}
                     label={t(TranslationKey['Desired purchase price']) + ', $'}
@@ -357,6 +359,7 @@ export const IdeaViewAndEditCard = observer(
                   <div className={classNames.sizesBottomWrapper}>
                     <Field
                       disabled={disableFields}
+                      inputProps={{maxLength: 6}}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}
@@ -366,6 +369,7 @@ export const IdeaViewAndEditCard = observer(
                     />
                     <Field
                       disabled={disableFields}
+                      inputProps={{maxLength: 6}}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}
@@ -375,6 +379,7 @@ export const IdeaViewAndEditCard = observer(
                     />
                     <Field
                       disabled={disableFields}
+                      inputProps={{maxLength: 6}}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}
