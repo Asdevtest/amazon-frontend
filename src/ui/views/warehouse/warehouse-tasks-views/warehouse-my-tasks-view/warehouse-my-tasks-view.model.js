@@ -491,12 +491,15 @@ export class WarehouseVacantViewModel {
     switch (mapTaskOperationTypeKeyToEnum[this.tmpDataForCancelTask.taskType]) {
       case TaskOperationType.MERGE:
         await this.onCancelMergeBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
+        break
 
       case TaskOperationType.SPLIT:
         await this.onCancelSplitBoxes(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
+        break
 
       case TaskOperationType.EDIT:
         await this.onCancelEditBox(this.tmpDataForCancelTask.boxId, this.tmpDataForCancelTask.taskId, comment)
+        break
     }
   }
 
