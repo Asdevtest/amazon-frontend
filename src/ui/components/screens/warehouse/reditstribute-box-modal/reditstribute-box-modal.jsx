@@ -497,8 +497,8 @@ export const RedistributeBox = observer(
       }
     }
 
-    console.log('newBoxes', newBoxes)
-    console.log('filterEmptyBoxes(newBoxes)', filterEmptyBoxes(newBoxes))
+    // console.log('newBoxes', newBoxes)
+    // console.log('filterEmptyBoxes(newBoxes)', filterEmptyBoxes(newBoxes))
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
@@ -512,7 +512,7 @@ export const RedistributeBox = observer(
             !el.fbaShipment &&
             !destinations.find(e => e._id === el.destinationId)?.storekeeper) ||
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
-          newBoxes.some(item => item.items.some(el => el.amount === 0)),
+          newBoxes.some(item => item.items.every(el => el.amount === 0)),
       )
 
     return (

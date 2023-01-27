@@ -228,11 +228,14 @@ export const EditOrderModal = observer(
       newOrderFieldsState.deliveryCostToTheWarehouse =
         (orderFields.orderSupplier.batchDeliveryCostInYuan /
           orderFields.yuanToDollarRate /
-          order.orderSupplier.amount) *
-        order.amount
+          orderFields.orderSupplier.amount) *
+        orderFields.amount
 
       setPriceYuansDeliveryCostToTheWarehouse(
-        toFixed((orderFields.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount, 2),
+        toFixed(
+          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount,
+          2,
+        ),
       )
 
       newOrderFieldsState.priceInYuan = toFixed(
@@ -303,6 +306,7 @@ export const EditOrderModal = observer(
     }, [order])
 
     const setOrderField = filedName => e => {
+      console.log('filedName', filedName)
       const newOrderFieldsState = {...orderFields}
 
       if (
@@ -347,7 +351,10 @@ export const EditOrderModal = observer(
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
 
-        if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` && deliveredGoodsCount < order.amount) {
+        if (
+          e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+          deliveredGoodsCount < orderFields.amount
+        ) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {
           setConfirmModalMode(confirmModalModes.STATUS)
@@ -362,16 +369,22 @@ export const EditOrderModal = observer(
           calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
           2,
         )
-
-        // ((parseFloat(orderFields?.priceInYuan)/*  || 0 */) + (parseFloat(orderFields?.batchDeliveryCostInYuan / supplier?.amount)/*  || 0 */)) *
-        // (parseInt(order.amount) || 0)
-
-        // orderFields?.priceInYuan
-
         newOrderFieldsState.priceInYuan = toFixed(
           calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
           2,
         )
+
+        setPriceYuansDeliveryCostToTheWarehouse(
+          toFixed(
+            (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value,
+            2,
+          ),
+        )
+        newOrderFieldsState.deliveryCostToTheWarehouse =
+          (orderFields.orderSupplier.batchDeliveryCostInYuan /
+            orderFields.orderSupplier.amount /
+            orderFields.yuanToDollarRate) *
+          e.target.value
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }
@@ -748,7 +761,7 @@ export const EditOrderModal = observer(
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
                   <Button
-                    disabled={checkIsPlanningPrice}
+                    disabled={checkIsPlanningPrice && !isPendingOrder}
                     tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                     className={classNames.iconBtn}
                     onClick={() => {
@@ -765,7 +778,7 @@ export const EditOrderModal = observer(
                   <>
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
-                        disabled={checkIsPlanningPrice}
+                        disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
@@ -790,7 +803,7 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
-                        disabled={checkIsPlanningPrice}
+                        disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
