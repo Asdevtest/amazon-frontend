@@ -1738,5 +1738,6 @@
   "Change group chat info": "Изменить данные группового чата",
   "No options": "Нет вариантов",
   "changed the chat info": "изменил данные чата",
-  "The price per unit in the order is different from the supplier price, do you want to continue?": "The price per unit in the order is different from the supplier price, do you want to continue?"
+  "The price per unit in the order is different from the supplier price, do you want to continue?": "The price per unit in the order is different from the supplier price, do you want to continue?",
+  "Purchase quantity for the current price": "Кол-во закупки для текущей цены"
 }

@@ -426,7 +426,7 @@ export const AddOrEditSupplierModalContent = observer(
             <Field
               disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
-              label={t(TranslationKey['Purchase quantity']) + '*'}
+              label={t(TranslationKey['Purchase quantity for the current price'])}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}

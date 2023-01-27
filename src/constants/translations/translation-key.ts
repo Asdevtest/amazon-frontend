@@ -1738,7 +1738,7 @@ export enum TranslationKey {
   'No options' = 'No options',
   'changed the chat info' = 'changed the chat info',
   'The price per unit in the order is different from the supplier price, do you want to continue?' = 'The price per unit in the order is different from the supplier price, do you want to continue?',
-  // '' = '',
+  'Purchase quantity for the current price' = 'Purchase quantity for the current price',
   // '' = '',
   // '' = '',
   // '' = '',
