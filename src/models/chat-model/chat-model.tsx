@@ -13,6 +13,7 @@ import {UserModel} from '@models/user-model'
 import {WebsocketChatService} from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
+  ChatMessageTextType,
   ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
@@ -20,6 +21,10 @@ import {
   RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
 } from '@services/websocket-chat-service/interfaces'
+
+import {MessagesViewModel} from '@views/shared/messages-view/messages-view.model'
+
+import {checkIsChatMessageRemoveUsersFromGroupChatContract} from '@utils/ts-checks'
 
 import {ChatContract, SendMessageRequestParamsContract} from './contracts'
 import {ChatMessageContract, TChatMessageDataUniversal} from './contracts/chat-message.contract'
@@ -39,6 +44,8 @@ class ChatModelStatic {
   public loadedFiles: string[] = []
 
   public typingUsers: OnTypingMessageResponse[] = []
+
+  public chatSelectedId: string | undefined = undefined
 
   get userId() {
     return UserModel.userId
@@ -306,7 +313,25 @@ class ChatModelStatic {
           message,
         ]
       })
+
+      if (
+        checkIsChatMessageRemoveUsersFromGroupChatContract(message) &&
+        this.userId &&
+        message.data?.users?.map(el => el._id).includes(this.userId)
+      ) {
+        runInAction(() => {
+          this.chatSelectedId = undefined
+
+          this.simpleChats = this.simpleChats.filter(el => el._id !== message.chatId)
+        })
+      }
     }
+  }
+
+  public onChangeChatSelectedId(value: string | undefined) {
+    runInAction(() => {
+      this.chatSelectedId = value
+    })
   }
 
   private onReadMessage(response: OnReadMessageResponse) {

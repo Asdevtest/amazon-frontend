@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
+**isFormed** | **Boolean** | Сформирована ли коробка | [optional] 
 **weighGrossKgSupplier** | **Number** | Общий вес кг коробки который назвал поставщик. | [optional] 
 **lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 

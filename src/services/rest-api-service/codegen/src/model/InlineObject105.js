@@ -66,6 +66,9 @@ class InlineObject105 {
             if (data.hasOwnProperty('multiplicity')) {
                 obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
+            if (data.hasOwnProperty('paymentMethod')) {
+                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -138,6 +141,12 @@ InlineObject105.prototype['minlot'] = undefined;
  * @member {Boolean} multiplicity
  */
 InlineObject105.prototype['multiplicity'] = undefined;
+
+/**
+ * Тип оплаты
+ * @member {Array.<Number>} paymentMethod
+ */
+InlineObject105.prototype['paymentMethod'] = undefined;
 
 /**
  * Массив картинок.

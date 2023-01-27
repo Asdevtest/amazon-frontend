@@ -681,8 +681,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1ProductsKeepaOffers.spec.js
-test/model/ApiV1ProductsKeepaStats.spec.js
-test/model/InlineObject109.spec.js
-test/model/InlineResponse20062.spec.js
-test/model/InlineResponse20062Details.spec.js

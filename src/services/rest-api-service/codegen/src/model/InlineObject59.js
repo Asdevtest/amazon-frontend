@@ -22,11 +22,10 @@ class InlineObject59 {
     /**
      * Constructs a new <code>InlineObject59</code>.
      * @alias module:model/InlineObject59
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject59.initialize(this, profileId);
+        InlineObject59.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject59 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,29 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('dimensions')) {
+                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -60,10 +79,52 @@ class InlineObject59 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * Назавние продукта
+ * @member {String} productName
  */
-InlineObject59.prototype['profileId'] = undefined;
+InlineObject59.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject59.prototype['productLinks'] = undefined;
+
+/**
+ * Image URL
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject59.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject59.prototype['criteria'] = undefined;
+
+/**
+ * Размеры
+ * @member {String} dimensions
+ */
+InlineObject59.prototype['dimensions'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject59.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject59.prototype['price'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject59.prototype['productId'] = undefined;
 
 
 

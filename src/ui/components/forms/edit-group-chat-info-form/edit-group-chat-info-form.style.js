@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     width: '100%',
-    height: '300px',
+    minHeight: '300px',
 
     display: 'flex',
     alignItems: 'center',

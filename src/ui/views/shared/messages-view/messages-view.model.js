@@ -24,7 +24,7 @@ export class MessagesViewModel {
   showWarningInfoModal = false
   showEditGroupChatInfoModal = false
 
-  chatSelectedId = undefined
+  // chatSelectedId = undefined
 
   nameSearchValue = ''
   mesSearchValue = ''
@@ -41,6 +41,10 @@ export class MessagesViewModel {
   curFoundedMessage = undefined
 
   showProgress = false
+
+  get chatSelectedId() {
+    return ChatModel.chatSelectedId
+  }
 
   get user() {
     return UserModel.userInfo
@@ -63,11 +67,18 @@ export class MessagesViewModel {
       this.history = history
 
       if (location.state?.anotherUserId || location.state?.chatId) {
-        this.chatSelectedId =
+        ChatModel.onChangeChatSelectedId(
           location.state?.chatId ||
-          this.simpleChats
-            .filter(el => el.type === chatsType.DEFAULT)
-            .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
+            this.simpleChats
+              .filter(el => el.type === chatsType.DEFAULT)
+              .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id,
+        )
+
+        // this.chatSelectedId =
+        //   location.state?.chatId ||
+        //   this.simpleChats
+        //     .filter(el => el.type === chatsType.DEFAULT)
+        //     .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
 
         if (!this.chatSelectedId) {
           this.showProgress = true
@@ -271,9 +282,13 @@ export class MessagesViewModel {
   onClickChat(chat) {
     runInAction(() => {
       if (this.chatSelectedId === chat._id) {
-        this.chatSelectedId = undefined
+        // this.chatSelectedId = undefined
+
+        ChatModel.onChangeChatSelectedId(undefined)
       } else {
-        this.chatSelectedId = chat._id
+        // this.chatSelectedId = chat._id
+
+        ChatModel.onChangeChatSelectedId(chat._id)
       }
     })
   }
@@ -302,9 +317,17 @@ export class MessagesViewModel {
     }
   }
 
+  // onChangeChatSelectedId(value) {
+  //   runInAction(() => {
+  //     this.chatSelectedId = value
+  //   })
+  // }
+
   onClickBackButton() {
     runInAction(() => {
-      this.chatSelectedId = undefined
+      // this.chatSelectedId = undefined
+
+      ChatModel.onChangeChatSelectedId(undefined)
     })
   }
 

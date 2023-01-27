@@ -9,5 +9,11 @@ Name | Type | Description | Notes
 **logicsTariffId** | **String** | id тарифа доставки. | 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
 
 

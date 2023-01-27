@@ -101,13 +101,13 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '10px',
   },
 
-  checkboxWrapper: {
+  makeMainSupplierСheckboxWrapper: {
     display: 'flex',
     alignItems: 'center',
     marginBottom: '20px',
   },
 
-  multiplicityWrapper: {
+  checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
     marginBottom: '20px',
@@ -118,7 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  disabledMultiplicityWrapper: {
+  disabledCheckboxWrapper: {
     cursor: 'auto',
     '&:hover': {
       transform: 'none',
@@ -279,5 +279,16 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     textAlign: 'center',
     justifyContent: 'center',
+  },
+
+  paymentsBlock: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  paymentsWrapper: {
+    display: 'flex',
+    marginLeft: 30,
+    gap: 30,
   },
 }))

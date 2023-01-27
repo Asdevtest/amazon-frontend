@@ -69,7 +69,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
         <Avatar
           width={320}
           height={210}
-          // imageWidth={320}
+          imageWidth={320}
           // imageHeight={210}
           labelStyle={{
             width: '100%',
