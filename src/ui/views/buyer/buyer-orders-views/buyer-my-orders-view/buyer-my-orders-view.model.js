@@ -690,7 +690,13 @@ export class BuyerMyOrdersViewModel {
       }
 
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
-      await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      if (
+        orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+        orderFields.status === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`
+      ) {
+        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      }
+
       // } else {
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
       //   await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
