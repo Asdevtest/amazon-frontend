@@ -105,6 +105,23 @@ export class ChatMessageRemoveUsersFromGroupChatContract
   public users!: {_id: string; name: string}[]
 }
 
+export class ChatMessageRemovePatchInfoGroupChatContract
+  implements TWebsocketChatService.ChatMessagePatchInfoGroupChat
+{
+  @IsNotEmpty()
+  @IsString()
+  public createdBy!: string
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+
+  @IsNotEmpty()
+  public updatedData!: {image: string; title: string}
+
+  @IsNotEmpty()
+  public prevData!: {image: string; title: string}
+}
+
 export class ChatMessageDataProposalResultEditedRequestContract
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedRequest
 {

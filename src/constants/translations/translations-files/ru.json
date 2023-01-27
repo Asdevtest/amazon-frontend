@@ -1736,5 +1736,6 @@
   "added to the group chat": "добавил в групповой чат",
   "deleted from group chat": "удалил из группового чата",
   "Change group chat info": "Изменить данные группового чата",
-  "No options": "Нет вариантов"
+  "No options": "Нет вариантов",
+  "changed the chat info": "изменил данные чата"
 }

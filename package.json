@@ -79,7 +79,7 @@
     "prettier": "^2.5.0",
     "qs": "^6.10.3",
     "react": "^18.2.0",
-    "react-avatar-edit": "^1.1.0",
+    "react-avatar-edit": "1.2.0",
     "react-dom": "^18.2.0",
     "react-favicon-notification": "^1.0.28",
     "react-highlight-words": "^0.18.0",

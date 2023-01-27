@@ -9,6 +9,7 @@ import {useScrollToElement} from 'react-use-scroll-to-element-hook'
 
 import {ChatModel} from '@models/chat-model'
 import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
+import {SettingsModel} from '@models/settings-model'
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -18,12 +19,14 @@ import {
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
   checkIsChatMessageDataProposalStatusChangedContract,
+  checkIsChatMessagePatchInfoGroupChatContract,
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
 
 import {useClassNames} from './chat-messages-list.style'
 import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-users-to-group-chat'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
+import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
 import {ChatMessageRemoveUsersFromGroupChat} from './chat-messages/chat-message-remove-users-from-group-chat'
@@ -107,6 +110,8 @@ export const ChatMessagesList: FC<Props> = observer(
         return <ChatMessageAddUsersToGroupChat message={messageItem} />
       } else if (checkIsChatMessageRemoveUsersFromGroupChatContract(messageItem)) {
         return <ChatMessageRemoveUsersFromGroupChat message={messageItem} />
+      } else if (checkIsChatMessagePatchInfoGroupChatContract(messageItem)) {
+        return <ChatMessagePatchInfoGroupChat message={messageItem} />
       } else {
         return (
           <ChatMessageBasicText
@@ -123,7 +128,7 @@ export const ChatMessagesList: FC<Props> = observer(
     return (
       <div className={classNames.root}>
         <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
-          {messages
+          {messages && SettingsModel.languageTag
             ? messages.map((messageItem: ChatMessageContract, index: number) => {
                 const isIncomming = userId !== messageItem.user?._id
 
