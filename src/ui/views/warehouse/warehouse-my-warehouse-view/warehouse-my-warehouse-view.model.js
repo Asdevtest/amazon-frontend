@@ -736,9 +736,9 @@ export class WarehouseMyWarehouseViewModel {
             await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
           }
 
-          if (updatedBoxes[i].tmpImages.length) {
+          if (updatedBoxes[i]?.tmpImages?.length) {
             await onSubmitPostImages.call(this, {
-              images: updatedBoxes[i].tmpImages,
+              images: updatedBoxes[i]?.tmpImages,
               type: 'uploadedImages',
               withoutShowProgress: true,
             })

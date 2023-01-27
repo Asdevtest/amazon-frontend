@@ -50,10 +50,11 @@ export const SelectFields = ({
   setUsePriceInDollars,
   setPriceYuansDeliveryCostToTheWarehouse,
   pathnameNotPaid,
+  checkIsPlanningPrice,
+  setCheckIsPlanningPrice,
+  onClickUpdateButton,
 }) => {
   const {classes: classNames} = useClassNames()
-
-  const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -200,6 +201,7 @@ export const SelectFields = ({
                       ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
                       : orderFields.priceInYuan,
                     orderFields.amount,
+                    priceYuansDeliveryCostToTheWarehouse,
                   ),
                   2,
                 )}
@@ -324,6 +326,7 @@ export const SelectFields = ({
                     ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
                     : orderFields.totalPriceChanged,
                   orderFields.amount,
+                  orderFields.deliveryCostToTheWarehouse,
                 ),
                 2,
               )}
@@ -339,7 +342,7 @@ export const SelectFields = ({
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>
-          <div>
+          <div className={classNames.checkboxWithButton}>
             <Field
               oneLine
               tooltipInfoContent={t(
@@ -357,7 +360,7 @@ export const SelectFields = ({
                       ![
                         OrderStatusByKey[OrderStatus.AT_PROCESS],
                         OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-                      ].includes(orderFields.status)
+                      ].includes(orderFields.status) || !checkIsPlanningPrice
                     }
                     checked={checkIsPlanningPrice}
                     color="primary"
@@ -375,6 +378,16 @@ export const SelectFields = ({
                 </div>
               }
             />
+            <Button
+              disableElevation
+              disabled={checkIsPlanningPrice}
+              className={classNames.button}
+              variant="contained"
+              color="primary"
+              onClick={onClickUpdateButton}
+            >
+              {t(TranslationKey.Update)}
+            </Button>
           </div>
         </div>
       </Grid>

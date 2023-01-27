@@ -108,6 +108,8 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
+    const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
+
     const deliveredGoodsCount =
       boxes
         ?.filter(el => !el.isDraft)
@@ -203,7 +205,9 @@ export const EditOrderModal = observer(
       status: order?.status || undefined,
       clientComment: order?.clientComment || '',
       buyerComment: order?.buyerComment || '',
-      deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
+      deliveryCostToTheWarehouse:
+        order?.deliveryCostToTheWarehouse ||
+        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
@@ -218,22 +222,46 @@ export const EditOrderModal = observer(
         : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
     })
 
-    const onClickSaveOrder = () => {
-      const cost = calcPriceForItem(
-        // toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 1),
-        orderFields.priceInYuan,
-        orderFields.amount,
+    const onClickUpdateButton = () => {
+      const newOrderFieldsState = {...orderFields}
+
+      newOrderFieldsState.deliveryCostToTheWarehouse =
+        (orderFields.orderSupplier.batchDeliveryCostInYuan /
+          orderFields.yuanToDollarRate /
+          order.orderSupplier.amount) *
+        order.amount
+
+      setPriceYuansDeliveryCostToTheWarehouse(
+        toFixed((orderFields.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount, 2),
       )
 
-      const dataForSaveOrder = {
-        order,
-        orderFields,
-        boxesForCreation,
-        photosToLoad,
-        // hsCode,
-        trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-        commentToWarehouse,
-      }
+      newOrderFieldsState.priceInYuan = toFixed(
+        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount),
+        2,
+      )
+
+      newOrderFieldsState.totalPriceChanged = toFixed(
+        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount) / orderFields.yuanToDollarRate,
+        2,
+      )
+
+      setOrderFields(newOrderFieldsState)
+    }
+
+    console.log('orderFields', orderFields)
+
+    const getDataForSaveOrder = () => ({
+      order,
+      orderFields,
+      boxesForCreation,
+      photosToLoad,
+      // hsCode,
+      trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+      commentToWarehouse,
+    })
+
+    const onClickSaveOrder = () => {
+      const cost = calcPriceForItem(orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse, orderFields.amount)
 
       const dataForUpdateSupData = {
         supplier: orderFields.orderSupplier,
@@ -242,17 +270,22 @@ export const EditOrderModal = observer(
           amount: orderFields.amount,
           priceInYuan: cost,
           batchDeliveryCostInYuan: priceYuansDeliveryCostToTheWarehouse,
+          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
         },
       }
 
-      if (updateSupplierData) {
-        onSubmitSaveOrder(dataForSaveOrder)
-        onClickUpdataSupplierData(dataForUpdateSupData)
+      if (isPendingOrder) {
+        onSubmitSaveOrder(getDataForSaveOrder())
       } else {
-        if (cost !== orderFields?.orderSupplier.priceInYuan) {
-          onClickSaveWithoutUpdateSupData(dataForSaveOrder, orderFields)
+        if (updateSupplierData) {
+          onSubmitSaveOrder(getDataForSaveOrder())
+          onClickUpdataSupplierData(dataForUpdateSupData)
         } else {
-          onSubmitSaveOrder(dataForSaveOrder)
+          if (cost !== orderFields?.orderSupplier.priceInYuan) {
+            onClickSaveWithoutUpdateSupData(getDataForSaveOrder(), orderFields)
+          } else {
+            onSubmitSaveOrder(getDataForSaveOrder())
+          }
         }
       }
     }
@@ -329,6 +362,12 @@ export const EditOrderModal = observer(
           calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
           2,
         )
+
+        // ((parseFloat(orderFields?.priceInYuan)/*  || 0 */) + (parseFloat(orderFields?.batchDeliveryCostInYuan / supplier?.amount)/*  || 0 */)) *
+        // (parseInt(order.amount) || 0)
+
+        // orderFields?.priceInYuan
+
         newOrderFieldsState.priceInYuan = toFixed(
           calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
           2,
@@ -660,6 +699,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            checkIsPlanningPrice={checkIsPlanningPrice}
+            setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
@@ -677,6 +718,7 @@ export const EditOrderModal = observer(
             setUsePriceInDollars={setUsePriceInDollars}
             setPriceYuansDeliveryCostToTheWarehouse={setPriceYuansDeliveryCostToTheWarehouse}
             onClickHsCode={onClickHsCode}
+            onClickUpdateButton={onClickUpdateButton}
           />
 
           <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
@@ -684,6 +726,7 @@ export const EditOrderModal = observer(
           </Text>
 
           <ProductTable
+            checkIsPlanningPrice={checkIsPlanningPrice}
             pathnameNotPaid={pathnameNotPaid}
             modalHeadCells={modalHeadCells}
             order={order}
@@ -705,6 +748,7 @@ export const EditOrderModal = observer(
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
                   <Button
+                    disabled={checkIsPlanningPrice}
                     tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                     className={classNames.iconBtn}
                     onClick={() => {
@@ -721,6 +765,7 @@ export const EditOrderModal = observer(
                   <>
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
+                        disabled={checkIsPlanningPrice}
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
                       >
@@ -745,6 +790,7 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
+                        disabled={checkIsPlanningPrice}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                         })}
@@ -768,7 +814,7 @@ export const EditOrderModal = observer(
                 ) : null}
               </div>
               <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
-                <Checkbox checked={updateSupplierData} color="primary" />
+                <Checkbox disabled={isPendingOrder} checked={updateSupplierData} color="primary" />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
                 </Typography>
