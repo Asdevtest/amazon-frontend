@@ -214,8 +214,6 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.cardBlockWrapper}>
             <Field
               multiline
-              tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-              tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
               disabled={disableFields}
               className={classNames.commentField}
               labelClasses={classNames.spanLabel}
@@ -517,8 +515,6 @@ export const IdeaViewAndEditCard = observer(
                     {!checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                       <Button
                         success
-                        tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                        tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                         variant="contained"
                         color="primary"
                         className={[classNames.actionButton]}
