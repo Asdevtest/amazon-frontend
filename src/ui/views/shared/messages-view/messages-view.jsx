@@ -179,7 +179,7 @@ class MessagesViewRaw extends Component {
                             <div className={classNames.searchResultWrapper}>
                               <Typography className={classNames.searchResult}>
                                 {t(TranslationKey['Not found'])}
-                              </Typography>{' '}
+                              </Typography>
                             </div>
                           )}
                         </>
