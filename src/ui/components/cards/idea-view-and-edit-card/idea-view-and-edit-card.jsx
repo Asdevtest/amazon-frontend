@@ -214,8 +214,6 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.cardBlockWrapper}>
             <Field
               multiline
-              tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-              tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
               disabled={disableFields}
               className={classNames.commentField}
               labelClasses={classNames.spanLabel}
@@ -253,7 +251,7 @@ export const IdeaViewAndEditCard = observer(
                   multiline
                   disabled={disableFields}
                   className={classNames.criterionsField}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{maxLength: 1000}}
                   minRows={9}
                   maxRows={9}
                   label={t(TranslationKey['Important criteria'])}
@@ -306,7 +304,7 @@ export const IdeaViewAndEditCard = observer(
                               <CopyValue text={el} />
                               {!disableFields && (
                                 <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                                  <DeleteIcon className={classNames.deleteBtn} />
+                                  <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
                                 </IconButton>
                               )}
                             </div>
@@ -517,8 +515,6 @@ export const IdeaViewAndEditCard = observer(
                     {!checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                       <Button
                         success
-                        tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                        tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                         variant="contained"
                         color="primary"
                         className={[classNames.actionButton]}
