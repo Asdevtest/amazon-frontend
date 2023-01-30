@@ -302,6 +302,9 @@ export class WarehouseSentBatchesViewModel {
           limit: this.rowsPerPage,
           offset: this.curPage * this.rowsPerPage,
 
+          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
           filters: this.nameSearchValue ? filter : null,
           storekeeperId: null,
         },
