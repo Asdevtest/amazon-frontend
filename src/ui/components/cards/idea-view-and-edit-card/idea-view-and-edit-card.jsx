@@ -306,7 +306,7 @@ export const IdeaViewAndEditCard = observer(
                               <CopyValue text={el} />
                               {!disableFields && (
                                 <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                                  <DeleteIcon className={classNames.deleteBtn} />
+                                  <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
                                 </IconButton>
                               )}
                             </div>

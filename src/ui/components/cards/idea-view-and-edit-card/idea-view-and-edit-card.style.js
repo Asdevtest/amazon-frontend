@@ -162,17 +162,19 @@ export const useClassNames = makeStyles()(theme => ({
   linksSubWrapper: {
     width: '100%',
     maxHeight: '200px',
-    overflow: 'hidden',
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
     marginTop: 10,
+    gap: 5,
   },
 
   linkWrapper: {
     width: '100%',
+
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 7,
+    alignItems: 'center',
   },
 
   linkTextWrapper: {
@@ -273,6 +275,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deleteBtn: {
+    color: theme.palette.text.second,
     width: '20px',
     height: '20px',
   },
