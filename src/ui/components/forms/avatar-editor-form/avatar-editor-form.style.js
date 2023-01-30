@@ -14,12 +14,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     width: '100%',
-    minHeight: '300px',
+    minHeight: 320,
 
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
 
-    padding: '20px',
+    padding: '20px  0 20px ',
+  },
+
+  avatarWrapper: {
+    width: '100%',
+    minHeight: 320,
+
+    maxHeight: 500,
+
+    display: 'flex',
+    // alignItems: 'center',
+
+    overflow: 'auto',
   },
 
   imgWrapper: {
@@ -27,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
 
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
   },
 

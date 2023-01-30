@@ -298,13 +298,17 @@ class ChatModelStatic {
 
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
+    if (message.user?._id !== this.userId) {
+      SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
+    }
+
     if (findSimpleChatIndexById !== -1) {
       console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
       if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
         noticeSound.play()
 
-        SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
+        // SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
       }
 
       runInAction(() => {
