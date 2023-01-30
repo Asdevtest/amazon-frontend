@@ -168,8 +168,10 @@ export const MergeBoxesModal = ({
 
   const finalBoxData = Object.values(
     boxData.flat().reduce((acc, item) => {
-      if (!acc[item.product.asin]) {
+      if (!acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
         acc[item.product.asin] = {...item}
+      } else if (acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
+        acc[item.product.asin + 'mark'] = {...item}
       } else {
         acc[item.product.asin].amount = acc[item.product.asin].amount + item.amount
       }

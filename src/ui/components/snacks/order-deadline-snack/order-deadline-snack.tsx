@@ -11,7 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {getDistanceBetweenDatesInSeconds, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getDistanceBetweenDatesInSeconds, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './order-deadline-snack.style'
@@ -54,7 +54,7 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
           <div className={classNames.centerWrapper}>
             <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
 
-            {noticeItem.sort(sortObjectsArrayByFiledDateWithParseISO('deadline')).map((el: any, index: number) => (
+            {noticeItem.sort(sortObjectsArrayByFiledDateWithParseISOAsc('deadline')).map((el: any, index: number) => (
               <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
                 <div className={classNames.titleWrapper}>
                   <Typography className={classNames.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
