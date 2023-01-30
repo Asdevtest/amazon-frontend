@@ -24,7 +24,7 @@ export const styles = theme => ({
   menu: {
     position: 'relative',
     background: theme.palette.background.general,
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    boxShadow: `inset 0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
   },
 
   menuList: {
@@ -48,5 +48,13 @@ export const styles = theme => ({
 
   input: {
     color: theme.palette.text.general,
+  },
+
+  hideDropdownIndicator: {
+    display: 'none',
+  },
+
+  hideIndicatorSeparator: {
+    display: 'none',
   },
 })

@@ -39,6 +39,7 @@ export const UploadFilesInput = observer(
     oneLine = false,
     title = false,
     disabled = false,
+    dragAndDropBtnHeight = undefined,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -171,6 +172,7 @@ export const UploadFilesInput = observer(
                   <button
                     disabled={disabled}
                     className={cx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
+                    style={dragAndDropBtnHeight && {height: dragAndDropBtnHeight}}
                     onClick={onImageUpload}
                     {...dragProps}
                   >

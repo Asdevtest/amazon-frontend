@@ -173,7 +173,17 @@ class MessagesViewRaw extends Component {
                             onClick={() => onChangeMesSearchValue({target: {value: ''}})}
                           />
                         </div>
-                      ) : null}
+                      ) : (
+                        <>
+                          {mesSearchValue && (
+                            <div className={classNames.searchResultWrapper}>
+                              <Typography className={classNames.searchResult}>
+                                {t(TranslationKey['Not found'])}
+                              </Typography>
+                            </div>
+                          )}
+                        </>
+                      )}
                     </div>
                   ) : null}
                 </div>

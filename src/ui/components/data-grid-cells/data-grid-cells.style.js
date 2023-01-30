@@ -606,7 +606,7 @@ export const styles = theme => ({
 
     width: 510,
     maxHeight: 500,
-    overflow: 'auto',
+    overflow: 'hidden',
   },
 
   batchProductsBoxesLength: {

@@ -1741,5 +1741,6 @@
   "Payment methods": "Способы оплаты",
   "Bank transaction": "Банковский перевод",
   "The price per unit in the order is different from the supplier price, do you want to continue?": "Цена за единицу в заказе отличается от цены поставщика, хотите продолжить без обновления поставщика?",
-  "Purchase quantity for the current price": "Кол-во закупки для текущей цены"
+  "Purchase quantity for the current price": "Кол-во закупки для текущей цены",
+  "Add a chat cover": "Добавить обложку чата"
 }

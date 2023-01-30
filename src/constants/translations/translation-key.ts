@@ -1741,7 +1741,7 @@ export enum TranslationKey {
   'Purchase quantity for the current price' = 'Purchase quantity for the current price',
   'Payment methods' = 'Payment methods',
   'Bank transaction' = 'Bank transaction',
-  // '' = '',
+  'Add a chat cover' = 'Add a chat cover',
   // '' = '',
   // '' = '',
   // '' = '',
