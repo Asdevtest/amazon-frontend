@@ -468,7 +468,7 @@ export const AddOrEditSupplierModalContent = observer(
                 tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
                 label={t(TranslationKey.Link) + '*'}
                 inputProps={{maxLength: 2000}}
-                containerClasses={classNames.linkContainer}
+                containerClasses={classNames.linkContainerOnlyRead}
                 labelClasses={classNames.normalLabel}
                 inputComponent={
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>

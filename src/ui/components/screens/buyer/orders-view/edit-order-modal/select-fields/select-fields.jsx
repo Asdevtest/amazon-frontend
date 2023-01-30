@@ -299,7 +299,7 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   labelClasses={classNames.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
-                  value={orderFields.deliveryCostToTheWarehouse}
+                  value={toFixed(orderFields.deliveryCostToTheWarehouse, 2)}
                   onChange={e => {
                     Number(e.target.value) < orderFields.totalPriceChanged &&
                       setOrderField('deliveryCostToTheWarehouse')(e)

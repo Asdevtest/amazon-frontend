@@ -109,27 +109,29 @@ export const UserCell = React.memo(
 )
 
 export const InStockCell = React.memo(
-  withStyles(
-    ({classes: classNames, boxAmounts, box, onClickInStock}) => (
+  withStyles(({classes: classNames, boxAmounts, box, onClickInStock}) => {
+    console.log(boxAmounts)
+    return (
       <div className={classNames.inStockWrapper}>
-        {boxAmounts?.map(el => (
-          <div key={el._id} className={classNames.inStockSubWrapper}>
-            <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
+        {boxAmounts
+          ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
+          ?.map(el => (
+            <div key={el._id} className={classNames.inStockSubWrapper}>
+              <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
 
-            <Link
-              target="_blank"
-              underline={'hover'}
-              className={classNames.linkWrapper}
-              onClick={() => onClickInStock(box, el.storekeeper)}
-            >
-              <Typography>{el.amountInBoxes}</Typography>
-            </Link>
-          </div>
-        ))}
+              <Link
+                target="_blank"
+                underline={'hover'}
+                className={classNames.linkWrapper}
+                onClick={() => onClickInStock(box, el.storekeeper)}
+              >
+                <Typography>{el.amountInBoxes}</Typography>
+              </Link>
+            </div>
+          ))}
       </div>
-    ),
-    styles,
-  ),
+    )
+  }, styles),
 )
 
 export const UserRolesCell = React.memo(

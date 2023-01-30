@@ -281,7 +281,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     minHeight: 60,
     // height: 50,
-    maxHeight: 105,
+    // maxHeight: 105,
+    maxHeight: 70,
     objectFit: 'contain',
   },
 

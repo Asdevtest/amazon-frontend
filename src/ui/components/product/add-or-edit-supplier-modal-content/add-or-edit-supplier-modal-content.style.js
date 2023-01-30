@@ -152,6 +152,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '590px',
   },
 
+  linkContainerOnlyRead: {
+    width: 'fit-content',
+  },
+
   middleContainer: {
     width: '190px',
   },
