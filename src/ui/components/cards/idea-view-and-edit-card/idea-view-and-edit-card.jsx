@@ -253,7 +253,7 @@ export const IdeaViewAndEditCard = observer(
                   multiline
                   disabled={disableFields}
                   className={classNames.criterionsField}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{maxLength: 1000}}
                   minRows={9}
                   maxRows={9}
                   label={t(TranslationKey['Important criteria'])}

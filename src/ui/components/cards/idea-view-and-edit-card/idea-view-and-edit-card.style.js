@@ -293,7 +293,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   criterionsField: {
-    height: 200,
+    height: 'auto',
     width: '100%',
   },
 
