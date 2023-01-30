@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '500px',
+    width: '500px',
   },
 
   modalText: {
