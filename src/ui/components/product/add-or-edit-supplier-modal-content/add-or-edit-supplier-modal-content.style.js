@@ -144,12 +144,19 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
+  linkAndProductBlock: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+
   nameContainer: {
     width: '380px',
   },
 
   linkContainer: {
-    width: '590px',
+    width: 'fit-content',
   },
 
   middleContainer: {
