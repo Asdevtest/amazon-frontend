@@ -81,34 +81,35 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
         labelClasses={classNames.labelField}
         inputComponent={
           <div className={classNames.mainWrapper}>
-            <Avatar
-              width={320}
-              height={210}
-              imageWidth={320}
-              // imageHeight={210}
-              labelStyle={{
-                width: '100%',
-                backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
-                textAlign: 'center',
-                transition: '0.3s ease',
-                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-                color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-              }}
-              borderStyle={{
-                border: ' 3px dashed rgba(0,123, 255, .7)',
-                transition: '0.3s ease',
-                cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-                borderRadius: '10px',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-              className={classNames.avatarImage}
-              // src={state.preview}
-              onCrop={onCrop}
-              onClose={onClose}
-              onBeforeFileLoad={onBeforeFileLoad}
-            />
-
+            <div className={classNames.avatarWrapper}>
+              <Avatar
+                width={320}
+                height={210}
+                imageWidth={320}
+                // imageHeight={210}
+                labelStyle={{
+                  width: '100%',
+                  backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
+                  textAlign: 'center',
+                  transition: '0.3s ease',
+                  cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                  color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
+                }}
+                borderStyle={{
+                  border: ' 3px dashed rgba(0,123, 255, .7)',
+                  transition: '0.3s ease',
+                  cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+                // className={classNames.avatarImage}
+                // src={state.preview}
+                onCrop={onCrop}
+                onClose={onClose}
+                onBeforeFileLoad={onBeforeFileLoad}
+              />
+            </div>
             <div className={classNames.imgWrapper}>
               <AvatarMui className={classNames.img} src={state.preview} />
             </div>

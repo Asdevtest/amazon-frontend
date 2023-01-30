@@ -10,6 +10,8 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
+import {isHaveMasterUser} from '@utils/checks'
+
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
 
@@ -42,11 +44,17 @@ export const PrivateRoutes = observer(() => {
     }
   }, [])
 
+  const userInfo = UserModel.userInfo
+
   const redirectToAuth = <Redirect to={'/auth'} />
 
   const generateAllowedRoutes = () => {
     const allowedRoutes = privateRoutesConfigs
-      .filter(route => route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]))
+      .filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
+      .filter(
+        route => !isHaveMasterUser(userInfo) || userInfo?.permissions.some(item => item.key === route?.permissionKey),
+      )
+
       .concat(overallRoutesConfigs)
 
     const notAllowedRoute = !allowedRoutes.some(elem => elem.routePath === location.pathname)

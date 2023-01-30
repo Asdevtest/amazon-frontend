@@ -108,8 +108,6 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    console.log('tmpSupplier', tmpSupplier)
-
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,
@@ -193,11 +191,9 @@ export const AddOrEditSupplierModalContent = observer(
               </Button>
               <Button
                 success
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
-                variant="contained"
                 onClick={() => {
                   onClickSaveBtn({
                     supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
@@ -214,6 +210,8 @@ export const AddOrEditSupplierModalContent = observer(
                     name: '',
                     price: '',
                     images: [],
+
+                    paymentMethod: [],
 
                     priceInYuan: '',
                     batchDeliveryCostInDollar: 0,
@@ -232,6 +230,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                   setPhotosOfSupplier(() => [])
                   setMakeMainSupplier(false)
+                  onTriggerShowModal()
                 }}
               >
                 {t(TranslationKey['Save and add more'])}
@@ -242,7 +241,7 @@ export const AddOrEditSupplierModalContent = observer(
       } else if (onlyRead) {
         return (
           <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.cancelBtn} variant="text" onClick={() => onTriggerShowModal()}>
+            <Button className={classNames.cancelBtn} variant="text" onClick={onTriggerShowModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -272,7 +271,7 @@ export const AddOrEditSupplierModalContent = observer(
               tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
               className={classNames.cancelBtn}
               variant="text"
-              onClick={() => onTriggerShowModal()}
+              onClick={onTriggerShowModal}
             >
               {t(TranslationKey.Cancel)}
             </Button>
@@ -705,7 +704,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Checkbox
                   disabled={onlyRead}
                   className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.ALIPAY])}
+                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.ALIPAY])}
                   color="primary"
                 />
                 <Typography className={classNames.normalLabel}>{'Alipay'}</Typography>
@@ -718,7 +717,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Checkbox
                   disabled={onlyRead}
                   className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.PAYONEER])}
+                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.PAYONEER])}
                   color="primary"
                 />
                 <Typography className={classNames.normalLabel}>{'Payoneer'}</Typography>
@@ -731,7 +730,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Checkbox
                   disabled={onlyRead}
                   className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod.includes(paymentsMethodByKey[paymentsMethod.BANK_TRANSACTION])}
+                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.BANK_TRANSACTION])}
                   color="primary"
                 />
                 <Typography className={classNames.normalLabel}>{t(TranslationKey['Bank transaction'])}</Typography>

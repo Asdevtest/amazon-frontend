@@ -10,10 +10,7 @@ import React, {useState} from 'react'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-// import DeleteIcon from '@material-ui/icons/Delete'
-// import EditIcon from '@material-ui/icons/Edit'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
@@ -22,6 +19,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CustomCarousel} from '@components/custom-carousel'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -107,7 +105,7 @@ export const TopCard = observer(
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
-                      <Carousel animation="slide" timeout={50}>
+                      <CustomCarousel>
                         {product.images.map((imageHash, index) => (
                           <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
                             <img
@@ -121,7 +119,7 @@ export const TopCard = observer(
                             />
                           </Box>
                         ))}
-                      </Carousel>
+                      </CustomCarousel>
                     </div>
                   ) : undefined}
                 </Box>
@@ -158,7 +156,7 @@ export const TopCard = observer(
                         <UploadFilesInput
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
-                          maxNumber={50}
+                          maxNumber={50 - product.images?.length < 0 ? 0 : 50 - product.images?.length}
                           // acceptType={['jpg', 'gif', 'png', 'jpeg', 'pdf']}
                         />
                       </div>

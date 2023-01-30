@@ -274,7 +274,7 @@ export const UserInfoEditForm = observer(
             onChange={onChangeField('oldPassword')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-            {!visibilityOldPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+            {!visibilityOldPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </div>
         </div>
 
@@ -291,7 +291,7 @@ export const UserInfoEditForm = observer(
             onChange={onChangeField('password')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+            {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </div>
           <div className={classNames.validationMessage}>
             {validationMessagesArray(

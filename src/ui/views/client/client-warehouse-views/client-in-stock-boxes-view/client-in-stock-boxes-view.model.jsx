@@ -648,14 +648,14 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
-  onClickConfirmCreateMergeTasks(boxBody, boxData, comment) {
+  onClickConfirmCreateMergeTasks(boxBody, comment) {
     this.onTriggerOpenModal('showConfirmModal')
 
     runInAction(() => {
       this.confirmModalSettings = {
         isWarning: false,
         confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-          boxData?.storekeeper?.name
+          this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
         } ${t(TranslationKey['to merge boxes'])}`,
         onClickConfirm: () => this.onClickMerge(boxBody, comment),
       }

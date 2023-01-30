@@ -93,7 +93,7 @@ export const MergeBoxesModal = ({
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     // Передаются файлы imagesOfBox
-    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, imagesOfBox)
+    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, comment)
     // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     // setComment('')
   }

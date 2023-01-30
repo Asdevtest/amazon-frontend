@@ -552,7 +552,8 @@ export class ClientInventoryViewRaw extends Component {
             title={t(TranslationKey['Add a new supplier'])}
             showProgress={showProgress}
             progressValue={progressValue}
-            onClickPrevButton={() => onClickPrevButton()}
+            onTriggerShowModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+            onClickPrevButton={onClickPrevButton}
             onClickSaveBtn={onSubmitSaveSupplier}
           />
         </Modal>
