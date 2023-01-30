@@ -55,15 +55,31 @@ export const ChatMessagesList: FC<Props> = observer(
 
     const messagesIds = messages ? messages.map(mes => mes._id) : []
 
+    const firstUnReadMessageId = messages?.find(el => !el.isRead && el.user?._id !== userId)?._id // '44263074-838d-430f-831f-1f8ff97ed708' //
+
+    // console.log('messages', messages)
+
+    console.log('firstUnReadMessageId', firstUnReadMessageId)
+
     const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds, {
       behavior: 'smooth',
     })
 
     useEffect(() => {
+      if (firstUnReadMessageId) {
+        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
+      }
+    }, [])
+
+    useEffect(() => {
       if (toScrollMesId) {
         scrollToElementClickHandler(toScrollMesId)
       }
-    }, [toScrollMesId])
+      // else if (firstUnReadMessageId) {
+      //   setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 5000)
+      //   // scrollToElementClickHandler(firstUnReadMessageId)
+      // }
+    }, [toScrollMesId, messages])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
@@ -145,7 +161,9 @@ export const ChatMessagesList: FC<Props> = observer(
                   <div
                     key={`chatMessage_${messageItem._id}`}
                     ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
-                    className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
+                    className={cx(classNames.message, {
+                      [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
+                    })}
                   >
                     {index === 0 ||
                     formatDateWithoutTime(messages[index - 1].createdAt) !==
