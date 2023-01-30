@@ -52,7 +52,10 @@ export const PrivateRoutes = observer(() => {
     const allowedRoutes = privateRoutesConfigs
       .filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
       .filter(
-        route => !isHaveMasterUser(userInfo) || userInfo?.permissions.some(item => item.key === route?.permissionKey),
+        route =>
+          !isHaveMasterUser(userInfo) ||
+          !route?.permissionKey ||
+          userInfo?.permissions.some(item => item.key === route?.permissionKey),
       )
 
       .concat(overallRoutesConfigs)

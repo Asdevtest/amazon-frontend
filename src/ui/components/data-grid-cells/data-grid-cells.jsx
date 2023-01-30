@@ -2095,6 +2095,7 @@ export const BatchBoxesCell = React.memo(
         asin: item.product.asin,
         amount: item.amount,
       })),
+      status: box.status,
     }))
 
     const object = {}
@@ -2102,6 +2103,7 @@ export const BatchBoxesCell = React.memo(
       const boxStr = JSON.stringify(
         getObjectFilteredByKeyArrayBlackList(box, ['deliveryTotalPrice', 'deliveryTotalPriceChanged']),
       )
+
       const extraPay = box.deliveryTotalPriceChanged - box.deliveryTotalPrice
       if (extraPay > 0) {
         object[`${boxStr}${extraPay}`] = object[`${boxStr}${extraPay}`]

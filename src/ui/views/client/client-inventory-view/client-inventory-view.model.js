@@ -1313,8 +1313,6 @@ export class ClientInventoryViewModel {
   async onClickBindInventoryGoodsToStockBtn() {
     try {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
-
-      this.loadData()
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -1356,6 +1354,8 @@ export class ClientInventoryViewModel {
         this.successModalText = t(TranslationKey['Goods are bound'])
       })
       this.onTriggerOpenModal('showSuccessModal')
+
+      this.loadData()
     } catch (error) {
       runInAction(() => {
         this.showInfoModalTitle = t(TranslationKey["You can't bind"])

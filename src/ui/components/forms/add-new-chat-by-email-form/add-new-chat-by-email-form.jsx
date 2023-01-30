@@ -75,11 +75,12 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Create a new dialog'])}</Typography>
 
       <Field
-        label={t(TranslationKey['Choose your speaker'])}
+        label={t(TranslationKey['Choose your speaker']) + '*'}
         labelClasses={classNames.labelField}
         inputComponent={
           <CustomReactSelect
-            // menuIsOpen
+            hideDropdownIndicator
+            menuIsOpen
             isMulti
             closeMenuOnSelect={false}
             value={formFields.chosenUsers}
@@ -97,18 +98,31 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
       {formFields.chosenUsers.length > 1 ? (
         <>
           <Field
-            label={t(TranslationKey['Name of group chat'])}
+            label={t(TranslationKey['Name of group chat']) + '*'}
             labelClasses={classNames.labelField}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
 
-          <UploadFilesInput images={formFields.images} setImages={onChangeField('images')} maxNumber={1} />
+          <Field
+            label={t(TranslationKey['Add a chat cover'])}
+            labelClasses={classNames.labelField}
+            inputComponent={
+              <UploadFilesInput
+                withoutTitle
+                images={formFields.images}
+                setImages={onChangeField('images')}
+                maxNumber={1}
+                dragAndDropBtnHeight={65}
+              />
+            }
+          />
         </>
       ) : null}
 
       <div className={classNames.buttonWrapper}>
         <Button
+          success
           disabled={disableSubmit}
           className={classNames.button}
           onClick={() => {

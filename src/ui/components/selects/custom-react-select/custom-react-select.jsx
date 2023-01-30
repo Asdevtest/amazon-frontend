@@ -8,7 +8,7 @@ import {t} from '@utils/translations'
 
 import {styles} from './custom-react-select.style'
 
-const CustomReactSelectRaw = observer(({classes: classNames, ...restProps}) => (
+const CustomReactSelectRaw = observer(({classes: classNames, hideDropdownIndicator, ...restProps}) => (
   <Select
     {...restProps}
     classNames={{
@@ -20,6 +20,8 @@ const CustomReactSelectRaw = observer(({classes: classNames, ...restProps}) => (
       multiValueRemove: () => classNames.multiValueRemove,
       input: () => classNames.input,
       menuList: () => classNames.menuList,
+      dropdownIndicator: () => hideDropdownIndicator && classNames.hideDropdownIndicator,
+      indicatorSeparator: () => hideDropdownIndicator && classNames.hideIndicatorSeparator,
     }}
     components={{...restProps.components}}
     placeholder={t(TranslationKey.Select) + '...'}

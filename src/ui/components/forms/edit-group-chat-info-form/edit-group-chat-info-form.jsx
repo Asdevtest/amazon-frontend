@@ -63,6 +63,8 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
     }
   }
 
+  const disanledSubmit = JSON.stringify(sourceState) === JSON.stringify(state) || !state.title
+
   return (
     <div className={classNames.root}>
       <Typography variant="h4" className={classNames.mainTitle}>
@@ -132,10 +134,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <Button
-          disabled={JSON.stringify(sourceState) === JSON.stringify(state)}
-          onClick={() => onSubmit(state, sourceState)}
-        >
+        <Button disabled={disanledSubmit} onClick={() => onSubmit(state, sourceState)}>
           {t(TranslationKey.Save)}
         </Button>
 

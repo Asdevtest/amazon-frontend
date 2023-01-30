@@ -96,7 +96,7 @@ export class WebsocketChatService {
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams): Promise<{}> {
-    return new Promise((resolve, reject) => {
+    return new Promise((/* resolve, reject*/) => {
       this.socket.emit(
         EentToEmit.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN,
         params,
@@ -112,7 +112,7 @@ export class WebsocketChatService {
   }
 
   public async removeUsersFromGroupChat(params: RemoveUsersFromGroupChatParams): Promise<{}> {
-    return new Promise((resolve, reject) => {
+    return new Promise((/* resolve, reject*/) => {
       this.socket.emit(
         EentToEmit.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN,
         params,
@@ -124,7 +124,7 @@ export class WebsocketChatService {
   }
 
   public async patchInfoGroupChat(params: patchInfoGroupChatParams): Promise<{}> {
-    return new Promise((resolve, reject) => {
+    return new Promise((/* resolve, reject*/) => {
       this.socket.emit(
         EentToEmit.PATCH_CHAT_INFO,
         params,

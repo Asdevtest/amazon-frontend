@@ -133,7 +133,7 @@ const WithSearchSelectRaw = observer(
                 ) : null}
                 <div className={classNames.itemsWrapper}>
                   {onClickNotChosen && (
-                    <Tooltip title={t(TranslationKey['Not chosen'])}>
+                    <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
                         className={classNames.button}
                         variant="text"
@@ -182,7 +182,7 @@ const WithSearchSelectRaw = observer(
                           {searchFields?.map((fieldName, index) => (
                             <>
                               {checkbox && <Checkbox color="primary" />}
-                              <Tooltip key={index} title={el[fieldName]}>
+                              <Tooltip key={index} followCursor title={el[fieldName]}>
                                 <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
                               </Tooltip>
                             </>

@@ -62,7 +62,8 @@ export const AddUsersToGroupChatForm = ({closeModal, onSubmit, usersData}) => {
         labelClasses={classNames.labelField}
         inputComponent={
           <CustomReactSelect
-            // menuIsOpen
+            hideDropdownIndicator
+            menuIsOpen
             isMulti
             closeMenuOnSelect={false}
             value={chosenUsers}

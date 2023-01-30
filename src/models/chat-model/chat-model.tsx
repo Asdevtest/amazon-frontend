@@ -13,7 +13,6 @@ import {UserModel} from '@models/user-model'
 import {WebsocketChatService} from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
-  ChatMessageTextType,
   ChatMessageType,
   OnReadMessageResponse,
   OnTypingMessageResponse,
@@ -21,8 +20,6 @@ import {
   RemoveUsersFromGroupChatParams,
   TypingMessageRequestParams,
 } from '@services/websocket-chat-service/interfaces'
-
-import {MessagesViewModel} from '@views/shared/messages-view/messages-view.model'
 
 import {checkIsChatMessageRemoveUsersFromGroupChatContract} from '@utils/ts-checks'
 
