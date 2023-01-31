@@ -357,8 +357,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickUpdataSupplierData({supplier, productId, orderFields}) {
-    console.log('orderFieldsInner', orderFields)
-
     this.updateSupplierData = false
 
     const result = await UserModel.getPlatformSettings()
@@ -372,6 +370,7 @@ export class BuyerMyOrdersViewModel {
         ...supplier,
         yuanRate: this.yuanToDollarRate,
         amount: orderFields.amount,
+        price: orderFields.price,
         priceInYuan: orderFields.priceInYuan,
         batchDeliveryCostInYuan: orderFields.batchDeliveryCostInYuan,
         batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
@@ -383,8 +382,6 @@ export class BuyerMyOrdersViewModel {
         'paymentMethod',
         'updatedAt',
       ])
-
-      console.log('supplier', supplier)
 
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -690,12 +687,12 @@ export class BuyerMyOrdersViewModel {
       }
 
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
-      if (
-        orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-        orderFields.status === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`
-      ) {
-        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
-      }
+      // if (
+      //   orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+      //   orderFields.status === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`
+      // ) {
+      await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      // }
 
       // } else {
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
