@@ -200,6 +200,8 @@ export const EditOrderModal = observer(
       setBoxesForCreation(newStateFormFields)
     }
 
+    // console.log('order', order)
+
     const [orderFields, setOrderFields] = useState({
       ...order,
       status: order?.status || undefined,
@@ -208,18 +210,26 @@ export const EditOrderModal = observer(
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount,
+      priceBatchDeliveryInYuan:
+        order?.priceBatchDeliveryInYuan ||
+        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
       trackingNumberChina: order?.trackingNumberChina,
       batchPrice: 0,
-      totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
+      totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
+      // totalPriceChanged: order?.priceInYuan
+      //   ? order?.priceInYuan / order?.yuanToDollarRate
+      //   : (order.amount * (order.orderSupplier.batchTotalCostInYuan / order.orderSupplier.amount)) /
+      //     order?.yuanToDollarRate,
       yuanToDollarRate: order?.yuanToDollarRate || 6.5,
       item: order?.item || 0,
       tmpRefundToClient: 0,
-      priceInYuan: order?.priceInYuan
-        ? order?.priceInYuan
-        : calcExchangeDollarsInYuansPrice(order.totalPriceChanged, order.yuanToDollarRate || 6.5),
+      // priceInYuan: order?.priceInYuan
+      //   ? order?.priceInYuan
+      //   : order.amount * (order.orderSupplier.batchTotalCostInYuan / order.orderSupplier.amount),
+      priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
     })
 
     const onClickUpdateButton = () => {
@@ -231,22 +241,30 @@ export const EditOrderModal = observer(
           orderFields.orderSupplier.amount) *
         orderFields.amount
 
-      setPriceYuansDeliveryCostToTheWarehouse(
-        toFixed(
-          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount,
-          2,
-        ),
-      )
+      newOrderFieldsState.priceBatchDeliveryInYuan =
+        (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount
 
-      newOrderFieldsState.priceInYuan = toFixed(
-        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount),
-        2,
-      )
+      // newOrderFieldsState.priceInYuan = toFixed(
+      //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount),
+      //   2,
+      // )
 
-      newOrderFieldsState.totalPriceChanged = toFixed(
-        calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount) / orderFields.yuanToDollarRate,
-        2,
-      )
+      // newOrderFieldsState.totalPriceChanged = toFixed(
+      //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount) / orderFields.yuanToDollarRate,
+      //   2,
+      // )
+
+      newOrderFieldsState.priceInYuan =
+        (orderFields?.orderSupplier.priceInYuan +
+          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+        orderFields?.amount
+
+      newOrderFieldsState.totalPriceChanged =
+        (orderFields?.orderSupplier.price +
+          orderFields?.orderSupplier.batchDeliveryCostInYuan /
+            orderFields.yuanToDollarRate /
+            orderFields?.orderSupplier.amount) *
+        orderFields?.amount
 
       setOrderFields(newOrderFieldsState)
     }
@@ -264,15 +282,17 @@ export const EditOrderModal = observer(
     })
 
     const onClickSaveOrder = () => {
-      const cost = calcPriceForItem(orderFields.priceInYuan - priceYuansDeliveryCostToTheWarehouse, orderFields.amount)
+      const cost = (orderFields.totalPriceChanged - orderFields.deliveryCostToTheWarehouse) / orderFields.amount
+      const costInYuan = (orderFields.priceInYuan - orderFields.priceBatchDeliveryInYuan) / orderFields.amount
 
       const dataForUpdateSupData = {
         supplier: orderFields.orderSupplier,
         productId: order.product?._id,
         orderFields: {
           amount: orderFields.amount,
-          priceInYuan: cost,
-          batchDeliveryCostInYuan: priceYuansDeliveryCostToTheWarehouse,
+          price: cost,
+          priceInYuan: costInYuan,
+          batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan,
           batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
         },
       }
@@ -284,7 +304,7 @@ export const EditOrderModal = observer(
           onSubmitSaveOrder(getDataForSaveOrder())
           onClickUpdataSupplierData(dataForUpdateSupData)
         } else {
-          if (cost !== orderFields?.orderSupplier.priceInYuan) {
+          if (costInYuan !== orderFields?.orderSupplier.priceInYuan) {
             onClickSaveWithoutUpdateSupData(getDataForSaveOrder(), orderFields)
           } else {
             onSubmitSaveOrder(getDataForSaveOrder())
@@ -294,10 +314,6 @@ export const EditOrderModal = observer(
     }
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
-
-    const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState(
-      calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, orderFields.yuanToDollarRate),
-    )
 
     useEffect(() => {
       setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
@@ -313,6 +329,7 @@ export const EditOrderModal = observer(
         [
           'totalPriceChanged',
           'deliveryCostToTheWarehouse',
+          'priceBatchDeliveryInYuan',
           'yuanToDollarRate',
           'item',
           'tmpRefundToClient',
@@ -321,30 +338,37 @@ export const EditOrderModal = observer(
       ) {
         if (
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-          filedName !== 'deliveryCostToTheWarehouse'
+          filedName !== 'deliveryCostToTheWarehouse' &&
+          filedName !== 'priceBatchDeliveryInYuan'
         ) {
           return
+        }
+
+        if (filedName === 'priceBatchDeliveryInYuan') {
+          newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value
+
+          newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
         }
 
         if (filedName === 'yuanToDollarRate') {
           if (usePriceInDollars) {
             newOrderFieldsState.priceInYuan = newOrderFieldsState.totalPriceChanged * e.target.value
-            setPriceYuansDeliveryCostToTheWarehouse(
-              calcExchangeDollarsInYuansPrice(orderFields.deliveryCostToTheWarehouse, e.target.value),
+
+            newOrderFieldsState.priceBatchDeliveryInYuan = calcExchangeDollarsInYuansPrice(
+              orderFields.deliveryCostToTheWarehouse,
+              e.target.value,
             )
           } else {
             newOrderFieldsState.totalPriceChanged = calcExchangePrice(orderFields.priceInYuan, e.target.value)
-            // newOrderFieldsState.deliveryCostToTheWarehouse = calcExchangePrice(
-            //   priceYuansDeliveryCostToTheWarehouse,
-            //   e.target.value,
-            // )
-            newOrderFieldsState.deliveryCostToTheWarehouse = priceYuansDeliveryCostToTheWarehouse / e.target.value
+            newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.priceBatchDeliveryInYuan / e.target.value
           }
         } else if (filedName === 'priceInYuan') {
-          newOrderFieldsState.totalPriceChanged = toFixed(
-            Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)),
-            2,
-          )
+          // newOrderFieldsState.totalPriceChanged = toFixed(
+          //   Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)),
+          //   2,
+          // )
+
+          newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
         }
         newOrderFieldsState[filedName] = e.target.value
       } else if (filedName === 'status') {
@@ -374,12 +398,9 @@ export const EditOrderModal = observer(
           2,
         )
 
-        setPriceYuansDeliveryCostToTheWarehouse(
-          toFixed(
-            (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value,
-            2,
-          ),
-        )
+        newOrderFieldsState.priceBatchDeliveryInYuan =
+          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value
+
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
@@ -717,7 +738,6 @@ export const EditOrderModal = observer(
             isPendingOrder={isPendingOrder}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
-            priceYuansDeliveryCostToTheWarehouse={priceYuansDeliveryCostToTheWarehouse}
             usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
@@ -729,7 +749,6 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
-            setPriceYuansDeliveryCostToTheWarehouse={setPriceYuansDeliveryCostToTheWarehouse}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
           />
@@ -755,8 +774,9 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Suppliers)}
           </Text>
 
-          {(isPendingOrder || pathnameNotPaid) &&
-          (Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) || pathnameNotPaid) ? (
+          {((isPendingOrder || orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS]) &&
+            Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
+          orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ? (
             <div className={classNames.supplierActionsWrapper}>
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
