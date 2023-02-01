@@ -94,7 +94,8 @@ export const AddOrEditSupplierModalContent = observer(
       paymentMethod: supplier?.paymentMethod || [],
 
       priceInYuan: supplier?.priceInYuan || '',
-      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
+      // batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
+      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInYuan / yuanToDollarRate,
       batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
       batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
@@ -108,17 +109,17 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
+    console.log('supplier', supplier)
+    console.log('tmpSupplier', tmpSupplier)
+
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,
-        batchTotalCostInYuan: toFixed(
+        batchTotalCostInYuan:
           +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
-          2,
-        ),
-        batchTotalCostInDollar: toFixed(
+
+        batchTotalCostInDollar:
           +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-          2,
-        ),
 
         // lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
 
@@ -321,34 +322,27 @@ export const AddOrEditSupplierModalContent = observer(
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          priceInYuan: toFixed(event.target.value * yuanToDollarRate, 2),
+          priceInYuan: event.target.value * yuanToDollarRate,
         })
       } else if (['priceInYuan'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          price: toFixed(
+          price:
             event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
-            2,
-          ),
         })
       } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          batchDeliveryCostInYuan: toFixed(
-            event.target.value * (yuanToDollarRate === ('' || '0') ? 1 : yuanToDollarRate),
-            2,
-          ),
+          batchDeliveryCostInYuan: event.target.value * (yuanToDollarRate === ('' || '0') ? 1 : yuanToDollarRate),
         })
       } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          batchDeliveryCostInDollar: toFixed(
+          batchDeliveryCostInDollar:
             event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
-            2,
-          ),
         })
       } else {
         setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
@@ -361,15 +355,11 @@ export const AddOrEditSupplierModalContent = observer(
 
         setTmpSupplier({
           ...tmpSupplier,
-          batchDeliveryCostInDollar: toFixed(
+          batchDeliveryCostInDollar:
             tmpSupplier.batchDeliveryCostInYuan /
-              (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
-            2,
-          ),
-          price: toFixed(
+            (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+          price:
             tmpSupplier.priceInYuan / (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
-            2,
-          ),
         })
       }
     }
@@ -560,10 +550,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={toFixed(
-                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
-                      2,
-                    )}
+                    value={+tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan}
                   />
                 </Grid>
 
@@ -647,10 +634,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={toFixed(
-                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-                      2,
-                    )}
+                    value={+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar}
                   />
                 </Grid>
 

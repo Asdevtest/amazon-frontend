@@ -43,6 +43,7 @@ const updateOrderKeys = [
 
   'item',
   'priceInYuan',
+  'priceBatchDeliveryInYuan',
 ]
 
 const setNavbarActiveSubCategory = pathname => {
@@ -653,6 +654,7 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
   }) {
+    // console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -687,12 +689,13 @@ export class BuyerMyOrdersViewModel {
       }
 
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
-      // if (
-      //   orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-      //   orderFields.status === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`
-      // ) {
-      await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
-      // }
+      if (
+        orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+        orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+      ) {
+        console.log('orderFields Model', orderFields)
+        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+      }
 
       // } else {
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
@@ -798,7 +801,8 @@ export class BuyerMyOrdersViewModel {
           ...updateOrderData,
           orderSupplierId: updateOrderData.orderSupplier._id,
           amount: updateOrderData?.amount,
-          // totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+          priceInYuan: updateOrderData.priceInYuan,
+          priceBatchDeliveryInYuan: updateOrderData.priceBatchDeliveryInYuan,
         },
         updateOrderKeys,
         true,
