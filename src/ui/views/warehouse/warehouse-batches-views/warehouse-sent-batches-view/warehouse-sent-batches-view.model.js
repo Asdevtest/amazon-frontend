@@ -14,7 +14,6 @@ import {UserModel} from '@models/user-model'
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -317,9 +316,7 @@ export class WarehouseSentBatchesViewModel {
 
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
-        this.batches = warehouseBatchesDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-        )
+        this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)

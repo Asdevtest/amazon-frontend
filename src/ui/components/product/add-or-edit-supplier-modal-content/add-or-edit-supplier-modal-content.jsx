@@ -531,7 +531,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={tmpSupplier.priceInYuan}
+                    value={toFixed(tmpSupplier.priceInYuan, 2)}
                     onChange={onChangeField('priceInYuan')}
                   />
                 </Grid>
@@ -550,7 +550,10 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={+tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan}
+                    value={toFixed(
+                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
+                      2,
+                    )}
                   />
                 </Grid>
 
@@ -587,7 +590,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={tmpSupplier.batchDeliveryCostInYuan}
+                    value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
                     onChange={onChangeField('batchDeliveryCostInYuan')}
                   />
                 </Grid>
@@ -615,7 +618,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={tmpSupplier.price}
+                    value={toFixed(tmpSupplier.price, 2)}
                     onChange={onChangeField('price')}
                   />
                 </Grid>
@@ -634,7 +637,10 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar}
+                    value={toFixed(
+                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                      2,
+                    )}
                   />
                 </Grid>
 
@@ -669,7 +675,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
-                    value={tmpSupplier.batchDeliveryCostInDollar}
+                    value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
                     onChange={onChangeField('batchDeliveryCostInDollar')}
                   />
                 </Grid>

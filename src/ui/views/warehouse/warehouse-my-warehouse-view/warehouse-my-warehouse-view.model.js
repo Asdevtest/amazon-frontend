@@ -181,7 +181,6 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   onTriggerShowEditBoxModalR(box) {
-    console.log('click')
     runInAction(() => {
       this.curBox = box
       this.showEditBoxModalR = !this.showEditBoxModalR
