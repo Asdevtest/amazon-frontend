@@ -12,6 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 // import {Field} from '@components/field/field'
 import {AddFilesForm} from '@components/forms/add-files-form'
@@ -24,7 +25,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount} from '@utils/text'
+import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount, shortAsin} from '@utils/text'
 import {t} from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
@@ -49,6 +50,8 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
 const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('item', item)
+
   return (
     <TableRow className={classNames.row}>
       <TableCell className={classNames.standartCell}>
@@ -58,6 +61,25 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
 
             <div>
               <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
+
+              <div className={classNames.asinWrapper}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.unitsText}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {el?.product?.asin ? (
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.amazon.com/dp/${el.asin}`}
+                      className={classNames.normalizeLink}
+                    >
+                      <span className={classNames.linkSpan}>{shortAsin(el?.product?.asin)}</span>
+                    </a>
+                  ) : (
+                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                  )}
+                </Typography>
+                {el?.product?.asin ? <CopyValue text={el?.product?.asin} /> : null}
+              </div>
 
               <div className={classNames.unitsWrapper}>
                 <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
@@ -76,28 +98,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
             </div>
           </div>
         ))}
-
-        {/* <div className={classNames.descriptionWrapper}>
-          <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
-
-          <div>
-            <Typography className={classNames.title}>
-              {itemIndex + 1 + '. ' + item.items[0].product.amazonTitle}
-            </Typography>
-
-            <Input
-              classes={{
-                root: cx(classNames.inputWrapper, {
-                  [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
-                }),
-                input: classNames.input,
-              }}
-              inputProps={{maxLength: 6}}
-              value={item.items[0].amount}
-              onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
-            />
-          </div>
-        </div> */}
       </TableCell>
 
       <TableCell className={classNames.standartCell}>
@@ -114,20 +114,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
         />
       </TableCell>
 
-      {/* <TableCell className={classNames.qtyCell}>
-        <Input
-          classes={{
-            root: cx(classNames.inputWrapper, {
-              [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
-            }),
-            input: classNames.input,
-          }}
-          inputProps={{maxLength: 6}}
-          value={item.items[0].amount}
-          onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
-        />
-      </TableCell> */}
-
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
@@ -140,7 +126,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
       <TableCell className={classNames.standartCell}>
         <div className={classNames.sizesCell}>
           <div className={classNames.sizeWrapper}>
-            {/* <Field oneLine label={t(TranslationKey.L) + ': '} value={item.heightCmWarehouse} /> */}
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               classes={{
@@ -212,22 +197,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
-      {/* <TableCell className={classNames.checkboxCell}>
-        <Field
-          oneLine
-          containerClasses={classNames.checkboxContainer}
-          labelClasses={classNames.label}
-          label={t(TranslationKey['The primary size suitable for shipment'])}
-          inputComponent={
-            <Checkbox
-              color="primary"
-              checked={item.fitsInitialDimensions}
-              // onChange={setNewBoxField('fitsInitialDimensions')}
-              onChange={e => handlers.onChangeFieldInput(e, item._id, 'fitsInitialDimensions')}
-            />
-          }
-        />
-      </TableCell> */}
 
       <TableCell>
         <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>

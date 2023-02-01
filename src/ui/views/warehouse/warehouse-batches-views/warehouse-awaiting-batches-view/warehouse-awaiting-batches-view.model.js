@@ -16,7 +16,6 @@ import {UserModel} from '@models/user-model'
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -219,9 +218,6 @@ export class WarehouseAwaitingBatchesViewModel {
         upsTrackNumber: data.upsTrackNumber,
       })
 
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-
       await this.loadData()
 
       runInAction(() => {
@@ -285,31 +281,8 @@ export class WarehouseAwaitingBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  // async getBatches() {
-  //   try {
-  //     const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
-
-  //     const result = await UserModel.getPlatformSettings()
-
-  //     runInAction(() => {
-  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-  //       this.batches = warehouseBatchesDataConverter(
-  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-  //         this.volumeWeightCoefficient,
-  //       )
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-
-  //       this.batches = []
-  //     })
-  //   }
-  // }
-
   async getBatchesPagMy() {
+    console.log('this.sortModel', this.sortModel)
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
@@ -336,10 +309,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
         this.volumeWeightCoefficient = res.volumeWeightCoefficient
 
-        this.batches = warehouseBatchesDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-          this.volumeWeightCoefficient,
-        )
+        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)

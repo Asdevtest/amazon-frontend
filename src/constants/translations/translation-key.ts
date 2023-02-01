@@ -1742,7 +1742,7 @@ export enum TranslationKey {
   'Payment methods' = 'Payment methods',
   'Bank transaction' = 'Bank transaction',
   'Add a chat cover' = 'Add a chat cover',
-  // '' = '',
+  'Payment date' = 'Payment date',
   // '' = '',
   // '' = '',
   // '' = '',

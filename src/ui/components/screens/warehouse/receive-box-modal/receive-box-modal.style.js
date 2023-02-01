@@ -379,4 +379,8 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'space-between',
     },
   },
+  asinWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
 }))

@@ -487,9 +487,23 @@ export const SelectFields = ({
           ) : null}
         </Box>
 
-        <div className={classNames.researchWrapper}>
-          <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
-          <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+        <div className={classNames.researchPaymentDateWrapper}>
+          <div className={classNames.researchWrapper}>
+            <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
+            <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+          </div>
+
+          {orderFields.status >= 20 ? (
+            <div>
+              <Field
+                disabled
+                value={orderFields.paymentDateToSupplier || t(TranslationKey.Missing)}
+                label={t(TranslationKey['Payment date'])}
+                labelClasses={classNames.label}
+                inputClasses={classNames.input}
+              />
+            </div>
+          ) : null}
         </div>
 
         <div>
