@@ -12,6 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 // import {Field} from '@components/field/field'
 import {AddFilesForm} from '@components/forms/add-files-form'
@@ -24,7 +25,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount} from '@utils/text'
+import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount, shortAsin} from '@utils/text'
 import {t} from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
@@ -49,6 +50,8 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
 const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('item', item)
+
   return (
     <TableRow className={classNames.row}>
       <TableCell className={classNames.standartCell}>
@@ -58,6 +61,25 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
 
             <div>
               <Typography className={classNames.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
+
+              <div className={classNames.asinWrapper}>
+                <Typography className={classNames.orderText}>
+                  <span className={classNames.unitsText}>{t(TranslationKey.ASIN) + ': '}</span>
+                  {el?.product?.asin ? (
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.amazon.com/dp/${el.asin}`}
+                      className={classNames.normalizeLink}
+                    >
+                      <span className={classNames.linkSpan}>{shortAsin(el?.product?.asin)}</span>
+                    </a>
+                  ) : (
+                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                  )}
+                </Typography>
+                {el?.product?.asin ? <CopyValue text={el?.product?.asin} /> : null}
+              </div>
 
               <div className={classNames.unitsWrapper}>
                 <Typography className={classNames.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
