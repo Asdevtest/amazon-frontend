@@ -107,7 +107,8 @@ export const useClassNames = makeStyles()(theme => ({
   imageListWrapper: {
     width: '95%',
     margin: '0 auto',
-    maxHeight: '250px',
+    // maxHeight: 250,
+    maxHeight: 140,
     overflowY: 'auto',
   },
 
@@ -172,6 +173,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '3px',
+    marginBottom: 10,
   },
 
   imageLinkListItem: {

@@ -98,28 +98,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
             </div>
           </div>
         ))}
-
-        {/* <div className={classNames.descriptionWrapper}>
-          <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
-
-          <div>
-            <Typography className={classNames.title}>
-              {itemIndex + 1 + '. ' + item.items[0].product.amazonTitle}
-            </Typography>
-
-            <Input
-              classes={{
-                root: cx(classNames.inputWrapper, {
-                  [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
-                }),
-                input: classNames.input,
-              }}
-              inputProps={{maxLength: 6}}
-              value={item.items[0].amount}
-              onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
-            />
-          </div>
-        </div> */}
       </TableCell>
 
       <TableCell className={classNames.standartCell}>
@@ -136,20 +114,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
         />
       </TableCell>
 
-      {/* <TableCell className={classNames.qtyCell}>
-        <Input
-          classes={{
-            root: cx(classNames.inputWrapper, {
-              [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
-            }),
-            input: classNames.input,
-          }}
-          inputProps={{maxLength: 6}}
-          value={item.items[0].amount}
-          onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
-        />
-      </TableCell> */}
-
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
@@ -162,7 +126,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
       <TableCell className={classNames.standartCell}>
         <div className={classNames.sizesCell}>
           <div className={classNames.sizeWrapper}>
-            {/* <Field oneLine label={t(TranslationKey.L) + ': '} value={item.heightCmWarehouse} /> */}
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               classes={{
@@ -234,22 +197,6 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
-      {/* <TableCell className={classNames.checkboxCell}>
-        <Field
-          oneLine
-          containerClasses={classNames.checkboxContainer}
-          labelClasses={classNames.label}
-          label={t(TranslationKey['The primary size suitable for shipment'])}
-          inputComponent={
-            <Checkbox
-              color="primary"
-              checked={item.fitsInitialDimensions}
-              // onChange={setNewBoxField('fitsInitialDimensions')}
-              onChange={e => handlers.onChangeFieldInput(e, item._id, 'fitsInitialDimensions')}
-            />
-          }
-        />
-      </TableCell> */}
 
       <TableCell>
         <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
