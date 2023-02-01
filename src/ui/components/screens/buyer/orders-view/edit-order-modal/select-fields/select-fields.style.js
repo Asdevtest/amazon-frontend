@@ -199,8 +199,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
-
-    marginBottom: 20,
   },
 
   researchLabel: {
@@ -267,5 +265,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   checkboxWithButton: {
     display: 'flex',
+  },
+  researchPaymentDateWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
 }))

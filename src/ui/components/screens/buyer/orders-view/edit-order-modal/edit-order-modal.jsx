@@ -257,8 +257,6 @@ export const EditOrderModal = observer(
       setOrderFields(newOrderFieldsState)
     }
 
-    console.log('orderFields', orderFields)
-
     const getDataForSaveOrder = () => ({
       order,
       orderFields,
@@ -310,7 +308,6 @@ export const EditOrderModal = observer(
     }, [order])
 
     const setOrderField = filedName => e => {
-      console.log('filedName', filedName)
       const newOrderFieldsState = {...orderFields}
 
       if (
@@ -351,11 +348,6 @@ export const EditOrderModal = observer(
             newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.priceBatchDeliveryInYuan / e.target.value
           }
         } else if (filedName === 'priceInYuan') {
-          // newOrderFieldsState.totalPriceChanged = toFixed(
-          //   Number(calcExchangePrice(e.target.value, orderFields.yuanToDollarRate)),
-          //   2,
-          // )
-
           newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
         }
         newOrderFieldsState[filedName] = e.target.value
@@ -376,15 +368,6 @@ export const EditOrderModal = observer(
         return
       } else if (filedName === 'amount') {
         newOrderFieldsState[filedName] = e.target.value
-
-        // newOrderFieldsState.totalPriceChanged = toFixed(
-        //   calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
-        //   2,
-        // )
-        // newOrderFieldsState.priceInYuan = toFixed(
-        //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
-        //   2,
-        // )
 
         newOrderFieldsState.priceInYuan =
           (orderFields?.orderSupplier.priceInYuan +
