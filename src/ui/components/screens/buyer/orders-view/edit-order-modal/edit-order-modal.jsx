@@ -377,14 +377,25 @@ export const EditOrderModal = observer(
       } else if (filedName === 'amount') {
         newOrderFieldsState[filedName] = e.target.value
 
-        newOrderFieldsState.totalPriceChanged = toFixed(
-          calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
-          2,
-        )
-        newOrderFieldsState.priceInYuan = toFixed(
-          calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
-          2,
-        )
+        // newOrderFieldsState.totalPriceChanged = toFixed(
+        //   calcOrderTotalPrice(orderFields?.orderSupplier, e.target.value),
+        //   2,
+        // )
+        // newOrderFieldsState.priceInYuan = toFixed(
+        //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, e.target.value),
+        //   2,
+        // )
+
+        newOrderFieldsState.priceInYuan =
+          (orderFields?.orderSupplier.priceInYuan +
+            orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+          e.target.value
+
+        newOrderFieldsState.totalPriceChanged =
+          ((orderFields?.orderSupplier.priceInYuan +
+            orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+            e.target.value) /
+          orderFields?.yuanToDollarRate
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
           (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value
@@ -786,7 +797,7 @@ export const EditOrderModal = observer(
                 {selectedSupplier ? (
                   <>
                     <div className={classNames.supplierButtonWrapper}>
-                      <Button
+                      {/* <Button
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={classNames.iconBtn}
                         onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
@@ -797,7 +808,26 @@ export const EditOrderModal = observer(
                         ) : (
                           <EditOutlinedIcon />
                         )}
-                      </Button>
+                      </Button> */}
+
+                      {selectedSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
+                        <Button
+                          className={classNames.iconBtn}
+                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+                        >
+                          <VisibilityOutlinedIcon />
+                        </Button>
+                      ) : (
+                        <Button
+                          disabled={checkIsPlanningPrice && !isPendingOrder}
+                          className={classNames.iconBtn}
+                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+                        >
+                          <EditOutlinedIcon />
+                        </Button>
+                      )}
+
                       {selectedSupplier?.createdBy._id !== userInfo._id &&
                       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
                         <Typography className={classNames.supplierButtonText}>
