@@ -63,7 +63,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
     }
   }
 
-  const disanledSubmit = JSON.stringify(sourceState) === JSON.stringify(state) || !state.title
+  const disanledSubmit = JSON.stringify(sourceState) === JSON.stringify(state) || !state.title.replace(/ /g, '')
 
   return (
     <div className={classNames.root}>
