@@ -107,7 +107,7 @@ class MessagesViewRaw extends Component {
 
                   {chatSelectedId && simpleChats.length ? (
                     <div className={classNames.chatSelectedWrapper}>
-                      {currentChat.type === chatsType.DEFAULT ? (
+                      {currentChat?.type === chatsType.DEFAULT ? (
                         <Link
                           target="_blank"
                           href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
@@ -120,10 +120,10 @@ class MessagesViewRaw extends Component {
                         </Link>
                       ) : (
                         <div className={classNames.opponentWrapper}>
-                          <Avatar src={currentChat.info.image} className={classNames.avatarWrapper} />
+                          <Avatar src={currentChat?.info.image} className={classNames.avatarWrapper} />
                           <div>
-                            <Typography className={classNames.opponentName}>{currentChat.info.title}</Typography>
-                            <Typography className={classNames.usersCount}>{`${currentChat.users.length} ${t(
+                            <Typography className={classNames.opponentName}>{currentChat?.info.title}</Typography>
+                            <Typography className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
                               TranslationKey.Members,
                             ).toLocaleLowerCase()}`}</Typography>
                           </div>

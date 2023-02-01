@@ -51,12 +51,20 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
-  const {snackNotifications, clearSnackNoticeByKey, onClickMessage} = componentModel.current
+  const {snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
 
   const {enqueueSnackbar} = useSnackbar()
 
   useEffect(() => {
-    if (snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] && !location.pathname.includes('/messages')) {
+    if (
+      snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
+      !location.pathname.includes('/messages') &&
+      !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE])
+    ) {
+      console.log(
+        'snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]',
+        snackNotifications[snackNoticeKey.SIMPLE_MESSAGE],
+      )
       enqueueSnackbar('', {
         // persist: true,
 

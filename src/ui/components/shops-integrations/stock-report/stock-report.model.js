@@ -201,10 +201,6 @@ export class StockReportModel {
       this.showCircularProgressModal = true
       const productsToCreate = []
 
-      console.log('this.selectedRows', this.selectedRows)
-
-      console.log('this.sellerBoardDailyData', this.sellerBoardDailyData)
-
       this.sellerBoardDailyData.forEach(
         cur =>
           this.selectedRows.includes(cur.id) &&

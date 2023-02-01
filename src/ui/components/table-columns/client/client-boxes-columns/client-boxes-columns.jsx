@@ -130,7 +130,11 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
 
     renderCell: params =>
       params.row.originalData ? (
-        <CheckboxCell checked={params.value} onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)} />
+        <CheckboxCell
+          disabled={params.row.originalData.isDraft}
+          checked={params.value}
+          onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
+        />
       ) : (
         ''
       ),

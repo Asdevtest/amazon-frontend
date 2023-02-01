@@ -35,6 +35,11 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
                     <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
                   </div>
 
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asinTitle}>{t(TranslationKey.Order)}</Typography>
+                    <Typography className={classNames.asinValue}>{order.order.id}</Typography>
+                  </div>
+
                   <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 </div>
 
