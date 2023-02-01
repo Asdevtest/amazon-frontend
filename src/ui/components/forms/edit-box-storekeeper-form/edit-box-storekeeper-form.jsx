@@ -201,9 +201,13 @@ export const EditBoxStorekeeperForm = observer(
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = {...boxFields}
 
+      console.log('product', product)
+
+      console.log('newBarCodeData', newBarCodeData)
+
       newFormFields.items = [
         ...boxFields.items.map(el =>
-          el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el,
+          el.product._id === product.product?._id ? {...el, tmpBarCode: newBarCodeData} : el,
         ),
       ]
 
@@ -389,7 +393,7 @@ export const EditBoxStorekeeperForm = observer(
         title: '',
         tmpCode: item?.tmpBarCode,
         item,
-        onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
+        onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
       })
 
       setShowSetBarcodeModal(!showSetBarcodeModal)
@@ -402,7 +406,7 @@ export const EditBoxStorekeeperForm = observer(
         title: '',
         tmpCode: item?.tmpBarCode,
         item,
-        onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
+        onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
       })
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }

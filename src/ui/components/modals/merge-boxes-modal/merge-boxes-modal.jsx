@@ -170,14 +170,22 @@ export const MergeBoxesModal = ({
     boxData.flat().reduce((acc, item) => {
       if (!acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
         acc[item.product.asin] = {...item}
-      } else if (acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
+      } else if (
+        acc[item.product.asin] &&
+        !acc[item.product.asin + 'mark'] &&
+        acc[item.product.asin]?.order?._id !== item.order._id
+      ) {
         acc[item.product.asin + 'mark'] = {...item}
+      } else if (acc[item.product.asin + 'mark'] && acc[item.product.asin + 'mark']?.order?._id === item.order._id) {
+        acc[item.product.asin + 'mark'].amount = acc[item.product.asin + 'mark'].amount + item.amount
       } else {
         acc[item.product.asin].amount = acc[item.product.asin].amount + item.amount
       }
       return acc
     }, {}),
   )
+
+  console.log('finalBoxData', finalBoxData)
 
   // Добавил
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
@@ -239,6 +247,10 @@ export const MergeBoxesModal = ({
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
                       <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
+                    </div>
+                    <div className={classNames.asinWrapper}>
+                      <Typography className={classNames.asinTitle}>{t(TranslationKey.Order)}</Typography>
+                      <Typography className={classNames.asinValue}>{order.order.id}</Typography>
                     </div>
 
                     <Typography className={classNames.title}>{order.product?.amazonTitle}</Typography>

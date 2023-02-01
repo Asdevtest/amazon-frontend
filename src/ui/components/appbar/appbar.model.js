@@ -2,6 +2,7 @@ import {makeAutoObservable} from 'mobx'
 
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
+import {ChatModel} from '@models/chat-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -42,9 +43,20 @@ export class AppbarModel {
     return SettingsModel.snackNotifications
   }
 
+  get simpleChats() {
+    return ChatModel.simpleChats
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  checkMessageIsRead(message) {
+    const findChat = this.simpleChats.find(el => el._id === message.chatId)
+    const findMessage = findChat?.messages.find(el => el._id === message._id)
+
+    return findMessage ? findMessage.isRead : false
   }
 
   onExitFromRole() {

@@ -125,7 +125,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               </div>
             )}
 
-            <Typography className={classNames.boxNum}>{`№ ${box.humanFriendlyId}`}</Typography>
+            <Typography className={classNames.boxNum}>{`№ ${box.humanFriendlyId || '-'}`}</Typography>
           </div>
 
           <Field
@@ -414,7 +414,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickAddBox = () => {
-      setNewBoxes([...newBoxes, {...basicBox, amount: 1}])
+      setNewBoxes([...newBoxes, {...basicBox, amount: 1, humanFriendlyId: ''}])
     }
     const onRemoveOldBox = boxId => {
       const arr = oldBoxes.filter(box => box._id !== boxId)
