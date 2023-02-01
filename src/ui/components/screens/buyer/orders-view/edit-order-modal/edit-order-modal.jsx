@@ -100,7 +100,6 @@ export const EditOrderModal = observer(
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
     onClickHsCode,
-    pathnameNotPaid,
     updateSupplierData,
     setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
@@ -200,7 +199,7 @@ export const EditOrderModal = observer(
       setBoxesForCreation(newStateFormFields)
     }
 
-    // console.log('order', order)
+    console.log('order', order)
 
     const [orderFields, setOrderFields] = useState({
       ...order,
@@ -244,27 +243,16 @@ export const EditOrderModal = observer(
       newOrderFieldsState.priceBatchDeliveryInYuan =
         (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * orderFields.amount
 
-      // newOrderFieldsState.priceInYuan = toFixed(
-      //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount),
-      //   2,
-      // )
-
-      // newOrderFieldsState.totalPriceChanged = toFixed(
-      //   calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount) / orderFields.yuanToDollarRate,
-      //   2,
-      // )
-
       newOrderFieldsState.priceInYuan =
         (orderFields?.orderSupplier.priceInYuan +
           orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
         orderFields?.amount
 
       newOrderFieldsState.totalPriceChanged =
-        (orderFields?.orderSupplier.price +
-          orderFields?.orderSupplier.batchDeliveryCostInYuan /
-            orderFields.yuanToDollarRate /
-            orderFields?.orderSupplier.amount) *
-        orderFields?.amount
+        ((orderFields?.orderSupplier.priceInYuan +
+          orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+          orderFields?.amount) /
+        orderFields?.yuanToDollarRate
 
       setOrderFields(newOrderFieldsState)
     }
@@ -737,7 +725,6 @@ export const EditOrderModal = observer(
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
             updateSupplierData={updateSupplierData}
-            pathnameNotPaid={pathnameNotPaid}
             usePriceInDollars={usePriceInDollars}
             deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
@@ -759,7 +746,6 @@ export const EditOrderModal = observer(
 
           <ProductTable
             checkIsPlanningPrice={checkIsPlanningPrice}
-            pathnameNotPaid={pathnameNotPaid}
             modalHeadCells={modalHeadCells}
             order={order}
             orderFields={orderFields}
@@ -774,9 +760,12 @@ export const EditOrderModal = observer(
             {t(TranslationKey.Suppliers)}
           </Text>
 
-          {((isPendingOrder || orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS]) &&
+          {((isPendingOrder ||
+            orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+            orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) &&
             Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
-          orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ? (
+          orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+          orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ? (
             <div className={classNames.supplierActionsWrapper}>
               <div className={classNames.supplierContainer}>
                 <div className={classNames.supplierButtonWrapper}>
@@ -857,7 +846,7 @@ export const EditOrderModal = observer(
 
           <EditOrderSuppliersTable
             productBaseData={order}
-            pathnameNotPaid={pathnameNotPaid}
+            orderFields={orderFields}
             isPendingOrder={isPendingOrder}
             selectedSupplier={orderFields.orderSupplier}
             curSelectedSupplier={selectedSupplier}
@@ -877,16 +866,6 @@ export const EditOrderModal = observer(
                 setShowConfirmModal(!showConfirmModal)
               } else {
                 onClickSaveOrder()
-                // console.log('s')
-                // onSubmitSaveOrder({
-                //   order,
-                //   orderFields,
-                //   boxesForCreation,
-                //   photosToLoad,
-                //   // hsCode,
-                //   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-                //   commentToWarehouse,
-                // })
               }
             }}
           >

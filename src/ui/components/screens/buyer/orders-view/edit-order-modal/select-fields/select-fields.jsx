@@ -47,7 +47,6 @@ export const SelectFields = ({
   deliveredGoodsCount,
   onClickHsCode,
   setUsePriceInDollars,
-  pathnameNotPaid,
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
@@ -183,15 +182,6 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 labelClasses={classNames.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
-                // value={toFixedWithYuanSign(
-                //   calcPriceForItem(
-                //     pathnameNotPaid && checkIsPlanningPrice
-                //       ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
-                //       : toFixed(orderFields.priceInYuan, 2),
-                //     orderFields.amount,
-                //   ),
-                //   2,
-                // )}
                 value={toFixedWithYuanSign(calcPriceForItem(orderFields.priceInYuan, orderFields.amount), 2)}
               />
             </Box>
@@ -225,7 +215,7 @@ export const SelectFields = ({
                 }}
               />
 
-              <Field
+              {/* <Field
                 oneLine
                 label={t(TranslationKey['Use the price in dollars'])}
                 // labelClasses={classNames.checkboxLabel}
@@ -244,7 +234,7 @@ export const SelectFields = ({
                     }}
                   />
                 }
-              />
+              /> */}
             </div>
           </Box>
 

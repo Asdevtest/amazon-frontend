@@ -2,6 +2,7 @@ import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typogr
 
 import React from 'react'
 
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
@@ -13,14 +14,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './product-table.style'
 
-export const ProductTable = ({
-  modalHeadCells,
-  order,
-  orderFields,
-  setOrderField,
-  pathnameNotPaid,
-  checkIsPlanningPrice,
-}) => {
+export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice}) => {
   const {classes: classNames} = useClassNames()
   return (
     <TableContainer className={classNames.tableContainer}>
@@ -56,7 +50,11 @@ export const ProductTable = ({
             <TableCell className={classNames.tableCell}>
               <div className={classNames.fieldWrapper}>
                 <Field
-                  disabled={!pathnameNotPaid || checkIsPlanningPrice}
+                  disabled={
+                    (orderFields.status !== OrderStatusByKey[OrderStatus.AT_PROCESS] &&
+                      orderFields.status !== OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) ||
+                    checkIsPlanningPrice
+                  }
                   inputProps={{maxLength: 20}}
                   inputClasses={classNames.commentInput}
                   value={orderFields.amount}
