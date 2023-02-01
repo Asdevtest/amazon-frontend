@@ -5,6 +5,7 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {NewSupplier} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -26,7 +27,7 @@ export const EditOrderSuppliersTable = observer(
     curSelectedSupplier,
     isPendingOrder,
     productBaseData,
-    pathnameNotPaid,
+    orderFields,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -63,11 +64,17 @@ export const EditOrderSuppliersTable = observer(
                       [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                     },
                     {
-                      [classNames.clickedRow]: isPendingOrder || pathnameNotPaid,
+                      [classNames.clickedRow]:
+                        isPendingOrder ||
+                        orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                        orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
                     },
                     {
                       [classNames.curSelectedSupplier]:
-                        (isPendingOrder || pathnameNotPaid) && supplier?._id === curSelectedSupplier?._id,
+                        (isPendingOrder ||
+                          orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                          orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) &&
+                        supplier?._id === curSelectedSupplier?._id,
                     },
                   )}
                   onClick={() => setSelectedSupplier(supplier)}

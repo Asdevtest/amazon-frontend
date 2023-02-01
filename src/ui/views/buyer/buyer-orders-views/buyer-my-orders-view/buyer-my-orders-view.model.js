@@ -126,8 +126,6 @@ export class BuyerMyOrdersViewModel {
     onClickConfirm: () => {},
   }
 
-  pathnameNotPaid = false
-
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
@@ -227,7 +225,6 @@ export class BuyerMyOrdersViewModel {
         case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
           return DataGridTablesKeys.BUYER_MY_ORDERS_ALL_ORDERS
         default:
-          this.pathnameNotPaid = true
           return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
       }
     }
@@ -337,7 +334,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onClickSaveWithoutUpdateSupData(DataForSaveOrder, orderFields) {
-    if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` && orderFields.status < 20) {
+    if (orderFields.status !== OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] && orderFields.status < 20) {
       this.confirmModalSettings = {
         title: t(TranslationKey.Attention),
         isWarning: true,
