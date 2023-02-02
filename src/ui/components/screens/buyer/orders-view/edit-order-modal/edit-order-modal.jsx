@@ -831,8 +831,10 @@ export const EditOrderModal = observer(
                         onClick={() => {
                           if (isSupplierAcceptRevokeActive) {
                             setOrderField('orderSupplier')({target: {value: null}})
+                            setUpdateSupplierData(false)
                           } else {
                             setOrderField('orderSupplier')({target: {value: selectedSupplier}})
+                            setUpdateSupplierData(false)
                           }
                         }}
                       >
@@ -851,9 +853,11 @@ export const EditOrderModal = observer(
                 className={classNames.supplierCheckboxWrapper}
                 onClick={() => {
                   if (
-                    selectedSupplier?.createdBy._id === userInfo._id &&
-                    userInfo?.masterUser?._id === selectedSupplier?.createdBy?._id
+                    selectedSupplier?.createdBy._id !== userInfo._id &&
+                    userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id
                   ) {
+                    return
+                  } else {
                     setUpdateSupplierData()
                   }
                 }}
