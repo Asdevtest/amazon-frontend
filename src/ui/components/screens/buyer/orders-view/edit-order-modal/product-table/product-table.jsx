@@ -58,7 +58,11 @@ export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField,
                   inputProps={{maxLength: 20}}
                   inputClasses={classNames.commentInput}
                   value={orderFields.amount}
-                  onChange={setOrderField('amount')}
+                  onChange={e => {
+                    if (!isNaN(e.target.value)) {
+                      setOrderField('amount')(e)
+                    }
+                  }}
                 />
               </div>
             </TableCell>
