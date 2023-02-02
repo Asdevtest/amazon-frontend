@@ -296,6 +296,8 @@ export const EditOrderModal = observer(
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
+    console.log('selectedSupplier', selectedSupplier)
+
     useEffect(() => {
       setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
 
@@ -831,8 +833,10 @@ export const EditOrderModal = observer(
                         onClick={() => {
                           if (isSupplierAcceptRevokeActive) {
                             setOrderField('orderSupplier')({target: {value: null}})
+                            setUpdateSupplierData(false)
                           } else {
                             setOrderField('orderSupplier')({target: {value: selectedSupplier}})
+                            setUpdateSupplierData(false)
                           }
                         }}
                       >
@@ -851,18 +855,20 @@ export const EditOrderModal = observer(
                 className={classNames.supplierCheckboxWrapper}
                 onClick={() => {
                   if (
-                    selectedSupplier?.createdBy._id === userInfo._id &&
-                    userInfo?.masterUser?._id === selectedSupplier?.createdBy?._id
+                    orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id
                   ) {
-                    setUpdateSupplierData()
+                    return
+                  } else {
+                    setUpdateSupplierData(!updateSupplierData)
                   }
                 }}
               >
                 <Checkbox
                   disabled={
                     isPendingOrder ||
-                    (selectedSupplier?.createdBy._id !== userInfo._id &&
-                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id)
+                    (orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
                   }
                   checked={updateSupplierData}
                   color="primary"
