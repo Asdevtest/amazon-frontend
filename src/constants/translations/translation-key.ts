@@ -1746,7 +1746,7 @@ export enum TranslationKey {
   'Actual course' = 'Actual course',
   'Current supplier course' = 'Current supplier course',
   'Attention: Current and actual course do not coincide' = 'Attention: Current and actual course do not coincide',
-  // '' = '',
+  'Current order course' = 'Current order course',
   // '' = '',
   // '' = '',
   // '' = '',

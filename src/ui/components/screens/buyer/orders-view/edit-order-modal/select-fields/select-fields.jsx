@@ -35,6 +35,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
   disableSubmit,
@@ -193,27 +194,30 @@ export const SelectFields = ({
                 label={t(TranslationKey['Planned cost in yuan']) + ', ¥'}
                 inputClasses={classNames.input}
                 labelClasses={classNames.blueLabel}
-                value={calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate)}
+                value={calcExchangeDollarsInYuansPrice(order.totalPrice, order.yuanToDollarRate)}
               />
             </div>
             <div className={classNames.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
+                error={`${yuanToDollarRate}` !== `${orderFields.yuanToDollarRate}`}
                 inputProps={{maxLength: 10}}
                 inputClasses={classNames.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-                label={t(TranslationKey['Yuan to USD exchange rate'])}
+                label={t(TranslationKey['Current order course'])}
                 labelClasses={classNames.label}
-                value={orderFields.yuanToDollarRate}
+                value={orderFields.yuanToDollarRate || ''}
                 onChange={e => {
-                  if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
-                    setOrderField('yuanToDollarRate')({
-                      target: {value: e.target.value},
-                      // updateTotalPriceChanged: !usePriceInDollars,
-                      // updateTotalPriceChangedValue: calcExchangePrice(priceYuansForBatch, e.target.value),
-                    })
-                  }
+                  setOrderField('yuanToDollarRate')(e)
                 }}
+              />
+
+              <Field
+                disabled
+                inputClasses={classNames.input}
+                label={t(TranslationKey['Actual course'])}
+                labelClasses={classNames.label}
+                value={yuanToDollarRate}
               />
 
               {/* <Field
@@ -256,7 +260,7 @@ export const SelectFields = ({
                   value={
                     isPendingOrder
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
-                      : toFixed(orderFields.totalPriceChanged, 2)
+                      : toFixed(orderFields.totalPriceChanged, 2) || ''
                   }
                   onChange={setOrderField('totalPriceChanged')}
                 />
@@ -269,7 +273,7 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   labelClasses={classNames.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
-                  value={toFixed(orderFields.deliveryCostToTheWarehouse, 2)}
+                  value={toFixed(orderFields.deliveryCostToTheWarehouse, 2) || ''}
                   onChange={e => {
                     Number(e.target.value) < orderFields.totalPriceChanged &&
                       setOrderField('deliveryCostToTheWarehouse')(e)

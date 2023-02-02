@@ -109,9 +109,8 @@ export const UserCell = React.memo(
 )
 
 export const InStockCell = React.memo(
-  withStyles(({classes: classNames, boxAmounts, box, onClickInStock}) => {
-    console.log(boxAmounts)
-    return (
+  withStyles(
+    ({classes: classNames, boxAmounts, box, onClickInStock}) => (
       <div className={classNames.inStockWrapper}>
         {boxAmounts
           ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
@@ -130,8 +129,9 @@ export const InStockCell = React.memo(
             </div>
           ))}
       </div>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 export const UserRolesCell = React.memo(

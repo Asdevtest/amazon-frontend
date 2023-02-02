@@ -1746,5 +1746,6 @@
   "Payment date": "Дата оплаты",
   "Actual course": "Актуальный курс",
   "Current supplier course": "Текущий курс поставщика",
-  "Attention: Current and actual course do not coincide": "Внимание! Актуальный и текущий курс не совпадают"
+  "Attention: Current and actual course do not coincide": "Внимание! Актуальный и текущий курс не совпадают",
+  "Current order course": "Текущий курс для заказа"
 }

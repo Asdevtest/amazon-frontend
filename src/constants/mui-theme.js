@@ -441,20 +441,23 @@ export const darkTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         '::-webkit-scrollbar': {
-          backgroundColor: '#21212B',
+          backgroundColor: '#25252D',
           cursor: 'pointer !important',
         },
         '::-webkit-scrollbar-thumb': {
-          backgroundColor: '#001029',
+          backgroundColor: '#53535B',
+          border: '2px solid #25252D',
+          borderTop: 'none',
+          borderBottom: 'none',
 
           '&:hover': {
-            backgroundColor: 'rgba(0, 16, 41, 0.7)',
+            backgroundColor: 'rgba(83, 83, 91, 0.7)',
           },
         },
 
         '::-webkit-scrollbar-button': {
-          backgroundColor: '#2B2B34',
-          outline: '1px solid #21212B',
+          backgroundColor: '#25252D',
+          outline: '1px solid #25252D',
 
           '&:hover': {
             backgroundColor: 'rgba(43, 43, 52, 0.7)',

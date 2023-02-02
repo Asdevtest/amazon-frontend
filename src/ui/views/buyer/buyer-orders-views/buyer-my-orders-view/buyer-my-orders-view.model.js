@@ -23,6 +23,7 @@ import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 // import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 // import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -657,7 +658,7 @@ export class BuyerMyOrdersViewModel {
 
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
-      if (isMismatchOrderPrice) {
+      if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(order.totalPriceChanged, 2)) {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
@@ -690,8 +691,9 @@ export class BuyerMyOrdersViewModel {
         orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
         orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       ) {
-        console.log('orderFields Model', orderFields)
-        await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+        if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(order.totalPriceChanged, 2)) {
+          await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+        }
       }
 
       // } else {
