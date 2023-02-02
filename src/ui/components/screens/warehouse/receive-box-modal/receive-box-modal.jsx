@@ -69,7 +69,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
                     <a
                       target="_blank"
                       rel="noreferrer"
-                      href={`https://www.amazon.com/dp/${el.asin}`}
+                      href={`https://www.amazon.com/dp/${el?.product?.asin}`}
                       className={classNames.normalizeLink}
                     >
                       <span className={classNames.linkSpan}>{shortAsin(el?.product?.asin)}</span>
