@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     // color: theme.palette.text.negativeMain,
-    // color: '#fff',
+    color: '#fff',
 
     height: 40,
     // padding: '11px 25px 10px', ломает все кнопки

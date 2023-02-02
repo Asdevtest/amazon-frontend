@@ -337,8 +337,9 @@ export const EditOrderModal = observer(
             newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value
           } else {
             newOrderFieldsState.yuanToDollarRate = e.target.value
-            newOrderFieldsState.totalPriceChanged = orderFields.priceInYuan / e.target.value
-            newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.priceBatchDeliveryInYuan / e.target.value
+            newOrderFieldsState.totalPriceChanged = orderFields.priceInYuan / (e.target.value || 1)
+            newOrderFieldsState.deliveryCostToTheWarehouse =
+              orderFields.priceBatchDeliveryInYuan / (e.target.value || 1)
           }
         } else if (filedName === 'priceInYuan') {
           newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate

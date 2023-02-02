@@ -356,11 +356,10 @@ export const SelectFields = ({
               }
             />
             <Button
-              disableElevation
               disabled={checkIsPlanningPrice}
               className={classNames.button}
               variant="contained"
-              color="primary"
+              // color="primary"
               onClick={onClickUpdateButton}
             >
               {t(TranslationKey.Update)}
@@ -443,7 +442,7 @@ export const SelectFields = ({
             inputComponent={
               <Button
                 variant="contained"
-                color="primary"
+                // color="primary"
                 className={classNames.hsCodeBtn}
                 onClick={() => onClickHsCode(orderFields.product._id)}
               >
@@ -514,11 +513,14 @@ export const SelectFields = ({
         </div>
 
         <div>
-          {!disableSubmit && Number(order.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
-            <div className={classNames.imageFileInputWrapper}>
-              <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
-            </div>
-          )}
+          {
+            /* !disableSubmit &&  */ Number(order.status) !==
+              Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
+              <div className={classNames.imageFileInputWrapper}>
+                <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+              </div>
+            )
+          }
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
       </Grid>
