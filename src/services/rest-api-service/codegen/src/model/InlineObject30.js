@@ -47,29 +47,29 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -79,52 +79,47 @@ class InlineObject30 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject30.prototype['amazon'] = undefined;
+InlineObject30.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * @member {Number} widthCmWarehouse
  */
-InlineObject30.prototype['reffee'] = undefined;
+InlineObject30.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * @member {Number} heightCmWarehouse
  */
-InlineObject30.prototype['fbafee'] = undefined;
+InlineObject30.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * ФБА кол-во
- * @member {Number} fbaamount
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject30.prototype['fbaamount'] = undefined;
+InlineObject30.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Код статуса
- * @member {Number} status
+ * @member {Number} volumeWeightKgWarehouse
  */
-InlineObject30.prototype['status'] = undefined;
+InlineObject30.prototype['volumeWeightKgWarehouse'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
-InlineObject30.prototype['profit'] = undefined;
+InlineObject30.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
  */
-InlineObject30.prototype['margin'] = undefined;
+InlineObject30.prototype['storekeeperComment'] = undefined;
 
 /**
- * Примечания байера.
- * @member {String} buyersComment
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject30.prototype['buyersComment'] = undefined;
+InlineObject30.prototype['images'] = undefined;
 
 
 

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
 **clientComment** | **String** | Комментарий клтента в заказе | [optional] 
 **priceInYuan** | **Number** | Цена в юанях | [optional] 
+**priceBatchDeliveryInYuan** | **Number** | Цена доставки партии в юанях | [optional] 
 
 
 

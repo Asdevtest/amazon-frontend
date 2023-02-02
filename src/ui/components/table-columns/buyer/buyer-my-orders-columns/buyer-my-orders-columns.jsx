@@ -153,7 +153,14 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: 'Payment date',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment date'])} />,
 
-    renderCell: params => <MultilineTextCell withLineBreaks text={params.value ? formatDate(params.value) : ''} />,
+    renderCell: params => (
+      <MultilineTextCell
+        withLineBreaks
+        text={
+          params.row.originalData.paymentDateToSupplier ? formatDate(params.row.originalData.paymentDateToSupplier) : ''
+        }
+      />
+    ),
     width: 115,
   },
 

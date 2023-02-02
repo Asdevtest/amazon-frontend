@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 **totalPriceChanged** | **Number** | Если вдруг байер понял что стоимость заказа меняется в меньшую/большую сторону он напишет эту сумму в заказе в поле totalPriceChanged (нужно добавить это поле), далее корректировка стоимости решается через админа.  | [optional] 
 **paidAt** | **Date** |  | [optional] 
+**paymentDateToSupplier** | **String** | Дата оплаты поставщтку | [optional] 
 **yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **productId** | **String** | GUID продукта | [optional] 

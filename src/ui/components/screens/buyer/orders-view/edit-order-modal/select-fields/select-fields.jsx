@@ -22,6 +22,7 @@ import {
   calcOrderTotalPriceInYuann,
 } from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {formatDateWithoutTime} from '@utils/date-time'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -499,7 +500,7 @@ export const SelectFields = ({
             <div>
               <Field
                 disabled
-                value={orderFields.paymentDateToSupplier || t(TranslationKey.Missing)}
+                value={formatDateWithoutTime(orderFields.paymentDateToSupplier) || t(TranslationKey.Missing)}
                 label={t(TranslationKey['Payment date'])}
                 labelClasses={classNames.label}
                 inputClasses={classNames.input}

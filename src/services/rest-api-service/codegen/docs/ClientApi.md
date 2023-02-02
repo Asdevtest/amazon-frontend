@@ -807,7 +807,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersPost
 
-> InlineResponse2014 apiV1ClientsOrdersPost(opts)
+> InlineResponse2011 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
@@ -847,7 +847,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
@@ -1549,7 +1549,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'filters': "filters_example", // String |                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
-  'shopId': null, // String | ID магазина для фильтрации по нему
+  'shopIds': "shopIds_example", // String | Гуиды магазинов
   'purchaseQuantityAboveZero': true, // Boolean | purchaseQuantity > 0 булевое выражение
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
@@ -1571,7 +1571,7 @@ apiInstance.apiV1ClientsProductsMyWithPagGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filters** | **String**|                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
- **shopId** | [**String**](.md)| ID магазина для фильтрации по нему | [optional] 
+ **shopIds** | **String**| Гуиды магазинов | [optional] 
  **purchaseQuantityAboveZero** | **Boolean**| purchaseQuantity &gt; 0 булевое выражение | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
@@ -1811,7 +1811,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksPost
 
-> InlineResponse2014 apiV1ClientsTasksPost(opts)
+> InlineResponse2011 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
@@ -1851,7 +1851,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
