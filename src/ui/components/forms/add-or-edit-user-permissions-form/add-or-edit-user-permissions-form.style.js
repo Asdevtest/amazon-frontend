@@ -226,7 +226,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedItem: {
-    border: '1px solid #007BFF',
+    border: `1px solid ${theme.palette.primary.main}`,
   },
 
   keyPermission: {

@@ -5,7 +5,7 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    // border: '1px solid #007bff',
+    // border: `1px solid ${theme.palette.primary.main}`,
 
     border: `1px solid ${theme.palette.primary.main}`,
 

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
@@ -48,7 +48,7 @@ export const useClassNames = makeStyles()(() => ({
     height: '52px',
   },
   searchInput: {
-    border: '1px solid #007bff',
+    border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
     height: 36,
   },

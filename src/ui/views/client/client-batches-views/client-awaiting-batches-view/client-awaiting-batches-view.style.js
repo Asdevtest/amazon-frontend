@@ -60,7 +60,7 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
   searchInput: {
-    border: '1px solid #007bff',
+    border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
     height: '38px',
     fontSize: '16px',

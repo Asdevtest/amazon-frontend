@@ -130,6 +130,7 @@ export const useClassNames = makeStyles()(theme => ({
   statusIcon: {
     width: 12,
     height: 12,
+    color: theme.palette.primary.main,
   },
 
   carouselImage: {

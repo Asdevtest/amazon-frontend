@@ -10,6 +10,9 @@ export const styles = theme => ({
   control: {
     background: theme.palette.background.general,
     maxWidth: 500,
+    maxHeight: 150,
+    overflow: 'auto',
+    padding: 3,
   },
 
   multiValue: {

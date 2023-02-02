@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    // border: '1px solid #007bff',
+    // border: `1px solid ${theme.palette.primary.main}`,
     // backgroundColor: '#F4F4F4',
     flexGrow: 1,
     height: 40,

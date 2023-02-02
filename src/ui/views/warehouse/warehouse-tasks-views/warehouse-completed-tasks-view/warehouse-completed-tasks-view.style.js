@@ -86,7 +86,7 @@ export const styles = theme => ({
     },
   },
   searchInput: {
-    border: '1px solid #007bff',
+    border: `1px solid ${theme.palette.primary.main}`,
     width: 420,
     height: '38px',
     fontSize: '16px',

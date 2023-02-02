@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   button: {
-    width: '144px',
+    width: '122px',
     height: '40px',
   },
 
@@ -72,12 +72,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   mainWrapper: {
-    minWidth: '460px',
+    width: '460px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
     [theme.breakpoints.down(768)]: {
-      minWidth: '280px',
+      width: '280px',
 
       display: 'flex',
       flexDirection: 'column',
