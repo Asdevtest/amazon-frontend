@@ -49,7 +49,7 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    border: '1px solid #007bff',
+    border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
     height: 36,
     overflow: 'visible',

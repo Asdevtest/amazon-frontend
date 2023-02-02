@@ -109,8 +109,8 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    console.log('supplier', supplier)
-    console.log('tmpSupplier', tmpSupplier)
+    // console.log('supplier', supplier)
+    // console.log('tmpSupplier', tmpSupplier)
 
     const calculateFieldsToSubmit = () => {
       let res = {

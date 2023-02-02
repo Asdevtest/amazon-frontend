@@ -27,7 +27,7 @@ export const styles = theme => ({
   mainWrapper: {
     width: '100%',
 
-    border: '1px solid #006CFF',
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
 
     transition: '0.3s ease',

@@ -473,7 +473,10 @@ export const EditOrderModal = observer(
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
       submitDisabledOrderStatuses.includes(order.status + '') ||
-      !orderFields.orderSupplier
+      !orderFields.orderSupplier ||
+      (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
+        orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+        !boxesForCreation.length)
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
 

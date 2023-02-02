@@ -47,7 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '208px',
     height: '208px',
 
-    border: '1px solid #007BFF',
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '50%',
 
     backgroundColor: theme.palette.background.disabled,

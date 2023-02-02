@@ -944,10 +944,15 @@ export class ClientInventoryViewModel {
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
+      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
+
       console.log(error)
       runInAction(() => {
         this.error = error
+        this.showInfoModalTitle = t(TranslationKey.Error)
       })
+
+      this.onTriggerOpenModal('showInfoModal')
     }
   }
 

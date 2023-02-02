@@ -215,7 +215,7 @@ export const lightTheme = createTheme({
     },
 
     boxShadow: {
-      general: '#DFDFDF',
+      general: 'rgba(190, 190, 190, 0.15)',
     },
 
     input: {
@@ -513,7 +513,8 @@ export const darkTheme = createTheme({
 
     ...{
       primary: {
-        main: '#008CF1',
+        // main: '#008CF1',
+        main: '#4CA1DE',
       },
       text: {
         general: '#fff',
@@ -558,7 +559,7 @@ export const darkTheme = createTheme({
       },
 
       boxShadow: {
-        general: 'rgba(31, 31, 31, 0.56)',
+        general: 'rgba(31, 31, 31, 0.6)',
       },
 
       input: {

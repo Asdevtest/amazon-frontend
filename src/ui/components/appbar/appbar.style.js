@@ -9,8 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
   appbar: {
     width: '100%',
     height: theme.spacing(7),
-    boxShadow: `0px 5px 19px 0px rgba(90, 97, 105, 0.12)`,
-    // backgroundColor: theme.palette.background.general,
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
 
     backgroundColor: theme.palette.background.general,
     borderRadius: '0',
@@ -256,6 +255,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   allowedRolesItem: {
+    borderRadius: 0,
+    height: 56,
     marginLeft: '10px',
     color: theme.palette.text.general,
     fontSize: '16px',
@@ -278,8 +279,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   сurrentAllowedRolesItem: {
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+    // background: theme.palette.primary.main,
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: `5px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
     [theme.breakpoints.down(768)]: {
       background: 'none',

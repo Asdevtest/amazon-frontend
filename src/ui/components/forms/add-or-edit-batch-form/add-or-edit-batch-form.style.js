@@ -270,7 +270,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    border: '1px solid #007bff',
+    border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
     height: 36,
     [theme.breakpoints.down(768)]: {
