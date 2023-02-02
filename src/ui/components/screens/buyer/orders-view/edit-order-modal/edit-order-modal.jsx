@@ -846,8 +846,26 @@ export const EditOrderModal = observer(
                   </>
                 ) : null}
               </div>
-              <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
-                <Checkbox disabled={isPendingOrder} checked={updateSupplierData} color="primary" />
+              <div
+                className={classNames.supplierCheckboxWrapper}
+                onClick={() => {
+                  if (
+                    selectedSupplier?.createdBy._id === userInfo._id &&
+                    userInfo?.masterUser?._id === selectedSupplier?.createdBy?._id
+                  ) {
+                    setUpdateSupplierData()
+                  }
+                }}
+              >
+                <Checkbox
+                  disabled={
+                    isPendingOrder ||
+                    (selectedSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id)
+                  }
+                  checked={updateSupplierData}
+                  color="primary"
+                />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
                 </Typography>

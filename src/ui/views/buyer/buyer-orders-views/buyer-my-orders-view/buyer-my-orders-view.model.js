@@ -658,7 +658,7 @@ export class BuyerMyOrdersViewModel {
 
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
-      if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(order.totalPriceChanged, 2)) {
+      if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
@@ -691,7 +691,7 @@ export class BuyerMyOrdersViewModel {
         orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
         orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       ) {
-        if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(order.totalPriceChanged, 2)) {
+        if (toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
           await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
         }
       }
