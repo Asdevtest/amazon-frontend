@@ -202,7 +202,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rateContainer: {
-    width: 'min-content',
+    display: 'flex',
+    gap: 5,
+    width: 'auto',
   },
 
   calculationMainWrapper: {
@@ -294,5 +296,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     marginLeft: 30,
     gap: 30,
+  },
+  courseInput: {
+    width: 95,
   },
 }))
