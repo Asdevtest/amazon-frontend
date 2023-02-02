@@ -231,6 +231,8 @@ export const EditOrderModal = observer(
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
     })
 
+    console.log('orderFields', orderFields)
+
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
 

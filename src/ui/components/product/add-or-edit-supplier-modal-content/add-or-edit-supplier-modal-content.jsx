@@ -95,8 +95,8 @@ export const AddOrEditSupplierModalContent = observer(
 
       priceInYuan: supplier?.priceInYuan || '',
       // batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
-      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInYuan / yuanToDollarRate,
-      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
+      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInYuan / yuanToDollarRate || '',
+      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || '',
       batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
 

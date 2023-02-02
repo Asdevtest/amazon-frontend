@@ -182,7 +182,7 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 labelClasses={classNames.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
-                value={toFixedWithYuanSign(calcPriceForItem(orderFields.priceInYuan, orderFields.amount), 2)}
+                value={toFixedWithYuanSign(calcPriceForItem(orderFields.priceInYuan, orderFields.amount), 2) || ''}
               />
             </Box>
 
@@ -291,15 +291,17 @@ export const SelectFields = ({
               inputClasses={classNames.input}
               labelClasses={classNames.label}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
-              value={toFixedWithDollarSign(
-                calcPriceForItem(
-                  isPendingOrder
-                    ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
-                    : orderFields.totalPriceChanged,
-                  orderFields.amount,
-                ),
-                2,
-              )}
+              value={
+                toFixedWithDollarSign(
+                  calcPriceForItem(
+                    isPendingOrder
+                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
+                      : orderFields.totalPriceChanged,
+                    orderFields.amount,
+                  ),
+                  2,
+                ) || ''
+              }
             />
           </Box>
           <div>
