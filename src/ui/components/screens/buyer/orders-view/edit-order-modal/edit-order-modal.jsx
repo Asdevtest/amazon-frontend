@@ -296,6 +296,8 @@ export const EditOrderModal = observer(
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
+    console.log('selectedSupplier', selectedSupplier)
+
     useEffect(() => {
       setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
 
@@ -853,20 +855,20 @@ export const EditOrderModal = observer(
                 className={classNames.supplierCheckboxWrapper}
                 onClick={() => {
                   if (
-                    selectedSupplier?.createdBy._id !== userInfo._id &&
-                    userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id
+                    orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id
                   ) {
                     return
                   } else {
-                    setUpdateSupplierData()
+                    setUpdateSupplierData(!updateSupplierData)
                   }
                 }}
               >
                 <Checkbox
                   disabled={
                     isPendingOrder ||
-                    (selectedSupplier?.createdBy._id !== userInfo._id &&
-                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id)
+                    (orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
                   }
                   checked={updateSupplierData}
                   color="primary"

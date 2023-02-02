@@ -231,8 +231,8 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  setUpdateSupplierData() {
-    this.updateSupplierData = !this.updateSupplierData
+  setUpdateSupplierData(value) {
+    this.updateSupplierData = value
   }
 
   setOrderStatus = pathname => {

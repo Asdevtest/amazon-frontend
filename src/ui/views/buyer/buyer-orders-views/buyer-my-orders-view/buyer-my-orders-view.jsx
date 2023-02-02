@@ -193,7 +193,10 @@ class BuyerMyOrdersViewRaw extends Component {
         <Modal
           missClickModalOn
           openModal={showOrderModal}
-          setOpenModal={() => onTriggerOpenModal('showOrderModal')}
+          setOpenModal={() => {
+            setUpdateSupplierData(false)
+            onTriggerOpenModal('showOrderModal')
+          }}
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
