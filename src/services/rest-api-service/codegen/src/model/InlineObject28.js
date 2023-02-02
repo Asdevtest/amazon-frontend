@@ -47,26 +47,8 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -76,44 +58,10 @@ class InlineObject28 {
 }
 
 /**
- * @member {String} clientComment
+ * GUID коробки разделение которой отменяем.
+ * @member {String} guid
  */
-InlineObject28.prototype['clientComment'] = undefined;
-
-/**
- * @member {String} storekeeperComment
- */
-InlineObject28.prototype['storekeeperComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject28.prototype['referenceId'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject28.prototype['fbaNumber'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject28.prototype['upsTrackNumber'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject28.prototype['trackNumberText'] = undefined;
-
-/**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
- */
-InlineObject28.prototype['trackNumberFile'] = undefined;
+InlineObject28.prototype['guid'] = undefined;
 
 
 

@@ -39,7 +39,7 @@ import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse20029 from '../model/InlineResponse20029';
 import InlineResponse20030 from '../model/InlineResponse20030';
 import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
@@ -798,7 +798,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject39} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1ClientsOrdersPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -817,7 +817,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/clients/orders', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -831,7 +831,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject39} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1ClientsOrdersPost(opts) {
       return this.apiV1ClientsOrdersPostWithHttpInfo(opts)
@@ -1497,7 +1497,7 @@ export default class ClientApi {
      * ## Получить список товаров данного клиента используя фильтр.   Выдача только продуктов которые не были оплачены paidAt = null.
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
-     * @param {String} opts.shopId ID магазина для фильтрации по нему
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {Boolean} opts.purchaseQuantityAboveZero purchaseQuantity > 0 булевое выражение
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -1514,7 +1514,7 @@ export default class ClientApi {
       };
       let queryParams = {
         'filters': opts['filters'],
-        'shopId': opts['shopId'],
+        'shopIds': opts['shopIds'],
         'purchaseQuantityAboveZero': opts['purchaseQuantityAboveZero'],
         'limit': opts['limit'],
         'offset': opts['offset'],
@@ -1543,7 +1543,7 @@ export default class ClientApi {
      * ## Получить список товаров данного клиента используя фильтр.   Выдача только продуктов которые не были оплачены paidAt = null.
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
-     * @param {String} opts.shopId ID магазина для фильтрации по нему
+     * @param {String} opts.shopIds Гуиды магазинов
      * @param {Boolean} opts.purchaseQuantityAboveZero purchaseQuantity > 0 булевое выражение
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -1768,7 +1768,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1ClientsTasksPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -1787,7 +1787,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/clients/tasks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1801,7 +1801,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1ClientsTasksPost(opts) {
       return this.apiV1ClientsTasksPostWithHttpInfo(opts)

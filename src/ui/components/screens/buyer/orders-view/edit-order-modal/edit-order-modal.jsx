@@ -218,16 +218,9 @@ export const EditOrderModal = observer(
       trackingNumberChina: order?.trackingNumberChina,
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
-      // totalPriceChanged: order?.priceInYuan
-      //   ? order?.priceInYuan / order?.yuanToDollarRate
-      //   : (order.amount * (order.orderSupplier.batchTotalCostInYuan / order.orderSupplier.amount)) /
-      //     order?.yuanToDollarRate,
-      yuanToDollarRate: order?.yuanToDollarRate || 6.5,
+      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
       item: order?.item || 0,
       tmpRefundToClient: 0,
-      // priceInYuan: order?.priceInYuan
-      //   ? order?.priceInYuan
-      //   : order.amount * (order.orderSupplier.batchTotalCostInYuan / order.orderSupplier.amount),
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
     })
 
@@ -341,13 +334,12 @@ export const EditOrderModal = observer(
           if (usePriceInDollars) {
             newOrderFieldsState.priceInYuan = newOrderFieldsState.totalPriceChanged * e.target.value
 
-            newOrderFieldsState.priceBatchDeliveryInYuan = calcExchangeDollarsInYuansPrice(
-              orderFields.deliveryCostToTheWarehouse,
-              e.target.value,
-            )
+            newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value
           } else {
-            newOrderFieldsState.totalPriceChanged = calcExchangePrice(orderFields.priceInYuan, e.target.value)
-            newOrderFieldsState.deliveryCostToTheWarehouse = orderFields.priceBatchDeliveryInYuan / e.target.value
+            newOrderFieldsState.yuanToDollarRate = e.target.value
+            newOrderFieldsState.totalPriceChanged = orderFields.priceInYuan / (e.target.value || 1)
+            newOrderFieldsState.deliveryCostToTheWarehouse =
+              orderFields.priceBatchDeliveryInYuan / (e.target.value || 1)
           }
         } else if (filedName === 'priceInYuan') {
           newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
@@ -369,7 +361,7 @@ export const EditOrderModal = observer(
 
         return
       } else if (filedName === 'amount') {
-        newOrderFieldsState[filedName] = e.target.value
+        newOrderFieldsState[filedName] = e.target.value.replace(/\./g, '')
 
         newOrderFieldsState.priceInYuan =
           (orderFields?.orderSupplier.priceInYuan +
@@ -476,6 +468,7 @@ export const EditOrderModal = observer(
       requestStatus === loadingStatuses.isLoading ||
       submitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
+      !orderFields.yuanToDollarRate ||
       (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
@@ -720,6 +713,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
@@ -853,8 +847,26 @@ export const EditOrderModal = observer(
                   </>
                 ) : null}
               </div>
-              <div className={classNames.supplierCheckboxWrapper} onClick={setUpdateSupplierData}>
-                <Checkbox disabled={isPendingOrder} checked={updateSupplierData} color="primary" />
+              <div
+                className={classNames.supplierCheckboxWrapper}
+                onClick={() => {
+                  if (
+                    selectedSupplier?.createdBy._id === userInfo._id &&
+                    userInfo?.masterUser?._id === selectedSupplier?.createdBy?._id
+                  ) {
+                    setUpdateSupplierData()
+                  }
+                }}
+              >
+                <Checkbox
+                  disabled={
+                    isPendingOrder ||
+                    (selectedSupplier?.createdBy._id !== userInfo._id &&
+                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id)
+                  }
+                  checked={updateSupplierData}
+                  color="primary"
+                />
                 <Typography className={classNames.checkboxTitle}>
                   {t(TranslationKey['Update supplier data'])}
                 </Typography>

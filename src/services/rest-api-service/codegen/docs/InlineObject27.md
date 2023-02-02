@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxIds** | **[String]** |  | 
-**newAmounts** | **[Number]** |  | 
+**guid** | **String** | GUID коробки, которую делим | [optional] 
+**newBoxesParams** | [**[ApiV1BoxesSplitNewBoxesParams]**](ApiV1BoxesSplitNewBoxesParams.md) |  | [optional] 
 
 

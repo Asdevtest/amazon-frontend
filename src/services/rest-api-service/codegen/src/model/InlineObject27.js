@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject27 model module.
@@ -22,12 +23,10 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor() { 
         
-        InlineObject27.initialize(this, boxIds, newAmounts);
+        InlineObject27.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,11 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
             }
         }
         return obj;
@@ -65,14 +62,15 @@ class InlineObject27 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * GUID коробки, которую делим
+ * @member {String} guid
  */
-InlineObject27.prototype['boxIds'] = undefined;
+InlineObject27.prototype['guid'] = undefined;
 
 /**
- * @member {Array.<Number>} newAmounts
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
  */
-InlineObject27.prototype['newAmounts'] = undefined;
+InlineObject27.prototype['newBoxesParams'] = undefined;
 
 
 

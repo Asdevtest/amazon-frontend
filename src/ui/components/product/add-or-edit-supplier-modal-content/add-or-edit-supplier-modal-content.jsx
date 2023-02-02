@@ -51,8 +51,6 @@ export const AddOrEditSupplierModalContent = observer(
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
-    const [yuanToDollarRate, setYuanToDollarRate] = useState(sourceYuanToDollarRate)
-
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
 
@@ -93,9 +91,12 @@ export const AddOrEditSupplierModalContent = observer(
       productionTerm: supplier?.productionTerm || '',
       paymentMethod: supplier?.paymentMethod || [],
 
+      yuanRate: supplier?.yuanRate || sourceYuanToDollarRate,
+
       priceInYuan: supplier?.priceInYuan || '',
       // batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
-      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInYuan / yuanToDollarRate || '',
+      batchDeliveryCostInDollar:
+        supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || sourceYuanToDollarRate) || '',
       batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || '',
       batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
@@ -109,8 +110,9 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    // console.log('supplier', supplier)
-    // console.log('tmpSupplier', tmpSupplier)
+    console.log('supplier', supplier)
+    console.log('tmpSupplier', tmpSupplier)
+    console.log('sourceYuanToDollarRate', sourceYuanToDollarRate)
 
     const calculateFieldsToSubmit = () => {
       let res = {
@@ -322,27 +324,30 @@ export const AddOrEditSupplierModalContent = observer(
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          priceInYuan: event.target.value * yuanToDollarRate,
+          priceInYuan: event.target.value * tmpSupplier?.yuanRate,
         })
       } else if (['priceInYuan'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
           price:
-            event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
+            event.target.value /
+            (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
         })
       } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
-          batchDeliveryCostInYuan: event.target.value * (yuanToDollarRate === ('' || '0') ? 1 : yuanToDollarRate),
+          batchDeliveryCostInYuan:
+            event.target.value * (tmpSupplier?.yuanRate === ('' || '0') ? 1 : tmpSupplier?.yuanRate),
         })
       } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
           [fieldName]: event.target.value,
           batchDeliveryCostInDollar:
-            event.target.value / (yuanToDollarRate === '' || parseFloat(yuanToDollarRate) === 0 ? 1 : yuanToDollarRate),
+            event.target.value /
+            (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
         })
       } else {
         setTmpSupplier({...tmpSupplier, [fieldName]: event.target.value})
@@ -351,10 +356,9 @@ export const AddOrEditSupplierModalContent = observer(
 
     const onChangeYuanToDollarRate = e => {
       if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-        setYuanToDollarRate(e.target.value)
-
         setTmpSupplier({
           ...tmpSupplier,
+          yuanRate: e.target.value,
           batchDeliveryCostInDollar:
             tmpSupplier.batchDeliveryCostInYuan /
             (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
@@ -391,8 +395,8 @@ export const AddOrEditSupplierModalContent = observer(
       '' === tmpSupplier.priceInYuan ||
       '' === tmpSupplier.batchDeliveryCostInDollar ||
       '' === tmpSupplier.batchDeliveryCostInYuan ||
-      '' === yuanToDollarRate ||
-      '0' === yuanToDollarRate ||
+      '' === tmpSupplier?.yuanRate ||
+      '0' === tmpSupplier?.yuanRate ||
       0 === parseFloat(tmpSupplier.price) ||
       0 === parseInt(tmpSupplier.amount) ||
       0 === parseInt(tmpSupplier.minlot) ||
@@ -498,14 +502,26 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Field
               oneLine
-              disabled={onlyRead}
-              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-              label={t(TranslationKey['Yuan to USD exchange rate'])}
+              disabled
+              label={t(TranslationKey['Actual course'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
               labelClasses={cx(classNames.rateLabel)}
-              inputClasses={classNames.rateInput}
-              value={yuanToDollarRate}
+              inputClasses={classNames.courseInput}
+              value={sourceYuanToDollarRate}
+            />
+
+            <Field
+              oneLine
+              error={`${sourceYuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
+              disabled={onlyRead}
+              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+              label={t(TranslationKey['Current supplier course'])}
+              inputProps={{maxLength: 8}}
+              containerClasses={classNames.rateContainer}
+              labelClasses={cx(classNames.rateLabel)}
+              inputClasses={classNames.courseInput}
+              value={tmpSupplier?.yuanRate}
               onChange={onChangeYuanToDollarRate}
             />
           </div>

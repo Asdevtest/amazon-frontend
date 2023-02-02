@@ -8,6 +8,7 @@ import {addDays, isPast, isToday, isValid} from 'date-fns'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CommentOfSbCell} from '@components/data-grid-cells/data-grid-cells'
 import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-product-modal/order-modal-body-row'
@@ -175,12 +176,18 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
+    console.log('productsForRender', productsForRender)
     const ordersData = orderState.map((el, i) =>
       getObjectFilteredByKeyArrayBlackList(
         {
           ...el,
           destinationId: el.destinationId ? el.destinationId : null,
-          totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
+          totalPrice:
+            (productsForRender[i].currentSupplier.price +
+              productsForRender[i].currentSupplier.batchDeliveryCostInDollar /
+                productsForRender[i].currentSupplier.amount) *
+            el?.amount,
+
           needsResearch: isResearchSupplier,
           tmpIsPendingOrder: isPendingOrder,
         },
@@ -196,6 +203,38 @@ export const OrderProductModal = ({
 
     setTimeout(() => setSubmitIsClicked(false), 3000)
   }
+
+  // const onClickSubmit = () => {
+  //   const ordersData = orderState.map((el, i) => {
+  //     console.log('el', el)
+  //     console.log('productsForRender[i]', productsForRender[i])
+  //     getObjectFilteredByKeyArrayBlackList(
+  //       {
+  //         ...el,
+  //         destinationId: el.destinationId ? el.destinationId : null,
+  //         // totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
+
+  //         totalPrice:
+  //           productsForRender[i].currentSupplier.price +
+  //           (productsForRender[i].currentSupplier.batchDeliveryCostInDollar /
+  //             productsForRender[i].currentSupplier.amount) *
+  //             el?.amount,
+
+  //         needsResearch: isResearchSupplier,
+  //         tmpIsPendingOrder: isPendingOrder,
+  //       },
+  //       el.deadline ? [] : ['deadline'],
+  //     )
+  //   })
+
+  //   onSubmit({
+  //     ordersDataState: ordersData,
+  //     totalOrdersCost,
+  //   })
+  //   setSubmitIsClicked(true)
+
+  //   setTimeout(() => setSubmitIsClicked(false), 3000)
+  // }
 
   const storekeeperEqualsDestination = orderState.some(
     order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,

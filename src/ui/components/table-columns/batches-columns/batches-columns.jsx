@@ -40,6 +40,8 @@ export const batchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -71,6 +73,8 @@ export const batchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -89,6 +93,8 @@ export const batchesViewColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 150,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -98,6 +104,8 @@ export const batchesViewColumns = () => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 150,
+    filterable: false,
+    sortable: false,
   },
 
   {

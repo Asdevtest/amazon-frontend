@@ -162,7 +162,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
+  'body': new TestSwagger.InlineObject17() // InlineObject17 | 
 };
 apiInstance.apiV1BuyersOrdersGuidEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+ **body** | [**InlineObject17**](InlineObject17.md)|  | [optional] 
 
 ### Return type
 
@@ -326,7 +326,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID заказа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject31() // InlineObject31 | 
+  'body': new TestSwagger.InlineObject15() // InlineObject15 | 
 };
 apiInstance.apiV1BuyersOrdersGuidReturnOrderPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -343,7 +343,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject31**](InlineObject31.md)|  | [optional] 
+ **body** | [**InlineObject15**](InlineObject15.md)|  | [optional] 
 
 ### Return type
 
@@ -382,7 +382,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject32() // InlineObject32 | 
+  'body': new TestSwagger.InlineObject16() // InlineObject16 | 
 };
 apiInstance.apiV1BuyersOrdersGuidSetTotalPriceChangedPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject32**](InlineObject32.md)|  | [optional] 
+ **body** | [**InlineObject16**](InlineObject16.md)|  | [optional] 
 
 ### Return type
 
@@ -471,7 +471,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersMyGet
 
-> [InlineResponse20021] apiV1BuyersOrdersMyGet(opts)
+> [InlineResponse20015] apiV1BuyersOrdersMyGet(opts)
 
 # Получить список заказов текущего байера.
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20015]**](InlineResponse20015.md)
 
 ### Authorization
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPagMyGet
 
-> InlineResponse20022 apiV1BuyersOrdersPagMyGet(opts)
+> InlineResponse20016 apiV1BuyersOrdersPagMyGet(opts)
 
 # Получить список заказов текущего байера с пагинацией.
 
@@ -573,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20022**](InlineResponse20022.md)
+[**InlineResponse20016**](InlineResponse20016.md)
 
 ### Authorization
 
@@ -662,7 +662,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID заказа, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+  'body': new TestSwagger.InlineObject19() // InlineObject19 | 
 };
 apiInstance.apiV1BuyersOrdersSetInStockGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -679,7 +679,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
+ **body** | [**InlineObject19**](InlineObject19.md)|  | [optional] 
 
 ### Return type
 
@@ -774,7 +774,7 @@ let apiInstance = new TestSwagger.BuyerApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject30() // InlineObject30 | 
+  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
 };
 apiInstance.apiV1BuyersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -791,7 +791,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject30**](InlineObject30.md)|  | [optional] 
+ **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
 
 ### Return type
 
@@ -809,7 +809,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsLightGet
 
-> [InlineResponse20019] apiV1BuyersProductsLightGet(opts)
+> [InlineResponse20013] apiV1BuyersProductsLightGet(opts)
 
 # Получить список товаров, где пользователь - баер товара(не архив).
 
@@ -849,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20019]**](InlineResponse20019.md)
+[**[InlineResponse20013]**](InlineResponse20013.md)
 
 ### Authorization
 
@@ -863,7 +863,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsMyGet
 
-> [InlineResponse20018] apiV1BuyersProductsMyGet(opts)
+> [InlineResponse20012] apiV1BuyersProductsMyGet(opts)
 
 # Получить список товаров взятых в работу байером.
 
@@ -901,7 +901,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20018]**](InlineResponse20018.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -915,7 +915,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsPagMyGet
 
-> InlineResponse20020 apiV1BuyersProductsPagMyGet(opts)
+> InlineResponse20014 apiV1BuyersProductsPagMyGet(opts)
 
 # Получить список товаров взятых в работу байером с пагинацией.
 
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20020**](InlineResponse20020.md)
+[**InlineResponse20014**](InlineResponse20014.md)
 
 ### Authorization
 
@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersProductsVacGet
 
-> [InlineResponse20018] apiV1BuyersProductsVacGet(opts)
+> [InlineResponse20012] apiV1BuyersProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1071,7 +1071,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20018]**](InlineResponse20018.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -1139,7 +1139,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse20023] apiV1BuyersTasksGet(opts)
+> [InlineResponse20017] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -1177,7 +1177,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20023]**](InlineResponse20023.md)
+[**[InlineResponse20017]**](InlineResponse20017.md)
 
 ### Authorization
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksPost
 
-> InlineResponse2014 apiV1BuyersTasksPost(opts)
+> InlineResponse2011 apiV1BuyersTasksPost(opts)
 
 # Создать задачу.
 
@@ -1211,7 +1211,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BuyerApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject34() // InlineObject34 | 
+  'body': new TestSwagger.InlineObject18() // InlineObject18 | 
 };
 apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1227,11 +1227,11 @@ apiInstance.apiV1BuyersTasksPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject34**](InlineObject34.md)|  | [optional] 
+ **body** | [**InlineObject18**](InlineObject18.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2014**](InlineResponse2014.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 

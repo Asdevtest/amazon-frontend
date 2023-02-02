@@ -92,6 +92,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('paidAt')) {
                 obj['paidAt'] = ApiClient.convertToType(data['paidAt'], 'Date');
             }
+            if (data.hasOwnProperty('paymentDateToSupplier')) {
+                obj['paymentDateToSupplier'] = ApiClient.convertToType(data['paymentDateToSupplier'], 'String');
+            }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
@@ -231,6 +234,12 @@ InlineResponse2001.prototype['totalPriceChanged'] = undefined;
  * @member {Date} paidAt
  */
 InlineResponse2001.prototype['paidAt'] = undefined;
+
+/**
+ * Дата оплаты поставщтку
+ * @member {String} paymentDateToSupplier
+ */
+InlineResponse2001.prototype['paymentDateToSupplier'] = undefined;
 
 /**
  * Курс юань доллар.

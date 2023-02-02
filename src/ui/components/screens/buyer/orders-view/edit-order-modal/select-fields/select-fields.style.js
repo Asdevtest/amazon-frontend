@@ -257,11 +257,13 @@ export const useClassNames = makeStyles()(theme => ({
   hsCodeBtn: {
     width: '100%',
     height: 32,
+    color: '#fff !important',
   },
   button: {
     height: '40px',
     padding: '0 25px',
     whiteSpace: 'nowrap',
+    color: '#fff !important',
   },
   checkboxWithButton: {
     display: 'flex',

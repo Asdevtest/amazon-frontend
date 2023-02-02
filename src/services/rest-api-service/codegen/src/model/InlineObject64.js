@@ -92,6 +92,9 @@ class InlineObject64 {
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            }
         }
         return obj;
     }
@@ -188,6 +191,12 @@ InlineObject64.prototype['clientComment'] = undefined;
  * @member {Number} priceInYuan
  */
 InlineObject64.prototype['priceInYuan'] = undefined;
+
+/**
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
+ */
+InlineObject64.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 
 

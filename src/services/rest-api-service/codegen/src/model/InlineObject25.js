@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject25 model module.
@@ -23,11 +23,12 @@ class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
      * @alias module:model/InlineObject25
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
+     * @param guids {Array.<String>} Массив коробок.
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor(guids, boxBody) { 
         
-        InlineObject25.initialize(this, itemsBarCodeChanges);
+        InlineObject25.initialize(this, guids, boxBody);
     }
 
     /**
@@ -35,8 +36,9 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj, guids, boxBody) { 
+        obj['guids'] = guids;
+        obj['boxBody'] = boxBody;
     }
 
     /**
@@ -50,8 +52,11 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -61,9 +66,15 @@ class InlineObject25 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject25.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject25.prototype['guids'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject25.prototype['boxBody'] = undefined;
 
 
 

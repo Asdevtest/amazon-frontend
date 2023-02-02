@@ -1743,5 +1743,9 @@
   "The price per unit in the order is different from the supplier price, do you want to continue?": "Цена за единицу в заказе отличается от цены поставщика, хотите продолжить без обновления поставщика?",
   "Purchase quantity for the current price": "Кол-во закупки для текущей цены",
   "Add a chat cover": "Добавить обложку чата",
-  "Payment date": "Дата оплаты"
+  "Payment date": "Дата оплаты",
+  "Actual course": "Актуальный курс",
+  "Current supplier course": "Текущий курс поставщика",
+  "Attention: Current and actual course do not coincide": "Внимание! Актуальный и текущий курс не совпадают",
+  "Current order course": "Текущий курс для заказа"
 }

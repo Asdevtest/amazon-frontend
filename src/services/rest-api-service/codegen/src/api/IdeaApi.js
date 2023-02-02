@@ -22,7 +22,7 @@ import InlineObject58 from '../model/InlineObject58';
 import InlineObject59 from '../model/InlineObject59';
 import InlineObject60 from '../model/InlineObject60';
 import InlineResponse20038 from '../model/InlineResponse20038';
-import InlineResponse2014 from '../model/InlineResponse2014';
+import InlineResponse2011 from '../model/InlineResponse2011';
 import InternalServerError from '../model/InternalServerError';
 
 /**
@@ -590,7 +590,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject54} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2011} and HTTP response
      */
     apiV1IdeasPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -609,7 +609,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2014;
+      let returnType = InlineResponse2011;
       return this.apiClient.callApi(
         '/api/v1/ideas/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -623,7 +623,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject54} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2011}
      */
     apiV1IdeasPost(opts) {
       return this.apiV1IdeasPostWithHttpInfo(opts)
