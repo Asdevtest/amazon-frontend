@@ -108,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '95%',
     margin: '0 auto',
     // maxHeight: 250,
-    maxHeight: 145,
+    maxHeight: 150,
     overflowY: 'auto',
   },
 
