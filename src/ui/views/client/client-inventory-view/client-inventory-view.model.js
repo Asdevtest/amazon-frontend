@@ -95,7 +95,7 @@ export class ClientInventoryViewModel {
   storekeepers = []
   destinations = []
   shopsData = []
-  currentShop = undefined
+  currentShops = []
   ideaId = ''
   isArchive = false
   batchesData = []
@@ -572,8 +572,19 @@ export class ClientInventoryViewModel {
 
   onClickShopBtn(shop) {
     runInAction(() => {
-      this.currentShop = shop ? shop : undefined
+      if (shop) {
+        if (shop === 'ALL') {
+          this.currentShops = []
+        } else {
+          if (this.currentShops.some(item => item === shop)) {
+            this.currentShops = this.currentShops.filter(item => item !== shop)
+          } else {
+            this.currentShops.push(shop)
+          }
+        }
+      }
     })
+
     const noProductBaseUpdate = true
     this.getProductsMy(noProductBaseUpdate)
 
@@ -583,9 +594,26 @@ export class ClientInventoryViewModel {
     })
   }
 
+  // onClickOrderStatusData(status) {
+  //   runInAction(() => {
+  //     if (status) {
+  //       if (status === 'ALL') {
+  //         this.chosenStatus = []
+  //       } else {
+  //         if (this.chosenStatus.some(item => item === status)) {
+  //           this.chosenStatus = this.chosenStatus.filter(item => item !== status)
+  //         } else {
+  //           this.chosenStatus.push(status)
+  //         }
+  //       }
+  //     }
+  //     this.getOrders()
+  //   })
+  // }
+
   async onClickWithoutProductsShopBtn() {
     runInAction(() => {
-      this.currentShop = undefined
+      this.currentShops = []
       this.withoutProduct = true
       this.withProduct = false
     })
@@ -598,7 +626,7 @@ export class ClientInventoryViewModel {
 
   async onClickWithProductsShopBtn() {
     runInAction(() => {
-      this.currentShop = undefined
+      this.currentShops = []
       this.withoutProduct = false
       this.withProduct = true
     })
@@ -625,10 +653,12 @@ export class ClientInventoryViewModel {
         this.nameSearchValue
       };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
+      const shops = this.currentShops.map(item => item._id).join(',')
+
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: filter, // this.nameSearchValue ? filter : null,
 
-        shopId: this.currentShop ? this.currentShop._id : null,
+        shopIds: shops,
 
         purchaseQuantityAboveZero: this.isNeedPurchaseFilter,
 

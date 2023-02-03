@@ -199,8 +199,6 @@ export const EditOrderModal = observer(
       setBoxesForCreation(newStateFormFields)
     }
 
-    console.log('order', order)
-
     const [orderFields, setOrderFields] = useState({
       ...order,
       status: order?.status || undefined,
@@ -223,8 +221,6 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
     })
-
-    console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -295,8 +291,6 @@ export const EditOrderModal = observer(
     }
 
     const [selectedSupplier, setSelectedSupplier] = useState(null)
-
-    console.log('selectedSupplier', selectedSupplier)
 
     useEffect(() => {
       setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})

@@ -497,9 +497,6 @@ export const RedistributeBox = observer(
       }
     }
 
-    // console.log('newBoxes', newBoxes)
-    // console.log('filterEmptyBoxes(newBoxes)', filterEmptyBoxes(newBoxes))
-
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
       requestStatus === loadingStatuses.isLoading ||

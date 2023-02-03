@@ -282,7 +282,6 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   async getBatchesPagMy() {
-    console.log('this.sortModel', this.sortModel)
     try {
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`

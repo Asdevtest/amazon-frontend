@@ -403,9 +403,6 @@ export const GroupingBoxesForm = observer(
         ])
 
         setOldBoxes(newOldBoxes)
-        console.log('oldBoxes', oldBoxes)
-        console.log('newBoxes', newBoxes)
-        console.log('basicBox', basicBox)
       } else {
         setBasicBox(null)
 
