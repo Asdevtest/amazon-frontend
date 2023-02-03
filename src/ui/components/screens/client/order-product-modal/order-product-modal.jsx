@@ -176,7 +176,6 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    console.log('productsForRender', productsForRender)
     const ordersData = orderState.map((el, i) =>
       getObjectFilteredByKeyArrayBlackList(
         {

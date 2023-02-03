@@ -50,8 +50,6 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
 const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('item', item)
-
   return (
     <TableRow className={classNames.row}>
       <TableCell className={classNames.standartCell}>

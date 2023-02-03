@@ -110,10 +110,6 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    // console.log('supplier', supplier)
-    // console.log('tmpSupplier', tmpSupplier)
-    // console.log('sourceYuanToDollarRate', sourceYuanToDollarRate)
-
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,

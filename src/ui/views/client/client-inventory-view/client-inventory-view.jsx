@@ -90,7 +90,7 @@ export class ClientInventoryViewRaw extends Component {
       currentBarcode,
       currentHscode,
       shopsData,
-      currentShop,
+      currentShops,
 
       showProgress,
       progressValue,
@@ -200,55 +200,28 @@ export class ClientInventoryViewRaw extends Component {
               <div className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.shopsFiltersWrapper}>
                   <WithSearchSelect
+                    checkbox
+                    currentShops={currentShops}
                     selectedItemName={
-                      (!withProduct && !withoutProduct && !currentShop?._id && t(TranslationKey['All Products'])) ||
-                      // (withProduct && t(TranslationKey['Products in shops'])) ||
-                      // (withoutProduct && t(TranslationKey['Products without shops'])) ||
-                      (currentShop && currentShop.name)
+                      (!withProduct && !withoutProduct && !currentShops?.length && t(TranslationKey['All Products'])) ||
+                      (currentShops?.length && currentShops?.map(shop => shop.name).join(', '))
                     }
-                    data={shopsData
-
-                      // .map(
-                      //   shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
-                      // )
-                      .filter(shop => currentShop?.id !== shop._id)}
+                    // Расскоментировать если нужно будет убрать из списка магазинов выбранные мазин
+                    data={shopsData /* .filter(shop => currentShop?.id !== shop._id) */}
                     searchFields={['name']}
                     firstItems={
                       <>
-                        {!(!withProduct && !withoutProduct && !currentShop?._id) && (
+                        {!(!withProduct && !withoutProduct && !currentShops[0]?._id) && (
                           <Button
                             disabled={!currentData}
                             className={classNames.button}
                             variant="text"
                             color="primary"
-                            onClick={onClickShopBtn}
+                            onClick={() => onClickShopBtn('ALL')}
                           >
                             {t(TranslationKey['All Products'])}
                           </Button>
                         )}
-                        {/* {!withProduct && (  // Не работает после пвнедрения пагинации, нужны отдельные фильтры в метод
-                          <Button
-                            disabled={!currentData}
-                            className={classNames.button}
-                            variant="text"
-                            color="primary"
-                            onClick={onClickWithProductsShopBtn}
-                          >
-                            {t(TranslationKey['Products in shops'])}
-                          </Button>
-                        )}
-
-                        {!withoutProduct && (
-                          <Button
-                            disabled={!currentData}
-                            className={classNames.button}
-                            variant="text"
-                            color="primary"
-                            onClick={onClickWithoutProductsShopBtn}
-                          >
-                            {t(TranslationKey['Products without shops'])}
-                          </Button>
-                        )} */}
                       </>
                     }
                     onClickSelect={shop => onClickShopBtn(shop)}

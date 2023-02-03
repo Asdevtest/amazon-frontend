@@ -674,8 +674,6 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      console.log('orderFieldsToSave', orderFieldsToSave)
-
       await this.onSaveOrder(order, orderFieldsToSave)
 
       if (

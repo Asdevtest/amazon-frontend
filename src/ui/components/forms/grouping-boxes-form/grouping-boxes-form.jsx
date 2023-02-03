@@ -132,6 +132,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
             oneLine
             disabled={!isNewBox}
             label={t(TranslationKey['Boxes in group']) + ':'}
+            inputProps={{maxLength: 5}}
             // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
             containerClasses={classNames.amountField}
             className={classNames.orderInput}
@@ -402,9 +403,6 @@ export const GroupingBoxesForm = observer(
         ])
 
         setOldBoxes(newOldBoxes)
-        console.log('oldBoxes', oldBoxes)
-        console.log('newBoxes', newBoxes)
-        console.log('basicBox', basicBox)
       } else {
         setBasicBox(null)
 
@@ -491,23 +489,19 @@ export const GroupingBoxesForm = observer(
         <div className={classNames.boxesWrapper}>
           <div className={classNames.currentBox}>
             <div className={classNames.newBoxes}>
-              {oldBoxes.map((box, boxIndex) => {
-                console.log('oldBoxesMap', oldBoxes)
-
-                return (
-                  <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
-                    <Box
-                      basicBox={basicBox}
-                      destinations={destinations}
-                      storekeepers={storekeepers}
-                      index={boxIndex}
-                      box={box}
-                      onRemoveBox={onRemoveOldBox}
-                      onClickBasicBoxRadio={onClickBasicBoxRadio}
-                    />
-                  </div>
-                )
-              })}
+              {oldBoxes.map((box, boxIndex) => (
+                <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                  <Box
+                    basicBox={basicBox}
+                    destinations={destinations}
+                    storekeepers={storekeepers}
+                    index={boxIndex}
+                    box={box}
+                    onRemoveBox={onRemoveOldBox}
+                    onClickBasicBoxRadio={onClickBasicBoxRadio}
+                  />
+                </div>
+              ))}
             </div>
           </div>
 

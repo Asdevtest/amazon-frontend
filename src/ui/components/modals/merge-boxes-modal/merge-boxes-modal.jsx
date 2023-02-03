@@ -185,8 +185,6 @@ export const MergeBoxesModal = ({
     }, {}),
   )
 
-  console.log('finalBoxData', finalBoxData)
-
   // Добавил
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 

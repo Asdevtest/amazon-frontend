@@ -181,7 +181,6 @@ export const AddOrEditBatchForm = observer(
         )
       } else {
         // if (/* !nameSearchValueBoxesToAddData && */ !chosenBoxesBase) {
-        console.log('!!! *** 3')
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData(
             addOrEditBatchDataConverter(

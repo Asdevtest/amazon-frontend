@@ -201,10 +201,6 @@ export const EditBoxStorekeeperForm = observer(
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = {...boxFields}
 
-      console.log('product', product)
-
-      console.log('newBarCodeData', newBarCodeData)
-
       newFormFields.items = [
         ...boxFields.items.map(el =>
           el.product._id === product.product?._id ? {...el, tmpBarCode: newBarCodeData} : el,

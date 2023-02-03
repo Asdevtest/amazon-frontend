@@ -505,20 +505,20 @@ export const AdminUserEditContent = observer(
             <Typography className={classNames.allowedRoleWrapperTitle}>{t(TranslationKey['Allowed Roles'])}</Typography>
             {selectedAllowedRoles.map((role, index) => (
               <div key={index} className={classNames.selectedRoleWrapper}>
-                <div className={classNames.leftContentWrapper}>
-                  <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
+                {/* <div className={classNames.leftContentWrapper}> */}
+                <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
 
-                  <Field
-                    oneLine
-                    disabled
-                    inputProps={{maxLength: 8}}
-                    inputClasses={classNames.allowedRoleRateInput}
-                    containerClasses={classNames.allowedRoleRateContainer}
-                    label={t(TranslationKey.Rate)}
-                    // value={formFields.rate}
-                    // onChange={onChangeFormField('rate')}
-                  />
-                </div>
+                <Field
+                  oneLine
+                  disabled
+                  inputProps={{maxLength: 8}}
+                  inputClasses={classNames.allowedRoleRateInput}
+                  containerClasses={classNames.allowedRoleRateContainer}
+                  label={t(TranslationKey.Rate)}
+                  // value={formFields.rate}
+                  // onChange={onChangeFormField('rate')}
+                />
+                {/* </div> */}
 
                 <div className={classNames.actionDelButton} onClick={() => removeAllowedRole(role)}>
                   {'-'}

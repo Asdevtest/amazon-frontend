@@ -36,6 +36,7 @@ const WithSearchSelectRaw = observer(
     withoutSearch,
     onClickSetDestinationFavourite,
     checkbox,
+    currentShops,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -181,29 +182,15 @@ const WithSearchSelectRaw = observer(
                         >
                           {searchFields?.map((fieldName, index) => (
                             <>
-                              {checkbox && <Checkbox color="primary" />}
+                              {checkbox && (
+                                // checked={curShops.some(item => item._id === shop._id)}
+                                <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
+                              )}
                               <Tooltip key={index} followCursor title={el[fieldName]}>
                                 <Typography className={classNames.fieldName}>{el[fieldName]}</Typography>
                               </Tooltip>
                             </>
                           ))}
-                          {/* {favourites ? (
-                            <div
-                              className={cx(classNames.setFavouriteBtn, {
-                                [classNames.setFavouriteBtnIsSelected]: favourites.find(favouriteItem =>
-                                  isEqual(
-                                    favouriteItem,
-                                    searchFields.map(searchField => el[searchField]),
-                                  ),
-                                ),
-                              })}
-                              onClick={e => {
-                                onClickSetDestinationFavourite(searchFields.map(searchField => el[searchField]))
-                                e.preventDefault()
-                                e.stopPropagation()
-                              }}
-                            ></div>
-                          ) : undefined} */}
 
                           {favourites ? (
                             <StarOutlinedIcon

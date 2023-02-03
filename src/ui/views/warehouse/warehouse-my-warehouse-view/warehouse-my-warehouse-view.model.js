@@ -707,7 +707,6 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
-    console.log('updatedBoxes', updatedBoxes)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {

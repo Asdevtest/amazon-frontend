@@ -159,12 +159,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
-  leftContentWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '47px',
-    height: 30,
-  },
+  // leftContentWrapper: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   gap: '47px',
+  //   height: 30,
+  // },
 
   allowedRoleWrapper: {
     // border: '1px solid #C4C4C4',
