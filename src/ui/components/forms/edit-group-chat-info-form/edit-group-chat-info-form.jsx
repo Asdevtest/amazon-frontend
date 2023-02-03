@@ -72,7 +72,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
       </Typography>
 
       <Field
-        label={t(TranslationKey['Name of group chat'])}
+        label={t(TranslationKey['Name of group chat']) + '*'}
         labelClasses={classNames.labelField}
         value={state.title}
         onChange={e => setState({...state, title: e.target.value})}

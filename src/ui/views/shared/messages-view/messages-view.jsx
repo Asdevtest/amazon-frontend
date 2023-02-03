@@ -87,7 +87,7 @@ class MessagesViewRaw extends Component {
 
     const currentChat = simpleChats.find(el => el._id === chatSelectedId)
 
-    console.log('chatSelectedId', chatSelectedId)
+    // console.log('chatSelectedId', chatSelectedId)
 
     const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
 

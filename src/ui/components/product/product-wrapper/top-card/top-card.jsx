@@ -107,17 +107,16 @@ export const TopCard = observer(
                     <div className={classNames.carouselWrapper}>
                       <CustomCarousel>
                         {product.images.map((imageHash, index) => (
-                          <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
-                            <img
-                              alt=""
-                              className={classNames.carouselImage}
-                              src={getAmazonImageUrl(imageHash, true)}
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({images: product.images, imgIndex: index})
-                              }}
-                            />
-                          </Box>
+                          <img
+                            key={index}
+                            alt=""
+                            className={classNames.carouselImage}
+                            src={getAmazonImageUrl(imageHash, true)}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: product.images, imgIndex: index})
+                            }}
+                          />
                         ))}
                       </CustomCarousel>
                     </div>

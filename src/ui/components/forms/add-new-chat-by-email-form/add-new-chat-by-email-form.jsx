@@ -4,8 +4,7 @@ import {Avatar, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-// import {css} from 'emotion'
-import {toJS} from 'mobx'
+import {observer} from 'mobx-react'
 import {components} from 'react-select'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,16 +12,14 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {CustomReactSelect} from '@components/selects/custom-react-select'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
-import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-new-chat-by-email-form.style'
 
-export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
+export const AddNewChatByEmailForm = observer(({closeModal, onSubmit, usersData}) => {
   const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -139,4 +136,4 @@ export const AddNewChatByEmailForm = ({closeModal, onSubmit, usersData}) => {
       </div>
     </div>
   )
-}
+})

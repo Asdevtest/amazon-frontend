@@ -110,9 +110,9 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    console.log('supplier', supplier)
-    console.log('tmpSupplier', tmpSupplier)
-    console.log('sourceYuanToDollarRate', sourceYuanToDollarRate)
+    // console.log('supplier', supplier)
+    // console.log('tmpSupplier', tmpSupplier)
+    // console.log('sourceYuanToDollarRate', sourceYuanToDollarRate)
 
     const calculateFieldsToSubmit = () => {
       let res = {
@@ -170,13 +170,12 @@ export const AddOrEditSupplierModalContent = observer(
       if (outsideProduct) {
         return (
           <div className={classNames.buttonsWrapperClient}>
-            <Button disableElevation className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
+            <Button className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
               {t(TranslationKey.Back)}
             </Button>
             <div>
               <Button
                 success
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
@@ -253,7 +252,6 @@ export const AddOrEditSupplierModalContent = observer(
         return (
           <div className={classNames.buttonsWrapper}>
             <Button
-              disableElevation
               tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
               disabled={diasabledSubmit}
               className={classNames.saveBtn}
@@ -929,7 +927,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <UploadFilesInput
                   images={photosOfSupplier}
                   setImages={setPhotosOfSupplier}
-                  maxNumber={50}
+                  maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
                   className={classNames.imageFileInput}
                 />
               </div>
