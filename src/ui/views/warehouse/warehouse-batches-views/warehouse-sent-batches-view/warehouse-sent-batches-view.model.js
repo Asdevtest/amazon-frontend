@@ -185,21 +185,7 @@ export class WarehouseSentBatchesViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.batches).filter(
-        el =>
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-          ) ||
-          el.originalData.boxes?.some(box =>
-            box.items?.some(item =>
-              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-            ),
-          ),
-      )
-    } else {
-      return toJS(this.batches)
-    }
+    return toJS(this.batches)
   }
 
   async loadData() {

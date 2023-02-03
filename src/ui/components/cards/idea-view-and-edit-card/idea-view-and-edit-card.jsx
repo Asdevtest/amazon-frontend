@@ -515,6 +515,7 @@ export const IdeaViewAndEditCard = observer(
                     {!checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                       <Button
                         success
+                        tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                         variant="contained"
                         color="primary"
                         className={[classNames.actionButton]}

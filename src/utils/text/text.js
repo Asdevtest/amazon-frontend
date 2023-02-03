@@ -42,21 +42,31 @@ export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str
 
 export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? urlStr : `https://${urlStr}`)
 
-export const clearSpecialCharacters = str => str.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '')
+export const clearSpecialCharacters = value =>
+  typeof value === 'string' ? value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '') : value
 
-export const shortenLongString = (value, lengthBreakpoint) =>
-  value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
+// export const shortenLongString = (value, lengthBreakpoint) => // Не используется
+//   value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
 
 export const shortenDocumentString = value => {
-  const strAfterPdf = value.slice(0, 4)
-  const strPdf = value.slice(-4, value.length)
-  return `${strAfterPdf}...${strPdf}`
+  if (typeof value === 'string') {
+    const strAfterPdf = value.slice(0, 4)
+    const strPdf = value.slice(-4, value.length)
+    return `${strAfterPdf}...${strPdf}`
+  } else {
+    return null
+  }
 }
 
-export const minsToTime = mins =>
-  `${mins / 60 >= 1 ? Math.floor(mins / 60) + t(TranslationKey.hour) : ''}  ${
-    mins % 60 === 0 ? '' : (mins % 60) + ' ' + t(TranslationKey.minute) + '.'
-  }`
+export const minsToTime = mins => {
+  if (typeof mins === 'number') {
+    return `${mins / 60 >= 1 ? Math.floor(mins / 60) + ' ' + t(TranslationKey.hour) : ''} ${
+      mins % 60 === 0 ? '' : (mins % 60) + ' ' + t(TranslationKey.minute) + '.'
+    }`
+  } else {
+    return null
+  }
+}
 
 export const getFullTariffTextForBoxOrOrder = box => {
   if (!box || (!box.destination && !box.logicsTariff)) {
@@ -76,7 +86,6 @@ export const getFullTariffTextForBoxOrOrder = box => {
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
-
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
 
 export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
@@ -91,8 +100,6 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   const mins = secondsToMinutes(absSecondsToDeadline - hoursToSeconds(hours))
 
   const seconds = secondsToMinutes(absSecondsToDeadline - hoursToSeconds(hours))
-
-  // console.log({secondsToDeadline, isExpired, hours, mins})
 
   return `${isExpired ? t(TranslationKey['Overdue by']) + '\n' : ''} ${hours} ${t(TranslationKey.hour)} ${mins} ${
     t(TranslationKey.minute) + '.'

@@ -66,7 +66,12 @@ import {
   getDistanceBetweenDatesInSeconds,
 } from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {timeToDeadlineInHoursAndMins, toFixed, getShortenStringIfLongerThanCount} from '@utils/text'
+import {
+  timeToDeadlineInHoursAndMins,
+  toFixed,
+  getShortenStringIfLongerThanCount,
+  clearSpecialCharacters,
+} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -357,27 +362,27 @@ export const EditOrderModal = observer(
 
         return
       } else if (filedName === 'amount') {
-        newOrderFieldsState[filedName] = e.target.value.replace(/\./g, '')
+        newOrderFieldsState[filedName] = clearSpecialCharacters(e.target.value)
 
         newOrderFieldsState.priceInYuan =
           (orderFields?.orderSupplier.priceInYuan +
             orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
-          e.target.value
+            e.target.value || ''
 
         newOrderFieldsState.totalPriceChanged =
           ((orderFields?.orderSupplier.priceInYuan +
             orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
             e.target.value) /
-          orderFields?.yuanToDollarRate
+            orderFields?.yuanToDollarRate || ''
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
-          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value
+          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value || ''
 
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
             orderFields.yuanToDollarRate) *
-          e.target.value
+            e.target.value || ''
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }

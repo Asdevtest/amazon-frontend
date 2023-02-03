@@ -55,13 +55,11 @@ export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField,
                       orderFields.status !== OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) ||
                     checkIsPlanningPrice
                   }
-                  inputProps={{maxLength: 20}}
+                  inputProps={{maxLength: 5}}
                   inputClasses={classNames.commentInput}
                   value={orderFields.amount}
                   onChange={e => {
-                    if (!isNaN(e.target.value)) {
-                      setOrderField('amount')(e)
-                    }
+                    setOrderField('amount')(e)
                   }}
                 />
               </div>
