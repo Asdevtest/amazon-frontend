@@ -5,6 +5,8 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {UserLink} from '@components/user-link'
+
 import {formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -45,7 +47,17 @@ export const UserBalanceHistory = ({historyData, title}) => {
                     <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum, 2)}</TableCell>
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
-                    <TableCell className={classNames.usernameCell}>{item.recipient?.name}</TableCell>
+                    {/* <TableCell className={classNames.usernameCell}>{item.recipient?.name}</TableCell> */}
+
+                    <TableCell className={classNames.usernameCell}>
+                      <UserLink
+                        withAvatar
+                        name={item.recipient?.name}
+                        userId={item.recipient?._id}
+                        // blackText={blackText}
+                        // customStyles={customStyles}
+                      />
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

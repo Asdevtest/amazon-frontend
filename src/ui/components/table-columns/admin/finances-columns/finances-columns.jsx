@@ -7,6 +7,7 @@ import {
   NormDateCell,
   MultilineTextCell,
   ScrollingCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -48,7 +49,8 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
     width: 170,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    // renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
   },
 
   {
@@ -57,7 +59,8 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
     width: 170,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    // renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.recipient?._id} />,
   },
 
   {

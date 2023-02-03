@@ -137,7 +137,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   carouselImage: {
-    height: '100%',
+    // height: '100%',
+    height: '300px',
+    objectFit: 'contain',
+
     transition: '.2s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

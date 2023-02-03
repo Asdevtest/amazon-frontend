@@ -865,7 +865,11 @@ export const EditBoxStorekeeperForm = observer(
                 />
 
                 <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
+                  <UploadFilesInput
+                    images={imagesOfBox}
+                    setImages={setImagesOfBox}
+                    maxNumber={boxFields.images?.length ? 50 - boxFields.images?.length : 50}
+                  />
                 </div>
 
                 <div className={classNames.boxPhotoWrapper}>

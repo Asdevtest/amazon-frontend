@@ -103,8 +103,8 @@ export const MultipleChats = observer(
         })
         .sort((a, b) => {
           return compareDesc(
-            parseISO(a.messages[a.messages.length - 1]?.createdAt),
-            parseISO(b.messages[b.messages.length - 1]?.createdAt),
+            parseISO(a.messages[a.messages.length - 1]?.createdAt || a?.createdAt),
+            parseISO(b.messages[b.messages.length - 1]?.createdAt || b?.createdAt),
           )
         })
 

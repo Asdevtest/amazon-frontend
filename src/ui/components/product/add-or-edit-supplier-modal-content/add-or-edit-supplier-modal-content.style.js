@@ -145,11 +145,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   nameContainer: {
-    width: '380px',
+    width: '380px !important',
   },
 
   linkContainer: {
-    width: '590px',
+    width: '590px !important',
   },
 
   linkContainerOnlyRead: {
@@ -157,19 +157,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   middleContainer: {
-    width: '190px',
+    width: '190px !important',
   },
 
   shortContainer: {
-    width: '120px',
+    width: '120px !important',
   },
 
   middleInput: {
-    width: '160px',
+    width: '160px !important',
   },
 
   rateInput: {
-    width: '185px',
+    width: '185px !important',
     marginLeft: 10,
   },
 
