@@ -14,13 +14,7 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {
-  calcExchangeDollarsInYuansPrice,
-  calcExchangePrice,
-  calcPriceForItem,
-  calcOrderTotalPrice,
-  calcOrderTotalPriceInYuann,
-} from '@utils/calculation'
+import {calcExchangeDollarsInYuansPrice, calcPriceForItem, calcOrderTotalPrice} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {
