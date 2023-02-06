@@ -6,7 +6,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {Input} from '@components/input'
 
-import {priceCalculation} from '@utils/price-calculation'
+import {priceCalculation} from '@utils/calculation'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {styles} from './modal-table-body-row.style'

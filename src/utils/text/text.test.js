@@ -5,6 +5,7 @@ import {t} from '@utils/translations'
 
 import {
   checkAndMakeAbsoluteUrl,
+  clearEverythingExceptNumbers,
   clearSpecialCharacters,
   getFloatOrZero,
   getFullTariffTextForBoxOrOrder,
@@ -492,6 +493,34 @@ describe('Test clearSpecialCharacters(value)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(clearSpecialCharacters(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test clearEverythingExceptNumbers(value)', () => {
+  const validTestValue = [
+    {enter: `Test 12`, expect: '12'},
+    {enter: '1String./`/*-+', expect: '1'},
+    {enter: ' ', expect: ''},
+  ]
+
+  const unvalidTestValue = [
+    {enter: 0, expect: 0},
+    {enter: 10, expect: 10},
+    {enter: null, expect: null},
+    {enter: undefined, expect: undefined},
+    {enter: false, expect: false},
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid prosp', () => {
+      expect(clearEverythingExceptNumbers(value.enter)).toBe(value.expect)
+    })
+  })
+
+  unvalidTestValue.forEach(value => {
+    test('Unvalid props', () => {
+      expect(clearEverythingExceptNumbers(value.enter)).toBe(value.expect)
     })
   })
 })
