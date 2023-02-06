@@ -25,6 +25,8 @@ export const RequestToSendBatchBox = ({
   userInfo,
   onSubmitChangeBoxFields,
 }) => {
+  console.log('box', box)
+
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
@@ -36,7 +38,12 @@ export const RequestToSendBatchBox = ({
 
   const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
 
-  const isBadBox = isNoBarCodGlued || (!box.shippingLabel && !box.destination?.storekeeperId) || !price
+  const isBadBox =
+    isNoBarCodGlued ||
+    (!box.shippingLabel && !box.destination?.storekeeperId) ||
+    !price ||
+    // Новое условие для подсветки красным
+    !box.items.some(item => item.barCode)
 
   return (
     <tr
