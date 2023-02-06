@@ -3,7 +3,8 @@ import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {checkIsAbsoluteUrl} from '../checks'
+import {checkIsAbsoluteUrl} from '@utils/checks'
+
 import {getDistanceBetweenDatesInSeconds} from '../date-time'
 import {t} from '../translations'
 

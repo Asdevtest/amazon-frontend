@@ -44,7 +44,7 @@ export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
 
 export const isHaveMasterUser = user => !!user.masterUser
 
-export const noPermissionsUser = user => !user.permissions
+// export const noPermissionsUser = user => !user.permissions // Не используется
 
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)

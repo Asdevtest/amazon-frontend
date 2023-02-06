@@ -332,9 +332,6 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 export const GroupingBoxesForm = observer(
   ({destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes}) => {
     const {classes: classNames} = useClassNames()
-
-    console.log('selectedBoxes', selectedBoxes)
-
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
