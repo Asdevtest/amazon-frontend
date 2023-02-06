@@ -2,6 +2,8 @@ import {objectFlip} from '../utils/object-utils'
 
 // import {objectFlip} from '@utils/object'
 
+console.log('objectFlip', objectFlip)
+
 export const UserRole = {
   ADMIN: 'ADMIN',
   CLIENT: 'CLIENT',

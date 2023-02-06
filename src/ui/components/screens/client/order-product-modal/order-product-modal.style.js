@@ -43,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalButton: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
+    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
     fontSize: '16px',
     fontWeight: 500,
@@ -326,7 +326,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '30px',
   },
   buyNowBtn: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
+    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
   },
   cancelBtn: {

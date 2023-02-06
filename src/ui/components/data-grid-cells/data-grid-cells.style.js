@@ -194,7 +194,7 @@ export const styles = theme => ({
     color: '#FFC632',
   },
   barcodeChip: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
@@ -202,7 +202,7 @@ export const styles = theme => ({
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
-      backgroundColor: 'rgb(0, 123, 255)',
+      backgroundColor: theme.palette.primary.main,
     },
   },
   barcodeChipIcon: {
@@ -281,14 +281,14 @@ export const styles = theme => ({
     fontSize: '14px',
   },
   orderChip: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
   },
   orderChipHover: {
     '&:hover, &:focus': {
-      backgroundColor: 'rgb(0, 123, 255)',
+      backgroundColor: theme.palette.primary.main,
     },
   },
   orderChipIcon: {

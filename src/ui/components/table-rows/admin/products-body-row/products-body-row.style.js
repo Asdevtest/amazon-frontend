@@ -116,14 +116,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#FFC632',
   },
   barcodeChip: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
-      backgroundColor: 'rgb(0, 123, 255)',
+      backgroundColor: theme.palette.primary.main,
     },
   },
   barcodeChipIcon: {

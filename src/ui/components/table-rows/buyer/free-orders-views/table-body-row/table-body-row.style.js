@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   count: {
     fontSize: '13px',
     lineHeight: '15px',
@@ -26,14 +26,14 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '14px',
   },
   orderChip: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
   },
   orderChipHover: {
     '&:hover, &:focus': {
-      backgroundColor: 'rgb(0, 123, 255)',
+      backgroundColor: theme.palette.primary.main,
     },
   },
   orderChipIcon: {
