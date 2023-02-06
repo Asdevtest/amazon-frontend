@@ -33,12 +33,6 @@ export const roundHalf = num => {
   }
 }
 
-export const calcProductPrice = product =>
-  ((parseInt(product.createdBy?.rate) || 0) +
-    (parseInt(product.buyer?.rate) || 0) +
-    (parseInt(product.supervisorRate) || 0)) *
-  2
-
 export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
     (parseFloat(
@@ -216,11 +210,6 @@ export function updateProductAutoCalculatedFields() {
     this.product.margin = 0
   }
 }
-
-export const calcTotalPriceForOrder = order =>
-  ((parseFloat(order.product.currentSupplier?.price) || 0) +
-    (parseFloat(order.product.currentSupplier?.delivery) || 0)) *
-  (parseInt(order.amount) || 0)
 
 export const calcTotalPriceForBatch = batch =>
   batch.boxes.reduce(

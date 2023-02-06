@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   button: {
     color: 'white',
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     textTransform: 'none',
   },
 

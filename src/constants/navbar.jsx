@@ -1,3 +1,5 @@
+import {UserRole} from '@constants/user-roles'
+
 import {isHaveMasterUser} from '@utils/checks'
 import {t} from '@utils/translations'
 
@@ -28,7 +30,6 @@ import {
   UsersPermissionsIcon,
 } from './svg-icons'
 import {TranslationKey} from './translations/translation-key'
-import {UserRole} from './user-roles'
 
 export const navbarConfig = () => ({
   [UserRole.CLIENT]: [

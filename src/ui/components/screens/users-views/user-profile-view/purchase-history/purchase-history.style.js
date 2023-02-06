@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottom: '1px solid rgb(217, 222, 229)',
   },
   tabsIndicator: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
   },
   tableHeadTypography: {
     color: theme.palette.text.general,
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
   selected: {
-    color: 'rgb(0, 123, 255)',
+    color: theme.palette.primary.main,
     textTransform: 'none',
   },
 }))

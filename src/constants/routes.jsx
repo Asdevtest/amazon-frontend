@@ -1,5 +1,7 @@
 import {lazy} from 'react'
 
+import {UserRole} from '@constants/user-roles'
+
 import {permissionsKeys} from './permissions'
 // import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
 // import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
@@ -104,7 +106,6 @@ import {permissionsKeys} from './permissions'
 // import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
 // import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import {TranslationKey} from './translations/translation-key'
-import {UserRole} from './user-roles'
 
 const AdminAwaitingBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({

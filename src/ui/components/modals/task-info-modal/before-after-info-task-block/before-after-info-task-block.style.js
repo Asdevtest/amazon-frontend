@@ -19,14 +19,14 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '5px',
   },
   orderChip: {
-    backgroundColor: 'rgb(0, 123, 255)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
     borderRadius: '14px',
     marginLeft: '10px',
   },
   select: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
   },
 
