@@ -16,9 +16,6 @@ import {SettingsModel} from '@models/settings-model'
 export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
 
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
-export const formatDateForBackend = dateString => format(parseISO(dateString), 'yyyy-MM-dd')
-
-export const formatDateForBackendWithoutParseISO = dateString => format(dateString, 'yyyy-MM-dd')
 
 export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd-MM-yyyy HH:mm')
 
@@ -36,7 +33,6 @@ export const formatDateTimeHourAndMinutes = dateString => (dateString ? format(p
 export const formatShortDateTime = dateString => (dateString ? format(parseISO(dateString), 'dd-MM-yyyy HH:mm') : '')
 export const formatDateWithoutTime = dateString => (dateString ? format(parseISO(dateString), 'dd-MM-yyyy') : '')
 
-export const formatDateTimeWithParseISO = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
 
 export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
@@ -60,11 +56,6 @@ export const formatDateMonthYear = date =>
   format(parseISO(isValid(date) ? formatISO(date, {representation: 'date'}) : date), 'MMM yyyy', {
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
   })
-
-// export const formatDateMonthYear = date =>
-//   format(parseISO(formatISO(date, {representation: 'date'})), 'MMM yyyy', {
-//     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
-//   })
 
 export const formatDateMonthYearWithoutFormatISO = date =>
   format(parseISO(date), 'MMM yyyy', {
