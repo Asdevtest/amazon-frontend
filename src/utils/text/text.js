@@ -46,6 +46,8 @@ export const checkAndMakeAbsoluteUrl = urlStr => (checkIsAbsoluteUrl(urlStr) ? u
 export const clearSpecialCharacters = value =>
   typeof value === 'string' ? value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '') : value
 
+export const clearEverythingExceptNumbers = value => (typeof value === 'string' ? value.replace(/\D/gi, '') : value)
+
 // export const shortenLongString = (value, lengthBreakpoint) => // Не используется
 //   value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
 

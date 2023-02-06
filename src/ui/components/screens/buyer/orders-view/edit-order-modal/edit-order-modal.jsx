@@ -71,6 +71,7 @@ import {
   toFixed,
   getShortenStringIfLongerThanCount,
   clearSpecialCharacters,
+  clearEverythingExceptNumbers,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -362,29 +363,30 @@ export const EditOrderModal = observer(
 
         return
       } else if (filedName === 'amount') {
-        newOrderFieldsState[filedName] = clearSpecialCharacters(e.target.value)
+        newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
 
         newOrderFieldsState.priceInYuan =
           (orderFields?.orderSupplier.priceInYuan +
             orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
-            e.target.value || ''
+            clearEverythingExceptNumbers(e.target.value) || ''
 
         newOrderFieldsState.totalPriceChanged =
           ((orderFields?.orderSupplier.priceInYuan +
             orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
-            e.target.value) /
+            clearEverythingExceptNumbers(e.target.value)) /
             orderFields?.yuanToDollarRate || ''
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
-          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) * e.target.value || ''
+          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) *
+            clearEverythingExceptNumbers(e.target.value) || ''
 
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
             orderFields.yuanToDollarRate) *
-            e.target.value || ''
+            clearEverythingExceptNumbers(e.target.value) || ''
       } else {
-        newOrderFieldsState[filedName] = e.target.value
+        newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
       }
 
       if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
