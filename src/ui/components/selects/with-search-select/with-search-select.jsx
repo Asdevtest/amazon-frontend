@@ -37,6 +37,7 @@ const WithSearchSelectRaw = observer(
     onClickSetDestinationFavourite,
     checkbox,
     currentShops,
+    notCloseOneClick,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -172,8 +173,9 @@ const WithSearchSelectRaw = observer(
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)
-                          // Снять коммент если нужно будет закрывать после выбора одного пункта
-                          // handleClose()
+                          if (!notCloseOneClick) {
+                            handleClose()
+                          }
                         }}
                       >
                         <div

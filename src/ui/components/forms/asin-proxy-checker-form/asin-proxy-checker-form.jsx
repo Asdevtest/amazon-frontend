@@ -213,13 +213,7 @@ export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button
-            // disabled={submitIsClicked}
-            color="primary"
-            variant="contained"
-            className={classNames.buttonCancel}
-            onClick={onClose}
-          >
+          <Button variant="text" className={classNames.buttonCancel} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

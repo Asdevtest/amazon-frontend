@@ -201,6 +201,7 @@ export class ClientInventoryViewRaw extends Component {
                 <div className={classNames.shopsFiltersWrapper}>
                   <WithSearchSelect
                     checkbox
+                    notCloseOneClick
                     currentShops={currentShops}
                     selectedItemName={
                       (!withProduct && !withoutProduct && !currentShops?.length && t(TranslationKey['All Products'])) ||
