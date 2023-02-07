@@ -182,7 +182,10 @@ export const SelectFields = ({
                 label={t(TranslationKey['Planned cost in yuan']) + ', ¥'}
                 inputClasses={classNames.input}
                 labelClasses={classNames.blueLabel}
-                value={calcExchangeDollarsInYuansPrice(order.totalPrice, order.yuanToDollarRate)}
+                value={toFixedWithYuanSign(
+                  calcExchangeDollarsInYuansPrice(order.totalPrice, order.yuanToDollarRate),
+                  2,
+                )}
               />
             </div>
             <div className={classNames.yuanToDollarRate}>
