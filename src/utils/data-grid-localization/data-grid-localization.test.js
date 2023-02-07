@@ -1,6 +1,6 @@
 import {getLocalizationByLanguageTag} from './data-grid-localization'
 
-describe('Test getLocalizationByLanguageTag(str, max)', () => {
+describe('Test getLocalizationByLanguageTag()', () => {
   test('Unvalid props', () => {
     expect(getLocalizationByLanguageTag()).not.toBeNull()
   })
