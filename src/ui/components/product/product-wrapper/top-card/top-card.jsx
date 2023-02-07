@@ -290,6 +290,21 @@ export const TopCard = observer(
                       {showActionBtns ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button
+                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('view')}
+                          >
+                            <VisibilityOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Open the parameters supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
+
+                      {showActionBtns ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
                             tooltipInfoContent={
                               isSupplierAcceptRevokeActive
                                 ? t(TranslationKey['Remove the current supplier'])

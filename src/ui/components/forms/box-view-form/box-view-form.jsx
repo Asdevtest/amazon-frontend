@@ -88,17 +88,6 @@ export const BoxViewForm = observer(
       onChangeField('tmpTrackNumberFile')({target: {value}})
     }
 
-    // const dimensionsConfig = {
-    //   PRIMARY: 'PRIMARY',
-    //   SHIPPING: 'SHIPPING',
-    // }
-
-    // const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-    //   (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-    //     ? dimensionsConfig.SHIPPING
-    //     : dimensionsConfig.PRIMARY,
-    // )
-
     const finalWeightForBox = calcFinalWeightForBoxFunction
       ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
       : calcFinalWeightForBox(box, volumeWeightCoefficient)
@@ -355,103 +344,6 @@ export const BoxViewForm = observer(
                   ) : null}
                 </div>
               </div>
-
-              {/* <div className={classNames.sizesWrapper}>
-                <div className={classNames.demensionsWrapper}>
-                  <div className={classNames.sizesSubWrapper}>
-                    <div className={classNames.toggleSizesWrapper}>
-                      <div className={classNames.toggleItemWrapper}>
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
-                          <span className={classNames.indicator}></span>
-                        ) : null}
-
-                        <Typography
-                          className={cx(classNames.sizesLabel, {
-                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
-                          })}
-                          onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
-                        >
-                          {t(TranslationKey['Primary dimensions'])}
-                        </Typography>
-                      </div>
-                      <div className={classNames.toggleItemWrapper}>
-                        {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
-                          <span className={classNames.indicator}></span>
-                        ) : null}
-
-                        <Typography
-                          className={cx(classNames.sizesLabel, {
-                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
-                          })}
-                          onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
-                        >
-                          {t(TranslationKey['Shipping dimensions'])}
-                        </Typography>
-                      </div>
-                    </div>
-
-                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                        {'In'}
-                      </ToggleBtn>
-                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                        {'Cm'}
-                      </ToggleBtn>
-                    </ToggleBtnGroup>
-                  </div>
-                  <Typography>
-                    {t(TranslationKey.Length) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                      : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                  </Typography>
-                  <Typography>
-                    {t(TranslationKey.Width) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                      : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                  </Typography>
-                  <Typography>
-                    {t(TranslationKey.Height) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                      : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                  </Typography>
-
-                  <Typography>
-                    {t(TranslationKey.Weight) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
-                      : toFixedWithKg(box.deliveryMass, 2)}
-                  </Typography>
-                  <Typography>
-                    {t(TranslationKey['Volume weight']) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)
-                      : toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient, true), 2)}
-                  </Typography>
-                  <Typography
-                    className={cx({
-                      [classNames.alertText]:
-                        (toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? calcFinalWeightForBox(box, volumeWeightCoefficient)
-                          : calcFinalWeightForBox(box, volumeWeightCoefficient, true)) < 12,
-                    })}
-                  >
-                    {t(TranslationKey['Final weight']) + ': '}
-                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                      ? toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)
-                      : toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient, true), 2)}
-                  </Typography>
-
-                  {(toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    ? calcFinalWeightForBox(box, volumeWeightCoefficient)
-                    : calcFinalWeightForBox(box, volumeWeightCoefficient, true)) < 12 ? (
-                    // eslint-disable-next-line react/jsx-indent
-                    <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-                  ) : null}
-                </div>
-              </div> */}
             </div>
 
             <div>

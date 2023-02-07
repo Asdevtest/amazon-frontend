@@ -93,7 +93,7 @@ export const OrderContent = ({
         return
       }
 
-      newFormFields[fieldName] = parseInt(event.target.value)
+      newFormFields[fieldName] = event.target.value ? parseInt(event.target.value) : ''
     } else if ('barCode' === fieldName) {
       newFormFields.product[fieldName] = event
     } else if ('tmpBarCode' === fieldName) {
@@ -129,7 +129,8 @@ export const OrderContent = ({
 
   const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
-  const disabledSaveSubmit = !isValid(parseISO(formFields.deadline)) && isPast(formFields.deadline)
+  const disabledSaveSubmit =
+    (!isValid(parseISO(formFields.deadline)) && isPast(formFields.deadline)) || !formFields.amount
 
   return (
     <Paper>

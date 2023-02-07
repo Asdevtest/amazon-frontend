@@ -100,4 +100,12 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
+
+  centerSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    overflow: 'auto',
+    maxHeight: 600,
+  },
 }))

@@ -532,7 +532,10 @@ export const EditOrderModal = observer(
                       <img
                         src={'/assets/icons/save-discet.svg'}
                         className={classNames.itemInputIcon}
-                        onClick={() => onSaveOrderItem(order._id, orderFields.item)}
+                        onClick={() => {
+                          onSaveOrderItem(order._id, orderFields.item)
+                          order.item = orderFields.item
+                        }}
                       />
                     ) : null}
                   </InputAdornment>

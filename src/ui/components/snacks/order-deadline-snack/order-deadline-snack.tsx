@@ -53,20 +53,21 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
 
           <div className={classNames.centerWrapper}>
             <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+            <div className={classNames.centerSubWrapper}>
+              {noticeItem.sort(sortObjectsArrayByFiledDateWithParseISOAsc('deadline')).map((el: any, index: number) => (
+                <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
+                  <div className={classNames.titleWrapper}>
+                    <Typography className={classNames.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
+                  </div>
 
-            {noticeItem.sort(sortObjectsArrayByFiledDateWithParseISOAsc('deadline')).map((el: any, index: number) => (
-              <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
-                <div className={classNames.titleWrapper}>
-                  <Typography className={classNames.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
+                  <Typography className={classNames.messageText}>{`${t(
+                    TranslationKey['The redemption deadline expires in'],
+                  )} ${secondsToHours(getDistanceBetweenDatesInSeconds(el.deadline))} ${t(
+                    TranslationKey.hour,
+                  )}`}</Typography>
                 </div>
-
-                <Typography className={classNames.messageText}>{`${t(
-                  TranslationKey['The redemption deadline expires in'],
-                )} ${secondsToHours(getDistanceBetweenDatesInSeconds(el.deadline))} ${t(
-                  TranslationKey.hour,
-                )}`}</Typography>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           <div className={classNames.rightSiteWrapper}>
