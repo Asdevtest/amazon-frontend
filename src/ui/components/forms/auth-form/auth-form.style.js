@@ -39,6 +39,7 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
+    color: '#fff',
   },
 
   forgotPassword: {
