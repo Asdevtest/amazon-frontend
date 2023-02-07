@@ -6,13 +6,3 @@ export const filterEmptyOrders = boxes =>
     ...box,
     items: box.items.filter(order => order.amount !== 0),
   }))
-
-export const resetDataGridFilter = {
-  items: [
-    {
-      columnField: '',
-      operatorValue: '',
-      value: [],
-    },
-  ],
-}
