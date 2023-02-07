@@ -820,7 +820,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
             <Button
               disableElevation
               disabled={isDraft}
-              color="primary"
               variant={boxesMy?.storekeeper?._id && 'text'}
               className={classNames.storekeeperBtn}
               onClick={e => {

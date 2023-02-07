@@ -89,6 +89,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+    color: theme.palette.primary.main,
 
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',

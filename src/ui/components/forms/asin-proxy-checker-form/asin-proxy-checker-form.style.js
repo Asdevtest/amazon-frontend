@@ -52,9 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '8px 36px',
     backgroundColor: theme.palette.background.general,
     color: theme.palette.text.general,
-    '&:hover': {
-      backgroundColor: 'rgba(231, 231, 231, 0.801)',
-    },
   },
 
   buttonsWrapper: {

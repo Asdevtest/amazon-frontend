@@ -89,6 +89,7 @@ export class ClientReadyBoxesViewModel {
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
+      this.selectedBoxes = []
     })
   }
 
@@ -131,13 +132,27 @@ export class ClientReadyBoxesViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+      this.selectedBoxes = []
     })
   }
 
+  // curPage = 0
+  // rowsPerPage = 15
+
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedBoxes = model
-    })
+    if (model.length === this.boxesMy.length) {
+      runInAction(() => {
+        this.selectedBoxes = model.slice(
+          this.curPage * this.rowsPerPage,
+          this.curPage * this.rowsPerPage + this.rowsPerPage,
+        )
+      })
+    } else {
+      runInAction(() => {
+        this.selectedBoxes = model
+      })
+    }
+    // console.log('this.curPage', this.curPage * this.rowsPerPage)
   }
 
   setRequestStatus(requestStatus) {
@@ -155,6 +170,7 @@ export class ClientReadyBoxesViewModel {
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
+      this.selectedBoxes = []
     })
   }
 
@@ -314,6 +330,7 @@ export class ClientReadyBoxesViewModel {
   onChangeCurPage = e => {
     runInAction(() => {
       this.curPage = e
+      this.selectedBoxes = []
     })
   }
 

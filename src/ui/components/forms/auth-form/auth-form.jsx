@@ -93,7 +93,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           </div>
           <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
         </div>
-        <Button type="submit" color="primary" variant="contained" className={classNames.loginBtn}>
+        <Button type="submit" variant="contained" className={classNames.loginBtn}>
           {t(TranslationKey.Login)}
         </Button>
       </form>

@@ -37,6 +37,7 @@ const WithSearchSelectRaw = observer(
     onClickSetDestinationFavourite,
     checkbox,
     currentShops,
+    notCloseOneClick,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -172,7 +173,9 @@ const WithSearchSelectRaw = observer(
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)
-                          handleClose()
+                          if (!notCloseOneClick) {
+                            handleClose()
+                          }
                         }}
                       >
                         <div
@@ -183,7 +186,6 @@ const WithSearchSelectRaw = observer(
                           {searchFields?.map((fieldName, index) => (
                             <>
                               {checkbox && (
-                                // checked={curShops.some(item => item._id === shop._id)}
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
                               <Tooltip key={index} followCursor title={el[fieldName]}>

@@ -35,7 +35,7 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
 } from '@utils/checks'
-import {toFixed} from '@utils/text'
+import {clearEverythingExceptNumbers, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-view-and-edit-card.style'
@@ -112,10 +112,12 @@ export const IdeaViewAndEditCard = observer(
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
       if (
-        ['price', 'quantity', 'width', 'height', 'length'].includes(fieldName) &&
+        ['price', 'width', 'height', 'length'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
       ) {
         return
+      } else if (fieldName === 'quantity') {
+        newFormFields[fieldName] = clearEverythingExceptNumbers(event.target.value)
       } else {
         newFormFields[fieldName] = event.target.value
       }

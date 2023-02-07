@@ -159,12 +159,6 @@ export const SelectFields = ({
                       Number(e.target.value) < orderFields.priceInYuan
                     ) {
                       setOrderField('priceBatchDeliveryInYuan')(e)
-
-                      // setOrderField('deliveryCostToTheWarehouse')({
-                      //   target: {
-                      //     value: Number(e.target.value) / orderFields.yuanToDollarRate,
-                      //   },
-                      // })
                     }
                   }}
                 />
