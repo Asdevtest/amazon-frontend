@@ -16,7 +16,10 @@ import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {roundHalf} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {
+  checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
+} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -293,27 +296,51 @@ export const AddOrEditLogisticTariffForm = observer(
               <div className={classNames.blockItem}>
                 <Field
                   label={`US West Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.west.rate}
-                  onChange={onChangeField('rate', 'west')}
+                  onChange={e => {
+                    if (
+                      checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+                      Number(e.target.value) < 10000
+                    ) {
+                      onChangeField('rate', 'west')(e)
+                    }
+                  }}
                 />
               </div>
 
               <div className={classNames.blockItem}>
                 <Field
                   label={`US Central ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.central.rate}
-                  onChange={onChangeField('rate', 'central')}
+                  onChange={e => {
+                    if (
+                      checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+                      Number(e.target.value) < 10000
+                    ) {
+                      onChangeField('rate', 'central')(e)
+                    }
+                  }}
                 />
               </div>
 
               <div className={classNames.blockItem}>
                 <Field
                   label={`US East Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.east.rate}
-                  onChange={onChangeField('rate', 'east')}
+                  onChange={e => {
+                    if (
+                      checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+                      Number(e.target.value) < 10000
+                    ) {
+                      onChangeField('rate', 'east')(e)
+                    }
+                  }}
                 />
               </div>
             </div>
