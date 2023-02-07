@@ -219,7 +219,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                   }}
-                  isRowSelectable={params => params.row.isDraft === false}
+                  // isRowSelectable={params => params.row.isDraft === false}
                   getRowClassName={getRowClassName}
                   selectionModel={selectedBoxes}
                   sortModel={sortModel}
@@ -236,13 +236,11 @@ export class ClientReadyBoxesViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onFilterModelChange={onChangeFilterModel}
                   onStateChange={setDataGridState}
                   onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
                 />
