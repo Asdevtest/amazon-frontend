@@ -1,7 +1,3 @@
-import {
-  BatchWeightCalculationMethod,
-  BatchWeightCalculationMethodByKey,
-} from '@constants/batch-weight-calculations-method'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {toFixed} from '@utils/text'
@@ -49,22 +45,24 @@ export const calcOrderTotalPriceInYuann = (supplier, goodsAmount) =>
   (parseInt(goodsAmount) || 0)
 
 export const calcExchangePrice = (price, rate) =>
-  toFixed(Math.round(((parseFloat(price) || 0) / (parseFloat(rate) || 0)) * 100) / 100, 2)
+  toFixed(Math.round(((parseFloat(price) || 0) / (parseFloat(rate) || 1)) * 100) / 100, 2)
 
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
-  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 0) * 100) / 100, 2)
+  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 1) * 100) / 100, 2)
 
-export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
+export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 1)
 
-export const calcVolumeWeightForBox = (box, coefficient, isShipping) => {
-  if (isShipping) {
-    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight * box.amount) / coefficient) || 0
-  }
+export const calcVolumeWeightForBox = (box, coefficient) => {
+  // if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
+  //   return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
+  // } else {
+  //   return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
+  // }
 
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
-    return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
+    return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {
-    return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
+    return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
   }
 }
 
@@ -81,83 +79,134 @@ export const getTariffRateForBoxOrOrder = box => {
   return box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
 }
 
-export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
+export const calcFinalWeightForBox = (box, coefficient) =>
+  // Math.max(
+  //   parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
+  //   parseFloat(
+  //     isShipping
+  //       ? box.deliveryMass * box.amount
+  //       : box.weighGrossKgWarehouse
+  //       ? box.weighGrossKgWarehouse
+  //       : box.weighGrossKgSupplier,
+  //   ) || 0,
+  // )
+
   Math.max(
-    parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
-    parseFloat(
-      isShipping
-        ? box.deliveryMass * box.amount
-        : box.weighGrossKgWarehouse
-        ? box.weighGrossKgWarehouse
-        : box.weighGrossKgSupplier,
-    ) || 0,
+    parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
+    parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
   )
 
-export const getBatchWeightCalculationMethodForBatch = batch => {
-  switch (batch.calculationMethod) {
-    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
-      return batch.boxes.reduce(
-        (prev, box) => (prev = prev + calcFinalWeightForBox(box, batch.volumeWeightDivide) * box.amount),
-        0,
-      )
-    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
-      return calcFinalWeightForBatchByMoreTotalWeight(batch.boxes, batch.volumeWeightDivide)
-    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
-      return batch.boxes.reduce((prev, box) => (prev = prev + box.weighGrossKgWarehouse * box.amount), 0)
-    case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT]:
-      return batch.boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide, true)), 0)
+// export const getBatchWeightCalculationMethodForBatch = batch => {
+//   if (!batch) {
+//     return null
+//   }
+
+//   switch (batch.calculationMethod) {
+//     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT]:
+//       return batch.boxes.reduce(
+//         (prev, box) => (prev = prev + calcFinalWeightForBox(box, batch.volumeWeightDivide) * box.amount),
+//         0,
+//       )
+//     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]:
+//       return calcFinalWeightForBatchByMoreTotalWeight(batch.boxes, batch.volumeWeightDivide)
+//     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_ACTUAL_WEIGHT]:
+//       return batch.boxes.reduce((prev, box) => (prev = prev + box.weighGrossKgWarehouse * box.amount), 0)
+//     case BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_VOLUME_WEIGHT]:
+//       return batch.boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide, true)), 0)
+//   }
+// }
+
+export const calcActualBatchWeight = boxes => {
+  if (!boxes) {
+    return null
   }
+
+  return (
+    parseFloat(
+      boxes?.reduce(
+        (ac, cur) =>
+          (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
+        0,
+      ),
+    ) || 0
+  )
 }
 
-export const calcActualBatchWeight = boxes =>
-  parseFloat(
-    boxes?.reduce(
-      (ac, cur) =>
-        (ac += cur.weighGrossKgWarehouse ? cur.weighGrossKgWarehouse * cur.amount : cur.weighGrossKgSupplier),
-      0,
-    ),
-  ) || 0
-
-export const calcVolumeBatchWeight = (boxes, coefficient, isShipping) =>
-  parseFloat(boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient, isShipping) * cur.amount), 0)) ||
-  0
-
-export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient, isShipping) =>
-  Math.max(calcVolumeBatchWeight(boxes, coefficient, isShipping), calcActualBatchWeight(boxes))
-
-export const calcFinalWeightForBoxByMoreActualWeight = box =>
-  parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)
-
-export const calcFinalWeightForBoxWithoutAmount = (box, coefficient, isShipping) =>
-  Math.max(
-    parseFloat(calcVolumeWeightForBoxWithoutAmount(box, coefficient, isShipping)) || 0,
-    parseFloat(
-      isShipping ? box.deliveryMass : box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier,
-    ) || 0,
-  )
-
-export const checkActualBatchWeightGreaterVolumeBatchWeight = (boxes, coefficient, isShipping) =>
-  calcActualBatchWeight(boxes) > calcVolumeBatchWeight(boxes, coefficient, isShipping)
-
-export const calcVolumeWeightForBoxWithoutAmount = (box, coefficient, isShipping) => {
-  if (isShipping) {
-    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight) / coefficient) || 0
+export const calcVolumeBatchWeight = (boxes, coefficient) => {
+  if (!boxes) {
+    return null
   }
+
+  return parseFloat(boxes.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, coefficient) * cur.amount), 0)) || 0
+}
+
+export const calcFinalWeightForBatchByMoreTotalWeight = (boxes, coefficient) => {
+  if (!boxes) {
+    return null
+  }
+
+  return Math.max(calcVolumeBatchWeight(boxes, coefficient), calcActualBatchWeight(boxes))
+}
+
+export const calcFinalWeightForBoxByMoreActualWeight = box => {
+  if (!box) {
+    return null
+  }
+
+  return parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier)
+}
+
+export const calcFinalWeightForBoxWithoutAmount = (box, coefficient) => {
+  if (!box) {
+    return null
+  }
+  return Math.max(
+    parseFloat(calcVolumeWeightForBoxWithoutAmount(box, coefficient)) || 0,
+    parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
+  )
+}
+
+export const checkActualBatchWeightGreaterVolumeBatchWeight = (boxes, coefficient) => {
+  if (!boxes) {
+    return null
+  }
+  return calcActualBatchWeight(boxes) > calcVolumeBatchWeight(boxes, coefficient)
+}
+
+export const calcVolumeWeightForBoxWithoutAmount = (box, coefficient) => {
+  if (!box) {
+    return null
+  }
+
+  // if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
+  //   return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
+  // } else {
+  //   return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
+  // }
 
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
-    return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
+    return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {
-    return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
+    return (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient || 0
   }
 }
 
-export const calcTotalFbaForProduct = product =>
-  (parseFloat(product.fbafee) || 0) + (parseFloat(product.reffee) || 0) /* (parseFloat(product.amazon) || 0) * 0.15*/
+export const calcTotalFbaForProduct = product => {
+  if (!product) {
+    return null
+  }
+  return (
+    (parseFloat(product.fbafee) || 0) + (parseFloat(product.reffee) || 0)
+  ) /* (parseFloat(product.amazon) || 0) * 0.15*/
+}
 
-export const calcMaxDeliveryForProduct = product =>
-  product.express ? (product.weight || 0) * 7 : (product.weight || 0) * 5
-// (product.weight || 0) * (product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount)
-
+export const calcMaxDeliveryForProduct = product => {
+  if (!product) {
+    return null
+  }
+  return product.express ? (product.weight || 0) * 7 : (product.weight || 0) * 5
+  // (product.weight || 0) * (product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount)
+}
 export function updateProductAutoCalculatedFields() {
   const strBsr = this.product.bsr + ''
   this.product.bsr = parseFloat(strBsr.replace(',', '')) || 0
@@ -211,8 +260,12 @@ export function updateProductAutoCalculatedFields() {
   }
 }
 
-export const calcTotalPriceForBatch = batch =>
-  batch.boxes.reduce(
+export const calcTotalPriceForBatch = batch => {
+  if (!batch) {
+    return null
+  }
+
+  return batch.boxes.reduce(
     (acc, cur) =>
       cur.amount > 1
         ? acc +
@@ -236,11 +289,20 @@ export const calcTotalPriceForBatch = batch =>
           ),
     0,
   )
+}
 
-export const calcSupplierPriceForUnit = supplier =>
-  supplier.price + roundSafely(supplier.batchDeliveryCostInDollar / supplier.amount)
+export const calcSupplierPriceForUnit = supplier => {
+  if (!supplier) {
+    return null
+  }
+  return (supplier.price || 0) + roundSafely((supplier.batchDeliveryCostInDollar || 0) / (supplier.amount || 1))
+}
 
 export const calcPriceForBox = box => {
+  if (!box) {
+    return null
+  }
+
   const sumsOfItems = box.items?.reduce(
     (acc, cur) => acc + calcSupplierPriceForUnit(cur.order.orderSupplier) * cur.amount,
     0,
@@ -256,6 +318,10 @@ export const calculateDeliveryCostPerPcs = ({
   boxFinalWeight,
   box,
 }) => {
+  if (!box) {
+    return null
+  }
+
   if (box.items.length === 1 && itemSupplierBoxWeightGrossKg) {
     return deliveryCost / itemAmount / box.amount
   } else if (box.items.length > 1 && itemSupplierBoxWeightGrossKg) {

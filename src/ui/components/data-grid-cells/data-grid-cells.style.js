@@ -18,6 +18,12 @@ export const styles = theme => ({
     whiteSpace: 'normal',
   },
 
+  manyItemsMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
   checkboxWrapper: {
     width: '100%',
     display: 'flex',

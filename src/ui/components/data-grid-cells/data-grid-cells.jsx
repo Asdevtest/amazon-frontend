@@ -1751,6 +1751,8 @@ export const SuperboxQtyCell = React.memo(
 
 export const OrderManyItemsCell = React.memo(
   withStyles(({classes: classNames, box, error, withoutSku}) => {
+    const isEqualsItems = box.items.every(el => el.product._id === box.items[0].product._id)
+
     const renderProductInfo = () => (
       <div className={classNames.manyItemsOrderWrapper}>
         {box.items.map((item, itemIndex) => (
@@ -1796,23 +1798,29 @@ export const OrderManyItemsCell = React.memo(
     )
 
     return (
-      <Tooltip title={renderProductInfo()}>
-        <>
-          <div className={classNames.manyItemsImagesWrapper}>
-            {box.items.map((product, productIndex) => (
-              <div key={productIndex} className={classNames.manyItemsImgWrapper}>
-                <img
-                  alt=""
-                  className={classNames.ordersImg}
-                  src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-                />
-                <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-              </div>
-            ))}
+      <div className={classNames.manyItemsMainWrapper}>
+        <Tooltip title={renderProductInfo()}>
+          <div>
+            <div className={classNames.manyItemsImagesWrapper}>
+              {box.items.map((product, productIndex) => (
+                <div key={productIndex} className={classNames.manyItemsImgWrapper}>
+                  <img
+                    alt=""
+                    className={classNames.ordersImg}
+                    src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+                  />
+                  <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+                </div>
+              ))}
+            </div>
+            {error && <span className={classNames.OrderCellError}>{error}</span>}
           </div>
-          {error && <span className={classNames.OrderCellError}>{error}</span>}
-        </>
-      </Tooltip>
+        </Tooltip>
+
+        {isEqualsItems ? (
+          <OrderCell box={box} product={box.items[0].product} superbox={box?.amount > 1 && box?.amount} />
+        ) : null}
+      </div>
     )
   }, styles),
 )
