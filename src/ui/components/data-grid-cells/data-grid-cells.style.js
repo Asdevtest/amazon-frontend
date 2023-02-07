@@ -1426,6 +1426,7 @@ export const styles = theme => ({
     height: 'auto',
     width: '100%',
     whiteSpace: 'normal',
+    color: theme.palette.text.general,
   },
   destination: {
     display: 'flex',
