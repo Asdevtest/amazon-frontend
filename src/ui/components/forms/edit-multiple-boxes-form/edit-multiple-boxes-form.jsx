@@ -233,7 +233,7 @@ const Box = ({
                 inputComponent={
                   <Button
                     variant={box.logicsTariffId && 'text'}
-                    className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                    className={cx(classNames.storekeeperBtnDefault, {[classNames.storekeeperBtn]: !box.logicsTariffId})}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {box.logicsTariffId
@@ -715,7 +715,9 @@ export const EditMultipleBoxesForm = observer(
                   inputComponent={
                     <Button
                       variant={sharedFields.logicsTariffId && 'text'}
-                      className={cx({[classNames.storekeeperBtn]: !sharedFields.logicsTariffId})}
+                      className={cx({
+                        [classNames.storekeeperBtn]: !sharedFields.logicsTariffId,
+                      })}
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId

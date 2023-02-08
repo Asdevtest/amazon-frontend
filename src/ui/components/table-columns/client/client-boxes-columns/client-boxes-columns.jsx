@@ -24,14 +24,6 @@ import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientBoxesViewColumns = (handlers, storekeepersData, destinations, destinationsFavourites, shopsData) => [
-  // {
-  //   field: 'isDraft',
-  //   headerName: '',
-  //   renderCell: params => (params.value ? 'isDraft' : 'OK'),
-  //   width: 60,
-  //   type: 'boolean',
-  // },
-
   {
     field: 'storekeeper',
     headerName: t(TranslationKey.Storekeeper),
@@ -51,17 +43,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     width: 100,
     sortable: false,
   },
-
-  // {
-  //   field: 'store',
-  //   headerName: t(TranslationKey.Store),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Store)}  />,
-
-  //   renderCell: params => <ShopsDataCell shopsData={shopsData} curShop={params.row.originalData} />,
-  //   width: 130,
-  //   sortable: false,
-  //   filterable: false,
-  // },
 
   {
     field: 'humanFriendlyId',
@@ -149,15 +130,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
     renderCell: params =>
-      params.row.originalData ? (
-        // params.row.originalData?.amount > 1 ? (
-        //   <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData?.amount} />
-        // ) : (
-        <MultilineTextCell text={params.value * params.row.originalData?.amount} />
-      ) : (
-        // )
-        ''
-      ),
+      params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
     type: 'number',
     width: 90,
     sortable: false,

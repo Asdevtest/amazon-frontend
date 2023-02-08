@@ -159,6 +159,7 @@ const Box = ({
                         disabled={!isNewBox}
                         variant={box.logicsTariffId && 'text'}
                         className={cx(
+                          classNames.storekeeperBtnDefault,
                           {[classNames.storekeeperBtn]: !box.logicsTariffId},
                           {[classNames.storekeeperDisableBtn]: !isNewBox},
                         )}
