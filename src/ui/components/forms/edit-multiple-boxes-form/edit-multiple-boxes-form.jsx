@@ -4,7 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
-import {Chip, IconButton, Typography} from '@mui/material'
+import {Checkbox, Chip, IconButton, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -13,6 +13,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -25,12 +26,14 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
+import {checkIsStorekeeper} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-multiple-boxes-form.style'
 
 const Box = ({
+  userInfo,
   destinations,
   storekeepers,
   box,
@@ -293,6 +296,24 @@ const Box = ({
                   />
                 }
               />
+
+              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                <Field
+                  oneLine
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                  inputComponent={
+                    <div className={classNames.checkboxWrapper}>
+                      <Checkbox
+                        color="primary"
+                        checked={box.isShippingLabelAttachedByStorekeeper}
+                        onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
+                      />
+                      {/* <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
+                    </div>
+                  }
+                />
+              ) : null}
             </div>
           ) : null}
 
@@ -353,6 +374,7 @@ const Box = ({
 }
 
 const NewBoxes = ({
+  userInfo,
   newBoxes,
   onChangeField,
   destinations,
@@ -404,6 +426,7 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
           <Box
             isNewBox
+            userInfo={userInfo}
             newBoxes={newBoxes}
             destinations={destinations}
             storekeepers={storekeepers}
@@ -423,6 +446,7 @@ const NewBoxes = ({
 
 export const EditMultipleBoxesForm = observer(
   ({
+    userInfo,
     destinations,
     storekeepers,
     onSubmit,
@@ -440,6 +464,7 @@ export const EditMultipleBoxesForm = observer(
       logicsTariffId: null,
       shippingLabel: null,
       fbaShipment: '',
+      isShippingLabelAttachedByStorekeeper: false,
 
       storekeeperId: selectedBoxes[0]?.storekeeper?._id,
       tmpShippingLabel: [],
@@ -448,7 +473,13 @@ export const EditMultipleBoxesForm = observer(
 
     const onChangeSharedFields = (event, field) => {
       const newFormFields = {...sharedFields}
-      newFormFields[field] = event.target.value
+
+      if (field === 'isShippingLabelAttachedByStorekeeper') {
+        newFormFields[field] = event.target.checked
+      } else {
+        newFormFields[field] = event.target.value
+      }
+
       setSharedFields(newFormFields)
     }
 
@@ -505,6 +536,7 @@ export const EditMultipleBoxesForm = observer(
       fbaShipment: false,
       tmpShippingLabel: false,
       tmpBarCode: false,
+      isShippingLabelAttachedByStorekeeper: false,
     })
 
     const onRemoveBox = boxId => {
@@ -523,7 +555,7 @@ export const EditMultipleBoxesForm = observer(
 
       const updatedTargetBox = {
         ...targetBox,
-        [field]: e.target.value,
+        [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
       }
 
       const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
@@ -815,10 +847,40 @@ export const EditMultipleBoxesForm = observer(
                   {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
+
+              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                <div>
+                  <Field
+                    oneLine
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                    inputComponent={
+                      <div className={classNames.checkboxWrapper}>
+                        <Checkbox
+                          color="primary"
+                          checked={sharedFields.isShippingLabelAttachedByStorekeeper}
+                          onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
+                        />
+                        {/* <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
+                      </div>
+                    }
+                  />
+                  <Button
+                    disabled={disabledApplyBtn}
+                    className={cx(classNames.applyButton, {
+                      [classNames.applyButtonClicked]: applyBtnsClicked.isShippingLabelAttachedByStorekeeper,
+                    })}
+                    onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
+                  >
+                    {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
 
           <NewBoxes
+            userInfo={userInfo}
             visibleBoxes={visibleBoxes}
             newBoxes={newBoxes}
             destinations={destinations}

@@ -263,6 +263,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
         >
           <EditMultipleBoxesForm
+            userInfo={userInfo}
             destinations={destinations}
             storekeepers={storekeepersData}
             selectedBoxes={currentData.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}

@@ -2,7 +2,7 @@
 import {css, cx} from '@emotion/css'
 import {Avatar, Typography} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {components} from 'react-select'
@@ -62,6 +62,7 @@ export const AddNewChatByEmailForm = observer(({closeModal, onSubmit, usersData}
           className={classNames.avatarWrapper}
           sx={{width: 20, height: 20}}
         />,
+
         ...props.children,
       ]}
     </components.MultiValueContainer>
@@ -85,9 +86,7 @@ export const AddNewChatByEmailForm = observer(({closeModal, onSubmit, usersData}
             components={{Option, MultiValueContainer}}
             getOptionValue={option => `${option._id}`}
             getOptionLabel={option => `${option.name}`}
-            onChange={newValue => {
-              onChangeField('chosenUsers')(newValue)
-            }}
+            onChange={onChangeField('chosenUsers')}
           />
         }
       />

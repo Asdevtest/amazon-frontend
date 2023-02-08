@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
@@ -26,6 +27,7 @@ import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
+import {SearchResult} from '@components/search-result'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -135,44 +137,16 @@ class MessagesViewRaw extends Component {
                         placeholder={t(TranslationKey['Message Search'])}
                         value={mesSearchValue}
                         onChange={onChangeMesSearchValue}
+                        onKeyPress={e => console.log('e', e)}
                       />
 
                       {messagesFound.length ? (
-                        <div className={classNames.searchResultWrapper}>
-                          <Typography className={classNames.searchResult}>
-                            {t(TranslationKey['Search results']) + ':'}
-                          </Typography>
-
-                          <Typography className={classNames.searchResultNum}>{`${curFoundedMessageIndex + 1} ${t(
-                            TranslationKey['out of'],
-                          )} ${messagesFound.length}`}</Typography>
-
-                          <div className={classNames.dropUpOrDownWrapper}>
-                            <ArrowDropUpIcon
-                              className={cx(classNames.searchIconBtn, {
-                                [classNames.searchDisabledIconBtn]: curFoundedMessageIndex === 0,
-                              })}
-                              onClick={() =>
-                                curFoundedMessageIndex !== 0 && onChangeCurFoundedMessage(curFoundedMessageIndex - 1)
-                              }
-                            />
-
-                            <ArrowDropDownIcon
-                              className={cx(classNames.searchIconBtn, {
-                                [classNames.searchDisabledIconBtn]: curFoundedMessageIndex + 1 === messagesFound.length,
-                              })}
-                              onClick={() =>
-                                curFoundedMessageIndex + 1 !== messagesFound.length &&
-                                onChangeCurFoundedMessage(curFoundedMessageIndex + 1)
-                              }
-                            />
-                          </div>
-
-                          <CloseOutlinedIcon
-                            className={classNames.searchIconBtn}
-                            onClick={() => onChangeMesSearchValue({target: {value: ''}})}
-                          />
-                        </div>
+                        <SearchResult
+                          curFoundedMessageIndex={curFoundedMessageIndex}
+                          messagesFound={messagesFound}
+                          onClose={() => onChangeMesSearchValue({target: {value: ''}})}
+                          onChangeCurFoundedMessage={onChangeCurFoundedMessage}
+                        />
                       ) : (
                         <>
                           {mesSearchValue && (
