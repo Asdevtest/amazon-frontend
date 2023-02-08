@@ -1,7 +1,7 @@
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from './checks'
-import {t} from './translations'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '../checks'
+import {t} from '../translations'
 
 export const translateTooltipSaveBtnMessage = role => {
   if (checkIsResearcher(role)) {
@@ -77,7 +77,6 @@ export const translateTooltipMessageByRole = (label, role) => {
             "Button to set the status, the product card remains in the supervisor's work (can be changed)"
           ],
         )
-
       case t(TranslationKey['Repeat search']):
         return t(TranslationKey['Repeat the search for a supplier'])
     }
