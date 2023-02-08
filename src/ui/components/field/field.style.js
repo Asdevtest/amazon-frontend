@@ -33,7 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '32px',
     // borderRadius: '4px',
     // overflow: 'hidden',
-    border: `1px solid ${theme.palette.input.customBorder}`,
+    border: `1px solid ${theme.palette.input?.customBorder}`,
     // color: theme.palette.text.general,
   },
   errorText: {

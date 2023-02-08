@@ -280,4 +280,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     display: 'flex',
   },
+  storekeeperBtnDefault: {
+    color: theme.palette.text.general,
+  },
 }))

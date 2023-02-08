@@ -207,6 +207,9 @@ export const MergeBoxesModal = ({
       })
     }
   }
+
+  console.log('selectedBoxes', selectedBoxes)
+  console.log('finalBoxData', finalBoxData)
   //
 
   return (
@@ -298,7 +301,9 @@ export const MergeBoxesModal = ({
                   <Button
                     disabled={isDifferentStorekeepers}
                     variant={boxBody.logicsTariffId && 'text'}
-                    className={cx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+                    className={cx(classNames.storekeeperBtnDefault, {
+                      [classNames.storekeeperBtn]: !boxBody.logicsTariffId,
+                    })}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId

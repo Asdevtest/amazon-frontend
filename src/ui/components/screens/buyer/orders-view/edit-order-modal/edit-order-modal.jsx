@@ -305,6 +305,7 @@ export const EditOrderModal = observer(
     }, [order])
 
     const setOrderField = filedName => e => {
+      console.log('filedName', filedName)
       const newOrderFieldsState = {...orderFields}
 
       if (
@@ -386,7 +387,7 @@ export const EditOrderModal = observer(
             orderFields.yuanToDollarRate) *
             clearEverythingExceptNumbers(e.target.value) || ''
       } else {
-        newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
+        newOrderFieldsState[filedName] = e.target.value
       }
 
       if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {

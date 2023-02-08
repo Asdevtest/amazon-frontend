@@ -1,6 +1,6 @@
 module.exports = {
   modulePathIgnorePatterns: ['src/services'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '@constants/(.*)': ['<rootDir>/src/constants/$1'],
 

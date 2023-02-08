@@ -135,9 +135,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   allowedRoleRateContainer: {
     marginBottom: '0 !important',
-    width: '38px',
+    // width: '38px',
     gap: 10,
-    // marginRight: 20,
   },
   roleContainer: {
     width: '270px',
@@ -159,12 +158,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
-  // leftContentWrapper: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   gap: '47px',
-  //   height: 30,
-  // },
+  leftContentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 18,
+    height: 30,
+  },
 
   allowedRoleWrapper: {
     // border: '1px solid #C4C4C4',
@@ -172,7 +171,6 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     height: '40px',
     padding: '0 15px',
     borderRadius: '4px',
@@ -193,7 +191,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #C4C4C4',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     height: '40px',
     padding: '0 15px',
     borderRadius: '4px',
@@ -201,7 +198,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedRole: {
-    width: '139px',
+    width: 250,
 
     color: theme.palette.text.general,
   },
@@ -210,7 +207,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '22px',
+    width: '34px',
     height: '22px',
     fontSize: '18px',
     backgroundColor: '#006CFF',

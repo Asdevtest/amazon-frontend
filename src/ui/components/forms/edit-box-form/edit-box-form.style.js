@@ -327,4 +327,7 @@ export const useClassNames = makeStyles()(theme => ({
   noBarCodeGlued: {
     color: 'red',
   },
+  storekeeperBtnDefault: {
+    color: theme.palette.text.general,
+  },
 }))

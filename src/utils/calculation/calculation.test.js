@@ -802,7 +802,7 @@ describe('Test calcSupplierPriceForUnit(supplier)', () => {
   test('Unvalid props', () => {
     const res = calcSupplierPriceForUnit(unvalidSupplierMock)
 
-    expect(res).toBe(null)
+    expect(res).toBe(0)
     expect(typeof res).toBe('number')
   })
 })

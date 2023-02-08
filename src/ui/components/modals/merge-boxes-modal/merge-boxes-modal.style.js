@@ -152,6 +152,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '32px',
   },
 
+  storekeeperBtnDefault: {
+    color: theme.palette.text.general,
+  },
+
   field: {
     margin: '0',
   },
