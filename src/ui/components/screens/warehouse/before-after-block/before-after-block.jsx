@@ -109,17 +109,6 @@ const Box = observer(
       </div>
     )
 
-    // const dimensionsConfig = {
-    //   PRIMARY: 'PRIMARY',
-    //   SHIPPING: 'SHIPPING',
-    // }
-
-    // const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-    //   (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-    //     ? dimensionsConfig.SHIPPING
-    //     : dimensionsConfig.PRIMARY,
-    // )
-
     const needAccent =
       (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
 
