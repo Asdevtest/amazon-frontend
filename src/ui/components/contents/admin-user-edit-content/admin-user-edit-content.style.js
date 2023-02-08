@@ -161,7 +161,7 @@ export const useClassNames = makeStyles()(theme => ({
   leftContentWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 19,
+    gap: 18,
     height: 30,
   },
 
