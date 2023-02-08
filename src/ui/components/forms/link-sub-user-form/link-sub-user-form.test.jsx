@@ -1,14 +1,15 @@
-// import {render, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import {render, screen} from '@testing-library/react'
 
-// import {LinkSubUserForm} from './link-sub-user-form'
+import {LinkSubUserForm} from './link-sub-user-form'
 
-// const closeModal = jest.fn()
-// const onSubmit = jest.fn()
+const closeModal = () => null
+const onSubmit = () => null
 
-// describe('LinkSubUserForm({closeModal, onSubmit})', () => {
-//   test('Renders LinkSubUserForm', () => {
-//     render(<LinkSubUserForm closeModal={closeModal} onSubmit={onSubmit} />)
+describe('LinkSubUserForm({closeModal, onSubmit})', () => {
+  test('Renders LinkSubUserForm', () => {
+    render(<LinkSubUserForm closeModal={closeModal} onSubmit={onSubmit} />)
 
-//     expect(screen.getAllByText(/Add a sub-user/i)).toBeInTheDocument()
-//   })
-// })
+    expect(screen.getByText('String')).toBeInTheDocument()
+  })
+})
