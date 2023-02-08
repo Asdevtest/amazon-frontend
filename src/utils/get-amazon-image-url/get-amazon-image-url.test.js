@@ -1,27 +1,17 @@
-// import { getAmazonImageUrl } from "./get-amazon-image-url"
+import {getAmazonImageUrl} from './get-amazon-image-url'
 
-// describe('Test getAmazonImageUrl(str, big)', () => {
-//   const validTestValue = [
-//     {str: 10.6,  expect: 10.5},
-//     {enter: 10.8, expect: 11},
-//   ]
+describe('Test getAmazonImageUrl(str, big)', () => {
+  const validTestValue = [
+    {str: 'String', big: true, expect: 'https://images-na.ssl-images-amazon.com/images/I/String._SL1400_.jpg'},
+    {str: 'String', big: false, expect: 'https://images-na.ssl-images-amazon.com/images/I/String._SS64_.jpg'},
+    {str: null, big: false, expect: '/assets/img/no-photo.jpg'},
+  ]
 
-// const unvalidTestValue = [
-//   {enter: '10.6', expect: 10.5},
-//   {enter: '10.8', expect: 11},
-// ]
-
-// validTestValue.forEach(value => {
-//   test('Valid props', () => {
-//     expect(getAmazonImageUrl(value.enter)).toBe(value.expect)
-//     expect(typeof res).toBe('number')
-//   })
-// })
-
-// unvalidTestValue.forEach(value => {
-//   test('Unvalid props', () => {
-//     expect(getAmazonImageUrl(value.enter)).toBe(value.expect)
-//     expect(typeof res).toBe('number')
-//   })
-// })
-// })
+  validTestValue.forEach(value => {
+    test('Valid props', () => {
+      expect(getAmazonImageUrl(value.str, value.big)).toBe(value.expect)
+      expect(getAmazonImageUrl(value.str, value.big)).not.toBeNull()
+      expect(typeof getAmazonImageUrl(value.str, value.big)).toBe('string')
+    })
+  })
+})
