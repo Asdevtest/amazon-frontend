@@ -195,7 +195,6 @@ export class ClientSentBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      // await this.getBatches()
       await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -219,9 +218,6 @@ export class ClientSentBatchesViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
-
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       await this.loadData()
 
@@ -254,33 +250,11 @@ export class ClientSentBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  // async getBatches() {
-  //   try {
-  //     const batches = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
-
-  //     const result = await UserModel.getPlatformSettings()
-
-  //     runInAction(() => {
-  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-  //       this.batches = clientBatchesDataConverter(
-  //         batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-  //         this.volumeWeightCoefficient,
-  //       )
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async getBatchesPagMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,

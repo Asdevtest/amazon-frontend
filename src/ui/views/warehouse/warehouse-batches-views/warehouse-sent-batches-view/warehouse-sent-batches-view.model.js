@@ -260,26 +260,11 @@ export class WarehouseSentBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  // async getBatches() {
-  //   try {
-  //     const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
-
-  //     runInAction(() => {
-  //       this.batches = warehouseBatchesDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async getBatchesPagMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,

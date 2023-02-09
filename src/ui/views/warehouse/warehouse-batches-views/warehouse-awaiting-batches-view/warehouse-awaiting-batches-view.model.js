@@ -189,7 +189,6 @@ export class WarehouseAwaitingBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      // await this.getBatches()
       await this.getBatchesPagMy()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -284,8 +283,8 @@ export class WarehouseAwaitingBatchesViewModel {
   async getBatchesPagMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
@@ -336,10 +335,6 @@ export class WarehouseAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.boxesData = boxes
-        // clientWarehouseDataConverter(
-        //   boxes.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-        //   this.volumeWeightCoefficient,
-        // )
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
