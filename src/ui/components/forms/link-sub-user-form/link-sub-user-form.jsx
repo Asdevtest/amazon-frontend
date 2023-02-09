@@ -27,6 +27,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={classNames.labelField}
         type="email"
+        value={email}
         onChange={e => setEmail(e.target.value)}
       />
 

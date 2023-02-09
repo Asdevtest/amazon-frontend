@@ -90,8 +90,6 @@ class VacantRequestsViewRaw extends Component {
                   </ToggleBtnGroupFreelance>
                 </div>
 
-                {/* <ViewModuleIcon color="#fff" /> */}
-
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
