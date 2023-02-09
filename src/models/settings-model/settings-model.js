@@ -71,19 +71,33 @@ class SettingsModelStatic {
       },
     })
 
-    // const cach = await caches.keys()
-    // console.log('cach', cach)
+    const cach = await caches.keys()
+    console.log('appVersion', appVersion)
+    console.log('response.data.version', response.data.version)
+
+    console.log('caches', caches)
+    console.log('cach.keys()', cach)
 
     if (appVersion !== response.data.version) {
       console.log('!!!*** versions do not match')
 
-      if (caches) {
-        caches.keys().then(names => {
+      // if (caches) {
+      //   caches.keys().then(names => {
+      //     for (const name of names) {
+      //       caches.delete(name)
+      //     }
+      //   })
+      // }
+
+      if (cach) {
+        cach.forEach(names => {
           for (const name of names) {
             caches.delete(name)
           }
         })
       }
+
+      console.log('!!!*** start reload window')
       window.location.reload()
 
       // function redirectFunc() {
@@ -106,10 +120,13 @@ class SettingsModelStatic {
 
   setIntervalCheckAppVersion() {
     setTimeout(() => {
+      console.log('!!!*** setTimeout version check')
       this.checkAppVersion()
     }, 30000)
 
     setInterval(() => {
+      console.log('!!!*** setInterval version check')
+
       this.checkAppVersion()
     }, 300000)
   }
