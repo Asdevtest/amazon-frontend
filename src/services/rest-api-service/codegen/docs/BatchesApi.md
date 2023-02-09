@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1BatchesArchivePatch**](BatchesApi.md#apiV1BatchesArchivePatch) | **PATCH** /api/v1/batches/archive | # Изменить у массива партий поле archive
 [**apiV1BatchesByProductGuidGet**](BatchesApi.md#apiV1BatchesByProductGuidGet) | **GET** /api/v1/batches/by_product/{guid} | # Получить партии по гуиду продукта
 [**apiV1BatchesCalculateBoxDeliveryCostsInBatchPost**](BatchesApi.md#apiV1BatchesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/batches/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
 [**apiV1BatchesGet**](BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
@@ -18,6 +19,60 @@ Method | HTTP request | Description
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
 [**apiV1BatchesWithFiltersGet**](BatchesApi.md#apiV1BatchesWithFiltersGet) | **GET** /api/v1/batches/with_filters | # Получить партии.
 
+
+
+## apiV1BatchesArchivePatch
+
+> String apiV1BatchesArchivePatch(opts)
+
+# Изменить у массива партий поле archive
+
+## Изменить у массива партий поле archive
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BatchesApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject14() // InlineObject14 | 
+};
+apiInstance.apiV1BatchesArchivePatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject14**](InlineObject14.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
 ## apiV1BatchesByProductGuidGet
@@ -42,6 +97,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID продукта.
 let opts = {
+  'archive': true, // Boolean | Заархивирована ли партия
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BatchesByProductGuidGet(guid, opts).then((data) => {
@@ -58,6 +114,7 @@ apiInstance.apiV1BatchesByProductGuidGet(guid, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта. | 
+ **archive** | **Boolean**| Заархивирована ли партия | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -700,6 +757,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let status = "status_example"; // String | GUID склада который нужно получить.
 let opts = {
+  'archive': true, // Boolean | Заархивирована ли партия
   'filters': "filters_example", // String |                Возможные поля: asin:, amazonTitle, skusByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
@@ -722,6 +780,7 @@ apiInstance.apiV1BatchesWithFiltersGet(status, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**| GUID склада который нужно получить. | 
+ **archive** | **Boolean**| Заархивирована ли партия | [optional] 
  **filters** | **String**|                Возможные поля: asin:, amazonTitle, skusByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]

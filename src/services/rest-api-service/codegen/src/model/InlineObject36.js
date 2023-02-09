@@ -22,12 +22,10 @@ class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
      * @alias module:model/InlineObject36
-     * @param userIds {Array.<String>} 
-     * @param title {String} Название группового чата
      */
-    constructor(userIds, title) { 
+    constructor() { 
         
-        InlineObject36.initialize(this, userIds, title);
+        InlineObject36.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userIds, title) { 
-        obj['userIds'] = userIds;
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('userIds')) {
-                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -65,15 +58,10 @@ class InlineObject36 {
 }
 
 /**
- * @member {Array.<String>} userIds
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject36.prototype['userIds'] = undefined;
-
-/**
- * Название группового чата
- * @member {String} title
- */
-InlineObject36.prototype['title'] = undefined;
+InlineObject36.prototype['refundPrice'] = undefined;
 
 
 

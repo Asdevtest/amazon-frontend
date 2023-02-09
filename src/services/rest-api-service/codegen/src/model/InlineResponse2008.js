@@ -73,6 +73,9 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
                 obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
             }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
             }
@@ -154,6 +157,12 @@ InlineResponse2008.prototype['finalWeightAsOneBox'] = undefined;
  * @member {Number} finalWeightSumEachBoxAmount
  */
 InlineResponse2008.prototype['finalWeightSumEachBoxAmount'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineResponse2008.prototype['archive'] = undefined;
 
 /**
  * Массив id коробок.

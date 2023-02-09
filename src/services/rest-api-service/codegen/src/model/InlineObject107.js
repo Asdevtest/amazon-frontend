@@ -22,10 +22,12 @@ class InlineObject107 {
     /**
      * Constructs a new <code>InlineObject107</code>.
      * @alias module:model/InlineObject107
+     * @param oldPassword {String} Старый ароль
+     * @param newPassword {String} Новый пароль
      */
-    constructor() { 
+    constructor(oldPassword, newPassword) { 
         
-        InlineObject107.initialize(this);
+        InlineObject107.initialize(this, oldPassword, newPassword);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject107 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, oldPassword, newPassword) { 
+        obj['oldPassword'] = oldPassword;
+        obj['newPassword'] = newPassword;
     }
 
     /**
@@ -47,11 +51,11 @@ class InlineObject107 {
         if (data) {
             obj = obj || new InlineObject107();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('oldPassword')) {
+                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('newPassword')) {
+                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
             }
         }
         return obj;
@@ -61,16 +65,16 @@ class InlineObject107 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Старый ароль
+ * @member {String} oldPassword
  */
-InlineObject107.prototype['result'] = undefined;
+InlineObject107.prototype['oldPassword'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Новый пароль
+ * @member {String} newPassword
  */
-InlineObject107.prototype['linksToMediaFiles'] = undefined;
+InlineObject107.prototype['newPassword'] = undefined;
 
 
 

@@ -152,6 +152,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGet**](docs/AdministratorApi.md#apiV1AdminsUsersGet) | **GET** /api/v1/admins/users | Получить всех пользователей.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidGet**](docs/AdministratorApi.md#apiV1AdminsUsersGuidGet) | **GET** /api/v1/admins/users/{guid} | Получить пользователя по GUID.
 *TestSwagger.AdministratorApi* | [**apiV1AdminsUsersGuidPatch**](docs/AdministratorApi.md#apiV1AdminsUsersGuidPatch) | **PATCH** /api/v1/admins/users/{guid} | Изменить пользователя.
+*TestSwagger.BatchesApi* | [**apiV1BatchesArchivePatch**](docs/BatchesApi.md#apiV1BatchesArchivePatch) | **PATCH** /api/v1/batches/archive | # Изменить у массива партий поле archive
 *TestSwagger.BatchesApi* | [**apiV1BatchesByProductGuidGet**](docs/BatchesApi.md#apiV1BatchesByProductGuidGet) | **GET** /api/v1/batches/by_product/{guid} | # Получить партии по гуиду продукта
 *TestSwagger.BatchesApi* | [**apiV1BatchesCalculateBoxDeliveryCostsInBatchPost**](docs/BatchesApi.md#apiV1BatchesCalculateBoxDeliveryCostsInBatchPost) | **POST** /api/v1/batches/calculate_box_delivery_costs_in_batch | # Рассчитать стоимость доставки коробов.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
@@ -403,10 +404,12 @@ Class | Method | HTTP request | Description
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidGet**](docs/SupplierApi.md#apiV1SuppliersGuidGet) | **GET** /api/v1/suppliers/{guid} | # Получить одного поставщика.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidPatch**](docs/SupplierApi.md#apiV1SuppliersGuidPatch) | **PATCH** /api/v1/suppliers/{guid} | # Изменить поставщика.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersPost**](docs/SupplierApi.md#apiV1SuppliersPost) | **POST** /api/v1/suppliers/ | # Добавить нового поставщика.
+*TestSwagger.UserApi* | [**apiV1UsersChangeForgottenPasswordPost**](docs/UserApi.md#apiV1UsersChangeForgottenPasswordPost) | **POST** /api/v1/users/change_forgotten_password | Поменять пароль, если его забыли
 *TestSwagger.UserApi* | [**apiV1UsersChangePasswordPatch**](docs/UserApi.md#apiV1UsersChangePasswordPatch) | **PATCH** /api/v1/users/change_password | Сменить пароль
 *TestSwagger.UserApi* | [**apiV1UsersCheckIsUniqueNameOrEmailPost**](docs/UserApi.md#apiV1UsersCheckIsUniqueNameOrEmailPost) | **POST** /api/v1/users/check_isUnique_name_or_email | Выдача массива объектов с ответом является ли уникальным name и/или email.
 *TestSwagger.UserApi* | [**apiV1UsersContactsGet**](docs/UserApi.md#apiV1UsersContactsGet) | **GET** /api/v1/users/contacts | Выдача массива перечень всех контактов пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersEditMySubUsersGuidPatch**](docs/UserApi.md#apiV1UsersEditMySubUsersGuidPatch) | **PATCH** /api/v1/users/edit_my_sub-users/{guid} | Редактирование сабюзера мастер юзером.
+*TestSwagger.UserApi* | [**apiV1UsersForgotPasswordPost**](docs/UserApi.md#apiV1UsersForgotPasswordPost) | **POST** /api/v1/users/forgot_password | Запросить смену пароля
 *TestSwagger.UserApi* | [**apiV1UsersInfoGet**](docs/UserApi.md#apiV1UsersInfoGet) | **GET** /api/v1/users/info | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersInfoGuidGet**](docs/UserApi.md#apiV1UsersInfoGuidGet) | **GET** /api/v1/users/info/{guid} | Получить информацию от текущем пользователе.
 *TestSwagger.UserApi* | [**apiV1UsersLinkSubUserPatch**](docs/UserApi.md#apiV1UsersLinkSubUserPatch) | **PATCH** /api/v1/users/link_sub-user | # Привязка субпользователя.
@@ -501,6 +504,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject108](docs/InlineObject108.md)
  - [TestSwagger.InlineObject109](docs/InlineObject109.md)
  - [TestSwagger.InlineObject11](docs/InlineObject11.md)
+ - [TestSwagger.InlineObject110](docs/InlineObject110.md)
+ - [TestSwagger.InlineObject111](docs/InlineObject111.md)
+ - [TestSwagger.InlineObject112](docs/InlineObject112.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
@@ -606,17 +612,17 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
  - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
  - [TestSwagger.InlineResponse20016](docs/InlineResponse20016.md)
+ - [TestSwagger.InlineResponse20016Rows](docs/InlineResponse20016Rows.md)
  - [TestSwagger.InlineResponse20017](docs/InlineResponse20017.md)
+ - [TestSwagger.InlineResponse20017Group](docs/InlineResponse20017Group.md)
+ - [TestSwagger.InlineResponse20017Rows](docs/InlineResponse20017Rows.md)
  - [TestSwagger.InlineResponse20018](docs/InlineResponse20018.md)
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse20020](docs/InlineResponse20020.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
- - [TestSwagger.InlineResponse20022Rows](docs/InlineResponse20022Rows.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
- - [TestSwagger.InlineResponse20023Group](docs/InlineResponse20023Group.md)
- - [TestSwagger.InlineResponse20023Rows](docs/InlineResponse20023Rows.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
  - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)

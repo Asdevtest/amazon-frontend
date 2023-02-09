@@ -471,8 +471,6 @@ export class ClientInventoryViewModel {
     this.isArchive
       ? this.history.push('/client/inventory', {isArchive: !this.isArchive})
       : this.history.push('/client/inventory/archive', {isArchive: !this.isArchive})
-
-    // this.isArchive = !this.isArchive
   }
 
   async loadData() {
@@ -1093,7 +1091,7 @@ export class ClientInventoryViewModel {
 
   async onClickProductLotDataBtn() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0])
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], {archive: false})
       runInAction(() => {
         this.isTransfer = false
         this.batchesData = result
@@ -1103,6 +1101,17 @@ export class ClientInventoryViewModel {
           .map(prod => prod.originalData)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickToggleArchiveProductLotData(isArchive) {
+    try {
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], {archive: isArchive})
+      runInAction(() => {
+        this.batchesData = result
+      })
     } catch (error) {
       console.log(error)
     }

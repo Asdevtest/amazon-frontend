@@ -57,6 +57,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
             if (data.hasOwnProperty('boxes')) {
                 obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
             }
@@ -87,6 +90,12 @@ InlineResponse20011.prototype['humanFriendlyId'] = undefined;
  * @member {String} title
  */
 InlineResponse20011.prototype['title'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineResponse20011.prototype['archive'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes

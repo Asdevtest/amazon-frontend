@@ -167,6 +167,7 @@ export class ClientInventoryViewRaw extends Component {
       onClickTriggerArchOrResetProducts,
       onConfirmSubmitOrderProductModal,
       onClickProductLotDataBtn,
+      onClickToggleArchiveProductLotData,
 
       onClickWithoutProductsShopBtn,
       onClickWithProductsShopBtn,
@@ -439,6 +440,7 @@ export class ClientInventoryViewRaw extends Component {
             isTransfer={isTransfer}
             product={curProduct}
             batchesData={batchesData}
+            onClickToggleArchiveProductLotData={onClickToggleArchiveProductLotData}
           />
         </Modal>
 

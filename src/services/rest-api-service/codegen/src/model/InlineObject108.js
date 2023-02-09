@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject108 model module.
@@ -23,14 +21,12 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject108
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
+     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
      */
-    constructor(request, details) { 
+    constructor(email) { 
         
-        InlineObject108.initialize(this, request, details);
+        InlineObject108.initialize(this, email);
     }
 
     /**
@@ -38,9 +34,8 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -54,11 +49,8 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
-            }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -68,14 +60,10 @@ class InlineObject108 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Почта от аккаунта, пароль которого Вы забыли
+ * @member {String} email
  */
-InlineObject108.prototype['request'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestsCustomDetails} details
- */
-InlineObject108.prototype['details'] = undefined;
+InlineObject108.prototype['email'] = undefined;
 
 
 

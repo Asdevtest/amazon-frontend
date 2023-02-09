@@ -22,13 +22,11 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject18.OperationTypeEnum} Тип операции
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor(boxesIds) { 
         
-        InlineObject18.initialize(this, taskId, boxes, operationType);
+        InlineObject18.initialize(this, boxesIds);
     }
 
     /**
@@ -36,10 +34,8 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -53,29 +49,29 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -85,87 +81,54 @@ class InlineObject18 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Штрихкод продукта
+ * @member {String} barCode
  */
-InlineObject18.prototype['taskId'] = undefined;
+InlineObject18.prototype['barCode'] = undefined;
 
 /**
- * @member {Array.<String>} boxesBefore
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
  */
-InlineObject18.prototype['boxesBefore'] = undefined;
+InlineObject18.prototype['logicsTariffId'] = undefined;
 
 /**
- * @member {Array.<String>} boxes
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
  */
-InlineObject18.prototype['boxes'] = undefined;
+InlineObject18.prototype['storekeeperId'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineObject18.OperationTypeEnum} operationType
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
  */
-InlineObject18.prototype['operationType'] = undefined;
+InlineObject18.prototype['shippingLabel'] = undefined;
 
 /**
- * Комментарий клиента.
- * @member {String} clientComment
- * @default ''
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
  */
-InlineObject18.prototype['clientComment'] = '';
+InlineObject18.prototype['fbaShipment'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject18.prototype['buyerComment'] = undefined;
+InlineObject18.prototype['fbaNumber'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Гуид модели destination
+ * @member {String} destinationId
  */
-InlineObject18.prototype['images'] = undefined;
+InlineObject18.prototype['destinationId'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * @member {Array.<String>} boxesIds
  */
-InlineObject18.prototype['storekeeperComment'] = undefined;
+InlineObject18.prototype['boxesIds'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject18['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 

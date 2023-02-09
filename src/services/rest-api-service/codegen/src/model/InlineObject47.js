@@ -22,12 +22,11 @@ class InlineObject47 {
     /**
      * Constructs a new <code>InlineObject47</code>.
      * @alias module:model/InlineObject47
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @param productIds {Array.<String>} 
      */
-    constructor(clientComment, priceForClient) { 
+    constructor(productIds) { 
         
-        InlineObject47.initialize(this, clientComment, priceForClient);
+        InlineObject47.initialize(this, productIds);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject47 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject47 {
         if (data) {
             obj = obj || new InlineObject47();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -65,15 +60,9 @@ class InlineObject47 {
 }
 
 /**
- * @member {String} clientComment
+ * @member {Array.<String>} productIds
  */
-InlineObject47.prototype['clientComment'] = undefined;
-
-/**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
- */
-InlineObject47.prototype['priceForClient'] = undefined;
+InlineObject47.prototype['productIds'] = undefined;
 
 
 

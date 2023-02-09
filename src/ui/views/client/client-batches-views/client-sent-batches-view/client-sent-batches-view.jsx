@@ -1,3 +1,5 @@
+import DeleteIcon from '@mui/icons-material/Delete'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -8,12 +10,14 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -60,6 +64,11 @@ class ClientSentBatchesViewRaw extends Component {
       rowsPerPage,
       showEditHSCodeModal,
       hsCodeData,
+      selectedBatches,
+      isArchive,
+      showConfirmModal,
+      confirmModalSettings,
+      onClickTriggerArchOrResetProducts,
       onClickSaveHsCode,
       onClickHsCode,
       onTriggerDrawer,
@@ -74,6 +83,7 @@ class ClientSentBatchesViewRaw extends Component {
       setCurrentOpenedBatch,
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      onTriggerArchive,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -90,6 +100,15 @@ class ClientSentBatchesViewRaw extends Component {
           <Appbar title={t(TranslationKey['Sent boxes'])} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <div className={className.btnsWrapper}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+                  variant="outlined"
+                  className={className.openArchiveBtn}
+                  onClick={onTriggerArchive}
+                >
+                  {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
+                </Button>
+
                 <SearchInput
                   key={'client_batches_awaiting-batch_search_input'}
                   inputClasses={className.searchInput}
@@ -97,11 +116,38 @@ class ClientSentBatchesViewRaw extends Component {
                   placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
                   onSubmit={onSearchSubmit}
                 />
+
+                <div className={className.simpleBtnsWrapper}>
+                  <Button
+                    tooltipInfoContent={t(
+                      TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                    )}
+                    disabled={!selectedBatches.length}
+                    variant="outlined"
+                    className={className.archiveAddBtn}
+                    sx={{
+                      '&.Mui-disabled': {
+                        background: 'none',
+                      },
+                    }}
+                    onClick={onClickTriggerArchOrResetProducts}
+                  >
+                    {isArchive ? (
+                      t(TranslationKey['Return to inventory'])
+                    ) : (
+                      <>
+                        {t(TranslationKey['Move to archive'])}
+                        <DeleteIcon className={className.archiveIcon} />
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
 
               <MemoDataGrid
                 pagination
                 useResizeContainer
+                checkboxSelection
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: className.row,
@@ -126,9 +172,7 @@ class ClientSentBatchesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection)
-                }}
+                onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
@@ -157,6 +201,18 @@ class ClientSentBatchesViewRaw extends Component {
             onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
+
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
         <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}
