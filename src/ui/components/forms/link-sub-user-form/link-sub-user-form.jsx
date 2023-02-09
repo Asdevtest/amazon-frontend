@@ -23,6 +23,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
       </Typography>
 
       <Field
+        data-testid={'input'}
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={classNames.labelField}
         type="email"
@@ -32,6 +33,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
       <div className={classNames.buttonWrapper}>
         <Button
           disableElevation
+          data-testid={'add'}
           disabled={email === ''}
           variant="contained"
           className={classNames.button}
@@ -40,7 +42,12 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button variant="text" className={[classNames.button, classNames.cancelButton]} onClick={() => closeModal()}>
+        <Button
+          data-testid={'cancel'}
+          variant="text"
+          className={[classNames.button, classNames.cancelButton]}
+          onClick={() => closeModal()}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
