@@ -1757,7 +1757,7 @@ export enum TranslationKey {
   'After confirmation, the batch will be moved to the archive. Delete?' = 'After confirmation, the batch will be moved to the archive. Delete?',
   'Back to actual batches' = 'Back to actual batches',
   'Relocate from archive' = 'Relocate from archive',
-  // '' = '',
+  'Return to actual batches' = 'Return to actual batches',
   // '' = '',
   // '' = '',
   // '' = '',

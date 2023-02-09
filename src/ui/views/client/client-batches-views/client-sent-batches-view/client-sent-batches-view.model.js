@@ -130,7 +130,9 @@ export class ClientSentBatchesViewModel {
     runInAction(() => {
       this.confirmModalSettings = {
         isWarning: this.isArchive ? false : true,
-        confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a batch']),
+        confirmTitle: this.isArchive
+          ? t(TranslationKey['Return to actual batches'])
+          : t(TranslationKey['Delete a batch']),
         confirmMessage: this.isArchive
           ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
           : t(TranslationKey['After confirmation, the batch will be moved to the archive. Delete?']),
