@@ -249,8 +249,8 @@ export class ClientAwaitingBatchesViewModel {
   async getBatchesPagMy() {
     try {
       const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][Title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
+        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
+        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
