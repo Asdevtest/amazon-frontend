@@ -11,6 +11,8 @@ import React, {
 
 import {observer} from 'mobx-react'
 
+import {TooltipInfoIcon} from '@constants/svg-icons'
+
 import {SettingsModel} from '@models/settings-model'
 
 import {useClassNames} from './i-tab.style'
@@ -68,11 +70,12 @@ export const ITab /* : FC<Props> */ = observer(
                 onClose={() => setOpenInfoTooltip(false)}
                 onOpen={() => setOpenInfoTooltip(true)}
               >
-                <img
-                  className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                  src="/assets/icons/info-q.svg"
-                  onClick={() => setOpenInfoTooltip(true)}
-                />
+                <div>
+                  <TooltipInfoIcon
+                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                    onClick={() => setOpenInfoTooltip(true)}
+                  />
+                </div>
               </Tooltip>
             ) : null}
           </div>

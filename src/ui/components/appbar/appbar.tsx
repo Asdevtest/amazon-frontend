@@ -17,6 +17,7 @@ import {useSnackbar} from 'notistack'
 import {useHistory, useLocation} from 'react-router-dom'
 
 import {snackNoticeKey} from '@constants/snack-notifications'
+import {HintsOff, HintsOn} from '@constants/svg-icons'
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
@@ -172,10 +173,15 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
               <div className={classNames.tooltipWrapper} onClick={componentModel.current.onTriggerShowHints}>
-                <img
-                  className={classNames.hintsIcon}
-                  src={componentModel.current.showHints ? '/assets/icons/hints-on.svg' : '/assets/icons/hints-off.svg'}
-                />
+                {componentModel.current.showHints ? (
+                  <HintsOn
+                    className={cx(classNames.hintsIcon, classNames.hintsIconActive)}
+                    fontSize={'small'}
+                    viewBox={'0 0 18 18'}
+                  />
+                ) : (
+                  <HintsOff className={classNames.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
+                )}
                 {componentModel.current.showHints ? (
                   <Typography className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</Typography>
                 ) : (

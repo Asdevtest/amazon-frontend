@@ -467,7 +467,9 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/supervisor/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR),
     },
 
     {

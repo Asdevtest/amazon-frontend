@@ -179,12 +179,9 @@ export class WarehouseVacantViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getTasksMy()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -222,6 +219,8 @@ export class WarehouseVacantViewModel {
 
   async getTasksMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await StorekeeperModel.getLightTasksMy({
         status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
       })
@@ -231,11 +230,13 @@ export class WarehouseVacantViewModel {
           result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

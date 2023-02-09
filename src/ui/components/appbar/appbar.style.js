@@ -54,6 +54,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  hintsIconActive: {
+    color: theme.palette.primary.main,
+  },
+
   avatar: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),

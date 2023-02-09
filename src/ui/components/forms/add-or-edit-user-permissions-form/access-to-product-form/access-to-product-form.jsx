@@ -94,6 +94,8 @@ export const AccessToProductForm = React.memo(
       } else {
         setChooseAllCheck(false)
       }
+
+      setChosenGoods(shop?.tmpProductsIds)
     }, [shop?.tmpProductsIds.length])
 
     const onClickChooseAllCheck = e => {
@@ -124,7 +126,12 @@ export const AccessToProductForm = React.memo(
             classes={{root: classNames.accordionSummary, expanded: classNames.accordionExpanded}}
           >
             <div className={classNames.accardionTitleWrapper}>
-              <Checkbox color="primary" checked={chooseAllCheck} onClick={onClickChooseAllCheck} />
+              <Checkbox
+                color="primary"
+                checked={chooseAllCheck}
+                indeterminate={chosenGoods.length && !chooseAllCheck}
+                onClick={onClickChooseAllCheck}
+              />
 
               <Typography className={classNames.title}>{shop?.name}</Typography>
 

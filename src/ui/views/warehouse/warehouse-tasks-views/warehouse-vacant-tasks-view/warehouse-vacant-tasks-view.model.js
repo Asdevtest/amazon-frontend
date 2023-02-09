@@ -181,13 +181,9 @@ export class WarehouseVacantViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getTasksVacant()
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -271,6 +267,8 @@ export class WarehouseVacantViewModel {
 
   async getTasksVacant() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await StorekeeperModel.getLightTasksVacant()
 
       runInAction(() => {
@@ -281,6 +279,7 @@ export class WarehouseVacantViewModel {
             .map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -288,6 +287,7 @@ export class WarehouseVacantViewModel {
 
         this.tasksVacant = []
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

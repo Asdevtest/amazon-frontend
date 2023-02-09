@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     // color: '#fff',
 
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+
     '&:hover': {
       backgroundColor: '#c51a1c !important',
 
@@ -43,7 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
     '&:disabled': {
-      background: 'linear-gradient(180deg, #FE8A8A 0%, #EF8585 100%)',
+      background: '#BB1E1E',
     },
   },
   // disabled: { работает
@@ -73,7 +74,6 @@ export const useClassNames = makeStyles()(theme => ({
   tooltip: {
     width: '15px',
     height: '15px',
-    color: 'red',
     transition: '.3s ease-in-out',
     '&:hover': {
       cursor: 'default',
@@ -85,6 +85,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tooltipInfo: {
     marginLeft: '3px',
+    color: theme.palette.primary.main,
   },
 
   btnWrapper: {
