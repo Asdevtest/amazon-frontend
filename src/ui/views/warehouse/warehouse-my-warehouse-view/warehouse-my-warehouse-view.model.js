@@ -561,6 +561,19 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.error = error
       })
+
+      if (!isMultipleEdit) {
+        this.loadData()
+
+        this.onTriggerOpenModal('showFullEditBoxModal')
+      }
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['The box is unchanged']),
+        }
+      })
+      this.onTriggerOpenModal('showWarningInfoModal')
     }
   }
 
@@ -958,6 +971,15 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.error = error
       })
+      this.onTriggerOpenModal('showGroupingBoxesModal')
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['Boxes are not regrouped']),
+        }
+      })
+      this.onTriggerOpenModal('showWarningInfoModal')
     }
   }
 

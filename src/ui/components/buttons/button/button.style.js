@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     // color: theme.palette.text.negativeMain,
     color: '#fff',
+    // color: '#fff !important',
 
     height: 40,
     // padding: '11px 25px 10px', ломает все кнопки
@@ -20,10 +21,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     backgroundColor: '#009a07 !important',
     '&:hover': {
-      backgroundColor: '#4caf50 !important',
+      backgroundColor: '#1E7422 !important',
 
       '@media (hover: none)': {
-        backgroundColor: '#4caf50 !important',
+        backgroundColor: '#1E7422 !important',
       },
     },
     '&: disabled': {
@@ -31,20 +32,24 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   danger: {
+    color: '#fff !important',
+
     // color: `${theme.palette.text.negativeMain} !important`,
     // color: '#fff',
 
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+    // background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+    background: '#DD2121',
 
     '&:hover': {
-      backgroundColor: '#c51a1c !important',
+      backgroundColor: '#8C0000 !important',
 
       '@media (hover: none)': {
-        backgroundColor: '#c51a1c !important',
+        backgroundColor: '#8C0000 !important',
       },
     },
     '&:disabled': {
-      background: '#BB1E1E',
+      background: '#4F2026',
+      // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
   },
   // disabled: { работает
