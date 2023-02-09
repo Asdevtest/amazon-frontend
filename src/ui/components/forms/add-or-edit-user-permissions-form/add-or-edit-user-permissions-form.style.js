@@ -274,6 +274,21 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
   },
+
+  accardionTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
+    padding: '0 16px',
+  },
+
+  title: {
+    fontWeight: 600,
+
+    color: theme.palette.text.general,
+  },
+
   accordion: {
     boxShadow: 'none',
 

@@ -208,7 +208,8 @@ const Box = ({
                   [classNames.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
                     !box.fbaShipment &&
-                    !destinations.find(el => el._id === box.destinationId)?.storekeeper,
+                    !destinations.find(el => el._id === box.destinationId)?.storekeeper &&
+                    isNewBox,
                 })}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={box.fbaShipment}

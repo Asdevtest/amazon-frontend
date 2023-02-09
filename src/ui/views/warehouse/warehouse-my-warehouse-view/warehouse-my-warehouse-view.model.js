@@ -277,13 +277,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getBoxesMy()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -1188,6 +1185,8 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
@@ -1215,6 +1214,7 @@ export class WarehouseMyWarehouseViewModel {
 
         this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
 
@@ -1224,6 +1224,7 @@ export class WarehouseMyWarehouseViewModel {
 
         this.baseBoxesMy = []
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 }

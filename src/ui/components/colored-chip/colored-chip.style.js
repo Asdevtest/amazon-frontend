@@ -84,5 +84,6 @@ export const useClassNames = makeStyles()((theme, props) => ({
 
   tooltipInfo: {
     marginLeft: '3px',
+    color: theme.palette.primary.main,
   },
 }))

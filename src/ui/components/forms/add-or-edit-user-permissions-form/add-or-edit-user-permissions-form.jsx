@@ -142,6 +142,37 @@ export const AddOrEditUserPermissionsForm = observer(
       JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
       JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender)
 
+    // console.log('productPermissionsData', productPermissionsData)
+    // console.log('shopDataToRender', shopDataToRender)
+
+    const getSourceDataToShop = shop =>
+      productPermissionsData?.filter(el =>
+        shop._id === PRODUCTS_WITHOUT_SHOPS_ID
+          ? isWithoutShopsDepends
+            ? true
+            : !el.originalData.shopIds?.length
+          : el.originalData.shopIds?.includes(shop._id),
+      )
+
+    const isChoosenAll = shopDataToRender.every(shop => shop.tmpProductsIds.length === getSourceDataToShop(shop).length)
+
+    const isSomeChoosenAll = shopDataToRender.some(
+      shop => shop.tmpProductsIds.length === getSourceDataToShop(shop).length,
+    )
+
+    const onClickChooseAllProductCheck = () => {
+      if (isChoosenAll) {
+        setShopDataToRender(shopDataToRender.map(item => ({...item, tmpProductsIds: []})))
+      } else {
+        setShopDataToRender(
+          shopDataToRender.map(item => ({
+            ...item,
+            tmpProductsIds: getSourceDataToShop(item)?.map(product => product._id),
+          })),
+        )
+      }
+    }
+
     return (
       <div className={classNames.root}>
         <Tabs
@@ -332,19 +363,21 @@ export const AddOrEditUserPermissionsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.ACCESS_TO_PRODUCTS}>
           <div className={classNames.accordionWrapper}>
+            {!isWithoutShopsDepends ? (
+              <div className={classNames.accardionTitleWrapper}>
+                <Checkbox
+                  color="primary"
+                  checked={isChoosenAll}
+                  indeterminate={isSomeChoosenAll && !isChoosenAll}
+                  onClick={onClickChooseAllProductCheck}
+                />
+
+                <Typography className={classNames.title}>{t(TranslationKey['Store name'])}</Typography>
+              </div>
+            ) : null}
             {sourceDataToProductsPermissions
               .map(shop => {
-                const sourceData = useMemo(
-                  () =>
-                    productPermissionsData?.filter(el =>
-                      shop._id === PRODUCTS_WITHOUT_SHOPS_ID
-                        ? isWithoutShopsDepends
-                          ? true
-                          : !el.originalData.shopIds?.length
-                        : el.originalData.shopIds?.includes(shop._id),
-                    ),
-                  [],
-                )
+                const sourceData = useMemo(() => getSourceDataToShop(shop), [])
 
                 return (
                   <AccessToProductForm

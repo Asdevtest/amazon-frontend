@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   textWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -33,6 +33,7 @@ export const useClassNames = makeStyles()(() => ({
 
   tooltipInfo: {
     marginLeft: '3px',
+    color: theme.palette.primary.main,
   },
 
   cornerTooltipsWrapper: {

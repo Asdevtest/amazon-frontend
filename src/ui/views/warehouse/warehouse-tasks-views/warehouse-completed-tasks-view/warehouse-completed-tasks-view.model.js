@@ -184,18 +184,17 @@ export class WarehouseCompletedViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getCompletedTasksPagMy()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getCompletedTasksPagMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
@@ -220,11 +219,13 @@ export class WarehouseCompletedViewModel {
             .map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       runInAction(() => {
         this.batches = []
       })
       console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

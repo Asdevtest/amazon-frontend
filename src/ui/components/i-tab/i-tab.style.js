@@ -21,6 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tooltipInfo: {
     marginLeft: '3px',
+    color: theme.palette.primary.main,
   },
 
   tabWrapper: {
