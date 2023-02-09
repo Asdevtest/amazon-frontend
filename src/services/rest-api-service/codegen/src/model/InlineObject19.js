@@ -47,8 +47,8 @@ class InlineObject19 {
         if (data) {
             obj = obj || new InlineObject19();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject19 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject19.prototype['refundPrice'] = undefined;
+InlineObject19.prototype['guid'] = undefined;
 
 
 

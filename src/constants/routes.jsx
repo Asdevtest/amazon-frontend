@@ -1094,11 +1094,21 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/batches/sent-batches',
     component: ClientSentBatchesView,
-    exact: false,
+    exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey['Sent boxes'],
+  },
+
+  {
+    routePath: '/client/batches/sent-batches/archive',
+    component: ClientSentBatchesView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
+
+    crumbNameKey: TranslationKey.Archive,
   },
 
   {

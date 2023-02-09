@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 
+import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
@@ -25,119 +26,142 @@ import {productInTransferColumns} from './poduct-in-transfer-column'
 import {productLotDataFormColumns} from './product-lot-data-form-column'
 import {useClassNames} from './product-lot-data-form.style'
 
-export const ProductLotDataForm = observer(({product, batchesData, isTransfer, userInfo}) => {
-  const {classes: classNames} = useClassNames()
+export const ProductLotDataForm = observer(
+  ({product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData}) => {
+    const {classes: classNames} = useClassNames()
 
-  const [batches, setBatches] = useState([...batchesData])
-  const [batchInfo, setBatchInfo] = useState([])
-  const [nameSearchValue, setNameSearchValue] = useState('')
+    const [batches, setBatches] = useState([...batchesData])
+    const [batchInfo, setBatchInfo] = useState([])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+    const [isArchive, setIsArchive] = useState(false)
 
-  const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
+    const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
-  useEffect(() => {
-    if (isTransfer && nameSearchValue) {
-      setBatches(
-        batchesData?.filter(item =>
-          item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-        ),
-      )
-    } else {
-      if (nameSearchValue) {
+    console
+
+    useEffect(() => {
+      if (isTransfer && nameSearchValue) {
         setBatches(
           batchesData?.filter(item =>
-            item?.boxes?.some(item =>
-              item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
+            item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
+      } else {
+        if (nameSearchValue) {
+          setBatches(
+            // batchesData?.filter(item =>
+            //   item?.boxes?.some(item =>
+            //     item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+            //   ),
+            // ),
+            batchesData?.filter(item =>
+              item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
+            ),
+          )
+        }
+        if (!nameSearchValue) {
+          setBatches(batchesData)
+        }
       }
-      if (!nameSearchValue) {
-        setBatches(batchesData)
+    }, [nameSearchValue])
+
+    useEffect(() => {
+      setBatches([...batchesData])
+      setNameSearchValue('')
+    }, [batchesData])
+
+    const setOpenBatchInfoModal = () => {
+      setShowBatchInfoModal(!showBatchInfoModal)
+    }
+
+    const onClickShowBatchBtn = async rowId => {
+      try {
+        const result = await BatchesModel.getBatchesByGuid(rowId)
+        setBatchInfo(result)
+        setOpenBatchInfoModal()
+      } catch (error) {
+        console.log('error', error)
       }
     }
-  }, [nameSearchValue])
 
-  const setOpenBatchInfoModal = () => {
-    setShowBatchInfoModal(!showBatchInfoModal)
-  }
+    return (
+      <div className={classNames.productLotDataBlock}>
+        <div className={classNames.title}>
+          {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product batches data'}`])}
 
-  const onClickShowBatchBtn = async rowId => {
-    try {
-      const result = await BatchesModel.getBatchesByGuid(rowId)
-      setBatchInfo(result)
-      setOpenBatchInfoModal()
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
-  return (
-    <div className={classNames.productLotDataBlock}>
-      <div className={classNames.title}>
-        {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product batches data'}`])}
-      </div>
-      <div className={classNames.aboutProduct}>
-        <div className={classNames.productInfo}>
-          <img className={classNames.img} src={getAmazonImageUrl(product[0]?.images[0])} />
-          <Typography className={classNames.productTitle}>{product[0]?.amazonTitle}</Typography>
-          <div className={classNames.attributeWrapper}>
-            <div className={classNames.attribute}>
-              <Typography className={classNames.attributeTitle}>{t(TranslationKey.ASIN)}</Typography>
-              {product[0].asin ? (
-                <>
-                  <a
-                    className={classNames.asin}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://www.amazon.com/dp/${product[0].asin}`}
-                  >
-                    {shortAsin(product[0]?.asin)}
-                  </a>
-                  <CopyValue text={product[0]?.asin} />
-                </>
-              ) : (
-                <Typography className={classNames.asin}>{t(TranslationKey['Not found'])}</Typography>
-              )}
-            </div>
-            <div className={classNames.attribute}>
-              <Typography className={classNames.attributeTitle}>{t(TranslationKey.SKU)}</Typography>
-              <Typography className={classNames.sku}>
-                {product[0]?.skusByClient[0] ? product[0]?.skusByClient[0] : t(TranslationKey['Not found'])}
-              </Typography>
+          <Button
+            variant="contained"
+            onClick={() => {
+              onClickToggleArchiveProductLotData(!isArchive)
+              setIsArchive(!isArchive)
+            }}
+          >
+            {isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Batches archive'])}
+          </Button>
+        </div>
+        <div className={classNames.aboutProduct}>
+          <div className={classNames.productInfo}>
+            <img className={classNames.img} src={getAmazonImageUrl(product[0]?.images[0])} />
+            <Typography className={classNames.productTitle}>{product[0]?.amazonTitle}</Typography>
+            <div className={classNames.attributeWrapper}>
+              <div className={classNames.attribute}>
+                <Typography className={classNames.attributeTitle}>{t(TranslationKey.ASIN)}</Typography>
+                {product[0].asin ? (
+                  <>
+                    <a
+                      className={classNames.asin}
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.amazon.com/dp/${product[0].asin}`}
+                    >
+                      {shortAsin(product[0]?.asin)}
+                    </a>
+                    <CopyValue text={product[0]?.asin} />
+                  </>
+                ) : (
+                  <Typography className={classNames.asin}>{t(TranslationKey['Not found'])}</Typography>
+                )}
+              </div>
+              <div className={classNames.attribute}>
+                <Typography className={classNames.attributeTitle}>{t(TranslationKey.SKU)}</Typography>
+                <Typography className={classNames.sku}>
+                  {product[0]?.skusByClient[0] ? product[0]?.skusByClient[0] : t(TranslationKey['Not found'])}
+                </Typography>
+              </div>
             </div>
           </div>
+          <div className="searchPanel">
+            <SearchInput
+              value={nameSearchValue}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Lot number search'])}
+              onChange={e => setNameSearchValue(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="searchPanel">
-          <SearchInput
-            value={nameSearchValue}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Lot number search'])}
-            onChange={e => setNameSearchValue(e.target.value)}
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            hideFooter
+            localeText={getLocalizationByLanguageTag()}
+            getRowId={batches => batches?._id}
+            columns={
+              isTransfer
+                ? productInTransferColumns({onClickShowBatchBtn})
+                : productLotDataFormColumns({onClickShowBatchBtn})
+            }
+            rows={toJS(batches)}
+            headerHeight={64}
+            rowHeight={100}
           />
         </div>
-      </div>
-      <div className={classNames.tableWrapper}>
-        <MemoDataGrid
-          hideFooter
-          localeText={getLocalizationByLanguageTag()}
-          getRowId={batches => batches?._id}
-          columns={
-            isTransfer
-              ? productInTransferColumns({onClickShowBatchBtn})
-              : productLotDataFormColumns({onClickShowBatchBtn})
-          }
-          rows={toJS(batches)}
-          headerHeight={64}
-          rowHeight={100}
+
+        <BatchInfoModal
+          userInfo={userInfo}
+          openModal={showBatchInfoModal}
+          setOpenModal={setOpenBatchInfoModal}
+          batch={batchInfo}
         />
       </div>
-
-      <BatchInfoModal
-        userInfo={userInfo}
-        openModal={showBatchInfoModal}
-        setOpenModal={setOpenBatchInfoModal}
-        batch={batchInfo}
-      />
-    </div>
-  )
-})
+    )
+  },
+)

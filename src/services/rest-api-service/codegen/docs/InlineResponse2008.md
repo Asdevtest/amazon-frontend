@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **attachedDocuments** | **[String]** | Массив ссылок на файлов документации к партии. | [optional] 
 **finalWeightAsOneBox** | **Number** | Финальный вес партии, если считать все коробки как одну большую коробу. | [optional] 
 **finalWeightSumEachBoxAmount** | **Number** | Финальный вес партии, если сложить все веса коробок по отдельности. | [optional] 
+**archive** | **Boolean** | Заархивирована ли партия | [optional] 
 **boxes** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив id коробок. | [optional] 
 **calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
 **volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 

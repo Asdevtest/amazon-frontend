@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject15 from './InlineObject15';
 
 /**
  * The InlineObject24 model module.
@@ -50,6 +51,9 @@ class InlineObject24 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject15]);
+            }
         }
         return obj;
     }
@@ -58,10 +62,16 @@ class InlineObject24 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
+ * GUID для которой подтверждаем действие.
  * @member {String} guid
  */
 InlineObject24.prototype['guid'] = undefined;
+
+/**
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject15>} additionalBoxes
+ */
+InlineObject24.prototype['additionalBoxes'] = undefined;
 
 
 

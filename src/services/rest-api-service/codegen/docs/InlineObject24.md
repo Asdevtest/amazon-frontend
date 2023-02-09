@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[InlineObject15]**](InlineObject15.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

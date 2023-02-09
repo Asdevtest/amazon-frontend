@@ -61,6 +61,27 @@ export const styles = theme => ({
     margin: '10px 0 15px',
     display: 'flex',
 
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  openArchiveBtn: {
+    width: 230,
+    padding: '0 30px 0 30px',
+
+    color: theme.palette.text.general,
+  },
+  archiveAddBtn: {
+    width: 230,
+    border: '1px solid #FF1616',
+    color: '#FF1616',
+
+    '&:hover': {
+      border: '1px solid #FF1616',
+      opacity: 0.6,
+    },
+  },
+  simpleBtnsWrapper: {
+    display: 'flex',
+    gap: '30px',
+    paddingRight: '5px',
   },
 })

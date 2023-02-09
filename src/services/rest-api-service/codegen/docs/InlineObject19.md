@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**refundPrice** | **Number** | Сумма воврата | [optional] 
+**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
 
 

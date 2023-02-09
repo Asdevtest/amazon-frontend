@@ -18,6 +18,7 @@ import InlineObject10 from '../model/InlineObject10';
 import InlineObject11 from '../model/InlineObject11';
 import InlineObject12 from '../model/InlineObject12';
 import InlineObject13 from '../model/InlineObject13';
+import InlineObject14 from '../model/InlineObject14';
 import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
@@ -50,10 +51,60 @@ export default class BatchesApi {
 
 
     /**
+     * # Изменить у массива партий поле archive
+     * ## Изменить у массива партий поле archive
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject14} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BatchesArchivePatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/batches/archive', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить у массива партий поле archive
+     * ## Изменить у массива партий поле archive
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject14} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BatchesArchivePatch(opts) {
+      return this.apiV1BatchesArchivePatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получить партии по гуиду продукта
      * ## Получить партии по гуиду продукта.   
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли партия
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20011>} and HTTP response
      */
@@ -69,6 +120,7 @@ export default class BatchesApi {
         'guid': guid
       };
       let queryParams = {
+        'archive': opts['archive']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -92,6 +144,7 @@ export default class BatchesApi {
      * ## Получить партии по гуиду продукта.   
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли партия
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20011>}
      */
@@ -694,6 +747,7 @@ export default class BatchesApi {
      * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {module:model/String} status GUID склада который нужно получить.
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли партия
      * @param {String} opts.filters                Возможные поля: asin:, amazonTitle, skusByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
@@ -715,6 +769,7 @@ export default class BatchesApi {
       };
       let queryParams = {
         'status': status,
+        'archive': opts['archive'],
         'filters': opts['filters'],
         'limit': opts['limit'],
         'offset': opts['offset'],
@@ -744,6 +799,7 @@ export default class BatchesApi {
      * ## Получить партии. В зависимости от роли:  админ - получает все партии без исключения.         клиент - получает все партии в которых есть его коробки.         супер: получает все партии без исключения.         байер: получает все партии в которых есть его коробки, которые он создал.         сторкипер: получает только свои партии.
      * @param {module:model/String} status GUID склада который нужно получить.
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Заархивирована ли партия
      * @param {String} opts.filters                Возможные поля: asin:, amazonTitle, skusByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Поиск для полей заказа идет через схему Задача -> Коробка -> Айтем коробки -> Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)

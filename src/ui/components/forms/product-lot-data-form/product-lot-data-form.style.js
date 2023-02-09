@@ -38,6 +38,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '22px',
     lineHeight: '26px',
     color: theme.palette.text.general,
+
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   img: {

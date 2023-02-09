@@ -30,6 +30,8 @@ export class ClientSentBatchesViewModel {
 
   currentData = []
 
+  isArchive = false
+
   drawerOpen = false
 
   hsCodeData = {}
@@ -38,6 +40,15 @@ export class ClientSentBatchesViewModel {
   showBatchInfoModal = false
 
   showWarningInfoModal = false
+
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -58,10 +69,19 @@ export class ClientSentBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
+    console.log('history', history)
+    console.log('location', location)
     runInAction(() => {
       this.history = history
     })
+
+    if (history.location.state) {
+      runInAction(() => {
+        this.isArchive = history.location.state.isArchive
+      })
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -94,6 +114,45 @@ export class ClientSentBatchesViewModel {
     ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BATCHES)
+  }
+
+  onTriggerArchive() {
+    runInAction(() => {
+      this.selectedBatches = []
+    })
+
+    this.isArchive
+      ? this.history.push('/client/batches/sent-batches', {isArchive: !this.isArchive})
+      : this.history.push('/client/batches/sent-batches/archive', {isArchive: !this.isArchive})
+  }
+
+  onClickTriggerArchOrResetProducts() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: this.isArchive ? false : true,
+        confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a batch']),
+        confirmMessage: this.isArchive
+          ? t(TranslationKey['After confirmation, the batch will be moved to the Inventory. Continue?'])
+          : t(TranslationKey['After confirmation, the batch will be moved to the archive. Delete?']),
+        onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitTriggerArchOrResetProducts() {
+    try {
+      await BatchesModel.editUpdateBatches({
+        batchIds: [...this.selectedBatches],
+        archive: this.isArchive ? false : true,
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+      await this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   getDataGridState() {
@@ -256,11 +315,15 @@ export class ClientSentBatchesViewModel {
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
+      // const  [archive][$eq]=${this.isArchive ? 'true' : 'false'}
+
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
           limit: this.rowsPerPage,
           offset: this.curPage * this.rowsPerPage,
+
+          archive: this.isArchive,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

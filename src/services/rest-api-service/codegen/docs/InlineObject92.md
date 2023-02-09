@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject20]**](InlineObject20.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
+**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | [optional] 
+**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | [optional] 
 
 

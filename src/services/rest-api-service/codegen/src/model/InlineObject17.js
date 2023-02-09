@@ -47,44 +47,38 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
         }
         return obj;
@@ -94,81 +88,70 @@ class InlineObject17 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
- */
-InlineObject17.prototype['buyerComment'] = undefined;
-
-/**
- * GUID storekeeper-a
- * @member {String} storekeeperId
- */
-InlineObject17.prototype['storekeeperId'] = undefined;
-
-/**
- * Цена в юанях
- * @member {Number} priceInYuan
- */
-InlineObject17.prototype['priceInYuan'] = undefined;
-
-/**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
- */
-InlineObject17.prototype['priceBatchDeliveryInYuan'] = undefined;
-
-/**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
- */
-InlineObject17.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID пункта назначения.
+ * GUID пункта назначения коробки
  * @member {String} destinationId
  */
 InlineObject17.prototype['destinationId'] = undefined;
 
 /**
- * @member {String} item
+ * GUID тарифа к сторкипера
+ * @member {String} logicsTariffId
  */
-InlineObject17.prototype['item'] = undefined;
+InlineObject17.prototype['logicsTariffId'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
  */
-InlineObject17.prototype['images'] = undefined;
+InlineObject17.prototype['fbaShipment'] = undefined;
 
 /**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject17.prototype['yuanToDollarRate'] = undefined;
+InlineObject17.prototype['fbaNumber'] = undefined;
 
 /**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
+ * Комментарии к коробке
+ * @member {String} clientComment
  */
-InlineObject17.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject17.prototype['clientComment'] = undefined;
 
 /**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject17.prototype['trackingNumberChina'] = undefined;
+InlineObject17.prototype['referenceId'] = undefined;
 
 /**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject17.prototype['orderSupplierId'] = undefined;
+InlineObject17.prototype['trackNumberText'] = undefined;
 
 /**
- * Кол-во в заказе
- * @member {Number} amount
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
  */
-InlineObject17.prototype['amount'] = undefined;
+InlineObject17.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject17.prototype['upsTrackNumber'] = undefined;
+
+/**
+ * shippingLabel коробки
+ * @member {String} shippingLabel
+ */
+InlineObject17.prototype['shippingLabel'] = undefined;
+
+/**
+ * shippingLabel проклеен сторкипером
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject17.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 
 

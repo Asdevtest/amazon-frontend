@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки разделение которой отменяем. | [optional] 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

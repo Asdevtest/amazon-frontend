@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRequestDetailsCustom';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject109 model module.
@@ -23,12 +21,12 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject109 {
     /**
      * Constructs a new <code>InlineObject109</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject109
+     * @param hash {String} Токен, который юзер получает через почту
      */
-    constructor() { 
+    constructor(hash) { 
         
-        InlineObject109.initialize(this);
+        InlineObject109.initialize(this, hash);
     }
 
     /**
@@ -36,7 +34,8 @@ class InlineObject109 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, hash) { 
+        obj['hash'] = hash;
     }
 
     /**
@@ -50,11 +49,11 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('hash')) {
+                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsRequestDetailsCustom.constructFromObject(data['details']);
+            if (data.hasOwnProperty('password')) {
+                obj['password'] = ApiClient.convertToType(data['password'], 'String');
             }
         }
         return obj;
@@ -64,14 +63,16 @@ class InlineObject109 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Токен, который юзер получает через почту
+ * @member {String} hash
  */
-InlineObject109.prototype['request'] = undefined;
+InlineObject109.prototype['hash'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsRequestDetailsCustom} details
+ * Новый пароль
+ * @member {String} password
  */
-InlineObject109.prototype['details'] = undefined;
+InlineObject109.prototype['password'] = undefined;
 
 
 
