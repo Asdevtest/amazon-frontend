@@ -122,7 +122,7 @@ export const AddNewChatByEmailForm = observer(({closeModal, onSubmit, usersData}
           disabled={disableSubmit}
           className={classNames.button}
           onClick={() => {
-            setSubmitIsClicked
+            setSubmitIsClicked(true)
             onSubmit(formFields)
           }}
         >

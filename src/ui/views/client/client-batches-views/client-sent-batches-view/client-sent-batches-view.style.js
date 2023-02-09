@@ -64,7 +64,7 @@ export const styles = theme => ({
     justifyContent: 'space-around',
   },
   openArchiveBtn: {
-    width: 230,
+    minWidth: 230,
     padding: '0 30px 0 30px',
 
     color: theme.palette.text.general,

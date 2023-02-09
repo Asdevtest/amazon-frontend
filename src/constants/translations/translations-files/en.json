@@ -1753,6 +1753,8 @@
   "Batches archive": "Batches archive",
   "Actual batches": "Actual batches",
   "Delete a batch": "Delete a batch",
-  "After confirmation, the batch will be moved to the Inventory. Continue?": "After confirmation, the batch will be moved to the Inventory. Continue?",
-  "After confirmation, the batch will be moved to the archive. Delete?": "After confirmation, the batch will be moved to the archive. Delete?"
+  "After confirmation, the batch will be moved to the actual batches. Continue?": "After confirmation, the batch will be moved to the actual batches. Continue?",
+  "After confirmation, the batch will be moved to the archive. Delete?": "After confirmation, the batch will be moved to the archive. Delete?",
+  "Back to actual batches": "Back to actual batches",
+  "Relocate from archive": "Relocate from archive"
 }

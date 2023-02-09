@@ -132,7 +132,7 @@ export class ClientSentBatchesViewModel {
         isWarning: this.isArchive ? false : true,
         confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a batch']),
         confirmMessage: this.isArchive
-          ? t(TranslationKey['After confirmation, the batch will be moved to the Inventory. Continue?'])
+          ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
           : t(TranslationKey['After confirmation, the batch will be moved to the archive. Delete?']),
         onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
       }
@@ -311,9 +311,10 @@ export class ClientSentBatchesViewModel {
 
   async getBatchesPagMy() {
     try {
-      const filter = isNaN(this.nameSearchValue)
-        ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
-        : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
+      const filter =
+        isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+          ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
+          : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
       // const  [archive][$eq]=${this.isArchive ? 'true' : 'false'}
 
