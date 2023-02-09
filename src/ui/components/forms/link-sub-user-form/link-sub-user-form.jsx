@@ -17,17 +17,17 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
   const [email, setEmail] = useState('')
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div data-testid={'mainWrapper'} className={classNames.mainWrapper}>
       <Typography variant="h4" className={classNames.modalTitle}>
         {t(TranslationKey['Add a sub-user'])}
       </Typography>
 
       <Field
-        data-testid={'input'}
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={classNames.labelField}
         type="email"
         value={email}
+        inputProps={{'data-testid': 'input'}}
         onChange={e => setEmail(e.target.value)}
       />
 
