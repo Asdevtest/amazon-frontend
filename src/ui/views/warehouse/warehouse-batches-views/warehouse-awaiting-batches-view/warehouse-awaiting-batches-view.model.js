@@ -187,14 +187,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getBatchesPagMy()
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
@@ -282,6 +278,8 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async getBatchesPagMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const filter = isNaN(this.nameSearchValue)
         ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
         : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
@@ -309,6 +307,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
 
@@ -316,6 +315,7 @@ export class WarehouseAwaitingBatchesViewModel {
         this.error = error
         this.batches = []
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

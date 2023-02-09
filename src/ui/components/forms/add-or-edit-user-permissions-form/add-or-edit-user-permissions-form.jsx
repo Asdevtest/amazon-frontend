@@ -372,7 +372,7 @@ export const AddOrEditUserPermissionsForm = observer(
                   onClick={onClickChooseAllProductCheck}
                 />
 
-                <Typography className={classNames.title}>{t(TranslationKey['Store name'])}</Typography>
+                <Typography className={classNames.title}>{t(TranslationKey['Select all'])}</Typography>
               </div>
             ) : null}
             {sourceDataToProductsPermissions
