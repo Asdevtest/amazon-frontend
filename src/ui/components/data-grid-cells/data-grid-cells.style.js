@@ -866,13 +866,18 @@ export const styles = theme => ({
     color: theme.palette.text.general,
     resize: 'none',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    maxHeight: 90,
-    padding: '5px 0',
+  },
+
+  fourLinesTextAlignLeft: {
+    justifyContent: 'center',
+    height: 65,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
 
     display: '-webkit-box',
-    '-webkit-line-clamp': 1,
-    '-webkit-box-orient': 'vertical',
-    overflow: 'hidden',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
   },
 
   multilineTextAlignLeftSub: {

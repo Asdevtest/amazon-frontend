@@ -991,13 +991,17 @@ export const CommentOfSbCell = React.memo(
 
 export const MultilineTextAlignLeftCell = React.memo(
   withStyles(
-    ({classes: classNames, text, withTooltip, isAsin, pointer}) =>
+    ({classes: classNames, text, withTooltip, isAsin, pointer, fourLines}) =>
       withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextAlignLeftWrapper}>
             <Typography
               // disabled
-              className={cx(classNames.multilineTextAlignLeft, {[classNames.cursorPointer]: pointer})}
+              className={cx(
+                classNames.multilineTextAlignLeft,
+                {[classNames.cursorPointer]: pointer},
+                {[classNames.fourLinesTextAlignLeft]: fourLines},
+              )}
             >
               {getShortenStringIfLongerThanCount(text, 150)}
             </Typography>
@@ -1006,16 +1010,17 @@ export const MultilineTextAlignLeftCell = React.memo(
       ) : (
         <div className={classNames.multilineTextAlignLeftWrapper}>
           {isAsin ? (
-            <Typography className={cx(classNames.multilineAsinTextAlignLeft)}>
+            <Typography
+              className={cx(classNames.multilineAsinTextAlignLeft, {[classNames.fourLinesTextAlignLeft]: fourLines})}
+            >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
             </Typography>
           ) : (
             <Typography
-              // disabled
-              // value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
               className={cx(classNames.multilineTextAlignLeft, {
                 [classNames.multilineTextAlignLeftSub]: isAsin,
                 [classNames.cursorPointer]: pointer,
+                [classNames.fourLinesTextAlignLeft]: fourLines,
               })}
             >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
