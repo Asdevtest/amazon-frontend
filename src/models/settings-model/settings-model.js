@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {compareVersions} from 'compare-versions'
 import isEqual from 'lodash.isequal'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
@@ -78,7 +79,14 @@ class SettingsModelStatic {
     console.log('caches', caches)
     console.log('cach.keys()', cach)
 
-    if (appVersion !== response.data.version) {
+    // if (appVersion !== response.data.version) {
+
+    console.log(
+      'compareVersions(response.data.version, appVersion)',
+      compareVersions(response.data.version, appVersion),
+    )
+
+    if (compareVersions(response.data.version, appVersion)) {
       console.log('!!!*** versions do not match')
 
       // if (caches) {
