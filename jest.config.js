@@ -22,7 +22,6 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
   verbose: true,
-  timers: 'legacy',
 
   // scriptPreprocessor: '<rootDir>/node_modules/babel-jest',
   // plugins: ['@babel/plugin-transform-modules-commonjs'],

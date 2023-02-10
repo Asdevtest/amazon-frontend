@@ -59,9 +59,9 @@ export const BoxItemCard = ({
             )}
 
             {(readOnly && taskType === TaskOperationType.RECEIVE) ||
-            (!isNewBox && taskType !== TaskOperationType.RECEIVE) ||
-            taskType === TaskOperationType.MERGE ||
-            taskType === TaskOperationType.SPLIT ||
+            (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ||
+            (taskType === TaskOperationType.MERGE && index === 0) ||
+            (taskType === TaskOperationType.SPLIT && index === 0) ||
             taskType === TaskOperationType.EDIT ||
             taskType === TaskOperationType.EDIT_BY_STOREKEEPER ? (
               <div className={classNames.countSubWrapper}>

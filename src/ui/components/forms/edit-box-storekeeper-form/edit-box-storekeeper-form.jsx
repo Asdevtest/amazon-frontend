@@ -39,45 +39,6 @@ export const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoeffici
   const {classes: classNames} = useClassNames()
 
   return (
-    // <div className={classNames.demensionsWrapper}>
-    //   <Typography className={classNames.standartText}>
-    //     {t(TranslationKey.Length) + ': '}
-
-    //     {toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-    //   </Typography>
-    //   <Typography className={classNames.standartText}>
-    //     {t(TranslationKey.Width) + ': '}
-    //     {toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-    //   </Typography>
-    //   <Typography className={classNames.standartText}>
-    //     {t(TranslationKey.Height) + ': '}
-    //     {toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-    //   </Typography>
-
-    //   <Typography className={classNames.standartText}>
-    //     {t(TranslationKey.Weight) + ': '}
-    //     {orderBox.weighGrossKgWarehouse || 0}
-    //   </Typography>
-
-    //   <Typography className={classNames.standartText}>
-    //     {t(TranslationKey['Volume weight']) + ': '}
-    //     {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
-    //   </Typography>
-
-    //   <Typography
-    //     className={cx(classNames.standartText, {
-    //       [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12,
-    //     })}
-    //   >
-    //     {t(TranslationKey['Final weight']) + ': '}
-    //     {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
-    //   </Typography>
-
-    //   {orderBox.weightFinalAccountingKgWarehouse < 12 ? (
-    //     <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-    //   ) : null}
-    // </div>
-
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field

@@ -251,6 +251,7 @@ export const AddOrEditSupplierModalContent = observer(
               tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
               disabled={diasabledSubmit}
               className={classNames.saveBtn}
+              color="primary"
               variant="contained"
               onClick={() => {
                 onClickSaveBtn({
