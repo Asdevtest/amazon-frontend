@@ -101,12 +101,12 @@ class ClientSentBatchesViewRaw extends Component {
             <MainContent>
               <div className={className.btnsWrapper}>
                 <Button
-                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+                  // tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
                   variant="outlined"
                   className={className.openArchiveBtn}
                   onClick={onTriggerArchive}
                 >
-                  {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
+                  {isArchive ? t(TranslationKey['Back to actual batches']) : t(TranslationKey['Open archive'])}
                 </Button>
 
                 <SearchInput
@@ -119,9 +119,9 @@ class ClientSentBatchesViewRaw extends Component {
 
                 <div className={className.simpleBtnsWrapper}>
                   <Button
-                    tooltipInfoContent={t(
-                      TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                    )}
+                    // tooltipInfoContent={t(
+                    //   TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                    // )}
                     disabled={!selectedBatches.length}
                     variant="outlined"
                     className={className.archiveAddBtn}
@@ -133,7 +133,7 @@ class ClientSentBatchesViewRaw extends Component {
                     onClick={onClickTriggerArchOrResetProducts}
                   >
                     {isArchive ? (
-                      t(TranslationKey['Return to inventory'])
+                      t(TranslationKey['Relocate from archive'])
                     ) : (
                       <>
                         {t(TranslationKey['Move to archive'])}

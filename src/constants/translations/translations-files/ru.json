@@ -1750,10 +1750,13 @@
   "Current order course": "Текущий курс для заказа",
   "The box is unchanged": "Коробка не изменена",
   "Boxes are not regrouped": "Коробки не перегруппированы",
-  "Select all": "Select all",
+  "Select all": "Выбрать все",
   "Batches archive": "Архив партий",
   "Actual batches": "Актуальные партии",
   "Delete a batch": "Удалить партию",
-  "After confirmation, the batch will be moved to the Inventory. Continue?": "После подтверждения партия будет перенесена в Инвентарь. Продолжить?",
-  "After confirmation, the batch will be moved to the archive. Delete?": "После подтверждения партия будет перенесена в Архив. Удалить?"
+  "After confirmation, the batch will be moved to the actual batches. Continue?": "После подтверждения партия будет перенесена в актуальные партии. Продолжить?",
+  "After confirmation, the batch will be moved to the archive. Delete?": "После подтверждения партия будет перенесена в Архив. Удалить?",
+  "Back to actual batches": "Вернуться в актуальные партии",
+  "Relocate from archive": "Переместить из архива",
+  "Return to actual batches": "Вернуть в актуальные партии"
 }
