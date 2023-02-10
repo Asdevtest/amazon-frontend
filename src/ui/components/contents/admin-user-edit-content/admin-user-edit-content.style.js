@@ -143,7 +143,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   allowedRoleContainer: {
     marginBottom: '0 !important',
-    width: '150px',
+    width: '145px !important',
   },
 
   overdraftContainer: {
@@ -171,8 +171,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     height: '40px',
-    padding: '0 15px',
+    padding: '0px 15px 0px 2px',
     borderRadius: '4px',
   },
 
@@ -207,7 +208,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '34px',
+    width: '40px',
     height: '22px',
     fontSize: '18px',
     backgroundColor: '#006CFF',
@@ -284,10 +285,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '139px',
     color: theme.palette.text.general,
   },
-
-  // actionPulseButton: {
-  //   animation: 'pulse .8s infinite ease-in-out',
-  // },
 
   // Новое
   labelField: {
