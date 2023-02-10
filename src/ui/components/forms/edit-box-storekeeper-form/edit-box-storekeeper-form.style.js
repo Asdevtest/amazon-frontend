@@ -126,7 +126,7 @@ export const useClassNames = makeStyles()(theme => ({
     // marginLeft: '10px',
   },
   numberInputField: {
-    margin: '0 5px',
+    margin: '5px 5px',
   },
   blockOfNewBoxWrapper: {
     height: '100%',
@@ -373,5 +373,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
+  },
+  label: {
+    marginBottom: 0,
   },
 }))
