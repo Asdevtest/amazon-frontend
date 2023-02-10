@@ -73,9 +73,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
-    height: 35,
+    height: 45,
 
-    padding: '0 10px 15px 15px',
+    padding: '0 0px 10px 15px',
     '&:hover': {
       // backgroundColor: '#CCE2FF',
       backgroundColor: theme.palette.background.second,

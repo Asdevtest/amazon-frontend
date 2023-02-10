@@ -132,9 +132,9 @@ export const NavbarCollapse = ({
               </Typography>
 
               {menuAnchor ? (
-                <ArrowDropUpIcon className={cx({[classNames.selected]: index === activeCategory})} />
+                <ArrowDropUpIcon className={cx({[classNames.selected]: index === activeCategory})} fontSize="small" />
               ) : (
-                <ArrowDropDownIcon className={cx({[classNames.selected]: index === activeCategory})} />
+                <ArrowDropDownIcon className={cx({[classNames.selected]: index === activeCategory})} fontSize="small" />
               )}
             </div>
           ) : null}

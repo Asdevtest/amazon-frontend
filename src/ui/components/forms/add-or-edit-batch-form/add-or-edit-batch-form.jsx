@@ -63,8 +63,8 @@ export const AddOrEditBatchForm = observer(
       title: batchToEdit?.originalData.title || '',
       calculationMethod:
         batchToEdit?.originalData.calculationMethod ||
-        BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_WEIGHT],
-      volumeWeightDivide: batchToEdit?.originalData.volumeWeightDivide || 5000,
+        BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT],
+      volumeWeightDivide: batchToEdit?.originalData.volumeWeightDivide || 6000,
     })
 
     const [boxesToAddData, setBoxesToAddData] = useState(
