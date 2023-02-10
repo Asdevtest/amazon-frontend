@@ -47,18 +47,11 @@ export class WarehouseCompletedViewModel {
 
   showTaskInfoModal = false
 
-  // reactionLanguageTagDisposer = undefined
-
   constructor({history}) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-
-    // this.reactionLanguageTagDisposer = reaction(
-    //   () => SettingsModel.languageTag,
-    //   () => this.loadData(),
-    // )
 
     reaction(
       () => SettingsModel.languageTag,
@@ -85,12 +78,6 @@ export class WarehouseCompletedViewModel {
     }
   }
 
-  // disposeReactionLanguageTagDisposer(){
-  //   if(this.reactionLanguageTagDisposer){
-  //     this.reactionLanguageTagDisposer()
-  //   }
-  // }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
@@ -114,17 +101,6 @@ export class WarehouseCompletedViewModel {
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
   }
-
-  // updateDataGridColumns(){
-  //   console.log('this.columnsModel', this.columnsModel)
-
-  //   this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
-  //       ...el,
-  //       hide: this.columnsModel?.lookup[el?.field]?.hide,
-  //     }))
-
-  //   console.log('this.columnsModel', this.columnsModel)
-  // }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS]

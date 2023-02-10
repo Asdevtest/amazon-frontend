@@ -892,6 +892,7 @@ export const MultilineTextCell = React.memo(
       tooltipText,
       withLineBreaks,
       onClickText,
+      oneLines,
     }) => (
       <>
         {withTooltip || tooltipText ? (
@@ -903,6 +904,7 @@ export const MultilineTextCell = React.memo(
                   {[classNames.multilineLeftAlignText]: leftAlign},
                   {[classNames.multilineLink]: onClickText && text},
                   {[classNames.threeMultilineText]: threeLines},
+                  {[classNames.oneMultilineText]: oneLines},
                 )}
                 style={otherStyles || (color && {color})}
                 onClick={onClickText && onClickText}
@@ -919,6 +921,7 @@ export const MultilineTextCell = React.memo(
                 {[classNames.multilineLeftAlignText]: leftAlign},
                 {[classNames.multilineLink]: onClickText && text},
                 {[classNames.threeMultilineText]: threeLines},
+                {[classNames.oneMultilineText]: oneLines},
               )}
               style={otherStyles || (color && {color})}
               onClick={onClickText && onClickText}

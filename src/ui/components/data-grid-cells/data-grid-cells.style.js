@@ -742,6 +742,18 @@ export const styles = theme => ({
     WebkitBoxOrient: 'vertical',
   },
 
+  oneMultilineText: {
+    justifyContent: 'center',
+    height: 16,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
   boxesAndQuantityText: {
     whiteSpace: 'normal',
 
