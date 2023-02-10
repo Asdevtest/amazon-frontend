@@ -21,7 +21,7 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
-  verbose: true,
+  // verbose: true,
 
   // scriptPreprocessor: '<rootDir>/node_modules/babel-jest',
   // plugins: ['@babel/plugin-transform-modules-commonjs'],

@@ -60,7 +60,7 @@ export const useClassNames = makeStyles()((theme, props) => ({
   tooltipsWrapper: {
     position: 'absolute',
     top: '-10px',
-    right: '-10px',
+    right: '-15px',
     zIndex: '10',
     display: 'flex',
   },
@@ -68,7 +68,7 @@ export const useClassNames = makeStyles()((theme, props) => ({
   tooltipsCenterWrapper: {
     position: 'absolute',
     top: 'calc(50% - 8.5px)',
-    right: '20px',
+    right: '10px',
     zIndex: '10',
 
     display: 'flex',

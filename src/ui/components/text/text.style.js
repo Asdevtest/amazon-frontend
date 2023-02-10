@@ -39,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
   cornerTooltipsWrapper: {
     position: 'absolute',
     top: '-10px',
-    right: '-10px',
+    right: '-15px',
     zIndex: '10',
 
     display: 'flex',
