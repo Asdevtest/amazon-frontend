@@ -818,13 +818,6 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'start',
     flexWrap: 'no-wrap',
-
-    // textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-
-    // display: '-webkit-box',
-    // WebkitLineClamp: 4,
-    // WebkitBoxOrient: 'vertical',
   },
 
   commentOfSbWrapper: {
@@ -860,21 +853,14 @@ export const styles = theme => ({
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
     resize: 'none',
-    // height: '100%',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    maxHeight: 90,
+    padding: '5px 0',
 
-    // textOverflow: 'ellipsis ',
-
-    // whiteSpace: 'normal',
-
-    // // whiteSpace: 'normal',
-    // height: 65,
-    // textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-
-    // display: '-webkit-box',
-    // WebkitLineClamp: 3,
-    // WebkitBoxOrient: 'vertical',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+    overflow: 'hidden',
   },
 
   multilineTextAlignLeftSub: {

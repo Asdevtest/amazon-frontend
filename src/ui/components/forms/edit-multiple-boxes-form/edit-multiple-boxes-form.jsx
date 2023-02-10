@@ -832,6 +832,7 @@ export const EditMultipleBoxesForm = observer(
                       variant={sharedFields.logicsTariffId && 'text'}
                       className={cx({
                         [classNames.storekeeperBtn]: !sharedFields.logicsTariffId,
+                        [classNames.storekeeperBtnDefault]: sharedFields.logicsTariffId,
                       })}
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
