@@ -108,6 +108,7 @@ export const styles = theme => ({
   pickupOrdersButton: {
     padding: '0 25px',
     height: 40,
+    color: '#fff',
   },
 
   acceptMessageWrapper: {
