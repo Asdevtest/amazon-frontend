@@ -34,10 +34,12 @@ export const useClassNames = makeStyles()(theme => ({
   containerAccent: {
     outline: '2px solid #F5CF00',
     borderRadius: 4,
+    padding: 3,
   },
 
   checkboxContainer: {
     marginBottom: 10,
+    alignItems: 'flex-end',
   },
 
   modalTitleWrapper: {

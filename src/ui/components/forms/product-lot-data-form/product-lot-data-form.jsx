@@ -89,15 +89,17 @@ export const ProductLotDataForm = observer(
         <div className={classNames.title}>
           {t(TranslationKey[`${isTransfer ? 'Data of product boxes to be shipped' : 'Product batches data'}`])}
 
-          <Button
-            variant="contained"
-            onClick={() => {
-              onClickToggleArchiveProductLotData(!isArchive)
-              setIsArchive(!isArchive)
-            }}
-          >
-            {isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Batches archive'])}
-          </Button>
+          {!isTransfer && (
+            <Button
+              variant="contained"
+              onClick={() => {
+                onClickToggleArchiveProductLotData(!isArchive)
+                setIsArchive(!isArchive)
+              }}
+            >
+              {isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Batches archive'])}
+            </Button>
+          )}
         </div>
         <div className={classNames.aboutProduct}>
           <div className={classNames.productInfo}>

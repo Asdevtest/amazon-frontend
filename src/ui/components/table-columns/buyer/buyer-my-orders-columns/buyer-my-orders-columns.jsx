@@ -132,12 +132,6 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
 
     renderCell: params => (
-      // <MultilineTextCell
-      //   withLineBreaks
-      //   tooltipText={formatNormDateTime(params.value)}
-      //   color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-      //   text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
-      // />
       <MultilineTextCell
         withLineBreaks
         tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
