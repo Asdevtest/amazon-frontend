@@ -81,12 +81,6 @@ export const Field: FC<Props> = observer(
                     onClose={() => setOpenAttentionTooltip(false)}
                     onOpen={() => setOpenAttentionTooltip(true)}
                   >
-                    {/* <img
-                      className={classNames.tooltip}
-                      src="/assets/icons/attention.svg"
-                      onClick={() => setOpenAttentionTooltip(true)}
-                    /> */}
-
                     <div>
                       <TooltipAttention
                         className={cx(classNames.tooltip)}

@@ -68,6 +68,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 3,
   },
 
+  tooltipWrapper: {
+    width: '18 !important',
+    height: '18 !important',
+  },
+
   tooltip: {
     width: '17px',
     height: '17px',
@@ -86,7 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   labelWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
 
   // inputDisabled: {
