@@ -28,7 +28,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
   return (
     <Button
       tooltipPosition="center"
-      tooltipInfoContent={renderTooltipTitle(category.title, userInfo.role)}
+      tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title, userInfo.role)}
       className={classNames.menuItem}
     >
       <MuiListItem

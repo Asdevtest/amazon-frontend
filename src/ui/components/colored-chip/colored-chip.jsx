@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {TooltipInfoIcon} from '@constants/svg-icons'
+import {TooltipAttention, TooltipInfoIcon} from '@constants/svg-icons'
 
 import {SettingsModel} from '@models/settings-model'
 
@@ -55,11 +55,14 @@ export const ColoredChip = observer(
                 onClose={() => setOpenAttentionTooltip(false)}
                 onOpen={() => setOpenAttentionTooltip(true)}
               >
-                <img
+                {/* <img
                   className={classNames.tooltip}
                   src="/assets/icons/attention.svg"
                   onClick={() => setOpenAttentionTooltip(true)}
-                />
+                /> */}
+                <div>
+                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                </div>
               </Tooltip>
             ) : null}
 

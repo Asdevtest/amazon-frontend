@@ -24,6 +24,7 @@ export const styles = theme => ({
   selected: {
     color: `${theme.palette.primary.main} !important`,
     background: 'linear-gradient(90deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
+    borderLeft: `5px solid ${theme.palette.primary.main}`,
   },
   shortNavbarRoot: {
     paddingRight: 0,
