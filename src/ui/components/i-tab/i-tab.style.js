@@ -6,6 +6,8 @@ export const useClassNames = makeStyles()(theme => ({
     top: '1px',
     right: '1px',
     zIndex: '10',
+
+    display: 'flex',
   },
 
   tooltip: {

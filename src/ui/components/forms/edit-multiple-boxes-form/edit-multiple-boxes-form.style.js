@@ -31,6 +31,15 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
+  containerAccent: {
+    outline: '2px solid #F5CF00',
+    borderRadius: 4,
+  },
+
+  checkboxContainer: {
+    marginBottom: 10,
+  },
+
   modalTitleWrapper: {
     width: '100%',
     display: 'flex',
