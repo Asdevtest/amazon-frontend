@@ -5,7 +5,7 @@ import React, {FC, ReactElement, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {TooltipInfoIcon} from '@constants/svg-icons'
+import {TooltipAttention, TooltipInfoIcon} from '@constants/svg-icons'
 
 import {SettingsModel} from '@models/settings-model'
 
@@ -92,11 +92,15 @@ export const Button: FC<Props> = observer(
                 onClose={() => setOpenAttentionTooltip(false)}
                 onOpen={() => setOpenAttentionTooltip(true)}
               >
-                <img
+                {/* <img
                   className={classNames.tooltip}
                   src="/assets/icons/attention.svg"
                   onClick={() => setOpenAttentionTooltip(true)}
-                />
+                /> */}
+
+                <div>
+                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                </div>
               </Tooltip>
             ) : null}
 
@@ -112,6 +116,8 @@ export const Button: FC<Props> = observer(
                 <div>
                   <TooltipInfoIcon
                     className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                    // fontSize={'small'}
+                    // viewBox={'0 0 20 20'}
                     onClick={() => setOpenInfoTooltip(true)}
                   />
                 </div>

@@ -8,6 +8,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '12px',
     fontSize: 13,
   },
+
+  collapseText: {
+    marginRight: '12px',
+    fontSize: 25,
+  },
   selected: {
     color: `${theme.palette.primary.main} !important`,
   },
@@ -60,5 +65,29 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 20px 0 56px',
     width: '100%',
     // color: theme.palette.text.second,
+  },
+
+  userInfoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '0.3s ease',
+    height: 35,
+
+    padding: '0 10px 15px 15px',
+    '&:hover': {
+      // backgroundColor: '#CCE2FF',
+      backgroundColor: theme.palette.background.second,
+    },
+  },
+
+  hideOnModile: {
+    display: 'block',
+    color: theme.palette.primary.main,
+
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 }))

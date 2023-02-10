@@ -1,8 +1,11 @@
 import {cx} from '@emotion/css'
-import {Collapse, List, ListItemIcon, ListItemText} from '@mui/material'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import {Collapse, List, ListItemIcon, ListItemText, Typography} from '@mui/material'
+import Menu from '@mui/material/Menu'
 
-import React from 'react'
+import React, {useState} from 'react'
 
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import {Link} from 'react-router-dom'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -22,8 +25,19 @@ export const NavbarCollapse = ({
   userInfo,
   onChangeSubCategory,
   currentViewModel,
+  shortNavbar,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  const [menuAnchor, setMenuAnchor] = useState(null)
+
+  const handleClick = event => {
+    setMenuAnchor(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setMenuAnchor(null)
+  }
 
   const onClickCategory = subIndex => {
     onChangeSubCategory && onChangeSubCategory(subIndex)
@@ -94,15 +108,58 @@ export const NavbarCollapse = ({
 
   return (
     <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS}>
-      <List disablePadding>
-        {category.subtitles?.map((subCategory, subIndex) =>
-          subCategory.checkHideSubBlock
-            ? subCategory.checkHideSubBlock(userInfo)
-              ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
-              : null
-            : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
-        )}
-      </List>
+      {!shortNavbar ? (
+        <List disablePadding>
+          {category.subtitles?.map((subCategory, subIndex) =>
+            subCategory.checkHideSubBlock
+              ? subCategory.checkHideSubBlock(userInfo)
+                ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
+                : null
+              : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
+          )}
+        </List>
+      ) : (
+        <>
+          {category.subtitles?.length ? (
+            <div
+              className={classNames.userInfoWrapper}
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <Typography className={cx(classNames.collapseText, {[classNames.selected]: index === activeCategory})}>
+                {'...'}
+              </Typography>
+
+              {menuAnchor ? (
+                <ArrowDropUpIcon className={cx({[classNames.selected]: index === activeCategory})} />
+              ) : (
+                <ArrowDropDownIcon className={cx({[classNames.selected]: index === activeCategory})} />
+              )}
+            </div>
+          ) : null}
+        </>
+      )}
+
+      <Menu
+        keepMounted
+        id="simple-menu"
+        anchorEl={menuAnchor}
+        autoFocus={false}
+        open={Boolean(menuAnchor)}
+        classes={{paper: classNames.menu, list: classNames.list}}
+        onClose={handleClose}
+      >
+        <List disablePadding>
+          {category.subtitles?.map((subCategory, subIndex) =>
+            subCategory.checkHideSubBlock
+              ? subCategory.checkHideSubBlock(userInfo)
+                ? renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory)
+                : null
+              : renderSubCategory(subCategory.key ? subCategory.key : subIndex, subCategory),
+          )}
+        </List>
+      </Menu>
     </Collapse>
   )
 }

@@ -66,43 +66,45 @@ export const Navbar = observer(
             />
           </div>
         ) : null}
-        {!shortNavbar ? (
-          <List className={classNames.categoriesWrapper}>
-            {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
-              .filter(el => !el.route?.includes('/messages'))
-              .map((category, index) =>
-                category.checkHideBlock(viewModel.current.userInfo) ? (
-                  <React.Fragment key={index}>
-                    <NavbarCategory
-                      button
-                      isSelected={category.key === activeCategory}
-                      userInfo={viewModel.current.userInfo}
-                      category={category}
-                      badge={
-                        (category.route?.includes('/client/notifications') &&
-                          viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                            viewModel.current.userInfo.needConfirmPriceChange.orders +
-                            viewModel.current.userInfo.needUpdateTariff.boxes) ||
-                        (category.route?.includes('/client/orders') &&
-                          viewModel.current.userInfo.purchaseOrderRequired?.length &&
-                          viewModel.current.userInfo.purchaseOrderRequired.length)
-                      }
-                    />
+        {/* {!shortNavbar ? ( */}
+        <List className={classNames.categoriesWrapper}>
+          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
+            .filter(el => !el.route?.includes('/messages'))
+            .map((category, index) =>
+              category.checkHideBlock(viewModel.current.userInfo) ? (
+                <React.Fragment key={index}>
+                  <NavbarCategory
+                    button
+                    isSelected={category.key === activeCategory}
+                    shortNavbar={shortNavbar}
+                    userInfo={viewModel.current.userInfo}
+                    category={category}
+                    badge={
+                      (category.route?.includes('/client/notifications') &&
+                        viewModel.current.userInfo.needConfirmPriceChange.boxes +
+                          viewModel.current.userInfo.needConfirmPriceChange.orders +
+                          viewModel.current.userInfo.needUpdateTariff.boxes) ||
+                      (category.route?.includes('/client/orders') &&
+                        viewModel.current.userInfo.purchaseOrderRequired?.length &&
+                        viewModel.current.userInfo.purchaseOrderRequired.length)
+                    }
+                  />
 
-                    <NavbarCollapse
-                      activeCategory={activeCategory}
-                      activeSubCategory={activeSubCategory}
-                      category={category}
-                      index={category.key}
-                      userInfo={viewModel.current.userInfo}
-                      currentViewModel={viewModel.current}
-                      onChangeSubCategory={onChangeSubCategory}
-                    />
-                  </React.Fragment>
-                ) : null,
-              )}
-          </List>
-        ) : null}
+                  <NavbarCollapse
+                    shortNavbar={shortNavbar}
+                    activeCategory={activeCategory}
+                    activeSubCategory={activeSubCategory}
+                    category={category}
+                    index={category.key}
+                    userInfo={viewModel.current.userInfo}
+                    currentViewModel={viewModel.current}
+                    onChangeSubCategory={onChangeSubCategory}
+                  />
+                </React.Fragment>
+              ) : null,
+            )}
+        </List>
+        {/* ) : null} */}
 
         <div className={classNames.bottomCategories}>
           {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]

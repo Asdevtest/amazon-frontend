@@ -41,5 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
     top: '-10px',
     right: '-10px',
     zIndex: '10',
+
+    display: 'flex',
   },
 }))

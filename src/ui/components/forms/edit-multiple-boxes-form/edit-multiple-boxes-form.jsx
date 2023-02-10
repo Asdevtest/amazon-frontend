@@ -85,6 +85,38 @@ const Box = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
+  const onChangeBarcodeGlued = (product, field) => value => {
+    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
+
+    const newFormFields = {...targetBox}
+
+    if (field === 'isBarCodeAttachedByTheStorekeeper' && value) {
+      newFormFields.items = [
+        ...targetBox.items.map(el =>
+          el.product._id === product.product._id
+            ? {...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false}
+            : el,
+        ),
+      ]
+    } else if (field === 'isBarCodeAlreadyAttachedByTheSupplier' && value) {
+      newFormFields.items = [
+        ...targetBox.items.map(el =>
+          el.product._id === product.product._id
+            ? {...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false}
+            : el,
+        ),
+      ]
+    } else {
+      newFormFields.items = [
+        ...targetBox.items.map(el => (el.product._id === product.product._id ? {...el, [field]: value} : el)),
+      ]
+    }
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? newFormFields : newBox))
+
+    setNewBoxes(updatedNewBoxes)
+  }
+
   const setShippingLabel = () => value => {
     onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
   }
@@ -180,6 +212,58 @@ const Box = ({
                       </div>
                     }
                   />
+                  {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                    <div
+                      className={cx({
+                        [classNames.containerAccent]:
+                          (order.isBarCodeAlreadyAttachedByTheSupplier || order.isBarCodeAttachedByTheStorekeeper) &&
+                          !order.barCode &&
+                          !order.tmpBarCode?.length,
+                      })}
+                    >
+                      <Field
+                        oneLine
+                        labelClasses={classNames.label}
+                        tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
+                        containerClasses={classNames.checkboxContainer}
+                        // containerClasses={cx(classNames.checkboxContainer, {
+                        //   [classNames.containerAccent]: true,
+                        // })}
+                        label={t(TranslationKey['The barcode is glued by the supplier'])}
+                        inputComponent={
+                          <Checkbox
+                            checked={order.isBarCodeAlreadyAttachedByTheSupplier}
+                            onClick={() =>
+                              onChangeBarcodeGlued(
+                                order,
+                                'isBarCodeAlreadyAttachedByTheSupplier',
+                              )(!order.isBarCodeAlreadyAttachedByTheSupplier)
+                            }
+                          />
+                        }
+                      />
+                      <Field
+                        oneLine
+                        labelClasses={classNames.label}
+                        tooltipInfoContent={t(
+                          TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                        )}
+                        containerClasses={classNames.checkboxContainer}
+                        label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                        inputComponent={
+                          <Checkbox
+                            checked={order.isBarCodeAttachedByTheStorekeeper}
+                            onClick={() =>
+                              onChangeBarcodeGlued(
+                                order,
+                                'isBarCodeAttachedByTheStorekeeper',
+                              )(!order.isBarCodeAttachedByTheStorekeeper)
+                            }
+                          />
+                        }
+                      />
+                    </div>
+                  ) : null}
                 </div>
 
                 <div>
@@ -466,6 +550,9 @@ export const EditMultipleBoxesForm = observer(
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
 
+      isBarCodeAlreadyAttachedByTheSupplier: false,
+      isBarCodeAttachedByTheStorekeeper: false,
+
       storekeeperId: selectedBoxes[0]?.storekeeper?._id,
       tmpShippingLabel: [],
       tmpBarCode: [],
@@ -474,8 +561,18 @@ export const EditMultipleBoxesForm = observer(
     const onChangeSharedFields = (event, field) => {
       const newFormFields = {...sharedFields}
 
-      if (field === 'isShippingLabelAttachedByStorekeeper') {
+      if (['isShippingLabelAttachedByStorekeeper'].includes(field)) {
         newFormFields[field] = event.target.checked
+      } else if (['isBarCodeAlreadyAttachedByTheSupplier', 'isBarCodeAttachedByTheStorekeeper'].includes(field)) {
+        if (field === 'isBarCodeAlreadyAttachedByTheSupplier' && event.target.checked) {
+          newFormFields[field] = event.target.checked
+          newFormFields.isBarCodeAttachedByTheStorekeeper = false
+        } else if (field === 'isBarCodeAttachedByTheStorekeeper' && event.target.checked) {
+          newFormFields[field] = event.target.checked
+          newFormFields.isBarCodeAlreadyAttachedByTheSupplier = false
+        } else {
+          newFormFields[field] = event.target.checked
+        }
       } else {
         newFormFields[field] = event.target.value
       }
@@ -537,6 +634,7 @@ export const EditMultipleBoxesForm = observer(
       tmpShippingLabel: false,
       tmpBarCode: false,
       isShippingLabelAttachedByStorekeeper: false,
+      isBarcodeLabelAttached: false,
     })
 
     const onRemoveBox = boxId => {
@@ -581,6 +679,23 @@ export const EditMultipleBoxesForm = observer(
                         ...el,
                         changeBarCodInInventory: false,
                         tmpBarCode: sharedFields.tmpBarCode,
+                      })),
+                    ]
+                  : [],
+              }
+            : newBox,
+        )
+      } else if (field === 'isBarcodeLabelAttached') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                items: newBox?.items
+                  ? [
+                      ...newBox.items.map(el => ({
+                        ...el,
+                        isBarCodeAlreadyAttachedByTheSupplier: sharedFields.isBarCodeAlreadyAttachedByTheSupplier,
+                        isBarCodeAttachedByTheStorekeeper: sharedFields.isBarCodeAttachedByTheStorekeeper,
                       })),
                     ]
                   : [],
@@ -875,6 +990,49 @@ export const EditMultipleBoxesForm = observer(
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
                     {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  </Button>
+                </div>
+              ) : null}
+
+              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                <div>
+                  <Field
+                    oneLine
+                    labelClasses={classNames.label}
+                    tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
+                    containerClasses={classNames.checkboxContainer}
+                    label={t(TranslationKey['The barcode is glued by the supplier'])}
+                    inputComponent={
+                      <Checkbox
+                        checked={sharedFields.isBarCodeAlreadyAttachedByTheSupplier}
+                        onChange={e => onChangeSharedFields(e, 'isBarCodeAlreadyAttachedByTheSupplier')}
+                      />
+                    }
+                  />
+                  <Field
+                    oneLine
+                    labelClasses={classNames.label}
+                    tooltipInfoContent={t(
+                      TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                    )}
+                    containerClasses={classNames.checkboxContainer}
+                    label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                    inputComponent={
+                      <Checkbox
+                        checked={sharedFields.isBarCodeAttachedByTheStorekeeper}
+                        onChange={e => onChangeSharedFields(e, 'isBarCodeAttachedByTheStorekeeper')}
+                      />
+                    }
+                  />
+
+                  <Button
+                    disabled={disabledApplyBtn}
+                    className={cx(classNames.applyButton, {
+                      [classNames.applyButtonClicked]: applyBtnsClicked.isBarcodeLabelAttached,
+                    })}
+                    onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
+                  >
+                    {applyBtnsClicked.isBarcodeLabelAttached ? <DoneIcon /> : t(TranslationKey.Apply)}
                   </Button>
                 </div>
               ) : null}

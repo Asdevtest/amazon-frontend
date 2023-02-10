@@ -101,7 +101,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   hideAndShowIcon: {
     top: 20,
-    left: 20,
+    left: 50,
   },
   arrowIcon: {
     marginLeft: 8,
