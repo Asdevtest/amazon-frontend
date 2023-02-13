@@ -179,12 +179,7 @@ export const clientInventoryColumns = (
   {
     field: 'purchaseQuantity',
     headerName: t(TranslationKey['Recommendation for additional purchases']),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Recommendation for additional purchases'])}
-        Icon={FilterAltOutlinedIcon}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />,
     renderCell: params => (
       <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
     ),

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {Alert, Typography} from '@mui/material'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Alert, Tooltip, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -386,13 +387,12 @@ export class ClientInventoryViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  // rows={getCurrentData()}
                   rows={currentData}
-                  // getRowHeight={() => 'auto'}
                   rowHeight={120}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   componentsProps={{
                     columnMenu: {

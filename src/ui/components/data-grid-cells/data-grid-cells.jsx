@@ -1047,11 +1047,13 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
     ({classes: classNames, text, Icon}) => (
-      <div className={classNames.multilineTextHeaderWrapper}>
-        <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+      <Tooltip title={text}>
+        <div className={classNames.multilineTextHeaderWrapper}>
+          <Typography className={classNames.multilineHeaderText}>{text}</Typography>
 
-        {Icon ? <Icon className={classNames.headerIcon} /> : null}
-      </div>
+          {Icon ? <Icon className={classNames.headerIcon} /> : null}
+        </div>
+      </Tooltip>
     ),
     styles,
   ),

@@ -909,6 +909,7 @@ export const styles = theme => ({
     width: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
+    // overflow: 'hidden',
 
     // color: theme.palette.text.general,
     color: theme.palette.text.general,
