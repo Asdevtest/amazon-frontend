@@ -12,6 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {GeneralModel} from '@models/general-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
@@ -24,6 +25,7 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {translateLableToSome} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -90,6 +92,12 @@ export class ClientInStockBoxesViewModel {
 
   boxesIdsToTask = []
   shopsData = []
+
+  shopsFilterData = []
+  shopsCurrentFilterData = []
+
+  storekeeperFilterData = []
+  storekeeperCurrentFilterData = []
 
   // productSearchGuid = null
 
@@ -1591,6 +1599,26 @@ export class ClientInStockBoxesViewModel {
       await BoxesModel.updateBox(id, data)
 
       await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  // Новый методя для запроса
+  async onClickFilterBtn(column) {
+    try {
+      const data = await GeneralModel.getDataForColumn(
+        'products',
+        translateLableToSome[column],
+        'boxes/pag/clients_light',
+      )
+
+      this.shopsFilterData = data
+
+      console.log('this.shopsFilterData', this.shopsFilterData)
     } catch (error) {
       console.log(error)
       runInAction(() => {

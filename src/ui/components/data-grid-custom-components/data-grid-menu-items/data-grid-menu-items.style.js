@@ -16,7 +16,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
 
-    width: 160,
+    width: 300,
     maxHeight: 340,
 
     padding: '7px 0',
@@ -24,7 +24,7 @@ export const styles = theme => ({
     gap: 10,
   },
   searchInputWrapper: {
-    width: 122,
+    width: 255,
     height: 30,
   },
   searchInput: {
@@ -33,7 +33,7 @@ export const styles = theme => ({
     height: '100%',
   },
   shopsBody: {
-    width: 122,
+    width: 255,
     maxHeight: 290,
     overflowY: 'auto',
 
@@ -74,5 +74,10 @@ export const styles = theme => ({
   orderStatusName: {
     width: '100%',
     whiteSpace: 'pre-wrap',
+  },
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 10,
   },
 })
