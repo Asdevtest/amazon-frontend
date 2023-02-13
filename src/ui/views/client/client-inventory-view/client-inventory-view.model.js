@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import QueryString from 'qs'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -30,7 +31,7 @@ import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {toFixed} from '@utils/text'
+import {objectToUrlQs, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -647,9 +648,29 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
-        this.nameSearchValue
-      };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+      // const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
+      //   this.nameSearchValue
+      // };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      // const filter = decodeURI(
+      //   QueryString.stringify({
+      //     archive: {$eq: this.isArchive},
+      //     or: [
+      //       {asin: {$contains: this.nameSearchValue}},
+      //       {amazonTitle: {$contains: this.nameSearchValue}},
+      //       {skusByClient: {$contains: this.nameSearchValue}},
+      //     ],
+      //   }).replaceAll('&', ';'),
+      // ).replaceAll('%24', '$')
+
+      const filter = objectToUrlQs({
+        archive: {$eq: this.isArchive},
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {amazonTitle: {$contains: this.nameSearchValue}},
+          {skusByClient: {$contains: this.nameSearchValue}},
+        ],
+      })
 
       const shops = this.currentShops.map(item => item._id).join(',')
 

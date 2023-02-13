@@ -1,4 +1,5 @@
 import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
+import QueryString from 'qs'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -108,3 +109,5 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
     t(TranslationKey.minute) + '.'
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
+
+export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')

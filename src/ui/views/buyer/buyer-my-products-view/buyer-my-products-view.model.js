@@ -11,6 +11,7 @@ import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-pr
 
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 
 export class BuyerMyProductsViewModel {
@@ -202,7 +203,15 @@ export class BuyerMyProductsViewModel {
 
       // const result = await BuyerModel.getProductsMy()
 
-      const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+      // const filter = `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
+
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {amazonTitle: {$contains: this.nameSearchValue}},
+          {skusByClient: {$contains: this.nameSearchValue}},
+        ],
+      })
 
       const result = await BuyerModel.getProductsMyPag({
         filters: this.nameSearchValue ? filter : null,

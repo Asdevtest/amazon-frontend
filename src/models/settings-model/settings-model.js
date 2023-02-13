@@ -86,7 +86,7 @@ class SettingsModelStatic {
       compareVersions(response.data.version, appVersion),
     )
 
-    if (compareVersions(response.data.version, appVersion)) {
+    if (compareVersions(response.data.version, appVersion) > 0) {
       console.log('!!!*** versions do not match')
 
       // if (caches) {

@@ -337,6 +337,7 @@ import BuyerApi from './api/BuyerApi';
 import ChatsApi from './api/ChatsApi';
 import ClientApi from './api/ClientApi';
 import DashboardApi from './api/DashboardApi';
+import GeneralApi from './api/GeneralApi';
 import GoLoginApi from './api/GoLoginApi';
 import IdeaApi from './api/IdeaApi';
 import IntegrationsApi from './api/IntegrationsApi';
@@ -2336,6 +2337,12 @@ export {
     * @property {module:api/DashboardApi}
     */
     DashboardApi,
+
+    /**
+    * The GeneralApi service constructor.
+    * @property {module:api/GeneralApi}
+    */
+    GeneralApi,
 
     /**
     * The GoLoginApi service constructor.

@@ -614,10 +614,6 @@ export class ClientOrdersViewModel {
     })
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   async createOrder(orderObject) {
     try {
       const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
@@ -645,6 +641,10 @@ export class ClientOrdersViewModel {
         this.error = error
       })
     }
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
   }
 
   async onSubmitOrderProductModal() {
@@ -696,6 +696,7 @@ export class ClientOrdersViewModel {
       }
 
       this.loadData()
+      this.updateUserInfo()
 
       if (!this.error) {
         runInAction(() => {

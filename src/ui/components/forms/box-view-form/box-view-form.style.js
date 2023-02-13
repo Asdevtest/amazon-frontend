@@ -495,4 +495,21 @@ export const useClassNames = makeStyles()(theme => ({
       magrin: 0,
     },
   },
+
+  priorityWrapper: {
+    width: 210,
+  },
+
+  rushOrderWrapper: {
+    display: 'flex',
+    marginBottom: 15,
+  },
+
+  rushOrderImg: {
+    marginRight: 10,
+  },
+
+  rushOrder: {
+    color: theme.palette.text.main,
+  },
 }))
