@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
 
@@ -58,8 +59,8 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
-      curShops,
-      shopsData,
+      shopsFilterData,
+      shopsCurrentFilterData,
       nameSearchValue,
       changeItem,
       isFormed,
@@ -149,6 +150,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickSaveShippingLabel,
       onClickCancelAfterConfirm,
       onClickSubmitEditMultipleBoxes,
+      onClickFilterBtn,
 
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
@@ -343,16 +345,23 @@ export class ClientInStockBoxesViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenu: DataGridCustomColumnMenuComponent,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
                 componentsProps={{
                   columnMenu: {
                     isFormedData: {isFormed, onChangeIsFormed},
-                    shopsDataBase: {shopsData, curShops, onClickShopBtn},
+                    // Добавил
+                    shopsDataBase: {shopsFilterData, shopsCurrentFilterData, onClickShopBtn},
                   },
                 }}
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                onMenuOpen={params => {
+                  // console.log('paramsss', params)
+                  // console.log('paramsss', params.target.offsetParent.dataset.field)
+                  onClickFilterBtn(params.target.offsetParent.dataset.field)
+                }}
                 onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

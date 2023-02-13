@@ -892,6 +892,7 @@ export const MultilineTextCell = React.memo(
       tooltipText,
       withLineBreaks,
       onClickText,
+      oneLines,
     }) => (
       <>
         {withTooltip || tooltipText ? (
@@ -903,6 +904,7 @@ export const MultilineTextCell = React.memo(
                   {[classNames.multilineLeftAlignText]: leftAlign},
                   {[classNames.multilineLink]: onClickText && text},
                   {[classNames.threeMultilineText]: threeLines},
+                  {[classNames.oneMultilineText]: oneLines},
                 )}
                 style={otherStyles || (color && {color})}
                 onClick={onClickText && onClickText}
@@ -919,6 +921,7 @@ export const MultilineTextCell = React.memo(
                 {[classNames.multilineLeftAlignText]: leftAlign},
                 {[classNames.multilineLink]: onClickText && text},
                 {[classNames.threeMultilineText]: threeLines},
+                {[classNames.oneMultilineText]: oneLines},
               )}
               style={otherStyles || (color && {color})}
               onClick={onClickText && onClickText}
@@ -988,13 +991,17 @@ export const CommentOfSbCell = React.memo(
 
 export const MultilineTextAlignLeftCell = React.memo(
   withStyles(
-    ({classes: classNames, text, withTooltip, isAsin, pointer}) =>
+    ({classes: classNames, text, withTooltip, isAsin, pointer, fourLines}) =>
       withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextAlignLeftWrapper}>
             <Typography
               // disabled
-              className={cx(classNames.multilineTextAlignLeft, {[classNames.cursorPointer]: pointer})}
+              className={cx(
+                classNames.multilineTextAlignLeft,
+                {[classNames.cursorPointer]: pointer},
+                {[classNames.fourLinesTextAlignLeft]: fourLines},
+              )}
             >
               {getShortenStringIfLongerThanCount(text, 150)}
             </Typography>
@@ -1003,16 +1010,17 @@ export const MultilineTextAlignLeftCell = React.memo(
       ) : (
         <div className={classNames.multilineTextAlignLeftWrapper}>
           {isAsin ? (
-            <Typography className={cx(classNames.multilineAsinTextAlignLeft)}>
+            <Typography
+              className={cx(classNames.multilineAsinTextAlignLeft, {[classNames.fourLinesTextAlignLeft]: fourLines})}
+            >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
             </Typography>
           ) : (
             <Typography
-              // disabled
-              // value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
               className={cx(classNames.multilineTextAlignLeft, {
                 [classNames.multilineTextAlignLeftSub]: isAsin,
                 [classNames.cursorPointer]: pointer,
+                [classNames.fourLinesTextAlignLeft]: fourLines,
               })}
             >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
@@ -1039,11 +1047,13 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
     ({classes: classNames, text, Icon}) => (
-      <div className={classNames.multilineTextHeaderWrapper}>
-        <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+      <Tooltip title={text}>
+        <div className={classNames.multilineTextHeaderWrapper}>
+          <Typography className={classNames.multilineHeaderText}>{text}</Typography>
 
-        {Icon ? <Icon className={classNames.headerIcon} /> : null}
-      </div>
+          {Icon ? <Icon className={classNames.headerIcon} /> : null}
+        </div>
+      </Tooltip>
     ),
     styles,
   ),

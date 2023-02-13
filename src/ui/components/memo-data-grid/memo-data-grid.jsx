@@ -22,6 +22,7 @@ export const MemoDataGrid = observer(({...restProps}) => {
       restProps.sortModel,
       restProps.filterModel,
       restProps.selectionModel,
+      restProps.componentsProps,
       SettingsModel.uiTheme,
     ],
   )

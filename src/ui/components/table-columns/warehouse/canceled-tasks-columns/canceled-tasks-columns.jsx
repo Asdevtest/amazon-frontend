@@ -66,7 +66,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    renderCell: params => <MultilineTextCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
     width: 160,
   },
 

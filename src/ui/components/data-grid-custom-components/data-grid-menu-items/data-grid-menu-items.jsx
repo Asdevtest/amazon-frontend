@@ -183,17 +183,21 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
 
 export const ShopMenuItem = React.memo(
   withStyles(({classes: classNames, shopsDataBase}) => {
-    const {shopsData, curShops, onClickShopBtn} = shopsDataBase
+    const {shopsFilterData, shopsCurrentFilterData, onClickShopBtn} = shopsDataBase
 
-    const [shopsForRender, setShopsForRender] = useState(shopsData || [])
+    const [shopsForRender, setShopsForRender] = useState(shopsFilterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
+      setShopsForRender(shopsFilterData)
+    }, [shopsFilterData])
+
+    useEffect(() => {
       if (nameSearchValue) {
-        const filter = shopsData?.filter(shop => shop.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        const filter = shopsFilterData?.filter(shop => shop.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setShopsForRender(filter)
       } else {
-        setShopsForRender(shopsData)
+        setShopsForRender(shopsFilterData)
       }
     }, [nameSearchValue])
 
@@ -215,13 +219,21 @@ export const ShopMenuItem = React.memo(
               <div key={shop._id} className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={curShops.some(item => item._id === shop._id)}
+                  checked={shopsCurrentFilterData.some(item => item._id === shop._id)}
                   onClick={() => onClickShopBtn(shop)}
                 />
                 <div className={classNames.shopName}>{shop.name}</div>
               </div>
             ))}
           </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button disabled variant="contained">
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button disabled variant="text">
+            {t(TranslationKey.Cancel)}
+          </Button>
         </div>
       </div>
     )
