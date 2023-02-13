@@ -10,6 +10,7 @@ import {
 
 import React from 'react'
 
+import {DataGridCustomFilterButton} from '../data-grid-custom-filter-button'
 import {useClassNames} from './data-grid-custom-toolbar.style'
 
 export const DataGridCustomToolbar = React.forwardRef((props, ref) => {
@@ -28,6 +29,8 @@ export const DataGridCustomToolbar = React.forwardRef((props, ref) => {
 
       <GridToolbarDensitySelector size={'large'} className={classNames.toolbarText} />
       <GridToolbarExport size={'large'} className={classNames.toolbarText} />
+
+      {/* <DataGridCustomFilterButton size={'large'} className={classNames.toolbarText} /> */}
     </GridToolbarContainer>
   )
 })

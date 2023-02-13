@@ -248,9 +248,9 @@ export const OrderProductModal = ({
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
         (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) ||
-        (productsForRender[index].currentSupplier.multiplicity &&
-          productsForRender[index].currentSupplier.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier.boxProperties?.amountInBox !== 0),
+        (productsForRender[index].currentSupplier?.multiplicity &&
+          productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
+          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
     ) ||
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||

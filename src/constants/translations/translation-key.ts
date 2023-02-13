@@ -1758,7 +1758,7 @@ export enum TranslationKey {
   'Back to actual batches' = 'Back to actual batches',
   'Relocate from archive' = 'Relocate from archive',
   'Return to actual batches' = 'Return to actual batches',
-  // '' = '',
+  'My filter' = 'My filter',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -1,7 +1,6 @@
 import {cx} from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Collapse, List, ListItemIcon, ListItemText, Typography} from '@mui/material'
-import Menu from '@mui/material/Menu'
+import {Collapse, List, ListItemIcon, ListItemText, Typography, Menu} from '@mui/material'
 
 import React, {useState} from 'react'
 

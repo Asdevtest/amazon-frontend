@@ -1758,5 +1758,6 @@
   "After confirmation, the batch will be moved to the archive. Delete?": "После подтверждения партия будет перенесена в Архив. Удалить?",
   "Back to actual batches": "Вернуться в актуальные партии",
   "Relocate from archive": "Переместить из архива",
-  "Return to actual batches": "Вернуть в актуальные партии"
+  "Return to actual batches": "Вернуть в актуальные партии",
+  "My filter": "Мой фильтр"
 }
