@@ -59,4 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     gap: 3,
   },
+  CancelBtn: {
+    color: theme.palette.text.general,
+  },
 }))
