@@ -154,18 +154,20 @@ export const AddOrEditUserPermissionsForm = observer(
           : el.originalData.shopIds?.includes(shop._id),
       )
 
-    const isChoosenAll = shopDataToRender.every(shop => shop.tmpProductsIds.length === getSourceDataToShop(shop).length)
+    const isChoosenAll = shopDataToRender.every(
+      shop => shop.tmpProductsIds?.length === getSourceDataToShop(shop)?.length,
+    )
 
     const isSomeChoosenAll = shopDataToRender.some(
-      shop => shop.tmpProductsIds.length === getSourceDataToShop(shop).length,
+      shop => shop?.tmpProductsIds?.length === getSourceDataToShop(shop)?.length,
     )
 
     const onClickChooseAllProductCheck = () => {
       if (isChoosenAll) {
-        setShopDataToRender(shopDataToRender.map(item => ({...item, tmpProductsIds: []})))
+        setShopDataToRender(shopDataToRender?.map(item => ({...item, tmpProductsIds: []})))
       } else {
         setShopDataToRender(
-          shopDataToRender.map(item => ({
+          shopDataToRender?.map(item => ({
             ...item,
             tmpProductsIds: getSourceDataToShop(item)?.map(product => product._id),
           })),
