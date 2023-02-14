@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Checkbox, Divider, Button} from '@mui/material'
+import {Typography, Checkbox, Divider} from '@mui/material'
 import {consoleSandbox} from '@sentry/utils'
 
 import React, {useEffect, useState} from 'react'
@@ -10,6 +10,7 @@ import {withStyles} from 'tss-react/mui'
 import {OrderStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
@@ -181,23 +182,27 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
   }, styles),
 )
 
-export const ShopMenuItem = React.memo(
-  withStyles(({classes: classNames, shopsDataBase}) => {
-    const {shopsFilterData, shopsCurrentFilterData, onClickShopBtn} = shopsDataBase
+export const ObJectFieldMenuItem = React.memo(
+  withStyles(({classes: classNames, onClose, data, field}) => {
+    const {filterData, currentFilterData, onClickObjectFieldMenuItem, onClickAccept} = data
 
-    const [shopsForRender, setShopsForRender] = useState(shopsFilterData || [])
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
+    // console.log('data', data)
+    // console.log('filterData', filterData)
+    // console.log('currentFilterData', currentFilterData)
+
     useEffect(() => {
-      setShopsForRender(shopsFilterData)
-    }, [shopsFilterData])
+      setItemsForRender(filterData)
+    }, [filterData, currentFilterData])
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = shopsFilterData?.filter(shop => shop.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
-        setShopsForRender(filter)
+        const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        setItemsForRender(filter)
       } else {
-        setShopsForRender(shopsFilterData)
+        setItemsForRender(filterData)
       }
     }, [nameSearchValue])
 
@@ -215,23 +220,23 @@ export const ShopMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {shopsForRender.map(shop => (
-              <div key={shop._id} className={classNames.shop}>
+            {itemsForRender.map(obj => (
+              <div key={obj._id} className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={shopsCurrentFilterData.some(item => item._id === shop._id)}
-                  onClick={() => onClickShopBtn(shop)}
+                  checked={currentFilterData.some(item => item._id === obj._id)}
+                  onClick={() => onClickObjectFieldMenuItem(obj, field)}
                 />
-                <div className={classNames.shopName}>{shop.name}</div>
+                <div className={classNames.shopName}>{obj.name}</div>
               </div>
             ))}
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>
-          <Button disabled variant="contained">
+          <Button variant="contained" onClick={onClickAccept}>
             {t(TranslationKey.Accept)}
           </Button>
-          <Button disabled variant="text">
+          <Button variant="text" onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

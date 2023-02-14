@@ -368,7 +368,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
 
-    shops: Array.from(
+    shopIds: Array.from(
       new Set(
         `${item.items.reduce(
           (ac, cur) =>

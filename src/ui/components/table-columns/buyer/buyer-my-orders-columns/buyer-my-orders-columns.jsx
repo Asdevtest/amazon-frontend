@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -71,6 +72,8 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       />
     ),
     sortable: false,
+
+    columnKey: columnnsKeys.buyer.MY_ORDERS_STATUS,
   },
 
   {

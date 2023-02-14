@@ -25,7 +25,7 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {translateLableToSome} from '@utils/text'
+import {objectToUrlQs, translateLableToSome} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -83,18 +83,29 @@ export class ClientInStockBoxesViewModel {
   storekeepersData = []
   destinations = []
   clientDestinations = []
-  isFormed = null
+  // isFormed = null
 
   curDestination = undefined
-  curShops = []
+  // curShops = []
 
   currentData = []
 
   boxesIdsToTask = []
   shopsData = []
 
-  shopsFilterData = []
-  shopsCurrentFilterData = []
+  columnMenuSettings = {
+    isFormedData: {isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value)},
+    // Добавил
+    shopIds: {
+      filterData: [],
+      currentFilterData: [],
+      onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
+      onClickAccept: () => this.getBoxesMy(),
+    },
+  }
+
+  // filterData = []
+  // currentFilterData = []
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
@@ -486,7 +497,15 @@ export class ClientInStockBoxesViewModel {
 
   onChangeIsFormed(value) {
     runInAction(() => {
-      this.isFormed = value
+      // this.isFormed = value
+
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isFormedData: {
+          ...this.columnMenuSettings.isFormedData,
+          isFormed: value,
+        },
+      }
     })
 
     this.getBoxesMy()
@@ -720,18 +739,32 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
-  onClickShopBtn(shop) {
+  onClickObjectFieldMenuItem(obj, field) {
     runInAction(() => {
       // если магазин по которому нажали существует и есть в массиве, то он удаляется, если нет - добавялется
-      if (shop) {
-        if (this.curShops.some(item => item._id === shop._id)) {
-          this.curShops = this.curShops.filter(item => item._id !== shop._id)
+      if (obj) {
+        if (this.columnMenuSettings[field].currentFilterData.some(item => item._id === obj._id)) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: this.columnMenuSettings[field].currentFilterData
+                .slice()
+                .filter(item => item._id !== obj._id),
+            },
+          }
         } else {
-          this.curShops.push(shop)
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, obj],
+            },
+          }
         }
       }
     })
-    this.getBoxesMy()
+    // this.getBoxesMy()
   }
 
   onCloseShippingLabelModal() {
@@ -1612,13 +1645,21 @@ export class ClientInStockBoxesViewModel {
     try {
       const data = await GeneralModel.getDataForColumn(
         'products',
-        translateLableToSome[column],
+        // translateLableToSome[column],
+        column,
         'boxes/pag/clients_light',
       )
 
-      this.shopsFilterData = data
+      // this.columnMenuSettings.shopsDataBase.filterData = data
 
-      console.log('this.shopsFilterData', this.shopsFilterData)
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: {...this.columnMenuSettings[column], filterData: data},
+        }
+      }
+
+      // console.log('this.filterData', this.filterData)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -1643,12 +1684,45 @@ export class ClientInStockBoxesViewModel {
 
   async getBoxesMy() {
     try {
-      const filter =
-        isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
-          ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
-          : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
+      // const filter =
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
+      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
 
-      const curShops = this.curShops?.map(shop => shop._id).join(',')
+      // const filter =
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+      //     ? objectToUrlQs({
+      //         or: [
+      //           {asin: {$contains: this.nameSearchValue}},
+      //           {amazonTitle: {$contains: this.nameSearchValue}},
+      //           {skusByClient: {$contains: this.nameSearchValue}},
+      //           {item: {$eq: this.nameSearchValue}},
+      //           {productId: {$eq: this.nameSearchValue}},
+      //         ],
+      //       })
+      //     : objectToUrlQs({
+      //         or: [
+      //           {asin: {$contains: this.nameSearchValue}},
+      //           {amazonTitle: {$contains: this.nameSearchValue}},
+      //           {skusByClient: {$contains: this.nameSearchValue}},
+      //           {id: {$eq: this.nameSearchValue}},
+      //           {item: {$eq: this.nameSearchValue}},
+      //           {productId: {$eq: this.nameSearchValue}},
+      //         ],
+      //       })
+
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {amazonTitle: {$contains: this.nameSearchValue}},
+          {skusByClient: {$contains: this.nameSearchValue}},
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+          {productId: {$eq: this.nameSearchValue}},
+        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) && !el.id),
+      })
+
+      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
         filters: this.nameSearchValue ? filter : null,
@@ -1657,9 +1731,9 @@ export class ClientInStockBoxesViewModel {
 
         destinationId: this.curDestination && this.curDestination._id,
 
-        shopIds: this.curShops ? curShops : null,
+        shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
-        isFormed: this.isFormed,
+        isFormed: this.columnMenuSettings.isFormedData.isFormed,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
