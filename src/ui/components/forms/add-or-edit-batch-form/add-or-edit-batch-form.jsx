@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {FormControlLabel, Radio, RadioGroup, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -398,6 +399,7 @@ export const AddOrEditBatchForm = observer(
               localeText={getLocalizationByLanguageTag()}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -478,6 +480,7 @@ export const AddOrEditBatchForm = observer(
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
                 Footer: () => (
                   <div className={classNames.boxCounterWrapper}>
                     <Typography className={classNames.boxCounterText}>

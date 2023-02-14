@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -77,6 +79,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
         rowHeight={100}
         components={{
           Toolbar: DataGridCustomToolbar,
+          ColumnMenuIcon: FilterAltOutlinedIcon,
           ColumnMenu: DataGridCustomColumnMenuComponent,
         }}
         componentsProps={{

@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -105,6 +107,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: DataGridCustomToolbar,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

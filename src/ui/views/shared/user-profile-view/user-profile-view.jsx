@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -138,6 +139,7 @@ class UserProfileViewRaw extends Component {
                     rowHeight={100}
                     components={{
                       Toolbar: DataGridCustomToolbar,
+                      ColumnMenuIcon: FilterAltOutlinedIcon,
                     }}
                     density={densityModel}
                     columns={columnsModel}

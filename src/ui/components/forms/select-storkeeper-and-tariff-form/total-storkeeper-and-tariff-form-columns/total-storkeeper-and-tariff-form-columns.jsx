@@ -25,7 +25,7 @@ export const TotalTariffsColumns = () => [
     field: 'description',
     headerName: t(TranslationKey['Tariff description']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff description'])} />,
-    width: 310,
+    width: 300,
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 

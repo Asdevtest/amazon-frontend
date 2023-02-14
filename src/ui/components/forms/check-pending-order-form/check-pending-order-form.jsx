@@ -67,7 +67,7 @@ export const CheckPendingOrderForm = ({
           <Button success variant="contained" onClick={onClickContinueBtn}>
             {t(TranslationKey.Continue)}
           </Button>
-          <Button variant="text" onClick={onClickCancelBtn}>
+          <Button variant="text" className={classNames.CancelBtn} onClick={onClickCancelBtn}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

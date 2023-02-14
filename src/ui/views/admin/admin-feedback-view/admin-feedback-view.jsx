@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -101,6 +103,7 @@ export class AdminFeedbackViewRaw extends Component {
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: DataGridCustomToolbar,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
                 getRowHeight={() => 'auto'}
                 rows={getCurrentData()}

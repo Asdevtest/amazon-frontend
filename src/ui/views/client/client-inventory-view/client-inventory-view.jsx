@@ -411,9 +411,6 @@ export class ClientInventoryViewRaw extends Component {
                   onFilterModelChange={onChangeFilterModel}
                   onCellClick={(params, event) => {
                     event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
-
-                    // console.log('params', params)
-                    // console.log('event', event)
                   }}
                   onCellDoubleClick={params =>
                     !disableSelectionCells.includes(params.field) && onClickShowProduct(params.row)

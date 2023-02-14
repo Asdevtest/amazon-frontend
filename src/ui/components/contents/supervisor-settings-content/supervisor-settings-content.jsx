@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Box, Tabs} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
@@ -153,6 +154,7 @@ export const SupervisorSettingsContent = observer(() => {
             rowHeight={120}
             components={{
               Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -213,6 +215,7 @@ export const SupervisorSettingsContent = observer(() => {
             rowHeight={120}
             components={{
               Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -273,6 +276,7 @@ export const SupervisorSettingsContent = observer(() => {
             rowHeight={120}
             components={{
               Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
             density={densityModel}
             columns={columnsModel}
@@ -333,6 +337,7 @@ export const SupervisorSettingsContent = observer(() => {
             rowHeight={120}
             components={{
               Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
             density={densityModel}
             columns={columnsModel}

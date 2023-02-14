@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Box} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -110,6 +111,7 @@ class ShopsViewRaw extends Component {
               getRowHeight={() => 'auto'}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
               }}
               density={densityModel}
               columns={columnsModel}

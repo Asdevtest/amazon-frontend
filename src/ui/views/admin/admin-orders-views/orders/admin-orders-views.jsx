@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Grid} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -118,6 +119,7 @@ class AdminOrdersViewsRaw extends Component {
                   rowHeight={100}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   density={densityModel}
                   columns={columnsModel}

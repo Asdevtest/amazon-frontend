@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
 
@@ -144,42 +145,45 @@ class ClientSentBatchesViewRaw extends Component {
                 </div>
               </div>
 
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: className.row,
-                  root: className.root,
-                  footerContainer: className.footerContainer,
-                  footerCell: className.footerCell,
-                  toolbarContainer: className.toolbarContainer,
-                }}
-                sortingMode="server"
-                paginationMode="server"
-                rowCount={rowCount}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={onSelectionModel}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-              />
+              <div className={className.datagridWrapper}>
+                <MemoDataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: className.row,
+                    root: className.root,
+                    footerContainer: className.footerContainer,
+                    footerCell: className.footerCell,
+                    toolbarContainer: className.toolbarContainer,
+                  }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

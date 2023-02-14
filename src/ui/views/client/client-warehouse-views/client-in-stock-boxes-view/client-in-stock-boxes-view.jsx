@@ -395,6 +395,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   columns={taskColumnsModel}
                   onPageSizeChange={onChangeRowsPerPageForTask}

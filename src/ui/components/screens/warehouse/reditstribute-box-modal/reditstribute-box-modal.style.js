@@ -171,6 +171,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   storekeeperBtn: {
     height: '40px',
+    color: theme.palette.text.negativeMain,
   },
 
   storekeeperDisableBtn: {
