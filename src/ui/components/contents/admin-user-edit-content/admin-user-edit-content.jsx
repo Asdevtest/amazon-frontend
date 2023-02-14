@@ -539,7 +539,7 @@ export const AdminUserEditContent = observer(
                       renderValue={selected =>
                         clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
                       }
-                      className={classNames.standartText}
+                      className={classNames.standartTextRole}
                       onChange={e => setSelectedRole(e.target.value)}
                     >
                       {Object.keys(UserRoleCodeMap).map((role, index) => (

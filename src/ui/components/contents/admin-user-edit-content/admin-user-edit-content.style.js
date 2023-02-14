@@ -143,7 +143,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   allowedRoleContainer: {
     marginBottom: '0 !important',
-    width: '146px !important',
+    width: 150,
   },
 
   overdraftContainer: {
@@ -199,7 +199,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedRole: {
-    width: 250,
+    width: 261,
 
     color: theme.palette.text.general,
   },
@@ -275,6 +275,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     color: theme.palette.text.general,
+  },
+
+  standartTextRole: {
+    width: 150,
   },
 
   selectRoot: {
