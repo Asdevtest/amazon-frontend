@@ -182,6 +182,12 @@ export class WarehouseCompletedViewModel {
       //   or: [
       //     {asin: {$contains: this.nameSearchValue}},
       //     {title: {$contains: this.nameSearchValue}},
+      //     {
+      //       trackNumberText: {
+      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue) ? '$contains' : '$eq'}`]:
+      //           this.nameSearchValue,
+      //       },
+      //     },
       //     {humanFriendlyId: {$eq: this.nameSearchValue}},
       //     {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
       //   ].filter(
