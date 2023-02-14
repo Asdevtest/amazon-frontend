@@ -363,8 +363,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onMenuOpen={params => {
-                  // console.log('paramsss', params)
-                  // console.log('paramsss', params.target.offsetParent.dataset.field)
                   onClickFilterBtn(params.target.offsetParent.dataset.field)
                 }}
                 onSelectionModelChange={onSelectionModel}

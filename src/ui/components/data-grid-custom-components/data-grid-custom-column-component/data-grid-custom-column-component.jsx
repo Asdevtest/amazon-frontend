@@ -10,10 +10,13 @@ import {columnnsKeys} from '@constants/data-grid-columns-keys'
 
 import {
   ClientOrderAllStatusesMenuItem,
+  DestinationMenuItem,
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
   NormalFieldMenuItem, // OrderStatusMenuItem,
   ObJectFieldMenuItem,
+  OrderOrItemMenuItem,
+  ProductMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -88,6 +91,44 @@ export const DataGridCustomColumnMenuComponent = props => {
       </GridColumnMenuContainer>
     )
   }
+
+  // Добавил
+
+  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ProductMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <OrderOrItemMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <DestinationMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  // if (
+  //   [columnnsKeys.client.WAREHOUSE_IN_STOCK_CREATED_AT, columnnsKeys.client.WAREHOUSE_IN_STOCK_UPDATED_AT].includes(
+  //     currentColumn.columnKey,
+  //   )
+  // ) {
+  //   return (
+  //     <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+  //       <FromToDateMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+  //     </GridColumnMenuContainer>
+  //   )
+  // }
 
   return <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} {...other} />
 }
