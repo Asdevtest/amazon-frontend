@@ -59,6 +59,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      columnMenuSettings,
       shopsFilterData,
       shopsCurrentFilterData,
       nameSearchValue,
@@ -162,6 +163,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       editTariff,
       onClickShopBtn,
       onCloseShippingLabelModal,
+      getBoxesMy,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -347,12 +349,15 @@ export class ClientInStockBoxesViewRaw extends Component {
                   ColumnMenu: DataGridCustomColumnMenuComponent,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
+                // componentsProps={{
+                //   columnMenu: {
+                //     isFormedData: {isFormed, onChangeIsFormed},
+                //     // Добавил
+                //     shopsDataBase: {shopsFilterData, shopsCurrentFilterData, onClickShopBtn, onClickAccept: getBoxesMy},
+                //   },
+                // }}
                 componentsProps={{
-                  columnMenu: {
-                    isFormedData: {isFormed, onChangeIsFormed},
-                    // Добавил
-                    shopsDataBase: {shopsFilterData, shopsCurrentFilterData, onClickShopBtn},
-                  },
+                  columnMenu: columnMenuSettings,
                 }}
                 density={densityModel}
                 columns={columnsModel}

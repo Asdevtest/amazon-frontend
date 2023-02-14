@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -35,13 +36,14 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   },
 
   {
-    field: 'shops',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} Icon={FilterAltOutlinedIcon} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
   },
 
   {
@@ -122,6 +124,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     width: 130,
     sortable: false,
     filterable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
   },
 
   {

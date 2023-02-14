@@ -110,9 +110,4 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
 
-export const translateLableToSome = {
-  shops: 'shopIds',
-  humanFriendlyId: 'humanFriendlyId',
-}
-
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')

@@ -1,0 +1,15 @@
+export const columnnsKeys = {
+  supervisor: {},
+  buyer: {
+    MY_ORDERS_STATUS: 'MY_ORDERS_STATUS',
+  },
+  storekeeper: {},
+  client: {
+    WAREHOUSE_IN_STOCK_SHOPS: 'WAREHOUSE_IN_STOCK_SHOPS',
+    WAREHOUSE_IN_STOCK_IS_FORMED: 'WAREHOUSE_IN_STOCK_IS_FORMED',
+    INVENTORY_PURCHASE_QUANTITY: 'INVENTORY_PURCHASE_QUANTITY',
+    ORDERS_STATUS: 'ORDERS_STATUS',
+  },
+  researcher: {},
+  shared: {},
+}

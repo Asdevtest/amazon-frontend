@@ -4,6 +4,7 @@ import React from 'react'
 
 import {t} from 'i18n-js'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {
   orderColorByStatus,
   OrderStatus,
@@ -80,6 +81,8 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
       />
     ),
     sortable: false,
+
+    columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
   {

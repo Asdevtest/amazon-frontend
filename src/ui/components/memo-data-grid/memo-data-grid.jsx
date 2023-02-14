@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useMemo} from 'react'
@@ -22,7 +23,7 @@ export const MemoDataGrid = observer(({...restProps}) => {
       restProps.sortModel,
       restProps.filterModel,
       restProps.selectionModel,
-      restProps.componentsProps,
+      restProps.componentsProps?.columnMenu,
       SettingsModel.uiTheme,
     ],
   )
@@ -30,7 +31,8 @@ export const MemoDataGrid = observer(({...restProps}) => {
   return <>{result}</>
 })
 
-// export const MemoDataGrid = ({...restProps}) => { // КОНТРОЛЬНЫЙ
+// export const MemoDataGrid = ({...restProps}) => {
+//   // КОНТРОЛЬНЫЙ
 //   console.log('render')
 //   return <DataGrid {...restProps} />
 // }

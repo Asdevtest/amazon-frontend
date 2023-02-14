@@ -214,9 +214,9 @@ export const NewSupplier = props => (
       fill="evenodd"
     />
     {/* <linearGradient id="newSupplier" x1="0" y1="0" x2="0" y2="0">
-      <stop offset="0%" stop-color="#5BA0FE" />
-      <stop offset="0.01" stop-color="#0164F4" />
-      <stop offset="100%" stop-color="#0164F4" />
+      <stop offset="0%" stopColor="#5BA0FE" />
+      <stop offset="0.01" stopColor="#0164F4" />
+      <stop offset="100%" stopColor="#0164F4" />
     </linearGradient> */}
   </SvgIcon>
 )
@@ -246,8 +246,8 @@ export const MemberPlus = props => (
 export const HintsOn = props => (
   <SvgIcon {...props}>
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
       // fill="url(#paint0_linear_5901_304058)"
     />
@@ -257,12 +257,12 @@ export const HintsOn = props => (
     />
     <defs>
       <linearGradient id="paint0_linear_5901_304058" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
-        <stop /* stop-color="#006CFF"  */ />
-        <stop offset="1" stop-color="#0460DE" />
+        <stop /* stopColor="#006CFF"  */ />
+        <stop offset="1" stopColor="#0460DE" />
       </linearGradient>
       <linearGradient id="paint1_linear_5901_304058" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
-        <stop /* stop-color="#006CFF"  */ />
-        <stop offset="1" stop-color="#0460DE" />
+        <stop /* stopColor="#006CFF"  */ />
+        <stop offset="1" stopColor="#0460DE" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -271,8 +271,8 @@ export const HintsOn = props => (
 export const HintsOff = props => (
   <SvgIcon {...props}>
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
       fill="#C4C4C4"
     />
@@ -286,14 +286,14 @@ export const HintsOff = props => (
 export const TooltipInfoIcon = props => (
   <SvgIcon {...props}>
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M9 15.8824C12.801 15.8824 15.8824 12.801 15.8824 9C15.8824 5.19898 12.801 2.11765 9 2.11765C5.19898 2.11765 2.11765 5.19898 2.11765 9C2.11765 12.801 5.19898 15.8824 9 15.8824ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
       // fill="url(#paint0_linear_10514_186430)"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M7.94018 12.6718C7.94018 12.1047 8.41424 11.6451 8.99901 11.6451C9.58378 11.6451 10.0578 12.1047 10.0578 12.6718C10.0578 13.2388 9.58378 13.6985 8.99901 13.6985C8.41424 13.6985 7.94018 13.2388 7.94018 12.6718Z"
       // fill="url(#paint1_linear_10514_186430)"
     />
@@ -303,16 +303,16 @@ export const TooltipInfoIcon = props => (
     />
     <defs>
       <linearGradient id="paint0_linear_10514_186430" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
-        <stop /* stop-color="#006CFF"  */ />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop /* stopColor="#006CFF"  */ />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint1_linear_10514_186430" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
-        <stop /* stop-color="#006CFF" */ />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop /* stopColor="#006CFF" */ />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint2_linear_10514_186430" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
-        <stop /* stop-color="#006CFF" */ />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop /* stopColor="#006CFF" */ />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -320,10 +320,10 @@ export const TooltipInfoIcon = props => (
 
 export const TooltipAttention = props => (
   <SvgIcon {...props}>
-    <circle cx="9" cy="9" r="8" transform="rotate(-180 9 9)" stroke="#FB1D5B" stroke-width="2" fill="none" />
+    <circle cx="9" cy="9" r="8" transform="rotate(-180 9 9)" stroke="#FB1D5B" strokeWidth="2" fill="none" />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8 12.0303C8 11.4948 8.44772 11.0606 9 11.0606C9.55228 11.0606 10 11.4948 10 12.0303C10 12.5659 9.55228 13 9 13C8.44772 13 8 12.5659 8 12.0303ZM8.25 9.60606C8.25 10.0077 8.58579 10.3333 9 10.3333C9.41421 10.3333 9.75 10.0077 9.75 9.60606L9.75 5.72727C9.75 5.32561 9.41421 5 9 5C8.58579 5 8.25 5.32561 8.25 5.72727L8.25 9.60606Z"
       fill="#FB1D5B"
     />

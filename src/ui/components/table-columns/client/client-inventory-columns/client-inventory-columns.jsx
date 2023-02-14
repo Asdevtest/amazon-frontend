@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -188,6 +189,8 @@ export const clientInventoryColumns = (
     type: 'number',
     headerAlign: 'center',
     filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
   },
 
   {
