@@ -34,7 +34,7 @@ export const styles = theme => ({
   },
   shopsBody: {
     width: 255,
-    maxHeight: 290,
+    maxHeight: 245,
     overflowY: 'auto',
 
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
@@ -78,6 +78,10 @@ export const styles = theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    gap: 10,
+    gap: 20,
+  },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 })

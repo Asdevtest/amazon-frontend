@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Typography, Checkbox, Divider} from '@mui/material'
+import {elGR} from '@mui/material/locale'
 import {consoleSandbox} from '@sentry/utils'
 
 import React, {useEffect, useState} from 'react'
@@ -236,7 +237,70 @@ export const ObJectFieldMenuItem = React.memo(
           <Button variant="contained" onClick={onClickAccept}>
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" onClick={onClose}>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+export const NormalFieldMenuItem = React.memo(
+  withStyles(({classes: classNames, onClose, data, field}) => {
+    const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    // console.log('data', data)
+    // console.log('filterData', filterData)
+    // console.log('currentFilterData', currentFilterData)
+
+    useEffect(() => {
+      setItemsForRender(filterData)
+    }, [filterData, currentFilterData])
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            {itemsForRender.map((el, index) => (
+              <div key={index} className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={currentFilterData.some(item => item === el)}
+                  onClick={() => onClickNormalFieldMenuItem(el, field)}
+                />
+                <div className={classNames.shopName}>{el}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button variant="contained" onClick={onClickAccept}>
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
