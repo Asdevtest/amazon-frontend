@@ -15,13 +15,10 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-
     width: 300,
-    maxHeight: 340,
-
-    padding: '7px 0',
-
-    gap: 10,
+    maxHeight: 500,
+    padding: '10px 0',
+    gap: 20,
   },
   searchInputWrapper: {
     width: 255,
@@ -83,5 +80,38 @@ export const styles = theme => ({
 
   cancelBtn: {
     color: theme.palette.text.general,
+  },
+  radioGroup: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  radioGroupTwoItems: {
+    display: 'flex',
+    gap: 20,
+  },
+  formControl: {
+    width: 255,
+    display: 'flex',
+    gap: 10,
+    // marginBottom: 20,
+  },
+  radioLable: {
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.second,
+  },
+  radioOption: {
+    display: 'flex',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+
+    margin: 0,
+    gap: 5,
+  },
+  radioControl: {
+    padding: 0,
   },
 })

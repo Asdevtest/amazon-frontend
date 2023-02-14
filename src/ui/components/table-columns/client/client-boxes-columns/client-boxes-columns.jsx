@@ -65,6 +65,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
     width: 140,
     sortable: false,
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
 
   {
@@ -105,6 +106,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
       ),
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {
@@ -165,6 +167,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     width: 215,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
   },
 
   {
@@ -242,6 +245,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_CREATED_AT,
   },
 
   {
@@ -252,5 +256,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_UPDATED_AT,
   },
 ]
