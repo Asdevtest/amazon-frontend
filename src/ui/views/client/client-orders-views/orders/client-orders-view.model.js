@@ -17,6 +17,7 @@ import {clientOrdersViewColumns} from '@components/table-columns/client/client-o
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -370,10 +371,20 @@ export class ClientOrdersViewModel {
 
   async getOrders() {
     try {
-      const filter =
-        isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
-          ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-          : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
+      // const filter =
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
+      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
+
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {amazonTitle: {$contains: this.nameSearchValue}},
+          {skusByClient: {$contains: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+          {id: {$eq: this.nameSearchValue}},
+        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) && !el.id),
+      })
 
       // НЕ было до создания фильтрации по статусам (2 строки)
       this.setDefaultStatuses()

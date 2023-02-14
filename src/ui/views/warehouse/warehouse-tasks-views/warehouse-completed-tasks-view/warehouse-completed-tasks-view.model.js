@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -13,6 +14,7 @@ import {warehouseCompletedTasksViewColumns} from '@components/table-columns/ware
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 
 export class WarehouseCompletedViewModel {
   history = undefined
@@ -175,6 +177,26 @@ export class WarehouseCompletedViewModel {
         isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
           ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
           : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
+
+      // const filter = objectToUrlQs({
+      //   or: [
+      //     {asin: {$contains: this.nameSearchValue}},
+      //     {title: {$contains: this.nameSearchValue}},
+      //     {
+      //       trackNumberText: {
+      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue) ? '$contains' : '$eq'}`]:
+      //           this.nameSearchValue,
+      //       },
+      //     },
+      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
+      //     {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
+      //   ].filter(
+      //     el =>
+      //       (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) &&
+      //       !el.humanFriendlyId &&
+      //       !el.orderHumanFriendlyId,
+      //   ),
+      // })
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
