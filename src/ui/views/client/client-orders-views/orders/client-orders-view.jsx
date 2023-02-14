@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -174,6 +175,7 @@ class ClientOrdersViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
                   componentsProps={{

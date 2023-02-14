@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -88,6 +90,7 @@ export class BuyerSearchSupplierBySupervisorViewRaw extends Component {
                   }}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}

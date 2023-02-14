@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -109,6 +111,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   density={densityModel}
                   columns={columnsModel}

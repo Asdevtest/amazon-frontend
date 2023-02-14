@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
 
@@ -232,6 +233,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   density={densityModel}
                   columns={columnsModel}

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
@@ -296,6 +297,7 @@ export const BatchInfoModal = observer(
               }}
               components={{
                 Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
                 Footer: () => (
                   <div className={classNames.boxCounterWrapper}>
                     <Typography className={classNames.boxCounterText}>

@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Paper} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -112,6 +113,7 @@ class ResearcherProductsViewRaw extends Component {
                   rowHeight={60}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   density={densityModel}
                   columns={columnsModel}

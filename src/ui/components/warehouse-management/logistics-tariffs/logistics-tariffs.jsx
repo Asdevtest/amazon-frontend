@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
@@ -129,6 +130,7 @@ export const LogisticsTariffs = observer(() => {
         getRowHeight={() => 'auto'}
         components={{
           Toolbar: DataGridCustomToolbar,
+          ColumnMenuIcon: FilterAltOutlinedIcon,
         }}
         density={densityModel}
         columns={columnsModel}

@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
 
@@ -169,6 +170,7 @@ class ClientSentBatchesViewRaw extends Component {
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
                   density={densityModel}
                   columns={columnsModel}

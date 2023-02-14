@@ -1,3 +1,5 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
@@ -96,6 +98,7 @@ export const UserBalance = observer(({userId}) => {
           rowHeight={75}
           components={{
             Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
           }}
           density={densityModel}
           columns={columnsModel}

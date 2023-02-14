@@ -1,3 +1,4 @@
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert, Button} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -129,6 +130,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 getRowHeight={() => 'auto'}
                 components={{
                   Toolbar: DataGridCustomToolbar,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
                 density={densityModel}
                 columns={columnsModel}
