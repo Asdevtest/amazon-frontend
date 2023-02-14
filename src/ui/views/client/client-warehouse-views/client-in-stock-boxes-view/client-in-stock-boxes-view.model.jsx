@@ -25,7 +25,7 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs, translateLableToSome} from '@utils/text'
+import {getTableByColumn, objectToUrlQs, translateLableToSome} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -100,6 +100,13 @@ export class ClientInStockBoxesViewModel {
       filterData: [],
       currentFilterData: [],
       onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
+      onClickAccept: () => this.getBoxesMy(),
+    },
+
+    humanFriendlyId: {
+      filterData: [],
+      currentFilterData: [],
+      onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
       onClickAccept: () => this.getBoxesMy(),
     },
   }
@@ -765,6 +772,30 @@ export class ClientInStockBoxesViewModel {
       }
     })
     // this.getBoxesMy()
+  }
+
+  onClickNormalFieldMenuItem(str, field) {
+    runInAction(() => {
+      if (str) {
+        if (this.columnMenuSettings[field].currentFilterData.some(item => item === str)) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: this.columnMenuSettings[field].currentFilterData.slice().filter(item => item !== str),
+            },
+          }
+        } else {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, str],
+            },
+          }
+        }
+      }
+    })
   }
 
   onCloseShippingLabelModal() {
@@ -1644,13 +1675,10 @@ export class ClientInStockBoxesViewModel {
   async onClickFilterBtn(column) {
     try {
       const data = await GeneralModel.getDataForColumn(
-        'products',
-        // translateLableToSome[column],
+        getTableByColumn(column),
         column,
-        'boxes/pag/clients_light',
+        'boxes/pag/clients_light?status=IN_STOCK',
       )
-
-      // this.columnMenuSettings.shopsDataBase.filterData = data
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -1658,8 +1686,6 @@ export class ClientInStockBoxesViewModel {
           [column]: {...this.columnMenuSettings[column], filterData: data},
         }
       }
-
-      // console.log('this.filterData', this.filterData)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -1689,27 +1715,7 @@ export class ClientInStockBoxesViewModel {
       //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
       //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
 
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
-      //     ? objectToUrlQs({
-      //         or: [
-      //           {asin: {$contains: this.nameSearchValue}},
-      //           {amazonTitle: {$contains: this.nameSearchValue}},
-      //           {skusByClient: {$contains: this.nameSearchValue}},
-      //           {item: {$eq: this.nameSearchValue}},
-      //           {productId: {$eq: this.nameSearchValue}},
-      //         ],
-      //       })
-      //     : objectToUrlQs({
-      //         or: [
-      //           {asin: {$contains: this.nameSearchValue}},
-      //           {amazonTitle: {$contains: this.nameSearchValue}},
-      //           {skusByClient: {$contains: this.nameSearchValue}},
-      //           {id: {$eq: this.nameSearchValue}},
-      //           {item: {$eq: this.nameSearchValue}},
-      //           {productId: {$eq: this.nameSearchValue}},
-      //         ],
-      //       })
+      const humanFriendlyIdFilter = this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
 
       const filter = objectToUrlQs({
         or: [
@@ -1720,12 +1726,16 @@ export class ClientInStockBoxesViewModel {
           {item: {$eq: this.nameSearchValue}},
           {productId: {$eq: this.nameSearchValue}},
         ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) && !el.id),
+
+        ...(humanFriendlyIdFilter && {
+          humanFriendlyId: {$eq: humanFriendlyIdFilter},
+        }),
       })
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
-        filters: this.nameSearchValue ? filter : null,
+        filters: filter /* this.nameSearchValue ? filter : null */,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 

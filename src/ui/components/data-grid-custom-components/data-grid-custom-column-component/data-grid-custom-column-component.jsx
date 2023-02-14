@@ -11,7 +11,8 @@ import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {
   ClientOrderAllStatusesMenuItem,
   IsFormedMenuItem,
-  IsNeedPurchaseFilterMenuItem, // OrderStatusMenuItem,
+  IsNeedPurchaseFilterMenuItem,
+  NormalFieldMenuItem, // OrderStatusMenuItem,
   ObJectFieldMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
@@ -76,6 +77,14 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_ID) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <NormalFieldMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }

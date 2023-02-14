@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
+// import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import React from 'react'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
@@ -38,7 +37,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'shopIds',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} /* Icon={FilterAltOutlinedIcon} */ />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
@@ -54,6 +53,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 60,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
   {
@@ -109,7 +110,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'isFormed',
     headerName: t(TranslationKey.Formed),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} /* Icon={FilterAltOutlinedIcon} */ />,
 
     renderCell: params =>
       params.row.originalData ? (
