@@ -46,6 +46,18 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.originalData.id} />,
+    type: 'number',
+    width: 60,
+
+    // columnKey: columnnsKeys.client.WAREHOUSE_ID,
+  },
+
+  {
     field: 'priceChanged',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
     headerName: t(TranslationKey['Pay more']),
