@@ -50,10 +50,10 @@ export const CheckPendingOrderForm = ({
               </Typography>
             }
 
-            {checkPendingData.map((item, itemIndex) =>
+            {checkPendingData.map(item =>
               item.map((order, orderIndex) => (
                 <Link
-                  key={itemIndex}
+                  key={orderIndex}
                   className={[classNames.text, classNames.orderInfo]}
                   onClick={() => onClickPandingOrder(order?._id)}
                 >

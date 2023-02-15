@@ -284,4 +284,8 @@ export const useClassNames = makeStyles()(theme => ({
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
   },
+  editBtnYellow: {
+    border: '3px solid #F5CF00',
+    borderRadius: 4,
+  },
 }))

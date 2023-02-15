@@ -135,9 +135,10 @@ export class RequestDetailCustomViewRaw extends Component {
 
                         {findRequestProposalByChatSelectedId.proposal.status ===
                           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT ||
-                        findRequestProposalByChatSelectedId.proposal.status ===
-                          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ? (
+                        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT ? (
+                          // ||
+                          // findRequestProposalByChatSelectedId.proposal.status ===
+                          //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                           // eslint-disable-next-line react/jsx-indent
                           <Button
                             disabled={!params.files.length && !params.message}
