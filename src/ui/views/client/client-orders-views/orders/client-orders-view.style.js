@@ -35,6 +35,10 @@ export const styles = theme => ({
     padding: '0 25px',
   },
 
+  invis: {
+    width: 261,
+  },
+
   topHeaderBtnsSubWrapper: {
     display: 'flex',
     gap: 30,
@@ -64,6 +68,7 @@ export const styles = theme => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
+    // gap: 20,
     marginBottom: 20,
   },
   datagridWrapper: {

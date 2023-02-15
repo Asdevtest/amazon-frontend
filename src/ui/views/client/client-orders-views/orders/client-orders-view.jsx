@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert} from '@mui/material'
 
@@ -146,7 +147,8 @@ class ClientOrdersViewRaw extends Component {
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
-                <div />
+
+                <div className={cx({[classNames.invis]: isPendingOrdering})} />
               </div>
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid

@@ -718,6 +718,8 @@ export class ClientProductViewModel {
               this.product = {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
+                // weight: parseResult.weight,
+                // Вернуть старый вариант парса
                 weight:
                   this.product.weight > parseResult.weight * poundsWeightCoefficient
                     ? this.product.weight
