@@ -17,6 +17,7 @@ import {Field} from '@components/field'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
+import {formatNormDateTime} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-menu-items.style'
@@ -186,8 +187,8 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
 )
 
 export const ObJectFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field}) => {
-    const {filterData, currentFilterData, onClickObjectFieldMenuItem, onClickAccept} = data
+  withStyles(({classes: classNames, onClose, data, field, onClickObjectFieldMenuItem, onClickAccept}) => {
+    const {filterData, currentFilterData} = data
 
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -245,8 +246,8 @@ export const ObJectFieldMenuItem = React.memo(
 )
 
 export const NormalFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field}) => {
-    const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
+  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
+    const {filterData, currentFilterData} = data
 
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -304,236 +305,377 @@ export const NormalFieldMenuItem = React.memo(
 )
 
 export const ProductMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field}) => {
-    const a = 1
-    // const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+    }) => {
+      const [currentOption, setCurrentOption] = useState(
+        data.amazonTitle.currentFilterData.length
+          ? 'amazonTitle'
+          : data.skusByClient.currentFilterData.length
+          ? 'skusByClient'
+          : 'asin',
+      )
 
-    // const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    // const [nameSearchValue, setNameSearchValue] = useState('')
+      useEffect(() => {
+        onClickFilterBtn(currentOption)
 
-    // useEffect(() => {
-    //   setItemsForRender(filterData)
-    // }, [filterData, currentFilterData])
+        if (currentOption === 'amazonTitle') {
+          onChangeFullFieldMenuItem([], 'skusByClient')
+          onChangeFullFieldMenuItem([], 'asin')
+        } else if (currentOption === 'skusByClient') {
+          onChangeFullFieldMenuItem([], 'asin')
+          onChangeFullFieldMenuItem([], 'amazonTitle')
+        } else {
+          onChangeFullFieldMenuItem([], 'skusByClient')
+          onChangeFullFieldMenuItem([], 'amazonTitle')
+        }
+      }, [currentOption])
 
-    // useEffect(() => {
-    //   if (nameSearchValue) {
-    //     const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
-    //     setItemsForRender(filter)
-    //   } else {
-    //     setItemsForRender(filterData)
-    //   }
-    // }, [nameSearchValue])
+      const {filterData, currentFilterData} = data[currentOption]
 
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div>
-          <FormControl disabled className={classNames.formControl}>
-            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-            <RadioGroup row className={classNames.radioGroup} value="asin">
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="asin"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.ASIN)}
-              />
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="sku"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.SKU)}
-              />
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="title"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Title)}
-              />
-            </RadioGroup>
-          </FormControl>
-        </div>
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            // onChange={e => {
-            //   setNameSearchValue(e.target.value)
-            // }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {/* {itemsForRender?.map((el, index) => (
-              <div key={index} className={classNames.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={currentFilterData?.some(item => item === el)}
-                  onClick={() => onClickNormalFieldMenuItem(el, field)}
+      useEffect(() => {
+        setItemsForRender(filterData)
+      }, [filterData, currentFilterData])
+
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+              <RadioGroup
+                row
+                className={classNames.radioGroup}
+                value={currentOption}
+                onChange={e => setCurrentOption(e.target.value)}
+              >
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="asin"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.ASIN)}
                 />
-                <div className={classNames.shopName}>{el}</div>
-              </div>
-            ))} */}
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
-            </div>
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="skusByClient"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.SKU)}
+                />
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="amazonTitle"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Title)}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender?.map((el, index) => (
+                <div key={index} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData?.some(item => item === el)}
+                    onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                  />
+                  <div className={classNames.shopName}>{el}</div>
+                </div>
+              ))}
             </div>
           </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button variant="contained" onClick={onClickAccept}>
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disabled
-            variant="contained"
-            // onClick={onClickAccept}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button disabled variant="text" className={classNames.cancelBtn} /* onClick={onClose} */>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+      )
+    },
+    styles,
+  ),
 )
 
 export const OrderOrItemMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field}) => {
-    const a = 1
-    // const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+    }) => {
+      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
 
-    // const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    // const [nameSearchValue, setNameSearchValue] = useState('')
+      useEffect(() => {
+        onClickFilterBtn(currentOption)
 
-    // useEffect(() => {
-    //   setItemsForRender(filterData)
-    // }, [filterData, currentFilterData])
+        if (currentOption === 'item') {
+          onChangeFullFieldMenuItem([], 'id')
+        } else {
+          onChangeFullFieldMenuItem([], 'item')
+        }
+      }, [currentOption])
 
-    // useEffect(() => {
-    //   if (nameSearchValue) {
-    //     const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
-    //     setItemsForRender(filter)
-    //   } else {
-    //     setItemsForRender(filterData)
-    //   }
-    // }, [nameSearchValue])
+      const {filterData, currentFilterData} = data[currentOption]
 
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div>
-          <FormControl disabled className={classNames.formControl}>
-            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-            <RadioGroup row className={classNames.radioGroupTwoItems} value="asin">
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="asin"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey['№Order'])}
-              />
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="sku"
-                control={<Radio className={classNames.radioControl} />}
-                label={'№Item'}
-              />
-            </RadioGroup>
-          </FormControl>
-        </div>
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            // onChange={e => {
-            //   setNameSearchValue(e.target.value)
-            // }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {/* {itemsForRender?.map((el, index) => (
-              <div key={index} className={classNames.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={currentFilterData?.some(item => item === el)}
-                  onClick={() => onClickNormalFieldMenuItem(el, field)}
+      useEffect(() => {
+        setItemsForRender(filterData)
+      }, [filterData, currentFilterData])
+
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+              <RadioGroup
+                row
+                className={classNames.radioGroupTwoItems}
+                value={currentOption}
+                onChange={e => setCurrentOption(e.target.value)}
+              >
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="id"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey['№Order'])}
                 />
-                <div className={classNames.shopName}>{el}</div>
-              </div>
-            ))} */}
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
-            </div>
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="item"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={'№Item'}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender?.map((el, index) => (
+                <div key={index} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData?.some(item => item === el)}
+                    onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                  />
+                  <div className={classNames.shopName}>{el}</div>
+                </div>
+              ))}
             </div>
           </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button variant="contained" onClick={onClickAccept}>
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disabled
-            variant="contained"
-            // onClick={onClickAccept}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button disabled variant="text" className={classNames.cancelBtn} /* onClick={onClose} */>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+      )
+    },
+    styles,
+  ),
 )
 
 export const DestinationMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field}) => {
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickObjectFieldMenuItem,
+      onClickAccept,
+    }) => {
+      const [currentOption, setCurrentOption] = useState(
+        data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+      )
+
+      useEffect(() => {
+        onClickFilterBtn(currentOption)
+
+        if (currentOption === 'logicsTariff') {
+          onChangeFullFieldMenuItem([], 'destination')
+        } else {
+          onChangeFullFieldMenuItem([], 'logicsTariff')
+        }
+      }, [currentOption])
+
+      const {filterData, currentFilterData} = data[currentOption]
+
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
+
+      useEffect(() => {
+        setItemsForRender(filterData)
+      }, [filterData, currentFilterData])
+
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+              <RadioGroup
+                row
+                className={classNames.radioGroupTwoItems}
+                value={currentOption}
+                onChange={e => setCurrentOption(e.target.value)}
+              >
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="destination"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Destination)}
+                />
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="logicsTariff"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Tariff)}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender.map(obj => (
+                <div key={obj._id} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData.some(item => item._id === obj._id)}
+                    onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
+                  />
+                  <div className={classNames.shopName}>{obj.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button variant="contained" onClick={onClickAccept}>
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const FromToDateMenuItem = React.memo(
+  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
     const a = 1
-    // const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
+    const {filterData, currentFilterData} = data
 
-    // const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    // const [nameSearchValue, setNameSearchValue] = useState('')
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
 
-    // useEffect(() => {
-    //   setItemsForRender(filterData)
-    // }, [filterData, currentFilterData])
+    useEffect(() => {
+      setItemsForRender(filterData)
+    }, [filterData, currentFilterData])
 
-    // useEffect(() => {
-    //   if (nameSearchValue) {
-    //     const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
-    //     setItemsForRender(filter)
-    //   } else {
-    //     setItemsForRender(filterData)
-    //   }
-    // }, [nameSearchValue])
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item =>
+          formatNormDateTime(item).toLowerCase().includes(nameSearchValue?.toLowerCase()),
+        )
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
+      }
+    }, [nameSearchValue])
 
     return (
       <div className={classNames.shopsDataWrapper}>
         <div>
-          <FormControl disabled className={classNames.formControl}>
-            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-            <RadioGroup className={classNames.radioGroupTwoItems} value="asin">
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="asin"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Destination)}
-              />
-              <FormControlLabel
-                className={classNames.radioOption}
-                value="sku"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Tariff)}
-              />
-            </RadioGroup>
-          </FormControl>
+          <NewDatePicker
+            disabled /* value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} */
+          />
+          {/* <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} />
+
+          <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} /> */}
         </div>
 
         <div className={classNames.searchInputWrapper}>
@@ -541,42 +683,30 @@ export const DestinationMenuItem = React.memo(
             key={'client_warehouse_search_input'}
             inputClasses={classNames.searchInput}
             placeholder={t(TranslationKey.Search)}
-            // onChange={e => {
-            //   setNameSearchValue(e.target.value)
-            // }}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
           />
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {/* {itemsForRender?.map((el, index) => (
+            {itemsForRender?.map((el, index) => (
               <div key={index} className={classNames.shop}>
                 <Checkbox
                   color="primary"
                   checked={currentFilterData?.some(item => item === el)}
                   onClick={() => onClickNormalFieldMenuItem(el, field)}
                 />
-                <div className={classNames.shopName}>{el}</div>
+                <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
               </div>
-            ))} */}
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
-            </div>
-            <div className={classNames.shop}>
-              <Checkbox color="primary" />
-              <div className={classNames.shopName}>{'el'}</div>
-            </div>
+            ))}
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>
-          <Button
-            disabled
-            variant="contained"
-            // onClick={onClickAccept}
-          >
+          <Button variant="contained" onClick={onClickAccept}>
             {t(TranslationKey.Accept)}
           </Button>
-          <Button disabled variant="text" className={classNames.cancelBtn} /* onClick={onClose} */>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -584,82 +714,3 @@ export const DestinationMenuItem = React.memo(
     )
   }, styles),
 )
-
-// export const FromToDateMenuItem = React.memo(
-//   withStyles(({classes: classNames, onClose, data, field}) => {
-//     const a = 1
-//     // const {filterData, currentFilterData, onClickNormalFieldMenuItem, onClickAccept} = data
-
-//     // const [itemsForRender, setItemsForRender] = useState(filterData || [])
-//     // const [nameSearchValue, setNameSearchValue] = useState('')
-
-//     // useEffect(() => {
-//     //   setItemsForRender(filterData)
-//     // }, [filterData, currentFilterData])
-
-//     // useEffect(() => {
-//     //   if (nameSearchValue) {
-//     //     const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
-//     //     setItemsForRender(filter)
-//     //   } else {
-//     //     setItemsForRender(filterData)
-//     //   }
-//     // }, [nameSearchValue])
-
-//     return (
-//       <div className={classNames.shopsDataWrapper}>
-//         <div>
-//           <NewDatePicker /* value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} */ />
-//           <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} />
-
-//           <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} />
-//         </div>
-
-//         <div className={classNames.searchInputWrapper}>
-//           <SearchInput
-//             key={'client_warehouse_search_input'}
-//             inputClasses={classNames.searchInput}
-//             placeholder={t(TranslationKey.Search)}
-//             // onChange={e => {
-//             //   setNameSearchValue(e.target.value)
-//             // }}
-//           />
-//         </div>
-//         <div className={classNames.shopsWrapper}>
-//           <div className={classNames.shopsBody}>
-//             {/* {itemsForRender?.map((el, index) => (
-//               <div key={index} className={classNames.shop}>
-//                 <Checkbox
-//                   color="primary"
-//                   checked={currentFilterData?.some(item => item === el)}
-//                   onClick={() => onClickNormalFieldMenuItem(el, field)}
-//                 />
-//                 <div className={classNames.shopName}>{el}</div>
-//               </div>
-//             ))} */}
-//             <div className={classNames.shop}>
-//               <Checkbox color="primary" />
-//               <div className={classNames.shopName}>{'el'}</div>
-//             </div>
-//             <div className={classNames.shop}>
-//               <Checkbox color="primary" />
-//               <div className={classNames.shopName}>{'el'}</div>
-//             </div>
-//           </div>
-//         </div>
-//         <div className={classNames.buttonsWrapper}>
-//           <Button
-//             disabled
-//             variant="contained"
-//             // onClick={onClickAccept}
-//           >
-//             {t(TranslationKey.Accept)}
-//           </Button>
-//           <Button disabled variant="text" className={classNames.cancelBtn} /* onClick={onClose} */>
-//             {t(TranslationKey.Cancel)}
-//           </Button>
-//         </div>
-//       </div>
-//     )
-//   }, styles),
-// )

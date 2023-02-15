@@ -245,7 +245,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_CREATED_AT,
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -256,6 +256,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_UPDATED_AT,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
