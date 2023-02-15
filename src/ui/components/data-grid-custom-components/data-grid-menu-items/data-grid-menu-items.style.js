@@ -88,6 +88,7 @@ export const styles = theme => ({
   radioGroupTwoItems: {
     display: 'flex',
     gap: 20,
+    color: theme.palette.text.general,
   },
   formControl: {
     width: 255,

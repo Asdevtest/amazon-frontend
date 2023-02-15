@@ -94,25 +94,38 @@ export class ClientInStockBoxesViewModel {
   shopsData = []
 
   columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
+    onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
+    onClickAccept: () => this.getBoxesMy(),
+
     isFormedData: {isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value)},
-    // Добавил
-    shopIds: {
-      filterData: [],
-      currentFilterData: [],
-      onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
-      onClickAccept: () => this.getBoxesMy(),
-    },
 
-    humanFriendlyId: {
-      filterData: [],
-      currentFilterData: [],
-      onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
-      onClickAccept: () => this.getBoxesMy(),
-    },
+    ...[
+      'shopIds',
+      'humanFriendlyId',
+      'id',
+      'item',
+      'asin',
+      'skusByClient',
+      'amazonTitle',
+      'destination',
+      'logicsTariff',
+      'createdAt',
+      'updatedAt',
+    ].reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
   }
-
-  // filterData = []
-  // currentFilterData = []
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
@@ -794,6 +807,18 @@ export class ClientInStockBoxesViewModel {
             },
           }
         }
+      }
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
       }
     })
   }
@@ -1718,6 +1743,18 @@ export class ClientInStockBoxesViewModel {
       //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
 
       const humanFriendlyIdFilter = this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+      const idFilter = this.columnMenuSettings.id.currentFilterData.join(',')
+      const itemFilter = this.columnMenuSettings.item.currentFilterData.join(',')
+
+      const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
+      const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.join(',')
+
+      const destinationFilter = this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
+      const logicsTariffFilter = this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
+
+      const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
+      const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
       const filter = objectToUrlQs({
         or: [
@@ -1731,6 +1768,37 @@ export class ClientInStockBoxesViewModel {
 
         ...(humanFriendlyIdFilter && {
           humanFriendlyId: {$eq: humanFriendlyIdFilter},
+        }),
+        ...(idFilter && {
+          id: {$eq: idFilter},
+        }),
+
+        ...(itemFilter && {
+          item: {$eq: itemFilter},
+        }),
+
+        ...(asinFilter && {
+          asin: {$eq: asinFilter},
+        }),
+        ...(skusByClientFilter && {
+          skusByClient: {$eq: skusByClientFilter},
+        }),
+        ...(amazonTitleFilter && {
+          amazonTitle: {$eq: amazonTitleFilter},
+        }),
+
+        ...(destinationFilter && {
+          destinationId: {$eq: destinationFilter},
+        }),
+        ...(logicsTariffFilter && {
+          logicsTariffId: {$eq: logicsTariffFilter},
+        }),
+
+        ...(createdAtFilter && {
+          createdAt: {$eq: createdAtFilter},
+        }),
+        ...(updatedAtFilter && {
+          updatedAt: {$eq: updatedAtFilter},
         }),
       })
 

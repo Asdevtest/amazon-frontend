@@ -11,6 +11,7 @@ import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {
   ClientOrderAllStatusesMenuItem,
   DestinationMenuItem,
+  FromToDateMenuItem,
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
   NormalFieldMenuItem, // OrderStatusMenuItem,
@@ -25,6 +26,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     currentColumn,
     isFormedData,
     orderStatusData,
+    onClickFilterBtn,
+    onChangeFullFieldMenuItem,
+    onClickObjectFieldMenuItem,
+    onClickNormalFieldMenuItem,
+    onClickAccept,
     /* shopsDataBase,  */ isNeedPurchaseFilterData,
     ...other
   } = props
@@ -79,7 +85,13 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <ObJectFieldMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+        <ObJectFieldMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          onClose={hideMenu}
+          onClickObjectFieldMenuItem={onClickObjectFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
       </GridColumnMenuContainer>
     )
   }
@@ -87,17 +99,28 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_ID) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <NormalFieldMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+        <NormalFieldMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          onClose={hideMenu}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
       </GridColumnMenuContainer>
     )
   }
 
-  // Добавил
-
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <ProductMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+        <ProductMenuItem
+          data={props}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
       </GridColumnMenuContainer>
     )
   }
@@ -105,7 +128,14 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <OrderOrItemMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+        <OrderOrItemMenuItem
+          data={props}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
       </GridColumnMenuContainer>
     )
   }
@@ -113,22 +143,31 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <DestinationMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
+        <DestinationMenuItem
+          data={props}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickObjectFieldMenuItem={onClickObjectFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
       </GridColumnMenuContainer>
     )
   }
 
-  // if (
-  //   [columnnsKeys.client.WAREHOUSE_IN_STOCK_CREATED_AT, columnnsKeys.client.WAREHOUSE_IN_STOCK_UPDATED_AT].includes(
-  //     currentColumn.columnKey,
-  //   )
-  // ) {
-  //   return (
-  //     <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-  //       <FromToDateMenuItem data={props[currentColumn.field]} field={currentColumn.field} onClose={hideMenu} />
-  //     </GridColumnMenuContainer>
-  //   )
-  // }
+  if ([columnnsKeys.shared.DATE].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <FromToDateMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          onClose={hideMenu}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
 
   return <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} {...other} />
 }

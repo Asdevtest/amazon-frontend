@@ -170,6 +170,8 @@ export class ClientInStockBoxesViewRaw extends Component {
 
     const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
 
+    // console.log('columnMenuSettings', columnMenuSettings)
+
     return (
       <React.Fragment>
         <Navbar
