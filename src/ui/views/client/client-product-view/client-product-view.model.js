@@ -2,7 +2,7 @@ import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
-// import {poundsWeightCoefficient} from '@constants/sizes-settings'
+import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -718,12 +718,12 @@ export class ClientProductViewModel {
               this.product = {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
-                weight: parseResult.weight,
+                // weight: parseResult.weight,
                 // Вернуть старый вариант парса
-                // weight:
-                //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-                //     ? this.product.weight
-                //     : parseResult.weight * poundsWeightCoefficient,
+                weight:
+                  this.product.weight > parseResult.weight * poundsWeightCoefficient
+                    ? this.product.weight
+                    : parseResult.weight * poundsWeightCoefficient,
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
                 fbafee: this.product.fbafee,

@@ -215,10 +215,11 @@ const Box = ({
                   {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
                     <div
                       className={cx({
-                        [classNames.containerAccent]:
-                          (order.isBarCodeAlreadyAttachedByTheSupplier || order.isBarCodeAttachedByTheStorekeeper) &&
-                          !order.barCode &&
-                          !order.tmpBarCode?.length,
+                        // Раскоментить если нужно будет подсвечивать
+                        // [classNames.containerAccent]:
+                        //   (order.isBarCodeAlreadyAttachedByTheSupplier || order.isBarCodeAttachedByTheStorekeeper) &&
+                        //   !order.barCode &&
+                        //   !order.tmpBarCode?.length,
                       })}
                     >
                       <Field
