@@ -48,6 +48,8 @@ const Box = ({
   onClickEditBox,
   setCurBox,
 }) => {
+  console.log('box', box)
+
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -293,7 +295,13 @@ const Box = ({
               </IconButton>
               <div>
                 <Button
-                  className={classNames.editBtn}
+                  className={cx(classNames.editBtn, {
+                    [classNames.editBtnYellow]:
+                      !box.widthCmWarehouse ||
+                      !box.weighGrossKgWarehouse ||
+                      !box.lengthCmWarehouse ||
+                      !box.heightCmWarehouse,
+                  })}
                   tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                   onClick={() => {
                     setCurBox(box)
