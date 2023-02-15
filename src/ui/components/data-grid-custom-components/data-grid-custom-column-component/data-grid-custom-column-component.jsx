@@ -14,7 +14,8 @@ import {
   FromToDateMenuItem,
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
-  NormalFieldMenuItem, // OrderStatusMenuItem,
+  NormalFieldMenuItem,
+  NumberFieldMenuItem, // OrderStatusMenuItem,
   ObJectFieldMenuItem,
   OrderOrItemMenuItem,
   ProductMenuItem,
@@ -96,7 +97,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_ID) {
+  if ([].includes(currentColumn.columnKey)) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <NormalFieldMenuItem
@@ -159,6 +160,20 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <FromToDateMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          onClose={hideMenu}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.client.WAREHOUSE_ID].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <NumberFieldMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
           onClose={hideMenu}

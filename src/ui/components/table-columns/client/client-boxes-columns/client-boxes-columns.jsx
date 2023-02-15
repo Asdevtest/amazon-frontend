@@ -141,6 +141,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     type: 'number',
     width: 90,
     sortable: false,
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

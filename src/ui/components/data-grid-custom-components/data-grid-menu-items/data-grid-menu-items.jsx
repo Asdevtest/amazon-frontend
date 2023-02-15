@@ -6,6 +6,7 @@ import {consoleSandbox} from '@sentry/utils'
 
 import React, {useEffect, useState} from 'react'
 
+import {compareDesc, isAfter, parseISO} from 'date-fns'
 import {withStyles} from 'tss-react/mui'
 
 import {OrderStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
@@ -14,9 +15,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
+import {Input} from '@components/input'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
+import {checkIsPositiveNum} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {t} from '@utils/translations'
 
@@ -646,7 +649,9 @@ export const DestinationMenuItem = React.memo(
 
 export const FromToDateMenuItem = React.memo(
   withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
-    const a = 1
+    const [fromDate, setFromDate] = useState(null)
+    const [toDate, setToDate] = useState(null)
+
     const {filterData, currentFilterData} = data
 
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
@@ -657,25 +662,27 @@ export const FromToDateMenuItem = React.memo(
     }, [filterData, currentFilterData])
 
     useEffect(() => {
-      if (nameSearchValue) {
-        const filter = filterData?.filter(item =>
-          formatNormDateTime(item).toLowerCase().includes(nameSearchValue?.toLowerCase()),
-        )
-        setItemsForRender(filter)
-      } else {
-        setItemsForRender(filterData)
-      }
-    }, [nameSearchValue])
+      const filter = filterData?.filter(
+        item =>
+          (nameSearchValue ? formatNormDateTime(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+          (fromDate ? isAfter(parseISO(item), fromDate) : true) &&
+          (toDate ? isAfter(toDate, parseISO(item)) : true),
+      )
+      setItemsForRender(filter)
+    }, [nameSearchValue, fromDate, toDate])
 
     return (
       <div className={classNames.shopsDataWrapper}>
-        <div>
-          <NewDatePicker
-            disabled /* value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} */
-          />
-          {/* <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} />
+        <div className={classNames.fromToDatesWrapper}>
+          <div className={classNames.fromToDatesSubWrapper}>
+            <Typography className={classNames.fromToText}>{t(TranslationKey.From)}</Typography>
+            <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
+          </div>
+          <div className={classNames.fromToDatesSubWrapper}>
+            <Typography className={classNames.fromToText}>{t(TranslationKey.To)}</Typography>
 
-          <Field oneLine containerClasses={classNames.footerInfoContainer} value={''} /> */}
+            <NewDatePicker className={classNames.dateInput} value={toDate} onChange={setToDate} />
+          </div>
         </div>
 
         <div className={classNames.searchInputWrapper}>
@@ -690,16 +697,98 @@ export const FromToDateMenuItem = React.memo(
         </div>
         <div className={classNames.shopsWrapper}>
           <div className={classNames.shopsBody}>
-            {itemsForRender?.map((el, index) => (
-              <div key={index} className={classNames.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={currentFilterData?.some(item => item === el)}
-                  onClick={() => onClickNormalFieldMenuItem(el, field)}
-                />
-                <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
-              </div>
-            ))}
+            {itemsForRender
+              .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
+              ?.map((el, index) => (
+                <div key={index} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData?.some(item => item === el)}
+                    onClick={() => onClickNormalFieldMenuItem(el, field)}
+                  />
+                  <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
+                </div>
+              ))}
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button variant="contained" onClick={onClickAccept}>
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+export const NumberFieldMenuItem = React.memo(
+  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
+    const [fromValue, setFromValue] = useState('')
+    const [toValue, setToValue] = useState('')
+
+    const {filterData, currentFilterData} = data
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      setItemsForRender(filterData)
+    }, [filterData, currentFilterData])
+
+    useEffect(() => {
+      const filter = filterData?.filter(
+        item =>
+          (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+          (fromValue || fromValue === 0 ? Number(item) > Number(fromValue) : true) &&
+          (toValue || toValue === 0 ? Number(item) < Number(toValue) : true),
+      )
+      setItemsForRender(filter)
+    }, [nameSearchValue, fromValue, toValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.numInputsWrapper}>
+          <Input
+            className={classNames.numInput}
+            placeholder={t(TranslationKey.From)}
+            value={fromValue}
+            onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+          />
+          <Input
+            className={classNames.numInput}
+            placeholder={t(TranslationKey.To)}
+            value={toValue}
+            onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+          />
+        </div>
+
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            {itemsForRender
+              .sort((a, b) => Number(b) - Number(a))
+              ?.map((el, index) => (
+                <div key={index} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData?.some(item => item === el)}
+                    onClick={() => onClickNormalFieldMenuItem(el, field)}
+                  />
+                  <div className={classNames.shopName}>{el}</div>
+                </div>
+              ))}
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>

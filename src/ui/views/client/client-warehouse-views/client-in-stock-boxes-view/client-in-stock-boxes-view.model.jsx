@@ -114,6 +114,7 @@ export class ClientInStockBoxesViewModel {
       'logicsTariff',
       'createdAt',
       'updatedAt',
+      'amount',
     ].reduce(
       (ac, cur) =>
         (ac = {
@@ -1756,6 +1757,8 @@ export class ClientInStockBoxesViewModel {
       const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
       const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
+      const amountFilter = this.columnMenuSettings.amount.currentFilterData.join(',')
+
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -1799,6 +1802,10 @@ export class ClientInStockBoxesViewModel {
         }),
         ...(updatedAtFilter && {
           updatedAt: {$eq: updatedAtFilter},
+        }),
+
+        ...(amountFilter && {
+          amount: {$eq: amountFilter},
         }),
       })
 

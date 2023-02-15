@@ -18,5 +18,6 @@ export const columnnsKeys = {
   researcher: {},
   shared: {
     DATE: 'DATE',
+    QUANTITY: 'QUANTITY',
   },
 }
