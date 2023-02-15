@@ -541,7 +541,7 @@ export class ClientOrdersViewModel {
 
       this.checkPendingData = pendingOrders
 
-      if (this.checkPendingData[0].length > 0) {
+      if (this.checkPendingData.length > 0 && this.checkPendingData[0].length > 0) {
         this.existingOrders = this.currentData
           .filter(product => correctIds.includes(product.originalData.product._id))
           .map(prod => prod.originalData.product)
