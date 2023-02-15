@@ -389,6 +389,16 @@ export class ClientInventoryViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
                   rowHeight={120}
+                  // sx={{
+                  //   '& .MuiDataGrid-iconButtonContainer': {
+                  //     marginLeft: '2px',
+                  //     visibility: 'visible !important',
+                  //     width: 'auto !important',
+                  //   },
+                  //   '& .MuiDataGrid-menuIconButton': {
+                  //     visibility: 'visible !important',
+                  //   },
+                  // }}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
