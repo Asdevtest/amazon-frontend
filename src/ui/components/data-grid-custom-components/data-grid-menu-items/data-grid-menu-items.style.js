@@ -20,6 +20,16 @@ export const styles = theme => ({
     padding: '10px 0',
     gap: 20,
   },
+
+  datesFilterWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 400,
+    maxHeight: 500,
+    padding: '10px 0',
+    gap: 20,
+  },
   searchInputWrapper: {
     width: 255,
     height: 30,
@@ -114,5 +124,39 @@ export const styles = theme => ({
   },
   radioControl: {
     padding: 0,
+  },
+
+  fromToDatesWrapper: {
+    padding: '0 10px',
+  },
+
+  fromToDatesSubWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    // flexGrow: 1,
+    marginBottom: 5,
+  },
+
+  fromToText: {
+    margin: '0 10px',
+  },
+
+  dateInput: {
+    width: 200,
+  },
+
+  numInputsWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    // flexGrow: 1,
+    marginBottom: 5,
+    gap: 40,
+  },
+
+  numInput: {
+    width: 90,
+    height: 30,
   },
 })
