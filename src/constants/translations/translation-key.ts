@@ -98,7 +98,7 @@ export enum TranslationKey {
   'Actually assembled' = 'Actually assembled',
   'Left to redistribute' = 'Left to redistribute',
   'Task photos' = 'Task photos',
-  'Demensions' = 'Demensions',
+  'Dimensions' = 'Dimensions',
   'All parameters' = 'All parameters',
   'Material' = 'Material',
   'Category' = 'Category',

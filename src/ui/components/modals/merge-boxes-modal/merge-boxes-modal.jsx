@@ -375,7 +375,7 @@ export const MergeBoxesModal = ({
                         tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
                         className={classNames.standartLabel}
                       >
-                        {t(TranslationKey.Demensions)}
+                        {t(TranslationKey.Dimensions)}
                       </Text>
 
                       <ToggleBtnGroup

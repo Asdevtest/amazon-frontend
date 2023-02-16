@@ -224,8 +224,8 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
 
   {
     field: 'dimansions',
-    headerName: t(TranslationKey.Demensions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Demensions)} />,
+    headerName: t(TranslationKey.Dimensions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dimensions)} />,
 
     renderCell: params =>
       params.row.originalData ? (

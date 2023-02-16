@@ -59,7 +59,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
 
       <Paper className={classNames.boxInfoWrapper}>
         <div>
-          <Typography className={classNames.categoryTitle}>{t(TranslationKey.Demensions) + ':'}</Typography>
+          <Typography className={classNames.categoryTitle}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
           {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
             <div className={classNames.demensionsWrapper}>

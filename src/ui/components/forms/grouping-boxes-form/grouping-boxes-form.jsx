@@ -232,7 +232,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
           <div className={classNames.itemSubWrapper}>
             <div>
               <div className={classNames.sizesTitleWrapper}>
-                <Typography className={classNames.label}>{t(TranslationKey.Demensions)}</Typography>
+                <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
 
                 <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                   <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>

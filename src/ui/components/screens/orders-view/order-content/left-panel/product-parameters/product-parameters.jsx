@@ -89,7 +89,7 @@ export const ProductParameters = ({
       />
       <Field
         oneLine
-        label={t(TranslationKey.Demensions)}
+        label={t(TranslationKey.Dimensions)}
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         inputComponent={

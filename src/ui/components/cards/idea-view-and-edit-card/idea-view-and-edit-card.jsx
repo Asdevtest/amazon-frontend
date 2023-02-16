@@ -344,7 +344,7 @@ export const IdeaViewAndEditCard = observer(
 
                 <div className={classNames.sizesWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Demensions)}</Typography>
+                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Dimensions)}</Typography>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
