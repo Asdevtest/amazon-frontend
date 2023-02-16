@@ -379,6 +379,28 @@ export class ClientInventoryViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    columnHeader: classNames.columnHeader,
+                    menuIconButton: classNames.menuIconButton,
+                    iconButtonContainer: classNames.iconButtonContainer,
+                    iconSeparator: classNames.iconSeparator,
+                    columnHeaderTitleContainerContent: classNames.columnHeaderTitleContainerContent,
+                    checkboxInput: classNames.checkboxInput,
+                    sortIcon: classNames.sortIcon,
+                  }}
+                  sx={{
+                    '.MuiDataGrid-iconButtonContainer': {
+                      // visibility: 'visible',
+                    },
+                    '.MuiDataGrid-sortIcon': {
+                      // opacity: 'inherit !important',
+                      opacity: 1,
+                      width: 14,
+                      height: 14,
+                      color: '#007bff',
+                    },
                   }}
                   getCellClassName={getCellClassName}
                   sortingMode="server"
@@ -390,21 +412,13 @@ export class ClientInventoryViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
+                  headerHeight={65}
                   rowHeight={120}
-                  // sx={{
-                  //   '& .MuiDataGrid-iconButtonContainer': {
-                  //     marginLeft: '2px',
-                  //     visibility: 'visible !important',
-                  //     width: 'auto !important',
-                  //   },
-                  //   '& .MuiDataGrid-menuIconButton': {
-                  //     visibility: 'visible !important',
-                  //   },
-                  // }}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                    // sortIcon:
                   }}
                   // componentsProps={{
                   //   columnMenu: {

@@ -889,6 +889,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingRight: 20,
   },
 
   boxesAndQuantityWrapper: {
@@ -1299,6 +1300,24 @@ export const styles = theme => ({
   },
 
   headerIcon: {
+    width: '14px !important',
+    height: '14px !important',
+
+    color: 'gray',
+
+    zIndex: -1000,
+
+    position: 'absolute',
+    right: -5,
+    top: 15,
+
+    // '&:hover': {
+    //   opacity: '.7',
+    //   transform: 'scale(1.1)',
+    // },
+  },
+
+  headerIconBlue: {
     color: theme.palette.primary.main,
   },
 

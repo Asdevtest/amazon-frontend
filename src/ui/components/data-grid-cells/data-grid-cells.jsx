@@ -6,6 +6,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import DoneIcon from '@mui/icons-material/Done'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {
   Avatar,
   Badge,
@@ -1046,12 +1047,14 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({classes: classNames, text, Icon}) => (
+    ({classes: classNames, text, noIcon, blue}) => (
       <Tooltip title={text}>
         <div className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
 
-          {Icon ? <Icon className={classNames.headerIcon} /> : null}
+          {!noIcon ? (
+            <FilterAltOutlinedIcon className={cx(classNames.headerIcon, {[classNames.headerIconBlue]: blue})} />
+          ) : null}
         </div>
       </Tooltip>
     ),

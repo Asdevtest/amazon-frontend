@@ -64,7 +64,7 @@ export const clientInventoryColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 80,
+    width: 90,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -76,7 +76,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 70,
+    width: 90,
     sortable: false,
   },
 
@@ -87,7 +87,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 65,
+    width: 85,
     sortable: false,
   },
 
@@ -98,7 +98,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 70,
+    width: 90,
     sortable: false,
   },
 
@@ -118,7 +118,7 @@ export const clientInventoryColumns = (
       />
     ),
     type: 'number',
-    width: 60,
+    width: 90,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -157,7 +157,7 @@ export const clientInventoryColumns = (
       />
     ),
     type: 'number',
-    width: 80,
+    width: 90,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
