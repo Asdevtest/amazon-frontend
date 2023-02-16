@@ -263,7 +263,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
 
-    shop: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
+    shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>

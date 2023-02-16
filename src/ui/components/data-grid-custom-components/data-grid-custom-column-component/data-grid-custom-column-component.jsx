@@ -12,6 +12,7 @@ import {
   ClientOrderAllStatusesMenuItem,
   DestinationMenuItem,
   FromToDateMenuItem,
+  InStockMenuItem,
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
   NormalFieldMenuItem,
@@ -83,7 +84,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS) {
+  if (
+    [columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
+      currentColumn.columnKey,
+    )
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem
@@ -97,12 +102,17 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([].includes(currentColumn.columnKey)) {
+  if (
+    [columnnsKeys.client.INVENTORY_STRATEGY_STATUS, columnnsKeys.client.INVENTORY_STATUS].includes(
+      currentColumn.columnKey,
+    )
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <NormalFieldMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          columnKey={currentColumn.columnKey}
           onClose={hideMenu}
           onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
           onClickAccept={onClickAccept}
@@ -111,7 +121,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT) {
+  if (
+    [columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT, columnnsKeys.client.INVENTORY_PRODUCT].includes(
+      currentColumn.columnKey,
+    )
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ProductMenuItem
@@ -170,7 +184,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([columnnsKeys.client.WAREHOUSE_ID].includes(currentColumn.columnKey)) {
+  if ([columnnsKeys.client.WAREHOUSE_ID, columnnsKeys.shared.QUANTITY].includes(currentColumn.columnKey)) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <NumberFieldMenuItem
@@ -178,6 +192,21 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           onClose={hideMenu}
           onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.client.INVENTORY_IN_STOCK].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <InStockMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          onClose={hideMenu}
+          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>

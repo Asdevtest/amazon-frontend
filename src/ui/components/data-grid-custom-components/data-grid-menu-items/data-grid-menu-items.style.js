@@ -16,7 +16,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: 300,
-    maxHeight: 500,
+    // maxHeight: 500,
     padding: '10px 0',
     gap: 20,
   },
@@ -99,6 +99,8 @@ export const styles = theme => ({
     display: 'flex',
     gap: 20,
     color: theme.palette.text.general,
+    maxHeight: 200,
+    overflowY: 'auto',
   },
   formControl: {
     width: 255,
