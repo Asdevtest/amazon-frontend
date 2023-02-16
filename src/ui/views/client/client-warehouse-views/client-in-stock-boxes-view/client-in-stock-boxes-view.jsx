@@ -357,9 +357,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onMenuOpen={params => {
-                  onClickFilterBtn(params.target.offsetParent.dataset.field)
-                }}
                 onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

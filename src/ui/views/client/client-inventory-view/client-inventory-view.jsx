@@ -418,14 +418,7 @@ export class ClientInventoryViewRaw extends Component {
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
-                    // sortIcon:
                   }}
-                  // componentsProps={{
-                  //   columnMenu: {
-                  //     isNeedPurchaseFilterData: {isNeedPurchaseFilter, onChangeIsNeedPurchaseFilter},
-                  //   },
-                  // }}
-
                   componentsProps={{
                     columnMenu: columnMenuSettings,
                   }}
@@ -433,9 +426,6 @@ export class ClientInventoryViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onMenuOpen={params => {
-                    onClickFilterBtn(params.target.offsetParent.dataset.field)
-                  }}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

@@ -57,7 +57,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
   },
 
   {
-    field: 'amount',
+    field: 'qty',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
