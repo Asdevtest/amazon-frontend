@@ -160,5 +160,6 @@ export const styles = theme => ({
   numInput: {
     width: 90,
     height: 30,
+    textAlign: 'center',
   },
 })

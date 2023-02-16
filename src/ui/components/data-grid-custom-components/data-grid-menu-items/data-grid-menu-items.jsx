@@ -193,139 +193,158 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
 )
 
 export const ObJectFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onClickObjectFieldMenuItem, onClickAccept}) => {
-    const {filterData, currentFilterData} = data
+  withStyles(
+    ({classes: classNames, onClose, data, field, onClickObjectFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+      const {filterData, currentFilterData} = data
 
-    const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    const [nameSearchValue, setNameSearchValue] = useState('')
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-    useEffect(() => {
-      setItemsForRender(filterData)
-    }, [filterData, currentFilterData])
+      useEffect(() => {
+        onClickFilterBtn(field)
 
-    useEffect(() => {
-      if (nameSearchValue) {
-        const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
-        setItemsForRender(filter)
-      } else {
         setItemsForRender(filterData)
-      }
-    }, [nameSearchValue])
+      }, [filterData])
 
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {itemsForRender.map(obj => (
-              <div key={obj._id} className={classNames.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={currentFilterData.some(item => item._id === obj._id)}
-                  onClick={() => onClickObjectFieldMenuItem(obj, field)}
-                />
-                <div className={classNames.shopName}>{obj.name}</div>
-              </div>
-            ))}
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender.map(obj => (
+                <div key={obj._id} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData.some(item => item._id === obj._id)}
+                    onClick={() => onClickObjectFieldMenuItem(obj, field)}
+                  />
+                  <div className={classNames.shopName}>{obj.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            variant="contained"
-            onClick={e => {
-              onClose(e)
-              onClickAccept()
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+      )
+    },
+    styles,
+  ),
 )
 
 export const NormalFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, columnKey, onClickNormalFieldMenuItem, onClickAccept}) => {
-    const {filterData, currentFilterData} = data
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      columnKey,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      const {filterData, currentFilterData} = data
 
-    const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    const [nameSearchValue, setNameSearchValue] = useState('')
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-    useEffect(() => {
-      setItemsForRender(filterData)
-    }, [filterData, currentFilterData])
+      useEffect(() => {
+        onClickFilterBtn(field)
 
-    useEffect(() => {
-      if (nameSearchValue) {
-        const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
-        setItemsForRender(filter)
-      } else {
         setItemsForRender(filterData)
-      }
-    }, [nameSearchValue])
+      }, [filterData])
 
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {itemsForRender.map((el, index) => (
-              <div key={index} className={classNames.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={currentFilterData.some(item => item === el)}
-                  onClick={() => onClickNormalFieldMenuItem(el, field)}
-                />
-                <div className={classNames.shopName}>
-                  {/* {columnKey === columnnsKeys.client.INVENTORY_STRATEGY_STATUS
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender.map((el, index) => (
+                <div key={index} className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={currentFilterData.some(item => item === el)}
+                    onClick={() => onClickNormalFieldMenuItem(el, field)}
+                  />
+                  <div className={classNames.shopName}>
+                    {/* {columnKey === columnnsKeys.client.INVENTORY_STRATEGY_STATUS
                     ? mapProductStrategyStatusEnum[el]?.replace(/_/g, ' ')
                     : el} */}
-                  {getStatusByColumnKeyAndStatusKey(el, columnKey)}
+                    {getStatusByColumnKeyAndStatusKey(el, columnKey)}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
           </div>
         </div>
-
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            variant="contained"
-            onClick={e => {
-              onClose(e)
-              onClickAccept()
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+      )
+    },
+    styles,
+  ),
 )
 
 export const ProductMenuItem = React.memo(
@@ -369,7 +388,7 @@ export const ProductMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(filterData)
-      }, [filterData, currentFilterData])
+      }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
@@ -488,7 +507,7 @@ export const OrderOrItemMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(filterData)
-      }, [filterData, currentFilterData])
+      }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
@@ -603,7 +622,7 @@ export const DestinationMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(filterData)
-      }, [filterData, currentFilterData])
+      }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
@@ -687,172 +706,185 @@ export const DestinationMenuItem = React.memo(
 )
 
 export const FromToDateMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
-    const [fromDate, setFromDate] = useState(null)
-    const [toDate, setToDate] = useState(null)
+  withStyles(
+    ({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+      const [fromDate, setFromDate] = useState(null)
+      const [toDate, setToDate] = useState(null)
 
-    const {filterData, currentFilterData} = data
+      const {filterData, currentFilterData} = data
 
-    const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    const [nameSearchValue, setNameSearchValue] = useState('')
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-    useEffect(() => {
-      setItemsForRender(filterData)
-    }, [filterData, currentFilterData])
+      useEffect(() => {
+        onClickFilterBtn(field)
+        setItemsForRender(filterData)
+      }, [filterData])
 
-    useEffect(() => {
-      const filter = filterData?.filter(
-        item =>
-          (nameSearchValue ? formatNormDateTime(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
-          (fromDate ? isAfter(parseISO(item), fromDate) : true) &&
-          (toDate ? isAfter(toDate, parseISO(item)) : true),
+      useEffect(() => {
+        const filter = filterData?.filter(
+          item =>
+            (nameSearchValue
+              ? formatNormDateTime(item).toLowerCase().includes(nameSearchValue?.toLowerCase())
+              : true) &&
+            (fromDate ? isAfter(parseISO(item), fromDate) : true) &&
+            (toDate ? isAfter(toDate, parseISO(item)) : true),
+        )
+        setItemsForRender(filter)
+      }, [nameSearchValue, fromDate, toDate])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.fromToDatesWrapper}>
+            <div className={classNames.fromToDatesSubWrapper}>
+              <Typography className={classNames.fromToText}>{t(TranslationKey.From)}</Typography>
+              <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
+            </div>
+            <div className={classNames.fromToDatesSubWrapper}>
+              <Typography className={classNames.fromToText}>{t(TranslationKey.To)}</Typography>
+
+              <NewDatePicker className={classNames.dateInput} value={toDate} onChange={setToDate} />
+            </div>
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender
+                .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
+                ?.map((el, index) => (
+                  <div key={index} className={classNames.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={currentFilterData?.some(item => item === el)}
+                      onClick={() => onClickNormalFieldMenuItem(el, field)}
+                    />
+                    <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
       )
-      setItemsForRender(filter)
-    }, [nameSearchValue, fromDate, toDate])
-
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div className={classNames.fromToDatesWrapper}>
-          <div className={classNames.fromToDatesSubWrapper}>
-            <Typography className={classNames.fromToText}>{t(TranslationKey.From)}</Typography>
-            <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
-          </div>
-          <div className={classNames.fromToDatesSubWrapper}>
-            <Typography className={classNames.fromToText}>{t(TranslationKey.To)}</Typography>
-
-            <NewDatePicker className={classNames.dateInput} value={toDate} onChange={setToDate} />
-          </div>
-        </div>
-
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {itemsForRender
-              .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
-              ?.map((el, index) => (
-                <div key={index} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData?.some(item => item === el)}
-                    onClick={() => onClickNormalFieldMenuItem(el, field)}
-                  />
-                  <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
-                </div>
-              ))}
-          </div>
-        </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            variant="contained"
-            onClick={e => {
-              onClose(e)
-              onClickAccept()
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+    },
+    styles,
+  ),
 )
 
 export const NumberFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
-    const [fromValue, setFromValue] = useState('')
-    const [toValue, setToValue] = useState('')
+  withStyles(
+    ({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+      const [fromValue, setFromValue] = useState('')
+      const [toValue, setToValue] = useState('')
 
-    const {filterData, currentFilterData} = data
+      const {filterData, currentFilterData} = data
 
-    const [itemsForRender, setItemsForRender] = useState(filterData || [])
-    const [nameSearchValue, setNameSearchValue] = useState('')
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
-    useEffect(() => {
-      setItemsForRender(filterData)
-    }, [filterData, currentFilterData])
+      useEffect(() => {
+        onClickFilterBtn(field)
 
-    useEffect(() => {
-      const filter = filterData?.filter(
-        item =>
-          (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
-          (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
-          (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
-      )
-      setItemsForRender(filter)
-    }, [nameSearchValue, fromValue, toValue])
+        setItemsForRender(filterData)
+      }, [filterData])
 
-    return (
-      <div className={classNames.shopsDataWrapper}>
-        <div className={classNames.numInputsWrapper}>
-          <Input
-            className={classNames.numInput}
-            placeholder={t(TranslationKey.From)}
-            value={fromValue}
-            onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
-          />
-          <Input
-            className={classNames.numInput}
-            placeholder={t(TranslationKey.To)}
-            value={toValue}
-            onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
-          />
-        </div>
+      useEffect(() => {
+        const filter = filterData?.filter(
+          item =>
+            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
+            (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
+        )
+        setItemsForRender(filter)
+      }, [nameSearchValue, fromValue, toValue])
 
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {itemsForRender
-              .sort((a, b) => Number(b) - Number(a))
-              ?.map((el, index) => (
-                <div key={index} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData?.some(item => item === el)}
-                    onClick={() => onClickNormalFieldMenuItem(el, field)}
-                  />
-                  <div className={classNames.shopName}>{el}</div>
-                </div>
-              ))}
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.numInputsWrapper}>
+            <Input
+              className={classNames.numInput}
+              classes={{input: classNames.numInput}}
+              placeholder={t(TranslationKey.From)}
+              value={fromValue}
+              onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+            />
+            <Input
+              className={classNames.numInput}
+              classes={{input: classNames.numInput}}
+              placeholder={t(TranslationKey.To)}
+              value={toValue}
+              onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+            />
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender
+                .sort((a, b) => Number(b) - Number(a))
+                ?.map((el, index) => (
+                  <div key={index} className={classNames.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={currentFilterData?.some(item => item === el)}
+                      onClick={() => onClickNormalFieldMenuItem(el, field)}
+                    />
+                    <div className={classNames.shopName}>{el}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            variant="contained"
-            onClick={e => {
-              onClose(e)
-              onClickAccept()
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </div>
-    )
-  }, styles),
+      )
+    },
+    styles,
+  ),
 )
 
 export const InStockMenuItem = React.memo(
@@ -865,6 +897,7 @@ export const InStockMenuItem = React.memo(
       onClickNormalFieldMenuItem,
       onClickAccept,
       onChangeFullFieldMenuItem,
+      onClickFilterBtn,
     }) => {
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
@@ -885,6 +918,7 @@ export const InStockMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
+        onClickFilterBtn(field)
         setItemsForRender(filterData)
       }, [filterData])
 
@@ -933,12 +967,14 @@ export const InStockMenuItem = React.memo(
           <div className={classNames.numInputsWrapper}>
             <Input
               className={classNames.numInput}
+              classes={{input: classNames.numInput}}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
               className={classNames.numInput}
+              classes={{input: classNames.numInput}}
               placeholder={t(TranslationKey.To)}
               value={toValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
