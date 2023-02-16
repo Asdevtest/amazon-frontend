@@ -57,7 +57,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 

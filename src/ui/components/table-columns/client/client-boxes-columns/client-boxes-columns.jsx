@@ -38,7 +38,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'shopIds',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} /* Icon={FilterAltOutlinedIcon} */ />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
@@ -133,7 +133,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
@@ -143,7 +143,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     width: 90,
     sortable: false,
 
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

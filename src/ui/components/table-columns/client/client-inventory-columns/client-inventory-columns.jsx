@@ -37,7 +37,7 @@ export const clientInventoryColumns = (
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     width: 300,
@@ -48,7 +48,7 @@ export const clientInventoryColumns = (
   {
     field: 'shopIds',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Shop)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
@@ -61,7 +61,7 @@ export const clientInventoryColumns = (
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 90,
@@ -72,7 +72,7 @@ export const clientInventoryColumns = (
   {
     field: 'stockValue',
     headerName: 'Available',
-    renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={'Available'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -83,7 +83,7 @@ export const clientInventoryColumns = (
   {
     field: 'reserved',
     headerName: t(TranslationKey.Reserved),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Reserved)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -94,7 +94,7 @@ export const clientInventoryColumns = (
   {
     field: 'inBoard',
     headerName: t(TranslationKey.Inbound),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Inbound)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -105,7 +105,7 @@ export const clientInventoryColumns = (
   {
     field: 'amountInOrders',
     headerName: 'Order',
-    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={'Order'} />,
 
     renderCell: params => (
       <MultilineTextCell
@@ -126,7 +126,9 @@ export const clientInventoryColumns = (
   {
     field: 'stockUSA',
     headerName: t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell withIcon text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)} />
+    ),
 
     renderCell: params => (
       <ChangeInputCell
@@ -144,7 +146,7 @@ export const clientInventoryColumns = (
   {
     field: 'inTransfer',
     headerName: 'in Transfer',
-    renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={'in Transfer'} />,
 
     renderCell: params => (
       <MultilineTextCell
@@ -165,7 +167,7 @@ export const clientInventoryColumns = (
   {
     field: 'boxAmounts',
     headerName: 'In stock',
-    renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={'In stock'} />,
 
     renderCell: params => (
       <InStockCell
@@ -185,7 +187,7 @@ export const clientInventoryColumns = (
   {
     field: 'sumStock',
     headerName: t(TranslationKey['Stock sum']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
     type: 'number',
@@ -196,7 +198,9 @@ export const clientInventoryColumns = (
   {
     field: 'purchaseQuantity',
     headerName: t(TranslationKey['Recommendation for additional purchases']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell withIcon text={t(TranslationKey['Recommendation for additional purchases'])} />
+    ),
     renderCell: params => (
       <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
     ),
@@ -212,7 +216,7 @@ export const clientInventoryColumns = (
   {
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     type: 'number',
@@ -224,7 +228,7 @@ export const clientInventoryColumns = (
   {
     field: 'profit',
     headerName: t(TranslationKey.Profit),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Profit)} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     type: 'number',
@@ -236,7 +240,7 @@ export const clientInventoryColumns = (
   {
     field: 'fbafee',
     headerName: t(TranslationKey.FBA),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.FBA)} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
 
@@ -250,7 +254,7 @@ export const clientInventoryColumns = (
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
@@ -263,7 +267,7 @@ export const clientInventoryColumns = (
   {
     field: 'hsCode',
     headerName: 'HS code',
-    renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={'HS code'} />,
 
     renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
     minWidth: 100,
@@ -276,7 +280,7 @@ export const clientInventoryColumns = (
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Status)} />,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -291,7 +295,7 @@ export const clientInventoryColumns = (
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Created)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
@@ -303,7 +307,7 @@ export const clientInventoryColumns = (
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
@@ -315,7 +319,7 @@ export const clientInventoryColumns = (
   {
     field: 'commentSb',
     headerName: t(TranslationKey['Comment of SB']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comment of SB'])} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey['Comment of SB'])} />,
 
     renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
     width: 400,
@@ -326,7 +330,7 @@ export const clientInventoryColumns = (
   {
     field: 'clientComment',
     headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Comment)} />,
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
