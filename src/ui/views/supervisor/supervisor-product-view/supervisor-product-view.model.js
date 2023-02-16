@@ -135,6 +135,9 @@ export class SupervisorProductViewModel {
 
   supplierModalReadOnly = false
 
+  weightParserAmazon = 0
+  weightParserSELLCENTRAL = 0
+
   showAddOrEditSupplierModal = false
   curUpdateProductData = {}
   confirmMessage = ''
@@ -524,6 +527,15 @@ export class SupervisorProductViewModel {
           }
         })()
 
+        switch (productDataParser) {
+          case ProductDataParser.AMAZON:
+            this.weightParserAmazon = parseResult.weight || 0
+            break
+          case ProductDataParser.SELLCENTRAL:
+            this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
+            break
+        }
+
         runInAction(() => {
           if (Object.keys(parseResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
@@ -531,12 +543,16 @@ export class SupervisorProductViewModel {
               this.product = {
                 ...this.product,
                 ...parseFieldsAdapter(parseResult, productDataParser),
-                // weight: parseResult.weight,
-                // Вернуть старый вариант парса
                 weight:
-                  this.product.weight > parseResult.weight * poundsWeightCoefficient
+                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
                     ? this.product.weight
-                    : parseResult.weight * poundsWeightCoefficient,
+                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+                // Вернуть старый вариант парса
+                // weight:
+                //   this.product.weight > parseResult.weight * poundsWeightCoefficient
+                //     ? this.product.weight
+                //     : parseResult.weight * poundsWeightCoefficient,
+
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
                 fbafee: this.product.fbafee,
