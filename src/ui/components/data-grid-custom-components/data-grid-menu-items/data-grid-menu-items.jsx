@@ -197,12 +197,14 @@ export const ObJectFieldMenuItem = React.memo(
     ({classes: classNames, onClose, data, field, onClickObjectFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
       const {filterData, currentFilterData} = data
 
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
-
         setItemsForRender(filterData)
       }, [filterData])
 
@@ -274,14 +276,16 @@ export const NormalFieldMenuItem = React.memo(
       onClickAccept,
       onClickFilterBtn,
     }) => {
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
       const {filterData, currentFilterData} = data
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
-
         setItemsForRender(filterData)
       }, [filterData])
 
@@ -711,13 +715,16 @@ export const FromToDateMenuItem = React.memo(
       const [fromDate, setFromDate] = useState(null)
       const [toDate, setToDate] = useState(null)
 
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
       const {filterData, currentFilterData} = data
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
         setItemsForRender(filterData)
       }, [filterData])
 
@@ -800,14 +807,16 @@ export const NumberFieldMenuItem = React.memo(
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
 
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
       const {filterData, currentFilterData} = data
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
-
         setItemsForRender(filterData)
       }, [filterData])
 
@@ -902,6 +911,10 @@ export const InStockMenuItem = React.memo(
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
 
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
       const {filterData, currentFilterData} = data
 
       const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
@@ -918,7 +931,6 @@ export const InStockMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
         setItemsForRender(filterData)
       }, [filterData])
 
