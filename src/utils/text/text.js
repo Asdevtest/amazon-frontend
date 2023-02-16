@@ -1,6 +1,9 @@
 import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
 import QueryString from 'qs'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
+import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -112,18 +115,46 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
 
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')
 
-export const getTableByColumn = column => {
-  if (
-    ['status', 'humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'updatedAt', 'createdAt'].includes(column)
-  ) {
+export const getTableByColumn = (column, hint) => {
+  if (['humanFriendlyId', 'amount', 'destination', 'logicsTariff'].includes(column)) {
     return 'boxes'
   } else if (['id', 'item'].includes(column)) {
     return 'orders'
   } else if (
-    ['asin', 'skusByClient', 'amazonTitle', 'shopIds', 'status', 'strategyStatus', 'updatedAt', 'createdAt'].includes(
-      column,
-    )
+    [
+      'asin',
+      'skusByClient',
+      'amazonTitle',
+      'shopIds',
+      'strategyStatus',
+      'amountInOrders',
+      'stockUSA',
+      'inTransfer',
+      'boxAmounts',
+      'sumStock',
+      // 'purchaseQuantity',
+      'amazon',
+      'profit',
+      'fbafee',
+    ].includes(column)
   ) {
     return 'products'
+  } else if (['status', 'updatedAt', 'createdAt'].includes(column)) {
+    if (hint === 'boxes') {
+      return 'boxes'
+    } else if (hint === 'products') {
+      return 'products'
+    }
+  }
+}
+
+export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
+  switch (columnKey) {
+    case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
+      return mapProductStrategyStatusEnum[status]?.replace(/_/g, ' ')
+    case columnnsKeys.client.INVENTORY_STATUS:
+      return t(productStatusTranslateKey(ProductStatusByCode[status]))
+    default:
+      return status
   }
 }

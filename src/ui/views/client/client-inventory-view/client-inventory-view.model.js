@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {GeneralModel} from '@models/general-model'
 import {IdeaModel} from '@models/ideas-model'
 import {OrderModel} from '@models/order-model'
 import {OtherModel} from '@models/other-model'
@@ -31,7 +32,7 @@ import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {objectToUrlQs, toFixed} from '@utils/text'
+import {getTableByColumn, objectToUrlQs, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -110,7 +111,7 @@ export class ClientInventoryViewModel {
 
   curProduct = undefined
 
-  isNeedPurchaseFilter = null
+  // isNeedPurchaseFilter = null
 
   nameSearchValue = ''
 
@@ -154,6 +155,49 @@ export class ClientInventoryViewModel {
 
   showAcceptMessage = undefined
   acceptMessage = undefined
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
+    onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
+    onClickAccept: () => this.getProductsMy(),
+
+    isNeedPurchaseFilterData: {
+      isNeedPurchaseFilter: null,
+      onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
+    },
+
+    ...[
+      'shopIds',
+      'asin',
+      'skusByClient',
+      'amazonTitle',
+      'strategyStatus',
+      'amountInOrders',
+      'inTransfer',
+      'stockUSA',
+      'boxAmounts',
+      'sumStock',
+      // 'purchaseQuantity',
+      'amazon',
+      'createdAt',
+      'updatedAt',
+      'profit',
+      'fbafee',
+      'status',
+    ].reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
@@ -638,10 +682,103 @@ export class ClientInventoryViewModel {
 
   onChangeIsNeedPurchaseFilter(value) {
     runInAction(() => {
-      this.isNeedPurchaseFilter = value
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isNeedPurchaseFilterData: {
+          ...this.columnMenuSettings.isNeedPurchaseFilterData,
+          isNeedPurchaseFilter: value,
+        },
+      }
     })
 
     this.getProductsMy()
+  }
+
+  async onClickFilterBtn(column) {
+    // console.log('column', column)
+    try {
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'products'),
+        column,
+        'clients/products/my_with_pag',
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: {...this.columnMenuSettings[column], filterData: data},
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onClickObjectFieldMenuItem(obj, field) {
+    runInAction(() => {
+      // если магазин по которому нажали существует и есть в массиве, то он удаляется, если нет - добавялется
+      if (obj) {
+        if (this.columnMenuSettings[field].currentFilterData.some(item => item._id === obj._id)) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: this.columnMenuSettings[field].currentFilterData
+                .slice()
+                .filter(item => item._id !== obj._id),
+            },
+          }
+        } else {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, obj],
+            },
+          }
+        }
+      }
+    })
+    // this.getBoxesMy()
+  }
+
+  onClickNormalFieldMenuItem(str, field) {
+    runInAction(() => {
+      if (str) {
+        if (this.columnMenuSettings[field].currentFilterData.some(item => item === str)) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: this.columnMenuSettings[field].currentFilterData.slice().filter(item => item !== str),
+            },
+          }
+        } else {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [field]: {
+              ...this.columnMenuSettings[field],
+              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, str],
+            },
+          }
+        }
+      }
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
   }
 
   async getProductsMy(noProductBaseUpdate) {
@@ -652,16 +789,24 @@ export class ClientInventoryViewModel {
       //   this.nameSearchValue
       // };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
-      // const filter = decodeURI(
-      //   QueryString.stringify({
-      //     archive: {$eq: this.isArchive},
-      //     or: [
-      //       {asin: {$contains: this.nameSearchValue}},
-      //       {amazonTitle: {$contains: this.nameSearchValue}},
-      //       {skusByClient: {$contains: this.nameSearchValue}},
-      //     ],
-      //   }).replaceAll('&', ';'),
-      // ).replaceAll('%24', '$')
+      const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
+      const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.join(',')
+
+      const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
+      const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+
+      const strategyStatusFilter = this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
+      const amountInOrdersFilter = this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
+      const stockUSAFilter = this.columnMenuSettings.stockUSA.currentFilterData.join(',')
+      const inTransferFilter = this.columnMenuSettings.inTransfer.currentFilterData.join(',')
+      const boxAmountsFilter = this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
+      const sumStockFilter = this.columnMenuSettings.sumStock.currentFilterData.join(',')
+      // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
+      const amazonFilter = this.columnMenuSettings.amazon.currentFilterData.join(',')
+      const profitFilter = this.columnMenuSettings.profit.currentFilterData.join(',')
+      const fbafeeFilter = this.columnMenuSettings.fbafee.currentFilterData.join(',')
+      const statusFilter = this.columnMenuSettings.status.currentFilterData.join(',')
 
       const filter = objectToUrlQs({
         archive: {$eq: this.isArchive},
@@ -670,16 +815,75 @@ export class ClientInventoryViewModel {
           {amazonTitle: {$contains: this.nameSearchValue}},
           {skusByClient: {$contains: this.nameSearchValue}},
         ],
+
+        ...(asinFilter && {
+          asin: {$eq: asinFilter},
+        }),
+        ...(skusByClientFilter && {
+          skusByClient: {$eq: skusByClientFilter},
+        }),
+        ...(amazonTitleFilter && {
+          amazonTitle: {$eq: amazonTitleFilter},
+        }),
+
+        ...(createdAtFilter && {
+          createdAt: {$eq: createdAtFilter},
+        }),
+        ...(updatedAtFilter && {
+          updatedAt: {$eq: updatedAtFilter},
+        }),
+
+        ...(strategyStatusFilter && {
+          strategyStatus: {$eq: strategyStatusFilter},
+        }),
+
+        ...(amountInOrdersFilter && {
+          amountInOrders: {$eq: amountInOrdersFilter},
+        }),
+
+        ...(stockUSAFilter && {
+          stockUSA: {$eq: stockUSAFilter},
+        }),
+        ...(inTransferFilter && {
+          inTransfer: {$eq: inTransferFilter},
+        }),
+        ...(boxAmountsFilter && {
+          boxAmounts: {$eq: boxAmountsFilter},
+        }),
+
+        ...(sumStockFilter && {
+          sumStock: {$eq: sumStockFilter},
+        }),
+
+        // ...(purchaseQuantityFilter && {
+        //   purchaseQuantity: {$eq: purchaseQuantityFilter},
+        // }),
+
+        ...(amazonFilter && {
+          amazon: {$eq: amazonFilter},
+        }),
+        ...(profitFilter && {
+          profit: {$eq: profitFilter},
+        }),
+        ...(fbafeeFilter && {
+          fbafee: {$eq: fbafeeFilter},
+        }),
+
+        ...(statusFilter && {
+          status: {$eq: statusFilter},
+        }),
       })
 
-      const shops = this.currentShops.map(item => item._id).join(',')
+      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
+
+      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: filter, // this.nameSearchValue ? filter : null,
 
-        shopIds: shops,
+        shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
-        purchaseQuantityAboveZero: this.isNeedPurchaseFilter,
+        purchaseQuantityAboveZero: this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,

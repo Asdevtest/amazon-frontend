@@ -351,13 +351,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                   ColumnMenu: DataGridCustomColumnMenuComponent,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
                 }}
-                // componentsProps={{
-                //   columnMenu: {
-                //     isFormedData: {isFormed, onChangeIsFormed},
-                //     // Добавил
-                //     shopsDataBase: {shopsFilterData, shopsCurrentFilterData, onClickShopBtn, onClickAccept: getBoxesMy},
-                //   },
-                // }}
                 componentsProps={{
                   columnMenu: columnMenuSettings,
                 }}

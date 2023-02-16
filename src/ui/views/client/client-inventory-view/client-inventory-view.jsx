@@ -63,6 +63,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      columnMenuSettings,
       isNeedPurchaseFilter,
       isTransfer,
       curProduct,
@@ -184,6 +185,7 @@ export class ClientInventoryViewRaw extends Component {
       onClickPrevButton,
       onChangeIsNeedPurchaseFilter,
       getProductsMy1,
+      onClickFilterBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -404,15 +406,22 @@ export class ClientInventoryViewRaw extends Component {
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
+                  // componentsProps={{
+                  //   columnMenu: {
+                  //     isNeedPurchaseFilterData: {isNeedPurchaseFilter, onChangeIsNeedPurchaseFilter},
+                  //   },
+                  // }}
+
                   componentsProps={{
-                    columnMenu: {
-                      isNeedPurchaseFilterData: {isNeedPurchaseFilter, onChangeIsNeedPurchaseFilter},
-                    },
+                    columnMenu: columnMenuSettings,
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onMenuOpen={params => {
+                    onClickFilterBtn(params.target.offsetParent.dataset.field)
+                  }}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

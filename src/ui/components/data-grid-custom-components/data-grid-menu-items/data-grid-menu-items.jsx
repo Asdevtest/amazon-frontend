@@ -9,7 +9,9 @@ import React, {useEffect, useState} from 'react'
 import {compareDesc, isAfter, parseISO} from 'date-fns'
 import {withStyles} from 'tss-react/mui'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {OrderStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
+import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -21,6 +23,7 @@ import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
+import {getStatusByColumnKeyAndStatusKey} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-menu-items.style'
@@ -236,7 +239,13 @@ export const ObJectFieldMenuItem = React.memo(
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={onClickAccept}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onClickAccept()
+            }}
+          >
             {t(TranslationKey.Accept)}
           </Button>
           <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -249,7 +258,7 @@ export const ObJectFieldMenuItem = React.memo(
 )
 
 export const NormalFieldMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept}) => {
+  withStyles(({classes: classNames, onClose, data, field, columnKey, onClickNormalFieldMenuItem, onClickAccept}) => {
     const {filterData, currentFilterData} = data
 
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
@@ -289,13 +298,25 @@ export const NormalFieldMenuItem = React.memo(
                   checked={currentFilterData.some(item => item === el)}
                   onClick={() => onClickNormalFieldMenuItem(el, field)}
                 />
-                <div className={classNames.shopName}>{el}</div>
+                <div className={classNames.shopName}>
+                  {/* {columnKey === columnnsKeys.client.INVENTORY_STRATEGY_STATUS
+                    ? mapProductStrategyStatusEnum[el]?.replace(/_/g, ' ')
+                    : el} */}
+                  {getStatusByColumnKeyAndStatusKey(el, columnKey)}
+                </div>
               </div>
             ))}
           </div>
         </div>
+
         <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={onClickAccept}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onClickAccept()
+            }}
+          >
             {t(TranslationKey.Accept)}
           </Button>
           <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -417,7 +438,13 @@ export const ProductMenuItem = React.memo(
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
-            <Button variant="contained" onClick={onClickAccept}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
               {t(TranslationKey.Accept)}
             </Button>
             <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -524,7 +551,13 @@ export const OrderOrItemMenuItem = React.memo(
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
-            <Button variant="contained" onClick={onClickAccept}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
               {t(TranslationKey.Accept)}
             </Button>
             <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -633,7 +666,13 @@ export const DestinationMenuItem = React.memo(
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
-            <Button variant="contained" onClick={onClickAccept}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
               {t(TranslationKey.Accept)}
             </Button>
             <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -712,7 +751,13 @@ export const FromToDateMenuItem = React.memo(
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={onClickAccept}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onClickAccept()
+            }}
+          >
             {t(TranslationKey.Accept)}
           </Button>
           <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -742,8 +787,8 @@ export const NumberFieldMenuItem = React.memo(
       const filter = filterData?.filter(
         item =>
           (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
-          (fromValue || fromValue === 0 ? Number(item) > Number(fromValue) : true) &&
-          (toValue || toValue === 0 ? Number(item) < Number(toValue) : true),
+          (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
+          (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
       )
       setItemsForRender(filter)
     }, [nameSearchValue, fromValue, toValue])
@@ -792,7 +837,13 @@ export const NumberFieldMenuItem = React.memo(
           </div>
         </div>
         <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={onClickAccept}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onClickAccept()
+            }}
+          >
             {t(TranslationKey.Accept)}
           </Button>
           <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
@@ -802,4 +853,141 @@ export const NumberFieldMenuItem = React.memo(
       </div>
     )
   }, styles),
+)
+
+export const InStockMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+      onChangeFullFieldMenuItem,
+    }) => {
+      const [fromValue, setFromValue] = useState('')
+      const [toValue, setToValue] = useState('')
+
+      const {filterData, currentFilterData} = data
+
+      const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
+
+      const [currentOption, setCurrentOption] = useState(currentFilterData?.[0]?.storekeeper?.name)
+
+      // useEffect(() => {
+      //   if (currentFilterData?.[0]?.storekeeper?.name !== currentOption) {
+      //     onChangeFullFieldMenuItem([], 'boxAmounts')
+      //   }
+      // }, [currentOption])
+
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
+
+      useEffect(() => {
+        setItemsForRender(filterData)
+      }, [filterData])
+
+      useEffect(() => {
+        const filter = filterData?.filter(
+          item =>
+            (nameSearchValue
+              ? String(item.amountInBoxes).toLowerCase().includes(nameSearchValue?.toLowerCase())
+              : true) &&
+            (fromValue || fromValue === 0 ? Number(item.amountInBoxes) >= Number(fromValue) : true) &&
+            (toValue || toValue === 0 ? Number(item.amountInBoxes) <= Number(toValue) : true) &&
+            item.storekeeper.name === currentOption,
+        )
+        setItemsForRender(filter)
+      }, [nameSearchValue, fromValue, toValue, currentOption, currentFilterData])
+
+      // console.log('itemsForRender', itemsForRender)
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+              <RadioGroup
+                row
+                className={classNames.radioGroupTwoItems}
+                value={currentOption}
+                onChange={e => {
+                  setCurrentOption(e.target.value)
+                  onChangeFullFieldMenuItem([], 'boxAmounts')
+                }}
+              >
+                {storekepeers.map((el, index) => (
+                  <FormControlLabel
+                    key={index}
+                    className={classNames.radioOption}
+                    value={el}
+                    control={<Radio className={classNames.radioControl} />}
+                    label={el}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          <div className={classNames.numInputsWrapper}>
+            <Input
+              className={classNames.numInput}
+              placeholder={t(TranslationKey.From)}
+              value={fromValue}
+              onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+            />
+            <Input
+              className={classNames.numInput}
+              placeholder={t(TranslationKey.To)}
+              value={toValue}
+              onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+            />
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {itemsForRender
+                .sort((a, b) => Number(b.amountInBoxes) - Number(a.amountInBoxes))
+                ?.map((el, index) => (
+                  <div key={index} className={classNames.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={currentFilterData?.some(item => item._id === el._id)}
+                      onClick={() => onClickNormalFieldMenuItem(el, field)}
+                    />
+                    <div className={classNames.shopName}>{el.amountInBoxes}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
 )

@@ -1700,10 +1700,10 @@ export class ClientInStockBoxesViewModel {
   // Новый методя для запроса
 
   async onClickFilterBtn(column) {
-    console.log('column', column)
+    // console.log('column', column)
     try {
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column),
+        getTableByColumn(column, 'boxes'),
         column,
         'boxes/pag/clients_light?status=IN_STOCK',
       )
