@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-// import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+
 import React from 'react'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
@@ -132,7 +133,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
@@ -142,7 +143,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
     width: 90,
     sortable: false,
 
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

@@ -71,13 +71,13 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
+        <SuperboxQtyCell qty={params.row.amount} superbox={params.row.originalData.amount} />
       ) : (
         <MultilineTextCell text={params.value} />
       ),
