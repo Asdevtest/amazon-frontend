@@ -53,6 +53,17 @@ export const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoeffici
 
         <Field
           inputProps={{maxLength: 6}}
+          error={Number(orderBox.widthCmWarehouse) === 0 && true}
+          containerClasses={classNames.numberInputField}
+          labelClasses={classNames.label}
+          label={t(TranslationKey.Width) + ': '}
+          value={orderBox.widthCmWarehouse}
+          onChange={setFormField('widthCmWarehouse')}
+        />
+      </div>
+      <div className={classNames.numberInputFieldsWrapper}>
+        <Field
+          inputProps={{maxLength: 6}}
           error={Number(orderBox.heightCmWarehouse) === 0 && true}
           labelClasses={classNames.label}
           containerClasses={classNames.numberInputField}
@@ -61,6 +72,17 @@ export const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoeffici
           onChange={setFormField('heightCmWarehouse')}
         />
 
+        <Field
+          inputProps={{maxLength: 6}}
+          error={Number(orderBox.weighGrossKgWarehouse) === 0 && true}
+          containerClasses={classNames.numberInputField}
+          labelClasses={classNames.label}
+          label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
+          value={orderBox.weighGrossKgWarehouse}
+          onChange={setFormField('weighGrossKgWarehouse')}
+        />
+      </div>
+      <div className={classNames.numberInputFieldsWrapper}>
         <Field
           disabled
           containerClasses={classNames.numberInputField}
@@ -78,27 +100,6 @@ export const WarehouseDemensions = ({orderBox, sizeSetting, volumeWeightCoeffici
               volumeWeightCoefficient,
             2,
           )}
-        />
-      </div>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          inputProps={{maxLength: 6}}
-          error={Number(orderBox.widthCmWarehouse) === 0 && true}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
-          label={t(TranslationKey.Width) + ': '}
-          value={orderBox.widthCmWarehouse}
-          onChange={setFormField('widthCmWarehouse')}
-        />
-
-        <Field
-          inputProps={{maxLength: 6}}
-          error={Number(orderBox.weighGrossKgWarehouse) === 0 && true}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
-          label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
-          value={orderBox.weighGrossKgWarehouse}
-          onChange={setFormField('weighGrossKgWarehouse')}
         />
 
         <Field
