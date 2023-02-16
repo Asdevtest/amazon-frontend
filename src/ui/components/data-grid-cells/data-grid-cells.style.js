@@ -889,7 +889,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 20,
   },
 
   boxesAndQuantityWrapper: {

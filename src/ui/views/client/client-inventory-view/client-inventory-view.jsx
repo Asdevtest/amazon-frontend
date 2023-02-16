@@ -391,15 +391,9 @@ export class ClientInventoryViewRaw extends Component {
                     sortIcon: classNames.sortIcon,
                   }}
                   sx={{
-                    '.MuiDataGrid-iconButtonContainer': {
-                      // visibility: 'visible',
-                    },
                     '.MuiDataGrid-sortIcon': {
-                      // opacity: 'inherit !important',
-                      opacity: 1,
                       width: 14,
                       height: 14,
-                      color: '#007bff',
                     },
                   }}
                   getCellClassName={getCellClassName}

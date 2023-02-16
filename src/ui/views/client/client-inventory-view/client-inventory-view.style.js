@@ -212,6 +212,7 @@ export const styles = theme => ({
     flexDirection: 'row !important',
 
     position: 'relative',
+    paddingRight: 20,
   },
   columnHeaderTitleContainer: {
     flexDirection: 'row !important',
@@ -228,22 +229,14 @@ export const styles = theme => ({
     visibility: 'visible !important',
     opacity: 0,
   },
-  sortIcon: {
-    visibility: 'visible !important',
-  },
-  iconButtonContainer: {
-    position: 'absolute !important',
-    right: 10,
-    bottom: 10,
-    opacity: 1,
-    visibility: 'visible !important',
-  },
+  // iconButtonContainer: {
+  //   position: 'absolute !important',
+  //   right: 10,
+  //   bottom: 10,
+  //   opacity: 1,
+  //   visibility: 'visible !important',
+  // },
   iconSeparator: {
     padding: '0 1px',
-  },
-  columnHeaderTitleContainerContent: {
-    // position: 'absolute !important',
-    left: 0,
-    // bottom: 30,
   },
 })
