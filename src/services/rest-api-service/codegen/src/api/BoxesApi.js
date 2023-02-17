@@ -1290,9 +1290,9 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -> Айтем коробки -> Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {module:model/String} opts.status 
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
@@ -1305,19 +1305,15 @@ export default class BoxesApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20015} and HTTP response
      */
-    apiV1BoxesPagClientsLightGetWithHttpInfo(status, opts) {
+    apiV1BoxesPagClientsLightGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'status' is set
-      if (status === undefined || status === null) {
-        throw new Error("Missing the required parameter 'status' when calling apiV1BoxesPagClientsLightGet");
-      }
 
       let pathParams = {
       };
       let queryParams = {
         'filters': opts['filters'],
-        'status': status,
+        'status': opts['status'],
         'destinationId': opts['destinationId'],
         'storekeeperId': opts['storekeeperId'],
         'isFormed': opts['isFormed'],
@@ -1348,9 +1344,9 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -> Айтем коробки -> Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {module:model/String} opts.status 
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
@@ -1363,8 +1359,8 @@ export default class BoxesApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20015}
      */
-    apiV1BoxesPagClientsLightGet(status, opts) {
-      return this.apiV1BoxesPagClientsLightGetWithHttpInfo(status, opts)
+    apiV1BoxesPagClientsLightGet(opts) {
+      return this.apiV1BoxesPagClientsLightGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

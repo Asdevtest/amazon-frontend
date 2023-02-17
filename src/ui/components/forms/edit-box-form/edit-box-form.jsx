@@ -589,7 +589,7 @@ export const EditBoxForm = observer(
                     tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
                     className={classNames.standartLabel}
                   >
-                    {t(TranslationKey.Demensions)}
+                    {t(TranslationKey.Dimensions)}
                   </Text>
 
                   <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>

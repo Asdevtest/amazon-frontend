@@ -363,4 +363,8 @@ export const useClassNames = makeStyles()(theme => ({
   error: {
     color: 'red',
   },
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))

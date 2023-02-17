@@ -51,6 +51,9 @@ class InlineResponse20038 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
@@ -105,6 +108,12 @@ class InlineResponse20038 {
  * @member {String} _id
  */
 InlineResponse20038.prototype['_id'] = undefined;
+
+/**
+ * Статус идеи
+ * @member {Number} status
+ */
+InlineResponse20038.prototype['status'] = undefined;
 
 /**
  * Image URL

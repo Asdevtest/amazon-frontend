@@ -122,14 +122,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
   numberInputFieldsWrapper: {
     width: '100%',
+    height: 66,
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     gap: 15,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'row',
     },
   },
   numberInputField: {
+    width: 222,
     margin: 0,
   },
   blockOfNewBoxWrapper: {

@@ -110,18 +110,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'flex-start',
     width: '100%',
-    gap: 20,
+    gap: 10,
   },
   numberInputFieldsWrapper: {
     width: '100%',
 
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
 
     // marginLeft: '10px',
   },

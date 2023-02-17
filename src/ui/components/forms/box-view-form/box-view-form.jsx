@@ -316,7 +316,7 @@ export const BoxViewForm = observer(
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.demensionsWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.label}>{t(TranslationKey.Demensions) + ':'}</Typography>
+                    <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>

@@ -86,7 +86,6 @@ export const UserProfile = observer(
                       <Button
                         id="user-profile-change-btn"
                         variant="contained"
-                        color="primary"
                         className={classNames.changeBtn}
                         onClick={onClickChangeUserInfo}
                       >

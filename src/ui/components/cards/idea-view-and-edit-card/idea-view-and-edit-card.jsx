@@ -4,8 +4,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Divider, Grid, Link, Typography, IconButton} from '@mui/material'
+import {Divider, Grid, Link, Typography, IconButton, Select, InputAdornment} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -87,6 +88,8 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     const sourceFormFields = {
+      status: idea?.status,
+
       media: idea?.media?.length ? [...idea.media] : [],
       comments: idea?.comments || '',
       productName: idea?.productName || '',
@@ -194,11 +197,128 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
+    console.log('formFields', formFields)
+    console.log('idea', idea)
+
     return (
       <Grid item className={classNames.mainWrapper}>
-        <Typography variant="h5" className={classNames.ideaTitle}>
-          {formFields.productName}
-        </Typography>
+        <div className={classNames.headerWrapper}>
+          <Typography variant="h5" className={classNames.ideaTitle}>
+            {formFields.productName}
+          </Typography>
+          {/*  */}
+          {/* <Field
+            tooltipInfoContent={t(TranslationKey['Current order status'])}
+            value={formFields?.status}
+            label={t(TranslationKey['Order status'])}
+            labelClasses={classNames.label}
+            inputComponent={
+              <Select
+                variant="filled"
+                value={formFields.status}
+                classes={{
+                  select: cx({
+                    [classNames.orange]:
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+
+                    [classNames.green]:
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+
+                    [classNames.red]:
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                  }),
+                }}
+                input={
+                  <Input
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <FiberManualRecordRoundedIcon
+                          className={cx({
+                            [classNames.orange]:
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                              `${orderFields.status}` ===
+                                `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+
+                            [classNames.green]:
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+
+                            [classNames.red]:
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                          })}
+                        />
+                      </InputAdornment>
+                    }
+                  />
+                }
+                // onChange={setOrderField('status')}
+              >
+                {Object.keys({
+                  ...getObjectFilteredByKeyArrayWhiteList(
+                    OrderStatusByCode,
+                    allowOrderStatuses
+                      .filter(
+                        el =>
+                          el >= order.status ||
+                          (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                            order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
+                      )
+                      .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
+                  ),
+                }).map((statusCode, statusIndex) => (
+                  <MenuItem
+                    key={statusIndex}
+                    value={statusCode}
+                    className={cx(
+                      cx(classNames.stantartSelect, {
+                        [classNames.orange]:
+                          statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+
+                        [classNames.green]:
+                          statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+
+                        [classNames.red]:
+                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                        [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                      }),
+                    )}
+                    disabled={
+                      disabledOrderStatuses.includes(statusCode) ||
+                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                        order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                        order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
+                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+                        order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
+                    }
+                  >
+                    {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          /> */}
+          {/*  */}
+        </div>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>
@@ -344,7 +464,7 @@ export const IdeaViewAndEditCard = observer(
 
                 <div className={classNames.sizesWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Demensions)}</Typography>
+                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Dimensions)}</Typography>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>

@@ -889,7 +889,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 20,
   },
 
   boxesAndQuantityWrapper: {
@@ -910,6 +909,10 @@ export const styles = theme => ({
     width: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
+
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
     // overflow: 'hidden',
 
     // color: theme.palette.text.general,
