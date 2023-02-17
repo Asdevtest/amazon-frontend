@@ -100,6 +100,8 @@ export class ClientInStockBoxesViewModel {
     onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => this.getBoxesMy(),
 
+    filterRequestStatus: undefined,
+
     isFormedData: {isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value)},
 
     ...[
@@ -1699,13 +1701,31 @@ export class ClientInStockBoxesViewModel {
 
   // Новый методя для запроса
 
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
   async onClickFilterBtn(column) {
-    // console.log('column', column)
     try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
         'boxes/pag/clients_light?status=IN_STOCK',
+        // 'boxes/pag/clients_light?filters=humanFriendlyId%5B%24eq%5D%3D1837&status=IN_STOCK&shopIds=&limit=15&offset=0&sortField=updatedAt&sortType=DESC',
+
+        // 'boxes/pag/clients_light?filters=status=IN_STOCK&manFriendlyId=1837',
+
+        // 'boxes/pag/clients_light?filters=shopIds=497fd02f-2d23-4122-85ca-417cd9f61236;status=IN_STOCK',
+
+        // 'boxes/pag/clients_light?filters=status=IN_STOCK;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;or[3][item][$eq]=;or[4][productId][$eq]=;humanFriendlyId[$eq]=1837',
+
+        // 'boxes/pag/clients_light?filters=[status][$eq]=IN_STOCK;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;or[3][item][$eq]=;or[4][productId][$eq]=;humanFriendlyId[$eq]=1837',
       )
 
       if (this.columnMenuSettings[column]) {
@@ -1714,7 +1734,11 @@ export class ClientInStockBoxesViewModel {
           [column]: {...this.columnMenuSettings[column], filterData: data},
         }
       }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1808,6 +1832,8 @@ export class ClientInStockBoxesViewModel {
           amount: {$eq: amountFilter},
         }),
       })
+
+      console.log('filter', filter)
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 

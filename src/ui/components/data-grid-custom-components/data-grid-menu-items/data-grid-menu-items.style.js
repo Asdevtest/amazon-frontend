@@ -41,8 +41,10 @@ export const styles = theme => ({
   },
   shopsBody: {
     width: 255,
+    minHeight: 50,
     maxHeight: 245,
     overflowY: 'auto',
+    textAlign: 'center',
 
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
@@ -52,10 +54,16 @@ export const styles = theme => ({
   },
   shopName: {
     width: '100%',
+    textAlign: 'left',
 
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+
+  noOptionText: {
+    color: theme.palette.text.second,
+    padding: '10px 0',
   },
 
   orderStatusDataWrapper: {

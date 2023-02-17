@@ -1,25 +1,29 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography, Checkbox, Divider, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material'
-import {elGR} from '@mui/material/locale'
-import {consoleSandbox} from '@sentry/utils'
+import {
+  Typography,
+  Checkbox,
+  Divider,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  CircularProgress,
+} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import {compareDesc, isAfter, parseISO} from 'date-fns'
 import {withStyles} from 'tss-react/mui'
 
-import {columnnsKeys} from '@constants/data-grid-columns-keys'
-import {OrderStatus, OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {OrderStatusTranslate} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
@@ -194,7 +198,16 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
 
 export const ObJectFieldMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, onClose, data, field, onClickObjectFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onClickObjectFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
       const {filterData, currentFilterData} = data
 
       useEffect(() => {
@@ -231,16 +244,28 @@ export const ObJectFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender.map(obj => (
-                <div key={obj._id} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData.some(item => item._id === obj._id)}
-                    onClick={() => onClickObjectFieldMenuItem(obj, field)}
-                  />
-                  <div className={classNames.shopName}>{obj.name}</div>
-                </div>
-              ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender.map(obj => (
+                        <div key={obj._id} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={currentFilterData.some(item => item._id === obj._id)}
+                            onClick={() => onClickObjectFieldMenuItem(obj, field)}
+                          />
+                          <div className={classNames.shopName}>{obj.name}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -271,6 +296,7 @@ export const NormalFieldMenuItem = React.memo(
       onClose,
       data,
       field,
+      filterRequestStatus,
       columnKey,
       onClickNormalFieldMenuItem,
       onClickAccept,
@@ -312,21 +338,28 @@ export const NormalFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender.map((el, index) => (
-                <div key={index} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData.some(item => item === el)}
-                    onClick={() => onClickNormalFieldMenuItem(el, field)}
-                  />
-                  <div className={classNames.shopName}>
-                    {/* {columnKey === columnnsKeys.client.INVENTORY_STRATEGY_STATUS
-                    ? mapProductStrategyStatusEnum[el]?.replace(/_/g, ' ')
-                    : el} */}
-                    {getStatusByColumnKeyAndStatusKey(el, columnKey)}
-                  </div>
-                </div>
-              ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender.map((el, index) => (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={currentFilterData.some(item => item === el)}
+                            onClick={() => onClickNormalFieldMenuItem(el, field)}
+                          />
+                          <div className={classNames.shopName}>{getStatusByColumnKeyAndStatusKey(el, columnKey)}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
@@ -357,6 +390,7 @@ export const ProductMenuItem = React.memo(
       classes: classNames,
       onClose,
       data,
+      filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickNormalFieldMenuItem,
@@ -448,16 +482,28 @@ export const ProductMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender?.map((el, index) => (
-                <div key={index} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData?.some(item => item === el)}
-                    onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
-                  />
-                  <div className={classNames.shopName}>{el}</div>
-                </div>
-              ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender?.map((el, index) => (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={currentFilterData?.some(item => item === el)}
+                            onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                          />
+                          <div className={classNames.shopName}>{el}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -487,6 +533,7 @@ export const OrderOrItemMenuItem = React.memo(
       classes: classNames,
       onClose,
       data,
+      filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickNormalFieldMenuItem,
@@ -561,16 +608,28 @@ export const OrderOrItemMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender?.map((el, index) => (
-                <div key={index} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData?.some(item => item === el)}
-                    onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
-                  />
-                  <div className={classNames.shopName}>{el}</div>
-                </div>
-              ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender?.map((el, index) => (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={currentFilterData?.some(item => item === el)}
+                            onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                          />
+                          <div className={classNames.shopName}>{el}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -600,6 +659,7 @@ export const DestinationMenuItem = React.memo(
       classes: classNames,
       onClose,
       data,
+      filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickObjectFieldMenuItem,
@@ -676,16 +736,28 @@ export const DestinationMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender.map(obj => (
-                <div key={obj._id} className={classNames.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={currentFilterData.some(item => item._id === obj._id)}
-                    onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
-                  />
-                  <div className={classNames.shopName}>{obj.name}</div>
-                </div>
-              ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender.map(obj => (
+                        <div key={obj._id} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={currentFilterData.some(item => item._id === obj._id)}
+                            onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
+                          />
+                          <div className={classNames.shopName}>{obj.name}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -711,7 +783,16 @@ export const DestinationMenuItem = React.memo(
 
 export const FromToDateMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
       const [fromDate, setFromDate] = useState(null)
       const [toDate, setToDate] = useState(null)
 
@@ -766,18 +847,30 @@ export const FromToDateMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender
-                .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
-                ?.map((el, index) => (
-                  <div key={index} className={classNames.shop}>
-                    <Checkbox
-                      color="primary"
-                      checked={currentFilterData?.some(item => item === el)}
-                      onClick={() => onClickNormalFieldMenuItem(el, field)}
-                    />
-                    <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
-                  </div>
-                ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender
+                        .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
+                        ?.map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData?.some(item => item === el)}
+                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                            />
+                            <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
+                          </div>
+                        ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -803,7 +896,16 @@ export const FromToDateMenuItem = React.memo(
 
 export const NumberFieldMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, onClose, data, field, onClickNormalFieldMenuItem, onClickAccept, onClickFilterBtn}) => {
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onClickNormalFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
 
@@ -861,18 +963,30 @@ export const NumberFieldMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender
-                .sort((a, b) => Number(b) - Number(a))
-                ?.map((el, index) => (
-                  <div key={index} className={classNames.shop}>
-                    <Checkbox
-                      color="primary"
-                      checked={currentFilterData?.some(item => item === el)}
-                      onClick={() => onClickNormalFieldMenuItem(el, field)}
-                    />
-                    <div className={classNames.shopName}>{el}</div>
-                  </div>
-                ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender
+                        .sort((a, b) => Number(b) - Number(a))
+                        ?.map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData?.some(item => item === el)}
+                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                            />
+                            <div className={classNames.shopName}>{el}</div>
+                          </div>
+                        ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
@@ -903,6 +1017,7 @@ export const InStockMenuItem = React.memo(
       onClose,
       data,
       field,
+      filterRequestStatus,
       onClickNormalFieldMenuItem,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -920,12 +1035,6 @@ export const InStockMenuItem = React.memo(
       const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
 
       const [currentOption, setCurrentOption] = useState(currentFilterData?.[0]?.storekeeper?.name)
-
-      // useEffect(() => {
-      //   if (currentFilterData?.[0]?.storekeeper?.name !== currentOption) {
-      //     onChangeFullFieldMenuItem([], 'boxAmounts')
-      //   }
-      // }, [currentOption])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1005,18 +1114,30 @@ export const InStockMenuItem = React.memo(
           </div>
           <div className={classNames.shopsWrapper}>
             <div className={classNames.shopsBody}>
-              {itemsForRender
-                .sort((a, b) => Number(b.amountInBoxes) - Number(a.amountInBoxes))
-                ?.map((el, index) => (
-                  <div key={index} className={classNames.shop}>
-                    <Checkbox
-                      color="primary"
-                      checked={currentFilterData?.some(item => item._id === el._id)}
-                      onClick={() => onClickNormalFieldMenuItem(el, field)}
-                    />
-                    <div className={classNames.shopName}>{el.amountInBoxes}</div>
-                  </div>
-                ))}
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      {itemsForRender
+                        .sort((a, b) => Number(b.amountInBoxes) - Number(a.amountInBoxes))
+                        ?.map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData?.some(item => item._id === el._id)}
+                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                            />
+                            <div className={classNames.shopName}>{el.amountInBoxes}</div>
+                          </div>
+                        ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>

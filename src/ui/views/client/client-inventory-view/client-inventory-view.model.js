@@ -163,6 +163,8 @@ export class ClientInventoryViewModel {
     onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => this.getProductsMy(),
 
+    filterRequestStatus: undefined,
+
     isNeedPurchaseFilterData: {
       isNeedPurchaseFilter: null,
       onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
@@ -694,9 +696,20 @@ export class ClientInventoryViewModel {
     this.getProductsMy()
   }
 
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
   async onClickFilterBtn(column) {
     // console.log('column', column)
     try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -709,7 +722,10 @@ export class ClientInventoryViewModel {
           [column]: {...this.columnMenuSettings[column], filterData: data},
         }
       }
+      this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+
       console.log(error)
       runInAction(() => {
         this.error = error

@@ -112,6 +112,8 @@ export const AccessToProductForm = React.memo(
       }
     }
 
+    console.log('curProdutsData', curProdutsData)
+
     return (
       shops && (
         <Accordion
@@ -200,7 +202,11 @@ export const AccessToProductForm = React.memo(
                     disableSelectionOnClick
                     keepNonExistentRowsSelected
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
-                    rows={toJS(curProdutsData)}
+                    rows={toJS(
+                      curProdutsData
+                        .slice()
+                        .sort((a, b) => chosenGoods?.includes(b?._id) - chosenGoods?.includes(a?._id)),
+                    )}
                     columns={sourceColumns()}
                     rowHeight={65}
                     selectionModel={chosenGoods}
