@@ -280,7 +280,7 @@ export class WarehouseAwaitingBatchesViewModel {
   async getBatchesPagMy() {
     try {
       // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
       //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};`
       //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][title][$contains]=${this.nameSearchValue};or[2][humanFriendlyId][$eq]=${this.nameSearchValue};or[3][orderHumanFriendlyId][$eq]=${this.nameSearchValue};`
 
@@ -292,7 +292,7 @@ export class WarehouseAwaitingBatchesViewModel {
           {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
         ].filter(
           el =>
-            (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) &&
+            (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
             !el.humanFriendlyId &&
             !el.orderHumanFriendlyId,
         ),

@@ -174,7 +174,7 @@ export class WarehouseCompletedViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       const filter =
-        isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+        isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
           ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
           : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
 
@@ -184,7 +184,7 @@ export class WarehouseCompletedViewModel {
       //     {title: {$contains: this.nameSearchValue}},
       //     {
       //       trackNumberText: {
-      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue) ? '$contains' : '$eq'}`]:
+      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'}`]:
       //           this.nameSearchValue,
       //       },
       //     },
@@ -192,7 +192,7 @@ export class WarehouseCompletedViewModel {
       //     {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
       //   ].filter(
       //     el =>
-      //       (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) &&
+      //       (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
       //       !el.humanFriendlyId &&
       //       !el.orderHumanFriendlyId,
       //   ),

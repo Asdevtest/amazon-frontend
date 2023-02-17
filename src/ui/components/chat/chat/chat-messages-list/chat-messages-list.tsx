@@ -159,21 +159,14 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 const isLastMessage = index === messages.length - 1
 
-                // const isFirstMessage = index === 0
-
                 const isNextMessageSameAuthor =
                   !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
-                const isBeforeMessageSameAuthor =
-                  !isLastMessage && messages[index - 1]?.user?._id === messageItem.user?._id && !isNotPersonal
+                const isBeforeMessageAnotherAuthor = messages[index - 1]?.user?._id !== messageItem.user?._id
 
                 const unReadMessage = !messageItem.isRead
 
-                const showName =
-                  !isBeforeMessageSameAuthor &&
-                  (isNextMessageSameAuthor || isLastMessage) &&
-                  !isNotPersonal &&
-                  isIncomming
+                const showName = isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
                 return (
                   <div
