@@ -183,6 +183,8 @@ export class ClientInventoryViewRaw extends Component {
       onSearchSubmit,
 
       onClickPrevButton,
+      onHoverColumnField,
+      onLeaveColumnField,
       onChangeIsNeedPurchaseFilter,
       getProductsMy1,
       onClickFilterBtn,
@@ -418,11 +420,9 @@ export class ClientInventoryViewRaw extends Component {
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onColumnHeaderEnter={params => {
-                    // console.log('Enter params', params)
+                    onHoverColumnField(params.field)
                   }}
-                  onColumnHeaderLeave={params => {
-                    // console.log('Leave params', params)
-                  }}
+                  onColumnHeaderLeave={onLeaveColumnField}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

@@ -3,7 +3,7 @@ import QueryString from 'qs'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -151,7 +151,8 @@ export const getTableByColumn = (column, hint) => {
 export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
-      return mapProductStrategyStatusEnum[status]?.replace(/_/g, ' ')
+      // return mapProductStrategyStatusEnum[status]?.replace(/_/g, ' ')
+      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
     default:

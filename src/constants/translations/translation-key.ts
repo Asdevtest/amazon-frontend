@@ -1763,7 +1763,7 @@ export enum TranslationKey {
   '№Order' = '№Order',
   'From' = 'From',
   'To' = 'To',
-  // '' = '',
+  'Without strategy' = 'Without strategy',
   // '' = '',
   // '' = '',
   // '' = '',

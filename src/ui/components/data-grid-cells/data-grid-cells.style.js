@@ -1506,4 +1506,7 @@ export const styles = theme => ({
 
     gap: 77,
   },
+  asd: {
+    color: 'red',
+  },
 })
