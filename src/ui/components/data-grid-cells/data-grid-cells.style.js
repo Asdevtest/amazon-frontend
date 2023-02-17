@@ -909,6 +909,10 @@ export const styles = theme => ({
     width: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
+
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
     // overflow: 'hidden',
 
     // color: theme.palette.text.general,

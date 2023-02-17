@@ -386,9 +386,6 @@ export class ClientInventoryViewRaw extends Component {
                     menuIconButton: classNames.menuIconButton,
                     iconButtonContainer: classNames.iconButtonContainer,
                     iconSeparator: classNames.iconSeparator,
-                    columnHeaderTitleContainerContent: classNames.columnHeaderTitleContainerContent,
-                    checkboxInput: classNames.checkboxInput,
-                    sortIcon: classNames.sortIcon,
                   }}
                   sx={{
                     '.MuiDataGrid-sortIcon': {
@@ -420,6 +417,12 @@ export class ClientInventoryViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onColumnHeaderEnter={params => {
+                    // console.log('Enter params', params)
+                  }}
+                  onColumnHeaderLeave={params => {
+                    // console.log('Leave params', params)
+                  }}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}

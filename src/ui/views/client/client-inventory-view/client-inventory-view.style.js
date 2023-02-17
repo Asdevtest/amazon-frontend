@@ -207,7 +207,6 @@ export const styles = theme => ({
     transform: 'translateY(-150%)',
     animation: `${ani} 1s forwards`,
   },
-  checkboxInput: {},
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
 
@@ -219,23 +218,17 @@ export const styles = theme => ({
     display: 'flex !important',
     alignItems: 'center !important',
   },
-  columnHeader: {
-    // padding: '0px !important',
-  },
   menuIconButton: {
+    zIndex: 1000,
     position: 'absolute !important',
     right: -5,
-    top: 0,
+    top: 15,
     visibility: 'visible !important',
     opacity: 0,
+
+    width: '14px !important',
+    height: '14px !important',
   },
-  // iconButtonContainer: {
-  //   position: 'absolute !important',
-  //   right: 10,
-  //   bottom: 10,
-  //   opacity: 1,
-  //   visibility: 'visible !important',
-  // },
   iconSeparator: {
     padding: '0 1px',
   },

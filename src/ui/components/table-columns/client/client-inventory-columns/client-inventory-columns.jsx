@@ -37,7 +37,7 @@ export const clientInventoryColumns = (
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.ASIN)} />,
+    renderHeader: () => <MultilineTextHeaderCell /* withIcon */ text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     width: 300,
