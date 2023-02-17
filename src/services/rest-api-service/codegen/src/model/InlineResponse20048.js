@@ -12,8 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ProductsKeepaOffers from './ApiV1ProductsKeepaOffers';
-import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
+import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
+import ApiV1RequestProposalsDetailsCustom from './ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsRequest from './ApiV1RequestProposalsRequest';
 
 /**
  * The InlineResponse20048 model module.
@@ -49,71 +50,65 @@ class InlineResponse20048 {
         if (data) {
             obj = obj || new InlineResponse20048();
 
-            if (data.hasOwnProperty('isRecommended')) {
-                obj['isRecommended'] = ApiClient.convertToType(data['isRecommended'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('trackingSince')) {
-                obj['trackingSince'] = ApiClient.convertToType(data['trackingSince'], 'Number');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('lastRatingUpdate')) {
-                obj['lastRatingUpdate'] = ApiClient.convertToType(data['lastRatingUpdate'], 'Number');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('rootCategory')) {
-                obj['rootCategory'] = ApiClient.convertToType(data['rootCategory'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('categories')) {
-                obj['categories'] = ApiClient.convertToType(data['categories'], ['Number']);
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('parentAsin')) {
-                obj['parentAsin'] = ApiClient.convertToType(data['parentAsin'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('variationCSV')) {
-                obj['variationCSV'] = ApiClient.convertToType(data['variationCSV'], 'String');
+            if (data.hasOwnProperty('attempts')) {
+                obj['attempts'] = ApiClient.convertToType(data['attempts'], 'Number');
             }
-            if (data.hasOwnProperty('frequentlyBoughtTogether')) {
-                obj['frequentlyBoughtTogether'] = ApiClient.convertToType(data['frequentlyBoughtTogether'], ['String']);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('manufacturer')) {
-                obj['manufacturer'] = ApiClient.convertToType(data['manufacturer'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('brand')) {
-                obj['brand'] = ApiClient.convertToType(data['brand'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
             }
-            if (data.hasOwnProperty('publicationDate')) {
-                obj['publicationDate'] = ApiClient.convertToType(data['publicationDate'], 'Number');
+            if (data.hasOwnProperty('supervisorId')) {
+                obj['supervisorId'] = ApiClient.convertToType(data['supervisorId'], 'String');
             }
-            if (data.hasOwnProperty('releaseDate')) {
-                obj['releaseDate'] = ApiClient.convertToType(data['releaseDate'], 'Number');
+            if (data.hasOwnProperty('chatId')) {
+                obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
             }
-            if (data.hasOwnProperty('contributors')) {
-                obj['contributors'] = ApiClient.convertToType(data['contributors'], [['Number']]);
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('salesRanks')) {
-                obj['salesRanks'] = ApiClient.convertToType(data['salesRanks'], Object);
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
-            if (data.hasOwnProperty('offers')) {
-                obj['offers'] = ApiClient.convertToType(data['offers'], [ApiV1ProductsKeepaOffers]);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('liveOffersOrder')) {
-                obj['liveOffersOrder'] = ApiClient.convertToType(data['liveOffersOrder'], ['Number']);
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('buyBoxSellerIdHistory')) {
-                obj['buyBoxSellerIdHistory'] = ApiClient.convertToType(data['buyBoxSellerIdHistory'], ['String']);
+            if (data.hasOwnProperty('detailsCustom')) {
+                obj['detailsCustom'] = ApiV1RequestProposalsDetailsCustom.constructFromObject(data['detailsCustom']);
             }
-            if (data.hasOwnProperty('availabilityAmazon')) {
-                obj['availabilityAmazon'] = ApiClient.convertToType(data['availabilityAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('newPriceIsMAP')) {
-                obj['newPriceIsMAP'] = ApiClient.convertToType(data['newPriceIsMAP'], 'Boolean');
-            }
-            if (data.hasOwnProperty('stats')) {
-                obj['stats'] = ApiV1ProductsKeepaStats.constructFromObject(data['stats']);
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestProposalsRequest.constructFromObject(data['request']);
             }
         }
         return obj;
@@ -123,117 +118,217 @@ class InlineResponse20048 {
 }
 
 /**
- * @member {Boolean} isRecommended
+ * Guid продожения к заявке.
+ * @member {String} _id
  */
-InlineResponse20048.prototype['isRecommended'] = undefined;
+InlineResponse20048.prototype['_id'] = undefined;
 
 /**
- * @member {Number} trackingSince
+ * Guid заявки к которой относится данное предложение.
+ * @member {String} requestId
  */
-InlineResponse20048.prototype['trackingSince'] = undefined;
+InlineResponse20048.prototype['requestId'] = undefined;
 
 /**
- * @member {Number} lastRatingUpdate
+ * Тип предложения.
+ * @member {String} type
  */
-InlineResponse20048.prototype['lastRatingUpdate'] = undefined;
+InlineResponse20048.prototype['type'] = undefined;
 
 /**
- * @member {Number} rootCategory
+ *  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов 
+ * @member {module:model/InlineResponse20048.StatusEnum} status
  */
-InlineResponse20048.prototype['rootCategory'] = undefined;
+InlineResponse20048.prototype['status'] = undefined;
 
 /**
- * @member {Array.<Number>} categories
+ * Время закрытия предложения.
+ * @member {Date} timeoutAt
  */
-InlineResponse20048.prototype['categories'] = undefined;
+InlineResponse20048.prototype['timeoutAt'] = undefined;
 
 /**
- * @member {String} parentAsin
+ * Время на выполнение, в часах.
+ * @member {Number} execution_time
  */
-InlineResponse20048.prototype['parentAsin'] = undefined;
+InlineResponse20048.prototype['execution_time'] = undefined;
 
 /**
- * @member {String} variationCSV
+ * Количество попыток, подать предложение или исправить результат работы.
+ * @member {Number} attempts
  */
-InlineResponse20048.prototype['variationCSV'] = undefined;
+InlineResponse20048.prototype['attempts'] = undefined;
 
 /**
- * @member {Array.<String>} frequentlyBoughtTogether
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineResponse20048.prototype['frequentlyBoughtTogether'] = undefined;
+InlineResponse20048.prototype['price'] = undefined;
 
 /**
- * @member {String} manufacturer
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineResponse20048.prototype['manufacturer'] = undefined;
+InlineResponse20048.prototype['comment'] = undefined;
 
 /**
- * @member {String} brand
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineResponse20048.prototype['brand'] = undefined;
+InlineResponse20048.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * @member {String} productGroup
+ * GUID клиента .
+ * @member {String} clientId
  */
-InlineResponse20048.prototype['productGroup'] = undefined;
+InlineResponse20048.prototype['clientId'] = undefined;
 
 /**
- * @member {Number} publicationDate
+ * GUID супервизора.
+ * @member {String} supervisorId
  */
-InlineResponse20048.prototype['publicationDate'] = undefined;
+InlineResponse20048.prototype['supervisorId'] = undefined;
 
 /**
- * @member {Number} releaseDate
+ * GUID чата.
+ * @member {String} chatId
  */
-InlineResponse20048.prototype['releaseDate'] = undefined;
+InlineResponse20048.prototype['chatId'] = undefined;
 
 /**
- * @member {Array.<Array.<Number>>} contributors
+ * GUID любого, кто последний редактировал предложение.
+ * @member {String} lastModifiedById
  */
-InlineResponse20048.prototype['contributors'] = undefined;
+InlineResponse20048.prototype['lastModifiedById'] = undefined;
 
 /**
- * @member {String} size
+ * Дата создания
+ * @member {Date} createdAt
  */
-InlineResponse20048.prototype['size'] = undefined;
+InlineResponse20048.prototype['createdAt'] = undefined;
 
 /**
- * @member {Object} salesRanks
+ * Дата изменения
+ * @member {Date} updatedAt
  */
-InlineResponse20048.prototype['salesRanks'] = undefined;
+InlineResponse20048.prototype['updatedAt'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1ProductsKeepaOffers>} offers
+ * Название предложения
+ * @member {String} title
  */
-InlineResponse20048.prototype['offers'] = undefined;
+InlineResponse20048.prototype['title'] = undefined;
 
 /**
- * @member {Array.<Number>} liveOffersOrder
+ * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
  */
-InlineResponse20048.prototype['liveOffersOrder'] = undefined;
+InlineResponse20048.prototype['createdBy'] = undefined;
 
 /**
- * @member {Array.<String>} buyBoxSellerIdHistory
+ * @member {module:model/ApiV1RequestProposalsDetailsCustom} detailsCustom
  */
-InlineResponse20048.prototype['buyBoxSellerIdHistory'] = undefined;
+InlineResponse20048.prototype['detailsCustom'] = undefined;
 
 /**
- * @member {Number} availabilityAmazon
+ * @member {module:model/ApiV1RequestProposalsRequest} request
  */
-InlineResponse20048.prototype['availabilityAmazon'] = undefined;
+InlineResponse20048.prototype['request'] = undefined;
+
+
+
+
 
 /**
- * @member {Boolean} newPriceIsMAP
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineResponse20048.prototype['newPriceIsMAP'] = undefined;
+InlineResponse20048['StatusEnum'] = {
 
-/**
- * @member {module:model/ApiV1ProductsKeepaStats} stats
- */
-InlineResponse20048.prototype['stats'] = undefined;
+    /**
+     * value: "CREATED"
+     * @const
+     */
+    "CREATED": "CREATED",
 
+    /**
+     * value: "OFFER_CONDITIONS_ACCEPTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_ACCEPTED": "OFFER_CONDITIONS_ACCEPTED",
 
+    /**
+     * value: "READY_TO_VERIFY"
+     * @const
+     */
+    "READY_TO_VERIFY": "READY_TO_VERIFY",
 
+    /**
+     * value: "OFFER_CONDITIONS_REJECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_REJECTED": "OFFER_CONDITIONS_REJECTED",
+
+    /**
+     * value: "OFFER_CONDITIONS_CORRECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_CORRECTED": "OFFER_CONDITIONS_CORRECTED",
+
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
+
+    /**
+     * value: "TO_CORRECT"
+     * @const
+     */
+    "TO_CORRECT": "TO_CORRECT",
+
+    /**
+     * value: "CORRECTED"
+     * @const
+     */
+    "CORRECTED": "CORRECTED",
+
+    /**
+     * value: "CANCELED_BY_CREATOR_OF_REQUEST"
+     * @const
+     */
+    "CANCELED_BY_CREATOR_OF_REQUEST": "CANCELED_BY_CREATOR_OF_REQUEST",
+
+    /**
+     * value: "CANCELED_BY_SUPERVISOR"
+     * @const
+     */
+    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
+
+    /**
+     * value: "CANCELED_BY_EXECUTOR"
+     * @const
+     */
+    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
+
+    /**
+     * value: "ACCEPTED_BY_CLIENT"
+     * @const
+     */
+    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
+
+    /**
+     * value: "ACCEPTED_BY_SUPERVISOR"
+     * @const
+     */
+    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED"
+};
 
 
 

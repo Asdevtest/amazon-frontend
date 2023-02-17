@@ -22,11 +22,10 @@ class InlineObject79 {
     /**
      * Constructs a new <code>InlineObject79</code>.
      * @alias module:model/InlineObject79
-     * @param action {module:model/InlineObject79.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject79.initialize(this, action);
+        InlineObject79.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject79 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,17 @@ class InlineObject79 {
         if (data) {
             obj = obj || new InlineObject79();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
         }
         return obj;
@@ -63,39 +67,30 @@ class InlineObject79 {
 }
 
 /**
- * @member {module:model/InlineObject79.ActionEnum} action
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject79.prototype['action'] = undefined;
+InlineObject79.prototype['rating'] = undefined;
 
 /**
- * Причина смены статуса.
+ * Комментарий причин изменения статуса.
  * @member {String} reason
  */
 InlineObject79.prototype['reason'] = undefined;
 
-
-
-
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject79.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * @member {Number} timeLimitInMinutes
  */
-InlineObject79['ActionEnum'] = {
+InlineObject79.prototype['timeLimitInMinutes'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+
 
 
 

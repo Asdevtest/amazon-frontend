@@ -1305,7 +1305,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesPagClientsLightGet
 
-> InlineResponse20015 apiV1BoxesPagClientsLightGet(opts)
+> InlineResponse20015 apiV1BoxesPagClientsLightGet(status, opts)
 
 # Получить коробки и их строки по текущему клиенту.
 
@@ -1323,9 +1323,9 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.BoxesApi();
+let status = "status_example"; // String | 
 let opts = {
   'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -> Айтем коробки -> Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
-  'status': "status_example", // String | 
   'destinationId': "destinationId_example", // String | GUID дестинейшна, который должен быть у боксов.
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'isFormed': true, // Boolean | Сформирована ли коробка
@@ -1337,7 +1337,7 @@ let opts = {
   'productGuid': "productGuid_example", // String | 
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1BoxesPagClientsLightGet(opts).then((data) => {
+apiInstance.apiV1BoxesPagClientsLightGet(status, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -1350,8 +1350,8 @@ apiInstance.apiV1BoxesPagClientsLightGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | **String**|  | 
  **filters** | **String**|                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -&gt; Айтем коробки -&gt; Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
- **status** | **String**|  | [optional] 
  **destinationId** | **String**| GUID дестинейшна, который должен быть у боксов. | [optional] 
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **isFormed** | **Boolean**| Сформирована ли коробка | [optional] 
