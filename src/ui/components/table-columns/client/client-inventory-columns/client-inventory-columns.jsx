@@ -37,14 +37,16 @@ export const clientInventoryColumns = (
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell /* withIcon */ text={t(TranslationKey.ASIN)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     width: 300,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
-    field: 'shop',
+    field: 'shopIds',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Shop)} />,
 
@@ -52,6 +54,8 @@ export const clientInventoryColumns = (
     width: 90,
     sortable: false,
     filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },
 
   {
@@ -60,7 +64,9 @@ export const clientInventoryColumns = (
     renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 80,
+    width: 90,
+
+    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
 
   {
@@ -70,7 +76,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 70,
+    width: 90,
     sortable: false,
   },
 
@@ -81,7 +87,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 65,
+    width: 85,
     sortable: false,
   },
 
@@ -92,7 +98,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 70,
+    width: 90,
     sortable: false,
   },
 
@@ -112,7 +118,9 @@ export const clientInventoryColumns = (
       />
     ),
     type: 'number',
-    width: 60,
+    width: 90,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -131,6 +139,8 @@ export const clientInventoryColumns = (
       />
     ),
     width: 150,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -149,11 +159,13 @@ export const clientInventoryColumns = (
       />
     ),
     type: 'number',
-    width: 80,
+    width: 90,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'amountInBoxes',
+    field: 'boxAmounts',
     headerName: 'In stock',
     renderHeader: () => <MultilineTextHeaderCell withIcon text={'In stock'} />,
 
@@ -166,8 +178,10 @@ export const clientInventoryColumns = (
     ),
     width: 160,
     sortable: false,
-    type: 'actions',
-    filterable: false,
+    // type: 'actions',
+    // filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },
 
   {
@@ -177,6 +191,8 @@ export const clientInventoryColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
     type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -206,6 +222,7 @@ export const clientInventoryColumns = (
     type: 'number',
     width: 80,
     headerAlign: 'center',
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -216,6 +233,8 @@ export const clientInventoryColumns = (
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     type: 'number',
     width: 90,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -228,6 +247,8 @@ export const clientInventoryColumns = (
     width: 70,
     type: 'number',
     headerAlign: 'center',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -267,6 +288,8 @@ export const clientInventoryColumns = (
       />
     ),
     width: 100,
+
+    columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
   {
@@ -277,6 +300,8 @@ export const clientInventoryColumns = (
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
     type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -287,6 +312,8 @@ export const clientInventoryColumns = (
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 90,
     type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {

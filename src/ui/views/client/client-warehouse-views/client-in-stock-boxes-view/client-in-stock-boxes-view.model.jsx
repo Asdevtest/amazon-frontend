@@ -1773,7 +1773,7 @@ export class ClientInStockBoxesViewModel {
 
       const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
       const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.join(',')
+      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
       const destinationFilter = this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
       const logicsTariffFilter = this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')

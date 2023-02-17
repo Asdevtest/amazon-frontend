@@ -710,10 +710,25 @@ export class ClientInventoryViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
+      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
+      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+
+      const shopFilter = shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
+
+      const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+
+      console.log('shopFilter', shopFilter)
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-        'clients/products/my_with_pag',
+        // 'clients/products/my_with_pag',
+
+        `clients/products/my_with_pag?filters=${this.getFilter()}${shopFilter ? ';&' + 'shopIds=' + shopFilter : ''}${
+          purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
+        }`,
+
+        // 'clients/products/my_with_pag?filters=archive[$eq]=false;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;&shopId=497fd02f-2d23-4122-85ca-417cd9f61236',
       )
 
       if (this.columnMenuSettings[column]) {
@@ -797,6 +812,97 @@ export class ClientInventoryViewModel {
     })
   }
 
+  getFilter() {
+    const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+
+    const strategyStatusFilter = this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
+    const amountInOrdersFilter = this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
+    const stockUSAFilter = this.columnMenuSettings.stockUSA.currentFilterData.join(',')
+    const inTransferFilter = this.columnMenuSettings.inTransfer.currentFilterData.join(',')
+    const boxAmountsFilter = this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
+    const sumStockFilter = this.columnMenuSettings.sumStock.currentFilterData.join(',')
+    // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
+    const amazonFilter = this.columnMenuSettings.amazon.currentFilterData.join(',')
+    const profitFilter = this.columnMenuSettings.profit.currentFilterData.join(',')
+    const fbafeeFilter = this.columnMenuSettings.fbafee.currentFilterData.join(',')
+    const statusFilter = this.columnMenuSettings.status.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      archive: {$eq: this.isArchive},
+      or: [
+        {asin: {$contains: this.nameSearchValue}},
+        {amazonTitle: {$contains: this.nameSearchValue}},
+        {skusByClient: {$contains: this.nameSearchValue}},
+      ],
+
+      ...(asinFilter && {
+        asin: {$eq: asinFilter},
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: {$eq: skusByClientFilter},
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: {$eq: amazonTitleFilter},
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: {$eq: createdAtFilter},
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: {$eq: updatedAtFilter},
+      }),
+
+      ...(strategyStatusFilter && {
+        strategyStatus: {$eq: strategyStatusFilter},
+      }),
+
+      ...(amountInOrdersFilter && {
+        amountInOrders: {$eq: amountInOrdersFilter},
+      }),
+
+      ...(stockUSAFilter && {
+        stockUSA: {$eq: stockUSAFilter},
+      }),
+      ...(inTransferFilter && {
+        inTransfer: {$eq: inTransferFilter},
+      }),
+      ...(boxAmountsFilter && {
+        boxAmounts: {$eq: boxAmountsFilter},
+      }),
+
+      ...(sumStockFilter && {
+        sumStock: {$eq: sumStockFilter},
+      }),
+
+      // ...(purchaseQuantityFilter && {
+      //   purchaseQuantity: {$eq: purchaseQuantityFilter},
+      // }),
+
+      ...(amazonFilter && {
+        amazon: {$eq: amazonFilter},
+      }),
+      ...(profitFilter && {
+        profit: {$eq: profitFilter},
+      }),
+      ...(fbafeeFilter && {
+        fbafee: {$eq: fbafeeFilter},
+      }),
+
+      ...(statusFilter && {
+        status: {$eq: statusFilter},
+      }),
+    })
+
+    console.log('filter', filter)
+
+    return filter
+  }
+
   async getProductsMy(noProductBaseUpdate) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -805,97 +911,12 @@ export class ClientInventoryViewModel {
       //   this.nameSearchValue
       // };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
-      const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
-      const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.join(',')
-
-      const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
-      const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-      const strategyStatusFilter = this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-      const amountInOrdersFilter = this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-      const stockUSAFilter = this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-      const inTransferFilter = this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-      const boxAmountsFilter = this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-      const sumStockFilter = this.columnMenuSettings.sumStock.currentFilterData.join(',')
-      // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
-      const amazonFilter = this.columnMenuSettings.amazon.currentFilterData.join(',')
-      const profitFilter = this.columnMenuSettings.profit.currentFilterData.join(',')
-      const fbafeeFilter = this.columnMenuSettings.fbafee.currentFilterData.join(',')
-      const statusFilter = this.columnMenuSettings.status.currentFilterData.join(',')
-
-      const filter = objectToUrlQs({
-        archive: {$eq: this.isArchive},
-        or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-        ],
-
-        ...(asinFilter && {
-          asin: {$eq: asinFilter},
-        }),
-        ...(skusByClientFilter && {
-          skusByClient: {$eq: skusByClientFilter},
-        }),
-        ...(amazonTitleFilter && {
-          amazonTitle: {$eq: amazonTitleFilter},
-        }),
-
-        ...(createdAtFilter && {
-          createdAt: {$eq: createdAtFilter},
-        }),
-        ...(updatedAtFilter && {
-          updatedAt: {$eq: updatedAtFilter},
-        }),
-
-        ...(strategyStatusFilter && {
-          strategyStatus: {$eq: strategyStatusFilter},
-        }),
-
-        ...(amountInOrdersFilter && {
-          amountInOrders: {$eq: amountInOrdersFilter},
-        }),
-
-        ...(stockUSAFilter && {
-          stockUSA: {$eq: stockUSAFilter},
-        }),
-        ...(inTransferFilter && {
-          inTransfer: {$eq: inTransferFilter},
-        }),
-        ...(boxAmountsFilter && {
-          boxAmounts: {$eq: boxAmountsFilter},
-        }),
-
-        ...(sumStockFilter && {
-          sumStock: {$eq: sumStockFilter},
-        }),
-
-        // ...(purchaseQuantityFilter && {
-        //   purchaseQuantity: {$eq: purchaseQuantityFilter},
-        // }),
-
-        ...(amazonFilter && {
-          amazon: {$eq: amazonFilter},
-        }),
-        ...(profitFilter && {
-          profit: {$eq: profitFilter},
-        }),
-        ...(fbafeeFilter && {
-          fbafee: {$eq: fbafeeFilter},
-        }),
-
-        ...(statusFilter && {
-          status: {$eq: statusFilter},
-        }),
-      })
-
       const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: filter, // this.nameSearchValue ? filter : null,
+        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
 
         shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
