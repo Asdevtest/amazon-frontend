@@ -418,10 +418,10 @@ export class ClientInventoryViewRaw extends Component {
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onColumnHeaderEnter={params => {
-                    // console.log('Enter params', params)
+                    console.log('Enter params', params)
                   }}
                   onColumnHeaderLeave={params => {
-                    // console.log('Leave params', params)
+                    console.log('Leave params', params)
                   }}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}

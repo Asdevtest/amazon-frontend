@@ -151,6 +151,8 @@ export class ClientInventoryViewModel {
   currentHscode = ''
   isModalOpen = false
 
+  onHover = ''
+
   isTransfer = false
 
   showAcceptMessage = undefined
@@ -357,6 +359,14 @@ export class ClientInventoryViewModel {
     ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
+  }
+
+  onHoverColumnField(field) {
+    this.onHover = field
+  }
+
+  onLeaveColumnField(field) {
+    this.onHover = ''
   }
 
   getDataGridState() {
