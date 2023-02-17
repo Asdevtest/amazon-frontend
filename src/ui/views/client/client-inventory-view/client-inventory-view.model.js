@@ -151,7 +151,7 @@ export class ClientInventoryViewModel {
   currentHscode = ''
   isModalOpen = false
 
-  onHover = ''
+  onHover = null
 
   isTransfer = false
 
@@ -163,7 +163,11 @@ export class ClientInventoryViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
     onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
-    onClickAccept: () => this.getProductsMy(),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getProductsMy()
+      this.getDataGridState()
+    },
 
     filterRequestStatus: undefined,
 
@@ -256,6 +260,8 @@ export class ClientInventoryViewModel {
     this.fourMonthesStockHandlers,
     this.stockUsHandlers,
     this.otherHandlers,
+    this.columnMenuSettings,
+    this.onHover,
   )
 
   get userInfo() {
@@ -363,10 +369,12 @@ export class ClientInventoryViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
+    this.getDataGridState()
   }
 
-  onLeaveColumnField(field) {
-    this.onHover = ''
+  onLeaveColumnField() {
+    this.onHover = null
+    this.getDataGridState()
   }
 
   getDataGridState() {
@@ -385,6 +393,8 @@ export class ClientInventoryViewModel {
           this.fourMonthesStockHandlers,
           this.stockUsHandlers,
           this.otherHandlers,
+          this.columnMenuSettings,
+          this.onHover,
         ).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
