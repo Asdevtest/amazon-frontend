@@ -39,6 +39,7 @@ import {
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers & ChatMessageRequestProposalResultEditedHandlers
 
 interface Props {
+  isGroupChat: boolean
   userId: string
   messages?: ChatMessageContract[]
   handlers?: ChatMessageUniversalHandlers
@@ -48,7 +49,7 @@ interface Props {
 }
 
 export const ChatMessagesList: FC<Props> = observer(
-  ({messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase}) => {
+  ({messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase, isGroupChat}) => {
     const {classes: classNames} = useClassNames()
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
@@ -59,7 +60,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
     // console.log('messages', messages)
 
-    console.log('firstUnReadMessageId', firstUnReadMessageId)
+    // console.log('firstUnReadMessageId', firstUnReadMessageId)
 
     const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds, {
       behavior: 'smooth',
@@ -89,7 +90,12 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }, [messages])
 
-    const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract, unReadMessage: boolean) => {
+    const renderMessageByType = (
+      isIncomming: boolean,
+      messageItem: ChatMessageContract,
+      unReadMessage: boolean,
+      showName: boolean,
+    ) => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
         return <ChatMessageRequest message={messageItem} />
       } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
@@ -131,6 +137,7 @@ export const ChatMessagesList: FC<Props> = observer(
       } else {
         return (
           <ChatMessageBasicText
+            showName={showName}
             isIncomming={isIncomming}
             message={messageItem}
             unReadMessage={unReadMessage}
@@ -152,10 +159,21 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 const isLastMessage = index === messages.length - 1
 
+                // const isFirstMessage = index === 0
+
                 const isNextMessageSameAuthor =
                   !isLastMessage && messages[index + 1]?.user?._id === messageItem.user?._id && !isNotPersonal
 
+                const isBeforeMessageSameAuthor =
+                  !isLastMessage && messages[index - 1]?.user?._id === messageItem.user?._id && !isNotPersonal
+
                 const unReadMessage = !messageItem.isRead
+
+                const showName =
+                  !isBeforeMessageSameAuthor &&
+                  (isNextMessageSameAuthor || isLastMessage) &&
+                  !isNotPersonal &&
+                  isIncomming
 
                 return (
                   <div
@@ -210,7 +228,7 @@ export const ChatMessagesList: FC<Props> = observer(
                         })}
                       >
                         <div className={classNames.messageInnerContentWrapper}>
-                          {renderMessageByType(isIncomming, messageItem, unReadMessage)}
+                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName)}
                         </div>
                       </div>
                     </div>

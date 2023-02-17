@@ -208,6 +208,7 @@ export const Chat: FC<Props> = observer(
         </div>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
+            isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
             handlers={chatMessageHandlers}
