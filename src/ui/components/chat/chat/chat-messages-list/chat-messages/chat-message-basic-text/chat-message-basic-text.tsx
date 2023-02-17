@@ -10,12 +10,14 @@ import Linkify from 'react-linkify-always-blank'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {UserLink} from '@components/user-link'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 
 import {useClassNames} from './chat-message-basic-text.style'
 
 interface Props {
+  showName: boolean
   message: ChatMessageContract
   isIncomming: boolean
   unReadMessage: boolean
@@ -78,7 +80,7 @@ const findChunks = ({/* autoEscape, caseSensitive, sanitize, */ searchWords, tex
 }
 
 export const ChatMessageBasicText: FC<Props> = observer(
-  ({message, isIncomming, unReadMessage, isFound, searchPhrase}) => {
+  ({message, isIncomming, unReadMessage, isFound, searchPhrase, showName}) => {
     const {classes: classNames} = useClassNames()
 
     return (
@@ -94,6 +96,17 @@ export const ChatMessageBasicText: FC<Props> = observer(
           {/* <Typography paragraph className={classNames.messageText}> // КОНТРОЛЬНЫЙ ТЕКСТ
               {message.text}
             </Typography> */}
+
+          {showName ? (
+            <UserLink
+              name={message.user?.name}
+              userId={message.user?._id}
+              blackText={undefined}
+              withAvatar={undefined}
+              maxNameWidth={undefined}
+              customStyles={{marginBottom: 10}}
+            />
+          ) : null}
 
           {message.text && (
             <Highlighter

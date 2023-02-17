@@ -51,6 +51,9 @@ class InlineResponse20038 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
@@ -108,6 +111,12 @@ class InlineResponse20038 {
  * @member {String} _id
  */
 InlineResponse20038.prototype['_id'] = undefined;
+
+/**
+ * Название идеи
+ * @member {String} title
+ */
+InlineResponse20038.prototype['title'] = undefined;
 
 /**
  * Статус идеи

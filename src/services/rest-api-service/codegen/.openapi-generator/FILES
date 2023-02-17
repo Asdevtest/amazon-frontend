@@ -276,7 +276,8 @@ docs/InlineResponse2006.md
 docs/InlineResponse20060.md
 docs/InlineResponse20061.md
 docs/InlineResponse20062.md
-docs/InlineResponse20062Details.md
+docs/InlineResponse20063.md
+docs/InlineResponse20063Details.md
 docs/InlineResponse2007.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
@@ -636,7 +637,8 @@ src/model/InlineResponse2006.js
 src/model/InlineResponse20060.js
 src/model/InlineResponse20061.js
 src/model/InlineResponse20062.js
-src/model/InlineResponse20062Details.js
+src/model/InlineResponse20063.js
+src/model/InlineResponse20063Details.js
 src/model/InlineResponse2007.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
@@ -689,3 +691,5 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/InlineResponse20063.spec.js
+test/model/InlineResponse20063Details.spec.js

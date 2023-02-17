@@ -496,7 +496,7 @@ export class BuyerMyOrdersViewModel {
   async getOrdersMy() {
     try {
       // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
       //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
       //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
 
@@ -507,7 +507,7 @@ export class BuyerMyOrdersViewModel {
           {skusByClient: {$contains: this.nameSearchValue}},
           {id: {$eq: this.nameSearchValue}},
           {item: {$eq: this.nameSearchValue}},
-        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) && !el.id),
+        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
       })
 
       // НЕ было до создания фильтрации по статусам (2 строки)

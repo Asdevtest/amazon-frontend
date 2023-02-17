@@ -1713,19 +1713,20 @@ export class ClientInStockBoxesViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      // const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      // const shopFilter = this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
+
+      // const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
         'boxes/pag/clients_light?status=IN_STOCK',
-        // 'boxes/pag/clients_light?filters=humanFriendlyId%5B%24eq%5D%3D1837&status=IN_STOCK&shopIds=&limit=15&offset=0&sortField=updatedAt&sortType=DESC',
 
-        // 'boxes/pag/clients_light?filters=status=IN_STOCK&manFriendlyId=1837',
-
-        // 'boxes/pag/clients_light?filters=shopIds=497fd02f-2d23-4122-85ca-417cd9f61236;status=IN_STOCK',
-
-        // 'boxes/pag/clients_light?filters=status=IN_STOCK;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;or[3][item][$eq]=;or[4][productId][$eq]=;humanFriendlyId[$eq]=1837',
-
-        // 'boxes/pag/clients_light?filters=[status][$eq]=IN_STOCK;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;or[3][item][$eq]=;or[4][productId][$eq]=;humanFriendlyId[$eq]=1837',
+        // `boxes/pag/clients_light?filters=status=IN_STOCK;${this.getFilter()}${
+        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
+        // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )
 
       if (this.columnMenuSettings[column]) {
@@ -1760,85 +1761,84 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
+  getFilter() {
+    const humanFriendlyIdFilter = this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const idFilter = this.columnMenuSettings.id.currentFilterData.join(',')
+    const itemFilter = this.columnMenuSettings.item.currentFilterData.join(',')
+
+    const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const destinationFilter = this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
+    const logicsTariffFilter = this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
+
+    const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+
+    const amountFilter = this.columnMenuSettings.amount.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        {asin: {$contains: this.nameSearchValue}},
+        {amazonTitle: {$contains: this.nameSearchValue}},
+        {skusByClient: {$contains: this.nameSearchValue}},
+        {id: {$eq: this.nameSearchValue}},
+        {item: {$eq: this.nameSearchValue}},
+        {productId: {$eq: this.nameSearchValue}},
+      ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
+
+      ...(humanFriendlyIdFilter && {
+        humanFriendlyId: {$eq: humanFriendlyIdFilter},
+      }),
+      ...(idFilter && {
+        id: {$eq: idFilter},
+      }),
+
+      ...(itemFilter && {
+        item: {$eq: itemFilter},
+      }),
+
+      ...(asinFilter && {
+        asin: {$eq: asinFilter},
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: {$eq: skusByClientFilter},
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: {$eq: amazonTitleFilter},
+      }),
+
+      ...(destinationFilter && {
+        destinationId: {$eq: destinationFilter},
+      }),
+      ...(logicsTariffFilter && {
+        logicsTariffId: {$eq: logicsTariffFilter},
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: {$eq: createdAtFilter},
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: {$eq: updatedAtFilter},
+      }),
+
+      ...(amountFilter && {
+        amount: {$eq: amountFilter},
+      }),
+    })
+
+    // console.log('filter', filter)
+
+    return filter
+  }
+
   async getBoxesMy() {
     try {
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};or[4][productId][$eq]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};or[5][productId][$eq]=${this.nameSearchValue};`
-
-      const humanFriendlyIdFilter = this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-      const idFilter = this.columnMenuSettings.id.currentFilterData.join(',')
-      const itemFilter = this.columnMenuSettings.item.currentFilterData.join(',')
-
-      const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
-      const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-      const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.join(',')
-
-      const destinationFilter = this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
-      const logicsTariffFilter = this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
-
-      const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
-      const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-      const amountFilter = this.columnMenuSettings.amount.currentFilterData.join(',')
-
-      const filter = objectToUrlQs({
-        or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-          {id: {$eq: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
-          {productId: {$eq: this.nameSearchValue}},
-        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(this.nameSearchValue)) && !el.id),
-
-        ...(humanFriendlyIdFilter && {
-          humanFriendlyId: {$eq: humanFriendlyIdFilter},
-        }),
-        ...(idFilter && {
-          id: {$eq: idFilter},
-        }),
-
-        ...(itemFilter && {
-          item: {$eq: itemFilter},
-        }),
-
-        ...(asinFilter && {
-          asin: {$eq: asinFilter},
-        }),
-        ...(skusByClientFilter && {
-          skusByClient: {$eq: skusByClientFilter},
-        }),
-        ...(amazonTitleFilter && {
-          amazonTitle: {$eq: amazonTitleFilter},
-        }),
-
-        ...(destinationFilter && {
-          destinationId: {$eq: destinationFilter},
-        }),
-        ...(logicsTariffFilter && {
-          logicsTariffId: {$eq: logicsTariffFilter},
-        }),
-
-        ...(createdAtFilter && {
-          createdAt: {$eq: createdAtFilter},
-        }),
-        ...(updatedAtFilter && {
-          updatedAt: {$eq: updatedAtFilter},
-        }),
-
-        ...(amountFilter && {
-          amount: {$eq: amountFilter},
-        }),
-      })
-
-      console.log('filter', filter)
-
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
-        filters: filter /* this.nameSearchValue ? filter : null */,
+        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
