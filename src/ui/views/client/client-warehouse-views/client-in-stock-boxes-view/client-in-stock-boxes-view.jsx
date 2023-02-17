@@ -164,6 +164,8 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickShopBtn,
       onCloseShippingLabelModal,
       getBoxesMy,
+      onLeaveColumnField,
+      onHoverColumnField,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -333,7 +335,21 @@ export class ClientInStockBoxesViewRaw extends Component {
                   footerContainer: classNames.footerContainer,
                   footerCell: classNames.footerCell,
                   toolbarContainer: classNames.toolbarContainer,
+
+                  columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                  columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                  columnHeader: classNames.columnHeader,
+                  menuIconButton: classNames.menuIconButton,
+                  iconButtonContainer: classNames.iconButtonContainer,
+                  iconSeparator: classNames.iconSeparator,
                 }}
+                sx={{
+                  '.MuiDataGrid-sortIcon': {
+                    width: 14,
+                    height: 14,
+                  },
+                }}
+                headerHeight={65}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
                 sortingMode="server"
@@ -357,6 +373,10 @@ export class ClientInStockBoxesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                onColumnHeaderEnter={params => {
+                  onHoverColumnField(params.field)
+                }}
+                onColumnHeaderLeave={onLeaveColumnField}
                 onSelectionModelChange={onSelectionModel}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

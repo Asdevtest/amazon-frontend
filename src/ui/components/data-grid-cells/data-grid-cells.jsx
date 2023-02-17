@@ -1046,14 +1046,12 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 )
 
 export const MultilineTextHeaderCell = React.memo(
-  withStyles(({classes: classNames, text, withIcon, columnMenuSettings, field, onHover}) => {
-    const isFilterActive = columnMenuSettings?.[field]?.currentFilterData?.length
-
-    return (
+  withStyles(
+    ({classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive}) => (
       <Tooltip title={text}>
         <div className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
-          {withIcon || (field && onHover && field === onHover) || isFilterActive ? (
+          {withIcon || isShowIconOnHover || isFilterActive ? (
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
                 [classNames.headerIconBlue]: isFilterActive,
@@ -1062,8 +1060,9 @@ export const MultilineTextHeaderCell = React.memo(
           ) : null}
         </div>
       </Tooltip>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 export const IconHeaderCell = React.memo(withStyles(({classes: classNames, url}) => <img src={url} />, styles))

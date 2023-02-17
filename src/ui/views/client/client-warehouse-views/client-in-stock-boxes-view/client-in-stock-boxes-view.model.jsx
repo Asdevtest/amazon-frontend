@@ -98,7 +98,11 @@ export class ClientInStockBoxesViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
     onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
-    onClickAccept: () => this.getBoxesMy(),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getBoxesMy()
+      this.getDataGridState()
+    },
 
     filterRequestStatus: undefined,
 
@@ -178,6 +182,8 @@ export class ClientInStockBoxesViewModel {
     title: '',
   }
 
+  onHover = null
+
   rowHandlers = {
     onClickFbaShipment: item => this.onClickFbaShipment(item),
     onDoubleClickFbaShipment: item => this.onDoubleClickFbaShipment(item),
@@ -220,7 +226,8 @@ export class ClientInStockBoxesViewModel {
     this.storekeepersData,
     this.destinations,
     SettingsModel.destinationsFavourites,
-    this.shopsData,
+    this.columnMenuSettings,
+    this.onHover,
   )
 
   rowTaskHandlers = {
@@ -333,7 +340,8 @@ export class ClientInStockBoxesViewModel {
           this.storekeepersData,
           this.destinations,
           SettingsModel.destinationsFavourites,
-          this.shopsData,
+          this.columnMenuSettings,
+          this.onHover,
         ).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
@@ -1041,6 +1049,16 @@ export class ClientInStockBoxesViewModel {
         this.error = error
       })
     }
+  }
+
+  onHoverColumnField(field) {
+    this.onHover = field
+    this.getDataGridState()
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+    this.getDataGridState()
   }
 
   async onClickGroupingBtn() {

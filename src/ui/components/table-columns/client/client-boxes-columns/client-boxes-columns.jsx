@@ -24,11 +24,24 @@ import {findTariffInStorekeepersData} from '@utils/checks'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBoxesViewColumns = (handlers, storekeepersData, destinations, destinationsFavourites, shopsData) => [
+export const clientBoxesViewColumns = (
+  handlers,
+  storekeepersData,
+  destinations,
+  destinationsFavourites,
+  columnMenuSettings,
+  onHover,
+) => [
   {
     field: 'storekeeper',
     headerName: t(TranslationKey.Storekeeper),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Storekeeper)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
@@ -38,7 +51,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'shopIds',
     headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} /* Icon={FilterAltOutlinedIcon} */ />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Shop)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
@@ -49,7 +68,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ID)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -61,7 +86,15 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'orderIdsItems',
     headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['№ Order/ № Item'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={
+          columnMenuSettings?.item?.currentFilterData?.length || columnMenuSettings?.id?.currentFilterData?.length
+        }
+      />
+    ),
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
     width: 140,
@@ -72,7 +105,17 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Product)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={
+          columnMenuSettings?.asin?.currentFilterData?.length ||
+          columnMenuSettings?.skusByClient?.currentFilterData?.length ||
+          columnMenuSettings?.amazonTitle?.currentFilterData?.length
+        }
+      />
+    ),
 
     width: 400,
     renderCell: params =>
@@ -113,7 +156,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'isFormed',
     headerName: t(TranslationKey.Formed),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Formed)} /* Icon={FilterAltOutlinedIcon} */ />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.Formed)} />,
 
     renderCell: params =>
       params.row.originalData ? (
@@ -135,7 +178,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Quantity)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params =>
       params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
@@ -149,7 +198,16 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'destination',
     headerName: t(TranslationKey['Destination and tariff']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Destination and tariff'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={
+          columnMenuSettings?.logicsTariff?.currentFilterData?.length ||
+          columnMenuSettings?.logicsTariff?.destination?.length
+        }
+      />
+    ),
 
     renderCell: params =>
       params.row.originalData ? (
@@ -176,7 +234,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'amazonPrice',
     headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Total price'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
@@ -187,7 +251,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'fbaShipment',
     headerName: 'FBA Shipment / Shipping Label',
-    renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={'FBA Shipment / Shipping Label'}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params =>
       params.row.originalData ? (
@@ -225,7 +295,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'dimansions',
     headerName: t(TranslationKey.Dimensions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dimensions)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Dimensions)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params =>
       params.row.originalData ? (
@@ -243,7 +319,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Created)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
@@ -254,7 +336,13 @@ export const clientBoxesViewColumns = (handlers, storekeepersData, destinations,
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Updated)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <NormDateCell params={params} />,
     width: 120,

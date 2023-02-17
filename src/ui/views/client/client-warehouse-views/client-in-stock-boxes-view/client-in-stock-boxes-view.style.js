@@ -167,4 +167,30 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+
+    position: 'relative',
+    paddingRight: 20,
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  menuIconButton: {
+    zIndex: 1000,
+    position: 'absolute !important',
+    right: -5,
+    top: 15,
+    visibility: 'visible !important',
+    opacity: 0,
+
+    width: '14px !important',
+    height: '14px !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
 })

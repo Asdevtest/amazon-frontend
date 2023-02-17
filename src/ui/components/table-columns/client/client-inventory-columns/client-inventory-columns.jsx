@@ -39,7 +39,17 @@ export const clientInventoryColumns = (
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.ASIN)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ASIN)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={
+          columnMenuSettings?.asin?.currentFilterData?.length ||
+          columnMenuSettings?.skusByClient?.currentFilterData?.length ||
+          columnMenuSettings?.amazonTitle?.currentFilterData?.length
+        }
+      />
+    ),
 
     renderCell: params => <ProductAsinCell product={params.row.originalData} />,
     // renderCell: params => console.log('onHover', onHover),
@@ -54,9 +64,8 @@ export const clientInventoryColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Shop)}
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -73,10 +82,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Strategy),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Strategy)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -91,10 +99,9 @@ export const clientInventoryColumns = (
     headerName: 'Available',
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={'Available'}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -109,10 +116,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Reserved),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Reserved)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -127,10 +133,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Inbound),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Inbound)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -145,10 +150,9 @@ export const clientInventoryColumns = (
     headerName: 'Order',
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={'Order'}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -173,10 +177,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Set) + ' ' + t(TranslationKey.Additionally)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -198,10 +201,9 @@ export const clientInventoryColumns = (
     headerName: 'in Transfer',
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={'in Transfer'}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -226,10 +228,9 @@ export const clientInventoryColumns = (
     headerName: 'In stock',
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={'In stock'}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -250,10 +251,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey['Stock sum']),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey['Stock sum'])}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
     renderCell: params => <MultilineTextCell text={params.value} />,
@@ -266,12 +266,11 @@ export const clientInventoryColumns = (
   {
     field: 'purchaseQuantity',
     headerName: t(TranslationKey['Recommendation for additional purchases']),
-    renderHeader: params => (
+    renderHeader: () => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
+        withIcon
+        isFilterActive
         text={t(TranslationKey['Recommendation for additional purchases'])}
-        onHover={onHover}
       />
     ),
     renderCell: params => (
@@ -291,10 +290,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey['Amazon price'])}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -310,10 +308,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Profit),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Profit)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -329,10 +326,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.FBA),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.FBA)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -348,14 +344,7 @@ export const clientInventoryColumns = (
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
-        text={t(TranslationKey.BarCode)}
-        onHover={onHover}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
@@ -368,14 +357,7 @@ export const clientInventoryColumns = (
   {
     field: 'hsCode',
     headerName: 'HS code',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
-        text={'HS code'}
-        onHover={onHover}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
 
     renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
     minWidth: 100,
@@ -390,10 +372,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Status),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Status)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
     renderCell: params => (
@@ -412,10 +393,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Created),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Created)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -431,10 +411,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Updated),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Updated)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -450,10 +429,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey['Comment of SB']),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey['Comment of SB'])}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -468,10 +446,9 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.Comment),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        columnMenuSettings={columnMenuSettings}
-        field={params.field}
         text={t(TranslationKey.Comment)}
-        onHover={onHover}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
       />
     ),
 
