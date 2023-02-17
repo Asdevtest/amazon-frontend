@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID идеи | [optional] 
+**status** | **Number** | Статус идеи | [optional] 
 **media** | **[Object]** | Image URL | [optional] 
 **comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
