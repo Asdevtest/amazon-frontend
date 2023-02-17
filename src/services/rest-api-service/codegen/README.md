@@ -362,6 +362,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopApi* | [**apiV1ShopsGet**](docs/ShopApi.md#apiV1ShopsGet) | **GET** /api/v1/shops/ | # Получить все магазины пользователя.
 *TestSwagger.ShopApi* | [**apiV1ShopsGuidDelete**](docs/ShopApi.md#apiV1ShopsGuidDelete) | **DELETE** /api/v1/shops/{guid} | # Логическое удаление магазина по его GUID.
 *TestSwagger.ShopApi* | [**apiV1ShopsGuidPatch**](docs/ShopApi.md#apiV1ShopsGuidPatch) | **PATCH** /api/v1/shops/{guid} | # Редактировать магазин.
+*TestSwagger.ShopApi* | [**apiV1ShopsNamesGet**](docs/ShopApi.md#apiV1ShopsNamesGet) | **GET** /api/v1/shops/names | # Получить все названия магазинов пользователя.
 *TestSwagger.ShopApi* | [**apiV1ShopsPost**](docs/ShopApi.md#apiV1ShopsPost) | **POST** /api/v1/shops/ | # Добавить новый магазин клиентом.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGet**](docs/ShopSellApi.md#apiV1ShopSellGet) | **GET** /api/v1/shop_sell/ | # Получить все магазины на продажу
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidGet**](docs/ShopSellApi.md#apiV1ShopSellGuidGet) | **GET** /api/v1/shop_sell/{guid} | # Получить магазин на продажу по GUID
@@ -689,7 +690,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
- - [TestSwagger.InlineResponse20062Details](docs/InlineResponse20062Details.md)
+ - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
+ - [TestSwagger.InlineResponse20063Details](docs/InlineResponse20063Details.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)

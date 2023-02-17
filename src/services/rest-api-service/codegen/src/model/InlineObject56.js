@@ -47,6 +47,9 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
@@ -89,6 +92,12 @@ class InlineObject56 {
 
 
 }
+
+/**
+ * Название идеи
+ * @member {String} title
+ */
+InlineObject56.prototype['title'] = undefined;
 
 /**
  * Статус идеи

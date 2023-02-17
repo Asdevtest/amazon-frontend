@@ -47,6 +47,9 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
@@ -86,6 +89,12 @@ class InlineObject55 {
 
 
 }
+
+/**
+ * Название идеи
+ * @member {String} title
+ */
+InlineObject55.prototype['title'] = undefined;
 
 /**
  * Image URL

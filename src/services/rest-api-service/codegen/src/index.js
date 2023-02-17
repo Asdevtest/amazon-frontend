@@ -277,7 +277,8 @@ import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
 import InlineResponse20061 from './model/InlineResponse20061';
 import InlineResponse20062 from './model/InlineResponse20062';
-import InlineResponse20062Details from './model/InlineResponse20062Details';
+import InlineResponse20063 from './model/InlineResponse20063';
+import InlineResponse20063Details from './model/InlineResponse20063Details';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
@@ -1979,10 +1980,16 @@ export {
     InlineResponse20062,
 
     /**
-     * The InlineResponse20062Details model constructor.
-     * @property {module:model/InlineResponse20062Details}
+     * The InlineResponse20063 model constructor.
+     * @property {module:model/InlineResponse20063}
      */
-    InlineResponse20062Details,
+    InlineResponse20063,
+
+    /**
+     * The InlineResponse20063Details model constructor.
+     * @property {module:model/InlineResponse20063Details}
+     */
+    InlineResponse20063Details,
 
     /**
      * The InlineResponse2007 model constructor.

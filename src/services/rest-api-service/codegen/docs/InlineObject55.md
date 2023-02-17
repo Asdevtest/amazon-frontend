@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**title** | **String** | Название идеи | [optional] 
 **media** | **[String]** | Image URL | [optional] 
 **comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
