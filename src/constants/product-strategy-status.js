@@ -1,7 +1,10 @@
 import {objectFlip} from '@utils/object'
+import {t} from '@utils/translations'
+
+import {TranslationKey} from './translations/translation-key'
 
 export const ProductStrategyStatus = {
-  // NONE: 'NONE',
+  NONE: 'NONE',
   DROPSHIPPING: 'DROPSHIPPING',
   PRIVATE_LABEL: 'PRIVATE_LABEL',
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
@@ -9,7 +12,7 @@ export const ProductStrategyStatus = {
 }
 
 export const mapProductStrategyStatusEnum = {
-  // 0: ProductStrategyStatus.NONE,
+  1: ProductStrategyStatus.NONE,
   10: ProductStrategyStatus.DROPSHIPPING,
   20: ProductStrategyStatus.PRIVATE_LABEL,
   30: ProductStrategyStatus.ONLINE_ARBITRAGE_CHINA,
@@ -26,6 +29,8 @@ export const humanFriendlyStategyStatus = value => {
       return 'Private Label'
     case ProductStrategyStatus.WHOLE_SALE_USA:
       return 'Whole sale USA'
+    case ProductStrategyStatus.NONE:
+      return t(TranslationKey['Without strategy'])
   }
 }
 
