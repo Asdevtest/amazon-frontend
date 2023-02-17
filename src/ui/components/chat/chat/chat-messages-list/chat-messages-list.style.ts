@@ -150,7 +150,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   message: {
-    marginTop: 30,
+    marginTop: 10,
   },
   unReadMessage: {
     backgroundColor: 'rgba(0,0,0, .07)',
