@@ -1765,5 +1765,8 @@
   "From": "From",
   "To": "To",
   "Without strategy": "Without strategy",
-  "Reset filters": "Reset filters"
+  "Reset filters": "Reset filters",
+  "Current idea status": "Current idea status",
+  "On check": "On check",
+  "Verified": "Verified"
 }

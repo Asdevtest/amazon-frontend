@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -10,7 +11,7 @@ import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -189,6 +190,26 @@ export class SuppliersAndIdeasModel {
       }
 
       this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSaveIcon(formFields, isForceUpdate) {
+    try {
+      const submitDataWhite = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...formFields,
+        },
+        ['status'],
+      )
+
+      console.log('submitDataWhite', submitDataWhite)
+
+      if (this.inEdit) {
+        await this.editIdea(formFields._id, submitDataWhite, isForceUpdate)
+        this.loadData()
+      }
     } catch (error) {
       console.log(error)
     }

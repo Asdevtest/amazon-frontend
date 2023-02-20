@@ -57,6 +57,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     onCreateIdea,
     onClickCancelBtn,
     onClickSaveBtn,
+    onClickSaveIcon,
     onSetCurIdea,
     onEditIdea,
     onClickCreateProduct,
@@ -116,6 +117,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
             onEditIdea={onEditIdea}
             onClickSupplierBtns={onClickSupplierButtons}
             onClickSupplier={onChangeSelectedSupplier}
+            onClickSaveIcon={onClickSaveIcon}
           />
         ))
       ) : (

@@ -366,5 +366,46 @@ export const useClassNames = makeStyles()(theme => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  disableSelect: {
+    color: theme.palette.input.customDisabled,
+  },
+  orange: {
+    color: '#F3AF00 !important',
+  },
+  red: {
+    color: 'red !important',
+  },
+  green: {
+    color: `${theme.palette.text.green} !important`,
+  },
+  label: {
+    color: theme.palette.text.second,
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '19px',
+    whiteSpace: 'nowrap',
+  },
+  stantartSelect: {
+    '&:hover': {
+      backgroundColor: theme.palette.background.second,
+      opacity: 0.8,
+    },
+  },
+  orderStatusWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    // width: '247px',
+
+    gap: 10,
+  },
+  fieldWrapper: {
+    margin: 0,
+  },
+  saveIcon: {
+    color: theme.palette.primary.main,
   },
 }))
