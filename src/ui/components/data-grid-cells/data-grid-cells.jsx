@@ -19,6 +19,7 @@ import {
   Rating,
   InputAdornment,
   Checkbox,
+  IconButton,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -1052,12 +1053,14 @@ export const MultilineTextHeaderCell = React.memo(
         <div className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
           {withIcon || isShowIconOnHover || isFilterActive ? (
+            // <IconButton className={cx(classNames.iconButton)}>
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
                 [classNames.headerIconBlue]: isFilterActive,
               })}
             />
-          ) : null}
+          ) : // </IconButton>
+          null}
         </div>
       </Tooltip>
     ),
