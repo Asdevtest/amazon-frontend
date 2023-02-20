@@ -7,6 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
   },
   mainSubWrapper: {
     display: 'flex',
@@ -110,6 +111,7 @@ export const useClassNames = makeStyles()(theme => ({
     // maxHeight: 250,
     maxHeight: 150,
     overflowY: 'auto',
+    paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
   },
 
   image: {

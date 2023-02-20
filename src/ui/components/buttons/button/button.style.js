@@ -48,7 +48,8 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
     '&:disabled': {
-      background: '#4F2026',
+      // background: '#4F2026',
+      background: theme.palette.background.disabledDangerBtn,
       // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
   },

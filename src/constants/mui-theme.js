@@ -204,6 +204,7 @@ export const lightTheme = createTheme({
       yellow: '#007bff',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
+      disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
     },
 
     linearGradient: {
@@ -272,7 +273,13 @@ export const darkTheme = createTheme({
         },
 
         sortIcon: {
-          color: '#fff',
+          // color: 'rgba(255, 255, 255, 1)',
+          color: '#fff !important',
+          // color: 'red',
+
+          // '& > disabled': {
+          //   color: 'red',
+          // },
         },
       },
     },
@@ -300,6 +307,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
+          // background: 'red',
         },
       },
     },
@@ -551,6 +559,7 @@ export const darkTheme = createTheme({
         disabled: '#a0a0a4',
 
         default: '#121212',
+        disabledDangerBtn: '#4F2026',
       },
 
       linearGradient: {

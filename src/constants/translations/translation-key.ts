@@ -1764,7 +1764,7 @@ export enum TranslationKey {
   'From' = 'From',
   'To' = 'To',
   'Without strategy' = 'Without strategy',
-  // '' = '',
+  'Reset filters' = 'Reset filters',
   // '' = '',
   // '' = '',
   // '' = '',

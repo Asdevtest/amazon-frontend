@@ -1764,5 +1764,6 @@
   "№Order": "№Заказа",
   "From": "От",
   "To": "До",
-  "Without strategy": "Без стратегии"
+  "Without strategy": "Без стратегии",
+  "Reset filters": "Сбросить фильтры"
 }

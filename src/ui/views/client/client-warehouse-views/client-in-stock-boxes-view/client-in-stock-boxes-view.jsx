@@ -59,6 +59,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      isSomeFilterOn,
       columnMenuSettings,
       shopsFilterData,
       shopsCurrentFilterData,
@@ -166,6 +167,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       getBoxesMy,
       onLeaveColumnField,
       onHoverColumnField,
+      onClickResetFilters,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -347,6 +349,12 @@ export class ClientInStockBoxesViewRaw extends Component {
                   '.MuiDataGrid-sortIcon': {
                     width: 14,
                     height: 14,
+                    // color: '#fff',
+                    // opacity: 1,
+                    // display: 'none',
+                    '& > active': {
+                      display: 'none',
+                    },
                   },
                 }}
                 headerHeight={65}
@@ -369,6 +377,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 }}
                 componentsProps={{
                   columnMenu: columnMenuSettings,
+                  toolbar: {resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn}},
                 }}
                 density={densityModel}
                 columns={columnsModel}

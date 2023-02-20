@@ -59,6 +59,21 @@ const updateBoxWhiteList = [
   'fbaNumber',
 ]
 
+const filtersFields = [
+  'shopIds',
+  'humanFriendlyId',
+  'id',
+  'item',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'destination',
+  'logicsTariff',
+  'createdAt',
+  'updatedAt',
+  'amount',
+]
+
 export class ClientInStockBoxesViewModel {
   history = undefined
   requestStatus = undefined
@@ -108,20 +123,7 @@ export class ClientInStockBoxesViewModel {
 
     isFormedData: {isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value)},
 
-    ...[
-      'shopIds',
-      'humanFriendlyId',
-      'id',
-      'item',
-      'asin',
-      'skusByClient',
-      'amazonTitle',
-      'destination',
-      'logicsTariff',
-      'createdAt',
-      'updatedAt',
-      'amount',
-    ].reduce(
+    ...filtersFields.reduce(
       (ac, cur) =>
         (ac = {
           ...ac,
@@ -252,6 +254,10 @@ export class ClientInStockBoxesViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   constructor({history}) {
@@ -1728,23 +1734,50 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getBoxesMy()
+    this.getDataGridState()
+  }
+
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      // const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      // const shopFilter = this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
+      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
 
-      // const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+      const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
-        'boxes/pag/clients_light?status=IN_STOCK',
+        // 'boxes/pag/clients_light?status=IN_STOCK',
 
         // `boxes/pag/clients_light?filters=status=IN_STOCK;${this.getFilter()}${
         //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
         // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+
+        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter()}${
+          shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )
 
       if (this.columnMenuSettings[column]) {
@@ -1804,7 +1837,11 @@ export class ClientInStockBoxesViewModel {
         {id: {$eq: this.nameSearchValue}},
         {item: {$eq: this.nameSearchValue}},
         {productId: {$eq: this.nameSearchValue}},
-      ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
 
       ...(humanFriendlyIdFilter && {
         humanFriendlyId: {$eq: humanFriendlyIdFilter},

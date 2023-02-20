@@ -166,7 +166,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 const unReadMessage = !messageItem.isRead
 
-                const showName = isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+                const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
                 return (
                   <div

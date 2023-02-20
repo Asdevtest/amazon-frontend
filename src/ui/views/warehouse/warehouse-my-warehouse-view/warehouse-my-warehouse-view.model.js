@@ -1222,8 +1222,14 @@ export class WarehouseMyWarehouseViewModel {
           {skusByClient: {$contains: this.nameSearchValue}},
           {item: {$eq: this.nameSearchValue}},
           {id: {$eq: this.nameSearchValue}},
-        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
       })
+
+      console.log('filter', filter)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.nameSearchValue ? filter : null,
