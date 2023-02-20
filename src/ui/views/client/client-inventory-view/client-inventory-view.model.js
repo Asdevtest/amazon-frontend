@@ -731,7 +731,6 @@ export class ClientInventoryViewModel {
   }
 
   async onClickFilterBtn(column) {
-    console.log('column', column)
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 

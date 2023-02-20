@@ -119,6 +119,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   numberInputFieldsWrapper: {
     width: '100%',
+    height: 70,
 
     display: 'flex',
     justifyContent: 'space-between',

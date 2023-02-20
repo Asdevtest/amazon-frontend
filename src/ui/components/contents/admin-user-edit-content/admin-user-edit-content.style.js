@@ -199,7 +199,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectedRole: {
-    width: 261,
+    width: 262,
 
     color: theme.palette.text.general,
   },

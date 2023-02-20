@@ -305,7 +305,6 @@ export const EditOrderModal = observer(
     }, [order])
 
     const setOrderField = filedName => e => {
-      console.log('filedName', filedName)
       const newOrderFieldsState = {...orderFields}
 
       if (

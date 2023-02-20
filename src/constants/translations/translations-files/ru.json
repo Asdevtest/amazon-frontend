@@ -1765,5 +1765,8 @@
   "From": "От",
   "To": "До",
   "Without strategy": "Без стратегии",
-  "Reset filters": "Сбросить фильтры"
+  "Reset filters": "Сбросить фильтры",
+  "Current idea status": "Текущий статус идеи",
+  "On check": "На проверке",
+  "Verified": "Проверено"
 }

@@ -106,6 +106,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
+    height: 92,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -123,10 +124,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   blockWrapper: {
     width: '800px',
+    height: 92,
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -147,6 +149,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blockItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+
     width: '200px',
     [theme.breakpoints.down(768)]: {
       width: '280px',

@@ -5,8 +5,9 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import SaveIcon from '@mui/icons-material/Save'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Divider, Grid, Link, Typography, IconButton, Select, InputAdornment} from '@mui/material'
+import {Divider, Grid, Link, Typography, IconButton, Select, InputAdornment, MenuItem} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -14,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
+import {ideaStatus, ideaStatusByCode, ideaStatusByKey, ideaStatusTranslate} from '@constants/idea-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
@@ -36,10 +38,19 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
 } from '@utils/checks'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {clearEverythingExceptNumbers, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-view-and-edit-card.style'
+
+const allowOrderStatuses = [
+  `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
+  `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+  `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+]
+
+const disabledOrderStatuses = [`${ideaStatusByKey[ideaStatus.CLOSED]}`]
 
 export const IdeaViewAndEditCard = observer(
   ({
@@ -57,6 +68,7 @@ export const IdeaViewAndEditCard = observer(
     onCreateProduct,
     onClickSupplierBtns,
     onClickSupplier,
+    onClickSaveIcon,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -197,8 +209,8 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
-    console.log('formFields', formFields)
-    console.log('idea', idea)
+    // console.log('formFields', formFields)
+    // console.log('idea', idea)
 
     return (
       <Grid item className={classNames.mainWrapper}>
@@ -206,117 +218,99 @@ export const IdeaViewAndEditCard = observer(
           <Typography variant="h5" className={classNames.ideaTitle}>
             {formFields.productName}
           </Typography>
+
           {/*  */}
-          {/* <Field
-            tooltipInfoContent={t(TranslationKey['Current order status'])}
-            value={formFields?.status}
-            label={t(TranslationKey['Order status'])}
-            labelClasses={classNames.label}
-            inputComponent={
-              <Select
-                variant="filled"
-                value={formFields.status}
-                classes={{
-                  select: cx({
-                    [classNames.orange]:
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                    [classNames.green]:
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+          <div className={classNames.orderStatusWrapper}>
+            <Typography variant="h5" className={classNames.label}>
+              {t(TranslationKey['Order status']) + ':'}
+            </Typography>
+            <Field
+              tooltipInfoContent={t(TranslationKey['Current idea status'])}
+              value={formFields?.status}
+              containerClasses={classNames.fieldWrapper}
+              inputComponent={
+                <Select
+                  variant="filled"
+                  disabled={!inEdit}
+                  value={formFields.status}
+                  classes={{
+                    select: cx({
+                      [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
 
-                    [classNames.red]:
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                      `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-                  }),
-                }}
-                input={
-                  <Input
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <FiberManualRecordRoundedIcon
-                          className={cx({
-                            [classNames.orange]:
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                              `${orderFields.status}` ===
-                                `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+                      [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
 
-                            [classNames.green]:
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+                      [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                    }),
+                  }}
+                  input={
+                    <Input
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <FiberManualRecordRoundedIcon
+                            className={cx({
+                              [classNames.orange]:
+                                `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
 
-                            [classNames.red]:
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                              `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-                          })}
-                        />
-                      </InputAdornment>
-                    }
-                  />
+                              [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+
+                              [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                            })}
+                          />
+                        </InputAdornment>
+                      }
+                    />
+                  }
+                  onChange={onChangeField('status')}
+                >
+                  {Object.keys({
+                    // ...ideaStatusByCode,
+                    ...getObjectFilteredByKeyArrayWhiteList(
+                      ideaStatusByCode,
+                      allowOrderStatuses,
+                      // .filter(
+                      //   el => el >= formFields?.status,
+                      //   // ||
+                      //   // (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                      //   //   order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
+                      // ),
+                      // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
+                    ),
+                  }).map((statusCode, statusIndex) => (
+                    <MenuItem
+                      key={statusIndex}
+                      value={statusCode}
+                      className={cx(
+                        cx(classNames.stantartSelect, {
+                          [classNames.orange]: statusCode === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
+
+                          [classNames.green]: statusCode === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+
+                          [classNames.red]: statusCode === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                          [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                        }),
+                      )}
+                      disabled={disabledOrderStatuses.includes(statusCode)}
+                    >
+                      {ideaStatusTranslate(ideaStatusByCode[statusCode])}
+                    </MenuItem>
+                  ))}
+                </Select>
+              }
+            />
+            <SaveIcon
+              disabled={!inEdit}
+              className={cx(classNames.saveIcon, {
+                [classNames.disableSelect]: !inEdit,
+              })}
+              onClick={() => {
+                if (inEdit) {
+                  onClickSaveIcon(formFields)
                 }
-                // onChange={setOrderField('status')}
-              >
-                {Object.keys({
-                  ...getObjectFilteredByKeyArrayWhiteList(
-                    OrderStatusByCode,
-                    allowOrderStatuses
-                      .filter(
-                        el =>
-                          el >= order.status ||
-                          (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
-                            order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
-                      )
-                      .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
-                  ),
-                }).map((statusCode, statusIndex) => (
-                  <MenuItem
-                    key={statusIndex}
-                    value={statusCode}
-                    className={cx(
-                      cx(classNames.stantartSelect, {
-                        [classNames.orange]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+              }}
+            />
+          </div>
 
-                        [classNames.green]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-
-                        [classNames.red]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-                        [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                      }),
-                    )}
-                    disabled={
-                      disabledOrderStatuses.includes(statusCode) ||
-                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                        order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
-                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                        order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
-                      (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                        order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
-                    }
-                  >
-                    {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
-                  </MenuItem>
-                ))}
-              </Select>
-            }
-          /> */}
           {/*  */}
         </div>
 
