@@ -264,7 +264,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
     color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.general,
 
     zIndex: 999,
 

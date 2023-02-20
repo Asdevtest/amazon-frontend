@@ -261,7 +261,7 @@ export const EditTaskModal = observer(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button className={classNames.cancelButton} onClick={onClickOpenCloseModal}>
+                <Button variant="text" className={classNames.cancelButton} onClick={onClickOpenCloseModal}>
                   {t(TranslationKey.Cancel)}
                 </Button>
               </div>
