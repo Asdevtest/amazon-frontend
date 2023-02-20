@@ -1314,15 +1314,6 @@ export const styles = theme => ({
     right: -5,
     top: 15,
   },
-  // iconButton: {
-  //   zIndex: -1000,
-  //   width: '14px !important',
-  //   height: '14px !important',
-  //   position: 'absolute',
-  //   right: -5,
-  //   top: 15,
-  //   backgroundColor: 'gray',
-  // },
 
   headerIconBlue: {
     color: theme.palette.primary.main,

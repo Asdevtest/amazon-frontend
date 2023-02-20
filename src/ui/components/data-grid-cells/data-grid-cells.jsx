@@ -1053,14 +1053,12 @@ export const MultilineTextHeaderCell = React.memo(
         <div className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
           {withIcon || isShowIconOnHover || isFilterActive ? (
-            // <IconButton className={cx(classNames.iconButton)}>
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
                 [classNames.headerIconBlue]: isFilterActive,
               })}
             />
-          ) : // </IconButton>
-          null}
+          ) : null}
         </div>
       </Tooltip>
     ),

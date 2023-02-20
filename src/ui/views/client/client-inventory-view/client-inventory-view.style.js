@@ -221,13 +221,22 @@ export const styles = theme => ({
   menuIconButton: {
     zIndex: 1000,
     position: 'absolute !important',
-    right: -5,
-    top: 15,
+    right: -7,
+    top: 13,
     visibility: 'visible !important',
-    opacity: 0,
 
-    width: '14px !important',
-    height: '14px !important',
+    width: '18px !important',
+    height: '18px !important',
+
+    '.MuiSvgIcon-root': {
+      display: 'none',
+    },
+  },
+  iconButtonContainer: {
+    '.MuiIconButton-root': {
+      width: '18px !important',
+      height: '18px !important',
+    },
   },
   iconSeparator: {
     padding: '0 1px',
