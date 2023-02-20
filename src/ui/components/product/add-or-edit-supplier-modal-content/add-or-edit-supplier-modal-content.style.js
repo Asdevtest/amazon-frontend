@@ -204,7 +204,7 @@ export const useClassNames = makeStyles()(theme => ({
   rateContainer: {
     display: 'flex',
     gap: 5,
-    width: 'auto',
+    width: 'auto !important',
   },
 
   calculationMainWrapper: {

@@ -507,7 +507,11 @@ export class BuyerMyOrdersViewModel {
           {skusByClient: {$contains: this.nameSearchValue}},
           {id: {$eq: this.nameSearchValue}},
           {item: {$eq: this.nameSearchValue}},
-        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
       })
 
       // НЕ было до создания фильтрации по статусам (2 строки)

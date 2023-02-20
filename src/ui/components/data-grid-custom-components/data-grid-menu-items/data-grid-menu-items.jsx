@@ -250,16 +250,22 @@ export const ObJectFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender.map(obj => (
-                        <div key={obj._id} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={currentFilterData.some(item => item._id === obj._id)}
-                            onClick={() => onClickObjectFieldMenuItem(obj, field)}
-                          />
-                          <div className={classNames.shopName}>{obj.name}</div>
-                        </div>
-                      ))}
+                      {itemsForRender
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item._id === b._id)) -
+                            Number(currentFilterData?.some(item => item._id === a._id)),
+                        )
+                        .map(obj => (
+                          <div key={obj._id} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData.some(item => item._id === obj._id)}
+                              onClick={() => onClickObjectFieldMenuItem(obj, field)}
+                            />
+                            <div className={classNames.shopName}>{obj.name}</div>
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -344,16 +350,22 @@ export const NormalFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender.map((el, index) => (
-                        <div key={index} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={currentFilterData.some(item => item === el)}
-                            onClick={() => onClickNormalFieldMenuItem(el, field)}
-                          />
-                          <div className={classNames.shopName}>{getStatusByColumnKeyAndStatusKey(el, columnKey)}</div>
-                        </div>
-                      ))}
+                      {itemsForRender
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item === b)) -
+                            Number(currentFilterData?.some(item => item === a)),
+                        )
+                        .map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData.some(item => item === el)}
+                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                            />
+                            <div className={classNames.shopName}>{getStatusByColumnKeyAndStatusKey(el, columnKey)}</div>
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -488,16 +500,22 @@ export const ProductMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender?.map((el, index) => (
-                        <div key={index} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={currentFilterData?.some(item => item === el)}
-                            onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
-                          />
-                          <div className={classNames.shopName}>{el}</div>
-                        </div>
-                      ))}
+                      {itemsForRender
+                        ?.sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item === b)) -
+                            Number(currentFilterData?.some(item => item === a)),
+                        )
+                        .map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData?.some(item => item === el)}
+                              onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                            />
+                            <div className={classNames.shopName}>{el}</div>
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -614,16 +632,22 @@ export const OrderOrItemMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender?.map((el, index) => (
-                        <div key={index} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={currentFilterData?.some(item => item === el)}
-                            onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
-                          />
-                          <div className={classNames.shopName}>{el}</div>
-                        </div>
-                      ))}
+                      {itemsForRender
+                        ?.sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item === b)) -
+                            Number(currentFilterData?.some(item => item === a)),
+                        )
+                        .map((el, index) => (
+                          <div key={index} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData?.some(item => item === el)}
+                              onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                            />
+                            <div className={classNames.shopName}>{el}</div>
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -742,16 +766,22 @@ export const DestinationMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender.map(obj => (
-                        <div key={obj._id} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={currentFilterData.some(item => item._id === obj._id)}
-                            onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
-                          />
-                          <div className={classNames.shopName}>{obj.name}</div>
-                        </div>
-                      ))}
+                      {itemsForRender
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item._id === b._id)) -
+                            Number(currentFilterData?.some(item => item._id === a._id)),
+                        )
+                        .map(obj => (
+                          <div key={obj._id} className={classNames.shop}>
+                            <Checkbox
+                              color="primary"
+                              checked={currentFilterData.some(item => item._id === obj._id)}
+                              onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
+                            />
+                            <div className={classNames.shopName}>{obj.name}</div>
+                          </div>
+                        ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -854,7 +884,12 @@ export const FromToDateMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .sort((a, b) => compareDesc(parseISO(a), parseISO(b)))
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item === b)) -
+                              Number(currentFilterData?.some(item => item === a)) ||
+                            compareDesc(parseISO(a), parseISO(b)),
+                        )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -970,7 +1005,11 @@ export const NumberFieldMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .sort((a, b) => Number(b) - Number(a))
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item === b)) -
+                              Number(currentFilterData?.some(item => item === a)) || Number(b) - Number(a),
+                        )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -1121,7 +1160,12 @@ export const InStockMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .sort((a, b) => Number(b.amountInBoxes) - Number(a.amountInBoxes))
+                        .sort(
+                          (a, b) =>
+                            Number(currentFilterData?.some(item => item._id === b._id)) -
+                              Number(currentFilterData?.some(item => item._id === a._id)) ||
+                            Number(b.amountInBoxes) - Number(a.amountInBoxes),
+                        )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox

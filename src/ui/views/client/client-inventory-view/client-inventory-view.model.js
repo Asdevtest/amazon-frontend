@@ -75,6 +75,25 @@ const fieldsOfProductAllowedToCreate = [
   'asin',
 ]
 
+const filtersFields = [
+  'shopIds',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'strategyStatus',
+  'amountInOrders',
+  'inTransfer',
+  'stockUSA',
+  'boxAmounts',
+  'sumStock',
+  'amazon',
+  'createdAt',
+  'updatedAt',
+  'profit',
+  'fbafee',
+  'status',
+]
+
 export class ClientInventoryViewModel {
   history = undefined
   requestStatus = undefined
@@ -176,25 +195,7 @@ export class ClientInventoryViewModel {
       onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
     },
 
-    ...[
-      'shopIds',
-      'asin',
-      'skusByClient',
-      'amazonTitle',
-      'strategyStatus',
-      'amountInOrders',
-      'inTransfer',
-      'stockUSA',
-      'boxAmounts',
-      'sumStock',
-      // 'purchaseQuantity',
-      'amazon',
-      'createdAt',
-      'updatedAt',
-      'profit',
-      'fbafee',
-      'status',
-    ].reduce(
+    ...filtersFields.reduce(
       (ac, cur) =>
         (ac = {
           ...ac,
@@ -266,6 +267,10 @@ export class ClientInventoryViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   constructor({history, location}) {
@@ -829,6 +834,29 @@ export class ClientInventoryViewModel {
         },
       }
     })
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getProductsMy()
+    this.getDataGridState()
   }
 
   getFilter() {

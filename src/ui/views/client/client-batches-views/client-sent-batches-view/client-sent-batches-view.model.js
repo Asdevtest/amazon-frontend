@@ -327,9 +327,10 @@ export class ClientSentBatchesViewModel {
           {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
         ].filter(
           el =>
-            (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.humanFriendlyId &&
-            !el.orderHumanFriendlyId,
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+              !el.humanFriendlyId &&
+              !el.orderHumanFriendlyId) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
         ),
       })
 

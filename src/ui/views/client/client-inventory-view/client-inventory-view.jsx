@@ -63,8 +63,8 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      isSomeFilterOn,
       columnMenuSettings,
-      isNeedPurchaseFilter,
       isTransfer,
       curProduct,
       receivedFiles,
@@ -110,10 +110,8 @@ export class ClientInventoryViewRaw extends Component {
       showAcceptMessage,
       acceptMessage,
 
-      // showSetStockUsValueModal,
       showConfirmModal,
       curPage,
-      // currentData,
       productsMyBase,
       ideasData,
 
@@ -149,7 +147,6 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onClickBindInventoryGoodsToStockBtn,
       onClickSaveHsCode,
-      // onClickMonthStockValue,
       onClickSaveFourMonthesStockValue,
       onClickShopBtn,
       uploadTemplateFile,
@@ -171,12 +168,8 @@ export class ClientInventoryViewRaw extends Component {
       onClickProductLotDataBtn,
       onClickToggleArchiveProductLotData,
 
-      onClickWithoutProductsShopBtn,
-      onClickWithProductsShopBtn,
-
       createSupplierSearchRequest,
       setDestinationsFavouritesItem,
-      // onClickSavesStockUSA,
       withoutProduct,
       withProduct,
 
@@ -185,13 +178,11 @@ export class ClientInventoryViewRaw extends Component {
       onClickPrevButton,
       onHoverColumnField,
       onLeaveColumnField,
-      onChangeIsNeedPurchaseFilter,
-      getProductsMy1,
-      onClickFilterBtn,
+      onClickResetFilters,
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const disableSelectionCells = ['asin', 'stockUSA', 'fourMonthesStock']
+    const disableSelectionCells = ['stockUSA', 'fourMonthesStock']
 
     const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
@@ -414,6 +405,7 @@ export class ClientInventoryViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: columnMenuSettings,
+                    toolbar: {resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn}},
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}

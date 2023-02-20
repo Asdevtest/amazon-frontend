@@ -110,6 +110,8 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
+    console.log('tmpSupplier', tmpSupplier)
+
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,
@@ -199,35 +201,35 @@ export const AddOrEditSupplierModalContent = observer(
                     addMore: false,
                     makeMainSupplier,
                   })
-                  setTmpSupplier({
-                    amount: '',
-                    comment: '',
-                    link: '',
-                    lotcost: '',
-                    minlot: '',
-                    name: '',
-                    price: '',
-                    images: [],
+                  // setTmpSupplier({
+                  //   amount: '',
+                  //   comment: '',
+                  //   link: '',
+                  //   lotcost: '',
+                  //   minlot: '',
+                  //   name: '',
+                  //   price: '',
+                  //   images: [],
 
-                    paymentMethod: [],
+                  //   paymentMethod: [],
 
-                    priceInYuan: '',
-                    batchDeliveryCostInDollar: 0,
-                    batchDeliveryCostInYuan: 0,
-                    batchTotalCostInDollar: '',
-                    batchTotalCostInYuan: '',
+                  //   priceInYuan: '',
+                  //   batchDeliveryCostInDollar: 0,
+                  //   batchDeliveryCostInYuan: 0,
+                  //   batchTotalCostInDollar: '',
+                  //   batchTotalCostInYuan: '',
 
-                    boxProperties: {
-                      amountInBox: '',
-                      boxLengthCm: '',
-                      boxWidthCm: '',
-                      boxHeightCm: '',
-                      boxWeighGrossKg: '',
-                    },
-                  })
+                  //   boxProperties: {
+                  //     amountInBox: '',
+                  //     boxLengthCm: '',
+                  //     boxWidthCm: '',
+                  //     boxHeightCm: '',
+                  //     boxWeighGrossKg: '',
+                  //   },
+                  // })
 
-                  setPhotosOfSupplier(() => [])
-                  setMakeMainSupplier(false)
+                  // setPhotosOfSupplier(() => [])
+                  // setMakeMainSupplier(false)
                   onTriggerShowModal()
                 }}
               >

@@ -58,7 +58,7 @@ export const AddOrEditBatchForm = observer(
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
-    const [isActualGreaterTheVolume, setIsActualGreaterTheVolume] = useState(false)
+    // const [isActualGreaterTheVolume, setIsActualGreaterTheVolume] = useState(false)
 
     const [batchFields, setBatchFields] = useState({
       title: batchToEdit?.originalData.title || '',
@@ -72,7 +72,13 @@ export const AddOrEditBatchForm = observer(
       addOrEditBatchDataConverter(
         boxesData,
         batchFields.volumeWeightDivide,
-        getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+        getBatchWeightCalculationMethodForBox(
+          batchFields.calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight(
+            batchToEdit.originalData?.boxes,
+            batchFields.volumeWeightDivide,
+          ),
+        ),
       ),
     )
 
@@ -92,18 +98,36 @@ export const AddOrEditBatchForm = observer(
         ? addOrEditBatchDataConverter(
             batchToEdit.originalData?.boxes,
             batchFields.volumeWeightDivide,
-            getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+            getBatchWeightCalculationMethodForBox(
+              batchFields.calculationMethod,
+              checkActualBatchWeightGreaterVolumeBatchWeight(
+                batchToEdit.originalData?.boxes,
+                batchFields.volumeWeightDivide,
+              ),
+            ),
           )
         : sourceBox
         ? [
             ...addOrEditBatchDataConverter(
               [sourceBox],
               batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+              getBatchWeightCalculationMethodForBox(
+                batchFields.calculationMethod,
+                checkActualBatchWeightGreaterVolumeBatchWeight(
+                  batchToEdit.originalData?.boxes,
+                  batchFields.volumeWeightDivide,
+                ),
+              ),
             ),
           ]
         : [],
     )
+
+    const getCheckActualBatchWeightGreaterVolumeBatchWeight = () =>
+      checkActualBatchWeightGreaterVolumeBatchWeight(
+        chosenBoxes.map(el => el.originalData),
+        batchFields.volumeWeightDivide,
+      )
 
     const [boxesToAddIds, setBoxesToAddIds] = useState([])
 
@@ -117,7 +141,10 @@ export const AddOrEditBatchForm = observer(
       const newArr = addOrEditBatchDataConverter(
         boxesData,
         batchFields.volumeWeightDivide,
-        getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+        getBatchWeightCalculationMethodForBox(
+          batchFields.calculationMethod,
+          getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+        ),
       ).filter(
         box =>
           box.originalData?.destination?.name === chosenBoxes[0]?.originalData?.destination?.name &&
@@ -161,7 +188,10 @@ export const AddOrEditBatchForm = observer(
         const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
-          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+          ),
         )
 
         setBoxesToAddData(() =>
@@ -169,7 +199,10 @@ export const AddOrEditBatchForm = observer(
             ...addOrEditBatchDataConverter(
               boxesData,
               batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+              getBatchWeightCalculationMethodForBox(
+                batchFields.calculationMethod,
+                getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+              ),
             ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
@@ -187,12 +220,21 @@ export const AddOrEditBatchForm = observer(
             addOrEditBatchDataConverter(
               boxesData,
               batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+              getBatchWeightCalculationMethodForBox(
+                batchFields.calculationMethod,
+                getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+              ),
             ),
           ),
         )
       }
-    }, [chosenBoxes, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide, batchFields.calculationMethod])
+    }, [
+      chosenBoxes,
+      nameSearchValueBoxesToAddData,
+      batchFields.volumeWeightDivide,
+      batchFields.calculationMethod,
+      // isActualGreaterTheVolume,
+    ])
 
     useEffect(() => {
       if (nameSearchValueChosenBoxes && !batchToEdit) {
@@ -203,7 +245,10 @@ export const AddOrEditBatchForm = observer(
         const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
-          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+          ),
         )
 
         setChosenBoxesBase(() =>
@@ -232,19 +277,22 @@ export const AddOrEditBatchForm = observer(
         ...addOrEditBatchDataConverter(
           chosenBoxes.map(el => el.originalData),
           batchFields.volumeWeightDivide,
-          getBatchWeightCalculationMethodForBox(batchFields.calculationMethod, isActualGreaterTheVolume),
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+          ),
         ),
       ])
     }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
-    useEffect(() => {
-      setIsActualGreaterTheVolume(
-        checkActualBatchWeightGreaterVolumeBatchWeight(
-          chosenBoxes.map(el => el.originalData),
-          batchFields.volumeWeightDivide,
-        ),
-      )
-    }, [chosenBoxes.length])
+    // useEffect(() => {
+    //   setIsActualGreaterTheVolume(
+    //     checkActualBatchWeightGreaterVolumeBatchWeight(
+    //       chosenBoxes.map(el => el.originalData),
+    //       batchFields.volumeWeightDivide,
+    //     ),
+    //   )
+    // }, [chosenBoxes.length, batchFields.volumeWeightDivide, batchFields.calculationMethod]) // новое
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -394,12 +442,24 @@ export const AddOrEditBatchForm = observer(
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               // autoHeight
-              hideFooter
+              // hideFooter
               checkboxSelection
               localeText={getLocalizationByLanguageTag()}
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
+                Footer: () => (
+                  <div className={classNames.boxCounterWrapper}>
+                    <Typography className={classNames.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                    </Typography>
+                    <Typography className={classNames.boxCounterCount}>
+                      {boxesToAddData
+                        .filter(el => boxesToAddIds.includes(el._id))
+                        .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -409,7 +469,7 @@ export const AddOrEditBatchForm = observer(
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
               selectionModel={boxesToAddIds}
-              onSelectionModelChange={newSelection => onSelectionAwaitingBoxes(newSelection)}
+              onSelectionModelChange={onSelectionAwaitingBoxes}
             />
           </div>
 
@@ -498,7 +558,7 @@ export const AddOrEditBatchForm = observer(
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
-              onSelectionModelChange={newSelection => onSelectionChoosenBoxes(newSelection)}
+              onSelectionModelChange={onSelectionChoosenBoxes}
             />
           </div>
 
