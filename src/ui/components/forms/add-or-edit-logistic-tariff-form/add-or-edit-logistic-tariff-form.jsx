@@ -188,6 +188,7 @@ export const AddOrEditLogisticTariffForm = observer(
       Number(formFields.minWeightInKg) <= 0 ||
       toString(formFields.minWeightInKg).match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
+      formFields.deliveryTimeInDay === '0' ||
       formFields.cls === null ||
       formFields.etd === null ||
       formFields.eta === null ||
@@ -197,9 +198,9 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.conditionsByRegion.west.rate === '' ||
       formFields.conditionsByRegion.central.rate === '' ||
       formFields.conditionsByRegion.east.rate === '' ||
-      formFields.conditionsByRegion.west.rate === 0 ||
-      formFields.conditionsByRegion.central.rate === 0 ||
-      formFields.conditionsByRegion.east.rate === 0 ||
+      formFields.conditionsByRegion.west.rate === '0' ||
+      formFields.conditionsByRegion.central.rate === '0' ||
+      formFields.conditionsByRegion.east.rate === '0' ||
       formFields.description.length > 255 ||
       checkDateByDeadline(formFields.cls) ||
       checkDateByDeadline(formFields.etd) ||
@@ -227,6 +228,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
             <Field
               label={t(TranslationKey['Delivery time, days']) + '*'}
+              error={Number(formFields.deliveryTimeInDay) <= 0}
               tooltipInfoContent={t(TranslationKey['Approximate delivery time'])}
               inputProps={{maxLength: 20}}
               labelClasses={classNames.fieldLabel}
@@ -296,6 +298,7 @@ export const AddOrEditLogisticTariffForm = observer(
               <div className={classNames.blockItem}>
                 <Field
                   label={`US West Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  error={Number(formFields.conditionsByRegion.west.rate) <= 0}
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.west.rate}
@@ -313,6 +316,7 @@ export const AddOrEditLogisticTariffForm = observer(
               <div className={classNames.blockItem}>
                 <Field
                   label={`US Central ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  error={Number(formFields.conditionsByRegion.central.rate) <= 0}
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.central.rate}
@@ -330,6 +334,7 @@ export const AddOrEditLogisticTariffForm = observer(
               <div className={classNames.blockItem}>
                 <Field
                   label={`US East Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  error={Number(formFields.conditionsByRegion.east.rate) <= 0}
                   inputProps={{maxLength: 10}}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.east.rate}
