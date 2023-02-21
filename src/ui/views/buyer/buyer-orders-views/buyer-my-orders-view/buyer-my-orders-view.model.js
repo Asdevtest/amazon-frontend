@@ -177,10 +177,6 @@ export class BuyerMyOrdersViewModel {
       })
     }
 
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
-
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -319,13 +315,6 @@ export class BuyerMyOrdersViewModel {
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
       this.selectedOrder = orderData
-
-      // await BuyerModel.updateProduct(
-      //           productId,
-      //           getObjectFilteredByKeyArrayWhiteList(
-      //             this.product, ['currentSupplierId']
-      //           ),
-      //         )
     } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
@@ -455,40 +444,6 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  // setDataGridState(state) {
-  //   this.firstRowId = state.sorting.sortedRows[0]
-  //   const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-  //     'sorting',
-  //     'filter',
-  //     'pagination',
-  //     'density',
-  //     'columns',
-  //   ])
-
-  //   SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
-  // }
-
-  // getDataGridState() {
-  //   const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
-
-  //   if (state) {
-  //     this.sortModel = state.sorting.sortModel
-  //     this.filterModel = this.startFilterModel
-  //       ? {
-  //           ...this.startFilterModel,
-  //           items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-  //         }
-  //       : state.filter.filterModel
-  //     this.rowsPerPage = state.pagination.pageSize
-
-  //     this.densityModel = state.density.value
-  //     this.columnsModel = buyerMyOrdersViewColumns(this.firstRowId).map(el => ({
-  //       ...el,
-  //       hide: state.columns?.lookup[el?.field]?.hide,
-  //     }))
-  //   }
-  // }
-
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
@@ -617,14 +572,6 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  // async onSubmitSaveHsCode(productId, hsCode) {
-  //   try {
-  //     await ProductModel.editProductsHsCods([{productId, hsCode}])
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   async onSubmitCancelOrder() {
     try {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
@@ -637,13 +584,6 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  // this.warningInfoModalSettings = {
-  //   isWarning: false,
-  //   title: t(TranslationKey['Data saved successfully']),
-  // }
-
-  // this.onTriggerOpenModal('showWarningInfoModal')
-
   async onSubmitSaveOrder({
     order,
     orderFields,
@@ -653,7 +593,6 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
   }) {
-    // console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -968,7 +907,6 @@ export class BuyerMyOrdersViewModel {
         ),
       })
 
-      // НЕ было до создания фильтрации по статусам (2 строки)
       this.setDefaultStatuses()
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
 
@@ -980,9 +918,6 @@ export class BuyerMyOrdersViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
-        // Было до создания фильтрации по статусам
-        // status: this.setOrderStatus(this.history.location.pathname),
         status: orderStatus,
       })
 

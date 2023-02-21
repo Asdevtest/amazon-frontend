@@ -238,16 +238,6 @@ class ClientOrdersViewRaw extends Component {
               />
             </Modal>
 
-            {/* <SuccessInfoModal
-              openModal={showSuccessModal}
-              setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-              title={successModalText}
-              successBtnText={t(TranslationKey.Ok)}
-              onClickSuccessBtn={() => {
-                onTriggerOpenModal('showSuccessModal')
-              }}
-            /> */}
-
             <ConfirmationModal
               openModal={showConfirmModal}
               setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

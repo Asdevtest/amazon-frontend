@@ -228,19 +228,6 @@ class BuyerMyOrdersViewRaw extends Component {
           />
         </Modal>
 
-        {/* исправить нужно */}
-        {/* <ConfirmationModal
-          isWarning
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey['Attention. Are you sure?'])}
-          message={t(TranslationKey['Are you sure you want to cancel the order?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={onSubmitCancelOrder}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        /> */}
-
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
