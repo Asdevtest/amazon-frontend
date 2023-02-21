@@ -611,7 +611,12 @@ export class ClientInventoryViewModel {
 
   async getShops() {
     try {
-      const result = await ShopModel.getMyShops()
+      // Старый метод
+      // const result = await ShopModel.getMyShops()
+
+      const result = await ShopModel.getMyShopNames()
+
+      console.log('result', result)
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })

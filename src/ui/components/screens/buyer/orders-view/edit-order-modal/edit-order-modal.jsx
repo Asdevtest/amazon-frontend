@@ -228,6 +228,8 @@ export const EditOrderModal = observer(
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
     })
 
+    console.log('orderFields', orderFields)
+
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
 
@@ -466,8 +468,6 @@ export const EditOrderModal = observer(
 
     const [photosToLoad, setPhotosToLoad] = useState([])
 
-    // const [hsCode, setHsCode] = useState(order.product.hsCode)
-
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
       submitDisabledOrderStatuses.includes(order.status + '') ||
@@ -478,34 +478,6 @@ export const EditOrderModal = observer(
         !boxesForCreation.length)
 
     const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
-
-    // const [deadlineState, setDeadlineState] = useState({
-    //       secondsToDeadline: getDistanceBetweenDatesInSeconds(orderFields.deadline, new Date()),
-    //       deadlineText: `(${timeToDeadlineInHoursAndMins({
-    //         date: orderFields.deadline,
-    //         withSeconds: true,
-    //         now: new Date(),
-    //       })})`,
-    //     })
-
-    //     setInterval(
-    //       () =>
-    //         setDeadlineState(() => {
-    //           // console.log('!!!')
-    //           const now = new Date()
-
-    //           console.log('now', now)
-    //           return {
-    //             secondsToDeadline: getDistanceBetweenDatesInSeconds(orderFields.deadline, new Date()),
-    //             deadlineText: `(${timeToDeadlineInHoursAndMins({
-    //               date: orderFields.deadline,
-    //               withSeconds: true,
-    //               now,
-    //             })})`,
-    //           }
-    //         }),
-    //       1000,
-    //     )
 
     const isOnlyRead =
       selectedSupplier?.createdBy._id !== userInfo._id &&
@@ -545,7 +517,7 @@ export const EditOrderModal = observer(
               />
             </div>
 
-            {orderFields.deadline && (
+            {orderFields.deadline && orderFields.status < 20 && (
               <Field
                 oneLine
                 label={'Deadline:'}

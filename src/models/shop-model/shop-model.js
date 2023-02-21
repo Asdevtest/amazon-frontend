@@ -11,6 +11,11 @@ class ShopModelStatic {
     return response
   }
 
+  getMyShopNames = async () => {
+    const response = await restApiService.shopApi.apiV1ShopsNamesGet()
+    return response
+  }
+
   editShop = async (id, data) => {
     const response = await restApiService.shopApi.apiV1ShopsGuidPatch(id, {body: data})
     return response

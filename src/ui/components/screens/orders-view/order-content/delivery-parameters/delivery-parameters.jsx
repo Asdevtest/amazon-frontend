@@ -32,18 +32,9 @@ export const DeliveryParameters = ({
   setFormFields,
   onChangeField,
 }) => {
-  const {classes: classNames} = useClassNames()
+  console.log('order', order)
 
-  // const OrderParameter = ({label, value, tooltipText}) => (
-  //   <Field
-  //     oneLine
-  //     tooltipInfoContent={tooltipText}
-  //     label={label}
-  //     containerClasses={classNames.parameterTableCellWrapper}
-  //     labelClasses={classNames.fieldLabel}
-  //     inputComponent={<Typography className={classNames.text}>{value || ''}</Typography>}
-  //   />
-  // )
+  const {classes: classNames} = useClassNames()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
@@ -69,22 +60,24 @@ export const DeliveryParameters = ({
 
   return (
     <div className={classNames.root}>
-      <Field
-        oneLine
-        label={t(TranslationKey.Deadline)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
-        inputComponent={
-          <div className={classNames.deadlineWrapper}>
-            <NewDatePicker
-              disablePast
-              disabled={!isCanChange}
-              value={formFields.deadline}
-              onChange={onChangeField('deadline')}
-            />
-          </div>
-        }
-      />
+      {order.status < 20 && (
+        <Field
+          oneLine
+          label={t(TranslationKey.Deadline)}
+          containerClasses={classNames.parameterTableCellWrapper}
+          labelClasses={classNames.fieldLabel}
+          inputComponent={
+            <div className={classNames.deadlineWrapper}>
+              <NewDatePicker
+                disablePast
+                disabled={!isCanChange}
+                value={formFields.deadline}
+                onChange={onChangeField('deadline')}
+              />
+            </div>
+          }
+        />
+      )}
 
       <Field
         labelClasses={classNames.fieldLabel}

@@ -371,6 +371,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   disableSelect: {
     color: theme.palette.input.customDisabled,
+    cursor: 'default',
   },
   orange: {
     color: '#F3AF00 !important',
@@ -407,5 +408,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   saveIcon: {
     color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
 }))

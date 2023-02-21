@@ -50,7 +50,9 @@ const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.CLOSED]}`,
 ]
 
-const disabledOrderStatuses = [`${ideaStatusByKey[ideaStatus.CLOSED]}`]
+const disabledOrderStatuses = [
+  /* `${ideaStatusByKey[ideaStatus.CLOSED]}` */
+]
 
 export const IdeaViewAndEditCard = observer(
   ({
@@ -209,17 +211,12 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
-    // console.log('formFields', formFields)
-    // console.log('idea', idea)
-
     return (
       <Grid item className={classNames.mainWrapper}>
         <div className={classNames.headerWrapper}>
           <Typography variant="h5" className={classNames.ideaTitle}>
             {formFields.productName}
           </Typography>
-
-          {/*  */}
 
           <div className={classNames.orderStatusWrapper}>
             <Typography variant="h5" className={classNames.label}>
@@ -232,7 +229,6 @@ export const IdeaViewAndEditCard = observer(
               inputComponent={
                 <Select
                   variant="filled"
-                  disabled={!inEdit}
                   value={formFields.status}
                   classes={{
                     select: cx({
@@ -264,18 +260,7 @@ export const IdeaViewAndEditCard = observer(
                   onChange={onChangeField('status')}
                 >
                   {Object.keys({
-                    // ...ideaStatusByCode,
-                    ...getObjectFilteredByKeyArrayWhiteList(
-                      ideaStatusByCode,
-                      allowOrderStatuses,
-                      // .filter(
-                      //   el => el >= formFields?.status,
-                      //   // ||
-                      //   // (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
-                      //   //   order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
-                      // ),
-                      // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
-                    ),
+                    ...getObjectFilteredByKeyArrayWhiteList(ideaStatusByCode, allowOrderStatuses),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
                       key={statusIndex}
@@ -299,19 +284,16 @@ export const IdeaViewAndEditCard = observer(
               }
             />
             <SaveIcon
-              disabled={!inEdit}
               className={cx(classNames.saveIcon, {
-                [classNames.disableSelect]: !inEdit,
+                [classNames.disableSelect]: `${idea?.status}` === `${formFields?.status}`,
               })}
               onClick={() => {
-                if (inEdit) {
+                if (`${idea?.status}` !== `${formFields?.status}`) {
                   onClickSaveIcon(formFields)
                 }
               }}
             />
           </div>
-
-          {/*  */}
         </div>
 
         <div className={classNames.cardWrapper}>

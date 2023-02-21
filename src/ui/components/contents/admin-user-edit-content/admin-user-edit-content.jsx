@@ -80,9 +80,6 @@ export const AdminUserEditContent = observer(
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
     const [clearSelect, setClearSelect] = useState(false)
 
-    // const [accessTags, setAccessTags] = useState([]) // ТЕГИ
-    // const [accessTag, setAccessTag] = useState('')
-
     const [permissionsToSelect, setPermissionsToSelect] = useState([
       ...singlePermissions.filter(item => item.role === formFields.role),
     ])
@@ -103,16 +100,6 @@ export const AdminUserEditContent = observer(
       const removeRole = selectedAllowedRoles.filter(role => role !== value)
       setSelectedAllowedRoles(removeRole)
     }
-
-    // const addAccessTag = () => {  // ТЕГИ ВОЗМОЖНО ВЕРНУТЬСЯ
-    //   setAccessTags(prev => [...prev, accessTag])
-    //   setAccessTag('')
-    // }
-
-    // const removeAccessTag = value => {
-    //   const removeTag = accessTags.filter(tag => tag !== value)
-    //   setAccessTags(removeTag)
-    // }
 
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
@@ -313,39 +300,39 @@ export const AdminUserEditContent = observer(
       <div className={classNames.root}>
         <div className={classNames.mainWrapper}>
           <div className={classNames.leftWrapper}>
-            {editUserFormFields.masterUser ? (
+            {editUserFormFields?.masterUser ? (
               <Field
                 label={t(TranslationKey['Master user'])}
                 inputComponent={
                   <div className={classNames.ratingWrapper}>
                     <UserLink
-                      name={editUserFormFields.masterUserInfo?.name}
-                      userId={editUserFormFields.masterUserInfo?._id}
+                      name={editUserFormFields?.masterUserInfo?.name}
+                      userId={editUserFormFields?.masterUserInfo?._id}
                     />
 
                     <Typography className={classNames.standartText}>
-                      {editUserFormFields.masterUserInfo.email}
+                      {editUserFormFields?.masterUserInfo.email}
                     </Typography>
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
-                      <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
+                      <Rating disabled value={editUserFormFields?.masterUserInfo?.rating} />
                     </div>
                   </div>
                 }
               />
             ) : null}
 
-            {editUserFormFields.subUsers.length ? (
+            {editUserFormFields?.subUsers.length ? (
               <Field
                 label={t(TranslationKey['Sub users'])}
                 inputComponent={
                   <div className={classNames.subUsersWrapper}>
-                    {editUserFormFields.subUsers.map(subUser => (
-                      <div key={subUser._id} className={classNames.ratingWrapper}>
-                        <UserLink name={subUser.name} userId={subUser._id} />
+                    {editUserFormFields?.subUsers.map(subUser => (
+                      <div key={subUser?._id} className={classNames.ratingWrapper}>
+                        <UserLink name={subUser?.name} userId={subUser?._id} />
 
-                        <Typography className={classNames.standartText}>{subUser.email}</Typography>
+                        <Typography className={classNames.standartText}>{subUser?.email}</Typography>
                       </div>
                     ))}
                   </div>
@@ -492,7 +479,7 @@ export const AdminUserEditContent = observer(
                 }
               />
 
-              {!editUserFormFields.masterUser ? (
+              {!editUserFormFields?.masterUser ? (
                 <Field
                   inputProps={{maxLength: 8}}
                   containerClasses={classNames.rateContainer}
@@ -505,7 +492,6 @@ export const AdminUserEditContent = observer(
             <Typography className={classNames.allowedRoleWrapperTitle}>{t(TranslationKey['Allowed Roles'])}</Typography>
             {selectedAllowedRoles.map((role, index) => (
               <div key={index} className={classNames.selectedRoleWrapper}>
-                {/* <div className={classNames.leftContentWrapper}> */}
                 <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
 
                 <Field
@@ -515,10 +501,7 @@ export const AdminUserEditContent = observer(
                   inputClasses={classNames.allowedRoleRateInput}
                   containerClasses={classNames.allowedRoleRateContainer}
                   label={t(TranslationKey.Rate)}
-                  // value={formFields.rate}
-                  // onChange={onChangeFormField('rate')}
                 />
-                {/* </div> */}
 
                 <div className={classNames.actionDelButton} onClick={() => removeAllowedRole(role)}>
                   {'-'}
@@ -672,7 +655,9 @@ export const AdminUserEditContent = observer(
             <div className={classNames.checkboxWrapper}>
               <Checkbox
                 color="primary"
-                disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+                disabled={
+                  editUserFormFields?.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+                }
                 checked={formFields.fba}
                 onChange={onChangeFormField('fba')}
               />
@@ -683,9 +668,9 @@ export const AdminUserEditContent = observer(
               <Checkbox
                 color="primary"
                 disabled={
-                  editUserFormFields.masterUser ||
+                  editUserFormFields?.masterUser ||
                   formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-                  editUserFormFields.subUsers?.length
+                  editUserFormFields?.subUsers?.length
                 }
                 checked={formFields.canByMasterUser}
                 onChange={onChangeFormField('canByMasterUser')}
