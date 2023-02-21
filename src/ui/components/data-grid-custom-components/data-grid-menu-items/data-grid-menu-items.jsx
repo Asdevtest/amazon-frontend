@@ -204,11 +204,24 @@ export const ObJectFieldMenuItem = React.memo(
       data,
       field,
       filterRequestStatus,
-      onClickObjectFieldMenuItem,
+      onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       const {filterData, currentFilterData} = data
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = obj => {
+        if (choosenItems.some(item => item._id === obj._id)) {
+          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        } else {
+          setChoosenItems([...choosenItems, obj])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       useEffect(() => {
         onClickFilterBtn(field)
@@ -251,17 +264,18 @@ export const ObJectFieldMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        .filter(el => el)
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item._id === b._id)) -
-                            Number(currentFilterData?.some(item => item._id === a._id)),
+                            Number(choosenItems?.some(item => item._id === b._id)) -
+                            Number(choosenItems?.some(item => item._id === a._id)),
                         )
                         .map(obj => (
                           <div key={obj._id} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData.some(item => item._id === obj._id)}
-                              onClick={() => onClickObjectFieldMenuItem(obj, field)}
+                              checked={choosenItems.some(item => item._id === obj._id)}
+                              onClick={() => onClickItem(obj)}
                             />
                             <div className={classNames.shopName}>{obj.name}</div>
                           </div>
@@ -279,6 +293,8 @@ export const ObJectFieldMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
+
                 onClickAccept()
               }}
             >
@@ -304,7 +320,7 @@ export const NormalFieldMenuItem = React.memo(
       field,
       filterRequestStatus,
       columnKey,
-      onClickNormalFieldMenuItem,
+      onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
@@ -313,6 +329,19 @@ export const NormalFieldMenuItem = React.memo(
       }, [])
 
       const {filterData, currentFilterData} = data
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = str => {
+        if (choosenItems.some(item => item === str)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+        } else {
+          setChoosenItems([...choosenItems, str])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -351,17 +380,18 @@ export const NormalFieldMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        // .filter(el => el)
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item === b)) -
-                            Number(currentFilterData?.some(item => item === a)),
+                            Number(choosenItems?.some(item => item === b)) -
+                            Number(choosenItems?.some(item => item === a)),
                         )
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData.some(item => item === el)}
-                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              checked={choosenItems.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{getStatusByColumnKeyAndStatusKey(el, columnKey)}</div>
                           </div>
@@ -380,6 +410,8 @@ export const NormalFieldMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
+
                 onClickAccept()
               }}
             >
@@ -405,7 +437,7 @@ export const ProductMenuItem = React.memo(
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
-      onClickNormalFieldMenuItem,
+
       onClickAccept,
     }) => {
       const [currentOption, setCurrentOption] = useState(
@@ -432,6 +464,19 @@ export const ProductMenuItem = React.memo(
       }, [currentOption])
 
       const {filterData, currentFilterData} = data[currentOption]
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = str => {
+        if (choosenItems.some(item => item === str)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+        } else {
+          setChoosenItems([...choosenItems, str])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -501,17 +546,18 @@ export const ProductMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        // .filter(el => el)
                         ?.sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item === b)) -
-                            Number(currentFilterData?.some(item => item === a)),
+                            Number(choosenItems?.some(item => item === b)) -
+                            Number(choosenItems?.some(item => item === a)),
                         )
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData?.some(item => item === el)}
-                              onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                              checked={choosenItems?.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{el}</div>
                           </div>
@@ -529,6 +575,8 @@ export const ProductMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, currentOption)
+
                 onClickAccept()
               }}
             >
@@ -554,7 +602,7 @@ export const OrderOrItemMenuItem = React.memo(
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
-      onClickNormalFieldMenuItem,
+
       onClickAccept,
     }) => {
       const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
@@ -570,6 +618,19 @@ export const OrderOrItemMenuItem = React.memo(
       }, [currentOption])
 
       const {filterData, currentFilterData} = data[currentOption]
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = str => {
+        if (choosenItems.some(item => item === str)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+        } else {
+          setChoosenItems([...choosenItems, str])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -633,17 +694,18 @@ export const OrderOrItemMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        // .filter(el => el)
                         ?.sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item === b)) -
-                            Number(currentFilterData?.some(item => item === a)),
+                            Number(choosenItems?.some(item => item === b)) -
+                            Number(choosenItems?.some(item => item === a)),
                         )
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData?.some(item => item === el)}
-                              onClick={() => onClickNormalFieldMenuItem(el, currentOption)}
+                              checked={choosenItems?.some(item => item === el)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{el}</div>
                           </div>
@@ -661,6 +723,8 @@ export const OrderOrItemMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, currentOption)
+
                 onClickAccept()
               }}
             >
@@ -686,7 +750,6 @@ export const DestinationMenuItem = React.memo(
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
-      onClickObjectFieldMenuItem,
       onClickAccept,
     }) => {
       const [currentOption, setCurrentOption] = useState(
@@ -704,6 +767,19 @@ export const DestinationMenuItem = React.memo(
       }, [currentOption])
 
       const {filterData, currentFilterData} = data[currentOption]
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = obj => {
+        if (choosenItems.some(item => item._id === obj._id)) {
+          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        } else {
+          setChoosenItems([...choosenItems, obj])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -767,19 +843,22 @@ export const DestinationMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        .filter(el => el)
+
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item._id === b._id)) -
-                            Number(currentFilterData?.some(item => item._id === a._id)),
+                            Number(choosenItems?.some(item => item?._id === b?._id)) -
+                            Number(choosenItems?.some(item => item?._id === a?._id)),
                         )
                         .map(obj => (
-                          <div key={obj._id} className={classNames.shop}>
+                          <div key={obj?._id} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData.some(item => item._id === obj._id)}
-                              onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
+                              checked={choosenItems.some(item => item?._id === obj?._id)}
+                              // onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
+                              onClick={() => onClickItem(obj)}
                             />
-                            <div className={classNames.shopName}>{obj.name}</div>
+                            <div className={classNames.shopName}>{obj?.name}</div>
                           </div>
                         ))}
                     </>
@@ -795,6 +874,7 @@ export const DestinationMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, currentOption)
                 onClickAccept()
               }}
             >
@@ -819,7 +899,7 @@ export const FromToDateMenuItem = React.memo(
       data,
       field,
       filterRequestStatus,
-      onClickNormalFieldMenuItem,
+      onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
@@ -831,6 +911,19 @@ export const FromToDateMenuItem = React.memo(
       }, [])
 
       const {filterData, currentFilterData} = data
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = str => {
+        if (choosenItems.some(item => item === str)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+        } else {
+          setChoosenItems([...choosenItems, str])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -884,18 +977,19 @@ export const FromToDateMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        // .filter(el => el)
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item === b)) -
-                              Number(currentFilterData?.some(item => item === a)) ||
-                            compareDesc(parseISO(a), parseISO(b)),
+                            Number(choosenItems?.some(item => item === b)) -
+                              Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
                         )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData?.some(item => item === el)}
-                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              checked={choosenItems?.some(item => item === el)}
+                              // onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
                           </div>
@@ -913,6 +1007,8 @@ export const FromToDateMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
+
                 onClickAccept()
               }}
             >
@@ -937,7 +1033,8 @@ export const NumberFieldMenuItem = React.memo(
       data,
       field,
       filterRequestStatus,
-      onClickNormalFieldMenuItem,
+      onChangeFullFieldMenuItem,
+
       onClickAccept,
       onClickFilterBtn,
     }) => {
@@ -949,6 +1046,19 @@ export const NumberFieldMenuItem = React.memo(
       }, [])
 
       const {filterData, currentFilterData} = data
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = str => {
+        if (choosenItems.some(item => item === str)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== str))
+        } else {
+          setChoosenItems([...choosenItems, str])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1005,17 +1115,19 @@ export const NumberFieldMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        // .filter(el => el)
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item === b)) -
-                              Number(currentFilterData?.some(item => item === a)) || Number(b) - Number(a),
+                            Number(choosenItems?.some(item => item === b)) -
+                              Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
                         )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData?.some(item => item === el)}
-                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              checked={choosenItems?.some(item => item === el)}
+                              // onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{el}</div>
                           </div>
@@ -1033,6 +1145,7 @@ export const NumberFieldMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
                 onClickAccept()
               }}
             >
@@ -1057,7 +1170,6 @@ export const InStockMenuItem = React.memo(
       data,
       field,
       filterRequestStatus,
-      onClickNormalFieldMenuItem,
       onClickAccept,
       onChangeFullFieldMenuItem,
       onClickFilterBtn,
@@ -1071,15 +1183,29 @@ export const InStockMenuItem = React.memo(
 
       const {filterData, currentFilterData} = data
 
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = obj => {
+        if (choosenItems.some(item => item._id === obj._id)) {
+          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        } else {
+          setChoosenItems([...choosenItems, obj])
+        }
+      }
+      useEffect(() => {
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
+
       const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
 
-      const [currentOption, setCurrentOption] = useState(currentFilterData?.[0]?.storekeeper?.name)
+      const [currentOption, setCurrentOption] = useState(null)
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
         setItemsForRender(filterData)
+        setCurrentOption(currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
       }, [filterData])
 
       useEffect(() => {
@@ -1093,9 +1219,7 @@ export const InStockMenuItem = React.memo(
             item.storekeeper.name === currentOption,
         )
         setItemsForRender(filter)
-      }, [nameSearchValue, fromValue, toValue, currentOption, currentFilterData])
-
-      // console.log('itemsForRender', itemsForRender)
+      }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, filterData])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1160,18 +1284,19 @@ export const InStockMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
+                        .filter(el => el)
                         .sort(
                           (a, b) =>
-                            Number(currentFilterData?.some(item => item._id === b._id)) -
-                              Number(currentFilterData?.some(item => item._id === a._id)) ||
+                            Number(choosenItems?.some(item => item._id === b._id)) -
+                              Number(choosenItems?.some(item => item._id === a._id)) ||
                             Number(b.amountInBoxes) - Number(a.amountInBoxes),
                         )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
-                              checked={currentFilterData?.some(item => item._id === el._id)}
-                              onClick={() => onClickNormalFieldMenuItem(el, field)}
+                              checked={choosenItems?.some(item => item._id === el._id)}
+                              onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{el.amountInBoxes}</div>
                           </div>
@@ -1189,6 +1314,7 @@ export const InStockMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, 'boxAmounts')
                 onClickAccept()
               }}
             >
