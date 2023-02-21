@@ -37,8 +37,6 @@ export const ProductLotDataForm = observer(
 
     const [showBatchInfoModal, setShowBatchInfoModal] = useState(false)
 
-    console
-
     useEffect(() => {
       if (isTransfer && nameSearchValue) {
         setBatches(
@@ -49,11 +47,6 @@ export const ProductLotDataForm = observer(
       } else {
         if (nameSearchValue) {
           setBatches(
-            // batchesData?.filter(item =>
-            //   item?.boxes?.some(item =>
-            //     item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-            //   ),
-            // ),
             batchesData?.filter(item =>
               item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
             ),
