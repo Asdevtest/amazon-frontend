@@ -373,6 +373,7 @@ export class BuyerMyOrdersViewModel {
         priceInYuan: orderFields.priceInYuan,
         batchDeliveryCostInYuan: orderFields.batchDeliveryCostInYuan,
         batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
+        batchTotalCostInDollar: orderFields.batchTotalCostInDollar,
       }
       const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, [
         '_id',
@@ -960,7 +961,11 @@ export class BuyerMyOrdersViewModel {
           {skusByClient: {$contains: this.nameSearchValue}},
           {item: {$eq: this.nameSearchValue}},
           {id: {$eq: this.nameSearchValue}},
-        ].filter(el => (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id),
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
       })
 
       // НЕ было до создания фильтрации по статусам (2 строки)

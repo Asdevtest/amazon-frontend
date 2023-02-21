@@ -31,8 +31,8 @@ export const DataGridCustomColumnMenuComponent = props => {
     filterRequestStatus,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
-    onClickObjectFieldMenuItem,
-    onClickNormalFieldMenuItem,
+    // onClickObjectFieldMenuItem,
+    // onClickNormalFieldMenuItem,
     onClickAccept,
     /* shopsDataBase,  */ isNeedPurchaseFilterData,
     ...other
@@ -98,7 +98,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
-          onClickObjectFieldMenuItem={onClickObjectFieldMenuItem}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -119,7 +119,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           columnKey={currentColumn.columnKey}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -139,7 +139,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -155,7 +154,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -171,7 +169,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-          onClickObjectFieldMenuItem={onClickObjectFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -187,7 +184,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -203,7 +200,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
@@ -219,7 +216,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
-          onClickNormalFieldMenuItem={onClickNormalFieldMenuItem}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />

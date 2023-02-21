@@ -74,10 +74,7 @@ export const AddOrEditBatchForm = observer(
         batchFields.volumeWeightDivide,
         getBatchWeightCalculationMethodForBox(
           batchFields.calculationMethod,
-          checkActualBatchWeightGreaterVolumeBatchWeight(
-            batchToEdit.originalData?.boxes,
-            batchFields.volumeWeightDivide,
-          ),
+          checkActualBatchWeightGreaterVolumeBatchWeight(boxesData, batchFields.volumeWeightDivide),
         ),
       ),
     )

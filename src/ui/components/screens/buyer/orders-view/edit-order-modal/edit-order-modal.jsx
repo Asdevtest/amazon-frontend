@@ -277,6 +277,7 @@ export const EditOrderModal = observer(
           priceInYuan: costInYuan,
           batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan,
           batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
+          batchTotalCostInDollar: orderFields.totalPriceChanged,
         },
       }
 

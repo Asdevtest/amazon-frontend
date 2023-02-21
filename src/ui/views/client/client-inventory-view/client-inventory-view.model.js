@@ -180,8 +180,8 @@ export class ClientInventoryViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
-    onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
+    // onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
+    // onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
       this.getProductsMy()
@@ -771,57 +771,59 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickObjectFieldMenuItem(obj, field) {
-    runInAction(() => {
-      // если магазин по которому нажали существует и есть в массиве, то он удаляется, если нет - добавялется
-      if (obj) {
-        if (this.columnMenuSettings[field].currentFilterData.some(item => item._id === obj._id)) {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [field]: {
-              ...this.columnMenuSettings[field],
-              currentFilterData: this.columnMenuSettings[field].currentFilterData
-                .slice()
-                .filter(item => item._id !== obj._id),
-            },
-          }
-        } else {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [field]: {
-              ...this.columnMenuSettings[field],
-              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, obj],
-            },
-          }
-        }
-      }
-    })
-    // this.getBoxesMy()
-  }
+  // onClickObjectFieldMenuItem(obj, field) {
+  //   runInAction(() => {
+  //     // если магазин по которому нажали существует и есть в массиве, то он удаляется, если нет - добавялется
+  //     if (obj) {
+  //       if (this.columnMenuSettings[field].currentFilterData.some(item => item._id === obj._id)) {
+  //         this.columnMenuSettings = {
+  //           ...this.columnMenuSettings,
+  //           [field]: {
+  //             ...this.columnMenuSettings[field],
+  //             currentFilterData: this.columnMenuSettings[field].currentFilterData
+  //               .slice()
+  //               .filter(item => item._id !== obj._id),
+  //           },
+  //         }
+  //       } else {
+  //         this.columnMenuSettings = {
+  //           ...this.columnMenuSettings,
+  //           [field]: {
+  //             ...this.columnMenuSettings[field],
+  //             currentFilterData: [...this.columnMenuSettings[field].currentFilterData, obj],
+  //           },
+  //         }
+  //       }
+  //     }
+  //   })
+  //   // this.getBoxesMy()
+  // }
 
-  onClickNormalFieldMenuItem(str, field) {
-    runInAction(() => {
-      if (str) {
-        if (this.columnMenuSettings[field].currentFilterData.some(item => item === str)) {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [field]: {
-              ...this.columnMenuSettings[field],
-              currentFilterData: this.columnMenuSettings[field].currentFilterData.slice().filter(item => item !== str),
-            },
-          }
-        } else {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [field]: {
-              ...this.columnMenuSettings[field],
-              currentFilterData: [...this.columnMenuSettings[field].currentFilterData, str],
-            },
-          }
-        }
-      }
-    })
-  }
+  // onClickNormalFieldMenuItem(str, field) {
+  //   runInAction(() => {
+  //     if (str) {
+  //       if (this.columnMenuSettings[field].currentFilterData.slice().some(item => item === str)) {
+  //         this.columnMenuSettings = {
+  //           ...this.columnMenuSettings,
+  //           [field]: {
+  //             ...this.columnMenuSettings[field],
+  //             currentFilterData: [
+  //               ...this.columnMenuSettings[field].currentFilterData.slice().filter(item => item !== str),
+  //             ],
+  //           },
+  //         }
+  //       } else {
+  //         this.columnMenuSettings = {
+  //           ...this.columnMenuSettings,
+  //           [field]: {
+  //             ...this.columnMenuSettings[field],
+  //             currentFilterData: [...this.columnMenuSettings[field].currentFilterData, str],
+  //           },
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
 
   onChangeFullFieldMenuItem(value, field) {
     runInAction(() => {
