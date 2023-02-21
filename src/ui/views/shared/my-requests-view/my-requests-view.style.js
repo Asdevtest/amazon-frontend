@@ -86,4 +86,12 @@ export const styles = theme => ({
   acceptMessage: {
     color: '#00B746',
   },
+
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+  },
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
 })

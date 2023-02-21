@@ -30,10 +30,10 @@ export const formatNormDateTime = dateString => {
 
 export const formatDateTimeHourAndMinutes = dateString => (dateString ? format(parseISO(dateString), 'HH:mm') : '')
 
-export const formatShortDateTime = dateString => (dateString ? format(parseISO(dateString), 'dd-MM-yyyy HH:mm') : '')
-export const formatDateWithoutTime = dateString => (dateString ? format(parseISO(dateString), 'dd-MM-yyyy') : '')
+export const formatShortDateTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy HH:mm') : '')
+export const formatDateWithoutTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy') : '')
 
-export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
+export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd.MM.yyyy HH:mm') // предпочтительный формат
 
 export const getDistanceBetweenDatesInSeconds = (firstDate, secondDate) => {
   const date1 = parseISO(firstDate)

@@ -102,6 +102,9 @@ class MyRequestsViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                   }}
                   sortModel={sortModel}
                   filterModel={filterModel}
