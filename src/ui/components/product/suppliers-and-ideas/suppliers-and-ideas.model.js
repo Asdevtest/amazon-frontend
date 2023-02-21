@@ -204,12 +204,9 @@ export class SuppliersAndIdeasModel {
         ['status'],
       )
 
-      console.log('submitDataWhite', submitDataWhite)
+      await this.editIdea(formFields._id, submitDataWhite, isForceUpdate)
 
-      if (this.inEdit) {
-        await this.editIdea(formFields._id, submitDataWhite, isForceUpdate)
-        this.loadData()
-      }
+      this.loadData()
     } catch (error) {
       console.log(error)
     }

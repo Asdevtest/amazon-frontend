@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {PermissionsModel} from '@models/permissions-model'
@@ -17,7 +17,7 @@ export class UserEditModel {
 
   wrongPassword = null
 
-  user = undefined
+  userData = undefined
 
   submitEditData = undefined
 
@@ -55,14 +55,22 @@ export class UserEditModel {
   constructor({history, user}) {
     this.history = history
 
-    this.user = user
+    this.userId = user._id
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.userId,
+      () =>
+        runInAction(() => {
+          this.loadData()
+        }),
+    )
   }
 
   async finalStepSubmitEditUserForm() {
     try {
-      await AdministratorModel.updateUser(this.user._id, this.submitEditData)
+      await AdministratorModel.updateUser(this.userData._id, this.submitEditData)
 
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
 
@@ -71,6 +79,22 @@ export class UserEditModel {
       console.log(error)
       this.error = error?.body?.message || error
     }
+  }
+
+  async getUserData() {
+    try {
+      const result = await AdministratorModel.getUsersById(this.userId)
+
+      this.userData = result
+    } catch (error) {
+      console.log(error)
+      this.error = error?.body?.message || error
+    }
+  }
+
+  async onClickBottomBtn() {
+    this.loadData()
+    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
   }
 
   async submitEditUserForm(data, sourceData) {
@@ -86,7 +110,7 @@ export class UserEditModel {
       this.availableSubUsers = undefined
 
       if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
-        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.user._id)).subUsers.length
+        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.userData._id)).subUsers.length
       }
 
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
@@ -101,85 +125,6 @@ export class UserEditModel {
       this.error = error?.body?.message || error
     }
   }
-
-  // async finalStepSubmitEditUserForm() {
-  //   try {
-  //     await AdministratorModel.updateUser(this.user._id, this.submitEditData)
-
-  //     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-
-  //     this.changeFields = {email: '', name: ''}
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error?.body?.message || error
-  //   }
-  // }
-
-  // async submitEditUserForm(data, sourceData, passwordChange) {
-  //   console.log('passwordChange', passwordChange)
-  //   try {
-  //     await this.changeNameAndOther(data, sourceData)
-  //     await this.changeUserPassword(passwordChange)
-
-  //     if (!this.wrongPassword) {
-  //       await this.finalStepSubmitEditUserForm()
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error?.body?.message || error
-  //   }
-  // }
-
-  // async changeNameAndOther(data, sourceData) {
-  //   try {
-  //     this.error = undefined
-  //     this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-  //       name: this.changeFields.name,
-  //       email: this.changeFields.email,
-  //     })
-
-  //     this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
-
-  //     this.availableSubUsers = undefined
-
-  //     if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
-  //       this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.user._id)).subUsers.length
-  //     }
-
-  //     if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
-  //       return
-  //     } else if (this.availableSubUsers) {
-  //       this.onTriggerOpenModal('showConfirmModal')
-  //     }
-  //   } catch (error) {
-  //     this.error = error?.body?.message || error
-  //   }
-  // }
-
-  // async changeUserPassword(passwordChange) {
-  //   console.log('passwordChange', passwordChange)
-  //   try {
-  //     this.error = undefined
-
-  //     if (passwordChange.oldPassword && passwordChange.password) {
-  //       await UserModel.changeUserPassword({
-  //         oldPassword: passwordChange.oldPassword,
-  //         newPassword: passwordChange.password,
-  //       })
-  //     }
-
-  //     await UserModel.getUserInfo()
-  //   } catch (error) {
-  //     runInAction(() => {
-  //       if (error.body && error.body.message) {
-  //         this.error = error.body.message
-  //       }
-  //       if (this.error === 'Wrong password') {
-  //         this.wrongPassword = this.error
-  //       }
-  //     })
-  //   }
-  // }
 
   onClickCancelBtn() {
     this.history.goBack()
@@ -217,8 +162,7 @@ export class UserEditModel {
 
   async loadData() {
     try {
-      // await this.getUserInfo(this.userId)
-
+      await this.getUserData()
       await this.getGroupPermissions()
       await this.getSinglePermissions()
     } catch (error) {

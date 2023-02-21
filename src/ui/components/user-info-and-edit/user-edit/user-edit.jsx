@@ -36,6 +36,8 @@ export const UserEdit = observer(({user}) => {
     onClickCancelBtn,
     submitEditUserForm,
     goToUsers,
+    userData,
+    onClickBottomBtn,
   } = model.current
 
   return (
@@ -47,7 +49,7 @@ export const UserEdit = observer(({user}) => {
           changeFields={changeFields}
           singlePermissions={singlePermissions}
           groupPermissions={groupPermissions}
-          editUserFormFields={user}
+          editUserFormFields={userData}
           buttonLabel={t(TranslationKey.Save)}
           onSubmit={submitEditUserForm}
           onClickCancelBtn={onClickCancelBtn}
@@ -73,7 +75,7 @@ export const UserEdit = observer(({user}) => {
         topBtnText={t(TranslationKey['Back to Users'])}
         bottomBtnText={t(TranslationKey['Continue working with the user'])}
         onClickTopBtn={() => goToUsers()}
-        onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        onClickBottomBtn={onClickBottomBtn}
       />
     </div>
   )
