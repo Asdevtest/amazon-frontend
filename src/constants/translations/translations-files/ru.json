@@ -1779,6 +1779,7 @@
   "Selected boxes": "Выбранные коробки",
   "Choose a section in My orders": "Выберите раздел в Моих заказах",
   "Fills the card with the necessary information": "Заполняет карточку необходимой информацией",
+<<<<<<< HEAD
   "updated data on idea to product": "обновил данные по идее к товару",
   "Ideas to Check": "Идеи на проверке",
   "On ideas": "По идеям",
@@ -1786,6 +1787,8 @@
   "Name idea": "Название идеи",
   "Notifications on ideas": "Уведомления идей",
   "Updated by": "Обновил",
+=======
+>>>>>>> 5b7be7932 (5343: freelance)
   "Ideas to check": "Идеи для проверки",
   "Designer": "Дизайнер",
   "SEO": "SEO",
