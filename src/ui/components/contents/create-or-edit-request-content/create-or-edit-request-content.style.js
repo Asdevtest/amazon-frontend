@@ -70,7 +70,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+<<<<<<< HEAD
     marginBottom: 15,
+=======
+    marginBottom: 25,
+>>>>>>> 5e7dda5e4 (5343: freelance)
   },
 
   title: {
@@ -265,7 +269,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameFieldWrapper: {
     display: 'flex',
+<<<<<<< HEAD
     justifyContent: 'space-between',
+=======
+    flexDirection: 'column',
+    alignItems: 'end',
+
+    // '& > span': {
+    //   marginTop: '-20px',
+    // },
+>>>>>>> 5e7dda5e4 (5343: freelance)
   },
 
   nameField: {
