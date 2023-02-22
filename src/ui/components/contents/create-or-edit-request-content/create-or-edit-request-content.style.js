@@ -53,7 +53,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerWrapper: {
-    marginBottom: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+    marginBottom: 25,
   },
 
   title: {
@@ -69,7 +72,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '14px',
     color: theme.palette.text.second,
-    marginTop: '30px',
     // width: '373px',
   },
 
@@ -202,14 +204,14 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'end',
 
-    '& > span': {
-      marginTop: '-20px',
-    },
+    // '& > span': {
+    //   marginTop: '-20px',
+    // },
   },
 
   nameField: {
     height: '40px',
-    width: '100%',
+    width: 392,
     overflowY: 'hidden',
   },
 

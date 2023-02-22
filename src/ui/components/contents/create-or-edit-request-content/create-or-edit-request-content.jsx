@@ -1,12 +1,23 @@
 import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@mui/material'
+import {
+  Checkbox,
+  Typography,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Select,
+  Input,
+  InputAdornment,
+  MenuItem,
+} from '@mui/material'
 
 import React, {useState} from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-// import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -153,17 +164,43 @@ export const CreateOrEditRequestContent = ({
                 <Field
                   tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{maxLength: 100}}
-                  label={`${t(TranslationKey.Title)} *`}
+                  label={`${t(TranslationKey.Title)}*`}
                   className={classNames.nameField}
                   labelClasses={classNames.spanLabelSmall}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
-                <span
+
+                <div className={classNames.orderStatusWrapper}>
+                  <Typography variant="h5" className={classNames.label}>
+                    {t(TranslationKey['Request title'])}
+                  </Typography>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Current idea status'])}
+                    value={formFields?.status}
+                    containerClasses={classNames.fieldWrapper}
+                    inputComponent={
+                      <Select
+                        variant="filled"
+                        value={formFields.status}
+                        input={<Input startAdornment={<InputAdornment position="start"></InputAdornment>} />}
+                        onChange={onChangeField('status')}
+                      >
+                        {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
+                          <MenuItem key={statusIndex} value={statusCode}>
+                            {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[statusCode])}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    }
+                  />
+                </div>
+
+                {/* <span
                   className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
                 >{`${formFields.request.title.length} ${t(TranslationKey.of)} 80 ${t(
                   TranslationKey.characters,
-                )}`}</span>
+                )}`}</span> */}
               </div>
 
               <div className={classNames.descriptionFieldWrapper}>
@@ -241,18 +278,6 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.checkboxesWrapper}>
-                  {/* может пригодиться
-                   <div className={classNames.checkboxWrapper}>
-                    <Typography className={classNames.checkboxLabel}>
-                      {t(TranslationKey['Limit the number of proposals?'])}
-                    </Typography>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.needCheckBySupervisor}
-                      onChange={onChangeField('request')('needCheckBySupervisor')}
-                    />
-                  </div> */}
-
                   <Field
                     oneLine
                     tooltipInfoContent={t(
