@@ -426,6 +426,23 @@ export const clientInventoryColumns = (
   },
 
   {
+    field: 'ideasToCheck',
+    headerName: t(TranslationKey['Ideas to check']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Ideas to check'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 90,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
     field: 'commentSb',
     headerName: t(TranslationKey['Comment of SB']),
     renderHeader: params => (
