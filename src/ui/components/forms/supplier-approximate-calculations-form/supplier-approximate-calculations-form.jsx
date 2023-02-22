@@ -84,7 +84,6 @@ export const SupplierApproximateCalculationsForm = observer(
                   [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
                 })}
                 variant="text"
-                color="primary"
                 onClick={() => setCurStorekeeper(storekeeper)}
               >
                 {storekeeper.name}
