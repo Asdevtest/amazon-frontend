@@ -1768,5 +1768,7 @@
   "Reset filters": "Сбросить фильтры",
   "Current idea status": "Текущий статус идеи",
   "On check": "На проверке",
-  "Verified": "Проверено"
+  "Verified": "Проверено",
+  "Parameters": "Параметры",
+  "Columns": "Колонки"
 }

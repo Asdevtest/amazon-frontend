@@ -168,6 +168,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onLeaveColumnField,
       onHoverColumnField,
       onClickResetFilters,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -377,7 +378,10 @@ export class ClientInStockBoxesViewRaw extends Component {
                 }}
                 componentsProps={{
                   columnMenu: columnMenuSettings,
-                  toolbar: {resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn}},
+                  toolbar: {
+                    resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 density={densityModel}
                 columns={columnsModel}

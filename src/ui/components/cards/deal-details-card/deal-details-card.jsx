@@ -33,7 +33,7 @@ export const DealDetailsCard = ({
   proposalId,
 }) => {
   const {classes: classNames} = useClassNames()
-  const curProposal = requestProposals.find(el => el?.proposal._id === proposalId)
+  const curProposal = requestProposals?.find(el => el?.proposal._id === proposalId)
 
   return (
     <Grid item className={classNames.mainWrapper}>
