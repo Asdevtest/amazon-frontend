@@ -9,6 +9,7 @@ import {
   BoxesAndQuantity,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {formatDate} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 export const productLotDataFormColumns = handlers => [
@@ -62,12 +63,31 @@ export const productLotDataFormColumns = handlers => [
   },
 
   {
-    field: 'date',
-    headerName: t(TranslationKey.Date),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+    field: 'cls',
+    headerName: t(TranslationKey['CLS (batch closing date)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
 
-    renderCell: params => <WarehouseTariffDatesCell row={params.row.boxes[0].logicsTariff} />,
-    width: 330,
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+
+    width: 110,
+  },
+
+  {
+    field: 'etd',
+    headerName: t(TranslationKey['ETD (date of shipment)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
+
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+    width: 110,
+  },
+
+  {
+    field: 'eta',
+    headerName: t(TranslationKey['ETA (arrival date)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
+
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+    width: 110,
   },
 
   {

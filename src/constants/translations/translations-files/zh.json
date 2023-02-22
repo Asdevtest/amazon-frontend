@@ -1770,5 +1770,9 @@
   "On check": "On check",
   "Verified": "Verified",
   "Parameters": "Parameters",
-  "Columns": "Columns"
+  "Columns": "Columns",
+  "Request type": "Request type",
+  "Waiting selection": "Waiting selection",
+  "Waiting check": "Waiting check",
+  "Cost": "Cost"
 }

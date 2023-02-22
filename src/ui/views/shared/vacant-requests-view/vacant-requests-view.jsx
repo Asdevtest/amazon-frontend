@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import {Box, Typography} from '@mui/material'
@@ -8,6 +9,7 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {ViewCartsBlock, ViewCartsLine} from '@constants/svg-icons'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,8 +22,6 @@ import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-import {ViewCartsLine} from '@components/view-carts-icons/view-carts-line/view-carts-line'
-import {ViewCarts} from '@components/view-carts-icons/view-carts/view-carts'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
@@ -80,11 +80,17 @@ class VacantRequestsViewRaw extends Component {
                 <div className={classNames.tablePanelViewWrapper}>
                   <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
                     <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                      <ViewCarts fill={viewMode === tableViewMode.BLOCKS ? 'url(#ViewCartsGradient)' : '#C4C4C4'} />
+                      <ViewCartsBlock
+                        className={cx(classNames.viewCart, {
+                          [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+                        })}
+                      />
                     </ToggleBtnFreelancer>
                     <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
                       <ViewCartsLine
-                        fill={viewMode === tableViewMode.LIST ? 'url(#ViewCartsLineGradient)' : '#C4C4C4'}
+                        className={cx(classNames.viewCart, {
+                          [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
+                        })}
                       />
                     </ToggleBtnFreelancer>
                   </ToggleBtnGroupFreelance>

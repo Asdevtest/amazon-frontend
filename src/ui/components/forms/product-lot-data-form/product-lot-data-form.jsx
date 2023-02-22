@@ -30,7 +30,29 @@ export const ProductLotDataForm = observer(
   ({product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData}) => {
     const {classes: classNames} = useClassNames()
 
-    const [batches, setBatches] = useState([...batchesData])
+    const data = batchesData.map(item => {
+      if (isTransfer) {
+        return {
+          ...item,
+          cls: item?.logicsTariff.cls,
+          etd: item?.logicsTariff.etd,
+          eta: item?.logicsTariff.eta,
+        }
+      } else {
+        return {
+          ...item,
+          cls: item?.boxes[0]?.logicsTariff.cls,
+          etd: item?.boxes[0]?.logicsTariff.etd,
+          eta: item?.boxes[0]?.logicsTariff.eta,
+        }
+      }
+    })
+
+    const [batches, setBatches] = useState(data)
+
+    console.log('data', data)
+    console.log('batches', batches)
+
     const [batchInfo, setBatchInfo] = useState([])
     const [nameSearchValue, setNameSearchValue] = useState('')
     const [isArchive, setIsArchive] = useState(false)
@@ -40,28 +62,28 @@ export const ProductLotDataForm = observer(
     useEffect(() => {
       if (isTransfer && nameSearchValue) {
         setBatches(
-          batchesData?.filter(item =>
+          data?.filter(item =>
             item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
       } else {
         if (nameSearchValue) {
           setBatches(
-            batchesData?.filter(item =>
+            data?.filter(item =>
               item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
             ),
           )
         }
         if (!nameSearchValue) {
-          setBatches(batchesData)
+          setBatches(data)
         }
       }
     }, [nameSearchValue])
 
     useEffect(() => {
-      setBatches([...batchesData])
+      setBatches(data)
       setNameSearchValue('')
-    }, [batchesData])
+    }, [data])
 
     const setOpenBatchInfoModal = () => {
       setShowBatchInfoModal(!showBatchInfoModal)

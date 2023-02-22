@@ -298,7 +298,8 @@ export class ClientProductViewModel {
 
   async getShops() {
     try {
-      const result = await ShopModel.getMyShops()
+      const result = await ShopModel.getMyShopNames()
+
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })

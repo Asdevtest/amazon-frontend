@@ -136,9 +136,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                 </div>
               ) : null}
 
-              {/* <Typography variant="h6" className={classNames.proposalsTitle}>
-                {t(TranslationKey['Proposals for the request'])}
-              </Typography> */}
               {requestProposals?.length ? (
                 <div className={classNames.proposalsWrapper}>
                   <Typography className={classNames.proposalsTitle}>
@@ -256,18 +253,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             onClickSuccessBtn={confirmModalSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
-
-          {/* <ConfirmationModal
-            isWarning={confirmModalSettings.isWarning}
-            openModal={showOrderModal}
-            setOpenModal={() => onTriggerOpenModal('showOrderModal')}
-            title={t(TranslationKey.Attention)}
-            message={confirmOrderSettings.message}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={confirmOrderSettings.onSubmit}
-            onClickCancelBtn={() => onTriggerOpenModal('showOrderModal')}
-          /> */}
 
           <ConfirmWithCommentModal
             openModal={showConfirmWithCommentModal}

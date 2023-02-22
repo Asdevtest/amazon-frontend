@@ -10,6 +10,7 @@ import {
   BoxesAndQuantity,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {formatDate} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -79,16 +80,35 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
-    width: 105,
+    width: 80,
   },
 
   {
-    field: 'date',
-    headerName: t(TranslationKey.Date),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+    field: 'cls',
+    headerName: t(TranslationKey['CLS (batch closing date)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
 
-    renderCell: params => <WarehouseTariffDatesCell row={params.row.logicsTariff} />,
-    width: 310,
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+
+    width: 110,
+  },
+
+  {
+    field: 'etd',
+    headerName: t(TranslationKey['ETD (date of shipment)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
+
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+    width: 110,
+  },
+
+  {
+    field: 'eta',
+    headerName: t(TranslationKey['ETA (arrival date)']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
+
+    renderCell: params => <MultilineTextCell text={formatDate(params.value)} />,
+    width: 110,
   },
 
   {

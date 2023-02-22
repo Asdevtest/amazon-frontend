@@ -27,6 +27,8 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     const [formFields, setFormFields] = useState({reason: '', rating: ''})
     const {classes: classNames} = useClassNames()
 
+    console.log('formFields', formFields)
+
     const onChangeField = fieldName => event => {
       setFormFields({
         ...formFields,
@@ -38,7 +40,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         <Typography className={classNames.modalTitle}>{title}</Typography>
         <div className={classNames.ratingWrapper}>
           <Field
-            label={rateLabel}
+            label={rateLabel + '*'}
             inputComponent={
               <div className={classNames.rating}>
                 <Rating
@@ -65,6 +67,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
 
         <div className={classNames.btnsWrapper}>
           <Button
+            disabled={!formFields.rating}
             success={!isReject}
             danger={isReject}
             color="primary"
