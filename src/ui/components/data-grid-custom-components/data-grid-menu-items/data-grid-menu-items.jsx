@@ -265,11 +265,11 @@ export const ObJectFieldMenuItem = React.memo(
                     <>
                       {itemsForRender
                         .filter(el => el)
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item._id === b._id)) -
-                            Number(choosenItems?.some(item => item._id === a._id)),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item._id === b._id)) -
+                        //     Number(choosenItems?.some(item => item._id === a._id)),
+                        // )
                         .map(obj => (
                           <div key={obj._id} className={classNames.shop}>
                             <Checkbox
@@ -347,7 +347,13 @@ export const NormalFieldMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData,
+          // .sort(
+          //   (a, b) =>
+          //     Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          // ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -381,11 +387,12 @@ export const NormalFieldMenuItem = React.memo(
                     <>
                       {itemsForRender
                         // .filter(el => el)
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item === b)) -
-                            Number(choosenItems?.some(item => item === a)),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     currentFilterData.length &&
+                        //     Number(choosenItems?.some(item => item === b)) -
+                        //       Number(choosenItems?.some(item => item === a)),
+                        // )
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -547,12 +554,13 @@ export const ProductMenuItem = React.memo(
                     <>
                       {itemsForRender
                         // .filter(el => el)
-                        ?.sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item === b)) -
-                            Number(choosenItems?.some(item => item === a)),
-                        )
-                        .map((el, index) => (
+
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item === b)) -
+                        //     Number(choosenItems?.some(item => item === a)),
+                        // )
+                        ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
                               color="primary"
@@ -695,11 +703,11 @@ export const OrderOrItemMenuItem = React.memo(
                     <>
                       {itemsForRender
                         // .filter(el => el)
-                        ?.sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item === b)) -
-                            Number(choosenItems?.some(item => item === a)),
-                        )
+                        // ?.sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item === b)) -
+                        //     Number(choosenItems?.some(item => item === a)),
+                        // )
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -845,11 +853,11 @@ export const DestinationMenuItem = React.memo(
                       {itemsForRender
                         .filter(el => el)
 
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item?._id === b?._id)) -
-                            Number(choosenItems?.some(item => item?._id === a?._id)),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item?._id === b?._id)) -
+                        //     Number(choosenItems?.some(item => item?._id === a?._id)),
+                        // )
                         .map(obj => (
                           <div key={obj?._id} className={classNames.shop}>
                             <Checkbox
@@ -978,11 +986,11 @@ export const FromToDateMenuItem = React.memo(
                     <>
                       {itemsForRender
                         // .filter(el => el)
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item === b)) -
-                              Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item === b)) -
+                        //       Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
+                        // )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -1116,11 +1124,11 @@ export const NumberFieldMenuItem = React.memo(
                     <>
                       {itemsForRender
                         // .filter(el => el)
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item === b)) -
-                              Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item === b)) -
+                        //       Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
+                        // )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
@@ -1285,12 +1293,12 @@ export const InStockMenuItem = React.memo(
                     <>
                       {itemsForRender
                         .filter(el => el)
-                        .sort(
-                          (a, b) =>
-                            Number(choosenItems?.some(item => item._id === b._id)) -
-                              Number(choosenItems?.some(item => item._id === a._id)) ||
-                            Number(b.amountInBoxes) - Number(a.amountInBoxes),
-                        )
+                        // .sort(
+                        //   (a, b) =>
+                        //     Number(choosenItems?.some(item => item._id === b._id)) -
+                        //       Number(choosenItems?.some(item => item._id === a._id)) ||
+                        //     Number(b.amountInBoxes) - Number(a.amountInBoxes),
+                        // )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
