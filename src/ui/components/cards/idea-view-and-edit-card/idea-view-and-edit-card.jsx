@@ -218,82 +218,85 @@ export const IdeaViewAndEditCard = observer(
             {formFields.productName}
           </Typography>
 
-          <div className={classNames.orderStatusWrapper}>
-            <Typography variant="h5" className={classNames.label}>
-              {t(TranslationKey['Order status']) + ':'}
-            </Typography>
-            <Field
-              tooltipInfoContent={t(TranslationKey['Current idea status'])}
-              value={formFields?.status}
-              containerClasses={classNames.fieldWrapper}
-              inputComponent={
-                <Select
-                  variant="filled"
-                  value={formFields.status}
-                  classes={{
-                    select: cx({
-                      [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
+          {!inCreate && (
+            <div className={classNames.orderStatusWrapper}>
+              <Typography variant="h5" className={classNames.label}>
+                {t(TranslationKey['Order status']) + ':'}
+              </Typography>
+              <Field
+                tooltipInfoContent={t(TranslationKey['Current idea status'])}
+                value={formFields?.status}
+                containerClasses={classNames.fieldWrapper}
+                inputComponent={
+                  <Select
+                    variant="filled"
+                    value={formFields.status}
+                    classes={{
+                      select: cx({
+                        [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
 
-                      [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+                        [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
 
-                      [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                    }),
-                  }}
-                  input={
-                    <Input
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <FiberManualRecordRoundedIcon
-                            className={cx({
-                              [classNames.orange]:
-                                `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
+                        [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                      }),
+                    }}
+                    input={
+                      <Input
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <FiberManualRecordRoundedIcon
+                              className={cx({
+                                [classNames.orange]:
+                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
 
-                              [classNames.green]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+                                [classNames.green]:
+                                  `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
 
-                              [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                            })}
-                          />
-                        </InputAdornment>
-                      }
-                    />
-                  }
-                  onChange={onChangeField('status')}
-                >
-                  {Object.keys({
-                    ...getObjectFilteredByKeyArrayWhiteList(ideaStatusByCode, allowOrderStatuses),
-                  }).map((statusCode, statusIndex) => (
-                    <MenuItem
-                      key={statusIndex}
-                      value={statusCode}
-                      className={cx(
-                        cx(classNames.stantartSelect, {
-                          [classNames.orange]: statusCode === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
+                                [classNames.red]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                              })}
+                            />
+                          </InputAdornment>
+                        }
+                      />
+                    }
+                    onChange={onChangeField('status')}
+                  >
+                    {Object.keys({
+                      ...getObjectFilteredByKeyArrayWhiteList(ideaStatusByCode, allowOrderStatuses),
+                    }).map((statusCode, statusIndex) => (
+                      <MenuItem
+                        key={statusIndex}
+                        value={statusCode}
+                        className={cx(
+                          cx(classNames.stantartSelect, {
+                            [classNames.orange]: statusCode === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
 
-                          [classNames.green]: statusCode === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
+                            [classNames.green]: statusCode === `${ideaStatusByKey[ideaStatus.VERIFIED]}`,
 
-                          [classNames.red]: statusCode === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
-                          [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                        }),
-                      )}
-                      disabled={disabledOrderStatuses.includes(statusCode)}
-                    >
-                      {ideaStatusTranslate(ideaStatusByCode[statusCode])}
-                    </MenuItem>
-                  ))}
-                </Select>
-              }
-            />
-            <SaveIcon
-              className={cx(classNames.saveIcon, {
-                [classNames.disableSelect]: `${idea?.status}` === `${formFields?.status}`,
-              })}
-              onClick={() => {
-                if (`${idea?.status}` !== `${formFields?.status}`) {
-                  onClickSaveIcon(formFields)
+                            [classNames.red]: statusCode === `${ideaStatusByKey[ideaStatus.CLOSED]}`,
+                            [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                          }),
+                        )}
+                        disabled={disabledOrderStatuses.includes(statusCode)}
+                      >
+                        {ideaStatusTranslate(ideaStatusByCode[statusCode])}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 }
-              }}
-            />
-          </div>
+              />
+              <SaveIcon
+                className={cx(classNames.saveIcon, {
+                  [classNames.disableSelect]: `${idea?.status}` === `${formFields?.status}`,
+                })}
+                onClick={() => {
+                  if (`${idea?.status}` !== `${formFields?.status}`) {
+                    onClickSaveIcon(formFields)
+                  }
+                }}
+              />
+            </div>
+          )}
         </div>
 
         <div className={classNames.cardWrapper}>
