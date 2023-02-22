@@ -295,7 +295,7 @@ class ChatModelStatic {
 
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    if (message.user?._id !== this.userId) {
+    if (message.user?._id !== this.userId && message.type === ChatMessageType.USER) {
       SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
     }
 

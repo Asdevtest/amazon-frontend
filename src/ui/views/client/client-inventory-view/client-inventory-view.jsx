@@ -179,6 +179,7 @@ export class ClientInventoryViewRaw extends Component {
       onHoverColumnField,
       onLeaveColumnField,
       onClickResetFilters,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -187,6 +188,8 @@ export class ClientInventoryViewRaw extends Component {
     const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
+
+    // console.log('columnsModel', columnsModel)
 
     return (
       <React.Fragment>
@@ -405,7 +408,10 @@ export class ClientInventoryViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: columnMenuSettings,
-                    toolbar: {resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn}},
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}

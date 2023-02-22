@@ -82,8 +82,8 @@ export const NavbarCollapse = ({
       key={subIndex}
       tooltipPosition="center"
       className={cx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
-      tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
-      tooltipAttentionContent={renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
+      tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory.subtitle, userInfo.role)}
+      tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
       <NavbarSubCategory
         button

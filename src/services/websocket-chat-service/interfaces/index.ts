@@ -78,6 +78,7 @@ export enum ChatMessageType {
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
   'SYSTEM' = 'system:default',
+  'USER' = 'user:default',
 }
 
 export enum ChatMessageTextType {
