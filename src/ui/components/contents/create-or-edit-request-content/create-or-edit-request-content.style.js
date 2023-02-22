@@ -201,8 +201,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameFieldWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
+    justifyContent: 'space-between',
 
     // '& > span': {
     //   marginTop: '-20px',
@@ -211,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameField: {
     height: '40px',
-    width: 392,
+    width: '100%',
     overflowY: 'hidden',
   },
 
@@ -515,5 +514,20 @@ export const useClassNames = makeStyles()(theme => ({
 
   listItemDot: {
     width: '8px !important',
+  },
+  nameFieldContainer: {
+    width: '390px !important',
+  },
+  requestTypeContainer: {
+    width: '370px !important',
+  },
+  requestTypeField: {
+    width: '100%',
+    height: 40,
+    margin: 0,
+
+    '&:before': {
+      borderBottom: 'none',
+    },
   },
 }))
