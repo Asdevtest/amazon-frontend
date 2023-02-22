@@ -263,7 +263,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameField: {
     height: '40px',
-    width: '100%',
+    width: 392,
     overflowY: 'hidden',
   },
 
