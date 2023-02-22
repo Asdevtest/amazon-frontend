@@ -188,7 +188,6 @@ export const AddOrEditLogisticTariffForm = observer(
       Number(formFields.minWeightInKg) <= 0 ||
       toString(formFields.minWeightInKg).match(regExp) ||
       formFields.deliveryTimeInDay === '' ||
-      formFields.deliveryTimeInDay === '0' ||
       formFields.cls === null ||
       formFields.etd === null ||
       formFields.eta === null ||
@@ -196,11 +195,11 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.etd.toString() === 'Invalid Date' ||
       formFields.eta.toString() === 'Invalid Date' ||
       formFields.conditionsByRegion.west.rate === '' ||
-      formFields.conditionsByRegion.central.rate === '' ||
+      formFields.conditionsByRegion.west.rate <= 0 ||
       formFields.conditionsByRegion.east.rate === '' ||
-      formFields.conditionsByRegion.west.rate === '0' ||
-      formFields.conditionsByRegion.central.rate === '0' ||
-      formFields.conditionsByRegion.east.rate === '0' ||
+      formFields.conditionsByRegion.east.rate <= 0 ||
+      formFields.conditionsByRegion.central.rate === '' ||
+      formFields.conditionsByRegion.central.rate <= 0 ||
       formFields.description.length > 255 ||
       checkDateByDeadline(formFields.cls) ||
       checkDateByDeadline(formFields.etd) ||
@@ -228,7 +227,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
             <Field
               label={t(TranslationKey['Delivery time, days']) + '*'}
-              error={Number(formFields.deliveryTimeInDay) <= 0}
+              error={!formFields.deliveryTimeInDay}
               tooltipInfoContent={t(TranslationKey['Approximate delivery time'])}
               inputProps={{maxLength: 20}}
               labelClasses={classNames.fieldLabel}
