@@ -1771,7 +1771,7 @@
   "Verified": "Проверено",
   "Parameters": "Параметры",
   "Columns": "Колонки",
-  "Request type": "Типо заявки",
+  "Request type": "Тип заявки",
   "Waiting selection": "Ожидают выбора",
   "Waiting check": "Ожидают проверки",
   "Cost": "Стоимость",
@@ -1809,5 +1809,7 @@
   "Designer": "Дизайнер",
   "SEO": "SEO",
   "Blogger": "Блогер",
-  "PPC": "PPC"
+  "PPC": "PPC",
+  "Current request type": "Текущий тип заявки",
+  "Select from the list": "Выберите из списка"
 }

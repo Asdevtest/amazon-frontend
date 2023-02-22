@@ -164,37 +164,37 @@ export const CreateOrEditRequestContent = ({
                 <Field
                   tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{maxLength: 100}}
-                  label={`${t(TranslationKey.Title)}*`}
+                  label={t(TranslationKey['Request title'])}
                   className={classNames.nameField}
+                  containerClasses={classNames.nameFieldContainer}
                   labelClasses={classNames.spanLabelSmall}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
 
-                <div className={classNames.orderStatusWrapper}>
-                  <Typography variant="h5" className={classNames.label}>
-                    {t(TranslationKey['Request title'])}
-                  </Typography>
-                  <Field
-                    tooltipInfoContent={t(TranslationKey['Current idea status'])}
-                    value={formFields?.status}
-                    containerClasses={classNames.fieldWrapper}
-                    inputComponent={
-                      <Select
-                        variant="filled"
-                        value={formFields.status}
-                        input={<Input startAdornment={<InputAdornment position="start"></InputAdornment>} />}
-                        onChange={onChangeField('status')}
-                      >
-                        {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
-                          <MenuItem key={statusIndex} value={statusCode}>
-                            {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[statusCode])}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    }
-                  />
-                </div>
+                <Field
+                  label={t(TranslationKey['Request type']) + '*'}
+                  labelClasses={classNames.spanLabelSmall}
+                  tooltipInfoContent={t(TranslationKey['Current request type'])}
+                  value={formFields?.status || t(TranslationKey['Select from the list'])}
+                  className={classNames.requestTypeField}
+                  containerClasses={classNames.requestTypeContainer}
+                  inputComponent={
+                    <Select
+                      variant="filled"
+                      value={formFields.status}
+                      className={classNames.requestTypeField}
+                      input={<Input startAdornment={<InputAdornment position="start"></InputAdornment>} />}
+                      onChange={onChangeField('status')}
+                    >
+                      {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
+                        <MenuItem key={statusIndex} value={statusCode}>
+                          {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[statusCode])}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  }
+                />
 
                 {/* <span
                   className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}

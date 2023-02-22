@@ -1809,8 +1809,8 @@ export enum TranslationKey {
   'SEO' = 'SEO',
   'Blogger' = 'Blogger',
   'PPC' = 'PPC',
-  // '' = '',
-  // '' = '',
+  'Current request type' = 'Current request type',
+  'Select from the list' = 'Select from the list',
   // '' = '',
   // '' = '',
 }
