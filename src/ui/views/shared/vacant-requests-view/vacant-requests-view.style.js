@@ -27,8 +27,6 @@ export const styles = theme => ({
   tablePanelViewWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    marginBottom: '20px',
   },
 
   tablePanelSortWrapper: {
@@ -70,6 +68,8 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+
+    marginBottom: '20px',
   },
 
   searchInput: {
@@ -79,5 +79,15 @@ export const styles = theme => ({
 
   searchContainer: {
     width: 'auto',
+  },
+
+  viewCart: {
+    width: '20px !important',
+    height: '20px !important',
+
+    color: theme.palette.text.second,
+  },
+  viewCartSelected: {
+    color: theme.palette.primary.main,
   },
 })
