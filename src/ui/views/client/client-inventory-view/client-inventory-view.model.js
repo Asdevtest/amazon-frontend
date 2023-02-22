@@ -359,7 +359,7 @@ export class ClientInventoryViewModel {
 
   onClickOrderCell(productId) {
     const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-at-process-orders=true`,
+      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=orders`,
       '_blank',
     )
 

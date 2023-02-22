@@ -122,7 +122,7 @@ export class ClientProductViewModel {
 
   supplierModalReadOnly = false
 
-  showAtProcessOrders = false
+  showTab = undefined
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
@@ -163,7 +163,7 @@ export class ClientProductViewModel {
 
       this.productId = url.searchParams.get('product-id')
 
-      this.showAtProcessOrders = !!url.searchParams.get('show-at-process-orders')
+      this.showTab = url.searchParams.get('show-tab')
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
