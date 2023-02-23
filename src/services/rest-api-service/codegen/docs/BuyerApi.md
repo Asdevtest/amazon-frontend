@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksPost
 
-> InlineResponse2015 apiV1BuyersTasksPost(opts)
+> InlineResponse2011 apiV1BuyersTasksPost(opts)
 
 # Создать задачу.
 
@@ -1231,7 +1231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
