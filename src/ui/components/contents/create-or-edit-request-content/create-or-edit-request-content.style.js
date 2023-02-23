@@ -25,6 +25,8 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+
+    gap: 50,
   },
 
   middleStepTwoMainWrapper: {
@@ -103,7 +105,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
+    margin: 0,
   },
 
   footerWrapper: {
@@ -265,13 +268,24 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  checkboxAndButtonWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // gap: '30px',
+    alignItems: 'center',
+  },
+  checkboxProposalWrapper: {
+    width: 370,
+    margin: 0,
+  },
+
   checkboxesWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
-    marginBottom: '30px',
   },
 
   error: {
@@ -525,9 +539,38 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: 40,
     margin: 0,
+    paddingLeft: 10,
+
+    borderRadius: 4,
 
     '&:before': {
       borderBottom: 'none',
     },
+  },
+  nativeSelect: {
+    width: '100%',
+  },
+  bloggerFieldContainer: {
+    width: '180px !important',
+  },
+  bloggerFieldsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  dateAndTimeContainer: {
+    width: '370px !important',
+  },
+  dateField: {
+    width: '100%',
+  },
+  titleAndAsinWrapper: {
+    display: 'flex',
+  },
+  asinWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  changePerformerBtn: {
+    width: 190,
   },
 }))
