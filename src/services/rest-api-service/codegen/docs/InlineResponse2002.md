@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **masterUserInfo** | [**InlineResponse2002SubUsers**](InlineResponse2002SubUsers.md) |  | [optional] 
 **allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
+**allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

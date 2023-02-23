@@ -22,10 +22,13 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} 
+     * @param operationType {module:model/InlineObject19.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject19.initialize(this);
+        InlineObject19.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, boxes, operationType) { 
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -164,6 +170,39 @@ InlineObject19.prototype['prepId'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject19['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
+
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 
