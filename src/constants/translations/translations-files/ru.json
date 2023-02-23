@@ -1798,5 +1798,7 @@
   "CashBack Percentage": "Процент CashBack",
   "Change performer": "Изменить исполнителя",
   "Limit the number of proposals": "Ограничить количество предложений",
-  "Requests cost": "Стоимость заявки"
+  "Requests cost": "Стоимость заявки",
+  "Select a User Specialization": "Выберите специализацию пользователя",
+  "User specialties": "Специализации пользователя"
 }

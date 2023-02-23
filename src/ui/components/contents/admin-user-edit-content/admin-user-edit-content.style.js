@@ -255,6 +255,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   allowedStrategiesContainer: {
+    width: '470px !important',
     marginTop: '20px',
   },
 
@@ -274,6 +275,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
+    width: '100%',
     color: theme.palette.text.general,
   },
 

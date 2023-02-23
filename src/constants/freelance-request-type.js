@@ -11,10 +11,10 @@ export const freelanceRequestType = {
 }
 
 export const freelanceRequestTypeByCode = {
-  1: freelanceRequestType.DESIGNER,
-  2: freelanceRequestType.SEO,
-  3: freelanceRequestType.BLOGGER,
-  4: freelanceRequestType.PPC,
+  10: freelanceRequestType.DESIGNER,
+  20: freelanceRequestType.SEO,
+  30: freelanceRequestType.BLOGGER,
+  40: freelanceRequestType.PPC,
 }
 
 export const freelanceRequestTypeByKey = objectFlip(freelanceRequestTypeByCode, parseInt)
