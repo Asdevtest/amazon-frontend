@@ -394,9 +394,15 @@ const DealsOnReviewView = lazy(() =>
 )
 const FinancesView = lazy(() => import('@views/shared/finances-view').then(module => ({default: module.FinancesView})))
 const MessagesView = lazy(() => import('@views/shared/messages-view').then(module => ({default: module.MessagesView})))
+
 const MyProposalsView = lazy(() =>
   import('@views/shared/my-proposals-view').then(module => ({default: module.MyProposalsView})),
 )
+
+const ServiceExchangeView = lazy(() =>
+  import('@views/shared/service-exchange-view').then(module => ({default: module.ServiceExchangeView})),
+)
+
 const MyRequestsView = lazy(() =>
   import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
 )
@@ -837,6 +843,17 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My proposals'],
+  },
+
+  {
+    routePath: '/client/freelance/service-exchange',
+    component: ServiceExchangeView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+
+    crumbNameKey: TranslationKey['Service exchange'],
   },
 
   {
