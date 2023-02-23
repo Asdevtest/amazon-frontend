@@ -222,6 +222,9 @@ class InlineResponse20027Rows {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
+            if (data.hasOwnProperty('ideasCounter')) {
+                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
+            }
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
@@ -622,6 +625,12 @@ InlineResponse20027Rows.prototype['listingImages'] = undefined;
  * @member {Number} strategyStatus
  */
 InlineResponse20027Rows.prototype['strategyStatus'] = undefined;
+
+/**
+ * Кол-во идей продукта в статусе 10
+ * @member {Number} ideasCounter
+ */
+InlineResponse20027Rows.prototype['ideasCounter'] = undefined;
 
 /**
  * Признак needCheckBySupervisor

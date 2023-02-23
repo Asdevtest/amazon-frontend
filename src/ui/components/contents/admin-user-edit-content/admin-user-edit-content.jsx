@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
@@ -54,8 +55,8 @@ export const AdminUserEditContent = observer(
       allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
       allowedStrategies:
         (editUserFormFields?.allowedStrategies === null ? [] : editUserFormFields?.allowedStrategies) || [],
+      allowedSpec: (editUserFormFields?.allowedSpec === null ? [] : editUserFormFields?.allowedSpec) || [],
       email: editUserFormFields?.email || '',
-      // password: editUserFormFields?.password || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,
       name: editUserFormFields?.name || '',
@@ -67,14 +68,13 @@ export const AdminUserEditContent = observer(
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
-      // Новое
       oldPassword: '',
       password: '',
       confirmPassword: '',
-      //
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
+
     const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
     const [selectedRole, setSelectedRole] = useState('')
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
@@ -590,28 +590,28 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {/* <Field  // ТЕГИ, ВОЗМОЖНО ВЕРНУТЬСЯ
-              label={t(TranslationKey['Add user access tags'])}
-              value={accessTag}
-              endAdornment={
-                <Typography className={classNames.actionTagButton} onClick={() => addAccessTag()}>
-                  {'+'}
-                </Typography>
-              }
-              onChange={e => setAccessTag(e.target.value)}
-            />
-            <div className={classNames.tagsWrapper}>
-              {accessTags.map((tag, index) => (
-                <div key={index}>
-                  <Typography className={classNames.tag}>
-                    {tag}
-                    <Typography className={classNames.removeTagButton} onClick={() => removeAccessTag(tag)}>
-                      {'х'}
-                    </Typography>
-                  </Typography>
-                </div>
-              ))}
-            </div> */}
+            {formFields.allowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
+              <Field
+                label={t(TranslationKey['User specialties'])}
+                containerClasses={classNames.allowedStrategiesContainer}
+                inputComponent={
+                  <Select
+                    multiple
+                    className={classNames.standartText}
+                    value={formFields?.allowedSpec}
+                    renderValue={selected => selected.map(el => freelanceRequestTypeByCode[el]).join(', ')}
+                    onChange={onChangeFormField('allowedSpec')}
+                  >
+                    {Object.keys(freelanceRequestTypeByCode).map((type, index) => (
+                      <MenuItem key={index} className={classNames.standartText} value={Number(type)}>
+                        <Checkbox color="primary" checked={formFields?.allowedSpec?.includes(Number(type))} />
+                        <ListItemText primary={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[type])} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                }
+              />
+            )}
           </div>
 
           <div className={classNames.rightWrapper}>
