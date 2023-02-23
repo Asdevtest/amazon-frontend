@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 308805189 (added new column asin for freelance my requests)
 =======
@@ -29,6 +30,8 @@ Name | Type | Description | Notes
 =======
 =======
 >>>>>>> 0e4122de3 (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
+=======
+>>>>>>> f8d05be5e (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 **taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
 **boxesBefore** | **[String]** |  | [optional] 
 **boxes** | **[String]** |  | 
@@ -53,6 +56,7 @@ Name | Type | Description | Notes
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> d43a0e20d (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 =======
 >>>>>>> 308805189 (added new column asin for freelance my requests)
@@ -60,5 +64,7 @@ Name | Type | Description | Notes
 >>>>>>> 0e4122de3 (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 =======
 >>>>>>> 1109ad23d (added new column asin for freelance my requests)
+=======
+>>>>>>> f8d05be5e (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 
 
