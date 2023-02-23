@@ -15,11 +15,17 @@ import {
 
 import React, {useState} from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
@@ -27,6 +33,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
+import {shortAsin} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
@@ -50,6 +57,8 @@ export const CreateOrEditRequestContent = ({
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
+  const [isLimited, setIsLimited] = useState(false)
+
   const sourceFormFields = {
     request: {
       title: requestToEdit?.request.title || '',
@@ -62,10 +71,17 @@ export const CreateOrEditRequestContent = ({
       needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
+
+      requestType: requestToEdit?.request?.requestType || null,
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
+
+      asin: requestToEdit?.details.asin || '',
+      amazonPrice: requestToEdit?.details.amazonPrice || '',
+      discountedPrice: requestToEdit?.details.discountedPrice || '',
+      cashBack: requestToEdit?.details.cashBack || '',
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -176,17 +192,19 @@ export const CreateOrEditRequestContent = ({
                   label={t(TranslationKey['Request type']) + '*'}
                   labelClasses={classNames.spanLabelSmall}
                   tooltipInfoContent={t(TranslationKey['Current request type'])}
-                  value={formFields?.status || t(TranslationKey['Select from the list'])}
-                  className={classNames.requestTypeField}
                   containerClasses={classNames.requestTypeContainer}
                   inputComponent={
                     <Select
-                      variant="filled"
-                      value={formFields.status}
+                      displayEmpty
+                      value={formFields.request.requestType || null}
                       className={classNames.requestTypeField}
-                      input={<Input startAdornment={<InputAdornment position="start"></InputAdornment>} />}
-                      onChange={onChangeField('status')}
+                      input={<Input startAdornment={<InputAdornment position="start" />} />}
+                      onChange={onChangeField('request')('requestType')}
                     >
+                      <MenuItem disabled value={null}>
+                        <em>{t(TranslationKey['Select from the list'])}</em>
+                      </MenuItem>
+
                       {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
                         <MenuItem key={statusIndex} value={statusCode}>
                           {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[statusCode])}
@@ -202,6 +220,51 @@ export const CreateOrEditRequestContent = ({
                   TranslationKey.characters,
                 )}`}</span> */}
               </div>
+
+              {`${formFields?.request?.requestType}` ===
+                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                <div className={classNames.bloggerFieldsWrapper}>
+                  <Field
+                    className={classNames.nameField}
+                    containerClasses={classNames.bloggerFieldContainer}
+                    inputProps={{maxLength: 10}}
+                    label={t(TranslationKey.ASIN)}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.details.asin}
+                    onChange={onChangeField('details')('asin')}
+                  />
+
+                  <Field
+                    className={classNames.nameField}
+                    containerClasses={classNames.bloggerFieldContainer}
+                    inputProps={{maxLength: 8}}
+                    label={t(TranslationKey['Price on Amazon']) + ', $'}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.details.amazonPrice}
+                    onChange={onChangeField('details')('amazonPrice')}
+                  />
+
+                  <Field
+                    className={classNames.nameField}
+                    containerClasses={classNames.bloggerFieldContainer}
+                    inputProps={{maxLength: 8}}
+                    label={t(TranslationKey['Discounted price']) + ', $'}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.details.discountedPrice}
+                    onChange={onChangeField('details')('discountedPrice')}
+                  />
+
+                  <Field
+                    className={classNames.nameField}
+                    containerClasses={classNames.bloggerFieldContainer}
+                    inputProps={{maxLength: 8}}
+                    label={t(TranslationKey['CashBack Percentage']) + ', %'}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.details.cashBack}
+                    onChange={onChangeField('details')('cashBack')}
+                  />
+                </div>
+              )}
 
               <div className={classNames.descriptionFieldWrapper}>
                 <Field
@@ -237,6 +300,7 @@ export const CreateOrEditRequestContent = ({
               <div>
                 <div className={classNames.dateAndTimeWrapper}>
                   <Field
+                    containerClasses={classNames.dateAndTimeContainer}
                     tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                     label={`${t(TranslationKey['When do you want results?'])}`}
                     labelClasses={classNames.spanLabelSmall}
@@ -245,6 +309,7 @@ export const CreateOrEditRequestContent = ({
                         <NewDatePicker
                           // showToolbar
                           disablePast
+                          className={classNames.dateField}
                           // toolbarFormat="ddd DD MMMM"
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
@@ -258,12 +323,14 @@ export const CreateOrEditRequestContent = ({
                     }
                   />
                   <Field
+                    containerClasses={classNames.dateAndTimeContainer}
                     tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                     label={`${t(TranslationKey['What time do you want the result?'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
                       <div>
                         <DatePickerTime
+                          className={classNames.dateField}
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
@@ -278,6 +345,15 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.checkboxesWrapper}>
+                  <Field
+                    oneLine
+                    label={t(TranslationKey['Limit the number of proposals'])}
+                    containerClasses={classNames.checkboxWrapper}
+                    inputComponent={
+                      <Checkbox color="primary" checked={isLimited} onChange={() => setIsLimited(!isLimited)} />
+                    }
+                  />
+
                   <Field
                     oneLine
                     tooltipInfoContent={t(
@@ -297,15 +373,7 @@ export const CreateOrEditRequestContent = ({
 
                 <div className={classNames.priceAndAmountWrapper}>
                   <Field
-                    tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
-                    inputProps={{maxLength: 8}}
-                    label={`${t(TranslationKey['Enter the offer price'])}`}
-                    labelClasses={classNames.spanLabelSmall}
-                    value={formFields.request.price}
-                    onChange={onChangeField('request')('price')}
-                  />
-
-                  <Field
+                    disabled={isLimited}
                     tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
                     inputProps={{maxLength: 8}}
                     label={`${t(TranslationKey['Enter the number of proposals'])} *`}
@@ -313,23 +381,38 @@ export const CreateOrEditRequestContent = ({
                     value={formFields.request.maxAmountOfProposals}
                     onChange={onChangeField('request')('maxAmountOfProposals')}
                   />
+
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
+                    inputProps={{maxLength: 8}}
+                    label={`${t(TranslationKey['Enter the offer price'])}`}
+                    labelClasses={classNames.spanLabelSmall}
+                    value={formFields.request.price}
+                    onChange={onChangeField('request')('price')}
+                  />
                 </div>
 
-                <Field
-                  oneLine
-                  tooltipInfoContent={t(
-                    TranslationKey['After providing the result, the same performer may make a new proposal'],
-                  )}
-                  label={t(TranslationKey['Prohibit multiple performances by the same performer'])}
-                  containerClasses={classNames.checkboxWrapper}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                      onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                    />
-                  }
-                />
+                <div className={classNames.checkboxAndButtonWrapper}>
+                  <Button disabled variant={'contained'} className={classNames.changePerformerBtn}>
+                    {t(TranslationKey['Change performer'])}
+                  </Button>
+
+                  <Field
+                    oneLine
+                    tooltipInfoContent={t(
+                      TranslationKey['After providing the result, the same performer may make a new proposal'],
+                    )}
+                    label={t(TranslationKey['Prohibit multiple performances by the same performer'])}
+                    containerClasses={classNames.checkboxProposalWrapper}
+                    inputComponent={
+                      <Checkbox
+                        color="primary"
+                        checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                        onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                      />
+                    }
+                  />
+                </div>
               </div>
               {requestToEdit ? (
                 <div className={classNames.footerWrapper}>
@@ -449,15 +532,44 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.middleStepTwoMainWrapper}>
                 <div className={classNames.middleStepTwoWrapper}>
                   <div className={classNames.middleStepTwoSubWrapper}>
-                    <Field
-                      label={t(TranslationKey['Request title'])}
-                      labelClasses={classNames.spanLabel}
-                      inputComponent={
-                        <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
-                      }
-                    />
-                    <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
+                    <div className={classNames.titleAndAsinWrapper}>
+                      <Field
+                        label={t(TranslationKey.Title)}
+                        labelClasses={classNames.spanLabel}
+                        inputComponent={
+                          <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
+                        }
+                      />
 
+                      {`${formFields?.request?.requestType}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                        <Field
+                          label={t(TranslationKey.ASIN)}
+                          labelClasses={classNames.spanLabel}
+                          inputComponent={
+                            <div className={classNames.asinWrapper}>
+                              <Typography className={classNames.orderText}>
+                                {formFields.details.asin ? (
+                                  <a
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href={`https://www.amazon.com/dp/${formFields.details.asin}`}
+                                    className={classNames.normalizeLink}
+                                  >
+                                    <span className={classNames.linkSpan}>{shortAsin(formFields.details.asin)}</span>
+                                  </a>
+                                ) : (
+                                  <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                                )}
+                              </Typography>
+                              {formFields.details.asin ? <CopyValue text={formFields.details.asin} /> : null}
+                            </div>
+                          }
+                        />
+                      )}
+                    </div>
+
+                    <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
                     <PhotoAndFilesCarousel small files={images} />
                   </div>
 
