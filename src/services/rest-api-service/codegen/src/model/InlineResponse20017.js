@@ -52,8 +52,8 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20017Rows]);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
@@ -153,7 +153,7 @@ class InlineResponse20017 {
  * GUID коробки.
  * @member {String} _id
  */
-InlineResponse20017.prototype['rows'] = undefined;
+InlineResponse20017.prototype['_id'] = undefined;
 
 /**
  * Номер коробки.
