@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 308805189 (added new column asin for freelance my requests)
 **destinationId** | **String** | GUID пункта назначения коробки | [optional] 
@@ -22,6 +23,8 @@ Name | Type | Description | Notes
 <<<<<<< HEAD
 **prepId** | **String** | Значение информационного ключа | [optional] 
 =======
+=======
+>>>>>>> 0e4122de3 (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 **taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
 **boxesBefore** | **[String]** |  | [optional] 
 **boxes** | **[String]** |  | 
@@ -45,8 +48,11 @@ Name | Type | Description | Notes
 * `edit` (value: `"edit"`)
 
 
+<<<<<<< HEAD
 >>>>>>> d43a0e20d (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 =======
 >>>>>>> 308805189 (added new column asin for freelance my requests)
+=======
+>>>>>>> 0e4122de3 (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 
 
