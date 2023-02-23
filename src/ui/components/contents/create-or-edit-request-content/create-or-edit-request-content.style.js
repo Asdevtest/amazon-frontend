@@ -276,7 +276,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
   checkboxProposalWrapper: {
-    width: 370,
+    width: '375px !important',
     margin: 0,
   },
 
