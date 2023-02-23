@@ -58,6 +58,7 @@ class InlineResponse2011 {
 }
 
 /**
+ * guid созданного объекта
  * @member {String} guid
  */
 InlineResponse2011.prototype['guid'] = undefined;

@@ -808,6 +808,7 @@ Name | Type | Description  | Notes
 ## apiV1ClientsOrdersPost
 
 > InlineResponse2015 apiV1ClientsOrdersPost(opts)
+> InlineResponse2011 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
@@ -848,6 +849,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
@@ -1812,6 +1814,7 @@ Name | Type | Description  | Notes
 ## apiV1ClientsTasksPost
 
 > InlineResponse2015 apiV1ClientsTasksPost(opts)
+> InlineResponse2011 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
@@ -1851,7 +1854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2011**](InlineResponse2011.md)
 
 ### Authorization
 
