@@ -1,3 +1,4 @@
+import {objectFlip} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {TranslationKey} from './translations/translation-key'
@@ -15,6 +16,8 @@ export const freelanceRequestTypeByCode = {
   3: freelanceRequestType.BLOGGER,
   4: freelanceRequestType.PPC,
 }
+
+export const freelanceRequestTypeByKey = objectFlip(freelanceRequestTypeByCode, parseInt)
 
 export const freelanceRequestTypeTranslate = type => {
   switch (type) {
