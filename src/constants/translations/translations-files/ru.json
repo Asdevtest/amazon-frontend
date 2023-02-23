@@ -1811,5 +1811,11 @@
   "Blogger": "Блогер",
   "PPC": "PPC",
   "Current request type": "Текущий тип заявки",
-  "Select from the list": "Выберите из списка"
+  "Select from the list": "Выберите из списка",
+  "Price on Amazon": "Цена на Amazon",
+  "Discounted price": "Цена со скидкой",
+  "CashBack Percentage": "Процент CashBack",
+  "Change performer": "Изменить исполнителя",
+  "Limit the number of proposals": "Ограничить количество предложений",
+  "Requests cost": "Стоимость заявки"
 }
