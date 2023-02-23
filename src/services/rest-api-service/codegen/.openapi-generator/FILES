@@ -711,7 +711,11 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+
 test/model/ApiV1AnnouncementsMyRequests.spec.js
 test/model/UserInfoSchemaCreatedBy.spec.js
 test/model/UserInfoSchemaIdea.spec.js
 test/model/UserInfoSchemaProduct.spec.js
+
+test/model/UserInfoSchemaUpdatesOnIdeas.spec.js
+

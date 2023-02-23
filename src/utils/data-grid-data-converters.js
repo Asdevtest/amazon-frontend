@@ -238,6 +238,8 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     bsr: item.bsr,
     fbafee: item.fbafee,
 
+    ideasCounter: item.ideasCounter,
+
     id: item._id,
     _id: item._id,
     asin: item.asin,

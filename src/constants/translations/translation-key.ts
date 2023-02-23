@@ -1779,7 +1779,7 @@ export enum TranslationKey {
   'Choose a section in My orders' = 'Choose a section in My orders',
   'Fills the card with the necessary information' = 'Fills the card with the necessary information',
   'updated data on idea to product' = 'updated data on idea to product',
-  // '' = '',
+  'Ideas to Check' = 'Ideas to Check',
   // '' = '',
   // '' = '',
   // '' = '',

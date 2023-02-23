@@ -95,6 +95,7 @@ const filtersFields = [
   'reservedSum',
   'sentToFbaSum',
   'fbaFbmStockSum',
+  'ideasCounter',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -866,6 +867,8 @@ export class ClientInventoryViewModel {
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    const ideasCounterFilter =
+      exclusion !== 'ideasCounter' && this.columnMenuSettings.ideasCounter.currentFilterData.join(',')
 
     const fbaFbmStockSumFilter =
       exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
@@ -947,6 +950,10 @@ export class ClientInventoryViewModel {
       }),
       ...(sentToFbaSumFilter && {
         sentToFbaSum: {$eq: sentToFbaSumFilter},
+
+        ...(ideasCounterFilter && {
+          ideasCounter: {$eq: ideasCounterFilter},
+        }),
       }),
     })
 
