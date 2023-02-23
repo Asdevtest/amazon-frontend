@@ -36,15 +36,10 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, items) { 
-        obj['items'] = items;
+    static initialize(obj) { 
     }
-
     /**
      * Constructs a <code>InlineObject18</code> from a plain JavaScript object, optionally creating a new instance.
-     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineObject18} obj Optional instance to populate.
      * @return {module:model/InlineObject18} The populated <code>InlineObject18</code> instance.
      */
     static constructFromObject(data, obj) {
@@ -57,15 +52,10 @@ class InlineObject18 {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
-            if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
-            }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
@@ -102,11 +92,11 @@ class InlineObject18 {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
@@ -233,16 +223,16 @@ InlineObject18.prototype['referenceId'] = undefined;
 InlineObject18.prototype['storekeeperComment'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
  */
-InlineObject18.prototype['fbaShipment'] = undefined;
+InlineObject18.prototype['priceBatchDeliveryInYuan'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
+ * GUID тарифа доставки.
+ * @member {String} logicsTariffId
  */
-InlineObject18.prototype['fbaNumber'] = undefined;
+InlineObject18.prototype['logicsTariffId'] = undefined;
 
 /**
  * Массив коробок.
