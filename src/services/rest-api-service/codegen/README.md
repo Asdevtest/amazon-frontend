@@ -635,6 +635,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20020](docs/InlineResponse20020.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
  - [TestSwagger.InlineResponse20022](docs/InlineResponse20022.md)
+ - [TestSwagger.InlineResponse20022Rows](docs/InlineResponse20022Rows.md)
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20023Rows](docs/InlineResponse20023Rows.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
