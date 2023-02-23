@@ -94,7 +94,7 @@ const filtersFields = [
   'status',
 ]
 
-const defaultHiddenFileds = ['strategyStatus', 'createdAt', 'updatedAt']
+const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
 
 export class ClientInventoryViewModel {
   history = undefined
@@ -267,7 +267,7 @@ export class ClientInventoryViewModel {
     this.onHover,
   ).map(el => ({
     ...el,
-    hide: !!defaultHiddenFileds.includes(el.field),
+    hide: !!defaultHiddenFields.includes(el.field),
   }))
 
   get userInfo() {
@@ -771,13 +771,18 @@ export class ClientInventoryViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-        // 'clients/products/my_with_pag',
 
-        `clients/products/my_with_pag?filters=${this.getFilter()}${shopFilter ? ';&' + 'shopIds=' + shopFilter : ''}${
+        // `clients/products/my_with_pag?filters=${this.getFilter(column)}${
+        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
+        // }${
+        //   purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
+        // }`,
+
+        `clients/products/my_with_pag?filters=${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+        }${
           purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
         }`,
-
-        // 'clients/products/my_with_pag?filters=archive[$eq]=false;or[0][asin][$contains]=;or[1][amazonTitle][$contains]=;or[2][skusByClient][$contains]=;&shopId=497fd02f-2d23-4122-85ca-417cd9f61236',
       )
 
       if (this.columnMenuSettings[column]) {
@@ -832,25 +837,32 @@ export class ClientInventoryViewModel {
     this.getDataGridState()
   }
 
-  getFilter() {
-    const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-    const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+  getFilter(exclusion) {
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
-    const strategyStatusFilter = this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-    const amountInOrdersFilter = this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-    const stockUSAFilter = this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-    const inTransferFilter = this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-    const boxAmountsFilter = this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-    const sumStockFilter = this.columnMenuSettings.sumStock.currentFilterData.join(',')
+    const strategyStatusFilter =
+      exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
+    const amountInOrdersFilter =
+      exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
+    const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
+    const inTransferFilter =
+      exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
+    const boxAmountsFilter =
+      exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
+    const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
     // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
-    const amazonFilter = this.columnMenuSettings.amazon.currentFilterData.join(',')
-    const profitFilter = this.columnMenuSettings.profit.currentFilterData.join(',')
-    const fbafeeFilter = this.columnMenuSettings.fbafee.currentFilterData.join(',')
-    const statusFilter = this.columnMenuSettings.status.currentFilterData.join(',')
+    const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
+    const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
+    const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       archive: {$eq: this.isArchive},

@@ -4,6 +4,7 @@ import React from 'react'
 
 import {t} from 'i18n-js'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {
   orderColorByStatus,
   OrderStatus,
@@ -79,6 +80,8 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
+
+    columnKey: columnnsKeys.shared.PRODUCT_ORDERS_STATUS,
   },
 
   {

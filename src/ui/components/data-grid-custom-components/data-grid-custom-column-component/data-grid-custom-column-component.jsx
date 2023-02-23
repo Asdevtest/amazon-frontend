@@ -16,7 +16,8 @@ import {
   IsFormedMenuItem,
   IsNeedPurchaseFilterMenuItem,
   NormalFieldMenuItem,
-  NumberFieldMenuItem, // OrderStatusMenuItem,
+  NumberFieldMenuItem,
+  OrderStatusMenuItem,
   ObJectFieldMenuItem,
   OrderOrItemMenuItem,
   ProductMenuItem,
@@ -69,13 +70,13 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  // if (currentColumn.columnKey === columnnsKeys.client.ORDERS_STATUS) {
-  //   return (
-  //     <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-  //       <OrderStatusMenuItem orderStatusData={orderStatusData} />
-  //     </GridColumnMenuContainer>
-  //   )
-  // }
+  if (currentColumn.columnKey === columnnsKeys.shared.PRODUCT_ORDERS_STATUS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <OrderStatusMenuItem orderStatusData={orderStatusData} />
+      </GridColumnMenuContainer>
+    )
+  }
 
   if ([columnnsKeys.buyer.MY_ORDERS_STATUS, columnnsKeys.client.ORDERS_STATUS].includes(currentColumn.columnKey)) {
     return (

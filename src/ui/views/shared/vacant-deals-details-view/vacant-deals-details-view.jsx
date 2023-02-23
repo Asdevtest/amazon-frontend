@@ -63,7 +63,7 @@ export class VacantDealsDetailsView extends Component {
               <DealDetailsCard
                 dealsOnReview
                 proposalId={curProposalId}
-                item={requestProposals}
+                requestProposals={requestProposals}
                 requester={requester}
                 onClickGetToWorkModal={onClickGetToWorkModal}
               />
