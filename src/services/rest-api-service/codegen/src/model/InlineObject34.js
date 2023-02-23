@@ -50,8 +50,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
             }
         }
         return obj;
@@ -64,7 +64,7 @@ class InlineObject34 {
  * Комментарии байера.
  * @member {String} buyerComment
  */
-InlineObject34.prototype['buyerComment'] = undefined;
+InlineObject34.prototype['boxIds'] = undefined;
 
 
 
