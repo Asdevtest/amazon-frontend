@@ -104,6 +104,11 @@ export const CreateOrEditRequestContent = ({
     details: {
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
+
+      asin: requestToEdit?.details.asin || '',
+      amazonPrice: requestToEdit?.details.amazonPrice || '',
+      discountedPrice: requestToEdit?.details.discountedPrice || '',
+      cashBack: requestToEdit?.details.cashBack || '',
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -554,6 +559,15 @@ export const CreateOrEditRequestContent = ({
                     </div>
 
                     {/* <Field
+                    oneLine
+                    label={t(TranslationKey['Limit the number of proposals'])}
+                    containerClasses={classNames.checkboxWrapper}
+                    inputComponent={
+                      <Checkbox color="primary" checked={isLimited} onChange={() => setIsLimited(!isLimited)} />
+                    }
+                  />
+
+                  <Field
                     oneLine
                     tooltipInfoContent={t(
                       TranslationKey['After providing the result, the same performer may make a new proposal'],

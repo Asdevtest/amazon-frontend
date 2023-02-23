@@ -131,6 +131,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     // justifyContent: 'flex-end',
     margin: 0,
+<<<<<<< HEAD
 
     cursor: 'pointer',
   },
@@ -147,6 +148,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   checkboxPosition: {
     top: 3,
+=======
+>>>>>>> 8c046c479 (freelancer)
   },
 
   footerWrapper: {
@@ -326,6 +329,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   checkboxAndButtonWrapper: {
+<<<<<<< HEAD
+=======
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    // gap: '30px',
+    alignItems: 'center',
+  },
+  checkboxProposalWrapper: {
+    width: 370,
+    margin: 0,
+  },
+
+  checkboxesWrapper: {
+>>>>>>> 8c046c479 (freelancer)
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
@@ -344,8 +362,11 @@ export const useClassNames = makeStyles()(theme => ({
     // justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
+<<<<<<< HEAD
 
     marginBottom: 20,
+=======
+>>>>>>> 8c046c479 (freelancer)
   },
 
   error: {
@@ -617,18 +638,26 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+<<<<<<< HEAD
   dateAndTimeContainerleft: {
     width: '377px !important',
   },
   dateAndTimeContainerRight: {
     width: '378px !important',
+=======
+  dateAndTimeContainer: {
+    width: '370px !important',
+>>>>>>> 8c046c479 (freelancer)
   },
   dateField: {
     width: '100%',
   },
   titleAndAsinWrapper: {
     display: 'flex',
+<<<<<<< HEAD
     gap: 85,
+=======
+>>>>>>> 8c046c479 (freelancer)
   },
   asinWrapper: {
     display: 'flex',
@@ -637,6 +666,7 @@ export const useClassNames = makeStyles()(theme => ({
   changePerformerBtn: {
     width: 190,
   },
+<<<<<<< HEAD
 
   performerWrapper: {
     display: 'flex',
@@ -728,4 +758,6 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxWrapperLeft: {
     width: 377,
   },
+=======
+>>>>>>> 8c046c479 (freelancer)
 }))
