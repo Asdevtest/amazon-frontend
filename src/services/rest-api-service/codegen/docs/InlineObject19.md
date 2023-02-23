@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+<<<<<<< HEAD
 **destinationId** | **String** | GUID пункта назначения коробки | [optional] 
 **logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
@@ -16,5 +17,30 @@ Name | Type | Description | Notes
 **shippingLabel** | **String** | shippingLabel коробки | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
 **prepId** | **String** | Значение информационного ключа | [optional] 
+=======
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxesBefore** | **[String]** |  | [optional] 
+**boxes** | **[String]** |  | 
+**operationType** | **String** | Тип операции | 
+**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
+**buyerComment** | **String** | Комментарий баера | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+
+
+
+## Enum: OperationTypeEnum
+
+
+* `merge` (value: `"merge"`)
+
+* `split` (value: `"split"`)
+
+* `receive` (value: `"receive"`)
+
+* `edit` (value: `"edit"`)
+
+
+>>>>>>> d43a0e20d (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
 
 
