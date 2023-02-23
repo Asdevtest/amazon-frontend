@@ -23,11 +23,11 @@ class InlineObject36 {
      * Constructs a new <code>InlineObject36</code>.
      * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject36
-     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor(totalPriceChanged) { 
+    constructor(isFormed) { 
         
-        InlineObject36.initialize(this, totalPriceChanged);
+        InlineObject36.initialize(this, isFormed);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalPriceChanged) { 
-        obj['totalPriceChanged'] = totalPriceChanged;
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**

@@ -4,16 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**destinationId** | **String** | GUID пункта назначения коробки | [optional] 
-**logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
-**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
-**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
-**clientComment** | **String** | Комментарии к коробке | [optional] 
-**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
-**trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
-**upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
-**shippingLabel** | **String** | shippingLabel коробки | [optional] 
-**isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxesBefore** | **[String]** |  | [optional] 
+**boxes** | **[String]** |  | 
+**operationType** | **String** | Тип операции | 
+**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
+**buyerComment** | **String** | Комментарий баера | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+
+
+
+## Enum: OperationTypeEnum
+
+
+* `merge` (value: `"merge"`)
+
+* `split` (value: `"split"`)
+
+* `receive` (value: `"receive"`)
+
+* `edit` (value: `"edit"`)
+
+
 
 
