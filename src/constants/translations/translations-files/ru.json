@@ -1819,5 +1819,7 @@
   "Limit the number of proposals": "Ограничить количество предложений",
   "Requests cost": "Стоимость заявки",
   "Select a User Specialization": "Выберите специализацию пользователя",
-  "User specialties": "Специализации пользователя"
+  "User specialties": "Специализации пользователя",
+  "Service exchange": "Биржа услуг",
+  "Search by Performer, Description": "Поиск по Исполнителю, Описанию"
 }
