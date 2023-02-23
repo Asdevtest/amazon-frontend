@@ -25,5 +25,6 @@ export const columnnsKeys = {
   shared: {
     DATE: 'DATE',
     QUANTITY: 'QUANTITY',
+    PRODUCT_ORDERS_STATUS: 'PRODUCT_ORDERS_STATUS',
   },
 }

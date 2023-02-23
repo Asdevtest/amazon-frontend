@@ -231,7 +231,15 @@ export const ObJectFieldMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                Number(choosenItems?.some(item => item._id === b._id)) -
+                Number(choosenItems?.some(item => item._id === a._id)),
+            ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -264,7 +272,7 @@ export const ObJectFieldMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .filter(el => el)
+                        // .filter(el => el)
                         // .sort(
                         //   (a, b) =>
                         //     Number(choosenItems?.some(item => item._id === b._id)) -
@@ -348,11 +356,11 @@ export const NormalFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData,
-          // .sort(
-          //   (a, b) =>
-          //     Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-          // ),
+          filterData.sort(
+            (a, b) =>
+              currentFilterData.length &&
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
         )
       }, [filterData])
 
@@ -489,7 +497,11 @@ export const ProductMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData.sort(
+            (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -644,7 +656,11 @@ export const OrderOrItemMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData.sort(
+            (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -793,7 +809,16 @@ export const DestinationMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData
+            .filter(el => el)
+
+            .sort(
+              (a, b) =>
+                Number(choosenItems?.some(item => item?._id === b?._id)) -
+                Number(choosenItems?.some(item => item?._id === a?._id)),
+            ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -851,7 +876,7 @@ export const DestinationMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .filter(el => el)
+                        // .filter(el => el)
 
                         // .sort(
                         //   (a, b) =>
@@ -863,7 +888,6 @@ export const DestinationMenuItem = React.memo(
                             <Checkbox
                               color="primary"
                               checked={choosenItems.some(item => item?._id === obj?._id)}
-                              // onClick={() => onClickObjectFieldMenuItem(obj, currentOption)}
                               onClick={() => onClickItem(obj)}
                             />
                             <div className={classNames.shopName}>{obj?.name}</div>
@@ -937,7 +961,13 @@ export const FromToDateMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData.sort(
+            (a, b) =>
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
+              compareDesc(parseISO(a), parseISO(b)),
+          ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -996,7 +1026,6 @@ export const FromToDateMenuItem = React.memo(
                             <Checkbox
                               color="primary"
                               checked={choosenItems?.some(item => item === el)}
-                              // onClick={() => onClickNormalFieldMenuItem(el, field)}
                               onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
@@ -1072,7 +1101,13 @@ export const NumberFieldMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData.sort(
+            (a, b) =>
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
+              Number(b) - Number(a),
+          ),
+        )
       }, [filterData])
 
       useEffect(() => {
@@ -1134,7 +1169,6 @@ export const NumberFieldMenuItem = React.memo(
                             <Checkbox
                               color="primary"
                               checked={choosenItems?.some(item => item === el)}
-                              // onClick={() => onClickNormalFieldMenuItem(el, field)}
                               onClick={() => onClickItem(el)}
                             />
                             <div className={classNames.shopName}>{el}</div>
@@ -1212,7 +1246,16 @@ export const InStockMenuItem = React.memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(filterData)
+        setItemsForRender(
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                Number(choosenItems?.some(item => item._id === b._id)) -
+                  Number(choosenItems?.some(item => item._id === a._id)) ||
+                Number(b.amountInBoxes) - Number(a.amountInBoxes),
+            ),
+        )
         setCurrentOption(currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
       }, [filterData])
 
@@ -1292,7 +1335,7 @@ export const InStockMenuItem = React.memo(
                   {itemsForRender.length ? (
                     <>
                       {itemsForRender
-                        .filter(el => el)
+                        // .filter(el => el)
                         // .sort(
                         //   (a, b) =>
                         //     Number(choosenItems?.some(item => item._id === b._id)) -

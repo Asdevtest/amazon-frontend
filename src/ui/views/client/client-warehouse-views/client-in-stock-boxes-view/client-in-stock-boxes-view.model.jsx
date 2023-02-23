@@ -1733,14 +1733,13 @@ export class ClientInStockBoxesViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
-        // 'boxes/pag/clients_light?status=IN_STOCK',
 
-        // `boxes/pag/clients_light?filters=status=IN_STOCK;${this.getFilter()}${
+        // `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
         //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
         // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
 
-        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter()}${
-          shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
+        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
         }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )
 
@@ -1776,22 +1775,28 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  getFilter() {
-    const humanFriendlyIdFilter = this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const idFilter = this.columnMenuSettings.id.currentFilterData.join(',')
-    const itemFilter = this.columnMenuSettings.item.currentFilterData.join(',')
+  getFilter(exclusion) {
+    const humanFriendlyIdFilter =
+      exclusion !== 'ashumanFriendlyIdin' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
 
-    const asinFilter = this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter = this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-    const amazonTitleFilter = this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const destinationFilter = this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
-    const logicsTariffFilter = this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
+    const destinationFilter =
+      exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
+    const logicsTariffFilter =
+      exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
 
-    const createdAtFilter = this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
-    const amountFilter = this.columnMenuSettings.amount.currentFilterData.join(',')
+    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
