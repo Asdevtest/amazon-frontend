@@ -840,7 +840,9 @@ export class ClientInventoryViewModel {
   getFilter(exclusion) {
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
     const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
       this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')

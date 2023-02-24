@@ -285,7 +285,7 @@ export const ObJectFieldMenuItem = React.memo(
                               checked={choosenItems.some(item => item._id === obj._id)}
                               onClick={() => onClickItem(obj)}
                             />
-                            <div className={classNames.shopName}>{obj.name}</div>
+                            <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
                           </div>
                         ))}
                     </>
@@ -356,11 +356,13 @@ export const NormalFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData.sort(
-            (a, b) =>
-              currentFilterData.length &&
-              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-          ),
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                currentFilterData.length &&
+                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+            ),
         )
       }, [filterData])
 
@@ -408,7 +410,9 @@ export const NormalFieldMenuItem = React.memo(
                               checked={choosenItems.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{getStatusByColumnKeyAndStatusKey(el, columnKey)}</div>
+                            <div className={classNames.shopName}>
+                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
+                            </div>
                           </div>
                         ))}
                     </>
@@ -498,9 +502,11 @@ export const ProductMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData.sort(
-            (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-          ),
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+            ),
         )
       }, [filterData])
 
@@ -579,7 +585,7 @@ export const ProductMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el}</div>
+                            <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
                           </div>
                         ))}
                     </>
@@ -657,9 +663,11 @@ export const OrderOrItemMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData.sort(
-            (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-          ),
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+            ),
         )
       }, [filterData])
 
@@ -731,7 +739,7 @@ export const OrderOrItemMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el}</div>
+                            <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
                           </div>
                         ))}
                     </>
@@ -890,7 +898,7 @@ export const DestinationMenuItem = React.memo(
                               checked={choosenItems.some(item => item?._id === obj?._id)}
                               onClick={() => onClickItem(obj)}
                             />
-                            <div className={classNames.shopName}>{obj?.name}</div>
+                            <div className={classNames.shopName}>{obj?.name || t(TranslationKey.Empty)}</div>
                           </div>
                         ))}
                     </>
@@ -962,11 +970,13 @@ export const FromToDateMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData.sort(
-            (a, b) =>
-              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
-              compareDesc(parseISO(a), parseISO(b)),
-          ),
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
+                compareDesc(parseISO(a), parseISO(b)),
+            ),
         )
       }, [filterData])
 
@@ -1028,7 +1038,9 @@ export const FromToDateMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{formatNormDateTime(el)}</div>
+                            <div className={classNames.shopName}>
+                              {formatNormDateTime(el) || t(TranslationKey.Empty)}
+                            </div>
                           </div>
                         ))}
                     </>
@@ -1102,11 +1114,13 @@ export const NumberFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData.sort(
-            (a, b) =>
-              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
-              Number(b) - Number(a),
-          ),
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
+                Number(b) - Number(a),
+            ),
         )
       }, [filterData])
 
@@ -1171,7 +1185,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el}</div>
+                            <div className={classNames.shopName}>{el || 0}</div>
                           </div>
                         ))}
                     </>
@@ -1349,7 +1363,7 @@ export const InStockMenuItem = React.memo(
                               checked={choosenItems?.some(item => item._id === el._id)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el.amountInBoxes}</div>
+                            <div className={classNames.shopName}>{el.amountInBoxes || t(TranslationKey.Empty)}</div>
                           </div>
                         ))}
                     </>

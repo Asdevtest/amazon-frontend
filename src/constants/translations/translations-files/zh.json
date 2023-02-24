@@ -1774,5 +1774,7 @@
   "Request type": "Request type",
   "Waiting selection": "Waiting selection",
   "Waiting check": "Waiting check",
-  "Cost": "Cost"
+  "Cost": "Cost",
+  "Empty": "Empty",
+  "Selected boxes": "Selected boxes"
 }

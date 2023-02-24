@@ -1774,5 +1774,7 @@
   "Request type": "Типо заявки",
   "Waiting selection": "Ожидают выбора",
   "Waiting check": "Ожидают проверки",
-  "Cost": "Стоимость"
+  "Cost": "Стоимость",
+  "Empty": "Пусто",
+  "Selected boxes": "Выбранные коробки"
 }
