@@ -448,7 +448,7 @@ export const AddOrEditBatchForm = observer(
                 Footer: () => (
                   <div className={classNames.boxCounterWrapper}>
                     <Typography className={classNames.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                      {t(TranslationKey['Selected boxes']) + ':'}
                     </Typography>
                     <Typography className={classNames.boxCounterCount}>
                       {boxesToAddData

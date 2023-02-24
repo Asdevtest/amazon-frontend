@@ -10,6 +10,7 @@ import {
   TaskTypeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
+  CheckboxCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -78,6 +79,16 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 160,
+  },
+
+  {
+    field: 'barcode',
+    headerName: 'barcode',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
+    renderCell: params => <CheckboxCell checked={params.value} />,
+    width: 160,
+    type: 'boolean',
   },
 
   {

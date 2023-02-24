@@ -582,6 +582,10 @@ export const warehouseTasksDataConverter = data =>
     )
       .join(', ')
       .slice(0, -2),
+
+    barcode: !item[item.boxes.length ? 'boxes' : 'boxesBefore'].some(box =>
+      box.items.some(item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper),
+    ),
   }))
 
 export const adminProductsDataConverter = data =>
