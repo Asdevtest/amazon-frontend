@@ -1821,5 +1821,8 @@
   "Select a User Specialization": "Выберите специализацию пользователя",
   "User specialties": "Специализации пользователя",
   "Service exchange": "Биржа услуг",
-  "Search by Performer, Description": "Поиск по Исполнителю, Описанию"
+  "Search by Performer, Description": "Поиск по Исполнителю, Описанию",
+  "Request price": "Стоимость заявки",
+  "Price per product": "Цена за товар",
+  "CashBack": "CashBack"
 }

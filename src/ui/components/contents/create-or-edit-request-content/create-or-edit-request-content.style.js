@@ -176,7 +176,7 @@ export const useClassNames = makeStyles()(theme => ({
   rightTwoStepSubFieldWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '90px',
+    justifyContent: 'space-between',
   },
 
   twoStepFieldResult: {
