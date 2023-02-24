@@ -116,4 +116,12 @@ export const styles = theme => ({
     fontSize: '16px',
     paddingLeft: '7px',
   },
+
+  successRow: {
+    boxShadow: 'inset 0 0 35px rgba(0, 255, 0, .5)',
+  },
+
+  warningRow: {
+    boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
+  },
 })

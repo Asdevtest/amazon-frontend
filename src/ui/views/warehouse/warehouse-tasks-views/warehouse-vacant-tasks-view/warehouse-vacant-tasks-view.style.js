@@ -124,4 +124,12 @@ export const styles = theme => ({
     transform: 'translateY(-150%)',
     animation: `${ani} 1s forwards`,
   },
+
+  successRow: {
+    boxShadow: 'inset 0 0 35px rgba(0, 255, 0, .5)',
+  },
+
+  warningRow: {
+    boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
+  },
 })

@@ -7,6 +7,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -81,6 +82,9 @@ export class WarehouseMyTasksViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    const getRowClassName = params =>
+      params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
+
     return (
       <React.Fragment>
         <Navbar
@@ -112,6 +116,7 @@ export class WarehouseMyTasksViewRaw extends Component {
                   toolbarContainer: classNames.toolbarContainer,
                   filterForm: classNames.filterForm,
                 }}
+                getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
