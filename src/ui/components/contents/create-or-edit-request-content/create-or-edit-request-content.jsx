@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
 import {
@@ -31,9 +32,12 @@ import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker
 import {Field} from '@components/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {
+  checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
+} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
-import {shortAsin} from '@utils/text'
+import {shortAsin, clearEverythingExceptNumbers} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
@@ -104,6 +108,8 @@ export const CreateOrEditRequestContent = ({
       newFormFields[section][fieldName] = event.target.checked
     } else if (['title'].includes(fieldName)) {
       newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
+    } else if (['discountedPrice'].includes(fieldName)) {
+      newFormFields[section][fieldName] = clearEverythingExceptNumbers(event.target.value)
     } else {
       newFormFields[section][fieldName] = event.target.value
     }
@@ -575,6 +581,19 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.rightTwoStepWrapper}>
                     <div className={classNames.rightTwoStepSubFieldWrapper}>
+                      {`${formFields?.request?.requestType}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                        <Field
+                          label={t(TranslationKey['Price per product'])}
+                          labelClasses={classNames.spanLabel}
+                          inputComponent={
+                            <Typography className={classNames.twoStepFieldResult}>
+                              {formFields.details.amazonPrice}
+                            </Typography>
+                          }
+                        />
+                      )}
+
                       <Field
                         label={t(TranslationKey['Number of proposals'])}
                         labelClasses={classNames.spanLabel}
@@ -599,6 +618,19 @@ export const CreateOrEditRequestContent = ({
                     </div>
 
                     <div className={classNames.rightTwoStepSubFieldWrapper}>
+                      {`${formFields?.request?.requestType}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                        <Field
+                          label={t(TranslationKey.CashBack)}
+                          labelClasses={classNames.spanLabel}
+                          inputComponent={
+                            <Typography className={classNames.twoStepFieldResult}>
+                              {formFields.details.cashBack}
+                            </Typography>
+                          }
+                        />
+                      )}
+
                       <Field
                         label={t(TranslationKey['Supervisor check'])}
                         labelClasses={classNames.spanLabel}
@@ -610,7 +642,7 @@ export const CreateOrEditRequestContent = ({
                       />
 
                       <Field
-                        label={t(TranslationKey.Price) + ' $'}
+                        label={t(TranslationKey['Request price']) + ', $'}
                         labelClasses={classNames.spanLabel}
                         inputComponent={
                           <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
