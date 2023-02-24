@@ -1,5 +1,6 @@
 import {cx} from '@emotion/css'
 // import {ClassNamesArg} from '@emotion/react'
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import {Tab} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
@@ -26,7 +27,7 @@ import {useClassNames} from './i-tab.style'
 // }
 
 export const ITab /* : FC<Props> */ = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, value, label, /* classes,*/ ...restProps}) => {
+  ({tooltipAttentionContent, tooltipInfoContent, value, label, withIcon, /* classes,*/ ...restProps}) => {
     const {classes: classNames} = useClassNames()
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
@@ -40,7 +41,16 @@ export const ITab /* : FC<Props> */ = observer(
 
     return (
       <div className={classNames.tabWrapper}>
-        <Tab /* classes={classes} */ className={classNames.root} value={value} label={label} {...restProps} />
+        <Tab
+          /* classes={classes} */ icon={
+            withIcon && <FiberManualRecordRoundedIcon fontSize="small" className={classNames.icon} />
+          }
+          iconPosition="end"
+          className={classNames.root}
+          value={value}
+          label={label}
+          {...restProps}
+        />
 
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>

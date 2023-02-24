@@ -132,7 +132,11 @@ export const ProductWrapper = observer(
               {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
 
               {!checkIsResearcher(curUserRole) && (
-                <ITab label={t(TranslationKey['Suppliers and Ideas'])} value={tabsValues.SUPPLIERS_AND_IDEAS} />
+                <ITab
+                  label={t(TranslationKey['Suppliers and Ideas'])}
+                  value={tabsValues.SUPPLIERS_AND_IDEAS}
+                  withIcon={!!product.ideasCounter}
+                />
               )}
             </Tabs>
 
