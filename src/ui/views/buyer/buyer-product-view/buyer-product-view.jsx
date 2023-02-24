@@ -35,6 +35,7 @@ export class BuyerProductView extends Component {
 
   render() {
     const {
+      showTab,
       hsCodeData,
       storekeepersData,
       supplierModalReadOnly,
@@ -76,6 +77,7 @@ export class BuyerProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  showTab={showTab}
                   user={userInfo}
                   userRole={userInfo.role}
                   product={product}

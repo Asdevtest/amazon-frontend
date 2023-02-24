@@ -17,22 +17,20 @@ import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
 
-import {ClientNotificationsViewModel} from './client-notifications-view.model'
-import {styles} from './client-notifications-view.style'
+import {BuyerNotificationsViewModel} from './buyer-notifications-view.model'
+import {styles} from './buyer-notifications-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
 
 @observer
-class ClientNotificationsViewRaw extends Component {
-  viewModel = new ClientNotificationsViewModel({history: this.props.history})
+class BuyerNotificationsViewRaw extends Component {
+  viewModel = new BuyerNotificationsViewModel({history: this.props.history})
 
   render() {
     const {
       drawerOpen,
       onChangeDrawerOpen,
-      onClickOrdersNotifications,
-      onClickBoxesNotifications,
-      onClickTariffsNotifications,
+      // onClickTariffsNotifications,
       onClickIdeasNotifications,
     } = this.viewModel
 
@@ -50,30 +48,7 @@ class ClientNotificationsViewRaw extends Component {
                 </Typography>
 
                 <div className={classNames.btnsWrapper}>
-                  <Button
-                    className={classNames.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickOrdersNotifications}
-                  >
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['On orders'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button>
-
-                  <Button
-                    className={classNames.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickBoxesNotifications}
-                  >
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['On boxes'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button>
-
+                  {/* 
                   <Button
                     className={classNames.button}
                     color="primary"
@@ -84,7 +59,7 @@ class ClientNotificationsViewRaw extends Component {
                       <Typography className={classNames.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
-                  </Button>
+                  </Button> */}
 
                   <Button
                     className={classNames.button}
@@ -107,4 +82,4 @@ class ClientNotificationsViewRaw extends Component {
   }
 }
 
-export const ClientNotificationsView = withStyles(ClientNotificationsViewRaw, styles)
+export const BuyerNotificationsView = withStyles(BuyerNotificationsViewRaw, styles)

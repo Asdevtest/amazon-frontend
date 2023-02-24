@@ -139,6 +139,8 @@ export const buyerProductsDataConverter = data =>
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+
+    ideasCounter: item.ideasCounter,
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,

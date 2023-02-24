@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
@@ -66,8 +67,16 @@ export class BuyerMyProductsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    // const getRowClassName = params =>
+    //   attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
+
     const getRowClassName = params =>
-      attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
+      cx(
+        {[classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention)},
+        {[classNames.ideaRow]: !!params.row.originalData.ideasCounter},
+      )
+
+    // const getRowClassName = params => !!params.row.originalData.ideasCounter && classNames.ideaRow
 
     return (
       <React.Fragment>
@@ -101,7 +110,7 @@ export class BuyerMyProductsViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={currentData}
-                rowHeight={100}
+                rowHeight={160}
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,

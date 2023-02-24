@@ -1,8 +1,21 @@
 export const styles = theme => ({
+  modalTitle: {
+    color: theme.palette.text.general,
+    fontSize: '24px',
+    fontWeight: 500,
+    lineHeight: '28px',
+    marginBottom: '24px',
+  },
+  buttonWrapper: {
+    padding: '16px',
+    textAlign: 'right',
+    marginRight: '0px',
+    borderTop: '1px solid rgb(224,224,224)',
+  },
   tableWrapper: {
-    marginTop: '32px',
-    minWidth: '100%',
-    height: '100%',
+    marginTop: '24px',
+    width: '100%',
+    height: '85vh',
   },
 
   row: {
@@ -12,23 +25,12 @@ export const styles = theme => ({
       transform: 'scale(1.01)',
     },
   },
-
-  attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
-  },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     // backgroundColor: theme.palette.background.general,
 
     backgroundColor: theme.palette.background.general,
-  },
-
-  headerWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: 20,
   },
 
   footerContainer: {
@@ -43,22 +45,5 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
-  },
-
-  ideaRow: {
-    '&:before': {
-      content: '""',
-      backgroundImage:
-        theme.palette.mode === 'dark'
-          ? 'url(/assets/icons/idea-trgl-dark-theme.svg)'
-          : 'url(/assets/icons/idea-trgl.svg)',
-
-      width: 48,
-      height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
-    },
   },
 })
