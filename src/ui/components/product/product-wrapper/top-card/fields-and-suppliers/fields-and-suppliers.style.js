@@ -104,7 +104,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '16px',
   },
   buttonParseAmazon: {
-    marginRight: '16px',
+    width: '100%',
   },
   productFieldBox: {
     display: 'flex',
@@ -457,10 +457,14 @@ export const useClassNames = makeStyles()(theme => ({
 
     border: `none`,
   },
-  copyLink: {
+  linkAndButtonWrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'end',
+    justifyContent: 'space-between',
+  },
+  copyLink: {
+    display: 'flex',
+    alignItems: 'center',
     gap: '10px',
   },
 

@@ -1777,6 +1777,7 @@ export enum TranslationKey {
   'Empty' = 'Empty',
   'Selected boxes' = 'Selected boxes',
   'Choose a section in My orders' = 'Choose a section in My orders',
+  'Fills the card with the necessary information' = 'Fills the card with the necessary information',
   // '' = '',
   // '' = '',
   // '' = '',

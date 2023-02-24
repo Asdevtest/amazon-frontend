@@ -55,8 +55,9 @@ class ResearcherProductsViewRaw extends Component {
       reasonError,
       actionStatus,
       chekedCode,
-      onClickCheckBtn,
-      onClickAddBtn,
+      // onClickCheckBtn,
+      // onClickAddBtn,
+      onClickCheckAndAddProductBtn,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -87,8 +88,7 @@ class ResearcherProductsViewRaw extends Component {
                     chekedCode={chekedCode}
                     actionStatus={actionStatus}
                     onChangeFormFields={onChangeFormFields}
-                    onClickCheckBtn={onClickCheckBtn}
-                    onClickAddBtn={onClickAddBtn}
+                    onClickCheckAndAddProductBtn={onClickCheckAndAddProductBtn}
                   />
                 </div>
               </Paper>

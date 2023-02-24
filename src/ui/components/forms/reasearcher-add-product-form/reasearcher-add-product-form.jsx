@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Box, TextareaAutosize, Typography, Alert, Select, MenuItem} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -29,8 +30,7 @@ export const ResearcherAddProductFormRaw = observer(
     user,
     formFields,
     onChangeFormFields,
-    onClickCheckBtn,
-    onClickAddBtn,
+    onClickCheckAndAddProductBtn,
     classes: classNames,
     errorMsg,
     reasonErrorMsg,
@@ -39,7 +39,7 @@ export const ResearcherAddProductFormRaw = observer(
   }) => {
     const disabledNoProvatLabel =
       Number(formFields.strategyStatus) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]
-    const [disableAddButton, setDisabledAddButton] = useState(false)
+    // const [disableAddButton, setDisabledAddButton] = useState(false)
     return (
       SettingsModel.languageTag && (
         <div className={classNames.mainWrapper}>
@@ -59,24 +59,6 @@ export const ResearcherAddProductFormRaw = observer(
                 onChange={onChangeFormFields('productCode')}
               />
             </div>
-
-            {/* {errorMsg ? (
-              <div className={classNames.alert}>
-                {errorMessagesTranslate(errorMsg)}
-                {reasonErrorMsg ? (
-                  <>
-                    <Typography className={classNames.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
-                    <TextareaAutosize
-                      className={classNames.alertMessage}
-                      value={errorMessagesTranslate(reasonErrorMsg)}
-                    />
-                  </>
-                ) : null}
-              </div>
-            ) : undefined}
-            {!errorMsg && actionStatus === loadingStatuses.success ? (
-              <Typography className={classNames.alert}>{t(TranslationKey['Operation complete'])}</Typography>
-            ) : undefined} */}
 
             {errorMsg ? (
               <Alert classes={{root: classNames.alert}} elevation={0} severity="error">
@@ -117,7 +99,7 @@ export const ResearcherAddProductFormRaw = observer(
                       />
                     }
                     onChange={onChangeFormFields('strategyStatus')}
-                    onClick={() => setDisabledAddButton(true)}
+                    // onClick={() => setDisabledAddButton(true)}
                   >
                     <MenuItem value={''} className={classNames.selectOption}>
                       {t(TranslationKey['not selected'])}
@@ -136,7 +118,7 @@ export const ResearcherAddProductFormRaw = observer(
             </Box>
 
             <Box className={classNames.btnsWrapper}>
-              <Button
+              {/* <Button
                 disabled={!formFields.strategyStatus}
                 tooltipInfoContent={t(
                   TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
@@ -153,6 +135,14 @@ export const ResearcherAddProductFormRaw = observer(
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
                 onClick={onClickAddBtn}
+              >
+                {t(TranslationKey['Add a product card'])}
+              </Button> */}
+              <Button
+                success
+                tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
+                disabled={errorMsg || formFields.strategyStatus < 10}
+                onClick={onClickCheckAndAddProductBtn}
               >
                 {t(TranslationKey['Add a product card'])}
               </Button>

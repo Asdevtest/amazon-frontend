@@ -191,7 +191,73 @@ export class ResearcherProductsViewModel {
     }
   }
 
-  async onClickCheckBtn() {
+  // async onClickCheckBtn() {
+  //   if (!this.formFields.productCode) {
+  //     runInAction(() => {
+  //       this.error = 'Product code field is required for this action'
+  //     })
+  //     return
+  //   }
+
+  //   const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
+
+  //   if (checkProductExistResult.isExist) {
+  //     runInAction(() => {
+  //       this.error = 'This product already exists'
+  //       this.reasonError = checkProductExistResult.reason
+  //       return
+  //     })
+  //   } else {
+  //     runInAction(() => {
+  //       this.error = ''
+  //       this.reasonError = ''
+  //     })
+  //   }
+
+  //   runInAction(() => {
+  //     this.chekedCode = this.formFields.productCode
+  //   })
+  // }
+
+  // async onClickAddBtn() {
+  //   try {
+  //     if (!(this.formFields.amazonLink || this.formFields.productCode)) {
+  //       this.error = 'All fields are required for this action'
+  //       return
+  //     }
+  //     const product = {
+  //       asin: this.formFields.productCode,
+  //       lamazon: this.formFields.amazonLink,
+  //       strategyStatus: Number(this.formFields.strategyStatus),
+  //       fba: true,
+
+  //       niche: this.formFields.niche,
+  //       asins: this.formFields.asins,
+  //       avgRevenue: this.formFields.avgRevenue,
+  //       avgBSR: this.formFields.avgBSR,
+  //       totalRevenue: this.formFields.totalRevenue,
+  //       coefficient: this.formFields.coefficient,
+  //       avgPrice: this.formFields.avgPrice,
+  //       avgReviews: this.formFields.avgReviews,
+  //     }
+
+  //     await this.createProduct(product)
+
+  //     const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
+
+  //     this.history.push(
+  //       {
+  //         pathname: '/researcher/products/product',
+  //         search: foundedProd.originalData._id,
+  //       },
+  //       {startParse: true},
+  //     )
+  //   } catch (error) {
+  //     console.warn(error)
+  //   }
+  // }
+
+  async onClickCheckAndAddProductBtn() {
     if (!this.formFields.productCode) {
       runInAction(() => {
         this.error = 'Product code field is required for this action'
@@ -217,43 +283,43 @@ export class ResearcherProductsViewModel {
     runInAction(() => {
       this.chekedCode = this.formFields.productCode
     })
-  }
 
-  async onClickAddBtn() {
-    try {
-      if (!(this.formFields.amazonLink || this.formFields.productCode)) {
-        this.error = 'All fields are required for this action'
-        return
+    if (!checkProductExistResult.isExist && !this.error && !this.reasonError) {
+      try {
+        if (!(this.formFields.amazonLink || this.formFields.productCode)) {
+          this.error = 'All fields are required for this action'
+          return
+        }
+        const product = {
+          asin: this.formFields.productCode,
+          lamazon: this.formFields.amazonLink,
+          strategyStatus: Number(this.formFields.strategyStatus),
+          fba: true,
+
+          niche: this.formFields.niche,
+          asins: this.formFields.asins,
+          avgRevenue: this.formFields.avgRevenue,
+          avgBSR: this.formFields.avgBSR,
+          totalRevenue: this.formFields.totalRevenue,
+          coefficient: this.formFields.coefficient,
+          avgPrice: this.formFields.avgPrice,
+          avgReviews: this.formFields.avgReviews,
+        }
+
+        await this.createProduct(product)
+
+        const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
+
+        this.history.push(
+          {
+            pathname: '/researcher/products/product',
+            search: foundedProd.originalData._id,
+          },
+          {startParse: true},
+        )
+      } catch (error) {
+        console.warn(error)
       }
-      const product = {
-        asin: this.formFields.productCode,
-        lamazon: this.formFields.amazonLink,
-        strategyStatus: Number(this.formFields.strategyStatus),
-        fba: true,
-
-        niche: this.formFields.niche,
-        asins: this.formFields.asins,
-        avgRevenue: this.formFields.avgRevenue,
-        avgBSR: this.formFields.avgBSR,
-        totalRevenue: this.formFields.totalRevenue,
-        coefficient: this.formFields.coefficient,
-        avgPrice: this.formFields.avgPrice,
-        avgReviews: this.formFields.avgReviews,
-      }
-
-      await this.createProduct(product)
-
-      const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
-
-      this.history.push(
-        {
-          pathname: '/researcher/products/product',
-          search: foundedProd.originalData._id,
-        },
-        {startParse: true},
-      )
-    } catch (error) {
-      console.warn(error)
     }
   }
 
