@@ -120,7 +120,19 @@ export const BoxItemCard = ({
             <div>
               <div className={classNames.chipWrapper}>
                 {item.barCode && (
-                  <div className={classNames.barCodeActionsWrapper}>
+                  <div
+                    className={cx(classNames.barCodeActionsWrapper, {
+                      [classNames.successAccent]:
+                        isNewBox &&
+                        taskType === TaskOperationType.RECEIVE &&
+                        (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
+                      [classNames.warningAccent]:
+                        isNewBox &&
+                        taskType === TaskOperationType.RECEIVE &&
+                        !item.isBarCodeAlreadyAttachedByTheSupplier &&
+                        !item.isBarCodeAttachedByTheStorekeeper,
+                    })}
+                  >
                     {item.isBarCodeAttachedByTheStorekeeper === false && (
                       <Field
                         oneLine
@@ -239,7 +251,19 @@ export const BoxItemCard = ({
         <div>
           <div className={classNames.chipWrapper}>
             {item.barCode && (
-              <div className={classNames.barCodeActionsWrapper}>
+              <div
+                className={cx(classNames.barCodeActionsWrapper, {
+                  [classNames.successAccent]:
+                    isNewBox &&
+                    taskType === TaskOperationType.RECEIVE &&
+                    (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
+                  [classNames.warningAccent]:
+                    isNewBox &&
+                    taskType === TaskOperationType.RECEIVE &&
+                    !item.isBarCodeAlreadyAttachedByTheSupplier &&
+                    !item.isBarCodeAttachedByTheStorekeeper,
+                })}
+              >
                 {item.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine

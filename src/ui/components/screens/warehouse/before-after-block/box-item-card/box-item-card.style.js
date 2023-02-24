@@ -265,4 +265,16 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     padding: 5,
   },
+
+  warningAccent: {
+    outline: '2px solid red',
+    borderRadius: 4,
+    padding: 5,
+  },
+
+  successAccent: {
+    outline: '2px solid green',
+    borderRadius: 4,
+    padding: 5,
+  },
 }))
