@@ -205,7 +205,7 @@ export const EditOrderModal = observer(
       setBoxesForCreation(newStateFormFields)
     }
 
-    const [orderFields, setOrderFields] = useState({
+    const initialState = {
       ...order,
       status: order?.status || undefined,
       clientComment: order?.clientComment || '',
@@ -226,9 +226,9 @@ export const EditOrderModal = observer(
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
-    })
+    }
 
-    console.log('orderFields', orderFields)
+    const [orderFields, setOrderFields] = useState(initialState)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -353,6 +353,8 @@ export const EditOrderModal = observer(
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
+
+        setOrderFields(initialState)
 
         if (
           e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
@@ -581,7 +583,8 @@ export const EditOrderModal = observer(
                       Number(order.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
                     orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
                     Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ||
-                    Number(order.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK])
+                    Number(order.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ||
+                    !checkIsPlanningPrice
                     // orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                   }
                   variant="filled"
