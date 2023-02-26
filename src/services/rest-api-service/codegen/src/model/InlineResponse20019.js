@@ -12,11 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
-import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
-import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
-import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse20019 model module.
