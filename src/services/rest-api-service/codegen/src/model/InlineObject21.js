@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject21 model module.
@@ -22,7 +21,6 @@ import ApiV1BoxesItems from './ApiV1BoxesItems';
 class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
-     * Коробка
      * @alias module:model/InlineObject21
      * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
      * @param boxes {Array.<String>} 

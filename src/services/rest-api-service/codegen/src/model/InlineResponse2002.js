@@ -134,6 +134,9 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('allowedSpec')) {
                 obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -283,6 +286,12 @@ InlineResponse2002.prototype['hideSuppliers'] = undefined;
  * @member {Array.<Number>} allowedSpec
  */
 InlineResponse2002.prototype['allowedSpec'] = undefined;
+
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+InlineResponse2002.prototype['hideSuppliers'] = undefined;
 
 /**
  * Дата создания
