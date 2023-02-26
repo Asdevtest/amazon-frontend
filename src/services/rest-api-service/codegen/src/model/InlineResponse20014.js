@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -48,8 +47,8 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
@@ -74,7 +73,7 @@ class InlineResponse20014 {
  * GUID продукта в базе данных
  * @member {String} _id
  */
-InlineResponse20014.prototype['count'] = undefined;
+InlineResponse20014.prototype['_id'] = undefined;
 
 /**
  * ASIN продукта

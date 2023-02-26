@@ -212,7 +212,6 @@ import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse20020 from './model/InlineResponse20020';
 import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
-import InlineResponse20022Rows from './model/InlineResponse20022Rows';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20023Rows from './model/InlineResponse20023Rows';
 import InlineResponse20024 from './model/InlineResponse20024';
@@ -1601,12 +1600,6 @@ export {
      * @property {module:model/InlineResponse20022}
      */
     InlineResponse20022,
-
-    /**
-     * The InlineResponse20022Rows model constructor.
-     * @property {module:model/InlineResponse20022Rows}
-     */
-    InlineResponse20022Rows,
 
     /**
      * The InlineResponse20023 model constructor.
