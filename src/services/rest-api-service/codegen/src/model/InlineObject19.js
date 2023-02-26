@@ -22,13 +22,10 @@ class InlineObject19 {
     /**
      * Constructs a new <code>InlineObject19</code>.
      * @alias module:model/InlineObject19
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject19.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor() { 
         
-        InlineObject19.initialize(this, taskId, boxes, operationType);
+        InlineObject19.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject19 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -164,36 +158,25 @@ InlineObject19.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
  */
-InlineObject19['OperationTypeEnum'] = {
+InlineObject19.prototype['upsTrackNumber'] = undefined;
 
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
+/**
+ * shippingLabel коробки
+ * @member {String} shippingLabel
+ */
+InlineObject19.prototype['shippingLabel'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
+/**
+ * shippingLabel проклеен сторкипером
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject19.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
 
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
+
 
 
 
