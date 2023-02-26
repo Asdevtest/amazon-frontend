@@ -63,11 +63,11 @@ export const myRequestsDataConverter = data =>
     price: item.price,
     updatedAt: item.updatedAt,
     timeoutAt: item.timeoutAt,
-    acceptedProposals: item.countProposalsByStatuses.acceptedProposals,
-    allProposals: item.countProposalsByStatuses.allProposals,
-    atWorkProposals: item.countProposalsByStatuses.atWorkProposals,
-    verifyingProposals: item.countProposalsByStatuses.verifyingProposals,
-    waitedProposals: item.countProposalsByStatuses.waitedProposals,
+    acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
+    allProposals: item?.countProposalsByStatuses?.allProposals,
+    atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
+    verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
+    waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
