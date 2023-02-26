@@ -353,42 +353,37 @@ InlineResponse20015.prototype['batch'] = undefined;
 
 
 /**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
-InlineResponse20015['PriorityEnum'] = {
+InlineResponse20015.prototype['storekeeper'] = undefined;
 
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
+ */
+InlineResponse20015.prototype['client'] = undefined;
 
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+InlineResponse20015.prototype['createdBy'] = undefined;
 
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
+/**
+ * @member {module:model/ApiV1BoxesClientsLightDestination} destination
+ */
+InlineResponse20015.prototype['destination'] = undefined;
 
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
+/**
+ * @member {module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff} logicsTariff
+ */
+InlineResponse20015.prototype['logicsTariff'] = undefined;
 
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
+/**
+ * @member {module:model/ApiV1BoxesClientsInTransferGuidBatch} batch
+ */
+InlineResponse20015.prototype['batch'] = undefined;
+
+
+
 
 
 
