@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestModel} from '@models/request-model'
 
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -47,7 +48,11 @@ export class CreateOrEditRequestViewModel {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
       }
 
-      const dataWithFiles = {...data, details: {...data.details, linksToMediaFiles: this.uploadedFiles}}
+      const dataWithFiles = {
+        ...data,
+        request: getObjectFilteredByKeyArrayBlackList({...data.request}, ['discountedPrice']),
+        details: {...data.details, linksToMediaFiles: this.uploadedFiles},
+      }
 
       await RequestModel.createRequest(dataWithFiles)
 
