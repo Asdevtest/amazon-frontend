@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 308805189 (added new column asin for freelance my requests)
 =======
@@ -21,6 +22,8 @@ Name | Type | Description | Notes
 >>>>>>> 06cc8a94e (added new column asin for freelance my requests)
 =======
 >>>>>>> 6f6204053 (added new column asin for freelance my requests)
+=======
+>>>>>>> bcdaefa25 (added new column asin for freelance my requests)
 **destinationId** | **String** | GUID пункта назначения коробки | [optional] 
 **logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
@@ -32,6 +35,7 @@ Name | Type | Description | Notes
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **shippingLabel** | **String** | shippingLabel коробки | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -90,5 +94,7 @@ Name | Type | Description | Notes
 >>>>>>> 6f6204053 (added new column asin for freelance my requests)
 =======
 >>>>>>> d4b9d8f7c (5346: in the admin role added a field, if the user is a freelancer, the field is displayed, it allows you to select the specialty of this freelancer)
+=======
+>>>>>>> bcdaefa25 (added new column asin for freelance my requests)
 
 
