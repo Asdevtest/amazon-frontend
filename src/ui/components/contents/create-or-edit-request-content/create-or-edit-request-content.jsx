@@ -104,11 +104,6 @@ export const CreateOrEditRequestContent = ({
     details: {
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
-
-      asin: requestToEdit?.details.asin || '',
-      amazonPrice: requestToEdit?.details.amazonPrice || '',
-      discountedPrice: requestToEdit?.details.discountedPrice || '',
-      cashBack: requestToEdit?.details.cashBack || '',
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -563,7 +558,12 @@ export const CreateOrEditRequestContent = ({
                     label={t(TranslationKey['Limit the number of proposals'])}
                     containerClasses={classNames.checkboxWrapper}
                     inputComponent={
-                      <Checkbox color="primary" checked={isLimited} onChange={() => setIsLimited(!isLimited)} />
+                      <Checkbox
+                        disabled
+                        color="primary"
+                        checked={isLimited}
+                        onChange={() => setIsLimited(!isLimited)}
+                      />
                     }
                   />
 
