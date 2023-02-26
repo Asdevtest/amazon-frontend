@@ -104,11 +104,6 @@ export const CreateOrEditRequestContent = ({
     details: {
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
-
-      asin: requestToEdit?.details.asin || '',
-      amazonPrice: requestToEdit?.details.amazonPrice || '',
-      discountedPrice: requestToEdit?.details.discountedPrice || '',
-      cashBack: requestToEdit?.details.cashBack || '',
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
