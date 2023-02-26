@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 **allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
+**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

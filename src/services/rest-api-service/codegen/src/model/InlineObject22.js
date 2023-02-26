@@ -22,7 +22,6 @@ import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
-     * Коробка
      * @alias module:model/InlineObject22
      * @param guids {Array.<String>} Массив коробок.
      * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
