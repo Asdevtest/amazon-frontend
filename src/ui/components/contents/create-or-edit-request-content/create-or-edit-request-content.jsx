@@ -32,12 +32,13 @@ import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker
 import {Field} from '@components/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
 import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
-import {shortAsin, clearEverythingExceptNumbers} from '@utils/text'
+import {shortAsin, clearEverythingExceptNumbers, replaceCommaByDot, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
@@ -76,16 +77,15 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
 
-      requestType: requestToEdit?.request?.requestType || null,
+      typeTask: requestToEdit?.request?.typeTask || null,
+      asin: requestToEdit?.request.asin || '',
+      priceAmazon: requestToEdit?.request.priceAmazon || '',
+      cashBackInPercent: requestToEdit?.request.cashBackInPercent || '',
+      discountedPrice: '',
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
-
-      asin: requestToEdit?.details.asin || '',
-      amazonPrice: requestToEdit?.details.amazonPrice || '',
-      discountedPrice: requestToEdit?.details.discountedPrice || '',
-      cashBack: requestToEdit?.details.cashBack || '',
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -94,24 +94,41 @@ export const CreateOrEditRequestContent = ({
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
-    if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
-      newFormFields[section][fieldName] = parseInt(event.target.value) || ''
-    } else if (
-      ['price'].includes(fieldName) &&
-      !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
-    ) {
-      return
-    } else if (['timeoutAt'].includes(fieldName)) {
-      newFormFields[section][fieldName] = event
-      setDeadlineError(false)
-    } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
-      newFormFields[section][fieldName] = event.target.checked
-    } else if (['title'].includes(fieldName)) {
-      newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
-    } else if (['discountedPrice'].includes(fieldName)) {
-      newFormFields[section][fieldName] = clearEverythingExceptNumbers(event.target.value)
+
+    if (['price', 'priceAmazon', 'cashBackInPercent', 'discountedPrice'].includes(fieldName)) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(replaceCommaByDot(event.target.value))) {
+        return
+      }
+
+      if (['priceAmazon'].includes(fieldName)) {
+        newFormFields.request.discountedPrice = ''
+        newFormFields.request.cashBackInPercent = ''
+      }
+
+      if (['cashBackInPercent'].includes(fieldName)) {
+        newFormFields.request.discountedPrice =
+          calcNumberMinusPercent(formFields?.request.priceAmazon, event.target.value) || ''
+      }
+
+      if (['discountedPrice'].includes(fieldName)) {
+        newFormFields.request.cashBackInPercent =
+          calcPercentAfterMinusNumbers(formFields?.request.priceAmazon, event.target.value) || ''
+      }
+
+      newFormFields[section][fieldName] = replaceCommaByDot(event.target.value)
     } else {
-      newFormFields[section][fieldName] = event.target.value
+      if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
+        newFormFields[section][fieldName] = parseInt(event.target.value) || ''
+      } else if (['timeoutAt'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
+        setDeadlineError(false)
+      } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event.target.checked
+      } else if (['title'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
+      } else {
+        newFormFields[section][fieldName] = event.target.value
+      }
     }
 
     setFormFields(newFormFields)
@@ -152,6 +169,7 @@ export const CreateOrEditRequestContent = ({
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
     formFields.details.conditions.length > 1000 ||
+    !formFields.request.typeTask ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date'
 
   return (
@@ -202,13 +220,13 @@ export const CreateOrEditRequestContent = ({
                   inputComponent={
                     <Select
                       displayEmpty
-                      value={formFields.request.requestType || null}
+                      value={formFields.request.typeTask || null}
                       className={classNames.requestTypeField}
                       input={<Input startAdornment={<InputAdornment position="start" />} />}
-                      onChange={onChangeField('request')('requestType')}
+                      onChange={onChangeField('request')('typeTask')}
                     >
                       <MenuItem disabled value={null}>
-                        <em>{t(TranslationKey['Select from the list'])}</em>
+                        {t(TranslationKey['Select from the list'])}
                       </MenuItem>
 
                       {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
@@ -227,8 +245,7 @@ export const CreateOrEditRequestContent = ({
                 )}`}</span> */}
               </div>
 
-              {`${formFields?.request?.requestType}` ===
-                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+              {`${formFields?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
                 <div className={classNames.bloggerFieldsWrapper}>
                   <Field
                     className={classNames.nameField}
@@ -236,8 +253,8 @@ export const CreateOrEditRequestContent = ({
                     inputProps={{maxLength: 10}}
                     label={t(TranslationKey.ASIN)}
                     labelClasses={classNames.spanLabelSmall}
-                    value={formFields.details.asin}
-                    onChange={onChangeField('details')('asin')}
+                    value={formFields.request.asin}
+                    onChange={onChangeField('request')('asin')}
                   />
 
                   <Field
@@ -246,8 +263,8 @@ export const CreateOrEditRequestContent = ({
                     inputProps={{maxLength: 8}}
                     label={t(TranslationKey['Price on Amazon']) + ', $'}
                     labelClasses={classNames.spanLabelSmall}
-                    value={formFields.details.amazonPrice}
-                    onChange={onChangeField('details')('amazonPrice')}
+                    value={formFields.request.priceAmazon}
+                    onChange={onChangeField('request')('priceAmazon')}
                   />
 
                   <Field
@@ -256,8 +273,12 @@ export const CreateOrEditRequestContent = ({
                     inputProps={{maxLength: 8}}
                     label={t(TranslationKey['Discounted price']) + ', $'}
                     labelClasses={classNames.spanLabelSmall}
-                    value={formFields.details.discountedPrice}
-                    onChange={onChangeField('details')('discountedPrice')}
+                    value={toFixed(formFields.request.discountedPrice, 2)}
+                    onChange={e => {
+                      if (formFields.request.priceAmazon && Number(e.target.value) < formFields.request.priceAmazon) {
+                        onChangeField('request')('discountedPrice')(e)
+                      }
+                    }}
                   />
 
                   <Field
@@ -266,8 +287,12 @@ export const CreateOrEditRequestContent = ({
                     inputProps={{maxLength: 8}}
                     label={t(TranslationKey['CashBack Percentage']) + ', %'}
                     labelClasses={classNames.spanLabelSmall}
-                    value={formFields.details.cashBack}
-                    onChange={onChangeField('details')('cashBack')}
+                    value={toFixed(formFields.request.cashBackInPercent, 2)}
+                    onChange={e => {
+                      if (Number(e.target.value) < 100 && formFields.request.priceAmazon) {
+                        onChangeField('request')('cashBackInPercent')(e)
+                      }
+                    }}
                   />
                 </div>
               )}
@@ -356,7 +381,12 @@ export const CreateOrEditRequestContent = ({
                     label={t(TranslationKey['Limit the number of proposals'])}
                     containerClasses={classNames.checkboxWrapper}
                     inputComponent={
-                      <Checkbox color="primary" checked={isLimited} onChange={() => setIsLimited(!isLimited)} />
+                      <Checkbox
+                        disabled
+                        color="primary"
+                        checked={isLimited}
+                        onChange={() => setIsLimited(!isLimited)}
+                      />
                     }
                   />
 
@@ -547,32 +577,33 @@ export const CreateOrEditRequestContent = ({
                         }
                       />
 
-                      {`${formFields?.request?.requestType}` ===
-                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-                        <Field
-                          label={t(TranslationKey.ASIN)}
-                          labelClasses={classNames.spanLabel}
-                          inputComponent={
-                            <div className={classNames.asinWrapper}>
-                              <Typography className={classNames.orderText}>
-                                {formFields.details.asin ? (
-                                  <a
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href={`https://www.amazon.com/dp/${formFields.details.asin}`}
-                                    className={classNames.normalizeLink}
-                                  >
-                                    <span className={classNames.linkSpan}>{shortAsin(formFields.details.asin)}</span>
-                                  </a>
-                                ) : (
-                                  <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                                )}
-                              </Typography>
-                              {formFields.details.asin ? <CopyValue text={formFields.details.asin} /> : null}
-                            </div>
-                          }
-                        />
-                      )}
+                      {`${formFields?.request?.typeTask}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+                        formFields?.request?.asin && (
+                          <Field
+                            label={t(TranslationKey.ASIN)}
+                            labelClasses={classNames.spanLabel}
+                            inputComponent={
+                              <div className={classNames.asinWrapper}>
+                                <Typography className={classNames.orderText}>
+                                  {formFields.request.asin ? (
+                                    <a
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      href={`https://www.amazon.com/dp/${formFields.request.asin}`}
+                                      className={classNames.normalizeLink}
+                                    >
+                                      <span className={classNames.linkSpan}>{shortAsin(formFields.request.asin)}</span>
+                                    </a>
+                                  ) : (
+                                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                                  )}
+                                </Typography>
+                                {formFields.request.asin ? <CopyValue text={formFields.request.asin} /> : null}
+                              </div>
+                            }
+                          />
+                        )}
                     </div>
 
                     <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
@@ -581,18 +612,30 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.rightTwoStepWrapper}>
                     <div className={classNames.rightTwoStepSubFieldWrapper}>
-                      {`${formFields?.request?.requestType}` ===
-                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-                        <Field
-                          label={t(TranslationKey['Price per product'])}
-                          labelClasses={classNames.spanLabel}
-                          inputComponent={
-                            <Typography className={classNames.twoStepFieldResult}>
-                              {formFields.details.amazonPrice}
-                            </Typography>
-                          }
-                        />
-                      )}
+                      {`${formFields?.request?.typeTask}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+                        formFields?.request?.priceAmazon && (
+                          <Field
+                            label={t(TranslationKey['Price per product'])}
+                            labelClasses={classNames.spanLabel}
+                            inputComponent={
+                              <div className={classNames.pricesWrapper}>
+                                <Typography
+                                  className={cx(classNames.twoStepFieldResult, {
+                                    [classNames.oldPrice]: formFields.request.discountedPrice,
+                                  })}
+                                >
+                                  {formFields.request.priceAmazon + '$'}
+                                </Typography>
+                                {formFields.request.discountedPrice && (
+                                  <Typography className={classNames.twoStepFieldResult}>
+                                    {formFields.request.discountedPrice + '$'}
+                                  </Typography>
+                                )}
+                              </div>
+                            }
+                          />
+                        )}
 
                       <Field
                         label={t(TranslationKey['Number of proposals'])}
@@ -618,18 +661,20 @@ export const CreateOrEditRequestContent = ({
                     </div>
 
                     <div className={classNames.rightTwoStepSubFieldWrapper}>
-                      {`${formFields?.request?.requestType}` ===
-                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-                        <Field
-                          label={t(TranslationKey.CashBack)}
-                          labelClasses={classNames.spanLabel}
-                          inputComponent={
-                            <Typography className={classNames.twoStepFieldResult}>
-                              {formFields.details.cashBack}
-                            </Typography>
-                          }
-                        />
-                      )}
+                      {`${formFields?.request?.typeTask}` ===
+                        `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+                        formFields.request.cashBackInPercent &&
+                        formFields?.request?.cashBackInPercent && (
+                          <Field
+                            label={t(TranslationKey.CashBack)}
+                            labelClasses={classNames.spanLabel}
+                            inputComponent={
+                              <Typography className={classNames.twoStepFieldResult}>
+                                {toFixed(formFields.request.cashBackInPercent, 2) + '%'}
+                              </Typography>
+                            }
+                          />
+                        )}
 
                       <Field
                         label={t(TranslationKey['Supervisor check'])}
