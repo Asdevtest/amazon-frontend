@@ -23,11 +23,10 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject24.initialize(this, boxesIds);
+        InlineObject24.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +48,8 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
             if (data.hasOwnProperty('newBoxesParams')) {
                 obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
@@ -67,7 +65,7 @@ class InlineObject24 {
  * GUID коробки, которую делим
  * @member {String} guid
  */
-InlineObject24.prototype['barCode'] = undefined;
+InlineObject24.prototype['guid'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
