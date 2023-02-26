@@ -58,8 +58,7 @@ class InlineObject27 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * @member {Number} lengthCmWarehouse
  */
 InlineObject27.prototype['guid'] = undefined;
 

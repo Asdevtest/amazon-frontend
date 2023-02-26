@@ -71,36 +71,25 @@ InlineObject19.prototype['totalPriceChanged'] = undefined;
 
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
  */
-InlineObject19['OperationTypeEnum'] = {
+InlineObject19.prototype['upsTrackNumber'] = undefined;
 
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
+/**
+ * shippingLabel коробки
+ * @member {String} shippingLabel
+ */
+InlineObject19.prototype['shippingLabel'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
+/**
+ * shippingLabel проклеен сторкипером
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject19.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
 
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
+
 
 
 
