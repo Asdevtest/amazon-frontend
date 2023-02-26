@@ -36,7 +36,8 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, items) { 
+        obj['items'] = items;
     }
     /**
      * Constructs a <code>InlineObject18</code> from a plain JavaScript object, optionally creating a new instance.
@@ -92,11 +93,11 @@ class InlineObject18 {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
@@ -223,16 +224,16 @@ InlineObject18.prototype['referenceId'] = undefined;
 InlineObject18.prototype['storekeeperComment'] = undefined;
 
 /**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject18.prototype['priceBatchDeliveryInYuan'] = undefined;
+InlineObject18.prototype['trackNumberText'] = undefined;
 
 /**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
  */
-InlineObject18.prototype['logicsTariffId'] = undefined;
+InlineObject18.prototype['trackNumberFile'] = undefined;
 
 /**
  * Массив коробок.
