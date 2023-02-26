@@ -3,6 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  AsinCell,
   MultilineRequestStatusCell,
   MultilineTextAlignLeftCell,
   MultilineTextCell,
@@ -49,6 +50,15 @@ export const myRequestsViewColumns = () => [
 
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 145,
+  },
+
+  {
+    field: 'asin',
+    headerName: t(TranslationKey.ASIN),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+
+    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    width: 120,
   },
 
   {
