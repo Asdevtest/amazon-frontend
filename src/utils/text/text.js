@@ -20,16 +20,9 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-// export const replaceDollarSign = str => (str ? str.replace('$', '') : str) // Не используется
-
 export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
-// export const getFloat = str => (str ? parseFloat(str) || 0 : str) // Не используется
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
-// export const getInt = str => (str ? parseFloat(str) || 0 : str) // Не используется
-// export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0) // Не используется
-
-// export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str) // Не используется
 
 export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
@@ -51,9 +44,6 @@ export const clearSpecialCharacters = value =>
   typeof value === 'string' ? value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '') : value
 
 export const clearEverythingExceptNumbers = value => (typeof value === 'string' ? value.replace(/\D/gi, '') : value)
-
-// export const shortenLongString = (value, lengthBreakpoint) => // Не используется
-//   value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
 
 export const shortenDocumentString = value => {
   if (typeof value === 'string') {
@@ -163,3 +153,5 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return status
   }
 }
+
+export const replaceCommaByDot = str => str.replaceAll(',', '.')

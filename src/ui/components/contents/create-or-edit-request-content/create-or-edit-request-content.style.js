@@ -179,11 +179,25 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
+  pricesWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
   twoStepFieldResult: {
     minHeight: '40px',
 
-    color: theme.palette.text.second,
-    // background: 'rgba(200,200,200, .1)',
+    fontWeight: 600,
+
+    color: theme.palette.text.main,
+  },
+  typoSpan: {
+    fontWeight: 600,
+    color: theme.palette.text.main,
+  },
+  oldPrice: {
+    color: 'red',
+    textDecoration: 'line-through',
   },
 
   descriptionStepTwoField: {
