@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
-     * Коробка
      * @alias module:model/InlineObject22
      */
     constructor() { 
