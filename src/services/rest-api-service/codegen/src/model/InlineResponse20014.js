@@ -26,7 +26,6 @@ import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTa
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -53,8 +52,8 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
@@ -166,14 +165,14 @@ class InlineResponse20014 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * GUID коробки.
+ * @member {String} _id
  */
-InlineResponse20014.prototype['count'] = undefined;
+InlineResponse20014.prototype['_id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20012>} rows
+ * Номер коробки.
+ * @member {Number} humanFriendlyId
  */
 InlineResponse20014.prototype['humanFriendlyId'] = undefined;
 
