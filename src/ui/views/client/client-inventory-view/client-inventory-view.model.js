@@ -343,7 +343,7 @@ export class ClientInventoryViewModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/pending-orders/order?${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${id}`, '_blank')
     win.focus()
   }
 

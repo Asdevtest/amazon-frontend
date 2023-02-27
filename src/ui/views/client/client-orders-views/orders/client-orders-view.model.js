@@ -594,7 +594,7 @@ export class ClientOrdersViewModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/pending-orders/order?${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${id}`, '_blank')
     win.focus()
   }
 
@@ -747,7 +747,7 @@ export class ClientOrdersViewModel {
 
   onClickTableRow(order) {
     this.history.push({
-      // pathname: '/client/orders/order',
+      // pathname: '/client/my-orders/orders/order',
       pathname: `${this.history.location.pathname}/order`,
 
       search: order.originalData._id,

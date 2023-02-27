@@ -197,14 +197,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   amazonTitle: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    whiteSpace: 'pre-line',
     width: '225px',
     color: theme.palette.text.general,
     marginBottom: '20px',
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      flexWrap: 'wrap',
+      // display: 'flex',
+      // flexWrap: 'wrap',
       width: '280px',
       marginBottom: '20px',
       marginTop: '20px',

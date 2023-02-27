@@ -1776,7 +1776,7 @@ export enum TranslationKey {
   'Cost' = 'Cost',
   'Empty' = 'Empty',
   'Selected boxes' = 'Selected boxes',
-  // '' = '',
+  'Choose a section in My orders' = 'Choose a section in My orders',
   // '' = '',
   // '' = '',
   // '' = '',

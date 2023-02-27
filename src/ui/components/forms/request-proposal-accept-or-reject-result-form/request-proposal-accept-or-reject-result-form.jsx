@@ -24,7 +24,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     cancelBtnText,
     rejectButtonText,
   }) => {
-    const [formFields, setFormFields] = useState({reason: '', rating: ''})
+    const [formFields, setFormFields] = useState({review: '', rating: ''})
     const {classes: classNames} = useClassNames()
 
     console.log('formFields', formFields)
@@ -62,7 +62,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           maxRows={6}
           value={formFields.reason}
           className={classNames.heightFieldAuto}
-          onChange={onChangeField('reason')}
+          onChange={onChangeField('review')}
         />
 
         <div className={classNames.btnsWrapper}>
