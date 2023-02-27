@@ -160,5 +160,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: '60%',
+
+    gap: 30,
   },
 }))

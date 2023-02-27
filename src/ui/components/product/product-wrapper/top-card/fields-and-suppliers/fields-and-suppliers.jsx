@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {
   mapProductStrategyStatusEnum,
@@ -47,14 +48,13 @@ export const FieldsAndSuppliers = observer(
     formFieldsValidationErrors,
     shops,
     onClickHsCode,
+    onClickParseProductData,
   }) => {
     const {classes: classNames} = useClassNames()
 
     const [edit, setEdit] = useState(true)
 
     const onChangeShop = e => {
-      console.log('e', e)
-
       onChangeField('shopIds')({target: {value: e.target.value ? [e.target.value] : []}})
     }
 
@@ -75,42 +75,17 @@ export const FieldsAndSuppliers = observer(
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <div>
-              <div className={classNames.copyLink}>
-                {edit && product.lamazon ? (
-                  <Link
-                    target="_blank"
-                    rel="noopener"
-                    href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                    className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
-                  >
-                    <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
-                  </Link>
-                ) : (
-                  <Input
-                    disabled={edit}
-                    classes={{
-                      input: cx(
-                        classNames.inputLink,
-                        {[classNames.inputDisabled]: edit},
-                        {[classNames.linkOnEdit]: edit && product.lamazon},
-                      ),
-                    }}
-                    placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
-                    value={product.lamazon}
-                    onChange={onChangeField('lamazon')}
-                  />
-                )}
-
-                {/* <Link
-                  suppressContentEditableWarning
-                  contentEditable={!edit || !product.lamazon}
-                  target="_blank"
-                  rel="noopener"
-                  href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                  className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
-                >
-                  {edit ? (
-                    <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
+              <div className={classNames.linkAndButtonWrapper}>
+                <div className={classNames.copyLink}>
+                  {edit && product.lamazon ? (
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      href={checkAndMakeAbsoluteUrl(product.lamazon)}
+                      className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
+                    >
+                      <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
+                    </Link>
                   ) : (
                     <Input
                       disabled={edit}
@@ -126,8 +101,20 @@ export const FieldsAndSuppliers = observer(
                       onChange={onChangeField('lamazon')}
                     />
                   )}
-                </Link> */}
-                {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
+
+                  {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
+                </div>
+
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
+                  className={classNames.buttonParseAmazon}
+                  onClick={() => {
+                    onClickParseProductData(ProductDataParser.AMAZON, product)
+                    onClickParseProductData(ProductDataParser.SELLCENTRAL, product)
+                  }}
+                >
+                  {'Parse Product Data'}
+                </Button>
               </div>
 
               {checkIsClient(curUserRole) &&

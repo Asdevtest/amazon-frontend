@@ -126,7 +126,7 @@ export const TopCard = observer(
                 !product.archive &&
                 showActionBtns ? (
                   <div className={classNames.actionsWrapper}>
-                    <Box className={classNames.parseButtonsWrapper}>
+                    {/* <Box className={classNames.parseButtonsWrapper}>
                       <React.Fragment>
                         <Button
                           tooltipInfoContent={t(
@@ -149,7 +149,7 @@ export const TopCard = observer(
                           {'Parse Seller central'}
                         </Button>
                       </React.Fragment>
-                    </Box>
+                    </Box> */}
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
@@ -187,6 +187,7 @@ export const TopCard = observer(
                 onClickSupplierBtns={onClickSupplierBtns}
                 onClickSupplier={onClickSupplier}
                 onClickHsCode={onClickHsCode}
+                onClickParseProductData={onClickParseProductData}
               />
             </Grid>
             <RightSideComments

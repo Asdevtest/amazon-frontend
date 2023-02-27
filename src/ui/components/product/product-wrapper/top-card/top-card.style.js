@@ -67,10 +67,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     marginRight: 30,
   },
-  buttonParseAmazon: {
-    width: '100%',
-    marginBottom: '16px',
-  },
   productFieldBox: {
     display: 'flex',
     flexDirection: 'column',
@@ -149,7 +145,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageFileInputWrapper: {
-    marginLeft: '20px',
     width: '100%',
   },
 

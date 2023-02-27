@@ -141,6 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   actionButton: {
+    marginTop: 30,
     width: '242px',
     height: '40px',
   },
