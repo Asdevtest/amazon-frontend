@@ -4,27 +4,35 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxesBefore** | **[String]** |  | [optional] 
-**boxes** | **[String]** |  | 
-**operationType** | **String** | Тип операции | 
-**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
-**buyerComment** | **String** | Комментарий баера | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | 
+**item** | **String** |  | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки | 
+**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
+**clientComment** | **String** | Комментарии клиента. | [optional] 
+**productId** | **String** | GUID заказанного продукта | 
+**images** | **[String]** | Массив изображений. | [optional] 
+**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
+**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
+**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
+**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
 
 
 
-## Enum: OperationTypeEnum
+## Enum: PriorityEnum
 
 
-* `merge` (value: `"merge"`)
+* `10` (value: `"10"`)
 
-* `split` (value: `"split"`)
+* `20` (value: `"20"`)
 
-* `receive` (value: `"receive"`)
+* `30` (value: `"30"`)
 
-* `edit` (value: `"edit"`)
+* `40` (value: `"40"`)
+
+* `50` (value: `"50"`)
 
 
 

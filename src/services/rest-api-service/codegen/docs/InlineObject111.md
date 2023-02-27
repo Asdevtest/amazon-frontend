@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**ApiV1RequestsCustomRequest**](ApiV1RequestsCustomRequest.md) |  | 
-**details** | [**ApiV1RequestsCustomDetails**](ApiV1RequestsCustomDetails.md) |  | 
+**hash** | **String** | Токен, который юзер получает через почту | 
+**password** | **String** | Новый пароль | [optional] 
 
 

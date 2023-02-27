@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**title** | **String** | Название партии | [optional] 
+**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
+**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
 
 

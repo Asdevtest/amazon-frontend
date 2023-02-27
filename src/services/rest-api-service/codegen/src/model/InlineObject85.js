@@ -22,10 +22,11 @@ class InlineObject85 {
     /**
      * Constructs a new <code>InlineObject85</code>.
      * @alias module:model/InlineObject85
+     * @param action {module:model/InlineObject85.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject85.initialize(this);
+        InlineObject85.initialize(this, action);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject85 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -47,20 +49,11 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -70,37 +63,39 @@ class InlineObject85 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * @member {module:model/InlineObject85.ActionEnum} action
  */
-InlineObject85.prototype['execution_time'] = undefined;
+InlineObject85.prototype['action'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject85.prototype['price'] = undefined;
+InlineObject85.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject85.prototype['comment'] = undefined;
+InlineObject85['ActionEnum'] = {
 
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject85.prototype['linksToMediaFiles'] = undefined;
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject85.prototype['title'] = undefined;
-
-
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

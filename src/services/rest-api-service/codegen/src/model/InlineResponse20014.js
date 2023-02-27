@@ -13,10 +13,10 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
-import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
+import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
 import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse20014 model module.
@@ -146,10 +146,10 @@ class InlineResponse20014 {
                 obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1BoxesClientsInTransferGuidLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = ApiV1BoxesClientsLightLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
-                obj['batch'] = ApiV1BoxesClientsInTransferGuidBatch.constructFromObject(data['batch']);
+                obj['batch'] = ApiV1BoxesClientsLightBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -339,12 +339,12 @@ InlineResponse20014.prototype['createdBy'] = undefined;
 InlineResponse20014.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff} logicsTariff
+ * @member {module:model/ApiV1BoxesClientsLightLogicsTariff} logicsTariff
  */
 InlineResponse20014.prototype['logicsTariff'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidBatch} batch
+ * @member {module:model/ApiV1BoxesClientsLightBatch} batch
  */
 InlineResponse20014.prototype['batch'] = undefined;
 

@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
@@ -42,6 +43,9 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      storekeepersData,
+      currentStorekeeper,
+
       userInfo,
       warningInfoModalSettings,
       nameSearchValue,
@@ -82,6 +86,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       onClickCancelSendToBatchBtn,
 
       onSubmitChangeBoxFields,
+
+      onClickStorekeeperBtn,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -98,18 +104,52 @@ class ClientAwaitingBatchesViewRaw extends Component {
           <Appbar title={t(TranslationKey['Awaiting send'])} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <div className={className.btnsWrapper}>
-                <Button
-                  disabled={!selectedBatches.length}
-                  tooltipInfoContent={t(
-                    TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
-                  )}
-                  className={className.cancelBtn}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => onTriggerOpenModal('showConfirmModal')}
-                >
-                  {t(TranslationKey['Cancel Send'])}
-                </Button>
+                <div className={className.btnsSubWrapper}>
+                  <Button
+                    disabled={!selectedBatches.length}
+                    tooltipInfoContent={t(
+                      TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
+                    )}
+                    className={className.cancelBtn}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => onTriggerOpenModal('showConfirmModal')}
+                  >
+                    {t(TranslationKey['Cancel Send'])}
+                  </Button>
+
+                  <div className={className.boxesFiltersWrapper}>
+                    {storekeepersData
+                      .slice()
+                      .sort((a, b) => a.name?.localeCompare(b.name))
+                      .map(storekeeper =>
+                        storekeeper.boxesCount !== 0 ? (
+                          <Button
+                            key={storekeeper._id}
+                            disabled={currentStorekeeper?._id === storekeeper._id}
+                            className={cx(className.storekeeperButton, {
+                              [className.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                            })}
+                            variant="text"
+                            onClick={() => onClickStorekeeperBtn(storekeeper)}
+                          >
+                            {storekeeper.name}
+                          </Button>
+                        ) : null,
+                      )}
+
+                    <Button
+                      disabled={!currentStorekeeper?._id}
+                      className={cx(className.storekeeperButton, {
+                        [className.selectedBoxesBtn]: !currentStorekeeper?._id,
+                      })}
+                      variant="text"
+                      onClick={onClickStorekeeperBtn}
+                    >
+                      {t(TranslationKey['All warehouses'])}
+                    </Button>
+                  </div>
+                </div>
 
                 <SearchInput
                   key={'client_batches_awaiting-batch_search_input'}
@@ -118,8 +158,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
                   onSubmit={onSearchSubmit}
                 />
-
-                <div />
               </div>
               <div className={className.datagridWrapper}>
                 <MemoDataGrid

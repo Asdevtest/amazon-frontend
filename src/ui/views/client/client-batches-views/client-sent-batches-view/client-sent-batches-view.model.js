@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BatchStatus} from '@constants/batch-status'
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -9,6 +10,7 @@ import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientBatchesViewColumns} from '@components/table-columns/client/client-batches-columns'
@@ -30,6 +32,10 @@ export class ClientSentBatchesViewModel {
   curBatch = {}
 
   currentData = []
+
+  currentStorekeeper = undefined
+
+  storekeepersData = []
 
   isArchive = false
 
@@ -70,9 +76,9 @@ export class ClientSentBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
-    console.log('history', history)
-    console.log('location', location)
+  constructor({history}) {
+    // console.log('history', history)
+    // console.log('location', location)
     runInAction(() => {
       this.history = history
     })
@@ -253,9 +259,38 @@ export class ClientSentBatchesViewModel {
     return toJS(this.batches)
   }
 
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers(
+        [BoxStatus.IN_BATCH_ON_THE_WAY, BoxStatus.FINISH_PREP_CENTR_USA].join(','),
+      )
+
+      runInAction(() => {
+        this.storekeepersData = result
+
+        this.currentStorekeeper = this.currentStorekeeper ? this.currentStorekeeper : null // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
+      })
+
+      this.getDataGridState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickStorekeeperBtn(storekeeper) {
+    runInAction(() => {
+      this.selectedBatches = []
+
+      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    })
+
+    this.getBatchesPagMy()
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getStorekeepers()
       this.getDataGridState()
       await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
@@ -348,7 +383,7 @@ export class ClientSentBatchesViewModel {
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
           filters: this.nameSearchValue ? filter : null,
-          storekeeperId: null,
+          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
         },
       })
 

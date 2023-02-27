@@ -17,6 +17,7 @@ import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPri
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './UserInfoSchemaPermissions';
+import UserInfoSchemaUpdatesOnIdeas from './UserInfoSchemaUpdatesOnIdeas';
 
 /**
  * The UserInfoSchema model module.
@@ -119,6 +120,12 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('purchaseOrderRequired')) {
                 obj['purchaseOrderRequired'] = ApiClient.convertToType(data['purchaseOrderRequired'], ['String']);
+            }
+            if (data.hasOwnProperty('updatesOnIdeas')) {
+                obj['updatesOnIdeas'] = ApiClient.convertToType(data['updatesOnIdeas'], [UserInfoSchemaUpdatesOnIdeas]);
+            }
+            if (data.hasOwnProperty('allowedSpec')) {
+                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
         }
         return obj;
@@ -253,6 +260,17 @@ UserInfoSchema.prototype['needUpdateTariff'] = undefined;
  * @member {Array.<String>} purchaseOrderRequired
  */
 UserInfoSchema.prototype['purchaseOrderRequired'] = undefined;
+
+/**
+ * @member {Array.<module:model/UserInfoSchemaUpdatesOnIdeas>} updatesOnIdeas
+ */
+UserInfoSchema.prototype['updatesOnIdeas'] = undefined;
+
+/**
+ * Массив доступных специализаций фрилансера.
+ * @member {Array.<Number>} allowedSpec
+ */
+UserInfoSchema.prototype['allowedSpec'] = undefined;
 
 
 

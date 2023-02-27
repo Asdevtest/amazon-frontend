@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
-import ApiV1BatchesStorekeeper from './ApiV1BatchesStorekeeper';
 
 /**
  * The InlineResponse2008 model module.
@@ -52,50 +50,23 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('humanFriendlyId')) {
-                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('shipId')) {
-                obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
-            }
-            if (data.hasOwnProperty('finalWeightAsOneBox')) {
-                obj['finalWeightAsOneBox'] = ApiClient.convertToType(data['finalWeightAsOneBox'], 'Number');
-            }
-            if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
-                obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
-            }
-            if (data.hasOwnProperty('finalWeight')) {
-                obj['finalWeight'] = ApiClient.convertToType(data['finalWeight'], 'Number');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1BatchesStorekeeper.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('lastModifiedBy')) {
-                obj['lastModifiedBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['lastModifiedBy']);
+                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -111,97 +82,39 @@ class InlineResponse2008 {
 }
 
 /**
- * GUID партии.
  * @member {String} _id
  */
 InlineResponse2008.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id партии.
- * @member {Number} humanFriendlyId
+ * @member {Number} type
  */
-InlineResponse2008.prototype['humanFriendlyId'] = undefined;
+InlineResponse2008.prototype['type'] = undefined;
 
 /**
- * Статус партии.
- * @member {String} status
+ * @member {String} requestId
  */
-InlineResponse2008.prototype['status'] = undefined;
+InlineResponse2008.prototype['requestId'] = undefined;
 
 /**
- * id корабля.
- * @member {String} shipId
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineResponse2008.prototype['shipId'] = undefined;
+InlineResponse2008.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Название партии
  * @member {String} title
  */
 InlineResponse2008.prototype['title'] = undefined;
 
 /**
- * Массив ссылок на файлов документации к партии.
- * @member {Array.<String>} attachedDocuments
+ * @member {String} description
  */
-InlineResponse2008.prototype['attachedDocuments'] = undefined;
+InlineResponse2008.prototype['description'] = undefined;
 
 /**
- * Финальный вес партии, если считать все коробки как одну большую коробу.
- * @member {Number} finalWeightAsOneBox
- */
-InlineResponse2008.prototype['finalWeightAsOneBox'] = undefined;
-
-/**
- * Финальный вес партии, если сложить все веса коробок по отдельности.
- * @member {Number} finalWeightSumEachBoxAmount
- */
-InlineResponse2008.prototype['finalWeightSumEachBoxAmount'] = undefined;
-
-/**
- * Заархивирована ли партия
- * @member {Boolean} archive
- */
-InlineResponse2008.prototype['archive'] = undefined;
-
-/**
- * Массив id коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
- */
-InlineResponse2008.prototype['boxes'] = undefined;
-
-/**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
- */
-InlineResponse2008.prototype['calculationMethod'] = undefined;
-
-/**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
- */
-InlineResponse2008.prototype['volumeWeightDivide'] = undefined;
-
-/**
- * Масса партии
- * @member {Number} finalWeight
- */
-InlineResponse2008.prototype['finalWeight'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} storekeeper
- */
-InlineResponse2008.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} createdBy
+ * @member {String} createdBy
  */
 InlineResponse2008.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1BatchesStorekeeper} lastModifiedBy
- */
-InlineResponse2008.prototype['lastModifiedBy'] = undefined;
 
 /**
  * Дата создания.
@@ -210,7 +123,7 @@ InlineResponse2008.prototype['lastModifiedBy'] = undefined;
 InlineResponse2008.prototype['createdAt'] = undefined;
 
 /**
- * Дата создания.
+ * Дата обновления.
  * @member {Date} updatedAt
  */
 InlineResponse2008.prototype['updatedAt'] = undefined;

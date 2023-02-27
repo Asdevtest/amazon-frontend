@@ -157,16 +157,17 @@ export const styles = theme => ({
   },
 
   numInputsWrapper: {
+    width: 255,
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     // flexGrow: 1,
     marginBottom: 5,
-    gap: 40,
+    // gap: 40,
   },
 
   numInput: {
-    width: 90,
+    width: 110,
     height: 30,
     textAlign: 'center',
   },

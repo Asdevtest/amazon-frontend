@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject111 model module.
@@ -23,14 +21,12 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject111
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
+     * @param hash {String} Токен, который юзер получает через почту
      */
-    constructor(request, details) { 
+    constructor(hash) { 
         
-        InlineObject111.initialize(this, request, details);
+        InlineObject111.initialize(this, hash);
     }
 
     /**
@@ -38,9 +34,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj, hash) { 
+        obj['hash'] = hash;
     }
 
     /**
@@ -54,11 +49,11 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('hash')) {
+                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('password')) {
+                obj['password'] = ApiClient.convertToType(data['password'], 'String');
             }
         }
         return obj;
@@ -68,14 +63,16 @@ class InlineObject111 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Токен, который юзер получает через почту
+ * @member {String} hash
  */
-InlineObject111.prototype['request'] = undefined;
+InlineObject111.prototype['hash'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Новый пароль
+ * @member {String} password
  */
-InlineObject111.prototype['details'] = undefined;
+InlineObject111.prototype['password'] = undefined;
 
 
 

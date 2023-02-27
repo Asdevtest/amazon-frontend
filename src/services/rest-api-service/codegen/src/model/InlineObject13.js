@@ -22,11 +22,10 @@ class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
      * @alias module:model/InlineObject13
-     * @param attachedDocuments {Array.<String>} 
      */
-    constructor(attachedDocuments) { 
+    constructor() { 
         
-        InlineObject13.initialize(this, attachedDocuments);
+        InlineObject13.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attachedDocuments) { 
-        obj['attachedDocuments'] = attachedDocuments;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,14 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
             }
         }
         return obj;
@@ -60,9 +64,22 @@ class InlineObject13 {
 }
 
 /**
- * @member {Array.<String>} attachedDocuments
+ * Название партии
+ * @member {String} title
  */
-InlineObject13.prototype['attachedDocuments'] = undefined;
+InlineObject13.prototype['title'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject13.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject13.prototype['volumeWeightDivide'] = undefined;
 
 
 

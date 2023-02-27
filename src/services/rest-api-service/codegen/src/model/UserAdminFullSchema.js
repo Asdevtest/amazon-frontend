@@ -110,6 +110,9 @@ class UserAdminFullSchema {
             if (data.hasOwnProperty('hideSuppliers')) {
                 obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
             }
+            if (data.hasOwnProperty('allowedSpec')) {
+                obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -218,6 +221,12 @@ UserAdminFullSchema.prototype['rating'] = undefined;
  * @member {Boolean} hideSuppliers
  */
 UserAdminFullSchema.prototype['hideSuppliers'] = undefined;
+
+/**
+ * Массив возможных ролей фрилансера
+ * @member {Array.<Number>} allowedSpec
+ */
+UserAdminFullSchema.prototype['allowedSpec'] = undefined;
 
 /**
  * Дата создания

@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
+**allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

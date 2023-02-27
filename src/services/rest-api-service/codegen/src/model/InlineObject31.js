@@ -47,29 +47,26 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
         }
         return obj;
@@ -79,52 +76,44 @@ class InlineObject31 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * @member {String} clientComment
  */
-InlineObject31.prototype['amazon'] = undefined;
+InlineObject31.prototype['clientComment'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * @member {String} storekeeperComment
  */
-InlineObject31.prototype['reffee'] = undefined;
+InlineObject31.prototype['storekeeperComment'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject31.prototype['fbafee'] = undefined;
+InlineObject31.prototype['referenceId'] = undefined;
 
 /**
- * ФБА кол-во
- * @member {Number} fbaamount
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject31.prototype['fbaamount'] = undefined;
+InlineObject31.prototype['fbaNumber'] = undefined;
 
 /**
- * Код статуса
- * @member {Number} status
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
  */
-InlineObject31.prototype['status'] = undefined;
+InlineObject31.prototype['upsTrackNumber'] = undefined;
 
 /**
- * Прибыль
- * @member {Number} profit
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject31.prototype['profit'] = undefined;
+InlineObject31.prototype['trackNumberText'] = undefined;
 
 /**
- * Маржа
- * @member {Number} margin
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
  */
-InlineObject31.prototype['margin'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject31.prototype['buyersComment'] = undefined;
+InlineObject31.prototype['trackNumberFile'] = undefined;
 
 
 

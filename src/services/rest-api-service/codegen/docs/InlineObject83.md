@@ -4,18 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**action** | **String** |  | 
-**reason** | **String** | Причина смены статуса. | [optional] 
-
-
-
-## Enum: ActionEnum
-
-
-* `LINK` (value: `"LINK"`)
-
-* `UNLINK` (value: `"UNLINK"`)
-
-
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
 
 
