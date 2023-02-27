@@ -122,12 +122,12 @@ export const navbarConfig = () => ({
     {
       icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),
-      route: '/client/orders',
+      route: '/client/my-orders/orders',
       // subtitles: null,
       subtitles: [
         {
           subtitle: t(TranslationKey.Orders),
-          subRoute: '/client/orders',
+          subRoute: '/client/my-orders/orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
@@ -135,7 +135,7 @@ export const navbarConfig = () => ({
         },
         {
           subtitle: t(TranslationKey['Pending orders']),
-          subRoute: '/client/pending-orders',
+          subRoute: '/client/my-orders/pending-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||

@@ -253,7 +253,7 @@ export const getClientDashboardCardConfig = () => ({
         dataKey: ClientDashboardCardDataKey.ALL_ORDERS,
         title: t(TranslationKey['Made orders']),
         color: '#ffc107',
-        route: '/client/orders',
+        route: '/client/my-orders/orders',
         dataGridFilter: {
           items: [],
         },
@@ -262,7 +262,7 @@ export const getClientDashboardCardConfig = () => ({
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
         title: t(TranslationKey['Paid orders']),
         color: '#00B746',
-        route: '/client/orders',
+        route: '/client/my-orders/orders',
         dataGridFilter: {
           items: [
             {
@@ -282,7 +282,7 @@ export const getClientDashboardCardConfig = () => ({
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
         title: t(TranslationKey['Canceled orders']),
         color: '#BC3030',
-        route: '/client/orders',
+        route: '/client/my-orders/orders',
         dataGridFilter: {
           items: [
             {

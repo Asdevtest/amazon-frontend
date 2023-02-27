@@ -204,7 +204,7 @@ export const clientBoxesViewColumns = (
         isShowIconOnHover={onHover && params.field && onHover === params.field}
         isFilterActive={
           columnMenuSettings?.logicsTariff?.currentFilterData?.length ||
-          columnMenuSettings?.logicsTariff?.destination?.length
+          columnMenuSettings?.destination?.currentFilterData?.length
         }
       />
     ),

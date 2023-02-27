@@ -277,6 +277,13 @@ const ClientOrdersNotificationsView = lazy(() =>
     default: module.ClientOrdersNotificationsView,
   })),
 )
+
+const ClientMyOrdersView = lazy(() =>
+  import('@views/client/client-orders-views/client-my-orders-view').then(module => ({
+    default: module.ClientMyOrdersView,
+  })),
+)
+
 const ClientOrderView = lazy(() =>
   import('@views/client/client-orders-views/order').then(module => ({default: module.ClientOrderView})),
 )
@@ -1141,8 +1148,19 @@ export const privateRoutesConfigs = [
 
     crumbNameKey: TranslationKey['Boxes in stock'],
   },
+
   {
-    routePath: '/client/orders',
+    routePath: '/client/my-orders',
+    component: ClientMyOrdersView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
+
+    crumbNameKey: TranslationKey['My orders'],
+  },
+
+  {
+    routePath: '/client/my-orders/orders',
     component: ClientOrdersView,
     exact: true,
     permission: [UserRole.CLIENT],
@@ -1152,7 +1170,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/pending-orders',
+    routePath: '/client/my-orders/pending-orders',
     component: ClientOrdersView,
     exact: true,
     permission: [UserRole.CLIENT],
@@ -1169,8 +1187,9 @@ export const privateRoutesConfigs = [
 
   //   crumbNameKey: TranslationKey.Profile,
   // },
+
   {
-    routePath: '/client/orders/order',
+    routePath: '/client/my-orders/orders/order',
     component: ClientOrderView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -1180,7 +1199,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/pending-orders/order',
+    routePath: '/client/my-orders/pending-orders/order',
     component: ClientOrderView,
     exact: false,
     permission: [UserRole.CLIENT],

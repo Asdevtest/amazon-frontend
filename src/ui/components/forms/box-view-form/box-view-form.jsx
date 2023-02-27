@@ -175,7 +175,7 @@ export const BoxViewForm = observer(
                       </div>
                       <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
                         <Typography className={classNames.amazonTitle}>
-                          {getShortenStringIfLongerThanCount(item.product.amazonTitle, 225)}
+                          {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
                         </Typography>
                       </Tooltip>
 

@@ -73,25 +73,47 @@ export class WarehouseDashboardViewRaw extends Component {
                   <div>
                     <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
-                    <div className={classNames.addressMainWrapper}>
-                      {storekeeperDestination ? (
-                        <div className={classNames.addressSubWrapper}>
-                          <Typography className={classNames.address}>
-                            {t(TranslationKey['Warehouse address']) + ':'}
-                          </Typography>
+                    {window.innerWidth >= 768 ? (
+                      <div className={classNames.addressMainWrapper}>
+                        {storekeeperDestination ? (
+                          <div className={classNames.addressSubWrapper}>
+                            <Typography className={classNames.address}>
+                              {t(TranslationKey['Warehouse address']) + ':'}
+                            </Typography>
 
-                          <Typography
-                            className={classNames.addressMain}
-                          >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
-                        </div>
-                      ) : null}
+                            <Typography
+                              className={classNames.addressMain}
+                            >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
+                          </div>
+                        ) : null}
 
-                      <Button onClick={onClickAddressBtn}>
-                        {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
-                      </Button>
-                    </div>
+                        <Button className={classNames.editBtn} onClick={onClickAddressBtn}>
+                          {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+                        </Button>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
+
+                {window.innerWidth < 768 ? (
+                  <div className={classNames.addressMainWrapper}>
+                    {storekeeperDestination ? (
+                      <div className={classNames.addressSubWrapper}>
+                        <Typography className={classNames.address}>
+                          {t(TranslationKey['Warehouse address']) + ':'}
+                        </Typography>
+
+                        <Typography
+                          className={classNames.addressMain}
+                        >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
+                      </div>
+                    ) : null}
+
+                    <Button className={classNames.editBtn} onClick={onClickAddressBtn}>
+                      {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+                    </Button>
+                  </div>
+                ) : null}
 
                 <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
 

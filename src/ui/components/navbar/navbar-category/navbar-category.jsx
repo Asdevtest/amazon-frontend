@@ -23,7 +23,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     )
     .filter(el => el !== null)
 
-  const isRedBadge = category.route?.includes('/client/orders')
+  const isRedBadge = category.route?.includes('/client/my-orders/orders')
 
   return (
     <Button

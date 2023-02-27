@@ -124,11 +124,11 @@ export const BoxItemCard = ({
                     className={cx(classNames.barCodeActionsWrapper, {
                       [classNames.successAccent]:
                         isNewBox &&
-                        taskType === TaskOperationType.RECEIVE &&
+                        // taskType === TaskOperationType.RECEIVE &&
                         (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
                       [classNames.warningAccent]:
                         isNewBox &&
-                        taskType === TaskOperationType.RECEIVE &&
+                        // taskType === TaskOperationType.RECEIVE &&
                         !item.isBarCodeAlreadyAttachedByTheSupplier &&
                         !item.isBarCodeAttachedByTheStorekeeper,
                     })}
@@ -255,11 +255,11 @@ export const BoxItemCard = ({
                 className={cx(classNames.barCodeActionsWrapper, {
                   [classNames.successAccent]:
                     isNewBox &&
-                    taskType === TaskOperationType.RECEIVE &&
+                    // taskType === TaskOperationType.RECEIVE &&
                     (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
                   [classNames.warningAccent]:
                     isNewBox &&
-                    taskType === TaskOperationType.RECEIVE &&
+                    // taskType === TaskOperationType.RECEIVE &&
                     !item.isBarCodeAlreadyAttachedByTheSupplier &&
                     !item.isBarCodeAttachedByTheStorekeeper,
                 })}

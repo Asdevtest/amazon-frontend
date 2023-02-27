@@ -44,7 +44,19 @@ export const styles = theme => ({
   addressSubWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
+
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+
+  editBtn: {
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+      marginTop: 10,
+    },
   },
 
   addressMain: {

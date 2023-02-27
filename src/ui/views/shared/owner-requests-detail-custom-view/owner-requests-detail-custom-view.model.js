@@ -171,15 +171,15 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickProposalResultAccept(proposalId) {
     runInAction(() => {
       this.acceptProposalResultSetting = {
-        onSubmit: () => this.onClickProposalResultAcceptForm(proposalId),
+        onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
       }
     })
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
   }
 
-  async onClickProposalResultAcceptForm(proposalId) {
+  async onClickProposalResultAcceptForm(proposalId, data) {
     try {
-      await RequestProposalModel.requestProposalResultAccept(proposalId)
+      await RequestProposalModel.requestProposalResultAccept(proposalId, data)
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
       this.loadData()
     } catch (error) {

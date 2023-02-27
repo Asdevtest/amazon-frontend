@@ -33,7 +33,7 @@ export const OrderDeadlineSnack = forwardRef<HTMLDivElement, SimpleMessagesSnack
     }, [id, closeSnackbar])
 
     const onClickNoticeItem = (orderId: string) => {
-      const win = window.open(`${window.location.origin}/client/pending-orders/order?${orderId}`, '_blank')
+      const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${orderId}`, '_blank')
       win?.focus()
     }
 
