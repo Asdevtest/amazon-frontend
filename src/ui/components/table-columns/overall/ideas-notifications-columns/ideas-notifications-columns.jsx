@@ -70,11 +70,11 @@ export const ideasNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'logicsTariff',
+    field: 'productName',
     headerName: t(TranslationKey['Name idea']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
-    renderCell: params => <MultilineTextCell text={'-'} />,
+    renderCell: params => <MultilineTextCell text={params?.row?.productName} />,
     width: 200,
   },
 ]
