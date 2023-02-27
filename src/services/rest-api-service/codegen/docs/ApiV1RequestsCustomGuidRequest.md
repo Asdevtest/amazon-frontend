@@ -13,6 +13,12 @@ Name | Type | Description | Notes
 **needCheckBySupervisor** | **Boolean** | Нуждается в проверке супервайзером. | [optional] 
 **restrictMoreThanOneProposalFromOneAssignee** | **Boolean** | Запретить фрилансеру повторное отправление предложений. | [optional] 
 **roles** | **[Number]** | Массив массив ролей. | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | [optional] 
+**productId** | **String** | Гуид продукта | [optional] 
+**asin** | **String** | Привязанный асин | [optional] 
+**priceAmazon** | **Number** | Цена на амазоне | [optional] 
+**cashBackInPercent** | **Number** | Возврат средств с покупки в процентах | [optional] 
+**announcementId** | **String** | Гуид анонса | [optional] 
 
 
 

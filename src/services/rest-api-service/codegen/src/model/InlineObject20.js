@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject20 model module.
@@ -23,12 +22,11 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
-     * @param guids {Array.<String>} Массив коробок.
-     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(guids, boxBody) { 
+    constructor(boxesIds) { 
         
-        InlineObject20.initialize(this, guids, boxBody);
+        InlineObject20.initialize(this, boxesIds);
     }
 
     /**
@@ -36,9 +34,8 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, guids, boxBody) { 
-        obj['guids'] = guids;
-        obj['boxBody'] = boxBody;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -52,11 +49,29 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
-            if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -66,15 +81,51 @@ class InlineObject20 {
 }
 
 /**
- * Массив коробок.
- * @member {Array.<String>} guids
+ * Штрихкод продукта
+ * @member {String} barCode
  */
-InlineObject20.prototype['guids'] = undefined;
+InlineObject20.prototype['barCode'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
  */
-InlineObject20.prototype['boxBody'] = undefined;
+InlineObject20.prototype['logicsTariffId'] = undefined;
+
+/**
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
+ */
+InlineObject20.prototype['storekeeperId'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineObject20.prototype['shippingLabel'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject20.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject20.prototype['fbaNumber'] = undefined;
+
+/**
+ * Гуид модели destination
+ * @member {String} destinationId
+ */
+InlineObject20.prototype['destinationId'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesIds
+ */
+InlineObject20.prototype['boxesIds'] = undefined;
 
 
 

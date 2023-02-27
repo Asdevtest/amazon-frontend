@@ -74,6 +74,24 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('roles')) {
                 obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
             }
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('priceAmazon')) {
+                obj['priceAmazon'] = ApiClient.convertToType(data['priceAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('cashBackInPercent')) {
+                obj['cashBackInPercent'] = ApiClient.convertToType(data['cashBackInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('announcementId')) {
+                obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
+            }
         }
         return obj;
     }
@@ -134,6 +152,42 @@ ApiV1RequestsCustomGuidRequest.prototype['restrictMoreThanOneProposalFromOneAssi
  * @member {Array.<Number>} roles
  */
 ApiV1RequestsCustomGuidRequest.prototype['roles'] = undefined;
+
+/**
+ * Код специализации фрилансера
+ * @member {Number} typeTask
+ */
+ApiV1RequestsCustomGuidRequest.prototype['typeTask'] = undefined;
+
+/**
+ * Гуид продукта
+ * @member {String} productId
+ */
+ApiV1RequestsCustomGuidRequest.prototype['productId'] = undefined;
+
+/**
+ * Привязанный асин
+ * @member {String} asin
+ */
+ApiV1RequestsCustomGuidRequest.prototype['asin'] = undefined;
+
+/**
+ * Цена на амазоне
+ * @member {Number} priceAmazon
+ */
+ApiV1RequestsCustomGuidRequest.prototype['priceAmazon'] = undefined;
+
+/**
+ * Возврат средств с покупки в процентах
+ * @member {Number} cashBackInPercent
+ */
+ApiV1RequestsCustomGuidRequest.prototype['cashBackInPercent'] = undefined;
+
+/**
+ * Гуид анонса
+ * @member {String} announcementId
+ */
+ApiV1RequestsCustomGuidRequest.prototype['announcementId'] = undefined;
 
 
 

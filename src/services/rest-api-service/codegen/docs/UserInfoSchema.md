@@ -26,5 +26,7 @@ Name | Type | Description | Notes
 **needConfirmPriceChange** | [**UserInfoSchemaNeedConfirmPriceChange**](UserInfoSchemaNeedConfirmPriceChange.md) |  | [optional] 
 **needUpdateTariff** | [**UserInfoSchemaNeedUpdateTariff**](UserInfoSchemaNeedUpdateTariff.md) |  | [optional] 
 **purchaseOrderRequired** | **[String]** |  | [optional] 
+**updatesOnIdeas** | [**[UserInfoSchemaUpdatesOnIdeas]**](UserInfoSchemaUpdatesOnIdeas.md) |  | [optional] 
+**allowedSpec** | **[Number]** | Массив доступных специализаций фрилансера. | [optional] 
 
 

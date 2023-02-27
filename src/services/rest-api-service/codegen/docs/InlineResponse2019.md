@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | guid обновленного объекта | [optional] 
+**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
 
 

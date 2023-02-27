@@ -814,10 +814,10 @@ export const EditOrderModal = observer(
                         onClick={() => {
                           if (isSupplierAcceptRevokeActive) {
                             setOrderField('orderSupplier')({target: {value: null}})
-                            setUpdateSupplierData(false)
+                            !isPendingOrder && setUpdateSupplierData(false)
                           } else {
                             setOrderField('orderSupplier')({target: {value: selectedSupplier}})
-                            setUpdateSupplierData(false)
+                            !isPendingOrder && setUpdateSupplierData(false)
                           }
                         }}
                       >

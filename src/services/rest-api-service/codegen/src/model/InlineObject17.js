@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject17 model module.
@@ -21,11 +22,13 @@ import ApiClient from '../ApiClient';
 class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
+     * Коробка
      * @alias module:model/InlineObject17
+     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      */
-    constructor() { 
+    constructor(items) { 
         
-        InlineObject17.initialize(this);
+        InlineObject17.initialize(this, items);
     }
 
     /**
@@ -33,7 +36,8 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, items) { 
+        obj['items'] = items;
     }
 
     /**
@@ -47,23 +51,14 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
             if (data.hasOwnProperty('trackNumberText')) {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
@@ -74,11 +69,56 @@ class InlineObject17 {
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -88,40 +128,22 @@ class InlineObject17 {
 }
 
 /**
- * GUID пункта назначения коробки
- * @member {String} destinationId
+ * Сколько таких же коробок в одной коробке
+ * @member {Number} amount
  */
-InlineObject17.prototype['destinationId'] = undefined;
+InlineObject17.prototype['amount'] = undefined;
 
 /**
- * GUID тарифа к сторкипера
- * @member {String} logicsTariffId
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
  */
-InlineObject17.prototype['logicsTariffId'] = undefined;
+InlineObject17.prototype['isDraft'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} lengthCmSupplier
  */
-InlineObject17.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject17.prototype['fbaNumber'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} clientComment
- */
-InlineObject17.prototype['clientComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject17.prototype['referenceId'] = undefined;
+InlineObject17.prototype['lengthCmSupplier'] = undefined;
 
 /**
  * Текст трек номера
@@ -142,16 +164,106 @@ InlineObject17.prototype['trackNumberFile'] = undefined;
 InlineObject17.prototype['upsTrackNumber'] = undefined;
 
 /**
- * shippingLabel коробки
- * @member {String} shippingLabel
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} widthCmSupplier
  */
-InlineObject17.prototype['shippingLabel'] = undefined;
+InlineObject17.prototype['widthCmSupplier'] = undefined;
 
 /**
- * shippingLabel проклеен сторкипером
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} heightCmSupplier
+ */
+InlineObject17.prototype['heightCmSupplier'] = undefined;
+
+/**
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} weighGrossKgSupplier
+ */
+InlineObject17.prototype['weighGrossKgSupplier'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
+ */
+InlineObject17.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
+ */
+InlineObject17.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject17.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject17.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject17.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} clientComment
+ */
+InlineObject17.prototype['clientComment'] = undefined;
+
+/**
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
+ */
+InlineObject17.prototype['referenceId'] = undefined;
+
+/**
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
+ */
+InlineObject17.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject17.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject17.prototype['fbaNumber'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
+ */
+InlineObject17.prototype['items'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject17.prototype['images'] = undefined;
+
+/**
+ * destination GUID 
+ * @member {String} destinationId
+ */
+InlineObject17.prototype['destinationId'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject17.prototype['logicsTariffId'] = undefined;
 
 
 

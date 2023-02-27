@@ -22,10 +22,11 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
+     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
      */
-    constructor() { 
+    constructor(email) { 
         
-        InlineObject110.initialize(this);
+        InlineObject110.initialize(this, email);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -47,11 +49,8 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -61,16 +60,10 @@ class InlineObject110 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Почта от аккаунта, пароль которого Вы забыли
+ * @member {String} email
  */
-InlineObject110.prototype['result'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject110.prototype['linksToMediaFiles'] = undefined;
+InlineObject110.prototype['email'] = undefined;
 
 
 

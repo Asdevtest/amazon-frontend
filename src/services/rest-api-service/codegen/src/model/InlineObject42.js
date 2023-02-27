@@ -22,10 +22,14 @@ class InlineObject42 {
     /**
      * Constructs a new <code>InlineObject42</code>.
      * @alias module:model/InlineObject42
+     * @param storekeeperId {String} GUID storekeeper-a
+     * @param logicsTariffId {String} GUID тарифа доставки
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(storekeeperId, logicsTariffId, amount, productId) { 
         
-        InlineObject42.initialize(this);
+        InlineObject42.initialize(this, storekeeperId, logicsTariffId, amount, productId);
     }
 
     /**
@@ -33,7 +37,11 @@ class InlineObject42 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
+        obj['storekeeperId'] = storekeeperId;
+        obj['logicsTariffId'] = logicsTariffId;
+        obj['amount'] = amount;
+        obj['productId'] = productId;
     }
 
     /**
@@ -70,6 +78,9 @@ class InlineObject42 {
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -139,6 +150,12 @@ InlineObject42.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {String} clientComment
  */
 InlineObject42.prototype['clientComment'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject42.prototype['productId'] = undefined;
 
 /**
  * Массив изображений.

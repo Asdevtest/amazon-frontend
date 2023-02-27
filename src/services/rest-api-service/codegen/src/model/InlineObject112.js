@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRequestDetailsCustom';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject112 model module.
@@ -23,7 +21,6 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject112
      */
     constructor() { 
@@ -50,11 +47,17 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsRequestDetailsCustom.constructFromObject(data['details']);
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonOrderId')) {
+                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
+            }
+            if (data.hasOwnProperty('publicationLinks')) {
+                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
             }
         }
         return obj;
@@ -64,14 +67,27 @@ class InlineObject112 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject112.prototype['request'] = undefined;
+InlineObject112.prototype['result'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsRequestDetailsCustom} details
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject112.prototype['details'] = undefined;
+InlineObject112.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * ключ с Амазона
+ * @member {String} amazonOrderId
+ */
+InlineObject112.prototype['amazonOrderId'] = undefined;
+
+/**
+ * @member {Array.<String>} publicationLinks
+ */
+InlineObject112.prototype['publicationLinks'] = undefined;
 
 
 

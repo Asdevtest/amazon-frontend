@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   closeBtn: {
     marginLeft: 40,
+    color: theme.palette.text.general,
   },
 
   formContainer: {

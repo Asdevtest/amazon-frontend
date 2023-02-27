@@ -50,8 +50,14 @@ class InlineObject81 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
         }
         return obj;
@@ -67,10 +73,21 @@ class InlineObject81 {
 InlineObject81.prototype['rating'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject81.prototype['review'] = undefined;
+InlineObject81.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject81.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject81.prototype['timeLimitInMinutes'] = undefined;
 
 
 

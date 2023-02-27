@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopSellGet
 
-> [InlineResponse20052] apiV1ShopSellGet(opts)
+> [InlineResponse20053] apiV1ShopSellGet(opts)
 
 # Получить все магазины на продажу
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20052]**](InlineResponse20052.md)
+[**[InlineResponse20053]**](InlineResponse20053.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellGuidGet
 
-> InlineResponse20053 apiV1ShopSellGuidGet(guid, opts)
+> InlineResponse20054 apiV1ShopSellGuidGet(guid, opts)
 
 # Получить магазин на продажу по GUID
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20053**](InlineResponse20053.md)
+[**InlineResponse20054**](InlineResponse20054.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ let apiInstance = new TestSwagger.ShopSellApi();
 let guid = null; // String | GUID магазина на продажу в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
+  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
 };
 apiInstance.apiV1ShopSellGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID магазина на продажу в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
+ **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
 
 ### Return type
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellPost
 
-> InlineResponse2016 apiV1ShopSellPost(opts)
+> InlineResponse2017 apiV1ShopSellPost(opts)
 
 # Добавить на продажу новый магазин.
 
@@ -191,7 +191,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopSellApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1ShopSellPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -207,11 +207,11 @@ apiInstance.apiV1ShopSellPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 

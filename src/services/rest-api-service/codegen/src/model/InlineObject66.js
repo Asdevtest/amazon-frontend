@@ -22,10 +22,12 @@ class InlineObject66 {
     /**
      * Constructs a new <code>InlineObject66</code>.
      * @alias module:model/InlineObject66
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor() { 
+    constructor(productId, skus) { 
         
-        InlineObject66.initialize(this);
+        InlineObject66.initialize(this, productId, skus);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject66 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -47,11 +51,11 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -61,16 +65,14 @@ class InlineObject66 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * @member {String} productId
  */
-InlineObject66.prototype['clientComment'] = undefined;
+InlineObject66.prototype['productId'] = undefined;
 
 /**
- * Комментарий баера
- * @member {String} buyerComment
+ * @member {Array.<String>} skus
  */
-InlineObject66.prototype['buyerComment'] = undefined;
+InlineObject66.prototype['skus'] = undefined;
 
 
 

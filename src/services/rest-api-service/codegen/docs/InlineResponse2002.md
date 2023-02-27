@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **subUsers** | [**[InlineResponse2002SubUsers]**](InlineResponse2002SubUsers.md) | Массив id сабюзеров. | [optional] 
 **masterUserInfo** | [**InlineResponse2002SubUsers**](InlineResponse2002SubUsers.md) |  | [optional] 
+**allowedSpec** | **[Number]** | Массив возможных ролей фрилансера | [optional] 
 **hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 

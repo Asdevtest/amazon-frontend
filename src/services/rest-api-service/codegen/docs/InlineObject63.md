@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**payload** | [**[ApiV1IntegrationsCreateAndLinkSkuProductsPayload]**](ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md) |  | [optional] 
+**requestStatus** | **String** | новый статус заявки | [optional] 
 
 

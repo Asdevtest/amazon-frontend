@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsAsinStrategyGet
 
-> InlineResponse20051 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
+> InlineResponse20052 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20051**](InlineResponse20051.md)
+[**InlineResponse20052**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -252,7 +252,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject88() // InlineObject88 | 
+  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject88**](InlineObject88.md)|  | [optional] 
+ **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
 
 ### Return type
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ResearchersProductsPost
 
-> InlineResponse2016 apiV1ResearchersProductsPost(opts)
+> InlineResponse2017 apiV1ResearchersProductsPost(opts)
 
 # Добавить новый продукт.
 
@@ -307,7 +307,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject87() // InlineObject87 | 
+  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -323,11 +323,11 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject87**](InlineObject87.md)|  | [optional] 
+ **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 

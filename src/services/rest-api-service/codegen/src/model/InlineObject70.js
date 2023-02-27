@@ -47,11 +47,14 @@ class InlineObject70 {
         if (data) {
             obj = obj || new InlineObject70();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
         }
         return obj;
@@ -61,17 +64,58 @@ class InlineObject70 {
 }
 
 /**
- * @member {String} userId
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject70.prototype['userId'] = undefined;
+InlineObject70.prototype['asin'] = undefined;
 
 /**
- * @member {Array.<String>} productIds
+ * Причина
+ * @member {String} reason
  */
-InlineObject70.prototype['productIds'] = undefined;
+InlineObject70.prototype['reason'] = undefined;
+
+/**
+ * Стратегия
+ * @member {module:model/InlineObject70.StrategyEnum} strategy
+ */
+InlineObject70.prototype['strategy'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject70['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
 
 
 

@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
@@ -43,6 +44,8 @@ class ClientSentBatchesViewRaw extends Component {
 
   render() {
     const {
+      storekeepersData,
+      currentStorekeeper,
       userInfo,
       warningInfoModalSettings,
       nameSearchValue,
@@ -85,6 +88,8 @@ class ClientSentBatchesViewRaw extends Component {
       onSearchSubmit,
       onSubmitChangeBoxFields,
       onTriggerArchive,
+
+      onClickStorekeeperBtn,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -143,6 +148,38 @@ class ClientSentBatchesViewRaw extends Component {
                     )}
                   </Button>
                 </div>
+              </div>
+
+              <div className={className.boxesFiltersWrapper}>
+                {storekeepersData
+                  .slice()
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(storekeeper =>
+                    storekeeper.boxesCount !== 0 ? (
+                      <Button
+                        key={storekeeper._id}
+                        disabled={currentStorekeeper?._id === storekeeper._id}
+                        className={cx(className.storekeeperButton, {
+                          [className.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                        })}
+                        variant="text"
+                        onClick={() => onClickStorekeeperBtn(storekeeper)}
+                      >
+                        {storekeeper.name}
+                      </Button>
+                    ) : null,
+                  )}
+
+                <Button
+                  disabled={!currentStorekeeper?._id}
+                  className={cx(className.storekeeperButton, {
+                    [className.selectedBoxesBtn]: !currentStorekeeper?._id,
+                  })}
+                  variant="text"
+                  onClick={onClickStorekeeperBtn}
+                >
+                  {t(TranslationKey['All warehouses'])}
+                </Button>
               </div>
 
               <div className={className.datagridWrapper}>

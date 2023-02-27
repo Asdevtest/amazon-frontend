@@ -543,7 +543,7 @@ export class BuyerMyOrdersViewModel {
         this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
       })
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       runInAction(() => {
         this.curBoxesOfOrder = []
       })

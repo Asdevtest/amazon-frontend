@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tasks** | [**InlineResponse20033Tasks**](InlineResponse20033Tasks.md) |  | [optional] 
-**boxes** | [**InlineResponse20033Boxes**](InlineResponse20033Boxes.md) |  | [optional] 
-**batches** | [**InlineResponse20033Batches**](InlineResponse20033Batches.md) |  | [optional] 
+**products** | [**InlineResponse20033Products**](InlineResponse20033Products.md) |  | [optional] 
+**orders** | [**InlineResponse20033Orders**](InlineResponse20033Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20033PendingOrders**](InlineResponse20033PendingOrders.md) |  | [optional] 
+**finances** | [**InlineResponse20033Finances**](InlineResponse20033Finances.md) |  | [optional] 
 
 

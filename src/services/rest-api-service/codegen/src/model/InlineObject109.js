@@ -22,11 +22,12 @@ class InlineObject109 {
     /**
      * Constructs a new <code>InlineObject109</code>.
      * @alias module:model/InlineObject109
-     * @param hash {String} Токен, который юзер получает через почту
+     * @param oldPassword {String} Старый ароль
+     * @param newPassword {String} Новый пароль
      */
-    constructor(hash) { 
+    constructor(oldPassword, newPassword) { 
         
-        InlineObject109.initialize(this, hash);
+        InlineObject109.initialize(this, oldPassword, newPassword);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject109 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj, oldPassword, newPassword) { 
+        obj['oldPassword'] = oldPassword;
+        obj['newPassword'] = newPassword;
     }
 
     /**
@@ -49,11 +51,11 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
+            if (data.hasOwnProperty('oldPassword')) {
+                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
             }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('newPassword')) {
+                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
             }
         }
         return obj;
@@ -63,16 +65,16 @@ class InlineObject109 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * Старый ароль
+ * @member {String} oldPassword
  */
-InlineObject109.prototype['hash'] = undefined;
+InlineObject109.prototype['oldPassword'] = undefined;
 
 /**
  * Новый пароль
- * @member {String} password
+ * @member {String} newPassword
  */
-InlineObject109.prototype['password'] = undefined;
+InlineObject109.prototype['newPassword'] = undefined;
 
 
 

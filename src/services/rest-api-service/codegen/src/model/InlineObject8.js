@@ -22,11 +22,10 @@ class InlineObject8 {
     /**
      * Constructs a new <code>InlineObject8</code>.
      * @alias module:model/InlineObject8
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject8.initialize(this, boxesIds);
+        InlineObject8.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject8 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,17 +47,23 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
             }
         }
         return obj;
@@ -69,27 +73,34 @@ class InlineObject8 {
 }
 
 /**
- * Название партии
+ * @member {Number} type
+ */
+InlineObject8.prototype['type'] = undefined;
+
+/**
+ * @member {String} requestId
+ */
+InlineObject8.prototype['requestId'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject8.prototype['linksToMediaFiles'] = undefined;
+
+/**
  * @member {String} title
  */
 InlineObject8.prototype['title'] = undefined;
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {String} description
  */
-InlineObject8.prototype['boxesIds'] = undefined;
+InlineObject8.prototype['description'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * @member {String} createdBy
  */
-InlineObject8.prototype['calculationMethod'] = undefined;
-
-/**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
- */
-InlineObject8.prototype['volumeWeightDivide'] = undefined;
+InlineObject8.prototype['createdBy'] = undefined;
 
 
 

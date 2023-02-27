@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1StorekeepersBoxesGuidItems from './ApiV1StorekeepersBoxesGuidItems';
 
 /**
  * The InlineObject96 model module.
@@ -48,56 +47,14 @@ class InlineObject96 {
         if (data) {
             obj = obj || new InlineObject96();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('referenceId')) {
-                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberText')) {
-                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
-            }
-            if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
-            }
-            if (data.hasOwnProperty('upsTrackNumber')) {
-                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
-            }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperTaskComment')) {
-                obj['storekeeperTaskComment'] = ApiClient.convertToType(data['storekeeperTaskComment'], 'String');
-            }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1StorekeepersBoxesGuidItems]);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -107,105 +64,22 @@ class InlineObject96 {
 }
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} lengthCmWarehouse
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject96.prototype['lengthCmWarehouse'] = undefined;
+InlineObject96.prototype['status'] = undefined;
 
 /**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} widthCmWarehouse
- */
-InlineObject96.prototype['widthCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} heightCmWarehouse
- */
-InlineObject96.prototype['heightCmWarehouse'] = undefined;
-
-/**
- * Что фактически пришло на склад. Кладовщик.
- * @member {Number} weighGrossKgWarehouse
- */
-InlineObject96.prototype['weighGrossKgWarehouse'] = undefined;
-
-/**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject96.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} storekeeperComment
- */
-InlineObject96.prototype['storekeeperComment'] = undefined;
-
-/**
- * Дополнительное поле shippingLabel для доставки грузовиками
- * @member {String} referenceId
- */
-InlineObject96.prototype['referenceId'] = undefined;
-
-/**
- * Текст трек номера
- * @member {String} trackNumberText
- */
-InlineObject96.prototype['trackNumberText'] = undefined;
-
-/**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
- */
-InlineObject96.prototype['trackNumberFile'] = undefined;
-
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject96.prototype['upsTrackNumber'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
- */
-InlineObject96.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject96.prototype['fbaNumber'] = undefined;
-
-/**
- *  logicsTariff GUID
- * @member {String} logicsTariffId
- */
-InlineObject96.prototype['logicsTariffId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
+ * Массив картинок.
  * @member {Array.<String>} images
  */
 InlineObject96.prototype['images'] = undefined;
 
 /**
- * destination GUID 
- * @member {String} destinationId
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject96.prototype['destinationId'] = undefined;
-
-/**
- * Комментарии к коробке
- * @member {String} storekeeperTaskComment
- */
-InlineObject96.prototype['storekeeperTaskComment'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1StorekeepersBoxesGuidItems>} items
- */
-InlineObject96.prototype['items'] = undefined;
+InlineObject96.prototype['storekeeperComment'] = undefined;
 
 
 

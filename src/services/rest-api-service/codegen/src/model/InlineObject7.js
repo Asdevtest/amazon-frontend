@@ -22,11 +22,10 @@ class InlineObject7 {
     /**
      * Constructs a new <code>InlineObject7</code>.
      * @alias module:model/InlineObject7
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject7.initialize(this, boxesIds);
+        InlineObject7.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject7 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,23 @@ class InlineObject7 {
         if (data) {
             obj = obj || new InlineObject7();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
             }
         }
         return obj;
@@ -60,9 +73,34 @@ class InlineObject7 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {Number} type
  */
-InlineObject7.prototype['boxesIds'] = undefined;
+InlineObject7.prototype['type'] = undefined;
+
+/**
+ * @member {String} requestId
+ */
+InlineObject7.prototype['requestId'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject7.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {String} title
+ */
+InlineObject7.prototype['title'] = undefined;
+
+/**
+ * @member {String} description
+ */
+InlineObject7.prototype['description'] = undefined;
+
+/**
+ * @member {String} createdBy
+ */
+InlineObject7.prototype['createdBy'] = undefined;
 
 
 
