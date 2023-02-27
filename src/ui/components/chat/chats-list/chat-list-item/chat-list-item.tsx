@@ -92,7 +92,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
               </div>
             ) : (
               <div className={classNames.lastMessageSubWrapper}>
-                {!lastMessage.type.includes('system') ? (
+                {!lastMessage?.type?.includes('system') ? (
                   <Avatar src={getUserAvatarSrc(lastMessage.user?._id)} className={classNames.miniAvatar} />
                 ) : null}
 
