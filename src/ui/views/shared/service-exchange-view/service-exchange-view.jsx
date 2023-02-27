@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
@@ -6,12 +7,20 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {ViewCartsBlock, ViewCartsLine} from '@constants/svg-icons'
 import {tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
+import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -34,7 +43,7 @@ class ServiceExchangeViewRaw extends Component {
   componentDidMount() {}
 
   render() {
-    const {viewMode, drawerOpen, onTriggerDrawerOpen} = this.viewModel
+    const {viewMode, drawerOpen, onTriggerDrawerOpen, selectedTaskType, onClickTaskType} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -49,33 +58,70 @@ class ServiceExchangeViewRaw extends Component {
           <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
-                <div className={classNames.tablePanelViewWrapper}>
-                  <ToggleBtnGroupFreelance exclusive value={viewMode} /* onChange={onChangeViewMode} */>
-                    <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                      <ViewCartsBlock
-                        className={cx(classNames.viewCart, {
-                          [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+                <div className={classNames.toggleBtnAndtaskTypeWrapper}>
+                  <div className={classNames.tablePanelViewWrapper}>
+                    <ToggleBtnGroupFreelance exclusive value={viewMode} /* onChange={onChangeViewMode} */>
+                      <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
+                        <ViewCartsBlock
+                          className={cx(classNames.viewCart, {
+                            [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+                          })}
+                        />
+                      </ToggleBtnFreelancer>
+                      <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
+                        <ViewCartsLine
+                          className={cx(classNames.viewCart, {
+                            [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
+                          })}
+                        />
+                      </ToggleBtnFreelancer>
+                    </ToggleBtnGroupFreelance>
+                  </div>
+
+                  <div className={classNames.taskTypeWrapper}>
+                    <Button
+                      variant="text"
+                      disabled={selectedTaskType === 'ALL'}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: selectedTaskType === 'ALL',
+                      })}
+                      onClick={() => onClickTaskType('ALL')}
+                    >
+                      {t(TranslationKey.All)}
+                    </Button>
+                    {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                      <Button
+                        key={taskIndex}
+                        variant="text"
+                        disabled={taskType === selectedTaskType}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: taskType === selectedTaskType,
                         })}
-                      />
-                    </ToggleBtnFreelancer>
-                    <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
-                      <ViewCartsLine
-                        className={cx(classNames.viewCart, {
-                          [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
-                        })}
-                      />
-                    </ToggleBtnFreelancer>
-                  </ToggleBtnGroupFreelance>
+                        onClick={() => onClickTaskType(taskType)}
+                      >
+                        {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by Performer, Description'])}
-                  /* value={nameSearchValue} */
-                  onSubmit={() => {}}
-                />
+                <div className={classNames.searchInputWrapper}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    placeholder={t(TranslationKey['Search by Performer, Description'])}
+                    /* value={nameSearchValue} */
+                    onSubmit={() => {}}
+                  />
+                </div>
+
+                <div className={classNames.createServiceBtnWrapper}>
+                  <Button success className={cx(classNames.rightAddingBtn)}>
+                    {t(TranslationKey['Create a service'])}
+                  </Button>
+                </div>
               </div>
               <div className={classNames.emptyTableWrapper}>
+                {/* <ServiceExchangeCard /> */}
                 <img src="/assets/icons/empty-table.svg" />
                 <Typography variant="h5" className={classNames.emptyTableText}>
                   {t(TranslationKey.Missing)}

@@ -229,9 +229,9 @@ export const CreateOrEditRequestContent = ({
                         {t(TranslationKey['Select from the list'])}
                       </MenuItem>
 
-                      {Object.keys(freelanceRequestTypeByCode).map((statusCode, statusIndex) => (
-                        <MenuItem key={statusIndex} value={statusCode}>
-                          {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[statusCode])}
+                      {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                        <MenuItem key={taskIndex} value={taskType}>
+                          {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
                         </MenuItem>
                       ))}
                     </Select>
