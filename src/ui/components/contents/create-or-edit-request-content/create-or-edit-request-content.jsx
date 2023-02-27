@@ -79,8 +79,8 @@ export const CreateOrEditRequestContent = ({
 
       typeTask: requestToEdit?.request?.typeTask || null,
       asin: requestToEdit?.request.asin || '',
-      priceAmazon: requestToEdit?.request.priceAmazon || '',
-      cashBackInPercent: requestToEdit?.request.cashBackInPercent || '',
+      priceAmazon: requestToEdit?.request.priceAmazon || 0,
+      cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
       discountedPrice: '',
     },
     details: {
