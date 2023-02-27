@@ -13,8 +13,7 @@ export class ServiceExchangeViewModel {
 
   drawerOpen = false
 
-  searchMyRequestsIds = []
-  requests = []
+  selectedTaskType = 'ALL'
 
   showConfirmModal = false
   selectedProposal = undefined
@@ -31,5 +30,9 @@ export class ServiceExchangeViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onClickTaskType(taskType) {
+    this.selectedTaskType = taskType
   }
 }

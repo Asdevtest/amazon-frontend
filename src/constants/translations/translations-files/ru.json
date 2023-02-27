@@ -1806,5 +1806,7 @@
   "Search by Performer, Description": "Поиск по Исполнителю, Описанию",
   "Request price": "Стоимость заявки",
   "Price per product": "Цена за товар",
-  "CashBack": "CashBack"
+  "CashBack": "CashBack",
+  "Create a service": "Создать услугу",
+  "Number of requests": "Количество заявок"
 }
