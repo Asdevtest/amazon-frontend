@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {AnnouncementsModel} from '@models/announcements-model'
 import {RequestModel} from '@models/request-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -21,6 +22,12 @@ export class CreateOrEditRequestViewModel {
   requestToEdit = undefined
 
   uploadedFiles = []
+
+  announcements = []
+
+  bigImagesOptions = {}
+
+  showImageModal = false
 
   readyImages = []
   progressValue = 0
@@ -125,6 +132,21 @@ export class CreateOrEditRequestViewModel {
         this.error = error
       })
     }
+  }
+
+  onClickThumbnail(data) {
+    this.bigImagesOptions = data
+    this.onTriggerOpenModal('showImageModal')
+  }
+
+  async onClickChoosePerformer() {
+    this.announcements = await AnnouncementsModel.getVacAnnouncements()
+  }
+
+  onTriggerOpenModal(modalState) {
+    runInAction(() => {
+      this[modalState] = !this[modalState]
+    })
   }
 
   onTriggerDrawerOpen() {

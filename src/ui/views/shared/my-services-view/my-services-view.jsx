@@ -55,7 +55,6 @@ class MyServicesViewRaw extends Component {
       currentData,
       bigImagesOptions,
       showImageModal,
-      nameSearchValue,
       acceptMessage,
       showAcceptMessage,
 
