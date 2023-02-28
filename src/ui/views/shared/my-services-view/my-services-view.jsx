@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Box} from '@mui/material'
+import {Typography, Box, Alert} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -40,7 +40,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 
 @observer
 class MyServicesViewRaw extends Component {
-  viewModel = new MyServicesViewModel({history: this.props.history})
+  viewModel = new MyServicesViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -56,6 +56,8 @@ class MyServicesViewRaw extends Component {
       bigImagesOptions,
       showImageModal,
       nameSearchValue,
+      acceptMessage,
+      showAcceptMessage,
 
       onSearchSubmit,
       onTriggerOpenModal,
@@ -65,8 +67,6 @@ class MyServicesViewRaw extends Component {
       onClickThumbnail,
     } = this.viewModel
     const {classes: classNames} = this.props
-
-    console.log('currentData', currentData)
 
     return (
       <React.Fragment>
@@ -179,6 +179,14 @@ class MyServicesViewRaw extends Component {
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
         />
+
+        {acceptMessage && showAcceptMessage ? (
+          <div className={classNames.acceptMessageWrapper}>
+            <Alert elevation={5} severity="success">
+              {acceptMessage}
+            </Alert>
+          </div>
+        ) : null}
       </React.Fragment>
     )
   }

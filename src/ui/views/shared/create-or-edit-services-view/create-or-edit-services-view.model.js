@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {AnnouncementsModel} from '@models/announcements-model'
 import {RequestModel} from '@models/request-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
@@ -37,6 +38,55 @@ export class CreateOrEditServicesViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async onClickCreateOrEditBtn(data, files) {
+    try {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+
+      const dataWithFiles = {
+        ...data,
+        linksToMediaFiles: this.uploadedFiles,
+      }
+
+      await AnnouncementsModel.createAnnouncement(dataWithFiles)
+
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['The service was created'])
+      })
+
+      this.history.push('/freelancer/freelance/my-services', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+      })
+    } catch (error) {
+      console.log(error)
+
+      runInAction(() => {
+        this.showAcceptMessage = true
+        this.acceptMessage = t(TranslationKey['The request was not created'])
+      })
+
+      this.history.push('/freelancer/freelance/my-services', {
+        showAcceptMessage: this.showAcceptMessage,
+        acceptMessage: this.acceptMessage,
+      })
+
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onClickBackBtn() {
+    this.history.push('/freelancer/freelance/my-services')
   }
 
   onTriggerDrawerOpen() {

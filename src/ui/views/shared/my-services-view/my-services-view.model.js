@@ -17,6 +17,9 @@ export class MyServicesViewModel {
 
   drawerOpen = false
 
+  showAcceptMessage = null
+  acceptMessage = null
+
   selectedTaskType = 'ALL'
 
   announcements = []
@@ -37,10 +40,21 @@ export class MyServicesViewModel {
     return UserModel.userInfo || {}
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     runInAction(() => {
       this.history = history
     })
+
+    if (location.state) {
+      this.acceptMessage = location.state.acceptMessage
+      this.showAcceptMessage = location.state.showAcceptMessage
+
+      const state = {...history.location.state}
+      delete state.acceptMessage
+      delete state.showAcceptMessage
+      history.replace({...history.location, state})
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -50,6 +64,15 @@ export class MyServicesViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    runInAction(() => {
+      if (this.showAcceptMessage) {
+        setTimeout(() => {
+          this.acceptMessage = ''
+          this.showAcceptMessage = false
+        }, 3000)
+      }
+    })
   }
 
   async loadData() {
