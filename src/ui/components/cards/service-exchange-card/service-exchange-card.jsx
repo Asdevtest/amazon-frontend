@@ -22,7 +22,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './service-exchange-card.style'
 
-export const ServiceExchangeCard = ({service, onClickThumbnail}) => {
+export const ServiceExchangeCard = ({service, onClickThumbnail, choose, onClickButton}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -67,72 +67,10 @@ export const ServiceExchangeCard = ({service, onClickThumbnail}) => {
         </div>
       </div>
       <div className={classNames.buttonWrapper}>
-        <Button className={cx(classNames.openBtn)}>{t(TranslationKey.Open)}</Button>
+        <Button success={choose} className={cx(classNames.openBtn)} onClick={onClickButton}>
+          {choose ? t(TranslationKey.Choose) : t(TranslationKey.Open)}
+        </Button>
       </div>
     </div>
   )
-}
-
-{
-  /* <div className={classNames.cardWrapper}>
-      <div className={classNames.cardTitleBlockWrapper}>
-        <Typography className={classNames.cardTitle}>{item.title}</Typography>
-      </div>
-      <div className={classNames.statusWrapper}>
-        <Typography className={classNames.statusText}>{t(TranslationKey.Status)}</Typography>
-        <MultilineRequestStatusCell status={item.status} />
-      </div>
-
-      <Divider orientation={'horizontal'} />
-
-      <div className={classNames.cardActionBlockWrapper}>
-        <div className={classNames.userInfoWrapper}>
-          <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
-
-          <div className={classNames.nameRatingWrapper}>
-            <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
-
-            <Rating disabled value={item.createdBy.rating} />
-          </div>
-        </div>
-
-        <Divider orientation={'horizontal'} className={classNames.divider} />
-
-        <div className={classNames.timeInfoWrapper}>
-          <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-          <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-            item.timeoutAt,
-          )}`}</Typography>
-        </div>
-        <div className={classNames.timeWrapper}>
-          <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated)}</Typography>
-
-            <Typography className={classNames.updatedAtText}>
-              {formatNormDateTimeWithParseISO(item.updatedAt)}
-            </Typography>
-          </div>
-          <Typography className={classNames.cardTime}>{`${t(TranslationKey.Time)}: ${toFixed(
-            item.timeLimitInMinutes / 60,
-            2,
-          )} ${t(TranslationKey.hour)} `}</Typography>
-        </div>
-
-        <Button
-          tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          variant="contained"
-          color="primary"
-          className={classNames.actionButton}
-          onClick={() => onClickViewMore(item._id)}
-        >
-          {t(TranslationKey.Details)}
-        </Button>
-        <Typography className={classNames.cardSubTitle}>
-          {translateProposalsLeftMessage(
-            item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
-            item.maxAmountOfProposals,
-          )}
-        </Typography>
-      </div>
-    </div> */
 }
