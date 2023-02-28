@@ -166,28 +166,6 @@ InlineObject19.prototype['prepId'] = undefined;
 
 
 
-/**
- * Идентификатор UPS
- * @member {String} upsTrackNumber
- */
-InlineObject19.prototype['upsTrackNumber'] = undefined;
-
-/**
- * shippingLabel коробки
- * @member {String} shippingLabel
- */
-InlineObject19.prototype['shippingLabel'] = undefined;
-
-/**
- * shippingLabel проклеен сторкипером
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
- */
-InlineObject19.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-
-
-
-
 
 export default InlineObject19;
 
