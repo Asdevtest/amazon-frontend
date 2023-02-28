@@ -71,6 +71,9 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
     setFormFields(newFormFields)
   }
 
+  console.log('formFields', formFields)
+  console.log('images', images)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.titleWrapper}>
