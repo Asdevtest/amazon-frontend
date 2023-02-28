@@ -361,40 +361,6 @@ InlineResponse20015.prototype['batch'] = undefined;
 
 
 
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
- */
-InlineResponse20015.prototype['storekeeper'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
- */
-InlineResponse20015.prototype['client'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20015.prototype['createdBy'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesClientsLightDestination} destination
- */
-InlineResponse20015.prototype['destination'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidLogicsTariff} logicsTariff
- */
-InlineResponse20015.prototype['logicsTariff'] = undefined;
-
-/**
- * @member {module:model/ApiV1BoxesClientsInTransferGuidBatch} batch
- */
-InlineResponse20015.prototype['batch'] = undefined;
-
-
-
-
-
 
 export default InlineResponse20015;
 
