@@ -6,6 +6,11 @@ export class AnnouncementsModelStatic {
     return response
   }
 
+  getVacAnnouncements = async () => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet()
+    return response
+  }
+
   createAnnouncement = async data => {
     const response = await restApiService.announcementsApi.apiV1AnnouncementsPost({
       body: data,

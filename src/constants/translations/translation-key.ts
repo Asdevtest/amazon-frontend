@@ -1836,7 +1836,7 @@ export enum TranslationKey {
   'Service name' = 'Service name',
   'The service was created' = 'The service was created',
   'The service was not created' = 'The service was not created',
-  // '' = '',
+  'Choice of Performer' = 'Choice of Performer',
   // '' = '',
   // '' = '',
   // '' = '',

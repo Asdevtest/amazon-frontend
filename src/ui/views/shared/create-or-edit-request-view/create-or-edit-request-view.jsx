@@ -9,6 +9,7 @@ import {Appbar} from '@components/appbar'
 import {CreateOrEditRequestContent} from '@components/contents/create-or-edit-request-content'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
@@ -30,9 +31,15 @@ export class CreateOrEditRequestView extends Component {
       showProgress,
       requestToEdit,
       drawerOpen,
+      announcements,
+      showImageModal,
+      bigImagesOptions,
+      onClickChoosePerformer,
       onTriggerDrawerOpen,
       onSubmitCreateRequest,
       onSubmitEditRequest,
+      onTriggerOpenModal,
+      onClickThumbnail,
     } = this.viewModel
 
     return (
@@ -47,15 +54,25 @@ export class CreateOrEditRequestView extends Component {
           <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <CreateOrEditRequestContent
+                announcements={announcements}
                 progressValue={progressValue}
                 showProgress={showProgress}
                 requestToEdit={requestToEdit}
                 history={this.props.history}
                 onCreateSubmit={onSubmitCreateRequest}
                 onEditSubmit={onSubmitEditRequest}
+                onClickChoosePerformer={onClickChoosePerformer}
+                onClickThumbnail={onClickThumbnail}
               />
             </MainContent>
           </Appbar>
+
+          <BigImagesModal
+            openModal={showImageModal}
+            setOpenModal={() => onTriggerOpenModal('showImageModal')}
+            images={bigImagesOptions.images}
+            imgIndex={bigImagesOptions.imgIndex}
+          />
         </Main>
       </React.Fragment>
     )
