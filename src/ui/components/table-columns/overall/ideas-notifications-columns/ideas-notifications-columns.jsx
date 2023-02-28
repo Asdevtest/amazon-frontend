@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import {colorByIdeaStatus, ideaStatusByCode} from '@constants/idea-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -34,7 +35,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.productId)}
+        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
       />
     ),
     filterable: false,
@@ -46,17 +47,19 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={{amazonTitle: params?.row?.productName}} />,
+    renderCell: params => <ProductAsinCell product={params?.row?.originalData?.product} />,
     width: 300,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
-    field: 'createdBy',
+    field: 'createdByName',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserLinkCell blackText name={'-'} userId={params.value} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params?.value} userId={params?.row?.originalData?.createdBy._id} />
+    ),
     width: 160,
   },
 
@@ -65,7 +68,12 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Idea Status']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
-    renderCell: params => <MultilineTextCell text={'-'} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params?.value}
+        color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
+      />
+    ),
     width: 200,
   },
 

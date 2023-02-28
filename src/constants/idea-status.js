@@ -27,3 +27,15 @@ export const ideaStatusTranslate = status => {
       return t(TranslationKey.Closed)
   }
 }
+
+export const colorByIdeaStatus = status => {
+  if ([ideaStatus.ON_CHECK].includes(status)) {
+    return '#F3AF00'
+  } else if ([ideaStatus.VERIFIED].includes(status)) {
+    return '#00B746'
+  } else if ([ideaStatus.CLOSED].includes(status)) {
+    return '#FF1616'
+  } else {
+    return '#black'
+  }
+}

@@ -10,7 +10,7 @@ import {UserModel} from '@models/user-model'
 
 import {ideasNotificationsViewColumns} from '@components/table-columns/overall/ideas-notifications-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {ideaNoticeDataConverter} from '@utils/data-grid-data-converters'
 // import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -156,7 +156,7 @@ export class BuyerIdeasNotificationsViewModel {
       const result = await UserModel.getUserInfo()
 
       runInAction(() => {
-        this.ideas = addIdDataConverter(result.updatesOnIdeas)
+        this.ideas = ideaNoticeDataConverter(result.updatesOnIdeas)
       })
     } catch (error) {
       console.log(error)
