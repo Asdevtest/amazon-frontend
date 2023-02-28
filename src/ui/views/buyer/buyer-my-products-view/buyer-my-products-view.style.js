@@ -49,9 +49,9 @@ export const styles = theme => ({
     '&:before': {
       content: '""',
       backgroundImage:
-        theme.palette.mode === 'dark'
-          ? 'url(/assets/icons/idea-trgl-dark-theme.svg)'
-          : 'url(/assets/icons/idea-trgl.svg)',
+        theme.palette.mode === 'light'
+          ? 'url(/assets/icons/idea-trgl.svg)'
+          : 'url(/assets/icons/idea-trgl-dark-theme.svg)',
 
       width: 48,
       height: 21,

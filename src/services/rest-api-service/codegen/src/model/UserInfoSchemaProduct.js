@@ -59,6 +59,9 @@ class UserInfoSchemaProduct {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
         }
         return obj;
     }
@@ -85,6 +88,11 @@ UserInfoSchemaProduct.prototype['skusByClient'] = undefined;
  * @member {String} amazonTitle
  */
 UserInfoSchemaProduct.prototype['amazonTitle'] = undefined;
+
+/**
+ * @member {Array.<String>} images
+ */
+UserInfoSchemaProduct.prototype['images'] = undefined;
 
 
 

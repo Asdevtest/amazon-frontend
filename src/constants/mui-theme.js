@@ -400,6 +400,8 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
+          // backgroundColor: '#21212B',
+
           color: '#fff',
         },
       },
@@ -520,7 +522,7 @@ export const darkTheme = createTheme({
   },
 
   palette: {
-    mode: 'dark',
+    // mode: 'dark', // при выставлении меняет некотрые стили по умолчанию
 
     ...{
       primary: {

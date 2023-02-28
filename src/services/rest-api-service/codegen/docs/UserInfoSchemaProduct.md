@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **asin** | **String** |  | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
 **amazonTitle** | **String** |  | [optional] 
+**images** | **[String]** |  | [optional] 
 
 
