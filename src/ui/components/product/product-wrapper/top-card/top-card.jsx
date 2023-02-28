@@ -20,6 +20,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CustomCarousel} from '@components/custom-carousel'
+import {CustomImageGallery} from '@components/custom-image-gallery'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -396,6 +398,10 @@ export const TopCard = observer(
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
         />
+
+        {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
+          <CustomImageGallery images={bigImagesOptions.images} imgIndex={bigImagesOptions.imgIndex} />
+        </Modal> */}
       </React.Fragment>
     )
   },
