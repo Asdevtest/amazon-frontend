@@ -32,6 +32,14 @@ export class ServiceExchangeViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  async loadData() {
+    try {
+      ;() => {}
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onClickTaskType(taskType) {
     this.selectedTaskType = taskType
   }
