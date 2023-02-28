@@ -28,7 +28,7 @@ export const BigImagesModal = ({openModal, setOpenModal, images, imgIndex = 0}) 
           animation="fade"
           index={imgIndex}
         >
-          {images.map((el, index) => (
+          {images?.map((el, index) => (
             <div key={index} className={classNames.mainWrapper}>
               <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el, true)} />
             </div>
