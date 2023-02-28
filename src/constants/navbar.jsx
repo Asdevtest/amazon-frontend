@@ -340,6 +340,12 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         },
 
+        {
+          subtitle: t(TranslationKey['My services']),
+          subRoute: '/freelancer/freelance/my-services',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+        },
+
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,

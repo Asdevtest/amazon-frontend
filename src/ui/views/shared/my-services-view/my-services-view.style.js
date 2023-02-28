@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
 export const styles = theme => ({
+  dashboardCardWrapper: {
+    width: '100%',
+  },
+
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -59,9 +63,18 @@ export const styles = theme => ({
 
     color: `${theme.palette.primary.main} !important`,
   },
+  rightAddingBtn: {
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+    padding: '0 15px',
+  },
   toggleBtnAndtaskTypeWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 30,
+  },
+  searchInputWrapper: {
+    paddingRight: 450,
   },
 })

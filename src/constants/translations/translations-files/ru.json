@@ -1800,5 +1800,11 @@
   "Price per product": "Цена за товар",
   "CashBack": "CashBack",
   "Create a service": "Создать услугу",
-  "Number of requests": "Количество заявок"
+  "Number of requests": "Количество заявок",
+  "Open": "Открыть",
+  "My services": "Мои услуги",
+  "Service type": "Тип услуги",
+  "Universal": "Универсальная",
+  "Create service": "Создать услугу",
+  "Add photo": "Добавить фото"
 }
