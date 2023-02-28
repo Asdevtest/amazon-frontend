@@ -92,6 +92,9 @@ const filtersFields = [
   'profit',
   'fbafee',
   'status',
+  'reservedSum',
+  'sentToFbaSum',
+  'fbaFbmStockSum',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -182,8 +185,6 @@ export class ClientInventoryViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    // onClickObjectFieldMenuItem: (obj, field) => this.onClickObjectFieldMenuItem(obj, field),
-    // onClickNormalFieldMenuItem: (str, field) => this.onClickNormalFieldMenuItem(str, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
       this.getProductsMy()
@@ -781,7 +782,7 @@ export class ClientInventoryViewModel {
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
         }${
-          purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
+          purchaseQuantityAboveZeroFilter ? ';' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
         }`,
       )
 
@@ -866,6 +867,13 @@ export class ClientInventoryViewModel {
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
 
+    const fbaFbmStockSumFilter =
+      exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
+    const reservedSumFilter =
+      exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
+    const sentToFbaSumFilter =
+      exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: {$eq: this.isArchive},
       or: [
@@ -929,6 +937,16 @@ export class ClientInventoryViewModel {
 
       ...(statusFilter && {
         status: {$eq: statusFilter},
+      }),
+
+      ...(fbaFbmStockSumFilter && {
+        fbaFbmStockSum: {$eq: fbaFbmStockSumFilter},
+      }),
+      ...(reservedSumFilter && {
+        reservedSum: {$eq: reservedSumFilter},
+      }),
+      ...(sentToFbaSumFilter && {
+        sentToFbaSum: {$eq: sentToFbaSumFilter},
       }),
     })
 

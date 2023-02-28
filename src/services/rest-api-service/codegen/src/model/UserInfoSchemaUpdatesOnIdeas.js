@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserInfoSchemaCreatedBy from './UserInfoSchemaCreatedBy';
+import UserInfoSchemaIdea from './UserInfoSchemaIdea';
+import UserInfoSchemaProduct from './UserInfoSchemaProduct';
 
 /**
  * The UserInfoSchemaUpdatesOnIdeas model module.
@@ -47,17 +50,17 @@ class UserInfoSchemaUpdatesOnIdeas {
         if (data) {
             obj = obj || new UserInfoSchemaUpdatesOnIdeas();
 
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = UserInfoSchemaProduct.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('idea')) {
+                obj['idea'] = UserInfoSchemaIdea.constructFromObject(data['idea']);
+            }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
+                obj['createdBy'] = UserInfoSchemaCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -67,24 +70,24 @@ class UserInfoSchemaUpdatesOnIdeas {
 }
 
 /**
- * @member {String} createdBy
+ * @member {module:model/UserInfoSchemaProduct} product
+ */
+UserInfoSchemaUpdatesOnIdeas.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaIdea} idea
+ */
+UserInfoSchemaUpdatesOnIdeas.prototype['idea'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaCreatedBy} createdBy
  */
 UserInfoSchemaUpdatesOnIdeas.prototype['createdBy'] = undefined;
 
 /**
- * @member {String} productId
+ * @member {String} createdAt
  */
-UserInfoSchemaUpdatesOnIdeas.prototype['productId'] = undefined;
-
-/**
- * @member {String} asin
- */
-UserInfoSchemaUpdatesOnIdeas.prototype['asin'] = undefined;
-
-/**
- * @member {String} productName
- */
-UserInfoSchemaUpdatesOnIdeas.prototype['productName'] = undefined;
+UserInfoSchemaUpdatesOnIdeas.prototype['createdAt'] = undefined;
 
 
 

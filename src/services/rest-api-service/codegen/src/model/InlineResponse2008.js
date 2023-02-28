@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
 
 /**
  * The InlineResponse2008 model module.
@@ -53,8 +54,8 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], 'Number');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
@@ -92,9 +93,9 @@ InlineResponse2008.prototype['_id'] = undefined;
 InlineResponse2008.prototype['type'] = undefined;
 
 /**
- * @member {String} requestId
+ * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
  */
-InlineResponse2008.prototype['requestId'] = undefined;
+InlineResponse2008.prototype['requests'] = undefined;
 
 /**
  * @member {Array.<String>} linksToMediaFiles

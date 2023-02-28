@@ -11,13 +11,12 @@ export const useClassNames = makeStyles()(theme => ({
   cancelBtn: {
     marginLeft: '50px',
 
-    backgroundColor: theme.palette.background.general,
-
     color: theme.palette.text.general,
   },
 
   button: {
     minWidth: 185,
+    padding: '0 30px',
   },
   multiline: {
     width: '100%',

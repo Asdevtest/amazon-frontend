@@ -28,6 +28,7 @@ import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AnnouncementsMyRequests from './model/ApiV1AnnouncementsMyRequests';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesByProductGuidBoxes from './model/ApiV1BatchesByProductGuidBoxes';
@@ -324,11 +325,14 @@ import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaCreatedBy from './model/UserInfoSchemaCreatedBy';
+import UserInfoSchemaIdea from './model/UserInfoSchemaIdea';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
+import UserInfoSchemaProduct from './model/UserInfoSchemaProduct';
 import UserInfoSchemaUpdatesOnIdeas from './model/UserInfoSchemaUpdatesOnIdeas';
 import UserRegisterSchema from './model/UserRegisterSchema';
 import UserSettingInputSchema from './model/UserSettingInputSchema';
@@ -490,6 +494,12 @@ export {
      * @property {module:model/ApiV1AdminsTasksLightStorekeeper}
      */
     ApiV1AdminsTasksLightStorekeeper,
+
+    /**
+     * The ApiV1AnnouncementsMyRequests model constructor.
+     * @property {module:model/ApiV1AnnouncementsMyRequests}
+     */
+    ApiV1AnnouncementsMyRequests,
 
     /**
      * The ApiV1BatchesBatch model constructor.
@@ -2268,6 +2278,18 @@ export {
     UserInfoSchema,
 
     /**
+     * The UserInfoSchemaCreatedBy model constructor.
+     * @property {module:model/UserInfoSchemaCreatedBy}
+     */
+    UserInfoSchemaCreatedBy,
+
+    /**
+     * The UserInfoSchemaIdea model constructor.
+     * @property {module:model/UserInfoSchemaIdea}
+     */
+    UserInfoSchemaIdea,
+
+    /**
      * The UserInfoSchemaMasterUser model constructor.
      * @property {module:model/UserInfoSchemaMasterUser}
      */
@@ -2296,6 +2318,12 @@ export {
      * @property {module:model/UserInfoSchemaPermissions}
      */
     UserInfoSchemaPermissions,
+
+    /**
+     * The UserInfoSchemaProduct model constructor.
+     * @property {module:model/UserInfoSchemaProduct}
+     */
+    UserInfoSchemaProduct,
 
     /**
      * The UserInfoSchemaUpdatesOnIdeas model constructor.

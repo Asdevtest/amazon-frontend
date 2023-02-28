@@ -95,7 +95,7 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'stockValue',
+    field: 'fbaFbmStockSum',
     headerName: 'Available',
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -108,11 +108,11 @@ export const clientInventoryColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 90,
-    sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'reserved',
+    field: 'reservedSum',
     headerName: t(TranslationKey.Reserved),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -125,11 +125,11 @@ export const clientInventoryColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 85,
-    sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'inBoard',
+    field: 'sentToFbaSum',
     headerName: t(TranslationKey.Inbound),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -142,7 +142,8 @@ export const clientInventoryColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 90,
-    sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
