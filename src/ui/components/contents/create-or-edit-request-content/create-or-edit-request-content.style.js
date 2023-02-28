@@ -219,10 +219,6 @@ export const useClassNames = makeStyles()(theme => ({
   nameFieldWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-
-    // '& > span': {
-    //   marginTop: '-20px',
-    // },
   },
 
   nameField: {
