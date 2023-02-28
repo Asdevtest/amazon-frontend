@@ -3,23 +3,25 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    minHeight: 410,
-    maxHeight: 515,
+    display: 'flex',
+    justifyContent: 'space-between',
 
-    width: 375,
+    height: 165,
+
+    width: 800,
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    padding: '35px 20px',
+    padding: '20px 20px 20px 0',
 
-    marginBottom: 40,
+    marginBottom: 30,
   },
   cardCarouselWrapper: {
-    height: 180,
-    marginBottom: 40,
+    height: 120,
+    width: 220,
   },
   carouselImage: {
-    height: 140,
+    height: 96,
     objectFit: 'contain',
 
     transition: '.2s ease',
@@ -29,9 +31,15 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  titleWrapper: {
-    marginBottom: 10,
+  titleAndDescriptionWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+
+    width: 275,
   },
+
+  titleWrapper: {},
   cardTitle: {
     width: '100%',
 
@@ -46,9 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  descriptionWrapper: {
-    marginBottom: 15,
-  },
+  descriptionWrapper: {},
   cardDescription: {
     fontWeight: 400,
     fontSize: '14px',
@@ -81,9 +87,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    padding: '0 50px',
-
-    marginBottom: 31,
   },
   detailsSubWrapper: {
     display: 'flex',
@@ -93,6 +96,11 @@ export const useClassNames = makeStyles()(theme => ({
   openBtn: {
     padding: '0 75px',
     height: 40,
+  },
+  detailsAndButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   buttonWrapper: {

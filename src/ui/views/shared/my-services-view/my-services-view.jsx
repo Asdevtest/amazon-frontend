@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import {Typography, Box} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -21,8 +21,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
+import {ServiceExchangeCardList} from '@components/cards/service-exchange-card-list'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
@@ -30,23 +32,41 @@ import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggl
 
 import {t} from '@utils/translations'
 
-import {ServiceExchangeViewModel} from './service-exchange-view.model'
-import {styles} from './service-exchange-view.style'
+import {MyServicesViewModel} from './my-services-view.model'
+import {styles} from './my-services-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 
 @observer
-class ServiceExchangeViewRaw extends Component {
-  viewModel = new ServiceExchangeViewModel({history: this.props.history})
+class MyServicesViewRaw extends Component {
+  viewModel = new MyServicesViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
   }
 
   render() {
-    const {viewMode, drawerOpen, onTriggerDrawerOpen, selectedTaskType, onClickTaskType} = this.viewModel
+    const {
+      viewMode,
+      drawerOpen,
+      onTriggerDrawerOpen,
+      selectedTaskType,
+      currentData,
+      bigImagesOptions,
+      showImageModal,
+      nameSearchValue,
+
+      onSearchSubmit,
+      onTriggerOpenModal,
+      onClickTaskType,
+      onClickCreateServiceBtn,
+      onChangeViewMode,
+      onClickThumbnail,
+    } = this.viewModel
     const {classes: classNames} = this.props
+
+    console.log('currentData', currentData)
 
     return (
       <React.Fragment>
@@ -57,12 +77,12 @@ class ServiceExchangeViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My services'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.toggleBtnAndtaskTypeWrapper}>
                   <div className={classNames.tablePanelViewWrapper}>
-                    <ToggleBtnGroupFreelance exclusive value={viewMode} /* onChange={onChangeViewMode} */>
+                    <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
                       <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
                         <ViewCartsBlock
                           className={cx(classNames.viewCart, {
@@ -110,25 +130,58 @@ class ServiceExchangeViewRaw extends Component {
                 <div className={classNames.searchInputWrapper}>
                   <SearchInput
                     inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey['Search by Performer, Description'])}
-                    /* value={nameSearchValue} */
-                    onSubmit={() => {}}
+                    placeholder={t(TranslationKey.Search)}
+                    // value={nameSearchValue}
+                    onSubmit={onSearchSubmit}
                   />
                 </div>
+
+                <div className={classNames.createServiceBtnWrapper}>
+                  <Button success className={cx(classNames.rightAddingBtn)} onClick={onClickCreateServiceBtn}>
+                    {t(TranslationKey['Create a service'])}
+                  </Button>
+                </div>
               </div>
-              <div className={classNames.emptyTableWrapper}>
-                {/* <ServiceExchangeCard /> */}
-                <img src="/assets/icons/empty-table.svg" />
-                <Typography variant="h5" className={classNames.emptyTableText}>
-                  {t(TranslationKey.Missing)}
-                </Typography>
-              </div>
+              <Box
+                container
+                classes={{root: classNames.dashboardCardWrapper}}
+                display="grid"
+                gridTemplateColumns={
+                  viewMode === tableViewMode.LIST
+                    ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
+                    : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
+                }
+                gridGap="20px"
+              >
+                {currentData.map((service, serviceKey) =>
+                  viewMode === tableViewMode.LIST ? (
+                    <ServiceExchangeCardList key={serviceKey} service={service} onClickThumbnail={onClickThumbnail} />
+                  ) : (
+                    <ServiceExchangeCard key={serviceKey} service={service} onClickThumbnail={onClickThumbnail} />
+                  ),
+                )}
+              </Box>
+              {!currentData.length && (
+                <div className={classNames.emptyTableWrapper}>
+                  <img src="/assets/icons/empty-table.svg" />
+                  <Typography variant="h5" className={classNames.emptyTableText}>
+                    {t(TranslationKey.Missing)}
+                  </Typography>
+                </div>
+              )}
             </MainContent>
           </Appbar>
         </Main>
+
+        <BigImagesModal
+          openModal={showImageModal}
+          setOpenModal={() => onTriggerOpenModal('showImageModal')}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
       </React.Fragment>
     )
   }
 }
 
-export const ServiceExchangeView = withStyles(ServiceExchangeViewRaw, styles)
+export const MyServicesView = withStyles(MyServicesViewRaw, styles)
