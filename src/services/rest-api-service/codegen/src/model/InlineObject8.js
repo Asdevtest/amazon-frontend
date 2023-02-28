@@ -50,9 +50,6 @@ class InlineObject8 {
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], 'Number');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
-            }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
@@ -76,11 +73,6 @@ class InlineObject8 {
  * @member {Number} type
  */
 InlineObject8.prototype['type'] = undefined;
-
-/**
- * @member {String} requestId
- */
-InlineObject8.prototype['requestId'] = undefined;
 
 /**
  * @member {Array.<String>} linksToMediaFiles

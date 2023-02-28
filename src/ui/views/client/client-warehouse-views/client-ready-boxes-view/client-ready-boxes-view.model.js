@@ -35,6 +35,8 @@ export class ClientReadyBoxesViewModel {
   storekeepersData = []
   clientDestinations = []
 
+  baseBoxesMy = []
+
   curDestination = undefined
 
   hsCodeData = {}
@@ -46,6 +48,8 @@ export class ClientReadyBoxesViewModel {
   showWarningInfoModal = false
 
   uploadedFiles = []
+
+  currentData = []
 
   sortModel = []
   filterModel = {items: []}
@@ -78,12 +82,29 @@ export class ClientReadyBoxesViewModel {
       () => this.currentStorekeeper,
       () => this.getClientDestinations(),
     )
+
+    reaction(
+      () => this.boxesMy,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
+    )
   }
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
+      const res = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, res.volumeWeightCoefficient)
+      })
+
       this.getDataGridState()
     }
+
+    this.columnsModel = clientBoxesReadyToBatchViewColumns()
   }
 
   onChangeFilterModel(model) {
@@ -402,6 +423,8 @@ export class ClientReadyBoxesViewModel {
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()
 
       runInAction(() => {
+        this.baseBoxesMy = result
+
         this.boxesMy = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )

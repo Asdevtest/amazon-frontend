@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**createdBy** | **String** |  | [optional] 
-**productId** | **String** |  | [optional] 
-**asin** | **String** |  | [optional] 
-**productName** | **String** |  | [optional] 
+**product** | [**UserInfoSchemaProduct**](UserInfoSchemaProduct.md) |  | [optional] 
+**idea** | [**UserInfoSchemaIdea**](UserInfoSchemaIdea.md) |  | [optional] 
+**createdBy** | [**UserInfoSchemaCreatedBy**](UserInfoSchemaCreatedBy.md) |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 
 

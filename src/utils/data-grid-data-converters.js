@@ -243,17 +243,11 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     asin: item.asin,
     inTransfer: item.inTransfer,
     amountInOrders: item.amountInOrders,
-    stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0),
-    reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
-    inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
-    // stockSum:
-    //   item.inTransfer +
-    //   item.amountInOrders +
-    //   item.boxAmounts?.reduce((ac, cur) => (ac += cur.amountInBoxes), 0) +
-    //   item.stockUSA +
-    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
-    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
-    //   item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
+
+    fbaFbmStockSum: item.fbaFbmStockSum,
+    reservedSum: item.reservedSum,
+    sentToFbaSum: item.sentToFbaSum,
+
     sumStock: item.sumStock,
     purchaseQuantity: item.purchaseQuantity,
 

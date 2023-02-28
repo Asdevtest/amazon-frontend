@@ -77,6 +77,9 @@ Name | Type | Description | Notes
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Каков должен быть сток за 4 месяца | [optional] 
 **stockUSA** | **Number** |  | [optional] 
+**reservedSum** | **Number** |  | [optional] 
+**sentToFbaSum** | **Number** |  | [optional] 
+**fbaFbmStockSum** | **Number** |  | [optional] 
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 

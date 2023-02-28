@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** |  | [optional] 
 **type** | **Number** |  | [optional] 
-**requestId** | **String** |  | [optional] 
+**requests** | [**[ApiV1AnnouncementsMyRequests]**](ApiV1AnnouncementsMyRequests.md) |  | [optional] 
 **linksToMediaFiles** | **[String]** |  | [optional] 
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 

@@ -269,6 +269,15 @@ class InlineResponse200 {
             if (data.hasOwnProperty('stockUSA')) {
                 obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
             }
+            if (data.hasOwnProperty('reservedSum')) {
+                obj['reservedSum'] = ApiClient.convertToType(data['reservedSum'], 'Number');
+            }
+            if (data.hasOwnProperty('sentToFbaSum')) {
+                obj['sentToFbaSum'] = ApiClient.convertToType(data['sentToFbaSum'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaFbmStockSum')) {
+                obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
+            }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
             }
@@ -707,6 +716,21 @@ InlineResponse200.prototype['fourMonthesStock'] = undefined;
  * @member {Number} stockUSA
  */
 InlineResponse200.prototype['stockUSA'] = undefined;
+
+/**
+ * @member {Number} reservedSum
+ */
+InlineResponse200.prototype['reservedSum'] = undefined;
+
+/**
+ * @member {Number} sentToFbaSum
+ */
+InlineResponse200.prototype['sentToFbaSum'] = undefined;
+
+/**
+ * @member {Number} fbaFbmStockSum
+ */
+InlineResponse200.prototype['fbaFbmStockSum'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers

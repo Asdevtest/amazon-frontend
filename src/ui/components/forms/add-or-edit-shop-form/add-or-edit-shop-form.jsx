@@ -74,7 +74,6 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          disableElevation
           tooltipInfoContent={t(TranslationKey['Create/edit a store based on the data you entered'])}
           disabled={disableSubmitBtn}
           className={classNames.button}
@@ -86,8 +85,8 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         </Button>
 
         <Button
-          disableElevation
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
+          variant="text"
           className={cx(classNames.button, classNames.cancelBtn)}
           onClick={() => onCloseModal()}
         >

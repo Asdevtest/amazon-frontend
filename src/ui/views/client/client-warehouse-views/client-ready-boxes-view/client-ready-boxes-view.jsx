@@ -42,6 +42,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      currentData,
       clientDestinations,
       curDestination,
       userInfo,
@@ -56,7 +57,6 @@ export class ClientReadyBoxesViewRaw extends Component {
       storekeepersData,
 
       requestStatus,
-      getCurrentData,
       sortModel,
       filterModel,
       densityModel,
@@ -228,7 +228,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData || []}
                   // rowHeight={150}
                   getRowHeight={() => 'auto'}
                   components={{
