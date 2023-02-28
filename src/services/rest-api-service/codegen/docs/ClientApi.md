@@ -1812,7 +1812,6 @@ Name | Type | Description  | Notes
 ## apiV1ClientsTasksPost
 
 > InlineResponse2015 apiV1ClientsTasksPost(opts)
-> InlineResponse2011 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
