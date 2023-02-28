@@ -34,8 +34,8 @@ export class CreateOrEditServicesViewRaw extends Component {
       requestToEdit,
       drawerOpen,
       onTriggerDrawerOpen,
-      onSubmitCreateRequest,
-      onSubmitEditRequest,
+      onClickCreateOrEditBtn,
+      onClickBackBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -51,8 +51,13 @@ export class CreateOrEditServicesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Create service'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              {'sssssssss'}
-              <CreateOrEditServiceContent />
+              <div className={classNames.root}>
+                <CreateOrEditServiceContent
+                  data
+                  onClickCreateOrEditBtn={onClickCreateOrEditBtn}
+                  onClickBackBtn={onClickBackBtn}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

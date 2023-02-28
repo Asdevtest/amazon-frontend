@@ -1806,5 +1806,9 @@
   "Service type": "Тип услуги",
   "Universal": "Универсальная",
   "Create service": "Создать услугу",
-  "Add photo": "Добавить фото"
+  "Add photo": "Добавить фото",
+  "Service announcement": "Объявление об услуге",
+  "Service name": "Название услуги",
+  "The service was created": "Услуга создана",
+  "The service was not created": "Услуга не была создана"
 }
