@@ -104,6 +104,9 @@ export const ServiceExchangeCard = ({service, onClickThumbnail, choose, order, h
       <div className={classNames.buttonWrapper}>
         <Button className={cx(classNames.openBtn)}>{t(TranslationKey.Open)}</Button>
       </div>
+      <div className={classNames.buttonWrapper}>
+        <Button className={cx(classNames.openBtn)}>{t(TranslationKey.Open)}</Button>
+      </div>
     </div>
   )
 }
