@@ -14,7 +14,7 @@ import {
   MenuItem,
 } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   freelanceRequestType,
@@ -30,6 +30,8 @@ import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
+import {Modal} from '@components/modal'
+import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
@@ -49,20 +51,31 @@ const stepVariant = {
 }
 
 export const CreateOrEditRequestContent = ({
+  announcements,
   requestToEdit,
   history,
   onCreateSubmit,
   onEditSubmit,
   showProgress,
   progressValue,
+  onClickChoosePerformer,
+  onClickThumbnail,
 }) => {
   const {classes: classNames} = useClassNames()
 
   const [images, setImages] = useState([])
 
+  const [openModal, setOpenModal] = useState(false)
+
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
   const [isLimited, setIsLimited] = useState(false)
+
+  const [announcementsData, setAnnouncementsData] = useState(announcements)
+
+  useEffect(() => {
+    setAnnouncementsData(announcements)
+  }, [announcements])
 
   const sourceFormFields = {
     request: {
@@ -390,21 +403,24 @@ export const CreateOrEditRequestContent = ({
                     }
                   />
 
-                  <Field
-                    oneLine
-                    tooltipInfoContent={t(
-                      TranslationKey['Add a service for checking the result of proposals by a supervisor'],
-                    )}
-                    label={t(TranslationKey['Need a supervisor check'])}
-                    containerClasses={classNames.checkboxWrapper}
-                    inputComponent={
-                      <Checkbox
-                        color="primary"
-                        checked={formFields.request.needCheckBySupervisor}
-                        onChange={onChangeField('request')('needCheckBySupervisor')}
-                      />
-                    }
-                  />
+                  {`${formFields?.request?.typeTask}` !==
+                    `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                    <Field
+                      oneLine
+                      tooltipInfoContent={t(
+                        TranslationKey['Add a service for checking the result of proposals by a supervisor'],
+                      )}
+                      label={t(TranslationKey['Need a supervisor check'])}
+                      containerClasses={classNames.checkboxWrapper}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          checked={formFields.request.needCheckBySupervisor}
+                          onChange={onChangeField('request')('needCheckBySupervisor')}
+                        />
+                      }
+                    />
+                  )}
                 </div>
 
                 <div className={classNames.priceAndAmountWrapper}>
@@ -429,7 +445,14 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.checkboxAndButtonWrapper}>
-                  <Button disabled variant={'contained'} className={classNames.changePerformerBtn}>
+                  <Button
+                    variant={'contained'}
+                    className={classNames.changePerformerBtn}
+                    onClick={async () => {
+                      await onClickChoosePerformer()
+                      setOpenModal(true)
+                    }}
+                  >
                     {t(TranslationKey['Change performer'])}
                   </Button>
 
@@ -777,6 +800,10 @@ export const CreateOrEditRequestContent = ({
         </Typography>
       </div>
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+
+      <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
+        <ChoiceOfPerformerModal announcements={announcementsData} onClickThumbnail={onClickThumbnail} />
+      </Modal>
     </div>
   )
 }
