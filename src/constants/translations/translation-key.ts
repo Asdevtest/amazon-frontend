@@ -1820,6 +1820,8 @@ export enum TranslationKey {
   'Choice of Performer' = 'Choice of Performer',
   'Select a Performer' = 'Select a Performer',
   'A supervisor check is necessary' = 'A supervisor check is necessary',
+  'Standart' = 'Standart',
+  'Product price' = 'Product price',
   // '' = '',
   // '' = '',
   // '' = '',
