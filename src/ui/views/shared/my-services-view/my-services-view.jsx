@@ -64,6 +64,7 @@ class MyServicesViewRaw extends Component {
       onClickCreateServiceBtn,
       onChangeViewMode,
       onClickThumbnail,
+      onClickOpenButton,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -154,9 +155,19 @@ class MyServicesViewRaw extends Component {
               >
                 {currentData.map((service, serviceKey) =>
                   viewMode === tableViewMode.LIST ? (
-                    <ServiceExchangeCardList key={serviceKey} service={service} onClickThumbnail={onClickThumbnail} />
+                    <ServiceExchangeCardList
+                      key={serviceKey}
+                      service={service}
+                      onClickThumbnail={onClickThumbnail}
+                      onClickButton={onClickOpenButton}
+                    />
                   ) : (
-                    <ServiceExchangeCard key={serviceKey} service={service} onClickThumbnail={onClickThumbnail} />
+                    <ServiceExchangeCard
+                      key={serviceKey}
+                      service={service}
+                      onClickThumbnail={onClickThumbnail}
+                      onClickButton={onClickOpenButton}
+                    />
                   ),
                 )}
               </Box>
