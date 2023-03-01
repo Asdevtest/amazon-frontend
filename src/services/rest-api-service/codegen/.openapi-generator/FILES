@@ -711,6 +711,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/UserInfoSchemaCreatedBy.spec.js
-test/model/UserInfoSchemaIdea.spec.js
-test/model/UserInfoSchemaProduct.spec.js
