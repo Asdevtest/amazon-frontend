@@ -508,7 +508,10 @@ class ApiClient {
     * @returns {Date} The parsed date object.
     */
     static parseDate(str) {
-      return str
+        if (isNaN(str)) {
+            return new Date(str.replace(/(\d)(T)(\d)/i, '$1 $3'));
+        }
+        return new Date(+str);
     }
 
     /**
