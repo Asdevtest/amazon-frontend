@@ -1837,7 +1837,6 @@
   "Service name": "Service name",
   "The service was created": "The service was created",
   "The service was not created": "The service was not created",
-<<<<<<< HEAD
   "Choice of Performer": "Choice of Performer",
   "Select a Performer": "Select a Performer",
   "A supervisor check is necessary": "A supervisor check is necessary",
@@ -1850,7 +1849,4 @@
   "Service not edited": "Service not edited",
   "The price should be greater than": "The price should be greater than",
   "Ideas to check": "Ideas to check"
-=======
-  "Choice of Performer": "Choice of Performer"
->>>>>>> b6e24bf9c (client modal)
 }
