@@ -276,6 +276,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     width: '100%',
+    height: 40,
     color: theme.palette.text.general,
   },
 
