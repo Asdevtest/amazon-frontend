@@ -17,7 +17,7 @@ export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
 
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 
-export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd-MM-yyyy HH:mm')
+export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd.MM.yyyy HH:mm')
 
 export const formatDateTime = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
 export const formatNormDateTime = dateString => {
