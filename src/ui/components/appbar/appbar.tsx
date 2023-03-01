@@ -53,7 +53,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
-  const {snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
+  const {role, snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
 
   const {enqueueSnackbar} = useSnackbar()
 
@@ -115,7 +115,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         },
 
         content: key => (
-          <IdeaSnack id={key} autoHideDuration={25000} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />
+          <IdeaSnack
+            id={key}
+            role={role}
+            autoHideDuration={25000}
+            noticeItem={snackNotifications[snackNoticeKey.IDEAS]}
+          />
         ),
       })
 

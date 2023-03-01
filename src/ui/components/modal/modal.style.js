@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useClassNames = makeStyles()(() => ({
   dialogPadding: {
     padding: '40px 30px',
     height: '100%',
@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     overflow: 'visible',
     borderRadius: '4px',
-    backgroundColor: theme.palette.background.second,
+    // backgroundColor: theme.palette.background.second,
   },
 
   closeIcon: {

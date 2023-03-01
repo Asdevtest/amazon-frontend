@@ -189,7 +189,7 @@ export class ClientInventoryViewRaw extends Component {
 
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
-    const getRowClassName = params => !!params.row.originalData.ideasCounter && classNames.ideaRow
+    const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
 
     // console.log('columnsModel', columnsModel)
 

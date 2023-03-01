@@ -154,7 +154,7 @@ export const buyerProductsDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
-    ideasCounter: item.ideasCounter,
+    ideaCount: item.ideaCount,
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,
@@ -254,7 +254,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     bsr: item.bsr,
     fbafee: item.fbafee,
 
-    ideasCounter: item.ideasCounter,
+    ideaCount: item.ideaCount,
 
     id: item._id,
     _id: item._id,

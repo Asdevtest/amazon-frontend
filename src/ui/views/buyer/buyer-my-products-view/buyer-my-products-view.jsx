@@ -73,10 +73,10 @@ export class BuyerMyProductsViewRaw extends Component {
     const getRowClassName = params =>
       cx(
         {[classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention)},
-        {[classNames.ideaRow]: !!params.row.originalData.ideasCounter},
+        {[classNames.ideaRow]: !!params.row.originalData.ideaCount},
       )
 
-    // const getRowClassName = params => !!params.row.originalData.ideasCounter && classNames.ideaRow
+    // const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
 
     return (
       <React.Fragment>

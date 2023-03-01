@@ -135,7 +135,7 @@ export const ProductWrapper = observer(
                 <ITab
                   label={t(TranslationKey['Suppliers and Ideas'])}
                   value={tabsValues.SUPPLIERS_AND_IDEAS}
-                  withIcon={!!product.ideasCounter}
+                  withIcon={!!product.ideaCount}
                 />
               )}
             </Tabs>

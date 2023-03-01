@@ -8,6 +8,7 @@ import {useSnackbar, SnackbarContent, SnackbarKey} from 'notistack'
 
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 
@@ -21,11 +22,12 @@ import {useClassNames} from './idea-snack.style'
 interface SimpleMessagesSnackProps {
   noticeItem: any | null
   id: SnackbarKey
+  role: number
   autoHideDuration?: number
 }
 
 export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
-  ({id, noticeItem, autoHideDuration /* , ...props*/}, ref) => {
+  ({id, role, noticeItem, autoHideDuration /* , ...props*/}, ref) => {
     const {classes: classNames} = useClassNames()
 
     const {closeSnackbar} = useSnackbar()
@@ -34,9 +36,24 @@ export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
       closeSnackbar(id)
     }, [id, closeSnackbar])
 
+    const getRolePiceToUrl = (key: string) => {
+      switch (key) {
+        case UserRole.CLIENT:
+          return 'client/inventory'
+
+        case UserRole.BUYER:
+          return 'buyer/my-products'
+
+        default:
+          return 'client/inventory'
+      }
+    }
+
     const onClickNoticeItem = () => {
       const win = window.open(
-        `${window.location.origin}/client/inventory/product?product-id=${noticeItem.productId}&show-tab=ideas`,
+        `${window.location.origin}/${getRolePiceToUrl(
+          (UserRoleCodeMap as {[key: number]: string})[role],
+        )}/product?product-id=${noticeItem.productId}&show-tab=ideas`,
         '_blank',
       )
 
