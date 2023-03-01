@@ -1035,11 +1035,14 @@ export const MultilineTextCell = React.memo(
       withLineBreaks,
       onClickText,
       oneLines,
+      illuminationCell,
     }) => (
       <>
         {withTooltip || tooltipText ? (
           <Tooltip title={tooltipText || text}>
-            <div className={classNames.multilineTextWrapper}>
+            <div
+              className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+            >
               <Typography
                 className={cx(
                   classNames.multilineText,
@@ -1056,7 +1059,9 @@ export const MultilineTextCell = React.memo(
             </div>
           </Tooltip>
         ) : (
-          <div className={classNames.multilineTextWrapper}>
+          <div
+            className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+          >
             <Typography
               className={cx(
                 classNames.multilineText,
