@@ -704,6 +704,11 @@ export const styles = theme => ({
 
     padding: '5px 0',
   },
+
+  illuminationCell: {
+    backgroundColor: theme.palette.background.green,
+  },
+
   multilineSuperBoxWrapper: {
     width: '100%',
     height: '100%',
