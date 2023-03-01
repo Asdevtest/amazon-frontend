@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
 
     top: 37,
-    left: 575,
+    right: 0,
 
     display: 'flex',
     justifyContent: 'center',
@@ -222,12 +222,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    gap: '2%',
   },
 
   loadImageInput: {
     height: '40px',
     borderRadius: '8px',
-    width: 400,
+    width: '55%',
 
     border: `1px solid #424250`,
   },
@@ -237,7 +238,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   loadBtn: {
-    marginLeft: 20,
     borderRadius: '4px',
     height: '40px',
     width: '130px',

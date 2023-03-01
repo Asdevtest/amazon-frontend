@@ -4,10 +4,23 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '0 20px',
+    height: '100%',
+
+    gap: 10,
+    // justifyContent: 'space-between',
+  },
+
+  mainSubWrapper: {
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+
+    backgroundColor: theme.palette.background.general,
+    borderRadius: 4,
   },
 
   mainContentWrapper: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -51,14 +64,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '34px',
     lineHeight: '40px',
     color: theme.palette.text.general,
-    marginTop: 30,
   },
 
   headerWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
-    marginBottom: 25,
+    marginBottom: 15,
   },
 
   title: {
@@ -82,7 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '140%',
     color: theme.palette.text.second,
-    marginTop: '20px',
+    marginTop: 5,
   },
 
   middleWrapper: {
@@ -101,15 +113,44 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  rightTwoStepMainWrapper: {
+    width: '100%',
+
+    display: 'flex',
     flexDirection: 'column',
   },
 
   checkboxWrapper: {
-    width: '100%',
+    position: 'relative',
+
+    width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
     // justifyContent: 'flex-end',
     margin: 0,
+
+    cursor: 'pointer',
+  },
+
+  checkboxWrapperMR: {
+    marginRight: 137,
+  },
+
+  checkboxSubWrapper: {
+    width: 35,
+  },
+
+  checkbox: {
+    top: -6,
+    left: -12,
+    position: 'absolute',
+  },
+
+  checkboxPosition: {
+    top: 3,
   },
 
   footerWrapper: {
@@ -199,7 +240,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.main,
   },
   oldPrice: {
-    color: 'red',
+    color: '#FB1D5B',
     textDecoration: 'line-through',
   },
 
@@ -239,6 +280,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: theme.palette.text.second,
+
+    whiteSpace: 'nowrap',
+
+    marginBottom: 5,
   },
 
   spanLabelSmall: {
@@ -246,6 +291,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '17px',
     color: theme.palette.text.second,
+
+    marginBottom: 0,
   },
 
   filesContainer: {
@@ -272,6 +319,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
+
+    marginBottom: 5,
   },
   priceAndAmountWrapper: {
     width: '100%',
@@ -290,9 +339,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   checkboxProposalWrapper: {
     width: '375px !important',
-    marginBottom: '0 !important',
-
-    height: 'fit-content',
   },
   checkboxProposalMarginTopWrapper: {
     marginTop: 23,
@@ -303,6 +349,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
+
+    marginBottom: 20,
   },
 
   error: {
@@ -338,8 +386,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '90%',
     display: 'flex',
     flexWrap: 'wrap',
-    marginLeft: '35px',
-    marginTop: '18px',
+    marginTop: 20,
   },
 
   trainingText: {
@@ -375,6 +422,8 @@ export const useClassNames = makeStyles()(theme => ({
   mainTwoStepWrapper: {
     display: 'flex',
     flexDirection: 'column',
+
+    justifyContent: 'space-between',
   },
 
   inputDescriptionStepTwoField: {
@@ -497,7 +546,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '40px',
   },
 
   stepPagination: {
@@ -532,7 +580,7 @@ export const useClassNames = makeStyles()(theme => ({
   stepTitle: {
     margin: '0',
     padding: '0',
-    marginTop: '20px',
+    marginTop: 5,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -582,6 +630,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   titleAndAsinWrapper: {
     display: 'flex',
+    gap: 85,
   },
   asinWrapper: {
     display: 'flex',
@@ -646,5 +695,33 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+  },
+
+  titleContainer: {
+    width: 'fit-content !important',
+  },
+  fitContentContainer: {
+    width: 'fit-content',
+  },
+  infoColumn: {
+    width: 'calc(100% / 3)',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  infoTextWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 15,
+  },
+  performerDescriptionTextStepTwo: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    minHeight: 76,
+    maxHeight: 250,
+
+    marginBottom: 25,
   },
 }))
