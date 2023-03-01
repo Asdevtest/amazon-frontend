@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -48,7 +49,9 @@ export const myRequestsViewColumns = languageTag => [
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
+    ),
     width: 145,
   },
 
