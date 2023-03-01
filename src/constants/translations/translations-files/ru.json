@@ -1818,5 +1818,7 @@
   "Service name": "Название услуги",
   "The service was created": "Услуга создана",
   "The service was not created": "Услуга не была создана",
-  "Choice of Performer": "Выбор исполнителя"
+  "Choice of Performer": "Выбор исполнителя",
+  "Select a Performer": "Выбрать исполнителя",
+  "A supervisor check is necessary": "Необходима проверка супервайзером"
 }
