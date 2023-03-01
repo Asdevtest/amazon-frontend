@@ -25,8 +25,6 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
 
   const isRedBadge = category.route?.includes('/client/my-orders/orders')
 
-  console.log('badge', badge)
-
   return (
     <Button
       tooltipPosition="center"

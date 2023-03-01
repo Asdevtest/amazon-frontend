@@ -135,7 +135,10 @@ export const Navbar = observer(
           ) : null} */}
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
-            <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
+            <div
+              className={cx(classNames.feedBackButton, {[classNames.shortFeedBackButton]: shortNavbar})}
+              onClick={() => onTriggerOpenModal('showFeedbackModal')}
+            >
               {!shortNavbar && (
                 <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
               )}
