@@ -17,7 +17,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './choice-of-performer-modal.style'
 
-export const ChoiceOfPerformerModal = ({announcements, onClickThumbnail}) => {
+export const ChoiceOfPerformerModal = ({announcements, onClickThumbnail, onClickChooseBtn}) => {
   const {classes: classNames} = useClassNames()
 
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -46,7 +46,13 @@ export const ChoiceOfPerformerModal = ({announcements, onClickThumbnail}) => {
           gridGap="20px"
         >
           {announcements.map((service, serviceKey) => (
-            <ServiceExchangeCard key={serviceKey} choose service={service} onClickThumbnail={onClickThumbnail} />
+            <ServiceExchangeCard
+              key={serviceKey}
+              choose
+              service={service}
+              onClickThumbnail={onClickThumbnail}
+              onClickButton={onClickChooseBtn}
+            />
           ))}
         </Box>
       </div>

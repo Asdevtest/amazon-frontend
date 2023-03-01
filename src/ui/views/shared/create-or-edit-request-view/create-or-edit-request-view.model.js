@@ -57,7 +57,13 @@ export class CreateOrEditRequestViewModel {
 
       const dataWithFiles = {
         ...data,
-        request: getObjectFilteredByKeyArrayBlackList({...data.request}, ['discountedPrice']),
+        request: getObjectFilteredByKeyArrayBlackList(
+          {
+            ...data.request,
+            announcementId: data.request.announcementId._id,
+          },
+          ['discountedPrice'],
+        ),
         details: {...data.details, linksToMediaFiles: this.uploadedFiles},
       }
 

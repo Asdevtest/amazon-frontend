@@ -99,6 +99,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   rightTwoStepWrapper: {
     width: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   checkboxWrapper: {
@@ -283,13 +286,17 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     // gap: '30px',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   checkboxProposalWrapper: {
     width: '375px !important',
-    margin: 0,
-  },
+    marginBottom: '0 !important',
 
+    height: 'fit-content',
+  },
+  checkboxProposalMarginTopWrapper: {
+    marginTop: 23,
+  },
   checkboxesWrapper: {
     width: '100%',
     display: 'flex',
@@ -582,5 +589,62 @@ export const useClassNames = makeStyles()(theme => ({
   },
   changePerformerBtn: {
     width: 190,
+  },
+
+  performerWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+  performerAndButtonSubWrapper: {
+    display: 'flex',
+
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  performerAndButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'space-between',
+    justifyContent: 'flex-end',
+
+    width: 378,
+
+    gap: 20,
+  },
+  userInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+  cardImg: {
+    width: 28,
+    height: 28,
+  },
+  nameWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  performerDescriptionText: {
+    maxHeight: 76,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  performerWrapperStepTwo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  nameWrapperStepTwo: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
 }))
