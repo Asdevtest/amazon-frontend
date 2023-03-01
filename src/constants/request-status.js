@@ -27,6 +27,29 @@ export const RequestStatus = {
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
 }
 
+export const colorByRequestStatus = status => {
+  if ([RequestStatus.DRAFT].includes(status)) {
+    return '#006CFF'
+  } else if (
+    [
+      RequestStatus.CANCELED_BY_CREATOR,
+      RequestStatus.FORBID_NEW_PROPOSALS,
+      RequestStatus.CANCELED_BY_ADMIN,
+      RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
+    ].includes(status)
+  ) {
+    return '#FF1616'
+  } else if ([RequestStatus.IN_PROCESS].includes(status)) {
+    return '#00B746'
+  } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+    return '#F3AF00'
+  } else if ([RequestStatus.EXPIRED].includes(status)) {
+    return '#C4C4C4'
+  } else {
+    return 'black'
+  }
+}
+
 // DRAFT - черновик, заявка создана, но не опубликована
 // PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при
 // установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении.

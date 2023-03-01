@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -16,6 +17,8 @@ export class VacantRequestsViewModel {
   actionStatus = undefined
 
   nameSearchValue = ''
+
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   drawerOpen = false
 
@@ -69,6 +72,13 @@ export class VacantRequestsViewModel {
     }
   }
 
+  onClickTaskType(taskType) {
+    runInAction(() => {
+      this.selectedTaskType = taskType
+    })
+    this.getRequestsVacant()
+  }
+
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
@@ -86,13 +96,19 @@ export class VacantRequestsViewModel {
 
   async getRequestsVacant() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
+        typeTask: this.selectedTaskType,
+      })
 
       runInAction(() => {
         this.requests = result
       })
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.requests = []
+      })
     }
   }
 
