@@ -12,6 +12,8 @@ import {
   Input,
   InputAdornment,
   MenuItem,
+  Avatar,
+  Rating,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -33,6 +35,7 @@ import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
+import {UserLink} from '@components/user-link'
 
 import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
 import {
@@ -40,6 +43,7 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {shortAsin, clearEverythingExceptNumbers, replaceCommaByDot, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -94,6 +98,8 @@ export const CreateOrEditRequestContent = ({
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
+      announcementId: requestToEdit?.request.announcementId || '',
+
       discountedPrice: '',
     },
     details: {
@@ -139,6 +145,9 @@ export const CreateOrEditRequestContent = ({
         newFormFields[section][fieldName] = event.target.checked
       } else if (['title'].includes(fieldName)) {
         newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
+      } else if (['announcementId'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
+        setOpenModal(false)
       } else {
         newFormFields[section][fieldName] = event.target.value
       }
@@ -445,16 +454,47 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.checkboxAndButtonWrapper}>
-                  <Button
-                    variant={'contained'}
-                    className={classNames.changePerformerBtn}
-                    onClick={async () => {
-                      await onClickChoosePerformer()
-                      setOpenModal(true)
-                    }}
-                  >
-                    {t(TranslationKey['Change performer'])}
-                  </Button>
+                  <div className={classNames.performerAndButtonWrapper}>
+                    <div className={classNames.performerAndButtonSubWrapper}>
+                      {formFields.request.announcementId && (
+                        <div className={classNames.performerWrapper}>
+                          <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                          <div className={classNames.userInfo}>
+                            <Avatar
+                              src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                              className={classNames.cardImg}
+                            />
+
+                            <div className={classNames.nameWrapper}>
+                              <UserLink
+                                blackText
+                                name={formFields.request.announcementId.title}
+                                userId={formFields.request.announcementId._id}
+                              />
+                              <Rating disabled value={5} size="small" classes={classNames.rating} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <Button
+                        variant={'contained'}
+                        className={classNames.changePerformerBtn}
+                        onClick={async () => {
+                          await onClickChoosePerformer()
+                          setOpenModal(true)
+                        }}
+                      >
+                        {t(TranslationKey['Change performer'])}
+                      </Button>
+                    </div>
+                    {formFields.request.announcementId.description && (
+                      <div className={classNames.performerDescriptionWrapper}>
+                        <Typography className={classNames.performerDescriptionText}>
+                          {formFields.request.announcementId.description}
+                        </Typography>
+                      </div>
+                    )}
+                  </div>
 
                   <Field
                     oneLine
@@ -462,7 +502,9 @@ export const CreateOrEditRequestContent = ({
                       TranslationKey['After providing the result, the same performer may make a new proposal'],
                     )}
                     label={t(TranslationKey['Prohibit multiple performances by the same performer'])}
-                    containerClasses={classNames.checkboxProposalWrapper}
+                    containerClasses={cx(classNames.checkboxProposalWrapper, {
+                      [classNames.checkboxProposalMarginTopWrapper]: formFields.request.announcementId,
+                    })}
                     inputComponent={
                       <Checkbox
                         color="primary"
@@ -721,6 +763,29 @@ export const CreateOrEditRequestContent = ({
                       {formFields.request.restrictMoreThanOneProposalFromOneAssignee &&
                         t(TranslationKey['Multiple performances by the same performer are prohibited'])}
                     </Typography>
+
+                    <div className={classNames.performerWrapperStepTwo}>
+                      <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                      <div className={classNames.userInfo}>
+                        <Avatar
+                          src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                          className={classNames.cardImg}
+                        />
+
+                        <div className={classNames.nameWrapperStepTwo}>
+                          <UserLink
+                            blackText
+                            name={formFields.request.announcementId.title}
+                            userId={formFields.request.announcementId._id}
+                            customStyles={{maxWidth: 300}}
+                          />
+                          <Rating disabled value={5} size="small" classes={classNames.rating} />
+                        </div>
+                      </div>
+                      <Typography className={classNames.performerDescriptionText}>
+                        {formFields.request.announcementId.description}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
 
@@ -802,7 +867,11 @@ export const CreateOrEditRequestContent = ({
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
 
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
-        <ChoiceOfPerformerModal announcements={announcementsData} onClickThumbnail={onClickThumbnail} />
+        <ChoiceOfPerformerModal
+          announcements={announcementsData}
+          onClickThumbnail={onClickThumbnail}
+          onClickChooseBtn={onChangeField('request')('announcementId')}
+        />
       </Modal>
     </div>
   )

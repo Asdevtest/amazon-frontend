@@ -67,7 +67,7 @@ export const ServiceExchangeCard = ({service, onClickThumbnail, choose, onClickB
         </div>
       </div>
       <div className={classNames.buttonWrapper}>
-        <Button success={choose} className={cx(classNames.openBtn)} onClick={onClickButton}>
+        <Button success={choose} className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
           {choose ? t(TranslationKey.Choose) : t(TranslationKey.Open)}
         </Button>
       </div>
