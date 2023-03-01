@@ -130,8 +130,16 @@ export class MyServicesViewModel {
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
   }
 
+  onClickOpenButton(data) {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
+      data,
+    })
+  }
+
   onClickThumbnail(data) {
-    this.bigImagesOptions = data
+    runInAction(() => {
+      this.bigImagesOptions = data
+    })
     this.onTriggerOpenModal('showImageModal')
   }
 

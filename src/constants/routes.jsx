@@ -444,6 +444,13 @@ const RequestDetailCustomView = lazy(() =>
     default: module.RequestDetailCustomView,
   })),
 )
+
+const ServiceDetailsView = lazy(() =>
+  import('@views/shared/services-detail-view').then(module => ({
+    default: module.ServiceDetailsView,
+  })),
+)
+
 const SubUsersView = lazy(() =>
   import('@views/shared/sub-users-view/sub-users-view').then(module => ({default: module.SubUsersView})),
 )
@@ -1944,6 +1951,14 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Create service'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds',
+    component: ServiceDetailsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Service details'],
   },
 
   {

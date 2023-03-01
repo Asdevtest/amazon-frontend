@@ -28,15 +28,7 @@ export class CreateOrEditServicesViewRaw extends Component {
   })
 
   render() {
-    const {
-      progressValue,
-      showProgress,
-      requestToEdit,
-      drawerOpen,
-      onTriggerDrawerOpen,
-      onClickCreateOrEditBtn,
-      onClickBackBtn,
-    } = this.viewModel
+    const {drawerOpen, onTriggerDrawerOpen, onClickCreateOrEditBtn, onClickBackBtn} = this.viewModel
 
     const {classes: classNames} = this.props
 
