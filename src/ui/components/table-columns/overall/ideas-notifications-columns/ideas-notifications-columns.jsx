@@ -6,11 +6,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
-  NormDateCell,
   MultilineTextCell,
   UserLinkCell,
   NormalActionBtnCell,
   ProductAsinCell,
+  ShortDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -21,8 +21,8 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    renderCell: params => <ShortDateCell params={params} />,
+    width: 75,
     type: 'date',
   },
 
@@ -31,7 +31,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 325,
+    width: 200,
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey.View)}
@@ -54,8 +54,8 @@ export const ideasNotificationsViewColumns = handlers => [
 
   {
     field: 'createdByName',
-    headerName: t(TranslationKey['Created by']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+    headerName: t(TranslationKey['Updated by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Updated by'])} />,
 
     renderCell: params => (
       <UserLinkCell blackText name={params?.value} userId={params?.row?.originalData?.createdBy._id} />
@@ -74,7 +74,7 @@ export const ideasNotificationsViewColumns = handlers => [
         color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
       />
     ),
-    width: 200,
+    width: 120,
   },
 
   {
@@ -82,7 +82,8 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Name idea']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Name idea'])} />,
 
-    renderCell: params => <MultilineTextCell text={params?.row?.productName} />,
-    width: 200,
+    renderCell: params => <MultilineTextCell leftAlign text={params?.row?.productName} />,
+    // width: 200,
+    flex: 1,
   },
 ]

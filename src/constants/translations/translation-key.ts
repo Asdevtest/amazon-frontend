@@ -1784,7 +1784,7 @@ export enum TranslationKey {
   'Idea Status' = 'Idea Status',
   'Name idea' = 'Name idea',
   'Notifications on ideas' = 'Notifications on ideas',
-  // '' = '',
+  'Updated by' = 'Updated by',
   // '' = '',
   // '' = '',
   // '' = '',
