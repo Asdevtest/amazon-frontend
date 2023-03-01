@@ -226,6 +226,7 @@ export const navbarConfig = () => ({
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_PAYMENTS_CLIENT),
     },
+
     {
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
@@ -234,6 +235,7 @@ export const navbarConfig = () => ({
         {subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications'},
         {subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications'},
         {subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications'},
+        {subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications'},
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -651,6 +653,18 @@ export const navbarConfig = () => ({
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PAYMENTS_BUYER),
     },
+
+    {
+      icon: MyNotificationsIcon,
+      title: t(TranslationKey.Notifications),
+      route: '/buyer/notifications/ideas-notifications',
+      subtitles: [{subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications'}],
+      key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER),
+    },
+
     {
       icon: Message,
       title: t(TranslationKey.Messages),

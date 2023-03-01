@@ -59,6 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cardPadding: {
     padding: '16px',
+    backgroundColor: theme.palette.background.second,
   },
   checkboxContainer: {
     display: 'flex',

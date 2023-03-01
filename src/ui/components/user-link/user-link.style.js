@@ -58,5 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: 'min-content',
+    width: 'min-content',
   },
 }))

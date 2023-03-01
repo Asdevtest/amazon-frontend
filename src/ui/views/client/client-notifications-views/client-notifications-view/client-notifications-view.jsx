@@ -33,6 +33,7 @@ class ClientNotificationsViewRaw extends Component {
       onClickOrdersNotifications,
       onClickBoxesNotifications,
       onClickTariffsNotifications,
+      onClickIdeasNotifications,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -81,6 +82,18 @@ class ClientNotificationsViewRaw extends Component {
                   >
                     <div className={classNames.btnTextWrapper}>
                       <Typography className={classNames.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
+                      <ArrowRightAltIcon color="primary" />
+                    </div>
+                  </Button>
+
+                  <Button
+                    className={classNames.button}
+                    color="primary"
+                    variant="outlined"
+                    onClick={onClickIdeasNotifications}
+                  >
+                    <div className={classNames.btnTextWrapper}>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['On ideas'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>

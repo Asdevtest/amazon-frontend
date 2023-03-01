@@ -39,7 +39,7 @@ export class BuyerDashboardViewRaw extends Component {
     const {dashboardData, userInfo, drawerOpen, onTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
     const buyerButtonsRoutes = {
-      notifications: '',
+      notifications: 'notifications/ideas-notifications',
       messages: 'messages',
     }
     return (

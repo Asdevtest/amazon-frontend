@@ -27,6 +27,7 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
+import {IdeaSnack} from '@components/snacks/idea-snack'
 import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
 import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
@@ -52,7 +53,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
-  const {snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
+  const {role, snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
 
   const {enqueueSnackbar} = useSnackbar()
 
@@ -62,13 +63,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       !location.pathname.includes('/messages') &&
       !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE])
     ) {
-      console.log(
-        'snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]',
-        snackNotifications[snackNoticeKey.SIMPLE_MESSAGE],
-      )
+      // console.log(
+      //   'snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]',
+      //   snackNotifications[snackNoticeKey.SIMPLE_MESSAGE],
+      // )
       enqueueSnackbar('', {
         // persist: true,
-
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'right',
@@ -90,7 +90,6 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
     if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
       enqueueSnackbar('', {
         // persist: true,
-
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'right',
@@ -106,6 +105,26 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       })
 
       clearSnackNoticeByKey(snackNoticeKey.ORDER_DEADLINE)
+    }
+
+    if (snackNotifications[snackNoticeKey.IDEAS]) {
+      enqueueSnackbar('', {
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+
+        content: key => (
+          <IdeaSnack
+            id={key}
+            role={role}
+            autoHideDuration={25000}
+            noticeItem={snackNotifications[snackNoticeKey.IDEAS]}
+          />
+        ),
+      })
+
+      clearSnackNoticeByKey(snackNoticeKey.IDEAS)
     }
   }, [snackNotifications])
 

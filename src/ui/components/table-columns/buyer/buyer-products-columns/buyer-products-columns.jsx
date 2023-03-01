@@ -105,6 +105,23 @@ export const buyerProductsViewColumns = handlers => [
     type: 'number',
     minWidth: 150,
   },
+
+  {
+    field: 'ideaCount',
+    headerName: t(TranslationKey['Ideas to Check']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Ideas to Check'])}
+        // isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 100,
+    type: 'number',
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
+  },
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
