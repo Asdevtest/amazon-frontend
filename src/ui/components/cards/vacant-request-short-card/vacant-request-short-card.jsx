@@ -1,12 +1,26 @@
-import {Divider, Grid, Typography, Avatar} from '@mui/material'
+import {
+  /* Divider,  */
+  Grid,
+  Typography,
+  Avatar,
+} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
+import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
+import {colorByRequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+// import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -20,21 +34,33 @@ import {useClassNames} from './vacant-request-short-card.style'
 export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('item', item)
+
   return (
     <Grid item>
       <div className={classNames.cardWrapper}>
+        <div className={classNames.userInfoWrapper}>
+          <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+
+          <div className={classNames.nameRatingWrapper}>
+            <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
+
+            <Rating disabled value={item.createdBy.rating} />
+          </div>
+        </div>
+
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
         </div>
-        <div className={classNames.statusWrapper}>
+        {/* <div className={classNames.statusWrapper}>
           <Typography className={classNames.statusText}>{t(TranslationKey.Status)}</Typography>
           <MultilineRequestStatusCell status={item.status} />
-        </div>
+        </div> */}
 
-        <Divider orientation={'horizontal'} />
+        {/* <Divider orientation={'horizontal'} /> */}
 
         <div className={classNames.cardActionBlockWrapper}>
-          <div className={classNames.userInfoWrapper}>
+          {/* <div className={classNames.userInfoWrapper}>
             <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
             <div className={classNames.nameRatingWrapper}>
@@ -42,16 +68,117 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
 
               <Rating disabled value={item.createdBy.rating} />
             </div>
+          </div> */}
+
+          {/* <Divider orientation={'horizontal'} className={classNames.divider} /> */}
+
+          <div className={classNames.mainInfosWrapper}>
+            <div>
+              {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+                <Field
+                  labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.fieldContainer}
+                  label={t(TranslationKey['Product price'])}
+                  inputComponent={
+                    <div className={classNames.priceAmazonWrapper}>
+                      <Typography className={classNames.redText}>
+                        {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
+                      </Typography>
+
+                      <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(
+                        item.priceAmazon,
+                        2,
+                      )}`}</Typography>
+                    </div>
+                  }
+                />
+              ) : null}
+
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey['Request price'])}
+                inputComponent={
+                  <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+                }
+              />
+
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey.Time)}
+                inputComponent={
+                  <Typography className={classNames.cardTime}>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(
+                    TranslationKey.hour,
+                  )} `}</Typography>
+                }
+              />
+
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey.Updated)}
+                inputComponent={
+                  <Typography className={classNames.deadline}>
+                    {formatNormDateTimeWithParseISO(item.updatedAt)}
+                  </Typography>
+                }
+              />
+            </div>
+
+            <div>
+              {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+                <Field
+                  labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.fieldContainer}
+                  label={'CashBack'}
+                  inputComponent={
+                    <Typography className={classNames.deadline}>{item.cashBackInPercent + '%'}</Typography>
+                  }
+                />
+              ) : null}
+
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey.Status)}
+                inputComponent={
+                  <Typography className={classNames.deadline} style={{color: colorByRequestStatus(item.status)}}>
+                    {MyRequestStatusTranslate(item.status)}
+                  </Typography>
+                }
+              />
+
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey['Request type'])}
+                inputComponent={
+                  <Typography className={classNames.deadline}>
+                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+                  </Typography>
+                }
+              />
+              <Field
+                labelClasses={classNames.fieldLabel}
+                containerClasses={classNames.fieldContainer}
+                label={t(TranslationKey.Updated)}
+                inputComponent={
+                  <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
+                    item.timeoutAt,
+                  )}`}</Typography>
+                }
+              />
+            </div>
           </div>
 
-          <Divider orientation={'horizontal'} className={classNames.divider} />
-
-          <div className={classNames.timeInfoWrapper}>
+          {/* <div className={classNames.timeInfoWrapper}>
             <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
             <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
               item.timeoutAt,
             )}`}</Typography>
           </div>
+
           <div className={classNames.timeWrapper}>
             <div className={classNames.updatedAtWrapper}>
               <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated)}</Typography>
@@ -64,7 +191,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
               item.timeLimitInMinutes / 60,
               2,
             )} ${t(TranslationKey.hour)} `}</Typography>
-          </div>
+          </div> */}
 
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}

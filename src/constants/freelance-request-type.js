@@ -4,6 +4,7 @@ import {t} from '@utils/translations'
 import {TranslationKey} from './translations/translation-key'
 
 export const freelanceRequestType = {
+  DEFAULT: 'DEFAULT',
   DESIGNER: 'DESIGNER',
   SEO: 'SEO',
   BLOGGER: 'BLOGER',
@@ -11,6 +12,7 @@ export const freelanceRequestType = {
 }
 
 export const freelanceRequestTypeByCode = {
+  0: freelanceRequestType.DEFAULT,
   10: freelanceRequestType.DESIGNER,
   20: freelanceRequestType.SEO,
   30: freelanceRequestType.BLOGGER,
@@ -21,6 +23,8 @@ export const freelanceRequestTypeByKey = objectFlip(freelanceRequestTypeByCode, 
 
 export const freelanceRequestTypeTranslate = type => {
   switch (type) {
+    case freelanceRequestType.DEFAULT:
+      return t(TranslationKey.All)
     case freelanceRequestType.DESIGNER:
       return t(TranslationKey.Designer)
     case freelanceRequestType.SEO:
