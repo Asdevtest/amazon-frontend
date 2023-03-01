@@ -88,9 +88,7 @@ export const myRequestsViewColumns = () => [
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
-    renderCell: params => (
-      <MultilineTextCell text={`${params.value} / ${params.row.originalData.maxAmountOfProposals} `} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
   },
 
@@ -117,7 +115,7 @@ export const myRequestsViewColumns = () => [
     headerName: t(TranslationKey['Waiting check']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting check'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell illuminationCell text={params.value} />,
     width: 85,
   },
 
