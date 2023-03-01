@@ -15,11 +15,17 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBoxesReadyToBatchViewColumns = () => [
+export const clientBoxesReadyToBatchViewColumns = (/* columnMenuSettings, onHover */) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ID)}
+        // isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -39,18 +45,28 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Product)}
+        // isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     width: 400,
     renderCell: params =>
-      params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+      params.row.originalData ? (
+        params.row.originalData.items.length > 1 ? (
+          <OrderManyItemsCell box={params.row.originalData} />
+        ) : (
+          <OrderCell
+            box={params.row.originalData}
+            product={params.row.originalData.items[0].product}
+            superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          />
+        )
       ) : (
-        <OrderCell
-          box={params.row.originalData}
-          product={params.row.originalData.items[0].product}
-          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-        />
+        ''
       ),
     filterable: false,
     sortable: false,

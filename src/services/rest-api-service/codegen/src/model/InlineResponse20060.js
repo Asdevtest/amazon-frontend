@@ -56,6 +56,9 @@ class InlineResponse20060 {
             if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
                 obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
             }
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            }
         }
         return obj;
     }
@@ -80,6 +83,12 @@ InlineResponse20060.prototype['volumeWeightCoefficient'] = undefined;
  * @member {Number} requestMinAmountPriceOfProposal
  */
 InlineResponse20060.prototype['requestMinAmountPriceOfProposal'] = undefined;
+
+/**
+ * Комиссия за оплату предложения
+ * @member {Number} requestPlatformMarginInPercent
+ */
+InlineResponse20060.prototype['requestPlatformMarginInPercent'] = undefined;
 
 
 

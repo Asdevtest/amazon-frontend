@@ -56,7 +56,7 @@ export class ClientReadyBoxesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBoxesReadyToBatchViewColumns()
+  columnsModel = [...clientBoxesReadyToBatchViewColumns()]
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -87,7 +87,7 @@ export class ClientReadyBoxesViewModel {
       () => this.boxesMy,
       () => {
         runInAction(() => {
-          this.currentData = this.getCurrentData()
+          this.currentData = [...this.getCurrentData()].slice()
         })
       },
     )
@@ -95,16 +95,20 @@ export class ClientReadyBoxesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      const res = await UserModel.getPlatformSettings()
+      // const res = await UserModel.getPlatformSettings()
 
-      runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, res.volumeWeightCoefficient)
-      })
+      // runInAction(() => {
+      //   this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, res.volumeWeightCoefficient)
+      // })
 
       this.getDataGridState()
     }
 
-    this.columnsModel = clientBoxesReadyToBatchViewColumns()
+    // runInAction(() => {
+    //   this.currentData = [...this.getCurrentData()].slice()
+    // })
+
+    // this.columnsModel = [...clientBoxesReadyToBatchViewColumns()].slice()
   }
 
   onChangeFilterModel(model) {
@@ -142,7 +146,7 @@ export class ClientReadyBoxesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientBoxesReadyToBatchViewColumns().map(el => ({
+        this.columnsModel = [...clientBoxesReadyToBatchViewColumns()].map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))

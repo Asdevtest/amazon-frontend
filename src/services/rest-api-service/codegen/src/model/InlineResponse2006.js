@@ -279,6 +279,9 @@ class InlineResponse2006 {
             if (data.hasOwnProperty('fbaFbmStockSum')) {
                 obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
             }
+            if (data.hasOwnProperty('ideaCount')) {
+                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
             }
@@ -735,6 +738,11 @@ InlineResponse2006.prototype['sentToFbaSum'] = undefined;
  * @member {Number} fbaFbmStockSum
  */
 InlineResponse2006.prototype['fbaFbmStockSum'] = undefined;
+
+/**
+ * @member {Number} ideaCount
+ */
+InlineResponse2006.prototype['ideaCount'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
