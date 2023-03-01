@@ -76,6 +76,7 @@ export const AdminUserEditContent = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
+
     const [selectedRole, setSelectedRole] = useState('')
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
     const [clearSelect, setClearSelect] = useState(false)
@@ -590,7 +591,9 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {formFields.allowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
+            {(formFields.allowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
+              selectedAllowedRoles.some(item => `${item}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) ||
+              `${formFields.role}` === `${mapUserRoleEnumToKey[UserRole.FREELANCER]}`) && (
               <Field
                 label={t(TranslationKey['User specialties'])}
                 containerClasses={classNames.allowedStrategiesContainer}
