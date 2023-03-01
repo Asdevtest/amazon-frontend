@@ -210,7 +210,7 @@ export class ClientReadyBoxesViewRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
                   pagination
-                  useResizeContainer
+                  // useResizeContainer
                   checkboxSelection
                   localeText={getLocalizationByLanguageTag()}
                   classes={{

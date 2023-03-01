@@ -80,6 +80,7 @@ Name | Type | Description | Notes
 **reservedSum** | **Number** |  | [optional] 
 **sentToFbaSum** | **Number** |  | [optional] 
 **fbaFbmStockSum** | **Number** |  | [optional] 
+**ideaCount** | **Number** |  | [optional] 
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 **productsInWarehouse** | **[Object]** |  | [optional] 

@@ -25,6 +25,7 @@ export const MemoDataGrid = observer(({...restProps}) => {
       restProps.selectionModel,
       restProps.componentsProps?.columnMenu,
       SettingsModel.uiTheme,
+      SettingsModel.languageTag,
     ],
   )
 

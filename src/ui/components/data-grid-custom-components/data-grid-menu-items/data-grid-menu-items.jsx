@@ -1115,7 +1115,7 @@ export const NumberFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
+            .filter(el => el || el === 0 || el === '0')
             .sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
@@ -1237,7 +1237,20 @@ export const InStockMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const {filterData, currentFilterData} = data
+      const newData = {
+        ...data,
+        filterData: data.filterData
+          .slice()
+          .filter(el => el)
+          .sort(
+            (a, b) =>
+              Number(data.currentFilterData?.some(item => item._id === b._id)) -
+                Number(data.currentFilterData?.some(item => item._id === a._id)) ||
+              Number(b.amountInBoxes) - Number(a.amountInBoxes),
+          ),
+      }
+
+      const {filterData, currentFilterData} = newData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1261,17 +1274,17 @@ export const InStockMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData
-            .filter(el => el)
-            .sort(
-              (a, b) =>
-                Number(choosenItems?.some(item => item._id === b._id)) -
-                  Number(choosenItems?.some(item => item._id === a._id)) ||
-                Number(b.amountInBoxes) - Number(a.amountInBoxes),
-            ),
+          filterData,
+          // .filter(el => el)
+          // .sort(
+          //   (a, b) =>
+          //     Number(choosenItems?.some(item => item._id === b._id)) -
+          //       Number(choosenItems?.some(item => item._id === a._id)) ||
+          //     Number(b.amountInBoxes) - Number(a.amountInBoxes),
+          // ),
         )
-        setCurrentOption(currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
-      }, [filterData])
+        setCurrentOption(data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
+      }, [data.filterData])
 
       useEffect(() => {
         const filter = filterData?.filter(
@@ -1284,7 +1297,7 @@ export const InStockMenuItem = React.memo(
             item.storekeeper.name === currentOption,
         )
         setItemsForRender(filter)
-      }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, filterData])
+      }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, data.filterData])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1297,7 +1310,7 @@ export const InStockMenuItem = React.memo(
                 value={currentOption}
                 onChange={e => {
                   setCurrentOption(e.target.value)
-                  onChangeFullFieldMenuItem([], 'boxAmounts')
+                  setChoosenItems([])
                 }}
               >
                 {storekepeers.map((el, index) => (
@@ -1351,10 +1364,10 @@ export const InStockMenuItem = React.memo(
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item._id === b._id)) -
-                        //       Number(choosenItems?.some(item => item._id === a._id)) ||
-                        //     Number(b.amountInBoxes) - Number(a.amountInBoxes),
+                        // (a, b) =>
+                        // Number(choosenItems?.some(item => item._id === b._id)) -
+                        //   Number(choosenItems?.some(item => item._id === a._id)) ||
+                        // Number(b.amountInBoxes) - Number(a.amountInBoxes),
                         // )
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
@@ -1363,7 +1376,9 @@ export const InStockMenuItem = React.memo(
                               checked={choosenItems?.some(item => item._id === el._id)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el.amountInBoxes || t(TranslationKey.Empty)}</div>
+                            <div className={classNames.shopName}>
+                              {el.amountInBoxes /* || t(TranslationKey.Empty) */}
+                            </div>
                           </div>
                         ))}
                     </>
