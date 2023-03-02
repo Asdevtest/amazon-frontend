@@ -493,6 +493,8 @@ export class ClientInStockBoxesViewModel {
 
       this.getBoxesMy()
 
+      // this.loadData()
+
       !inModal && this.onTriggerOpenModal('showBoxViewModal')
 
       runInAction(() => {
@@ -855,6 +857,7 @@ export class ClientInStockBoxesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
       await this.getStorekeepers()
       await this.getClientDestinations()
 
@@ -863,7 +866,7 @@ export class ClientInStockBoxesViewModel {
       await this.getDestinations()
       await this.getBoxesMy()
       this.getTasksMy()
-      this.getDataGridState()
+      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

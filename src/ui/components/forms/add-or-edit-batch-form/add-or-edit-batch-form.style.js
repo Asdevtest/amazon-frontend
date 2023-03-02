@@ -34,7 +34,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     position: 'absolute',
     top: 0,
-    right: 0,
+    right: 20,
+
+    // backgroundColor: 'red',
+    zIndex: 999,
 
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
@@ -68,6 +71,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '10px',
     height: 450,
     overflow: 'auto',
+    position: 'relative',
   },
 
   chosenGoodsTitle: {

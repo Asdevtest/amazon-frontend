@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './search-input.style'
 
-export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmit, startText}) => {
+export const SearchInput = ({disabled, value, onChange, placeholder, inputClasses, onSubmit, startText}) => {
   const {classes: classNames} = useClassNames()
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
@@ -49,6 +49,7 @@ export const SearchInput = ({value, onChange, placeholder, inputClasses, onSubmi
 
   return (
     <Input
+      disabled={disabled}
       className={cx(classNames.input, inputClasses)}
       value={onSubmit ? internalValue : value}
       placeholder={placeholder}

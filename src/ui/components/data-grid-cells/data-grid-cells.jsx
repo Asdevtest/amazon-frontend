@@ -427,6 +427,10 @@ export const ChangeInputCell = React.memo(
     const [value, setValue] = useState(sourceValue)
     const defaultValue = sourceValue
 
+    useEffect(() => {
+      setValue(sourceValue)
+    }, [text])
+
     const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
     const [isShow, setShow] = useState(false)

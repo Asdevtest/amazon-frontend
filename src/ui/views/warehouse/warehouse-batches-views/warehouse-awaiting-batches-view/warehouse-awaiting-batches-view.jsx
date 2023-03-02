@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
@@ -42,6 +43,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      showCircularProgress,
       userInfo,
       warningInfoModalSettings,
       nameSearchValue,
@@ -199,7 +201,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
             progressValue={progressValue}
@@ -211,7 +212,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
             onSubmit={onSubmitAddOrEditBatch}
           />
         </Modal>
-
         <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
           <EditHSCodeModal
             hsCodeData={hsCodeData}
@@ -219,7 +219,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
             onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
           />
         </Modal>
-
         <ConfirmationModal
           isWarning={isWarning}
           openModal={showConfirmModal}
@@ -231,7 +230,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
           onClickSuccessBtn={onClickConfirmSendToBatchBtn}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
-
         <BatchInfoModal
           volumeWeightCoefficient={volumeWeightCoefficient}
           openModal={showBatchInfoModal}
@@ -241,7 +239,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
           onSubmitChangeBoxFields={onSubmitChangeBoxFields}
           onClickHsCode={onClickHsCode}
         />
-
         <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}
           openModal={showWarningInfoModal}
@@ -252,6 +249,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
             onTriggerOpenModal('showWarningInfoModal')
           }}
         />
+
+        {showCircularProgress ? <CircularProgressWithLabel /> : null}
       </React.Fragment>
     )
   }

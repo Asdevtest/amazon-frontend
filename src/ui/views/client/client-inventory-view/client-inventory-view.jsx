@@ -201,7 +201,7 @@ export class ClientInventoryViewRaw extends Component {
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.shopsFiltersWrapper}>
-                  <WithSearchSelect
+                  {/* <WithSearchSelect
                     checkbox
                     notCloseOneClick
                     currentShops={currentShops}
@@ -210,7 +210,7 @@ export class ClientInventoryViewRaw extends Component {
                       (currentShops?.length && currentShops?.map(shop => shop.name).join(', '))
                     }
                     // Расскоментировать если нужно будет убрать из списка магазинов выбранные мазин
-                    data={shopsData /* .filter(shop => currentShop?.id !== shop._id) */}
+                    data={shopsData.filter(shop => currentShop?.id !== shop._id)}
                     searchFields={['name']}
                     firstItems={
                       <>
@@ -222,13 +222,13 @@ export class ClientInventoryViewRaw extends Component {
                             color="primary"
                             onClick={() => onClickShopBtn('ALL')}
                           >
-                            {t(TranslationKey['All Products'])}
+                            {t(TranslationKey['Without stores'])}
                           </Button>
                         )}
                       </>
                     }
                     onClickSelect={shop => onClickShopBtn(shop)}
-                  />
+                  /> */}
 
                   <SearchInput
                     key={'client_inventory_search_input'}
