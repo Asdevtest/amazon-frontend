@@ -22,10 +22,11 @@ class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
      * @alias module:model/InlineObject36
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject36.initialize(this);
+        InlineObject36.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
