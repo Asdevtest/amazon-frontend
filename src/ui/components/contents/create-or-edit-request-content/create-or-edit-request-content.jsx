@@ -303,7 +303,10 @@ export const CreateOrEditRequestContent = ({
                       labelClasses={classNames.spanLabelSmall}
                       value={toFixed(formFields.request.discountedPrice, 2)}
                       onChange={e => {
-                        if (formFields.request.priceAmazon && Number(e.target.value) < formFields.request.priceAmazon) {
+                        if (
+                          formFields.request.priceAmazon &&
+                          Number(e.target.value) <= formFields.request.priceAmazon
+                        ) {
                           onChangeField('request')('discountedPrice')(e)
                         }
                       }}
