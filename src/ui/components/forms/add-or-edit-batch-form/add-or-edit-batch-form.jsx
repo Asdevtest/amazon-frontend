@@ -543,6 +543,19 @@ export const AddOrEditBatchForm = observer(
                 //     </Typography>
                 //   </div>
                 // ),
+                Footer: () => (
+                  <div className={classNames.boxCounterWrapper}>
+                    <Typography className={classNames.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes']) + ':'}
+                    </Typography>
+                    <Typography className={classNames.boxCounterCount}>
+                      {boxesToAddData
+                        // Убрать
+                        // .filter(el => boxesToAddIds.includes(el._id))
+                        .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -642,6 +655,16 @@ export const AddOrEditBatchForm = observer(
                 //     </Typography>
                 //   </div>
                 // ),
+                Footer: () => (
+                  <div className={classNames.boxCounterWrapper}>
+                    <Typography className={classNames.boxCounterText}>
+                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                    </Typography>
+                    <Typography className={classNames.boxCounterCount}>
+                      {chosenBoxes.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                    </Typography>
+                  </div>
+                ),
               }}
               classes={{
                 root: classNames.rootDataGrid,
