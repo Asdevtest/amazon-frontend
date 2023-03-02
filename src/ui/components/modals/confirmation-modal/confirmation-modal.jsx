@@ -13,6 +13,7 @@ export const ConfirmationModal = ({
   setOpenModal,
   title,
   message,
+  smallMessage,
   isWarning,
   successBtnText,
   cancelBtnText,
@@ -59,6 +60,14 @@ export const ConfirmationModal = ({
         <Typography paragraph className={cx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
           {message}
         </Typography>
+
+        <Typography
+          paragraph
+          className={cx(classNames.modalSmallMessage, {[classNames.warningModalMessage]: isWarning})}
+        >
+          {smallMessage}
+        </Typography>
+
         <div className={cx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
           {isWarning ? (
             <Button

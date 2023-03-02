@@ -26,6 +26,8 @@ export class OwnerRequestDetailCustomViewModel {
   showAcceptMessage = undefined
   acceptMessage = undefined
 
+  platformSettings = null
+
   showConfirmModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
@@ -36,6 +38,7 @@ export class OwnerRequestDetailCustomViewModel {
   confirmModalSettings = {
     isWarning: false,
     message: '',
+    smallMessage: '',
     onSubmit: () => {},
   }
 
@@ -219,10 +222,13 @@ export class OwnerRequestDetailCustomViewModel {
 
   async getCustomProposalsForRequestCur() {
     try {
+      this.platformSettings = await UserModel.getPlatformSettings()
+
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
 
       runInAction(() => {
         this.requestProposals = result
+        console.log('this.requestProposals', this.requestProposals)
       })
     } catch (error) {
       console.log(error)
@@ -289,9 +295,12 @@ export class OwnerRequestDetailCustomViewModel {
       this.confirmModalSettings = {
         isWarning: false,
         message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(
-          price,
+          price + price * (this.platformSettings.requestPlatformMarginInPercent / 100),
           2,
         )} $. ${t(TranslationKey.Continue)} ?`,
+        smallMessage: `${t(TranslationKey['This amount includes the service fee'])} ${
+          this.platformSettings.requestPlatformMarginInPercent
+        }% (${price * (this.platformSettings.requestPlatformMarginInPercent / 100)}$)`,
         onSubmit: () => this.onClickAcceptProposal(proposalId),
       }
     })
