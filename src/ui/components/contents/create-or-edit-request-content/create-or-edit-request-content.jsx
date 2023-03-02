@@ -186,7 +186,7 @@ export const CreateOrEditRequestContent = ({
 
   const disableSubmit =
     formFields.request.title === '' ||
-    formFields.request.title.length > 80 ||
+    formFields.request.title.length > 100 ||
     formFields.request.maxAmountOfProposals === '' ||
     formFields.request.timeLimitInMinutes === '' ||
     formFields.request.price === '' ||
@@ -491,10 +491,11 @@ export const CreateOrEditRequestContent = ({
                           </div>
                         )}
                         <Button
+                          disabled={!formFields.request.typeTask}
                           variant={'contained'}
                           className={classNames.changePerformerBtn}
                           onClick={async () => {
-                            await onClickChoosePerformer()
+                            await onClickChoosePerformer(formFields.request.typeTask)
                             setOpenModal(true)
                           }}
                         >

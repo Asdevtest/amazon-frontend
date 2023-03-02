@@ -1820,7 +1820,7 @@ export enum TranslationKey {
   'Choice of Performer' = 'Choice of Performer',
   'Select a Performer' = 'Select a Performer',
   'Product price' = 'Product price',
-  // '' = '',
+  'Max 100 characters' = 'Max 100 characters',
   // '' = '',
   // '' = '',
   // '' = '',
