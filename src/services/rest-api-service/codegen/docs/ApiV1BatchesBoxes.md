@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 **storekeeperId** | **String** | Сторкипер взявший коробку в работу. | [optional] 
 **clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 
 **createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 

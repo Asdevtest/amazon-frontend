@@ -15,6 +15,7 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
+import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
@@ -95,9 +96,20 @@ export const BoxViewForm = observer(
     return (
       <div className={classNames.formContainer}>
         <div className={classNames.titleWrapper}>
-          <Typography variant="h6" className={classNames.title}>{`${t(TranslationKey.Box)} № ${
-            box.humanFriendlyId
-          }`}</Typography>
+          <div className={classNames.titleSubWrapper}>
+            <Typography variant="h6" className={classNames.title}>{`${t(TranslationKey.Box)} № ${
+              box.humanFriendlyId
+            } / ID:`}</Typography>
+
+            <Input
+              disabled={!(isClient || isStorekeeper)}
+              className={classNames.itemInput}
+              classes={{input: classNames.input}}
+              inputProps={{maxLength: 9}}
+              value={formFields.prepId}
+              onChange={onChangeField('prepId')}
+            />
+          </div>
 
           <div className={classNames.titleSubWrapper}>
             <div className={classNames.storekeeperFieldWrapper}>

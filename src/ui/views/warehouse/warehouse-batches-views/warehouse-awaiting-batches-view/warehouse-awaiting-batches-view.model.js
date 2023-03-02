@@ -212,6 +212,7 @@ export class WarehouseAwaitingBatchesViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
         upsTrackNumber: data.upsTrackNumber,
+        prepId: data.prepId,
       })
 
       await this.loadData()

@@ -197,6 +197,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesPagClientsLightGet**](docs/BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
 *TestSwagger.BoxesApi* | [**apiV1BoxesPost**](docs/BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
+*TestSwagger.BoxesApi* | [**apiV1BoxesPrepIdPatch**](docs/BoxesApi.md#apiV1BoxesPrepIdPatch) | **PATCH** /api/v1/boxes/prep_id | # Изменить поле prepId
 *TestSwagger.BoxesApi* | [**apiV1BoxesSplitPost**](docs/BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersGuidPatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersGuidSetItemsBarCodePatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidSetItemsBarCodePatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_itemsBarCode | # Изменить чекбоксы баркода.
@@ -518,6 +519,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject112](docs/InlineObject112.md)
  - [TestSwagger.InlineObject113](docs/InlineObject113.md)
  - [TestSwagger.InlineObject114](docs/InlineObject114.md)
+ - [TestSwagger.InlineObject115](docs/InlineObject115.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)

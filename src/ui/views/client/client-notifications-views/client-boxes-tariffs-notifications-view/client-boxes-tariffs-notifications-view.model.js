@@ -144,6 +144,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        prepId: data.prepId,
       })
 
       // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))

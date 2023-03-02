@@ -559,7 +559,7 @@ export const IdeaViewAndEditCard = observer(
                       checkIsSupervisor(UserRoleCodeMap[curUser.role]) ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button
-                            disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                            disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied' */}
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
                             className={classNames.iconBtn}
                             onClick={() => onClickSupplierBtns('view')}

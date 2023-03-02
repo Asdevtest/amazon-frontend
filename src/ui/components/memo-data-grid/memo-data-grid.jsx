@@ -29,6 +29,8 @@ export const MemoDataGrid = observer(({...restProps}) => {
     ],
   )
 
+  // console.log('result', result)
+
   return <>{result}</>
 })
 
