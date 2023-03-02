@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: '320px',
+    height: 400,
     borderRadius: '4px',
 
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -35,11 +35,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
-    maxWidth: '420px',
-    height: 50,
-    marginBottom: '10px',
+    maxWidth: 460,
+    minHeight: 15,
+    // marginBottom: '10px',
     textOverflow: 'ellipsis',
-    overflow: 'auto',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
   },
 
   cardDescription: {
@@ -62,9 +63,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   proposalComment: {
     marginTop: '30px',
-    marginBottom: '39px',
-    overflow: 'auto',
-    maxHeight: '90px',
+    marginBottom: '20px',
+    overflowY: 'auto',
+    height: 150,
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
 
     color: theme.palette.text.second,
   },
@@ -87,7 +90,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   proposalWrapper: {
     width: '100%',
-    minHeight: '250px',
+    minHeight: '300px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -288,5 +291,42 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: '293px',
     marginTop: '20px',
     marginBottom: '20px',
+  },
+
+  cardTitleBlockSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+    whiteSpace: 'nowrap',
+  },
+
+  rightLieldLabel: {
+    textAlign: 'right',
+    justifySelf: 'end',
+    margin: '0 0 12px auto !important',
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '25px !important',
+
+    width: 'min-content',
+
+    '&:last-child': {
+      marginBottom: '0px !important',
+    },
   },
 }))

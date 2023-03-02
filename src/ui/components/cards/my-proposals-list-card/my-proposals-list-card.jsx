@@ -1,8 +1,10 @@
+import {cx} from '@emotion/css'
 import {Grid, Typography, Avatar, Divider} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {
   RequestProposalStatus,
   RequestProposalStatusColor,
@@ -41,6 +43,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.EXPIRED,
   ]
 
+  console.log('item', item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -73,12 +77,35 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
             containerClasses={classNames.conditionsField}
           />
 
-          <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
+          <div className={classNames.cardTitleBlockSubWrapper}>
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey['Request type'])}
+              inputComponent={
+                <Typography className={classNames.accentText}>
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+                </Typography>
+              }
+            />
 
-            <Typography className={classNames.updatedAtText}>
-              {formatNormDateTimeWithParseISO(item.updatedAt)}
-            </Typography>
+            <Field
+              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey.Updated)}
+              inputComponent={
+                <Typography className={classNames.accentText}>
+                  {formatNormDateTimeWithParseISO(item.updatedAt)}
+                </Typography>
+              }
+            />
+            {/* <div className={classNames.updatedAtWrapper}>
+              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
+
+              <Typography className={classNames.updatedAtText}>
+                {formatNormDateTimeWithParseISO(item.updatedAt)}
+              </Typography>
+            </div> */}
           </div>
         </div>
 
