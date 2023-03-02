@@ -72,6 +72,7 @@ const filtersFields = [
   'createdAt',
   'updatedAt',
   'amount',
+  'prepId',
 ]
 
 export class ClientInStockBoxesViewModel {
@@ -200,6 +201,8 @@ export class ClientInStockBoxesViewModel {
     onSelectDestination: (id, boxData) => this.editDestination(id, boxData),
     setShowSelectionStorekeeperAndTariffModal: () => this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal'),
     onClickSetTariff: item => this.setChangeItem(item),
+
+    onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
   }
 
   setChangeItem(item) {
@@ -803,6 +806,18 @@ export class ClientInStockBoxesViewModel {
         },
       }
     })
+  }
+
+  async onClickSavePrepId(item, value) {
+    try {
+      await BoxesModel.editAdditionalInfo(item._id, {
+        prepId: value,
+      })
+
+      this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onCloseShippingLabelModal() {
@@ -1727,7 +1742,7 @@ export class ClientInStockBoxesViewModel {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
+      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
@@ -1798,6 +1813,7 @@ export class ClientInStockBoxesViewModel {
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
 
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
+    const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -1850,6 +1866,10 @@ export class ClientInStockBoxesViewModel {
 
       ...(amountFilter && {
         amount: {$eq: amountFilter},
+      }),
+
+      ...(prepIdFilter && {
+        prepId: {$eq: prepIdFilter},
       }),
     })
 

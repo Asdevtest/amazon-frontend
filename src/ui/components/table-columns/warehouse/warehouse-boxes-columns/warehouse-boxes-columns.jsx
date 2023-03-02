@@ -11,6 +11,7 @@ import {
   UserLinkCell,
   WarehouseBoxesBtnsCell,
   OrdersIdsItemsCell,
+  ChangeInputCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -146,5 +147,29 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'prepId',
+    headerName: 'PREP ID',
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={'PREP ID'}
+        // isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => (
+      <ChangeInputCell
+        maxLength={11}
+        row={params.row.originalData}
+        text={params.value}
+        onClickSubmit={handlers.onClickSavePrepId}
+      />
+    ),
+    width: 170,
+
+    // columnKey: columnnsKeys.shared.STRING,
   },
 ]

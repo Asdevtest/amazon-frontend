@@ -18,6 +18,7 @@ import {
   CheckboxCell,
   WarehouseDestinationAndTariffCell,
   ShopsDataCell,
+  ChangeInputCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
@@ -314,6 +315,30 @@ export const clientBoxesViewColumns = (
       ),
     width: 210,
     sortable: false,
+  },
+
+  {
+    field: 'prepId',
+    headerName: 'PREP ID',
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={'PREP ID'}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => (
+      <ChangeInputCell
+        maxLength={11}
+        row={params.row.originalData}
+        text={params.value}
+        onClickSubmit={handlers.onClickSavePrepId}
+      />
+    ),
+    width: 170,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

@@ -149,7 +149,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
-                  disableVirtualization
+                  // disableVirtualization
                   checkboxSelection
                   pagination
                   localeText={getLocalizationByLanguageTag()}

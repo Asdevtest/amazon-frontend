@@ -47,14 +47,8 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -64,22 +58,10 @@ class InlineObject85 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject85.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
- * @member {String} reason
- */
-InlineObject85.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject85.prototype['linksToMediaFiles'] = undefined;
+InlineObject85.prototype['shopIds'] = undefined;
 
 
 

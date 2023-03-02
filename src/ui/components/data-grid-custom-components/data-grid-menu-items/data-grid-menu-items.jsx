@@ -204,6 +204,7 @@ export const ObJectFieldMenuItem = React.memo(
       data,
       field,
       filterRequestStatus,
+      addNullObj,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -232,12 +233,13 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData
+          [...filterData, ...[addNullObj && {name: t(TranslationKey['Without stores']), _id: 'null'}]]
             .filter(el => el)
             .sort(
               (a, b) =>
+                Number(b._id === 'null') - Number(a._id === 'null') ||
                 Number(choosenItems?.some(item => item._id === b._id)) -
-                Number(choosenItems?.some(item => item._id === a._id)),
+                  Number(choosenItems?.some(item => item._id === a._id)),
             ),
         )
       }, [filterData])

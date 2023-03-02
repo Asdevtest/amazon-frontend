@@ -370,6 +370,8 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
 
+    prepId: item.prepId,
+
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
@@ -705,6 +707,8 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     updatedAt: item.updatedAt,
     batchId: item.batch?.humanFriendlyId,
     volumeWeightCoefficient,
+
+    prepId: item.prepId,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
       .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')

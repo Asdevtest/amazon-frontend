@@ -105,7 +105,7 @@ export const BoxViewForm = observer(
               disabled={!(isClient || isStorekeeper)}
               className={classNames.itemInput}
               classes={{input: classNames.input}}
-              inputProps={{maxLength: 9}}
+              inputProps={{maxLength: 12}}
               value={formFields.prepId}
               onChange={onChangeField('prepId')}
             />

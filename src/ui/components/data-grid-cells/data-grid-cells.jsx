@@ -421,7 +421,7 @@ export const HsCodeCell = React.memo(
 )
 
 export const ChangeInputCell = React.memo(
-  withStyles(({classes: classNames, row, onClickSubmit, text, disabled, isInts}) => {
+  withStyles(({classes: classNames, row, onClickSubmit, text, disabled, isInts, maxLength}) => {
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
@@ -456,7 +456,7 @@ export const ChangeInputCell = React.memo(
 
           className={classNames.changeInput}
           classes={{input: classNames.changeInput}}
-          inputProps={{maxLength: 7}}
+          inputProps={{maxLength: maxLength ? maxLength : 7}}
           value={value}
           endAdornment={
             <InputAdornment position="start">
