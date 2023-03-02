@@ -45,6 +45,8 @@ export class WarehouseAwaitingBatchesViewModel {
 
   showWarningInfoModal = false
 
+  showCircularProgress = false
+
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -341,6 +343,8 @@ export class WarehouseAwaitingBatchesViewModel {
         if (setting.isAdding) {
           this.selectedBatches = []
         }
+
+        this.showCircularProgress = true
       })
 
       const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
@@ -351,6 +355,8 @@ export class WarehouseAwaitingBatchesViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.boxesData = boxes
+
+        this.showCircularProgress = false
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
@@ -358,6 +364,7 @@ export class WarehouseAwaitingBatchesViewModel {
       console.log(error)
       runInAction(() => {
         this.error = error
+        this.showCircularProgress = false
       })
     }
   }
