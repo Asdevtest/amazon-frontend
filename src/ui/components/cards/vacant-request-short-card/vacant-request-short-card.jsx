@@ -52,26 +52,8 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
         </div>
-        {/* <div className={classNames.statusWrapper}>
-          <Typography className={classNames.statusText}>{t(TranslationKey.Status)}</Typography>
-          <MultilineRequestStatusCell status={item.status} />
-        </div> */}
-
-        {/* <Divider orientation={'horizontal'} /> */}
 
         <div className={classNames.cardActionBlockWrapper}>
-          {/* <div className={classNames.userInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
-
-            <div className={classNames.nameRatingWrapper}>
-              <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
-
-              <Rating disabled value={item.createdBy.rating} />
-            </div>
-          </div> */}
-
-          {/* <Divider orientation={'horizontal'} className={classNames.divider} /> */}
-
           <div className={classNames.mainInfosWrapper}>
             <div>
               {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
@@ -99,7 +81,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey['Request price'])}
                 inputComponent={
-                  <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+                  <Typography className={classNames.accentText}>{toFixedWithDollarSign(item.price, 2)}</Typography>
                 }
               />
 
@@ -108,7 +90,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey.Time)}
                 inputComponent={
-                  <Typography className={classNames.cardTime}>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(
+                  <Typography className={classNames.accentText}>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(
                     TranslationKey.hour,
                   )} `}</Typography>
                 }
@@ -119,7 +101,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey.Updated)}
                 inputComponent={
-                  <Typography className={classNames.deadline}>
+                  <Typography className={classNames.accentText}>
                     {formatNormDateTimeWithParseISO(item.updatedAt)}
                   </Typography>
                 }
@@ -133,7 +115,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                   containerClasses={classNames.fieldContainer}
                   label={'CashBack'}
                   inputComponent={
-                    <Typography className={classNames.deadline}>{item.cashBackInPercent + '%'}</Typography>
+                    <Typography className={classNames.accentText}>{item.cashBackInPercent + '%'}</Typography>
                   }
                 />
               ) : null}
@@ -154,7 +136,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey['Request type'])}
                 inputComponent={
-                  <Typography className={classNames.deadline}>
+                  <Typography className={classNames.accentText}>
                     {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
                   </Typography>
                 }
@@ -164,34 +146,13 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey.Updated)}
                 inputComponent={
-                  <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
+                  <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
                     item.timeoutAt,
                   )}`}</Typography>
                 }
               />
             </div>
           </div>
-
-          {/* <div className={classNames.timeInfoWrapper}>
-            <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-            <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-              item.timeoutAt,
-            )}`}</Typography>
-          </div>
-
-          <div className={classNames.timeWrapper}>
-            <div className={classNames.updatedAtWrapper}>
-              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated)}</Typography>
-
-              <Typography className={classNames.updatedAtText}>
-                {formatNormDateTimeWithParseISO(item.updatedAt)}
-              </Typography>
-            </div>
-            <Typography className={classNames.cardTime}>{`${t(TranslationKey.Time)}: ${toFixed(
-              item.timeLimitInMinutes / 60,
-              2,
-            )} ${t(TranslationKey.hour)} `}</Typography>
-          </div> */}
 
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
