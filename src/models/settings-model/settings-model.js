@@ -39,7 +39,11 @@ class SettingsModelStatic {
 
   snackBarMessageLast = null
 
-  snackNotifications = {[snackNoticeKey.SIMPLE_MESSAGE]: null, [snackNoticeKey.ORDER_DEADLINE]: null}
+  snackNotifications = {
+    [snackNoticeKey.SIMPLE_MESSAGE]: null,
+    [snackNoticeKey.ORDER_DEADLINE]: null,
+    [snackNoticeKey.IDEAS]: null,
+  }
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})

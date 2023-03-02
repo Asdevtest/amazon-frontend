@@ -33,7 +33,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
 
-    marginBottom: '20px',
+    // marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -89,5 +89,34 @@ export const styles = theme => ({
   },
   viewCartSelected: {
     color: theme.palette.primary.main,
+  },
+
+  button: {
+    padding: '0 15px',
+    height: 40,
+    whiteSpace: 'nowrap',
+    marginBottom: 5,
+    color: theme.palette.primary.main,
+
+    fontSize: 14,
+    fontWeight: 600,
+
+    '&>disabled': {
+      backgroundColor: 'inherit',
+    },
+  },
+  selectedBoxesBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
+
+    borderBottom: '5px solid #0460DE',
+
+    color: `${theme.palette.primary.main} !important`,
+  },
+
+  tablePanelSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
   },
 })

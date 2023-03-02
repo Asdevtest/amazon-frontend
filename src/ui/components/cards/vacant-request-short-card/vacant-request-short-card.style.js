@@ -134,4 +134,48 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
     color: theme.palette.text.second,
   },
+
+  mainInfosWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 300,
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+  },
+
+  priceAmazonWrapper: {
+    display: 'flex',
+  },
+
+  redText: {
+    color: '#FB1D5B',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+  },
+
+  cashBackPrice: {
+    marginLeft: 5,
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#656565',
+    textDecorationLine: 'line-through',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
 }))

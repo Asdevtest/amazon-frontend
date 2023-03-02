@@ -10,6 +10,7 @@ export enum ChatEventListenName {
   CHAT_APP_MESSAGE_TYPING = 'Chat:app:typing-message',
 
   NOTICE_USER_NEW_ORDER_DEADLINE_NOTICE = 'Notify:User:order-deadline',
+  NOTICE_USER_IDEA = 'Notify:User:idea',
 }
 
 export enum ChatHandlerName {
@@ -18,6 +19,7 @@ export enum ChatHandlerName {
   onConnectionError = 'onConnectionError',
   onNewMessage = 'onNewMessage',
   onNewOrderDeadlineNotification = 'onNewOrderDeadlineNotification',
+  onUserIdea = 'onUserIdea',
   onNewChat = 'onNewChat',
   onReadMessage = 'onReadMessage',
   onTypingMessage = 'onTypingMessage',
@@ -30,6 +32,7 @@ export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName>
   [ChatEventListenName.CHAT_APP_NEW_MESSAGE]: ChatHandlerName.onNewMessage,
 
   [ChatEventListenName.NOTICE_USER_NEW_ORDER_DEADLINE_NOTICE]: ChatHandlerName.onNewOrderDeadlineNotification,
+  [ChatEventListenName.NOTICE_USER_IDEA]: ChatHandlerName.onUserIdea,
 
   [ChatEventListenName.CHAT_APP_NEW_CHAT]: ChatHandlerName.onNewChat,
   [ChatEventListenName.CHAT_APP_MESSAGE_READ]: ChatHandlerName.onReadMessage,

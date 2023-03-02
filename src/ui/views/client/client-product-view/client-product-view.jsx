@@ -32,7 +32,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
-      showAtProcessOrders,
+      showTab,
       storekeepersData,
       getCurrentData,
       shopsData,
@@ -76,7 +76,7 @@ export class ClientProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
-                  showAtProcessOrders={showAtProcessOrders}
+                  showTab={showTab}
                   user={userInfo}
                   userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}

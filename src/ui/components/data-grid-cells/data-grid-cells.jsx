@@ -185,15 +185,15 @@ export const ProductAsinCell = React.memo(
     ({classes: classNames, product}) => (
       <div className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images.slice()[0])} />
+          <img alt="" className={classNames.img} src={getAmazonImageUrl(product?.images?.slice()[0])} />
 
           <div className={classNames.csCodeTypoWrapper}>
-            <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+            <Typography className={classNames.csCodeTypo}>{product?.amazonTitle}</Typography>
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.ASIN)}
 
-                {product.asin ? (
+                {product?.asin ? (
                   <a
                     target="_blank"
                     rel="noreferrer"
@@ -213,12 +213,12 @@ export const ProductAsinCell = React.memo(
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.SKU)}
                 <span className={classNames.typoSpan}>
-                  {product.skusByClient.slice()[0]
-                    ? shortSku(product.skusByClient.slice()[0])
+                  {product.skusByClient?.slice()[0]
+                    ? shortSku(product.skusByClient?.slice()[0])
                     : t(TranslationKey.Missing)}
                 </span>
               </Typography>
-              {product.skusByClient.slice()[0] ? <CopyValue text={product.skusByClient.slice()[0]} /> : null}
+              {product.skusByClient?.slice()[0] ? <CopyValue text={product.skusByClient?.slice()[0]} /> : null}
             </div>
           </div>
         </div>
@@ -895,11 +895,14 @@ export const MultilineTextCell = React.memo(
       withLineBreaks,
       onClickText,
       oneLines,
+      illuminationCell,
     }) => (
       <>
         {withTooltip || tooltipText ? (
           <Tooltip title={tooltipText || text}>
-            <div className={classNames.multilineTextWrapper}>
+            <div
+              className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+            >
               <Typography
                 className={cx(
                   classNames.multilineText,
@@ -916,7 +919,9 @@ export const MultilineTextCell = React.memo(
             </div>
           </Tooltip>
         ) : (
-          <div className={classNames.multilineTextWrapper}>
+          <div
+            className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+          >
             <Typography
               className={cx(
                 classNames.multilineText,

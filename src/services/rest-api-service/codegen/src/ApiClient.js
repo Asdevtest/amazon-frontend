@@ -507,8 +507,8 @@ class ApiClient {
     * @param {String} str The date value as a string.
     * @returns {Date} The parsed date object.
     */
-    static parseDate(str) { 
-      return str
+    static parseDate(str) {
+        return str
     }
 
     /**

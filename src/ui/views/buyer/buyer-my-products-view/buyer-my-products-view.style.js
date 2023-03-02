@@ -44,4 +44,21 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  ideaRow: {
+    '&:before': {
+      content: '""',
+      backgroundImage:
+        theme.palette.mode === 'light'
+          ? 'url(/assets/icons/idea-trgl.svg)'
+          : 'url(/assets/icons/idea-trgl-dark-theme.svg)',
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
+      marginRight: '-48px',
+    },
+  },
 })

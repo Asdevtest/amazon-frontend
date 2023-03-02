@@ -65,11 +65,18 @@ export const styles = theme => ({
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',
+      // posotion: 'relative',
     },
 
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
+
+    posotion: 'relative',
+
+    // '&::after': {
+    //   content: '""',
+    // },
   },
 
   archiveIcon: {
@@ -241,4 +248,70 @@ export const styles = theme => ({
   iconSeparator: {
     padding: '0 1px',
   },
+
+  // ideaRow: {
+  //   '&:before': {
+  //     content: '"idea"',
+  //     // display: 'flex',
+  //     display: 'inline-block',
+  //     // verticalAlign: 'middle',
+  //     // marginleft: 100,
+  //     // alignItems: 'flex-end',
+  //     // gap: 10,
+  //     // // padding: 2,
+  //     color: theme.palette.primary.main,
+  //     fontSize: 18,
+  //     fontWeight: 600,
+  //     // width: 80,
+  //     // height: 0,
+  //     // textAlign: 'right',
+  //     // whiteSpace: 'nowrap',
+  //     // writingMode: 'horizontal-tb',
+  //     // // height: 20,
+  //     // position: 'absolute',
+  //     // top: 0,
+  //     // left: 0,
+
+  //     width: 80,
+  //     height: 0,
+  //     borderTop: `20px solid ${theme.palette.primary.main}`,
+  //     borderRight: '20px solid transparent',
+  //     posotion: 'relative',
+  //   },
+  // },
+
+  ideaRow: {
+    '&:before': {
+      content: '""',
+      backgroundImage:
+        theme.palette.mode === 'dark'
+          ? 'url(/assets/icons/idea-trgl-dark-theme.svg)'
+          : 'url(/assets/icons/idea-trgl.svg)',
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
+      marginRight: '-48px',
+    },
+  },
+
+  // ideaRow: {
+  //   '&:before': {
+  //     content: '"idea"',
+  //     display: 'flex',
+
+  //     alignItems: 'flex-end',
+  //     color: theme.palette.primary.main,
+  //     fontSize: 18,
+  //     fontWeight: 600,
+
+  //     width: 0,
+  //     height: 80,
+  //     borderTop: `20px solid ${theme.palette.primary.main}`,
+  //     borderRight: '20px solid transparent',
+  //     posotion: 'relative',
+  //   },
+  // },
 })

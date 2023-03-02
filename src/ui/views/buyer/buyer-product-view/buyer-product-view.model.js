@@ -101,6 +101,8 @@ export class BuyerProductViewModel {
   storekeepersData = []
   hsCodeData = {}
 
+  showTab = undefined
+
   supplierModalReadOnly = false
 
   drawerOpen = false
@@ -143,6 +145,8 @@ export class BuyerProductViewModel {
       this.history = history
 
       this.productId = url.searchParams.get('product-id')
+
+      this.showTab = url.searchParams.get('show-tab')
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})

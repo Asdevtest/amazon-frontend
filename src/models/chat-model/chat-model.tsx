@@ -76,6 +76,7 @@ class ChatModelStatic {
           onNewMessage: this.onNewMessage,
           onNewChat: this.onNewChat,
           onNewOrderDeadlineNotification: this.onNewOrderDeadlineNotification,
+          onUserIdea: this.onUserIdea,
           onReadMessage: this.onReadMessage,
           onTypingMessage: this.onTypingMessage,
         },
@@ -266,6 +267,12 @@ class ChatModelStatic {
     // console.log('notification', notification)
 
     SettingsModel.setSnackNotifications({key: snackNoticeKey.ORDER_DEADLINE, notice: notification})
+  }
+
+  private onUserIdea(notification: object[]) {
+    console.log('notification', notification)
+
+    SettingsModel.setSnackNotifications({key: snackNoticeKey.IDEAS, notice: notification})
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {

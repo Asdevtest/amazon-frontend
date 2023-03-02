@@ -404,7 +404,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
   fieldWrapper: {
-    margin: 0,
+    margin: '0px !important',
   },
   saveIcon: {
     color: theme.palette.primary.main,

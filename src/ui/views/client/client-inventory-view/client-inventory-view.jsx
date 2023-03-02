@@ -189,6 +189,8 @@ export class ClientInventoryViewRaw extends Component {
 
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
+    const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
+
     // console.log('columnsModel', columnsModel)
 
     return (
@@ -390,6 +392,7 @@ export class ClientInventoryViewRaw extends Component {
                     },
                   }}
                   getCellClassName={getCellClassName}
+                  getRowClassName={getRowClassName}
                   sortingMode="server"
                   paginationMode="server"
                   rowCount={rowCount}
@@ -400,7 +403,7 @@ export class ClientInventoryViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
                   headerHeight={65}
-                  rowHeight={120}
+                  rowHeight={160}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenu: DataGridCustomColumnMenuComponent,

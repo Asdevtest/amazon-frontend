@@ -1,3 +1,4 @@
+import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
 import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
 import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -17,6 +18,19 @@ import {getFullTariffTextForBoxOrOrder} from './text'
 import {t} from './translations'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
+
+export const ideaNoticeDataConverter = data =>
+  data.map((item, index) => ({
+    ...item,
+    originalData: item,
+    id: index,
+
+    updatedAt: item.idea.updatedAt,
+    createdAt: item.createdAt,
+    createdByName: item.createdBy.name,
+    productName: item.idea.productName,
+    status: ideaStatusTranslate(ideaStatusByCode[item.idea.status]),
+  }))
 
 export const stockReportDataConverter = data =>
   data.map((item, index) => ({
@@ -140,6 +154,8 @@ export const buyerProductsDataConverter = data =>
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+
+    ideaCount: item.ideaCount,
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,
@@ -238,6 +254,8 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     margin: item.margin,
     bsr: item.bsr,
     fbafee: item.fbafee,
+
+    ideaCount: item.ideaCount,
 
     id: item._id,
     _id: item._id,

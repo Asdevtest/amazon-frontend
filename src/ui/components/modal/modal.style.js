@@ -21,6 +21,7 @@ export const useClassNames = makeStyles()(() => ({
     position: 'relative',
     overflow: 'visible',
     borderRadius: '4px',
+    // backgroundColor: theme.palette.background.second,
   },
 
   closeIcon: {

@@ -120,15 +120,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   feedBackButton: {
-    // position: 'absolute',
-    // bottom: '20px',
-
     width: '100%',
     height: 46,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 15px',
+    // margin: '0 auto',
+    // width: '80%',
+
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     '&:hover': {
@@ -136,6 +136,23 @@ export const useClassNames = makeStyles()(theme => ({
       opacity: 0.7,
     },
   },
+
+  shortFeedBackButton: {
+    padding: 0,
+    margin: '0 auto',
+    width: '80%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0,123,255,0.3)',
+      opacity: 0.7,
+    },
+  },
+
   feedBackText: {
     fontSize: 13,
     lineHeight: '140%',
@@ -152,5 +169,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
+    marginLeft: 8,
   },
 }))

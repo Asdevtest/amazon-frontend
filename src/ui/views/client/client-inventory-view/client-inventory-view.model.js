@@ -95,6 +95,7 @@ const filtersFields = [
   'reservedSum',
   'sentToFbaSum',
   'fbaFbmStockSum',
+  'ideaCount',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -359,7 +360,7 @@ export class ClientInventoryViewModel {
 
   onClickOrderCell(productId) {
     const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-at-process-orders=true`,
+      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=orders`,
       '_blank',
     )
 
@@ -780,7 +781,7 @@ export class ClientInventoryViewModel {
         // }`,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+          shopFilter ? ';' + '[shopIds][$eq]=' + shopFilter : ''
         }${
           purchaseQuantityAboveZeroFilter ? ';' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
         }`,
@@ -866,6 +867,7 @@ export class ClientInventoryViewModel {
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    const ideaCountFilter = exclusion !== 'ideaCount' && this.columnMenuSettings.ideaCount.currentFilterData.join(',')
 
     const fbaFbmStockSumFilter =
       exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
@@ -947,6 +949,10 @@ export class ClientInventoryViewModel {
       }),
       ...(sentToFbaSumFilter && {
         sentToFbaSum: {$eq: sentToFbaSumFilter},
+      }),
+
+      ...(ideaCountFilter && {
+        ideaCount: {$eq: ideaCountFilter},
       }),
     })
 

@@ -8,12 +8,14 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {ViewCartsBlock, ViewCartsLine} from '@constants/svg-icons'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button/button'
 import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
 import {Main} from '@components/main'
@@ -42,6 +44,7 @@ class VacantRequestsViewRaw extends Component {
 
   render() {
     const {
+      selectedTaskType,
       nameSearchValue,
       viewMode,
       getCurrentData,
@@ -52,6 +55,7 @@ class VacantRequestsViewRaw extends Component {
       onClickViewMore,
       onChangeViewMode,
       onChangeNameSearchValue,
+      onClickTaskType,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -77,23 +81,20 @@ class VacantRequestsViewRaw extends Component {
           <Appbar title={t(TranslationKey['Vacant requests'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
-                <div className={classNames.tablePanelViewWrapper}>
-                  <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                      <ViewCartsBlock
-                        className={cx(classNames.viewCart, {
-                          [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
-                        })}
-                      />
-                    </ToggleBtnFreelancer>
-                    <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
-                      <ViewCartsLine
-                        className={cx(classNames.viewCart, {
-                          [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
-                        })}
-                      />
-                    </ToggleBtnFreelancer>
-                  </ToggleBtnGroupFreelance>
+                <div className={classNames.taskTypeWrapper}>
+                  {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                    <Button
+                      key={taskIndex}
+                      variant="text"
+                      disabled={taskType === selectedTaskType}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+                      })}
+                      onClick={() => onClickTaskType(taskType)}
+                    >
+                      {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                    </Button>
+                  ))}
                 </div>
 
                 <SearchInput
@@ -102,14 +103,37 @@ class VacantRequestsViewRaw extends Component {
                   onChange={onChangeNameSearchValue}
                 />
 
-                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+                <div className={classNames.tablePanelSubWrapper}>
+                  <div className={classNames.tablePanelViewWrapper}>
+                    <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
+                      <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
+                        <ViewCartsBlock
+                          className={cx(classNames.viewCart, {
+                            [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+                          })}
+                        />
+                      </ToggleBtnFreelancer>
+                      <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
+                        <ViewCartsLine
+                          className={cx(classNames.viewCart, {
+                            [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
+                          })}
+                        />
+                      </ToggleBtnFreelancer>
+                    </ToggleBtnGroupFreelance>
+                  </div>
 
-                  {sortMode === tableSortMode.DESK ? (
-                    <ArrowDropDownIcon color="primary" />
-                  ) : (
-                    <ArrowDropUpIcon color="primary" />
-                  )}
+                  <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                    <Typography className={classNames.tablePanelViewText}>
+                      {t(TranslationKey['Sort by date'])}
+                    </Typography>
+
+                    {sortMode === tableSortMode.DESK ? (
+                      <ArrowDropDownIcon color="primary" />
+                    ) : (
+                      <ArrowDropUpIcon color="primary" />
+                    )}
+                  </div>
                 </div>
               </div>
 

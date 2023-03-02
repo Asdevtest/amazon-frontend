@@ -218,6 +218,19 @@ const BuyerSearchSupplierForIdeaView = lazy(() =>
     default: module.BuyerSearchSupplierForIdeaView,
   })),
 )
+
+const BuyerIdeasNotificationsView = lazy(() =>
+  import('@views/buyer/buyer-notifications-views/buyer-ideas-notifications-view').then(module => ({
+    default: module.BuyerIdeasNotificationsView,
+  })),
+)
+
+const BuyerNotificationsView = lazy(() =>
+  import('@views/buyer/buyer-notifications-views/buyer-notifications-view').then(module => ({
+    default: module.BuyerNotificationsView,
+  })),
+)
+
 const ClientAwaitingBatchesView = lazy(() =>
   import('@views/client/client-batches-views/client-awaiting-batches-view').then(module => ({
     default: module.ClientAwaitingBatchesView,
@@ -228,6 +241,7 @@ const ClientBatchesView = lazy(() =>
     default: module.ClientBatchesView,
   })),
 )
+
 const ClientReadyBoxesView = lazy(() =>
   import('@views/client/client-warehouse-views/client-ready-boxes-view').then(module => ({
     default: module.ClientReadyBoxesView,
@@ -267,6 +281,12 @@ const ClientBoxesTariffsNotificationsView = lazy(() =>
     default: module.ClientBoxesTariffsNotificationsView,
   })),
 )
+const ClientIdeasNotificationsView = lazy(() =>
+  import('@views/client/client-notifications-views/client-ideas-notifications-view').then(module => ({
+    default: module.ClientIdeasNotificationsView,
+  })),
+)
+
 const ClientNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-notifications-view').then(module => ({
     default: module.ClientNotificationsView,
@@ -424,6 +444,13 @@ const RequestDetailCustomView = lazy(() =>
     default: module.RequestDetailCustomView,
   })),
 )
+
+const ServiceDetailsView = lazy(() =>
+  import('@views/shared/services-detail-view').then(module => ({
+    default: module.ServiceDetailsView,
+  })),
+)
+
 const SubUsersView = lazy(() =>
   import('@views/shared/sub-users-view/sub-users-view').then(module => ({default: module.SubUsersView})),
 )
@@ -742,6 +769,27 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_CHAT_BUYER,
 
     crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
+    routePath: '/buyer/notifications',
+    component: BuyerNotificationsView,
+    exact: true,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
+
+    crumbNameKey: TranslationKey.Notifications,
+  },
+
+  {
+    routePath: '/buyer/notifications/ideas-notifications',
+    component: BuyerIdeasNotificationsView,
+    exact: false,
+    permission: [UserRole.BUYER],
+
+    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
+
+    crumbNameKey: TranslationKey['On ideas'],
   },
 
   {
@@ -1283,6 +1331,17 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey['On boxes'],
+  },
+
+  {
+    routePath: '/client/notifications/ideas-notifications',
+    component: ClientIdeasNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+
+    crumbNameKey: TranslationKey['On ideas'],
   },
 
   {
@@ -1892,6 +1951,14 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Create service'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds',
+    component: ServiceDetailsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Service details'],
   },
 
   {

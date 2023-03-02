@@ -31,6 +31,19 @@ const tabsValues = {
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
 }
 
+const getTab = tabKey => {
+  switch (tabKey) {
+    case 'orders':
+      return tabsValues.ORDERS
+
+    case 'ideas':
+      return tabsValues.SUPPLIERS_AND_IDEAS
+
+    default:
+      return tabsValues.MAIN_INFO
+  }
+}
+
 const TabPanel = ({children, value, index, ...other}) => (
   <div
     role="tabpanel"
@@ -45,7 +58,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const ProductWrapper = observer(
   ({
-    showAtProcessOrders,
+    showTab,
     user,
     imagesForLoad,
     showProgress,
@@ -73,7 +86,7 @@ export const ProductWrapper = observer(
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
-    const [tabIndex, setTabIndex] = React.useState(showAtProcessOrders ? tabsValues.ORDERS : tabsValues.MAIN_INFO)
+    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
 
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
@@ -119,7 +132,11 @@ export const ProductWrapper = observer(
               {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
 
               {!checkIsResearcher(curUserRole) && (
-                <ITab label={t(TranslationKey['Suppliers and Ideas'])} value={tabsValues.SUPPLIERS_AND_IDEAS} />
+                <ITab
+                  label={t(TranslationKey['Suppliers and Ideas'])}
+                  value={tabsValues.SUPPLIERS_AND_IDEAS}
+                  withIcon={!!product.ideaCount}
+                />
               )}
             </Tabs>
 
@@ -157,7 +174,7 @@ export const ProductWrapper = observer(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={showAtProcessOrders} />
+              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>

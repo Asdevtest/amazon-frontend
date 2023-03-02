@@ -38,4 +38,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     color: theme.palette.text.general,
   },
+
+  icon: {
+    color: theme.palette.primary.main,
+    transform: 'scale(.7)',
+  },
 }))

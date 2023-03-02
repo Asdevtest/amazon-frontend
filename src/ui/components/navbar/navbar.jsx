@@ -81,9 +81,12 @@ export const Navbar = observer(
                     category={category}
                     badge={
                       (category.route?.includes('/client/notifications') &&
-                        viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                          viewModel.current.userInfo.needConfirmPriceChange.orders +
-                          viewModel.current.userInfo.needUpdateTariff.boxes) ||
+                        viewModel.current.userInfo.needConfirmPriceChange?.boxes +
+                          viewModel.current.userInfo.needConfirmPriceChange?.orders +
+                          viewModel.current.userInfo.needUpdateTariff?.boxes +
+                          viewModel.current.userInfo.updatesOnIdeas?.length) ||
+                      (category.route?.includes('/buyer/notifications') &&
+                        viewModel.current.userInfo.updatesOnIdeas?.length) ||
                       (category.route?.includes('/client/my-orders/orders') &&
                         viewModel.current.userInfo.purchaseOrderRequired?.length &&
                         viewModel.current.userInfo.purchaseOrderRequired.length)
@@ -132,7 +135,10 @@ export const Navbar = observer(
           ) : null} */}
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
-            <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
+            <div
+              className={cx(classNames.feedBackButton, {[classNames.shortFeedBackButton]: shortNavbar})}
+              onClick={() => onTriggerOpenModal('showFeedbackModal')}
+            >
               {!shortNavbar && (
                 <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
               )}

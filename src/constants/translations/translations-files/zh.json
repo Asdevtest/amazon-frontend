@@ -1779,6 +1779,13 @@
   "Selected boxes": "Selected boxes",
   "Choose a section in My orders": "Choose a section in My orders",
   "Fills the card with the necessary information": "Fills the card with the necessary information",
+  "updated data on idea to product": "updated data on idea to product",
+  "Ideas to Check": "Ideas to Check",
+  "On ideas": "On ideas",
+  "Idea Status": "Idea Status",
+  "Name idea": "Name idea",
+  "Notifications on ideas": "Notifications on ideas",
+  "Updated by": "Updated by",
   "Ideas to check": "Ideas to check",
   "Designer": "Designer",
   "SEO": "SEO",
@@ -1811,5 +1818,9 @@
   "Service name": "Service name",
   "The service was created": "The service was created",
   "The service was not created": "The service was not created",
-  "Choice of Performer": "Choice of Performer"
+  "Choice of Performer": "Choice of Performer",
+  "Select a Performer": "Select a Performer",
+  "A supervisor check is necessary": "A supervisor check is necessary",
+  "Standart": "Standart",
+  "Product price": "Product price"
 }

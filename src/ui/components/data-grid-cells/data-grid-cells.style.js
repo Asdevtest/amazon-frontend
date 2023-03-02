@@ -66,7 +66,7 @@ export const styles = theme => ({
   },
   asinCell: {
     padding: '12px 0px',
-    height: '88px',
+    // height: '88px',
     scope: 'row',
     position: 'relative',
     width: '100%',
@@ -98,6 +98,12 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '21px',
     color: 'rgba(189, 194, 209, 1)',
+  },
+
+  ideaInfo: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    marginTop: -15,
   },
 
   productTypoCell: {
@@ -698,6 +704,11 @@ export const styles = theme => ({
 
     padding: '5px 0',
   },
+
+  illuminationCell: {
+    backgroundColor: theme.palette.background.green,
+  },
+
   multilineSuperBoxWrapper: {
     width: '100%',
     height: '100%',

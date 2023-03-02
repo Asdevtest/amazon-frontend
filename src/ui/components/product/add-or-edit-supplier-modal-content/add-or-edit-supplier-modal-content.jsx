@@ -110,8 +110,6 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
-    console.log('tmpSupplier', tmpSupplier)
-
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,
