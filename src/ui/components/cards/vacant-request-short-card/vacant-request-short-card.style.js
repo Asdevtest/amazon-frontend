@@ -172,4 +172,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#656565',
     textDecorationLine: 'line-through',
   },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
 }))
