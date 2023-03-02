@@ -7,13 +7,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: '263px',
+    height: 200,
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
 
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
     padding: '30px',
   },
 
@@ -49,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     overflowY: 'auto',
     width: '395px',
-    height: '160px',
+    height: 80,
   },
 
   cardSubTitle: {
@@ -175,6 +176,56 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
+    color: theme.palette.text.general,
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '25px !important',
+
+    '&:last-child': {
+      marginBottom: '0px !important',
+    },
+  },
+
+  mainInfosWrapper: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+    width: '100%',
+    // height: 300,
+  },
+
+  priceAmazonWrapper: {
+    display: 'flex',
+  },
+
+  redText: {
+    color: '#FB1D5B',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+  },
+
+  cashBackPrice: {
+    marginLeft: 5,
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#656565',
+    textDecorationLine: 'line-through',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
     color: theme.palette.text.general,
   },
 }))
