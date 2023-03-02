@@ -101,23 +101,13 @@ class MyServicesViewRaw extends Component {
                   </div>
 
                   <div className={classNames.taskTypeWrapper}>
-                    <Button
-                      variant="text"
-                      disabled={selectedTaskType === 'ALL'}
-                      className={cx(classNames.button, {
-                        [classNames.selectedBoxesBtn]: selectedTaskType === 'ALL',
-                      })}
-                      onClick={() => onClickTaskType('ALL')}
-                    >
-                      {t(TranslationKey.All)}
-                    </Button>
                     {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
                       <Button
                         key={taskIndex}
                         variant="text"
-                        disabled={taskType === selectedTaskType}
+                        disabled={Number(taskType) === Number(selectedTaskType)}
                         className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: taskType === selectedTaskType,
+                          [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
                         })}
                         onClick={() => onClickTaskType(taskType)}
                       >
