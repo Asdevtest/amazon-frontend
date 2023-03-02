@@ -209,6 +209,7 @@ export class ClientReadyBoxesViewRaw extends Component {
               </div>
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
+                  disableVirtualization
                   pagination
                   // useResizeContainer
                   checkboxSelection

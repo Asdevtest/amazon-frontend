@@ -98,8 +98,8 @@ class InlineResponse20019 {
             if (data.hasOwnProperty('chinaTitle')) {
                 obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
             }
-            if (data.hasOwnProperty('ideasCounter')) {
-                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
+            if (data.hasOwnProperty('ideaCount')) {
+                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -216,10 +216,9 @@ InlineResponse20019.prototype['productUsage'] = undefined;
 InlineResponse20019.prototype['chinaTitle'] = undefined;
 
 /**
- * Кол-во идей продукта в статусе 10
- * @member {Number} ideasCounter
+ * @member {Number} ideaCount
  */
-InlineResponse20019.prototype['ideasCounter'] = undefined;
+InlineResponse20019.prototype['ideaCount'] = undefined;
 
 /**
  * Дата создания

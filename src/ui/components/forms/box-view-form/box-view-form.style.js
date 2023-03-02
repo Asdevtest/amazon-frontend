@@ -20,6 +20,19 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  itemInput: {
+    width: 125,
+    height: 40,
+    marginLeft: 10,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+
+  input: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
+
   title: {
     fontSize: '18px',
     lineHeight: '140%',

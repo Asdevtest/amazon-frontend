@@ -29,6 +29,7 @@ Method | HTTP request | Description
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
 [**apiV1BoxesPagClientsLightGet**](BoxesApi.md#apiV1BoxesPagClientsLightGet) | **GET** /api/v1/boxes/pag/clients_light | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesPost**](BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
+[**apiV1BoxesPrepIdPatch**](BoxesApi.md#apiV1BoxesPrepIdPatch) | **PATCH** /api/v1/boxes/prep_id | # Изменить поле prepId
 [**apiV1BoxesSplitPost**](BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 [**apiV1BoxesStorekeepersGuidPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
 [**apiV1BoxesStorekeepersGuidSetItemsBarCodePatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidSetItemsBarCodePatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_itemsBarCode | # Изменить чекбоксы баркода.
@@ -1420,6 +1421,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InlineResponse2012**](InlineResponse2012.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BoxesPrepIdPatch
+
+> String apiV1BoxesPrepIdPatch(opts)
+
+# Изменить поле prepId
+
+# Изменить поле isFormed
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
+};
+apiInstance.apiV1BoxesPrepIdPatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+
+### Return type
+
+**String**
 
 ### Authorization
 

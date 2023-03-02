@@ -15,17 +15,11 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBoxesReadyToBatchViewColumns = (/* columnMenuSettings, onHover */) => [
+export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.ID)}
-        // isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -45,22 +39,16 @@ export const clientBoxesReadyToBatchViewColumns = (/* columnMenuSettings, onHove
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Product)}
-        // isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 400,
     renderCell: params =>
       params.row.originalData ? (
         params.row.originalData.items.length > 1 ? (
-          <OrderManyItemsCell box={params.row.originalData} />
+          <OrderManyItemsCell box={(() => ({...params.row.originalData}))()} />
         ) : (
           <OrderCell
-            box={params.row.originalData}
+            box={(() => ({...params.row.originalData}))()}
             product={params.row.originalData.items[0].product}
             superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
           />

@@ -314,6 +314,7 @@ export class ClientSentBatchesViewModel {
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        prepId: data.prepId,
       })
 
       await this.loadData()

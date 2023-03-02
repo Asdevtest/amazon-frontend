@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **material** | **String** | Материл продукта | [optional] 
 **productUsage** | **String** | Применение продукта | [optional] 
 **chinaTitle** | **String** | chinese title? | [optional] 
-**ideasCounter** | **Number** | Кол-во идей продукта в статусе 10 | [optional] 
+**ideaCount** | **Number** |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 
