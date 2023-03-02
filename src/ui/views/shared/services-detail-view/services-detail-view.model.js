@@ -16,49 +16,16 @@ import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ServiceDetailsViewModel {
   history = undefined
-  requestStatus = undefined
   error = undefined
   uploadedFiles = []
   drawerOpen = false
-  requestId = undefined
-  request = undefined
-  requestProposals = []
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  announcementData = null
 
-  showConfirmModal = false
-  showRequestForm = false
-  showConfirmWithCommentModal = false
-  showChat = false
-  showConfirmWorkResultFormModal = false
-  showReviewModal = false
-
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onSubmit: () => {},
-  }
-
-  acceptProposalResultSetting = {
-    onSubmit: () => {},
-  }
-
-  chatSelectedId = undefined
-  chatIsConnected = false
-  scrollToChat = undefined
-  showResultToCorrectFormModal = false
+  rowCount = 0
 
   get user() {
     return UserModel.userInfo
-  }
-
-  get typingUsers() {
-    return ChatModel.typingUsers || []
-  }
-
-  get chats() {
-    return ChatModel.chats || []
   }
 
   constructor({history, location}) {
@@ -66,7 +33,9 @@ export class ServiceDetailsViewModel {
       this.history = history
 
       if (location.state) {
-        console.log('location.state', location.state)
+        runInAction(() => {
+          this.announcementData = location.state.data
+        })
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})

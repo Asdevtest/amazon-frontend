@@ -13,10 +13,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
+import {MyServicesInfo} from '@components/my-services/my-services-info'
 import {Navbar} from '@components/navbar'
-import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposals/owner-general-request-info'
-import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ServiceDetailsViewModel} from './services-detail-view.model'
@@ -38,13 +39,11 @@ export class ServiceDetailsViewRaw extends Component {
 
   render() {
     const {
-      requestProposals,
+      rowCount,
       drawerOpen,
+      announcementData,
+
       onTriggerDrawerOpen,
-      onClickPublishBtn,
-      onClickEditBtn,
-      onClickCancelBtn,
-      onClickAbortBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -60,16 +59,47 @@ export class ServiceDetailsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My request'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <OwnerGeneralRequestInfo
-                requestProposals={requestProposals}
-                onClickPublishBtn={onClickPublishBtn}
-                onClickEditBtn={onClickEditBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickAbortBtn={onClickAbortBtn}
-              />
+              <MyServicesInfo announcementData={announcementData} />
 
-              <div className={classNames.detailsWrapper}>
-                <CustomSearchRequestDetails />
+              <div className={classNames.dataGridWrapper}>
+                {/* <MemoDataGrid
+                  disableVirtualization
+                  pagination
+                  useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={currentData}
+                  // rowHeight={100}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                  }}
+                  columnVisibilityModel={columnVisibilityModel}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={onChangeFilterModel}
+                  onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+                  onStateChange={setFirstRowId}
+                  onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+                /> */}
               </div>
             </MainContent>
           </Appbar>

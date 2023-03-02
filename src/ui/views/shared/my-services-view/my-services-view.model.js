@@ -115,10 +115,8 @@ export class MyServicesViewModel {
   }
 
   async onClickTaskType(taskType) {
-    console.log('taskType', taskType)
     runInAction(() => {
       this.selectedTaskType = taskType
-      console.log('this.selectedTaskType', this.selectedTaskType)
     })
     await this.getMyAnnouncementsData()
   }
