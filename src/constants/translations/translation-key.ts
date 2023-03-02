@@ -1841,7 +1841,7 @@ export enum TranslationKey {
   'A supervisor check is necessary' = 'A supervisor check is necessary',
   'Standart' = 'Standart',
   'Product price' = 'Product price',
-  // '' = '',
+  'Max 100 characters' = 'Max 100 characters',
   // '' = '',
   // '' = '',
   // '' = '',

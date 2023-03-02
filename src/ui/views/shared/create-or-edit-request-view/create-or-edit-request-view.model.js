@@ -152,8 +152,10 @@ export class CreateOrEditRequestViewModel {
     this.onTriggerOpenModal('showImageModal')
   }
 
-  async onClickChoosePerformer() {
-    this.announcements = await AnnouncementsModel.getVacAnnouncements()
+  async onClickChoosePerformer(typeTask) {
+    this.announcements = await AnnouncementsModel.getVacAnnouncements({
+      type: typeTask,
+    })
   }
 
   onTriggerOpenModal(modalState) {
