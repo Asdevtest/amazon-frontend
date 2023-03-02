@@ -47,14 +47,17 @@ class InlineObject80 {
         if (data) {
             obj = obj || new InlineObject80();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -64,10 +67,10 @@ class InlineObject80 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject80.prototype['rating'] = undefined;
+InlineObject80.prototype['execution_time'] = undefined;
 
 /**
  * Комментарий причин изменения статуса.
@@ -80,6 +83,12 @@ InlineObject80.prototype['reason'] = undefined;
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject80.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject80.prototype['title'] = undefined;
 
 
 
