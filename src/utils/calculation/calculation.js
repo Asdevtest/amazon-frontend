@@ -342,5 +342,10 @@ export const priceCalculation = (price, deliveryPrice, qty) =>
 export const calcNumberMinusPercent = (number, percent) =>
   parseFloat(number) - parseFloat(number) * (parseFloat(percent) / 100)
 
-export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) =>
-  ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)
+export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) => {
+  if (firstNumber === secondNumber) {
+    return 100
+  } else {
+    return ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)
+  }
+}
