@@ -17,6 +17,13 @@ export class AnnouncementsModelStatic {
     })
     return response
   }
+
+  editAnnouncement = async (id, data) => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const AnnouncementsModel = new AnnouncementsModelStatic()

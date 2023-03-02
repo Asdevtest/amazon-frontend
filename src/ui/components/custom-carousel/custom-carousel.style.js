@@ -99,7 +99,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesAndFilesWrapper: {
-    height: '100%',
+    // height: '100%', вернуть если что-то сломается
+    height: 'auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline',

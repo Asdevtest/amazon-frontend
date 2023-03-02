@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '30px 40px',
   },
   userWrapper: {
-    height: 230,
+    maxHeight: 400,
 
     display: 'flex',
     alignItems: 'flex-start',
@@ -119,5 +119,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   backButton: {
     padding: '0 26px',
+  },
+  descriptionTextWrapper: {
+    width: '100%',
+    maxHeight: 76,
+
+    overflowY: 'auto',
   },
 }))
