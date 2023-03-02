@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **clientComment** | **String** | Комментарии к коробке | [optional] 

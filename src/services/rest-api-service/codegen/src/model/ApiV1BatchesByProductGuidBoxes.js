@@ -67,6 +67,9 @@ class ApiV1BatchesByProductGuidBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
@@ -124,6 +127,12 @@ ApiV1BatchesByProductGuidBoxes.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 ApiV1BatchesByProductGuidBoxes.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+ApiV1BatchesByProductGuidBoxes.prototype['prepId'] = undefined;
 
 /**
  * Идентификатор UPS

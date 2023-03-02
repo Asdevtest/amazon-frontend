@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 
 

@@ -222,9 +222,6 @@ class InlineResponse20029 {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
-            if (data.hasOwnProperty('ideasCounter')) {
-                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
-            }
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
@@ -290,6 +287,9 @@ class InlineResponse20029 {
             }
             if (data.hasOwnProperty('productsInWarehouse')) {
                 obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
+            }
+            if (data.hasOwnProperty('ideasCounter')) {
+                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
             }
         }
         return obj;
@@ -633,12 +633,6 @@ InlineResponse20029.prototype['listingImages'] = undefined;
 InlineResponse20029.prototype['strategyStatus'] = undefined;
 
 /**
- * Кол-во идей продукта в статусе 10
- * @member {Number} ideasCounter
- */
-InlineResponse20029.prototype['ideasCounter'] = undefined;
-
-/**
  * Признак needCheckBySupervisor
  * @member {Boolean} needCheckBySupervisor
  */
@@ -760,6 +754,12 @@ InlineResponse20029.prototype['checkedby'] = undefined;
  * @member {Array.<Object>} productsInWarehouse
  */
 InlineResponse20029.prototype['productsInWarehouse'] = undefined;
+
+/**
+ * Кол-во идей продукта в статусе 10
+ * @member {Number} ideasCounter
+ */
+InlineResponse20029.prototype['ideasCounter'] = undefined;
 
 
 

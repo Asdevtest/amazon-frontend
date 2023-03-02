@@ -82,6 +82,9 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
@@ -217,6 +220,12 @@ InlineResponse20015.prototype['trackNumberText'] = undefined;
  * @member {String} trackNumberFile
  */
 InlineResponse20015.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineResponse20015.prototype['prepId'] = undefined;
 
 /**
  * Идентификатор UPS
