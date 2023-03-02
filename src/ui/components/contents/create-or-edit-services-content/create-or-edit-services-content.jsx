@@ -43,8 +43,10 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-services-content.style'
 
-export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClickBackBtn}) => {
+export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, onClickEditBtn, onClickBackBtn}) => {
   const {classes: classNames} = useClassNames()
+
+  const isEdit = pathname?.includes('edit-service')
 
   const [images, setImages] = useState([])
 
@@ -58,6 +60,9 @@ export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClic
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
+  const disabledSubmitButton =
+    !formFields.title || !formFields.description || JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
 
@@ -65,9 +70,6 @@ export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClic
 
     setFormFields(newFormFields)
   }
-
-  console.log('formFields', formFields)
-  console.log('images', images)
 
   return (
     <div className={classNames.root}>
@@ -93,12 +95,12 @@ export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClic
           inputComponent={
             <Select
               displayEmpty
-              value={formFields.type || null}
+              value={formFields.type || ''}
               className={classNames.requestTypeField}
               input={<Input startAdornment={<InputAdornment position="start" />} />}
               onChange={onChangeField('type')}
             >
-              <MenuItem disabled value={null}>
+              <MenuItem disabled value={''}>
                 {t(TranslationKey['Select from the list'])}
               </MenuItem>
 
@@ -128,7 +130,7 @@ export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClic
       <div className={classNames.imageFileInputWrapper}>
         <UploadFilesInputMini images={images} setImages={setImages} maxNumber={50} />
         {formFields.linksToMediaFiles?.length ? (
-          <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} width="400px" />
+          <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
         ) : null}
       </div>
 
@@ -139,11 +141,17 @@ export const CreateOrEditServiceContent = ({data, onClickCreateOrEditBtn, onClic
 
         <Button
           success
-          // disabled={disableSubmit}
+          disabled={disabledSubmitButton}
           className={classNames.successBtn}
-          onClick={() => onClickCreateOrEditBtn(formFields, images)}
+          onClick={() => {
+            if (isEdit) {
+              onClickEditBtn(formFields, images)
+            } else {
+              onClickCreateBtn(formFields, images)
+            }
+          }}
         >
-          {t(TranslationKey.Add)}
+          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
         </Button>
       </div>
     </div>

@@ -24,7 +24,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './my-services.style'
 
-export const MyServicesInfo = ({announcementData}) => {
+export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -59,7 +59,11 @@ export const MyServicesInfo = ({announcementData}) => {
                   </Typography>
                 </div>
               </div>
-              <Typography className={classNames.regularText}>{announcementData.description}</Typography>
+              <div className={classNames.descriptionTextWrapper}>
+                <Typography className={cx(classNames.regularText, classNames.description)}>
+                  {announcementData.description}
+                </Typography>
+              </div>
             </div>
           </div>
 
@@ -70,17 +74,11 @@ export const MyServicesInfo = ({announcementData}) => {
             </div>
 
             <div className={classNames.buttonsWrapper}>
-              <Button
-                className={classNames.editButton}
-                // onClick={() => onClickCreateOrEditBtn(formFields, images)}
-              >
+              <Button className={classNames.editButton} onClick={onClickEditBtn}>
                 {t(TranslationKey.Edit)}
               </Button>
 
-              <Button
-                className={classNames.backButton}
-                // onClick={() => onClickCreateOrEditBtn(formFields, images)}
-              >
+              <Button className={classNames.backButton} onClick={onClickBackBtn}>
                 {t(TranslationKey.Back)}
               </Button>
             </div>

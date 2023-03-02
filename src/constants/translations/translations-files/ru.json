@@ -1823,5 +1823,9 @@
   "A supervisor check is necessary": "Необходима проверка супервайзером",
   "Standart": "Стандарт",
   "Product price": "Цена товара",
-  "Max 100 characters": "Максимум 100 символов"
+  "Max 100 characters": "Максимум 100 символов",
+  "Service details": "Детали услуги",
+  "Edit service": "Редактировать услугу",
+  "Service edited": "Услуга отредактирована",
+  "Service not edited": "Услуга не отредактирована"
 }

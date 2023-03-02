@@ -24,7 +24,7 @@ import {ServiceDetailsViewModel} from './services-detail-view.model'
 import {styles} from './services-detail-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 @observer
 export class ServiceDetailsViewRaw extends Component {
   chatRef = createRef()
@@ -44,6 +44,8 @@ export class ServiceDetailsViewRaw extends Component {
       announcementData,
 
       onTriggerDrawerOpen,
+      onClickBackBtn,
+      onClickEditBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -57,9 +59,13 @@ export class ServiceDetailsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['My request'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My services'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <MyServicesInfo announcementData={announcementData} />
+              <MyServicesInfo
+                announcementData={announcementData}
+                onClickEditBtn={onClickEditBtn}
+                onClickBackBtn={onClickBackBtn}
+              />
 
               <div className={classNames.dataGridWrapper}>
                 {/* <MemoDataGrid
