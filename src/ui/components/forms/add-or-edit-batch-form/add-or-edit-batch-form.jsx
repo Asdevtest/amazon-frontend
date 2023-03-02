@@ -94,7 +94,32 @@ export const AddOrEditBatchForm = observer(
 
     const [filesToAdd, setfilesToAdd] = useState([])
 
-    const [chosenBoxesBase, setChosenBoxesBase] = useState([])
+    const [chosenBoxesBase, setChosenBoxesBase] = useState(
+      batchToEdit
+        ? addOrEditBatchDataConverter(
+            batchToEdit.originalData?.boxes,
+            batchFields.volumeWeightDivide,
+            getBatchWeightCalculationMethodForBox(
+              batchFields.calculationMethod,
+              checkActualBatchWeightGreaterVolumeBatchWeight(
+                batchToEdit.originalData?.boxes,
+                batchFields.volumeWeightDivide,
+              ),
+            ),
+          )
+        : sourceBox
+        ? [
+            ...addOrEditBatchDataConverter(
+              [sourceBox],
+              batchFields.volumeWeightDivide,
+              getBatchWeightCalculationMethodForBox(
+                batchFields.calculationMethod,
+                checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
+              ),
+            ),
+          ]
+        : [],
+    )
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
@@ -182,7 +207,7 @@ export const AddOrEditBatchForm = observer(
     useEffect(() => {
       if (chosenBoxes.length && !batchToEdit) {
         setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...filterBoxesToAddData()]))
-      } else if (batchToEdit) {
+      } else if (batchToEdit && !nameSearchValueChosenBoxes) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
@@ -210,7 +235,7 @@ export const AddOrEditBatchForm = observer(
             ...deletedBoxes,
           ]),
         )
-      } else {
+      } else if (!nameSearchValueChosenBoxes) {
         // if (/* !nameSearchValueBoxesToAddData && */ !chosenBoxesBase) {
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData(
@@ -237,18 +262,16 @@ export const AddOrEditBatchForm = observer(
       if (nameSearchValueChosenBoxes && !batchToEdit) {
         setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase]))
       } else if (batchToEdit) {
-        const chosenBoxesIds = chosenBoxes.map(box => box._id)
+        // const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
-        const deletedBoxes = addOrEditBatchDataConverter(
-          (chosenBoxes.length < chosenBoxesBase.length ? chosenBoxesBase : chosenBoxes).filter(
-            el => !chosenBoxesIds.includes(el._id),
-          ),
-          batchFields.volumeWeightDivide,
-          getBatchWeightCalculationMethodForBox(
-            batchFields.calculationMethod,
-            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
-          ),
-        )
+        // const deletedBoxes = addOrEditBatchDataConverter(
+        //   boxesData.filter(el => !chosenBoxesIds.includes(el._id)),
+        //   batchFields.volumeWeightDivide,
+        //   getBatchWeightCalculationMethodForBox(
+        //     batchFields.calculationMethod,
+        //     getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+        //   ),
+        // )
 
         // setChosenBoxesBase(() =>
         //   filterBySearchValueChosenBoxes([
@@ -264,20 +287,20 @@ export const AddOrEditBatchForm = observer(
         //   ]),
         // )
 
-        setChosenBoxesBase(() =>
-          filterBySearchValueChosenBoxes([
-            ...(chosenBoxes.length < chosenBoxesBase.length ? chosenBoxesBase : chosenBoxes).filter(
-              box =>
-                box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-                !chosenBoxesIds.includes(box._id),
-            ),
+        setChosenBoxes(() => filterBySearchValueChosenBoxes(chosenBoxesBase))
 
-            ...deletedBoxes,
-          ]),
-        )
+        // setChosenBoxesBase(() =>
+        //   filterBySearchValueChosenBoxes([
+        //     ...boxesData.filter(
+        //       box =>
+        //         box.originalData?.destination?.name === batchToEdit.destination &&
+        //         box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+        //         !chosenBoxesIds.includes(box._id),
+        //     ),
 
-        setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxes, ...deletedBoxes]))
+        //     ...deletedBoxes,
+        //   ]),
+        // )
       } else {
         setChosenBoxes(chosenBoxesBase)
       }
@@ -559,7 +582,6 @@ export const AddOrEditBatchForm = observer(
             <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
             <SearchInput
-              disabled
               inputClasses={classNames.searchInput}
               value={nameSearchValueChosenBoxes}
               placeholder={t(TranslationKey['Search by ASIN, Title'])}

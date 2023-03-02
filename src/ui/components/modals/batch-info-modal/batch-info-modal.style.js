@@ -26,6 +26,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
 
     position: 'absolute',
+    zIndex: 999,
+
     top: 0,
     right: 0,
 
@@ -348,6 +350,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
+    position: 'relative',
   },
 
   virtualScroller: {

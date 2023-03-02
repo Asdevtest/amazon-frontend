@@ -280,11 +280,21 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={classNames.tableWrapper}>
+            <div className={classNames.boxCounterWrapper}>
+              <Typography className={classNames.boxCounterText}>
+                {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+              </Typography>
+              <Typography className={classNames.boxCounterCount}>
+                {batch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+              </Typography>
+            </div>
             {/* <div style={{flexGrow: 1}}> */}
             <MemoDataGrid
               // hideFooter
               // autoHeight
+              pagination
               localeText={getLocalizationByLanguageTag()}
+              rowsPerPageOptions={[50, 100]}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
@@ -298,16 +308,16 @@ export const BatchInfoModal = observer(
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
-                Footer: () => (
-                  <div className={classNames.boxCounterWrapper}>
-                    <Typography className={classNames.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-                    </Typography>
-                    <Typography className={classNames.boxCounterCount}>
-                      {batch.boxes.reduce((ac, cur) => (ac += cur.amount), 0)}
-                    </Typography>
-                  </div>
-                ),
+                // Footer: () => (
+                //   <div className={classNames.boxCounterWrapper}>
+                //     <Typography className={classNames.boxCounterText}>
+                //       {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                //     </Typography>
+                //     <Typography className={classNames.boxCounterCount}>
+                //       {batch.boxes.reduce((ac, cur) => (ac += cur.amount), 0)}
+                //     </Typography>
+                //   </div>
+                // ),
               }}
               getRowId={dataToRender => dataToRender._id}
               columns={batchInfoModalColumn(
