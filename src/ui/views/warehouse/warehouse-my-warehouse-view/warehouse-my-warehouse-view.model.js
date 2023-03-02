@@ -107,6 +107,7 @@ export class WarehouseMyWarehouseViewModel {
     setHsCode: item => this.setHsCode(item),
     setDimensions: item => this.setDimensions(item),
     onEditBox: item => this.onEditBox(item),
+    onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
   }
   uploadedImages = []
   uploadedFiles = []
@@ -280,6 +281,18 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.getDataGridState()
       await this.getBoxesMy()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSavePrepId(item, value) {
+    try {
+      await BoxesModel.editAdditionalInfo(item._id, {
+        prepId: value,
+      })
+
+      this.getBoxesMy()
     } catch (error) {
       console.log(error)
     }

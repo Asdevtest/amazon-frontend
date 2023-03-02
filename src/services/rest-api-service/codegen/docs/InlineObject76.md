@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
+**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
+**comment** | **String** | Комментарий к предложению. | [optional] 
+**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**title** | **String** | Название предложения | [optional] 
 
 

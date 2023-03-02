@@ -22,7 +22,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    width: 75,
+    width: 85,
     type: 'date',
   },
 

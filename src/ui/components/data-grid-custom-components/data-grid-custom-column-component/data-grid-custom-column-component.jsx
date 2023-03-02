@@ -94,6 +94,9 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ObJectFieldMenuItem
+          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
+            currentColumn.columnKey,
+          )}
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
@@ -107,9 +110,11 @@ export const DataGridCustomColumnMenuComponent = props => {
   }
 
   if (
-    [columnnsKeys.client.INVENTORY_STRATEGY_STATUS, columnnsKeys.client.INVENTORY_STATUS].includes(
-      currentColumn.columnKey,
-    )
+    [
+      columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
+      columnnsKeys.client.INVENTORY_STATUS,
+      columnnsKeys.shared.STRING,
+    ].includes(currentColumn.columnKey)
   ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>

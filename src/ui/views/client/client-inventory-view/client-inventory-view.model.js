@@ -764,7 +764,11 @@ export class ClientInventoryViewModel {
 
       const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null
+      const shopFilter = shops
+        ? shops
+        : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
+        ? curShops
+        : null
 
       const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
