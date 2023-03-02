@@ -50,6 +50,9 @@ class InlineObject85 {
             if (data.hasOwnProperty('shopIds')) {
                 obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
         }
         return obj;
     }
