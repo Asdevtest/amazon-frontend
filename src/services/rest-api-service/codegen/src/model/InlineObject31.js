@@ -50,6 +50,9 @@ class InlineObject31 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
         }
         return obj;
     }
@@ -62,6 +65,12 @@ class InlineObject31 {
  * @member {String} guid
  */
 InlineObject31.prototype['guid'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject31.prototype['prepId'] = undefined;
 
 
 

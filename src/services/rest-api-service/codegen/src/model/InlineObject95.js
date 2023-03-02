@@ -22,6 +22,7 @@ import InlineObject23 from './InlineObject23';
 class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject95
      */
     constructor() { 
@@ -62,7 +63,19 @@ class InlineObject95 {
  * Массив дополнительных коробок которые случились при обработки.
  * @member {Array.<module:model/InlineObject23>} additionalBoxes
  */
-InlineObject95.prototype['additionalBoxes'] = undefined;
+InlineObject95.prototype['name'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineObject95.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject95.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 
