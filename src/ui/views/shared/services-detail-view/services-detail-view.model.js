@@ -49,6 +49,16 @@ export class ServiceDetailsViewModel {
     }
   }
 
+  onClickEditBtn() {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
+      request: this.announcementData,
+    })
+  }
+
+  onClickBackBtn() {
+    this.history.push(`/freelancer/freelance/my-services`)
+  }
+
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
