@@ -22,7 +22,17 @@ export class ServiceDetailsViewModel {
 
   announcementData = null
 
-  rowCount = 0
+  curPage = 0
+  rowsPerPage = 15
+
+  currentData = null
+
+  sortModel = []
+  filterModel = {items: []}
+  columnVisibilityModel = null
+
+  densityModel = 'compact'
+  columnsModel = {}
 
   get user() {
     return UserModel.userInfo
@@ -39,6 +49,19 @@ export class ServiceDetailsViewModel {
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    // reaction(
+    //   () => ,
+    //   () => ,
+    // )
+  }
+
+  getCurrentData() {
+    if (this.nameSearchValue) {
+      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.users)
+    }
   }
 
   async loadData() {
