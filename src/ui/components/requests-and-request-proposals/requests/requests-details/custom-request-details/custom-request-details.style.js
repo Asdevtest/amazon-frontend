@@ -25,6 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: '20vh',
     fontFamily: 'inherit',
     padding: '8px',
+    paddingLeft: 0,
     fontSize: '16px',
     outline: 'none',
     backgroundColor: 'inherit',
