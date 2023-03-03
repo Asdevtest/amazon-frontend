@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInput: {
-    width: 135,
+    width: 170,
     height: 40,
     marginLeft: 10,
     marginBottom: 20,

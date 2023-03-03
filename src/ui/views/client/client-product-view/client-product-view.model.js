@@ -326,7 +326,7 @@ export class ClientProductViewModel {
           this.confirmModalSettings = {
             isWarning: true,
             title: t(TranslationKey['Delete a card']),
-            message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+            message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
             cancelBtnText: t(TranslationKey.Cancel),
             onClickOkBtn: () => this.onDeleteProduct(),
