@@ -56,6 +56,7 @@ export const CreateOrEditRequestContent = ({
   announcements,
   requestToEdit,
   history,
+  platformSettingsData,
   onCreateSubmit,
   onEditSubmit,
   showProgress,
@@ -64,6 +65,8 @@ export const CreateOrEditRequestContent = ({
   onClickThumbnail,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('platformSettingsData', platformSettingsData)
 
   const [images, setImages] = useState([])
 
@@ -194,7 +197,8 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions === '' ||
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
-    formFields?.request?.timeoutAt?.toString() === 'Invalid Date'
+    formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
+    platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price
 
   return (
     <div className={classNames.mainWrapper}>
@@ -362,7 +366,7 @@ export const CreateOrEditRequestContent = ({
                 <div>
                   <div className={classNames.dateAndTimeWrapper}>
                     <Field
-                      containerClasses={classNames.dateAndTimeContainer}
+                      containerClasses={cx(classNames.dateAndTimeContainerleft)}
                       tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                       label={`${t(TranslationKey['When do you want results?'])}`}
                       labelClasses={classNames.spanLabelSmall}
@@ -385,7 +389,7 @@ export const CreateOrEditRequestContent = ({
                       }
                     />
                     <Field
-                      containerClasses={classNames.dateAndTimeContainer}
+                      containerClasses={classNames.dateAndTimeContainerRight}
                       tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                       label={`${t(TranslationKey['What time do you want the result?'])}`}
                       labelClasses={classNames.spanLabelSmall}
@@ -408,7 +412,7 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.checkboxesWrapper}>
                     <div
-                      className={classNames.checkboxWrapper}
+                      className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperLeft)}
                       onClick={e => {
                         onChangeField('request')('maxAmountOfProposals')({...e, target: {value: ''}})
                         setIsLimited(!isLimited)
@@ -417,7 +421,10 @@ export const CreateOrEditRequestContent = ({
                       <div className={classNames.checkboxSubWrapper}>
                         <Checkbox color="primary" checked={isLimited} classes={{root: classNames.checkbox}} />
                       </div>
-                      <Text tooltipInfoContent={t(TranslationKey['Limit the number of proposals'])}>
+                      <Text
+                        className={classNames.checkboxText}
+                        tooltipInfoContent={t(TranslationKey['Limit the number of proposals'])}
+                      >
                         {t(TranslationKey['Limit the number of proposals'])}
                       </Text>
                     </div>
@@ -425,7 +432,7 @@ export const CreateOrEditRequestContent = ({
                     {`${formFields?.request?.typeTask}` !==
                       `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
                       <div
-                        className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperMR)}
+                        className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperRight)}
                         onClick={onChangeField('request')('needCheckBySupervisor')}
                       >
                         <div className={classNames.checkboxSubWrapper}>
@@ -436,6 +443,7 @@ export const CreateOrEditRequestContent = ({
                           />
                         </div>
                         <Text
+                          className={classNames.checkboxText}
                           tooltipInfoContent={t(
                             TranslationKey['Add a service for checking the result of proposals by a supervisor'],
                           )}
@@ -458,6 +466,13 @@ export const CreateOrEditRequestContent = ({
                     />
 
                     <Field
+                      error={
+                        formFields.request.price &&
+                        platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price &&
+                        `${t(TranslationKey['The price should be greater than'])} ${
+                          platformSettingsData.requestMinAmountPriceOfProposal
+                        } $`
+                      }
                       tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
                       inputProps={{maxLength: 8}}
                       label={`${t(TranslationKey['Enter the offer price'])}`}

@@ -25,6 +25,10 @@ export class CreateOrEditRequestView extends Component {
     location: this.props.location,
   })
 
+  componentDidMount() {
+    this.viewModel.getPlatformSettingsData()
+  }
+
   render() {
     const {
       progressValue,
@@ -34,6 +38,8 @@ export class CreateOrEditRequestView extends Component {
       announcements,
       showImageModal,
       bigImagesOptions,
+      platformSettingsData,
+
       onClickChoosePerformer,
       onTriggerDrawerOpen,
       onSubmitCreateRequest,
@@ -55,6 +61,7 @@ export class CreateOrEditRequestView extends Component {
             <MainContent>
               <CreateOrEditRequestContent
                 announcements={announcements}
+                platformSettingsData={platformSettingsData}
                 progressValue={progressValue}
                 showProgress={showProgress}
                 requestToEdit={requestToEdit}
