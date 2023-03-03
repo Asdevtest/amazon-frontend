@@ -66,6 +66,8 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('platformSettingsData', platformSettingsData)
+
   const [images, setImages] = useState([])
 
   const [openModal, setOpenModal] = useState(false)
