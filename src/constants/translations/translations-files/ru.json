@@ -1847,5 +1847,6 @@
   "Service details": "Детали услуги",
   "Edit service": "Редактировать услугу",
   "Service edited": "Услуга отредактирована",
-  "Service not edited": "Услуга не отредактирована"
+  "Service not edited": "Услуга не отредактирована",
+  "The price should be greater than": "Стоить должна быть больше, чем"
 }

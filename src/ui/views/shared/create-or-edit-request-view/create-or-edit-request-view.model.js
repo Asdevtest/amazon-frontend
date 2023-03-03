@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AnnouncementsModel} from '@models/announcements-model'
 import {RequestModel} from '@models/request-model'
+import {UserModel} from '@models/user-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
@@ -16,6 +17,8 @@ export class CreateOrEditRequestViewModel {
 
   acceptMessage = null
   showAcceptMessage = false
+
+  platformSettingsData = null
 
   drawerOpen = false
 
@@ -43,6 +46,10 @@ export class CreateOrEditRequestViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async getPlatformSettingsData() {
+    this.platformSettingsData = await UserModel.getPlatformSettings()
   }
 
   async onSubmitCreateRequest(data, files) {
