@@ -159,7 +159,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   proposalsWrapper: {
-    width: '668px',
+    minWidth: 700,
+    display: 'flex',
+    gap: 20,
   },
 
   proposalWrapper: {
@@ -169,13 +171,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   proposalComment: {
-    margin: '30px 0 20px 0',
+    margin: '20px 0 10px 0',
     overflow: 'auto',
-    height: '76px',
+    height: '130px',
     color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
   },
 
   rightSubWrapper: {
@@ -236,7 +240,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
-    maxWidth: '120px',
+    // maxWidth: '220px',
   },
 
   timeCount: {
@@ -285,5 +289,85 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.second,
+  },
+
+  mainInfosWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'space-around',
+    // alignItems: 'flex-end',
+    width: '100%',
+    // height: 300,
+    padding: '0 20px',
+    gap: 10,
+  },
+
+  mainInfosSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+    width: '100%',
+    // height: 300,
+    alignSelf: 'center',
+
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 4,
+    padding: '20px 30px',
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '25px !important',
+
+    '&:last-child': {
+      marginBottom: '0px !important',
+    },
+  },
+
+  priceAmazonWrapper: {
+    display: 'flex',
+  },
+
+  redText: {
+    color: '#FB1D5B',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+  },
+
+  cashBackPrice: {
+    marginLeft: 5,
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#656565',
+    textDecorationLine: 'line-through',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  cardTitle: {
+    // margin: '0 10px 0 20px',
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: theme.palette.text.general,
+    // overflowY: 'auto',
+    width: '500px',
+    // overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    // marginBottom: 20,
   },
 }))
