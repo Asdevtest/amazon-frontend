@@ -859,11 +859,12 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getStorekeepers()
+      await this.getDestinations()
+
       await this.getClientDestinations()
 
       await this.getShops()
 
-      await this.getDestinations()
       await this.getBoxesMy()
       this.getTasksMy()
       // this.getDataGridState()
