@@ -52,6 +52,7 @@ export class ServiceDetailsViewRaw extends Component {
       currentData,
       columnVisibilityModel,
       densityModel,
+      columnsModel,
 
       onTriggerDrawerOpen,
       onClickBackBtn,
@@ -77,7 +78,7 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickBackBtn={onClickBackBtn}
               />
 
-              {/* <div className={classNames.dataGridWrapper}>
+              <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
                   disableVirtualization
                   pagination
@@ -107,16 +108,16 @@ export class ServiceDetailsViewRaw extends Component {
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
                   columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-                  onStateChange={setFirstRowId}
-                  onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+                  // loading={requestStatus === loadingStatuses.isLoading}
+                  // onSortModelChange={onChangeSortingModel}
+                  // onPageSizeChange={onChangeRowsPerPage}
+                  // onPageChange={onChangeCurPage}
+                  // onFilterModelChange={onChangeFilterModel}
+                  // onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+                  // onStateChange={setFirstRowId}
+                  // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 />
-              </div> */}
+              </div>
             </MainContent>
           </Appbar>
         </Main>

@@ -25,14 +25,14 @@ export class ServiceDetailsViewModel {
   curPage = 0
   rowsPerPage = 15
 
-  currentData = null
+  currentData = []
 
   sortModel = []
   filterModel = {items: []}
   columnVisibilityModel = null
 
   densityModel = 'compact'
-  columnsModel = {}
+  columnsModel = []
 
   get user() {
     return UserModel.userInfo
