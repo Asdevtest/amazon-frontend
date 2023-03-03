@@ -81,16 +81,6 @@ class ServiceExchangeViewRaw extends Component {
                   </div>
 
                   <div className={classNames.taskTypeWrapper}>
-                    <Button
-                      variant="text"
-                      disabled={selectedTaskType === 'ALL'}
-                      className={cx(classNames.button, {
-                        [classNames.selectedBoxesBtn]: selectedTaskType === 'ALL',
-                      })}
-                      onClick={() => onClickTaskType('ALL')}
-                    >
-                      {t(TranslationKey.All)}
-                    </Button>
                     {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
                       <Button
                         key={taskIndex}

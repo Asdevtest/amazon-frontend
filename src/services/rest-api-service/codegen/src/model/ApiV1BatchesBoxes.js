@@ -145,6 +145,9 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
@@ -379,6 +382,12 @@ ApiV1BatchesBoxes.prototype['upsTrackNumber'] = undefined;
  * @member {String} trackNumberFile
  */
 ApiV1BatchesBoxes.prototype['trackNumberFile'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+ApiV1BatchesBoxes.prototype['prepId'] = undefined;
 
 /**
  * Сторкипер взявший коробку в работу.

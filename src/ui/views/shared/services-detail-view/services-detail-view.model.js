@@ -16,49 +16,26 @@ import {onSubmitPostImages} from '@utils/upload-files'
 
 export class ServiceDetailsViewModel {
   history = undefined
-  requestStatus = undefined
   error = undefined
   uploadedFiles = []
   drawerOpen = false
-  requestId = undefined
-  request = undefined
-  requestProposals = []
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  announcementData = null
 
-  showConfirmModal = false
-  showRequestForm = false
-  showConfirmWithCommentModal = false
-  showChat = false
-  showConfirmWorkResultFormModal = false
-  showReviewModal = false
+  curPage = 0
+  rowsPerPage = 15
 
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onSubmit: () => {},
-  }
+  currentData = null
 
-  acceptProposalResultSetting = {
-    onSubmit: () => {},
-  }
+  sortModel = []
+  filterModel = {items: []}
+  columnVisibilityModel = null
 
-  chatSelectedId = undefined
-  chatIsConnected = false
-  scrollToChat = undefined
-  showResultToCorrectFormModal = false
+  densityModel = 'compact'
+  columnsModel = {}
 
   get user() {
     return UserModel.userInfo
-  }
-
-  get typingUsers() {
-    return ChatModel.typingUsers || []
-  }
-
-  get chats() {
-    return ChatModel.chats || []
   }
 
   constructor({history, location}) {
@@ -66,10 +43,25 @@ export class ServiceDetailsViewModel {
       this.history = history
 
       if (location.state) {
-        console.log('location.state', location.state)
+        runInAction(() => {
+          this.announcementData = location.state.data
+        })
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    // reaction(
+    //   () => ,
+    //   () => ,
+    // )
+  }
+
+  getCurrentData() {
+    if (this.nameSearchValue) {
+      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.users)
+    }
   }
 
   async loadData() {
@@ -78,6 +70,16 @@ export class ServiceDetailsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickEditBtn() {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
+      request: this.announcementData,
+    })
+  }
+
+  onClickBackBtn() {
+    this.history.push(`/freelancer/freelance/my-services`)
   }
 
   onTriggerOpenModal(modal) {

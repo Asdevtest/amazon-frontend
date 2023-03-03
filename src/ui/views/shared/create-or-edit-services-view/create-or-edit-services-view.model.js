@@ -15,12 +15,11 @@ export class CreateOrEditServicesViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  acceptMessage = null
-  showAcceptMessage = false
-
   drawerOpen = false
 
-  requestToEdit = undefined
+  requestToEdit = {}
+
+  pathname = null
 
   uploadedFiles = []
 
@@ -31,6 +30,7 @@ export class CreateOrEditServicesViewModel {
   constructor({history, location}) {
     runInAction(() => {
       this.history = history
+      this.pathname = location.pathname
 
       if (location.state) {
         this.requestToEdit = location.state.request
@@ -40,7 +40,7 @@ export class CreateOrEditServicesViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async onClickCreateOrEditBtn(data, files) {
+  async onClickCreateBtn(data, files) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
@@ -57,30 +57,50 @@ export class CreateOrEditServicesViewModel {
 
       await AnnouncementsModel.createAnnouncement(dataWithFiles)
 
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The service was created'])
-      })
-
       this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
+        showAcceptMessage: true,
+        acceptMessage: t(TranslationKey['The service was created']),
       })
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The request was not created'])
-      })
-
       this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
+        showAcceptMessage: true,
+        acceptMessage: t(TranslationKey['The request was not created']),
       })
 
       runInAction(() => {
         this.error = error
+      })
+    }
+  }
+
+  async onClickEditBtn(data, files) {
+    try {
+      if (files?.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+
+      const dataWithFiles = {
+        ...data,
+        linksToMediaFiles: [...data.linksToMediaFiles, ...this.uploadedFiles],
+      }
+
+      await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)
+
+      this.history.push('/freelancer/freelance/my-services', {
+        showAcceptMessage: true,
+        acceptMessage: t(TranslationKey['Service edited']),
+      })
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+        console.log(error)
+      })
+
+      this.history.push('/freelancer/freelance/my-services', {
+        showAcceptMessage: true,
+        acceptMessage: t(TranslationKey['Service not edited']),
       })
     }
   }

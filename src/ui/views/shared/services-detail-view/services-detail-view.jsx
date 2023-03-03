@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import InboxIcon from '@mui/icons-material/Inbox'
 import {Typography, Paper, Alert} from '@mui/material'
 
@@ -11,19 +12,22 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {MemoDataGrid} from '@components/memo-data-grid'
+import {MyServicesInfo} from '@components/my-services/my-services-info'
 import {Navbar} from '@components/navbar'
-import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposals/owner-general-request-info'
-import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ServiceDetailsViewModel} from './services-detail-view.model'
 import {styles} from './services-detail-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 @observer
 export class ServiceDetailsViewRaw extends Component {
   chatRef = createRef()
@@ -38,13 +42,20 @@ export class ServiceDetailsViewRaw extends Component {
 
   render() {
     const {
-      requestProposals,
+      curPage,
+      rowCount,
+      rowsPerPage,
       drawerOpen,
+      announcementData,
+      filterModel,
+      sortModel,
+      currentData,
+      columnVisibilityModel,
+      densityModel,
+
       onTriggerDrawerOpen,
-      onClickPublishBtn,
+      onClickBackBtn,
       onClickEditBtn,
-      onClickCancelBtn,
-      onClickAbortBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -58,19 +69,54 @@ export class ServiceDetailsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['My request'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My services'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <OwnerGeneralRequestInfo
-                requestProposals={requestProposals}
-                onClickPublishBtn={onClickPublishBtn}
+              <MyServicesInfo
+                announcementData={announcementData}
                 onClickEditBtn={onClickEditBtn}
-                onClickCancelBtn={onClickCancelBtn}
-                onClickAbortBtn={onClickAbortBtn}
+                onClickBackBtn={onClickBackBtn}
               />
 
-              <div className={classNames.detailsWrapper}>
-                <CustomSearchRequestDetails />
-              </div>
+              {/* <div className={classNames.dataGridWrapper}>
+                <MemoDataGrid
+                  disableVirtualization
+                  pagination
+                  useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={currentData}
+                  // rowHeight={100}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                  }}
+                  columnVisibilityModel={columnVisibilityModel}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={onChangeFilterModel}
+                  onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+                  onStateChange={setFirstRowId}
+                  onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+                />
+              </div> */}
             </MainContent>
           </Appbar>
         </Main>

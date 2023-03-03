@@ -61,7 +61,6 @@ Name | Type | Description | Notes
 **listingSubjectMatters** | **[String]** | Массив ... | [optional] 
 **listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
-**ideasCounter** | **Number** | Кол-во идей продукта в статусе 10 | [optional] 
 **needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
 **amountInOrders** | **Number** | Сколько такого продукта находится в заказах. | [optional] 
 **boxAmounts** | [**[ApiV1AdminsGetProductsByStatusBoxAmounts]**](ApiV1AdminsGetProductsByStatusBoxAmounts.md) |  | [optional] 
@@ -84,6 +83,7 @@ Name | Type | Description | Notes
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 **productsInWarehouse** | **[Object]** |  | [optional] 
+**ideasCounter** | **Number** | Кол-во идей продукта в статусе 10 | [optional] 
 **sumStock** | **Number** | “sumStock”&#x3D;“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“ | [optional] 
 **purchaseQuantity** | **Number** | “purchaseQuantity”&#x3D;”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0 | [optional] 
 

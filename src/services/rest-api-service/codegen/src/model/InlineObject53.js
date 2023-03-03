@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject53 model module.
@@ -22,12 +21,13 @@ import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject53
-     * @param name {String} Название профиля
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(name) { 
+    constructor(shippingLabel) { 
         
-        InlineObject53.initialize(this, name);
+        InlineObject53.initialize(this, shippingLabel);
     }
 
     /**
@@ -35,8 +35,8 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -50,14 +50,8 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -67,22 +61,10 @@ class InlineObject53 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject53.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject53.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject53.prototype['navigator'] = undefined;
+InlineObject53.prototype['shippingLabel'] = undefined;
 
 
 

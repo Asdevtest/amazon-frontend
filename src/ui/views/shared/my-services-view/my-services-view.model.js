@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {
+  freelanceRequestTypeByCode,
+  freelanceRequestType,
+  freelanceRequestTypeByKey,
+} from '@constants/freelance-request-type'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
@@ -20,7 +25,7 @@ export class MyServicesViewModel {
   showAcceptMessage = null
   acceptMessage = null
 
-  selectedTaskType = 'ALL'
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   announcements = []
 
@@ -85,7 +90,12 @@ export class MyServicesViewModel {
 
   async getMyAnnouncementsData() {
     try {
-      const result = await AnnouncementsModel.getMyAnnouncements()
+      const result = await AnnouncementsModel.getMyAnnouncements({
+        type:
+          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? null
+            : this.selectedTaskType,
+      })
       runInAction(() => {
         this.announcements = result
       })
@@ -96,11 +106,7 @@ export class MyServicesViewModel {
   }
 
   getCurrentData() {
-    // if (this.nameSearchValue) {
-    //   return toJS(this.announcements).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    // } else {
     return toJS(this.announcements)
-    // }
   }
 
   onClickCreateServiceBtn() {
@@ -108,13 +114,11 @@ export class MyServicesViewModel {
     this.history.push(`/freelancer/freelance/my-services/create-service`)
   }
 
-  onClickTaskType(taskType) {
-    this.selectedTaskType = taskType
-    if (taskType === 'ALL') {
-      this.currentData = this.announcements
-    } else {
-      this.currentData = this.announcements.filter(item => item.type === +taskType)
-    }
+  async onClickTaskType(taskType) {
+    runInAction(() => {
+      this.selectedTaskType = taskType
+    })
+    await this.getMyAnnouncementsData()
   }
 
   onChangeViewMode(event, nextView) {

@@ -1,18 +1,25 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 export class AnnouncementsModelStatic {
-  getMyAnnouncements = async () => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet()
+  getMyAnnouncements = async type => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsMyGet(type)
     return response
   }
 
-  getVacAnnouncements = async () => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet()
+  getVacAnnouncements = async type => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsVacGet(type)
     return response
   }
 
   createAnnouncement = async data => {
     const response = await restApiService.announcementsApi.apiV1AnnouncementsPost({
+      body: data,
+    })
+    return response
+  }
+
+  editAnnouncement = async (id, data) => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidPatch(id, {
       body: data,
     })
     return response

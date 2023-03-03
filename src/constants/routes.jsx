@@ -1962,6 +1962,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service',
+    component: CreateOrEditServicesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Edit service'],
+  },
+
+  {
     routePath: '/moderator/dashboard',
     component: ModeratorDashboardView,
     exact: false,

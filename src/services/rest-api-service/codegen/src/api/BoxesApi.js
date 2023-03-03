@@ -32,6 +32,7 @@ import InlineObject29 from '../model/InlineObject29';
 import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
+import InlineObject33 from '../model/InlineObject33';
 import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse20014 from '../model/InlineResponse20014';
 import InlineResponse20015 from '../model/InlineResponse20015';
@@ -1414,6 +1415,55 @@ export default class BoxesApi {
      */
     apiV1BoxesPost(opts) {
       return this.apiV1BoxesPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Изменить поле prepId
+     * # Изменить поле isFormed
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesPrepIdPatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/prep_id', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить поле prepId
+     * # Изменить поле isFormed
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject33} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesPrepIdPatch(opts) {
+      return this.apiV1BoxesPrepIdPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

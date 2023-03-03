@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
 **trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **destination** | [**ApiV1BatchesByProductGuidDestination**](ApiV1BatchesByProductGuidDestination.md) |  | [optional] 
 **logicsTariff** | [**ApiV1BatchesByProductGuidLogicsTariff**](ApiV1BatchesByProductGuidLogicsTariff.md) |  | [optional] 

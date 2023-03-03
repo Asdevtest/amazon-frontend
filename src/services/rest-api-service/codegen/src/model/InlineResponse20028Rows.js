@@ -222,9 +222,6 @@ class InlineResponse20028Rows {
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
-            if (data.hasOwnProperty('ideasCounter')) {
-                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
-            }
             if (data.hasOwnProperty('needCheckBySupervisor')) {
                 obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
             }
@@ -290,6 +287,9 @@ class InlineResponse20028Rows {
             }
             if (data.hasOwnProperty('productsInWarehouse')) {
                 obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
+            }
+            if (data.hasOwnProperty('ideasCounter')) {
+                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
             }
             if (data.hasOwnProperty('sumStock')) {
                 obj['sumStock'] = ApiClient.convertToType(data['sumStock'], 'Number');
@@ -639,12 +639,6 @@ InlineResponse20028Rows.prototype['listingImages'] = undefined;
 InlineResponse20028Rows.prototype['strategyStatus'] = undefined;
 
 /**
- * Кол-во идей продукта в статусе 10
- * @member {Number} ideasCounter
- */
-InlineResponse20028Rows.prototype['ideasCounter'] = undefined;
-
-/**
  * Признак needCheckBySupervisor
  * @member {Boolean} needCheckBySupervisor
  */
@@ -766,6 +760,12 @@ InlineResponse20028Rows.prototype['checkedby'] = undefined;
  * @member {Array.<Object>} productsInWarehouse
  */
 InlineResponse20028Rows.prototype['productsInWarehouse'] = undefined;
+
+/**
+ * Кол-во идей продукта в статусе 10
+ * @member {Number} ideasCounter
+ */
+InlineResponse20028Rows.prototype['ideasCounter'] = undefined;
 
 /**
  * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“

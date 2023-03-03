@@ -56,6 +56,7 @@ export const CreateOrEditRequestContent = ({
   announcements,
   requestToEdit,
   history,
+  platformSettingsData,
   onCreateSubmit,
   onEditSubmit,
   showProgress,
@@ -64,6 +65,8 @@ export const CreateOrEditRequestContent = ({
   onClickThumbnail,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('platformSettingsData', platformSettingsData)
 
   const [images, setImages] = useState([])
 
@@ -186,7 +189,7 @@ export const CreateOrEditRequestContent = ({
 
   const disableSubmit =
     formFields.request.title === '' ||
-    formFields.request.title.length > 80 ||
+    formFields.request.title.length > 100 ||
     formFields.request.maxAmountOfProposals === '' ||
     formFields.request.timeLimitInMinutes === '' ||
     formFields.request.price === '' ||
@@ -194,7 +197,8 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions === '' ||
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
-    formFields?.request?.timeoutAt?.toString() === 'Invalid Date'
+    formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
+    platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price
 
   return (
     <div className={classNames.mainWrapper}>
@@ -303,7 +307,10 @@ export const CreateOrEditRequestContent = ({
                       labelClasses={classNames.spanLabelSmall}
                       value={toFixed(formFields.request.discountedPrice, 2)}
                       onChange={e => {
-                        if (formFields.request.priceAmazon && Number(e.target.value) < formFields.request.priceAmazon) {
+                        if (
+                          formFields.request.priceAmazon &&
+                          Number(e.target.value) <= formFields.request.priceAmazon
+                        ) {
                           onChangeField('request')('discountedPrice')(e)
                         }
                       }}
@@ -359,7 +366,7 @@ export const CreateOrEditRequestContent = ({
                 <div>
                   <div className={classNames.dateAndTimeWrapper}>
                     <Field
-                      containerClasses={classNames.dateAndTimeContainer}
+                      containerClasses={cx(classNames.dateAndTimeContainerleft)}
                       tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                       label={`${t(TranslationKey['When do you want results?'])}`}
                       labelClasses={classNames.spanLabelSmall}
@@ -382,7 +389,7 @@ export const CreateOrEditRequestContent = ({
                       }
                     />
                     <Field
-                      containerClasses={classNames.dateAndTimeContainer}
+                      containerClasses={classNames.dateAndTimeContainerRight}
                       tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                       label={`${t(TranslationKey['What time do you want the result?'])}`}
                       labelClasses={classNames.spanLabelSmall}
@@ -405,7 +412,7 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.checkboxesWrapper}>
                     <div
-                      className={classNames.checkboxWrapper}
+                      className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperLeft)}
                       onClick={e => {
                         onChangeField('request')('maxAmountOfProposals')({...e, target: {value: ''}})
                         setIsLimited(!isLimited)
@@ -414,7 +421,10 @@ export const CreateOrEditRequestContent = ({
                       <div className={classNames.checkboxSubWrapper}>
                         <Checkbox color="primary" checked={isLimited} classes={{root: classNames.checkbox}} />
                       </div>
-                      <Text tooltipInfoContent={t(TranslationKey['Limit the number of proposals'])}>
+                      <Text
+                        className={classNames.checkboxText}
+                        tooltipInfoContent={t(TranslationKey['Limit the number of proposals'])}
+                      >
                         {t(TranslationKey['Limit the number of proposals'])}
                       </Text>
                     </div>
@@ -422,7 +432,7 @@ export const CreateOrEditRequestContent = ({
                     {`${formFields?.request?.typeTask}` !==
                       `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
                       <div
-                        className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperMR)}
+                        className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperRight)}
                         onClick={onChangeField('request')('needCheckBySupervisor')}
                       >
                         <div className={classNames.checkboxSubWrapper}>
@@ -433,6 +443,7 @@ export const CreateOrEditRequestContent = ({
                           />
                         </div>
                         <Text
+                          className={classNames.checkboxText}
                           tooltipInfoContent={t(
                             TranslationKey['Add a service for checking the result of proposals by a supervisor'],
                           )}
@@ -455,6 +466,13 @@ export const CreateOrEditRequestContent = ({
                     />
 
                     <Field
+                      error={
+                        formFields.request.price &&
+                        platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price &&
+                        `${t(TranslationKey['The price should be greater than'])} ${
+                          platformSettingsData.requestMinAmountPriceOfProposal
+                        } $`
+                      }
                       tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
                       inputProps={{maxLength: 8}}
                       label={`${t(TranslationKey['Enter the offer price'])}`}
@@ -488,10 +506,11 @@ export const CreateOrEditRequestContent = ({
                           </div>
                         )}
                         <Button
+                          disabled={!formFields.request.typeTask}
                           variant={'contained'}
                           className={classNames.changePerformerBtn}
                           onClick={async () => {
-                            await onClickChoosePerformer()
+                            await onClickChoosePerformer(formFields.request.typeTask)
                             setOpenModal(true)
                           }}
                         >
@@ -547,6 +566,7 @@ export const CreateOrEditRequestContent = ({
                     })}
                     inputComponent={
                       <Checkbox
+                        disabled
                         color="primary"
                         checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
                         onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
@@ -671,6 +691,29 @@ export const CreateOrEditRequestContent = ({
                       <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
                       {t(TranslationKey['on our freelance exchange.'])}
                     </Typography>
+
+                    <div className={classNames.performerWrapperStepTwo}>
+                      <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                      <div className={classNames.userInfo}>
+                        <Avatar
+                          src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                          className={classNames.cardImg}
+                        />
+
+                        <div className={classNames.nameWrapperStepTwo}>
+                          <UserLink
+                            blackText
+                            name={formFields.request.announcementId.title}
+                            userId={formFields.request.announcementId._id}
+                            customStyles={{maxWidth: 300}}
+                          />
+                          <Rating disabled value={5} size="small" classes={classNames.rating} />
+                        </div>
+                      </div>
+                      <Typography className={classNames.performerDescriptionText}>
+                        {formFields.request.announcementId.description}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
 

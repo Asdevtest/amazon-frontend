@@ -1821,5 +1821,11 @@
   "Select a Performer": "Select a Performer",
   "A supervisor check is necessary": "A supervisor check is necessary",
   "Standart": "Standart",
-  "Product price": "Product price"
+  "Product price": "Product price",
+  "Max 100 characters": "Max 100 characters",
+  "Service details": "Service details",
+  "Edit service": "Edit service",
+  "Service edited": "Service edited",
+  "Service not edited": "Service not edited",
+  "The price should be greater than": "The price should be greater than"
 }
