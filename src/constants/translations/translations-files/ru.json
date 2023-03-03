@@ -1221,7 +1221,7 @@
   "Four months of stock": "Четыре месяца стока",
   "Repurchase": "К дозакупке",
   "Delete a card": "Удалить карточку",
-  "After confirmation, the card will be moved to the archive. Delete?": "После подтверждения карточка будет перенесена в архив. Удалить?",
+  "After confirmation, the card will be moved to the archive. Move?": "После подтверждения карточка будет перенесена в архив. Переместить?",
   "Set": "Установить",
   "Weight less than 12 kg!": "Вес меньше 12 кг!",
   "Add supplier": "Добавить поставщика",
@@ -1753,9 +1753,9 @@
   "Select all": "Выбрать все",
   "Batches archive": "Архив партий",
   "Actual batches": "Актуальные партии",
-  "Delete a batch": "Удалить партию",
+  "Move a batch": "Переместить партию",
   "After confirmation, the batch will be moved to the actual batches. Continue?": "После подтверждения партия будет перенесена в актуальные партии. Продолжить?",
-  "After confirmation, the batch will be moved to the archive. Delete?": "После подтверждения партия будет перенесена в Архив. Удалить?",
+  "After confirmation, the batch will be moved to the archive. Move?": "После подтверждения партия будет перенесена в Архив. Переместить?",
   "Back to actual batches": "Вернуться в актуальные партии",
   "Relocate from archive": "Переместить из архива",
   "Return to actual batches": "Вернуть в актуальные партии",
@@ -1786,5 +1786,6 @@
   "Name idea": "Название идеи",
   "Notifications on ideas": "Уведомления идей",
   "Updated by": "Обновил",
-  "Without stores": "Без магазина"
+  "Without stores": "Без магазина",
+  "This amount includes the service fee": "В указанную сумму входит комиссия сервиса"
 }

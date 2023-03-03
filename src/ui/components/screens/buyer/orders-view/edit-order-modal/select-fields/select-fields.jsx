@@ -327,7 +327,8 @@ export const SelectFields = ({
                     disabled={
                       ![
                         OrderStatusByKey[OrderStatus.AT_PROCESS],
-                        OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+
+                        // OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
                       ].includes(orderFields.status) || !checkIsPlanningPrice
                     }
                     checked={checkIsPlanningPrice}

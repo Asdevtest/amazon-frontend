@@ -93,11 +93,11 @@ export class ClientDashboardViewRaw extends Component {
                 <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
 
                 {userInfo.masterUser && (
-                  <>
+                  <div className={classes.masterUserWrapper}>
                     <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                     <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </>
+                  </div>
                 )}
               </Paper>
               <DashboardWidgetsCard

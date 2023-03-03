@@ -105,16 +105,18 @@ export const FieldsAndSuppliers = observer(
                   {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
                 </div>
 
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
-                  className={classNames.buttonParseAmazon}
-                  onClick={() => {
-                    onClickParseProductData(ProductDataParser.AMAZON, product)
-                    onClickParseProductData(ProductDataParser.SELLCENTRAL, product)
-                  }}
-                >
-                  {'Parse Product Data'}
-                </Button>
+                {!checkIsBuyer(curUserRole) ? (
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
+                    className={classNames.buttonParseAmazon}
+                    onClick={() => {
+                      onClickParseProductData(ProductDataParser.AMAZON, product)
+                      onClickParseProductData(ProductDataParser.SELLCENTRAL, product)
+                    }}
+                  >
+                    {'Parse Product Data'}
+                  </Button>
+                ) : null}
               </div>
 
               {checkIsClient(curUserRole) &&

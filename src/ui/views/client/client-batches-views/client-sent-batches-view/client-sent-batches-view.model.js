@@ -139,10 +139,10 @@ export class ClientSentBatchesViewModel {
         isWarning: this.isArchive ? false : true,
         confirmTitle: this.isArchive
           ? t(TranslationKey['Return to actual batches'])
-          : t(TranslationKey['Delete a batch']),
+          : t(TranslationKey['Move a batch']),
         confirmMessage: this.isArchive
           ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
-          : t(TranslationKey['After confirmation, the batch will be moved to the archive. Delete?']),
+          : t(TranslationKey['After confirmation, the batch will be moved to the archive. Move?']),
         onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
       }
     })

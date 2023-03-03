@@ -50,11 +50,11 @@ export class ModeratorDashboardViewRaw extends Component {
               <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
 
               {userInfo.masterUser && (
-                <>
+                <div className={classNames.masterUserWrapper}>
                   <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                   <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                </>
+                </div>
               )}
             </MainContent>
           </Appbar>

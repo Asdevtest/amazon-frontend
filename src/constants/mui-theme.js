@@ -106,6 +106,17 @@ export const lightTheme = createTheme({
     //   },
     // },
 
+    MuiSvgIcon: {
+      styleOverrides: {
+        // root: {
+        //   color: '#fff',
+        // },
+        colorPrimary: {
+          color: '#007bff !important',
+        },
+      },
+    },
+
     MuiPaper: {
       styleOverrides: {
         root: {
@@ -256,6 +267,8 @@ export const darkTheme = createTheme({
           // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6) !important', // Новый вид
           color: '#fff',
+
+          // border: '1px solid rgba(81, 81, 81, 1) !important',
         },
 
         paper: {
@@ -280,6 +293,11 @@ export const darkTheme = createTheme({
           // '& > disabled': {
           //   color: 'red',
           // },
+        },
+
+        cell: {
+          borderBottom: '1px solid rgba(81, 81, 81, 1)',
+          // border: 'none',
         },
       },
     },
@@ -312,13 +330,16 @@ export const darkTheme = createTheme({
       },
     },
 
-    // MuiSvgIcon: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff',
-    //     },
-    //   },
-    // },
+    MuiSvgIcon: {
+      styleOverrides: {
+        // root: {
+        //   color: '#fff',
+        // },
+        colorPrimary: {
+          color: '#4CA1DE !important',
+        },
+      },
+    },
 
     MuiFormLabel: {
       styleOverrides: {

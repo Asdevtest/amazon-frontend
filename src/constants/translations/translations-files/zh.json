@@ -1221,7 +1221,7 @@
   "Four months of stock": "四个月的库存",
   "Repurchase": "回购",
   "Delete a card": "删除产品卡",
-  "After confirmation, the card will be moved to the archive. Delete?": "确认后产品卡移动到存档. 删除?",
+  "After confirmation, the card will be moved to the archive. Move?": "确认后产品卡移动到存档. 删除?",
   "Set": "设置",
   "Weight less than 12 kg!": "重量不足12 kg!",
   "Add supplier": "添加供货方",
@@ -1753,9 +1753,9 @@
   "Select all": "Select all",
   "Batches archive": "Batches archive",
   "Actual batches": "Actual batches",
-  "Delete a batch": "Delete a batch",
+  "Move a batch": "Move a batch",
   "After confirmation, the batch will be moved to the actual batches. Continue?": "After confirmation, the batch will be moved to the actual batches. Continue?",
-  "After confirmation, the batch will be moved to the archive. Delete?": "After confirmation, the batch will be moved to the archive. Delete?",
+  "After confirmation, the batch will be moved to the archive. Move?": "After confirmation, the batch will be moved to the archive. Move?",
   "Back to actual batches": "Back to actual batches",
   "Relocate from archive": "Relocate from archive",
   "Return to actual batches": "Return to actual batches",
@@ -1786,5 +1786,6 @@
   "Name idea": "Name idea",
   "Notifications on ideas": "Notifications on ideas",
   "Updated by": "Updated by",
-  "Without stores": "Without stores"
+  "Without stores": "Without stores",
+  "This amount includes the service fee": "This amount includes the service fee"
 }

@@ -211,6 +211,8 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
+    const disabledSubmit = JSON.stringify(formFields) === JSON.stringify(sourceFormFields)
+
     return (
       <Grid item className={classNames.mainWrapper}>
         <div className={classNames.headerWrapper}>
@@ -589,6 +591,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.addOrEditBtnsWrapper}>
             <Button
               success
+              disabled={disabledSubmit}
               variant="contained"
               color="primary"
               className={classNames.actionButton}

@@ -50,6 +50,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  modalSmallMessage: {
+    color: theme.palette.text.second,
+    textAlign: 'center',
+    fontSize: 14,
+  },
+
   warningModalMessage: {
     fontWeight: '400',
     fontSize: '18px',
