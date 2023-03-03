@@ -135,10 +135,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  checkboxWrapperMR: {
-    marginRight: 137,
-  },
-
   checkboxSubWrapper: {
     width: 35,
   },
@@ -316,7 +312,6 @@ export const useClassNames = makeStyles()(theme => ({
   dateAndTimeWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
 
@@ -346,7 +341,7 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxesWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     gap: '30px',
     alignItems: 'center',
 
@@ -622,8 +617,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  dateAndTimeContainer: {
-    width: '370px !important',
+  dateAndTimeContainerleft: {
+    width: '377px !important',
+  },
+  dateAndTimeContainerRight: {
+    width: '378px !important',
   },
   dateField: {
     width: '100%',
@@ -723,5 +721,11 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 250,
 
     marginBottom: 25,
+  },
+  checkboxText: {
+    whiteSpace: 'nowrap',
+  },
+  checkboxWrapperLeft: {
+    width: 377,
   },
 }))
