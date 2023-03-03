@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import InboxIcon from '@mui/icons-material/Inbox'
 import {Typography, Paper, Alert} from '@mui/material'
 
@@ -11,6 +12,8 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
+import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -39,9 +42,16 @@ export class ServiceDetailsViewRaw extends Component {
 
   render() {
     const {
+      curPage,
       rowCount,
+      rowsPerPage,
       drawerOpen,
       announcementData,
+      filterModel,
+      sortModel,
+      currentData,
+      columnVisibilityModel,
+      densityModel,
 
       onTriggerDrawerOpen,
       onClickBackBtn,
@@ -67,8 +77,8 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickBackBtn={onClickBackBtn}
               />
 
-              <div className={classNames.dataGridWrapper}>
-                {/* <MemoDataGrid
+              {/* <div className={classNames.dataGridWrapper}>
+                <MemoDataGrid
                   disableVirtualization
                   pagination
                   useResizeContainer
@@ -105,8 +115,8 @@ export class ServiceDetailsViewRaw extends Component {
                   onColumnVisibilityModelChange={onColumnVisibilityModelChange}
                   onStateChange={setFirstRowId}
                   onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-                /> */}
-              </div>
+                />
+              </div> */}
             </MainContent>
           </Appbar>
         </Main>
