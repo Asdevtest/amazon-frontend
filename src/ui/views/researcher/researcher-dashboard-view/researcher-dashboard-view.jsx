@@ -57,11 +57,11 @@ export class ResearcherDashboardViewRaw extends Component {
                 <DashboardButtons user={userInfo} routes={researcherButtonsRoutes} />
 
                 {userInfo.masterUser && (
-                  <>
+                  <div className={classNames.masterUserWrapper}>
                     <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                     <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </>
+                  </div>
                 )}
               </Paper>
               {getResearcherDashboardCardConfig().map(item => (

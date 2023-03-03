@@ -63,11 +63,11 @@ export class FreelancerDashboardViewRaw extends Component {
                 <DashboardButtons user={userInfo} routes={freelancerButtonsRoutes} />
 
                 {userInfo.masterUser && (
-                  <>
+                  <div className={classNames.masterUserWrapper}>
                     <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                     <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </>
+                  </div>
                 )}
               </Paper>
               {getFreelancerDashboardCardConfig().map(item => (

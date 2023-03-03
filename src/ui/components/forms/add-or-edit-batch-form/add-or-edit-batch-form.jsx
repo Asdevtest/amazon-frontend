@@ -332,9 +332,42 @@ export const AddOrEditBatchForm = observer(
     // }, [chosenBoxes.length, batchFields.volumeWeightDivide, batchFields.calculationMethod]) // новое
 
     const onClickTrash = () => {
-      const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
-      setChosenBoxes(() => filteredArray)
+      // const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
+
+      const filteredArray = [...chosenBoxesBase].filter(el => !boxesToDeliteIds.includes(el.id))
+
+      setChosenBoxes(() => filterBySearchValueChosenBoxes(filteredArray))
       setChosenBoxesBase(() => filteredArray)
+
+      if (batchToEdit && nameSearchValueChosenBoxes) {
+        const chosenBoxesIds = chosenBoxes.map(box => box._id)
+        const deletedBoxes = addOrEditBatchDataConverter(
+          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          batchFields.volumeWeightDivide,
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+          ),
+        )
+        setBoxesToAddData(() =>
+          filterBySearchValueBoxesToAddData([
+            ...addOrEditBatchDataConverter(
+              boxesData,
+              batchFields.volumeWeightDivide,
+              getBatchWeightCalculationMethodForBox(
+                batchFields.calculationMethod,
+                getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+              ),
+            ).filter(
+              box =>
+                box.originalData?.destination?.name === batchToEdit.destination &&
+                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                !chosenBoxesIds.includes(box._id),
+            ),
+            ...deletedBoxes,
+          ]),
+        )
+      }
     }
 
     const onClickAdd = () => {
@@ -510,19 +543,6 @@ export const AddOrEditBatchForm = observer(
                 //     </Typography>
                 //   </div>
                 // ),
-
-                // LoadingOverlay: () => (
-                //   <div className={classNames.boxCounterWrapper}>
-                //     <Typography className={classNames.boxCounterText}>
-                //       {t(TranslationKey['Selected boxes']) + ':'}
-                //     </Typography>
-                //     <Typography className={classNames.boxCounterCount}>
-                //       {boxesToAddData
-                //         .filter(el => boxesToAddIds.includes(el._id))
-                //         .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                //     </Typography>
-                //   </div>
-                // ),
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -606,9 +626,7 @@ export const AddOrEditBatchForm = observer(
               localeText={getLocalizationByLanguageTag()}
               rowsPerPageOptions={[50, 100]}
               sx={{
-                // border: 0,
                 boxShadow: '0px 2px 10px 2px #EBEBEB',
-                // backgroundColor: theme.palette.background.general,
                 border: `1px solid  #EBEBEB !important`,
               }}
               components={{

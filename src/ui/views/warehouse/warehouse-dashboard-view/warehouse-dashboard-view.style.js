@@ -66,4 +66,10 @@ export const styles = theme => ({
   address: {
     color: theme.palette.text.second,
   },
+
+  masterUserWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
 })
