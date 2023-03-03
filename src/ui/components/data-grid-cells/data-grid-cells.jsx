@@ -1182,7 +1182,7 @@ export const TaskStatusCell = React.memo(
 )
 
 export const RequestStatusCell = React.memo(
-  withStyles(({classes: classNames, status, isChat}) => {
+  withStyles(({classes: classNames, status, isChat, styles}) => {
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
         return '#006CFF'
@@ -1231,7 +1231,7 @@ export const RequestStatusCell = React.memo(
       <div className={classNames.statusWrapper}>
         <Typography
           className={cx(classNames.statusText, {[classNames.statusTextChat]: isChat})}
-          style={{color: colorStatus}}
+          style={{...styles, color: colorStatus}}
         >
           {MyRequestStatusTranslate(status)}
         </Typography>

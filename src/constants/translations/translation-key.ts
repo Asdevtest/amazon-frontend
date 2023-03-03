@@ -1830,6 +1830,7 @@ export enum TranslationKey {
   'Service not edited' = 'Service not edited',
   'The price should be greater than' = 'The price should be greater than',
   'Photos and documents' = 'Photos and documents',
+  'Performance time' = 'Performance time',
   // '' = '',
   // '' = '',
   // '' = '',
