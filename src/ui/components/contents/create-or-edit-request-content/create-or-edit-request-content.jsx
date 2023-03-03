@@ -690,6 +690,29 @@ export const CreateOrEditRequestContent = ({
                       <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
                       {t(TranslationKey['on our freelance exchange.'])}
                     </Typography>
+
+                    <div className={classNames.performerWrapperStepTwo}>
+                      <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                      <div className={classNames.userInfo}>
+                        <Avatar
+                          src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                          className={classNames.cardImg}
+                        />
+
+                        <div className={classNames.nameWrapperStepTwo}>
+                          <UserLink
+                            blackText
+                            name={formFields.request.announcementId.title}
+                            userId={formFields.request.announcementId._id}
+                            customStyles={{maxWidth: 300}}
+                          />
+                          <Rating disabled value={5} size="small" classes={classNames.rating} />
+                        </div>
+                      </div>
+                      <Typography className={classNames.performerDescriptionText}>
+                        {formFields.request.announcementId.description}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
 

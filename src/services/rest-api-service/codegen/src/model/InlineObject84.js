@@ -47,8 +47,11 @@ class InlineObject84 {
         if (data) {
             obj = obj || new InlineObject84();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineObject84 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject84.prototype['suppliersIds'] = undefined;
+InlineObject84.prototype['rating'] = undefined;
+
+/**
+ * Отзыв о работе
+ * @member {String} review
+ */
+InlineObject84.prototype['review'] = undefined;
 
 
 

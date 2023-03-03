@@ -47,20 +47,8 @@ class InlineObject76 {
         if (data) {
             obj = obj || new InlineObject76();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -70,34 +58,10 @@ class InlineObject76 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject76.prototype['execution_time'] = undefined;
-
-/**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject76.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject76.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject76.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject76.prototype['title'] = undefined;
+InlineObject76.prototype['shopIds'] = undefined;
 
 
 

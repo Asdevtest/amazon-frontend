@@ -50,8 +50,14 @@ class InlineObject80 {
             if (data.hasOwnProperty('execution_time')) {
                 obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
@@ -70,10 +76,22 @@ class InlineObject80 {
 InlineObject80.prototype['execution_time'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject80.prototype['review'] = undefined;
+InlineObject80.prototype['price'] = undefined;
+
+/**
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject80.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject80.prototype['linksToMediaFiles'] = undefined;
 
 /**
  * Название предложения

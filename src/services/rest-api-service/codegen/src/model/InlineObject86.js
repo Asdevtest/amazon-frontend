@@ -22,10 +22,11 @@ class InlineObject86 {
     /**
      * Constructs a new <code>InlineObject86</code>.
      * @alias module:model/InlineObject86
+     * @param action {module:model/InlineObject86.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject86.initialize(this);
+        InlineObject86.initialize(this, action);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject86 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -47,8 +49,11 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -58,10 +63,15 @@ class InlineObject86 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * @member {module:model/InlineObject86.ActionEnum} action
  */
-InlineObject86.prototype['suppliersIds'] = undefined;
+InlineObject86.prototype['action'] = undefined;
+
+/**
+ * Причина смены статуса.
+ * @member {String} reason
+ */
+InlineObject86.prototype['reason'] = undefined;
 
 
 
