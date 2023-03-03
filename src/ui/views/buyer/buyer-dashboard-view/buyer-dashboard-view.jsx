@@ -58,11 +58,11 @@ export class BuyerDashboardViewRaw extends Component {
                 <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
 
                 {userInfo.masterUser && (
-                  <>
+                  <div className={classNames.masterUserWrapper}>
                     <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                     <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </>
+                  </div>
                 )}
               </Paper>
               {getBuyerDashboardCardConfig().map(item => (

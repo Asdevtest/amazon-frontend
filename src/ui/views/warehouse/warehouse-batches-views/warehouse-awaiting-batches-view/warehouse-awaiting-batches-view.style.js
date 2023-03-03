@@ -97,6 +97,8 @@ export const styles = theme => ({
     // backgroundColor: theme.palette.background.general,
 
     backgroundColor: theme.palette.background.general,
+
+    // border: '1px solid rgba(81, 81, 81, 1) !important',
   },
 
   footerContainer: {

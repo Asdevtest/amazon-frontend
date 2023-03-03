@@ -21,4 +21,10 @@ export const styles = theme => ({
     gap: '25px',
     alignItems: 'center',
   },
+
+  masterUserWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
 })

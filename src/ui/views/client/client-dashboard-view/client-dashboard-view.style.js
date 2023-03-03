@@ -59,4 +59,10 @@ export const styles = theme => ({
     // marginLeft: 50,
     color: `${theme.palette.text.general} !important`,
   },
+
+  masterUserWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
 })

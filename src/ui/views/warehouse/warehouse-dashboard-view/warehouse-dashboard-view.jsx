@@ -118,11 +118,11 @@ export class WarehouseDashboardViewRaw extends Component {
                 <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
 
                 {userInfo.masterUser && (
-                  <>
+                  <div className={classNames.masterUserWrapper}>
                     <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
                     <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </>
+                  </div>
                 )}
               </Paper>
               {getWarehouseDashboardCardConfig().map(item => (
