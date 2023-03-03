@@ -536,7 +536,7 @@ export class ClientInventoryViewModel {
         confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
         confirmMessage: this.isArchive
           ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
-          : t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+          : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
         onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
       }
     })
