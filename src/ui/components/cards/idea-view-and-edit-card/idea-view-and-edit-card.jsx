@@ -605,7 +605,7 @@ export const IdeaViewAndEditCard = observer(
               className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >
-              {t(TranslationKey.Cancel)}
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         ) : null}
