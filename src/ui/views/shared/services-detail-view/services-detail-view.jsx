@@ -92,6 +92,12 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
               />
 
+              {/* <div>
+                <Button className={classNames.editButton} onClick={onClickNeedCont}>
+                  {'Need cont'}
+                </Button>
+              </div> */}
+
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
                   disableVirtualization
