@@ -38,16 +38,20 @@ export class MyRequestsViewModel {
     onSubmit: data => this.onSubmitCreateCustomSearchRequest(data),
   }
 
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
+
+  get languageTag() {
+    return SettingsModel.languageTag || {}
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = myRequestsViewColumns(this.rowHandlers)
-
-  get userInfo() {
-    return UserModel.userInfo || {}
-  }
+  columnsModel = myRequestsViewColumns(this.languageTag)
 
   constructor({history, location}) {
     runInAction(() => {
@@ -108,7 +112,7 @@ export class MyRequestsViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = myRequestsViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = myRequestsViewColumns(this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))

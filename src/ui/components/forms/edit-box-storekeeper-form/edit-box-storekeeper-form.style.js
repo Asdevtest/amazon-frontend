@@ -350,6 +350,7 @@ export const useClassNames = makeStyles()(theme => ({
   standartLabel: {
     fontSize: 14,
     color: theme.palette.text.second,
+    whiteSpace: 'nowrap',
   },
 
   tableTitle: {
@@ -379,5 +380,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
   label: {
     marginBottom: 0,
+  },
+
+  itemInput: {
+    width: 145,
+    height: 40,
+    marginLeft: 10,
+    textAlign: 'center',
+  },
+
+  input: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 }))

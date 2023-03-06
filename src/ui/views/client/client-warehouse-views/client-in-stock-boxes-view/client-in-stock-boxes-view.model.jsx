@@ -57,6 +57,7 @@ const updateBoxWhiteList = [
   'trackNumberFile',
   'trackNumberText',
   'fbaNumber',
+  'prepId',
 ]
 
 const filtersFields = [
@@ -1362,6 +1363,7 @@ export class ClientInStockBoxesViewModel {
           clientComment: boxData.clientComment,
           referenceId: boxData.referenceId,
           fbaNumber: boxData.fbaNumber,
+          prepId: boxData.prepId,
         })
 
         runInAction(() => {
