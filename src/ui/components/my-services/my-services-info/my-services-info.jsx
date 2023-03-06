@@ -33,14 +33,14 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
         <div className={classNames.userInfoAndFooterWrapper}>
           <div className={classNames.userInfoAndMoreInfoWrapper}>
             <div className={classNames.userInfoWrapper}>
-              <Avatar src={getUserAvatarSrc(announcementData._id)} className={classNames.userAvatar} />
+              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={classNames.userAvatar} />
 
               <div className={classNames.userInfoSubWrapper}>
                 <UserLink
                   blackText
                   customStyles={{maxWidth: 500, fontSize: 18}}
-                  name={announcementData.title}
-                  userId={announcementData._id}
+                  name={announcementData?.createdBy?.name}
+                  userId={announcementData?.createdBy?._id}
                 />
                 <div className={classNames.userRatingWrapper}>
                   <Typography className={classNames.reviewText}>{t(TranslationKey.Reviews)}</Typography>
@@ -51,17 +51,17 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
 
             <div className={classNames.userMoreInfoWrapper}>
               <div className={classNames.titleAndTaksTypeWrapper}>
-                <Typography className={classNames.announcementText}>{announcementData.title}</Typography>
+                <Typography className={classNames.announcementText}>{announcementData?.title}</Typography>
                 <div className={classNames.descriptionWrapper}>
                   <Typography className={classNames.regularText}>{t(TranslationKey['Service type']) + ':'}</Typography>
                   <Typography className={classNames.announcementText}>
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.type])}
+                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
                   </Typography>
                 </div>
               </div>
               <div className={classNames.descriptionTextWrapper}>
                 <Typography className={cx(classNames.regularText, classNames.description)}>
-                  {announcementData.description}
+                  {announcementData?.description}
                 </Typography>
               </div>
             </div>
@@ -74,6 +74,10 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
             </div>
 
             <div className={classNames.buttonsWrapper}>
+              <Button danger disabled className={classNames.deleteButton} onClick={onClickEditBtn}>
+                {t(TranslationKey['Close the announcement'])}
+              </Button>
+
               <Button className={classNames.editButton} onClick={onClickEditBtn}>
                 {t(TranslationKey.Edit)}
               </Button>
@@ -86,14 +90,14 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
         </div>
         <div className={classNames.userCarouselWrapper}>
           <CustomCarousel>
-            {announcementData.linksToMediaFiles.map((imageHash, index) => (
+            {announcementData?.linksToMediaFiles?.map((imageHash, index) => (
               <img
                 key={index}
                 alt=""
                 className={classNames.carouselImage}
                 src={getAmazonImageUrl(imageHash, true)}
                 onClick={() => {
-                  // onClickThumbnail({images: announcementData.linksToMediaFiles, imgIndex: index})
+                  // onClickThumbnail({images: announcementData?.linksToMediaFiles, imgIndex: index})
                 }}
               />
             ))}

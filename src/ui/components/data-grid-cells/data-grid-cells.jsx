@@ -122,6 +122,19 @@ export const UserCell = React.memo(
   ),
 )
 
+export const UserMiniCell = React.memo(
+  withStyles(
+    ({classes: classNames, user}) => (
+      <div className={classNames.userMainWrapper}>
+        <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userCellAvatar} />
+
+        <UserLink name={user?.name} userId={user?._id} />
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const InStockCell = React.memo(
   withStyles(
     ({classes: classNames, boxAmounts, box, onClickInStock}) => (

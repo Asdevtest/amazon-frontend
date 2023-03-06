@@ -22,6 +22,7 @@ import {ServicesDetailCustomViewModel} from './services-detail-custom-view.model
 import {styles} from './services-detail-custom-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 
 @observer
 export class ServicesDetailCustomViewRaw extends Component {
@@ -32,10 +33,6 @@ export class ServicesDetailCustomViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-  }
-
-  componentWillUnmount() {
-    this.viewModel.resetChats()
   }
 
   render() {
@@ -59,11 +56,7 @@ export class ServicesDetailCustomViewRaw extends Component {
         <Navbar
           drawerOpen={drawerOpen}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={
-            this.props.location.pathname.includes('my-proposals')
-              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
-              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
-          }
+          activeSubCategory={navbarActiveSubCategory}
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
@@ -74,6 +67,8 @@ export class ServicesDetailCustomViewRaw extends Component {
                   {t(TranslationKey.Back)}
                 </Button>
               </div>
+
+              {'sssss'}
 
               {request && requestProposals ? (
                 <div className={classNames.requestInfoWrapper}>
