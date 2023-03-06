@@ -1236,7 +1236,13 @@ export const RequestStatusCell = React.memo(
 )
 
 export const MultilineRequestStatusCell = React.memo(
-  withStyles(({classes: classNames, status, fontSize = '14px'}) => {
+  withStyles(({classes: classNames, status, fontSize = '14px', languageTag}) => {
+    const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
+
+    useEffect(() => {
+      setStatusTranslate(MyRequestStatusTranslate(status))
+    }, [languageTag])
+
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
         return '#006CFF'
@@ -1265,7 +1271,7 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{color: colorStatus, fontSize}}>
-          {MyRequestStatusTranslate(status)}
+          {statusTranslate}
         </Typography>
       </div>
     )

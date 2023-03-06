@@ -46,6 +46,7 @@ const updateBoxWhiteList = [
   'trackNumberText',
   'upsTrackNumber',
   'fbaNumber',
+  'prepId',
 ]
 
 export class WarehouseMyWarehouseViewModel {
