@@ -1,0 +1,124 @@
+import React, {Component} from 'react'
+
+import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
+
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
+import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {MyServicesInfoCustom} from '@components/my-services/my-services-info-custom'
+import {Navbar} from '@components/navbar'
+import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+
+import {t} from '@utils/translations'
+
+import {ServicesDetailCustomViewModel} from './services-detail-custom-view.model'
+import {styles} from './services-detail-custom-view.style'
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
+
+@observer
+export class ServicesDetailCustomViewRaw extends Component {
+  viewModel = new ServicesDetailCustomViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
+
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
+  componentWillUnmount() {
+    this.viewModel.resetChats()
+  }
+
+  render() {
+    const {classes: classNames} = this.props
+    const {
+      drawerOpen,
+      request,
+      showWarningModal,
+      showConfirmModal,
+      warningInfoModalSettings,
+      requestProposals,
+      onTriggerDrawerOpen,
+      onTriggerOpenModal,
+      onClickBackBtn,
+      onSubmitOfferDeal,
+      onClickCancelRequestProposal,
+    } = this.viewModel
+
+    return (
+      <React.Fragment>
+        <Navbar
+          drawerOpen={drawerOpen}
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={
+            this.props.location.pathname.includes('my-proposals')
+              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
+              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
+          }
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
+        <Main>
+          <Appbar title={t(TranslationKey.Request)} setDrawerOpen={onTriggerDrawerOpen}>
+            <MainContent>
+              <div className={classNames.backBtnWrapper}>
+                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
+                  {t(TranslationKey.Back)}
+                </Button>
+              </div>
+
+              {request && requestProposals ? (
+                <div className={classNames.requestInfoWrapper}>
+                  <MyServicesInfoCustom
+                    requestProposals={requestProposals}
+                    request={request}
+                    onSubmit={onSubmitOfferDeal}
+                  />
+                </div>
+              ) : null}
+
+              {request ? (
+                <div className={classNames.detailsWrapper}>
+                  <CustomSearchRequestDetails request={request} />
+                </div>
+              ) : null}
+            </MainContent>
+          </Appbar>
+        </Main>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Reject the deal'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={onClickCancelRequestProposal}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      </React.Fragment>
+    )
+  }
+}
+
+export const ServicesDetailCustomView = withStyles(ServicesDetailCustomViewRaw, styles)

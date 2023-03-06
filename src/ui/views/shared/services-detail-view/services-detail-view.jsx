@@ -12,6 +12,7 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Main} from '@components/main'
@@ -57,6 +58,8 @@ export class ServiceDetailsViewRaw extends Component {
       onTriggerDrawerOpen,
       onClickBackBtn,
       onClickEditBtn,
+
+      // onClickNeedCont,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -77,6 +80,12 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickEditBtn={onClickEditBtn}
                 onClickBackBtn={onClickBackBtn}
               />
+
+              {/* <div>
+                <Button className={classNames.editButton} onClick={onClickNeedCont}>
+                  {'Need cont'}
+                </Button>
+              </div> */}
 
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
