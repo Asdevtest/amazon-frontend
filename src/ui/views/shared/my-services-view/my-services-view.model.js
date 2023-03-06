@@ -110,7 +110,6 @@ export class MyServicesViewModel {
   }
 
   onClickCreateServiceBtn() {
-    console.log(this.userInfo)
     this.history.push(`/freelancer/freelance/my-services/create-service`)
   }
 
@@ -136,7 +135,7 @@ export class MyServicesViewModel {
 
   onClickOpenButton(data) {
     this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
-      data,
+      data: data._id,
     })
   }
 

@@ -8,6 +8,7 @@ import React, {Component, createRef} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -48,13 +49,18 @@ export class ServiceDetailsViewRaw extends Component {
       rowsPerPage,
       drawerOpen,
       announcementData,
+      currentData,
       filterModel,
       sortModel,
-      currentData,
       columnVisibilityModel,
       densityModel,
       columnsModel,
+      requestStatus,
 
+      onChangeFilterModel,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      onChangeSortingModel,
       onTriggerDrawerOpen,
       onClickBackBtn,
       onClickEditBtn,
@@ -63,6 +69,8 @@ export class ServiceDetailsViewRaw extends Component {
     } = this.viewModel
 
     const {classes: classNames} = this.props
+
+    console.log('currentData', currentData)
 
     return (
       <React.Fragment>
@@ -81,12 +89,6 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickBackBtn={onClickBackBtn}
               />
 
-              {/* <div>
-                <Button className={classNames.editButton} onClick={onClickNeedCont}>
-                  {'Need cont'}
-                </Button>
-              </div> */}
-
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
                   disableVirtualization
@@ -99,6 +101,10 @@ export class ServiceDetailsViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+
+                    iconSeparator: classNames.iconSeparator,
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                   }}
                   rowCount={rowCount}
                   sortModel={sortModel}
@@ -107,8 +113,7 @@ export class ServiceDetailsViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
-                  // rowHeight={100}
-                  getRowHeight={() => 'auto'}
+                  rowHeight={75}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
@@ -117,12 +122,11 @@ export class ServiceDetailsViewRaw extends Component {
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
                   columns={columnsModel}
-                  // loading={requestStatus === loadingStatuses.isLoading}
-                  // onSortModelChange={onChangeSortingModel}
-                  // onPageSizeChange={onChangeRowsPerPage}
-                  // onPageChange={onChangeCurPage}
-                  // onFilterModelChange={onChangeFilterModel}
-                  // onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onPageChange={onChangeCurPage}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onFilterModelChange={onChangeFilterModel}
                   // onStateChange={setFirstRowId}
                   // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 />

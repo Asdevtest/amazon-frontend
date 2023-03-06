@@ -1832,7 +1832,7 @@ export enum TranslationKey {
   'Photos and documents' = 'Photos and documents',
   'Performance time' = 'Performance time',
   'Service' = 'Service',
-  // '' = '',
+  'Close the announcement' = 'Close the announcement',
   // '' = '',
   // '' = '',
   // '' = '',

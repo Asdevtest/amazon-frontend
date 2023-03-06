@@ -788,3 +788,14 @@ export const adminGroupPermissionsDataConverter = data =>
     title: item.title,
     description: item.description,
   }))
+
+export const freelancerServiceDetaildsDataConverter = data =>
+  data.requests.map(item => ({
+    id: item?._id,
+    originalData: item,
+    createdBy: item.createdBy,
+    price: item?.price,
+    status: item?.status,
+    timeoutAt: item?.timeoutAt,
+    updatedAt: item?.updatedAt,
+  }))

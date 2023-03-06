@@ -117,6 +117,9 @@ export const useClassNames = makeStyles()(theme => ({
   editButton: {
     padding: '0 52px',
   },
+  deleteButton: {
+    padding: '0 34px',
+  },
   backButton: {
     padding: '0 26px',
   },

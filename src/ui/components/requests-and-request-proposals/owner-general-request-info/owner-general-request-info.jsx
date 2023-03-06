@@ -32,8 +32,6 @@ export const OwnerGeneralRequestInfo = ({
   const {classes: classNames} = useClassNames()
   const now = new Date()
 
-  console.log('request', request)
-
   const isDraft = request?.request?.status === RequestStatus.DRAFT
 
   const newProductPrice =
