@@ -74,6 +74,8 @@ export class ServiceDetailsViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    console.log('currentData', currentData)
+
     return (
       <React.Fragment>
         <Navbar
@@ -91,12 +93,6 @@ export class ServiceDetailsViewRaw extends Component {
                 onClickBackBtn={onClickBackBtn}
                 onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
               />
-
-              {/* <div>
-                <Button className={classNames.editButton} onClick={onClickNeedCont}>
-                  {'Need cont'}
-                </Button>
-              </div> */}
 
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
