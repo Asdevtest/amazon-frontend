@@ -72,6 +72,10 @@ export class ServiceDetailsViewModel {
     }
   }
 
+  onClickNeedCont() {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type`)
+  }
+
   onClickEditBtn() {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
       request: this.announcementData,
