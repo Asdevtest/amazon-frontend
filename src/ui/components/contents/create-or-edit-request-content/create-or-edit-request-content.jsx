@@ -987,6 +987,7 @@ export const CreateOrEditRequestContent = ({
             announcements={announcementsData}
             onClickThumbnail={onClickThumbnail}
             onClickChooseBtn={onChangeField('request')('announcementId')}
+            onClickResetPerformerBtn={onChangeField('request')('announcementId')}
           />
         </Modal>
       </div>
