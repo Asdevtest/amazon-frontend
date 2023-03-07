@@ -70,8 +70,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: theme.palette.text.second,
-    overflow: 'auto',
+    // overflow: 'auto',
     height: 80,
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
   },
 
   btnsBlockWrapper: {

@@ -1829,7 +1829,7 @@ export enum TranslationKey {
   'Service edited' = 'Service edited',
   'Service not edited' = 'Service not edited',
   'The price should be greater than' = 'The price should be greater than',
-  // '' = '',
+  'Photos and documents' = 'Photos and documents',
   // '' = '',
   // '' = '',
   // '' = '',

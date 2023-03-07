@@ -139,6 +139,62 @@ export class ChatMessageDataProposalResultEditedRequestContract
   public title!: string
 }
 
+export class ChatMessageDataRequestCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataRequestCreateNewBloggerProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public _id!: string
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+
+  @IsOptional()
+  public cashBackInPercent!: number
+
+  @IsNotEmpty()
+  public details!: {conditions: string; linksToMediaFiles: [string]}
+
+  @IsNotEmpty()
+  public createdBy!: {_id: string}
+
+  @IsNumber()
+  public priceAmazon!: number
+  @IsNotEmpty()
+  @IsString()
+  public timeoutAt!: string
+}
+
+export class ChatMessageDataProposalCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataProposalCreateNewBloggerProposal
+{
+  @IsString()
+  _id!: string
+  @IsString()
+  public comment!: string
+  @IsNotEmpty()
+  public details!: {linksToMediaFiles: [string]}
+
+  @IsNotEmpty()
+  public execution_time!: number
+
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+}
+
 export class ChatMessageDataProposalResultEditedEdited
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
 {
@@ -173,4 +229,13 @@ export class ChatMessageDataProposalResultEditedContract
   public request!: ChatMessageDataProposalResultEditedRequestContract
   @Type(() => ChatMessageDataProposalResultEditedProposalContract)
   public proposal!: ChatMessageDataProposalResultEditedProposalContract
+}
+
+export class ChatMessageDataCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataCreateNewBloggerProposal
+{
+  @Type(() => ChatMessageDataRequestCreateNewBloggerProposalContract)
+  public request!: ChatMessageDataRequestCreateNewBloggerProposalContract
+  @Type(() => ChatMessageDataProposalCreateNewBloggerProposalContract)
+  public proposal!: ChatMessageDataProposalCreateNewBloggerProposalContract
 }

@@ -212,7 +212,7 @@ export const lightTheme = createTheme({
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
-      yellow: '#007bff',
+      yellow: '#FEF0A6',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
