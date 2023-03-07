@@ -53,13 +53,13 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
               )}
             </Typography>
 
-            <div className={classNames.updatedAtWrapper}>
+            {/* <div className={classNames.updatedAtWrapper}>
               <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ': '}</Typography>
 
               <Typography className={classNames.accentText}>
                 {formatNormDateTimeWithParseISO(item.updatedAt)}
               </Typography>
-            </div>
+            </div> */}
           </div>
         </div>
 

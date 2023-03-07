@@ -15,6 +15,7 @@ import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {
   checkIsChatMessageAddUsersToGroupChatContract,
+  checkIsChatMessageCreateNewBloggerProposalContract,
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
@@ -26,6 +27,7 @@ import {
 import {useClassNames} from './chat-messages-list.style'
 import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-users-to-group-chat'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
+import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
 import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
@@ -125,6 +127,16 @@ export const ChatMessagesList: FC<Props> = observer(
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
+        return (
+          <ChatMessageCreateNewBloggerProposal
+            message={messageItem}
+            handlers={{
+              onClickProposalAccept: handlers.onClickProposalAccept,
+              onClickProposalRegect: handlers.onClickProposalRegect,
             }}
           />
         )
