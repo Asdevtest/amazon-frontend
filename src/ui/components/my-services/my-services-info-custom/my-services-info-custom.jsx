@@ -4,9 +4,12 @@ import {Typography, Paper, Avatar, Rating, Divider} from '@mui/material'
 
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -17,7 +20,6 @@ import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-t
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './my-services-info-custom.style'
 
@@ -41,7 +43,7 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
 
                 <Rating
                   disabled
-                  value={request?.request.createdBy.rating}
+                  value={5}
                   classes={{icon: classNames.icon}}
                   size="small"
                   // onChange={onChangeField('rating')}
@@ -83,33 +85,40 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
               </div>
             </div>
 
-            <div className={classNames.blockInfoWrapper}>
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
-                <div className={classNames.pricesWrapper}>
-                  {newProductPrice && (
-                    <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
-                      {'$ ' + toFixed(newProductPrice, 2)}
-                    </Typography>
-                  )}
+            {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+            request?.request?.priceAmazon ? (
+              <div className={classNames.blockInfoWrapper}>
+                <div className={classNames.blockInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>
+                    {t(TranslationKey['Product price'])}
+                  </Typography>
+                  <div className={classNames.pricesWrapper}>
+                    {newProductPrice && (
+                      <Typography
+                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                      >
+                        {'$ ' + toFixed(newProductPrice, 2)}
+                      </Typography>
+                    )}
 
-                  <Typography
-                    className={cx(classNames.blockInfoCellText, {
-                      [classNames.oldPrice]: newProductPrice,
-                    })}
-                  >
-                    {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
+                    <Typography
+                      className={cx(classNames.blockInfoCellText, {
+                        [classNames.oldPrice]: newProductPrice,
+                      })}
+                    >
+                      {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
+                    </Typography>
+                  </div>
+                </div>
+
+                <div className={classNames.blockInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                  <Typography className={cx(classNames.blockInfoCellText)}>
+                    {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
                   </Typography>
                 </div>
               </div>
-
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
-                <Typography className={cx(classNames.blockInfoCellText)}>
-                  {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
-                </Typography>
-              </div>
-            </div>
+            ) : null}
 
             <div className={cx(classNames.blockInfoWrapper)}>
               <div className={classNames.blockInfoCell}>
@@ -153,9 +162,9 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
           <Typography className={classNames.requestTitle}>{t(TranslationKey.Announcement)}</Typography>
           <div className={cx(classNames.announcementTitleWrapper)}>
             <Typography className={cx(classNames.requestTitle, classNames.announcementTitle)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
             </Typography>
-            <Typography className={cx(classNames.announcementDecription)}>{announcementData?.description}</Typography>
+            <Typography className={cx(classNames.announcementDecription)}>{request?.details?.conditions}</Typography>
           </div>
         </div>
       </div>

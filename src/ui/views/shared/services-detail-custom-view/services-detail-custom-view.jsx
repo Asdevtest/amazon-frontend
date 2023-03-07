@@ -43,16 +43,15 @@ export class ServicesDetailCustomViewRaw extends Component {
     const {
       drawerOpen,
       request,
-      announcementData,
       showWarningModal,
-      // showConfirmModal,
+      showConfirmModal,
       warningInfoModalSettings,
 
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickBackBtn,
       onClickSuggestDealBtn,
-      // onClickCancelRequestProposal,
+      onClickCancelRequestProposal,
     } = this.viewModel
 
     return (
@@ -73,11 +72,7 @@ export class ServicesDetailCustomViewRaw extends Component {
               </div>
 
               <div className={classNames.requestInfoWrapper}>
-                <MyServicesInfoCustom
-                  request={request}
-                  announcementData={announcementData}
-                  onClickSuggestDealBtn={onClickSuggestDealBtn}
-                />
+                <MyServicesInfoCustom request={request} onClickSuggestDealBtn={onClickSuggestDealBtn} />
               </div>
 
               {request ? (
