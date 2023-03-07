@@ -1508,7 +1508,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject33() // InlineObject33 | 
+  'body': [new TestSwagger.InlineObject()] // [InlineObject] | 
 };
 apiInstance.apiV1BoxesPrepIdPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1524,7 +1524,7 @@ apiInstance.apiV1BoxesPrepIdPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject33**](InlineObject33.md)|  | [optional] 
+ **body** | [**[InlineObject]**](InlineObject.md)|  | [optional] 
 
 ### Return type
 

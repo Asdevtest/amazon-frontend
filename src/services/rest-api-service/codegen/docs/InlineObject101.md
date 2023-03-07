@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название тарифа | 
+**name** | **String** | Название тарифа | [optional] 
 **description** | **String** | Описание тарифа | [optional] 
 **deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
 **cls** | **Date** | Дата закрытия приема новых грузов. | [optional] 
@@ -12,6 +12,6 @@ Name | Type | Description | Notes
 **eta** | **Date** | Ожидаема дата прибытия. | [optional] 
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
 **archive** | **Boolean** | Заархивирован ли тариф | [optional] 
-**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | 
+**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | [optional] 
 
 

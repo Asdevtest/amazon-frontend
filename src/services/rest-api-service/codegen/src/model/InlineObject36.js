@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
-     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject36
      * @param boxIds {Array.<String>} 
      * @param newAmounts {Array.<Number>} 
