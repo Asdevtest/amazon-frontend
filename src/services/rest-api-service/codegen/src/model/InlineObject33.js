@@ -22,10 +22,12 @@ class InlineObject33 {
     /**
      * Constructs a new <code>InlineObject33</code>.
      * @alias module:model/InlineObject33
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor() { 
+    constructor(userIds, title) { 
         
-        InlineObject33.initialize(this);
+        InlineObject33.initialize(this, userIds, title);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject33 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -47,29 +51,11 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('buyersComment')) {
-                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -79,52 +65,15 @@ class InlineObject33 {
 }
 
 /**
- * 
- * @member {Number} amazon
+ * @member {Array.<String>} userIds
  */
-InlineObject33.prototype['amazon'] = undefined;
+InlineObject33.prototype['userIds'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * Название группового чата
+ * @member {String} title
  */
-InlineObject33.prototype['reffee'] = undefined;
-
-/**
- * ФБА комиссия
- * @member {Number} fbafee
- */
-InlineObject33.prototype['fbafee'] = undefined;
-
-/**
- * ФБА кол-во
- * @member {Number} fbaamount
- */
-InlineObject33.prototype['fbaamount'] = undefined;
-
-/**
- * Код статуса
- * @member {Number} status
- */
-InlineObject33.prototype['status'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject33.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject33.prototype['margin'] = undefined;
-
-/**
- * Примечания байера.
- * @member {String} buyersComment
- */
-InlineObject33.prototype['buyersComment'] = undefined;
+InlineObject33.prototype['title'] = undefined;
 
 
 

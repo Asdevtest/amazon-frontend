@@ -4,28 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
-**boxesBefore** | **[String]** |  | [optional] 
-**boxes** | **[String]** |  | 
-**operationType** | **String** | Тип операции | 
-**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
-**buyerComment** | **String** | Комментарий баера | [optional] 
+**buyerComment** | **String** | комментарии байера. | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**priceInYuan** | **Number** | Цена в юанях | [optional] 
+**priceBatchDeliveryInYuan** | **Number** | Цена доставки партии в юанях | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**item** | **String** |  | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
-
-
-
-## Enum: OperationTypeEnum
-
-
-* `merge` (value: `"merge"`)
-
-* `split` (value: `"split"`)
-
-* `receive` (value: `"receive"`)
-
-* `edit` (value: `"edit"`)
-
-
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
+**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
+**amount** | **Number** | Кол-во в заказе | [optional] 
 
 
