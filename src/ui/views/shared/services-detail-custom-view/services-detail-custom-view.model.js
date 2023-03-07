@@ -17,10 +17,8 @@ export class ServicesDetailCustomViewModel {
   drawerOpen = false
 
   requestId = undefined
-  announcementId = undefined
 
   request = undefined
-  announcementData = undefined
 
   requestProposals = undefined
   showWarningModal = false
@@ -39,7 +37,6 @@ export class ServicesDetailCustomViewModel {
 
       if (location.state) {
         this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -60,11 +57,8 @@ export class ServicesDetailCustomViewModel {
     try {
       const requestData = await RequestModel.getCustomRequestById(this.requestId)
 
-      const announcementData = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
-
       runInAction(() => {
         this.request = requestData
-        this.announcementData = announcementData
       })
     } catch (error) {
       console.log(error)

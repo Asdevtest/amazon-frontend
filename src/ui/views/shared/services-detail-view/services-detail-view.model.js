@@ -98,7 +98,6 @@ export class ServiceDetailsViewModel {
   onClickOpenBtn(id) {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type`, {
       requestId: id,
-      announcementId: this.announcementId,
     })
   }
 
