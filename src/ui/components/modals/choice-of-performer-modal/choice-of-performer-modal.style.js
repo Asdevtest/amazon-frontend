@@ -34,10 +34,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
-
-    gap: 440,
   },
   title: {
     fontWeight: 600,

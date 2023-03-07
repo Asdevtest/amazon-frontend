@@ -17,7 +17,12 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './choice-of-performer-modal.style'
 
-export const ChoiceOfPerformerModal = ({announcements, onClickThumbnail, onClickChooseBtn}) => {
+export const ChoiceOfPerformerModal = ({
+  announcements,
+  onClickThumbnail,
+  onClickChooseBtn,
+  onClickResetPerformerBtn,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -36,6 +41,10 @@ export const ChoiceOfPerformerModal = ({announcements, onClickThumbnail, onClick
             onChange={setNameSearchValue}
           />
         </div>
+
+        <Button danger className={classNames.backBtn} onClick={() => onClickResetPerformerBtn('')}>
+          {t(TranslationKey['Reset performer'])}
+        </Button>
       </div>
       <div className={classNames.cardsWrapper}>
         <Box
