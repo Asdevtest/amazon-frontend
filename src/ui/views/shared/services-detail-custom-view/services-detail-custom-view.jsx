@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -40,14 +41,14 @@ export class ServicesDetailCustomViewRaw extends Component {
     const {
       drawerOpen,
       request,
+      announcementData,
       showWarningModal,
       showConfirmModal,
       warningInfoModalSettings,
-      requestProposals,
+
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickBackBtn,
-      onSubmitOfferDeal,
       onClickCancelRequestProposal,
     } = this.viewModel
 
@@ -68,17 +69,9 @@ export class ServicesDetailCustomViewRaw extends Component {
                 </Button>
               </div>
 
-              {'sssss'}
-
-              {request && requestProposals ? (
-                <div className={classNames.requestInfoWrapper}>
-                  <MyServicesInfoCustom
-                    requestProposals={requestProposals}
-                    request={request}
-                    onSubmit={onSubmitOfferDeal}
-                  />
-                </div>
-              ) : null}
+              <div className={classNames.requestInfoWrapper}>
+                <MyServicesInfoCustom request={request} announcementData={announcementData} />
+              </div>
 
               {request ? (
                 <div className={classNames.detailsWrapper}>

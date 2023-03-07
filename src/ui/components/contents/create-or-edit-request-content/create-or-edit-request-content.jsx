@@ -198,7 +198,7 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
     <div className={classNames.mainWrapper}>
@@ -467,10 +467,10 @@ export const CreateOrEditRequestContent = ({
 
                     <Field
                       error={
-                        formFields.request.price &&
-                        platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price &&
+                        formFields?.request?.price &&
+                        platformSettingsData?.requestMinAmountPriceOfProposal > formFields.request.price &&
                         `${t(TranslationKey['The price should be greater than'])} ${
-                          platformSettingsData.requestMinAmountPriceOfProposal
+                          platformSettingsData?.requestMinAmountPriceOfProposal
                         } $`
                       }
                       tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}

@@ -1833,7 +1833,7 @@ export enum TranslationKey {
   'Performance time' = 'Performance time',
   'Service' = 'Service',
   'Close the announcement' = 'Close the announcement',
-  // '' = '',
+  'Announcement' = 'Announcement',
   // '' = '',
   // '' = '',
   // '' = '',

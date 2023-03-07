@@ -1,129 +1,313 @@
-/* eslint-disable no-unused-vars */
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    padding: '30px 40px',
-  },
-  userWrapper: {
-    maxHeight: 400,
-
     display: 'flex',
-    alignItems: 'flex-start',
+    borderRadius: '4px',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    padding: '40px',
+    justifyContent: 'space-between',
+    marginBottom: '30px',
   },
-  userInfoAndMoreInfoWrapper: {
+  mainBlockWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-
-    gap: 20,
+    gap: 25,
+    minWidth: '45%',
   },
-
-  userInfoAndFooterWrapper: {
-    height: '100%',
-    width: 1115,
-
+  middleBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
 
-    gap: 20,
+    width: '13%',
+    borderRadius: '4px',
+    border: '1px solid rgba(0,0,0, .1)',
+    padding: '10px',
   },
-
-  userInfoWrapper: {
+  middleBlockItemInfoWrapper: {
     display: 'flex',
-    gap: 15,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  userInfoSubWrapper: {
+  titleBlockWrapper: {
+    display: 'flex',
+  },
+  titleWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-
     gap: 5,
+
+    marginLeft: 5,
   },
-  userRatingWrapper: {
+  userPhoto: {
+    width: 60,
+    height: 60,
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  requestInfoWrapper: {
+    display: 'flex',
+
+    justifyContent: 'space-between',
+
+    width: 640,
+    height: 140,
+
+    padding: 20,
+
+    border: `1px solid rgba(0,0,0, .1)`,
+    borderRadius: 4,
+  },
+  requestItemInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'start',
+    padding: '15px',
+  },
+  blockInfoWrapper: {
+    display: 'flex',
+    width: 103,
+    flexDirection: 'column',
+
+    justifyContent: 'space-between',
+  },
+  blockInfoWrapperLast: {
+    width: 'fit-content',
+  },
+  title: {
+    maxWidth: 300,
+
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    // height: '60px',
+  },
+  subTitle: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    color: theme.palette.text.second,
+  },
+  btnsBlockWrapper: {
+    width: '23%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+
+    gap: 20,
+  },
+  stopBtn: {
+    width: '100%',
+    background: '#F3AF00',
+    color: '#001029',
+    '&:hover': {
+      opacity: '0.8',
+      background: '#F3AF00',
+    },
+  },
+  btnsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+  btnsRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  btnsRowIsLast: {
+    marginBottom: 0,
+    height: 40,
+  },
+  buttonWrapperFullWidth: {
+    flex: 1,
+    display: 'flex',
+  },
+  button: {
+    display: 'flex',
+    // flex: 1,
+  },
+  buttonEditRemoveBtnIsShown: {
+    marginLeft: '10px',
+  },
+  requestStatus: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#00B746',
+  },
+  successBtn: {
+    backgroundColor: '#00B746',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#00B746',
+    },
+  },
+  cancelBtn: {
+    color: '#fff',
+    // marginLeft: '10px',
+    backgroundColor: '#F44336',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#F44336',
+    },
+  },
+  deleteBtn: {
+    color: '#fff',
+    width: 140,
+    height: 40,
+  },
+  editBtn: {
+    color: '#fff',
+    width: 190,
+    height: 40,
+  },
+  publishBtn: {
+    width: '100%',
+    height: 40,
+  },
+  price: {
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+  standartTextGrey: {
+    color: '#C4C4C4',
+  },
+
+  titleAndAsinWrapper: {
     display: 'flex',
     alignItems: 'center',
 
-    gap: 10,
+    gap: 35,
   },
 
-  userAvatar: {
-    width: 63,
-    height: 63,
+  asinTitleWrapper: {
+    display: 'flex',
+
+    gap: 5,
   },
-  reviewText: {
+  asinText: {
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
 
+    color: theme.palette.text.second,
+  },
+  asinTextBlue: {
     color: theme.palette.primary.main,
   },
 
-  announcementText: {
+  blockInfoCellTitle: {
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    color: theme.palette.text.second,
+  },
+  blockInfoCellText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    whiteSpace: 'nowrap',
+
+    color: theme.palette.text.main,
+  },
+  blockInfoCell: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 5,
+  },
+  pricesWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  twoStepFieldResult: {
+    fontWeight: 600,
+
+    color: theme.palette.text.main,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+  },
+
+  successDeals: {
+    whiteSpace: 'nowrap',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
+
+  titleAndCounterkWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 10,
+  },
+  buttonAndTitleWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 25,
+  },
+
+  requestTitle: {
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-  },
-  regularText: {
-    fontWeight: 400,
-    fontSize: 18,
-    lineHeight: '140%',
-  },
 
-  userMoreInfoWrapper: {
+    color: theme.palette.text.main,
+  },
+  requestTitleAndInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 5,
+  },
+  divider: {},
+  announcementTitle: {
+    fontSize: 16,
+  },
+  announcementBlock: {
     display: 'flex',
     flexDirection: 'column',
 
     gap: 15,
-  },
-  titleAndTaksTypeWrapper: {
-    display: 'flex',
-    gap: 100,
-  },
-  descriptionWrapper: {
-    display: 'flex',
-    gap: 10,
-  },
 
-  userCarouselWrapper: {
-    width: 391,
-    height: 180,
+    width: '39%',
   },
-  carouselImage: {
-    height: '150px !important',
-    objectFit: 'contain',
-
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  footerWrapper: {
+  announcementTitleWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: 5,
   },
-  statusWrapper: {
-    display: 'flex',
-    gap: 15,
-  },
+  announcementDecription: {
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    whiteSpace: 'normal',
 
-  buttonsWrapper: {
-    display: 'flex',
-    gap: 10,
-  },
-  editButton: {
-    padding: '0 52px',
-  },
-  backButton: {
-    padding: '0 26px',
-  },
-  descriptionTextWrapper: {
     width: '100%',
-    maxHeight: 76,
-
-    overflowY: 'auto',
+    maxHeight: 65,
+  },
+  dealBtn: {
+    width: 180,
   },
 }))

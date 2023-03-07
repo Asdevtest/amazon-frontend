@@ -81,7 +81,7 @@ export const FreelancerFreelanceColumns = handlers => [
       <NormalActionBtnCell
         // disabled={!params.row.batch}
         bTnText={t(TranslationKey.Open)}
-        onClickOkBtn={() => handlers.onClickOpenButton(params.row.originalData.createdBy._id)}
+        onClickOkBtn={() => handlers.onClickOpenButton(params.row.id)}
       />
     ),
     width: 190,
