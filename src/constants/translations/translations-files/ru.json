@@ -1787,5 +1787,9 @@
   "Notifications on ideas": "Уведомления идей",
   "Updated by": "Обновил",
   "Without stores": "Без магазина",
-  "This amount includes the service fee": "В указанную сумму входит комиссия сервиса"
+  "This amount includes the service fee": "В указанную сумму входит комиссия сервиса",
+  "Download box file": "Скачать файл коробки",
+  "Low": "Низкий",
+  "Medium": "Средний",
+  "Urgent": "Срочный"
 }

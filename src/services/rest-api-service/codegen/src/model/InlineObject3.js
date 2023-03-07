@@ -22,12 +22,12 @@ class InlineObject3 {
     /**
      * Constructs a new <code>InlineObject3</code>.
      * @alias module:model/InlineObject3
-     * @param productId {String} GUID продукта.
-     * @param hsCode {String} 
+     * @param asin {String} ASIN продукта
+     * @param strategy {module:model/InlineObject3.StrategyEnum} Стратегия
      */
-    constructor(productId, hsCode) { 
+    constructor(asin, strategy) { 
         
-        InlineObject3.initialize(this, productId, hsCode);
+        InlineObject3.initialize(this, asin, strategy);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject3 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, hsCode) { 
-        obj['productId'] = productId;
-        obj['hsCode'] = hsCode;
+    static initialize(obj, asin, strategy) { 
+        obj['asin'] = asin;
+        obj['strategy'] = strategy;
     }
 
     /**
@@ -51,11 +51,14 @@ class InlineObject3 {
         if (data) {
             obj = obj || new InlineObject3();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('hsCode')) {
-                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('strategy')) {
+                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
             }
         }
         return obj;
@@ -65,18 +68,58 @@ class InlineObject3 {
 }
 
 /**
- * GUID продукта.
- * @member {String} productId
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject3.prototype['productId'] = undefined;
+InlineObject3.prototype['asin'] = undefined;
 
 /**
- * @member {String} hsCode
+ * Причина
+ * @member {String} reason
  */
-InlineObject3.prototype['hsCode'] = undefined;
+InlineObject3.prototype['reason'] = undefined;
+
+/**
+ * Стратегия
+ * @member {module:model/InlineObject3.StrategyEnum} strategy
+ */
+InlineObject3.prototype['strategy'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>strategy</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject3['StrategyEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40"
+};
 
 
 

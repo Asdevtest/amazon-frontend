@@ -555,6 +555,8 @@ export const warehouseTasksDataConverter = data =>
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
 
+    priority: item.priority,
+
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     storekeeper: item.storekeeper?.name,

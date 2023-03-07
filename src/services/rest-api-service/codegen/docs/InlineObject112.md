@@ -4,7 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**hash** | **String** | Токен, который юзер получает через почту | 
-**password** | **String** | Новый пароль | [optional] 
+**result** | **String** | Результат работы исполнителя. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**amazonOrderId** | **String** | ключ с Амазона | [optional] 
+**publicationLinks** | **[String]** |  | [optional] 
 
 

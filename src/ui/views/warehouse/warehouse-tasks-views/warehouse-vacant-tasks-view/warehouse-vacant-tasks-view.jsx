@@ -41,6 +41,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
+      rowCount,
       selectedTasks,
       showAcceptMessage,
       acceptMessage,
@@ -73,7 +74,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onChangeFilterModel,
       setCurrentOpenedTask,
 
-      onChangeNameSearchValue,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -107,47 +108,53 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-                  onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
                 <div />
               </div>
 
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                  filterForm: classNames.filterForm,
-                }}
-                getRowClassName={getRowClassName}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={onSelectionModel}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
-              />
+              <div className={classNames.tableWrapper}>
+                <MemoDataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  disableVirtualization
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
+                  }}
+                  getRowClassName={getRowClassName}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

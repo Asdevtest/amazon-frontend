@@ -39,6 +39,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
 
   render() {
     const {
+      rowCount,
       nameSearchValue,
       requestStatus,
       getCurrentData,
@@ -60,11 +61,10 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       onChangeRowsPerPage,
       onTriggerOpenModal,
 
-      onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       setCurrentOpenedTask,
-      onChangeNameSearchValue,
+      onSearchSubmit,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -89,46 +89,50 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-                  onChange={onChangeNameSearchValue}
+                  // onChange={onChangeNameSearchValue}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
 
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                  filterForm: classNames.filterForm,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                getRowHeight={() => 'auto'}
-                // rowHeight={200}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
-              />
+              <div className={classNames.tableWrapper}>
+                <MemoDataGrid
+                  pagination
+                  useResizeContainer
+                  disableVirtualization
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
+                  }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  getRowHeight={() => 'auto'}
+                  // rowHeight={200}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

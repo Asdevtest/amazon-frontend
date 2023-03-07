@@ -75,6 +75,37 @@ class OtherModelStatic {
     return response
   }
 
+  getReportTaskByTaskId = async id => {
+    await axios({
+      method: 'get',
+      url: `${BACKEND_API_URL}/api/v1/storekeepers/tasks/report/${id}`,
+
+      responseType: 'blob',
+
+      params: {
+        getOldVer: true,
+      },
+
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+
+        Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
+      },
+    })
+      .then(res => {
+        const aElement = document.createElement('a')
+        aElement.setAttribute('download', `batchReport_${id}.xlsx`)
+        const href = URL.createObjectURL(res.data)
+        aElement.href = href
+        aElement.setAttribute('target', '_blank')
+        aElement.click()
+        URL.revokeObjectURL(href)
+      })
+      .catch(error => {
+        console.log('error', error)
+      })
+  }
+
   getReportBatchByHumanFriendlyId = async id => {
     await axios({
       method: 'get',

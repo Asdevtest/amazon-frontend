@@ -397,26 +397,18 @@ export const NormalFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     currentFilterData.length &&
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)),
-                        // )
-                        .map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                            </div>
+                      {itemsForRender.map((el, index) => (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item === el)}
+                            onClick={() => onClickItem(el)}
+                          />
+                          <div className={classNames.shopName}>
+                            {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
                           </div>
-                        ))}
+                        </div>
+                      ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>

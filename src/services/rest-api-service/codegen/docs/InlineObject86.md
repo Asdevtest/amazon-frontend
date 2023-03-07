@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
+**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
 
 

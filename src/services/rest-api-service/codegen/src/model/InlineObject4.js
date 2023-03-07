@@ -22,10 +22,12 @@ class InlineObject4 {
     /**
      * Constructs a new <code>InlineObject4</code>.
      * @alias module:model/InlineObject4
+     * @param productId {String} GUID продукта.
+     * @param hsCode {String} 
      */
-    constructor() { 
+    constructor(productId, hsCode) { 
         
-        InlineObject4.initialize(this);
+        InlineObject4.initialize(this, productId, hsCode);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject4 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, hsCode) { 
+        obj['productId'] = productId;
+        obj['hsCode'] = hsCode;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject4 {
         if (data) {
             obj = obj || new InlineObject4();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('hsCode')) {
+                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
             }
         }
         return obj;
@@ -58,10 +65,15 @@ class InlineObject4 {
 }
 
 /**
- * массив GUIDов оплаченных товаров
- * @member {Array.<String>} guids
+ * GUID продукта.
+ * @member {String} productId
  */
-InlineObject4.prototype['guids'] = undefined;
+InlineObject4.prototype['productId'] = undefined;
+
+/**
+ * @member {String} hsCode
+ */
+InlineObject4.prototype['hsCode'] = undefined;
 
 
 

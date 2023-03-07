@@ -1,8 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    marginTop: '32px',
-    width: '100%',
-    height: '100%',
+    height: 'calc(100vh - 180px)',
   },
   modalMessageWrapper: {
     display: 'flex',
