@@ -1839,6 +1839,8 @@ export enum TranslationKey {
   'link to your portfolio, examples of work' = 'link to your portfolio, examples of work',
   'Link to publication' = 'Link to publication',
   'Specialties' = 'Specialties',
+  'Reset performer' = 'Reset performer',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

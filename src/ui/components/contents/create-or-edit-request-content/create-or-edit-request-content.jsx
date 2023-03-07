@@ -372,10 +372,8 @@ export const CreateOrEditRequestContent = ({
                       inputComponent={
                         <div>
                           <NewDatePicker
-                            // showToolbar
                             disablePast
                             className={classNames.dateField}
-                            // toolbarFormat="ddd DD MMMM"
                             value={formFields.request.timeoutAt}
                             onChange={onChangeField('request')('timeoutAt')}
                           />
@@ -1000,6 +998,7 @@ export const CreateOrEditRequestContent = ({
           announcements={announcementsData}
           onClickThumbnail={onClickThumbnail}
           onClickChooseBtn={onChangeField('request')('announcementId')}
+          onClickResetPerformerBtn={onChangeField('request')('announcementId')}
         />
       </Modal>
     </div>
