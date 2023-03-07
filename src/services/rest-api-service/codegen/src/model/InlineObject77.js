@@ -47,8 +47,14 @@ class InlineObject77 {
         if (data) {
             obj = obj || new InlineObject77();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
             if (data.hasOwnProperty('timeLimitInMinutes')) {
                 obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
@@ -61,10 +67,22 @@ class InlineObject77 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject77.prototype['suppliersIds'] = undefined;
+InlineObject77.prototype['rating'] = undefined;
+
+/**
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
+ */
+InlineObject77.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject77.prototype['linksToMediaFiles'] = undefined;
 
 /**
  * @member {Number} timeLimitInMinutes
