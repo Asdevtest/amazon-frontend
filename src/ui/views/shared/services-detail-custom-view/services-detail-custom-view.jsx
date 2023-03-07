@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /* eslint-disable no-undef */
 import React, {Component} from 'react'
 
@@ -43,13 +45,14 @@ export class ServicesDetailCustomViewRaw extends Component {
       request,
       announcementData,
       showWarningModal,
-      showConfirmModal,
+      // showConfirmModal,
       warningInfoModalSettings,
 
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickBackBtn,
-      onClickCancelRequestProposal,
+      onClickSuggestDealBtn,
+      // onClickCancelRequestProposal,
     } = this.viewModel
 
     return (
@@ -70,7 +73,11 @@ export class ServicesDetailCustomViewRaw extends Component {
               </div>
 
               <div className={classNames.requestInfoWrapper}>
-                <MyServicesInfoCustom request={request} announcementData={announcementData} />
+                <MyServicesInfoCustom
+                  request={request}
+                  announcementData={announcementData}
+                  onClickSuggestDealBtn={onClickSuggestDealBtn}
+                />
               </div>
 
               {request ? (
@@ -82,7 +89,7 @@ export class ServicesDetailCustomViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <WarningInfoModal
+        {/* <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
@@ -91,9 +98,9 @@ export class ServicesDetailCustomViewRaw extends Component {
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
-        />
+        /> */}
 
-        <ConfirmationModal
+        {/* <ConfirmationModal
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -103,7 +110,7 @@ export class ServicesDetailCustomViewRaw extends Component {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onClickCancelRequestProposal}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
+        /> */}
       </React.Fragment>
     )
   }

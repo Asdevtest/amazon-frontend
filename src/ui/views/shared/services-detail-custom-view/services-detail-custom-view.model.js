@@ -94,4 +94,11 @@ export class ServicesDetailCustomViewModel {
       this[modal] = !this[modal]
     })
   }
+
+  onClickSuggestDealBtn() {
+    this.history.push(
+      '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type/create-proposal',
+      {request: toJS(this.request)},
+    )
+  }
 }

@@ -1982,6 +1982,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type/create-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Proposal Creation'],
+  },
+
+  {
     routePath: '/moderator/dashboard',
     component: ModeratorDashboardView,
     exact: false,
