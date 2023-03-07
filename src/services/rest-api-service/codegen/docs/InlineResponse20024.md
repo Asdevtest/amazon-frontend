@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **boxesBefore** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок которые были до переформирования коробок. | [optional] 
 **boxes** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок. | [optional] 
 **status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено. | [optional] 
+**priority** | **Number** | Приоритет задачи | [optional] 
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 **clientComment** | **String** | Комментарий клиента. | [optional] 
 **buyerComment** | **String** | Комментарий баера. | [optional] 

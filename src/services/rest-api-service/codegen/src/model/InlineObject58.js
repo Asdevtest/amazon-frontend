@@ -50,8 +50,11 @@ class InlineObject58 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
             if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -60,7 +63,7 @@ class InlineObject58 {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
             if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
             }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
@@ -80,9 +83,6 @@ class InlineObject58 {
             if (data.hasOwnProperty('length')) {
                 obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
         }
         return obj;
     }
@@ -97,8 +97,14 @@ class InlineObject58 {
 InlineObject58.prototype['title'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<String>} media
+ * Статус идеи
+ * @member {Number} status
+ */
+InlineObject58.prototype['status'] = undefined;
+
+/**
+ * Images URLs
+ * @member {Array.<Object>} media
  */
 InlineObject58.prototype['media'] = undefined;
 
@@ -116,7 +122,7 @@ InlineObject58.prototype['productName'] = undefined;
 
 /**
  * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * @member {Array.<Object>} productLinks
  */
 InlineObject58.prototype['productLinks'] = undefined;
 
@@ -155,12 +161,6 @@ InlineObject58.prototype['height'] = undefined;
  * @member {Number} length
  */
 InlineObject58.prototype['length'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject58.prototype['productId'] = undefined;
 
 
 

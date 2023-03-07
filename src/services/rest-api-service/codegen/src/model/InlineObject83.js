@@ -50,11 +50,8 @@ class InlineObject83 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
         }
         return obj;
@@ -70,16 +67,10 @@ class InlineObject83 {
 InlineObject83.prototype['rating'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject83.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject83.prototype['linksToMediaFiles'] = undefined;
+InlineObject83.prototype['review'] = undefined;
 
 
 

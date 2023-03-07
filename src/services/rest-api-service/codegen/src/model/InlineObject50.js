@@ -22,11 +22,12 @@ class InlineObject50 {
     /**
      * Constructs a new <code>InlineObject50</code>.
      * @alias module:model/InlineObject50
-     * @param productIds {Array.<String>} 
+     * @param clientComment {String} 
+     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(productIds) { 
+    constructor(clientComment, priceForClient) { 
         
-        InlineObject50.initialize(this, productIds);
+        InlineObject50.initialize(this, clientComment, priceForClient);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject50 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productIds) { 
-        obj['productIds'] = productIds;
+    static initialize(obj, clientComment, priceForClient) { 
+        obj['clientComment'] = clientComment;
+        obj['priceForClient'] = priceForClient;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject50 {
         if (data) {
             obj = obj || new InlineObject50();
 
-            if (data.hasOwnProperty('productIds')) {
-                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -60,9 +65,15 @@ class InlineObject50 {
 }
 
 /**
- * @member {Array.<String>} productIds
+ * @member {String} clientComment
  */
-InlineObject50.prototype['productIds'] = undefined;
+InlineObject50.prototype['clientComment'] = undefined;
+
+/**
+ * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+ * @member {Number} priceForClient
+ */
+InlineObject50.prototype['priceForClient'] = undefined;
 
 
 

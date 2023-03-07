@@ -22,12 +22,11 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
+     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
      */
-    constructor(oldPassword, newPassword) { 
+    constructor(email) { 
         
-        InlineObject110.initialize(this, oldPassword, newPassword);
+        InlineObject110.initialize(this, email);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
-            }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -65,16 +60,10 @@ class InlineObject110 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Почта от аккаунта, пароль которого Вы забыли
+ * @member {String} email
  */
-InlineObject110.prototype['oldPassword'] = undefined;
-
-/**
- * Новый пароль
- * @member {String} newPassword
- */
-InlineObject110.prototype['newPassword'] = undefined;
+InlineObject110.prototype['email'] = undefined;
 
 
 

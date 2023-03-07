@@ -64,6 +64,9 @@ class InlineResponse2004 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
             }
@@ -109,6 +112,12 @@ InlineResponse2004.prototype['operationType'] = undefined;
  * @member {Number} status
  */
 InlineResponse2004.prototype['status'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineResponse2004.prototype['priority'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
