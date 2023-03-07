@@ -82,6 +82,10 @@ class OtherModelStatic {
 
       responseType: 'blob',
 
+      params: {
+        getOldVer: true,
+      },
+
       headers: {
         'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
 
