@@ -453,7 +453,6 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.priceAndAmountWrapper}>
                     <Field
-                      disabled={!isLimited}
                       tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
                       inputProps={{maxLength: 8}}
                       label={`${t(TranslationKey['Enter the number of proposals'])} *`}
