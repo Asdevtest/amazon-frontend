@@ -25,6 +25,8 @@ import {useClassNames} from './service-exchange-card.style'
 export const ServiceExchangeCard = ({service, onClickThumbnail, choose, order, history, onClickButton}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('service', service)
+
   return (
     <div className={classNames.cardWrapper}>
       <div className={classNames.titleWrapper}>
