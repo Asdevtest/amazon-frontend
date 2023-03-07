@@ -21,12 +21,9 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './my-services-info-custom.style'
 
-export const MyServicesInfoCustom = ({request, announcementData}) => {
+export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestDealBtn}) => {
   const {classes: classNames} = useClassNames()
   const now = new Date()
-
-  console.log('request', request)
-  console.log('announcementData', announcementData)
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
@@ -57,7 +54,7 @@ export const MyServicesInfoCustom = ({request, announcementData}) => {
             </Typography>
           </div>
 
-          <Button variant="contained" color="primary" className={classNames.dealBtn} /* onClick={onClickBackBtn} */>
+          <Button variant="contained" color="primary" className={classNames.dealBtn} onClick={onClickSuggestDealBtn}>
             {t(TranslationKey['Suggest a deal'])}
           </Button>
         </div>

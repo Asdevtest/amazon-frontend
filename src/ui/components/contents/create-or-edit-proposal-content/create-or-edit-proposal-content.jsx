@@ -31,8 +31,11 @@ export const CreateOrEditProposalContent = ({
   showProgress,
   progressValue,
   proposalToEdit,
+  onClickBackBtn,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('request', request)
 
   const [images, setImages] = useState([])
 
@@ -42,9 +45,9 @@ export const CreateOrEditProposalContent = ({
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
-    comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
-    title: proposalToEdit?.title || '',
+    comment: proposalToEdit?.comment || request.details.conditions || '',
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || request.details.linksToMediaFiles || [],
+    title: proposalToEdit?.title || request.request.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -310,6 +313,10 @@ export const CreateOrEditProposalContent = ({
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
             >
               {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
+            </Button>
+
+            <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
+              {t(TranslationKey.Back)}
             </Button>
           </div>
         </div>

@@ -3,9 +3,15 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
+    minHeight: 750,
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '0 20px',
+    padding: 30,
+
+    background: '#FFFFFF',
+
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    borderRadius: 4,
   },
 
   mainRightWrapper: {
@@ -69,7 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     alignItems: 'flex-end',
 
-    marginTop: '56px',
+    // marginTop: 10,
   },
 
   stepsWrapper: {
@@ -80,11 +86,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    margin: '20px 0 0 100px',
+    gap: 20,
+    margin: '0 0 0 100px',
   },
 
   backBtn: {
-    minWidth: '210px',
+    width: '140px',
   },
 
   successBtn: {
@@ -277,8 +284,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
-
-    marginBottom: 10,
 
     // '& > span': {
     //   marginTop: '-20px',
