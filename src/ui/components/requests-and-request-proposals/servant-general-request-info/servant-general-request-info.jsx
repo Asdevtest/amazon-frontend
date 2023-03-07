@@ -19,13 +19,12 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixed, toFixedWithDollarSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 import {translateProposalsLeftMessage} from '@utils/validation'
 
@@ -50,7 +49,124 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
     )
 
-  console.log('request', request)
+  const getMainInfos = () => (
+    <div className={classNames.mainInfosWrapper}>
+      {requestProposals.length === 0 ? null : (
+        <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
+      )}
+      <div className={classNames.mainInfosSubWrapper}>
+        {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
+          <div>
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={t(TranslationKey['Product price'])}
+              inputComponent={
+                <div className={classNames.priceAmazonWrapper}>
+                  <Typography className={classNames.redText}>
+                    {`$ ${toFixed(
+                      request?.request.priceAmazon -
+                        (request?.request.priceAmazon * request?.request.cashBackInPercent) / 100,
+                      2,
+                    )}`}
+                  </Typography>
+
+                  <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(
+                    request?.request.priceAmazon,
+                    2,
+                  )}`}</Typography>
+                </div>
+              }
+            />
+
+            <Field
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.fieldContainer}
+              label={'CashBack'}
+              inputComponent={
+                <Typography className={classNames.accentText}>{request?.request.cashBackInPercent + '%'}</Typography>
+              }
+            />
+          </div>
+        ) : null}
+        <div>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey['Request price'])}
+            inputComponent={
+              <Typography className={classNames.accentText}>
+                {toFixedWithDollarSign(request?.request.price, 2)}
+              </Typography>
+            }
+          />
+
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey.Status)}
+            inputComponent={
+              <Typography
+                className={classNames.deadline}
+                style={{color: colorByRequestStatus(request?.request.status)}}
+              >
+                {MyRequestStatusTranslate(request?.request.status)}
+              </Typography>
+            }
+          />
+        </div>
+        <div>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey.Time)}
+            inputComponent={
+              <Typography className={classNames.accentText}>{`${toFixed(
+                request?.request.timeLimitInMinutes / 60,
+                2,
+              )} ${t(TranslationKey.hour)} `}</Typography>
+            }
+          />
+
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey['Request type'])}
+            inputComponent={
+              <Typography className={classNames.accentText}>
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request.typeTask])}
+              </Typography>
+            }
+          />
+        </div>
+
+        <div>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey.Updated)}
+            inputComponent={
+              <Typography className={classNames.accentText}>
+                {formatNormDateTimeWithParseISO(request?.request.updatedAt)}
+              </Typography>
+            }
+          />
+          <Field
+            labelClasses={classNames.fieldLabel}
+            containerClasses={classNames.fieldContainer}
+            label={t(TranslationKey.Deadline)}
+            inputComponent={
+              <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
+                request?.request.timeoutAt,
+              )}`}</Typography>
+            }
+          />
+        </div>
+      </div>
+    </div>
+  )
+
+  // console.log('request', request)
 
   return requestProposals.length === 0 ? (
     <Paper className={classNames.root}>
@@ -64,8 +180,34 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
                 <Rating disabled value={request?.request.createdBy.rating} />
               </div>
             </div>
-            <Typography className={classNames.title}>{request?.request.title}</Typography>
           </div>
+
+          <Typography className={classNames.transactions}>{`${t(
+            TranslationKey['The number of total successful transactions:'],
+          )} 0`}</Typography>
+
+          <div className={classNames.leftSideFooterWrapper}>
+            {(request.request.status === RequestStatus.PUBLISHED ||
+              request.request.status === RequestStatus.IN_PROCESS) && (
+              <div className={classNames.btnsBlockWrapper}>
+                <Button
+                  disabled={buttonDisabled}
+                  tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
+                  variant="contained"
+                  color="primary"
+                  className={classNames.actionBtn}
+                  onClick={onSubmit}
+                >
+                  {t(TranslationKey['Suggest a deal'])}
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <Typography className={classNames.title}>{request?.request.title}</Typography>
+
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.standartText}>
               {translateProposalsLeftMessage(
@@ -79,61 +221,10 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
                 request?.request.maxAmountOfProposals,
               )}
             </Typography>
-            <div className={classNames.updatedWrapper}>
-              <Typography className={classNames.updatedText}>{t(TranslationKey.Updated) + ':'}</Typography>
-
-              <Typography className={classNames.updatedText}>
-                {formatNormDateTimeWithParseISO(request?.request.updatedAt)}
-              </Typography>
-            </div>
           </div>
         </div>
 
-        <div className={classNames.mainBlockFooterWrapper}>
-          <div className={classNames.requestInfoWrapper}>
-            <div className={classNames.blockInfoWrapper}>
-              <div className={classNames.requestItemInfoWrapper}>
-                <Typography className={classNames.standartText}>{t(TranslationKey.Time)}</Typography>
-                <Typography className={classNames.standartText}>
-                  {minsToTime(request?.request.timeLimitInMinutes)}
-                </Typography>
-              </div>
-
-              <div className={classNames.requestItemInfoWrapper}>
-                <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
-                <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
-              </div>
-            </div>
-
-            <div className={classNames.blockInfoWrapper}>
-              <div className={classNames.requestItemInfoWrapper}>
-                <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
-                <Typography className={classNames.standartText}>
-                  {formatNormDateTime(request?.request.timeoutAt)}
-                </Typography>
-              </div>
-
-              <div className={classNames.requestItemInfoWrapper}>
-                <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
-                <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
-              </div>
-            </div>
-          </div>
-          {(request.request.status === RequestStatus.PUBLISHED ||
-            request.request.status === RequestStatus.IN_PROCESS) && (
-            <div className={classNames.btnsBlockWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
-                variant="contained"
-                color="primary"
-                className={classNames.actionBtn}
-                onClick={onSubmit}
-              >
-                {t(TranslationKey['Suggest a deal'])}
-              </Button>
-            </div>
-          )}
-        </div>
+        {getMainInfos()}
       </div>
     </Paper>
   ) : (
@@ -170,120 +261,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           </div>
         </div>
 
-        <div className={classNames.mainInfosWrapper}>
-          <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
-          <div className={classNames.mainInfosSubWrapper}>
-            {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
-              <div>
-                <Field
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.fieldContainer}
-                  label={t(TranslationKey['Product price'])}
-                  inputComponent={
-                    <div className={classNames.priceAmazonWrapper}>
-                      <Typography className={classNames.redText}>
-                        {`$ ${toFixed(
-                          request?.request.priceAmazon -
-                            (request?.request.priceAmazon * request?.request.cashBackInPercent) / 100,
-                          2,
-                        )}`}
-                      </Typography>
-
-                      <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(
-                        request?.request.priceAmazon,
-                        2,
-                      )}`}</Typography>
-                    </div>
-                  }
-                />
-
-                <Field
-                  labelClasses={classNames.fieldLabel}
-                  containerClasses={classNames.fieldContainer}
-                  label={'CashBack'}
-                  inputComponent={
-                    <Typography className={classNames.accentText}>
-                      {request?.request.cashBackInPercent + '%'}
-                    </Typography>
-                  }
-                />
-              </div>
-            ) : null}
-            <div>
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey['Request price'])}
-                inputComponent={
-                  <Typography className={classNames.accentText}>
-                    {toFixedWithDollarSign(request?.request.price, 2)}
-                  </Typography>
-                }
-              />
-
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Status)}
-                inputComponent={
-                  <Typography
-                    className={classNames.deadline}
-                    style={{color: colorByRequestStatus(request?.request.status)}}
-                  >
-                    {MyRequestStatusTranslate(request?.request.status)}
-                  </Typography>
-                }
-              />
-            </div>
-            <div>
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Time)}
-                inputComponent={
-                  <Typography className={classNames.accentText}>{`${toFixed(
-                    request?.request.timeLimitInMinutes / 60,
-                    2,
-                  )} ${t(TranslationKey.hour)} `}</Typography>
-                }
-              />
-
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey['Request type'])}
-                inputComponent={
-                  <Typography className={classNames.accentText}>
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request.typeTask])}
-                  </Typography>
-                }
-              />
-            </div>
-
-            <div>
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Updated)}
-                inputComponent={
-                  <Typography className={classNames.accentText}>
-                    {formatNormDateTimeWithParseISO(request?.request.updatedAt)}
-                  </Typography>
-                }
-              />
-              <Field
-                labelClasses={classNames.fieldLabel}
-                containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Updated)}
-                inputComponent={
-                  <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-                    request?.request.timeoutAt,
-                  )}`}</Typography>
-                }
-              />
-            </div>
-          </div>
-        </div>
+        {getMainInfos()}
 
         <div className={classNames.proposalsWrapper}>
           <Divider orientation={'vertical'} />

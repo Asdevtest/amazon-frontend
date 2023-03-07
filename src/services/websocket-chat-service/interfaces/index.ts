@@ -1,6 +1,11 @@
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 
+import {
+  ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataProposalCreateNewBloggerProposalContract,
+} from '@models/chat-model/contracts/chat-message-data.contract'
+
 import {ChatHandlerName} from '../event-handler-mappings'
 
 export interface WebsocketChatServiceHandlers {
@@ -77,6 +82,7 @@ export enum ChatMessageType {
   'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION',
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
+  'CREATED_NEW_BLOGGER_PROPOSAL' = 'CREATED_NEW_BLOGGER_PROPOSAL',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
 }
@@ -95,6 +101,7 @@ export type ChatMessageDataUniversal =
   | ChatMessageDataAddUsersToGroupChat
   | ChatMessageRemoveUsersFromGroupChat
   | ChatMessagePatchInfoGroupChat
+  | ChatMessageDataCreateNewBloggerProposalContract
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -156,6 +163,31 @@ export interface ChatMessageDataProposalResultEditedRequest {
   title: string
 }
 
+export interface ChatMessageDataRequestCreateNewBloggerProposal {
+  _id: string
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+
+  details: {conditions: string; linksToMediaFiles: [string]}
+
+  createdBy: {_id: string}
+  timeoutAt: string
+  priceAmazon: number
+  cashBackInPercent: number
+}
+
+export interface ChatMessageDataProposalCreateNewBloggerProposal {
+  _id: string
+  comment: string
+  details: {linksToMediaFiles: [string]}
+  execution_time: number
+
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+}
+
 export interface ChatMessageDataProposalResultEditedProposal {
   _id: string
   status: keyof typeof RequestProposalStatus
@@ -166,6 +198,11 @@ export interface ChatMessageDataProposalResultEdited {
   edited: ChatMessageDataProposalResultEditedEdited
   request: ChatMessageDataProposalResultEditedRequest
   proposal: ChatMessageDataProposalResultEditedProposal
+}
+
+export interface ChatMessageDataCreateNewBloggerProposal {
+  request: ChatMessageDataProposalResultEditedRequest
+  proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
 }
 
 export interface ChatUser {
