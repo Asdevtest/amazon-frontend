@@ -198,7 +198,7 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
     <div className={classNames.mainWrapper}>

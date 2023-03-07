@@ -218,6 +218,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
+    whiteSpace: 'nowrap',
+
     color: theme.palette.text.main,
   },
   blockInfoCell: {
@@ -236,7 +238,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.main,
   },
   oldPrice: {
-    color: '#FB1D5B',
     textDecoration: 'line-through',
+  },
+  newPrice: {
+    color: '#FB1D5B',
   },
 }))

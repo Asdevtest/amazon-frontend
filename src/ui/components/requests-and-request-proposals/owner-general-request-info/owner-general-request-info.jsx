@@ -99,6 +99,12 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.blockInfoCell}>
               <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
               <div className={classNames.pricesWrapper}>
+                {newProductPrice && (
+                  <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
+                    {'$ ' + toFixed(newProductPrice, 2)}
+                  </Typography>
+                )}
+
                 <Typography
                   className={cx(classNames.blockInfoCellText, {
                     [classNames.oldPrice]: newProductPrice,
@@ -106,10 +112,6 @@ export const OwnerGeneralRequestInfo = ({
                 >
                   {'$ ' + toFixed(request.request.priceAmazon, 2)}
                 </Typography>
-
-                {newProductPrice && (
-                  <Typography className={classNames.blockInfoCellText}>{'$ ' + toFixed(newProductPrice, 2)}</Typography>
-                )}
               </div>
             </div>
 

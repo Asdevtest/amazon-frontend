@@ -44,7 +44,12 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
                 />
                 <div className={classNames.userRatingWrapper}>
                   <Typography className={classNames.reviewText}>{t(TranslationKey.Reviews)}</Typography>
-                  <Rating disabled value={5} size="small" classes={classNames.rating} />
+                  <Rating
+                    disabled
+                    value={announcementData?.createdBy?.rating}
+                    size="small"
+                    classes={classNames.rating}
+                  />
                 </div>
               </div>
             </div>

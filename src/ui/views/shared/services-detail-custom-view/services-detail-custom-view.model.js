@@ -4,6 +4,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
+import {AnnouncementsModel} from '@models/announcements-model'
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
@@ -14,8 +15,13 @@ export class ServicesDetailCustomViewModel {
   error = undefined
 
   drawerOpen = false
+
   requestId = undefined
+  announcementId = undefined
+
   request = undefined
+  announcementData = undefined
+
   requestProposals = undefined
   showWarningModal = false
   showConfirmModal = false
@@ -32,8 +38,8 @@ export class ServicesDetailCustomViewModel {
       this.history = history
 
       if (location.state) {
-        console.log('location.state', location.state)
         this.requestId = location.state.requestId
+        this.announcementId = location.state.announcementId
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -42,11 +48,29 @@ export class ServicesDetailCustomViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      this.getCustomRequestById()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getCustomRequestById() {
+    try {
+      const requestData = await RequestModel.getCustomRequestById(this.requestId)
+
+      const announcementData = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
+
+      runInAction(() => {
+        this.request = requestData
+        this.announcementData = announcementData
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 
