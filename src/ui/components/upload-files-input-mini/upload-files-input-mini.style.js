@@ -46,6 +46,9 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.02)',
     },
   },
+  dragingOnDropBtnWithoutTitle: {
+    top: 0,
+  },
 
   pasteInput: {
     width: '100%',
@@ -231,6 +234,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '55%',
 
     border: `1px solid #424250`,
+  },
+  loadImageInputSmall: {
+    width: '46%',
   },
 
   inputColor: {
