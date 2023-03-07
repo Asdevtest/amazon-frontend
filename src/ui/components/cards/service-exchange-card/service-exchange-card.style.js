@@ -16,10 +16,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cardCarouselWrapper: {
     height: 180,
+    width: 335,
     marginBottom: 40,
   },
   carouselImage: {
-    height: 140,
+    width: 277,
     objectFit: 'contain',
 
     transition: '.2s ease',
@@ -79,15 +80,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   detailsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: 10,
-    padding: '0 50px',
+    padding: '0 30px',
 
     marginBottom: 31,
   },
   detailsSubWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+
+    gap: 10,
   },
 
   openBtn: {
@@ -98,5 +101,16 @@ export const useClassNames = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  cardImg: {
+    width: 28,
+    height: 28,
+  },
+  userInfo: {
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 10,
   },
 }))
