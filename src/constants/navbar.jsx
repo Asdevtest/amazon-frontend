@@ -713,7 +713,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
         },
       ],
-      route: '/warehouse/vacant-tasks',
+      route: '/warehouse/tasks',
       key: navBarActiveCategory.NAVBAR_TASKS,
 
       checkHideBlock: user =>

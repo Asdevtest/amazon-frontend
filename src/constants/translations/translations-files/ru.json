@@ -1789,5 +1789,9 @@
   "Without stores": "Без магазина",
   "This amount includes the service fee": "В указанную сумму входит комиссия сервиса",
   "Got barcode": "Есть баркод",
-  "No barcode": "Без баркода"
+  "No barcode": "Без баркода",
+  "Download box file": "Скачать файл коробки",
+  "Low": "Низкий",
+  "Medium": "Средний",
+  "Urgent": "Срочный"
 }

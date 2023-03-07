@@ -1510,4 +1510,37 @@ export const styles = theme => ({
   asd: {
     color: 'red',
   },
+
+  searchInputWrapper: {
+    width: '100%',
+    height: 30,
+    marginBottom: 10,
+  },
+  searchInput: {
+    border: '1px solid #E0E0E0',
+    width: '100%',
+    height: '100%',
+  },
+
+  stringListMenuWrapper: {
+    width: 150,
+    padding: '10px',
+    maxHeight: 400,
+  },
+
+  nativeSelect: {
+    // width: '210px',
+  },
+
+  colorYellow: {
+    color: '#F3AF00 !important',
+  },
+
+  colorRed: {
+    color: '#FF1616 !important',
+  },
+
+  colorGreen: {
+    color: '#00B746 !important',
+  },
 })

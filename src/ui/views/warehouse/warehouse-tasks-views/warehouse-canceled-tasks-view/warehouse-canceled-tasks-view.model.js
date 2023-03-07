@@ -13,6 +13,7 @@ import {warehouseCanceledTasksViewColumns} from '@components/table-columns/wareh
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 
 export class WarehouseCanceledTasksViewModel {
   history = undefined
@@ -25,6 +26,8 @@ export class WarehouseCanceledTasksViewModel {
   volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
+
+  rowCount = 0
 
   drawerOpen = false
 
@@ -106,7 +109,11 @@ export class WarehouseCanceledTasksViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+
+      this.curPage = 0
     })
+
+    this.getTasksMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -125,12 +132,22 @@ export class WarehouseCanceledTasksViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.getTasksMy()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
       this.selectionModel = model
     })
+
+    this.getTasksMy()
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getTasksMy()
   }
 
   getCurrentData() {
@@ -200,15 +217,54 @@ export class WarehouseCanceledTasksViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await StorekeeperModel.getLightTasksMy({
+      // const result = await StorekeeperModel.getLightTasksMy({
+      //   status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+      // })
+
+      // runInAction(() => {
+      //   this.tasksMy = warehouseTasksDataConverter(
+      //     result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+      //   )
+      // })
+
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {
+            trackNumberText: {
+              [`${
+                isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'
+              }`]: this.nameSearchValue,
+            },
+          },
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
+      })
+
+      const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+        offset: this.curPage * this.rowsPerPage,
+        limit: this.rowsPerPage,
+        filters: this.nameSearchValue ? filter : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
+        this.rowCount = result.count
+
+        // this.tasksMyBase = result.rows
+
         this.tasksMy = warehouseTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

@@ -1789,5 +1789,9 @@
   "Without stores": "Without stores",
   "This amount includes the service fee": "This amount includes the service fee",
   "Got barcode": "Got barcode",
-  "No barcode": "No barcode"
+  "No barcode": "No barcode",
+  "Download box file": "Download box file",
+  "Low": "Low",
+  "Medium": "Medium",
+  "Urgent": "Urgent"
 }

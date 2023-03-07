@@ -125,6 +125,8 @@ export class WarehouseCompletedViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+
+      this.curPage = 0
     })
 
     this.getCompletedTasksPagMy()
@@ -173,30 +175,29 @@ export class WarehouseCompletedViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const filter =
-        isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-          ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
-          : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
+      // const filter =
+      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
+      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
+      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[3][item][$contains]=${this.nameSearchValue};`
 
-      // const filter = objectToUrlQs({
-      //   or: [
-      //     {asin: {$contains: this.nameSearchValue}},
-      //     {title: {$contains: this.nameSearchValue}},
-      //     {
-      //       trackNumberText: {
-      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'}`]:
-      //           this.nameSearchValue,
-      //       },
-      //     },
-      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
-      //     {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
-      //   ].filter(
-      //     el =>
-      //       (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.humanFriendlyId &&
-      //       !el.orderHumanFriendlyId,
-      //   ),
-      // })
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {
+            trackNumberText: {
+              [`${
+                isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'
+              }`]: this.nameSearchValue,
+            },
+          },
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
+      })
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],

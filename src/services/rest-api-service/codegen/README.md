@@ -522,7 +522,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject112](docs/InlineObject112.md)
  - [TestSwagger.InlineObject113](docs/InlineObject113.md)
  - [TestSwagger.InlineObject114](docs/InlineObject114.md)
- - [TestSwagger.InlineObject115](docs/InlineObject115.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)

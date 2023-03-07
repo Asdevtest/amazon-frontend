@@ -22,6 +22,7 @@ import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV
 class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
+     * Схема комментарии байера.
      * @alias module:model/InlineObject34
      * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */

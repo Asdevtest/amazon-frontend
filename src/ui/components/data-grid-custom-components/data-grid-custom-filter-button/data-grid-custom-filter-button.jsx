@@ -42,7 +42,7 @@ export const DataGridCustomFilterButton = props => {
         anchorEl={menuAnchor}
         autoFocus={false}
         open={Boolean(menuAnchor)}
-        classes={{paper: classNames.menu, list: classNames.list}}
+        // classes={{paper: classNames.menu, list: classNames.list}}
         onClose={handleClose}
       >
         <div style={{/* background: 'green', */ width: '2000px', height: 200}}></div>
