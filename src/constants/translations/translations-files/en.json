@@ -427,7 +427,7 @@
   "Allow multiple performances by the same performer": "Allow multiple performances by the same performer",
   "Step": "Step",
   "Back to editing": "Back to editing",
-  "Request title": "Request title*",
+  "Request title": "Request title",
   "Your request": "Your request",
   "Price and time": "Price and time",
   "Number of proposals": "Number of proposals",
@@ -1834,5 +1834,8 @@
   "Performance time": "Performance time",
   "Service": "Service",
   "Close the announcement": "Close the announcement",
-  "Announcement": "Announcement"
+  "Announcement": "Announcement",
+  "Request description": "Request description",
+  "Attach a file": "Attach a file",
+  "link to your portfolio, examples of work": "link to your portfolio, examples of work"
 }

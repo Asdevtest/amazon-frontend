@@ -41,6 +41,7 @@ export const UploadFilesInputMini = observer(
     title = false,
     disabled = false,
     dragAndDropBtnHeight = undefined,
+    requestWidth,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -123,7 +124,10 @@ export const UploadFilesInputMini = observer(
                     disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
                     // className={classNames.loadImageInput}
-                    classes={{root: classNames.loadImageInput, input: classNames.inputColor}}
+                    classes={{
+                      root: cx(classNames.loadImageInput, {[classNames.loadImageInputSmall]: requestWidth}),
+                      input: classNames.inputColor,
+                    }}
                     value={linkInput}
                     onChange={e => onChangeLinkInput(e.target.value)}
                     onPaste={onPasteFiles}
@@ -172,7 +176,10 @@ export const UploadFilesInputMini = observer(
                 <div className={classNames.mainSubWrapper}>
                   <button
                     disabled={disabled}
-                    className={cx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
+                    className={cx(classNames.dragAndDropBtn, {
+                      [classNames.dragingOnDropBtnWithoutTitle]: withoutTitle,
+                      [classNames.dragingOnDropBtn]: isDragging,
+                    })}
                     style={dragAndDropBtnHeight && {height: dragAndDropBtnHeight}}
                     onClick={onImageUpload}
                     {...dragProps}

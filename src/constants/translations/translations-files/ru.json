@@ -430,7 +430,7 @@
   "Allow multiple performances by the same performer": "Разрешить многократное исполнение одному исполнителю",
   "Step": "Шаг",
   "Back to editing": "Назад к редактированию",
-  "Request title": "Название заявки*",
+  "Request title": "Название заявки",
   "Description of your request": "Описание вашей заявки",
   "Price and time": "Цена и время",
   "Number of proposals": "Количество предложений",
@@ -1835,5 +1835,8 @@
   "Performance time": "Срок выполнения",
   "Service": "Услуга",
   "Close the announcement": "Закрыть объявление",
-  "Announcement": "Объявление"
+  "Announcement": "Объявление",
+  "Request description": "Описание заявки",
+  "Attach a file": "Прикрепить файл",
+  "link to your portfolio, examples of work": "ссылка на Ваше портфолио, примеры работ"
 }
