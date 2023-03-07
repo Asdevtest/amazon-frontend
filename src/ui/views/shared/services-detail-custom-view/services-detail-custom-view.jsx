@@ -43,6 +43,7 @@ export class ServicesDetailCustomViewRaw extends Component {
     const {
       drawerOpen,
       request,
+      announcementData,
       showWarningModal,
       showConfirmModal,
       warningInfoModalSettings,
