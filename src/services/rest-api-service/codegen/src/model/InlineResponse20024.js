@@ -22,6 +22,7 @@ import InlineResponse20024Rows from './InlineResponse20024Rows';
 class InlineResponse20024 {
     /**
      * Constructs a new <code>InlineResponse20024</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20024
      */
     constructor() { 
