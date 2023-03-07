@@ -19,10 +19,10 @@ export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy
 
 export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd.MM.yyyy HH:mm')
 
-export const formatDateTime = dateString => format(parseISO(dateString), 'MM-dd-yyyy HH:mm')
+export const formatDateTime = dateString => format(parseISO(dateString), 'MM.dd.yyyy HH:mm')
 export const formatNormDateTime = dateString => {
   if (dateString) {
-    return format(parseISO(dateString), 'dd-MM-yyyy HH:mm') // предпочтительный формат
+    return format(parseISO(dateString), 'dd.MM.yyyy HH:mm') // предпочтительный формат
   } else {
     return ''
   }

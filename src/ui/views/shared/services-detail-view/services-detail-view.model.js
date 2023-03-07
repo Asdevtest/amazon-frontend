@@ -5,11 +5,15 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
+import {AnnouncementsModel} from '@models/announcements-model'
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {FreelancerFreelanceColumns} from '@views/freelancer/freelancer-freelance-columns'
+
+import {freelancerServiceDetaildsDataConverter} from '@utils/data-grid-data-converters'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -20,19 +24,27 @@ export class ServiceDetailsViewModel {
   uploadedFiles = []
   drawerOpen = false
 
-  announcementData = null
+  requestStatus = undefined
+
+  announcementData = undefined
+  announcementId = undefined
 
   curPage = 0
   rowsPerPage = 15
 
-  currentData = null
+  currentData = []
 
   sortModel = []
   filterModel = {items: []}
-  columnVisibilityModel = null
+  columnVisibilityModel = undefined
 
   densityModel = 'compact'
-  columnsModel = {}
+
+  handlers = {
+    onClickOpenButton: id => this.onClickOpenBtn(id),
+  }
+
+  columnsModel = FreelancerFreelanceColumns(this.handlers)
 
   get user() {
     return UserModel.userInfo
@@ -44,32 +56,49 @@ export class ServiceDetailsViewModel {
 
       if (location.state) {
         runInAction(() => {
-          this.announcementData = location.state.data
+          this.announcementId = location.state.data
         })
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
 
-    // reaction(
-    //   () => ,
-    //   () => ,
-    // )
+    reaction(
+      () => this.announcementData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    } else {
-      return toJS(this.users)
-    }
+    return toJS(freelancerServiceDetaildsDataConverter(this.announcementData))
   }
 
   async loadData() {
     try {
-      ;() => {}
+      await this.getAnnouncementsDataByGuid()
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async getAnnouncementsDataByGuid() {
+    try {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
+      runInAction(() => {
+        this.announcementData = result
+      })
+    } catch (error) {
+      this.error = error
+      console.log(error)
+    }
+  }
+
+  onClickOpenBtn(id) {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type`, {
+      requestId: id,
+    })
   }
 
   onClickEditBtn() {
@@ -88,9 +117,45 @@ export class ServiceDetailsViewModel {
     })
   }
 
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
+  }
+
+  onChangeCurPage(e) {
+    runInAction(() => {
+      this.curPage = e
+    })
+    this.getAnnouncementsDataByGuid()
+  }
+
+  onChangeRowsPerPage(e) {
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
+
+    this.getAnnouncementsDataByGuid()
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+
+    this.getAnnouncementsDataByGuid()
+  }
+
   onTriggerDrawerOpen() {
     runInAction(() => {
       this.drawerOpen = !this.drawerOpen
+    })
+  }
+
+  setRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.requestStatus = requestStatus
     })
   }
 }

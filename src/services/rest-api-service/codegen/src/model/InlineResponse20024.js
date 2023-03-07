@@ -67,6 +67,9 @@ class InlineResponse20024 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
@@ -133,6 +136,12 @@ InlineResponse20024.prototype['boxes'] = undefined;
  * @member {Number} status
  */
 InlineResponse20024.prototype['status'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineResponse20024.prototype['priority'] = undefined;
 
 /**
  * Комментарий работника склада.

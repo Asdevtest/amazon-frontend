@@ -3,9 +3,15 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
+    minHeight: 750,
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '0 20px',
+    padding: 30,
+
+    background: '#FFFFFF',
+
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    borderRadius: 4,
   },
 
   mainRightWrapper: {
@@ -69,7 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     alignItems: 'flex-end',
 
-    marginTop: '56px',
+    // marginTop: 10,
   },
 
   stepsWrapper: {
@@ -80,11 +86,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    margin: '20px 0 0 100px',
+    gap: 20,
+    margin: '0 0 0 100px',
   },
 
   backBtn: {
-    minWidth: '210px',
+    width: '140px',
   },
 
   successBtn: {
@@ -113,7 +120,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    height: '115px',
+    height: '213px !important',
     width: '100%',
   },
 
@@ -148,10 +155,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '20px',
   },
 
-  price: {
-    color: theme.palette.primary.main,
-  },
-
   photoWrapper: {
     width: '200px',
     display: 'flex',
@@ -181,7 +184,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   adviceWrapper: {
-    width: '25%',
+    width: '26%',
   },
   adviceTitle: {
     fontSize: '30px',
@@ -207,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     marginLeft: '35px',
-    marginTop: '18px',
+    marginTop: 10,
   },
 
   trainingText: {
@@ -230,8 +233,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   userPhoto: {
-    width: '60px',
-    height: '60px',
+    width: 60,
+    height: 60,
     marginRight: '30px',
   },
   ratingWrapper: {
@@ -282,15 +285,17 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'end',
 
-    '& > span': {
-      marginTop: '-20px',
-    },
+    // '& > span': {
+    //   marginTop: '-20px',
+    // },
   },
 
   descriptionWrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
+
+    marginBottom: 30,
 
     '& > span': {
       marginTop: '-20px',
@@ -308,5 +313,81 @@ export const useClassNames = makeStyles()(theme => ({
   },
   listItemDot: {
     width: '8px !important',
+  },
+
+  requestTitleName: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
+    marginBottom: 5,
+  },
+  requestTitle: {
+    marginBottom: 20,
+  },
+
+  blockInfoWrapper: {
+    display: 'flex',
+    // width: 103,
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  requestTitleAndInfo: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    marginBottom: 25,
+  },
+  blockInfoCellTitle: {
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    color: theme.palette.text.second,
+  },
+  price: {
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+  blockInfoCellText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    whiteSpace: 'nowrap',
+
+    color: theme.palette.text.main,
+  },
+  pricesWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  newPrice: {
+    color: '#FB1D5B',
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+  blockInfoCell: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  blockInfoWrapperlast: {
+    alignItems: 'flex-end',
+  },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+  imageFileInputSubTitle: {
+    color: theme.palette.text.second,
   },
 }))

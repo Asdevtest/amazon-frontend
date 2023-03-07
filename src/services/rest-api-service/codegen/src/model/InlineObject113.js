@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject113 model module.
@@ -21,11 +23,14 @@ import ApiClient from '../ApiClient';
 class InlineObject113 {
     /**
      * Constructs a new <code>InlineObject113</code>.
+     * Схема универсальной заявки.
      * @alias module:model/InlineObject113
+     * @param request {module:model/ApiV1RequestsCustomRequest} 
+     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor() { 
+    constructor(request, details) { 
         
-        InlineObject113.initialize(this);
+        InlineObject113.initialize(this, request, details);
     }
 
     /**
@@ -33,7 +38,9 @@ class InlineObject113 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, request, details) { 
+        obj['request'] = request;
+        obj['details'] = details;
     }
 
     /**
@@ -47,17 +54,11 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonOrderId')) {
-                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
-            }
-            if (data.hasOwnProperty('publicationLinks')) {
-                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -67,27 +68,14 @@ class InlineObject113 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * @member {module:model/ApiV1RequestsCustomRequest} request
  */
-InlineObject113.prototype['result'] = undefined;
+InlineObject113.prototype['request'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/ApiV1RequestsCustomDetails} details
  */
-InlineObject113.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * ключ с Амазона
- * @member {String} amazonOrderId
- */
-InlineObject113.prototype['amazonOrderId'] = undefined;
-
-/**
- * @member {Array.<String>} publicationLinks
- */
-InlineObject113.prototype['publicationLinks'] = undefined;
+InlineObject113.prototype['details'] = undefined;
 
 
 

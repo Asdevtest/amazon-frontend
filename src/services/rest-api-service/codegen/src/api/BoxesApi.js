@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import ApiV1BatchesBoxes from '../model/ApiV1BatchesBoxes';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
+import InlineObject from '../model/InlineObject';
 import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
@@ -32,7 +33,6 @@ import InlineObject29 from '../model/InlineObject29';
 import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
-import InlineObject33 from '../model/InlineObject33';
 import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse20014 from '../model/InlineResponse20014';
 import InlineResponse20015 from '../model/InlineResponse20015';
@@ -1426,7 +1426,7 @@ export default class BoxesApi {
      * # Изменить поле isFormed
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {Array.<module:model/InlineObject>} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1BoxesPrepIdPatchWithHttpInfo(opts) {
@@ -1459,7 +1459,7 @@ export default class BoxesApi {
      * # Изменить поле isFormed
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {Array.<module:model/InlineObject>} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1BoxesPrepIdPatch(opts) {

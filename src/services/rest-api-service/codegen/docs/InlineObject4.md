@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
+**productId** | **String** | GUID продукта. | 
+**hsCode** | **String** |  | 
 
 

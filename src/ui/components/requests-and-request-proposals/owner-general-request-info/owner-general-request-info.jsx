@@ -4,6 +4,7 @@ import {Typography, Paper, Avatar} from '@mui/material'
 
 import React from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -11,9 +12,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
+import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {translateProposalsLeftMessage} from '@utils/validation'
 
@@ -30,6 +32,11 @@ export const OwnerGeneralRequestInfo = ({
   const {classes: classNames} = useClassNames()
   const now = new Date()
 
+  const isDraft = request?.request?.status === RequestStatus.DRAFT
+
+  const newProductPrice =
+    calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
+
   const requestIsNotDraftAndPublished =
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
 
@@ -40,7 +47,16 @@ export const OwnerGeneralRequestInfo = ({
           <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
 
           <div className={classNames.titleWrapper}>
-            <Typography className={classNames.title}>{request?.request.title}</Typography>
+            <div className={classNames.titleAndAsinWrapper}>
+              <Typography className={classNames.title}>{request?.request.title}</Typography>
+
+              <div className={classNames.asinTitleWrapper}>
+                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
+                <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
+                  {request?.request.asin || t(TranslationKey.Missing)}
+                </Typography>
+              </div>
+            </div>
 
             <Typography className={classNames.subTitle}>
               {translateProposalsLeftMessage(
@@ -59,30 +75,83 @@ export const OwnerGeneralRequestInfo = ({
 
         <div className={classNames.requestInfoWrapper}>
           <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography className={classNames.standartText}>{t(TranslationKey.Time)}</Typography>
-              <Typography className={classNames.standartText}>
-                {request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+              <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+                {toFixed(request?.request.price, 2) + '$'}
               </Typography>
             </div>
 
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
-              <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
+              <div className={classNames.blockInfoCellText}>
+                {
+                  <RequestStatusCell
+                    status={request?.request.status}
+                    styles={{fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left'}}
+                  />
+                }
+              </div>
             </div>
           </div>
 
           <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography className={classNames.standartText}>
-                {formatNormDateTime(request?.request.timeoutAt)}
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
+              <div className={classNames.pricesWrapper}>
+                {newProductPrice && (
+                  <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
+                    {'$ ' + toFixed(newProductPrice, 2)}
+                  </Typography>
+                )}
+
+                <Typography
+                  className={cx(classNames.blockInfoCellText, {
+                    [classNames.oldPrice]: newProductPrice,
+                  })}
+                >
+                  {'$ ' + toFixed(request.request.priceAmazon, 2)}
+                </Typography>
+              </div>
+            </div>
+
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+              <Typography className={cx(classNames.blockInfoCellText)}>
+                {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
+              </Typography>
+            </div>
+          </div>
+
+          <div className={cx(classNames.blockInfoWrapper)}>
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
+              <Typography className={classNames.blockInfoCellText}>
+                {request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}
               </Typography>
             </div>
 
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
-              <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+              <Typography className={cx(classNames.blockInfoCellText)}>
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
+              </Typography>
+            </div>
+          </div>
+
+          <div className={cx(classNames.blockInfoWrapper, classNames.blockInfoWrapperLast)}>
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
+              <Typography className={classNames.blockInfoCellText}>
+                {formatNormDateTime(request?.request.updatedAt)}
+              </Typography>
+            </div>
+
+            <div className={classNames.blockInfoCell}>
+              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Performance time'])}</Typography>
+              <Typography className={cx(classNames.blockInfoCellText)}>
+                {formatNormDateTime(request?.request.timeoutAt)}
+              </Typography>
             </div>
           </div>
         </div>
@@ -90,42 +159,56 @@ export const OwnerGeneralRequestInfo = ({
 
       <div className={classNames.middleBlockWrapper}>
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey.Total)}</Typography>
-          <Typography className={classNames.standartText}>{requestProposals?.length || 0}</Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey.Total)}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {requestProposals?.length || 0}
+          </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey.Submitted)}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey.Submitted)}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.CREATED).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey['In the work'])}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey['In the work'])}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
               .length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey['On refinement'])}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey['On refinement'])}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.TO_CORRECT).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey['Waiting for checks'])}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey['Waiting for checks'])}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey.Accepted)}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey.Accepted)}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
@@ -136,8 +219,10 @@ export const OwnerGeneralRequestInfo = ({
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={classNames.standartText}>{t(TranslationKey.Rejected)}</Typography>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+            {t(TranslationKey.Rejected)}
+          </Typography>
+          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||
@@ -153,35 +238,31 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
               <Button
-                tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                color="primary"
-                btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                className={classNames.button}
-                onClick={onClickEditBtn}
-              >
-                {t(TranslationKey.Edit)}
-              </Button>
-              <Button
+                danger
                 tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                color="primary"
-                btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                className={[classNames.button, classNames.cancelBtn]}
+                className={classNames.deleteBtn}
                 onClick={onClickCancelBtn}
               >
                 {t(TranslationKey.Delete)}
               </Button>
-            </div>
-            <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
+
               <Button
-                tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
+                tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
                 color="primary"
-                btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                className={[classNames.button, classNames.successBtn]}
-                onClick={onClickPublishBtn}
+                className={classNames.editBtn}
+                onClick={onClickEditBtn}
               >
-                {t(TranslationKey.Publish)}
+                {t(TranslationKey.Edit)}
               </Button>
             </div>
+            <Button
+              success
+              tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
+              className={classNames.publishBtn}
+              onClick={onClickPublishBtn}
+            >
+              {t(TranslationKey.Publish)}
+            </Button>
           </div>
         </div>
       )}
@@ -192,9 +273,9 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.btnsRow}>
               {requestIsNotDraftAndPublished && (
                 <Button
+                  danger
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                  btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={[classNames.button, classNames.cancelBtn]}
+                  className={classNames.deleteBtn}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}
@@ -205,8 +286,7 @@ export const OwnerGeneralRequestInfo = ({
                 <Button
                   tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
                   color="primary"
-                  btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={cx(classNames.button, {
+                  className={cx(classNames.editBtn, {
                     [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
                   })}
                   onClick={onClickEditBtn}

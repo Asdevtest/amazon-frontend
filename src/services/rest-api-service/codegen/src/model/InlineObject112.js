@@ -22,11 +22,10 @@ class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
      * @alias module:model/InlineObject112
-     * @param hash {String} Токен, который юзер получает через почту
      */
-    constructor(hash) { 
+    constructor() { 
         
-        InlineObject112.initialize(this, hash);
+        InlineObject112.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,17 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonOrderId')) {
+                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
+            }
+            if (data.hasOwnProperty('publicationLinks')) {
+                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
             }
         }
         return obj;
@@ -63,16 +67,27 @@ class InlineObject112 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject112.prototype['hash'] = undefined;
+InlineObject112.prototype['result'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} password
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject112.prototype['password'] = undefined;
+InlineObject112.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * ключ с Амазона
+ * @member {String} amazonOrderId
+ */
+InlineObject112.prototype['amazonOrderId'] = undefined;
+
+/**
+ * @member {Array.<String>} publicationLinks
+ */
+InlineObject112.prototype['publicationLinks'] = undefined;
 
 
 

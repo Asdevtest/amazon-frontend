@@ -430,7 +430,7 @@
   "Allow multiple performances by the same performer": "对此执行者允许多次执行",
   "Step": "步",
   "Back to editing": "返回到编辑",
-  "Request title": "请求名称*",
+  "Request title": "请求名称",
   "Description of your request": "你的请求描述",
   "Price and time": "价格及时间",
   "Number of proposals": "建议数量",
@@ -1830,5 +1830,12 @@
   "Service edited": "Service edited",
   "Service not edited": "Service not edited",
   "The price should be greater than": "The price should be greater than",
-  "Photos and documents": "Photos and documents"
+  "Photos and documents": "Photos and documents",
+  "Performance time": "Performance time",
+  "Service": "Service",
+  "Close the announcement": "Close the announcement",
+  "Announcement": "Announcement",
+  "Request description": "Request description",
+  "Attach a file": "Attach a file",
+  "link to your portfolio, examples of work": "link to your portfolio, examples of work"
 }

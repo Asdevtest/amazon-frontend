@@ -66,8 +66,6 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('platformSettingsData', platformSettingsData)
-
   const [images, setImages] = useState([])
 
   const [openModal, setOpenModal] = useState(false)
@@ -152,6 +150,7 @@ export const CreateOrEditRequestContent = ({
       } else if (['typeTask'].includes(fieldName)) {
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
+        newFormFields.request.announcementId = ''
         newFormFields[section][fieldName] = event.target.value
       } else {
         newFormFields[section][fieldName] = event.target.value
@@ -198,7 +197,7 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
     <div className={classNames.mainWrapper}>
@@ -467,10 +466,10 @@ export const CreateOrEditRequestContent = ({
 
                     <Field
                       error={
-                        formFields.request.price &&
-                        platformSettingsData.requestMinAmountPriceOfProposal > formFields.request.price &&
+                        formFields?.request?.price &&
+                        platformSettingsData?.requestMinAmountPriceOfProposal > formFields.request.price &&
                         `${t(TranslationKey['The price should be greater than'])} ${
-                          platformSettingsData.requestMinAmountPriceOfProposal
+                          platformSettingsData?.requestMinAmountPriceOfProposal
                         } $`
                       }
                       tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
@@ -490,15 +489,15 @@ export const CreateOrEditRequestContent = ({
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
                               <Avatar
-                                src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                                src={getUserAvatarSrc(formFields.request.announcementId.createdBy._id)}
                                 className={classNames.cardImg}
                               />
 
                               <div className={classNames.nameWrapper}>
                                 <UserLink
                                   blackText
-                                  name={formFields.request.announcementId.title}
-                                  userId={formFields.request.announcementId._id}
+                                  name={formFields.request.announcementId.createdBy.name}
+                                  userId={formFields.request.announcementId.createdBy._id}
                                 />
                                 <Rating disabled value={5} size="small" classes={classNames.rating} />
                               </div>
@@ -691,7 +690,7 @@ export const CreateOrEditRequestContent = ({
                       {t(TranslationKey['on our freelance exchange.'])}
                     </Typography>
 
-                    <div className={classNames.performerWrapperStepTwo}>
+                    {/* <div className={classNames.performerWrapperStepTwo}>
                       <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                       <div className={classNames.userInfo}>
                         <Avatar
@@ -712,7 +711,7 @@ export const CreateOrEditRequestContent = ({
                       <Typography className={classNames.performerDescriptionText}>
                         {formFields.request.announcementId.description}
                       </Typography>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -769,51 +768,54 @@ export const CreateOrEditRequestContent = ({
                     <div className={classNames.rightTwoStepMainWrapper}>
                       <div className={classNames.rightTwoStepWrapper}>
                         {`${formFields?.request?.typeTask}` ===
-                          `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+                          `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+                        formFields.request.priceAmazon &&
+                        formFields.request.priceAmazon !== '0' ? (
                           <div className={classNames.infoColumn}>
                             {`${formFields?.request?.typeTask}` ===
                               `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                              formFields?.request?.priceAmazon && (
-                                <Field
-                                  label={t(TranslationKey['Price per product'])}
-                                  labelClasses={classNames.spanLabel}
-                                  containerClasses={cx(classNames.fitContentContainer)}
-                                  inputComponent={
-                                    <div className={classNames.pricesWrapper}>
-                                      <Typography
-                                        className={cx(classNames.twoStepFieldResult, {
-                                          [classNames.oldPrice]: formFields.request.discountedPrice,
-                                        })}
-                                      >
-                                        {'$ ' + formFields.request.priceAmazon}
+                            formFields?.request?.priceAmazon &&
+                            formFields?.request?.priceAmazon !== '0' ? (
+                              <Field
+                                label={t(TranslationKey['Price per product'])}
+                                labelClasses={classNames.spanLabel}
+                                containerClasses={cx(classNames.fitContentContainer)}
+                                inputComponent={
+                                  <div className={classNames.pricesWrapper}>
+                                    <Typography
+                                      className={cx(classNames.twoStepFieldResult, {
+                                        [classNames.oldPrice]: formFields.request.discountedPrice,
+                                      })}
+                                    >
+                                      {'$ ' + formFields.request.priceAmazon}
+                                    </Typography>
+                                    {formFields.request.discountedPrice && (
+                                      <Typography className={classNames.twoStepFieldResult}>
+                                        {'$ ' + formFields.request.discountedPrice}
                                       </Typography>
-                                      {formFields.request.discountedPrice && (
-                                        <Typography className={classNames.twoStepFieldResult}>
-                                          {'$ ' + formFields.request.discountedPrice}
-                                        </Typography>
-                                      )}
-                                    </div>
-                                  }
-                                />
-                              )}
+                                    )}
+                                  </div>
+                                }
+                              />
+                            ) : null}
 
                             {`${formFields?.request?.typeTask}` ===
                               `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                              formFields.request.cashBackInPercent &&
-                              formFields?.request?.cashBackInPercent && (
-                                <Field
-                                  label={t(TranslationKey.CashBack)}
-                                  containerClasses={cx(classNames.fitContentContainer)}
-                                  labelClasses={classNames.spanLabel}
-                                  inputComponent={
-                                    <Typography className={classNames.twoStepFieldResult}>
-                                      {toFixed(formFields.request.cashBackInPercent, 0) + ' %'}
-                                    </Typography>
-                                  }
-                                />
-                              )}
+                            formFields.request.cashBackInPercent &&
+                            formFields?.request?.cashBackInPercent ? (
+                              <Field
+                                label={t(TranslationKey.CashBack)}
+                                containerClasses={cx(classNames.fitContentContainer)}
+                                labelClasses={classNames.spanLabel}
+                                inputComponent={
+                                  <Typography className={classNames.twoStepFieldResult}>
+                                    {toFixed(formFields.request.cashBackInPercent, 0) + ' %'}
+                                  </Typography>
+                                }
+                              />
+                            ) : null}
                           </div>
-                        )}
+                        ) : null}
 
                         <div className={classNames.infoColumn}>
                           <Field
@@ -870,15 +872,15 @@ export const CreateOrEditRequestContent = ({
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
                               <Avatar
-                                src={getUserAvatarSrc(formFields.request.announcementId._id)}
+                                src={getUserAvatarSrc(formFields.request.announcementId.createdBy._id)}
                                 className={classNames.cardImg}
                               />
 
                               <div className={classNames.nameWrapperStepTwo}>
                                 <UserLink
                                   blackText
-                                  name={formFields.request.announcementId.title}
-                                  userId={formFields.request.announcementId._id}
+                                  name={formFields.request.announcementId.createdBy.name}
+                                  userId={formFields.request.announcementId.createdBy._id}
                                   customStyles={{maxWidth: 300}}
                                 />
                                 <Rating disabled value={5} size="small" classes={classNames.rating} />

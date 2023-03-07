@@ -430,7 +430,7 @@
   "Allow multiple performances by the same performer": "Разрешить многократное исполнение одному исполнителю",
   "Step": "Шаг",
   "Back to editing": "Назад к редактированию",
-  "Request title": "Название заявки*",
+  "Request title": "Название заявки",
   "Description of your request": "Описание вашей заявки",
   "Price and time": "Цена и время",
   "Number of proposals": "Количество предложений",
@@ -1831,5 +1831,12 @@
   "Service edited": "Услуга отредактирована",
   "Service not edited": "Услуга не отредактирована",
   "The price should be greater than": "Стоить должна быть больше, чем",
-  "Photos and documents": "Фото и документы"
+  "Photos and documents": "Фото и документы",
+  "Performance time": "Срок выполнения",
+  "Service": "Услуга",
+  "Close the announcement": "Закрыть объявление",
+  "Announcement": "Объявление",
+  "Request description": "Описание заявки",
+  "Attach a file": "Прикрепить файл",
+  "link to your portfolio, examples of work": "ссылка на Ваше портфолио, примеры работ"
 }

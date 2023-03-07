@@ -409,6 +409,10 @@ const CreateOrEditServicesView = lazy(() =>
   import('@views/shared/create-or-edit-services-view').then(module => ({default: module.CreateOrEditServicesView})),
 )
 
+const ServicesDetailCustomView = lazy(() =>
+  import('@views/shared/services-detail-custom-view').then(module => ({default: module.ServicesDetailCustomView})),
+)
+
 const CreateOrEditRequestView = lazy(() =>
   import('@views/shared/create-or-edit-request-view').then(module => ({default: module.CreateOrEditRequestView})),
 )
@@ -1967,6 +1971,22 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Edit service'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type',
+    component: ServicesDetailCustomView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Service,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type/create-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Proposal Creation'],
   },
 
   {

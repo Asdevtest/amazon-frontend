@@ -127,6 +127,12 @@ class UserInfoSchema {
             if (data.hasOwnProperty('allowedSpec')) {
                 obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
+            if (data.hasOwnProperty('tasksNew')) {
+                obj['tasksNew'] = ApiClient.convertToType(data['tasksNew'], 'Number');
+            }
+            if (data.hasOwnProperty('tasksAtProcess')) {
+                obj['tasksAtProcess'] = ApiClient.convertToType(data['tasksAtProcess'], 'Number');
+            }
         }
         return obj;
     }
@@ -271,6 +277,18 @@ UserInfoSchema.prototype['updatesOnIdeas'] = undefined;
  * @member {Array.<Number>} allowedSpec
  */
 UserInfoSchema.prototype['allowedSpec'] = undefined;
+
+/**
+ * Количество новых заданий у пользователя
+ * @member {Number} tasksNew
+ */
+UserInfoSchema.prototype['tasksNew'] = undefined;
+
+/**
+ * Количество заданий в работе у пользователя
+ * @member {Number} tasksAtProcess
+ */
+UserInfoSchema.prototype['tasksAtProcess'] = undefined;
 
 
 

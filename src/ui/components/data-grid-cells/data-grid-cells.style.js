@@ -1515,4 +1515,17 @@ export const styles = theme => ({
   asd: {
     color: 'red',
   },
+
+  userMainWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+  },
+  userCellAvatar: {
+    width: 28,
+    height: 28,
+  },
 })

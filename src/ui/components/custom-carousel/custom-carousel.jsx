@@ -74,7 +74,7 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
 
   return (
     <div className={classNames.mainContainer}>
-      {view === 'simple' && children.length !== 0 && (
+      {view === 'simple' && children?.length !== 0 && (
         <div className={classNames.headerCarouselDocumentsWrapper}>
           <div className={classNames.buttonDocumentsWrapper}>
             {alignButtons === 'center' ? (
@@ -94,13 +94,13 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
             {alignButtons === 'center' ? (
               <ArrowRightIcon
                 style={{
-                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
+                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
                   width: '40px',
                   height: '40px',
                 }}
                 // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                 className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                 })}
                 onClick={handleRightArrowClick}
               />
@@ -108,7 +108,7 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
           </div>
           {alignButtons === 'center' ? (
             <div className={classNames.numberOfFiles}>
-              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
             </div>
           ) : (
             <div className={classNames.numberOfFilesFlex}>
@@ -118,16 +118,16 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
                 className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
                 onClick={handleLeftArrowClick}
               />
-              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
               <ArrowRightIcon
                 style={{
-                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
+                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
                   width: '40px',
                   height: '40px',
                 }}
                 // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                 className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                 })}
                 onClick={handleRightArrowClick}
               />
@@ -135,7 +135,7 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
           )}
         </div>
       )}
-      {view === 'complex' && children.length !== 0 && (
+      {view === 'complex' && children?.length !== 0 && (
         <div>
           <div className={classNames.headerCarouselWrapper}>
             <div className={classNames.buttonWrapper}>
@@ -148,16 +148,16 @@ export const CustomCarousel = observer(({children, title, view = 'simple', align
               <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
               <ArrowRightIcon
-                style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer'}}
+                style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer'}}
                 // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                 className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100,
+                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                 })}
                 onClick={handleRightArrowClick}
               />
             </div>
             <div className={classNames.numberOfProposals}>
-              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
             </div>
           </div>
 

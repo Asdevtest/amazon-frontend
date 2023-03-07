@@ -41,7 +41,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
+  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
 };
 apiInstance.apiV1ProductsAddShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
+ **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
 
 ### Return type
 
@@ -97,7 +97,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+ **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
 
 ### Return type
 
@@ -206,7 +206,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ProductApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': [new TestSwagger.InlineObject3()] // [InlineObject3] | 
+  'body': [new TestSwagger.InlineObject4()] // [InlineObject4] | 
 };
 apiInstance.apiV1ProductsEditHsCodePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -222,7 +222,7 @@ apiInstance.apiV1ProductsEditHsCodePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**[InlineObject3]**](InlineObject3.md)|  | [optional] 
+ **body** | [**[InlineObject4]**](InlineObject4.md)|  | [optional] 
 
 ### Return type
 
@@ -531,7 +531,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject77() // InlineObject77 | 
+  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
 };
 apiInstance.apiV1ProductsRemoveShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -548,7 +548,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject77**](InlineObject77.md)|  | [optional] 
+ **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
 
 ### Return type
 
@@ -587,7 +587,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
+  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -604,7 +604,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
+ **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
 
 ### Return type
 
