@@ -150,6 +150,7 @@ export const CreateOrEditRequestContent = ({
       } else if (['typeTask'].includes(fieldName)) {
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
+        newFormFields.request.announcementId = ''
         newFormFields[section][fieldName] = event.target.value
       } else {
         newFormFields[section][fieldName] = event.target.value
