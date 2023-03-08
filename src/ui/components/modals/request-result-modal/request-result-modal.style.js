@@ -4,7 +4,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 540,
-    minHeight: 754,
+    minHeight: 500,
 
     padding: '0 10px',
   },
@@ -27,10 +27,21 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 10,
   },
   numberInputField: {
-    marginBottom: 0,
+    marginBottom: 30,
   },
   input: {
     height: 40,
+  },
+  pubInput: {
+    width: '100%',
+    height: 40,
+    borderRadius: 4,
+
+    padding: '0 5px',
+
+    '&:before, &:after': {
+      border: 'none',
+    },
   },
 
   buttonsWrapper: {
@@ -44,5 +55,63 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cancelButton: {
     color: theme.palette.text.general,
+  },
+
+  linksWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+
+    marginBottom: 30,
+  },
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+
+    gap: 20,
+  },
+  linksSubWrapper: {
+    width: '100%',
+    maxHeight: 130,
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
+    gap: 5,
+
+    padding: '0 5px 0 15px',
+
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+  },
+  linkWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  linkTextWrapper: {
+    width: '80%',
+    overflow: 'auto',
+    whiteSpace: 'nowrap',
+  },
+  linksBtnsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  deleteBtn: {
+    color: theme.palette.text.second,
+    width: '20px',
+    height: '20px',
+  },
+  commentFieldWrapper: {
+    marginBottom: 30,
+  },
+  commentField: {
+    height: 'auto',
+  },
+  dragAndDropWrapper: {
+    marginBottom: 30,
   },
 }))

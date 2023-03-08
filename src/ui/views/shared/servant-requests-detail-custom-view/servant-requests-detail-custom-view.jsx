@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -57,14 +58,13 @@ export class RequestDetailCustomViewRaw extends Component {
       request,
       showWarningModal,
       showConfirmModal,
-      showRequestResultModal,
       warningInfoModalSettings,
       chats,
       userInfo,
       chatSelectedId,
       chatIsConnected,
       requestProposals,
-
+      showRequestResultModal,
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
@@ -145,11 +145,22 @@ export class RequestDetailCustomViewRaw extends Component {
                           //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                           // eslint-disable-next-line react/jsx-indent
                           <Button
-                            // disabled={!params.files.length && !params.message}
+                            disabled={
+                              !params.files.length &&
+                              !params.message &&
+                              `${request?.request?.typeTask}` !==
+                                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                            }
                             onClick={() => {
-                              // onClickSendAsResult(params)
-                              // resetAllInputs()
-                              onTriggerOpenModal('showRequestResultModal')
+                              if (
+                                `${request?.request?.typeTask}` ===
+                                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                              ) {
+                                onTriggerOpenModal('showRequestResultModal')
+                              } else {
+                                onClickSendAsResult(params)
+                                resetAllInputs()
+                              }
                             }}
                           >
                             {t(TranslationKey['Send as a result'])}
@@ -186,6 +197,7 @@ export class RequestDetailCustomViewRaw extends Component {
         <RequestResultModal
           openModal={showRequestResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
+          onClickSendAsResult={onClickSendAsResult}
         />
 
         <ConfirmationModal
