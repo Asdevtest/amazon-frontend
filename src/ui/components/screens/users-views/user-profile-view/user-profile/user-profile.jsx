@@ -5,6 +5,7 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
@@ -137,6 +138,21 @@ export const UserProfile = observer(
                   ) : (
                     <Typography className={classNames.role}>{UserRoleCodeMap[user?.role]}</Typography>
                   )}
+                </div>
+              )}
+
+              {!isAnotherUser && (
+                <div className={classNames.rolesWrapper}>
+                  <Typography variant="h6" className={classNames.standartText}>
+                    {t(TranslationKey.Specialties)}
+                  </Typography>
+                  <div className={classNames.roles}>
+                    {user?.allowedSpec.map((el, index) => (
+                      <Typography key={index} className={classNames.role}>
+                        {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[el])}
+                      </Typography>
+                    ))}
+                  </div>
                 </div>
               )}
 
