@@ -15,7 +15,7 @@ import {UserModel} from '@models/user-model'
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 
-import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
+import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -40,13 +40,13 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
-
-  console.log('message', message)
+  // const curUserId: string | undefined = UserModel.userId
 
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
+        <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
+
         <div className={classNames.mainSubWrapper}>
           <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
 
@@ -166,8 +166,41 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
           />
         </div>
       </div>
+
+      {/* {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+      chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+        RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+      chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+        RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+        <div className={classNames.rightSide}>
+          {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ? (
+            <Button
+              variant="contained"
+              color="primary"
+              className={cx(classNames.actionButton, classNames.cancelBtn)}
+              onClick={() => handlers.onClickProposalRegect(message.data._id)}
+            >
+              {t(TranslationKey.Reject)}
+            </Button>
+          ) : null}
+          <Button
+            variant="contained"
+            color="primary"
+            className={cx(classNames.actionButton, classNames.successBtn)}
+            onClick={() => handlers.onClickProposalAccept(message.data._id, message.data.price)}
+          >
+            {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.price, 2)}`}
+          </Button>
+        </div>
+      ) : undefined} */}
+
       <div className={classNames.footerWrapper}>
-        {message.data.request.createdBy?._id === curUserId ? (
+        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+          RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
               <Button

@@ -32,6 +32,7 @@ export const formatDateTimeHourAndMinutes = dateString => (dateString ? format(p
 
 export const formatShortDateTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy HH:mm') : '')
 export const formatDateWithoutTime = dateString => (dateString ? format(parseISO(dateString), 'dd.MM.yyyy') : '')
+export const formatDateOnlyTime = dateString => (dateString ? format(parseISO(dateString), 'HH:mm') : '')
 
 export const formatNormDateTimeWithParseISO = dateString => format(parseISO(dateString), 'dd.MM.yyyy HH:mm') // предпочтительный формат
 

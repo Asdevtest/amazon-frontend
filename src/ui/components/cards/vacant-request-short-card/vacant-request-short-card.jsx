@@ -34,8 +34,6 @@ import {useClassNames} from './vacant-request-short-card.style'
 export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('item', item)
-
   return (
     <Grid item>
       <div className={classNames.cardWrapper}>
@@ -144,11 +142,9 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
               <Field
                 labelClasses={classNames.fieldLabel}
                 containerClasses={classNames.fieldContainer}
-                label={t(TranslationKey.Updated)}
+                label={t(TranslationKey.Deadline)}
                 inputComponent={
-                  <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-                    item.timeoutAt,
-                  )}`}</Typography>
+                  <Typography className={classNames.accentText}>{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
                 }
               />
             </div>

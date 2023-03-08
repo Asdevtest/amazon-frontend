@@ -195,6 +195,21 @@ export class ChatMessageDataProposalCreateNewBloggerProposalContract
   public title!: string
 }
 
+export class ChatMessageDataProposalBloggerProposalResultEdited
+  implements TWebsocketChatService.ChatMessageDataProposalBloggerProposalResultEditedProposal
+{
+  @IsNotEmpty()
+  public _id!: string
+
+  @IsNotEmpty()
+  public details!: {
+    amazonOrderId: string | null
+    linksToMediaFiles: [string]
+    publicationLinks: [string]
+    result: string
+  }
+}
+
 export class ChatMessageDataProposalResultEditedEdited
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
 {
@@ -238,4 +253,11 @@ export class ChatMessageDataCreateNewBloggerProposalContract
   public request!: ChatMessageDataRequestCreateNewBloggerProposalContract
   @Type(() => ChatMessageDataProposalCreateNewBloggerProposalContract)
   public proposal!: ChatMessageDataProposalCreateNewBloggerProposalContract
+}
+
+export class ChatMessageDataBloggerProposalResultEditedContract
+  implements TWebsocketChatService.ChatMessageDataBloggerProposalResultEdited
+{
+  @Type(() => ChatMessageDataProposalBloggerProposalResultEdited)
+  public proposal!: ChatMessageDataProposalBloggerProposalResultEdited
 }

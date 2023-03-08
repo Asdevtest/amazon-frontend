@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '40px 30px',
     width: 1100,
     margin: '0 auto',
-    // border: '1px solid #4CAF50',
+    border: '1px solid #4CAF50',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,
@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '16px',
+
     position: 'absolute',
     top: 0,
     right: 20,
@@ -116,7 +117,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'end',
     marginTop: '48px',
-    gap: 40,
+    // gap: 20,
   },
 
   btnEditWrapper: {
@@ -211,14 +212,21 @@ export const useClassNames = makeStyles()(theme => ({
   documentEmpty: {},
 
   mainWrapper: {
-    display: 'flex',
-    gap: 20,
+    // display: 'flex',
+    // gap: 20,
+    width: '100%',
     position: 'relative',
   },
 
-  mainSubWrapper: {
-    minWidth: 250,
-    maxWidth: '50%',
+  infosWrapper: {
+    display: 'flex',
+    // width: 'max-content',
+  },
+
+  infosSubWrapper: {
+    display: 'flex',
+
+    width: '50%',
     // width: 'max-content',
   },
 
@@ -262,20 +270,20 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
 
-  infosWrapper: {
-    // width: 'max-content',
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: 20,
+  // infosWrapper: {
+  //   // width: 'max-content',
+  //   display: 'flex',
+  //   flexWrap: 'wrap',
+  //   gap: 20,
 
-    // display: 'grid',
-    // gridTemplateColumns: 'repeat(2, 1fr)',
-    // width: '100%',
-    // gridAutoColumns: 'max-content',
-    // grid: 'auto-flow',
+  //   // display: 'grid',
+  //   // gridTemplateColumns: 'repeat(2, 1fr)',
+  //   // width: '100%',
+  //   // gridAutoColumns: 'max-content',
+  //   // grid: 'auto-flow',
 
-    minHeight: 120,
-  },
+  //   minHeight: 120,
+  // },
 
   infosProposalWrapper: {
     display: 'flex',
@@ -288,5 +296,47 @@ export const useClassNames = makeStyles()(theme => ({
   fieldLabel: {
     fontSize: 14,
     color: theme.palette.text.second,
+  },
+
+  infoItemWrapper: {
+    background: theme.palette.background.disabled,
+    width: 310,
+    height: 40,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 15px',
+  },
+
+  infoItemText: {
+    color: '#001029',
+  },
+
+  fieldContainer: {
+    width: 'min-content',
+  },
+
+  rightInfosSubWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    columnGap: 40,
+  },
+
+  timeInfoItemWrapper: {
+    width: 167,
+    background: theme.palette.background.green,
+  },
+
+  infoItemList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    maxHeight: 150,
+    overflowY: 'auto',
+  },
+
+  linkInfoItemList: {
+    width: 518,
   },
 }))

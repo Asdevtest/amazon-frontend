@@ -152,11 +152,9 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
             <Field
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey.Updated)}
+              label={t(TranslationKey.Deadline)}
               inputComponent={
-                <Typography className={classNames.accentText}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
-                  item.timeoutAt,
-                )}`}</Typography>
+                <Typography className={classNames.accentText}>{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
               }
             />
           </div>
