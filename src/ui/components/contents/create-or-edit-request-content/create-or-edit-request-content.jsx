@@ -54,6 +54,7 @@ const stepVariant = {
 
 export const CreateOrEditRequestContent = ({
   announcements,
+  choosenAnnouncements,
   requestToEdit,
   history,
   platformSettingsData,
@@ -80,6 +81,10 @@ export const CreateOrEditRequestContent = ({
     setAnnouncementsData(announcements)
   }, [announcements])
 
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [choosenAnnouncements])
+
   const sourceFormFields = {
     request: {
       title: requestToEdit?.request.title || '',
@@ -93,11 +98,11 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
 
-      typeTask: requestToEdit?.request?.typeTask || null,
+      typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId: requestToEdit?.request.announcementId || '',
+      announcementId: requestToEdit?.request.announcementId || choosenAnnouncements || '',
 
       discountedPrice: '',
     },

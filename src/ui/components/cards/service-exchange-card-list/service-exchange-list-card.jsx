@@ -22,7 +22,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './service-exchange-list-card.style'
 
-export const ServiceExchangeCardList = ({service, onClickThumbnail, onClickButton}) => {
+export const ServiceExchangeCardList = ({service, choose, order, onClickThumbnail, onClickButton}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -78,8 +78,8 @@ export const ServiceExchangeCardList = ({service, onClickThumbnail, onClickButto
           </div>
         </div>
         <div className={classNames.buttonWrapper}>
-          <Button className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
-            {t(TranslationKey.Open)}
+          <Button success={choose || order} className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
+            {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
           </Button>
         </div>
       </div>

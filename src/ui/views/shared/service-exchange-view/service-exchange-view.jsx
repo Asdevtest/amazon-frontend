@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import {Typography, Box, Alert} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -21,8 +21,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
+import {ServiceExchangeCardList} from '@components/cards/service-exchange-card-list'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
@@ -45,7 +47,21 @@ class ServiceExchangeViewRaw extends Component {
   }
 
   render() {
-    const {viewMode, drawerOpen, onTriggerDrawerOpen, selectedTaskType, onClickTaskType} = this.viewModel
+    const {
+      viewMode,
+      drawerOpen,
+      onTriggerDrawerOpen,
+      selectedTaskType,
+      currentData,
+      showImageModal,
+      bigImagesOptions,
+
+      onClickTaskType,
+      onChangeViewMode,
+      onClickThumbnail,
+      onTriggerOpenModal,
+      onClickOrderBtn,
+    } = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -62,7 +78,7 @@ class ServiceExchangeViewRaw extends Component {
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.toggleBtnAndtaskTypeWrapper}>
                   <div className={classNames.tablePanelViewWrapper}>
-                    <ToggleBtnGroupFreelance exclusive value={viewMode} /* onChange={onChangeViewMode} */>
+                    <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
                       <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
                         <ViewCartsBlock
                           className={cx(classNames.viewCart, {
@@ -85,9 +101,9 @@ class ServiceExchangeViewRaw extends Component {
                       <Button
                         key={taskIndex}
                         variant="text"
-                        disabled={taskType === selectedTaskType}
+                        disabled={Number(taskType) === Number(selectedTaskType)}
                         className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: taskType === selectedTaskType,
+                          [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
                         })}
                         onClick={() => onClickTaskType(taskType)}
                       >
@@ -106,16 +122,56 @@ class ServiceExchangeViewRaw extends Component {
                   />
                 </div>
               </div>
-              <div className={classNames.emptyTableWrapper}>
-                {/* <ServiceExchangeCard /> */}
-                <img src="/assets/icons/empty-table.svg" />
-                <Typography variant="h5" className={classNames.emptyTableText}>
-                  {t(TranslationKey.Missing)}
-                </Typography>
-              </div>
+
+              <Box
+                container
+                classes={{root: classNames.dashboardCardWrapper}}
+                display="grid"
+                gridTemplateColumns={
+                  viewMode === tableViewMode.LIST
+                    ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
+                    : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
+                }
+                gridGap="20px"
+              >
+                {currentData.map((service, serviceKey) =>
+                  viewMode === tableViewMode.LIST ? (
+                    <ServiceExchangeCardList
+                      key={serviceKey}
+                      order
+                      service={service}
+                      onClickThumbnail={onClickThumbnail}
+                      onClickButton={onClickOrderBtn}
+                    />
+                  ) : (
+                    <ServiceExchangeCard
+                      key={serviceKey}
+                      order
+                      service={service}
+                      onClickThumbnail={onClickThumbnail}
+                      onClickButton={onClickOrderBtn}
+                    />
+                  ),
+                )}
+              </Box>
+
+              {!currentData && (
+                <div className={classNames.emptyTableWrapper}>
+                  <img src="/assets/icons/empty-table.svg" />
+                  <Typography variant="h5" className={classNames.emptyTableText}>
+                    {t(TranslationKey.Missing)}
+                  </Typography>
+                </div>
+              )}
             </MainContent>
           </Appbar>
         </Main>
+        <BigImagesModal
+          openModal={showImageModal}
+          setOpenModal={() => onTriggerOpenModal('showImageModal')}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
       </React.Fragment>
     )
   }

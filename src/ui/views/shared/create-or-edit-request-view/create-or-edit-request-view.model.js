@@ -26,7 +26,9 @@ export class CreateOrEditRequestViewModel {
 
   uploadedFiles = []
 
+  announcementId = undefined
   announcements = []
+  choosenAnnouncements = []
 
   bigImagesOptions = {}
 
@@ -42,6 +44,7 @@ export class CreateOrEditRequestViewModel {
 
       if (location.state) {
         this.requestToEdit = location.state.request
+        this.announcementId = location.state.announcementId
       }
     })
 
@@ -50,6 +53,15 @@ export class CreateOrEditRequestViewModel {
 
   async getPlatformSettingsData() {
     this.platformSettingsData = await UserModel.getPlatformSettings()
+  }
+
+  async loadData() {
+    try {
+      await this.getAnnouncementData()
+      await this.getPlatformSettingsData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitCreateRequest(data, files) {
@@ -163,6 +175,13 @@ export class CreateOrEditRequestViewModel {
     this.announcements = await AnnouncementsModel.getVacAnnouncements({
       type: typeTask,
     })
+  }
+
+  async getAnnouncementData() {
+    if (this.announcementId) {
+      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
+      console.log('this.choosenAnnouncements', this.choosenAnnouncements)
+    }
   }
 
   onTriggerOpenModal(modalState) {
