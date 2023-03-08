@@ -79,6 +79,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
+    sortable: false,
     width: 160,
   },
 
@@ -90,6 +91,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
+    sortable: false,
     width: 160,
   },
 
@@ -100,6 +102,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
+    sortable: false,
     width: 160,
   },
 
@@ -109,6 +112,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    sortable: false,
     width: 160,
   },
 

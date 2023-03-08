@@ -24,7 +24,7 @@ import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteLi
 import {objectToUrlQs} from '@utils/text'
 import {onSubmitPostImages} from '@utils/upload-files'
 
-export class WarehouseVacantViewModel {
+export class WarehouseMyTasksViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -55,6 +55,7 @@ export class WarehouseVacantViewModel {
   rowHandlers = {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
     onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
+    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
   }
 
   firstRowId = undefined
@@ -529,6 +530,21 @@ export class WarehouseVacantViewModel {
         images: this.imagesOfTask || [],
         status,
       })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskPriority(taskId, priority) {
+    try {
+      await StorekeeperModel.updateTask(taskId, {
+        priority,
+      })
+
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {

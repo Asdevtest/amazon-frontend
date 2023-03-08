@@ -40,7 +40,13 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: 170,
-    renderCell: params => <TaskPriorityCell curPriority={params.value} />,
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
   },
 
   {
@@ -73,6 +79,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
 
+    sortable: false,
     width: 160,
   },
 
@@ -85,6 +92,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
+    sortable: false,
     width: 160,
   },
 
@@ -96,6 +104,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
+    sortable: false,
     width: 160,
   },
 
@@ -116,6 +125,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     // renderCell: params => <MultilineTextCell text={params.value} />,
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    sortable: false,
     width: 160,
   },
 
