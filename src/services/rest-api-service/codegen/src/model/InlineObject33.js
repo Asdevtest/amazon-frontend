@@ -22,12 +22,10 @@ class InlineObject33 {
     /**
      * Constructs a new <code>InlineObject33</code>.
      * @alias module:model/InlineObject33
-     * @param userIds {Array.<String>} 
-     * @param title {String} Название группового чата
      */
-    constructor(userIds, title) { 
+    constructor() { 
         
-        InlineObject33.initialize(this, userIds, title);
+        InlineObject33.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject33 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userIds, title) { 
-        obj['userIds'] = userIds;
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**

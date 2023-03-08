@@ -26,6 +26,7 @@ import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
 class InlineResponse20021 {
     /**
      * Constructs a new <code>InlineResponse20021</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20021
      */
     constructor() { 
@@ -52,8 +53,8 @@ class InlineResponse20021 {
         if (data) {
             obj = obj || new InlineResponse20021();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
@@ -168,7 +169,7 @@ class InlineResponse20021 {
  * GUID коробки.
  * @member {String} _id
  */
-InlineResponse20021.prototype['_id'] = undefined;
+InlineResponse20021.prototype['count'] = undefined;
 
 /**
  * Номер коробки.

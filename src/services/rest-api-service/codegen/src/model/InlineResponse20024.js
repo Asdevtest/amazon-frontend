@@ -22,7 +22,6 @@ import InlineResponse20024Rows from './InlineResponse20024Rows';
 class InlineResponse20024 {
     /**
      * Constructs a new <code>InlineResponse20024</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20024
      */
     constructor() { 
@@ -70,10 +69,37 @@ InlineResponse20024.prototype['rows'] = undefined;
 /**
  * @member {Number} count
  */
-InlineResponse20024.prototype['count'] = undefined;
+InlineResponse20024.prototype['_id'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20024['OperationTypeEnum'] = {
+
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
+
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
+
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive"
+};
 
 
 
