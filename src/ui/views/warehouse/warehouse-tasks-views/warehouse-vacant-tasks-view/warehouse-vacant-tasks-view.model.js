@@ -44,6 +44,7 @@ export class WarehouseVacantViewModel {
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
+    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
   }
 
   firstRowId = undefined
@@ -273,6 +274,21 @@ export class WarehouseVacantViewModel {
     })
 
     this.getTasksVacant()
+  }
+
+  async updateTaskPriority(taskId, priority) {
+    try {
+      await StorekeeperModel.updateTask(taskId, {
+        priority,
+      })
+
+      this.getTasksVacant()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   async getTasksVacant() {

@@ -94,7 +94,7 @@ class OtherModelStatic {
     })
       .then(res => {
         const aElement = document.createElement('a')
-        aElement.setAttribute('download', `batchReport_${id}.xlsx`)
+        aElement.setAttribute('download', `boxReceiveReport_${id}.xlsx`)
         const href = URL.createObjectURL(res.data)
         aElement.href = href
         aElement.setAttribute('target', '_blank')

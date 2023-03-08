@@ -211,6 +211,8 @@ export class WarehouseCanceledTasksViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getTasksMy()
   }
 
   async getTasksMy() {

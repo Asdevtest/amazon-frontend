@@ -41,7 +41,13 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: 170,
-    renderCell: params => <TaskPriorityCell curPriority={params.value} />,
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
   },
 
   {
@@ -72,6 +78,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -83,6 +90,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -93,6 +101,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
     width: 160,
+    sortable: false,
   },
 
   {
@@ -112,6 +121,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     width: 160,
+    sortable: false,
   },
 
   {

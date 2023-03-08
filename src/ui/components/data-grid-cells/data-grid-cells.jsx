@@ -269,7 +269,7 @@ export const StringListCell = React.memo(
     const handleClose = () => {
       setMenuAnchor(null)
     }
-    const items = sourceString.split(', ')
+    const items = Array.isArray(sourceString) ? sourceString : sourceString.split(', ')
 
     const [itemsForRender, setItemsForRender] = useState(items || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -285,18 +285,21 @@ export const StringListCell = React.memo(
 
     return (
       <div className={classNames.flexDirectionColumn}>
-        {items.slice(0, maxItemsDisplay).map((item, i) => (
-          <div key={i} className={classNames.multilineTextHeaderWrapper}>
-            <Typography className={classNames.typoCell}>
-              {
-                <span className={classNames.multilineHeaderText}>
-                  {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                </span>
-              }
-            </Typography>
-            {withCopy && <CopyValue text={item} />}
-          </div>
-        ))}
+        {items
+          .slice(0, maxItemsDisplay)
+          .filter(el => el)
+          .map((item, i) => (
+            <div key={i} className={classNames.multilineTextHeaderWrapper}>
+              <Typography className={classNames.typoCell}>
+                {
+                  <span className={classNames.multilineHeaderText}>
+                    {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  </span>
+                }
+              </Typography>
+              {withCopy && <CopyValue text={item} />}
+            </div>
+          ))}
 
         {items.length > maxItemsDisplay ? (
           <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
@@ -876,9 +879,8 @@ export const WarehouseTariffDatesCell = React.memo(
 
 export const TaskPriorityCell =
   /* React.memo( */
-  withStyles(({classes: classNames, curPriority, onChangePriority}) => {
-    const a = 1
-    return (
+  withStyles(
+    ({classes: classNames, curPriority, onChangePriority, taskId}) => (
       <Select
         value={curPriority}
         className={classNames.nativeSelect}
@@ -890,8 +892,7 @@ export const TaskPriorityCell =
             [classNames.colorRed]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
           }),
         }}
-
-        // onChange={onChangePriority}
+        onChange={e => onChangePriority(taskId, e.target.value)}
       >
         {Object.keys(mapTaskPriorityStatusEnum)
           .filter(el => el !== curPriority)
@@ -905,8 +906,9 @@ export const TaskPriorityCell =
             </MenuItem>
           ))}
       </Select>
-    )
-  }, styles)
+    ),
+    styles,
+  )
 /* ) */
 
 export const WarehouseDestinationAndTariffCell = React.memo(

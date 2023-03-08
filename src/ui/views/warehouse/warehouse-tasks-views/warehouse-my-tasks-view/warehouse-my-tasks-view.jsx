@@ -26,7 +26,7 @@ import {SearchInput} from '@components/search-input'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {WarehouseVacantViewModel} from './warehouse-my-tasks-view.model'
+import {WarehouseMyTasksViewModel} from './warehouse-my-tasks-view.model'
 import {styles} from './warehouse-my-tasks-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
@@ -34,7 +34,7 @@ const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS
 
 @observer
 export class WarehouseMyTasksViewRaw extends Component {
-  viewModel = new WarehouseVacantViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new WarehouseMyTasksViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
