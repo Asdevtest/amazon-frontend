@@ -1841,7 +1841,7 @@ export enum TranslationKey {
   'Specialties' = 'Specialties',
   'Reset performer' = 'Reset performer',
   'Result of the request' = 'Result of the request',
-  // '' = '',
+  'After assent the announcement will be deleted' = 'After assent the announcement will be deleted',
   // '' = '',
   // '' = '',
   // '' = '',

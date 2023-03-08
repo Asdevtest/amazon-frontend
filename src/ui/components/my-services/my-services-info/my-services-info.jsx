@@ -24,7 +24,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './my-services.style'
 
-export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn}) => {
+export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -71,27 +71,6 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
               </div>
             </div>
           </div>
-
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.statusWrapper}>
-              <FiberManualRecordRoundedIcon className={cx({})} />
-              <Typography className={classNames.regularText}>{'Status'}</Typography>
-            </div>
-
-            <div className={classNames.buttonsWrapper}>
-              <Button danger disabled className={classNames.deleteButton} onClick={onClickEditBtn}>
-                {t(TranslationKey['Close the announcement'])}
-              </Button>
-
-              <Button className={classNames.editButton} onClick={onClickEditBtn}>
-                {t(TranslationKey.Edit)}
-              </Button>
-
-              <Button className={classNames.backButton} onClick={onClickBackBtn}>
-                {t(TranslationKey.Back)}
-              </Button>
-            </div>
-          </div>
         </div>
         <div className={classNames.userCarouselWrapper}>
           <CustomCarousel>
@@ -107,6 +86,26 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
               />
             ))}
           </CustomCarousel>
+        </div>
+      </div>
+      <div className={classNames.footerWrapper}>
+        {/* <div className={classNames.statusWrapper}>
+          <FiberManualRecordRoundedIcon className={cx({})} />
+          <Typography className={classNames.regularText}>{'Status'}</Typography>
+        </div> */}
+
+        <div className={classNames.buttonsWrapper}>
+          <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+            {t(TranslationKey['Close the announcement'])}
+          </Button>
+
+          <Button className={classNames.editButton} onClick={onClickEditBtn}>
+            {t(TranslationKey.Edit)}
+          </Button>
+
+          <Button className={classNames.backButton} onClick={onClickBackBtn}>
+            {t(TranslationKey.Back)}
+          </Button>
         </div>
       </div>
     </Paper>

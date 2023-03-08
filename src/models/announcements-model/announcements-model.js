@@ -18,6 +18,11 @@ export class AnnouncementsModelStatic {
     return response
   }
 
+  deleteAnnouncementsByGuid = async id => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidDelete(id)
+    return response
+  }
+
   editAnnouncement = async (id, data) => {
     const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidPatch(id, {
       body: data,
