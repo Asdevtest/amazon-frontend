@@ -2,7 +2,9 @@ import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 
 import {
+  ChatMessageDataBloggerProposalResultEditedContract,
   ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataProposalBloggerProposalResultEdited,
   ChatMessageDataProposalCreateNewBloggerProposalContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
 
@@ -83,6 +85,7 @@ export enum ChatMessageType {
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
   'CREATED_NEW_BLOGGER_PROPOSAL' = 'CREATED_NEW_BLOGGER_PROPOSAL',
+  'BLOGGER_PROPOSAL_RESULT_EDITED' = 'BLOGGER_PROPOSAL_RESULT_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
 }
@@ -102,6 +105,7 @@ export type ChatMessageDataUniversal =
   | ChatMessageRemoveUsersFromGroupChat
   | ChatMessagePatchInfoGroupChat
   | ChatMessageDataCreateNewBloggerProposalContract
+  | ChatMessageDataBloggerProposalResultEditedContract
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -188,6 +192,11 @@ export interface ChatMessageDataProposalCreateNewBloggerProposal {
   title: string
 }
 
+export interface ChatMessageDataProposalBloggerProposalResultEditedProposal {
+  _id: string
+  details: {amazonOrderId: string | null; linksToMediaFiles: [string]; publicationLinks: [string]; result: string}
+}
+
 export interface ChatMessageDataProposalResultEditedProposal {
   _id: string
   status: keyof typeof RequestProposalStatus
@@ -205,6 +214,9 @@ export interface ChatMessageDataCreateNewBloggerProposal {
   proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
 }
 
+export interface ChatMessageDataBloggerProposalResultEdited {
+  proposal: ChatMessageDataProposalBloggerProposalResultEdited
+}
 export interface ChatUser {
   _id: string
   [x: string]: unknown

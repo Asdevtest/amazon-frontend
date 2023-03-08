@@ -49,7 +49,12 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
             return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION:
             return t(TranslationKey['Created new proposal, request description'])
+          case ChatMessageType.CREATED_NEW_BLOGGER_PROPOSAL:
+            return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.PROPOSAL_RESULT_EDITED:
+            return t(TranslationKey['Proposal result edited'])
+
+          case ChatMessageType.BLOGGER_PROPOSAL_RESULT_EDITED:
             return t(TranslationKey['Proposal result edited'])
           case ChatMessageType.PROPOSAL_STATUS_CHANGED:
             return t(TranslationKey['Proposal status changed'])
