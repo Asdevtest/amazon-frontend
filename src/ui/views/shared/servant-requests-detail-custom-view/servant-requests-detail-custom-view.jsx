@@ -145,22 +145,16 @@ export class RequestDetailCustomViewRaw extends Component {
                           //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                           // eslint-disable-next-line react/jsx-indent
                           <Button
-                            disabled={
-                              !params.files.length &&
-                              !params.message &&
-                              `${request?.request?.typeTask}` !==
-                                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
-                            }
+                            // disabled={
+                            //   !params.files.length &&
+                            //   !params.message &&
+                            //   `${request?.request?.typeTask}` !==
+                            //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                            // }
                             onClick={() => {
-                              if (
-                                `${request?.request?.typeTask}` ===
-                                `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
-                              ) {
-                                onTriggerOpenModal('showRequestResultModal')
-                              } else {
-                                onClickSendAsResult(params)
-                                resetAllInputs()
-                              }
+                              onTriggerOpenModal('showRequestResultModal')
+                              // onClickSendAsResult(params)
+                              // resetAllInputs()
                             }}
                           >
                             {t(TranslationKey['Send as a result'])}
@@ -195,6 +189,7 @@ export class RequestDetailCustomViewRaw extends Component {
         />
 
         <RequestResultModal
+          request={request}
           openModal={showRequestResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
           onClickSendAsResult={onClickSendAsResult}
