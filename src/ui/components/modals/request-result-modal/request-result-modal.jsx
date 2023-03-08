@@ -7,6 +7,7 @@ import {IconButton, Input, Link, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -20,7 +21,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './request-result-modal.style'
 
-export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult}) => {
+export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult, request}) => {
   const {classes: classNames} = useClassNames()
 
   const [linkLine, setLinkLine] = useState('')
@@ -58,7 +59,11 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
     onChangeField('publicationLinks')({target: {value: [...newArr]}})
   }
 
-  const disabledBtn = !formFields.amazonOrderId || !formFields.publicationLinks.length
+  const disabledBtn =
+    (`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+      (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
+    (`${request?.request?.typeTask}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+      !formFields.result)
 
   // useEffect(() => {
   //   const listener = event => {
@@ -78,63 +83,67 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
       <div className={classNames.modalMainWrapper}>
         <Typography className={cx(classNames.modalTitle)}>{t(TranslationKey['Result of the request'])}</Typography>
 
-        <Field
-          inputProps={{maxLength: 100}}
-          labelClasses={classNames.label}
-          label={'Amazon order ID*'}
-          className={classNames.input}
-          containerClasses={classNames.numberInputField}
-          value={formFields.amazonOrderId}
-          onChange={onChangeField('amazonOrderId')}
-        />
+        {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+          <Field
+            inputProps={{maxLength: 100}}
+            labelClasses={classNames.label}
+            label={'Amazon order ID*'}
+            className={classNames.input}
+            containerClasses={classNames.numberInputField}
+            value={formFields.amazonOrderId}
+            onChange={onChangeField('amazonOrderId')}
+          />
+        )}
 
-        <Field
-          labelClasses={classNames.label}
-          label={t(TranslationKey['Link to publication']) + '*'}
-          // containerClasses={classNames.input}
-          inputComponent={
-            <div className={classNames.linksWrapper}>
-              <div className={classNames.inputWrapper}>
-                <Input
-                  inputProps={{maxLength: 1500}}
-                  value={linkLine}
-                  className={classNames.pubInput}
-                  onChange={e => setLinkLine(e.target.value)}
-                />
-                <Button
-                  disableElevation
-                  disabled={!linkLine || disableFields}
-                  className={classNames.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickLinkBtn}
-                >
-                  {t(TranslationKey.Add)}
-                </Button>
-              </div>
-              {formFields?.publicationLinks?.length ? (
-                <div className={classNames.linksSubWrapper}>
-                  {formFields?.publicationLinks.map((el, index) => (
-                    <div key={index} className={classNames.linkWrapper}>
-                      <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                        <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
-                      </Link>
-
-                      <div className={classNames.linksBtnsWrapper}>
-                        <CopyValue text={el} />
-                        {!disableFields && (
-                          <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                            <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                          </IconButton>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+        {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
+          <Field
+            labelClasses={classNames.label}
+            label={t(TranslationKey['Link to publication']) + '*'}
+            // containerClasses={classNames.input}
+            inputComponent={
+              <div className={classNames.linksWrapper}>
+                <div className={classNames.inputWrapper}>
+                  <Input
+                    inputProps={{maxLength: 1500}}
+                    value={linkLine}
+                    className={classNames.pubInput}
+                    onChange={e => setLinkLine(e.target.value)}
+                  />
+                  <Button
+                    disableElevation
+                    disabled={!linkLine || disableFields}
+                    className={classNames.button}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClickLinkBtn}
+                  >
+                    {t(TranslationKey.Add)}
+                  </Button>
                 </div>
-              ) : null}
-            </div>
-          }
-        />
+                {formFields?.publicationLinks?.length ? (
+                  <div className={classNames.linksSubWrapper}>
+                    {formFields?.publicationLinks.map((el, index) => (
+                      <div key={index} className={classNames.linkWrapper}>
+                        <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
+                          <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                        </Link>
+
+                        <div className={classNames.linksBtnsWrapper}>
+                          <CopyValue text={el} />
+                          {!disableFields && (
+                            <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
+                              <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+                            </IconButton>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            }
+          />
+        )}
 
         <Field
           multiline
