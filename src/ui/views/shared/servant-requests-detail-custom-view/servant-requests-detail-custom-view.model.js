@@ -154,7 +154,7 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onClickSendAsResult({message, files}) {
+  async onClickSendAsResult({message, files, amazonOrderId, publicationLinks}) {
     try {
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
@@ -193,6 +193,8 @@ export class RequestDetailCustomViewModel {
         await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
           result: message,
           linksToMediaFiles: this.loadedFiles,
+          ...(amazonOrderId && {amazonOrderId}),
+          ...(publicationLinks && {publicationLinks}),
         })
       }
     } catch (error) {
