@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 **rating** | **Number** | Поставить оценку юзеру | [optional] 
 <<<<<<< HEAD
 **reason** | **String** | Комментарий причин изменения статуса. | [optional] 
@@ -25,5 +26,8 @@ Name | Type | Description | Notes
 **reason** | **String** | Комментарий причин изменения статуса. | [optional] 
 **linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 >>>>>>> 1719a6db6 (push)
+=======
+**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
+>>>>>>> 18b1bc9e7 (hotfix)
 
 

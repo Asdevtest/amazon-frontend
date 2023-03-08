@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
+import ApiV1RequestProposalsDetailsCustom from './ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsRequest from './ApiV1RequestProposalsRequest';
 
 /**
  * The InlineResponse20047 model module.
@@ -73,6 +76,99 @@ InlineResponse20047.prototype['shopIds'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20047['StatusEnum'] = {
+
+    /**
+     * value: "CREATED"
+     * @const
+     */
+    "CREATED": "CREATED",
+
+    /**
+     * value: "OFFER_CONDITIONS_ACCEPTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_ACCEPTED": "OFFER_CONDITIONS_ACCEPTED",
+
+    /**
+     * value: "READY_TO_VERIFY"
+     * @const
+     */
+    "READY_TO_VERIFY": "READY_TO_VERIFY",
+
+    /**
+     * value: "OFFER_CONDITIONS_REJECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_REJECTED": "OFFER_CONDITIONS_REJECTED",
+
+    /**
+     * value: "OFFER_CONDITIONS_CORRECTED"
+     * @const
+     */
+    "OFFER_CONDITIONS_CORRECTED": "OFFER_CONDITIONS_CORRECTED",
+
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
+
+    /**
+     * value: "TO_CORRECT"
+     * @const
+     */
+    "TO_CORRECT": "TO_CORRECT",
+
+    /**
+     * value: "CORRECTED"
+     * @const
+     */
+    "CORRECTED": "CORRECTED",
+
+    /**
+     * value: "CANCELED_BY_CREATOR_OF_REQUEST"
+     * @const
+     */
+    "CANCELED_BY_CREATOR_OF_REQUEST": "CANCELED_BY_CREATOR_OF_REQUEST",
+
+    /**
+     * value: "CANCELED_BY_SUPERVISOR"
+     * @const
+     */
+    "CANCELED_BY_SUPERVISOR": "CANCELED_BY_SUPERVISOR",
+
+    /**
+     * value: "CANCELED_BY_EXECUTOR"
+     * @const
+     */
+    "CANCELED_BY_EXECUTOR": "CANCELED_BY_EXECUTOR",
+
+    /**
+     * value: "ACCEPTED_BY_CLIENT"
+     * @const
+     */
+    "ACCEPTED_BY_CLIENT": "ACCEPTED_BY_CLIENT",
+
+    /**
+     * value: "ACCEPTED_BY_SUPERVISOR"
+     * @const
+     */
+    "ACCEPTED_BY_SUPERVISOR": "ACCEPTED_BY_SUPERVISOR",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED"
+};
 
 
 

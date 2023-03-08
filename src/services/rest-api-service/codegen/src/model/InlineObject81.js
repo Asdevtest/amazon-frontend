@@ -55,12 +55,6 @@ class InlineObject81 {
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
-            }
         }
         return obj;
     }
@@ -88,12 +82,20 @@ InlineObject81.prototype['reason'] = undefined;
  * @enum {String}
  * @readonly
  */
-InlineObject81.prototype['linksToMediaFiles'] = undefined;
+InlineObject81['ActionEnum'] = {
 
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject81.prototype['timeLimitInMinutes'] = undefined;
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
+
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 
