@@ -153,7 +153,7 @@ export const CreateOrEditProposalContent = ({
             {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
           </Typography>
 
-          <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
+          <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title']) + '*'}</Typography>
           <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
 
           {request?.details.conditions && (
