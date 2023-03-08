@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **deliveryTotalPrice** | **Number** | Итого за доставку. | [optional] 
 **deliveryTotalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**deadline** | **String** | Nullable ISO Date | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
 **items** | [**[ApiV1BoxesClientsLightItems]**](ApiV1BoxesClientsLightItems.md) | Массив коробок. | [optional] 
