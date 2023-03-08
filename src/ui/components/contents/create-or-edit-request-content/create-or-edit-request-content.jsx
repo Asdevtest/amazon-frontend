@@ -54,6 +54,7 @@ const stepVariant = {
 
 export const CreateOrEditRequestContent = ({
   announcements,
+  choosenAnnouncements,
   requestToEdit,
   history,
   platformSettingsData,
@@ -80,6 +81,10 @@ export const CreateOrEditRequestContent = ({
     setAnnouncementsData(announcements)
   }, [announcements])
 
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [choosenAnnouncements])
+
   const sourceFormFields = {
     request: {
       title: requestToEdit?.request.title || '',
@@ -93,11 +98,11 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
 
-      typeTask: requestToEdit?.request?.typeTask || null,
+      typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId: requestToEdit?.request.announcementId || '',
+      announcementId: requestToEdit?.request.announcementId || choosenAnnouncements || '',
 
       discountedPrice: '',
     },
@@ -234,7 +239,7 @@ export const CreateOrEditRequestContent = ({
                   <Field
                     tooltipInfoContent={t(TranslationKey['Future request title'])}
                     inputProps={{maxLength: 100}}
-                    label={t(TranslationKey['Request title'])}
+                    label={t(TranslationKey['Request title']) + '*'}
                     className={classNames.nameField}
                     containerClasses={classNames.nameFieldContainer}
                     labelClasses={classNames.spanLabelSmall}
@@ -372,10 +377,8 @@ export const CreateOrEditRequestContent = ({
                       inputComponent={
                         <div>
                           <NewDatePicker
-                            // showToolbar
                             disablePast
                             className={classNames.dateField}
-                            // toolbarFormat="ddd DD MMMM"
                             value={formFields.request.timeoutAt}
                             onChange={onChangeField('request')('timeoutAt')}
                           />
@@ -455,7 +458,6 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.priceAndAmountWrapper}>
                     <Field
-                      disabled={!isLimited}
                       tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
                       inputProps={{maxLength: 8}}
                       label={`${t(TranslationKey['Enter the number of proposals'])} *`}
@@ -489,15 +491,15 @@ export const CreateOrEditRequestContent = ({
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
                               <Avatar
-                                src={getUserAvatarSrc(formFields.request.announcementId.createdBy._id)}
+                                src={getUserAvatarSrc(formFields?.request?.announcementId?.createdBy?._id)}
                                 className={classNames.cardImg}
                               />
 
                               <div className={classNames.nameWrapper}>
                                 <UserLink
                                   blackText
-                                  name={formFields.request.announcementId.createdBy.name}
-                                  userId={formFields.request.announcementId.createdBy._id}
+                                  name={formFields?.request?.announcementId?.createdBy?.name}
+                                  userId={formFields?.request?.announcementId?.createdBy?._id}
                                 />
                                 <Rating disabled value={5} size="small" classes={classNames.rating} />
                               </div>
@@ -505,7 +507,7 @@ export const CreateOrEditRequestContent = ({
                           </div>
                         )}
                         <Button
-                          disabled={!formFields.request.typeTask}
+                          disabled={!formFields?.request?.typeTask}
                           variant={'contained'}
                           className={classNames.changePerformerBtn}
                           onClick={async () => {
@@ -1000,6 +1002,7 @@ export const CreateOrEditRequestContent = ({
           announcements={announcementsData}
           onClickThumbnail={onClickThumbnail}
           onClickChooseBtn={onChangeField('request')('announcementId')}
+          onClickResetPerformerBtn={onChangeField('request')('announcementId')}
         />
       </Modal>
     </div>

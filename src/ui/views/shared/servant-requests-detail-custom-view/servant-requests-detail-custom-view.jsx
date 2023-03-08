@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,6 +15,7 @@ import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {RequestResultModal} from '@components/modals/request-result-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
@@ -61,6 +64,7 @@ export class RequestDetailCustomViewRaw extends Component {
       chatSelectedId,
       chatIsConnected,
       requestProposals,
+      showRequestResultModal,
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
@@ -141,10 +145,16 @@ export class RequestDetailCustomViewRaw extends Component {
                           //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                           // eslint-disable-next-line react/jsx-indent
                           <Button
-                            disabled={!params.files.length && !params.message}
+                            // disabled={
+                            //   !params.files.length &&
+                            //   !params.message &&
+                            //   `${request?.request?.typeTask}` !==
+                            //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                            // }
                             onClick={() => {
-                              onClickSendAsResult(params)
-                              resetAllInputs()
+                              onTriggerOpenModal('showRequestResultModal')
+                              // onClickSendAsResult(params)
+                              // resetAllInputs()
                             }}
                           >
                             {t(TranslationKey['Send as a result'])}
@@ -176,6 +186,13 @@ export class RequestDetailCustomViewRaw extends Component {
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
+        />
+
+        <RequestResultModal
+          request={request}
+          openModal={showRequestResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
+          onClickSendAsResult={onClickSendAsResult}
         />
 
         <ConfirmationModal

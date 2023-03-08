@@ -22,7 +22,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './service-exchange-list-card.style'
 
-export const ServiceExchangeCardList = ({service, onClickThumbnail, onClickButton}) => {
+export const ServiceExchangeCardList = ({service, choose, order, onClickThumbnail, onClickButton}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -52,11 +52,6 @@ export const ServiceExchangeCardList = ({service, onClickThumbnail, onClickButto
       <div className={classNames.detailsAndButtonWrapper}>
         <div className={classNames.detailsWrapper}>
           <div className={classNames.detailsSubWrapper}>
-            <Typography className={classNames.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</Typography>
-            <Typography className={classNames.detailDescription}>{service.requests.length}</Typography>
-          </div>
-
-          <div className={classNames.detailsSubWrapper}>
             <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
             <Typography className={classNames.detailDescription}>
               {service.type === 0
@@ -64,10 +59,27 @@ export const ServiceExchangeCardList = ({service, onClickThumbnail, onClickButto
                 : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])}
             </Typography>
           </div>
+
+          <div className={classNames.detailsSubWrapper}>
+            <Typography className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</Typography>
+            <div className={classNames.userInfo}>
+              <Avatar src={getUserAvatarSrc(service.createdBy._id)} className={classNames.cardImg} />
+
+              <div className={classNames.nameWrapper}>
+                <UserLink
+                  blackText
+                  name={service.createdBy.name}
+                  userId={service.createdBy._id}
+                  customStyles={{fontSize: 14}}
+                />
+                <Rating disabled value={5} size="small" classes={classNames.rating} />
+              </div>
+            </div>
+          </div>
         </div>
         <div className={classNames.buttonWrapper}>
-          <Button className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
-            {t(TranslationKey.Open)}
+          <Button success={choose || order} className={cx(classNames.openBtn)} onClick={() => onClickButton(service)}>
+            {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
           </Button>
         </div>
       </div>

@@ -26,7 +26,7 @@ export class CreateOrEditRequestView extends Component {
   })
 
   componentDidMount() {
-    this.viewModel.getPlatformSettingsData()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -36,6 +36,7 @@ export class CreateOrEditRequestView extends Component {
       requestToEdit,
       drawerOpen,
       announcements,
+      choosenAnnouncements,
       showImageModal,
       bigImagesOptions,
       platformSettingsData,
@@ -60,6 +61,7 @@ export class CreateOrEditRequestView extends Component {
           <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <CreateOrEditRequestContent
+                choosenAnnouncements={choosenAnnouncements}
                 announcements={announcements}
                 platformSettingsData={platformSettingsData}
                 progressValue={progressValue}

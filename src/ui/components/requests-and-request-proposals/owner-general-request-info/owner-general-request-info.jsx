@@ -4,7 +4,12 @@ import {Typography, Paper, Avatar} from '@mui/material'
 
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -50,12 +55,14 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.titleAndAsinWrapper}>
               <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-              <div className={classNames.asinTitleWrapper}>
-                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
-                <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
-                  {request?.request.asin || t(TranslationKey.Missing)}
-                </Typography>
-              </div>
+              {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` ? (
+                <div className={classNames.asinTitleWrapper}>
+                  <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
+                  <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
+                    {request?.request.asin || t(TranslationKey.Missing)}
+                  </Typography>
+                </div>
+              ) : null}
             </div>
 
             <Typography className={classNames.subTitle}>
@@ -95,33 +102,35 @@ export const OwnerGeneralRequestInfo = ({
             </div>
           </div>
 
-          <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
-              <div className={classNames.pricesWrapper}>
-                {newProductPrice && (
-                  <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
-                    {'$ ' + toFixed(newProductPrice, 2)}
-                  </Typography>
-                )}
+          {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` ? (
+            <div className={classNames.blockInfoWrapper}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
+                <div className={classNames.pricesWrapper}>
+                  {newProductPrice && (
+                    <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
+                      {'$ ' + toFixed(newProductPrice, 2)}
+                    </Typography>
+                  )}
 
-                <Typography
-                  className={cx(classNames.blockInfoCellText, {
-                    [classNames.oldPrice]: newProductPrice,
-                  })}
-                >
-                  {'$ ' + toFixed(request.request.priceAmazon, 2)}
+                  <Typography
+                    className={cx(classNames.blockInfoCellText, {
+                      [classNames.oldPrice]: newProductPrice,
+                    })}
+                  >
+                    {'$ ' + toFixed(request.request.priceAmazon, 2)}
+                  </Typography>
+                </div>
+              </div>
+
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
                 </Typography>
               </div>
             </div>
-
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
-              <Typography className={cx(classNames.blockInfoCellText)}>
-                {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
-              </Typography>
-            </div>
-          </div>
+          ) : null}
 
           <div className={cx(classNames.blockInfoWrapper)}>
             <div className={classNames.blockInfoCell}>

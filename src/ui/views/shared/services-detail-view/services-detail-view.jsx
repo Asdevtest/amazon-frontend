@@ -19,6 +19,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MyServicesInfo} from '@components/my-services/my-services-info'
 import {Navbar} from '@components/navbar'
 
@@ -56,6 +57,8 @@ export class ServiceDetailsViewRaw extends Component {
       densityModel,
       columnsModel,
       requestStatus,
+      showConfirmModal,
+      confirmModalSettings,
 
       onChangeFilterModel,
       onChangeCurPage,
@@ -64,13 +67,12 @@ export class ServiceDetailsViewRaw extends Component {
       onTriggerDrawerOpen,
       onClickBackBtn,
       onClickEditBtn,
-
+      onTriggerOpenModal,
+      onClickCloseAnnouncementBtn,
       // onClickNeedCont,
     } = this.viewModel
 
     const {classes: classNames} = this.props
-
-    console.log('currentData', currentData)
 
     return (
       <React.Fragment>
@@ -87,6 +89,7 @@ export class ServiceDetailsViewRaw extends Component {
                 announcementData={announcementData}
                 onClickEditBtn={onClickEditBtn}
                 onClickBackBtn={onClickBackBtn}
+                onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
               />
 
               <div className={classNames.dataGridWrapper}>
@@ -134,6 +137,17 @@ export class ServiceDetailsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }

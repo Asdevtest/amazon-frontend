@@ -288,7 +288,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '17px',
     color: theme.palette.text.second,
 
-    marginBottom: 0,
+    marginBottom: 5,
   },
 
   filesContainer: {
