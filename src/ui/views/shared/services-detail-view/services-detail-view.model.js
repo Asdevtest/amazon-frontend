@@ -38,6 +38,15 @@ export class ServiceDetailsViewModel {
   filterModel = {items: []}
   columnVisibilityModel = undefined
 
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   densityModel = 'compact'
 
   handlers = {
@@ -89,6 +98,31 @@ export class ServiceDetailsViewModel {
       runInAction(() => {
         this.announcementData = result
       })
+    } catch (error) {
+      this.error = error
+      console.log(error)
+    }
+  }
+
+  async onClickCloseAnnouncementBtn() {
+    try {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmTitle: t(TranslationKey['Attention. Are you sure?']),
+        confirmMessage: t(TranslationKey['After assent the announcement will be deleted']),
+        onClickConfirm: () => this.deleteAnnouncementsByGuid(),
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      this.error = error
+      console.log(error)
+    }
+  }
+
+  async deleteAnnouncementsByGuid() {
+    try {
+      await AnnouncementsModel.deleteAnnouncementsByGuid(this.announcementId)
+      this.history.push(`/freelancer/freelance/my-services`)
     } catch (error) {
       this.error = error
       console.log(error)

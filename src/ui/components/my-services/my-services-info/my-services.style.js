@@ -10,6 +10,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
+
+    marginBottom: 25,
   },
   userInfoAndMoreInfoWrapper: {
     display: 'flex',
@@ -103,7 +106,7 @@ export const useClassNames = makeStyles()(theme => ({
   footerWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   statusWrapper: {
     display: 'flex',
