@@ -85,12 +85,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   detailsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
+    gap: 30,
   },
   detailsSubWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   openBtn: {
@@ -106,5 +106,15 @@ export const useClassNames = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',
+  },
+  userInfo: {
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 10,
+  },
+  cardImg: {
+    width: 28,
+    height: 28,
   },
 }))
