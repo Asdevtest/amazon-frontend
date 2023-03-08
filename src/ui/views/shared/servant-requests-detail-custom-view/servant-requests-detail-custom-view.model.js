@@ -20,8 +20,10 @@ export class RequestDetailCustomViewModel {
   requestId = undefined
   request = undefined
   requestProposals = undefined
+
   showWarningModal = false
   showConfirmModal = false
+  showRequestResultModal = false
 
   loadedFiles = []
 
@@ -193,8 +195,6 @@ export class RequestDetailCustomViewModel {
           linksToMediaFiles: this.loadedFiles,
         })
       }
-
-      // this.loadData()
     } catch (error) {
       console.log(error)
       runInAction(() => {

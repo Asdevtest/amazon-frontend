@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -13,6 +14,7 @@ import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {RequestResultModal} from '@components/modals/request-result-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
@@ -55,12 +57,14 @@ export class RequestDetailCustomViewRaw extends Component {
       request,
       showWarningModal,
       showConfirmModal,
+      showRequestResultModal,
       warningInfoModalSettings,
       chats,
       userInfo,
       chatSelectedId,
       chatIsConnected,
       requestProposals,
+
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
@@ -141,10 +145,11 @@ export class RequestDetailCustomViewRaw extends Component {
                           //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
                           // eslint-disable-next-line react/jsx-indent
                           <Button
-                            disabled={!params.files.length && !params.message}
+                            // disabled={!params.files.length && !params.message}
                             onClick={() => {
-                              onClickSendAsResult(params)
-                              resetAllInputs()
+                              // onClickSendAsResult(params)
+                              // resetAllInputs()
+                              onTriggerOpenModal('showRequestResultModal')
                             }}
                           >
                             {t(TranslationKey['Send as a result'])}
@@ -176,6 +181,11 @@ export class RequestDetailCustomViewRaw extends Component {
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
+        />
+
+        <RequestResultModal
+          openModal={showRequestResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
         />
 
         <ConfirmationModal
