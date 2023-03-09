@@ -10,7 +10,8 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
-    height: 708,
+    height: 728,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       overflow: 'hidden',
@@ -347,7 +348,7 @@ export const useClassNames = makeStyles()(theme => ({
     // minHeight: 400,
     // maxHeight: 600,
     height: 502,
-    overflow: 'auto',
+    overflowY: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
     position: 'relative',
