@@ -40,6 +40,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
     alignItems: 'center',
+    height: '100%',
+    flexGrow: 1,
   },
 
   submit: {
@@ -49,7 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
 
     borderLeft: 'none',
-    height: 37,
+    height: 40,
     padding: '6px',
     // right: -1,
     // top: -18,

@@ -1,3 +1,5 @@
+import {cx} from '@emotion/css'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert, Button} from '@mui/material'
 
@@ -8,7 +10,12 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {TaskOperationType} from '@constants/task-operation-type'
+import {
+  mapTaskOperationTypeKeyToEnum,
+  TaskOperationType,
+  taskOperationTypeTranslate,
+} from '@constants/task-operation-type'
+import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -41,6 +48,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
+      curTaskType,
+      curTaskPriority,
       rowCount,
       selectedTasks,
       showAcceptMessage,
@@ -75,6 +84,9 @@ export class WarehouseVacantTasksViewRaw extends Component {
       setCurrentOpenedTask,
 
       onSearchSubmit,
+      onClickOperationTypeBtn,
+      onClickTaskPriorityBtn,
+      onClickReportBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -94,8 +106,50 @@ export class WarehouseVacantTasksViewRaw extends Component {
           <Appbar title={t(TranslationKey['New tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskPriority === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskPriority === null})}
+                    variant="text"
+                    onClick={() => onClickTaskPriorityBtn(null)}
+                  >
+                    {t(TranslationKey['All priorities'])}
+                  </Button>
+
+                  {Object.keys(mapTaskPriorityStatusEnum)
+                    .reverse()
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskPriority === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskPriority === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickTaskPriorityBtn(type)}
+                      >
+                        {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+                      </Button>
+                    ))}
+                </div>
                 <Button
-                  color="primary"
+                  variant="contained"
+                  disabled={
+                    !selectedTasks.length ||
+                    selectedTasks.length > 1 ||
+                    getCurrentData().filter(el => selectedTasks.includes(el.id))[0]?.originalData.operationType !==
+                      TaskOperationType.RECEIVE
+                  }
+                  className={classNames.pickupOrdersButton}
+                  onClick={onClickReportBtn}
+                >
+                  {t(TranslationKey['Download task file'])}
+                  <FileDownloadIcon />
+                </Button>
+              </div>
+
+              <div className={classNames.headerWrapper}>
+                <Button
                   variant="contained"
                   disabled={!selectedTasks.length}
                   className={classNames.pickupOrdersButton}
@@ -104,13 +158,39 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   {t(TranslationKey['Take on the work of the selected'])}
                 </Button>
 
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskType === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskType === null})}
+                    variant="text"
+                    onClick={() => onClickOperationTypeBtn(null)}
+                  >
+                    {t(TranslationKey['All tasks'])}
+                  </Button>
+
+                  {Object.keys(mapTaskOperationTypeKeyToEnum)
+                    .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskType === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskType === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickOperationTypeBtn(type)}
+                      >
+                        {taskOperationTypeTranslate(type)}
+                      </Button>
+                    ))}
+                </div>
+
                 <SearchInput
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
                   onSubmit={onSearchSubmit}
                 />
-                <div />
               </div>
 
               <div className={classNames.tableWrapper}>

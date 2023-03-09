@@ -1793,5 +1793,9 @@
   "Download box file": "Скачать файл коробки",
   "Low": "Низкий",
   "Medium": "Средний",
-  "Urgent": "Срочный"
+  "Urgent": "Срочный",
+  "All tasks": "Все задачи",
+  "Edited by storekeeper": "Изменить постащиком",
+  "All priorities": "Все приоритеты",
+  "Download task file": "Скачать файл задачи"
 }
