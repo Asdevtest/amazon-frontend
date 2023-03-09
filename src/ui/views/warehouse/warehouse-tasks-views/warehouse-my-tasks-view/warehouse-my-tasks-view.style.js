@@ -151,4 +151,23 @@ export const styles = theme => ({
 
     color: `${theme.palette.primary.main} !important`,
   },
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
+  memoDataGridWrapper: {
+    height: '81vh',
+
+    [theme.breakpoints.down(1282)]: {
+      height: '76vh',
+    },
+  },
 })

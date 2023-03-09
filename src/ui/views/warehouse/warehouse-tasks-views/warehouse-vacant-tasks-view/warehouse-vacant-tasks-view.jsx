@@ -207,6 +207,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                     filterForm: classNames.filterForm,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    iconSeparator: classNames.iconSeparator,
                   }}
                   getRowClassName={getRowClassName}
                   sortingMode="server"
