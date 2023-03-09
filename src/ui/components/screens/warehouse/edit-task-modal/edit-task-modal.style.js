@@ -9,6 +9,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     flexDirection: 'column',
     position: 'relative',
+    [theme.breakpoints.down(1282)]: {
+      width: 1150,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
@@ -188,6 +191,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     padding: 0,
     border: `1px solid ${theme.palette.input.customBorder}`,
+    [theme.breakpoints.down(1282)]: {
+      width: 260,
+    },
     [theme.breakpoints.down(768)]: {
       height: 'auto',
       width: '100%',
@@ -221,6 +227,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 550,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       padding: '0 10px',

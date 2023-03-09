@@ -730,16 +730,6 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
       {/* <CommentsLine /> */}
 
       <Paper className={classNames.boxesWrapper}>
-        {/* <div className={classNames.currentBoxesWrapper}>
-          <CustomCarousel alignButtons="end">
-            {boxesBefore.map((item, index) => (
-              <div key={index}>
-                <CurrentBox box={item} />
-              </div>
-            ))}
-          </CustomCarousel>
-        </div> */}
-
         {!receiveNotFromBuyer && <CurrentBox />}
         {!receiveNotFromBuyer && <Divider flexItem className={classNames.divider} orientation="vertical" />}
         <NewBoxes
