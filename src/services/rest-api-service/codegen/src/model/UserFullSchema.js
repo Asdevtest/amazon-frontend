@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserFullSchemaNote from './UserFullSchemaNote';
 
 /**
  * The UserFullSchema model module.
@@ -109,6 +110,9 @@ class UserFullSchema {
             }
             if (data.hasOwnProperty('allowedStrategies')) {
                 obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            }
+            if (data.hasOwnProperty('note')) {
+                obj['note'] = UserFullSchemaNote.constructFromObject(data['note']);
             }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
@@ -221,6 +225,11 @@ UserFullSchema.prototype['rating'] = undefined;
  * @member {Array.<Number>} allowedStrategies
  */
 UserFullSchema.prototype['allowedStrategies'] = undefined;
+
+/**
+ * @member {module:model/UserFullSchemaNote} note
+ */
+UserFullSchema.prototype['note'] = undefined;
 
 /**
  * Массив массив ролей.

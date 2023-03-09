@@ -1178,6 +1178,8 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
+     * @param {String} opts.operationType Типы задач разделенные запятой
+     * @param {String} opts.priority Приоритет задачи
      * @param {Number} opts.limit Кол-во получаемых записей
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.sortField Название поля
@@ -1194,6 +1196,8 @@ export default class StorekeepersApi {
       let queryParams = {
         'status': opts['status'],
         'offset': opts['offset'],
+        'operationType': opts['operationType'],
+        'priority': opts['priority'],
         'limit': opts['limit'],
         'filters': opts['filters'],
         'sortField': opts['sortField'],
@@ -1222,6 +1226,8 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
+     * @param {String} opts.operationType Типы задач разделенные запятой
+     * @param {String} opts.priority Приоритет задачи
      * @param {Number} opts.limit Кол-во получаемых записей
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.sortField Название поля
@@ -1244,6 +1250,8 @@ export default class StorekeepersApi {
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
      * @param {Number} opts.limit Кол-во получаемых записей
+     * @param {String} opts.priority Приоритет задачи
+     * @param {String} opts.operationType Типы задач разделенные запятой
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
@@ -1260,6 +1268,8 @@ export default class StorekeepersApi {
         'status': opts['status'],
         'offset': opts['offset'],
         'limit': opts['limit'],
+        'priority': opts['priority'],
+        'operationType': opts['operationType'],
         'filters': opts['filters'],
         'sortField': opts['sortField'],
         'sortType': opts['sortType']
@@ -1288,6 +1298,8 @@ export default class StorekeepersApi {
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
      * @param {Number} opts.limit Кол-во получаемых записей
+     * @param {String} opts.priority Приоритет задачи
+     * @param {String} opts.operationType Типы задач разделенные запятой
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки

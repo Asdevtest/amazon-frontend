@@ -1291,7 +1291,7 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
+     * @param {String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -> Айтем коробки -> Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.
@@ -1349,7 +1349,7 @@ export default class BoxesApi {
     /**
      * # Получить коробки и их строки по текущему клиенту.
      * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
-     * @param {module:model/String} status 
+     * @param {String} status 
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters                Возможные поля: asin, amazonTitle, title, humanFriendlyId, orderHumanFriendlyId, orderItem               Поиск для полей продукта идет через схему Коробка -> Айтем коробки -> Продукт               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.destinationId GUID дестинейшна, который должен быть у боксов.

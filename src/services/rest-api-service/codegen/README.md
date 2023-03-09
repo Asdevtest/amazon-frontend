@@ -429,6 +429,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.UserApi* | [**apiV1UsersPlatformSettingsGet**](docs/UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 *TestSwagger.UserApi* | [**apiV1UsersPost**](docs/UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 *TestSwagger.UserApi* | [**apiV1UsersSignInPost**](docs/UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
+*TestSwagger.UserApi* | [**apiV1UsersSubNotePatch**](docs/UserApi.md#apiV1UsersSubNotePatch) | **PATCH** /api/v1/users/sub_note | Создание/изменение subNote
 *TestSwagger.UserApi* | [**apiV1UsersUnlinkSubUserPatch**](docs/UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
 *TestSwagger.UserApi* | [**apiV1UsersUserSettingsAvailableGet**](docs/UserApi.md#apiV1UsersUserSettingsAvailableGet) | **GET** /api/v1/users/user-settings/available | Deprecated! Выдача массива доступных настроек пользователя.
 
@@ -521,6 +522,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject112](docs/InlineObject112.md)
  - [TestSwagger.InlineObject113](docs/InlineObject113.md)
  - [TestSwagger.InlineObject114](docs/InlineObject114.md)
+ - [TestSwagger.InlineObject115](docs/InlineObject115.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
@@ -746,6 +748,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UpdatedSuccessfully](docs/UpdatedSuccessfully.md)
  - [TestSwagger.UserAdminFullSchema](docs/UserAdminFullSchema.md)
  - [TestSwagger.UserFullSchema](docs/UserFullSchema.md)
+ - [TestSwagger.UserFullSchemaNote](docs/UserFullSchemaNote.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
  - [TestSwagger.UserInfoSchemaCreatedBy](docs/UserInfoSchemaCreatedBy.md)
  - [TestSwagger.UserInfoSchemaIdea](docs/UserInfoSchemaIdea.md)

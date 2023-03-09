@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**apiV1UsersPlatformSettingsGet**](UserApi.md#apiV1UsersPlatformSettingsGet) | **GET** /api/v1/users/platform_settings | Выдача настроек сервера.
 [**apiV1UsersPost**](UserApi.md#apiV1UsersPost) | **POST** /api/v1/users/ | Создание нового пользователя. Регистрация.
 [**apiV1UsersSignInPost**](UserApi.md#apiV1UsersSignInPost) | **POST** /api/v1/users/sign_in | # Получение токена авторизации.
+[**apiV1UsersSubNotePatch**](UserApi.md#apiV1UsersSubNotePatch) | **PATCH** /api/v1/users/sub_note | Создание/изменение subNote
 [**apiV1UsersUnlinkSubUserPatch**](UserApi.md#apiV1UsersUnlinkSubUserPatch) | **PATCH** /api/v1/users/unlink_sub-user | # Отвязка суб пользователя.
 [**apiV1UsersUserSettingsAvailableGet**](UserApi.md#apiV1UsersUserSettingsAvailableGet) | **GET** /api/v1/users/user-settings/available | Deprecated! Выдача массива доступных настроек пользователя.
 
@@ -45,7 +46,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
+  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
 };
 apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -61,7 +62,7 @@ apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
+ **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
 
 ### Return type
 
@@ -99,7 +100,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
+  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
 };
 apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -115,7 +116,7 @@ apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
+ **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
 
 ### Return type
 
@@ -315,7 +316,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
+  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
 };
 apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -331,7 +332,7 @@ apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
+ **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
 
 ### Return type
 
@@ -754,6 +755,60 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1UsersSubNotePatch
+
+> String apiV1UsersSubNotePatch(opts)
+
+Создание/изменение subNote
+
+## Создание/изменение subNote, если null, то удаляется
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.UserApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
+};
+apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
 
 ### HTTP request headers
 

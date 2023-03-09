@@ -99,6 +99,7 @@ import InlineObject111 from './model/InlineObject111';
 import InlineObject112 from './model/InlineObject112';
 import InlineObject113 from './model/InlineObject113';
 import InlineObject114 from './model/InlineObject114';
+import InlineObject115 from './model/InlineObject115';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject14 from './model/InlineObject14';
@@ -324,6 +325,7 @@ import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
+import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaCreatedBy from './model/UserInfoSchemaCreatedBy';
 import UserInfoSchemaIdea from './model/UserInfoSchemaIdea';
@@ -920,6 +922,12 @@ export {
      * @property {module:model/InlineObject114}
      */
     InlineObject114,
+
+    /**
+     * The InlineObject115 model constructor.
+     * @property {module:model/InlineObject115}
+     */
+    InlineObject115,
 
     /**
      * The InlineObject12 model constructor.
@@ -2270,6 +2278,12 @@ export {
      * @property {module:model/UserFullSchema}
      */
     UserFullSchema,
+
+    /**
+     * The UserFullSchemaNote model constructor.
+     * @property {module:model/UserFullSchemaNote}
+     */
+    UserFullSchemaNote,
 
     /**
      * The UserInfoSchema model constructor.
