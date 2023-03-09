@@ -446,10 +446,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   trackNum: {
     // marginLeft: 20,
-    maxWidth: 200,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    maxWidth: 400,
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
   },
 
   barCodeField: {
