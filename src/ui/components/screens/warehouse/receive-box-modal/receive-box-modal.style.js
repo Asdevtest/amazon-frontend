@@ -3,6 +3,9 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 'min-content',
+    [theme.breakpoints.down(1282)]: {
+      width: 1251,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -26,6 +29,9 @@ export const useClassNames = makeStyles()(theme => ({
   modalHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1282)]: {
+      width: 1191,
+    },
   },
 
   footerTitle: {
@@ -36,6 +42,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '20px',
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+      flexDirection: 'column',
+      padding: 0,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',
@@ -47,10 +58,21 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
+
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'row',
+      width: 1191,
+
+      justifyContent: 'space-between',
+      gap: 'unset',
+    },
   },
 
   currentBoxesWrapper: {
     width: 350,
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -166,6 +188,10 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '1275px',
     height: '575px',
     overflow: 'auto',
+    [theme.breakpoints.down(1282)]: {
+      minWidth: 1169,
+      width: 1169,
+    },
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -252,6 +278,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginTop: '10px',
     height: '220px',
+
+    [theme.breakpoints.down(1282)]: {
+      minWidth: 'unset',
+    },
   },
 
   categoryTitle: {

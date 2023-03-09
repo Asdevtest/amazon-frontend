@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
@@ -39,11 +40,13 @@ export const Navbar = observer(
     const {showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} =
       viewModel.current
 
+    const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
+
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
     const [shortNavbar, setShortNavbar] = useState(() => {
       const saved = localStorage.getItem('shortNavbar')
       const initialValue = JSON.parse(saved)
-      return initialValue || false
+      return initialValue || true
     })
     useEffect(() => {
       setCurNavbar(navbarConfig())
@@ -56,12 +59,25 @@ export const Navbar = observer(
     const renderNavbarButton = (
       <div className={cx(classNames.iconButtonWrapper, {[classNames.iconButtonWrapperLeft]: !shortNavbar})}>
         {shortNavbar && (
-          <IconButton onClick={() => setShortNavbar(!shortNavbar)}>
+          <IconButton
+            onClick={() => {
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
+          >
             <MenuIcon classes={{root: classNames.menuIcon}} />
           </IconButton>
         )}
 
-        {!shortNavbar && <CloseIcon className={classNames.closeIcon} onClick={() => setShortNavbar(!shortNavbar)} />}
+        {!shortNavbar && (
+          <CloseIcon
+            className={classNames.closeIcon}
+            onClick={() => {
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
+          />
+        )}
       </div>
     )
 
@@ -192,7 +208,7 @@ export const Navbar = observer(
     )
     return (
       <div className={classNames.mainWrapper}>
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <Drawer
             open
             classes={{
@@ -203,8 +219,28 @@ export const Navbar = observer(
           >
             {drawerContent}
           </Drawer>
-        </Hidden>
-        <Hidden mdUp>
+        </Hidden> */}
+
+        {!showOverlayNavBar && (
+          <Drawer
+            open={false}
+            classes={{
+              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
+              paper: cx(classNames.paper, classNames.positionStatic),
+            }}
+            variant="permanent"
+          >
+            {drawerContent}
+          </Drawer>
+        )}
+
+        {showOverlayNavBar && (
+          <Drawer open anchor="left" classes={{root: classNames.root, paper: classNames.paper}} onClose={setDrawerOpen}>
+            {drawerContent}
+          </Drawer>
+        )}
+
+        {/* <Hidden mdUp>
           <Drawer
             anchor="left"
             classes={{root: classNames.root, paper: classNames.paper}}
@@ -213,7 +249,7 @@ export const Navbar = observer(
           >
             {drawerContent}
           </Drawer>
-        </Hidden>
+        </Hidden> */}
         <div
           className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
           onClick={() => setShortNavbar(!shortNavbar)}
