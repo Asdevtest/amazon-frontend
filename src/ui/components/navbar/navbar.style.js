@@ -64,6 +64,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '240px',
 
     backgroundColor: 'inherit',
+
+    [theme.breakpoints.down(1282)]: {
+      display: 'none',
+    },
   },
   logo: {
     marginTop: '15px',
@@ -95,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     borderRadius: '50%',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    [theme.breakpoints.down(900)]: {
+    [theme.breakpoints.down(1282)]: {
       display: 'none',
     },
   },
@@ -170,5 +174,23 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '16px',
     marginLeft: 8,
+  },
+
+  iconButtonWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginBottom: 20,
+  },
+  iconButtonWrapperLeft: {
+    paddingLeft: '7%',
+    justifyContent: 'flex-start',
+  },
+  closeIcon: {
+    width: 18,
+    height: 18,
+    color: theme.palette.primary.main,
   },
 }))

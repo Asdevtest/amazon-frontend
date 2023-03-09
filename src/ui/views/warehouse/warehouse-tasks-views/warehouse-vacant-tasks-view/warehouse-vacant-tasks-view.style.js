@@ -25,11 +25,30 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    [theme.breakpoints.down(1282)]: {},
+  },
+
+  alignmentUnit: {
+    [theme.breakpoints.down(1282)]: {
+      display: 'none',
+    },
   },
 
   footerContainer: {
@@ -131,5 +150,13 @@ export const styles = theme => ({
 
   warningRow: {
     boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
+  },
+
+  memoDataGridWrapper: {
+    height: '81vh',
+
+    [theme.breakpoints.down(1282)]: {
+      height: '76vh',
+    },
   },
 })

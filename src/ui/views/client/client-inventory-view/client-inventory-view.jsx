@@ -380,10 +380,9 @@ export class ClientInventoryViewRaw extends Component {
 
                     columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    columnHeader: classNames.columnHeader,
+                    iconSeparator: classNames.iconSeparator,
                     menuIconButton: classNames.menuIconButton,
                     iconButtonContainer: classNames.iconButtonContainer,
-                    iconSeparator: classNames.iconSeparator,
                   }}
                   sx={{
                     '.MuiDataGrid-sortIcon': {

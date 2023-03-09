@@ -346,6 +346,11 @@ export const styles = theme => ({
     height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 39,
+      height: 39,
+    },
   },
   descriptionWrapper: {
     display: 'flex',
@@ -382,6 +387,10 @@ export const styles = theme => ({
     gap: 5,
 
     maxHeight: 200,
+
+    [theme.breakpoints.down(1282)]: {
+      gridTemplateColumns: 'none',
+    },
   },
 
   isOneBoxWrapper: {
@@ -425,6 +434,12 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
 
   gridBoxWrapper: {
@@ -494,11 +509,20 @@ export const styles = theme => ({
     // '&$disabled': {
     //   backgroundColor: 'rgba(210, 35, 35, 0.5)',
     // },
+    [theme.breakpoints.down(1282)]: {
+      height: 30,
+      width: 90,
+    },
   },
 
   warehouseMyTasksSuccessBtn: {
     height: '40px',
     width: '166px',
+
+    [theme.breakpoints.down(1282)]: {
+      height: 30,
+      width: 90,
+    },
   },
 
   marginRightBtn: {
@@ -550,8 +574,13 @@ export const styles = theme => ({
   normDateCellTypo: {
     fontSize: '10px',
     fontWeight: '600',
-
     textAlign: 'center',
+
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   shortDateCellTypo: {
@@ -916,12 +945,6 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    // textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-
-    // color: theme.palette.text.general,
     color: theme.palette.text.general,
 
     fontWeight: '600',
@@ -1184,6 +1207,14 @@ export const styles = theme => ({
     display: 'flex',
     width: '175px',
     height: '40px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 128,
+      height: 30,
+      fontWeight: 400,
+      fontSize: 13,
+      lineHeight: '18px',
+    },
   },
 
   successActionBtnWrapper: {
@@ -1387,6 +1418,11 @@ export const styles = theme => ({
     warehouseMyTasksCancelBtn: {
       width: '114px',
       height: '36px',
+
+      [theme.breakpoints.down(1282)]: {
+        height: 30,
+        width: 90,
+      },
     },
   },
 
@@ -1509,5 +1545,30 @@ export const styles = theme => ({
   },
   asd: {
     color: 'red',
+  },
+  operationTypeText: {
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '16px',
+    },
+  },
+  bigBoxSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 47,
+      height: 51,
+    },
+  },
+  boxArrowSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
+  },
+  boxEditSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
   },
 })

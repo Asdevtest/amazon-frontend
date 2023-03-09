@@ -21,7 +21,6 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
     renderCell: params => (
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['Take the task to work'])}
@@ -30,6 +29,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),
+    width: window.innerWidth < 1282 ? 150 : 190,
     filterable: false,
     sortable: false,
   },
@@ -39,7 +39,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 170,
+    width: window.innerWidth < 1282 ? 115 : 170,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -48,7 +48,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 850,
+    width: window.innerWidth < 1282 ? 413 : 850,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -59,7 +59,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     renderCell: params => <AsinCopyCell asinData={params.row.asin} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 101 : 160,
   },
 
   {
@@ -68,7 +68,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 85 : 160,
   },
 
   {
@@ -78,7 +78,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 160,
+    width: window.innerWidth < 1282 ? 114 : 160,
   },
 
   {
@@ -97,7 +97,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 54 : 160,
   },
 
   {
@@ -105,7 +105,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 150,
+    width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },

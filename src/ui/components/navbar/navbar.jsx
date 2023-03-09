@@ -1,10 +1,12 @@
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import {Drawer, Hidden, List, Typography} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import {Drawer, Hidden, IconButton, List, Typography} from '@mui/material'
 
 import React, {useRef, useState, useEffect} from 'react'
 
+import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
 
 import {appVersion} from '@constants/app-version'
@@ -51,6 +53,18 @@ export const Navbar = observer(
       localStorage.setItem('shortNavbar', JSON.stringify(shortNavbar))
     }, [shortNavbar])
 
+    const renderNavbarButton = (
+      <div className={cx(classNames.iconButtonWrapper, {[classNames.iconButtonWrapperLeft]: !shortNavbar})}>
+        {shortNavbar && (
+          <IconButton onClick={() => setShortNavbar(!shortNavbar)}>
+            <MenuIcon classes={{root: classNames.menuIcon}} />
+          </IconButton>
+        )}
+
+        {!shortNavbar && <CloseIcon className={classNames.closeIcon} onClick={() => setShortNavbar(!shortNavbar)} />}
+      </div>
+    )
+
     const drawerContent = (
       <div className={cx(classNames.mainSubWrapper, {[classNames.reverseMainSubWrapper]: shortNavbar})}>
         {!shortNavbar ? (
@@ -68,6 +82,7 @@ export const Navbar = observer(
         ) : null}
         {/* {!shortNavbar ? ( */}
         <List className={classNames.categoriesWrapper}>
+          {window.innerWidth < 1282 && renderNavbarButton}
           {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
             .filter(el => !el.route?.includes('/messages'))
             .map((category, index) =>

@@ -124,4 +124,24 @@ export const styles = theme => ({
   warningRow: {
     boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
   },
+
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
+  memoDataGridWrapper: {
+    height: '81vh',
+
+    [theme.breakpoints.down(1282)]: {
+      height: '76vh',
+    },
+  },
 })

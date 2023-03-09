@@ -21,7 +21,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
+    width: window.innerWidth < 1282 ? 115 : 190,
 
     renderCell: params => (
       <WarehouseMyTasksBtnsCell
@@ -39,7 +39,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 155,
+    width: window.innerWidth < 1282 ? 125 : 155,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -48,7 +48,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 850,
+    width: window.innerWidth < 1282 ? 338 : 850,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -60,7 +60,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     renderCell: params => <AsinCopyCell asinData={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 100 : 160,
   },
 
   {
@@ -69,7 +69,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 65 : 160,
   },
 
   {
@@ -79,7 +79,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 160,
+    width: window.innerWidth < 1282 ? 73 : 160,
   },
 
   {
@@ -88,7 +88,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <CheckboxCell checked={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 65 : 160,
     type: 'boolean',
   },
 
@@ -98,7 +98,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 54 : 160,
   },
 
   {
@@ -106,7 +106,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 120,
+    width: window.innerWidth < 1282 ? 118 : 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
