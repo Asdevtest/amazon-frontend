@@ -4,6 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -26,6 +27,11 @@ export class WarehouseCanceledTasksViewModel {
   volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
+
+  curTaskType = null
+  curTaskPriority = null
+
+  selectedTasks = []
 
   rowCount = 0
 
@@ -135,14 +141,6 @@ export class WarehouseCanceledTasksViewModel {
     this.getTasksMy()
   }
 
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.selectionModel = model
-    })
-
-    this.getTasksMy()
-  }
-
   onSearchSubmit(searchValue) {
     runInAction(() => {
       this.nameSearchValue = searchValue
@@ -150,23 +148,36 @@ export class WarehouseCanceledTasksViewModel {
     this.getTasksMy()
   }
 
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getTasksMy()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getTasksMy()
+  }
+
   getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.tasksMy.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.tasksMy)
-    }
+    return toJS(this.tasksMy)
+  }
+
+  onSelectionModel(model) {
+    runInAction(() => {
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
+    })
   }
 
   onChangeNameSearchValue(e) {

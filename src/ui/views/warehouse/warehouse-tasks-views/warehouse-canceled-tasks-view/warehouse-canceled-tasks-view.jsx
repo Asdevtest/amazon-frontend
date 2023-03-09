@@ -1,3 +1,5 @@
+import {cx} from '@emotion/css'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
@@ -7,9 +9,16 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {
+  mapTaskOperationTypeKeyToEnum,
+  TaskOperationType,
+  taskOperationTypeTranslate,
+} from '@constants/task-operation-type'
+import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -39,6 +48,9 @@ export class WarehouseCanceledTasksViewRaw extends Component {
 
   render() {
     const {
+      selectedTasks,
+      curTaskType,
+      curTaskPriority,
       rowCount,
       nameSearchValue,
       requestStatus,
@@ -65,6 +77,10 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       onChangeSortingModel,
       setCurrentOpenedTask,
       onSearchSubmit,
+      onClickOperationTypeBtn,
+      onClickTaskPriorityBtn,
+      onSelectionModel,
+      onClickReportBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -85,11 +101,80 @@ export class WarehouseCanceledTasksViewRaw extends Component {
           >
             <MainContent>
               <div className={classNames.headerWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskPriority === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskPriority === null})}
+                    variant="text"
+                    onClick={() => onClickTaskPriorityBtn(null)}
+                  >
+                    {t(TranslationKey['All priorities'])}
+                  </Button>
+
+                  {Object.keys(mapTaskPriorityStatusEnum)
+                    .reverse()
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskPriority === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskPriority === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickTaskPriorityBtn(type)}
+                      >
+                        {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+                      </Button>
+                    ))}
+                </div>
+                <Button
+                  variant="contained"
+                  disabled={
+                    !selectedTasks.length ||
+                    selectedTasks.length > 1 ||
+                    getCurrentData().filter(el => selectedTasks.includes(el.id))[0]?.originalData.operationType !==
+                      TaskOperationType.RECEIVE
+                  }
+                  className={classNames.pickupOrdersButton}
+                  onClick={onClickReportBtn}
+                >
+                  {t(TranslationKey['Download task file'])}
+                  <FileDownloadIcon />
+                </Button>
+              </div>
+
+              <div className={classNames.headerWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskType === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskType === null})}
+                    variant="text"
+                    onClick={() => onClickOperationTypeBtn(null)}
+                  >
+                    {t(TranslationKey['All tasks'])}
+                  </Button>
+
+                  {Object.keys(mapTaskOperationTypeKeyToEnum)
+                    .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskType === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskType === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickOperationTypeBtn(type)}
+                      >
+                        {taskOperationTypeTranslate(type)}
+                      </Button>
+                    ))}
+                </div>
+
                 <SearchInput
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-                  // onChange={onChangeNameSearchValue}
                   onSubmit={onSearchSubmit}
                 />
               </div>
@@ -97,6 +182,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
               <div className={classNames.tableWrapper}>
                 <MemoDataGrid
                   pagination
+                  checkboxSelection
                   useResizeContainer
                   disableVirtualization
                   localeText={getLocalizationByLanguageTag()}
@@ -126,6 +212,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}

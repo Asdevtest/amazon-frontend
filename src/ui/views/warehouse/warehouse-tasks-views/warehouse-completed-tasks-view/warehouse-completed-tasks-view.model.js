@@ -5,6 +5,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -26,6 +27,10 @@ export class WarehouseCompletedViewModel {
   curOpenedTask = {}
 
   currentData = []
+  selectedTasks = []
+
+  curTaskType = null
+  curTaskPriority = null
 
   rowCount = 0
 
@@ -132,6 +137,20 @@ export class WarehouseCompletedViewModel {
     this.getCompletedTasksPagMy()
   }
 
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getCompletedTasksPagMy()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getCompletedTasksPagMy()
+  }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -159,6 +178,20 @@ export class WarehouseCompletedViewModel {
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
+    })
+  }
+
+  onSelectionModel(model) {
+    runInAction(() => {
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
     })
   }
 

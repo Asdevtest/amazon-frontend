@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -31,6 +32,9 @@ export class WarehouseVacantViewModel {
   selectedTasks = []
 
   nameSearchValue = ''
+
+  curTaskType = null
+  curTaskPriority = null
 
   rowCount = 0
 
@@ -119,10 +123,16 @@ export class WarehouseVacantViewModel {
   }
 
   onSelectionModel(model) {
-    const tasks = this.tasksVacant.filter(task => model.includes(task.id))
-    const res = tasks.reduce((ac, el) => ac.concat(el.id), [])
     runInAction(() => {
-      this.selectedTasks = res
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
     })
   }
 
@@ -169,23 +179,22 @@ export class WarehouseVacantViewModel {
     this.getTasksVacant()
   }
 
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getTasksVacant()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getTasksVacant()
+  }
+
   getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.tasksVacant.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.tasksVacant)
-    }
+    return toJS(this.tasksVacant)
   }
 
   async loadData() {

@@ -8,7 +8,9 @@ export const useClassNames = makeStyles()(theme => ({
     // alignItems: 'center',
     // padding: '40px',
     gap: '10px',
-    width: '1186px',
+    // width: '1186px',
+    width: '1346px',
+
     minHeight: '650px',
     borderRadius: '4px',
   },

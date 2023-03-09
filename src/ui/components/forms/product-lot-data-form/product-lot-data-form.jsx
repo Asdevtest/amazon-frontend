@@ -37,6 +37,7 @@ export const ProductLotDataForm = observer(
           cls: item?.logicsTariff.cls,
           etd: item?.logicsTariff.etd,
           eta: item?.logicsTariff.eta,
+          fbaShipment: item?.fbaShipment,
         }
       } else {
         return {
@@ -44,14 +45,12 @@ export const ProductLotDataForm = observer(
           cls: item?.boxes[0]?.logicsTariff.cls,
           etd: item?.boxes[0]?.logicsTariff.etd,
           eta: item?.boxes[0]?.logicsTariff.eta,
+          fbaShipment: Array.from(new Set(item.boxes.reduce((ac, c) => [...ac, c.fbaShipment && c.fbaShipment], []))),
         }
       }
     })
 
     const [batches, setBatches] = useState(data)
-
-    console.log('data', data)
-    console.log('batches', batches)
 
     const [batchInfo, setBatchInfo] = useState([])
     const [nameSearchValue, setNameSearchValue] = useState('')

@@ -12,6 +12,7 @@ import {
   BoxesWarehouseUpdateBoxInTaskContract, // BoxesWarehouseUpdateBoxInReceiveTaskContract,
   // BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
 } from '@models/boxes-model/boxes-model.contracts'
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -36,7 +37,12 @@ export class WarehouseMyTasksViewModel {
 
   volumeWeightCoefficient = undefined
 
+  selectedTasks = []
+
   nameSearchValue = ''
+
+  curTaskType = null
+  curTaskPriority = null
 
   rowCount = 0
 
@@ -168,23 +174,36 @@ export class WarehouseMyTasksViewModel {
     this.getTasksMy()
   }
 
+  onSelectionModel(model) {
+    runInAction(() => {
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
+    })
+  }
+
   getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.tasksMy.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.tasksMy)
-    }
+    return toJS(this.tasksMy)
+  }
+
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getTasksMy()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getTasksMy()
   }
 
   onChangeNameSearchValue(e) {
@@ -239,16 +258,6 @@ export class WarehouseMyTasksViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const result = await StorekeeperModel.getLightTasksMy({
-      //   status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
-      // })
-
-      // runInAction(() => {
-      //   this.tasksMy = warehouseTasksDataConverter(
-      //     result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
-      //   )
-      // })
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -266,6 +275,12 @@ export class WarehouseMyTasksViewModel {
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
             !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
         ),
+        // ...(this.curTaskType && {
+        //   operationType: {$eq: this.curTaskType},
+        // }),
+        // ...(this.curTaskPriority && {
+        //   priority: {$eq: this.curTaskPriority},
+        // }),
       })
 
       const result = await StorekeeperModel.getLightTasksWithPag({
