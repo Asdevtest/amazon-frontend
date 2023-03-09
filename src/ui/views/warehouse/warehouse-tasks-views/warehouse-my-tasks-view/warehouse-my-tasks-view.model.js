@@ -290,6 +290,8 @@ export class WarehouseMyTasksViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
       })
 
       runInAction(() => {
@@ -307,6 +309,7 @@ export class WarehouseMyTasksViewModel {
       console.log(error)
       runInAction(() => {
         this.error = error
+        this.tasksMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
     }

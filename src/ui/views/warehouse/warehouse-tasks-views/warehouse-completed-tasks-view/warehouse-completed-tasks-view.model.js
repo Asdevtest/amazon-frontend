@@ -208,11 +208,6 @@ export class WarehouseCompletedViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[3][item][$contains]=${this.nameSearchValue};`
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -239,6 +234,8 @@ export class WarehouseCompletedViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
       })
 
       runInAction(() => {
@@ -256,6 +253,7 @@ export class WarehouseCompletedViewModel {
     } catch (error) {
       runInAction(() => {
         this.batches = []
+        this.completedTasks = []
       })
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)

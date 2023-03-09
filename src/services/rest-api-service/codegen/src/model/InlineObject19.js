@@ -53,6 +53,9 @@ class InlineObject19 {
             if (data.hasOwnProperty('totalPriceChanged')) {
                 obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
         }
         return obj;
     }
@@ -65,6 +68,12 @@ class InlineObject19 {
  * @member {Number} totalPriceChanged
  */
 InlineObject19.prototype['totalPriceChanged'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject19.prototype['prepId'] = undefined;
 
 
 

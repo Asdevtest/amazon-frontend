@@ -230,16 +230,6 @@ export class WarehouseCanceledTasksViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const result = await StorekeeperModel.getLightTasksMy({
-      //   status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
-      // })
-
-      // runInAction(() => {
-      //   this.tasksMy = warehouseTasksDataConverter(
-      //     result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
-      //   )
-      // })
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -266,6 +256,8 @@ export class WarehouseCanceledTasksViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
       })
 
       runInAction(() => {
@@ -283,6 +275,7 @@ export class WarehouseCanceledTasksViewModel {
       console.log(error)
       runInAction(() => {
         this.error = error
+        this.tasksMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
     }

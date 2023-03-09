@@ -153,7 +153,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
 };
 apiInstance.apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
 
 ### Return type
 
