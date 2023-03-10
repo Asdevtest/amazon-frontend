@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 'min-content',
     [theme.breakpoints.down(1282)]: {
-      width: 1251,
+      width: 'fit-content',
     },
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -29,13 +29,18 @@ export const useClassNames = makeStyles()(theme => ({
   modalHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+
     [theme.breakpoints.down(1282)]: {
-      width: 1191,
+      width: '100%',
     },
   },
 
   footerTitle: {
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
   },
 
   boxesWrapper: {
@@ -60,8 +65,9 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '20px',
 
     [theme.breakpoints.down(1282)]: {
+      padding: 20,
       flexDirection: 'row',
-      width: 1191,
+      width: '100%',
 
       justifyContent: 'space-between',
       gap: 'unset',
@@ -82,9 +88,20 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '15px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 200,
+    },
   },
   newBoxes: {
     marginBottom: '20px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+      height: 315,
+
+      overflowY: 'auto',
+    },
   },
   box: {
     minWidth: '300px',
@@ -94,9 +111,19 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '5px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 350,
+      alignItems: 'flex-start',
+      justifyContent: 'unset',
+      gap: '5px',
+    },
   },
   divider: {
     margin: '-20px 10px',
+    [theme.breakpoints.down(1282)]: {
+      display: 'none',
+    },
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -116,6 +143,9 @@ export const useClassNames = makeStyles()(theme => ({
   sectionTitle: {
     color: theme.palette.text.second,
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down(1282)]: {
+      display: 'none',
+    },
     [theme.breakpoints.down(768)]: {
       marginTop: '40px',
       marginBottom: '40px',
@@ -148,6 +178,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
     width: '218px',
     color: theme.palette.text.general,
+
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+    },
   },
   subTitle: {
     fontSize: '14px',
@@ -189,8 +223,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '575px',
     overflow: 'auto',
     [theme.breakpoints.down(1282)]: {
-      minWidth: 1169,
-      width: 1169,
+      minWidth: 'unset',
+      width: '100%',
+      overflow: 'unset',
+      height: 'auto',
     },
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -280,8 +316,17 @@ export const useClassNames = makeStyles()(theme => ({
     height: '220px',
 
     [theme.breakpoints.down(1282)]: {
+      margin: 0,
+      width: 'fit-content',
       minWidth: 'unset',
     },
+  },
+
+  adaptCatigoryWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 77,
+    flexWrap: 'wrap',
   },
 
   categoryTitle: {
@@ -290,6 +335,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '15px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
   },
   icon: {
     marginLeft: '16px',
@@ -352,6 +401,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   tableRow: {
+    width: 500,
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       alignItems: 'center',

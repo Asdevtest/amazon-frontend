@@ -357,8 +357,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 330,
     height: 40,
     [theme.breakpoints.down(1282)]: {
-      width: 220,
-      height: 230,
+      width: 260,
     },
     [theme.breakpoints.down(768)]: {
       width: '100%',

@@ -272,27 +272,6 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                   </div>
                 </div>
               ))}
-
-              {/* <div className={classNames.descriptionWrapper}>
-                <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
-                <div>
-                  <Typography className={classNames.title}>
-                      {getShortenStringIfLongerThanCount(item.items[0].product.amazonTitle, 50)}
-                  </Typography>
-
-                  <Input
-                    classes={{
-                      root: cx(classNames.inputWrapper, {
-                        [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
-                      }),
-                      input: classNames.input,
-                    }}
-                    inputProps={{maxLength: 6}}
-                    value={item.items[0].amount}
-                    onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
-                  />
-                </div>
-              </div> */}
             </div>
 
             <div className={classNames.tableRow}>
@@ -309,21 +288,6 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 onChange={e => onChangeFieldInput(e, item._id, 'amount')}
               />
             </div>
-
-            {/* <div className={classNames.tableRow}>
-              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
-              <Input
-                classes={{
-                  root: cx(classNames.inputWrapper, {
-                    [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
-                  }),
-                  input: classNames.input,
-                }}
-                inputProps={{maxLength: 6}}
-                value={item.items[0].amount}
-                onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
-              />
-            </div> */}
 
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
@@ -527,31 +491,6 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
       parseFloat(targetBox.weighGrossKgWarehouse) || 0,
     )
 
-    // if (field === 'fitsInitialDimensions') {
-    //   targetBox[field] = e.target.checked
-    // } else {
-    //   if (
-    //     isNaN(e.target.value) ||
-    //     Number(e.target.value) < 0 ||
-    //     (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
-    //   ) {
-    //     return
-    //   }
-
-    //   targetBox[field] =
-    //     field === 'amount' ? (e.target.value !== '' ? Number(e.target.value) : e.target.value) : e.target.value
-
-    //   targetBox.volumeWeightKgWarehouse =
-    //     ((parseFloat(targetBox.lengthCmWarehouse) || 0) *
-    //       (parseFloat(targetBox.heightCmWarehouse) || 0) *
-    //       (parseFloat(targetBox.widthCmWarehouse) || 0)) /
-    //     volumeWeightCoefficient
-    //   targetBox.weightFinalAccountingKgWarehouse = Math.max(
-    //     parseFloat(targetBox.volumeWeightKgWarehouse) || 0,
-    //     parseFloat(targetBox.weighGrossKgWarehouse) || 0,
-    //   )
-    // }
-
     const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? targetBox : box))
     setNewBoxes(updatedNewBoxes)
   }
@@ -655,53 +594,111 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
         </div>
       </div>
 
-      <div className={classNames.currentBoxesWrapper}>
-        <CustomCarousel alignButtons="end">
-          {boxesBefore.map((box, index) => (
-            <div key={index} className={classNames.demensionsWrapper}>
-              <Typography className={classNames.categoryTitle}>
-                {t(TranslationKey['Sizes from buyer']) + ':'}
-              </Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
-                box.lengthCmSupplier,
-                2,
-              )} ${t(TranslationKey.cm)}`}</Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
-                box.widthCmSupplier,
-                2,
-              )} ${t(TranslationKey.cm)}`}</Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
-                box.heightCmSupplier,
-                2,
-              )} ${t(TranslationKey.cm)}`}</Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-                box.weighGrossKgSupplier,
-                2,
-              )} `}</Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
-                ((parseFloat(box.lengthCmSupplier) || 0) *
-                  (parseFloat(box.heightCmSupplier) || 0) *
-                  (parseFloat(box.widthCmSupplier) || 0)) /
-                  volumeWeightCoefficient,
-                2,
-              )} `}</Typography>
-              <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(
-                box.weighGrossKgSupplier >
+      {window.innerWidth >= 1282 && (
+        <div className={classNames.currentBoxesWrapper}>
+          <CustomCarousel alignButtons="end">
+            {boxesBefore.map((box, index) => (
+              <div key={index} className={classNames.demensionsWrapper}>
+                <Typography className={classNames.categoryTitle}>
+                  {t(TranslationKey['Sizes from buyer']) + ':'}
+                </Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
+                  box.lengthCmSupplier,
+                  2,
+                )} ${t(TranslationKey.cm)}`}</Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
+                  box.widthCmSupplier,
+                  2,
+                )} ${t(TranslationKey.cm)}`}</Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
+                  box.heightCmSupplier,
+                  2,
+                )} ${t(TranslationKey.cm)}`}</Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+                  box.weighGrossKgSupplier,
+                  2,
+                )} `}</Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
                   ((parseFloat(box.lengthCmSupplier) || 0) *
                     (parseFloat(box.heightCmSupplier) || 0) *
                     (parseFloat(box.widthCmSupplier) || 0)) /
-                    volumeWeightCoefficient
-                  ? box.weighGrossKgSupplier
-                  : ((parseFloat(box.lengthCmSupplier) || 0) *
+                    volumeWeightCoefficient,
+                  2,
+                )} `}</Typography>
+                <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(
+                  box.weighGrossKgSupplier >
+                    ((parseFloat(box.lengthCmSupplier) || 0) *
+                      (parseFloat(box.heightCmSupplier) || 0) *
+                      (parseFloat(box.widthCmSupplier) || 0)) /
+                      volumeWeightCoefficient
+                    ? box.weighGrossKgSupplier
+                    : ((parseFloat(box.lengthCmSupplier) || 0) *
+                        (parseFloat(box.heightCmSupplier) || 0) *
+                        (parseFloat(box.widthCmSupplier) || 0)) /
+                        volumeWeightCoefficient,
+                  2,
+                )}`}</Typography>
+              </div>
+            ))}
+          </CustomCarousel>
+        </div>
+      )}
+
+      {window.innerWidth < 1282 && (
+        <div className={classNames.currentBoxesWrapper}>
+          <CustomCarousel alignButtons="end">
+            {boxesBefore.map((box, index) => (
+              <div key={index} className={classNames.demensionsWrapper}>
+                <Typography className={classNames.categoryTitle}>
+                  {t(TranslationKey['Sizes from buyer']) + ':'}
+                </Typography>
+                <div className={classNames.adaptCatigoryWrapper}>
+                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
+                    box.lengthCmSupplier,
+                    2,
+                  )} ${t(TranslationKey.cm)}`}</Typography>
+                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
+                    box.widthCmSupplier,
+                    2,
+                  )} ${t(TranslationKey.cm)}`}</Typography>
+                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
+                    box.heightCmSupplier,
+                    2,
+                  )} ${t(TranslationKey.cm)}`}</Typography>
+                  <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+                    box.weighGrossKgSupplier,
+                    2,
+                  )} `}</Typography>
+                  <Typography className={classNames.footerTitle}>{`${t(
+                    TranslationKey['Volume weight'],
+                  )}: ${toFixedWithKg(
+                    ((parseFloat(box.lengthCmSupplier) || 0) *
                       (parseFloat(box.heightCmSupplier) || 0) *
                       (parseFloat(box.widthCmSupplier) || 0)) /
                       volumeWeightCoefficient,
-                2,
-              )}`}</Typography>
-            </div>
-          ))}
-        </CustomCarousel>
-      </div>
+                    2,
+                  )} `}</Typography>
+                  <Typography className={classNames.footerTitle}>{`${t(
+                    TranslationKey['Final weight'],
+                  )}: ${toFixedWithKg(
+                    box.weighGrossKgSupplier >
+                      ((parseFloat(box.lengthCmSupplier) || 0) *
+                        (parseFloat(box.heightCmSupplier) || 0) *
+                        (parseFloat(box.widthCmSupplier) || 0)) /
+                        volumeWeightCoefficient
+                      ? box.weighGrossKgSupplier
+                      : ((parseFloat(box.lengthCmSupplier) || 0) *
+                          (parseFloat(box.heightCmSupplier) || 0) *
+                          (parseFloat(box.widthCmSupplier) || 0)) /
+                          volumeWeightCoefficient,
+                    2,
+                  )}`}</Typography>
+                </div>
+              </div>
+            ))}
+          </CustomCarousel>
+        </div>
+      )}
     </div>
   )
 
