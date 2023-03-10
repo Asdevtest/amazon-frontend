@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
     padding: '40px 30px',
-    width: 1100,
+    width: 1200,
     margin: '0 auto',
     // border: '1px solid #4CAF50',
     borderRadius: '4px',
@@ -229,7 +229,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   labelValueBlockWrapper: {
-    width: 230,
+    minWidth: 260,
+    maxWidth: 'max-content',
+
     // marginBottom: 24,
   },
 
@@ -243,15 +245,14 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
     fontWeight: '400',
     whiteSpace: 'nowrap',
+    textDecorationLine: 'line-through',
+    marginLeft: '5px !important',
   },
 
   cashBackPrice: {
-    marginLeft: 5,
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
-    textDecorationLine: 'line-through',
     whiteSpace: 'nowrap',
   },
 

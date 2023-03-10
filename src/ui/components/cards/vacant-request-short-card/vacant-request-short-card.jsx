@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {
   /* Divider,  */
   Grid,
@@ -61,11 +62,11 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                   label={t(TranslationKey['Product price'])}
                   inputComponent={
                     <div className={classNames.priceAmazonWrapper}>
-                      <Typography className={classNames.redText}>
+                      <Typography className={cx(classNames.cashBackPrice, classNames.dontWrapText)}>
                         {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
                       </Typography>
 
-                      <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(
+                      <Typography className={cx(classNames.redText, classNames.dontWrapText)}>{`$ ${toFixed(
                         item.priceAmazon,
                         2,
                       )}`}</Typography>
@@ -109,42 +110,49 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
             <div>
               {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
                 <Field
-                  labelClasses={classNames.fieldLabel}
+                  labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
                   containerClasses={classNames.fieldContainer}
                   label={'CashBack'}
                   inputComponent={
-                    <Typography className={classNames.accentText}>{item.cashBackInPercent + '%'}</Typography>
+                    <Typography className={cx(classNames.accentText, classNames.rightText)}>
+                      {item.cashBackInPercent + '%'}
+                    </Typography>
                   }
                 />
               ) : null}
 
               <Field
-                labelClasses={classNames.fieldLabel}
+                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey.Status)}
                 inputComponent={
-                  <Typography className={classNames.deadline} style={{color: colorByRequestStatus(item.status)}}>
+                  <Typography
+                    className={cx(classNames.accentText, classNames.rightText)}
+                    style={{color: colorByRequestStatus(item.status)}}
+                  >
                     {MyRequestStatusTranslate(item.status)}
                   </Typography>
                 }
               />
 
               <Field
-                labelClasses={classNames.fieldLabel}
+                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey['Request type'])}
                 inputComponent={
-                  <Typography className={classNames.accentText}>
+                  <Typography className={cx(classNames.accentText, classNames.rightText)}>
                     {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
                   </Typography>
                 }
               />
               <Field
-                labelClasses={classNames.fieldLabel}
+                labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
                 containerClasses={classNames.fieldContainer}
                 label={t(TranslationKey.Deadline)}
                 inputComponent={
-                  <Typography className={classNames.accentText}>{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
+                  <Typography
+                    className={cx(classNames.accentText, classNames.rightText, classNames.dontWrapText)}
+                  >{`${formatNormDateTime(item.timeoutAt)}`}</Typography>
                 }
               />
             </div>

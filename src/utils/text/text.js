@@ -1,4 +1,4 @@
-import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
+import {hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes} from 'date-fns'
 import QueryString from 'qs'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
@@ -57,9 +57,19 @@ export const shortenDocumentString = value => {
 
 export const minsToTime = mins => {
   if (typeof mins === 'number') {
-    return `${mins / 60 >= 1 ? Math.floor(mins / 60) + ' ' + t(TranslationKey.hour) : ''} ${
-      mins % 60 === 0 ? '' : (mins % 60) + ' ' + t(TranslationKey.minute) + '.'
-    }`
+    const days = mins / 1440
+
+    const hours = minutesToHours(mins)
+
+    const lastMins = mins % 60
+
+    return `${days >= 1 ? Math.floor(days) + ' ' + t(TranslationKey.days) : ''} ${
+      hours >= 1
+        ? hours <= 23
+          ? hours + ' ' + t(TranslationKey.hour)
+          : (hours % 24) + ' ' + t(TranslationKey.hour)
+        : ''
+    } ${lastMins === 0 ? '' : lastMins + ' ' + t(TranslationKey.minute) + '.'}`
   } else {
     return null
   }

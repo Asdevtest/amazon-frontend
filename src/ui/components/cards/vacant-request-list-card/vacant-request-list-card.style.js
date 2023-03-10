@@ -212,15 +212,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+    textDecorationLine: 'line-through',
+    marginLeft: 5,
   },
 
   cashBackPrice: {
-    marginLeft: 5,
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
-    textDecorationLine: 'line-through',
+    // color: '#656565',
   },
 
   accentText: {

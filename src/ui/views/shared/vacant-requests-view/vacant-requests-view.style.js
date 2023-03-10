@@ -22,6 +22,7 @@ export const styles = theme => ({
 
   dashboardCardWrapper: {
     width: '100%',
+    gap: 35,
   },
 
   tablePanelViewWrapper: {
