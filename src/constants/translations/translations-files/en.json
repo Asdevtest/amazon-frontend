@@ -1796,5 +1796,7 @@
   "All tasks": "All tasks",
   "Edited by storekeeper": "Edited by storekeeper",
   "All priorities": "All priorities",
-  "Download task file": "Download task file"
+  "Download task file": "Download task file",
+  "TASK_LOW_PRIORITY_KEY": "Low",
+  "TASK_STANDART_PRIORITY_KEY": "Standart"
 }
