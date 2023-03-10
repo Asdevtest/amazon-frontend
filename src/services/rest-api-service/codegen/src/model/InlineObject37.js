@@ -22,13 +22,10 @@ class InlineObject37 {
     /**
      * Constructs a new <code>InlineObject37</code>.
      * @alias module:model/InlineObject37
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject37.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor() { 
         
-        InlineObject37.initialize(this, taskId, boxes, operationType);
+        InlineObject37.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject37 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -130,24 +124,8 @@ InlineObject37.prototype['trackNumberFile'] = undefined;
  */
 InlineObject37.prototype['prepId'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
 
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 
