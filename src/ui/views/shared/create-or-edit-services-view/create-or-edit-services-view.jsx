@@ -27,6 +27,10 @@ export class CreateOrEditServicesViewRaw extends Component {
     location: this.props.location,
   })
 
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
+
   render() {
     const {drawerOpen, requestToEdit, pathname, onTriggerDrawerOpen, onClickCreateBtn, onClickBackBtn, onClickEditBtn} =
       this.viewModel

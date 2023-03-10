@@ -137,7 +137,7 @@ export class ServiceDetailsViewModel {
 
   onClickEditBtn() {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
-      request: this.announcementData,
+      requestId: toJS(this.announcementId),
     })
   }
 
