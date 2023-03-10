@@ -85,7 +85,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
             }
             onClick={() =>
               isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                isNeedPurchaseFilterData.isFormed !== null
+                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
                   ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     : null
@@ -127,7 +127,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
     ({classes: classNames, isHaveBarCodeFilterData}) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+          <Typography>{t(TranslationKey['Got barcode'])}</Typography>
 
           <Checkbox
             color="primary"
@@ -136,7 +136,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
             }
             onClick={() =>
               isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
-                isHaveBarCodeFilterData.isFormed !== null
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
                   ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
                     ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
                     : null
@@ -147,7 +147,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
         </div>
 
         <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Need refills'])}</Typography>
+          <Typography>{t(TranslationKey['No barcode'])}</Typography>
 
           <Checkbox
             color="primary"

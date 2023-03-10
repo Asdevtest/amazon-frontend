@@ -350,8 +350,6 @@ export const clientInventoryColumns = (
     renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
-    type: 'actions',
-    sortable: false,
     filterable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_BARCODE,

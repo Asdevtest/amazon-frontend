@@ -759,8 +759,8 @@ export class ClientInventoryViewModel {
       this.columnMenuSettings = {
         ...this.columnMenuSettings,
         isHaveBarCodeFilterData: {
-          ...this.columnMenuSettings.isHaveBarCodeFilter,
-          isNeedPurchaseFilter: value,
+          ...this.columnMenuSettings.isHaveBarCodeFilterData,
+          isHaveBarCodeFilter: value,
         },
       }
     })
@@ -980,8 +980,8 @@ export class ClientInventoryViewModel {
 
       // barCode: {$notnull: true},
 
-      ...(isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: {[isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
+      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+        barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
       }),
     })
 
