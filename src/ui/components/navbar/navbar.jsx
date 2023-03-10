@@ -68,28 +68,28 @@ export const Navbar = observer(
         ) : null}
         {/* {!shortNavbar ? ( */}
         <List className={classNames.categoriesWrapper}>
-          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
+          {curNavbar[UserRoleCodeMap[userInfo.role]]
             .filter(el => !el.route?.includes('/messages'))
             .map((category, index) =>
-              category.checkHideBlock(viewModel.current.userInfo) ? (
+              category.checkHideBlock(userInfo) ? (
                 <React.Fragment key={index}>
                   <NavbarCategory
                     button
                     isSelected={category.key === activeCategory}
                     shortNavbar={shortNavbar}
-                    userInfo={viewModel.current.userInfo}
+                    userInfo={userInfo}
                     category={category}
                     badge={
                       (category.route?.includes('/client/notifications') &&
-                        viewModel.current.userInfo.needConfirmPriceChange?.boxes +
-                          viewModel.current.userInfo.needConfirmPriceChange?.orders +
-                          viewModel.current.userInfo.needUpdateTariff?.boxes +
-                          viewModel.current.userInfo.updatesOnIdeas?.length) ||
-                      (category.route?.includes('/buyer/notifications') &&
-                        viewModel.current.userInfo.updatesOnIdeas?.length) ||
+                        userInfo.needConfirmPriceChange?.boxes +
+                          userInfo.needConfirmPriceChange?.orders +
+                          userInfo.needUpdateTariff?.boxes +
+                          userInfo.updatesOnIdeas?.length) ||
+                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas?.length) ||
                       (category.route?.includes('/client/my-orders/orders') &&
-                        viewModel.current.userInfo.purchaseOrderRequired?.length &&
-                        viewModel.current.userInfo.purchaseOrderRequired.length)
+                        userInfo.purchaseOrderRequired?.length &&
+                        userInfo.purchaseOrderRequired.length) ||
+                      (category.route?.includes('/warehouse/tasks') && userInfo.tasksAtProcess + userInfo.tasksNew)
                     }
                   />
 
@@ -99,7 +99,7 @@ export const Navbar = observer(
                     activeSubCategory={activeSubCategory}
                     category={category}
                     index={category.key}
-                    userInfo={viewModel.current.userInfo}
+                    userInfo={userInfo}
                     currentViewModel={viewModel.current}
                     onChangeSubCategory={onChangeSubCategory}
                   />
@@ -110,16 +110,16 @@ export const Navbar = observer(
         {/* ) : null} */}
 
         <div className={classNames.bottomCategories}>
-          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]]
+          {curNavbar[UserRoleCodeMap[userInfo.role]]
             .filter(el => el.route?.includes('/messages'))
             .map((category, index) =>
-              category.checkHideBlock(viewModel.current.userInfo) ? (
+              category.checkHideBlock(userInfo) ? (
                 <React.Fragment key={index}>
                   <NavbarCategory
                     button
                     shortNavbar={shortNavbar}
                     isSelected={category.key === activeCategory}
-                    userInfo={viewModel.current.userInfo}
+                    userInfo={userInfo}
                     category={category}
                     badge={category.route?.includes('/messages') && viewModel.current.unreadMessages}
                   />

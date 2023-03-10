@@ -7,6 +7,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import {
   Avatar,
   Badge,
@@ -20,6 +21,9 @@ import {
   InputAdornment,
   Checkbox,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -35,6 +39,13 @@ import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {ClockIcon} from '@constants/svg-icons'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
+import {
+  colorByTaskPriorityStatus,
+  mapTaskPriorityStatusEnum,
+  mapTaskPriorityStatusEnumToKey,
+  TaskPriorityStatus,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
@@ -44,6 +55,7 @@ import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Input} from '@components/input'
+import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
@@ -245,6 +257,96 @@ export const AsinCopyCell = React.memo(
       ),
     )
     return <div className={classNames.flexDirectionColumn}>{asins}</div>
+  }, styles),
+)
+
+export const StringListCell = React.memo(
+  withStyles(({classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem}) => {
+    const [menuAnchor, setMenuAnchor] = useState(null)
+    const handleClick = event => {
+      setMenuAnchor(event.currentTarget)
+    }
+    const handleClose = () => {
+      setMenuAnchor(null)
+    }
+    const items = Array.isArray(sourceString) ? sourceString : sourceString.split(', ')
+
+    const [itemsForRender, setItemsForRender] = useState(items || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = items?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(items)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.flexDirectionColumn}>
+        {items
+          .slice(0, maxItemsDisplay)
+          .filter(el => el)
+          .map((item, i) => (
+            <div key={i} className={classNames.multilineTextHeaderWrapper}>
+              <Typography className={classNames.typoCell}>
+                {
+                  <span className={classNames.multilineHeaderText}>
+                    {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  </span>
+                }
+              </Typography>
+              {withCopy && <CopyValue text={item} />}
+            </div>
+          ))}
+
+        {items.length > maxItemsDisplay ? (
+          <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
+            <div className={cx(classNames.mainFilterBtnInsert)}>
+              <MoreHorizOutlinedIcon color="primary" />
+            </div>
+          </Button>
+        ) : null}
+
+        <Menu
+          keepMounted
+          anchorEl={menuAnchor}
+          autoFocus={false}
+          open={Boolean(menuAnchor)}
+          // classes={{paper: classNames.menu, list: classNames.list}}
+          onClose={handleClose}
+        >
+          <div className={classNames.stringListMenuWrapper}>
+            <div className={classNames.searchInputWrapper}>
+              <SearchInput
+                inputClasses={classNames.searchInput}
+                placeholder={t(TranslationKey.Search)}
+                onChange={e => {
+                  setNameSearchValue(e.target.value)
+                }}
+              />
+            </div>
+            <div className={classNames.shopsWrapper}>
+              <div className={classNames.shopsBody}>
+                {itemsForRender.map((item, i) => (
+                  <div key={i} className={classNames.multilineTextHeaderWrapper}>
+                    <Typography className={classNames.typoCell}>
+                      {
+                        <span className={classNames.multilineHeaderText}>
+                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                        </span>
+                      }
+                    </Typography>
+                    {withCopy && <CopyValue text={item} />}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Menu>
+      </div>
+    )
   }, styles),
 )
 
@@ -774,6 +876,40 @@ export const WarehouseTariffDatesCell = React.memo(
     styles,
   ),
 )
+
+export const TaskPriorityCell =
+  /* React.memo( */
+  withStyles(
+    ({classes: classNames, curPriority, onChangePriority, taskId}) => (
+      <Select
+        value={curPriority}
+        className={classNames.nativeSelect}
+        input={<Input className={classNames.nativeSelect} />}
+        classes={{
+          select: cx({
+            [classNames.colorYellow]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
+            [classNames.colorGreen]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.LONG],
+            [classNames.colorRed]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
+          }),
+        }}
+        onChange={e => onChangePriority(taskId, e.target.value)}
+      >
+        {Object.keys(mapTaskPriorityStatusEnum)
+          .filter(el => el !== curPriority)
+          .map((statusCode, statusIndex) => (
+            <MenuItem
+              key={statusIndex}
+              value={statusCode}
+              style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode])}}
+            >
+              {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
+            </MenuItem>
+          ))}
+      </Select>
+    ),
+    styles,
+  )
+/* ) */
 
 export const WarehouseDestinationAndTariffCell = React.memo(
   withStyles(

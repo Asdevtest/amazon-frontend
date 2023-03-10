@@ -555,47 +555,79 @@ export const warehouseTasksDataConverter = data =>
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
 
+    priority: item.priority,
+
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     storekeeper: item.storekeeper?.name,
+    // asin: Array.from(
+    //   new Set(
+    //     `${item.boxesBefore.reduce(
+    //       (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.product.asin + ', '), '')),
+    //       '',
+    //     )}`.split(', '),
+    //   ),
+    // ),
+
     asin: Array.from(
       new Set(
-        `${item.boxesBefore.reduce(
-          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.product.asin + ', '), '')),
-          '',
-        )}`.split(', '),
+        item.boxesBefore.reduce(
+          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.product.asin && cur.product.asin], [])],
+          [],
+        ),
       ),
-    )
-      .join(', ')
-      .slice(0, -2),
+    ),
+    // .join(', ')
+    // .slice(0, -2),
+
+    // orderId: Array.from(
+    //   new Set(
+    //     `${item.boxesBefore.reduce(
+    //       (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.id + ', '), '')),
+    //       '',
+    //     )}`.split(', '),
+    //   ),
+    // ),
 
     orderId: Array.from(
       new Set(
-        `${item.boxesBefore.reduce(
-          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.id + ', '), '')),
-          '',
-        )}`.split(', '),
+        item.boxesBefore.reduce(
+          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.id && cur.order.id], [])],
+          [],
+        ),
       ),
-    )
-      .join(', ')
-      .slice(0, -2),
+    ),
+    // .join(', ')
+    // .slice(0, -2),
+
+    // item: Array.from(
+    //   new Set(
+    //     `${item.boxesBefore.reduce(
+    //       (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')),
+    //       '',
+    //     )}`.split(', '),
+    //   ),
+    // ),
 
     item: Array.from(
       new Set(
-        `${item.boxesBefore.reduce(
-          (ac, c) => (ac += c.items.reduce((acc, cur) => (acc += cur.order.item + ', '), '')),
-          '',
-        )}`.split(', '),
+        item.boxesBefore.reduce(
+          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.item && cur.order.item], [])],
+          [],
+        ),
       ),
-    )
-      .filter(el => !!parseInt(el))
-      .join(', '),
+    ),
+    // .filter(el => !!parseInt(el))
+    // .join(', '),
 
+    // trackNumber: Array.from(
+    //   new Set(`${item.boxesBefore.reduce((ac, c) => (ac += c.trackNumberText + ', '),'' )}`.split(', ')),
+    // ),
+    // .join(', ')
+    // .slice(0, -2),
     trackNumber: Array.from(
-      new Set(`${item.boxesBefore.reduce((ac, c) => (ac += c.trackNumberText + ', '), '')}`.split(', ')),
-    )
-      .join(', ')
-      .slice(0, -2),
+      new Set(item.boxesBefore.reduce((ac, c) => [...ac, c.trackNumberText && c.trackNumberText], [])),
+    ),
 
     barcode: !item[item.boxes.length ? 'boxes' : 'boxesBefore'].some(box =>
       box.items.some(item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper),

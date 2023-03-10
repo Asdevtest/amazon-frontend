@@ -3,14 +3,15 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  AsinCopyCell,
+  // AsinCopyCell,
   NormDateFromUnixCell,
   TaskDescriptionCell,
   NormalActionBtnCell,
   TaskTypeCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
+  MultilineTextHeaderCell, // MultilineTextCell,
   CheckboxCell,
+  StringListCell,
+  TaskPriorityCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -32,6 +33,21 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+
+    width: 170,
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
   },
 
   {
@@ -58,8 +74,11 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinCopyCell asinData={params.row.asin} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+    ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -67,8 +86,11 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+    ),
     width: 160,
+    sortable: false,
   },
 
   {
@@ -76,9 +98,10 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Order number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
     width: 160,
+    sortable: false,
   },
 
   {
@@ -96,8 +119,9 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'item',
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     width: 160,
+    sortable: false,
   },
 
   {
