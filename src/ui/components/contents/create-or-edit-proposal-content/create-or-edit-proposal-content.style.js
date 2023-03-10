@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     padding: 30,
 
-    background: '#FFFFFF',
+    background: theme.palette.background.general,
 
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     borderRadius: 4,

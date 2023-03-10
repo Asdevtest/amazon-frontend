@@ -47,7 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   dragingOnDropBtnWithoutTitle: {
-    top: 0,
+    top: '0 !important',
   },
 
   pasteInput: {
