@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject36 {
     /**
      * Constructs a new <code>InlineObject36</code>.
-     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject36
-     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
+     * @param boxIds {Array.<String>} 
+     * @param newAmounts {Array.<Number>} 
      */
-    constructor(totalPriceChanged) { 
+    constructor(boxIds, newAmounts) { 
         
-        InlineObject36.initialize(this, totalPriceChanged);
+        InlineObject36.initialize(this, boxIds, newAmounts);
     }
 
     /**
@@ -35,8 +35,9 @@ class InlineObject36 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalPriceChanged) { 
-        obj['totalPriceChanged'] = totalPriceChanged;
+    static initialize(obj, boxIds, newAmounts) { 
+        obj['boxIds'] = boxIds;
+        obj['newAmounts'] = newAmounts;
     }
 
     /**
@@ -50,8 +51,11 @@ class InlineObject36 {
         if (data) {
             obj = obj || new InlineObject36();
 
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('boxIds')) {
+                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            }
+            if (data.hasOwnProperty('newAmounts')) {
+                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
             }
         }
         return obj;
@@ -61,10 +65,14 @@ class InlineObject36 {
 }
 
 /**
- * новое значение изменения итоговой цены.
- * @member {Number} totalPriceChanged
+ * @member {Array.<String>} boxIds
  */
-InlineObject36.prototype['totalPriceChanged'] = undefined;
+InlineObject36.prototype['boxIds'] = undefined;
+
+/**
+ * @member {Array.<Number>} newAmounts
+ */
+InlineObject36.prototype['newAmounts'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1AnnouncementsMyRequests model module.
@@ -50,6 +51,21 @@ class ApiV1AnnouncementsMyRequests {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
         }
         return obj;
     }
@@ -58,9 +74,38 @@ class ApiV1AnnouncementsMyRequests {
 }
 
 /**
+ * GUID в базе данных
  * @member {String} _id
  */
 ApiV1AnnouncementsMyRequests.prototype['_id'] = undefined;
+
+/**
+ * Цена
+ * @member {Number} price
+ */
+ApiV1AnnouncementsMyRequests.prototype['price'] = undefined;
+
+/**
+ * Статус запроса
+ * @member {String} status
+ */
+ApiV1AnnouncementsMyRequests.prototype['status'] = undefined;
+
+/**
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
+ */
+ApiV1AnnouncementsMyRequests.prototype['timeoutAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+ApiV1AnnouncementsMyRequests.prototype['createdBy'] = undefined;
+
+/**
+ * @member {Date} updatedAt
+ */
+ApiV1AnnouncementsMyRequests.prototype['updatedAt'] = undefined;
 
 
 

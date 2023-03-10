@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

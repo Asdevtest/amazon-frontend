@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxId** | **String** | GUID коробки, который планируем изменить | 
+**boxId** | **String** | Гуид коробки | [optional] 
+**prepId** | **String** | Значение prepId | [optional] 
 
 

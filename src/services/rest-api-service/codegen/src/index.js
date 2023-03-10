@@ -206,17 +206,17 @@ import InlineResponse20014 from './model/InlineResponse20014';
 import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
-import InlineResponse20017Rows from './model/InlineResponse20017Rows';
 import InlineResponse20018 from './model/InlineResponse20018';
-import InlineResponse20018Group from './model/InlineResponse20018Group';
-import InlineResponse20018Rows from './model/InlineResponse20018Rows';
 import InlineResponse20019 from './model/InlineResponse20019';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse20020 from './model/InlineResponse20020';
 import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
+import InlineResponse20023Rows from './model/InlineResponse20023Rows';
 import InlineResponse20024 from './model/InlineResponse20024';
+import InlineResponse20024Group from './model/InlineResponse20024Group';
+import InlineResponse20024Rows from './model/InlineResponse20024Rows';
 import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
@@ -325,6 +325,7 @@ import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
+import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaCreatedBy from './model/UserInfoSchemaCreatedBy';
 import UserInfoSchemaIdea from './model/UserInfoSchemaIdea';
@@ -1565,28 +1566,10 @@ export {
     InlineResponse20017,
 
     /**
-     * The InlineResponse20017Rows model constructor.
-     * @property {module:model/InlineResponse20017Rows}
-     */
-    InlineResponse20017Rows,
-
-    /**
      * The InlineResponse20018 model constructor.
      * @property {module:model/InlineResponse20018}
      */
     InlineResponse20018,
-
-    /**
-     * The InlineResponse20018Group model constructor.
-     * @property {module:model/InlineResponse20018Group}
-     */
-    InlineResponse20018Group,
-
-    /**
-     * The InlineResponse20018Rows model constructor.
-     * @property {module:model/InlineResponse20018Rows}
-     */
-    InlineResponse20018Rows,
 
     /**
      * The InlineResponse20019 model constructor.
@@ -1625,10 +1608,28 @@ export {
     InlineResponse20023,
 
     /**
+     * The InlineResponse20023Rows model constructor.
+     * @property {module:model/InlineResponse20023Rows}
+     */
+    InlineResponse20023Rows,
+
+    /**
      * The InlineResponse20024 model constructor.
      * @property {module:model/InlineResponse20024}
      */
     InlineResponse20024,
+
+    /**
+     * The InlineResponse20024Group model constructor.
+     * @property {module:model/InlineResponse20024Group}
+     */
+    InlineResponse20024Group,
+
+    /**
+     * The InlineResponse20024Rows model constructor.
+     * @property {module:model/InlineResponse20024Rows}
+     */
+    InlineResponse20024Rows,
 
     /**
      * The InlineResponse20025 model constructor.
@@ -2277,6 +2278,12 @@ export {
      * @property {module:model/UserFullSchema}
      */
     UserFullSchema,
+
+    /**
+     * The UserFullSchemaNote model constructor.
+     * @property {module:model/UserFullSchemaNote}
+     */
+    UserFullSchemaNote,
 
     /**
      * The UserInfoSchema model constructor.

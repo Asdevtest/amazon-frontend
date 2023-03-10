@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject23 from './InlineObject23';
 
 /**
  * The InlineObject95 model module.
@@ -21,7 +22,6 @@ import ApiClient from '../ApiClient';
 class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject95
      */
     constructor() { 
@@ -48,14 +48,8 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject23]);
             }
         }
         return obj;
@@ -65,22 +59,10 @@ class InlineObject95 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject23>} additionalBoxes
  */
-InlineObject95.prototype['name'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
- */
-InlineObject95.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
- */
-InlineObject95.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject95.prototype['additionalBoxes'] = undefined;
 
 
 

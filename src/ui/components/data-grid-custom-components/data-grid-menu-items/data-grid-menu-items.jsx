@@ -122,6 +122,57 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
   ),
 )
 
+export const IsHaveBarCodeFilterMenuItem = React.memo(
+  withStyles(
+    ({classes: classNames, isHaveBarCodeFilterData}) => (
+      <div className={classNames.isFormedWrapper}>
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              !isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isFormed !== null
+                  ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    : null
+                  : true,
+              )
+            }
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Need refills'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
+                  ? isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    : null
+                  : false,
+              )
+            }
+          />
+        </div>
+
+        <Divider />
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const OrderStatusMenuItem = React.memo(
   withStyles(
     ({classes: classNames, orderStatusData}) => (

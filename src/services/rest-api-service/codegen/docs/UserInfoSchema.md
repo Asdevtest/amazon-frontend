@@ -28,5 +28,7 @@ Name | Type | Description | Notes
 **purchaseOrderRequired** | **[String]** |  | [optional] 
 **updatesOnIdeas** | [**[UserInfoSchemaUpdatesOnIdeas]**](UserInfoSchemaUpdatesOnIdeas.md) |  | [optional] 
 **allowedSpec** | **[Number]** | Массив доступных специализаций фрилансера. | [optional] 
+**tasksNew** | **Number** | Количество новых заданий у пользователя | [optional] 
+**tasksAtProcess** | **Number** | Количество заданий в работе у пользователя | [optional] 
 
 
