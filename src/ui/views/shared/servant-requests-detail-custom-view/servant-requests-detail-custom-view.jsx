@@ -128,7 +128,7 @@ export class RequestDetailCustomViewRaw extends Component {
                       <div className={classNames.additionalButtonsWrapper}>
                         {findRequestProposalByChatSelectedId &&
                         requestProposalCancelAllowedStatuses.includes(
-                          findRequestProposalByChatSelectedId.proposal.status,
+                          findRequestProposalByChatSelectedId?.proposal?.status,
                         ) ? (
                           <Button danger onClick={() => onTriggerOpenModal('showConfirmModal')}>
                             {t(TranslationKey['Reject the deal'])}
@@ -137,9 +137,9 @@ export class RequestDetailCustomViewRaw extends Component {
                           <div />
                         )}
 
-                        {findRequestProposalByChatSelectedId.proposal.status ===
+                        {findRequestProposalByChatSelectedId?.proposal?.status ===
                           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT ? (
+                        findRequestProposalByChatSelectedId?.proposal?.status === RequestProposalStatus.TO_CORRECT ? (
                           // ||
                           // findRequestProposalByChatSelectedId.proposal.status ===
                           //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
