@@ -1795,5 +1795,7 @@
   "All tasks": "Все задачи",
   "Edited by storekeeper": "Изменить постащиком",
   "All priorities": "Все приоритеты",
-  "Download task file": "Скачать файл задачи"
+  "Download task file": "Скачать файл задачи",
+  "TASK_LOW_PRIORITY_KEY": "Низкий",
+  "TASK_STANDART_PRIORITY_KEY": "Средний"
 }

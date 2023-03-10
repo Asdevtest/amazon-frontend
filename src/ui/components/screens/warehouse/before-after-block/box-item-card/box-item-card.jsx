@@ -18,6 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './box-item-card.style'
 
 export const BoxItemCard = ({
+  box,
   item,
   index,
   superCount,
@@ -213,6 +214,16 @@ export const BoxItemCard = ({
                   </div>
                 )}
               </div>
+              {taskType === TaskOperationType.RECEIVE ? (
+                <div className={classNames.copyValueWrapper}>
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asin}>{'PREP ID:'}</Typography>
+                    <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    {box.prepId ? <CopyValue text={box.prepId} /> : null}
+                  </div>
+                </div>
+              ) : null}
+
               <div className={classNames.copyValueWrapper}>
                 <div className={classNames.asinWrapper}>
                   <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>

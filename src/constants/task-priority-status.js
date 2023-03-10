@@ -18,9 +18,9 @@ export const mapTaskPriorityStatusEnum = {
 export const taskPriorityStatusTranslate = value => {
   switch (value) {
     case TaskPriorityStatus.LONG:
-      return t(TranslationKey.Low)
+      return t(TranslationKey.TASK_LOW_PRIORITY_KEY)
     case TaskPriorityStatus.STANDART:
-      return t(TranslationKey.Medium)
+      return t(TranslationKey.TASK_STANDART_PRIORITY_KEY)
     case TaskPriorityStatus.URGENT:
       return t(TranslationKey.Urgent)
   }

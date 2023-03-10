@@ -1795,7 +1795,9 @@ export enum TranslationKey {
   'Edited by storekeeper' = 'Edited by storekeeper',
   'All priorities' = 'All priorities',
   'Download task file' = 'Download task file',
-  // '' = '',
+  'TASK_LOW_PRIORITY_KEY' = 'TASK_LOW_PRIORITY_KEY',
+  'TASK_STANDART_PRIORITY_KEY' = 'TASK_STANDART_PRIORITY_KEY',
+
   // '' = '',
   // '' = '',
   // '' = '',

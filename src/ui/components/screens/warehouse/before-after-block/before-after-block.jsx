@@ -167,6 +167,7 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
+                    box={box}
                     boxIndex={boxIndex}
                     needAccent={needAccent}
                     taskType={taskType}
