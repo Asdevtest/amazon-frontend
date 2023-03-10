@@ -199,6 +199,11 @@ export class ClientInventoryViewModel {
       onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
     },
 
+    isHaveBarCodeFilterData: {
+      isHaveBarCodeFilter: null,
+      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
+    },
+
     ...filtersFields.reduce(
       (ac, cur) =>
         (ac = {
@@ -749,6 +754,20 @@ export class ClientInventoryViewModel {
     this.getProductsMy()
   }
 
+  onChangeIsHaveBarCodeFilter(value) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isHaveBarCodeFilterData: {
+          ...this.columnMenuSettings.isHaveBarCodeFilterData,
+          isHaveBarCodeFilter: value,
+        },
+      }
+    })
+
+    this.getProductsMy()
+  }
+
   setFilterRequestStatus(requestStatus) {
     runInAction(() => {
       this.columnMenuSettings = {
@@ -957,6 +976,12 @@ export class ClientInventoryViewModel {
 
       ...(ideaCountFilter && {
         ideaCount: {$eq: ideaCountFilter},
+      }),
+
+      // barCode: {$notnull: true},
+
+      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+        barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
       }),
     })
 

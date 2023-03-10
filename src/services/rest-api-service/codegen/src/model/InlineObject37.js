@@ -47,44 +47,29 @@ class InlineObject37 {
         if (data) {
             obj = obj || new InlineObject37();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
             }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
         }
         return obj;
@@ -94,81 +79,50 @@ class InlineObject37 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * @member {String} clientComment
  */
-InlineObject37.prototype['buyerComment'] = undefined;
+InlineObject37.prototype['clientComment'] = undefined;
 
 /**
- * GUID storekeeper-a
- * @member {String} storekeeperId
+ * @member {String} storekeeperComment
  */
-InlineObject37.prototype['storekeeperId'] = undefined;
+InlineObject37.prototype['storekeeperComment'] = undefined;
 
 /**
- * Цена в юанях
- * @member {Number} priceInYuan
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject37.prototype['priceInYuan'] = undefined;
+InlineObject37.prototype['referenceId'] = undefined;
 
 /**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject37.prototype['priceBatchDeliveryInYuan'] = undefined;
+InlineObject37.prototype['fbaNumber'] = undefined;
 
 /**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
  */
-InlineObject37.prototype['logicsTariffId'] = undefined;
+InlineObject37.prototype['upsTrackNumber'] = undefined;
 
 /**
- * GUID пункта назначения.
- * @member {String} destinationId
+ * Текст трек номера
+ * @member {String} trackNumberText
  */
-InlineObject37.prototype['destinationId'] = undefined;
+InlineObject37.prototype['trackNumberText'] = undefined;
 
 /**
- * @member {String} item
+ * Ссылка на фото трек номера
+ * @member {String} trackNumberFile
  */
-InlineObject37.prototype['item'] = undefined;
+InlineObject37.prototype['trackNumberFile'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Значение информационного ключа
+ * @member {String} prepId
  */
-InlineObject37.prototype['images'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject37.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject37.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
- */
-InlineObject37.prototype['trackingNumberChina'] = undefined;
-
-/**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
- */
-InlineObject37.prototype['orderSupplierId'] = undefined;
-
-/**
- * Кол-во в заказе
- * @member {Number} amount
- */
-InlineObject37.prototype['amount'] = undefined;
+InlineObject37.prototype['prepId'] = undefined;
 
 
 

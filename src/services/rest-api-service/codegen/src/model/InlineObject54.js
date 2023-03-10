@@ -23,11 +23,10 @@ class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
      * @alias module:model/InlineObject54
-     * @param name {String} Название профиля
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject54.initialize(this, name);
+        InlineObject54.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**

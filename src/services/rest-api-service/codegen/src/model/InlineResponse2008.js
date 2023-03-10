@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
 
 /**
@@ -52,7 +53,7 @@ class InlineResponse2008 {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
             if (data.hasOwnProperty('requests')) {
                 obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
@@ -67,7 +68,7 @@ class InlineResponse2008 {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -83,12 +84,13 @@ class InlineResponse2008 {
 }
 
 /**
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse2008.prototype['_id'] = undefined;
 
 /**
- * @member {Number} type
+ * @member {String} type
  */
 InlineResponse2008.prototype['type'] = undefined;
 
@@ -113,7 +115,7 @@ InlineResponse2008.prototype['title'] = undefined;
 InlineResponse2008.prototype['description'] = undefined;
 
 /**
- * @member {String} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse2008.prototype['createdBy'] = undefined;
 

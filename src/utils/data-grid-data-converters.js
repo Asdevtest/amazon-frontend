@@ -697,7 +697,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     warehouse: item.destination?.name,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
-    client: item.items[0]?.product?.client?.name,
+    client: item.client?.name,
 
     humanFriendlyId: item.humanFriendlyId,
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),

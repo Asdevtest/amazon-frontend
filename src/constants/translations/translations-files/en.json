@@ -1786,5 +1786,7 @@
   "Notifications on ideas": "Notifications on ideas",
   "Updated by": "Updated by",
   "Without stores": "Without stores",
-  "This amount includes the service fee": "This amount includes the service fee"
+  "This amount includes the service fee": "This amount includes the service fee",
+  "Got barcode": "Got barcode",
+  "No barcode": "No barcode"
 }

@@ -85,7 +85,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
             }
             onClick={() =>
               isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                isNeedPurchaseFilterData.isFormed !== null
+                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
                   ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     : null
@@ -108,6 +108,57 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
                 isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
                   ? isNeedPurchaseFilterData.isNeedPurchaseFilter
                     ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    : null
+                  : false,
+              )
+            }
+          />
+        </div>
+
+        <Divider />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const IsHaveBarCodeFilterMenuItem = React.memo(
+  withStyles(
+    ({classes: classNames, isHaveBarCodeFilterData}) => (
+      <div className={classNames.isFormedWrapper}>
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Got barcode'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              !isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
+                  ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    : null
+                  : true,
+              )
+            }
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['No barcode'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
+                  ? isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
                     : null
                   : false,
               )
