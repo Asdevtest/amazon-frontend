@@ -64,6 +64,9 @@ class InlineResponse2004 {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
+            if (data.hasOwnProperty('isBarCodeAttached')) {
+                obj['isBarCodeAttached'] = ApiClient.convertToType(data['isBarCodeAttached'], 'Boolean');
+            }
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
@@ -112,6 +115,12 @@ InlineResponse2004.prototype['operationType'] = undefined;
  * @member {Number} status
  */
 InlineResponse2004.prototype['status'] = undefined;
+
+/**
+ * Проклеены ли все баркоды в задаче
+ * @member {Boolean} isBarCodeAttached
+ */
+InlineResponse2004.prototype['isBarCodeAttached'] = undefined;
 
 /**
  * Приоритет задачи

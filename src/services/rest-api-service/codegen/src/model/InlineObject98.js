@@ -48,6 +48,9 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
             if (data.hasOwnProperty('lengthCmWarehouse')) {
                 obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
@@ -105,6 +108,12 @@ class InlineObject98 {
 
 
 }
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject98.prototype['prepId'] = undefined;
 
 /**
  * Что фактически пришло на склад. Кладовщик.

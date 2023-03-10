@@ -4,7 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
-**additionalBoxes** | [**[InlineObject17]**](InlineObject17.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**barCode** | **String** | Штрихкод продукта | [optional] 
+**logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
+**storekeeperId** | **String** | GUID сотрудника склада | [optional] 
+**shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**destinationId** | **String** | Гуид модели destination | [optional] 
+**boxesIds** | **[String]** |  | 
 
 
