@@ -1974,11 +1974,11 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type',
+    routePath: '/freelancer/freelance/my-services/service-detailds/custom-service-type',
     component: ServicesDetailCustomView,
     exact: true,
     permission: [UserRole.FREELANCER],
-    crumbNameKey: TranslationKey.Service,
+    crumbNameKey: TranslationKey.Request,
   },
 
   {
