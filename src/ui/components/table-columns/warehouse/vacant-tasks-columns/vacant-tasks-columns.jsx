@@ -36,11 +36,20 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+
+    width: window.innerWidth < 1282 ? 115 : 170,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+  },
+
+  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: 170,
+    width: window.innerWidth < 1282 ? 120 : 170,
     renderCell: params => (
       <TaskPriorityCell
         curPriority={params.value}
@@ -51,20 +60,11 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'operationType',
-    headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
-
-    width: window.innerWidth < 1282 ? 115 : 170,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
-  },
-
-  {
     field: 'description',
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: window.innerWidth < 1282 ? 413 : 850,
+    width: window.innerWidth < 1282 ? 338 : 850,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -99,8 +99,9 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    align: 'center',
     type: 'number',
-    width: window.innerWidth < 1282 ? 114 : 160,
+    width: window.innerWidth < 1282 ? 75 : 160,
     sortable: false,
   },
 

@@ -284,15 +284,15 @@ export const StringListCell = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={classNames.flexDirectionColumn}>
+      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)}>
         {items
           .slice(0, maxItemsDisplay)
           .filter(el => el)
           .map((item, i) => (
             <div key={i} className={classNames.multilineTextHeaderWrapper}>
-              <Typography className={classNames.typoCell}>
+              <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
                 {
-                  <span className={classNames.multilineHeaderText}>
+                  <span className={cx(classNames.multilineHeaderText, classNames.adaptText)}>
                     {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                   </span>
                 }

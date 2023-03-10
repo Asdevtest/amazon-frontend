@@ -22,7 +22,7 @@ export const styles = theme => ({
     height: 'calc(100vh - 180px)',
 
     [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 240px)',
+      height: 'calc(100vh - 250px)',
     },
   },
   root: {

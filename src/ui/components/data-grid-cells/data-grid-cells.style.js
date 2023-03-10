@@ -952,6 +952,12 @@ export const styles = theme => ({
     lineHeight: '14px',
   },
 
+  adaptText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
   headerText: {
     width: '100%',
     textAlign: 'left',
@@ -1565,6 +1571,9 @@ export const styles = theme => ({
   },
 
   nativeSelect: {
+    [theme.breakpoints.down(1282)]: {
+      width: 108,
+    },
     // width: '210px',
   },
 

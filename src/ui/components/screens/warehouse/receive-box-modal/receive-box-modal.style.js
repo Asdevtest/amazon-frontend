@@ -98,7 +98,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',
-      height: 315,
+      height: 295,
 
       overflowY: 'auto',
     },
@@ -327,6 +327,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     height: 77,
     flexWrap: 'wrap',
+    width: 310,
   },
 
   categoryTitle: {
