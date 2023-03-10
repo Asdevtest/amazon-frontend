@@ -2,10 +2,12 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    minHeight: '373px',
+    // minHeight: '373px',
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     padding: '30px 20px ',
+    width: 300,
+    height: 500,
   },
 
   cardTitleBlockWrapper: {
@@ -14,13 +16,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: '18px',
+    fontSize: 14,
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '20px',
-    height: '50px',
+    // height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    width: '100%',
   },
 
   cardSubTitle: {
@@ -139,11 +142,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    height: 300,
+    height: 280,
   },
 
   fieldLabel: {
-    fontSize: '14px',
+    fontSize: 12,
     lineHeight: '16px',
     fontWeight: '400',
     color: theme.palette.text.second,
@@ -151,10 +154,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   fieldContainer: {
     minHeight: 55,
+    marginBottom: '10px !important',
   },
 
   priceAmazonWrapper: {
     display: 'flex',
+    // flexWrap: 'nowrap',
+    maxWidth: 150,
   },
 
   redText: {
@@ -162,20 +168,34 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+    textDecorationLine: 'line-through',
+    marginLeft: 5,
   },
 
   cashBackPrice: {
-    marginLeft: 5,
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
-    textDecorationLine: 'line-through',
+    // color: '#656565',
   },
 
   accentText: {
     fontSize: 14,
     fontWeight: 600,
     color: theme.palette.text.general,
+  },
+
+  rightLieldLabel: {
+    textAlign: 'right',
+    justifySelf: 'end',
+    margin: '0 0 12px auto !important',
+  },
+
+  rightText: {
+    textAlign: 'right',
+  },
+
+  dontWrapText: {
+    whiteSpace: 'nowrap',
   },
 }))

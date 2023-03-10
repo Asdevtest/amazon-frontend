@@ -72,11 +72,11 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
                 label={t(TranslationKey['Product price'])}
                 inputComponent={
                   <div className={classNames.priceAmazonWrapper}>
-                    <Typography className={classNames.redText}>
+                    <Typography className={classNames.cashBackPrice}>
                       {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
                     </Typography>
 
-                    <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(item.priceAmazon, 2)}`}</Typography>
+                    <Typography className={classNames.redText}>{`$ ${toFixed(item.priceAmazon, 2)}`}</Typography>
                   </div>
                 }
               />

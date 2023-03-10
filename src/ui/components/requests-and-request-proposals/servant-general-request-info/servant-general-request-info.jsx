@@ -63,7 +63,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
               label={t(TranslationKey['Product price'])}
               inputComponent={
                 <div className={classNames.priceAmazonWrapper}>
-                  <Typography className={classNames.redText}>
+                  <Typography className={classNames.cashBackPrice}>
                     {`$ ${toFixed(
                       request?.request.priceAmazon -
                         (request?.request.priceAmazon * request?.request.cashBackInPercent) / 100,
@@ -71,7 +71,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
                     )}`}
                   </Typography>
 
-                  <Typography className={classNames.cashBackPrice}>{`$ ${toFixed(
+                  <Typography className={classNames.redText}>{`$ ${toFixed(
                     request?.request.priceAmazon,
                     2,
                   )}`}</Typography>

@@ -145,9 +145,11 @@ class VacantRequestsViewRaw extends Component {
                   gridTemplateColumns={
                     viewMode === tableViewMode.LIST
                       ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                      : 'repeat(auto-fill, minmax(330px, 1fr))'
+                      : 'repeat(auto-fill, minmax(300px, 1fr))'
                   }
-                  gridGap="20px"
+                  // gridGap="20px"
+                  // gridGap="35px"
+                  gap={'35px'}
                 >
                   {getSortedData(sortMode)?.map((item, index) =>
                     viewMode === tableViewMode.LIST ? (

@@ -47,16 +47,16 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
 
   const curUserId: string | undefined = UserModel.userId
 
-  console.log('message', message)
+  // console.log('message', message)
 
-  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
         <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
 
-        <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
+        <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
 
         <Linkify>
           <Typography className={classNames.descriptionText}>{message.data.proposal.details.result}</Typography>
@@ -118,7 +118,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                     <div className={cx(classNames.infoItemList, classNames.linkInfoItemList)}>
                       {message.data.proposal.details.publicationLinks.map((el, index) => (
                         <div key={index} className={classNames.infoItemWrapper}>
-                          <Typography className={classNames.infoItemText}>{el}</Typography>
+                          <Typography className={cx(classNames.infoItemText, classNames.infoLinkText)}>{el}</Typography>
 
                           <CopyValue text={el} disabled={undefined} />
                         </div>

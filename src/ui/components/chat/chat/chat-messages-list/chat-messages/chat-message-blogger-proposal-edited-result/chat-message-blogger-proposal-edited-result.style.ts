@@ -313,6 +313,13 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#001029',
   },
 
+  infoLinkText: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    maxWidth: 250,
+  },
+
   fieldContainer: {
     width: 'min-content',
   },
