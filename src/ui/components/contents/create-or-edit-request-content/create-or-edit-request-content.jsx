@@ -330,7 +330,7 @@ export const CreateOrEditRequestContent = ({
                       labelClasses={classNames.spanLabelSmall}
                       value={toFixed(formFields.request.cashBackInPercent, 0)}
                       onChange={e => {
-                        if (Number(e.target.value) < 100 && formFields.request.priceAmazon) {
+                        if (Number(e.target.value) <= 100 && formFields.request.priceAmazon) {
                           onChangeField('request')('cashBackInPercent')(e)
                         }
                       }}
