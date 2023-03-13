@@ -202,6 +202,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  storekeeperCommentField: {
+    [theme.breakpoints.down(1282)]: {
+      height: 182,
+    },
+  },
+
   clientAndBuyerComment: {
     height: '100px',
     [theme.breakpoints.down(1282)]: {
