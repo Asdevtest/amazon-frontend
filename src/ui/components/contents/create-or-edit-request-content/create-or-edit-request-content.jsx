@@ -102,7 +102,8 @@ export const CreateOrEditRequestContent = ({
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId: requestToEdit?.request.announcementId || choosenAnnouncements || '',
+      announcementId:
+        requestToEdit?.request.announcementId || (choosenAnnouncements.length && choosenAnnouncements) || '',
 
       discountedPrice: '0',
     },
@@ -486,7 +487,7 @@ export const CreateOrEditRequestContent = ({
                   <div className={classNames.checkboxAndButtonWrapper}>
                     <div className={classNames.performerAndButtonWrapper}>
                       <div className={classNames.performerAndButtonSubWrapper}>
-                        {formFields.request.announcementId && formFields.request.announcementId.length ? (
+                        {formFields.request.announcementId ? (
                           <div className={classNames.performerWrapper}>
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
