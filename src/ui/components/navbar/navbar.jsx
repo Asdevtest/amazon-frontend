@@ -242,7 +242,11 @@ export const Navbar = observer(
               root: classNames.root,
               paper: cx(classNames.paper, {[classNames.moreWidth]: window.innerWidth < 1282}),
             }}
-            onClose={setDrawerOpen}
+            onClose={() => {
+              setDrawerOpen()
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
           >
             {drawerContent}
           </Drawer>
