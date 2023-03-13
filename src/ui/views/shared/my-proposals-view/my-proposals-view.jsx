@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import {Grid, Typography} from '@mui/material'
@@ -18,7 +19,12 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import {
+  sortObjectsArrayByArrayObjectFiledDateWithParseISO,
+  sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
+  sortObjectsArrayByFiledDateWithParseISO,
+  sortObjectsArrayByFiledDateWithParseISOAsc,
+} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
@@ -52,13 +58,17 @@ class MyProposalsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    console.log('getCurrentData()', getCurrentData())
+
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISO(getCurrentData(), 'updatedAt', 'proposals')
 
         case tableSortMode.ASC:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(getCurrentData(), 'updatedAt', 'proposals')
       }
     }
 
