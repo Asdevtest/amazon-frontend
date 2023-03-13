@@ -115,6 +115,8 @@ export const CreateOrEditRequestContent = ({
 
   const [deadlineError, setDeadlineError] = useState(false)
 
+  console.log('formFields', formFields)
+
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
 
@@ -486,7 +488,7 @@ export const CreateOrEditRequestContent = ({
                   <div className={classNames.checkboxAndButtonWrapper}>
                     <div className={classNames.performerAndButtonWrapper}>
                       <div className={classNames.performerAndButtonSubWrapper}>
-                        {formFields.request.announcementId && (
+                        {formFields.request.announcementId && formFields.request.announcementId.length ? (
                           <div className={classNames.performerWrapper}>
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
@@ -505,7 +507,7 @@ export const CreateOrEditRequestContent = ({
                               </div>
                             </div>
                           </div>
-                        )}
+                        ) : null}
                         <Button
                           disabled={!formFields?.request?.typeTask}
                           variant={'contained'}
@@ -784,6 +786,16 @@ export const CreateOrEditRequestContent = ({
                                 containerClasses={cx(classNames.fitContentContainer)}
                                 inputComponent={
                                   <div className={classNames.pricesWrapper}>
+                                    {formFields.request.discountedPrice && (
+                                      <Typography
+                                        className={cx(classNames.twoStepFieldResult, {
+                                          [classNames.newPrice]: formFields.request.discountedPrice,
+                                        })}
+                                      >
+                                        {'$ ' + formFields.request.discountedPrice}
+                                      </Typography>
+                                    )}
+
                                     <Typography
                                       className={cx(classNames.twoStepFieldResult, {
                                         [classNames.oldPrice]: formFields.request.discountedPrice,
@@ -791,11 +803,6 @@ export const CreateOrEditRequestContent = ({
                                     >
                                       {'$ ' + formFields.request.priceAmazon}
                                     </Typography>
-                                    {formFields.request.discountedPrice && (
-                                      <Typography className={classNames.twoStepFieldResult}>
-                                        {'$ ' + formFields.request.discountedPrice}
-                                      </Typography>
-                                    )}
                                   </div>
                                 }
                               />
