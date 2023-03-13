@@ -104,7 +104,7 @@ export const CreateOrEditRequestContent = ({
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
       announcementId: requestToEdit?.request.announcementId || choosenAnnouncements || '',
 
-      discountedPrice: '',
+      discountedPrice: '0',
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -115,8 +115,6 @@ export const CreateOrEditRequestContent = ({
 
   const [deadlineError, setDeadlineError] = useState(false)
 
-  console.log('formFields', formFields)
-
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
 
@@ -126,18 +124,18 @@ export const CreateOrEditRequestContent = ({
       }
 
       if (['priceAmazon'].includes(fieldName)) {
-        newFormFields.request.discountedPrice = ''
-        newFormFields.request.cashBackInPercent = ''
+        newFormFields.request.discountedPrice = '0'
+        newFormFields.request.cashBackInPercent = '0'
       }
 
       if (['cashBackInPercent'].includes(fieldName)) {
         newFormFields.request.discountedPrice =
-          calcNumberMinusPercent(formFields?.request.priceAmazon, event.target.value) || ''
+          calcNumberMinusPercent(formFields?.request.priceAmazon, event.target.value) || 0
       }
 
       if (['discountedPrice'].includes(fieldName)) {
         newFormFields.request.cashBackInPercent =
-          calcPercentAfterMinusNumbers(formFields?.request.priceAmazon, event.target.value) || ''
+          calcPercentAfterMinusNumbers(formFields?.request.priceAmazon, event.target.value) || 0
       }
 
       newFormFields[section][fieldName] = replaceCommaByDot(event.target.value)
@@ -557,24 +555,6 @@ export const CreateOrEditRequestContent = ({
                         </Text>
                       </div>
                     </div>
-
-                    {/* <Field
-                    oneLine
-                    tooltipInfoContent={t(
-                      TranslationKey['After providing the result, the same performer may make a new proposal'],
-                    )}
-                    label={t(TranslationKey['Prohibit multiple performances by the same performer'])}
-                    containerClasses={cx(classNames.checkboxProposalWrapper, {
-                      [classNames.checkboxProposalMarginTopWrapper]: formFields.request.announcementId,
-                    })}
-                    inputComponent={
-                      <Checkbox
-                        color="primary"
-                        checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                        onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                      />
-                    }
-                  /> */}
                   </div>
                 </div>
                 {requestToEdit ? (
@@ -786,19 +766,21 @@ export const CreateOrEditRequestContent = ({
                                 containerClasses={cx(classNames.fitContentContainer)}
                                 inputComponent={
                                   <div className={classNames.pricesWrapper}>
-                                    {formFields.request.discountedPrice && (
+                                    {formFields.request.discountedPrice && formFields.request.cashBackInPercent ? (
                                       <Typography
                                         className={cx(classNames.twoStepFieldResult, {
-                                          [classNames.newPrice]: formFields.request.discountedPrice,
+                                          [classNames.newPrice]:
+                                            formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                         })}
                                       >
                                         {'$ ' + formFields.request.discountedPrice}
                                       </Typography>
-                                    )}
+                                    ) : null}
 
                                     <Typography
                                       className={cx(classNames.twoStepFieldResult, {
-                                        [classNames.oldPrice]: formFields.request.discountedPrice,
+                                        [classNames.oldPrice]:
+                                          formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                       })}
                                     >
                                       {'$ ' + formFields.request.priceAmazon}
