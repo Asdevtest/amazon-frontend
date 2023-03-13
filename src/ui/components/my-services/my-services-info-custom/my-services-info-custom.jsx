@@ -64,27 +64,6 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
         <div className={classNames.requestTitleAndInfo}>
           <Typography className={classNames.requestTitle}>{request?.request.title}</Typography>
           <div className={classNames.requestInfoWrapper}>
-            <div className={classNames.blockInfoWrapper}>
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-                <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
-                  {toFixed(request?.request.price, 2) + '$'}
-                </Typography>
-              </div>
-
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
-                <div className={classNames.blockInfoCellText}>
-                  {
-                    <RequestStatusCell
-                      status={request?.request.status}
-                      styles={{fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left'}}
-                    />
-                  }
-                </div>
-              </div>
-            </div>
-
             {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
             request?.request?.priceAmazon ? (
               <div className={classNames.blockInfoWrapper}>
@@ -119,6 +98,26 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
                 </div>
               </div>
             ) : null}
+            <div className={classNames.blockInfoWrapper}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+                <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+                  {toFixed(request?.request.price, 2) + '$'}
+                </Typography>
+              </div>
+
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
+                <div className={classNames.blockInfoCellText}>
+                  {
+                    <RequestStatusCell
+                      status={request?.request.status}
+                      styles={{fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left'}}
+                    />
+                  }
+                </div>
+              </div>
+            </div>
 
             <div className={cx(classNames.blockInfoWrapper)}>
               <div className={classNames.blockInfoCell}>
