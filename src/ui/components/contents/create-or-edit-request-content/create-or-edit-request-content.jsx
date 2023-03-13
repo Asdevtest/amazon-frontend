@@ -414,7 +414,7 @@ export const CreateOrEditRequestContent = ({
                   </div>
 
                   <div className={classNames.checkboxesWrapper}>
-                    <div
+                    {/* <div
                       className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperLeft)}
                       onClick={e => {
                         onChangeField('request')('maxAmountOfProposals')({...e, target: {value: ''}})
@@ -430,7 +430,7 @@ export const CreateOrEditRequestContent = ({
                       >
                         {t(TranslationKey['Limit the number of proposals'])}
                       </Text>
-                    </div>
+                    </div> */}
 
                     {`${formFields?.request?.typeTask}` !==
                       `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
