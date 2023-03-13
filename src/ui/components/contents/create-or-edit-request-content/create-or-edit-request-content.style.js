@@ -236,7 +236,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.main,
   },
   oldPrice: {
-    color: '#FB1D5B',
     textDecoration: 'line-through',
   },
 
@@ -727,5 +726,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   checkboxWrapperLeft: {
     width: 377,
+  },
+  newPrice: {
+    color: '#FB1D5B',
   },
 }))
