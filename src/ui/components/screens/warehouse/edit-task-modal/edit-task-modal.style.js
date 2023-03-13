@@ -11,6 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     [theme.breakpoints.down(1282)]: {
       width: 1150,
+      maxHeight: 'calc(100vh - 145px)',
     },
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -203,6 +204,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   clientAndBuyerComment: {
     height: '100px',
+    [theme.breakpoints.down(1282)]: {
+      height: 62,
+    },
   },
 
   inputField: {

@@ -3,6 +3,11 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
+    [theme.breakpoints.down(1282)]: {
+      height: 'calc(100vh - 145px)',
+      width: 715,
+      overflowY: 'auto',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
