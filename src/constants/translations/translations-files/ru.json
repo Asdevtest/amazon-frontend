@@ -1789,7 +1789,7 @@
   "Without stores": "Без магазина",
   "This amount includes the service fee": "В указанную сумму входит комиссия сервиса",
   "Got barcode": "Есть баркод",
-  "No barcode": "Без баркода",
+  "No barcode": "Нет баркода",
   "Download box file": "Скачать файл коробки",
   "Low": "Низкий",
   "Medium": "Средний",
@@ -1802,5 +1802,6 @@
   "TASK_STANDART_PRIORITY_KEY": "Средний",
   "Total volume weight": "Общий объемный вес",
   "Total CBM": "Общий CBM",
-  "Search by ASIN, Title, Order, item": "Поиск по ASIN, Title, Заказу, item"
+  "Search by ASIN, Title, Order, item, ID Box": "Поиск по ASIN, Title, Заказу, item, ID коробки",
+  "Accepted in processing": "Принято в обработку"
 }

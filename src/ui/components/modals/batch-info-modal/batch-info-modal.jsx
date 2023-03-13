@@ -167,7 +167,7 @@ export const BatchInfoModal = observer(
               disabled
               classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={[classNames.infoField, classNames.disabledField]}
+              inputClasses={[classNames.infoField, classNames.dstinationField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={batch.boxes?.[0].destination?.name}
@@ -217,7 +217,7 @@ export const BatchInfoModal = observer(
               disabled
               classes={{disabled: classNames.disabled}}
               containerClasses={classNames.sumField}
-              inputClasses={[classNames.infoField]}
+              inputClasses={[classNames.infoField, classNames.methodField]}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Method of batch weight calculation'])}
               value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
@@ -287,7 +287,7 @@ export const BatchInfoModal = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>

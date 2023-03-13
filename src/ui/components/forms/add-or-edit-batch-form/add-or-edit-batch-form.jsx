@@ -449,7 +449,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueBoxesToAddData}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
@@ -548,7 +548,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueChosenBoxes}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>
