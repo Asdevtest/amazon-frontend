@@ -12,6 +12,7 @@ import {
   PricePerUnitCell,
   ManyItemsPriceCell,
   FinalPricePerUnitCell,
+  OrdersIdsItemsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
@@ -36,6 +37,16 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     renderCell: params => <MultilineTextCell text={params.row.humanFriendlyId} />,
     type: 'number',
     width: 60,
+  },
+
+  {
+    field: 'orderIdsItems',
+    headerName: t(TranslationKey['№ Order/ № Item']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+    renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
+    width: 140,
+    sortable: false,
   },
 
   {

@@ -1244,7 +1244,7 @@ export class WarehouseMyWarehouseViewModel {
         ),
       })
 
-      console.log('filter', filter)
+      // console.log('filter', filter)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.nameSearchValue ? filter : null,

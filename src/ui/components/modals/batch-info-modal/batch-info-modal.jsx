@@ -53,7 +53,17 @@ export const BatchInfoModal = observer(
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
-    const [dataToRender, setDataToRender] = useState(batch.boxes || [])
+    const sourceBoxes =
+      batch?.boxes?.map(item => ({
+        ...item,
+        orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+          .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+          .slice(0, -2)}  item №: ${item.items
+          .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+          .slice(0, -2)}`,
+      })) || []
+
+    const [dataToRender, setDataToRender] = useState(sourceBoxes)
 
     const [receivedFiles, setReceivedFiles] = useState(null)
 
@@ -63,18 +73,21 @@ export const BatchInfoModal = observer(
     )
 
     useEffect(() => {
-      if (batch?.boxes && nameSearchValue) {
+      if (sourceBoxes && nameSearchValue) {
         setDataToRender(
-          batch?.boxes.filter(el =>
-            el.items.some(
-              item =>
-                item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-                item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
+          sourceBoxes.filter(
+            el =>
+              el.items.some(
+                item =>
+                  item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+                  item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+                  String(item.order.id)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+                  String(item.order.item)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              ) || String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
       } else {
-        setDataToRender(batch.boxes || [])
+        setDataToRender(sourceBoxes)
       }
     }, [nameSearchValue, batch])
 
@@ -274,7 +287,7 @@ export const BatchInfoModal = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item'])}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>

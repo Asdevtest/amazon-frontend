@@ -11,6 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: 728,
+    width: 1320,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',

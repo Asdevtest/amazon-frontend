@@ -1799,10 +1799,9 @@ export enum TranslationKey {
   'Download task file' = 'Download task file',
   'TASK_LOW_PRIORITY_KEY' = 'TASK_LOW_PRIORITY_KEY',
   'TASK_STANDART_PRIORITY_KEY' = 'TASK_STANDART_PRIORITY_KEY',
-
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Total volume weight' = 'Total volume weight',
+  'Total CBM' = 'Total CBM',
+  'Search by ASIN, Title, Order, item' = 'Search by ASIN, Title, Order, item',
   // '' = '',
   // '' = '',
   // '' = '',

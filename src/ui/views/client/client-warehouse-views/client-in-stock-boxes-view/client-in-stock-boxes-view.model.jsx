@@ -1833,8 +1833,9 @@ export class ClientInStockBoxesViewModel {
         // {prepId: {$contains: this.nameSearchValue}},
       ].filter(
         el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) /* &&
-            !el.orderHumanFriendlyId */ ||
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.orderHumanFriendlyId) ||
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 

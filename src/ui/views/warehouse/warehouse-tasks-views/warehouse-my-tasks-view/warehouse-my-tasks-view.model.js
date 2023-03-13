@@ -527,6 +527,8 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerEditTaskModal()
 
+      await UserModel.getUserInfo()
+
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

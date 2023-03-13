@@ -550,9 +550,11 @@ export class ClientOrdersViewModel {
           .filter(product => correctIds.includes(product.originalData.product._id))
           .map(prod => prod.originalData.product)
 
-        this.isOrder = this.currentData
-          .filter(product => correctIds.includes(product.originalData.product._id))
-          .map(prod => prod.originalData)
+        // this.isOrder = this.currentData
+        //   .filter(product => correctIds.includes(product.originalData.product._id))
+        //   .map(prod => prod.originalData)
+
+        this.isOrder = item
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {

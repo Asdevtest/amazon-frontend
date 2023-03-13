@@ -1799,5 +1799,8 @@
   "All priorities": "Все приоритеты",
   "Download task file": "Скачать файл задачи",
   "TASK_LOW_PRIORITY_KEY": "Низкий",
-  "TASK_STANDART_PRIORITY_KEY": "Средний"
+  "TASK_STANDART_PRIORITY_KEY": "Средний",
+  "Total volume weight": "Общий объемный вес",
+  "Total CBM": "Общий CBM",
+  "Search by ASIN, Title, Order, item": "Поиск по ASIN, Title, Заказу, item"
 }

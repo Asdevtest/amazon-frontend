@@ -211,6 +211,8 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.pickupTask(item._id)
 
       this.loadData()
+
+      await UserModel.getUserInfo()
       runInAction(() => {
         this.curTask = item
       })

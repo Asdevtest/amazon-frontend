@@ -1,5 +1,7 @@
 import {Link, Typography} from '@mui/material'
 
+import {useState} from 'react'
+
 // import {useState} from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -19,6 +21,13 @@ export const CheckPendingOrderForm = ({
   const {classes: classNames} = useClassNames()
 
   const existingOrdersRander = Array.from(new Set(existingOrders.map(el => el.asin)))
+
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
+  const onSubmit = () => {
+    onClickContinueBtn()
+    setSubmitIsClicked(true)
+  }
 
   return (
     <div className={classNames.root}>
@@ -64,7 +73,7 @@ export const CheckPendingOrderForm = ({
           </div>
         </div>
         <div className={classNames.buttonGroup}>
-          <Button success variant="contained" onClick={onClickContinueBtn}>
+          <Button success disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
             {t(TranslationKey.Continue)}
           </Button>
           <Button variant="text" className={classNames.CancelBtn} onClick={onClickCancelBtn}>
