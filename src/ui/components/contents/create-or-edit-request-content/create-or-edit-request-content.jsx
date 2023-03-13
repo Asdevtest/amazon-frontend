@@ -116,6 +116,8 @@ export const CreateOrEditRequestContent = ({
 
   const [deadlineError, setDeadlineError] = useState(false)
 
+  console.log('formFields', formFields)
+
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
 
