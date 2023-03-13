@@ -239,6 +239,10 @@ export const lightTheme = createTheme({
       // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
     },
+
+    other: {
+      ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
+    },
   },
 })
 
@@ -609,6 +613,10 @@ export const darkTheme = createTheme({
         // customDisabled: '#EBEBEB', // макет
 
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
+      },
+
+      other: {
+        ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       },
     },
   },

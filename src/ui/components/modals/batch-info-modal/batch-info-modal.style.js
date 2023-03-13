@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: 728,
-    width: 1320,
+    width: 1350,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -375,10 +375,14 @@ export const useClassNames = makeStyles()(theme => ({
     width: 100,
   },
   tariffField: {
+    width: 230,
+  },
+  dstinationField: {
     width: 190,
   },
-  disabledField: {
-    width: 135,
+
+  methodField: {
+    width: 270,
   },
   filesAndButtonWrapper: {
     display: 'flex',

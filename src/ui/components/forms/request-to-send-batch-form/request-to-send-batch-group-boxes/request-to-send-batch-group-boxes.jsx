@@ -40,7 +40,8 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const totalVolumeWeight = selectedGroup.boxes.reduce(
-    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.volumeWeightKgWarehouse),
+    (acc, cur) =>
+      (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.volumeWeightKgWarehouse * cur.amount),
     0,
   )
 

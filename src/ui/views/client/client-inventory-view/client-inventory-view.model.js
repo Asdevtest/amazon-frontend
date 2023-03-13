@@ -1461,6 +1461,10 @@ export class ClientInventoryViewModel {
       })
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.batchesData = []
+      })
     }
   }
 
