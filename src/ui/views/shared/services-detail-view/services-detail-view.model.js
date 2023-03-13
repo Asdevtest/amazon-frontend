@@ -130,14 +130,14 @@ export class ServiceDetailsViewModel {
   }
 
   onClickOpenBtn(id) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type`, {
+    this.history.push(`/freelancer/freelance/my-services/service-detailds/custom-service-type`, {
       requestId: id,
     })
   }
 
   onClickEditBtn() {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
-      request: this.announcementData,
+      requestId: toJS(this.announcementId),
     })
   }
 

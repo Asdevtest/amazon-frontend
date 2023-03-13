@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.main,
 
-    marginBottom: 30,
+    marginBottom: 20,
   },
   label: {
     fontWeight: 400,
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 10,
   },
   numberInputField: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   input: {
     height: 40,
@@ -62,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
 
-    marginBottom: 30,
+    marginBottom: 20,
   },
   inputWrapper: {
     display: 'flex',
@@ -106,12 +106,12 @@ export const useClassNames = makeStyles()(theme => ({
     height: '20px',
   },
   commentFieldWrapper: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   commentField: {
     height: 'auto',
   },
   dragAndDropWrapper: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
 }))

@@ -14,7 +14,7 @@ import {
   MenuItem,
 } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   freelanceRequestType,
@@ -49,6 +49,10 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
   const isEdit = pathname?.includes('edit-service')
 
   const [images, setImages] = useState([])
+
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [data])
 
   const sourceFormFields = {
     type: data?.type || '',

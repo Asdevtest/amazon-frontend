@@ -90,9 +90,8 @@ export class ServicesDetailCustomViewModel {
   }
 
   onClickSuggestDealBtn() {
-    this.history.push(
-      '/freelancer/freelance/my-services/service-detailds/edit-service/custom-service-type/create-proposal',
-      {request: toJS(this.request)},
-    )
+    this.history.push('/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal', {
+      request: toJS(this.request),
+    })
   }
 }

@@ -23,6 +23,8 @@ export class CreateOrEditServicesViewModel {
 
   uploadedFiles = []
 
+  requestId = null
+
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -33,11 +35,31 @@ export class CreateOrEditServicesViewModel {
       this.pathname = location.pathname
 
       if (location.state) {
-        this.requestToEdit = location.state.request
+        this.requestId = location.state.requestId
       }
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async getAnnouncementsDataByGuid() {
+    try {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+      runInAction(() => {
+        this.requestToEdit = result
+      })
+    } catch (error) {
+      this.error = error
+      console.log(error)
+    }
+  }
+
+  async loadData() {
+    try {
+      await this.getAnnouncementsDataByGuid()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickCreateBtn(data, files) {

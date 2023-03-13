@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   format,
   formatDistance,
@@ -76,7 +77,41 @@ export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[
 export const sortObjectsArrayByFiledDateWithParseISO = fieldName => (a, b) =>
   compareDesc(parseISO(a[fieldName]), parseISO(b[fieldName]))
 
-export const sortObjectsArrayByFiledDateAsc = fieldName => (a, b) => compareAsc(a[fieldName], b[fieldName])
-
 export const sortObjectsArrayByFiledDateWithParseISOAsc = fieldName => (a, b) =>
   compareAsc(parseISO(a[fieldName]), parseISO(b[fieldName]))
+
+export const sortObjectsArrayByFiledDateAsc = fieldName => (a, b) => compareAsc(a[fieldName], b[fieldName])
+
+export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldName, object) =>
+  array
+    .sort((a, b) => {
+      const first = Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
+      const second = Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
+
+      if (first < second) {
+        return -1
+      }
+      if (first > second) {
+        return 1
+      }
+      return 0
+
+      // compareDesc(first, second)
+    })
+    .reverse()
+
+export const sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc = (array, fieldName, object) =>
+  array.sort((a, b) => {
+    const first = Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
+    const second = Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
+
+    if (first < second) {
+      return -1
+    }
+    if (first > second) {
+      return 1
+    }
+    return 0
+
+    // compareAsc(first, second)
+  })
