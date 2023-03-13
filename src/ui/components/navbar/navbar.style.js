@@ -37,6 +37,10 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
+  moreWidth: {
+    width: 245,
+  },
+
   hideNavbar: {
     width: 70,
   },

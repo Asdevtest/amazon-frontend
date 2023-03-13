@@ -46,7 +46,7 @@ export const Navbar = observer(
     const [shortNavbar, setShortNavbar] = useState(() => {
       const saved = localStorage.getItem('shortNavbar')
       const initialValue = JSON.parse(saved)
-      return initialValue || true
+      return initialValue || window.innerWidth < 1282 ? true : false
     })
     useEffect(() => {
       setCurNavbar(navbarConfig())
@@ -235,7 +235,15 @@ export const Navbar = observer(
         )}
 
         {showOverlayNavBar && (
-          <Drawer open anchor="left" classes={{root: classNames.root, paper: classNames.paper}} onClose={setDrawerOpen}>
+          <Drawer
+            open
+            anchor="left"
+            classes={{
+              root: classNames.root,
+              paper: cx(classNames.paper, {[classNames.moreWidth]: window.innerWidth < 1282}),
+            }}
+            onClose={setDrawerOpen}
+          >
             {drawerContent}
           </Drawer>
         )}
