@@ -347,10 +347,5 @@ export const calcNumberMinusPercent = (number, percent) => {
   }
 }
 
-export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) => {
-  if (firstNumber === secondNumber) {
-    return 100
-  } else {
-    return ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)
-  }
-}
+export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) =>
+  ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)
