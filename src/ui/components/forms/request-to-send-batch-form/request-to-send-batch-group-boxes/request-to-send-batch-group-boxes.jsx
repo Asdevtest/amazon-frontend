@@ -39,6 +39,16 @@ export const RequestToSendBatchesGroupBoxes = ({
     0,
   )
 
+  const totalVolumeWeight = selectedGroup.boxes.reduce(
+    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.volumeWeightKgWarehouse),
+    0,
+  )
+
+  const totalCubicMeters = selectedGroup.boxes.reduce(
+    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.cubicMeters),
+    0,
+  )
+
   const firstNumOfCode = selectedGroup.destination?.zipCode?.[0] || null
 
   const regionOfDeliveryName =
@@ -113,11 +123,27 @@ export const RequestToSendBatchesGroupBoxes = ({
       </table>
       {selectedGroup.price !== 0 && (
         <div className={classNames.footerWrapper}>
-          {tariffIsInvalid ? (
-            <Typography className={classNames.footerAlertSpanText}>
-              {t(TranslationKey['The tariff is invalid or has been removed!'])}
-            </Typography>
-          ) : null}
+          <div>
+            <div className={classNames.footerSubWrapper}>
+              <div className={classNames.footerSubWrapper}>
+                <Text className={classNames.footerTitle}>{t(TranslationKey['Total volume weight'])}</Text>
+
+                <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</Typography>
+              </div>
+
+              <div className={classNames.footerSubWrapper}>
+                <Text className={classNames.footerTitle}>{t(TranslationKey['Total CBM'])}</Text>
+
+                <Typography className={classNames.footerSpanText}>{totalCubicMeters}</Typography>
+              </div>
+            </div>
+
+            {tariffIsInvalid ? (
+              <Typography className={classNames.footerAlertSpanText}>
+                {t(TranslationKey['The tariff is invalid or has been removed!'])}
+              </Typography>
+            ) : null}
+          </div>
 
           <div className={classNames.footerSubWrapper}>
             <Text

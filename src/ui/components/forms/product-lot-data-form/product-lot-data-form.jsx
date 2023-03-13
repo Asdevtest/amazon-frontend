@@ -61,16 +61,12 @@ export const ProductLotDataForm = observer(
     useEffect(() => {
       if (isTransfer && nameSearchValue) {
         setBatches(
-          data?.filter(item =>
-            item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-          ),
+          data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
         )
       } else {
         if (nameSearchValue) {
           setBatches(
-            data?.filter(item =>
-              item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
+            data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
           )
         }
         if (!nameSearchValue) {
@@ -79,10 +75,10 @@ export const ProductLotDataForm = observer(
       }
     }, [nameSearchValue])
 
-    useEffect(() => {
-      setBatches(data)
-      setNameSearchValue('')
-    }, [data])
+    // useEffect(() => {
+    //   setBatches(data)
+    //   // setNameSearchValue('')
+    // }, [data])
 
     const setOpenBatchInfoModal = () => {
       setShowBatchInfoModal(!showBatchInfoModal)

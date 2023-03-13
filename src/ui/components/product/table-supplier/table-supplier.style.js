@@ -35,8 +35,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '24px',
   },
   table: {
-    borderRadius: '10px',
+    borderRadius: 10,
     border: '1px solid rgb(224, 224, 224)',
+    // maxHeight: 450,
+    // paddingRight: 35,
+    // overflow: 'hidden',
     '& td': {
       flexShrink: 0,
       // color: theme.palette.text.general,
@@ -49,6 +52,20 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '15px',
       padding: '8px',
     },
+  },
+
+  tableHead: {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    zIndex: 99,
+    backgroundColor: theme.palette.background.second,
+  },
+
+  tableBody: {
+    maxHeight: 450,
+    overflowY: 'scroll',
+    position: 'relative',
   },
   alert: {
     marginBottom: '24px',

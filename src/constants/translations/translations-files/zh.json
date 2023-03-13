@@ -1798,6 +1798,9 @@
   "Edited by storekeeper": "Edited by storekeeper",
   "All priorities": "All priorities",
   "Download task file": "Download task file",
-  "TASK_LOW_PRIORITY_KEY": "Low",
-  "TASK_STANDART_PRIORITY_KEY": "Standart"
+  "TASK_LOW_PRIORITY_KEY": "Long",
+  "TASK_STANDART_PRIORITY_KEY": "Standard",
+  "Total volume weight": "Total volume weight",
+  "Total CBM": "Total CBM",
+  "Search by ASIN, Title, Order, item": "Search by ASIN, Title, Order, item"
 }
