@@ -120,6 +120,9 @@ class InlineObject18 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
@@ -267,6 +270,12 @@ InlineObject18.prototype['destinationId'] = undefined;
  * @member {String} logicsTariffId
  */
 InlineObject18.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject18.prototype['prepId'] = undefined;
 
 /**
  * GUID сторкипера

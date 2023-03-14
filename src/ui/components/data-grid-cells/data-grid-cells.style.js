@@ -1553,4 +1553,9 @@ export const styles = theme => ({
   colorGreen: {
     color: '#00B746 !important',
   },
+  userMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
 })

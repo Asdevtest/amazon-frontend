@@ -61,7 +61,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject111} opts.body 
+     * @param {module:model/InlineObject112} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangeForgottenPasswordPostWithHttpInfo(opts) {
@@ -94,7 +94,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject111} opts.body 
+     * @param {module:model/InlineObject112} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangeForgottenPasswordPost(opts) {
@@ -110,7 +110,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject109} opts.body 
+     * @param {module:model/InlineObject110} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangePasswordPatchWithHttpInfo(opts) {
@@ -143,7 +143,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject109} opts.body 
+     * @param {module:model/InlineObject110} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangePasswordPatch(opts) {
@@ -311,7 +311,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject110} opts.body 
+     * @param {module:model/InlineObject111} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersForgotPasswordPostWithHttpInfo(opts) {
@@ -344,7 +344,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject110} opts.body 
+     * @param {module:model/InlineObject111} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersForgotPasswordPost(opts) {

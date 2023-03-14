@@ -101,6 +101,7 @@ docs/InlineObject111.md
 docs/InlineObject112.md
 docs/InlineObject113.md
 docs/InlineObject114.md
+docs/InlineObject115.md
 docs/InlineObject12.md
 docs/InlineObject13.md
 docs/InlineObject14.md
@@ -207,7 +208,6 @@ docs/InlineResponse20014.md
 docs/InlineResponse20015.md
 docs/InlineResponse20016.md
 docs/InlineResponse20017.md
-docs/InlineResponse20017Rows.md
 docs/InlineResponse20018.md
 docs/InlineResponse20018Rows.md
 docs/InlineResponse20019.md
@@ -476,6 +476,7 @@ src/model/InlineObject111.js
 src/model/InlineObject112.js
 src/model/InlineObject113.js
 src/model/InlineObject114.js
+src/model/InlineObject115.js
 src/model/InlineObject12.js
 src/model/InlineObject13.js
 src/model/InlineObject14.js
@@ -582,7 +583,6 @@ src/model/InlineResponse20014.js
 src/model/InlineResponse20015.js
 src/model/InlineResponse20016.js
 src/model/InlineResponse20017.js
-src/model/InlineResponse20017Rows.js
 src/model/InlineResponse20018.js
 src/model/InlineResponse20018Rows.js
 src/model/InlineResponse20019.js
@@ -720,22 +720,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1BoxesStorekeepersSentToBatchItems.spec.js
-test/model/ApiV1BoxesStorekeepersSentToBatchOrder.spec.js
-test/model/InlineResponse20019Group.spec.js
-test/model/InlineResponse20019Rows.spec.js
-test/model/InlineResponse20029Rows.spec.js
-test/model/InlineResponse20033Batch.spec.js
-test/model/InlineResponse20033Requests.spec.js
-test/model/InlineResponse20033Shops.spec.js
-test/model/InlineResponse20034Finances.spec.js
-test/model/InlineResponse20034Orders.spec.js
-test/model/InlineResponse20034PendingOrders.spec.js
-test/model/InlineResponse20035Batches.spec.js
-test/model/InlineResponse20035Boxes.spec.js
-test/model/InlineResponse20035Tasks.spec.js
-test/model/InlineResponse20038Checking.spec.js
-test/model/InlineResponse20038Products.spec.js
-test/model/InlineResponse20045Failed.spec.js
-test/model/InlineResponse20065.spec.js
-test/model/InlineResponse20065Details.spec.js

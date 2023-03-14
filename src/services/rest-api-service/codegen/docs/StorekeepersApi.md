@@ -1324,70 +1324,6 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1StorekeepersTasksLightPagVacGet
-
-> InlineResponse20057 apiV1StorekeepersTasksLightPagVacGet(opts)
-
-# Получить вакантные задачи закрепленные за данным сторкипером с пагинацией
-
-## Получить вакантные задачи закрепленные за данным сторкипером с пагинацией  
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.StorekeepersApi();
-let opts = {
-  'status': 56, // Number | Статус задачи для фильтра.
-  'offset': 56, // Number | Отступ от первой записи получаемой в запросе
-  'limit': 56, // Number | Кол-во получаемых записей
-  'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
-  'sortField': "sortField_example", // String | Название поля
-  'sortType': "sortType_example", // String | Тип сортировки
-  'Accept_Encoding': "Accept_Encoding_example" // String | 
-};
-apiInstance.apiV1StorekeepersTasksLightPagVacGet(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **status** | **Number**| Статус задачи для фильтра. | [optional] 
- **offset** | **Number**| Отступ от первой записи получаемой в запросе | [optional] 
- **limit** | **Number**| Кол-во получаемых записей | [optional] 
- **filters** | **String**|                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
- **sortField** | **String**| Название поля | [optional] 
- **sortType** | **String**| Тип сортировки | [optional] 
- **Accept_Encoding** | **String**|  | [optional] 
-
-### Return type
-
-[**InlineResponse20057**](InlineResponse20057.md)
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## apiV1StorekeepersTasksLightVacGet
 
 > [InlineResponse2004] apiV1StorekeepersTasksLightVacGet(opts)
@@ -1442,7 +1378,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20024] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20025] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1482,7 +1418,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -1658,7 +1594,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20024] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20025] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1696,7 +1632,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 
