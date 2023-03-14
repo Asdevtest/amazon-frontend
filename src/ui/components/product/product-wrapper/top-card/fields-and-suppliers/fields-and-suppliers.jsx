@@ -110,8 +110,10 @@ export const FieldsAndSuppliers = observer(
                     tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
                     className={classNames.buttonParseAmazon}
                     onClick={() => {
-                      onClickParseProductData(ProductDataParser.AMAZON, product)
-                      onClickParseProductData(ProductDataParser.SELLCENTRAL, product)
+                      // onClickParseProductData(ProductDataParser.AMAZON, product)
+                      // onClickParseProductData(ProductDataParser.SELLCENTRAL, product)
+
+                      onClickParseProductData(product)
                     }}
                   >
                     {'Parse Product Data'}

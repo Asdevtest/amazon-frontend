@@ -291,6 +291,11 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: '14px',
+
+    maxWidth: 200,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   orderChip: {
     backgroundColor: theme.palette.primary.main,

@@ -275,6 +275,23 @@ export const darkTheme = createTheme({
           // border: '1px solid rgba(81, 81, 81, 1) !important',
         },
 
+        columnSeparator: {
+          color: 'rgba(81, 81, 81, 1)',
+        },
+
+        columnHeaders: {
+          borderBottom: '1px solid rgba(81, 81, 81, 1)',
+        },
+
+        row: {
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(76, 161, 222, 0.16)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
+        },
+
         paper: {
           backgroundColor: '#2B2B34',
           color: '#fff',
