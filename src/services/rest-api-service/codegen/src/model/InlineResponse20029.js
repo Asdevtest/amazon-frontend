@@ -55,9 +55,6 @@ class InlineResponse20029 {
             if (data.hasOwnProperty('rows')) {
                 obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20029Rows]);
             }
-            if (data.hasOwnProperty('ideasCounter')) {
-                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
-            }
         }
         return obj;
     }
@@ -76,12 +73,6 @@ InlineResponse20029.prototype['count'] = undefined;
  * @member {Array.<module:model/InlineResponse20029Rows>} rows
  */
 InlineResponse20029.prototype['rows'] = undefined;
-
-/**
- * Кол-во идей продукта в статусе 10
- * @member {Number} ideasCounter
- */
-InlineResponse20029.prototype['ideasCounter'] = undefined;
 
 
 

@@ -1565,4 +1565,9 @@ export const styles = theme => ({
       height: 28,
     },
   },
+  userMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
 })

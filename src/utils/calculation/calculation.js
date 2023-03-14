@@ -340,8 +340,8 @@ export const priceCalculation = (price, deliveryPrice, qty) =>
   toFixed(((parseFloat(price) || 0) + (parseFloat(deliveryPrice) || 0)) * (parseInt(qty) || 0), 2)
 
 export const calcNumberMinusPercent = (number, percent) => {
-  if (parseFloat(percent) === 100) {
-    return parseFloat(number)
+  if (+percent === 100) {
+    return '0'
   } else {
     return parseFloat(number) - parseFloat(number) * (parseFloat(percent) / 100)
   }
