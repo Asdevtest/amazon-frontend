@@ -45,9 +45,9 @@ export const CreateOrEditProposalContent = ({
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
-    comment: proposalToEdit?.comment || request.details.conditions || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || request.details.linksToMediaFiles || [],
-    title: proposalToEdit?.title || request.request.title || '',
+    comment: proposalToEdit?.comment || '',
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
+    title: proposalToEdit?.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)

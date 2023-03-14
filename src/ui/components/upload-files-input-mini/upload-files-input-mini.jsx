@@ -42,6 +42,7 @@ export const UploadFilesInputMini = observer(
     disabled = false,
     dragAndDropBtnHeight = undefined,
     requestWidth,
+    isNotShowActionsBtns,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -189,26 +190,28 @@ export const UploadFilesInputMini = observer(
                     <input className={classNames.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
                   </button>
 
-                  <div className={classNames.actionBtnsWrapper}>
-                    <button
-                      disabled={images?.length === 0}
-                      className={classNames.showImagesBtn}
-                      onClick={() => setShowImages(!showImages)}
-                    >
-                      {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-                    </button>
-                    <Typography className={classNames.imagesCount}>
-                      {<span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${maxNumber}`}</span>}
-                      {` ${t(TranslationKey.files)}`}
-                    </Typography>
-                    <button
-                      disabled={images?.length === 0}
-                      className={classNames.removeAllBtn}
-                      onClick={onImageRemoveAll}
-                    >
-                      {t(TranslationKey['Remove all'])}
-                    </button>
-                  </div>
+                  {!isNotShowActionsBtns && (
+                    <div className={classNames.actionBtnsWrapper}>
+                      <button
+                        disabled={images?.length === 0}
+                        className={classNames.showImagesBtn}
+                        onClick={() => setShowImages(!showImages)}
+                      >
+                        {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
+                      </button>
+                      <Typography className={classNames.imagesCount}>
+                        {<span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${maxNumber}`}</span>}
+                        {` ${t(TranslationKey.files)}`}
+                      </Typography>
+                      <button
+                        disabled={images?.length === 0}
+                        className={classNames.removeAllBtn}
+                        onClick={onImageRemoveAll}
+                      >
+                        {t(TranslationKey['Remove all'])}
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {showImages && (

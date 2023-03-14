@@ -48,6 +48,7 @@ class MyServicesViewRaw extends Component {
 
   render() {
     const {
+      history,
       viewMode,
       drawerOpen,
       onTriggerDrawerOpen,
@@ -148,6 +149,7 @@ class MyServicesViewRaw extends Component {
                     <ServiceExchangeCardList
                       key={serviceKey}
                       service={service}
+                      history={history}
                       onClickThumbnail={onClickThumbnail}
                       onClickButton={onClickOpenButton}
                     />
@@ -155,6 +157,7 @@ class MyServicesViewRaw extends Component {
                     <ServiceExchangeCard
                       key={serviceKey}
                       service={service}
+                      history={history}
                       onClickThumbnail={onClickThumbnail}
                       onClickButton={onClickOpenButton}
                     />

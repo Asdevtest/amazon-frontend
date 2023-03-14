@@ -231,6 +231,14 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.main,
   },
+  requestTitle: {
+    maxHeight: 150,
+    width: 250,
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+  },
   typoSpan: {
     fontWeight: 600,
     color: theme.palette.text.main,

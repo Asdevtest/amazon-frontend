@@ -86,11 +86,26 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginBottom: 31,
   },
+
+  detailsWrapperAll: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    padding: '0 30px',
+
+    marginBottom: 31,
+  },
+
   detailsSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
 
     gap: 10,
+  },
+
+  detailsSubWrapperAll: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   openBtn: {
