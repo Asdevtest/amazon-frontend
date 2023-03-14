@@ -50,7 +50,7 @@ export const ServiceExchangeCardList = ({service, choose, order, history, onClic
       </div>
 
       <div className={classNames.detailsAndButtonWrapper}>
-        {history.location.pathname !== '/freelancer/freelance/my-services' ? (
+        {history?.location?.pathname !== '/freelancer/freelance/my-services' ? (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.detailsSubWrapper}>
               <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>

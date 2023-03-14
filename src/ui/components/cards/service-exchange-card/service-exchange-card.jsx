@@ -51,7 +51,7 @@ export const ServiceExchangeCard = ({service, onClickThumbnail, choose, order, h
         </CustomCarousel>
       </div>
 
-      {history.location.pathname !== '/freelancer/freelance/my-services' ? (
+      {history?.location?.pathname !== '/freelancer/freelance/my-services' ? (
         <div className={classNames.detailsWrapper}>
           <div className={classNames.detailsSubWrapper}>
             <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
