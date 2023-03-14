@@ -709,7 +709,7 @@ export const CreateOrEditRequestContent = ({
                           labelClasses={classNames.spanLabel}
                           containerClasses={cx(classNames.titleContainer)}
                           inputComponent={
-                            <Typography className={classNames.twoStepFieldResult}>
+                            <Typography className={cx(classNames.twoStepFieldResult, classNames.requestTitle)}>
                               {formFields.request.title}
                             </Typography>
                           }
