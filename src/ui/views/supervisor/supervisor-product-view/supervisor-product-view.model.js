@@ -2,7 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
+// import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -511,30 +511,31 @@ export class SupervisorProductViewModel {
     })
   }
 
-  async onClickParseProductData(productDataParser, product) {
+  async onClickParseProductData(product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
-      if (product.asin) {
-        const parseResult = await (() => {
-          switch (productDataParser) {
-            case ProductDataParser.AMAZON:
-              return ProductModel.parseAmazon(product.asin)
-            case ProductDataParser.SELLCENTRAL:
-              return ProductModel.parseParseSellerCentral(product.asin)
-          }
-        })()
 
-        switch (productDataParser) {
-          case ProductDataParser.AMAZON:
-            this.weightParserAmazon = parseResult.weight || 0
-            break
-          case ProductDataParser.SELLCENTRAL:
-            this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-            break
+      if (product.asin) {
+        const amazonResult = await ProductModel.parseAmazon(product.asin)
+        this.weightParserAmazon = amazonResult.weight || 0
+
+        if (!amazonResult.price) {
+          throw new Error('price <= 0')
         }
+
+        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
+          price: amazonResult.amazon,
+        })
+        this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
+
+        if (!sellerCentralResult.amazonFee) {
+          throw new Error('fbafee <= 0')
+        }
+
+        const parseResult = {...amazonResult, ...sellerCentralResult}
 
         runInAction(() => {
           if (Object.keys(parseResult).length > 5) {
@@ -542,20 +543,15 @@ export class SupervisorProductViewModel {
             runInAction(() => {
               this.product = {
                 ...this.product,
-                ...parseFieldsAdapter(parseResult, productDataParser),
+                ...parseFieldsAdapter(parseResult /* , productDataParser */),
                 weight:
                   this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
                     ? this.product.weight
                     : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-                // Вернуть старый вариант парса
-                // weight:
-                //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-                //     ? this.product.weight
-                //     : parseResult.weight * poundsWeightCoefficient,
 
                 amazonDescription: parseResult.info?.description || this.product.amazonDescription,
                 amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-                fbafee: this.product.fbafee,
+                // fbafee: this.product.fbafee,
               }
             })
           }
@@ -563,7 +559,7 @@ export class SupervisorProductViewModel {
         })
       } else {
         runInAction(() => {
-          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
+          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
         })
       }
 
@@ -576,6 +572,77 @@ export class SupervisorProductViewModel {
           this.error = error.body.message
         })
       }
+
+      this.warningModalTitle = t(TranslationKey['Parsing error'])
+      this.onTriggerOpenModal('showWarningModal')
     }
   }
+
+  // async onClickParseProductData(productDataParser, product) {
+  //   try {
+  //     this.setActionStatus(loadingStatuses.isLoading)
+  //     runInAction(() => {
+  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  //     })
+  //     if (product.asin) {
+  //       const parseResult = await (() => {
+  //         switch (productDataParser) {
+  //           case ProductDataParser.AMAZON:
+  //             return ProductModel.parseAmazon(product.asin)
+  //           case ProductDataParser.SELLCENTRAL:
+  //             return ProductModel.parseParseSellerCentral(product.asin)
+  //         }
+  //       })()
+
+  //       switch (productDataParser) {
+  //         case ProductDataParser.AMAZON:
+  //           this.weightParserAmazon = parseResult.weight || 0
+  //           break
+  //         case ProductDataParser.SELLCENTRAL:
+  //           this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
+  //           break
+  //       }
+
+  //       runInAction(() => {
+  //         if (Object.keys(parseResult).length > 5) {
+  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+  //           runInAction(() => {
+  //             this.product = {
+  //               ...this.product,
+  //               ...parseFieldsAdapter(parseResult, productDataParser),
+  //               weight:
+  //                 this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+  //                   ? this.product.weight
+  //                   : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+  //               // Вернуть старый вариант парса
+  //               // weight:
+  //               //   this.product.weight > parseResult.weight * poundsWeightCoefficient
+  //               //     ? this.product.weight
+  //               //     : parseResult.weight * poundsWeightCoefficient,
+
+  //               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+  //               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+  //               fbafee: this.product.fbafee,
+  //             }
+  //           })
+  //         }
+  //         updateProductAutoCalculatedFields.call(this)
+  //       })
+  //     } else {
+  //       runInAction(() => {
+  //         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: 'Пустой асин!'}
+  //       })
+  //     }
+
+  //     this.setActionStatus(loadingStatuses.success)
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     if (error.body && error.body.message) {
+  //       runInAction(() => {
+  //         this.error = error.body.message
+  //       })
+  //     }
+  //   }
+  // }
 }

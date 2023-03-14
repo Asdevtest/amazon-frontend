@@ -72,7 +72,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '65px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingRight: '80px',
 
     position: 'sticky',

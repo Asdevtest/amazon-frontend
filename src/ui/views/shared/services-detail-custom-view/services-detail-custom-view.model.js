@@ -37,6 +37,7 @@ export class ServicesDetailCustomViewModel {
 
       if (location.state) {
         this.requestId = location.state.requestId
+        this.announcementId = location.state.announcementId
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})

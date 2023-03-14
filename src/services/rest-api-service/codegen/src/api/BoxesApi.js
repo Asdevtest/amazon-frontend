@@ -39,6 +39,7 @@ import InlineResponse20015 from '../model/InlineResponse20015';
 import InlineResponse20016 from '../model/InlineResponse20016';
 import InlineResponse20017 from '../model/InlineResponse20017';
 import InlineResponse20018 from '../model/InlineResponse20018';
+import InlineResponse20019 from '../model/InlineResponse20019';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
 import InlineResponse2014 from '../model/InlineResponse2014';
@@ -983,7 +984,7 @@ export default class BoxesApi {
      * @param {Number} opts.limit Сколько вернуть полей
      * @param {Number} opts.offset Сколько отступить от начала полей
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20018} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20019} and HTTP response
      */
     apiV1BoxesGroupedGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1005,7 +1006,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20018;
+      let returnType = InlineResponse20019;
       return this.apiClient.callApi(
         '/api/v1/boxes/grouped', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1021,7 +1022,7 @@ export default class BoxesApi {
      * @param {Number} opts.limit Сколько вернуть полей
      * @param {Number} opts.offset Сколько отступить от начала полей
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20018}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20019}
      */
     apiV1BoxesGroupedGet(opts) {
       return this.apiV1BoxesGroupedGetWithHttpInfo(opts)
@@ -1039,7 +1040,7 @@ export default class BoxesApi {
      * @param {Number} opts.limit Сколько вернуть полей
      * @param {Number} opts.offset Сколько отступить от начала полей
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20018} and HTTP response
      */
     apiV1BoxesGroupedGroupsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1061,7 +1062,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20017;
+      let returnType = InlineResponse20018;
       return this.apiClient.callApi(
         '/api/v1/boxes/grouped/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1077,7 +1078,7 @@ export default class BoxesApi {
      * @param {Number} opts.limit Сколько вернуть полей
      * @param {Number} opts.offset Сколько отступить от начала полей
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20018}
      */
     apiV1BoxesGroupedGroupsGet(opts) {
       return this.apiV1BoxesGroupedGroupsGetWithHttpInfo(opts)
@@ -1636,7 +1637,7 @@ export default class BoxesApi {
      * ## Получить коробки по текущему сторкипера отправленные в партию. REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
      */
     apiV1BoxesStorekeepersSentToBatchGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1655,7 +1656,7 @@ export default class BoxesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1BatchesBoxes];
+      let returnType = [InlineResponse20017];
       return this.apiClient.callApi(
         '/api/v1/boxes/storekeepers/sent_to_batch', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1668,7 +1669,7 @@ export default class BoxesApi {
      * ## Получить коробки по текущему сторкипера отправленные в партию. REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
      */
     apiV1BoxesStorekeepersSentToBatchGet(opts) {
       return this.apiV1BoxesStorekeepersSentToBatchGetWithHttpInfo(opts)

@@ -19,7 +19,7 @@ import InlineObject69 from '../model/InlineObject69';
 import InlineObject70 from '../model/InlineObject70';
 import InlineObject71 from '../model/InlineObject71';
 import InlineResponse2003 from '../model/InlineResponse2003';
-import InlineResponse20044 from '../model/InlineResponse20044';
+import InlineResponse20045 from '../model/InlineResponse20045';
 import InlineResponse2019 from '../model/InlineResponse2019';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -256,7 +256,7 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject3>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20044} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20045} and HTTP response
      */
     apiV1OtherCheckAsinsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -275,7 +275,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20044;
+      let returnType = InlineResponse20045;
       return this.apiClient.callApi(
         '/api/v1/other/check_asins', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -289,7 +289,7 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject3>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20044}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20045}
      */
     apiV1OtherCheckAsinsPost(opts) {
       return this.apiV1OtherCheckAsinsPostWithHttpInfo(opts)

@@ -291,6 +291,11 @@ export const styles = theme => ({
   },
   orderText: {
     fontSize: '14px',
+
+    maxWidth: 200,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   orderChip: {
     backgroundColor: theme.palette.primary.main,
@@ -1516,16 +1521,53 @@ export const styles = theme => ({
     color: 'red',
   },
 
-  userMainWrapper: {
+  searchInputWrapper: {
+    width: '100%',
+    height: 30,
+    marginBottom: 10,
+  },
+  searchInput: {
+    border: '1px solid #E0E0E0',
     width: '100%',
     height: '100%',
-
-    display: 'flex',
-    gap: 10,
-    alignItems: 'center',
   },
-  userCellAvatar: {
-    width: 28,
-    height: 28,
+
+  stringListMenuWrapper: {
+    width: 150,
+    padding: '10px',
+    maxHeight: 400,
+  },
+
+  nativeSelect: {
+    // width: '210px',
+  },
+
+  colorYellow: {
+    color: '#F3AF00 !important',
+  },
+
+  colorRed: {
+    color: '#FF1616 !important',
+  },
+
+  colorGreen: {
+    color: '#00B746 !important',
+    userMainWrapper: {
+      width: '100%',
+      height: '100%',
+
+      display: 'flex',
+      gap: 10,
+      alignItems: 'center',
+    },
+    userCellAvatar: {
+      width: 28,
+      height: 28,
+    },
+  },
+  userMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
   },
 })

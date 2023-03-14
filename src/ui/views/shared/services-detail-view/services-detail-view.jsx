@@ -74,6 +74,8 @@ export class ServiceDetailsViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    console.log('currentData', currentData)
+
     return (
       <React.Fragment>
         <Navbar

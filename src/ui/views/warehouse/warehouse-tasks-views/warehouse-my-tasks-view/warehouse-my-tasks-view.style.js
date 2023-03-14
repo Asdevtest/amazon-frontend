@@ -1,8 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    marginTop: '32px',
-    width: '100%',
-    height: '100%',
+    height: 'calc(100vh - 180px)',
   },
   modalMessageWrapper: {
     display: 'flex',
@@ -22,14 +20,11 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  button: {
-    marginLeft: '10px',
-  },
 
   headerWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
 
@@ -102,9 +97,9 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
+    // '&:hover': {
+    //   transform: 'scale(1.01)',
+    // },
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
@@ -123,5 +118,37 @@ export const styles = theme => ({
 
   warningRow: {
     boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
+  },
+
+  button: {
+    padding: '0 15px',
+    height: 'auto',
+    whiteSpace: 'nowrap',
+    marginBottom: 5,
+    color: theme.palette.primary.main,
+
+    fontSize: 14,
+    fontWeight: 600,
+
+    '&>disabled': {
+      backgroundColor: 'inherit',
+    },
+  },
+
+  boxesFiltersWrapper: {
+    marginTop: '5px',
+    marginBottom: '10px',
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
+  },
+
+  selectedBoxesBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
+
+    borderBottom: '5px solid #0460DE',
+
+    color: `${theme.palette.primary.main} !important`,
   },
 })

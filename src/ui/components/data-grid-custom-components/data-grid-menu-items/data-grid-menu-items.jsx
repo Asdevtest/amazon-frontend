@@ -85,7 +85,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
             }
             onClick={() =>
               isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                isNeedPurchaseFilterData.isFormed !== null
+                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
                   ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
                     : null
@@ -108,6 +108,57 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
                 isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
                   ? isNeedPurchaseFilterData.isNeedPurchaseFilter
                     ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                    : null
+                  : false,
+              )
+            }
+          />
+        </div>
+
+        <Divider />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const IsHaveBarCodeFilterMenuItem = React.memo(
+  withStyles(
+    ({classes: classNames, isHaveBarCodeFilterData}) => (
+      <div className={classNames.isFormedWrapper}>
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['Got barcode'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              !isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
+                  ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    : null
+                  : true,
+              )
+            }
+          />
+        </div>
+
+        <div className={classNames.isFormedSubWrapper}>
+          <Typography>{t(TranslationKey['No barcode'])}</Typography>
+
+          <Checkbox
+            color="primary"
+            checked={
+              isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
+            }
+            onClick={() =>
+              isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
+                isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
+                  ? isHaveBarCodeFilterData.isHaveBarCodeFilter
+                    ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
                     : null
                   : false,
               )
@@ -397,26 +448,18 @@ export const NormalFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     currentFilterData.length &&
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)),
-                        // )
-                        .map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>
-                              {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                            </div>
+                      {itemsForRender.map((el, index) => (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item === el)}
+                            onClick={() => onClickItem(el)}
+                          />
+                          <div className={classNames.shopName}>
+                            {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
                           </div>
-                        ))}
+                        </div>
+                      ))}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>

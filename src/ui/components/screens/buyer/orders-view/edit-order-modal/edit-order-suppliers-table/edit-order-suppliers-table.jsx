@@ -86,11 +86,11 @@ export const EditOrderSuppliersTable = observer(
                           <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
                         </div>
                       ) : null}
-                      {supplier.multiplicity && supplier.boxProperties.amountInBox ? (
+                      {supplier.multiplicity && supplier.boxProperties?.amountInBox ? (
                         <div className={classNames.multiplicityWrapper}>
                           <Typography className={classNames.multiplicityText}>{'Multiplicity:'}</Typography>
                           <Typography className={classNames.amountInBoxText}>
-                            {supplier.boxProperties.amountInBox}
+                            {supplier.boxProperties?.amountInBox}
                           </Typography>
                         </div>
                       ) : null}

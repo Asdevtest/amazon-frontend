@@ -22,11 +22,11 @@ class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
-     * @param hash {String} Токен, который юзер получает через почту
+     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
      */
-    constructor(hash) { 
+    constructor(email) { 
         
-        InlineObject111.initialize(this, hash);
+        InlineObject111.initialize(this, email);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj, email) { 
+        obj['email'] = email;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
-            }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
         }
         return obj;
@@ -63,16 +60,10 @@ class InlineObject111 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * Почта от аккаунта, пароль которого Вы забыли
+ * @member {String} email
  */
-InlineObject111.prototype['hash'] = undefined;
-
-/**
- * Новый пароль
- * @member {String} password
- */
-InlineObject111.prototype['password'] = undefined;
+InlineObject111.prototype['email'] = undefined;
 
 
 

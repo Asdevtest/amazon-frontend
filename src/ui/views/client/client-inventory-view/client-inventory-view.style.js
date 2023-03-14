@@ -283,10 +283,8 @@ export const styles = theme => ({
   ideaRow: {
     '&:before': {
       content: '""',
-      backgroundImage:
-        theme.palette.mode === 'dark'
-          ? 'url(/assets/icons/idea-trgl-dark-theme.svg)'
-          : 'url(/assets/icons/idea-trgl.svg)',
+
+      backgroundImage: theme.palette.other.ideaProductSheld,
 
       width: 48,
       height: 21,

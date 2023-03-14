@@ -21,6 +21,7 @@ import {
   ObJectFieldMenuItem,
   OrderOrItemMenuItem,
   ProductMenuItem,
+  IsHaveBarCodeFilterMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -32,10 +33,9 @@ export const DataGridCustomColumnMenuComponent = props => {
     filterRequestStatus,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
-    // onClickObjectFieldMenuItem,
-    // onClickNormalFieldMenuItem,
     onClickAccept,
-    /* shopsDataBase,  */ isNeedPurchaseFilterData,
+    isNeedPurchaseFilterData,
+    isHaveBarCodeFilterData,
     ...other
   } = props
 
@@ -66,6 +66,14 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <IsNeedPurchaseFilterMenuItem isNeedPurchaseFilterData={isNeedPurchaseFilterData} />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.client.INVENTORY_BARCODE) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <IsHaveBarCodeFilterMenuItem isHaveBarCodeFilterData={isHaveBarCodeFilterData} />
       </GridColumnMenuContainer>
     )
   }

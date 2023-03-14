@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGet
 
-> [InlineResponse20039] apiV1IdeasGet(opts)
+> [InlineResponse20040] apiV1IdeasGet(opts)
 
 Список всех идей
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20039]**](InlineResponse20039.md)
+[**[InlineResponse20040]**](InlineResponse20040.md)
 
 ### Authorization
 

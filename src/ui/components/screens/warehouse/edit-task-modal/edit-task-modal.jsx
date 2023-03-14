@@ -1,3 +1,4 @@
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import {Divider, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -8,6 +9,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+
+import {OtherModel} from '@models/other-model'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -111,14 +114,28 @@ export const EditTaskModal = observer(
 
     const [photosOfTask, setPhotosOfTask] = useState([])
 
+    const uploadTemplateFile = async () => {
+      await OtherModel.getReportTaskByTaskId(task._id)
+    }
+
     return (
       <div className={classNames.root}>
         <div className={classNames.modalHeader}>
           <Typography className={classNames.modalTitle}>{renderModalTitle(task.status)}</Typography>
-          <div className={classNames.typeTaskWrapper}>
-            <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
-            <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-            <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+
+          <div className={classNames.modalSubHeader}>
+            <div className={classNames.typeTaskWrapper}>
+              <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+              <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
+              <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+            </div>
+
+            {task.operationType === TaskOperationType.RECEIVE && (
+              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+                {t(TranslationKey['Download box file'])}
+                <FileDownloadIcon />
+              </Button>
+            )}
           </div>
         </div>
         <div className={classNames.form}>

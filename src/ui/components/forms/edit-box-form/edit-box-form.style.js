@@ -149,8 +149,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginLeft: 10,
   },
+
   amountSpan: {
-    margin: '0 0 0 10px',
+    margin: '0 0 0 20px',
     color: theme.palette.primary.main,
     fontSize: 18,
   },
@@ -304,6 +305,7 @@ export const useClassNames = makeStyles()(theme => ({
   standartLabel: {
     fontSize: 14,
     color: theme.palette.text.second,
+    whiteSpace: 'nowrap',
   },
 
   tableTitle: {
@@ -330,5 +332,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
+  },
+
+  itemInput: {
+    width: 145,
+    height: 40,
+    marginLeft: 10,
+    textAlign: 'center',
+  },
+
+  input: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 }))

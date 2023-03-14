@@ -48,8 +48,6 @@ const Box = ({
   onClickEditBox,
   setCurBox,
 }) => {
-  console.log('box', box)
-
   const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)

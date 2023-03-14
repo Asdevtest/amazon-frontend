@@ -430,7 +430,7 @@ export const AddOrEditSupplierModalContent = observer(
             <Field
               disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
-              label={t(TranslationKey['Purchase quantity for the current price'])}
+              label={t(TranslationKey['Purchase quantity for the current price']) + '*'}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
@@ -597,7 +597,7 @@ export const AddOrEditSupplierModalContent = observer(
                     tooltipInfoContent={t(
                       TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
                     )}
-                    label={t(TranslationKey['Batch delivery']) + ', ¥'}
+                    label={t(TranslationKey['Batch delivery']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -682,7 +682,7 @@ export const AddOrEditSupplierModalContent = observer(
                     tooltipInfoContent={t(
                       TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
                     )}
-                    label={t(TranslationKey['Batch delivery']) + ', $'}
+                    label={t(TranslationKey['Batch delivery']) + ', $*'}
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}

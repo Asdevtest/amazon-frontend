@@ -11,6 +11,11 @@ class StorekeeperModelStatic {
     return response
   }
 
+  getLightTasksVacantPag = async data => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagVacGet(data)
+    return response
+  }
+
   getLightTasksWithPag = async data => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(data)
     return response
@@ -152,6 +157,11 @@ class StorekeeperModelStatic {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesCommentGuidPatch(id, {
       body: data,
     })
+    return response
+  }
+
+  getTaskReport = async id => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksReportGuidGet(id)
     return response
   }
 }

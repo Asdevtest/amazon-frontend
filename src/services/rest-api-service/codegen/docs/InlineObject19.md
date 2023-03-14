@@ -15,5 +15,6 @@ Name | Type | Description | Notes
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **shippingLabel** | **String** | shippingLabel коробки | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 
 

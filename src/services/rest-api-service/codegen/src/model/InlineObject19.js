@@ -80,6 +80,9 @@ class InlineObject19 {
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
+            }
         }
         return obj;
     }
@@ -152,6 +155,12 @@ InlineObject19.prototype['shippingLabel'] = undefined;
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject19.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject19.prototype['prepId'] = undefined;
 
 
 

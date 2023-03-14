@@ -199,6 +199,11 @@ export class ClientInventoryViewModel {
       onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
     },
 
+    isHaveBarCodeFilterData: {
+      isHaveBarCodeFilter: null,
+      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
+    },
+
     ...filtersFields.reduce(
       (ac, cur) =>
         (ac = {
@@ -536,7 +541,7 @@ export class ClientInventoryViewModel {
         confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
         confirmMessage: this.isArchive
           ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
-          : t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+          : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
         onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
       }
     })
@@ -742,6 +747,20 @@ export class ClientInventoryViewModel {
         isNeedPurchaseFilterData: {
           ...this.columnMenuSettings.isNeedPurchaseFilterData,
           isNeedPurchaseFilter: value,
+        },
+      }
+    })
+
+    this.getProductsMy()
+  }
+
+  onChangeIsHaveBarCodeFilter(value) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isHaveBarCodeFilterData: {
+          ...this.columnMenuSettings.isHaveBarCodeFilterData,
+          isHaveBarCodeFilter: value,
         },
       }
     })
@@ -957,6 +976,12 @@ export class ClientInventoryViewModel {
 
       ...(ideaCountFilter && {
         ideaCount: {$eq: ideaCountFilter},
+      }),
+
+      // barCode: {$notnull: true},
+
+      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+        barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
       }),
     })
 
@@ -1436,6 +1461,10 @@ export class ClientInventoryViewModel {
       })
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.batchesData = []
+      })
     }
   }
 

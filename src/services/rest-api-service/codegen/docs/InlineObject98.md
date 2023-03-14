@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**prepId** | **String** | Значение информационного ключа | [optional] 
 **lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 

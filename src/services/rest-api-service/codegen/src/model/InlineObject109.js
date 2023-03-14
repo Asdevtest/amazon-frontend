@@ -22,12 +22,12 @@ class InlineObject109 {
     /**
      * Constructs a new <code>InlineObject109</code>.
      * @alias module:model/InlineObject109
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
+     * @param userId {String} Гуид саба
+     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor(oldPassword, newPassword) { 
+    constructor(userId, comment) { 
         
-        InlineObject109.initialize(this, oldPassword, newPassword);
+        InlineObject109.initialize(this, userId, comment);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject109 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj, userId, comment) { 
+        obj['userId'] = userId;
+        obj['comment'] = comment;
     }
 
     /**
@@ -51,11 +51,11 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -65,16 +65,16 @@ class InlineObject109 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Гуид саба
+ * @member {String} userId
  */
-InlineObject109.prototype['oldPassword'] = undefined;
+InlineObject109.prototype['userId'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Заметка о сабе написаная мастером
+ * @member {String} comment
  */
-InlineObject109.prototype['newPassword'] = undefined;
+InlineObject109.prototype['comment'] = undefined;
 
 
 

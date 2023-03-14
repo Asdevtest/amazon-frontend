@@ -974,7 +974,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGet
 
-> InlineResponse20018 apiV1BoxesGroupedGet(opts)
+> InlineResponse20019 apiV1BoxesGroupedGet(opts)
 
 # Получить сгруппированные коробки
 
@@ -1018,7 +1018,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20018**](InlineResponse20018.md)
+[**InlineResponse20019**](InlineResponse20019.md)
 
 ### Authorization
 
@@ -1032,7 +1032,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesGroupedGroupsGet
 
-> InlineResponse20017 apiV1BoxesGroupedGroupsGet(opts)
+> InlineResponse20018 apiV1BoxesGroupedGroupsGet(opts)
 
 # Получить группы
 
@@ -1076,7 +1076,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20017**](InlineResponse20017.md)
+[**InlineResponse20018**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -1654,7 +1654,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesStorekeepersSentToBatchGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesStorekeepersSentToBatchGet(opts)
+> [InlineResponse20017] apiV1BoxesStorekeepersSentToBatchGet(opts)
 
 # Получить коробки по текущему сторкипера отправленные в партию.
 
@@ -1692,7 +1692,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[InlineResponse20017]**](InlineResponse20017.md)
 
 ### Authorization
 

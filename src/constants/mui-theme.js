@@ -239,6 +239,10 @@ export const lightTheme = createTheme({
       // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
     },
+
+    other: {
+      ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
+    },
   },
 })
 
@@ -269,6 +273,23 @@ export const darkTheme = createTheme({
           color: '#fff',
 
           // border: '1px solid rgba(81, 81, 81, 1) !important',
+        },
+
+        columnSeparator: {
+          color: 'rgba(81, 81, 81, 1)',
+        },
+
+        columnHeaders: {
+          borderBottom: '1px solid rgba(81, 81, 81, 1)',
+        },
+
+        row: {
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(76, 161, 222, 0.16)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
         },
 
         paper: {
@@ -609,6 +630,10 @@ export const darkTheme = createTheme({
         // customDisabled: '#EBEBEB', // макет
 
         customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
+      },
+
+      other: {
+        ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       },
     },
   },
