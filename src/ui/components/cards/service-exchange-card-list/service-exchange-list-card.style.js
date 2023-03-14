@@ -117,4 +117,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: 28,
     height: 28,
   },
+  detailsWrapperAll: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+  detailsSubWrapperAll: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))

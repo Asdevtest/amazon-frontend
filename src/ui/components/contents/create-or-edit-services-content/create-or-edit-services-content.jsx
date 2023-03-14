@@ -126,13 +126,18 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
         labelClasses={classNames.labelClass}
         minRows={4}
         maxRows={4}
-        label={`${t(TranslationKey['Describe your request'])}*`}
+        label={`${t(TranslationKey['Describe your task'])}*`}
         value={formFields.description}
         onChange={onChangeField('description')}
       />
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInputMini images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInputMini
+          images={images}
+          setImages={setImages}
+          maxNumber={50}
+          isNotShowActionsBtns={!images.length}
+        />
         {formFields.linksToMediaFiles?.length ? (
           <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
         ) : null}
@@ -155,7 +160,7 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
             }
           }}
         >
-          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
+          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>
     </div>
