@@ -15,7 +15,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
 
-    width: 500,
+    width: 346,
     renderCell: params => <UserCell user={params.row} />,
   },
 
@@ -24,7 +24,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Roles),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
 
-    width: 300,
+    width: 213,
     renderCell: params => <UserRolesCell user={params.row} />,
   },
 
@@ -33,7 +33,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 485,
+    width: 381,
     renderCell: params => (
       <EditOrRemoveBtnsCell
         isSubUsersTable

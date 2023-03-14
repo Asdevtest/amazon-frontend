@@ -60,4 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'min-content',
     width: 'min-content',
   },
+  boldLinkText: {
+    fontWeight: 600,
+  },
 }))

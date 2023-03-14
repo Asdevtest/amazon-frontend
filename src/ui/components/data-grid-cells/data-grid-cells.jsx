@@ -105,13 +105,17 @@ export const UserCell = React.memo(
 
         <div className={classNames.sabUserInfoWrapper}>
           <div className={classNames.userLink}>
-            <UserLink name={user?.name} userId={user?._id} />
+            <UserLink
+              customStyles={{fontWeight: 600, fontSize: '14px', lineHeight: '19px'}}
+              name={user?.name}
+              userId={user?._id}
+            />
           </div>
 
           <Typography className={classNames.userEmail}>{user?.email}</Typography>
 
           <div className={classNames.sabUserRatingWrapper}>
-            <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
             <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
           </div>
