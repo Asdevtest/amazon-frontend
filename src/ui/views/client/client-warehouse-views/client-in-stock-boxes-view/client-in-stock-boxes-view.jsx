@@ -223,7 +223,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 <SearchInput
                   key={'client_warehouse_search_input'}
                   inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
                   startText={nameSearchValue}
                   onSubmit={onSearchSubmit}
                 />

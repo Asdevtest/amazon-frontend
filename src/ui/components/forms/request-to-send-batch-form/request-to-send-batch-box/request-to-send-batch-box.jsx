@@ -25,8 +25,6 @@ export const RequestToSendBatchBox = ({
   userInfo,
   onSubmitChangeBoxFields,
 }) => {
-  console.log('box', box)
-
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 

@@ -208,10 +208,6 @@ export const MergeBoxesModal = ({
     }
   }
 
-  console.log('selectedBoxes', selectedBoxes)
-  console.log('finalBoxData', finalBoxData)
-  //
-
   return (
     <div>
       <div className={classNames.modalTitleWrapper}>

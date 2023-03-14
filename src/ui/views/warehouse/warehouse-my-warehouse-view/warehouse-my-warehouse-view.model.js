@@ -1225,11 +1225,6 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -1237,9 +1232,13 @@ export class WarehouseMyWarehouseViewModel {
           {skusByClient: {$contains: this.nameSearchValue}},
           {item: {$eq: this.nameSearchValue}},
           {id: {$eq: this.nameSearchValue}},
+          {humanFriendlyId: {$eq: this.nameSearchValue}},
+          {prepId: {$contains: this.nameSearchValue}},
         ].filter(
           el =>
-            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+              !el.id &&
+              !el.humanFriendlyId) ||
             !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
         ),
       })

@@ -1,7 +1,7 @@
 import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
+// import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -220,9 +220,10 @@ export class ResearcherProductViewModel {
       await this.getProductById()
 
       if (this.startParse) {
-        this.onClickParseProductData(ProductDataParser.AMAZON, this.product)
+        // this.onClickParseProductData(ProductDataParser.AMAZON, this.product)
 
-        this.onClickParseProductData(ProductDataParser.SELLCENTRAL, this.product)
+        // this.onClickParseProductData(ProductDataParser.SELLCENTRAL, this.product)
+        this.onClickParseProductData(this.product)
         this.startParse = false
       }
     } catch (error) {
@@ -585,66 +586,133 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickParseProductData(productDataParser, product) {
+  async onClickParseProductData(product) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
-      const parseResult = await (() => {
-        switch (productDataParser) {
-          case ProductDataParser.AMAZON:
-            return ProductModel.parseAmazon(product.asin)
-          case ProductDataParser.SELLCENTRAL:
-            return ProductModel.parseParseSellerCentral(product.asin)
+
+      if (product.asin) {
+        const amazonResult = await ProductModel.parseAmazon(product.asin)
+        this.weightParserAmazon = amazonResult.weight || 0
+
+        if (!amazonResult.price) {
+          throw new Error('price <= 0')
         }
-      })()
 
-      switch (productDataParser) {
-        case ProductDataParser.AMAZON:
-          this.weightParserAmazon = parseResult.weight || 0
-          break
-        case ProductDataParser.SELLCENTRAL:
-          this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-          break
-      }
+        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
+          price: amazonResult.amazon,
+        })
+        this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
-      runInAction(() => {
-        if (Object.keys(parseResult).length > 5) {
-          // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-          this.product = {
-            ...this.product,
-            ...parseFieldsAdapter(parseResult, productDataParser),
-            weight:
-              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                ? this.product.weight
-                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+        if (!sellerCentralResult.amazonFee) {
+          throw new Error('fbafee <= 0')
+        }
 
-            // Вернуть старый вариант парса
-            // weight:
-            //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-            //     ? this.product.weight
-            //     : parseResult.weight * poundsWeightCoefficient,
+        const parseResult = {...amazonResult, ...sellerCentralResult}
 
-            amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-            amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-            fbafee: this.product.fbafee,
+        runInAction(() => {
+          if (Object.keys(parseResult).length > 5) {
+            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+            runInAction(() => {
+              this.product = {
+                ...this.product,
+                ...parseFieldsAdapter(parseResult /* , productDataParser */),
+                weight:
+                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                    ? this.product.weight
+                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+                amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+                amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+                // fbafee: this.product.fbafee,
+              }
+            })
           }
-        }
-        updateProductAutoCalculatedFields.call(this)
-      })
+          updateProductAutoCalculatedFields.call(this)
+        })
+      } else {
+        runInAction(() => {
+          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+        })
+      }
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
-      runInAction(() => {
-        if (error.body && error.body.message) {
+      if (error.body && error.body.message) {
+        runInAction(() => {
           this.error = error.body.message
-        }
-      })
+        })
+      }
+
+      this.warningModalTitle = t(TranslationKey['Parsing error'])
+      this.onTriggerOpenModal('showWarningModal')
     }
   }
+
+  // async onClickParseProductData(productDataParser, product) {
+  //   try {
+  //     this.setActionStatus(loadingStatuses.isLoading)
+  //     runInAction(() => {
+  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  //     })
+  //     const parseResult = await (() => {
+  //       switch (productDataParser) {
+  //         case ProductDataParser.AMAZON:
+  //           return ProductModel.parseAmazon(product.asin)
+  //         case ProductDataParser.SELLCENTRAL:
+  //           return ProductModel.parseParseSellerCentral(product.asin)
+  //       }
+  //     })()
+
+  //     switch (productDataParser) {
+  //       case ProductDataParser.AMAZON:
+  //         this.weightParserAmazon = parseResult.weight || 0
+  //         break
+  //       case ProductDataParser.SELLCENTRAL:
+  //         this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
+  //         break
+  //     }
+
+  //     runInAction(() => {
+  //       if (Object.keys(parseResult).length > 5) {
+  //         // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+  //         this.product = {
+  //           ...this.product,
+  //           ...parseFieldsAdapter(parseResult, productDataParser),
+  //           weight:
+  //             this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+  //               ? this.product.weight
+  //               : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+  //           // Вернуть старый вариант парса
+  //           // weight:
+  //           //   this.product.weight > parseResult.weight * poundsWeightCoefficient
+  //           //     ? this.product.weight
+  //           //     : parseResult.weight * poundsWeightCoefficient,
+
+  //           amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+  //           amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+  //           fbafee: this.product.fbafee,
+  //         }
+  //       }
+  //       updateProductAutoCalculatedFields.call(this)
+  //     })
+
+  //     this.setActionStatus(loadingStatuses.success)
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     runInAction(() => {
+  //       if (error.body && error.body.message) {
+  //         this.error = error.body.message
+  //       }
+  //     })
+  //   }
+  // }
 
   onChangeImagesForLoad(value) {
     runInAction(() => {

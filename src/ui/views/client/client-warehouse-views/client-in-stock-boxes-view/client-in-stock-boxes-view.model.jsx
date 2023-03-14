@@ -1829,13 +1829,13 @@ export class ClientInStockBoxesViewModel {
         {id: {$eq: this.nameSearchValue}},
         {item: {$eq: this.nameSearchValue}},
         {productId: {$eq: this.nameSearchValue}},
-        // {humanFriendlyId: {$eq: this.nameSearchValue}},
-        // {prepId: {$contains: this.nameSearchValue}},
+        {humanFriendlyId: {$eq: this.nameSearchValue}},
+        {prepId: {$contains: this.nameSearchValue}},
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
             !el.id &&
-            !el.orderHumanFriendlyId) ||
+            !el.humanFriendlyId) ||
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 
