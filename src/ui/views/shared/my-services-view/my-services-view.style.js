@@ -80,7 +80,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',
-    padding: '0 15px',
+    padding: '0 52px',
   },
   toggleBtnAndtaskTypeWrapper: {
     display: 'flex',
@@ -88,7 +88,7 @@ export const styles = theme => ({
     gap: 30,
   },
   searchInputWrapper: {
-    paddingRight: 450,
+    paddingRight: 345,
   },
   acceptMessageWrapper: {
     position: 'absolute',

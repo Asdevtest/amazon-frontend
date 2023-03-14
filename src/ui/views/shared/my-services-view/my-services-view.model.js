@@ -48,6 +48,7 @@ export class MyServicesViewModel {
   constructor({history, location}) {
     runInAction(() => {
       this.history = history
+      console.log('this.history', this.history)
     })
 
     if (location.state) {
