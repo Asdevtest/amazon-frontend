@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**refundPrice** | **Number** | Сумма воврата | [optional] 
+**guids** | **[String]** | Массив коробок. | 
+**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | 
 
 

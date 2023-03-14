@@ -4,6 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки разделение которой отменяем. | [optional] 
+**clientComment** | **String** |  | [optional] 
+**storekeeperComment** | **String** |  | [optional] 
+**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
+**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
+**trackNumberText** | **String** | Текст трек номера | [optional] 
+**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**prepId** | **String** | Значение информационного ключа | [optional] 
 
 

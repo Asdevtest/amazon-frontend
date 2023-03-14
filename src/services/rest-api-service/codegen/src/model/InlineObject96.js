@@ -59,9 +59,6 @@ class InlineObject96 {
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
         }
         return obj;
     }
@@ -86,12 +83,6 @@ InlineObject96.prototype['images'] = undefined;
  * @member {String} storekeeperComment
  */
 InlineObject96.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineObject96.prototype['priority'] = undefined;
 
 /**
  * Приоритет задачи
