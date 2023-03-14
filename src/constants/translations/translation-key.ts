@@ -1567,7 +1567,6 @@ export enum TranslationKey {
   'Cancel task' = 'Cancel task',
   'Select date' = 'Select date',
   'Inbound' = 'Inbound',
-
   '№ Order/ № Item' = '№ Order/ № Item',
   'Order number/Item' = 'Order number/Item',
   'Feedback sent' = 'Feedback sent',
@@ -1893,24 +1892,22 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
+
+  // <p>t(TranslationKey.Close)</p> ПРИМЕР
+
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
 }
-
-// <p>t(TranslationKey.Close)</p> ПРИМЕР
-
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
-// '' = '',
