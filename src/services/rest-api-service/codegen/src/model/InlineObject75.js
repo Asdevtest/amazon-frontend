@@ -50,9 +50,6 @@ class InlineObject75 {
             if (data.hasOwnProperty('shopIds')) {
                 obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
         }
         return obj;
     }
@@ -65,12 +62,6 @@ class InlineObject75 {
  * @member {Array.<String>} shopIds
  */
 InlineObject75.prototype['shopIds'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject75.prototype['title'] = undefined;
 
 
 
