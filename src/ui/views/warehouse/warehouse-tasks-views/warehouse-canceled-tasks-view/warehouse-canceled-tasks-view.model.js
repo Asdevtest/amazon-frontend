@@ -12,7 +12,6 @@ import {UserModel} from '@models/user-model'
 import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 
@@ -265,9 +264,7 @@ export class WarehouseCanceledTasksViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksMy = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
-        )
+        this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
       })
 
       this.setRequestStatus(loadingStatuses.success)
