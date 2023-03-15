@@ -130,13 +130,17 @@ export const CreateOrEditRequestContent = ({
       }
 
       if (['cashBackInPercent'].includes(fieldName)) {
-        newFormFields.request.discountedPrice =
-          calcNumberMinusPercent(formFields?.request.priceAmazon, event.target.value) || 0
+        newFormFields.request.discountedPrice = calcNumberMinusPercent(
+          formFields?.request.priceAmazon,
+          event.target.value,
+        )
       }
 
       if (['discountedPrice'].includes(fieldName)) {
-        newFormFields.request.cashBackInPercent =
-          calcPercentAfterMinusNumbers(formFields?.request.priceAmazon, event.target.value) || 0
+        newFormFields.request.cashBackInPercent = calcPercentAfterMinusNumbers(
+          formFields?.request.priceAmazon,
+          event.target.value,
+        )
       }
 
       newFormFields[section][fieldName] = replaceCommaByDot(event.target.value)

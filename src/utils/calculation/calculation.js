@@ -339,13 +339,8 @@ export const calculateDeliveryCostPerPcs = ({
 export const priceCalculation = (price, deliveryPrice, qty) =>
   toFixed(((parseFloat(price) || 0) + (parseFloat(deliveryPrice) || 0)) * (parseInt(qty) || 0), 2)
 
-export const calcNumberMinusPercent = (number, percent) => {
-  if (parseFloat(percent) === 100) {
-    return parseFloat(number)
-  } else {
-    return parseFloat(number) - parseFloat(number) * (parseFloat(percent) / 100)
-  }
-}
+export const calcNumberMinusPercent = (number, percent) =>
+  parseFloat(number) - parseFloat(number) * (parseFloat(percent) / 100)
 
 export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) =>
   ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)
