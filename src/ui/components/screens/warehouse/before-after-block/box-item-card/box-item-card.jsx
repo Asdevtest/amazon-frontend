@@ -108,6 +108,23 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subValue}>{item.order.item}</Typography>
               </div>
 
+              {taskType === TaskOperationType.RECEIVE ? (
+                <div className={classNames.priorityWrapper}>
+                  <Typography className={classNames.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                  {item.order.priority === '40' ? (
+                    <div className={classNames.rushOrderWrapper}>
+                      <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
+                      <Typography className={classNames.subValue}>{t(TranslationKey['Rush order'])}</Typography>
+                    </div>
+                  ) : null}
+                  {item.order.priority !== '40' /* && !item.order.expressChinaDelivery  */ ? (
+                    <div className={classNames.rushOrderWrapper}>
+                      <Typography className={classNames.subValue}>{t(TranslationKey['Medium priority'])}</Typography>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
               {/* <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Track number'])}</Typography>
                 <Tooltip title={item.order.trackingNumberChina}>

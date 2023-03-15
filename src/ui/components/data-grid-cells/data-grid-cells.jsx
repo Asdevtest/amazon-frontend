@@ -290,13 +290,15 @@ export const StringListCell = React.memo(
           .filter(el => el)
           .map((item, i) => (
             <div key={i} className={classNames.multilineTextHeaderWrapper}>
-              <Typography className={classNames.typoCell}>
-                {
-                  <span className={classNames.multilineHeaderText}>
-                    {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                  </span>
-                }
-              </Typography>
+              <Tooltip title={item}>
+                <Typography className={classNames.typoCell}>
+                  {
+                    <span className={classNames.multilineHeaderText}>
+                      {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                    </span>
+                  }
+                </Typography>
+              </Tooltip>
               {withCopy && <CopyValue text={item} />}
             </div>
           ))}
@@ -331,13 +333,15 @@ export const StringListCell = React.memo(
               <div className={classNames.shopsBody}>
                 {itemsForRender.map((item, i) => (
                   <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Typography className={classNames.typoCell}>
-                      {
-                        <span className={classNames.multilineHeaderText}>
-                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                        </span>
-                      }
-                    </Typography>
+                    <Tooltip title={item}>
+                      <Typography className={classNames.typoCell}>
+                        {
+                          <span className={classNames.multilineHeaderText}>
+                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                          </span>
+                        }
+                      </Typography>
+                    </Tooltip>
                     {withCopy && <CopyValue text={item} />}
                   </div>
                 ))}

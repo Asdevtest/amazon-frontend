@@ -351,6 +351,7 @@ export const clientInventoryColumns = (
     minWidth: 100,
     headerAlign: 'center',
     filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_BARCODE,
   },
