@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject34 model module.

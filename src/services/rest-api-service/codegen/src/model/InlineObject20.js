@@ -22,10 +22,11 @@ class InlineObject20 {
     /**
      * Constructs a new <code>InlineObject20</code>.
      * @alias module:model/InlineObject20
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject20.initialize(this);
+        InlineObject20.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject20 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,44 +49,29 @@ class InlineObject20 {
         if (data) {
             obj = obj || new InlineObject20();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -94,81 +81,51 @@ class InlineObject20 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * Штрихкод продукта
+ * @member {String} barCode
  */
-InlineObject20.prototype['buyerComment'] = undefined;
+InlineObject20.prototype['barCode'] = undefined;
 
 /**
- * GUID storekeeper-a
- * @member {String} storekeeperId
- */
-InlineObject20.prototype['storekeeperId'] = undefined;
-
-/**
- * Цена в юанях
- * @member {Number} priceInYuan
- */
-InlineObject20.prototype['priceInYuan'] = undefined;
-
-/**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
- */
-InlineObject20.prototype['priceBatchDeliveryInYuan'] = undefined;
-
-/**
- * GUID тарифа доставки.
+ *  logicsTariff GUID
  * @member {String} logicsTariffId
  */
 InlineObject20.prototype['logicsTariffId'] = undefined;
 
 /**
- * GUID пункта назначения.
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
+ */
+InlineObject20.prototype['storekeeperId'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineObject20.prototype['shippingLabel'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject20.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject20.prototype['fbaNumber'] = undefined;
+
+/**
+ * Гуид модели destination
  * @member {String} destinationId
  */
 InlineObject20.prototype['destinationId'] = undefined;
 
 /**
- * @member {String} item
+ * @member {Array.<String>} boxesIds
  */
-InlineObject20.prototype['item'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject20.prototype['images'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject20.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject20.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
- */
-InlineObject20.prototype['trackingNumberChina'] = undefined;
-
-/**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
- */
-InlineObject20.prototype['orderSupplierId'] = undefined;
-
-/**
- * Кол-во в заказе
- * @member {Number} amount
- */
-InlineObject20.prototype['amount'] = undefined;
+InlineObject20.prototype['boxesIds'] = undefined;
 
 
 

@@ -12,7 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20013 from './InlineResponse20013';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
+import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
+import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
 
 /**
  * The InlineResponse20015 model module.
@@ -22,7 +26,6 @@ import InlineResponse20013 from './InlineResponse20013';
 class InlineResponse20015 {
     /**
      * Constructs a new <code>InlineResponse20015</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20015
      */
     constructor() { 
@@ -49,8 +52,8 @@ class InlineResponse20015 {
         if (data) {
             obj = obj || new InlineResponse20015();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
@@ -162,14 +165,14 @@ class InlineResponse20015 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * GUID коробки.
+ * @member {String} _id
  */
-InlineResponse20015.prototype['count'] = undefined;
+InlineResponse20015.prototype['_id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20013>} rows
+ * Номер коробки.
+ * @member {Number} humanFriendlyId
  */
 InlineResponse20015.prototype['humanFriendlyId'] = undefined;
 

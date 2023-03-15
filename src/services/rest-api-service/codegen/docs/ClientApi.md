@@ -807,7 +807,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersPost
 
-> InlineResponse2012 apiV1ClientsOrdersPost(opts)
+> InlineResponse2015 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
@@ -847,7 +847,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2015**](InlineResponse2015.md)
 
 ### Authorization
 
@@ -915,7 +915,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsPagOrdersGet
 
-> InlineResponse20030 apiV1ClientsPagOrdersGet(opts)
+> InlineResponse20031 apiV1ClientsPagOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -965,7 +965,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20030**](InlineResponse20030.md)
+[**InlineResponse20031**](InlineResponse20031.md)
 
 ### Authorization
 
@@ -1033,7 +1033,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20031 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20032 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -1073,7 +1073,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -1255,7 +1255,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20031 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20032 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1295,7 +1295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -1421,7 +1421,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20027] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20028] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1459,7 +1459,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20027]**](InlineResponse20027.md)
+[**[InlineResponse20028]**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -1473,7 +1473,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20029] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20030] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1515,7 +1515,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20029]**](InlineResponse20029.md)
+[**[InlineResponse20030]**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -1529,7 +1529,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20028 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20029 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1581,7 +1581,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20028**](InlineResponse20028.md)
+[**InlineResponse20029**](InlineResponse20029.md)
 
 ### Authorization
 
@@ -1649,7 +1649,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20026] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20027] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1687,7 +1687,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20026]**](InlineResponse20026.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
 
 ### Authorization
 
@@ -1811,7 +1811,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksPost
 
-> InlineResponse2012 apiV1ClientsTasksPost(opts)
+> InlineResponse2015 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
@@ -1851,7 +1851,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2015**](InlineResponse2015.md)
 
 ### Authorization
 

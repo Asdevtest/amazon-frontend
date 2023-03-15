@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | Массив коробок. | 
-**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | 
+**itemsBarCodeChanges** | [**[ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]**](ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md) |  | 
 
 

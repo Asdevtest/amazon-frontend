@@ -49,8 +49,11 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -60,10 +63,15 @@ class InlineObject85 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * @member {module:model/InlineObject85.ActionEnum} action
  */
-InlineObject85.prototype['suppliersIds'] = undefined;
+InlineObject85.prototype['action'] = undefined;
+
+/**
+ * Причина смены статуса.
+ * @member {String} reason
+ */
+InlineObject85.prototype['reason'] = undefined;
 
 
 
