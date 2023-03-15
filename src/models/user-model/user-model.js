@@ -177,6 +177,17 @@ class UserModelStatic {
 
     return response
   }
+
+  async patchSubNote(id, comment) {
+    const response = await restApiService.userApi.apiV1UsersSubNotePatch({
+      body: {
+        userId: id,
+        comment,
+      },
+    })
+
+    return response
+  }
 }
 
 export const UserModel = new UserModelStatic()

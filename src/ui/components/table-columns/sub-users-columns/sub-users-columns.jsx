@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  CommentUsersCell,
   EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   UserCell,
@@ -46,6 +48,17 @@ export const subUsersColumns = (handlers, firstRowId) => [
         isFirstRow={firstRowId === params.row.id}
       />
     ),
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'note',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    width: 381,
+    renderCell: params => <CommentUsersCell params={params} handler={handlers.onClickSaveComment} />,
     filterable: false,
     sortable: false,
   },

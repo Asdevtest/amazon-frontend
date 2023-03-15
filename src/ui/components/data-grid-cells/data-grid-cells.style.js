@@ -250,6 +250,11 @@ export const styles = theme => ({
     textAlign: 'center',
   },
 
+  changeInputComment: {
+    width: '100%',
+    height: 'auto',
+  },
+
   changeInputIcon: {
     transition: '.3s ease',
     cursor: 'pointer',
@@ -1225,6 +1230,14 @@ export const styles = theme => ({
     padding: '10px 0',
   },
 
+  CommentUsersCellWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px 0',
+  },
+
   fourMonthesStockLabel: {
     fontSize: '14px',
     lineHeight: '16px',
@@ -1544,5 +1557,10 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  ChangeInputCommentCellWrapper: {
+    display: 'flex',
+    width: '100%',
   },
 })

@@ -33,6 +33,8 @@ export class SubUsersViewModel {
   groupPermissions = []
   shopsData = []
 
+  currentData = []
+
   curUserProductPermissions = []
   productPermissionsData = []
 
@@ -51,6 +53,7 @@ export class SubUsersViewModel {
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+    onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
 
   firstRowId = undefined
@@ -85,6 +88,14 @@ export class SubUsersViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.subUsersData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async updateColumnsModel() {
@@ -97,6 +108,17 @@ export class SubUsersViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+  }
+
+  async onClickSaveComment(id, comment) {
+    try {
+      console.log(id, comment)
+      await UserModel.patchSubNote(id, comment)
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   setDataGridState(state) {
