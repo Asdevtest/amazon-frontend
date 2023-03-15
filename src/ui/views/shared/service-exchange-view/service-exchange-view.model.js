@@ -33,6 +33,8 @@ export class ServiceExchangeViewModel {
 
   bigImagesOptions = {}
 
+  nameSearchValue = undefined
+
   get user() {
     return UserModel.userInfo
   }
@@ -50,6 +52,14 @@ export class ServiceExchangeViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    reaction(
+      () => this.nameSearchValue,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async loadData() {
@@ -60,6 +70,19 @@ export class ServiceExchangeViewModel {
         this.error = error
       })
       console.log(error)
+    }
+  }
+
+  getCurrentData() {
+    if (this.nameSearchValue) {
+      return toJS(this.announcements).filter(
+        el =>
+          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.createdBy.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.announcements)
     }
   }
 
@@ -87,10 +110,6 @@ export class ServiceExchangeViewModel {
     this.history.push('/client/freelance/my-requests/create-request', {
       announcementId: data._id,
     })
-  }
-
-  getCurrentData() {
-    return toJS(this.announcements)
   }
 
   async onClickTaskType(taskType) {
@@ -123,6 +142,12 @@ export class ServiceExchangeViewModel {
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]
+    })
+  }
+
+  onSearchSubmit(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
     })
   }
 }

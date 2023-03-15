@@ -58,6 +58,7 @@ class MyServicesViewRaw extends Component {
       showImageModal,
       acceptMessage,
       showAcceptMessage,
+      nameSearchValue,
 
       onSearchSubmit,
       onTriggerOpenModal,
@@ -121,9 +122,9 @@ class MyServicesViewRaw extends Component {
                 <div className={classNames.searchInputWrapper}>
                   <SearchInput
                     inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey.Search)}
-                    // value={nameSearchValue}
-                    onSubmit={onSearchSubmit}
+                    placeholder={t(TranslationKey['Search by Title, Description'])}
+                    value={nameSearchValue}
+                    onChange={onSearchSubmit}
                   />
                 </div>
 
