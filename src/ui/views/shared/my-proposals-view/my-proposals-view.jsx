@@ -58,8 +58,6 @@ class MyProposalsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    console.log('getCurrentData()', getCurrentData())
-
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:

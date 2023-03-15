@@ -557,6 +557,7 @@ export const warehouseTasksDataConverter = data =>
     status: mapTaskStatusKeyToEnum[item.status],
 
     priority: item.priority,
+    isBarCodeAttached: item.isBarCodeAttached,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

@@ -282,7 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
+    width: '380px',
     height: 40,
     marginBottom: 10,
     [theme.breakpoints.down(768)]: {

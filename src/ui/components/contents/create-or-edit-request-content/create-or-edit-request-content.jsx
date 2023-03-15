@@ -105,7 +105,7 @@ export const CreateOrEditRequestContent = ({
       announcementId:
         requestToEdit?.request.announcementId || (choosenAnnouncements.length && choosenAnnouncements) || '',
 
-      discountedPrice: '',
+      discountedPrice: 0,
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -116,8 +116,6 @@ export const CreateOrEditRequestContent = ({
 
   const [deadlineError, setDeadlineError] = useState(false)
 
-  console.log('formFields', formFields)
-
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
 
@@ -127,7 +125,7 @@ export const CreateOrEditRequestContent = ({
       }
 
       if (['priceAmazon'].includes(fieldName)) {
-        newFormFields.request.discountedPrice = ''
+        newFormFields.request.discountedPrice = 0
         newFormFields.request.cashBackInPercent = 0
       }
 
@@ -139,8 +137,10 @@ export const CreateOrEditRequestContent = ({
       }
 
       if (['discountedPrice'].includes(fieldName)) {
-        newFormFields.request.cashBackInPercent =
-          calcPercentAfterMinusNumbers(formFields?.request?.priceAmazon, event.target.value) || 0
+        newFormFields.request.cashBackInPercent = calcPercentAfterMinusNumbers(
+          formFields?.request.priceAmazon,
+          event.target.value,
+        )
       }
 
       newFormFields[section][fieldName] = replaceCommaByDot(event.target.value)
@@ -980,21 +980,25 @@ export const CreateOrEditRequestContent = ({
           <div className={classNames.stepPaginationBar}>
             <div className={classNames.step} style={{width: curStep === stepVariant.STEP_ONE ? '50%' : '100%'}}></div>
           </div>
-          <Typography className={classNames.stepTitle}>
-            {curStep === stepVariant.STEP_ONE ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
-          </Typography>
+          <div
+            className={classNames.stepPaginationEndBar}
+            style={{backgroundColor: curStep === stepVariant.STEP_TWO ? '#00B746' : '#c4c4c4'}}
+          ></div>
         </div>
-        {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
-
-        <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
-          <ChoiceOfPerformerModal
-            announcements={announcementsData}
-            onClickThumbnail={onClickThumbnail}
-            onClickChooseBtn={onChangeField('request')('announcementId')}
-            onClickResetPerformerBtn={onChangeField('request')('announcementId')}
-          />
-        </Modal>
+        <Typography className={classNames.stepTitle}>
+          {curStep === stepVariant.STEP_ONE ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
+        </Typography>
       </div>
+      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+
+      <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
+        <ChoiceOfPerformerModal
+          announcements={announcementsData}
+          onClickThumbnail={onClickThumbnail}
+          onClickChooseBtn={onChangeField('request')('announcementId')}
+          onClickResetPerformerBtn={onChangeField('request')('announcementId')}
+        />
+      </Modal>
     </div>
   )
 }

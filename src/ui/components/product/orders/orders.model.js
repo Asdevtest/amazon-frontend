@@ -5,6 +5,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+import {OrderModel} from '@models/order-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -13,7 +14,7 @@ import {clientProductOrdersViewColumns} from '@components/table-columns/client/c
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -48,6 +49,8 @@ export class OrdersModel {
 
   chosenStatus = chosenStatusSettings.ALL
 
+  isPendingOrdering = false
+
   storekeepers = []
   destinations = []
   volumeWeightCoefficient = undefined
@@ -60,7 +63,7 @@ export class OrdersModel {
   }
 
   rowHandlers = {
-    onClickReorder: item => this.onClickReorder(item),
+    onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
   firstRowId = undefined
@@ -183,7 +186,7 @@ export class OrdersModel {
     }
   }
 
-  async onClickReorder(item) {
+  async onClickReorder(item, isPendingOrder) {
     try {
       const storekeepers = await StorekeeperModel.getStorekeepers()
 
@@ -201,6 +204,8 @@ export class OrdersModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
         this.reorderOrder = order
+
+        this.isPendingOrdering = !!isPendingOrder
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -279,17 +284,45 @@ export class OrdersModel {
           await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
 
-        await this.createOrder(product)
+        console.log('product', product)
+
+        if (this.isPendingOrdering) {
+          const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
+            'amount',
+            'orderSupplierId',
+            'images',
+            'totalPrice',
+            'item',
+            'needsResearch',
+            'deadline',
+            'priority',
+            'expressChinaDelivery',
+            'clientComment',
+            'destinationId',
+            'storekeeperId',
+            'logicsTariffId',
+          ])
+          await OrderModel.changeOrderData(product._id, dataToRequest)
+          await ClientModel.updateOrderStatusToReadyToProcess(product._id)
+        } else {
+          await this.createOrder(product)
+        }
+
+        // await this.createOrder(product)
       }
 
       if (!this.error) {
-        this.successModalText = t(TranslationKey['The order has been created'])
+        this.successModalText = this.isPendingOrdering
+          ? t(TranslationKey['The order has been updated'])
+          : t(TranslationKey['The order has been created'])
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
       // this.onTriggerOpenModal('showOrderModal')
       // const noProductBaseUpdate = true
       // await this.getProductsMy(noProductBaseUpdate)
+
+      this.loadData()
     } catch (error) {
       console.log(error)
       this.error = error

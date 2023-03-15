@@ -13,7 +13,6 @@ import {UserModel} from '@models/user-model'
 import {warehouseCompletedTasksViewColumns} from '@components/table-columns/warehouse/completed-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 
@@ -244,9 +243,7 @@ export class WarehouseCompletedViewModel {
         this.completedTasksBase = result.rows
 
         this.completedTasks = warehouseTasksDataConverter(
-          this.completedTasksBase
-            .sort(sortObjectsArrayByFiledDate('updatedAt'))
-            .map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          this.completedTasksBase.map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
       this.setRequestStatus(loadingStatuses.success)

@@ -147,19 +147,21 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                     {t(TranslationKey['All tasks'])}
                   </Button>
 
-                  {Object.keys(mapTaskOperationTypeKeyToEnum).map(type => (
-                    <Button
-                      key={type}
-                      disabled={curTaskType === type}
-                      className={cx(classNames.button, {
-                        [classNames.selectedBoxesBtn]: curTaskType === type,
-                      })}
-                      variant="text"
-                      onClick={() => onClickOperationTypeBtn(type)}
-                    >
-                      {taskOperationTypeTranslate(type)}
-                    </Button>
-                  ))}
+                  {Object.keys(mapTaskOperationTypeKeyToEnum)
+                    .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskType === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskType === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickOperationTypeBtn(type)}
+                      >
+                        {taskOperationTypeTranslate(type)}
+                      </Button>
+                    ))}
                 </div>
 
                 <SearchInput

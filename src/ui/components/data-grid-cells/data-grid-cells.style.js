@@ -1531,43 +1531,68 @@ export const styles = theme => ({
     width: '100%',
     height: '100%',
   },
+  userMainWrapper: {
+    width: '100%',
+    height: '100%',
 
-  stringListMenuWrapper: {
-    width: 150,
-    padding: '10px',
-    maxHeight: 400,
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
   },
-
-  nativeSelect: {
-    // width: '210px',
-  },
-
-  colorYellow: {
-    color: '#F3AF00 !important',
-  },
-
-  colorRed: {
-    color: '#FF1616 !important',
-  },
-
-  colorGreen: {
-    color: '#00B746 !important',
-    userMainWrapper: {
+  userCellAvatar: {
+    width: 28,
+    height: 28,
+    searchInputWrapper: {
+      width: '100%',
+      height: 30,
+      marginBottom: 10,
+    },
+    searchInput: {
+      border: '1px solid #E0E0E0',
       width: '100%',
       height: '100%',
+    },
 
+    stringListMenuWrapper: {
+      width: 150,
+      padding: '10px',
+      maxHeight: 400,
+    },
+
+    nativeSelect: {
+      // width: '210px',
+    },
+
+    colorYellow: {
+      color: '#F3AF00 !important',
+    },
+
+    colorRed: {
+      color: '#FF1616 !important',
+    },
+
+    colorGreen: {
+      color: '#00B746 !important',
+      userMainWrapper: {
+        width: '100%',
+        height: '100%',
+
+        display: 'flex',
+        gap: 10,
+        alignItems: 'center',
+      },
+      userCellAvatar: {
+        width: 28,
+        height: 28,
+      },
+    },
+    userMainWrapper: {
       display: 'flex',
-      gap: 10,
       alignItems: 'center',
+      gap: 5,
+      colorGreen: {
+        color: '#00B746 !important',
+      },
     },
-    userCellAvatar: {
-      width: 28,
-      height: 28,
-    },
-  },
-  userMainWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
   },
 })

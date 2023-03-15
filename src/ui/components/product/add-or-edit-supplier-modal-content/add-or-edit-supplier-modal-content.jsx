@@ -368,11 +368,10 @@ export const AddOrEditSupplierModalContent = observer(
       tmpSupplier.boxProperties?.boxLengthCm &&
       tmpSupplier.boxProperties?.boxWidthCm &&
       tmpSupplier.boxProperties?.boxHeightCm &&
-      tmpSupplier.boxProperties?.boxWeighGrossKg &&
-      tmpSupplier.amount &&
-      tmpSupplier.minlot &&
-      tmpSupplier.priceInYuan &&
-      tmpSupplier.price
+      tmpSupplier.boxProperties?.boxWeighGrossKg
+
+    const boxPropertiesIsFullAndMainsValues =
+      boxPropertiesIsFull && tmpSupplier.amount && tmpSupplier.minlot && tmpSupplier.priceInYuan && tmpSupplier.price
 
     const itHaveBigInt =
       +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
@@ -401,7 +400,7 @@ export const AddOrEditSupplierModalContent = observer(
         tmpSupplier.boxProperties?.boxWidthCm ||
         tmpSupplier.boxProperties?.boxHeightCm ||
         tmpSupplier.boxProperties?.boxWeighGrossKg) &&
-        !boxPropertiesIsFull)
+        !boxPropertiesIsFullAndMainsValues)
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -817,11 +816,13 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <div>
                   <div
-                    className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                    onClick={!onlyRead && onChangeField('multiplicity')}
+                    className={cx(classNames.checkboxWrapper, {
+                      [classNames.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
+                    })}
+                    onClick={!onlyRead && boxPropertiesIsFull && onChangeField('multiplicity')}
                   >
                     <Checkbox
-                      disabled={onlyRead}
+                      disabled={onlyRead || !boxPropertiesIsFull}
                       className={classNames.checkbox}
                       checked={tmpSupplier.multiplicity}
                       color="primary"
@@ -874,9 +875,11 @@ export const AddOrEditSupplierModalContent = observer(
           <div className={classNames.calculationBtnWrapper}>
             <Button
               tooltipAttentionContent={
-                !product || !storekeepersData?.length || (!boxPropertiesIsFull && t(TranslationKey['Not enough data']))
+                !product ||
+                !storekeepersData?.length ||
+                (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
               }
-              disabled={!product || !storekeepersData || !boxPropertiesIsFull}
+              disabled={!product || !storekeepersData || !boxPropertiesIsFullAndMainsValues}
               variant="contained"
               color="primary"
               onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
