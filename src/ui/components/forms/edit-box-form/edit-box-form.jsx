@@ -266,9 +266,19 @@ export const EditBoxForm = observer(
                           formItem && formItem.humanFriendlyId
                         }`}</Typography>
 
-                        <Typography className={classNames.amountSpan}>
-                          {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                        </Typography>
+                        <Typography className={classNames.standartLabel}>{` / ID:`}</Typography>
+
+                        <Input
+                          className={classNames.itemInput}
+                          classes={{input: classNames.input}}
+                          inputProps={{maxLength: 14}}
+                          value={boxFields.prepId}
+                          onChange={setFormField('prepId')}
+                        />
+
+                        {/* <Typography className={classNames.amountSpan}>
+                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+                          </Typography> */}
                       </div>
                     }
                   />
@@ -281,6 +291,9 @@ export const EditBoxForm = observer(
                     value={allItemsCount}
                   />
                 </div>
+                <Typography className={classNames.amountSpan}>
+                  {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+                </Typography>
 
                 <Divider className={classNames.divider} />
 

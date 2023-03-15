@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject105 model module.
@@ -21,11 +22,19 @@ import ApiClient from '../ApiClient';
 class InlineObject105 {
     /**
      * Constructs a new <code>InlineObject105</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject105
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена за еденицу, dollar
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param comment {String} Комментарий
+     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor() { 
+    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject105.initialize(this);
+        InlineObject105.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -33,7 +42,14 @@ class InlineObject105 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['comment'] = comment;
+        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
 
     /**
@@ -50,23 +66,53 @@ class InlineObject105 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('multiplicity')) {
+                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('paymentMethod')) {
+                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -76,46 +122,104 @@ class InlineObject105 {
 }
 
 /**
- * Название склада.
+ * Название поставщика.
  * @member {String} name
  */
 InlineObject105.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject105.prototype['country'] = undefined;
+InlineObject105.prototype['link'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Цена за еденицу, dollar
+ * @member {Number} price
  */
-InlineObject105.prototype['zipCode'] = undefined;
+InlineObject105.prototype['price'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * кол-во
+ * @member {Number} amount
  */
-InlineObject105.prototype['state'] = undefined;
+InlineObject105.prototype['amount'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Минимальный лот.
+ * @member {Number} minlot
  */
-InlineObject105.prototype['city'] = undefined;
+InlineObject105.prototype['minlot'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * Имеет ли обязательный делитель на кол-во в заказе поставщик
+ * @member {Boolean} multiplicity
  */
-InlineObject105.prototype['address'] = undefined;
+InlineObject105.prototype['multiplicity'] = undefined;
 
 /**
- * Цвет шрифта
- * @member {String} fontColor
+ * Тип оплаты
+ * @member {Array.<Number>} paymentMethod
  */
-InlineObject105.prototype['fontColor'] = undefined;
+InlineObject105.prototype['paymentMethod'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject105.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject105.prototype['comment'] = undefined;
+
+/**
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
+ */
+InlineObject105.prototype['yuanRate'] = undefined;
+
+/**
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
+ */
+InlineObject105.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject105.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject105.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject105.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject105.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject105.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject105.prototype['boxProperties'] = undefined;
 
 
 

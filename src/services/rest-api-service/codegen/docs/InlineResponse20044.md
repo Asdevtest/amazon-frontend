@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | [**[InlineResponse20044Failed]**](InlineResponse20044Failed.md) |  | [optional] 
+**failed** | **[String]** |  | [optional] 
 
 

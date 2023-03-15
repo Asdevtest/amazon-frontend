@@ -338,6 +338,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   photoWrapper: {
     width: '225px',
+    height: 220,
+    paddingBottom: 30,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       height: '240px',

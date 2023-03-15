@@ -26,6 +26,7 @@ import {
   SettingsIcon,
   ShopsIcon,
   TasksIcon,
+  NewTasksIcon,
   TradingShops,
   UsersPermissionsIcon,
 } from './svg-icons'
@@ -687,7 +688,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER),
     },
     {
-      icon: TasksIcon,
+      icon: NewTasksIcon,
       title: t(TranslationKey.Tasks),
       subtitles: [
         {
@@ -712,7 +713,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
         },
       ],
-      route: '/warehouse/vacant-tasks',
+      route: '/warehouse/tasks',
       key: navBarActiveCategory.NAVBAR_TASKS,
 
       checkHideBlock: user =>

@@ -127,6 +127,9 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -310,6 +313,12 @@ InlineResponse20015.prototype['deliveryTotalPriceChanged'] = undefined;
  * @member {Array.<String>} images
  */
 InlineResponse20015.prototype['images'] = undefined;
+
+/**
+ * Nullable ISO Date
+ * @member {String} deadline
+ */
+InlineResponse20015.prototype['deadline'] = undefined;
 
 /**
  * @member {Date} createdAt

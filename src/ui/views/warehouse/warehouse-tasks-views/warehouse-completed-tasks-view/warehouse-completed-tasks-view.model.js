@@ -5,6 +5,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -12,7 +13,6 @@ import {UserModel} from '@models/user-model'
 import {warehouseCompletedTasksViewColumns} from '@components/table-columns/warehouse/completed-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 
@@ -26,6 +26,10 @@ export class WarehouseCompletedViewModel {
   curOpenedTask = {}
 
   currentData = []
+  selectedTasks = []
+
+  curTaskType = null
+  curTaskPriority = null
 
   rowCount = 0
 
@@ -125,8 +129,24 @@ export class WarehouseCompletedViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+
+      this.curPage = 0
     })
 
+    this.getCompletedTasksPagMy()
+  }
+
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getCompletedTasksPagMy()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
     this.getCompletedTasksPagMy()
   }
 
@@ -160,6 +180,20 @@ export class WarehouseCompletedViewModel {
     })
   }
 
+  onSelectionModel(model) {
+    runInAction(() => {
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
+    })
+  }
+
   async loadData() {
     try {
       this.getDataGridState()
@@ -173,30 +207,24 @@ export class WarehouseCompletedViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const filter =
-        isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-          ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][item][$contains]=${this.nameSearchValue};or[2][trackNumberText][$contains]=${this.nameSearchValue};`
-          : `or[0][asin][$contains]=${this.nameSearchValue};or[1][id][$eq]=${this.nameSearchValue};or[2][trackNumberText][$eq]=${this.nameSearchValue};or[4][item][$contains]=${this.nameSearchValue};`
-
-      // const filter = objectToUrlQs({
-      //   or: [
-      //     {asin: {$contains: this.nameSearchValue}},
-      //     {title: {$contains: this.nameSearchValue}},
-      //     {
-      //       trackNumberText: {
-      //         [`${isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'}`]:
-      //           this.nameSearchValue,
-      //       },
-      //     },
-      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
-      //     {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
-      //   ].filter(
-      //     el =>
-      //       (isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.humanFriendlyId &&
-      //       !el.orderHumanFriendlyId,
-      //   ),
-      // })
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {
+            trackNumberText: {
+              [`${
+                isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'
+              }`]: this.nameSearchValue,
+            },
+          },
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
+      })
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.SOLVED],
@@ -205,6 +233,8 @@ export class WarehouseCompletedViewModel {
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
       })
 
       runInAction(() => {
@@ -213,15 +243,14 @@ export class WarehouseCompletedViewModel {
         this.completedTasksBase = result.rows
 
         this.completedTasks = warehouseTasksDataConverter(
-          this.completedTasksBase
-            .sort(sortObjectsArrayByFiledDate('updatedAt'))
-            .map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          this.completedTasksBase.map(el => ({...el, beforeBoxes: el.boxesBefore})),
         )
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       runInAction(() => {
         this.batches = []
+        this.completedTasks = []
       })
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)

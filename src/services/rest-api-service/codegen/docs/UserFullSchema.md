@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **canByMasterUser** | **Boolean** | Флаг fba. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
+**note** | [**UserFullSchemaNote**](UserFullSchemaNote.md) |  | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 

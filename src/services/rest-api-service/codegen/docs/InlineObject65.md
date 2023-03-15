@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | 
-**warehouseStocks** | [**[ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]**](ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md) |  | 
+**clientComment** | **String** | Комментарий клиента | [optional] 
+**buyerComment** | **String** | Комментарий баера | [optional] 
 
 

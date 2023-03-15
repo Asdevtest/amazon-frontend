@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject55 model module.
@@ -23,10 +22,11 @@ class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
      * @alias module:model/InlineObject55
+     * @param profileId {String} id профайла
      */
-    constructor() { 
+    constructor(profileId) { 
         
-        InlineObject55.initialize(this);
+        InlineObject55.initialize(this, profileId);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -48,14 +49,8 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -65,22 +60,10 @@ class InlineObject55 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject55.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject55.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject55.prototype['navigator'] = undefined;
+InlineObject55.prototype['profileId'] = undefined;
 
 
 

@@ -521,7 +521,13 @@ ApiV1BatchesBoxes['StatusEnum'] = {
      * value: "FINISH_PREP_CENTR_USA"
      * @const
      */
-    "FINISH_PREP_CENTR_USA": "FINISH_PREP_CENTR_USA"
+    "FINISH_PREP_CENTR_USA": "FINISH_PREP_CENTR_USA",
+
+    /**
+     * value: "ACCEPTED_IN_PROCESSING"
+     * @const
+     */
+    "ACCEPTED_IN_PROCESSING": "ACCEPTED_IN_PROCESSING"
 };
 
 

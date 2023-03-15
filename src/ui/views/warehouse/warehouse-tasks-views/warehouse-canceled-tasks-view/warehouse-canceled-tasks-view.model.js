@@ -4,6 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -11,8 +12,8 @@ import {UserModel} from '@models/user-model'
 import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 
 export class WarehouseCanceledTasksViewModel {
   history = undefined
@@ -25,6 +26,13 @@ export class WarehouseCanceledTasksViewModel {
   volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
+
+  curTaskType = null
+  curTaskPriority = null
+
+  selectedTasks = []
+
+  rowCount = 0
 
   drawerOpen = false
 
@@ -106,7 +114,11 @@ export class WarehouseCanceledTasksViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+
+      this.curPage = 0
     })
+
+    this.getTasksMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -125,31 +137,46 @@ export class WarehouseCanceledTasksViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.getTasksMy()
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getTasksMy()
+  }
+
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getTasksMy()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getTasksMy()
+  }
+
+  getCurrentData() {
+    return toJS(this.tasksMy)
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.selectedTasks = model
     })
   }
 
-  getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.tasksMy.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.tasksMy)
-    }
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
+    })
   }
 
   onChangeNameSearchValue(e) {
@@ -194,26 +221,58 @@ export class WarehouseCanceledTasksViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getTasksMy()
   }
 
   async getTasksMy() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await StorekeeperModel.getLightTasksMy({
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {
+            trackNumberText: {
+              [`${
+                isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'
+              }`]: this.nameSearchValue,
+            },
+          },
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
+      })
+
+      const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
+        offset: this.curPage * this.rowsPerPage,
+        limit: this.rowsPerPage,
+        filters: this.nameSearchValue ? filter : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
       })
 
       runInAction(() => {
-        this.tasksMy = warehouseTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
-        )
+        this.rowCount = result.count
+
+        // this.tasksMyBase = result.rows
+
+        this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
+        this.tasksMy = []
       })
       this.setRequestStatus(loadingStatuses.failed)
     }

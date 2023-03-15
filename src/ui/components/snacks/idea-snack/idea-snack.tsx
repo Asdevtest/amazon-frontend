@@ -3,7 +3,7 @@ import {Avatar, Typography} from '@mui/material'
 
 import {forwardRef, useCallback} from 'react'
 
-import {format, secondsToHours} from 'date-fns'
+import {format} from 'date-fns'
 import {useSnackbar, SnackbarContent, SnackbarKey} from 'notistack'
 
 import {UiTheme} from '@constants/themes'
@@ -14,13 +14,18 @@ import {SettingsModel} from '@models/settings-model'
 
 import {UserLink} from '@components/user-link'
 
-import {getDistanceBetweenDatesInSeconds, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-snack.style'
 
+interface InoticeItem {
+  productId: string
+  asin: string
+  creator: {name: string; _id: string}
+}
+
 interface SimpleMessagesSnackProps {
-  noticeItem: any | null
+  noticeItem: InoticeItem | null
   id: SnackbarKey
   role: number
   autoHideDuration?: number
@@ -53,7 +58,7 @@ export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
       const win = window.open(
         `${window.location.origin}/${getRolePiceToUrl(
           (UserRoleCodeMap as {[key: number]: string})[role],
-        )}/product?product-id=${noticeItem.productId}&show-tab=ideas`,
+        )}/product?product-id=${noticeItem?.productId}&show-tab=ideas`,
         '_blank',
       )
 
@@ -77,8 +82,8 @@ export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
             <div className={classNames.centerSubWrapper}>
               <div className={classNames.itemWrapper}>
                 <UserLink
-                  name={noticeItem.creator.name}
-                  userId={noticeItem.creator._id}
+                  name={noticeItem?.creator.name}
+                  userId={noticeItem?.creator._id}
                   blackText={undefined}
                   withAvatar={undefined}
                   maxNameWidth={undefined}
@@ -91,7 +96,7 @@ export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
               <div className={classNames.itemWrapper}>
                 <Typography className={classNames.asin}>{'ASIN:'}</Typography>
                 <Typography className={classNames.asinText} onClick={onClickNoticeItem}>
-                  {noticeItem.asin}
+                  {noticeItem?.asin}
                 </Typography>
               </div>
             </div>

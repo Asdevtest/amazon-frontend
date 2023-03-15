@@ -72,6 +72,8 @@ Name | Type | Description | Notes
 
 * `FINISH_PREP_CENTR_USA` (value: `"FINISH_PREP_CENTR_USA"`)
 
+* `ACCEPTED_IN_PROCESSING` (value: `"ACCEPTED_IN_PROCESSING"`)
+
 
 
 

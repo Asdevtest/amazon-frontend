@@ -4,34 +4,27 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
-**item** | **String** |  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
-**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
-**destinationId** | **String** | GUID пункта назначения. | [optional] 
-**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
-**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
-**clientComment** | **String** | Комментарии клиента. | [optional] 
-**images** | **[String]** | Массив изображений. | [optional] 
-**expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 
-**needsResearch** | **Boolean** | Нуждается ли заказ в повторном поиске поставщика | [optional] 
-**deadline** | **Date** | Дедлайн выкупа заказа | [optional] 
-**totalPrice** | **Number** | Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком | [optional] 
+**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | 
+**boxesBefore** | **[String]** |  | [optional] 
+**boxes** | **[String]** |  | 
+**operationType** | **String** | Тип операции | 
+**clientComment** | **String** | Комментарий клиента. | [optional] [default to &#39;&#39;]
+**buyerComment** | **String** | Комментарий баера | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 
 
 
-## Enum: PriorityEnum
+## Enum: OperationTypeEnum
 
 
-* `10` (value: `"10"`)
+* `merge` (value: `"merge"`)
 
-* `20` (value: `"20"`)
+* `split` (value: `"split"`)
 
-* `30` (value: `"30"`)
+* `receive` (value: `"receive"`)
 
-* `40` (value: `"40"`)
-
-* `50` (value: `"50"`)
+* `edit` (value: `"edit"`)
 
 
 

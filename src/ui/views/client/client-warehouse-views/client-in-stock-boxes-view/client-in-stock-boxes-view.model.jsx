@@ -57,6 +57,7 @@ const updateBoxWhiteList = [
   'trackNumberFile',
   'trackNumberText',
   'fbaNumber',
+  'prepId',
 ]
 
 const filtersFields = [
@@ -1362,6 +1363,7 @@ export class ClientInStockBoxesViewModel {
           clientComment: boxData.clientComment,
           referenceId: boxData.referenceId,
           fbaNumber: boxData.fbaNumber,
+          prepId: boxData.prepId,
         })
 
         runInAction(() => {
@@ -1827,9 +1829,13 @@ export class ClientInStockBoxesViewModel {
         {id: {$eq: this.nameSearchValue}},
         {item: {$eq: this.nameSearchValue}},
         {productId: {$eq: this.nameSearchValue}},
+        {humanFriendlyId: {$eq: this.nameSearchValue}},
+        {prepId: {$contains: this.nameSearchValue}},
       ].filter(
         el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 

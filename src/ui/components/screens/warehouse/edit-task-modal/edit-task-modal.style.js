@@ -322,4 +322,17 @@ export const useClassNames = makeStyles()(theme => ({
       height: '40px',
     },
   },
+
+  downloadButton: {
+    padding: '0 20px',
+    // width: 216,
+    height: 40,
+    gap: 5,
+    marginLeft: 30,
+  },
+
+  modalSubHeader: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }))

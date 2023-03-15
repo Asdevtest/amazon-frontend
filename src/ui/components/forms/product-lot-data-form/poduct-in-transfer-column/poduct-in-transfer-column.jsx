@@ -8,6 +8,7 @@ import {
   MultilineTextCell,
   NormalActionBtnCell,
   BoxesAndQuantity,
+  StringListCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDate} from '@utils/date-time'
@@ -72,6 +73,16 @@ export const productInTransferColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={params.row.destination.name} />,
     width: 100,
+  },
+
+  {
+    field: 'fbaShipment',
+    headerName: 'FBA Shipment',
+    renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment'} />,
+
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    width: 160,
+    sortable: false,
   },
 
   {

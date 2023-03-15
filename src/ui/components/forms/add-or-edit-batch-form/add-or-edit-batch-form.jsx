@@ -166,25 +166,33 @@ export const AddOrEditBatchForm = observer(
     }, [])
 
     const filterBySearchValueBoxesToAddData = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
       )
 
     const filterBySearchValueChosenBoxes = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
       )
 
     useEffect(() => {
-      if (/* chosenBoxesBase.length && */ !batchToEdit) {
+      if (!batchToEdit) {
         setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...filterBoxesToAddData()]))
       } else if (batchToEdit /* && !nameSearchValueChosenBoxes */) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
@@ -197,7 +205,6 @@ export const AddOrEditBatchForm = observer(
           ),
         )
 
-        // console.log('deletedBoxes', deletedBoxes)
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData([
             ...addOrEditBatchDataConverter(
@@ -442,7 +449,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueBoxesToAddData}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
@@ -541,7 +548,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueChosenBoxes}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>
@@ -604,14 +611,6 @@ export const AddOrEditBatchForm = observer(
                 containerClasses={classNames.sumField}
                 tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
                 label={t(TranslationKey['Final weight'])}
-                // value={toFixed(
-                //   chosenBoxes.reduce(
-                //     (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
-                //     0,
-                //   ),
-                //   4,
-                // )}
-
                 value={
                   batchFields.calculationMethod ===
                   BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]
@@ -627,14 +626,6 @@ export const AddOrEditBatchForm = observer(
                         4,
                       )
                 }
-                // value={toFixed(
-                //   getBatchWeightCalculationMethodForBatch({
-                //     boxes: chosenBoxes.map(el => el.originalData),
-                //     volumeWeightDivide: batchFields.volumeWeightDivide,
-                //     calculationMethod: batchFields.calculationMethod,
-                //   }),
-                //   4,
-                // )}
                 placeholder={'0'}
               />
 

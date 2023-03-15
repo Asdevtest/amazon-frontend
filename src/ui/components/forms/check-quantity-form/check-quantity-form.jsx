@@ -20,6 +20,7 @@ export const CheckQuantityForm = ({
   onSubmit,
   comparisonQuantity,
   withRefund,
+  maxRefundNumber,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -36,7 +37,7 @@ export const CheckQuantityForm = ({
   const [refundValue, setRefundValue] = useState('')
 
   const onChangeRefundValue = e => {
-    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && e.target.value <= maxRefundNumber) {
       setRefundValue(e.target.value)
     }
   }

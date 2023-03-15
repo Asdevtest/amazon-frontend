@@ -95,9 +95,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0]?.product.client?._id} />
-    ),
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
     width: 200,
     sortable: false,
   },

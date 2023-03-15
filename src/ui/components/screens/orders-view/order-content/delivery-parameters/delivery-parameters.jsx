@@ -32,8 +32,6 @@ export const DeliveryParameters = ({
   setFormFields,
   onChangeField,
 }) => {
-  console.log('order', order)
-
   const {classes: classNames} = useClassNames()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)

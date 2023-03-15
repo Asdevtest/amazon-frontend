@@ -50,6 +50,9 @@ class InlineResponse20011 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
+            if (data.hasOwnProperty('cubicMeters')) {
+                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            }
             if (data.hasOwnProperty('deliveryCost')) {
                 obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
             }
@@ -74,6 +77,12 @@ class InlineResponse20011 {
  * @member {String} guid
  */
 InlineResponse20011.prototype['guid'] = undefined;
+
+/**
+ * Объем в м ^ 3
+ * @member {Number} cubicMeters
+ */
+InlineResponse20011.prototype['cubicMeters'] = undefined;
 
 /**
  * The delivery cost of the box.

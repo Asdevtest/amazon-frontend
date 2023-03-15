@@ -1,3 +1,5 @@
+import {cx} from '@emotion/css'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
@@ -7,9 +9,16 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {
+  mapTaskOperationTypeKeyToEnum,
+  TaskOperationType,
+  taskOperationTypeTranslate,
+} from '@constants/task-operation-type'
+import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -38,6 +47,9 @@ export class WarehouseCompletedTasksViewRaw extends Component {
 
   render() {
     const {
+      selectedTasks,
+      curTaskType,
+      curTaskPriority,
       nameSearchValue,
       requestStatus,
       getCurrentData,
@@ -63,6 +75,10 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       onChangeFilterModel,
       setCurrentOpenedTask,
       onSearchSubmit,
+      onClickOperationTypeBtn,
+      onClickTaskPriorityBtn,
+      onSelectionModel,
+      onClickReportBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -79,6 +95,75 @@ export class WarehouseCompletedTasksViewRaw extends Component {
           <Appbar title={t(TranslationKey['Completed tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskPriority === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskPriority === null})}
+                    variant="text"
+                    onClick={() => onClickTaskPriorityBtn(null)}
+                  >
+                    {t(TranslationKey['All priorities'])}
+                  </Button>
+
+                  {Object.keys(mapTaskPriorityStatusEnum)
+                    .reverse()
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskPriority === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskPriority === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickTaskPriorityBtn(type)}
+                      >
+                        {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+                      </Button>
+                    ))}
+                </div>
+                <Button
+                  variant="contained"
+                  disabled={
+                    !selectedTasks.length ||
+                    selectedTasks.length > 1 ||
+                    getCurrentData().filter(el => selectedTasks.includes(el.id))[0]?.originalData.operationType !==
+                      TaskOperationType.RECEIVE
+                  }
+                  className={classNames.pickupOrdersButton}
+                  onClick={onClickReportBtn}
+                >
+                  {t(TranslationKey['Download task file'])}
+                  <FileDownloadIcon />
+                </Button>
+              </div>
+              <div className={classNames.headerWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={curTaskType === null}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskType === null})}
+                    variant="text"
+                    onClick={() => onClickOperationTypeBtn(null)}
+                  >
+                    {t(TranslationKey['All tasks'])}
+                  </Button>
+
+                  {Object.keys(mapTaskOperationTypeKeyToEnum)
+                    .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+                    .map(type => (
+                      <Button
+                        key={type}
+                        disabled={curTaskType === type}
+                        className={cx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: curTaskType === type,
+                        })}
+                        variant="text"
+                        onClick={() => onClickOperationTypeBtn(type)}
+                      >
+                        {taskOperationTypeTranslate(type)}
+                      </Button>
+                    ))}
+                </div>
+
                 <SearchInput
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
@@ -86,44 +171,48 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                   onSubmit={onSearchSubmit}
                 />
               </div>
-
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                  filterForm: classNames.filterForm,
-                }}
-                sortingMode="server"
-                paginationMode="server"
-                rowCount={rowCount}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                // rowHeight={200}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
-              />
+              <div className={classNames.tableWrapper}>
+                <MemoDataGrid
+                  pagination
+                  checkboxSelection
+                  useResizeContainer
+                  disableVirtualization
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                    filterForm: classNames.filterForm,
+                  }}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  // rowHeight={200}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
