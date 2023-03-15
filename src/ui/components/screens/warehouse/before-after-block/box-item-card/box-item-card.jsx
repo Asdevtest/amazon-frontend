@@ -4,11 +4,6 @@ import {Checkbox, Link, Typography} from '@mui/material'
 import React from 'react'
 
 import {TaskOperationType} from '@constants/task-operation-type'
-import {
-  mapTaskPriorityStatusEnum,
-  taskPriorityStatusTranslate,
-  colorByTaskPriorityStatus,
-} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -114,14 +109,19 @@ export const BoxItemCard = ({
               </div>
 
               {taskType === TaskOperationType.RECEIVE ? (
-                <div className={classNames.countSubWrapper}>
-                  <Typography className={classNames.subTitle}>{t(TranslationKey.Priority)}</Typography>
-                  <Typography
-                    className={classNames.subValue}
-                    style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[item.order.priority])}}
-                  >
-                    {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[item.order.priority])}
-                  </Typography>
+                <div className={classNames.priorityWrapper}>
+                  <Typography className={classNames.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                  {item.order.priority === '40' ? (
+                    <div className={classNames.rushOrderWrapper}>
+                      <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
+                      <Typography className={classNames.subValue}>{t(TranslationKey['Rush order'])}</Typography>
+                    </div>
+                  ) : null}
+                  {item.order.priority !== '40' /* && !item.order.expressChinaDelivery  */ ? (
+                    <div className={classNames.rushOrderWrapper}>
+                      <Typography className={classNames.subValue}>{t(TranslationKey['Medium priority'])}</Typography>
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
 
