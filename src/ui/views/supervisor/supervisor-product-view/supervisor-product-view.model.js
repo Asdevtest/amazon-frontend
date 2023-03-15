@@ -2,7 +2,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-// import {ProductDataParser} from '@constants/product-data-parser'
+import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -526,8 +526,29 @@ export class SupervisorProductViewModel {
           throw new Error('price <= 0')
         }
 
+        runInAction(() => {
+          if (Object.keys(amazonResult).length > 5) {
+            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+            runInAction(() => {
+              this.product = {
+                ...this.product,
+                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+                weight:
+                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                    ? this.product.weight
+                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+                // fbafee: this.product.fbafee,
+              }
+            })
+          }
+          updateProductAutoCalculatedFields.call(this)
+        })
+
         const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
-          price: amazonResult.amazon,
+          price: amazonResult.price,
         })
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
@@ -535,22 +556,20 @@ export class SupervisorProductViewModel {
           throw new Error('fbafee <= 0')
         }
 
-        const parseResult = {...amazonResult, ...sellerCentralResult}
-
         runInAction(() => {
-          if (Object.keys(parseResult).length > 5) {
+          if (Object.keys(sellerCentralResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
             runInAction(() => {
               this.product = {
                 ...this.product,
-                ...parseFieldsAdapter(parseResult /* , productDataParser */),
+                ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
                 weight:
                   this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
                     ? this.product.weight
                     : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-                amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+                amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+                amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
                 // fbafee: this.product.fbafee,
               }
             })
@@ -563,6 +582,8 @@ export class SupervisorProductViewModel {
         })
       }
 
+      this.warningModalTitle = t(TranslationKey['Success parse'])
+      this.onTriggerOpenModal('showWarningModal')
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -573,7 +594,7 @@ export class SupervisorProductViewModel {
         })
       }
 
-      this.warningModalTitle = t(TranslationKey['Parsing error'])
+      this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
     }
   }

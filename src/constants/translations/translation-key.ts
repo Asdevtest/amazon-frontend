@@ -1806,7 +1806,7 @@ export enum TranslationKey {
   'Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box' = 'Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box',
   'Parsing error' = 'Parsing error',
   'The order has been updated' = 'The order has been updated',
-  // '' = '',
+  'Success parse' = 'Success parse',
   // '' = '',
   // '' = '',
   // '' = '',
