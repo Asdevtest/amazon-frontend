@@ -51,7 +51,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
     <TableContainer className={classNames.table} sx={{maxHeight: 540}}>
       <Table className={classNames.tableBody}>
         {SettingsModel.languageTag && renderHeader()}
-        <TableBody stickyHeader>
+        <TableBody>
           {product.suppliers.length ? (
             (product.currentSupplier && product.suppliers.find(el => product.currentSupplier._id === el._id)
               ? [
