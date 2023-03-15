@@ -1786,7 +1786,6 @@
   "Updated by": "Updated by",
   "Without stores": "Without stores",
   "This amount includes the service fee": "This amount includes the service fee",
-  "Got barcode": "Got barcode",
   "No barcode": "No barcode",
   "Download box file": "Download box file",
   "Low": "Low",
@@ -1860,5 +1859,8 @@
   "Reset performer": "Reset performer",
   "Result of the request": "Result of the request",
   "After assent the announcement will be deleted": "After assent the announcement will be deleted",
-  "Describe your task": "Describe your task"
+  "Describe your task": "Describe your task",
+  "Got barcode": "Got barcode",
+  "The order has been updated": "The order has been updated",
+  "Success parse": "Success parse"
 }

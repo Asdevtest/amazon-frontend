@@ -139,8 +139,10 @@ export const CreateOrEditRequestContent = ({
       }
 
       if (['discountedPrice'].includes(fieldName)) {
-        newFormFields.request.cashBackInPercent =
-          calcPercentAfterMinusNumbers(formFields?.request?.priceAmazon, event.target.value) || 0
+        newFormFields.request.cashBackInPercent = calcPercentAfterMinusNumbers(
+          formFields?.request.priceAmazon,
+          event.target.value,
+        )
       }
 
       newFormFields[section][fieldName] = replaceCommaByDot(event.target.value)
