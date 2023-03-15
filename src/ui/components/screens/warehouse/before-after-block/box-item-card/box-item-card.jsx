@@ -4,6 +4,11 @@ import {Checkbox, Link, Typography} from '@mui/material'
 import React from 'react'
 
 import {TaskOperationType} from '@constants/task-operation-type'
+import {
+  mapTaskPriorityStatusEnum,
+  taskPriorityStatusTranslate,
+  colorByTaskPriorityStatus,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -107,6 +112,18 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subTitle}>{'item'}</Typography>
                 <Typography className={classNames.subValue}>{item.order.item}</Typography>
               </div>
+
+              {taskType === TaskOperationType.RECEIVE ? (
+                <div className={classNames.countSubWrapper}>
+                  <Typography className={classNames.subTitle}>{t(TranslationKey.Priority)}</Typography>
+                  <Typography
+                    className={classNames.subValue}
+                    style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[item.order.priority])}}
+                  >
+                    {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[item.order.priority])}
+                  </Typography>
+                </div>
+              ) : null}
 
               {/* <div className={classNames.countSubWrapper}>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Track number'])}</Typography>
