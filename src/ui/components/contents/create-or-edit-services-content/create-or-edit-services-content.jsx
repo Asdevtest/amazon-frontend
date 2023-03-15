@@ -58,7 +58,6 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
     type: data?.type || '',
     title: data?.title || '',
     description: data?.description || '',
-    createdBy: data?.createdBy || '',
 
     linksToMediaFiles: data?.linksToMediaFiles || [],
   }

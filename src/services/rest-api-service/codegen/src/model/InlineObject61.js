@@ -47,20 +47,26 @@ class InlineObject61 {
         if (data) {
             obj = obj || new InlineObject61();
 
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
             if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
             }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('dimensions')) {
-                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
             }
             if (data.hasOwnProperty('quantity')) {
                 obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
@@ -68,8 +74,14 @@ class InlineObject61 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
         }
         return obj;
@@ -79,6 +91,30 @@ class InlineObject61 {
 }
 
 /**
+ * Название идеи
+ * @member {String} title
+ */
+InlineObject61.prototype['title'] = undefined;
+
+/**
+ * Статус идеи
+ * @member {Number} status
+ */
+InlineObject61.prototype['status'] = undefined;
+
+/**
+ * Images URLs
+ * @member {Array.<Object>} media
+ */
+InlineObject61.prototype['media'] = undefined;
+
+/**
+ * Комментарий к идее
+ * @member {String} comments
+ */
+InlineObject61.prototype['comments'] = undefined;
+
+/**
  * Назавние продукта
  * @member {String} productName
  */
@@ -86,27 +122,15 @@ InlineObject61.prototype['productName'] = undefined;
 
 /**
  * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * @member {Array.<Object>} productLinks
  */
 InlineObject61.prototype['productLinks'] = undefined;
-
-/**
- * Image URL
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject61.prototype['linksToMediaFiles'] = undefined;
 
 /**
  * Дополнительные критерии для поиска товара
  * @member {String} criteria
  */
 InlineObject61.prototype['criteria'] = undefined;
-
-/**
- * Размеры
- * @member {String} dimensions
- */
-InlineObject61.prototype['dimensions'] = undefined;
 
 /**
  * Количество товаров
@@ -121,10 +145,22 @@ InlineObject61.prototype['quantity'] = undefined;
 InlineObject61.prototype['price'] = undefined;
 
 /**
- * Product ID
- * @member {String} productId
+ * Ширина, см
+ * @member {Number} width
  */
-InlineObject61.prototype['productId'] = undefined;
+InlineObject61.prototype['width'] = undefined;
+
+/**
+ * Высота, см
+ * @member {Number} height
+ */
+InlineObject61.prototype['height'] = undefined;
+
+/**
+ * Длина, см
+ * @member {Number} length
+ */
+InlineObject61.prototype['length'] = undefined;
 
 
 
