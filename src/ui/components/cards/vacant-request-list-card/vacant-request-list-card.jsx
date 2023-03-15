@@ -88,7 +88,7 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
                 containerClasses={classNames.fieldContainer}
                 label={'CashBack'}
                 inputComponent={
-                  <Typography className={classNames.accentText}>{item.cashBackInPercent + '%'}</Typography>
+                  <Typography className={classNames.accentText}>{toFixed(item.cashBackInPercent, 2) + '%'}</Typography>
                 }
               />
             ) : null}
