@@ -44,6 +44,18 @@ export const NavbarCollapse = ({
 
   const renderNotificationBySubRoute = subRoute => {
     switch (subRoute) {
+      case '/warehouse/tasks/vacant-tasks':
+        return (
+          <ListItemIcon>{<div className={classNames.badge}>{currentViewModel.userInfo.tasksNew}</div>}</ListItemIcon>
+        )
+
+      case '/warehouse/tasks/my-tasks':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.badge}>{currentViewModel.userInfo.tasksAtProcess}</div>}
+          </ListItemIcon>
+        )
+
       case '/client/notifications/ideas-notifications':
         return (
           <ListItemIcon>

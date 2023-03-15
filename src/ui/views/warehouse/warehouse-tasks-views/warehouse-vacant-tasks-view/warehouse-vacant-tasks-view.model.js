@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -12,8 +13,8 @@ import {UserModel} from '@models/user-model'
 import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 
 export class WarehouseVacantViewModel {
@@ -31,6 +32,11 @@ export class WarehouseVacantViewModel {
 
   nameSearchValue = ''
 
+  curTaskType = null
+  curTaskPriority = null
+
+  rowCount = 0
+
   showAcceptMessage = undefined
   acceptMessage = undefined
 
@@ -41,6 +47,7 @@ export class WarehouseVacantViewModel {
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
+    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
   }
 
   firstRowId = undefined
@@ -77,6 +84,8 @@ export class WarehouseVacantViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getTasksVacant()
   }
 
   setDataGridState(state) {
@@ -113,10 +122,16 @@ export class WarehouseVacantViewModel {
   }
 
   onSelectionModel(model) {
-    const tasks = this.tasksVacant.filter(task => model.includes(task.id))
-    const res = tasks.reduce((ac, el) => ac.concat(el.id), [])
     runInAction(() => {
-      this.selectedTasks = res
+      this.selectedTasks = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.selectedTasks.forEach(el => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId)
     })
   }
 
@@ -129,7 +144,11 @@ export class WarehouseVacantViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+
+      this.curPage = 0
     })
+
+    this.getTasksVacant()
   }
 
   setRequestStatus(requestStatus) {
@@ -148,35 +167,33 @@ export class WarehouseVacantViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.getTasksVacant()
   }
 
-  // this.batches = this.batchesData.filter(item =>
-  //   item.originalData.boxes.some(
-  //     box =>
-  //       box.items.some(item =>
-  //         item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-  //       ) ||
-  //       box.items.some(item => item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
-  //   ),
-  // )
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getTasksVacant()
+  }
+
+  onClickOperationTypeBtn(type) {
+    runInAction(() => {
+      this.curTaskType = type
+    })
+    this.getTasksVacant()
+  }
+
+  onClickTaskPriorityBtn(type) {
+    runInAction(() => {
+      this.curTaskPriority = type
+    })
+    this.getTasksVacant()
+  }
 
   getCurrentData() {
-    const nameSearchValue = this.nameSearchValue.trim()
-    if (nameSearchValue) {
-      return toJS(
-        this.tasksVacant.filter(
-          el =>
-            el.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.orderId?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.item?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            el.originalData?.beforeBoxes.some(box =>
-              box?.trackNumberText.toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
-        ),
-      )
-    } else {
-      return toJS(this.tasksVacant)
-    }
+    return toJS(this.tasksVacant)
   }
 
   async loadData() {
@@ -193,6 +210,8 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.pickupTask(item._id)
 
       this.loadData()
+
+      await UserModel.getUserInfo()
       runInAction(() => {
         this.curTask = item
       })
@@ -263,22 +282,67 @@ export class WarehouseVacantViewModel {
     runInAction(() => {
       this.curPage = e
     })
+
+    this.getTasksVacant()
+  }
+
+  async updateTaskPriority(taskId, priority) {
+    try {
+      await StorekeeperModel.updateTask(taskId, {
+        priority,
+      })
+
+      this.getTasksVacant()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   async getTasksVacant() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await StorekeeperModel.getLightTasksVacant()
+      const filter = objectToUrlQs({
+        or: [
+          {asin: {$contains: this.nameSearchValue}},
+          {
+            trackNumberText: {
+              [`${
+                isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue)) ? '$contains' : '$eq'
+              }`]: this.nameSearchValue,
+            },
+          },
+          {id: {$eq: this.nameSearchValue}},
+          {item: {$eq: this.nameSearchValue}},
+        ].filter(
+          el =>
+            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+        ),
+      })
+
+      const result = await StorekeeperModel.getLightTasksVacantPag({
+        status: mapTaskStatusEmumToKey[TaskStatus.NEW],
+        offset: this.curPage * this.rowsPerPage,
+        limit: this.rowsPerPage,
+        filters: this.nameSearchValue ? filter : null,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        operationType: this.curTaskType,
+        priority: this.curTaskPriority,
+      })
 
       runInAction(() => {
-        this.tasksVacant = warehouseTasksDataConverter(
-          result
-            .sort(sortObjectsArrayByFiledDate('updatedAt'))
-            .filter(task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW])
-            .map(el => ({...el, beforeBoxes: el.boxesBefore})),
-        )
+        this.rowCount = result.count
+
+        // this.tasksMyBase = result.rows
+
+        this.tasksVacant = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
       })
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

@@ -211,6 +211,8 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
+    const disabledSubmit = JSON.stringify(formFields) === JSON.stringify(sourceFormFields)
+
     return (
       <Grid item className={classNames.mainWrapper}>
         <div className={classNames.headerWrapper}>
@@ -352,7 +354,7 @@ export const IdeaViewAndEditCard = observer(
                   multiline
                   disabled={disableFields}
                   className={classNames.criterionsField}
-                  inputProps={{maxLength: 1000}}
+                  inputProps={{maxLength: 250}}
                   minRows={9}
                   maxRows={9}
                   label={t(TranslationKey['Important criteria'])}
@@ -589,6 +591,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.addOrEditBtnsWrapper}>
             <Button
               success
+              disabled={disabledSubmit}
               variant="contained"
               color="primary"
               className={classNames.actionButton}
@@ -602,7 +605,7 @@ export const IdeaViewAndEditCard = observer(
               className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >
-              {t(TranslationKey.Cancel)}
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         ) : null}

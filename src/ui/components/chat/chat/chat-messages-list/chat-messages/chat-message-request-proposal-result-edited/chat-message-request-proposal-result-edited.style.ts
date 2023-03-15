@@ -50,6 +50,11 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionText: {
     color: theme.palette.text.second,
     fontSize: 18,
+    maxHeight: 150,
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
   resultWrapper: {
     width: '100%',
@@ -70,7 +75,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    whiteSpace: 'pre',
+    // whiteSpace: 'pre',
+    maxHeight: 150,
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
   resultLinksWrapper: {
     marginTop: 20,

@@ -569,7 +569,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPost
 
-> InlineResponse2015 apiV1IdeasPost(opts)
+> InlineResponse2012 apiV1IdeasPost(opts)
 
 Добавить идею
 
@@ -609,7 +609,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2015**](InlineResponse2015.md)
+[**InlineResponse2012**](InlineResponse2012.md)
 
 ### Authorization
 

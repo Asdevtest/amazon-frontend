@@ -1,5 +1,10 @@
 import React from 'react'
 
+import {
+  colorByTaskPriorityStatus,
+  mapTaskPriorityStatusEnum,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -8,8 +13,8 @@ import {
   NormalActionBtnCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
-  MultilineTextCell,
-  AsinCopyCell, // WarehouseTasksBtnCell,
+  StringListCell,
+  MultilineTextCell, // AsinCopyCell, // WarehouseTasksBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -31,6 +36,20 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     ),
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+
+    width: 170,
+    renderCell: params => (
+      <MultilineTextCell
+        color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
+        text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
+      />
+    ),
   },
 
   {
@@ -57,7 +76,10 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    renderCell: params => <AsinCopyCell asinData={params.value} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+    ),
+    sortable: false,
     width: 160,
   },
 
@@ -66,7 +88,10 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    renderCell: params => <MultilineTextCell oneLines withTooltip text={params.value} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+    ),
+    sortable: false,
     width: 160,
   },
 
@@ -75,8 +100,9 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Order number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
+    sortable: false,
     width: 160,
   },
 
@@ -85,7 +111,8 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     headerName: 'item',
     renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    sortable: false,
     width: 160,
   },
 

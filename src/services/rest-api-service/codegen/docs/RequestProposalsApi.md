@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsGet
 
-> [InlineResponse20047] apiV1RequestProposalsGet(type, kind, opts)
+> [InlineResponse20049] apiV1RequestProposalsGet(type, kind, opts)
 
 Получить все предложения для супервизора.
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20047]**](InlineResponse20047.md)
+[**[InlineResponse20049]**](InlineResponse20049.md)
 
 ### Authorization
 

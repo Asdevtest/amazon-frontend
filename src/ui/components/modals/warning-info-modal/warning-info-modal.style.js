@@ -18,6 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
   title: {
     textAlign: 'center',
     width: '350px',
+    whiteSpace: 'pre-line',
 
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {

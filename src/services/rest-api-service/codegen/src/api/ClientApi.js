@@ -39,7 +39,7 @@ import InlineResponse20029 from '../model/InlineResponse20029';
 import InlineResponse20030 from '../model/InlineResponse20030';
 import InlineResponse20031 from '../model/InlineResponse20031';
 import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
@@ -817,7 +817,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/clients/orders', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1787,7 +1787,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/clients/tasks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

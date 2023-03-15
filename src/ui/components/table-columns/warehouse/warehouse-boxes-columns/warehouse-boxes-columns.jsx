@@ -95,9 +95,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0]?.product.client?._id} />
-    ),
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client?._id} />,
     width: 200,
     sortable: false,
   },
@@ -162,13 +160,13 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => (
       <ChangeInputCell
-        maxLength={11}
+        maxLength={14}
         row={params.row.originalData}
         text={params.value}
         onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-    width: 170,
+    width: 220,
 
     // columnKey: columnnsKeys.shared.STRING,
   },

@@ -94,59 +94,34 @@ export const AddOrEditBatchForm = observer(
 
     const [filesToAdd, setfilesToAdd] = useState([])
 
-    const [chosenBoxesBase, setChosenBoxesBase] = useState(
-      batchToEdit
-        ? addOrEditBatchDataConverter(
-            batchToEdit.originalData?.boxes,
+    const sourceChosenBoxesBase = batchToEdit
+      ? addOrEditBatchDataConverter(
+          batchToEdit.originalData?.boxes,
+          batchFields.volumeWeightDivide,
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight(
+              batchToEdit.originalData?.boxes,
+              batchFields.volumeWeightDivide,
+            ),
+          ),
+        )
+      : sourceBox
+      ? [
+          ...addOrEditBatchDataConverter(
+            [sourceBox],
             batchFields.volumeWeightDivide,
             getBatchWeightCalculationMethodForBox(
               batchFields.calculationMethod,
-              checkActualBatchWeightGreaterVolumeBatchWeight(
-                batchToEdit.originalData?.boxes,
-                batchFields.volumeWeightDivide,
-              ),
+              checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
             ),
-          )
-        : sourceBox
-        ? [
-            ...addOrEditBatchDataConverter(
-              [sourceBox],
-              batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(
-                batchFields.calculationMethod,
-                checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
-              ),
-            ),
-          ]
-        : [],
-    )
+          ),
+        ]
+      : []
 
-    const [chosenBoxes, setChosenBoxes] = useState(
-      batchToEdit
-        ? addOrEditBatchDataConverter(
-            batchToEdit.originalData?.boxes,
-            batchFields.volumeWeightDivide,
-            getBatchWeightCalculationMethodForBox(
-              batchFields.calculationMethod,
-              checkActualBatchWeightGreaterVolumeBatchWeight(
-                batchToEdit.originalData?.boxes,
-                batchFields.volumeWeightDivide,
-              ),
-            ),
-          )
-        : sourceBox
-        ? [
-            ...addOrEditBatchDataConverter(
-              [sourceBox],
-              batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(
-                batchFields.calculationMethod,
-                checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
-              ),
-            ),
-          ]
-        : [],
-    )
+    const [chosenBoxesBase, setChosenBoxesBase] = useState(sourceChosenBoxesBase)
+
+    const [chosenBoxes, setChosenBoxes] = useState(sourceChosenBoxesBase)
 
     const getCheckActualBatchWeightGreaterVolumeBatchWeight = () =>
       checkActualBatchWeightGreaterVolumeBatchWeight(
@@ -161,7 +136,7 @@ export const AddOrEditBatchForm = observer(
     const [sourceDataForFilters, setSourceDataForFilters] = useState(null)
 
     const filterBoxesToAddData = () => {
-      const chosenBoxesIds = chosenBoxes.map(box => box._id)
+      const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
 
       const newArr = addOrEditBatchDataConverter(
         boxesData,
@@ -172,8 +147,12 @@ export const AddOrEditBatchForm = observer(
         ),
       ).filter(
         box =>
-          box.originalData?.destination?.name === chosenBoxes[0]?.originalData?.destination?.name &&
-          box.originalData?.logicsTariff?.name === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
+          (chosenBoxesBase[0]
+            ? box.originalData?.destination?.name === chosenBoxesBase[0]?.originalData?.destination?.name
+            : true) &&
+          (chosenBoxesBase[0]
+            ? box.originalData?.logicsTariff?.name === chosenBoxesBase[0]?.originalData?.logicsTariff?.name
+            : true) &&
           !chosenBoxesIds.includes(box._id),
       )
 
@@ -187,28 +166,36 @@ export const AddOrEditBatchForm = observer(
     }, [])
 
     const filterBySearchValueBoxesToAddData = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
       )
 
     const filterBySearchValueChosenBoxes = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
       )
 
     useEffect(() => {
-      if (chosenBoxes.length && !batchToEdit) {
+      if (!batchToEdit) {
         setBoxesToAddData(() => filterBySearchValueBoxesToAddData([...filterBoxesToAddData()]))
-      } else if (batchToEdit && !nameSearchValueChosenBoxes) {
-        const chosenBoxesIds = chosenBoxes.map(box => box._id)
+      } else if (batchToEdit /* && !nameSearchValueChosenBoxes */) {
+        const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
@@ -217,6 +204,7 @@ export const AddOrEditBatchForm = observer(
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
         )
+
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData([
             ...addOrEditBatchDataConverter(
@@ -235,23 +223,10 @@ export const AddOrEditBatchForm = observer(
             ...deletedBoxes,
           ]),
         )
-      } else if (!nameSearchValueChosenBoxes) {
-        // if (/* !nameSearchValueBoxesToAddData && */ !chosenBoxesBase) {
-        setBoxesToAddData(() =>
-          filterBySearchValueBoxesToAddData(
-            addOrEditBatchDataConverter(
-              boxesData,
-              batchFields.volumeWeightDivide,
-              getBatchWeightCalculationMethodForBox(
-                batchFields.calculationMethod,
-                getCheckActualBatchWeightGreaterVolumeBatchWeight(),
-              ),
-            ),
-          ),
-        )
       }
     }, [
       chosenBoxes,
+      chosenBoxesBase,
       nameSearchValueBoxesToAddData,
       batchFields.volumeWeightDivide,
       batchFields.calculationMethod,
@@ -262,51 +237,10 @@ export const AddOrEditBatchForm = observer(
       if (nameSearchValueChosenBoxes && !batchToEdit) {
         setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase]))
       } else if (batchToEdit) {
-        // const chosenBoxesIds = chosenBoxes.map(box => box._id)
-
-        // const deletedBoxes = addOrEditBatchDataConverter(
-        //   boxesData.filter(el => !chosenBoxesIds.includes(el._id)),
-        //   batchFields.volumeWeightDivide,
-        //   getBatchWeightCalculationMethodForBox(
-        //     batchFields.calculationMethod,
-        //     getCheckActualBatchWeightGreaterVolumeBatchWeight(),
-        //   ),
-        // )
-
-        // setChosenBoxesBase(() =>
-        //   filterBySearchValueChosenBoxes([
-        //     ...[
-        //       ...boxesData.filter(
-        //         box =>
-        //           box.originalData?.destination?.name === batchToEdit.destination &&
-        //           box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-        //           !chosenBoxesIds.includes(box._id),
-        //       ),
-        //     ],
-        //     ...deletedBoxes,
-        //   ]),
-        // )
-
         setChosenBoxes(() => filterBySearchValueChosenBoxes(chosenBoxesBase))
-
-        // setChosenBoxesBase(() =>
-        //   filterBySearchValueChosenBoxes([
-        //     ...boxesData.filter(
-        //       box =>
-        //         box.originalData?.destination?.name === batchToEdit.destination &&
-        //         box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-        //         !chosenBoxesIds.includes(box._id),
-        //     ),
-
-        //     ...deletedBoxes,
-        //   ]),
-        // )
       } else {
         setChosenBoxes(chosenBoxesBase)
       }
-      // else if (!nameSearchValueChosenBoxes && !chosenBoxesBase) {
-      //   setChosenBoxesBase(() => filterBySearchValueChosenBoxes([...[...boxesData]]))
-      // }
     }, [nameSearchValueChosenBoxes])
 
     useEffect(() => {
@@ -332,15 +266,13 @@ export const AddOrEditBatchForm = observer(
     // }, [chosenBoxes.length, batchFields.volumeWeightDivide, batchFields.calculationMethod]) // новое
 
     const onClickTrash = () => {
-      // const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
-
       const filteredArray = [...chosenBoxesBase].filter(el => !boxesToDeliteIds.includes(el.id))
 
       setChosenBoxes(() => filterBySearchValueChosenBoxes(filteredArray))
       setChosenBoxesBase(() => filteredArray)
 
       if (batchToEdit && nameSearchValueChosenBoxes) {
-        const chosenBoxesIds = chosenBoxes.map(box => box._id)
+        const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
           [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
@@ -371,13 +303,23 @@ export const AddOrEditBatchForm = observer(
     }
 
     const onClickAdd = () => {
-      const curChosenGoodsIds = chosenBoxes.map(el => el.id)
+      const curChosenGoodsIds = chosenBoxesBase.map(el => el.id)
 
       const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
 
-      const newSelectedItems = toJS(boxesToAddData).filter(el => newRowIds.includes(el.id))
-      setChosenBoxes(() => [...chosenBoxes, ...newSelectedItems])
-      setChosenBoxesBase(() => [...chosenBoxes, ...newSelectedItems])
+      const newSelectedItems = [
+        ...addOrEditBatchDataConverter(
+          boxesData,
+          batchFields.volumeWeightDivide,
+          getBatchWeightCalculationMethodForBox(
+            batchFields.calculationMethod,
+            getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+          ),
+        ),
+        ...sourceChosenBoxesBase,
+      ].filter(el => newRowIds.includes(el.id))
+      setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase, ...newSelectedItems]))
+      setChosenBoxesBase(() => [...chosenBoxesBase, ...newSelectedItems])
 
       setBoxesToAddIds([])
     }
@@ -400,6 +342,8 @@ export const AddOrEditBatchForm = observer(
 
       setSubmitIsClicked(true)
     }
+
+    // console.log('boxesToAddIds', boxesToAddIds)
 
     return (
       <div className={classNames.root}>
@@ -505,7 +449,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueBoxesToAddData}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
@@ -514,48 +458,31 @@ export const AddOrEditBatchForm = observer(
             <div className={classNames.boxCounterWrapper}>
               <Typography className={classNames.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</Typography>
               <Typography className={classNames.boxCounterCount}>
-                {boxesToAddData
+                {[
+                  ...addOrEditBatchDataConverter(
+                    boxesData,
+                    batchFields.volumeWeightDivide,
+                    getBatchWeightCalculationMethodForBox(
+                      batchFields.calculationMethod,
+                      getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+                    ),
+                  ),
+                  ...sourceChosenBoxesBase,
+                ]
                   .filter(el => boxesToAddIds.includes(el._id))
                   .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
               </Typography>
             </div>
 
             <MemoDataGrid
-              // autoHeight
-              // hideFooter
               pagination
               checkboxSelection
+              keepNonExistentRowsSelected
               localeText={getLocalizationByLanguageTag()}
               rowsPerPageOptions={[50, 100]}
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
-                // Footer:
-                // () => (
-                //   <div className={classNames.boxCounterWrapper}>
-                //     <Typography className={classNames.boxCounterText}>
-                //       {t(TranslationKey['Selected boxes']) + ':'}
-                //     </Typography>
-                //     <Typography className={classNames.boxCounterCount}>
-                //       {boxesToAddData
-                //         .filter(el => boxesToAddIds.includes(el._id))
-                //         .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                //     </Typography>
-                //   </div>
-                // ),
-                Footer: () => (
-                  <div className={classNames.boxCounterWrapper}>
-                    <Typography className={classNames.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes']) + ':'}
-                    </Typography>
-                    <Typography className={classNames.boxCounterCount}>
-                      {boxesToAddData
-                        // Убрать
-                        // .filter(el => boxesToAddIds.includes(el._id))
-                        .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
-                  </div>
-                ),
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -600,8 +527,12 @@ export const AddOrEditBatchForm = observer(
             </div>
 
             <Button
-              tooltipAttentionContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
-              disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
+              tooltipAttentionContent={
+                !chosenBoxesBase.length && !batchToEdit && t(TranslationKey['First select one box'])
+              }
+              disabled={
+                !boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)
+              }
               color="primary"
               variant="contained"
               className={classNames.actionBtn}
@@ -617,7 +548,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueChosenBoxes}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>
@@ -628,14 +559,13 @@ export const AddOrEditBatchForm = observer(
                 {t(TranslationKey['Quantity of boxes']) + ':'}
               </Typography>
               <Typography className={classNames.boxCounterCount}>
-                {chosenBoxes.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
               </Typography>
             </div>
             <MemoDataGrid
-              // autoHeight
-              // hideFooter
               pagination
               checkboxSelection
+              // keepNonExistentRowsSelected
               localeText={getLocalizationByLanguageTag()}
               rowsPerPageOptions={[50, 100]}
               sx={{
@@ -645,26 +575,6 @@ export const AddOrEditBatchForm = observer(
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
-                // Footer: () => (
-                //   <div className={classNames.boxCounterWrapper}>
-                //     <Typography className={classNames.boxCounterText}>
-                //       {t(TranslationKey['Quantity of boxes']) + ':'}
-                //     </Typography>
-                //     <Typography className={classNames.boxCounterCount}>
-                //       {chosenBoxes.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                //     </Typography>
-                //   </div>
-                // ),
-                Footer: () => (
-                  <div className={classNames.boxCounterWrapper}>
-                    <Typography className={classNames.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
-                    </Typography>
-                    <Typography className={classNames.boxCounterCount}>
-                      {chosenBoxes.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
-                  </div>
-                ),
               }}
               classes={{
                 root: classNames.rootDataGrid,
@@ -701,14 +611,6 @@ export const AddOrEditBatchForm = observer(
                 containerClasses={classNames.sumField}
                 tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
                 label={t(TranslationKey['Final weight'])}
-                // value={toFixed(
-                //   chosenBoxes.reduce(
-                //     (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, batchFields.volumeWeightDivide)),
-                //     0,
-                //   ),
-                //   4,
-                // )}
-
                 value={
                   batchFields.calculationMethod ===
                   BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT]
@@ -724,14 +626,6 @@ export const AddOrEditBatchForm = observer(
                         4,
                       )
                 }
-                // value={toFixed(
-                //   getBatchWeightCalculationMethodForBatch({
-                //     boxes: chosenBoxes.map(el => el.originalData),
-                //     volumeWeightDivide: batchFields.volumeWeightDivide,
-                //     calculationMethod: batchFields.calculationMethod,
-                //   }),
-                //   4,
-                // )}
                 placeholder={'0'}
               />
 
@@ -749,7 +643,7 @@ export const AddOrEditBatchForm = observer(
             </div>
             <Button
               danger
-              disabled={!boxesToDeliteIds.length}
+              disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
               color="primary"
               variant="contained"
               className={classNames.actionBtn}

@@ -9,6 +9,7 @@ export const BoxStatus = {
   IN_BATCH_ON_THE_WAY: 'IN_BATCH_ON_THE_WAY',
   FINISH_PREP_CENTR_USA: 'FINISH_PREP_CENTR_USA',
   NEED_TO_UPDATE_THE_TARIFF: 'NEED_TO_UPDATE_THE_TARIFF',
+  ACCEPTED_IN_PROCESSING: 'ACCEPTED_IN_PROCESSING',
 }
 
 export const boxStatusTranslateKey = status => {
@@ -25,6 +26,8 @@ export const boxStatusTranslateKey = status => {
       return TranslationKey['Needs confirmation of shipping cost']
     case BoxStatus.IN_BATCH:
       return TranslationKey['Awaiting shipment in batches']
+    case BoxStatus.ACCEPTED_IN_PROCESSING:
+      return TranslationKey['Accepted in processing']
   }
 }
 
@@ -35,6 +38,7 @@ export const colorByBoxStatus = status => {
       BoxStatus.REQUESTED_SEND_TO_BATCH,
       BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       BoxStatus.IN_BATCH,
+      BoxStatus.ACCEPTED_IN_PROCESSING,
     ].includes(status)
   ) {
     return {

@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInput: {
-    width: 135,
+    width: 170,
     height: 40,
     marginLeft: 10,
     marginBottom: 20,
@@ -338,6 +338,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   photoWrapper: {
     width: '225px',
+    height: 220,
+    paddingBottom: 30,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       height: '240px',

@@ -22,7 +22,7 @@ import InlineObject61 from '../model/InlineObject61';
 import InlineObject62 from '../model/InlineObject62';
 import InlineObject63 from '../model/InlineObject63';
 import InlineResponse20039 from '../model/InlineResponse20039';
-import InlineResponse2015 from '../model/InlineResponse2015';
+import InlineResponse2012 from '../model/InlineResponse2012';
 import InternalServerError from '../model/InternalServerError';
 
 /**
@@ -609,7 +609,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2015;
+      let returnType = InlineResponse2012;
       return this.apiClient.callApi(
         '/api/v1/ideas/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

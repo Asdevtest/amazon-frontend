@@ -117,7 +117,7 @@ InlineObject37.prototype['clientComment'] = '';
  * Комментарий баера
  * @member {String} buyerComment
  */
-InlineObject37.prototype['buyerComment'] = undefined;
+InlineObject37.prototype['clientComment'] = undefined;
 
 /**
  * Массив картинок.

@@ -47,11 +47,14 @@ class InlineObject79 {
         if (data) {
             obj = obj || new InlineObject79();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
             if (data.hasOwnProperty('review')) {
                 obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -61,16 +64,22 @@ class InlineObject79 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject79.prototype['rating'] = undefined;
+InlineObject79.prototype['execution_time'] = undefined;
 
 /**
  * Отзыв о работе
  * @member {String} review
  */
 InlineObject79.prototype['review'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject79.prototype['title'] = undefined;
 
 
 

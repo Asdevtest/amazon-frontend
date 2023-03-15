@@ -15,7 +15,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const myRequestsViewColumns = () => [
+export const myRequestsViewColumns = languageTag => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -31,7 +31,7 @@ export const myRequestsViewColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
     width: 160,
   },
 

@@ -37,6 +37,7 @@ export const ProductLotDataForm = observer(
           cls: item?.logicsTariff.cls,
           etd: item?.logicsTariff.etd,
           eta: item?.logicsTariff.eta,
+          fbaShipment: item?.fbaShipment,
         }
       } else {
         return {
@@ -44,14 +45,14 @@ export const ProductLotDataForm = observer(
           cls: item?.boxes[0]?.logicsTariff.cls,
           etd: item?.boxes[0]?.logicsTariff.etd,
           eta: item?.boxes[0]?.logicsTariff.eta,
+          fbaShipment: Array.from(new Set(item.boxes.reduce((ac, c) => [...ac, c.fbaShipment && c.fbaShipment], []))),
         }
       }
     })
 
     const [batches, setBatches] = useState(data)
 
-    console.log('data', data)
-    console.log('batches', batches)
+    useEffect(() => setBatches(data), [data])
 
     const [batchInfo, setBatchInfo] = useState([])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -62,16 +63,12 @@ export const ProductLotDataForm = observer(
     useEffect(() => {
       if (isTransfer && nameSearchValue) {
         setBatches(
-          data?.filter(item =>
-            item?.batch?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-          ),
+          data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
         )
       } else {
         if (nameSearchValue) {
           setBatches(
-            data?.filter(item =>
-              item?.humanFriendlyId?.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
-            ),
+            data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
           )
         }
         if (!nameSearchValue) {
@@ -80,10 +77,10 @@ export const ProductLotDataForm = observer(
       }
     }, [nameSearchValue])
 
-    useEffect(() => {
-      setBatches(data)
-      setNameSearchValue('')
-    }, [data])
+    // useEffect(() => {
+    //   setBatches(data)
+    //   // setNameSearchValue('')
+    // }, [data])
 
     const setOpenBatchInfoModal = () => {
       setShowBatchInfoModal(!showBatchInfoModal)

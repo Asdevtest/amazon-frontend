@@ -1211,6 +1211,8 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'status': 56, // Number | Статус задачи для фильтра.
   'offset': 56, // Number | Отступ от первой записи получаемой в запросе
+  'operationType': "operationType_example", // String | Типы задач разделенные запятой
+  'priority': "priority_example", // String | Приоритет задачи
   'limit': 56, // Number | Кол-во получаемых записей
   'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
   'sortField': "sortField_example", // String | Название поля
@@ -1232,6 +1234,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **Number**| Статус задачи для фильтра. | [optional] 
  **offset** | **Number**| Отступ от первой записи получаемой в запросе | [optional] 
+ **operationType** | **String**| Типы задач разделенные запятой | [optional] 
+ **priority** | **String**| Приоритет задачи | [optional] 
  **limit** | **Number**| Кол-во получаемых записей | [optional] 
  **filters** | **String**|                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
  **sortField** | **String**| Название поля | [optional] 
@@ -1370,7 +1374,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20024] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20018] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1410,7 +1414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -1586,7 +1590,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20024] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20018] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1624,7 +1628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 

@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
+import InlineResponse20024Rows from './InlineResponse20024Rows';
 
 /**
  * The InlineResponse20024 model module.
@@ -49,8 +48,8 @@ class InlineResponse20024 {
         if (data) {
             obj = obj || new InlineResponse20024();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20024Rows]);
             }
             if (data.hasOwnProperty('taskId')) {
                 obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
@@ -102,14 +101,12 @@ class InlineResponse20024 {
 }
 
 /**
- * GUID
- * @member {String} _id
+ * @member {Array.<module:model/InlineResponse20024Rows>} rows
  */
-InlineResponse20024.prototype['_id'] = undefined;
+InlineResponse20024.prototype['rows'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * @member {Number} count
  */
 InlineResponse20024.prototype['taskId'] = undefined;
 
@@ -192,33 +189,6 @@ InlineResponse20024.prototype['updateDate'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20024['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

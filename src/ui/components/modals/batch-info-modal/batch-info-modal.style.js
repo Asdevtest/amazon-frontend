@@ -10,7 +10,9 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
-    height: 708,
+    height: 728,
+    width: 1350,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       overflow: 'hidden',
@@ -280,7 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
+    width: '380px',
     height: 40,
     marginBottom: 10,
     [theme.breakpoints.down(768)]: {
@@ -347,7 +349,7 @@ export const useClassNames = makeStyles()(theme => ({
     // minHeight: 400,
     // maxHeight: 600,
     height: 502,
-    overflow: 'auto',
+    overflowY: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
     position: 'relative',
@@ -373,10 +375,14 @@ export const useClassNames = makeStyles()(theme => ({
     width: 100,
   },
   tariffField: {
+    width: 230,
+  },
+  dstinationField: {
     width: 190,
   },
-  disabledField: {
-    width: 135,
+
+  methodField: {
+    width: 270,
   },
   filesAndButtonWrapper: {
     display: 'flex',

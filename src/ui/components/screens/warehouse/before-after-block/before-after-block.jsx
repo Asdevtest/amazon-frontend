@@ -22,7 +22,13 @@ import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
+import {
+  checkAndMakeAbsoluteUrl,
+  getFullTariffTextForBoxOrOrder,
+  getShortenStringIfLongerThanCount,
+  toFixed,
+  toFixedWithKg,
+} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
@@ -167,6 +173,7 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
+                    box={box}
                     boxIndex={boxIndex}
                     needAccent={needAccent}
                     taskType={taskType}
@@ -620,7 +627,8 @@ const Box = observer(
                   inputComponent={
                     <Tooltip title={box.trackNumberText}>
                       <Typography className={classNames.trackNum}>
-                        {box.trackNumberText || t(TranslationKey['Not available'])}
+                        {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
+                          t(TranslationKey['Not available'])}
                       </Typography>
                     </Tooltip>
                   }
