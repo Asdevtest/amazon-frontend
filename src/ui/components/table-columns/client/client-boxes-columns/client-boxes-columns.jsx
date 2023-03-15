@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
+import {boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -64,6 +65,23 @@ export const clientBoxesViewColumns = (
     width: 100,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+  },
+
+  {
+    field: 'status',
+    headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
+    width: 160,
+    renderCell: params => (
+      <MultilineTextCell
+        leftAlign
+        text={t(boxStatusTranslateKey(params.value))}
+        otherStyles={colorByBoxStatus(params.value)}
+      />
+    ),
+
+    // columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
   {

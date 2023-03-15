@@ -1,80 +1,20 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {operationTypes} from '@constants/operation-types'
-import {TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
 import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
-import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs, translateLableToSome} from '@utils/text'
 import {t} from '@utils/translations'
-import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
-
-const updateBoxWhiteList = [
-  'amount',
-  'weighGrossKg',
-  'volumeWeightKg',
-  'shippingLabel',
-  'warehouse',
-  'deliveryMethod',
-  'lengthCmSupplier',
-  'widthCmSupplier',
-  'heightCmSupplier',
-  'weighGrossKgSupplier',
-  'lengthCmWarehouse',
-  'widthCmWarehouse',
-  'heightCmWarehouse',
-  'weighGrossKgWarehouse',
-  'isBarCodeAttachedByTheStorekeeper',
-  'isShippingLabelAttachedByStorekeeper',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'items',
-  'images',
-  'destinationId',
-  'storekeeperId',
-  'logicsTariffId',
-  'fbaShipment',
-  'referenceId',
-  'trackNumberFile',
-  'trackNumberText',
-  'fbaNumber',
-  'prepId',
-]
-
-const filtersFields = [
-  'shopIds',
-  'humanFriendlyId',
-  'id',
-  'item',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'destination',
-  'logicsTariff',
-  'createdAt',
-  'updatedAt',
-  'amount',
-  'prepId',
-]
 
 export class ClientWarehouseTasksViewModel {
   history = undefined
@@ -86,50 +26,22 @@ export class ClientWarehouseTasksViewModel {
   nameSearchValue = ''
 
   drawerOpen = false
-  // isFormed = null
-
-  curDestination = undefined
-  // curShops = []
 
   currentData = []
 
-  boxesIdsToTask = []
-
-  // productSearchGuid = null
-
-  showEditHSCodeModal = false
-  showMergeBoxModal = false
-  showTaskInfoModal = false
-  showSendOwnProductModal = false
-  showEditBoxModal = false
   showConfirmModal = false
-  showRedistributeBoxModal = false
-
-  showRequestToSendBatchModal = false
-
-  showEditMultipleBoxesModal = false
 
   showConfirmWithCommentModal = false
 
-  showGroupingBoxesModal = false
+  showTaskInfoModal = false
 
   showProgress = false
 
   showSuccessInfoModal = false
 
-  boxesDeliveryCosts = undefined
-
-  showSetShippingLabelModal = false
-
   modalEditSuccessMessage = ''
 
-  showSetChipValueModal = false
-
   showWarningInfoModal = false
-
-  showSelectionStorekeeperAndTariffModal = false
-
-  changeItem = null
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -155,14 +67,6 @@ export class ClientWarehouseTasksViewModel {
   rowsPerPageForTask = 15
 
   densityModel = 'compact'
-  columnsModel = clientBoxesViewColumns(
-    this.rowHandlers,
-    this.storekeepersData,
-    this.destinations,
-    SettingsModel.destinationsFavourites,
-    this.columnMenuSettings,
-    this.onHover,
-  )
 
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
@@ -175,18 +79,9 @@ export class ClientWarehouseTasksViewModel {
     return UserModel.userInfo
   }
 
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
   constructor({history}) {
-    const url = new URL(window.location.href)
-
     runInAction(() => {
       this.history = history
-
-      this.currentStorekeeper = {_id: url.searchParams.get('storekeeper-id')}
-      this.nameSearchValue = url.searchParams.get('search-text')
     })
 
     runInAction(() => {
@@ -194,43 +89,17 @@ export class ClientWarehouseTasksViewModel {
     })
     makeAutoObservable(this, undefined, {autoBind: true})
 
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.boxesMy,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
-
-    reaction(
-      () => this.currentStorekeeper,
-      () => this.getClientDestinations(),
-    )
+    // reaction(
+    //   () => SettingsModel.languageTag,
+    //   () => this.updateColumnsModel(),
+    // )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient, this.shopsData)
-      })
-
-      this.getDataGridState()
-    }
-  }
-
-  async getDestinations() {
-    this.destinations = await ClientModel.getDestinations()
-  }
-
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
+  //   }
+  // }
 
   onChangeFilterModel(model) {
     runInAction(() => {
@@ -238,54 +107,52 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  // setDataGridState(state) {
+  //   const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+  //     'sorting',
+  //     'filter',
+  //     'pagination',
+  //     'density',
+  //     'columns',
+  //   ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
-  }
+  //   SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+  // }
 
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+  // getDataGridState() {
+  //   const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel.filterModel
-        this.rowsPerPage = state.pagination.pageSize
+  //   runInAction(() => {
+  //     if (state) {
+  //       this.sortModel = state.sorting.sortModel
+  //       this.filterModel = state.filter.filterModel.filterModel
+  //       this.rowsPerPage = state.pagination.pageSize
 
-        this.densityModel = state.density.value
-        this.columnsModel = clientBoxesViewColumns(
-          this.rowHandlers,
-          this.storekeepersData,
-          this.destinations,
-          SettingsModel.destinationsFavourites,
-          this.columnMenuSettings,
-          this.onHover,
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-        this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      }
-    })
-  }
+  //       this.densityModel = state.density.value
+  //       this.columnsModel = clientBoxesViewColumns(
+  //         this.rowHandlers,
+  //         this.storekeepersData,
+  //         this.destinations,
+  //         SettingsModel.destinationsFavourites,
+  //         this.columnMenuSettings,
+  //         this.onHover,
+  //       ).map(el => ({
+  //         ...el,
+  //         hide: state.columns?.lookup[el?.field]?.hide,
+  //       }))
+  //       this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
+  //         ...el,
+  //         hide: state.columns?.lookup[el?.field]?.hide,
+  //       }))
+  //     }
+  //   })
+  // }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
       this.curPage = 0
     })
-
-    this.getBoxesMy()
   }
 
   onChangeRowsPerPageForTask(e) {
@@ -293,8 +160,6 @@ export class ClientWarehouseTasksViewModel {
       this.rowsPerPageForTask = e
       this.curPageForTask = 0
     })
-
-    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -313,8 +178,6 @@ export class ClientWarehouseTasksViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
-
-    this.getBoxesMy()
   }
 
   onSelectionModel(model) {
@@ -330,7 +193,7 @@ export class ClientWarehouseTasksViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.getDataGridState()
+      // this.getDataGridState()
       this.getTasksMy()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -368,21 +231,18 @@ export class ClientWarehouseTasksViewModel {
     runInAction(() => {
       this.curPage = e
     })
-
-    this.getBoxesMy()
   }
 
   onChangeCurPageForTask = e => {
     runInAction(() => {
       this.curPageForTask = e
     })
-
-    this.getBoxesMy()
   }
 
   async getTasksMy() {
     try {
-      const result = await ClientModel.getTasks(this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id})
+      const result =
+        await ClientModel.getTasks(/* this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id} */)
 
       runInAction(() => {
         this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))

@@ -359,6 +359,8 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
+    status: item.status,
+
     isDraft: item.isDraft,
     isFormed: item.isFormed,
 

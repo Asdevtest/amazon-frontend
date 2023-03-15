@@ -84,7 +84,6 @@ export class ClientInStockBoxesViewModel {
   selectedBox = undefined
 
   boxesMy = []
-  tasksMy = []
   baseBoxesMy = []
 
   nameSearchValue = ''
@@ -149,7 +148,6 @@ export class ClientInStockBoxesViewModel {
 
   showEditHSCodeModal = false
   showMergeBoxModal = false
-  showTaskInfoModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
   showConfirmModal = false
@@ -158,8 +156,6 @@ export class ClientInStockBoxesViewModel {
   showRequestToSendBatchModal = false
 
   showEditMultipleBoxesModal = false
-
-  showConfirmWithCommentModal = false
 
   showGroupingBoxesModal = false
 
@@ -235,26 +231,6 @@ export class ClientInStockBoxesViewModel {
     this.columnMenuSettings,
     this.onHover,
   )
-
-  rowTaskHandlers = {
-    onClickTaskInfo: item => this.setCurrentOpenedTask(item),
-    onClickCancelBtn: (id, taskId, type) => this.onClickCancelBtn(id, taskId, type),
-  }
-
-  taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers)
-
-  // get isNoDeliverySizes() {
-  //   return this.selectedBoxes.some(boxId => {
-  //     const findBox = this.boxesMy.find(box => box._id === boxId)
-  //     return (
-  //       (!findBox?.originalData?.deliveryHeight ||
-  //         !findBox?.originalData?.deliveryLength ||
-  //         !findBox?.originalData?.deliveryWidth ||
-  //         !findBox?.originalData?.deliveryMass) &&
-  //       !findBox?.originalData.fitsInitialDimensions
-  //     )
-  //   })
-  // }
 
   get userInfo() {
     return UserModel.userInfo
@@ -356,10 +332,6 @@ export class ClientInStockBoxesViewModel {
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
-        this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
       }
     })
   }
@@ -448,8 +420,6 @@ export class ClientInStockBoxesViewModel {
     })
 
     this.getBoxesMy()
-
-    this.getTasksMy()
   }
 
   async getStorekeepers() {
@@ -867,31 +837,11 @@ export class ClientInStockBoxesViewModel {
       await this.getShops()
 
       await this.getBoxesMy()
-      this.getTasksMy()
-      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async setCurrentOpenedTask(item) {
-    try {
-      const task = await StorekeeperModel.getTaskById(item._id)
-
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.curOpenedTask = task
-      })
-
-      this.onTriggerOpenModal('showTaskInfoModal')
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -1007,8 +957,6 @@ export class ClientInStockBoxesViewModel {
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
         await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
-        await this.getTasksMy()
-
         this.setRequestStatus(loadingStatuses.success)
 
         if (splitBoxesResult) {
@@ -1541,7 +1489,6 @@ export class ClientInStockBoxesViewModel {
 
         this.tmpClientComment = ''
       })
-      await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -1623,23 +1570,6 @@ export class ClientInStockBoxesViewModel {
       console.log(error)
       runInAction(() => {
         this.error = error
-      })
-    }
-  }
-
-  async getTasksMy() {
-    try {
-      const result = await ClientModel.getTasks(this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id})
-
-      runInAction(() => {
-        this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-
-        this.tasksMy = []
       })
     }
   }
@@ -1892,23 +1822,28 @@ export class ClientInStockBoxesViewModel {
     try {
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
-      const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
-        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+      // New,In stock, requested send to batch, ACCEPTED_IN_PROCESSING
 
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+      const result = await BoxesModel.getBoxesForCurClientLightPag(
+        `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING}`,
+        {
+          filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
-        destinationId: this.curDestination && this.curDestination._id,
+          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
-        shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+          destinationId: this.curDestination && this.curDestination._id,
 
-        isFormed: this.columnMenuSettings.isFormedData.isFormed,
+          shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+          isFormed: this.columnMenuSettings.isFormedData.isFormed,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-      })
+          limit: this.rowsPerPage,
+          offset: this.curPage * this.rowsPerPage,
+
+          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        },
+      )
 
       const res = await UserModel.getPlatformSettings()
 
@@ -1931,115 +1866,6 @@ export class ClientInStockBoxesViewModel {
         this.boxesMy = []
 
         this.baseBoxesMy = []
-      })
-    }
-  }
-
-  async cancelTask(taskId, comment) {
-    try {
-      await ClientModel.cancelTask(taskId, comment)
-
-      await this.getTasksMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  onClickCancelBtnByAction(actionType, id) {
-    switch (actionType) {
-      case 'merge':
-        return this.cancelMergeBoxes(id)
-
-      case 'split':
-        return this.cancelSplitBoxes(id)
-
-      case 'edit':
-        return this.cancelEditBoxes(id)
-    }
-  }
-
-  async onClickCancelBtn(id, taskId, type) {
-    try {
-      const task = await StorekeeperModel.getTaskById(taskId)
-
-      if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
-        this.getTasksMy()
-
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The warehouse has already taken the task to work']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
-      } else {
-        runInAction(() => {
-          this.toCancelData = {id, taskId, type}
-        })
-
-        this.onTriggerOpenModal('showConfirmWithCommentModal')
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  async onClickCancelAfterConfirm(comment) {
-    try {
-      await this.onClickCancelBtnByAction(this.toCancelData.type, this.toCancelData.id)
-
-      this.onTriggerOpenModal('showConfirmWithCommentModal')
-
-      await this.cancelTask(this.toCancelData.taskId, {clientComment: comment})
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelEditBoxes(id) {
-    try {
-      await BoxesModel.cancelEditBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelMergeBoxes(id) {
-    try {
-      await BoxesModel.cancelMergeBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelSplitBoxes(id) {
-    try {
-      await BoxesModel.cancelSplitBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
       })
     }
   }

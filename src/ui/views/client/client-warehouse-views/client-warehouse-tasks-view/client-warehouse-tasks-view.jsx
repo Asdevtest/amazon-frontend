@@ -1,45 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {Component} from 'react'
 
-import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {EditBoxForm} from '@components/forms/edit-box-form'
-import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
-import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
-import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
-import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
-import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -48,7 +30,7 @@ import {ClientWarehouseTasksViewModel} from './client-warehouse-tasks-view.model
 import {styles} from './client-warehouse-tasks-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
+const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS
 @observer
 export class ClientWarehouseTasksViewRaw extends Component {
   viewModel = new ClientWarehouseTasksViewModel({history: this.props.history})
@@ -94,6 +76,16 @@ export class ClientWarehouseTasksViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
             <MainContent>
+              <div className={classNames.headerWrapper}>
+                <SearchInput
+                  disabled
+                  // value={nameSearchValue}
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
+                  // onSubmit={onSearchSubmit}
+                />
+              </div>
+
               <div className={classNames.tasksWrapper}>
                 <MemoDataGrid
                   // disableVirtualization
