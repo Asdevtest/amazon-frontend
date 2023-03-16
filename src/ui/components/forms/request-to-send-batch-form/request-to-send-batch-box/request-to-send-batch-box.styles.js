@@ -219,7 +219,8 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
     '&:hover': {
-      transform: 'scale(0.99)',
+      // transform: 'scale(0.99)', // изменяет красный цвет при наведении
+      boxShadow: 'inset 0 0 30px rgba(7, 179, 247, .8)',
     },
   },
 
@@ -241,7 +242,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   alertText: {
-    color: 'red',
+    color: '#FD3939',
   },
 
   priceText: {

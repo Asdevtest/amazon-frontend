@@ -28,5 +28,6 @@ export const columnnsKeys = {
     QUANTITY: 'QUANTITY',
     STRING: 'STRING',
     PRODUCT_ORDERS_STATUS: 'PRODUCT_ORDERS_STATUS',
+    BOXES_STATUS: 'BOXES_STATUS',
   },
 }

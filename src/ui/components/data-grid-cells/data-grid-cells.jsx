@@ -923,7 +923,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       onSelectDestination,
       setShowSelectionStorekeeperAndTariffModal,
       onClickSetTariff,
-      isDraft,
+      disabled,
     }) => {
       const tariffName = storekeepers
         .find(el => el._id === boxesMy?.storekeeper?._id)
@@ -945,7 +945,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         <div className={classNames.destinationAndTariffWrapper}>
           <div className={classNames.destination}>
             <WithSearchSelect
-              disabled={isDraft}
+              disabled={disabled}
               width={160}
               selectedItemName={
                 destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
@@ -961,7 +961,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
           <div className={classNames.tatiff}>
             <Button
               disableElevation
-              disabled={isDraft}
+              disabled={disabled}
               variant={boxesMy?.storekeeper?._id && 'text'}
               className={classNames.storekeeperBtn}
               onClick={e => {

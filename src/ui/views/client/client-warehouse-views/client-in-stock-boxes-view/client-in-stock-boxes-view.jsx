@@ -8,6 +8,7 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus} from '@constants/box-status'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -271,7 +272,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                   pagination
                   checkboxSelection
                   localeText={getLocalizationByLanguageTag()}
-                  isRowSelectable={params => params.row.isDraft === false}
+                  isRowSelectable={params => params.row.isDraft === false && params.row.status === BoxStatus.IN_STOCK}
                   classes={{
                     row: classNames.row,
                     virtualScrollerContent: classNames.virtualScrollerContent,

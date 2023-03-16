@@ -366,6 +366,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    deadline: item.deadline,
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice: item.deliveryTotalPrice,

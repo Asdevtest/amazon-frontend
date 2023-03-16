@@ -6,7 +6,6 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -20,12 +19,10 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
-import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
-import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs, translateLableToSome} from '@utils/text'
+import {getTableByColumn, objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -74,6 +71,7 @@ const filtersFields = [
   'updatedAt',
   'amount',
   'prepId',
+  'status',
 ]
 
 export class ClientInStockBoxesViewModel {
@@ -1751,6 +1749,11 @@ export class ClientInStockBoxesViewModel {
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
     const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
 
+    // const statusFilter =
+    //   exclusion !== 'status' &&
+    //   this.columnMenuSettings.status.currentFilterData.length &&
+    //   this.columnMenuSettings.status.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         {asin: {$contains: this.nameSearchValue}},
@@ -1811,9 +1814,11 @@ export class ClientInStockBoxesViewModel {
       ...(prepIdFilter && {
         prepId: {$eq: prepIdFilter},
       }),
-    })
 
-    // console.log('filter', filter)
+      // ...(statusFilter && {
+      //   status: {$eq: statusFilter},
+      // }),
+    })
 
     return filter
   }
@@ -1822,28 +1827,27 @@ export class ClientInStockBoxesViewModel {
     try {
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
-      // New,In stock, requested send to batch, ACCEPTED_IN_PROCESSING
+      const curStatus = this.columnMenuSettings.status.currentFilterData.length
+        ? this.columnMenuSettings.status.currentFilterData.join(',')
+        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING}`
 
-      const result = await BoxesModel.getBoxesForCurClientLightPag(
-        `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING}`,
-        {
-          filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+      const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
+        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
-          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
-          destinationId: this.curDestination && this.curDestination._id,
+        destinationId: this.curDestination && this.curDestination._id,
 
-          shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
+        shopIds: this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
-          isFormed: this.columnMenuSettings.isFormedData.isFormed,
+        isFormed: this.columnMenuSettings.isFormedData.isFormed,
 
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+        limit: this.rowsPerPage,
+        offset: this.curPage * this.rowsPerPage,
 
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        },
-      )
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+      })
 
       const res = await UserModel.getPlatformSettings()
 
