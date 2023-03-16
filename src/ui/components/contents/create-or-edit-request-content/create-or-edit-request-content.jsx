@@ -777,7 +777,7 @@ export const CreateOrEditRequestContent = ({
                                             formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                         })}
                                       >
-                                        {'$ ' + formFields.request.discountedPrice}
+                                        {'$ ' + toFixed(+formFields.request.discountedPrice, 2)}
                                       </Typography>
                                     ) : null}
 
@@ -787,7 +787,7 @@ export const CreateOrEditRequestContent = ({
                                           formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                       })}
                                     >
-                                      {'$ ' + formFields.request.priceAmazon}
+                                      {'$ ' + toFixed(+formFields.request.priceAmazon, 2)}
                                     </Typography>
                                   </div>
                                 }
