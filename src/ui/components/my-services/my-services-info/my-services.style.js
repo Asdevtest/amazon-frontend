@@ -94,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   carouselImage: {
     height: '150px !important',
+    // width: '391px !important',
     objectFit: 'contain',
 
     transition: '.2s ease',
@@ -131,5 +132,21 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 76,
 
     overflowY: 'auto',
+  },
+  mainWrapper: {
+    width: 391,
+  },
+  imgBox: {
+    objectFit: 'contain',
+    width: 391,
+    height: 152,
+  },
+
+  photoWrapper: {
+    width: 391,
+    height: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))

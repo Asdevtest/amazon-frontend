@@ -115,7 +115,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                   label={'CashBack'}
                   inputComponent={
                     <Typography className={cx(classNames.accentText, classNames.rightText)}>
-                      {item.cashBackInPercent + '%'}
+                      {toFixed(item.cashBackInPercent, 2) + '%'}
                     </Typography>
                   }
                 />

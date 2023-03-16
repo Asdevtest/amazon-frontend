@@ -55,12 +55,14 @@ class ServiceExchangeViewRaw extends Component {
       currentData,
       showImageModal,
       bigImagesOptions,
+      nameSearchValue,
 
       onClickTaskType,
       onChangeViewMode,
       onClickThumbnail,
       onTriggerOpenModal,
       onClickOrderBtn,
+      onSearchSubmit,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -116,9 +118,9 @@ class ServiceExchangeViewRaw extends Component {
                 <div className={classNames.searchInputWrapper}>
                   <SearchInput
                     inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey['Search by Performer, Description'])}
-                    /* value={nameSearchValue} */
-                    onSubmit={() => {}}
+                    placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+                    value={nameSearchValue}
+                    onChange={onSearchSubmit}
                   />
                 </div>
               </div>

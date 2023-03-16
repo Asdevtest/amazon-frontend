@@ -5,6 +5,8 @@ import {Typography, Paper, Avatar, Rating} from '@mui/material'
 
 import React from 'react'
 
+import Carousel from 'react-material-ui-carousel'
+
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
@@ -12,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
@@ -73,7 +76,7 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
           </div>
         </div>
         <div className={classNames.userCarouselWrapper}>
-          <CustomCarousel>
+          {/* <CustomCarousel>
             {announcementData?.linksToMediaFiles?.map((imageHash, index) => (
               <img
                 key={index}
@@ -85,7 +88,25 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
                 }}
               />
             ))}
-          </CustomCarousel>
+          </CustomCarousel> */}
+
+          <div className={classNames.photoWrapper}>
+            <PhotoCarousel files={announcementData?.linksToMediaFiles} />
+          </div>
+
+          {/* <Carousel
+            navButtonsAlwaysInvisible
+            autoPlay={false}
+            timeout={100}
+            animation="fade"
+            // index={imgIndex}
+          >
+            {announcementData?.linksToMediaFiles?.map((el, index) => (
+              <div key={index} className={classNames.mainWrapper}>
+                <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el, true)} />
+              </div>
+            ))}
+          </Carousel> */}
         </div>
       </div>
       <div className={classNames.footerWrapper}>

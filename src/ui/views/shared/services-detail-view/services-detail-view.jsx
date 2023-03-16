@@ -118,7 +118,7 @@ export class ServiceDetailsViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
-                  rowHeight={75}
+                  rowHeight={143}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,

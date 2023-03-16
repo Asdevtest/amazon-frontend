@@ -29,21 +29,21 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const FreelancerFreelanceColumns = handlers => [
+export const FreelancerFreelanceColumns = (handlers, languageTag) => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
     width: 160,
   },
   {
     field: 'name',
-    headerName: t(TranslationKey.User),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
+    headerName: t(TranslationKey.Client),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 228,
     renderCell: params => <UserMiniCell user={params.row.originalData.createdBy} />,
   },
@@ -58,8 +58,8 @@ export const FreelancerFreelanceColumns = handlers => [
   {
     field: 'price',
     headerName: t(TranslationKey.Cost),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost)} />,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ', $'} />,
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
     type: 'number',
     width: 118,
   },

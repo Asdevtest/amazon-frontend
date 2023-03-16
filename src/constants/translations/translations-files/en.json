@@ -1862,5 +1862,8 @@
   "Describe your task": "Describe your task",
   "Got barcode": "Got barcode",
   "The order has been updated": "The order has been updated",
-  "Success parse": "Success parse"
+  "Success parse": "Success parse",
+  "Search by Performer, Title, Description": "Search by Performer, Title, Description",
+  "Search by Title, Description": "Search by Title, Description",
+  "Service description": "Service description"
 }

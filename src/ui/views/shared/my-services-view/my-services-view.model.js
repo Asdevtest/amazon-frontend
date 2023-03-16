@@ -33,6 +33,8 @@ export class MyServicesViewModel {
 
   bigImagesOptions = {}
 
+  nameSearchValue = undefined
+
   showConfirmModal = false
   selectedProposal = undefined
 
@@ -48,7 +50,6 @@ export class MyServicesViewModel {
   constructor({history, location}) {
     runInAction(() => {
       this.history = history
-      console.log('this.history', this.history)
     })
 
     if (location.state) {
@@ -65,6 +66,14 @@ export class MyServicesViewModel {
 
     reaction(
       () => this.announcements,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => this.nameSearchValue,
       () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()
@@ -107,7 +116,15 @@ export class MyServicesViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.announcements)
+    if (this.nameSearchValue) {
+      return toJS(this.announcements).filter(
+        el =>
+          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.announcements)
+    }
   }
 
   onClickCreateServiceBtn() {
@@ -153,9 +170,9 @@ export class MyServicesViewModel {
     })
   }
 
-  onSearchSubmit(searchValue) {
+  onSearchSubmit(e) {
     runInAction(() => {
-      this.nameSearchValue = searchValue
+      this.nameSearchValue = e.target.value
     })
   }
 }

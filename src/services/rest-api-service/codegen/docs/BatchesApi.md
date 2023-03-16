@@ -650,6 +650,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let batchId = 3.4; // Number | GUID продукта.
 let opts = {
   'getOldVer': true, // Boolean | Если true то заполнит старую версию отчета
+  'woPicture': true, // Boolean | Не скачивать файлы?
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BatchesReportBatchIdGet(batchId, opts).then((data) => {
@@ -667,6 +668,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **batchId** | **Number**| GUID продукта. | 
  **getOldVer** | **Boolean**| Если true то заполнит старую версию отчета | [optional] 
+ **woPicture** | **Boolean**| Не скачивать файлы? | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
