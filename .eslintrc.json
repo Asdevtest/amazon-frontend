@@ -23,13 +23,7 @@
       "legacyDecorators": true
     }
   },
-  "plugins": [
-    "prettier",
-    "react",
-    "unicorn",
-    "prefer-arrow",
-    "no-null" /* , "tss-unused-classes" */ /* , "unused-classes" */
-  ],
+  "plugins": ["prettier", "react", "unicorn", "prefer-arrow", "no-null"],
   "rules": {
     // React
     "react/forbid-prop-types": "error",
@@ -195,8 +189,6 @@
 
     // "no-unused-vars": "off",
     // "@typescript-eslint/no-unused-vars": ["error"]
-
-    // "tss-unused-classes/unused-classes": "warn"
   },
   "overrides": [
     {

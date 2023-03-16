@@ -53,6 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
   },
+
   toolbarContainer: {
     height: '52px',
     [theme.breakpoints.down(768)]: {
