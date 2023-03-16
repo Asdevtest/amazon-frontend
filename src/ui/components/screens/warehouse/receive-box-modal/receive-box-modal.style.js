@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
   currentBoxesWrapper: {
     width: 350,
     [theme.breakpoints.down(1282)]: {
-      width: 'fit-content',
+      width: 305,
     },
     [theme.breakpoints.down(768)]: {
       width: '100%',
