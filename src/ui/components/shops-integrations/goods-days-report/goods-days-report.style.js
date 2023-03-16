@@ -5,6 +5,7 @@ export const styles = theme => ({
   },
   button: {
     marginBottom: 5,
+    color: theme.palette.primary.main,
 
     width: '100%',
     display: 'flex',
