@@ -250,4 +250,14 @@ export const useClassNames = makeStyles()(theme => ({
       height: '68px',
     },
   },
+
+  attachFiles: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
+    marginBottom: 5,
+  },
 }))

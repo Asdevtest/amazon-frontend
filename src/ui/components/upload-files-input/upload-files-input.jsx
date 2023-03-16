@@ -111,7 +111,7 @@ export const UploadFilesInput = observer(
     return (
       SettingsModel.languageTag && (
         <div>
-          {!withoutLinks && (
+          {!withoutLinks ? (
             <Field
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
               label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
@@ -142,6 +142,8 @@ export const UploadFilesInput = observer(
                 </div>
               }
             />
+          ) : (
+            <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files to the ad'])}</Typography>
           )}
 
           <ImageUploading

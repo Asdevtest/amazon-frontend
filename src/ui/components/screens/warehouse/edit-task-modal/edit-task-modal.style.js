@@ -69,6 +69,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   form: {
+    [theme.breakpoints.down(1282)]: {
+      height: 550,
+      width: 'auto',
+      overflowY: 'auto',
+    },
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
   },
@@ -223,6 +228,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '400px',
     display: 'flex',
     gap: '30px',
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',
@@ -270,6 +278,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'start',
+    padding: '0 15px 0 0',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',

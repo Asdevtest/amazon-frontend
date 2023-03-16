@@ -132,6 +132,18 @@ export class WarehouseVacantTasksViewRaw extends Component {
                       </Button>
                     ))}
                 </div>
+
+                {window.innerWidth < 1282 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
+
                 <Button
                   variant="contained"
                   disabled={
@@ -149,14 +161,16 @@ export class WarehouseVacantTasksViewRaw extends Component {
               </div>
 
               <div className={classNames.headerWrapper}>
-                <Button
-                  variant="contained"
-                  disabled={!selectedTasks.length}
-                  className={classNames.pickupOrdersButton}
-                  onClick={onClickPickupManyTasksBtn}
-                >
-                  {t(TranslationKey['Take on the work of the selected'])}
-                </Button>
+                {window.innerWidth > 1281 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
 
                 <div className={classNames.boxesFiltersWrapper}>
                   <Button

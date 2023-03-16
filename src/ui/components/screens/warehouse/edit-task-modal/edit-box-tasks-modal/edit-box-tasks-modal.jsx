@@ -25,6 +25,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.lengthCmWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
@@ -36,6 +37,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           inputProps={{maxLength: 6}}
           error={Number(box.heightCmWarehouse) === 0 && true}
           labelClasses={classNames.label}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
@@ -44,6 +46,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 
         <Field
           disabled
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           labelClasses={classNames.label}
@@ -64,6 +67,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.widthCmWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
@@ -74,6 +78,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
@@ -83,6 +88,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 
         <Field
           disabled
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           labelClasses={classNames.label}
@@ -225,17 +231,19 @@ export const EditBoxTasksModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
+      <div className={classNames.modalHeaderWrapper}>
+        <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
-      <div className={classNames.sizesSubWrapper}>
-        <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-          <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-            {'In'}
-          </ToggleBtn>
-          <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-            {'Cm'}
-          </ToggleBtn>
-        </ToggleBtnGroup>
+        <div className={classNames.sizesSubWrapper}>
+          <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+            <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+              {'In'}
+            </ToggleBtn>
+            <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+              {'Cm'}
+            </ToggleBtn>
+          </ToggleBtnGroup>
+        </div>
       </div>
 
       <AttributesEditBlock
@@ -248,7 +256,13 @@ export const EditBoxTasksModal = ({
 
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+          <UploadFilesInput
+            withoutLinks
+            dragAndDropBtnHeight={67}
+            images={editingBox.tmpImages}
+            setImages={setImagesOfBox}
+            maxNumber={50}
+          />
         </div>
       </Box>
       <div className={classNames.photoWrapper}>
