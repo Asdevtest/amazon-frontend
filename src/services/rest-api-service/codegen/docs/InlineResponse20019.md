@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **Number** | Кол-во продукта в айтеме в коробке | [optional] 
-**id** | **Number** | Номер заказа | [optional] 
+**rows** | [**[InlineResponse20019Rows]**](InlineResponse20019Rows.md) |  | [optional] 
+**count** | **Number** |  | [optional] 
 
 

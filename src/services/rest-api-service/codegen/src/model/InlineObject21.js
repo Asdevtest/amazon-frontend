@@ -22,13 +22,10 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
-     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @param boxes {Array.<String>} 
-     * @param operationType {module:model/InlineObject21.OperationTypeEnum} Тип операции
      */
-    constructor(taskId, boxes, operationType) { 
+    constructor() { 
         
-        InlineObject21.initialize(this, taskId, boxes, operationType);
+        InlineObject21.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, taskId, boxes, operationType) { 
-        obj['taskId'] = taskId;
-        obj['boxes'] = boxes;
-        obj['operationType'] = operationType;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,29 +47,8 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
-            }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -85,87 +58,13 @@ class InlineObject21 {
 }
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject21.prototype['taskId'] = undefined;
-
-/**
- * @member {Array.<String>} boxesBefore
- */
-InlineObject21.prototype['boxesBefore'] = undefined;
-
-/**
- * @member {Array.<String>} boxes
- */
-InlineObject21.prototype['boxes'] = undefined;
-
-/**
- * Тип операции
- * @member {module:model/InlineObject21.OperationTypeEnum} operationType
- */
-InlineObject21.prototype['operationType'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- * @default ''
- */
-InlineObject21.prototype['clientComment'] = '';
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject21.prototype['buyerComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject21.prototype['images'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineObject21.prototype['storekeeperComment'] = undefined;
+InlineObject21.prototype['guid'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject21['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive",
-
-    /**
-     * value: "edit"
-     * @const
-     */
-    "edit": "edit"
-};
 
 
 
