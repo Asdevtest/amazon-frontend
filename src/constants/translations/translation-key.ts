@@ -1863,7 +1863,7 @@ export enum TranslationKey {
   'Describe your task' = 'Describe your task',
   'Search by Performer, Title, Description' = 'Search by Performer, Title, Description',
   'Search by Title, Description' = 'Search by Title, Description',
-  // '' = '',
+  'Service description' = 'Service description',
   // '' = '',
   // '' = '',
   // '' = '',
