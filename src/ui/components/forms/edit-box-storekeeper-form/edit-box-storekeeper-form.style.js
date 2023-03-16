@@ -296,7 +296,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productsWrapper: {
-    width: 500,
+    width: 700,
   },
 
   productWrapper: {

@@ -345,14 +345,15 @@ export const clientInventoryColumns = (
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+    renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
-    type: 'actions',
-    sortable: false,
     filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_BARCODE,
   },
 
   {

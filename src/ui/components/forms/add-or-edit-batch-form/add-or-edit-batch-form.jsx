@@ -166,21 +166,29 @@ export const AddOrEditBatchForm = observer(
     }, [])
 
     const filterBySearchValueBoxesToAddData = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
       )
 
     const filterBySearchValueChosenBoxes = boxesArr =>
-      boxesArr?.filter(el =>
-        el.originalData.items.some(
-          item =>
-            item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
-            item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
-        ),
+      boxesArr?.filter(
+        el =>
+          el.originalData.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+              String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
+          ) ||
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
       )
 
     useEffect(() => {
@@ -441,7 +449,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueBoxesToAddData}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
@@ -540,7 +548,7 @@ export const AddOrEditBatchForm = observer(
             <SearchInput
               inputClasses={classNames.searchInput}
               value={nameSearchValueChosenBoxes}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>

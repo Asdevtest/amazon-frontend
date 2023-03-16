@@ -304,4 +304,19 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     padding: 5,
   },
+
+  rushOrderWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  rushOrderImg: {
+    marginRight: 5,
+  },
+
+  priorityWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
 }))

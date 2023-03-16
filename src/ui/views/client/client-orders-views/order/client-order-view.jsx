@@ -94,7 +94,7 @@ class ClientOrderViewRaw extends Component {
           <Appbar
             title={t(TranslationKey.Order)}
             setDrawerOpen={onTriggerDrawerOpen}
-            lastCrumbAdditionalText={` № ${order?.id}`}
+            lastCrumbAdditionalText={order?.id && ` № ${order?.id}`}
           >
             <MainContent>
               <div className={classNames.backButtonWrapper}>

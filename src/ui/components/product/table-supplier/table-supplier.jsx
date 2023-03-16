@@ -25,7 +25,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
   const {classes: classNames} = useClassNames()
 
   const renderHeader = () => (
-    <TableHead>
+    <TableHead className={classNames.tableHead}>
       <TableRow>
         <TableCell className={cx(classNames.tableCellPadding, classNames.alignCenter)}>
           {t(TranslationKey.Name)}
@@ -48,8 +48,8 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
   )
 
   return (
-    <TableContainer className={classNames.table}>
-      <Table>
+    <TableContainer className={classNames.table} sx={{maxHeight: 540}}>
+      <Table className={classNames.tableBody}>
         {SettingsModel.languageTag && renderHeader()}
         <TableBody>
           {product.suppliers.length ? (

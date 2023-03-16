@@ -80,7 +80,9 @@ export const productInTransferColumns = handlers => [
     headerName: 'FBA Shipment',
     renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment'} />,
 
-    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={params.value} />
+    ),
     width: 160,
     sortable: false,
   },

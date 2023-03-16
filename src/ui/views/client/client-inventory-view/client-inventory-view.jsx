@@ -183,7 +183,7 @@ export class ClientInventoryViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const disableSelectionCells = ['stockUSA', 'fourMonthesStock']
+    const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode']
 
     const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
 
@@ -430,6 +430,9 @@ export class ClientInventoryViewRaw extends Component {
                   onStateChange={setDataGridState}
                   onFilterModelChange={onChangeFilterModel}
                   onCellClick={(params, event) => {
+                    if (disableSelectionCells.includes(params.field)) {
+                      event.stopPropagation()
+                    }
                     event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
                   }}
                   onCellDoubleClick={params =>

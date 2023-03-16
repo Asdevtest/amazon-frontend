@@ -151,11 +151,9 @@ export class AdminOrdersAllViewModel {
   }
 
   onChangeSubCategory(value) {
-    console.log('value', value)
     this.setActiveSubCategoryState(value)
     runInAction(() => {
       this.activeSubCategory = value
-      console.log('this.activeSubCategory', this.activeSubCategory)
     })
     this.getOrdersByStatus(value)
   }

@@ -40,8 +40,8 @@ class ProductModelStatic {
     return response
   }
 
-  parseParseSellerCentral = async asin => {
-    const response = await restApiService.product.apiV1ProductsParseSellercentralGet(asin)
+  parseParseSellerCentral = async (asin, data) => {
+    const response = await restApiService.product.apiV1ProductsParseSellercentralGet(asin, data)
     return response
   }
 

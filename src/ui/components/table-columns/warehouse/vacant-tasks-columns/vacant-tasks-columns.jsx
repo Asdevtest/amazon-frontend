@@ -36,6 +36,21 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+
+    width: 170,
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
+  },
+
+  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
@@ -105,8 +120,18 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     sortable: false,
   },
 
+  // {
+  //   field: 'barcode',
+  //   headerName: 'barcode',
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
+  //   renderCell: params => <CheckboxCell checked={params.value} />,
+  //   width: 160,
+  //   type: 'boolean',
+  // },
+
   {
-    field: 'barcode',
+    field: 'isBarCodeAttached',
     headerName: 'barcode',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 

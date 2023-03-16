@@ -51,26 +51,12 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 import {Text} from '@components/text'
 
-import {
-  calcExchangeDollarsInYuansPrice,
-  calcExchangePrice,
-  calcOrderTotalPrice,
-  calcOrderTotalPriceInYuann,
-  calcPriceForItem,
-} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
-import {
-  formatDateDistanceFromNowStrict,
-  formatDateWithoutTime,
-  formatNormDateTime,
-  getDistanceBetweenDatesInSeconds,
-} from '@utils/date-time'
+import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
   timeToDeadlineInHoursAndMins,
-  toFixed,
   getShortenStringIfLongerThanCount,
-  clearSpecialCharacters,
   clearEverythingExceptNumbers,
 } from '@utils/text'
 import {t} from '@utils/translations'
@@ -322,9 +308,10 @@ export const EditOrderModal = observer(
         ].includes(filedName)
       ) {
         if (
-          !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-          filedName !== 'deliveryCostToTheWarehouse' &&
-          filedName !== 'priceBatchDeliveryInYuan'
+          (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
+            filedName !== 'deliveryCostToTheWarehouse' &&
+            filedName !== 'priceBatchDeliveryInYuan') ||
+          (filedName === 'tmpRefundToClient' && e.target.value > orderFields.totalPrice)
         ) {
           return
         }
@@ -1087,6 +1074,7 @@ export const EditOrderModal = observer(
         >
           <CheckQuantityForm
             withRefund
+            maxRefundNumber={orderFields.totalPrice}
             title={t(TranslationKey['Setting the stock status'])}
             description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
             acceptText={t(TranslationKey.Continue) + '?'}

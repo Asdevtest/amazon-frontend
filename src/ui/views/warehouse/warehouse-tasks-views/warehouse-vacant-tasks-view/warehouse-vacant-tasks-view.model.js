@@ -15,7 +15,6 @@ import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehou
 
 import {isStringInArray} from '@utils/checks'
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
@@ -221,6 +220,8 @@ export class WarehouseVacantViewModel {
       await StorekeeperModel.pickupTask(item._id)
 
       this.loadData()
+
+      await UserModel.getUserInfo()
       runInAction(() => {
         this.curTask = item
       })
@@ -349,9 +350,7 @@ export class WarehouseVacantViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksVacant = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
-        )
+        this.tasksVacant = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
       })
 
       this.setRequestStatus(loadingStatuses.success)

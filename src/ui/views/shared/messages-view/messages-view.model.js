@@ -221,8 +221,6 @@ export class MessagesViewModel {
         await onSubmitPostImages.call(this, {images: [{file}], type: 'readyImages'})
       }
 
-      console.log('readyImages', this.readyImages)
-
       await ChatModel.patchInfoGroupChat({
         chatId: this.chatSelectedId,
         title: state.title,

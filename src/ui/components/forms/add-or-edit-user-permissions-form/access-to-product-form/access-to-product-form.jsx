@@ -112,8 +112,6 @@ export const AccessToProductForm = React.memo(
       }
     }
 
-    console.log('curProdutsData', curProdutsData)
-
     return (
       shops && (
         <Accordion

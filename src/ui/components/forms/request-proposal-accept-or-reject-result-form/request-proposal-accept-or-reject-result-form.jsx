@@ -27,8 +27,6 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     const [formFields, setFormFields] = useState({review: '', rating: ''})
     const {classes: classNames} = useClassNames()
 
-    console.log('formFields', formFields)
-
     const onChangeField = fieldName => event => {
       setFormFields({
         ...formFields,

@@ -359,7 +359,6 @@ docs/UserSettingResponseSchema.md
 git_push.sh
 mocha.opts
 package.json
-src/ApiClient.js
 src/api/AdministratorApi.js
 src/api/AnnouncementsApi.js
 src/api/BatchesApi.js

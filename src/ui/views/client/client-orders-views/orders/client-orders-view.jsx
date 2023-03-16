@@ -233,7 +233,7 @@ class ClientOrdersViewRaw extends Component {
                 existingOrders={existingOrders}
                 checkPendingData={checkPendingData}
                 onClickPandingOrder={onClickPandingOrder}
-                onClickContinueBtn={() => onClickContinueBtn(isOrder[0])}
+                onClickContinueBtn={() => onClickContinueBtn(isOrder)}
                 onClickCancelBtn={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
               />
             </Modal>

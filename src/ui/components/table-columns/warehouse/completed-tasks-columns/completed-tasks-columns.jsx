@@ -39,6 +39,20 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+
+    width: 170,
+    renderCell: params => (
+      <MultilineTextCell
+        color={colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[params.value])}
+        text={taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[params.value])}
+      />
+    ),
+  },
+
+  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
