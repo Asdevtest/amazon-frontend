@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isFormed** | **Boolean** | Сформирована ли коробка | 
+**refundPrice** | **Number** | Сумма воврата | [optional] 
 
 

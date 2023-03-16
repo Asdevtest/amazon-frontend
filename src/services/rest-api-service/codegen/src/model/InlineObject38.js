@@ -22,11 +22,10 @@ class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
      * @alias module:model/InlineObject38
-     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor(isFormed) { 
+    constructor() { 
         
-        InlineObject38.initialize(this, isFormed);
+        InlineObject38.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject38 {
         if (data) {
             obj = obj || new InlineObject38();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject38 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject38.prototype['isFormed'] = undefined;
+InlineObject38.prototype['refundPrice'] = undefined;
 
 
 
