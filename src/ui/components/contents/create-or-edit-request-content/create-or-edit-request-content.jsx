@@ -919,7 +919,7 @@ export const CreateOrEditRequestContent = ({
                       {t(TranslationKey['Description of your request'])}
                     </Typography>
 
-                    <Typography className={classNames.performerDescriptionTextStepTwo}>
+                    <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
                       {formFields.details.conditions}
                     </Typography>
                   </div>

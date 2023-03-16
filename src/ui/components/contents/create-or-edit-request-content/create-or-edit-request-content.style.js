@@ -729,6 +729,11 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 250,
 
     marginBottom: 25,
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
   checkboxText: {
     whiteSpace: 'nowrap',
