@@ -58,7 +58,6 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
     type: data?.type || '',
     title: data?.title || '',
     description: data?.description || '',
-    createdBy: data?.createdBy || '',
 
     linksToMediaFiles: data?.linksToMediaFiles || [],
   }
@@ -126,7 +125,7 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
         labelClasses={classNames.labelClass}
         minRows={4}
         maxRows={4}
-        label={`${t(TranslationKey['Describe your task'])}*`}
+        label={`${t(TranslationKey['Service description'])}*`}
         value={formFields.description}
         onChange={onChangeField('description')}
       />

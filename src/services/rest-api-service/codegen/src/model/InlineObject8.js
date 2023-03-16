@@ -59,9 +59,6 @@ class InlineObject8 {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiClient.convertToType(data['createdBy'], 'String');
-            }
         }
         return obj;
     }
@@ -88,11 +85,6 @@ InlineObject8.prototype['title'] = undefined;
  * @member {String} description
  */
 InlineObject8.prototype['description'] = undefined;
-
-/**
- * @member {String} createdBy
- */
-InlineObject8.prototype['createdBy'] = undefined;
 
 
 

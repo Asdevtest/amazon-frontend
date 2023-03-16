@@ -9,6 +9,7 @@ import {AnnouncementsModel} from '@models/announcements-model'
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {FreelancerFreelanceColumns} from '@views/freelancer/freelancer-freelance-columns'
@@ -53,10 +54,14 @@ export class ServiceDetailsViewModel {
     onClickOpenButton: id => this.onClickOpenBtn(id),
   }
 
-  columnsModel = FreelancerFreelanceColumns(this.handlers)
+  columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
 
   get user() {
     return UserModel.userInfo
+  }
+
+  get languageTag() {
+    return SettingsModel.languageTag || {}
   }
 
   constructor({history, location}) {
@@ -78,6 +83,23 @@ export class ServiceDetailsViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.getDataGridState()
+    }
+  }
+
+  getDataGridState() {
+    runInAction(() => {
+      this.columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
+    })
   }
 
   getCurrentData() {

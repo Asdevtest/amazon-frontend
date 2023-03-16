@@ -128,7 +128,7 @@ export class CreateOrEditServicesViewModel {
   }
 
   onClickBackBtn() {
-    this.history.push('/freelancer/freelance/my-services')
+    this.history.goBack()
   }
 
   onTriggerDrawerOpen() {
