@@ -608,40 +608,39 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, isInts, maxLength}) => {
-    const sourceValue = text ? text : ''
-
-    const [value, setValue] = useState(sourceValue)
+  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, maxLength}) => {
+    const [value, setValue] = useState(text)
 
     useEffect(() => {
-      setValue(sourceValue)
+      setValue(text)
     }, [text])
 
-    const [isMyInputFocused, setIsMyInputFocused] = useState(false)
+    // const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
     const [isShow, setShow] = useState(false)
 
-    useEffect(() => {
-      const listener = event => {
-        if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-          event.preventDefault()
-          setShow(true)
-          setTimeout(() => {
-            setShow(false)
-          }, 2000)
-          onClickSubmit(id, value)
-        }
-      }
-      document.addEventListener('keydown', listener)
-      return () => {
-        document.removeEventListener('keydown', listener)
-      }
-    }, [value])
+    // useEffect(() => {
+    //   const listener = event => {
+    //     if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+    //       event.preventDefault()
+    //       setShow(true)
+    //       setTimeout(() => {
+    //         setShow(false)
+    //       }, 2000)
+    //       onClickSubmit(id, value)
+    //     }
+    //   }
+    //   document.addEventListener('keydown', listener)
+    //   return () => {
+    //     document.removeEventListener('keydown', listener)
+    //   }
+    // }, [value])
 
     return (
       <div className={classNames.ChangeInputCommentCellWrapper}>
         <Input
           multiline
+          autoFocus={false}
           minRows={2}
           maxRows={2}
           inputProps={{maxLength: maxLength ? maxLength : 1000}}
@@ -652,9 +651,9 @@ export const ChangeInputCommentCell = React.memo(
           value={value}
           endAdornment={
             <InputAdornment position="start">
-              {isShow && sourceValue !== value ? (
+              {isShow && text !== value ? (
                 <DoneIcon classes={{root: classNames.doneIcon}} />
-              ) : sourceValue !== value ? (
+              ) : text !== value ? (
                 <div className={classNames.iconWrapper}>
                   <img
                     src={'/assets/icons/save-discet.svg'}
@@ -667,18 +666,22 @@ export const ChangeInputCommentCell = React.memo(
                       onClickSubmit(id, value)
                     }}
                   />
-                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(sourceValue)} />
+                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
                 </div>
               ) : null}
             </InputAdornment>
           }
-          onChange={e =>
-            isInts
-              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-              : setValue(e.target.value)
-          }
-          onBlur={() => setIsMyInputFocused(false)}
-          onFocus={() => setIsMyInputFocused(true)}
+          onChange={e => {
+            // isInts
+            //   ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            //   :
+            setValue(e.target.value)
+          }}
+          onKeyDown={event => {
+            event.stopPropagation()
+          }}
+          // onBlur={() => setIsMyInputFocused(false)}
+          // onFocus={() => setIsMyInputFocused(true)}
         />
       </div>
     )
@@ -1716,14 +1719,14 @@ export const FourMonthesStockCell = React.memo(
 )
 
 export const CommentUsersCell = React.memo(
-  withStyles(({classes: classNames, handler, params}) => {
-    const ss = 1
-    return (
+  withStyles(
+    ({classes: classNames, handler, params}) => (
       <div className={classNames.CommentUsersCellWrapper}>
         <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
       </div>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 export const ActiveBarcodeCell = React.memo(
