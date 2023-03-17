@@ -81,10 +81,6 @@ export const CreateOrEditRequestContent = ({
     setAnnouncementsData(announcements)
   }, [announcements])
 
-  useEffect(() => {
-    setFormFields(sourceFormFields)
-  }, [choosenAnnouncements])
-
   const sourceFormFields = {
     request: {
       title: requestToEdit?.request.title || '',
@@ -102,8 +98,7 @@ export const CreateOrEditRequestContent = ({
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId:
-        requestToEdit?.request.announcementId || (choosenAnnouncements.length && choosenAnnouncements) || '',
+      announcementId: requestToEdit?.request.announcementId || (choosenAnnouncements && choosenAnnouncements) || '',
 
       discountedPrice: 0,
     },
@@ -112,6 +107,10 @@ export const CreateOrEditRequestContent = ({
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
     },
   }
+  useEffect(() => {
+    setFormFields(sourceFormFields)
+  }, [choosenAnnouncements])
+
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const [deadlineError, setDeadlineError] = useState(false)
@@ -139,7 +138,7 @@ export const CreateOrEditRequestContent = ({
       if (['discountedPrice'].includes(fieldName)) {
         newFormFields.request.cashBackInPercent = calcPercentAfterMinusNumbers(
           formFields?.request.priceAmazon,
-          event.target.value,
+          event.target.value || 0,
         )
       }
 

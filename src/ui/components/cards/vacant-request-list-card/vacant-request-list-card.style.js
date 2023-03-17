@@ -197,10 +197,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainInfosWrapper: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
     width: '100%',
+    // margin: '0px auto',
+    gap: '7%',
     // height: 300,
+    paddingRight: 30,
   },
 
   priceAmazonWrapper: {

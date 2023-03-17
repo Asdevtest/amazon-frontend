@@ -30,6 +30,8 @@ import {useClassNames} from './my-services.style'
 export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('announcementData', announcementData)
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.userWrapper}>
@@ -91,7 +93,7 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
           </CustomCarousel> */}
 
           <div className={classNames.photoWrapper}>
-            <PhotoCarousel files={announcementData?.linksToMediaFiles} />
+            <PhotoCarousel isAmazonPhoto files={announcementData?.linksToMediaFiles} />
           </div>
 
           {/* <Carousel
