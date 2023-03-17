@@ -27,24 +27,24 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(item.request.createdBy._id)} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item?.request?.createdBy?._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={item.request.createdBy.name} userId={item.request.createdBy._id} />
+                  <UserLink blackText name={item?.request?.createdBy?.name} userId={item?.request?.createdBy?._id} />
 
-                  <Rating disabled value={item.request.createdBy.rating} />
+                  <Rating disabled value={item?.request?.createdBy?.rating} />
                 </div>
               </div>
             </div>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
+                  <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
 
-                  <Rating disabled value={item.createdBy.rating} />
+                  <Rating disabled value={item?.createdBy?.rating} />
                 </div>
               </div>
             </div>
