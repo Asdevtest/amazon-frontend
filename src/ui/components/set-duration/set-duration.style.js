@@ -13,6 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   inputsWrapper: {

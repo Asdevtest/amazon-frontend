@@ -149,6 +149,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
 
     justifyContent: 'space-between',
+
+    gap: 20,
   },
 
   dateWrapper: {
@@ -396,5 +398,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   conrainer: {
     marginBottom: '0 !important',
+  },
+  titleStyle: {
+    marginBottom: 10,
   },
 }))

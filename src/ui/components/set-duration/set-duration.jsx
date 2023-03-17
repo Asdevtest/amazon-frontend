@@ -19,7 +19,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './set-duration.style'
 
-export const SetDuration = observer(({title, setTotalTimeInMinute}) => {
+export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute}) => {
   const {classes: classNames} = useClassNames()
 
   const initialState = {
@@ -70,7 +70,9 @@ export const SetDuration = observer(({title, setTotalTimeInMinute}) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.durationMainWrapper}>
-        <Typography className={classNames.time}>{title ?? t(TranslationKey['Time to complete']) + '*'}</Typography>
+        <Typography className={cx(classNames.time, titleStyle)}>
+          {title ?? t(TranslationKey['Time to complete']) + '*'}
+        </Typography>
         <div className={classNames.inputsWrapper}>
           <div className={classNames.inputWrapper}>
             <Field
