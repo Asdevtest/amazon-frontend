@@ -259,16 +259,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   spanLabel: {
-    fontSize: '18px',
+    fontSize: 14,
     lineHeight: '140%',
-    fontWeight: '600',
-    color: theme.palette.text.general,
+    fontWeight: 400,
+    color: theme.palette.text.second,
   },
 
   imageFileInputTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '600',
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 400,
     color: theme.palette.text.general,
   },
 
@@ -296,10 +296,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'end',
 
     marginBottom: 30,
-
-    '& > span': {
-      marginTop: '-20px',
-    },
   },
   conditionsField: {
     width: '100%',
@@ -382,12 +378,23 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
+  inputTitleWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
   imageFileInputWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
   },
   imageFileInputSubTitle: {
+    fontSize: 14,
+    lineHeight: '19px',
+    fontWeight: 400,
     color: theme.palette.text.second,
+  },
+  conrainer: {
+    marginBottom: '0 !important',
   },
 }))
