@@ -11,6 +11,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
+import {SetDuration} from '@components/set-duration/set-duration'
 import {UploadFilesInput} from '@components/upload-files-input'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 import {UserLink} from '@components/user-link'
@@ -35,8 +36,6 @@ export const CreateOrEditProposalContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('request', request)
-
   const [images, setImages] = useState([])
 
   const newProductPrice =
@@ -57,7 +56,7 @@ export const CreateOrEditProposalContent = ({
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
     if (['execution_time'].includes(fieldName)) {
-      newFormFields[fieldName] = parseInt(event.target.value) || ''
+      newFormFields[fieldName] = parseInt(event) || ''
     } else if (
       ['price'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -255,6 +254,7 @@ export const CreateOrEditProposalContent = ({
               <Field
                 multiline
                 className={classNames.descriptionField}
+                containerClasses={classNames.conrainer}
                 labelClasses={classNames.spanLabel}
                 inputProps={{maxLength: 2100}}
                 minRows={9}
@@ -269,11 +269,13 @@ export const CreateOrEditProposalContent = ({
             </div>
 
             <div className={classNames.imageFileInputWrapper}>
-              <Typography className={classNames.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
+              <div className={classNames.inputTitleWrapper}>
+                <Typography className={classNames.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
 
-              <Typography className={classNames.imageFileInputSubTitle}>
-                {`(${t(TranslationKey['link to your portfolio, examples of work'])})`}
-              </Typography>
+                <Typography className={classNames.imageFileInputSubTitle}>
+                  {`(${t(TranslationKey['link to your portfolio, examples of work'])})`}
+                </Typography>
+              </div>
 
               <UploadFilesInputMini withoutTitle requestWidth images={images} setImages={setImages} maxNumber={50} />
               {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
@@ -294,13 +296,15 @@ export const CreateOrEditProposalContent = ({
               onChange={onChangeField('price')}
             />
 
-            <Field
+            <SetDuration setTotalTimeInMinute={onChangeField('execution_time')} />
+
+            {/* <Field
               label={t(TranslationKey['Time to complete, min*'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.dateWrapper}
               value={formFields.execution_time}
               onChange={onChangeField('execution_time')}
-            />
+            /> */}
           </div>
         </div>
 

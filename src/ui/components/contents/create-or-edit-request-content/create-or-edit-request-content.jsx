@@ -777,7 +777,7 @@ export const CreateOrEditRequestContent = ({
                                             formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                         })}
                                       >
-                                        {'$ ' + formFields.request.discountedPrice}
+                                        {'$ ' + toFixed(+formFields.request.discountedPrice, 2)}
                                       </Typography>
                                     ) : null}
 
@@ -787,7 +787,7 @@ export const CreateOrEditRequestContent = ({
                                           formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                       })}
                                     >
-                                      {'$ ' + formFields.request.priceAmazon}
+                                      {'$ ' + toFixed(+formFields.request.priceAmazon, 2)}
                                     </Typography>
                                   </div>
                                 }
@@ -919,7 +919,7 @@ export const CreateOrEditRequestContent = ({
                       {t(TranslationKey['Description of your request'])}
                     </Typography>
 
-                    <Typography className={classNames.performerDescriptionTextStepTwo}>
+                    <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
                       {formFields.details.conditions}
                     </Typography>
                   </div>

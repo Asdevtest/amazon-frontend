@@ -326,10 +326,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   priceAndAmountWrapper: {
     width: '100%',
+    height: 90,
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'start',
     gap: '30px',
-    alignItems: 'center',
   },
 
   checkboxAndButtonWrapper: {
@@ -728,6 +729,11 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 250,
 
     marginBottom: 25,
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
   checkboxText: {
     whiteSpace: 'nowrap',
