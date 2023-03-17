@@ -164,12 +164,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
 
           <Typography className={classNames.fieldLabel}>{t(TranslationKey['Photos and documents']) + ':'}</Typography>
 
-          <PhotoAndFilesCarousel
-            notToShowEmpty
-            small
-            files={message.data.proposal.details.linksToMediaFiles}
-            width="340px"
-          />
+          <PhotoAndFilesCarousel notToShowEmpty small files={message.data.proposal.linksToMediaFiles} width="340px" />
         </div>
       </div>
 

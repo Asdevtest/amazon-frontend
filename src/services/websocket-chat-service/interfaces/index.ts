@@ -184,7 +184,7 @@ export interface ChatMessageDataRequestCreateNewBloggerProposal {
 export interface ChatMessageDataProposalCreateNewBloggerProposal {
   _id: string
   comment: string
-  details: {linksToMediaFiles: [string]}
+  linksToMediaFiles: [string]
   execution_time: number
 
   price: number

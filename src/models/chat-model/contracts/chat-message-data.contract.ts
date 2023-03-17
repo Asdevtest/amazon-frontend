@@ -179,7 +179,7 @@ export class ChatMessageDataProposalCreateNewBloggerProposalContract
   @IsString()
   public comment!: string
   @IsNotEmpty()
-  public details!: {linksToMediaFiles: [string]}
+  public linksToMediaFiles!: [string]
 
   @IsNotEmpty()
   public execution_time!: number
