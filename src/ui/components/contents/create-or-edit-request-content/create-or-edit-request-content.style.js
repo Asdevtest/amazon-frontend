@@ -233,7 +233,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   requestTitle: {
     maxHeight: 150,
-    width: 250,
+    width: 150,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
     overflowY: 'auto',
@@ -265,6 +265,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   nameFieldWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 
@@ -598,11 +599,29 @@ export const useClassNames = makeStyles()(theme => ({
     width: '8px !important',
   },
   nameFieldContainer: {
-    width: '390px !important',
+    width: '308px !important',
   },
   requestTypeContainer: {
-    width: '370px !important',
+    width: '251px !important',
   },
+
+  asinContainer: {
+    width: '185px !important',
+  },
+
+  asinField: {
+    width: '100%',
+    height: 40,
+    margin: 0,
+    paddingLeft: 10,
+
+    borderRadius: 4,
+
+    '&:before': {
+      borderBottom: 'none',
+    },
+  },
+
   requestTypeField: {
     width: '100%',
     height: 40,
@@ -743,5 +762,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
   newPrice: {
     color: '#FB1D5B',
+  },
+
+  customSubMainWrapper: {
+    padding: '10px 0 !important',
+    width: '185px !important',
+  },
+
+  customSearchInput: {
+    marginLeft: 5,
+
+    width: 158,
+    height: 30,
+    marginBottom: 20,
   },
 }))

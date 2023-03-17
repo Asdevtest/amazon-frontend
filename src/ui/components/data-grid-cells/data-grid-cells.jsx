@@ -253,6 +253,53 @@ export const ProductAsinCell = React.memo(
   ),
 )
 
+export const SelectProductAsinCellWithourTitle = React.memo(
+  withStyles(
+    ({classes: classNames, product}) => (
+      <div className={classNames.asinCellMainWrapper}>
+        <img alt="" className={cx(classNames.imgMini)} src={getAmazonImageUrl(product?.images?.slice()[0])} />
+
+        <div className={classNames.asinAndSkuWrapper}>
+          <div className={classNames.attributeWrapper}>
+            <Typography className={classNames.asinAndSkuTitle}>
+              {t(TranslationKey.ASIN) + ': '}
+
+              {product?.asin ? (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${product.asin}`}
+                  className={classNames.normalizeLink}
+                >
+                  <span className={classNames.attributeLink}>{shortAsin(product.asin)}</span>
+                </a>
+              ) : (
+                <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
+              )}
+            </Typography>
+            {/* {product.asin ? <CopyValue text={product.asin} /> : null} */}
+          </div>
+
+          <div className={classNames.attributeWrapper}>
+            <Typography className={classNames.asinAndSkuTitle}>
+              {t(TranslationKey.SKU) + ': '}
+
+              {product.skusByClient?.slice()[0] ? (
+                <span className={classNames.attributeLink}>{shortSku(product.skusByClient?.slice()[0])}</span>
+              ) : (
+                <span className={classNames.attributeMissing}>{t(TranslationKey.Missing)}</span>
+              )}
+            </Typography>
+
+            {/* {product.skusByClient?.slice()[0] ? <CopyValue text={product.skusByClient?.slice()[0]} /> : null} */}
+          </div>
+        </div>
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const AsinCopyCell = React.memo(
   withStyles(({classes: classNames, asinData}) => {
     const asins = asinData.split(', ').map((asin, i) =>

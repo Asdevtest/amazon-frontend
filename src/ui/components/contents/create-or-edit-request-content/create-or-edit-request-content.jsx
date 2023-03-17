@@ -34,6 +34,7 @@ import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 import {UserLink} from '@components/user-link'
@@ -54,6 +55,7 @@ const stepVariant = {
 
 export const CreateOrEditRequestContent = ({
   announcements,
+  permissionsData,
   choosenAnnouncements,
   requestToEdit,
   history,
@@ -72,8 +74,6 @@ export const CreateOrEditRequestContent = ({
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [isLimited, setIsLimited] = useState(false)
 
   const [announcementsData, setAnnouncementsData] = useState(announcements)
 
@@ -98,7 +98,10 @@ export const CreateOrEditRequestContent = ({
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId: requestToEdit?.request.announcementId || (choosenAnnouncements && choosenAnnouncements) || '',
+      announcementId:
+        requestToEdit?.request.announcementId || (choosenAnnouncements.length && choosenAnnouncements) || '',
+
+      productId: requestToEdit?.request?.productId || '',
 
       discountedPrice: 0,
     },
@@ -161,6 +164,10 @@ export const CreateOrEditRequestContent = ({
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
         newFormFields[section][fieldName] = event.target.value
+      } else if (['productId'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
+      } else if (['asin'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
       } else {
         newFormFields[section][fieldName] = event.target.value
       }
@@ -252,6 +259,50 @@ export const CreateOrEditRequestContent = ({
                   />
 
                   <Field
+                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    label={t(TranslationKey.ASIN)}
+                    labelClasses={classNames.spanLabelSmall}
+                    containerClasses={classNames.asinContainer}
+                    className={classNames.nameField}
+                    inputComponent={
+                      <WithSearchSelect
+                        asinSelect
+                        grayBorder
+                        blackSelectedItem
+                        darkIcon
+                        data={permissionsData}
+                        width={185}
+                        searchOnlyFields={['asin']}
+                        customSubMainWrapper={classNames.customSubMainWrapper}
+                        customSearchInput={classNames.customSearchInput}
+                        selectedItemName={formFields?.request?.asin || t(TranslationKey['Select ASIN'])}
+                        onClickSelect={el => {
+                          onChangeField('request')('asin')(el.asin)
+                          onChangeField('request')('productId')(el._id)
+                        }}
+                      />
+
+                      // <Select
+                      //   displayEmpty
+                      //   value={formFields.request.typeTask || null}
+                      //   className={classNames.asinField}
+                      //   input={<Input startAdornment={<InputAdornment position="start" />} />}
+                      //   onChange={onChangeField('request')('typeTask')}
+                      // >
+                      //   <MenuItem disabled value={null}>
+                      //     {t(TranslationKey['Select from the list'])}
+                      //   </MenuItem>
+
+                      //   {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                      //     <MenuItem key={taskIndex} value={taskType}>
+                      //       {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                      //     </MenuItem>
+                      //   ))}
+                      // </Select>
+                    }
+                  />
+
+                  <Field
                     label={t(TranslationKey['Request type']) + '*'}
                     labelClasses={classNames.spanLabelSmall}
                     tooltipInfoContent={t(TranslationKey['Current request type'])}
@@ -287,7 +338,7 @@ export const CreateOrEditRequestContent = ({
                 {`${formFields?.request?.typeTask}` ===
                   `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
                   <div className={classNames.bloggerFieldsWrapper}>
-                    <Field
+                    {/* <Field
                       className={classNames.nameField}
                       containerClasses={classNames.bloggerFieldContainer}
                       inputProps={{maxLength: 10}}
@@ -295,7 +346,7 @@ export const CreateOrEditRequestContent = ({
                       labelClasses={classNames.spanLabelSmall}
                       value={formFields.request.asin}
                       onChange={onChangeField('request')('asin')}
-                    />
+                    /> */}
 
                     <Field
                       className={classNames.nameField}
@@ -717,36 +768,31 @@ export const CreateOrEditRequestContent = ({
                             </Typography>
                           }
                         />
-
-                        {`${formFields?.request?.typeTask}` ===
-                          `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                          formFields?.request?.asin && (
-                            <Field
-                              label={t(TranslationKey.ASIN)}
-                              labelClasses={classNames.spanLabel}
-                              inputComponent={
-                                <div className={classNames.asinWrapper}>
-                                  <Typography className={classNames.orderText}>
-                                    {formFields.request.asin ? (
-                                      <a
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href={`https://www.amazon.com/dp/${formFields.request.asin}`}
-                                        className={classNames.normalizeLink}
-                                      >
-                                        <span className={classNames.linkSpan}>
-                                          {shortAsin(formFields.request.asin)}
-                                        </span>
-                                      </a>
-                                    ) : (
-                                      <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                                    )}
-                                  </Typography>
-                                  {formFields.request.asin ? <CopyValue text={formFields.request.asin} /> : null}
-                                </div>
-                              }
-                            />
-                          )}
+                        {formFields?.request?.asin && (
+                          <Field
+                            label={t(TranslationKey.ASIN)}
+                            labelClasses={classNames.spanLabel}
+                            inputComponent={
+                              <div className={classNames.asinWrapper}>
+                                <Typography className={classNames.orderText}>
+                                  {formFields.request.asin ? (
+                                    <a
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      href={`https://www.amazon.com/dp/${formFields.request.asin}`}
+                                      className={classNames.normalizeLink}
+                                    >
+                                      <span className={classNames.linkSpan}>{shortAsin(formFields.request.asin)}</span>
+                                    </a>
+                                  ) : (
+                                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                                  )}
+                                </Typography>
+                                {formFields.request.asin ? <CopyValue text={formFields.request.asin} /> : null}
+                              </div>
+                            }
+                          />
+                        )}
                       </div>
 
                       <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>

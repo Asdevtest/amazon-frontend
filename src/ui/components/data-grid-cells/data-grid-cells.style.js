@@ -1595,4 +1595,45 @@ export const styles = theme => ({
       },
     },
   },
+
+  asinCellMainWrapper: {
+    display: 'flex',
+    width: 'fit-content',
+    height: '100%',
+
+    gap: 5,
+  },
+  imgMini: {
+    height: 33,
+    width: 33,
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  attributeWrapper: {
+    display: 'flex',
+
+    gap: 5,
+  },
+  asinAndSkuTitle: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+
+    maxWidth: 115,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    color: theme.palette.text.general,
+  },
+  attributeLink: {
+    color: theme.palette.primary.main,
+  },
+  attributeMissing: {
+    color: theme.palette.text.second,
+  },
 })

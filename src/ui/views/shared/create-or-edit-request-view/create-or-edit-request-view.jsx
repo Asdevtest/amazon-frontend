@@ -39,6 +39,7 @@ export class CreateOrEditRequestView extends Component {
       choosenAnnouncements,
       showImageModal,
       bigImagesOptions,
+      permissionsData,
       platformSettingsData,
 
       onClickChoosePerformer,
@@ -62,6 +63,7 @@ export class CreateOrEditRequestView extends Component {
             <MainContent>
               <CreateOrEditRequestContent
                 choosenAnnouncements={choosenAnnouncements}
+                permissionsData={permissionsData}
                 announcements={announcements}
                 platformSettingsData={platformSettingsData}
                 progressValue={progressValue}

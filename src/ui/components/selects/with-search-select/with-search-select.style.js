@@ -19,6 +19,9 @@ export const styles = theme => ({
   icon: {
     color: theme.palette.primary.main,
   },
+  darkIcon: {
+    color: 'rgba(0, 0, 0, 0.54)',
+  },
 
   disabledSelectedItemName: {
     color: theme.palette.text.general,
@@ -34,6 +37,10 @@ export const styles = theme => ({
     maxHeight: 36,
     overflow: 'hidden',
     position: 'absolute',
+  },
+
+  grayBorder: {
+    border: `1px solid #E0E0E0`,
   },
 
   selectorIsOpen: {
@@ -152,5 +159,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+  },
+  blackSelectedItem: {
+    color: theme.palette.text.general,
   },
 })

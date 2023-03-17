@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AnnouncementsModel} from '@models/announcements-model'
+import {ClientModel} from '@models/client-model'
 import {RequestModel} from '@models/request-model'
 import {UserModel} from '@models/user-model'
 
@@ -25,6 +26,8 @@ export class CreateOrEditRequestViewModel {
   requestToEdit = undefined
 
   uploadedFiles = []
+
+  permissionsData = []
 
   announcementId = undefined
   announcements = []
@@ -58,8 +61,23 @@ export class CreateOrEditRequestViewModel {
   async loadData() {
     try {
       await this.getAnnouncementData()
+      await this.getProductPermissionsData()
       await this.getPlatformSettingsData()
     } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
+      console.log(error)
+    }
+  }
+
+  async getProductPermissionsData() {
+    try {
+      this.permissionsData = await ClientModel.getProductPermissionsData()
+    } catch (error) {
+      runInAction(() => {
+        this.error = error
+      })
       console.log(error)
     }
   }
@@ -180,7 +198,6 @@ export class CreateOrEditRequestViewModel {
   async getAnnouncementData() {
     if (this.announcementId) {
       this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
-      console.log('this.choosenAnnouncements', this.choosenAnnouncements)
     }
   }
 
