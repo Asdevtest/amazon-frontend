@@ -296,7 +296,7 @@ export const CreateOrEditProposalContent = ({
               onChange={onChangeField('price')}
             />
 
-            <SetDuration setTotalTimeInMinute={onChangeField('execution_time')} />
+            <SetDuration titleStyle={classNames.titleStyle} setTotalTimeInMinute={onChangeField('execution_time')} />
 
             {/* <Field
               label={t(TranslationKey['Time to complete, min*'])}

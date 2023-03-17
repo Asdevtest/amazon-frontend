@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -12,6 +13,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ProductAsinCell, SelectProductAsinCellWithourTitle} from '@components/data-grid-cells/data-grid-cells'
 import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
@@ -37,6 +39,13 @@ const WithSearchSelectRaw = observer(
     onClickSetDestinationFavourite,
     checkbox,
     currentShops,
+    searchOnlyFields,
+    asinSelect,
+    customSubMainWrapper,
+    customSearchInput,
+    grayBorder,
+    blackSelectedItem,
+    darkIcon,
     notCloseOneClick,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -64,8 +73,14 @@ const WithSearchSelectRaw = observer(
         setDataToRender(
           data
             .slice()
-            .filter(el =>
-              searchFields.some(fieldName => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())),
+            .filter(
+              el =>
+                searchFields?.some(fieldName =>
+                  el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase()),
+                ) ||
+                searchOnlyFields?.some(fieldName =>
+                  el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase()),
+                ),
             ),
         )
       } else {
@@ -94,7 +109,7 @@ const WithSearchSelectRaw = observer(
     return (
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
         <div className={cx(classNames.root, {[classNames.disableRoot]: disabled})} style={width && {width}}>
-          <div className={classNames.mainWrapper}>
+          <div className={cx(classNames.mainWrapper, {[classNames.grayBorder]: grayBorder})}>
             <div
               className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
               onClick={e => {
@@ -103,15 +118,18 @@ const WithSearchSelectRaw = observer(
               }}
             >
               <Typography
-                className={cx(classNames.selectedItemName, {[classNames.disabledSelectedItemName]: disabled})}
+                className={cx(classNames.selectedItemName, {
+                  [classNames.disabledSelectedItemName]: disabled,
+                  [classNames.blackSelectedItem]: blackSelectedItem,
+                })}
               >
                 {selectedItemName}
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={classNames.icon} />
+                <ArrowDropUpIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
               ) : (
-                <ArrowDropDownIcon className={classNames.icon} />
+                <ArrowDropDownIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
               )}
             </div>
 
@@ -124,10 +142,13 @@ const WithSearchSelectRaw = observer(
               }}
               onClose={handleClose}
             >
-              <div className={classNames.subMainWrapper} style={widthPopover && {width: widthPopover || width}}>
+              <div
+                className={cx(classNames.subMainWrapper, customSubMainWrapper)}
+                style={widthPopover && {width: widthPopover || width}}
+              >
                 {!withoutSearch ? (
                   <SearchInput
-                    inputClasses={classNames.searchInput}
+                    inputClasses={cx(classNames.searchInput, customSearchInput)}
                     value={nameSearchValue}
                     placeholder={placeholder ? placeholder : t(TranslationKey.search)}
                     onChange={e => setNameSearchValue(e.target.value)}
@@ -193,6 +214,8 @@ const WithSearchSelectRaw = observer(
                               </Tooltip>
                             </>
                           ))}
+
+                          {asinSelect && <SelectProductAsinCellWithourTitle product={el} />}
 
                           {favourites ? (
                             <StarOutlinedIcon

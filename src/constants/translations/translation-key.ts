@@ -1864,7 +1864,7 @@ export enum TranslationKey {
   'Search by Performer, Title, Description' = 'Search by Performer, Title, Description',
   'Search by Title, Description' = 'Search by Title, Description',
   'Service description' = 'Service description',
-  // '' = '',
+  'Select ASIN' = 'Select ASIN',
   // '' = '',
   // '' = '',
   // '' = '',
