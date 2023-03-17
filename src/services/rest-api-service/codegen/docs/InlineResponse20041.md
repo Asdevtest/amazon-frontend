@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+<<<<<<< HEAD
 **asin** | **String** | ﻿\&quot;ASIN\&quot; | [optional] 
 **sku** | **String** | SKU | [optional] 
 **title** | **String** | Title | [optional] 
@@ -30,5 +31,9 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата обновления | [optional] 
 **shop** | [**ApiV1IntegrationsSellerboardWarehouseStocksShop**](ApiV1IntegrationsSellerboardWarehouseStocksShop.md) |  | [optional] 
+=======
+**_id** | **String** | GUID заказа | [optional] 
+**id** | **Number** | id заказа | [optional] 
+>>>>>>> hotfix-5579
 
 

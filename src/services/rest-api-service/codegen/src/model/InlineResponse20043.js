@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
 
 /**
  * The InlineResponse20043 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20043 {
     /**
      * Constructs a new <code>InlineResponse20043</code>.
+     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20043
      */
     constructor() { 

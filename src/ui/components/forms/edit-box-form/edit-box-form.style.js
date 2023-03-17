@@ -46,6 +46,10 @@ export const useClassNames = makeStyles()(theme => ({
   field: {
     width: '100%',
   },
+
+  containerField: {
+    width: 'min-content',
+  },
   multiline: {
     height: 'auto',
     width: '100%',
@@ -244,6 +248,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     padding: '10px 20px 0',
     gap: 20,
+    justifyContent: 'space-between',
   },
 
   disabledNumContainer: {
@@ -335,7 +340,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInput: {
-    width: 145,
+    width: 310,
     height: 40,
     marginLeft: 10,
     textAlign: 'center',
@@ -344,5 +349,9 @@ export const useClassNames = makeStyles()(theme => ({
   input: {
     textAlign: 'center',
     fontSize: 16,
+  },
+
+  containerTitleField: {
+    marginBottom: '5px !important',
   },
 }))
