@@ -124,6 +124,7 @@ class SubUsersViewRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
                   pagination
+                  disableEnforceFocus
                   useResizeContainer
                   disableSelectionOnClick
                   classes={{
