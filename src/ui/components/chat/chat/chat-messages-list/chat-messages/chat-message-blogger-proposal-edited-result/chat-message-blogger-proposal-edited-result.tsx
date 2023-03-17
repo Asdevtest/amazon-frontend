@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Divider, Typography} from '@mui/material'
+import {Divider, Link, Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
 
@@ -117,15 +117,21 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                   {message.data.proposal.details.publicationLinks.length ? (
                     <div className={cx(classNames.infoItemList, classNames.linkInfoItemList)}>
                       {message.data.proposal.details.publicationLinks.map((el, index) => (
-                        <div key={index} className={classNames.infoItemWrapper}>
-                          <Typography className={cx(classNames.infoItemText, classNames.infoLinkText)}>{el}</Typography>
+                        <div key={index} className={classNames.infoLinksItemWrapper}>
+                          <Link
+                            target="_blank"
+                            href={el}
+                            className={cx(classNames.infoItemText, classNames.infoLinkText)}
+                          >
+                            {el}
+                          </Link>
 
                           <CopyValue text={el} disabled={undefined} />
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className={cx(classNames.infoItemWrapper, classNames.linkInfoItemList)}>
+                    <div className={cx(classNames.infoLinksItemWrapper, classNames.linkInfoItemList)}>
                       <Typography className={classNames.infoItemText}>{t(TranslationKey.Missing)}</Typography>
                     </div>
                   )}

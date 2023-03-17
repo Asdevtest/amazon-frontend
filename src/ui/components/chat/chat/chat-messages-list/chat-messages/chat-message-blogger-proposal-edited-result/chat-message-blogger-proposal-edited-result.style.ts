@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
-    padding: '40px 30px',
+    padding: '40px 30px 0 30px',
     width: 1100,
     margin: '0 auto',
     border: '1px solid #4CAF50',
@@ -56,6 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     fontSize: 16,
     minHeight: 100,
+    whiteSpace: 'pre-line',
     wordBreak: 'break-word',
   },
   resultWrapper: {
@@ -309,6 +310,17 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 15px',
   },
 
+  infoLinksItemWrapper: {
+    background: theme.palette.background.disabled,
+    width: 515,
+    height: 40,
+    borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 15px',
+  },
+
   infoItemText: {
     color: '#001029',
   },
@@ -317,7 +329,8 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    maxWidth: 250,
+    // maxWidth: 450,
+    // color: theme.palette.primary.main,
   },
 
   fieldContainer: {
@@ -339,11 +352,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    maxHeight: 150,
+    maxHeight: 170,
     overflowY: 'auto',
   },
 
   linkInfoItemList: {
-    width: 518,
+    width: 525,
   },
 }))

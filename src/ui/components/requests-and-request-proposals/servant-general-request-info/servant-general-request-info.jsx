@@ -84,7 +84,9 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
               containerClasses={classNames.fieldContainer}
               label={'CashBack'}
               inputComponent={
-                <Typography className={classNames.accentText}>{request?.request.cashBackInPercent + '%'}</Typography>
+                <Typography className={classNames.accentText}>
+                  {toFixed(request?.request.cashBackInPercent, 2) + '%'}
+                </Typography>
               }
             />
           </div>

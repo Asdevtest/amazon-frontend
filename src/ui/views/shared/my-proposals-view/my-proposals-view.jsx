@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import {Grid, Typography} from '@mui/material'
@@ -8,11 +9,13 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -43,6 +46,7 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      selectedTaskType,
       sortMode,
       viewMode,
       getCurrentData,
@@ -55,6 +59,7 @@ class MyProposalsViewRaw extends Component {
       onClickEditBtn,
       onClickOpenBtn,
       onTriggerSortMode,
+      onClickTaskType,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -82,6 +87,22 @@ class MyProposalsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
+                <div className={classNames.taskTypeWrapper}>
+                  {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                    <Button
+                      key={taskIndex}
+                      variant="text"
+                      disabled={taskType === selectedTaskType}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+                      })}
+                      onClick={() => onClickTaskType(taskType)}
+                    >
+                      {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                    </Button>
+                  ))}
+                </div>
+
                 {/* <div className={classNames.tablePanelViewWrapper}>
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
 

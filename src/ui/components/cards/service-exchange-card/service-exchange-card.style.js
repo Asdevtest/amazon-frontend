@@ -3,9 +3,9 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    minHeight: 410,
-    maxHeight: 515,
-
+    // minHeight: 410,
+    // maxHeight: 515,
+    height: 550,
     width: 375,
 
     borderRadius: '4px',
@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
 
-    maxHeight: 76,
+    height: 76,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',

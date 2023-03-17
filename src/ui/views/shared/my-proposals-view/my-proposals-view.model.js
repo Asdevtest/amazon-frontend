@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -22,6 +23,8 @@ export class MyProposalsViewModel {
 
   searchMyRequestsIds = []
   requests = []
+  requestsBase = []
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   showConfirmModal = false
   selectedProposal = undefined
@@ -87,6 +90,15 @@ export class MyProposalsViewModel {
     this.setTableModeState()
   }
 
+  onClickTaskType(taskType) {
+    runInAction(() => {
+      this.selectedTaskType = taskType
+    })
+    // this.getRequestsCustom()
+
+    this.requests = this.requestsBase.filter(el => +el.typeTask === +taskType)
+  }
+
   onClickEditBtn(request, proposal) {
     const convertedRequest = {
       createdById: request.createdById,
@@ -148,6 +160,8 @@ export class MyProposalsViewModel {
       const result = await RequestModel.getRequestsCustom(this.user._id)
 
       runInAction(() => {
+        this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
         this.requests = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {

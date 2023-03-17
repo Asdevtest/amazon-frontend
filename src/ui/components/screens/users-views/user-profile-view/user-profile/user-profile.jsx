@@ -147,7 +147,7 @@ export const UserProfile = observer(
                     {t(TranslationKey.Specialties)}
                   </Typography>
                   <div className={classNames.roles}>
-                    {user?.allowedSpec.map((el, index) => (
+                    {user?.allowedSpec?.map((el, index) => (
                       <Typography key={index} className={classNames.role}>
                         {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[el])}
                       </Typography>
