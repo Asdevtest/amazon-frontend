@@ -1400,6 +1400,11 @@ export const styles = theme => ({
     },
   },
 
+  warehouseMyTasksCancelBtn: {
+    height: '40px',
+    width: '166px',
+  },
+
   sizesSubWrapper: {
     display: 'flex',
     width: '100%',
