@@ -125,6 +125,7 @@ class SubUsersViewRaw extends Component {
                 <MemoDataGrid
                   pagination
                   useResizeContainer
+                  disableSelectionOnClick
                   classes={{
                     root: classNames.root,
                     footerContainer: classNames.footerContainer,
