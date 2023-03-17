@@ -250,6 +250,11 @@ export const styles = theme => ({
     textAlign: 'center',
   },
 
+  changeInputComment: {
+    width: '100%',
+    height: 'auto',
+  },
+
   changeInputIcon: {
     transition: '.3s ease',
     cursor: 'pointer',
@@ -518,6 +523,8 @@ export const styles = theme => ({
       height: 30,
       width: 90,
     },
+    // height: 30,
+    // padding: '0 27px',
   },
 
   warehouseMyTasksSuccessBtn: {
@@ -1122,7 +1129,7 @@ export const styles = theme => ({
     gap: '40px',
   },
   addPermissionBtn: {
-    width: '251px',
+    padding: '0 21px',
   },
 
   sabUserWrapper: {
@@ -1133,23 +1140,23 @@ export const styles = theme => ({
   },
 
   userAvatar: {
-    width: 100,
-    height: 100,
+    width: 66,
+    height: 66,
   },
 
   sabUserInfoWrapper: {
     marginLeft: 20,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: 100,
+    gap: 5,
   },
 
   userEmail: {
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
     color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   sabUserRatingWrapper: {
@@ -1164,12 +1171,15 @@ export const styles = theme => ({
   userRolesWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    height: 120,
+    height: 70,
     overflow: 'auto',
     width: '100%',
   },
 
   userRole: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
     marginBottom: 5,
   },
 
@@ -1265,6 +1275,14 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px 0',
+  },
+
+  CommentUsersCellWrapper: {
+    width: '100%',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '10px 0',
@@ -1616,6 +1634,16 @@ export const styles = theme => ({
     [theme.breakpoints.down(1282)]: {
       width: 22,
       height: 22,
+    },
+    ratingScore: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '19px',
+    },
+
+    ChangeInputCommentCellWrapper: {
+      display: 'flex',
+      width: '100%',
     },
   },
 })

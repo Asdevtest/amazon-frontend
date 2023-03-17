@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20019Rows from './InlineResponse20019Rows';
 
 /**
  * The InlineResponse20019 model module.
@@ -47,11 +48,11 @@ class InlineResponse20019 {
         if (data) {
             obj = obj || new InlineResponse20019();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20019Rows]);
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
         }
         return obj;
@@ -61,16 +62,14 @@ class InlineResponse20019 {
 }
 
 /**
- * Кол-во продукта в айтеме в коробке
- * @member {Number} amount
+ * @member {Array.<module:model/InlineResponse20019Rows>} rows
  */
-InlineResponse20019.prototype['amount'] = undefined;
+InlineResponse20019.prototype['rows'] = undefined;
 
 /**
- * Номер заказа
- * @member {Number} id
+ * @member {Number} count
  */
-InlineResponse20019.prototype['id'] = undefined;
+InlineResponse20019.prototype['count'] = undefined;
 
 
 

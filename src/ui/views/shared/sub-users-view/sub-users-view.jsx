@@ -57,7 +57,7 @@ class SubUsersViewRaw extends Component {
       selectedSubUser,
 
       requestStatus,
-      getCurrentData,
+      currentData,
 
       shopsData,
 
@@ -125,6 +125,7 @@ class SubUsersViewRaw extends Component {
                 <MemoDataGrid
                   pagination
                   useResizeContainer
+                  disableSelectionOnClick
                   classes={{
                     root: classNames.root,
                     footerContainer: classNames.footerContainer,
@@ -138,8 +139,8 @@ class SubUsersViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={220}
+                  rows={currentData}
+                  rowHeight={145}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,

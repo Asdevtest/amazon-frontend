@@ -350,7 +350,7 @@ export class WarehouseVacantViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksVacant = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
+        this.tasksVacant = warehouseTasksDataConverter(result?.rows?.map(el => ({...el, beforeBoxes: el?.boxesBefore})))
       })
 
       this.setRequestStatus(loadingStatuses.success)

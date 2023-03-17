@@ -105,13 +105,17 @@ export const UserCell = React.memo(
 
         <div className={classNames.sabUserInfoWrapper}>
           <div className={classNames.userLink}>
-            <UserLink name={user?.name} userId={user?._id} />
+            <UserLink
+              customStyles={{fontWeight: 600, fontSize: '14px', lineHeight: '19px'}}
+              name={user?.name}
+              userId={user?._id}
+            />
           </div>
 
           <Typography className={classNames.userEmail}>{user?.email}</Typography>
 
           <div className={classNames.sabUserRatingWrapper}>
-            <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
             <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
           </div>
@@ -582,6 +586,84 @@ export const ChangeInputCell = React.memo(
                     }}
                   />
                   <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(defaultValue)} />
+                </div>
+              ) : null}
+            </InputAdornment>
+          }
+          onChange={e =>
+            isInts
+              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+              : setValue(e.target.value)
+          }
+          onBlur={() => setIsMyInputFocused(false)}
+          onFocus={() => setIsMyInputFocused(true)}
+        />
+      </div>
+    )
+  }, styles),
+)
+
+export const ChangeInputCommentCell = React.memo(
+  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, isInts, maxLength}) => {
+    const sourceValue = text ? text : ''
+
+    const [value, setValue] = useState(sourceValue)
+
+    useEffect(() => {
+      setValue(sourceValue)
+    }, [text])
+
+    const [isMyInputFocused, setIsMyInputFocused] = useState(false)
+
+    const [isShow, setShow] = useState(false)
+
+    useEffect(() => {
+      const listener = event => {
+        if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+          event.preventDefault()
+          setShow(true)
+          setTimeout(() => {
+            setShow(false)
+          }, 2000)
+          onClickSubmit(id, value)
+        }
+      }
+      document.addEventListener('keydown', listener)
+      return () => {
+        document.removeEventListener('keydown', listener)
+      }
+    }, [value])
+
+    return (
+      <div className={classNames.ChangeInputCommentCellWrapper}>
+        <Input
+          multiline
+          minRows={2}
+          maxRows={2}
+          inputProps={{maxLength: maxLength ? maxLength : 1000}}
+          placeholder={t(TranslationKey.Comment)}
+          disabled={disabled}
+          className={classNames.changeInputComment}
+          classes={{input: classNames.changeInputComment}}
+          value={value}
+          endAdornment={
+            <InputAdornment position="start">
+              {isShow && sourceValue !== value ? (
+                <DoneIcon classes={{root: classNames.doneIcon}} />
+              ) : sourceValue !== value ? (
+                <div className={classNames.iconWrapper}>
+                  <img
+                    src={'/assets/icons/save-discet.svg'}
+                    className={classNames.changeInputIcon}
+                    onClick={() => {
+                      setShow(true)
+                      setTimeout(() => {
+                        setShow(false)
+                      }, 2000)
+                      onClickSubmit(id, value)
+                    }}
+                  />
+                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(sourceValue)} />
                 </div>
               ) : null}
             </InputAdornment>
@@ -1605,21 +1687,13 @@ export const FourMonthesStockCell = React.memo(
   withStyles(
     ({classes: classNames, handlers, params, value}) => (
       <div className={classNames.fourMonthesStockWrapper}>
-        <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-          value // < params.row.stockSum ? 0 : value - params.row.stockSum
-        }`}</Typography>
-        {/* <ChangeChipCell
-        row={params.row.originalData}
-        // value={value}
-        text={value > 0 ? value : `${t(TranslationKey.Set)} Stock`}
-        onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
-        onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
-      /> */}
+        <Typography className={classNames.fourMonthesStockLabel}>{`${t(
+          TranslationKey.Repurchase,
+        )}: ${value}`}</Typography>
 
         <ChangeInputCell
           isInts
           row={params.row.originalData}
-          // text={Number(params.value) > 0 ? params.value : `-`}
           text={params.row.fourMonthesStock}
           onClickSubmit={handlers.onClickSaveFourMonthsStock}
         />
@@ -1627,6 +1701,17 @@ export const FourMonthesStockCell = React.memo(
     ),
     styles,
   ),
+)
+
+export const CommentUsersCell = React.memo(
+  withStyles(({classes: classNames, handler, params}) => {
+    const ss = 1
+    return (
+      <div className={classNames.CommentUsersCellWrapper}>
+        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
+      </div>
+    )
+  }, styles),
 )
 
 export const ActiveBarcodeCell = React.memo(

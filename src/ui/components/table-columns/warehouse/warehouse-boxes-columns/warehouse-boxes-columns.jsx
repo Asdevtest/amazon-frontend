@@ -160,7 +160,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => (
       <ChangeInputCell
-        maxLength={14}
+        maxLength={25}
         row={params.row.originalData}
         text={params.value}
         onClickSubmit={handlers.onClickSavePrepId}
