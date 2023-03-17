@@ -96,19 +96,22 @@ export const BoxViewForm = observer(
     return (
       <div className={classNames.formContainer}>
         <div className={classNames.titleWrapper}>
-          <div className={classNames.titleSubWrapper}>
+          <div className={classNames.titlePrepIdWrapper}>
             <Typography variant="h6" className={classNames.title}>{`${t(TranslationKey.Box)} № ${
               box.humanFriendlyId
-            } / ID:`}</Typography>
+            } `}</Typography>
 
-            <Input
-              disabled={!(isClient || isStorekeeper)}
-              className={classNames.itemInput}
-              classes={{input: classNames.input}}
-              inputProps={{maxLength: 14}}
-              value={formFields.prepId}
-              onChange={onChangeField('prepId')}
-            />
+            <div className={classNames.titlePrepIdSubWrapper}>
+              <Typography variant="h6" className={classNames.title}>{`ID:`}</Typography>
+              <Input
+                disabled={!(isClient || isStorekeeper)}
+                className={classNames.itemInput}
+                classes={{input: classNames.input}}
+                inputProps={{maxLength: 25}}
+                value={formFields.prepId}
+                onChange={onChangeField('prepId')}
+              />
+            </div>
           </div>
 
           <div className={classNames.titleSubWrapper}>

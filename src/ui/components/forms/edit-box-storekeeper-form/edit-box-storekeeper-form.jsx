@@ -405,37 +405,46 @@ export const EditBoxStorekeeperForm = observer(
             inputComponent={
               <div className={classNames.editBlockWrapper}>
                 <div className={classNames.editBlockHeaderWrapper}>
-                  <Field
-                    oneLine
-                    labelClasses={classNames.standartLabel}
-                    label={`${t(TranslationKey.Box)} №`}
-                    inputComponent={
-                      <div className={classNames.boxTitleWrapper}>
-                        <Typography className={classNames.tableTitle}>{`${
-                          formItem && formItem.humanFriendlyId
-                        }`}</Typography>
+                  <div className={classNames.titlePrepIdSubWrapper}>
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.containerTitleField}
+                      label={`${t(TranslationKey.Box)} №`}
+                      inputComponent={
+                        <div className={classNames.boxTitleWrapper}>
+                          <Typography className={classNames.tableTitle}>{`${
+                            formItem && formItem.humanFriendlyId
+                          }`}</Typography>
 
-                        <Typography className={classNames.standartLabel}>{` / ID:`}</Typography>
+                          {/* <Typography className={classNames.amountSpan}>
+                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+                          </Typography> */}
+                        </div>
+                      }
+                    />
 
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      label={`ID:`}
+                      inputComponent={
                         <Input
                           className={classNames.itemInput}
                           classes={{input: classNames.input}}
-                          inputProps={{maxLength: 14}}
+                          inputProps={{maxLength: 25}}
                           value={boxFields.prepId}
                           onChange={setFormField('prepId')}
                         />
-
-                        {/* <Typography className={classNames.amountSpan}>
-                          {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                        </Typography> */}
-                      </div>
-                    }
-                  />
+                      }
+                    />
+                  </div>
                   <Field
                     oneLine
                     disabled
                     labelClasses={classNames.standartLabel}
                     inputClasses={classNames.disabledNumInput}
+                    containerClasses={classNames.containerField}
                     label={t(TranslationKey['Total goods In Box'])}
                     value={allItemsCount}
                   />
