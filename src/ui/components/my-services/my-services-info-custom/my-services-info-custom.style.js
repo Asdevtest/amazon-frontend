@@ -302,11 +302,17 @@ export const useClassNames = makeStyles()(theme => ({
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
-    whiteSpace: 'normal',
+    // whiteSpace: 'normal',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+    overflowY: 'auto',
+    overflowX: 'hidden',
 
     width: '100%',
     maxHeight: 65,
   },
+
   dealBtn: {
     width: 180,
   },

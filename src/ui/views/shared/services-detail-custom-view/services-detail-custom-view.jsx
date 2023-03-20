@@ -73,12 +73,16 @@ export class ServicesDetailCustomViewRaw extends Component {
               </div>
 
               <div className={classNames.requestInfoWrapper}>
-                <MyServicesInfoCustom request={request} onClickSuggestDealBtn={onClickSuggestDealBtn} />
+                <MyServicesInfoCustom
+                  request={request}
+                  announcementData={announcementData}
+                  onClickSuggestDealBtn={onClickSuggestDealBtn}
+                />
               </div>
 
               {request ? (
                 <div className={classNames.detailsWrapper}>
-                  <CustomSearchRequestDetails request={request} />
+                  <CustomSearchRequestDetails request={request} announcementData={announcementData} />
                 </div>
               ) : null}
             </MainContent>
