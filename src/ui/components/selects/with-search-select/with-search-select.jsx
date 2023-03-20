@@ -47,6 +47,7 @@ const WithSearchSelectRaw = observer(
     blackSelectedItem,
     darkIcon,
     notCloseOneClick,
+    chosenItemNoHover,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -108,10 +109,18 @@ const WithSearchSelectRaw = observer(
 
     return (
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
-        <div className={cx(classNames.root, {[classNames.disableRoot]: disabled})} style={width && {width}}>
+        <div
+          className={cx(classNames.root, {
+            [classNames.disableRoot]: disabled,
+          })}
+          style={width && {width}}
+        >
           <div className={cx(classNames.mainWrapper, {[classNames.grayBorder]: grayBorder})}>
             <div
-              className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
+              className={cx(classNames.chosenItem, {
+                [classNames.disabledChosenItem]: disabled,
+                [classNames.chosenItemNoHover]: chosenItemNoHover,
+              })}
               onClick={e => {
                 e.stopPropagation()
                 !disabled && handleClick(e)

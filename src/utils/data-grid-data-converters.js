@@ -552,16 +552,16 @@ export const warehouseTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    id: item._id,
-    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
-    status: mapTaskStatusKeyToEnum[item.status],
+    id: item?._id,
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.operationType]],
+    status: mapTaskStatusKeyToEnum[item?.status],
 
-    priority: item.priority,
-    isBarCodeAttached: item.isBarCodeAttached,
+    priority: item?.priority,
+    isBarCodeAttached: item?.isBarCodeAttached,
 
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    storekeeper: item.storekeeper?.name,
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+    storekeeper: item?.storekeeper?.name,
     // asin: Array.from(
     //   new Set(
     //     `${item.boxesBefore.reduce(
@@ -573,8 +573,8 @@ export const warehouseTasksDataConverter = data =>
 
     asin: Array.from(
       new Set(
-        item.boxesBefore.reduce(
-          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.product.asin && cur.product.asin], [])],
+        item?.boxesBefore?.reduce(
+          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin && cur?.product?.asin], [])],
           [],
         ),
       ),
@@ -725,29 +725,29 @@ export const adminBoxesDataConverter = data =>
 export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
   data?.map(item => ({
     originalData: item,
-    id: item._id,
-    _id: item._id,
+    id: item?._id,
+    _id: item?._id,
 
-    warehouse: item.destination?.name,
+    warehouse: item?.destination?.name,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
-    client: item.client?.name,
+    client: item?.client?.name,
 
-    humanFriendlyId: item.humanFriendlyId,
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    humanFriendlyId: item?.humanFriendlyId,
+    qty: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
-    isDraft: item.isDraft,
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    batchId: item.batch?.humanFriendlyId,
+    isDraft: item?.isDraft,
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+    batchId: item?.batch?.humanFriendlyId,
     volumeWeightCoefficient,
 
-    prepId: item.prepId,
+    prepId: item?.prepId,
 
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
-      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
-      .slice(0, -2)}  item №: ${item.items
-      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item?.items
+      .reduce((acc, cur) => (acc += cur?.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item?.items
+      // .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 

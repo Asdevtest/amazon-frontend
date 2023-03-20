@@ -27,6 +27,9 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
   const {classes: classNames} = useClassNames()
   const now = new Date()
 
+  console.log('request', request)
+  console.log('announcementData', announcementData)
+
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
@@ -161,9 +164,9 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
           <Typography className={classNames.requestTitle}>{t(TranslationKey.Announcement)}</Typography>
           <div className={cx(classNames.announcementTitleWrapper)}>
             <Typography className={cx(classNames.requestTitle, classNames.announcementTitle)}>
-              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
+              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData?.type])}
             </Typography>
-            <Typography className={cx(classNames.announcementDecription)}>{request?.details?.conditions}</Typography>
+            <Typography className={cx(classNames.announcementDecription)}>{announcementData?.description}</Typography>
           </div>
         </div>
       </div>

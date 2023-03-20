@@ -281,6 +281,7 @@ export const CreateOrEditRequestContent = ({
                         grayBorder
                         blackSelectedItem
                         darkIcon
+                        chosenItemNoHover
                         data={permissionsData}
                         width={185}
                         searchOnlyFields={['asin']}

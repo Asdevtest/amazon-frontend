@@ -31,6 +31,7 @@ export class ServiceDetailsViewModel {
   announcementId = undefined
 
   curPage = 0
+  rowCount = 0
   rowsPerPage = 15
 
   currentData = []
@@ -119,6 +120,7 @@ export class ServiceDetailsViewModel {
       const result = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
       runInAction(() => {
         this.announcementData = result
+        this.rowCount = result.length
       })
     } catch (error) {
       this.error = error
@@ -154,6 +156,7 @@ export class ServiceDetailsViewModel {
   onClickOpenBtn(id) {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/custom-service-type`, {
       requestId: id,
+      announcementId: this.announcementId,
     })
   }
 

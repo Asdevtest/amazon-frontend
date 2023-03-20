@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes} from 'date-fns'
 import QueryString from 'qs'
 
@@ -111,6 +112,20 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   return `${isExpired ? t(TranslationKey['Overdue by']) + '\n' : ''} ${hours} ${t(TranslationKey.hour)} ${mins} ${
     t(TranslationKey.minute) + '.'
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
+}
+
+export const timeToDeadlineInDaysAndHours = ({date, now}) => {
+  const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
+
+  const isExpired = secondsToDeadline < 0
+
+  const absSecondsToDeadline = Math.abs(secondsToDeadline)
+
+  const days = Math.floor(absSecondsToDeadline / (3600 * 24))
+
+  const hours = Math.floor((absSecondsToDeadline % (3600 * 24)) / 3600)
+
+  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : ''
 }
 
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')

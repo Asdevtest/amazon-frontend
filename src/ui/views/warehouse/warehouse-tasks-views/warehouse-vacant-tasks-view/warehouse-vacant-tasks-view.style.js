@@ -19,7 +19,7 @@ export const styles = theme => ({
   // },
 
   tableWrapper: {
-    height: 'calc(100vh - 180px)',
+    height: 'calc(100vh - 250px)',
   },
   root: {
     border: '0 !important',

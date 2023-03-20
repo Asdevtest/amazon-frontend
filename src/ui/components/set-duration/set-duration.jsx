@@ -39,7 +39,7 @@ export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute}) 
       if (event.target.value > 99) {
         newFormFields[fieldName] = 99
       } else {
-        newFormFields[fieldName] = clearEverythingExceptNumbers(event.target.value)
+        newFormFields[fieldName] = Number(clearEverythingExceptNumbers(event.target.value))
       }
     }
 
@@ -47,7 +47,7 @@ export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute}) 
       if (event.target.value > 23) {
         newFormFields[fieldName] = 23
       } else {
-        newFormFields[fieldName] = clearEverythingExceptNumbers(event.target.value)
+        newFormFields[fieldName] = Number(clearEverythingExceptNumbers(event.target.value))
       }
     }
 
@@ -55,7 +55,7 @@ export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute}) 
       if (event.target.value > 59) {
         newFormFields[fieldName] = 59
       } else {
-        newFormFields[fieldName] = clearEverythingExceptNumbers(event.target.value)
+        newFormFields[fieldName] = Number(clearEverythingExceptNumbers(event.target.value))
       }
     }
 

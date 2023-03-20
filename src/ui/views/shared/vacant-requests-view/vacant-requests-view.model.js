@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestSubType, RequestType} from '@constants/request-type'
@@ -9,6 +9,10 @@ import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
+
+import {FreelancerVacantRequestColumns} from '@views/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -22,15 +26,32 @@ export class VacantRequestsViewModel {
 
   drawerOpen = false
 
+  currentData = []
+
+  rowCount = 0
+  curPage = 0
+  sortModel = []
+  filterModel = {items: []}
+  rowsPerPage = 15
+  columnVisibilityModel = undefined
+
   searchMyRequestsIds = []
   requests = []
   openModal = null
-  viewMode = tableViewMode.BLOCKS
+  viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
   get user() {
     return UserModel.userInfo
   }
+
+  get languageTag() {
+    return SettingsModel.languageTag || {}
+  }
+
+  handlers = {onClickViewMore: id => this.onClickViewMore(id)}
+
+  columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
 
   constructor({history}) {
     runInAction(() => {
@@ -38,6 +59,31 @@ export class VacantRequestsViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.requests,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.getDataGridState()
+    }
+  }
+
+  getDataGridState() {
+    runInAction(() => {
+      this.columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
+    })
   }
 
   setTableModeState() {
@@ -101,7 +147,8 @@ export class VacantRequestsViewModel {
       })
 
       runInAction(() => {
-        this.requests = result
+        this.requests = addIdDataConverter(result)
+        this.rowCount = result.length
       })
     } catch (error) {
       console.log(error)
@@ -152,5 +199,35 @@ export class VacantRequestsViewModel {
     })
 
     this.setTableModeState()
+  }
+
+  onChangeCurPage(e) {
+    runInAction(() => {
+      this.curPage = e
+    })
+    this.getRequestsVacant()
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+
+    this.getRequestsVacant()
+  }
+
+  onChangeRowsPerPage(e) {
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
+
+    this.getRequestsVacant()
+  }
+
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 }

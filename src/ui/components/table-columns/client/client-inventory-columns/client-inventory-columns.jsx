@@ -52,7 +52,6 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <ProductAsinCell product={params.row.originalData} />,
-    // renderCell: params => console.log('onHover', onHover),
     width: 300,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -351,6 +350,7 @@ export const clientInventoryColumns = (
     minWidth: 100,
     headerAlign: 'center',
     filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_BARCODE,
   },

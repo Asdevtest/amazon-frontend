@@ -112,10 +112,10 @@ export class ServiceDetailsViewRaw extends Component {
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                   }}
                   rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={currentData}
                   rowHeight={143}
