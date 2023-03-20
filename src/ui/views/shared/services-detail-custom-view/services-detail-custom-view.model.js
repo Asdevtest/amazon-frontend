@@ -17,8 +17,10 @@ export class ServicesDetailCustomViewModel {
   drawerOpen = false
 
   requestId = undefined
+  announcementId = undefined
 
   request = undefined
+  announcementData = undefined
 
   requestProposals = undefined
   showWarningModal = false
@@ -36,6 +38,7 @@ export class ServicesDetailCustomViewModel {
       this.history = history
 
       if (location.state) {
+        console.log(location.state)
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
       }
@@ -47,6 +50,7 @@ export class ServicesDetailCustomViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getCustomRequestById()
+      this.getAnnouncementsDataById()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -66,6 +70,18 @@ export class ServicesDetailCustomViewModel {
       runInAction(() => {
         this.error = error
       })
+    }
+  }
+
+  async getAnnouncementsDataById() {
+    try {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
+      runInAction(() => {
+        this.announcementData = result
+      })
+    } catch (error) {
+      this.error = error
+      console.log(error)
     }
   }
 

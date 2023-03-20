@@ -1866,5 +1866,8 @@
   "Search by Performer, Title, Description": "Поиск по Исполнителю, Названию, Описанию",
   "Search by Title, Description": "Поиск по Названию, Описанию",
   "Service description": "Описание услуги",
-  "Select ASIN": "Выберите ASIN"
+  "Select ASIN": "Выберите ASIN",
+  "Time till deadline": "Время до срока",
+  "Remaining offers": "Осталось предложений",
+  "To work without confirmation": "В работу без подтверждения"
 }

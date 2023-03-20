@@ -371,9 +371,61 @@ export const ViewCartsLine = props => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18.0977 3.59854V6.29854C18.0977 7.78984 17.089 8.99854 15.5977 8.99854C14.1064 8.99854 2.79766 8.99854 2.79766 8.99854C1.30636 8.99854 0.0976562 7.78984 0.0976562 6.29854V3.59854C0.0976562 2.10724 1.30636 0.898537 2.79766 0.898537H15.5977C17.089 0.898537 18.0977 2.10724 18.0977 3.59854Z"
       fill="current"
+      d="M18.0977 3.59854V6.29854C18.0977 7.78984 17.089 8.99854 15.5977 8.99854C14.1064 8.99854 2.79766 8.99854 2.79766 8.99854C1.30636 8.99854 0.0976562 7.78984 0.0976562 6.29854V3.59854C0.0976562 2.10724 1.30636 0.898537 2.79766 0.898537H15.5977C17.089 0.898537 18.0977 2.10724 18.0977 3.59854Z"
     />
+    <defs>
+      <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
+        <stop offset="0%" stop-color="#5BA0FE" />
+        <stop offset="0.01" stop-color="#0164F4" />
+        <stop offset="100%" stop-color="#0164F4" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)
+
+export const ViewCartsTable = props => (
+  <SvgIcon {...props} width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+    <rect width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="3" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="6" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="9" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="12" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="15" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <defs>
+      <linearGradient id="paint0_linear_19869_110270" x1="9" y1="0" x2="9" y2="2" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_19869_110270" x1="9" y1="3" x2="9" y2="5" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint2_linear_19869_110270" x1="9" y1="6" x2="9" y2="8" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint3_linear_19869_110270" x1="9" y1="9" x2="9" y2="11" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint4_linear_19869_110270" x1="9" y1="12" x2="9" y2="14" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint5_linear_19869_110270" x1="9" y1="15" x2="9" y2="17" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+    </defs>
+    {/* </svg> */}
     <defs>
       <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
         <stop offset="0%" stop-color="#5BA0FE" />

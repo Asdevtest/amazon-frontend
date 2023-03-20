@@ -120,4 +120,13 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 20,
   },
+
+  yellowBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(234, 169, 1, 0) 17.27%, rgba(227, 164, 3, 0) 84.43%, rgba(224, 162, 3, 0.5) 100%)',
+  },
+  redBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+  },
 })

@@ -250,6 +250,11 @@ export const styles = theme => ({
     textAlign: 'center',
   },
 
+  changeInputComment: {
+    width: '100%',
+    height: 'auto',
+  },
+
   changeInputIcon: {
     transition: '.3s ease',
     cursor: 'pointer',
@@ -486,19 +491,8 @@ export const styles = theme => ({
   },
 
   rowCancelBtn: {
-    height: '40px',
-    width: '166px',
-    // color: '#fff',
-    // backgroundColor: '#ff0000',
-    // '&:hover': {
-    //   backgroundColor: '#c51a1c',
-    //   '@media (hover: none)': {
-    //     backgroundColor: '#c51a1c',
-    //   },
-    // },
-    // '&$disabled': {
-    //   backgroundColor: 'rgba(210, 35, 35, 0.5)',
-    // },
+    height: 30,
+    padding: '0 27px',
   },
 
   warehouseMyTasksSuccessBtn: {
@@ -1098,7 +1092,7 @@ export const styles = theme => ({
     gap: '40px',
   },
   addPermissionBtn: {
-    width: '251px',
+    padding: '0 21px',
   },
 
   sabUserWrapper: {
@@ -1109,23 +1103,23 @@ export const styles = theme => ({
   },
 
   userAvatar: {
-    width: 100,
-    height: 100,
+    width: 66,
+    height: 66,
   },
 
   sabUserInfoWrapper: {
     marginLeft: 20,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: 100,
+    gap: 5,
   },
 
   userEmail: {
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
     color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   sabUserRatingWrapper: {
@@ -1140,12 +1134,15 @@ export const styles = theme => ({
   userRolesWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    height: 120,
+    height: 70,
     overflow: 'auto',
     width: '100%',
   },
 
   userRole: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
     marginBottom: 5,
   },
 
@@ -1196,6 +1193,14 @@ export const styles = theme => ({
     height: '40px',
   },
 
+  smallActionBtn: {
+    display: 'flex',
+    height: 30,
+    width: 'auto',
+
+    padding: '0 15px',
+  },
+
   successActionBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -1233,6 +1238,14 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px 0',
+  },
+
+  CommentUsersCellWrapper: {
+    width: '100%',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '10px 0',
@@ -1398,6 +1411,11 @@ export const styles = theme => ({
       width: '114px',
       height: '36px',
     },
+  },
+
+  warehouseMyTasksCancelBtn: {
+    height: '40px',
+    width: '166px',
   },
 
   sizesSubWrapper: {
@@ -1635,5 +1653,40 @@ export const styles = theme => ({
   },
   attributeMissing: {
     color: theme.palette.text.second,
+  },
+
+  requestPriceCellWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 5,
+    flexWrap: 'wrap',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  twoStepFieldResult: {
+    color: theme.palette.text.main,
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+    fontWeight: 600,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+  ratingScore: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  ChangeInputCommentCellWrapper: {
+    display: 'flex',
+    width: '100%',
   },
 })

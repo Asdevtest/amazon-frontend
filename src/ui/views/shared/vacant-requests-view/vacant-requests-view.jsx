@@ -10,7 +10,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {ViewCartsBlock, ViewCartsLine} from '@constants/svg-icons'
+import {ViewCartsBlock, ViewCartsLine, ViewCartsTable} from '@constants/svg-icons'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -22,10 +22,15 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
+import {VacantRequestTable} from '@components/table/vacant-request-table'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import {
+  getDistanceBetweenDatesInSeconds,
+  sortObjectsArrayByFiledDateWithParseISO,
+  sortObjectsArrayByFiledDateWithParseISOAsc,
+} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
@@ -47,25 +52,47 @@ class VacantRequestsViewRaw extends Component {
       selectedTaskType,
       nameSearchValue,
       viewMode,
-      getCurrentData,
       sortMode,
       drawerOpen,
+
+      rowCount,
+      curPage,
+      sortModel,
+      filterModel,
+      rowsPerPage,
+      columnVisibilityModel,
+      requestStatus,
+      columnsModel,
+      currentData,
+
       onTriggerSortMode,
       onTriggerDrawerOpen,
       onClickViewMore,
       onChangeViewMode,
       onChangeNameSearchValue,
       onClickTaskType,
+      onChangeCurPage,
+      onChangeSortingModel,
+      onChangeFilterModel,
+      onChangeRowsPerPage,
     } = this.viewModel
     const {classes: classNames} = this.props
 
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          return currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
 
         case tableSortMode.ASC:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          return currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+      }
+    }
+
+    const getRowClassName = params => {
+      if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
+        return classNames.redBorder
+      } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
+        return classNames.yellowBorder
       }
     }
 
@@ -106,6 +133,13 @@ class VacantRequestsViewRaw extends Component {
                 <div className={classNames.tablePanelSubWrapper}>
                   <div className={classNames.tablePanelViewWrapper}>
                     <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
+                      <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewMode === tableViewMode.TABLE}>
+                        <ViewCartsTable
+                          className={cx(classNames.viewCart, {
+                            [classNames.viewCartSelected]: viewMode === tableViewMode.TABLE,
+                          })}
+                        />
+                      </ToggleBtnFreelancer>
                       <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
                         <ViewCartsBlock
                           className={cx(classNames.viewCart, {
@@ -137,7 +171,7 @@ class VacantRequestsViewRaw extends Component {
                 </div>
               </div>
 
-              {getSortedData(sortMode)?.length ? (
+              {getSortedData(sortMode)?.length && viewMode !== tableViewMode.TABLE ? (
                 <Box
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
@@ -145,7 +179,9 @@ class VacantRequestsViewRaw extends Component {
                   gridTemplateColumns={
                     viewMode === tableViewMode.LIST
                       ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                      : 'repeat(auto-fill, minmax(300px, 1fr))'
+                      : viewMode === tableViewMode.BLOCKS
+                      ? 'repeat(auto-fill, minmax(300px, 1fr))'
+                      : 'repeat(auto-fill, 100%'
                   }
                   // gridGap="20px"
                   // gridGap="35px"
@@ -169,6 +205,23 @@ class VacantRequestsViewRaw extends Component {
                     ),
                   )}
                 </Box>
+              ) : getSortedData(sortMode)?.length && viewMode === tableViewMode.TABLE ? (
+                <VacantRequestTable
+                  rowCount={rowCount}
+                  curPage={curPage}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  rowsPerPage={rowsPerPage}
+                  currentData={getSortedData(sortMode)}
+                  columnVisibilityModel={columnVisibilityModel}
+                  requestStatus={requestStatus}
+                  columnsModel={columnsModel}
+                  getRowClassName={getRowClassName}
+                  onChangeCurPage={onChangeCurPage}
+                  onChangeSortingModel={onChangeSortingModel}
+                  onChangeFilterModel={onChangeFilterModel}
+                  onChangeRowsPerPage={onChangeRowsPerPage}
+                />
               ) : (
                 <div className={classNames.emptyTableWrapper}>
                   <img src="/assets/icons/empty-table.svg" />
