@@ -56,7 +56,7 @@ export const CreateOrEditProposalContent = ({
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
     if (['execution_time'].includes(fieldName)) {
-      newFormFields[fieldName] = parseInt(event) || ''
+      newFormFields[fieldName] = Number(event) || ''
     } else if (
       ['price'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -70,6 +70,8 @@ export const CreateOrEditProposalContent = ({
 
     setFormFields(newFormFields)
   }
+
+  console.log('formFields', formFields)
 
   const onClickCreateSubmit = () => {
     onCreateSubmit(formFields, images)
