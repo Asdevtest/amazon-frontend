@@ -258,6 +258,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsMyWithPagGet**](docs/ClientApi.md#apiV1ClientsProductsMyWithPagGet) | **GET** /api/v1/clients/products/my_with_pag | # Получить список товаров данного клиента используя фильтр
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsPost**](docs/ClientApi.md#apiV1ClientsProductsPost) | **POST** /api/v1/clients/products | # Добавить новый продукт клиентом.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsVacGet**](docs/ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
+*TestSwagger.ClientApi* | [**apiV1ClientsTasksByBoxesGet**](docs/ClientApi.md#apiV1ClientsTasksByBoxesGet) | **GET** /api/v1/clients/tasks/by_boxes | # Показать все задачи с коробками данного юзера
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.

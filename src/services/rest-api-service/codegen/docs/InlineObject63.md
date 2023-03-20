@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersId** | **String** | GUID поставщика, который нужно удалить в БД. | [optional] 
+**requestStatus** | **String** | новый статус заявки | [optional] 
 
 
