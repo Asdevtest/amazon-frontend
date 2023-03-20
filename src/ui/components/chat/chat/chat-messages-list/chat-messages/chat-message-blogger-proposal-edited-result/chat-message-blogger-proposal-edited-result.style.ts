@@ -354,6 +354,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
     maxHeight: 170,
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
 
   linkInfoItemList: {

@@ -64,7 +64,7 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
         </div>
 
         <div className={classNames.mainInfosWrapper}>
-          <div>
+          <div className={classNames.mainInfosSubWrapper}>
             {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={classNames.fieldLabel}

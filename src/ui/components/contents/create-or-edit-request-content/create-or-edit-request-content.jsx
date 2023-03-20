@@ -78,10 +78,16 @@ export const CreateOrEditRequestContent = ({
   const [announcementsData, setAnnouncementsData] = useState(announcements)
 
   useEffect(() => {
+    if (requestToEdit) {
+      onClickChoosePerformer(requestToEdit?.request.typeTask)
+    }
+  }, [])
+
+  useEffect(() => {
     setAnnouncementsData(announcements)
   }, [announcements])
 
-  const sourceFormFields = {
+  const getSourceFormFields = currentFields => ({
     request: {
       title: requestToEdit?.request.title || '',
       maxAmountOfProposals: requestToEdit?.request.maxAmountOfProposals || '',
@@ -94,12 +100,16 @@ export const CreateOrEditRequestContent = ({
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
 
-      typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
+      typeTask:
+        currentFields?.request?.typeTask ?? requestToEdit?.request?.typeTask ?? choosenAnnouncements?.type ?? null,
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
       announcementId:
-        requestToEdit?.request.announcementId || (choosenAnnouncements.length && choosenAnnouncements) || '',
+        (requestToEdit?.request.announcementId &&
+          announcementsData.find(el => el._id === requestToEdit?.request.announcementId)) ||
+        (choosenAnnouncements.length && choosenAnnouncements) ||
+        '',
 
       productId: requestToEdit?.request?.productId || '',
 
@@ -109,12 +119,13 @@ export const CreateOrEditRequestContent = ({
       conditions: requestToEdit?.details.conditions || '',
       linksToMediaFiles: requestToEdit?.details.linksToMediaFiles || [],
     },
-  }
-  useEffect(() => {
-    setFormFields(sourceFormFields)
-  }, [choosenAnnouncements])
+  })
 
-  const [formFields, setFormFields] = useState(sourceFormFields)
+  const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  useEffect(() => {
+    setFormFields(getSourceFormFields(formFields))
+  }, [choosenAnnouncements, announcementsData])
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -134,7 +145,7 @@ export const CreateOrEditRequestContent = ({
       if (['cashBackInPercent'].includes(fieldName)) {
         newFormFields.request.discountedPrice = calcNumberMinusPercent(
           formFields?.request.priceAmazon,
-          event.target.value,
+          event.target.value || 0,
         )
       }
 
@@ -310,7 +321,7 @@ export const CreateOrEditRequestContent = ({
                     inputComponent={
                       <Select
                         displayEmpty
-                        value={formFields.request.typeTask || null}
+                        value={formFields.request.typeTask + '' ?? null}
                         className={classNames.requestTypeField}
                         input={<Input startAdornment={<InputAdornment position="start" />} />}
                         onChange={onChangeField('request')('typeTask')}

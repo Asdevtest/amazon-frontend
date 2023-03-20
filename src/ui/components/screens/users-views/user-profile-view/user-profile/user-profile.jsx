@@ -141,7 +141,7 @@ export const UserProfile = observer(
                 </div>
               )}
 
-              {!isAnotherUser && (
+              {user?.allowedSpec.length && (
                 <div className={classNames.rolesWrapper}>
                   <Typography variant="h6" className={classNames.standartText}>
                     {t(TranslationKey.Specialties)}

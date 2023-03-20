@@ -231,4 +231,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     color: theme.palette.text.general,
   },
+
+  mainInfosSubWrapper: {
+    width: 180,
+  },
 }))

@@ -95,7 +95,15 @@ export const OwnerGeneralRequestInfo = ({
                 {
                   <RequestStatusCell
                     status={request?.request.status}
-                    styles={{fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left'}}
+                    styles={{
+                      fontWeight: 600,
+                      fontSize: 14,
+                      lineHeight: '19px',
+                      textAlign: 'left',
+                      // width: `200px`,
+                      // whiteSpace: 'pre',
+                      // wordBreak: 'break-word',
+                    }}
                   />
                 }
               </div>
