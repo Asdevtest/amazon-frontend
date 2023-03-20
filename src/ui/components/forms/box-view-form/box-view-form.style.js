@@ -21,10 +21,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInput: {
-    width: 170,
+    width: 280,
     height: 40,
     marginLeft: 10,
-    marginBottom: 20,
+    // marginBottom: 20,
     textAlign: 'center',
   },
 
@@ -37,7 +37,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    marginBottom: 20,
+    // marginBottom: 20,
+    marginBottom: 5,
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
@@ -409,6 +410,21 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: '10px',
     },
   },
+
+  titlePrepIdWrapper: {
+    width: '280px',
+    flexDirection: 'column',
+    justifyContent: 'start',
+    alignItems: 'start',
+    // gap: '20px',
+    marginBottom: '20px',
+  },
+
+  titlePrepIdSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   storekeeperFieldWrapper: {
     display: 'flex',
     justifyContent: 'center',

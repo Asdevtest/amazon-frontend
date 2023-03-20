@@ -66,6 +66,9 @@ class InlineResponse20064 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
@@ -156,6 +159,12 @@ class InlineResponse20064 {
  * @member {String} _id
  */
 InlineResponse20064.prototype['_id'] = undefined;
+
+/**
+ * Ключ заявки числом
+ * @member {Number} humanFriendlyId
+ */
+InlineResponse20064.prototype['humanFriendlyId'] = undefined;
 
 /**
  * Тип заявки.

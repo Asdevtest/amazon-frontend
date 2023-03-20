@@ -55,6 +55,11 @@ export const lightTheme = createTheme({
     },
 
     MuiDataGrid: {
+      // Убрать
+      defaultProps: {
+        headerHeight: 65,
+      },
+
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
@@ -62,6 +67,54 @@ export const lightTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           color: '#001029',
         },
+        // Убрать
+        columnHeaders: {
+          height: 65,
+        },
+
+        sortIcon: {
+          width: 14,
+          height: 14,
+        },
+
+        columnHeaderDraggableContainer: {
+          flexDirection: 'row !important',
+
+          position: 'relative',
+          paddingRight: 20,
+        },
+        columnHeaderTitleContainer: {
+          flexDirection: 'row !important',
+          display: 'flex !important',
+          alignItems: 'center !important',
+        },
+        menuIconButton: {
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          top: 13,
+          // visibility: 'visible !important',
+
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            // display: 'none',
+            width: 14,
+            height: 14,
+          },
+        },
+        iconButtonContainer: {
+          '.MuiIconButton-root': {
+            width: '18px !important',
+            height: '18px !important',
+          },
+        },
+        iconSeparator: {
+          padding: '0 1px',
+        },
+
+        //
       },
     },
 
@@ -264,6 +317,11 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
+      // Убрать
+      defaultProps: {
+        headerHeight: 65,
+      },
+
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
@@ -281,6 +339,9 @@ export const darkTheme = createTheme({
 
         columnHeaders: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
+
+          // Убрать
+          height: 65,
         },
 
         row: {
@@ -304,6 +365,22 @@ export const darkTheme = createTheme({
 
         menuIconButton: {
           color: '#fff',
+
+          // Убрать
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          top: 13,
+          // visibility: 'visible !important',
+
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            // display: 'none',
+            width: 14,
+            height: 14,
+          },
         },
 
         sortIcon: {
@@ -314,12 +391,39 @@ export const darkTheme = createTheme({
           // '& > disabled': {
           //   color: 'red',
           // },
+
+          // Убрать
+          width: 14,
+          height: 14,
         },
 
         cell: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
           // border: 'none',
         },
+
+        // Убрать
+        columnHeaderDraggableContainer: {
+          flexDirection: 'row !important',
+
+          position: 'relative',
+          paddingRight: 20,
+        },
+        columnHeaderTitleContainer: {
+          flexDirection: 'row !important',
+          display: 'flex !important',
+          alignItems: 'center !important',
+        },
+        iconButtonContainer: {
+          '.MuiIconButton-root': {
+            width: '18px !important',
+            height: '18px !important',
+          },
+        },
+        iconSeparator: {
+          padding: '0 1px',
+        },
+        //
       },
     },
 

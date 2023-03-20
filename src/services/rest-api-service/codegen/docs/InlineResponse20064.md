@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID заявки в базе данных. | 
+**humanFriendlyId** | **Number** | Ключ заявки числом | [optional] 
 **type** | **String** | Тип заявки. | 
 **title** | **String** | Title заявки. | [optional] 
 **maxAmountOfProposals** | **Number** | Количество предложений. | 

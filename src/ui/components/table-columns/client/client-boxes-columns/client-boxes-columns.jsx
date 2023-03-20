@@ -330,7 +330,7 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => (
       <ChangeInputCell
-        maxLength={14}
+        maxLength={25}
         row={params.row.originalData}
         text={params.value}
         onClickSubmit={handlers.onClickSavePrepId}

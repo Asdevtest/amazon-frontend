@@ -141,6 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
+    whiteSpace: 'nowrap',
     color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',

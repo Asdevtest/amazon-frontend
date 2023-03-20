@@ -1,6 +1,6 @@
 export const styles = theme => ({
   tableWrapper: {
-    height: 'calc(100vh - 180px)',
+    height: 'calc(100vh - 250px)',
   },
   modalMessageWrapper: {
     display: 'flex',
@@ -126,5 +126,13 @@ export const styles = theme => ({
     borderBottom: '5px solid #0460DE',
 
     color: `${theme.palette.primary.main} !important`,
+  },
+
+  boxesFiltersWrappe44: {
+    marginTop: '5px',
+    marginBottom: '10px',
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
   },
 })
