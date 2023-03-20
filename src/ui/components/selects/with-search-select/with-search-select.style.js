@@ -20,7 +20,7 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
   },
   darkIcon: {
-    color: 'rgba(0, 0, 0, 0.54)',
+    color: theme.palette.text.second,
   },
 
   disabledSelectedItemName: {
@@ -70,6 +70,13 @@ export const styles = theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
       backgroundColor: '#F4F4F4',
+    },
+  },
+
+  chosenItemNoHover: {
+    '&:hover': {
+      transform: 'unset',
+      backgroundColor: 'unset',
     },
   },
 
