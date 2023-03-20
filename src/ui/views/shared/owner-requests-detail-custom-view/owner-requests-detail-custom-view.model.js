@@ -299,7 +299,7 @@ export class OwnerRequestDetailCustomViewModel {
         )} $. ${t(TranslationKey.Continue)} ?`,
         smallMessage: `${t(TranslationKey['This amount includes the service fee'])} ${
           this.platformSettings.requestPlatformMarginInPercent
-        }% (${price * (this.platformSettings.requestPlatformMarginInPercent / 100)}$)`,
+        }% (${toFixed(price * (this.platformSettings.requestPlatformMarginInPercent / 100), 2)}$)`,
         onSubmit: () => this.onClickAcceptProposal(proposalId),
       }
     })
