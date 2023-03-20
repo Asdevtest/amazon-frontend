@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {Divider, Link, Typography} from '@mui/material'
+import {Link, Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
 
@@ -8,10 +8,7 @@ import Linkify from 'react-linkify-always-blank'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {
-  ChatMessageDataBloggerProposalResultEditedContract,
-  ChatMessageDataCreateNewBloggerProposalContract,
-} from '@models/chat-model/contracts/chat-message-data.contract'
+import {ChatMessageDataBloggerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {UserModel} from '@models/user-model'
 
@@ -20,13 +17,12 @@ import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 
-import {formatDateOnlyTime, formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {formatDateOnlyTime} from '@utils/date-time'
+import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
-import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-blogger-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
@@ -41,7 +37,6 @@ interface Props {
 
 export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, handlers}) => {
   const {classes: classNames} = useClassNames()
-  const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -120,7 +115,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                         <div key={index} className={classNames.infoLinksItemWrapper}>
                           <Link
                             target="_blank"
-                            href={el}
+                            href={checkAndMakeAbsoluteUrl(el)}
+                            rel="noreferrer"
                             className={cx(classNames.infoItemText, classNames.infoLinkText)}
                           >
                             {el}

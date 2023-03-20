@@ -34,7 +34,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
   const {classes: classNames} = useClassNames()
 
   const buttonDisabled =
-    request?.request.restrictMoreThanOneProposalFromOneAssignee ||
+    (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
     requestProposals.some(
       el =>
         el.proposal.status === RequestProposalStatus.CREATED ||

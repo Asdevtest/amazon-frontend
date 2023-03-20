@@ -49,7 +49,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     justifyContent: 'space-between',
 
-    width: 874,
+    width: 950,
     height: 140,
 
     padding: 20,

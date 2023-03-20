@@ -10,7 +10,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreateNewBloggerProposalContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -36,7 +35,6 @@ interface Props {
 
 export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handlers}) => {
   const {classes: classNames} = useClassNames()
-  const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
