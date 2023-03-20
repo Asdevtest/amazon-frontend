@@ -52,9 +52,10 @@ export const OwnerRequestProposalsCard = ({
                   </div>
                 </div>
 
-                <Typography className={classNames.successDeals}>{`${t(
-                  TranslationKey['The number of total successful transactions:'],
-                )} n/a`}</Typography>
+                <Typography className={classNames.successDeals}>
+                  {t(TranslationKey['The number of total successful transactions:']) + ' '}
+                  {item?.proposal?.countProposalsComplited ?? t(TranslationKey.Missing)}
+                </Typography>
 
                 <div className={classNames.timeInfoWrapper}>
                   <div className={classNames.timeItemInfoWrapper}>
