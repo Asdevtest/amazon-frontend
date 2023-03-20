@@ -111,7 +111,7 @@ export const CreateOrEditRequestContent = ({
         (choosenAnnouncements.length && choosenAnnouncements) ||
         '',
 
-      productId: requestToEdit?.request?.productId || '',
+      productId: requestToEdit?.request?.productId || null,
 
       discountedPrice: 0,
     },

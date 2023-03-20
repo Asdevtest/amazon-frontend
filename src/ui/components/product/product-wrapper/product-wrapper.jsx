@@ -15,6 +15,7 @@ import {ITab} from '@components/i-tab/i-tab'
 import {checkIsBuyer, checkIsClient, checkIsResearcher} from '@utils/checks'
 import {t} from '@utils/translations'
 
+import {Freelance} from '../freelance'
 import {Integrations} from '../integrations'
 import {Listing} from '../listing'
 import {Orders} from '../orders'
@@ -29,6 +30,7 @@ const tabsValues = {
   INTEGRATIONS: 'INTEGRATIONS',
   LISTING: 'LISTING',
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
+  FREELANCE: 'FREELANCE',
 }
 
 const getTab = tabKey => {
@@ -129,7 +131,9 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
+              {checkIsClient(curUserRole) && <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />}
+
+              {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
 
               {!checkIsResearcher(curUserRole) && (
                 <ITab
@@ -181,8 +185,12 @@ export const ProductWrapper = observer(
               <Integrations productId={product._id} />
             </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.LISTING}>
+            {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
               <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
+            </TabPanel> */}
+
+            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
+              <Freelance productId={product._id} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
