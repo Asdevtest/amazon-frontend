@@ -391,7 +391,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.history.goBack()
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests`)
     } catch (error) {
       console.log(error)
       runInAction(() => {
