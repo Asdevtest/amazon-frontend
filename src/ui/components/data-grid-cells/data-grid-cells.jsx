@@ -62,6 +62,7 @@ import {UserLink} from '@components/user-link'
 
 import {
   calcFinalWeightForBox,
+  calcNumberMinusPercent,
   calcSupplierPriceForUnit,
   calculateDeliveryCostPerPcs,
   calcVolumeWeightForBox,
@@ -1096,6 +1097,7 @@ export const MultilineTextCell = React.memo(
       onClickText,
       oneLines,
       illuminationCell,
+      customTextStyles,
     }) => (
       <>
         {withTooltip || tooltipText ? (
@@ -1111,7 +1113,7 @@ export const MultilineTextCell = React.memo(
                   {[classNames.threeMultilineText]: threeLines},
                   {[classNames.oneMultilineText]: oneLines},
                 )}
-                style={otherStyles || (color && {color})}
+                style={otherStyles || customTextStyles || (color && {color})}
                 onClick={onClickText && onClickText}
               >
                 {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1129,8 +1131,9 @@ export const MultilineTextCell = React.memo(
                 {[classNames.multilineLink]: onClickText && text},
                 {[classNames.threeMultilineText]: threeLines},
                 {[classNames.oneMultilineText]: oneLines},
+                {[classNames.fulfilled]: customTextStyles},
               )}
-              style={otherStyles || (color && {color})}
+              style={otherStyles || customTextStyles || (color && {color})}
               onClick={onClickText && onClickText}
             >
               {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1141,6 +1144,34 @@ export const MultilineTextCell = React.memo(
     ),
     styles,
   ),
+)
+
+export const VacantRequestPriceCell = React.memo(
+  withStyles(({classes: classNames, price, cashBackInPercent}) => {
+    const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
+
+    return (
+      <div className={classNames.requestPriceCellWrapper}>
+        {discountedPrice && cashBackInPercent ? (
+          <Typography
+            className={cx(classNames.twoStepFieldResult, {
+              [classNames.newPrice]: discountedPrice && cashBackInPercent,
+            })}
+          >
+            {'$ ' + toFixed(discountedPrice, 2)}
+          </Typography>
+        ) : null}
+
+        <Typography
+          className={cx(classNames.twoStepFieldResult, {
+            [classNames.oldPrice]: discountedPrice && cashBackInPercent,
+          })}
+        >
+          {'$ ' + toFixed(price, 2)}
+        </Typography>
+      </div>
+    )
+  }, styles),
 )
 
 export const OrdersIdsItemsCell = React.memo(
@@ -1786,14 +1817,14 @@ export const SuccessActionBtnCell = React.memo(
 
 export const NormalActionBtnCell = React.memo(
   withStyles(
-    ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow}) => (
+    ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow, smallActionBtn}) => (
       <div className={classNames.normalActionBtnWrapper}>
         <Button
           disabled={disabled}
           tooltipInfoContent={isFirstRow && tooltipText}
           variant="contained"
           color="primary"
-          className={classNames.actionBtn}
+          className={cx(classNames.actionBtn, {[classNames.smallActionBtn]: smallActionBtn})}
           onClick={onClickOkBtn}
         >
           {bTnText}

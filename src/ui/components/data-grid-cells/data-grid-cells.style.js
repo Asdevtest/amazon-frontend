@@ -1196,6 +1196,14 @@ export const styles = theme => ({
     height: '40px',
   },
 
+  smallActionBtn: {
+    display: 'flex',
+    height: 30,
+    width: 'auto',
+
+    padding: '0 15px',
+  },
+
   successActionBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -1635,5 +1643,30 @@ export const styles = theme => ({
   },
   attributeMissing: {
     color: theme.palette.text.second,
+  },
+
+  requestPriceCellWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 5,
+    flexWrap: 'wrap',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  twoStepFieldResult: {
+    color: theme.palette.text.main,
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+    fontWeight: 600,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
   },
 })
