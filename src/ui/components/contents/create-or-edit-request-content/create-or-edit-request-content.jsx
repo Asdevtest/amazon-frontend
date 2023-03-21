@@ -101,7 +101,9 @@ export const CreateOrEditRequestContent = ({
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
 
       typeTask:
-        currentFields?.request?.typeTask ?? requestToEdit?.request?.typeTask ?? choosenAnnouncements?.type ?? null,
+        /* currentFields?.request?.typeTask ?? */ requestToEdit?.request?.typeTask ??
+        choosenAnnouncements?.type ??
+        null,
       asin: requestToEdit?.request.asin || '',
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
@@ -113,7 +115,12 @@ export const CreateOrEditRequestContent = ({
 
       productId: requestToEdit?.request?.productId || null,
 
-      discountedPrice: 0,
+      discountedPrice: requestToEdit
+        ? toFixed(
+            calcNumberMinusPercent(requestToEdit?.request.priceAmazon, requestToEdit?.request.cashBackInPercent),
+            2,
+          )
+        : 0,
     },
     details: {
       conditions: requestToEdit?.details.conditions || '',
@@ -124,7 +131,8 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
   useEffect(() => {
-    setFormFields(getSourceFormFields(formFields))
+    // setFormFields(getSourceFormFields(formFields))
+    setFormFields(() => formFields)
   }, [choosenAnnouncements, announcementsData])
 
   const [deadlineError, setDeadlineError] = useState(false)
@@ -331,11 +339,13 @@ export const CreateOrEditRequestContent = ({
                           {t(TranslationKey['Select from the list'])}
                         </MenuItem>
 
-                        {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-                          <MenuItem key={taskIndex} value={taskType}>
-                            {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                          </MenuItem>
-                        ))}
+                        {Object.keys(freelanceRequestTypeByCode)
+                          .filter(el => String(el) !== String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
+                          .map((taskType, taskIndex) => (
+                            <MenuItem key={taskIndex} value={taskType}>
+                              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                            </MenuItem>
+                          ))}
                       </Select>
                     }
                   />
