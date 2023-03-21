@@ -8,6 +8,5 @@ Name | Type | Description | Notes
 **linksToMediaFiles** | **[String]** |  | [optional] 
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
-**createdBy** | **String** |  | [optional] 
 
 

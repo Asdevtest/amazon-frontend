@@ -4,75 +4,59 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID заявки в базе данных. | 
-**type** | **String** | Тип заявки. | 
-**title** | **String** | Title заявки. | [optional] 
-**maxAmountOfProposals** | **Number** | Количество предложений. | 
-**price** | **Number** | Цена за каждое предложение. | 
-**status** | **String** |  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать)  | 
-**timeoutAt** | **Date** | Время закрытия заявки. | [optional] 
-**timeLimitInMinutes** | **Number** | Время за которое должен отправить предложение после бронирования. В минутах. | [optional] 
-**assignees** | **[String]** | Массив id пользователей. | [optional] 
-**direction** | **String** | Направление заявки, исходящая или входящая. | 
-**roles** | **[Number]** | Массив массив ролей. | [optional] 
-**needCheckBySupervisor** | **Boolean** | Если требуется проверка супервайзером. | [optional] 
-**restrictMoreThanOneProposalFromOneAssignee** | **Boolean** | Запретить фрилансеру повторное отправление предложений. | [optional] 
-**createdById** | **String** | GUID клиента, который создал заявку. | [optional] 
-**lastModifiedById** | **String** | GUID клиента, который обновил запрос на поиск товара. | [optional] 
-**typeTask** | **Number** | Код специализации фрилансера | [optional] 
-**productId** | **String** | Гуид продукта | [optional] 
-**asin** | **String** | Привязанный асин | [optional] 
-**priceAmazon** | **Number** | Цена на амазоне | [optional] 
-**cashBackInPercent** | **Number** | Возврат средств с покупки в процентах | [optional] 
-**announcementId** | **String** | Гуид анонса | [optional] 
+**_id** | **String** | Guid продожения к заявке. | [optional] 
+**requestId** | **String** | Guid заявки к которой относится данное предложение. | [optional] 
+**type** | **String** | Тип предложения. | [optional] 
+**status** | **String** |  CREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя OFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке OFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED READY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы VERIFYING_BY_SUPERVISOR - работа проверяется супервизором TO_CORRECT - отправляется на доработку от клиента/супервизора CORRECTED - исполнитель отмечает работу как исправленная CANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций CANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим. CANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент ACCEPTED_BY_CLIENT - принято клиентом, происходи оплата ACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата EXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов  | [optional] 
+**timeoutAt** | **Date** | Время закрытия предложения. | [optional] 
+**execution_time** | **Number** | Время на выполнение, в часах. | [optional] 
+**attempts** | **Number** | Количество попыток, подать предложение или исправить результат работы. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
+**comment** | **String** | Комментарий к предложению. | [optional] 
+**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**clientId** | **String** | GUID клиента . | [optional] 
+**supervisorId** | **String** | GUID супервизора. | [optional] 
+**chatId** | **String** | GUID чата. | [optional] 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**countProposalsByStatuses** | [**ApiV1RequestsCountProposalsByStatuses**](ApiV1RequestsCountProposalsByStatuses.md) |  | [optional] 
+**title** | **String** | Название предложения | [optional] 
+**createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
+**detailsCustom** | [**ApiV1RequestProposalsDetailsCustom**](ApiV1RequestProposalsDetailsCustom.md) |  | [optional] 
+**request** | [**ApiV1RequestProposalsRequest**](ApiV1RequestProposalsRequest.md) |  | [optional] 
 
 
 
 ## Enum: StatusEnum
 
 
-* `DRAFT` (value: `"DRAFT"`)
+* `CREATED` (value: `"CREATED"`)
 
-* `PUBLISHED` (value: `"PUBLISHED"`)
+* `OFFER_CONDITIONS_ACCEPTED` (value: `"OFFER_CONDITIONS_ACCEPTED"`)
 
-* `IN_PROCESS` (value: `"IN_PROCESS"`)
+* `READY_TO_VERIFY` (value: `"READY_TO_VERIFY"`)
 
-* `FORBID_NEW_PROPOSALS` (value: `"FORBID_NEW_PROPOSALS"`)
+* `OFFER_CONDITIONS_REJECTED` (value: `"OFFER_CONDITIONS_REJECTED"`)
 
-* `COMPLETE_PROPOSALS_AMOUNT_ACHIEVED` (value: `"COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"`)
-
-* `CANCELED_BY_CREATOR` (value: `"CANCELED_BY_CREATOR"`)
-
-* `EXPIRED` (value: `"EXPIRED"`)
-
-* `READY_TO_VERIFY_BY_ADMIN` (value: `"READY_TO_VERIFY_BY_ADMIN"`)
-
-* `VERIFYING_BY_ADMIN` (value: `"VERIFYING_BY_ADMIN"`)
-
-* `TO_CORRECT_BY_ADMIN` (value: `"TO_CORRECT_BY_ADMIN"`)
-
-* `CANCELED_BY_ADMIN` (value: `"CANCELED_BY_ADMIN"`)
-
-* `READY_TO_VERIFY_BY_SUPERVISOR` (value: `"READY_TO_VERIFY_BY_SUPERVISOR"`)
+* `OFFER_CONDITIONS_CORRECTED` (value: `"OFFER_CONDITIONS_CORRECTED"`)
 
 * `VERIFYING_BY_SUPERVISOR` (value: `"VERIFYING_BY_SUPERVISOR"`)
 
-* `TO_CORRECT_BY_SUPERVISOR` (value: `"TO_CORRECT_BY_SUPERVISOR"`)
+* `TO_CORRECT` (value: `"TO_CORRECT"`)
 
+* `CORRECTED` (value: `"CORRECTED"`)
 
+* `CANCELED_BY_CREATOR_OF_REQUEST` (value: `"CANCELED_BY_CREATOR_OF_REQUEST"`)
 
+* `CANCELED_BY_SUPERVISOR` (value: `"CANCELED_BY_SUPERVISOR"`)
 
+* `CANCELED_BY_EXECUTOR` (value: `"CANCELED_BY_EXECUTOR"`)
 
-## Enum: DirectionEnum
+* `ACCEPTED_BY_CLIENT` (value: `"ACCEPTED_BY_CLIENT"`)
 
+* `ACCEPTED_BY_SUPERVISOR` (value: `"ACCEPTED_BY_SUPERVISOR"`)
 
-* `IN` (value: `"IN"`)
-
-* `OUT` (value: `"OUT"`)
+* `EXPIRED` (value: `"EXPIRED"`)
 
 
 

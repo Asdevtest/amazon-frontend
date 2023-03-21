@@ -48,6 +48,9 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
         if (data) {
             obj = obj || new ApiV1RequestProposalsCustomByRequestIdGuidRequest();
 
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -57,6 +60,12 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
 
 
 }
+
+/**
+ * Ключ заявки числом
+ * @member {Number} humanFriendlyId
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['humanFriendlyId'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy

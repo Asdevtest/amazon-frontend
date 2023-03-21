@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**proposal** | [**ApiV1RequestProposalsCustomByRequestIdGuidProposal**](ApiV1RequestProposalsCustomByRequestIdGuidProposal.md) |  | [optional] 
-**details** | [**ApiV1RequestProposalsCustomByRequestIdGuidDetails**](ApiV1RequestProposalsCustomByRequestIdGuidDetails.md) |  | [optional] 
-**request** | [**ApiV1RequestProposalsCustomByRequestIdGuidRequest**](ApiV1RequestProposalsCustomByRequestIdGuidRequest.md) |  | [optional] 
+**yuanToDollarRate** | **Number** | Курс юаня к доллару. | [optional] 
+**volumeWeightCoefficient** | **Number** | Коэффициент расчета объемного веса. | [optional] 
+**requestMinAmountPriceOfProposal** | **Number** | Минимальная стоимость предложения (может быть .01 для практического отсутствия) | [optional] 
+**requestPlatformMarginInPercent** | **Number** | Комиссия за оплату предложения | [optional] 
 
 
