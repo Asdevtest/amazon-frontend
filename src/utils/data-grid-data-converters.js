@@ -69,6 +69,7 @@ export const myRequestsDataConverter = data =>
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
+    humanFriendlyId: item?.humanFriendlyId,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>

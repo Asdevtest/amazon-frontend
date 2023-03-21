@@ -1320,6 +1320,18 @@ export const styles = theme => ({
     height: '40px',
   },
 
+  productMyRequestsBtnsWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    gap: '30px',
+  },
+
+  productMyRequestsBtn: {
+    width: '140px',
+    height: '40px',
+  },
+
   multilineLink: {
     color: theme.palette.primary.main,
     cursor: 'pointer',

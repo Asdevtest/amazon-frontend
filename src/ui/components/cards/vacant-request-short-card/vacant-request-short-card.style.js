@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardTitleBlockWrapper: {
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
 
   cardTitle: {
@@ -23,6 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     width: '100%',
   },
 

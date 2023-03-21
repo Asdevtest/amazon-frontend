@@ -322,7 +322,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   infoItemText: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   infoLinkText: {

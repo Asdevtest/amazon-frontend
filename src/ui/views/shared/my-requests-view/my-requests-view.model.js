@@ -278,9 +278,18 @@ export class MyRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
-      request: toJS(item),
-    })
+    // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
+    //   request: toJS(item),
+    // })
+
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.userInfo.role]
+      }/freelance/my-requests/custom-request?request-id=${item._id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   onTriggerDrawer() {
