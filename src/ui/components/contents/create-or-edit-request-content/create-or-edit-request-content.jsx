@@ -597,10 +597,10 @@ export const CreateOrEditRequestContent = ({
                             : t(TranslationKey['Select a Performer'])}
                         </Button>
                       </div>
-                      {formFields.request.announcementId.description && (
+                      {formFields.request.announcementId.title && (
                         <div className={classNames.performerDescriptionWrapper}>
                           <Typography className={classNames.performerDescriptionText}>
-                            {formFields.request.announcementId.description}
+                            {formFields.request.announcementId.title}
                           </Typography>
                         </div>
                       )}
