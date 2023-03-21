@@ -91,13 +91,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   link: {
-    width: '660px',
+    // width: '660px',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
   barCodeWrapper: {
     display: 'flex',
-    gap: '10px',
+    gap: 15,
   },
 }))

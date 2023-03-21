@@ -47,6 +47,7 @@ export const clientBoxesViewColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

@@ -314,7 +314,7 @@ export class WarehouseMyWarehouseViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
       })
@@ -554,7 +554,7 @@ export class WarehouseMyWarehouseViewModel {
           images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
           items: isMultipleEdit ? boxData.items : getNewItems(),
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
-          trackNumberFile: this.uploadedTrackNumber?.length ? this.uploadedTrackNumber[0] : boxData.trackNumberFile,
+          trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
       )
