@@ -2,7 +2,7 @@
 import {cx} from '@emotion/css'
 import {Container, Link, Typography, Box, Alert} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -25,7 +25,24 @@ export const ChoiceOfPerformerModal = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
+  const [dataToRender, setDataToRender] = useState(announcements)
+
   const [nameSearchValue, setNameSearchValue] = useState('')
+
+  useEffect(() => {
+    if (nameSearchValue) {
+      setDataToRender(
+        announcements.filter(
+          performer =>
+            performer.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+            performer.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+            performer.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      setDataToRender(announcements)
+    }
+  }, [nameSearchValue])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -37,8 +54,8 @@ export const ChoiceOfPerformerModal = ({
         <div className={classNames.searchInputWrapper}>
           <SearchInput
             inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={setNameSearchValue}
+            placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+            onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>
 
@@ -54,7 +71,7 @@ export const ChoiceOfPerformerModal = ({
           gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
           gridGap="20px"
         >
-          {announcements.map((service, serviceKey) => (
+          {dataToRender.map((service, serviceKey) => (
             <ServiceExchangeCard
               key={serviceKey}
               choose
