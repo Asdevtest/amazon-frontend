@@ -34,6 +34,7 @@ Method | HTTP request | Description
 [**apiV1ClientsProductsMyWithPagGet**](ClientApi.md#apiV1ClientsProductsMyWithPagGet) | **GET** /api/v1/clients/products/my_with_pag | # Получить список товаров данного клиента используя фильтр
 [**apiV1ClientsProductsPost**](ClientApi.md#apiV1ClientsProductsPost) | **POST** /api/v1/clients/products | # Добавить новый продукт клиентом.
 [**apiV1ClientsProductsVacGet**](ClientApi.md#apiV1ClientsProductsVacGet) | **GET** /api/v1/clients/products/vac | # Получить список вакантных товаров.
+[**apiV1ClientsTasksByBoxesGet**](ClientApi.md#apiV1ClientsTasksByBoxesGet) | **GET** /api/v1/clients/tasks/by_boxes | # Показать все задачи с коробками данного юзера
 [**apiV1ClientsTasksCancelGuidPost**](ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 [**apiV1ClientsTasksPost**](ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
@@ -807,7 +808,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsOrdersPost
 
-> InlineResponse2012 apiV1ClientsOrdersPost(opts)
+> InlineResponse2015 apiV1ClientsOrdersPost(opts)
 
 # Создать заказ.
 
@@ -847,7 +848,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2015**](InlineResponse2015.md)
 
 ### Authorization
 
@@ -915,7 +916,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsPagOrdersGet
 
-> InlineResponse20030 apiV1ClientsPagOrdersGet(opts)
+> InlineResponse20031 apiV1ClientsPagOrdersGet(opts)
 
 # Получить заказы текущего клиента.
 
@@ -965,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20030**](InlineResponse20030.md)
+[**InlineResponse20031**](InlineResponse20031.md)
 
 ### Authorization
 
@@ -1033,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20031 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20032 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -1073,7 +1074,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -1255,7 +1256,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20031 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20032 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1295,7 +1296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20031**](InlineResponse20031.md)
+[**InlineResponse20032**](InlineResponse20032.md)
 
 ### Authorization
 
@@ -1421,7 +1422,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsLightGet
 
-> [InlineResponse20027] apiV1ClientsProductsLightGet(opts)
+> [InlineResponse20028] apiV1ClientsProductsLightGet(opts)
 
 # Получить облегченный список товаров
 
@@ -1459,7 +1460,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20027]**](InlineResponse20027.md)
+[**[InlineResponse20028]**](InlineResponse20028.md)
 
 ### Authorization
 
@@ -1473,7 +1474,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse20029] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse20030] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1515,7 +1516,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20029]**](InlineResponse20029.md)
+[**[InlineResponse20030]**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -1529,7 +1530,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyWithPagGet
 
-> InlineResponse20028 apiV1ClientsProductsMyWithPagGet(opts)
+> InlineResponse20029 apiV1ClientsProductsMyWithPagGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -1581,7 +1582,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20028**](InlineResponse20028.md)
+[**InlineResponse20029**](InlineResponse20029.md)
 
 ### Authorization
 
@@ -1649,7 +1650,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse20026] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse20027] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -1687,7 +1688,61 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20026]**](InlineResponse20026.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1ClientsTasksByBoxesGet
+
+> [InlineResponse2004] apiV1ClientsTasksByBoxesGet(opts)
+
+# Показать все задачи с коробками данного юзера
+
+## Показать все задачи с коробками данного юзера.   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'storekeeperId': null, // String | GUID сторкипера
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ClientsTasksByBoxesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storekeeperId** | [**String**](.md)| GUID сторкипера | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -1811,7 +1866,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksPost
 
-> InlineResponse2012 apiV1ClientsTasksPost(opts)
+> InlineResponse2015 apiV1ClientsTasksPost(opts)
 
 # Создать задачу.
 
@@ -1851,7 +1906,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2012**](InlineResponse2012.md)
+[**InlineResponse2015**](InlineResponse2015.md)
 
 ### Authorization
 

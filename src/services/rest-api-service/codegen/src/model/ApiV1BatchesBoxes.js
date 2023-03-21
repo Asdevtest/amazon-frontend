@@ -143,7 +143,7 @@ class ApiV1BatchesBoxes {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
             if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
@@ -378,8 +378,7 @@ ApiV1BatchesBoxes.prototype['trackNumberText'] = undefined;
 ApiV1BatchesBoxes.prototype['upsTrackNumber'] = undefined;
 
 /**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
+ * @member {Array.<String>} trackNumberFile
  */
 ApiV1BatchesBoxes.prototype['trackNumberFile'] = undefined;
 

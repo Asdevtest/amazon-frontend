@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
+**_id** | **String** | Гуид магазина | 
+**name** | **String** | Название магазина | 
 
 

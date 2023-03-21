@@ -645,6 +645,7 @@ export default class BatchesApi {
      * @param {Number} batchId GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.getOldVer Если true то заполнит старую версию отчета
+     * @param {Boolean} opts.woPicture Не скачивать файлы?
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
@@ -660,7 +661,8 @@ export default class BatchesApi {
         'batchId': batchId
       };
       let queryParams = {
-        'getOldVer': opts['getOldVer']
+        'getOldVer': opts['getOldVer'],
+        'woPicture': opts['woPicture']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -685,6 +687,7 @@ export default class BatchesApi {
      * @param {Number} batchId GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.getOldVer Если true то заполнит старую версию отчета
+     * @param {Boolean} opts.woPicture Не скачивать файлы?
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */

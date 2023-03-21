@@ -47,29 +47,29 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('lengthCmWarehouse')) {
-                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
             }
-            if (data.hasOwnProperty('widthCmWarehouse')) {
-                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
             }
-            if (data.hasOwnProperty('heightCmWarehouse')) {
-                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
             }
-            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
-                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
             }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('buyersComment')) {
+                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
         }
         return obj;
@@ -79,47 +79,52 @@ class InlineObject33 {
 }
 
 /**
- * @member {Number} lengthCmWarehouse
+ * 
+ * @member {Number} amazon
  */
-InlineObject33.prototype['lengthCmWarehouse'] = undefined;
+InlineObject33.prototype['amazon'] = undefined;
 
 /**
- * @member {Number} widthCmWarehouse
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
  */
-InlineObject33.prototype['widthCmWarehouse'] = undefined;
+InlineObject33.prototype['reffee'] = undefined;
 
 /**
- * @member {Number} heightCmWarehouse
+ * ФБА комиссия
+ * @member {Number} fbafee
  */
-InlineObject33.prototype['heightCmWarehouse'] = undefined;
+InlineObject33.prototype['fbafee'] = undefined;
 
 /**
- * @member {Number} weighGrossKgWarehouse
+ * ФБА кол-во
+ * @member {Number} fbaamount
  */
-InlineObject33.prototype['weighGrossKgWarehouse'] = undefined;
+InlineObject33.prototype['fbaamount'] = undefined;
 
 /**
- * @member {Number} volumeWeightKgWarehouse
+ * Код статуса
+ * @member {Number} status
  */
-InlineObject33.prototype['volumeWeightKgWarehouse'] = undefined;
+InlineObject33.prototype['status'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * Прибыль
+ * @member {Number} profit
  */
-InlineObject33.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject33.prototype['profit'] = undefined;
 
 /**
- * Комментарии к коробке
- * @member {String} storekeeperComment
+ * Маржа
+ * @member {Number} margin
  */
-InlineObject33.prototype['storekeeperComment'] = undefined;
+InlineObject33.prototype['margin'] = undefined;
 
 /**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
+ * Примечания байера.
+ * @member {String} buyersComment
  */
-InlineObject33.prototype['images'] = undefined;
+InlineObject33.prototype['buyersComment'] = undefined;
 
 
 
