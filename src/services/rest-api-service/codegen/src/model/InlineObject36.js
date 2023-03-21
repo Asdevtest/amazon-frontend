@@ -53,6 +53,9 @@ class InlineObject36 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('paymentDetails')) {
+                obj['paymentDetails'] = ApiClient.convertToType(data['paymentDetails'], ['String']);
+            }
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
@@ -104,6 +107,11 @@ InlineObject36.prototype['buyerComment'] = undefined;
  * @member {String} storekeeperId
  */
 InlineObject36.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {Array.<String>} paymentDetails
+ */
+InlineObject36.prototype['paymentDetails'] = undefined;
 
 /**
  * Цена в юанях

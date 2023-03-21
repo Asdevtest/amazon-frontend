@@ -17,7 +17,6 @@ import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPri
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './UserInfoSchemaPermissions';
-import UserInfoSchemaUpdatesOnIdeas from './UserInfoSchemaUpdatesOnIdeas';
 
 /**
  * The UserInfoSchema model module.
@@ -122,7 +121,7 @@ class UserInfoSchema {
                 obj['purchaseOrderRequired'] = ApiClient.convertToType(data['purchaseOrderRequired'], ['String']);
             }
             if (data.hasOwnProperty('updatesOnIdeas')) {
-                obj['updatesOnIdeas'] = ApiClient.convertToType(data['updatesOnIdeas'], [UserInfoSchemaUpdatesOnIdeas]);
+                obj['updatesOnIdeas'] = ApiClient.convertToType(data['updatesOnIdeas'], 'Number');
             }
             if (data.hasOwnProperty('allowedSpec')) {
                 obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
@@ -268,7 +267,7 @@ UserInfoSchema.prototype['needUpdateTariff'] = undefined;
 UserInfoSchema.prototype['purchaseOrderRequired'] = undefined;
 
 /**
- * @member {Array.<module:model/UserInfoSchemaUpdatesOnIdeas>} updatesOnIdeas
+ * @member {Number} updatesOnIdeas
  */
 UserInfoSchema.prototype['updatesOnIdeas'] = undefined;
 

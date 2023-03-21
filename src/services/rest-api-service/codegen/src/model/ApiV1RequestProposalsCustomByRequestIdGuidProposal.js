@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
+import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
 
 /**
  * The ApiV1RequestProposalsCustomByRequestIdGuidProposal model module.
@@ -100,7 +100,7 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -212,7 +212,7 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['updatedAt'] = unde
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['title'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy} createdBy
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['createdBy'] = undefined;
 

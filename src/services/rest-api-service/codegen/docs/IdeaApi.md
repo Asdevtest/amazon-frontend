@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiV1IdeasGuidDelete**](IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 [**apiV1IdeasGuidGet**](IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
+[**apiV1IdeasNotificationsGet**](IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Удалить идею
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 [**apiV1IdeasRemoveSupplierGuidPost**](IdeaApi.md#apiV1IdeasRemoveSupplierGuidPost) | **POST** /api/v1/ideas/remove_supplier/{guid} | Удалить поставщика
 
@@ -133,7 +134,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasEditRequestsStatusGuidPatch
 
-> apiV1IdeasEditRequestsStatusGuidPatch(guid, opts)
+> String apiV1IdeasEditRequestsStatusGuidPatch(guid, opts)
 
 Изменить стаус заявки на поиск поставщика
 
@@ -156,8 +157,8 @@ let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject63() // InlineObject63 | 
 };
-apiInstance.apiV1IdeasEditRequestsStatusGuidPatch(guid, opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1IdeasEditRequestsStatusGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -175,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -184,7 +185,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ## apiV1IdeasFindSupplierGuidPost
@@ -351,7 +352,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGetSupplierRequestsGuidGet
 
-> apiV1IdeasGetSupplierRequestsGuidGet(guid, opts)
+> String apiV1IdeasGetSupplierRequestsGuidGet(guid, opts)
 
 Получить определенную заявку на поиск поставщика
 
@@ -373,8 +374,8 @@ let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1IdeasGetSupplierRequestsGuidGet(guid, opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.apiV1IdeasGetSupplierRequestsGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -391,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -400,7 +401,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ## apiV1IdeasGuidDelete
@@ -564,6 +565,60 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1IdeasNotificationsGet
+
+> [InlineResponse20041] apiV1IdeasNotificationsGet(guid, opts)
+
+Удалить идею
+
+## Удаление идеи  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID идеи
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1IdeasNotificationsGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20041]**](InlineResponse20041.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
