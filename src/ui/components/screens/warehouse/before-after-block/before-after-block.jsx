@@ -635,16 +635,16 @@ const Box = observer(
                 />
 
                 <div className={classNames.trackNumberPhotoWrapper}>
-                  {box.trackNumberFile ? (
+                  {box.trackNumberFile[0] ? (
                     <img
                       className={classNames.trackNumberPhoto}
-                      src={box.trackNumberFile}
+                      src={box.trackNumberFile[0]}
                       onClick={() => {
                         setShowPhotosModal(!showPhotosModal)
                         setBigImagesOptions({
                           ...bigImagesOptions,
 
-                          images: [box.trackNumberFile],
+                          images: box.trackNumberFile,
                         })
                       }}
                     />

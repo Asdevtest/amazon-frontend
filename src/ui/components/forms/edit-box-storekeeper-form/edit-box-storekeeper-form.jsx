@@ -339,6 +339,8 @@ export const EditBoxStorekeeperForm = observer(
 
     const [barcodeModalSetting, setBarcodeModalSetting] = useState({
       title: '',
+      maxNumber: 1,
+
       tmpCode: curProductToEditBarcode?.tmpBarCode,
       item: curProductToEditBarcode,
       onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
@@ -349,6 +351,8 @@ export const EditBoxStorekeeperForm = observer(
 
       setBarcodeModalSetting({
         title: '',
+        maxNumber: 1,
+
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -362,6 +366,8 @@ export const EditBoxStorekeeperForm = observer(
 
       setBarcodeModalSetting({
         title: '',
+        maxNumber: 1,
+
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -765,6 +771,8 @@ export const EditBoxStorekeeperForm = observer(
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
+                            maxNumber: 50 - boxFields.tmpTrackNumberFile.length - boxFields.trackNumberFile.length,
+
                             tmpCode: boxFields.tmpTrackNumberFile,
                             item: null,
                             onClickSaveBarcode: value => {
@@ -781,31 +789,40 @@ export const EditBoxStorekeeperForm = observer(
                     </div>
 
                     <div className={classNames.trackNumberPhotoWrapper}>
-                      {boxFields.trackNumberFile || boxFields.tmpTrackNumberFile[0] ? (
-                        <img
-                          className={classNames.trackNumberPhoto}
-                          src={
-                            boxFields.tmpTrackNumberFile[0]
-                              ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
-                                ? boxFields.tmpTrackNumberFile[0]
-                                : boxFields.tmpTrackNumberFile[0]?.data_url
-                              : boxFields.trackNumberFile
-                          }
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-                            setBigImagesOptions({
-                              ...bigImagesOptions,
+                      {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
+                        <CustomCarousel>
+                          {(boxFields.trackNumberFile.length
+                            ? boxFields.trackNumberFile
+                            : boxFields.tmpTrackNumberFile
+                          ).map((el, index) => (
+                            <img
+                              key={index}
+                              className={classNames.trackNumberPhoto}
+                              src={
+                                boxFields.tmpTrackNumberFile[index]
+                                  ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
+                                    ? boxFields.tmpTrackNumberFile[index]
+                                    : boxFields.tmpTrackNumberFile[index]?.data_url
+                                  : boxFields.trackNumberFile[index]
+                              }
+                              // variant="square"
+                              onClick={() => {
+                                setShowPhotosModal(!showPhotosModal)
+                                setBigImagesOptions({
+                                  ...bigImagesOptions,
 
-                              images: [
-                                boxFields.tmpTrackNumberFile[0]
-                                  ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
-                                    ? boxFields.tmpTrackNumberFile[0]
-                                    : boxFields.tmpTrackNumberFile[0]?.data_url
-                                  : boxFields.trackNumberFile,
-                              ],
-                            })
-                          }}
-                        />
+                                  images: [
+                                    boxFields.tmpTrackNumberFile[index]
+                                      ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
+                                        ? boxFields.tmpTrackNumberFile[index]
+                                        : boxFields.tmpTrackNumberFile[index]?.data_url
+                                      : boxFields.trackNumberFile[index],
+                                  ],
+                                })
+                              }}
+                            />
+                          ))}
+                        </CustomCarousel>
                       ) : (
                         <Typography>{'no photo track number...'}</Typography>
                       )}
@@ -967,6 +984,7 @@ export const EditBoxStorekeeperForm = observer(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={barcodeModalSetting.title}
+            maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
             item={barcodeModalSetting.item}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}

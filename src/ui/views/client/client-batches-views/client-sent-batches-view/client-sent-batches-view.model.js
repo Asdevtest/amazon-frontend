@@ -313,7 +313,9 @@ export class ClientSentBatchesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+
         prepId: data.prepId,
       })
 
