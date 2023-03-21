@@ -69,6 +69,8 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('permissionsData', permissionsData)
+
   const [images, setImages] = useState([])
 
   const [openModal, setOpenModal] = useState(false)
@@ -292,7 +294,7 @@ export const CreateOrEditRequestContent = ({
                         chosenItemNoHover
                         data={permissionsData}
                         width={185}
-                        searchOnlyFields={['asin']}
+                        searchOnlyFields={['asin', 'skusByClient']}
                         customSubMainWrapper={classNames.customSubMainWrapper}
                         customSearchInput={classNames.customSearchInput}
                         selectedItemName={formFields?.request?.asin || t(TranslationKey['Select ASIN'])}

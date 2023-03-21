@@ -72,17 +72,17 @@ const WithSearchSelectRaw = observer(
     useEffect(() => {
       if (nameSearchValue) {
         setDataToRender(
-          data
-            .slice()
-            .filter(
-              el =>
-                searchFields?.some(fieldName =>
-                  el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase()),
-                ) ||
-                searchOnlyFields?.some(fieldName =>
-                  el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase()),
-                ),
-            ),
+          data.slice().filter(
+            el =>
+              searchFields?.some(fieldName => el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())) ||
+              searchOnlyFields?.some(fieldName => {
+                if (Array.isArray(el[fieldName])) {
+                  return el[fieldName][0]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
+                } else {
+                  return el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
+                }
+              }),
+          ),
         )
       } else {
         setDataToRender(data)
