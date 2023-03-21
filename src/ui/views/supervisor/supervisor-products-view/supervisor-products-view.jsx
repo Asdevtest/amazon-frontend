@@ -1,4 +1,6 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Button} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -7,7 +9,12 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {ProductStatus} from '@constants/product-status'
+import {
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -19,12 +26,26 @@ import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {SupervisorProductsViewModel} from './supervisor-products-view.model'
 import {styles} from './supervisor-products-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
+
+const allowProductStatuses = [
+  `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
+  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
+  `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
+  `${ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]}`,
+  `${ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]}`,
+  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]}`,
+  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
+  `${ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]}`,
+  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
+  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
+]
 
 const attentionStatuses = [
   ProductStatus.BUYER_FOUND_SUPPLIER,
@@ -55,7 +76,7 @@ class SupervisorProductsViewRaw extends Component {
     const {
       nameSearchValue,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -64,6 +85,9 @@ class SupervisorProductsViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+
+      currentFilterStatus,
+
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -74,6 +98,7 @@ class SupervisorProductsViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onChangeNameSearchValue,
+      onClickStatusFilterButton,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -88,12 +113,30 @@ class SupervisorProductsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
-                />
+                {Object.keys({
+                  ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
+                }).map((status, statusIndex) => (
+                  <Button
+                    key={statusIndex}
+                    variant="text"
+                    // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+                    className={cx(classNames.selectStatusFilterButton, {
+                      [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
+                    })}
+                    onClick={() => onClickStatusFilterButton(status)}
+                  >
+                    {t(productStatusTranslateKey(ProductStatusByCode[status]))}
+                  </Button>
+                ))}
+
+                <div className={classNames.searchInputWrapper}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                    onChange={onChangeNameSearchValue}
+                  />
+                </div>
               </div>
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
@@ -113,7 +156,7 @@ class SupervisorProductsViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: DataGridCustomToolbar,

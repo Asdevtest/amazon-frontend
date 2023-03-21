@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
+import {colorByProductStatus, ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -33,7 +33,7 @@ export const supervisorProductsViewColumns = () => [
     width: 150,
     renderCell: params => (
       <MultilineTextCell
-        text={params.value}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),

@@ -119,7 +119,7 @@ export const supervisorProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: item.status,
     statusForAttention: ProductStatusByCode[item.status],
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
