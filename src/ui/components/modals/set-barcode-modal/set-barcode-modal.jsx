@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './set-barcode-modal.style'
 
-export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item, title}) => {
+export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item, title, maxNumber}) => {
   const {classes: classNames} = useClassNames()
 
   const barCode = item?.barCode || ''
@@ -40,7 +40,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
       )}
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
+        <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
       </div>
 
       <Box className={classNames.saveBox}>
