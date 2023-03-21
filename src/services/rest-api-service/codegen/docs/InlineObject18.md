@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
 **lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**trackNumberFile** | **[String]** |  | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 

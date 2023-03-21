@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20058 model module.
@@ -23,10 +22,12 @@ class InlineResponse20058 {
     /**
      * Constructs a new <code>InlineResponse20058</code>.
      * @alias module:model/InlineResponse20058
+     * @param _id {String} Гуид магазина
+     * @param name {String} Название магазина
      */
-    constructor() { 
+    constructor(_id, name) { 
         
-        InlineResponse20058.initialize(this);
+        InlineResponse20058.initialize(this, _id, name);
     }
 
     /**
@@ -34,7 +35,9 @@ class InlineResponse20058 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
     }
 
     /**
@@ -48,11 +51,11 @@ class InlineResponse20058 {
         if (data) {
             obj = obj || new InlineResponse20058();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -62,15 +65,16 @@ class InlineResponse20058 {
 }
 
 /**
- * Общее кол-во записей
- * @member {Number} count
+ * Гуид магазина
+ * @member {String} _id
  */
-InlineResponse20058.prototype['count'] = undefined;
+InlineResponse20058.prototype['_id'] = undefined;
 
 /**
- * @member {Array.<module:model/InlineResponse2004>} rows
+ * Название магазина
+ * @member {String} name
  */
-InlineResponse20058.prototype['rows'] = undefined;
+InlineResponse20058.prototype['name'] = undefined;
 
 
 

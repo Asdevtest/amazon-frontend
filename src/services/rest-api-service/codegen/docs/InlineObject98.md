@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **storekeeperComment** | **String** | Комментарии к коробке | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**trackNumberFile** | **[String]** |  | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 

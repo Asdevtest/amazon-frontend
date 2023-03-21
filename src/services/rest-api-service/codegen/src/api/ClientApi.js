@@ -1657,6 +1657,56 @@ export default class ClientApi {
 
 
     /**
+     * # Показать все задачи с коробками данного юзера
+     * ## Показать все задачи с коробками данного юзера.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID сторкипера
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     */
+    apiV1ClientsTasksByBoxesGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'storekeeperId': opts['storekeeperId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2004];
+      return this.apiClient.callApi(
+        '/api/v1/clients/tasks/by_boxes', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Показать все задачи с коробками данного юзера
+     * ## Показать все задачи с коробками данного юзера.   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID сторкипера
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     */
+    apiV1ClientsTasksByBoxesGet(opts) {
+      return this.apiV1ClientsTasksByBoxesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Отменить задачу.
      * ## Отменить задачу. Выставляет задаче статус 30.  
      * @param {String} guid guid отменяемой задачи

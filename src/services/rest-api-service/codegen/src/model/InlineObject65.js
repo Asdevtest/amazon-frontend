@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject65 model module.
@@ -47,11 +48,8 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('payload')) {
+                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
             }
         }
         return obj;
@@ -61,16 +59,9 @@ class InlineObject65 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
  */
-InlineObject65.prototype['clientComment'] = undefined;
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject65.prototype['buyerComment'] = undefined;
+InlineObject65.prototype['payload'] = undefined;
 
 
 
