@@ -1501,7 +1501,7 @@ export const RequestStatusCell = React.memo(
   withStyles(({classes: classNames, status, isChat, styles}) => {
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
-        return '#C69109'
+        return '#006CFF'
       } else if (
         [
           RequestStatus.CANCELED_BY_CREATOR,
@@ -2064,6 +2064,35 @@ export const ClientNotificationsBtnsCell = React.memo(
     styles,
   ),
 )
+
+export const ProductMyRequestsBtnsCell =
+  //  React.memo(
+  withStyles(
+    ({classes: classNames, row, handlers}) => (
+      <div className={classNames.productMyRequestsBtnsWrapper}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classNames.productMyRequestsBtn}
+          onClick={() => handlers.onClickOpenRequest(row)}
+        >
+          {t(TranslationKey['Open a request'])}
+        </Button>
+        <Button
+          success
+          disabled
+          className={classNames.productMyRequestsBtn}
+          // onClick={() => {
+          //   handlers.onTriggerOpenRejectModal(row)
+          // }}
+        >
+          {t(TranslationKey['Open result'])}
+        </Button>
+      </div>
+    ),
+    styles,
+  )
+// )
 
 export const AdminUsersActionBtnsCell = React.memo(
   withStyles(

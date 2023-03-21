@@ -701,7 +701,7 @@ export const darkTheme = createTheme({
 
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
-        green: '#388E3C',
+        green: '#001A15',
         yellow: '#F5CF00',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
