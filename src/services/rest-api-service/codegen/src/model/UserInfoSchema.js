@@ -126,11 +126,17 @@ class UserInfoSchema {
             if (data.hasOwnProperty('allowedSpec')) {
                 obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
-            if (data.hasOwnProperty('tasksNew')) {
-                obj['tasksNew'] = ApiClient.convertToType(data['tasksNew'], 'Number');
+            if (data.hasOwnProperty('tasksNewAll')) {
+                obj['tasksNewAll'] = ApiClient.convertToType(data['tasksNewAll'], 'Number');
             }
-            if (data.hasOwnProperty('tasksAtProcess')) {
-                obj['tasksAtProcess'] = ApiClient.convertToType(data['tasksAtProcess'], 'Number');
+            if (data.hasOwnProperty('tasksAtProcessAll')) {
+                obj['tasksAtProcessAll'] = ApiClient.convertToType(data['tasksAtProcessAll'], 'Number');
+            }
+            if (data.hasOwnProperty('tasksNewHigh')) {
+                obj['tasksNewHigh'] = ApiClient.convertToType(data['tasksNewHigh'], 'Number');
+            }
+            if (data.hasOwnProperty('tasksAtProcessHigh')) {
+                obj['tasksAtProcessHigh'] = ApiClient.convertToType(data['tasksAtProcessHigh'], 'Number');
             }
         }
         return obj;
@@ -279,15 +285,27 @@ UserInfoSchema.prototype['allowedSpec'] = undefined;
 
 /**
  * Количество новых заданий у пользователя
- * @member {Number} tasksNew
+ * @member {Number} tasksNewAll
  */
-UserInfoSchema.prototype['tasksNew'] = undefined;
+UserInfoSchema.prototype['tasksNewAll'] = undefined;
 
 /**
  * Количество заданий в работе у пользователя
- * @member {Number} tasksAtProcess
+ * @member {Number} tasksAtProcessAll
  */
-UserInfoSchema.prototype['tasksAtProcess'] = undefined;
+UserInfoSchema.prototype['tasksAtProcessAll'] = undefined;
+
+/**
+ * Количество новых заданий у пользователя с высоким приоритетом
+ * @member {Number} tasksNewHigh
+ */
+UserInfoSchema.prototype['tasksNewHigh'] = undefined;
+
+/**
+ * Количество заданий в работе у пользователяс высоким приоритетом
+ * @member {Number} tasksAtProcessHigh
+ */
+UserInfoSchema.prototype['tasksAtProcessHigh'] = undefined;
 
 
 

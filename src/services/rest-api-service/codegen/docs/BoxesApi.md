@@ -1331,6 +1331,7 @@ let opts = {
   'storekeeperId': null, // String | GUID склада который нужно получить.
   'isFormed': true, // Boolean | Сформирована ли коробка
   'shopIds': "shopIds_example", // String | Гуиды магазинов
+  'hasBatch': true, // Boolean | Должна ли коробка иметь свою партию
   'limit': 10.0, // Number | Лимит записей для пагинации
   'offset': 0.0, // Number | Смещение для пагинации
   'sortField': "sortField_example", // String | Название поля
@@ -1357,6 +1358,7 @@ Name | Type | Description  | Notes
  **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **isFormed** | **Boolean**| Сформирована ли коробка | [optional] 
  **shopIds** | **String**| Гуиды магазинов | [optional] 
+ **hasBatch** | **Boolean**| Должна ли коробка иметь свою партию | [optional] 
  **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
  **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
  **sortField** | **String**| Название поля | [optional] 
