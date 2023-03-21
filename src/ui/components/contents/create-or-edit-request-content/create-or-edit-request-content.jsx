@@ -278,7 +278,7 @@ export const CreateOrEditRequestContent = ({
                   />
 
                   <Field
-                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
                     label={t(TranslationKey.ASIN)}
                     labelClasses={classNames.spanLabelSmall}
                     containerClasses={classNames.asinContainer}
