@@ -69,8 +69,6 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('permissionsData', permissionsData)
-
   const [images, setImages] = useState([])
 
   const [openModal, setOpenModal] = useState(false)
@@ -392,7 +390,7 @@ export const CreateOrEditRequestContent = ({
                       onChange={e => {
                         if (
                           formFields.request.priceAmazon &&
-                          Number(e.target.value) <= formFields.request.priceAmazon
+                          Number(replaceCommaByDot(e.target.value)) <= Number(formFields.request.priceAmazon)
                         ) {
                           onChangeField('request')('discountedPrice')(e)
                         }
@@ -405,7 +403,7 @@ export const CreateOrEditRequestContent = ({
                       inputProps={{maxLength: 8}}
                       label={t(TranslationKey['CashBack Percentage']) + ', %'}
                       labelClasses={classNames.spanLabelSmall}
-                      value={toFixed(formFields.request.cashBackInPercent, 0)}
+                      value={toFixed(formFields.request.cashBackInPercent, 2)}
                       onChange={e => {
                         if (Number(e.target.value) <= 100 && formFields.request.priceAmazon) {
                           onChangeField('request')('cashBackInPercent')(e)
