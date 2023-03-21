@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Typography} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -10,6 +9,7 @@ import {useHistory} from 'react-router-dom'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -61,7 +61,12 @@ export const Freelance = observer(({productId}) => {
           ))}
         </div>
 
-        <SearchInput inputClasses={classNames.searchInput} value={nameSearchValue} onChange={onChangeNameSearchValue} />
+        <SearchInput
+          placeholder={t(TranslationKey['Search by Title, ID'])}
+          inputClasses={classNames.searchInput}
+          value={nameSearchValue}
+          onChange={onChangeNameSearchValue}
+        />
       </div>
       <div className={classNames.mainWrapper}>
         <MemoDataGrid

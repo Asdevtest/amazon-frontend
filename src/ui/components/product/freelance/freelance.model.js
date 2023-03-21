@@ -10,7 +10,7 @@ import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {myRequestsViewColumns} from '@components/table-columns/overall/my-requests-columns'
+import {productMyRequestsViewColumns} from '@components/table-columns/overall/product-my-requests-columns'
 
 import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -46,12 +46,14 @@ export class FreelanceModel {
     return SettingsModel.languageTag || {}
   }
 
+  handlers = {onClickOpenRequest: item => this.onClickOpenRequest(item)}
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = myRequestsViewColumns(this.languageTag)
+  columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers)
   constructor({history, productId}) {
     this.history = history
 
@@ -99,7 +101,7 @@ export class FreelanceModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = myRequestsViewColumns(this.languageTag).map(el => ({
+        this.columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -138,7 +140,15 @@ export class FreelanceModel {
   }
 
   getCurrentData() {
-    return toJS(this.searchRequests)
+    if (this.nameSearchValue) {
+      return toJS(this.searchRequests).filter(
+        el =>
+          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el.humanFriendlyId).toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.searchRequests)
+    }
   }
 
   async loadData() {
@@ -152,10 +162,6 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
-  }
-
-  onClickAddBtn() {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request`)
   }
 
   onClickTaskType(taskType) {
@@ -184,10 +190,19 @@ export class FreelanceModel {
     }
   }
 
-  onClickTableRow(item) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
-      request: toJS(item),
-    })
+  onClickOpenRequest(item) {
+    // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
+    //   request: toJS(item),
+    // })
+
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.userInfo.role]
+      }/freelance/my-requests/custom-request?request-id=${item._id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 
   onTriggerDrawer() {

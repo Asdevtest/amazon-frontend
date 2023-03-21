@@ -64,11 +64,17 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   constructor({history, location, scrollToChat}) {
+    const url = new URL(window.location.href)
+
+    runInAction(() => {
+      this.requestId = url.searchParams.get('request-id')
+    })
+
     runInAction(() => {
       this.history = history
       this.scrollToChat = scrollToChat
       if (location.state) {
-        this.requestId = location.state.request._id
+        // this.requestId = location.state.request._id
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
