@@ -66,7 +66,7 @@ class InlineObject31 {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
             if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
@@ -113,8 +113,7 @@ InlineObject31.prototype['upsTrackNumber'] = undefined;
 InlineObject31.prototype['trackNumberText'] = undefined;
 
 /**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
+ * @member {Array.<String>} trackNumberFile
  */
 InlineObject31.prototype['trackNumberFile'] = undefined;
 

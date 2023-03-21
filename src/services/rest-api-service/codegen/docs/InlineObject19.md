@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **clientComment** | **String** | Комментарии к коробке | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**trackNumberFile** | **[String]** |  | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **shippingLabel** | **String** | shippingLabel коробки | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 

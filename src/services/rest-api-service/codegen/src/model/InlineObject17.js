@@ -64,7 +64,7 @@ class InlineObject17 {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
             if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
@@ -155,8 +155,7 @@ InlineObject17.prototype['lengthCmSupplier'] = undefined;
 InlineObject17.prototype['trackNumberText'] = undefined;
 
 /**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
+ * @member {Array.<String>} trackNumberFile
  */
 InlineObject17.prototype['trackNumberFile'] = undefined;
 

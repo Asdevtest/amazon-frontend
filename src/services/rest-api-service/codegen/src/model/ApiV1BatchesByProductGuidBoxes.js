@@ -65,7 +65,7 @@ class ApiV1BatchesByProductGuidBoxes {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
             if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
@@ -123,8 +123,7 @@ ApiV1BatchesByProductGuidBoxes.prototype['fbaNumber'] = undefined;
 ApiV1BatchesByProductGuidBoxes.prototype['trackNumberText'] = undefined;
 
 /**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
+ * @member {Array.<String>} trackNumberFile
  */
 ApiV1BatchesByProductGuidBoxes.prototype['trackNumberFile'] = undefined;
 
