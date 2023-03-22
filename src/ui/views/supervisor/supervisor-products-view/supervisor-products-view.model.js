@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
@@ -21,6 +22,10 @@ export class SupervisorProductsViewModel {
   drawerOpen = false
 
   nameSearchValue = ''
+
+  currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
+
+  currentData = []
 
   baseNoConvertedProducts = []
   productsMy = []
@@ -52,6 +57,20 @@ export class SupervisorProductsViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.productsMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
     )
   }
 
@@ -117,6 +136,26 @@ export class SupervisorProductsViewModel {
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
+    })
+  }
+
+  onClickStatusFilterButton(status) {
+    runInAction(() => {
+      this.currentFilterStatus = status
+
+      if (Number(status) === Number(ProductStatusByKey[ProductStatus.DEFAULT])) {
+        runInAction(() => {
+          this.productsMy = supervisorProductsDataConverter(this.baseNoConvertedProducts).sort(
+            sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+          )
+        })
+      } else {
+        runInAction(() => {
+          this.productsMy = supervisorProductsDataConverter(this.baseNoConvertedProducts)
+            .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+            .filter(product => Number(product.status) === Number(this.currentFilterStatus))
+        })
+      }
     })
   }
 
