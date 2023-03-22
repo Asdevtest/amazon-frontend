@@ -34,7 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 80px',
+    padding: '0 85px 0 65px',
     zIndex: 999,
 
     position: 'sticky',
@@ -73,7 +73,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: '80px',
+    paddingRight: '85px',
+    paddingLeft: '65px',
 
     position: 'sticky',
     bottom: 0,
@@ -83,6 +84,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     marginLeft: '50px',
+
+    '&: nth-of-type(1)': {
+      marginLeft: 0,
+    },
   },
 
   footerTitle: {

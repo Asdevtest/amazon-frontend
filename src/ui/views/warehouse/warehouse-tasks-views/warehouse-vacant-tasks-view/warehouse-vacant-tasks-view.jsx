@@ -129,6 +129,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                         onClick={() => onClickTaskPriorityBtn(type)}
                       >
                         {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+                        {/* <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" /> */}
                       </Button>
                     ))}
                 </div>
