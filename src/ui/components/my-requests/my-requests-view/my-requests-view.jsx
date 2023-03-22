@@ -16,8 +16,10 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {MyRequestsViewModel} from './my-requests-view.model'
@@ -32,6 +34,7 @@ class MyRequestsViewRaw extends Component {
   })
 
   componentDidMount() {
+    console.log('this.props', this.props)
     this.viewModel.loadData()
   }
 
@@ -53,6 +56,10 @@ class MyRequestsViewRaw extends Component {
       showAcceptMessage,
       curPage,
       rowsPerPage,
+      nameSearchValue,
+      isRequestsAtWork,
+
+      onChangeNameSearchValue,
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
@@ -69,10 +76,27 @@ class MyRequestsViewRaw extends Component {
     const getCellClassName = params =>
       params.row.originalData.countProposalsByStatuses.waitedProposals && classNames.waitingCheckedBacklighting
 
+    const getRowClassName = params => {
+      if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && isRequestsAtWork) {
+        return classNames.redBorder
+      } else if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 172800 && isRequestsAtWork) {
+        return classNames.yellowBorder
+      }
+    }
+
     return (
       <React.Fragment>
         <MainContent>
           <div className={classNames.placeRequestBtnWrapper}>
+            <div />
+
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}`}
+              value={nameSearchValue}
+              onChange={onChangeNameSearchValue}
+            />
+
             <Button
               success
               tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
@@ -87,6 +111,7 @@ class MyRequestsViewRaw extends Component {
               pagination
               localeText={getLocalizationByLanguageTag()}
               getCellClassName={getCellClassName}
+              getRowClassName={getRowClassName}
               classes={{
                 row: classNames.row,
                 root: classNames.root,

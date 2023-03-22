@@ -26,7 +26,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: '10px',
     paddingRight: '5px',
   },
@@ -83,6 +83,12 @@ export const styles = theme => ({
     animation: `${ani} 1s forwards`,
   },
 
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    height: 40,
+    width: '400px',
+  },
+
   acceptMessage: {
     color: '#00B746',
   },
@@ -97,5 +103,13 @@ export const styles = theme => ({
 
   waitingCheckedBacklighting: {
     color: theme.palette.background.green,
+  },
+  yellowBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(234, 169, 1, 0) 17.27%, rgba(227, 164, 3, 0) 84.43%, rgba(224, 162, 3, 0.5) 100%)',
+  },
+  redBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
   },
 })

@@ -30,8 +30,10 @@ const TabPanel = ({children, value, index, ...other}) => (
   </div>
 )
 
-export const MyRequests = observer(({history}) => {
+export const MyRequests = observer(({history, location}) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('locationlocation', location)
 
   const [tabIndex, setTabIndex] = React.useState(0)
 
@@ -53,10 +55,10 @@ export const MyRequests = observer(({history}) => {
       )}
 
       <TabPanel value={tabIndex} index={0}>
-        <MyRequestsView isRequestsAtWork history={history} />
+        <MyRequestsView isRequestsAtWork location={location} history={history} />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <MyRequestsView history={history} />
+        <MyRequestsView location={location} history={history} />
       </TabPanel>
     </React.Fragment>
   )

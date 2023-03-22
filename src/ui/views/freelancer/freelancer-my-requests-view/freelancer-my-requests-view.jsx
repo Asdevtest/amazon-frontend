@@ -30,7 +30,7 @@ export class FreelancerMyRequestsView extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
+    const {drawerOpen, onTriggerDrawerOpen, history, location} = this.viewModel
 
     return (
       <React.Fragment>
@@ -43,7 +43,7 @@ export class FreelancerMyRequestsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My requests'])} history={history} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <MyRequests history={history} />
+              <MyRequests history={history} location={location} />
             </MainContent>
           </Appbar>
         </Main>

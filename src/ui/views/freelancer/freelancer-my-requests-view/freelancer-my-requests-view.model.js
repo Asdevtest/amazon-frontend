@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 export class FreelancerMyRequestsViewModel {
   history = undefined
+  location = undefined
   requestStatus = undefined
   error = undefined
 
@@ -15,11 +16,14 @@ export class FreelancerMyRequestsViewModel {
     runInAction(() => {
       this.history = history
     })
-    // if (location.state) {
-    //   runInAction(() => {
-    //     this.order = location.state.order
-    //   })
-    // }
+    if (location.state) {
+      this.location = location
+      const state = {...history?.location?.state}
+      delete state?.acceptMessage
+      delete state?.showAcceptMessage
+      history.replace({...history?.location, state})
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

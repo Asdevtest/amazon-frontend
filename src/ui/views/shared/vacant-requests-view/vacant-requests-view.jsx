@@ -125,6 +125,9 @@ class VacantRequestsViewRaw extends Component {
                 </div>
 
                 <SearchInput
+                  placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(
+                    TranslationKey.ASIN,
+                  )}`}
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
                   onChange={onChangeNameSearchValue}

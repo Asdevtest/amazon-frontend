@@ -33,6 +33,8 @@ export class MyRequestsViewModel {
   selectedRequests = []
   researchIdToRemove = undefined
 
+  nameSearchValue = ''
+
   currentData = []
 
   searchRequests = []
@@ -70,10 +72,10 @@ export class MyRequestsViewModel {
         this.acceptMessage = location?.state?.acceptMessage
         this.showAcceptMessage = location?.state?.showAcceptMessage
 
-        const state = {...history?.location?.state}
-        delete state?.acceptMessage
-        delete state?.showAcceptMessage
-        history.replace({...history?.location, state})
+        // const state = {...history?.location?.state}
+        // delete state?.acceptMessage
+        // delete state?.showAcceptMessage
+        // history.replace({...history?.location, state})
       }
     })
 
@@ -102,6 +104,13 @@ export class MyRequestsViewModel {
 
     reaction(
       () => this.searchRequests,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+
+    reaction(
+      () => this.nameSearchValue,
       () => {
         this.currentData = this.getCurrentData()
       },
@@ -168,7 +177,15 @@ export class MyRequestsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.searchRequests)
+    if (this.nameSearchValue) {
+      return toJS(this.searchRequests).filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.searchRequests)
+    }
   }
 
   async loadData() {
@@ -236,6 +253,12 @@ export class MyRequestsViewModel {
         this.error = error
       })
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async createCustomSearchRequest(data) {

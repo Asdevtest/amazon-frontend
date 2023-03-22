@@ -72,6 +72,13 @@ export class VacantRequestsViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async updateColumnsModel() {
@@ -112,7 +119,11 @@ export class VacantRequestsViewModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.requests).filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
     } else {
       return toJS(this.requests)
     }
