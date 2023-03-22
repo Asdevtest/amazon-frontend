@@ -63,19 +63,18 @@ export class MyRequestsViewModel {
   densityModel = 'compact'
   columnsModel = myRequestsViewColumns(this.languageTag)
 
-  constructor({history, location, isRequestsAtWork}) {
+  constructor({history, location}) {
     runInAction(() => {
       this.history = history
-      this.isRequestsAtWork = isRequestsAtWork
 
       if (location?.state) {
         this.acceptMessage = location?.state?.acceptMessage
         this.showAcceptMessage = location?.state?.showAcceptMessage
 
-        // const state = {...history?.location?.state}
-        // delete state?.acceptMessage
-        // delete state?.showAcceptMessage
-        // history.replace({...history?.location, state})
+        const state = {...history?.location?.state}
+        delete state?.acceptMessage
+        delete state?.showAcceptMessage
+        history.replace({...history?.location, state})
       }
     })
 
@@ -98,7 +97,7 @@ export class MyRequestsViewModel {
     reaction(
       () => this.isRequestsAtWork,
       () => {
-        this.currentData = this.getCurrentData()
+        this.currentData = this.getCustomRequests()
       },
     )
 
@@ -126,6 +125,13 @@ export class MyRequestsViewModel {
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
+    })
+  }
+
+  onClickChangeCatigory(value) {
+    runInAction(() => {
+      console.log('value', value)
+      this.isRequestsAtWork = value
     })
   }
 
@@ -349,6 +355,12 @@ export class MyRequestsViewModel {
   }
 
   onTriggerDrawer() {
+    runInAction(() => {
+      this.drawerOpen = !this.drawerOpen
+    })
+  }
+
+  onTriggerDrawerOpen() {
     runInAction(() => {
       this.drawerOpen = !this.drawerOpen
     })

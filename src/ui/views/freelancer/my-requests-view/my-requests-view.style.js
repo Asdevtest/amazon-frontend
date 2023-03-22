@@ -27,7 +27,7 @@ export const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: '10px',
+    marginBottom: '20px',
     paddingRight: '5px',
   },
   tableWrapper: {
@@ -53,7 +53,7 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    height: '82vh',
+    height: 'calc(100vh - 230px)',
   },
   footerContainer: {
     position: 'absolute',
@@ -111,5 +111,35 @@ export const styles = theme => ({
   redBorder: {
     background:
       'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+  },
+
+  switchButtonWrapper: {
+    marginBottom: 20,
+  },
+
+  switchButton: {
+    position: 'relative',
+    width: '50%',
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+  },
+
+  selectedSwitchButton: {
+    color: theme.palette.primary.main,
+  },
+
+  switchButtonBorder: {
+    '&:after': {
+      position: 'absolute',
+      bottom: 0,
+      content: '" "',
+      display: 'block',
+      height: 1,
+      width: '100%',
+      background: theme.palette.primary.main,
+    },
   },
 })
