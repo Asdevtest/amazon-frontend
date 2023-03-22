@@ -9,7 +9,12 @@ import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
+import {
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -30,6 +35,7 @@ import {styles} from './supervisor-products-view.style'
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 const allowProductStatuses = [
+  `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
   `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
   `${ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]}`,
@@ -70,7 +76,7 @@ class SupervisorProductsViewRaw extends Component {
     const {
       nameSearchValue,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -80,7 +86,7 @@ class SupervisorProductsViewRaw extends Component {
       curPage,
       rowsPerPage,
 
-      selectedStatus,
+      currentFilterStatus,
 
       onTriggerDrawerOpen,
       onChangeCurPage,
@@ -92,6 +98,7 @@ class SupervisorProductsViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onChangeNameSearchValue,
+      onClickStatusFilterButton,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -106,28 +113,30 @@ class SupervisorProductsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                {Object.keys({...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses)}).map(
-                  (status, statusIndex) => (
-                    <Button
-                      key={statusIndex}
-                      variant="text"
-                      disabled={Number(statusIndex) === Number(selectedStatus)}
-                      className={cx(classNames.selectStatusFilterButton, {
-                        [classNames.selectedStatusFilterButton]: Number(status) === Number(selectedStatus),
-                      })}
-                      // onClick={() => onClickTaskType(taskType)}
-                    >
-                      {ProductStatusByCode[status]}
-                    </Button>
-                  ),
-                )}
+                {Object.keys({
+                  ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
+                }).map((status, statusIndex) => (
+                  <Button
+                    key={statusIndex}
+                    variant="text"
+                    // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+                    className={cx(classNames.selectStatusFilterButton, {
+                      [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
+                    })}
+                    onClick={() => onClickStatusFilterButton(status)}
+                  >
+                    {t(productStatusTranslateKey(ProductStatusByCode[status]))}
+                  </Button>
+                ))}
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
-                />
+                <div className={classNames.searchInputWrapper}>
+                  <SearchInput
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                    onChange={onChangeNameSearchValue}
+                  />
+                </div>
               </div>
               <div className={classNames.dataGridWrapper}>
                 <MemoDataGrid
@@ -147,7 +156,7 @@ class SupervisorProductsViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: DataGridCustomToolbar,

@@ -33,8 +33,6 @@ const TabPanel = ({children, value, index, ...other}) => (
 export const MyRequests = observer(({history, location}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('locationlocation', location)
-
   const [tabIndex, setTabIndex] = React.useState(0)
 
   return (

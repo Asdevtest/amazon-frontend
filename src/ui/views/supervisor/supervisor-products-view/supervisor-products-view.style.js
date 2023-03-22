@@ -26,7 +26,9 @@ export const styles = theme => ({
 
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+
+    gap: 20,
   },
 
   footerContainer: {
@@ -76,5 +78,9 @@ export const styles = theme => ({
     borderBottom: '5px solid #0460DE',
 
     color: `${theme.palette.primary.main} !important`,
+  },
+
+  searchInputWrapper: {
+    marginLeft: '40%',
   },
 })

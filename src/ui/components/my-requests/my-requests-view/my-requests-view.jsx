@@ -34,7 +34,6 @@ class MyRequestsViewRaw extends Component {
   })
 
   componentDidMount() {
-    console.log('this.props', this.props)
     this.viewModel.loadData()
   }
 
