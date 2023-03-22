@@ -1323,13 +1323,12 @@ export const styles = theme => ({
   productMyRequestsBtnsWrapper: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'space-between',
     gap: '30px',
   },
 
   productMyRequestsBtn: {
     width: '140px',
-    height: '40px',
+    height: 30,
   },
 
   multilineLink: {

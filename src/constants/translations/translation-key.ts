@@ -1870,7 +1870,7 @@ export enum TranslationKey {
   'To work without confirmation' = 'To work without confirmation',
   'Open result' = 'Open result',
   'Search by Title, ID' = 'Search by Title, ID',
-  // '' = '',
+  'Executed' = 'Executed',
   // '' = '',
   // '' = '',
   // '' = '',
