@@ -22,4 +22,22 @@ export const useClassNames = makeStyles()(theme => ({
   chatWrapperIsSelected: {
     borderBottomColor: `${theme.palette.primary.main} !important`,
   },
+
+  indicator: {
+    // backgroundColor: '#1da1f2',
+    backgroundColor: theme.palette.primary.main,
+  },
+  row: {
+    width: '100%',
+    padding: '0 0px',
+    margin: '0 auto',
+  },
+
+  selected: {
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+  },
+
+  tabRoot: {
+    textTransform: 'none',
+  },
 }))

@@ -179,6 +179,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                       >
                         <MultipleChats
                           ref={this.chatRef}
+                          isFreelanceOwner
                           typingUsers={typingUsers}
                           chats={chats}
                           userId={userInfo._id}

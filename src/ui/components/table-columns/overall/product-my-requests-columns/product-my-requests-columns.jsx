@@ -24,6 +24,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderCell: params => <ShortDateCell params={params} />,
     width: 120,
     type: 'date',
+    headerAlign: 'center',
   },
 
   {
@@ -32,7 +33,8 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={'ID'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 90,
+    width: 60,
+    headerAlign: 'center',
   },
 
   {
@@ -50,7 +52,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
-    width: 230,
+    width: 400,
   },
 
   {
@@ -72,6 +74,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 115,
+    headerAlign: 'center',
   },
 
   {
@@ -82,6 +85,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderCell: params => <ShortDateCell params={params} />,
     width: 115,
     type: 'date',
+    headerAlign: 'center',
   },
 
   {
@@ -90,6 +94,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
+    headerAlign: 'center',
   },
 
   {
@@ -99,16 +104,18 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 85,
+    headerAlign: 'center',
   },
 
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+    field: 'actions',
+    headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 330,
+    // width: 330,
     renderCell: params => <ProductMyRequestsBtnsCell row={params.row.originalData} handlers={handlers} />,
     filterable: false,
     sortable: false,
+    flex: 1,
   },
 ]
