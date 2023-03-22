@@ -1299,6 +1299,7 @@ export default class BoxesApi {
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
      * @param {String} opts.shopIds Гуиды магазинов
+     * @param {Boolean} opts.hasBatch Должна ли коробка иметь свою партию
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
@@ -1324,6 +1325,7 @@ export default class BoxesApi {
         'storekeeperId': opts['storekeeperId'],
         'isFormed': opts['isFormed'],
         'shopIds': opts['shopIds'],
+        'hasBatch': opts['hasBatch'],
         'limit': opts['limit'],
         'offset': opts['offset'],
         'sortField': opts['sortField'],
@@ -1357,6 +1359,7 @@ export default class BoxesApi {
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {Boolean} opts.isFormed Сформирована ли коробка
      * @param {String} opts.shopIds Гуиды магазинов
+     * @param {Boolean} opts.hasBatch Должна ли коробка иметь свою партию
      * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
      * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
      * @param {String} opts.sortField Название поля
