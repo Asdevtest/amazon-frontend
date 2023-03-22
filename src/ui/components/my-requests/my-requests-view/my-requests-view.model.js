@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {RequestStatus} from '@constants/request-status'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
@@ -13,6 +14,8 @@ import {myRequestsViewColumns} from '@components/table-columns/overall/my-reques
 
 import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+
+const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
 
 export class MyRequestsViewModel {
   history = undefined
@@ -29,6 +32,8 @@ export class MyRequestsViewModel {
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
+
+  currentData = []
 
   searchRequests = []
   openModal = null
@@ -47,24 +52,28 @@ export class MyRequestsViewModel {
   }
 
   sortModel = []
+
+  isRequestsAtWork = true
+
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = myRequestsViewColumns(this.languageTag)
 
-  constructor({history, location}) {
+  constructor({history, location, isRequestsAtWork}) {
     runInAction(() => {
       this.history = history
+      this.isRequestsAtWork = isRequestsAtWork
 
-      if (location.state) {
-        this.acceptMessage = location.state.acceptMessage
-        this.showAcceptMessage = location.state.showAcceptMessage
+      if (location?.state) {
+        this.acceptMessage = location?.state?.acceptMessage
+        this.showAcceptMessage = location?.state?.showAcceptMessage
 
-        const state = {...history.location.state}
-        delete state.acceptMessage
-        delete state.showAcceptMessage
-        history.replace({...history.location, state})
+        const state = {...history?.location?.state}
+        delete state?.acceptMessage
+        delete state?.showAcceptMessage
+        history.replace({...history?.location, state})
       }
     })
 
@@ -82,6 +91,20 @@ export class MyRequestsViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.isRequestsAtWork,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+
+    reaction(
+      () => this.searchRequests,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
     )
   }
 
@@ -162,7 +185,7 @@ export class MyRequestsViewModel {
   }
 
   onClickAddBtn() {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request`)
+    this.history.push(`/client/freelance/my-requests/create-request`)
   }
 
   onClickEditBtn(row) {
@@ -253,8 +276,18 @@ export class MyRequestsViewModel {
     try {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
 
+      const filteredResult = result.filter(request => {
+        if (this.isRequestsAtWork) {
+          return allowStatuses.some(status => request.status === status)
+        } else {
+          return allowStatuses.every(status => request.status !== status)
+        }
+      })
+
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.searchRequests = myRequestsDataConverter(filteredResult).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
     } catch (error) {
       console.log(error)

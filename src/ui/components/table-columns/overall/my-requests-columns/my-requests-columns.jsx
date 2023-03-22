@@ -22,8 +22,18 @@ export const myRequestsViewColumns = languageTag => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    width: 120,
+    width: 117,
     type: 'date',
+  },
+
+  {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
+    width: 62,
   },
 
   {
@@ -32,7 +42,7 @@ export const myRequestsViewColumns = languageTag => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
-    width: 160,
+    width: 161,
   },
 
   {
@@ -41,7 +51,7 @@ export const myRequestsViewColumns = languageTag => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
-    width: 230,
+    width: 228,
   },
 
   {
@@ -52,7 +62,7 @@ export const myRequestsViewColumns = languageTag => [
     renderCell: params => (
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
-    width: 145,
+    width: 146,
   },
 
   {
@@ -61,7 +71,7 @@ export const myRequestsViewColumns = languageTag => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
-    width: 120,
+    width: 123,
   },
 
   {
@@ -115,7 +125,7 @@ export const myRequestsViewColumns = languageTag => [
     headerName: t(TranslationKey['Waiting check']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting check'])} />,
 
-    renderCell: params => <MultilineTextCell illuminationCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 85,
   },
 

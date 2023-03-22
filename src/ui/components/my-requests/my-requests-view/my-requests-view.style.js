@@ -94,4 +94,8 @@ export const styles = theme => ({
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
   },
+
+  waitingCheckedBacklighting: {
+    color: theme.palette.background.green,
+  },
 })

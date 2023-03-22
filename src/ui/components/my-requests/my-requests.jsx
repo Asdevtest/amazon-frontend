@@ -12,9 +12,11 @@ import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
-import {GroupPermissions} from './group-permissions'
-import {SinglePermissions} from './single-permissions'
-import {useClassNames} from './user-permissions.style'
+import {MyRequestsView} from './my-requests-view'
+// import {GroupPermissions} from './group-permissions'
+import {useClassNames} from './my-requests.style'
+
+// import {SinglePermissions} from './single-permissions'
 
 const TabPanel = ({children, value, index, ...other}) => (
   <div
@@ -28,7 +30,7 @@ const TabPanel = ({children, value, index, ...other}) => (
   </div>
 )
 
-export const UserPermissions = observer(() => {
+export const MyRequests = observer(({history}) => {
   const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
@@ -45,16 +47,16 @@ export const UserPermissions = observer(() => {
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <ITab label={t(TranslationKey['Permission Groups'])} />
-          <ITab label={t(TranslationKey.Permissions)} />
+          <ITab label={t(TranslationKey['Requests in progress'])} />
+          <ITab label={t(TranslationKey['Completed requests'])} />
         </Tabs>
       )}
 
       <TabPanel value={tabIndex} index={0}>
-        <GroupPermissions />
+        <MyRequestsView isRequestsAtWork history={history} />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <SinglePermissions />
+        <MyRequestsView history={history} />
       </TabPanel>
     </React.Fragment>
   )

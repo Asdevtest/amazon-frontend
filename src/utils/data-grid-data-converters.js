@@ -61,6 +61,7 @@ export const myRequestsDataConverter = data =>
     status: item.status,
     title: item.title,
     price: item.price,
+    humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
     timeoutAt: item.timeoutAt,
     acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
