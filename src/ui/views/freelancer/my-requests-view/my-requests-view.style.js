@@ -120,7 +120,7 @@ export const styles = theme => ({
   switchButton: {
     position: 'relative',
     width: '50%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.second,
 
     fontWeight: 600,
     fontSize: 18,
