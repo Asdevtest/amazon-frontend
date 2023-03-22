@@ -278,7 +278,7 @@ export const CreateOrEditRequestContent = ({
                   />
 
                   <Field
-                    tooltipInfoContent={t(TranslationKey['Future request title'])}
+                    tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
                     label={t(TranslationKey.ASIN)}
                     labelClasses={classNames.spanLabelSmall}
                     containerClasses={classNames.asinContainer}
@@ -292,7 +292,7 @@ export const CreateOrEditRequestContent = ({
                         chosenItemNoHover
                         data={permissionsData}
                         width={185}
-                        searchOnlyFields={['asin']}
+                        searchOnlyFields={['asin', 'skusByClient']}
                         customSubMainWrapper={classNames.customSubMainWrapper}
                         customSearchInput={classNames.customSearchInput}
                         selectedItemName={formFields?.request?.asin || t(TranslationKey['Select ASIN'])}
@@ -390,7 +390,7 @@ export const CreateOrEditRequestContent = ({
                       onChange={e => {
                         if (
                           formFields.request.priceAmazon &&
-                          Number(e.target.value) <= formFields.request.priceAmazon
+                          Number(replaceCommaByDot(e.target.value)) <= Number(formFields.request.priceAmazon)
                         ) {
                           onChangeField('request')('discountedPrice')(e)
                         }
@@ -403,7 +403,7 @@ export const CreateOrEditRequestContent = ({
                       inputProps={{maxLength: 8}}
                       label={t(TranslationKey['CashBack Percentage']) + ', %'}
                       labelClasses={classNames.spanLabelSmall}
-                      value={toFixed(formFields.request.cashBackInPercent, 0)}
+                      value={toFixed(formFields.request.cashBackInPercent, 2)}
                       onChange={e => {
                         if (Number(e.target.value) <= 100 && formFields.request.priceAmazon) {
                           onChangeField('request')('cashBackInPercent')(e)
@@ -597,10 +597,10 @@ export const CreateOrEditRequestContent = ({
                             : t(TranslationKey['Select a Performer'])}
                         </Button>
                       </div>
-                      {formFields.request.announcementId.description && (
+                      {formFields.request.announcementId.title && (
                         <div className={classNames.performerDescriptionWrapper}>
                           <Typography className={classNames.performerDescriptionText}>
-                            {formFields.request.announcementId.description}
+                            {formFields.request.announcementId.title}
                           </Typography>
                         </div>
                       )}

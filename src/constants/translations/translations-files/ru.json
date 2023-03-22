@@ -1804,7 +1804,7 @@
   "Total CBM": "Общий CBM",
   "Search by ASIN, Title, Order, item, ID Box": "Поиск по ASIN, Title, Заказу, item, ID коробки",
   "Accepted in processing": "Принято в обработку",
-  "Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box": "Search by SKU, ASIN, Title, Order, item, Prep Id, ID коробки",
+  "Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box": "Поиск по SKU, ASIN, Title, Order, item, Prep Id, ID коробки",
   "Parsing error": "Ошибка парсинга",
   "Ideas to check": "Идеи для проверки",
   "Designer": "Дизайнер",
@@ -1872,5 +1872,8 @@
   "To work without confirmation": "В работу без подтверждения",
   "Open result": "Открыть результат",
   "Search by Title, ID": "Поиск по Title, ID",
-  "Executed": "Исполнено"
+  "Executed": "Исполнено",
+  "Select a product card for the order": "Выберите карточку товара для заявки",
+  "Requests in progress": "Заявки в работе",
+  "Completed requests": "Исполненные заявки"
 }

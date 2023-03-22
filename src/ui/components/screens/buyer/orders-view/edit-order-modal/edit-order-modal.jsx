@@ -37,6 +37,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
+import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
@@ -940,24 +941,31 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <img
-                      className={classNames.trackNumberPhoto}
-                      src={
-                        typeof trackNumber.files[0] === 'string' ? trackNumber.files[0] : trackNumber.files[0]?.data_url
-                      }
-                      onClick={() => {
-                        setShowPhotosModal(!showPhotosModal)
-                        setBigImagesOptions({
-                          ...bigImagesOptions,
+                    <CustomCarousel>
+                      {trackNumber.files.map((el, index) => (
+                        <img
+                          key={index}
+                          className={classNames.trackNumberPhoto}
+                          src={
+                            typeof trackNumber.files[index] === 'string'
+                              ? trackNumber.files[index]
+                              : trackNumber.files[index]?.data_url
+                          }
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+                            setBigImagesOptions({
+                              ...bigImagesOptions,
 
-                          images: [
-                            typeof trackNumber.files[0] === 'string'
-                              ? trackNumber.files[0]
-                              : trackNumber.files[0]?.data_url,
-                          ],
-                        })
-                      }}
-                    />
+                              images: [
+                                typeof trackNumber.files[index] === 'string'
+                                  ? trackNumber.files[index]
+                                  : trackNumber.files[index]?.data_url,
+                              ],
+                            })
+                          }}
+                        />
+                      ))}
+                    </CustomCarousel>
                   ) : (
                     <Typography>{'no photo track number...'}</Typography>
                   )}
@@ -1053,6 +1061,7 @@ export const EditOrderModal = observer(
           <SetBarcodeModal
             title={'Track number'}
             tmpCode={trackNumber.files}
+            maxNumber={50 - trackNumber.files.length}
             onClickSaveBarcode={value => {
               setTrackNumber({...trackNumber, files: value})
               setShowSetBarcodeModal(!showSetBarcodeModal)

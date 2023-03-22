@@ -302,7 +302,8 @@ export const RequestToSendBatchBox = ({
             <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
           </td>
           <td className={cx(tableCellClsx, classNames.priceCellRight)}>
-            <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography>
+            {/* <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> */}
+            <Typography className={classNames.priceText}>{toFixedWithDollarSign(price, 2)}</Typography>
           </td>
         </>
       )}

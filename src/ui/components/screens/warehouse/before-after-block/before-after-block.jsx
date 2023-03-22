@@ -635,19 +635,24 @@ const Box = observer(
                 />
 
                 <div className={classNames.trackNumberPhotoWrapper}>
-                  {box.trackNumberFile[0] ? (
-                    <img
-                      className={classNames.trackNumberPhoto}
-                      src={box.trackNumberFile[0]}
-                      onClick={() => {
-                        setShowPhotosModal(!showPhotosModal)
-                        setBigImagesOptions({
-                          ...bigImagesOptions,
+                  {box.trackNumberFile.length ? (
+                    <CustomCarousel>
+                      {box.trackNumberFile.map((el, index) => (
+                        <img
+                          key={index}
+                          className={classNames.trackNumberPhoto}
+                          src={box.trackNumberFile[index]}
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+                            setBigImagesOptions({
+                              ...bigImagesOptions,
 
-                          images: box.trackNumberFile,
-                        })
-                      }}
-                    />
+                              images: box.trackNumberFile,
+                            })
+                          }}
+                        />
+                      ))}
+                    </CustomCarousel>
                   ) : (
                     <Typography className={classNames.trackNumberNoPhotoText}>{'no photo track number...'}</Typography>
                   )}

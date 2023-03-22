@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({request, announcementData}) => {
+export const CustomSearchRequestDetails = ({request}) => {
   const {classes: classNames} = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
@@ -49,13 +49,7 @@ export const CustomSearchRequestDetails = ({request, announcementData}) => {
               labelClasses={classNames.conditionsLabel}
               label={t(TranslationKey.Files)}
               containerClasses={classNames.filesWrapper}
-              inputComponent={
-                <PhotoAndFilesCarousel
-                  small
-                  files={announcementData ? announcementData?.linksToMediaFiles : request?.details?.linksToMediaFiles}
-                  width="400px"
-                />
-              }
+              inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />}
             />
 
             <Field
@@ -64,11 +58,7 @@ export const CustomSearchRequestDetails = ({request, announcementData}) => {
               label={t(TranslationKey.Description)}
               containerClasses={classNames.conditionsFieldWrapper}
               inputComponent={
-                <TextareaAutosize
-                  disabled
-                  className={classNames.conditionsField}
-                  value={announcementData ? announcementData?.description : request?.details.conditions}
-                />
+                <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
               }
             />
           </div>

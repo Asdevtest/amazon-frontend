@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**apiV1IdeasGuidDelete**](IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 [**apiV1IdeasGuidGet**](IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
-[**apiV1IdeasNotificationsGet**](IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Удалить идею
+[**apiV1IdeasNotificationsGet**](IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Получить нотификации идей
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 [**apiV1IdeasRemoveSupplierGuidPost**](IdeaApi.md#apiV1IdeasRemoveSupplierGuidPost) | **POST** /api/v1/ideas/remove_supplier/{guid} | Удалить поставщика
 
@@ -570,11 +570,11 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasNotificationsGet
 
-> [InlineResponse20041] apiV1IdeasNotificationsGet(guid, opts)
+> [InlineResponse20041] apiV1IdeasNotificationsGet(opts)
 
-Удалить идею
+Получить нотификации идей
 
-## Удаление идеи  
+## Получить нотификации идей  
 
 ### Example
 
@@ -588,11 +588,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.IdeaApi();
-let guid = null; // String | ID идеи
 let opts = {
+  'archive': false, // Boolean | Показывать в архиве/не в архиме нотификации
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1IdeasNotificationsGet(guid, opts).then((data) => {
+apiInstance.apiV1IdeasNotificationsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -605,7 +605,7 @@ apiInstance.apiV1IdeasNotificationsGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| ID идеи | 
+ **archive** | **Boolean**| Показывать в архиве/не в архиме нотификации | [optional] [default to false]
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

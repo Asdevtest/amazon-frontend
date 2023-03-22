@@ -435,9 +435,14 @@ const ServiceExchangeView = lazy(() =>
   import('@views/shared/service-exchange-view').then(module => ({default: module.ServiceExchangeView})),
 )
 
-const MyRequestsView = lazy(() =>
-  import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
+// const MyRequestsView = lazy(() =>
+//   import('@components/my-requests/my-requests-view').then(module => ({default: module.MyRequestsView})),
+// )
+
+const FreelancerMyRequestsView = lazy(() =>
+  import('@views/freelancer/freelancer-my-requests-view').then(module => ({default: module.FreelancerMyRequestsView})),
 )
+
 const OwnerRequestDetailCustomView = lazy(() =>
   import('@views/shared/owner-requests-detail-custom-view').then(module => ({
     default: module.OwnerRequestDetailCustomView,
@@ -884,9 +889,19 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey.Freelance,
   },
 
+  // {
+  //   routePath: '/client/freelance/my-requests',
+  //   component: MyRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.CLIENT],
+  //   permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+
+  //   crumbNameKey: TranslationKey['My requests'],
+  // },
+
   {
     routePath: '/client/freelance/my-requests',
-    component: MyRequestsView,
+    component: FreelancerMyRequestsView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,

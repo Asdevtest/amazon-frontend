@@ -28,7 +28,9 @@ Name | Type | Description | Notes
 **purchaseOrderRequired** | **[String]** |  | [optional] 
 **updatesOnIdeas** | **Number** |  | [optional] 
 **allowedSpec** | **[Number]** | Массив доступных специализаций фрилансера. | [optional] 
-**tasksNew** | **Number** | Количество новых заданий у пользователя | [optional] 
-**tasksAtProcess** | **Number** | Количество заданий в работе у пользователя | [optional] 
+**tasksNewAll** | **Number** | Количество новых заданий у пользователя | [optional] 
+**tasksAtProcessAll** | **Number** | Количество заданий в работе у пользователя | [optional] 
+**tasksNewHigh** | **Number** | Количество новых заданий у пользователя с высоким приоритетом | [optional] 
+**tasksAtProcessHigh** | **Number** | Количество заданий в работе у пользователяс высоким приоритетом | [optional] 
 
 
