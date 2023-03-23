@@ -81,7 +81,9 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
             <Typography className={classNames.cardTitle}>{item.title}</Typography>
             <div className={classNames.moreInfoWrapper}>
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+                <Typography className={classNames.blockInfoCellTitle}>
+                  {t(TranslationKey['Task type']) + ':'}
+                </Typography>
                 <Typography className={cx(classNames.blockInfoCellText)}>
                   {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item?.typeTask]) ??
                     t(TranslationKey.Missing)}
@@ -89,19 +91,19 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
               </div>
 
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN)}</Typography>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
                 <AsinLink asin={item.asin} />
               </div>
 
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ID)}</Typography>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ID) + ':'}</Typography>
                 <Typography className={cx(classNames.blockInfoCellText)}>
                   {item.humanFriendlyId ?? t(TranslationKey.Missing)}
                 </Typography>
               </div>
 
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated) + ':'}</Typography>
                 <Typography className={classNames.blockInfoCellText}>{formatNormDateTime(item?.updatedAt)}</Typography>
               </div>
             </div>
@@ -113,14 +115,14 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
-                {/* <div className={classNames.performerInfoCell}>
-                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
+                <div className={classNames.performerInfoCell}>
+                  {/* <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
                   <UserLink
                     name={item.createdBy.name}
                     userId={item.announcementId}
                     customClassNames={classNames.customPerformerLink}
-                  />
-                </div> */}
+                  /> */}
+                </div>
 
                 <div className={classNames.rightBlockSubWrapper}>
                   <div className={classNames.rightSubWrapper}>
