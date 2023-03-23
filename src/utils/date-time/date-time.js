@@ -84,6 +84,7 @@ export const sortObjectsArrayByFiledDateAsc = fieldName => (a, b) => compareAsc(
 
 export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldName, object) =>
   array
+    .slice()
     .sort((a, b) => {
       const first = Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
       const second = Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
@@ -101,7 +102,7 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldN
     .reverse()
 
 export const sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc = (array, fieldName, object) =>
-  array.sort((a, b) => {
+  array.slice().sort((a, b) => {
     const first = Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
     const second = Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
 

@@ -27,9 +27,6 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
   const {classes: classNames} = useClassNames()
   const now = new Date()
 
-  console.log('request', request)
-  console.log('announcementData', announcementData)
-
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 

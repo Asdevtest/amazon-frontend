@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -21,6 +21,8 @@ export class MyProposalsViewModel {
 
   drawerOpen = false
 
+  currentData = []
+
   searchMyRequestsIds = []
   requests = []
   requestsBase = []
@@ -41,6 +43,15 @@ export class MyProposalsViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.requests,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
+    )
   }
 
   onChangeViewMode(event, nextView) {

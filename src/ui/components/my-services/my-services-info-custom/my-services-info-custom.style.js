@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainBlockWrapper: {
     display: 'flex',
     gap: 25,
-    minWidth: '45%',
+    minWidth: '100%',
   },
   middleBlockWrapper: {
     display: 'flex',
@@ -290,7 +290,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     gap: 15,
 
-    width: '39%',
+    width: '50%',
   },
   announcementTitleWrapper: {
     display: 'flex',

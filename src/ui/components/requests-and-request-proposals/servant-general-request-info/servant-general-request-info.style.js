@@ -315,7 +315,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
-    padding: '20px 30px',
+    padding: '15px 15px',
   },
 
   fieldLabel: {
@@ -362,13 +362,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardTitle: {
     // margin: '0 10px 0 20px',
+    height: 20,
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
     // overflowY: 'auto',
     width: '500px',
-    // overflow: 'hidden',
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     // marginBottom: 20,

@@ -21,6 +21,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
 import {
   sortObjectsArrayByArrayObjectFiledDateWithParseISO,
@@ -49,9 +50,12 @@ class MyProposalsViewRaw extends Component {
       selectedTaskType,
       sortMode,
       viewMode,
-      getCurrentData,
+      currentData,
       drawerOpen,
       showConfirmModal,
+      nameSearchValue,
+
+      onChangeNameSearchValue,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onSubmitDeleteProposal,
@@ -67,11 +71,11 @@ class MyProposalsViewRaw extends Component {
       switch (mode) {
         case tableSortMode.DESK:
           // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-          return sortObjectsArrayByArrayObjectFiledDateWithParseISO(getCurrentData(), 'updatedAt', 'proposals')
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISO(currentData, 'updatedAt', 'proposals')
 
         case tableSortMode.ASC:
           // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-          return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(getCurrentData(), 'updatedAt', 'proposals')
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(currentData, 'updatedAt', 'proposals')
       }
     }
 
@@ -116,14 +120,16 @@ class MyProposalsViewRaw extends Component {
                   </ToggleButtonGroup>
                 </div> */}
 
-                {/* <div>
+                <div>
                   <SearchInput
                     inputClasses={classNames.searchInput}
+                    placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
+                      TranslationKey.Title,
+                    )}, User`}
                     value={nameSearchValue}
-                
                     onChange={onChangeNameSearchValue}
                   />
-                </div> */}
+                </div>
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -140,7 +146,7 @@ class MyProposalsViewRaw extends Component {
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  // spacing={3}
+                  // spacing={4}
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"

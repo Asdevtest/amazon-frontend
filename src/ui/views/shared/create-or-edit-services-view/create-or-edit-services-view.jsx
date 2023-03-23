@@ -19,7 +19,7 @@ import {CreateOrEditServicesViewModel} from './create-or-edit-services-view.mode
 import {styles} from './create-or-edit-services-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 @observer
 export class CreateOrEditServicesViewRaw extends Component {
   viewModel = new CreateOrEditServicesViewModel({
