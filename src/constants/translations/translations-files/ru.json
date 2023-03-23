@@ -1877,5 +1877,16 @@
   "Requests in progress": "Заявки в работе",
   "Completed requests": "Исполненные заявки",
   "EXECUTED_IN_PLURAL_KEY": "Исполненные",
-  "Search by Title, ASIN, ID": "Поиск по Названию, ASIN, ID"
+  "Search by Title, ASIN, ID": "Поиск по Названию, ASIN, ID",
+  "Request result": "Результат заявки",
+  "Your image recommendations": "Рекомендации по вашим изображениям",
+  "Upload your recommendations for product images.": "Загрузите свои рекомендации по изображениям товаров.",
+  "Show image guidelines": "Показать рекомендации по изображениям",
+  "Hide image guidelines": "Скрыть рекомендации по изображениям",
+  "Product images style guideline": "Руководство по стилю изображений товаров",
+  "Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.": "Объявления, в которых отсутствует главное изображение, не будут отображаться в поиске или просмотре, пока вы не исправите объявление.Выбирайте четкие, информационно насыщенные и привлекательные изображения.",
+  "Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.": "Изображения должны отвечать следующим требованиям: Продукты должны занимать не менее 85% изображения. На изображениях должен быть представлен только продаваемый товар, с небольшим количеством реквизита или без него, без логотипов, водяных знаков или вставных изображений. Изображения могут содержать только текст, который является частью продукта. Основные изображения должны иметь чистый белый фон, быть фотографией (не рисунком) и не содержать исключенных аксессуаров. Изображения должны иметь размер не менее 1000 пикселей по длинной стороне и не менее 500 пикселей по короткой стороне, чтобы их можно было увеличить. Размер изображения не должен превышать 10000 пикселей по длинной стороне. Предпочтительным форматом изображений является JPEG, но вы также можете использовать файлы TIFF и GIF.",
+  "Upload multiple files": "Загрузите несколько файлов",
+  "or drag and drop 1 or more files below": "или перетащите 1 или несколько файлов ниже",
+  "Link to sources": "Ссылка на исходники"
 }

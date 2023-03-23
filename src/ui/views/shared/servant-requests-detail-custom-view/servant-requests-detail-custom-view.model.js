@@ -1,5 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -24,6 +25,7 @@ export class RequestDetailCustomViewModel {
   showWarningModal = false
   showConfirmModal = false
   showRequestResultModal = false
+  showRequestDesignerResultModal = false
 
   loadedFiles = []
 
@@ -82,6 +84,18 @@ export class RequestDetailCustomViewModel {
 
   onTypingMessage(chatId) {
     ChatModel.typingMessage({chatId})
+  }
+
+  onClickResultBtn() {
+    if (!this.request) {
+      return
+    }
+
+    if (+this.request.request.typeTask === +freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else {
+      this.onTriggerOpenModal('showRequestResultModal')
+    }
   }
 
   async loadData() {
