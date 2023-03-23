@@ -38,8 +38,6 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
   const highPriorityValue = getHighPriorityValue(category.route)
   // console.log('badge', badge, category)
 
-  console.log(category.route)
-
   return (
     <Button
       tooltipPosition="center"
