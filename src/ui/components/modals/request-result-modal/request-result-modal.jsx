@@ -104,7 +104,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
               <div className={classNames.linksWrapper}>
                 <div className={classNames.inputWrapper}>
                   <Input
-                    inputProps={{maxLength: 1500}}
+                    inputProps={{maxLength: 512}}
                     value={linkLine}
                     className={classNames.pubInput}
                     onChange={e => setLinkLine(e.target.value)}

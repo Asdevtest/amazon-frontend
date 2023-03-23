@@ -21,6 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   cardSubTitleWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    height: 48,
 
     gap: 10,
   },
