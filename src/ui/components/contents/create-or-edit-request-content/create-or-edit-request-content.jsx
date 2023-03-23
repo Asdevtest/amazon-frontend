@@ -104,7 +104,7 @@ export const CreateOrEditRequestContent = ({
         /* currentFields?.request?.typeTask ?? */ requestToEdit?.request?.typeTask ??
         choosenAnnouncements?.type ??
         null,
-      asin: requestToEdit?.request.asin || '',
+      asin: requestToEdit?.request.asin || undefined,
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
       announcementId:
@@ -231,6 +231,7 @@ export const CreateOrEditRequestContent = ({
     formFields.details.conditions === '' ||
     formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
+    !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
@@ -279,7 +280,7 @@ export const CreateOrEditRequestContent = ({
 
                   <Field
                     tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
-                    label={t(TranslationKey.ASIN)}
+                    label={t(TranslationKey.ASIN) + '*'}
                     labelClasses={classNames.spanLabelSmall}
                     containerClasses={classNames.asinContainer}
                     className={classNames.nameField}
@@ -295,7 +296,11 @@ export const CreateOrEditRequestContent = ({
                         searchOnlyFields={['asin', 'skusByClient']}
                         customSubMainWrapper={classNames.customSubMainWrapper}
                         customSearchInput={classNames.customSearchInput}
-                        selectedItemName={formFields?.request?.asin || t(TranslationKey['Select ASIN'])}
+                        selectedItemName={
+                          formFields?.request?.asin ||
+                          (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
+                          t(TranslationKey['Select ASIN'])
+                        }
                         onClickSelect={el => {
                           onChangeField('request')('asin')(el.asin)
                           onChangeField('request')('productId')(el._id)
