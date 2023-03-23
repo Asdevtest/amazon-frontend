@@ -1807,7 +1807,7 @@ export enum TranslationKey {
   'Parsing error' = 'Parsing error',
   'The order has been updated' = 'The order has been updated',
   'Success parse' = 'Success parse',
-  // '' = '',
+  'New notifications' = 'New notifications',
   // '' = '',
   // '' = '',
 }

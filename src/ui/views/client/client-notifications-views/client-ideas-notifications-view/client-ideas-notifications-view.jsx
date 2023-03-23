@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -33,6 +34,10 @@ class ClientIdeasNotificationsViewRaw extends Component {
     this.viewModel.loadData()
   }
 
+  state = {
+    isArchived: false,
+  }
+
   render() {
     const {
       requestStatus,
@@ -44,6 +49,7 @@ class ClientIdeasNotificationsViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
+      getIdeas,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -66,6 +72,19 @@ class ClientIdeasNotificationsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Notifications on ideas'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <Button
+                variant="outlined"
+                className={classNames.archiveHandler}
+                onClick={() => {
+                  getIdeas(!this.state.isArchived).then(() => {
+                    this.setState(sate => ({
+                      isArchived: !sate.isArchived,
+                    }))
+                  })
+                }}
+              >
+                {this.state.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+              </Button>
               <div className={classNames.tableWrapper}>
                 <MemoDataGrid
                   pagination

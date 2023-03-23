@@ -8,6 +8,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
+import {restApiService} from '@services/rest-api-service/rest-api-service'
+
 import {ideasNotificationsViewColumns} from '@components/table-columns/overall/ideas-notifications-columns'
 
 import {ideaNoticeDataConverter} from '@utils/data-grid-data-converters'
@@ -152,14 +154,12 @@ export class ClientIdeasNotificationsViewModel {
     }
   }
 
-  async getIdeas() {
+  async getIdeas(isArchived = false) {
     try {
-      const result = await UserModel.getUserInfo()
+      const result = await restApiService.ideaApi.apiV1IdeasNotificationsGet({archive: isArchived})
 
       runInAction(() => {
-        this.ideas = ideaNoticeDataConverter(result.updatesOnIdeas).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.ideas = ideaNoticeDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)
