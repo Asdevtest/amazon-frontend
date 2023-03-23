@@ -43,6 +43,7 @@ export const myRequestsViewColumns = languageTag => [
 
     renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
     width: 161,
+    filterable: false,
   },
 
   {

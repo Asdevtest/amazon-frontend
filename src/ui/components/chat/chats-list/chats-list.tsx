@@ -107,8 +107,8 @@ export const ChatsList: FC<Props> = observer(
               />
 
               {
-                /* checkIsClient(curUserRole) && */ <ITab
-                  label={t(TranslationKey.Executed)}
+                <ITab
+                  label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
                   value={tabsValues.SOLVED}
                   tooltipAttentionContent={undefined}
                   tooltipInfoContent={undefined}

@@ -31,6 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     padding: '0 0px',
     margin: '0 auto',
+    minHeight: `40px`,
   },
 
   selected: {
@@ -39,5 +40,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   tabRoot: {
     textTransform: 'none',
+    minHeight: `40px`,
   },
 }))

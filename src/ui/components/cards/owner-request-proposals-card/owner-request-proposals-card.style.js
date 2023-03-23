@@ -107,6 +107,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
   },
 
   successDeals: {

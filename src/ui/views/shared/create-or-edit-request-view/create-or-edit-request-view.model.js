@@ -159,10 +159,10 @@ export class CreateOrEditRequestViewModel {
         this.acceptMessage = t(TranslationKey['The request has been changed'])
       })
 
-      this.history.push('/client/freelance/my-requests/custom-request', {
+      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        request: this.requestToEdit.request,
+        // request: this.requestToEdit.request,
       })
     } catch (error) {
       console.log(error)
@@ -172,11 +172,16 @@ export class CreateOrEditRequestViewModel {
         this.acceptMessage = t(TranslationKey['The request has not been changed'])
       })
 
-      this.history.push('/client/freelance/my-requests/custom-request', {
+      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
         showAcceptMessage: this.showAcceptMessage,
         acceptMessage: this.acceptMessage,
-        request: this.requestToEdit.request,
+        // request: this.requestToEdit.request,
       })
+      // this.history.push('/client/freelance/my-requests/custom-request', {
+      //   showAcceptMessage: this.showAcceptMessage,
+      //   acceptMessage: this.acceptMessage,
+      //   request: this.requestToEdit.request,
+      // })
 
       runInAction(() => {
         this.error = error
