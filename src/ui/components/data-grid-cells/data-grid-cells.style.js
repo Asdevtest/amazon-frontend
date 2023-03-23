@@ -1545,6 +1545,11 @@ export const styles = theme => ({
 
   nativeSelect: {
     // width: '210px',
+    '& > div': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
   },
 
   colorYellow: {
@@ -1567,5 +1572,15 @@ export const styles = theme => ({
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
+  },
+
+  menuItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  rushOrderImg: {
+    width: '12px',
+    height: '13px',
   },
 })
