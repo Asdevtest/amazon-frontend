@@ -38,6 +38,7 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {shortAsin, clearEverythingExceptNumbers, replaceCommaByDot, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -107,7 +108,11 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
                 {t(TranslationKey['Select from the list'])}
               </MenuItem>
 
-              {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+              {Object.keys({
+                ...getObjectFilteredByKeyArrayBlackList(freelanceRequestTypeByCode, [
+                  `${freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]}`,
+                ]),
+              }).map((taskType, taskIndex) => (
                 <MenuItem key={taskIndex} value={taskType}>
                   {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
                 </MenuItem>
