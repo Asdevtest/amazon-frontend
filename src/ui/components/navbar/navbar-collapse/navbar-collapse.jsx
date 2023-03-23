@@ -1,6 +1,6 @@
 import {cx} from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Collapse, List, ListItemIcon, ListItemText, Typography, Menu} from '@mui/material'
+import {Collapse, List, ListItemIcon, ListItemText, Menu, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 
 import {Button} from '@components/buttons/button'
+import {HighPriorityValue} from '@components/shared/high-priority-value'
 
 import {renderAttentionTooltipTitle, renderTooltipTitle} from '@utils/renders'
 
@@ -25,6 +26,7 @@ export const NavbarCollapse = ({
   onChangeSubCategory,
   currentViewModel,
   shortNavbar,
+  showHighPriorityNotification,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -103,32 +105,49 @@ export const NavbarCollapse = ({
     }
   }
 
-  const renderSubCategory = (subIndex, subCategory) => (
-    <Button
-      key={subIndex}
-      tooltipPosition="center"
-      className={cx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
-      tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory.subtitle, userInfo.role)}
-      tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
-    >
-      <NavbarSubCategory
-        button
-        disableGutters
-        component={Link}
-        className={classNames.subCategory}
-        selected={subIndex === activeSubCategory}
-        to={subCategory.subRoute}
-        onClick={() => onClickCategory(subIndex)}
+  const getNotificationCountBySubRoute = subRoute => {
+    switch (subRoute) {
+      case '/warehouse/tasks/vacant-tasks':
+        return userInfo.tasksNewHigh
+      case '/warehouse/tasks/my-tasks':
+        return userInfo.tasksAtProcessHigh
+      default:
+        return null
+    }
+  }
+
+  const renderSubCategory = (subIndex, subCategory) => {
+    const highPriorityNotificationCount =
+      showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
+
+    return (
+      <Button
+        key={subIndex}
+        tooltipPosition="center"
+        className={cx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
+        tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory.subtitle, userInfo.role)}
+        tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
       >
-        <div className={classNames.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
-        <ListItemText
-          disableTypography
-          className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
-          primary={subCategory.subtitle}
-        />
-      </NavbarSubCategory>
-    </Button>
-  )
+        <NavbarSubCategory
+          button
+          disableGutters
+          component={Link}
+          className={classNames.subCategory}
+          selected={subIndex === activeSubCategory}
+          to={subCategory.subRoute}
+          onClick={() => onClickCategory(subIndex)}
+        >
+          <div className={classNames.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
+          <ListItemText
+            disableTypography
+            className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
+            primary={subCategory.subtitle}
+          />
+          {highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
+        </NavbarSubCategory>
+      </Button>
+    )
+  }
 
   return (
     <Collapse in={index === activeCategory || index === navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS}>

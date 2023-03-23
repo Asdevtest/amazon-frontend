@@ -3,7 +3,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {Drawer, Hidden, List, Typography} from '@mui/material'
 
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -95,6 +95,7 @@ export const Navbar = observer(
                   />
 
                   <NavbarCollapse
+                    showHighPriorityNotification
                     shortNavbar={shortNavbar}
                     activeCategory={activeCategory}
                     activeSubCategory={activeSubCategory}
