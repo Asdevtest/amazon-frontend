@@ -23,7 +23,7 @@ export class CreateOrEditServicesViewModel {
 
   uploadedFiles = []
 
-  requestId = null
+  requestId = undefined
 
   readyImages = []
   progressValue = 0
@@ -44,12 +44,16 @@ export class CreateOrEditServicesViewModel {
 
   async getAnnouncementsDataByGuid() {
     try {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
-      runInAction(() => {
-        this.requestToEdit = result
-      })
+      if (this.requestId) {
+        const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+        runInAction(() => {
+          this.requestToEdit = result
+        })
+      }
     } catch (error) {
-      this.error = error
+      runInAction(() => {
+        this.error = error
+      })
       console.log(error)
     }
   }
