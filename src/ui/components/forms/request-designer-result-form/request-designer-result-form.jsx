@@ -4,17 +4,19 @@
 import {cx} from '@emotion/css'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {Accordion, AccordionDetails, AccordionSummary, IconButton, Input, Link, Typography} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
+import {PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value'
 // import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
+import {Input} from '@components/input'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {minsToTime} from '@utils/text'
@@ -33,7 +35,17 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   console.log('request', request)
 
-  // const [linkLine, setLinkLine] = useState('')
+  const sourceImagesData = [
+    {image: '', imageName: '', isMain: false},
+    {image: '', imageName: '', isMain: false},
+    {image: '', imageName: '', isMain: false},
+  ]
+
+  const [imagesData, setImagesData] = useState(sourceImagesData)
+
+  const onClickAddImageObj = () => {
+    setImagesData(() => [...imagesData, {image: '', imageName: '', isMain: false}])
+  }
 
   // const [images, setImages] = useState([])
 
@@ -136,7 +148,27 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         </div>
       </div>
 
-      <div className={classNames.bodyWrapper}></div>
+      <div className={classNames.bodyWrapper}>
+        {imagesData.map((item, index) => (
+          <div key={index} className={classNames.imageObjWrapper}>
+            <div className={classNames.imageWrapper}>
+              <PhotoCameraWithPlus />
+            </div>
+
+            <div className={classNames.imageObjSubWrapper}>
+              <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
+                {index + 1}
+              </Typography>
+
+              <Input multiline maxRows={3} variant="filled" className={classNames.imageObjInput} />
+            </div>
+          </div>
+        ))}
+
+        <div className={classNames.bigPlusWrapper}>
+          <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddImageObj} />
+        </div>
+      </div>
 
       <div className={classNames.footerWrapper}>
         <Field

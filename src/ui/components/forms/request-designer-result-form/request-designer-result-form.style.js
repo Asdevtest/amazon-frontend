@@ -4,7 +4,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 1500,
-    minHeight: 800,
+    maxHeight: 800,
 
     // padding: '0 10px',
   },
@@ -88,11 +88,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
   },
 
-  bodyWrapper: {
-    height: 200,
-    background: 'grey',
-  },
-
   footerWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -110,101 +105,65 @@ export const useClassNames = makeStyles()(theme => ({
     width: 350,
   },
 
-  // label: {
-  //   fontWeight: 400,
-  //   fontSize: 14,
-  //   lineHeight: '19px',
+  bodyWrapper: {
+    minHeight: 300,
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 27,
+    // background: 'grey',
+  },
 
-  //   color: theme.palette.text.second,
+  imageObjWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 161,
+    // border: '1px solid red',
+    height: 'min-content',
+  },
 
-  //   marginBottom: 10,
-  // },
-  // numberInputField: {
-  //   marginBottom: 20,
-  // },
-  // input: {
-  //   height: 40,
-  // },
-  // pubInput: {
-  //   width: '100%',
-  //   height: 40,
-  //   borderRadius: 4,
+  imageWrapper: {
+    width: 161,
+    height: 161,
+    borderRadius: 4,
+    background: theme.palette.input.customDisabled,
+    marginBottom: 10,
+  },
 
-  //   padding: '0 5px',
+  imageObjIndex: {
+    fontWeight: 700,
+    fontSize: 20,
+    color: theme.palette.text.second,
+    marginRight: 10,
+  },
 
-  //   '&:before, &:after': {
-  //     border: 'none',
-  //   },
-  // },
+  imageObjSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 
-  // buttonsWrapper: {
-  //   display: 'flex',
-  //   gap: 40,
+  imageObjInput: {
+    // width: '100%',
+    width: 133,
+    height: 'auto',
+  },
 
-  //   justifyContent: 'flex-end',
-  // },
-  // button: {
-  //   padding: '0 25px',
-  // },
-  // cancelButton: {
-  //   color: theme.palette.text.general,
-  // },
+  bigPlusWrapper: {
+    height: 205,
+    width: 161,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-  // linksWrapper: {
-  //   width: '100%',
-  //   display: 'flex',
-  //   flexDirection: 'column',
+  bigPlus: {
+    // marginTop: 40,
+    margin: '15px 0 30px 0',
+    cursor: 'pointer',
+    transition: '.3s ease',
 
-  //   marginBottom: 20,
-  // },
-  // inputWrapper: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   width: '100%',
-
-  //   gap: 20,
-  // },
-  // linksSubWrapper: {
-  //   width: '100%',
-  //   maxHeight: 130,
-  //   overflowY: 'auto',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   marginTop: 10,
-  //   gap: 5,
-
-  //   padding: '0 5px 0 15px',
-
-  //   boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-  // },
-  // linkWrapper: {
-  //   width: '100%',
-
-  //   display: 'flex',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  // },
-  // linkTextWrapper: {
-  //   width: '80%',
-  //   overflow: 'auto',
-  //   whiteSpace: 'nowrap',
-  // },
-  // linksBtnsWrapper: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  // },
-  // deleteBtn: {
-  //   color: theme.palette.text.second,
-  //   width: '20px',
-  //   height: '20px',
-  // },
-  // commentFieldWrapper: {
-  //   marginBottom: 20,
-  // },
-  // commentField: {
-  //   height: 'auto',
-  // },
-  // dragAndDropWrapper: {
-  //   marginBottom: 20,
-  // },
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
 }))
