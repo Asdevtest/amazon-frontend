@@ -509,28 +509,30 @@ export const CreateOrEditRequestContent = ({
                     </div> */}
 
                     {`${formFields?.request?.typeTask}` !==
-                      `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-                      <div
-                        className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperRight)}
-                        onClick={onChangeField('request')('needCheckBySupervisor')}
-                      >
-                        <div className={classNames.checkboxSubWrapper}>
-                          <Checkbox
-                            color="primary"
-                            checked={formFields.request.needCheckBySupervisor}
-                            classes={{root: classNames.checkbox}}
-                          />
-                        </div>
-                        <Text
-                          className={classNames.checkboxText}
-                          tooltipInfoContent={t(
-                            TranslationKey['Add a service for checking the result of proposals by a supervisor'],
-                          )}
+                      `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
+                      `${formFields?.request?.typeTask}` !==
+                        `${freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]}` && (
+                        <div
+                          className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperRight)}
+                          onClick={onChangeField('request')('needCheckBySupervisor')}
                         >
-                          {t(TranslationKey['Need a supervisor check'])}
-                        </Text>
-                      </div>
-                    )}
+                          <div className={classNames.checkboxSubWrapper}>
+                            <Checkbox
+                              color="primary"
+                              checked={formFields.request.needCheckBySupervisor}
+                              classes={{root: classNames.checkbox}}
+                            />
+                          </div>
+                          <Text
+                            className={classNames.checkboxText}
+                            tooltipInfoContent={t(
+                              TranslationKey['Add a service for checking the result of proposals by a supervisor'],
+                            )}
+                          >
+                            {t(TranslationKey['Need a supervisor check'])}
+                          </Text>
+                        </div>
+                      )}
                   </div>
 
                   <div className={classNames.priceAndAmountWrapper}>
