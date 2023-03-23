@@ -105,6 +105,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
               withAvatar={undefined}
               maxNameWidth={undefined}
               customStyles={{marginBottom: 10}}
+              customClassNames={undefined}
             />
           ) : null}
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import {Grid, Typography, Avatar, Divider} from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -12,12 +13,13 @@ import {
 } from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {AsinLink} from '@components/asin-link'
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {UserLink} from '@components/user-link'
 
-import {formatNormDateTimeWithParseISO} from '@utils/date-time'
+import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -43,69 +45,66 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.EXPIRED,
   ]
 
-  // console.log('item', item)
+  console.log('item', item)
 
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardTitleBlockWrapper}>
           <div className={classNames.userInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
-
             <div className={classNames.nameWrapper}>
-              {/* <Typography>{item.createdBy.name}</Typography> */}
-              <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
+              <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+
               <div className={classNames.ratingWrapper}>
-                <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
-                <Rating disabled value={item.createdBy.rating} />
+                <UserLink
+                  blackText
+                  name={item.createdBy.name}
+                  userId={item.createdBy._id}
+                  customClassNames={classNames.customUserLink}
+                />
+                <Rating disabled size="small" value={item.createdBy.rating} />
               </div>
+            </div>
+
+            <div className={classNames.cardSubTitleWrapper}>
+              <Typography className={classNames.cardSubTitle}>{`${t(
+                TranslationKey['The number of total successful transactions:'],
+              )} 0`}</Typography>
+
+              {/* <Typography className={classNames.withoutСonfirmation}>
+                {t(TranslationKey['Available to work without confirmation'])}
+              </Typography> */}
             </div>
           </div>
 
-          <Typography className={classNames.cardSubTitle}>{`${t(
-            TranslationKey['The number of total successful transactions:'],
-          )} 0`}</Typography>
-
-          <Typography className={classNames.cardTitle}>{item.title}</Typography>
-
-          <Field
-            multiline
-            minRows={4}
-            maxRows={4}
-            value={item.detailsCustom.conditions}
-            inputClasses={classNames.conditionsInput}
-            containerClasses={classNames.conditionsField}
-          />
-
-          <div className={classNames.cardTitleBlockSubWrapper}>
-            <Field
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey['Request type'])}
-              inputComponent={
-                <Typography className={classNames.accentText}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item.typeTask])}
+          <div className={classNames.moreInfoBlockWrapper}>
+            <Typography className={classNames.cardTitle}>{item.title}</Typography>
+            <div className={classNames.moreInfoWrapper}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[item?.typeTask]) ??
+                    t(TranslationKey.Missing)}
                 </Typography>
-              }
-            />
+              </div>
 
-            <Field
-              labelClasses={cx(classNames.fieldLabel, classNames.rightLieldLabel)}
-              containerClasses={classNames.fieldContainer}
-              label={t(TranslationKey.Updated)}
-              inputComponent={
-                <Typography className={classNames.accentText}>
-                  {formatNormDateTimeWithParseISO(item.updatedAt)}
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ASIN)}</Typography>
+                <AsinLink asin={item.asin} />
+              </div>
+
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.ID)}</Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {item.humanFriendlyId ?? t(TranslationKey.Missing)}
                 </Typography>
-              }
-            />
-            {/* <div className={classNames.updatedAtWrapper}>
-              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
+              </div>
 
-              <Typography className={classNames.updatedAtText}>
-                {formatNormDateTimeWithParseISO(item.updatedAt)}
-              </Typography>
-            </div> */}
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
+                <Typography className={classNames.blockInfoCellText}>{formatNormDateTime(item?.updatedAt)}</Typography>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -114,42 +113,35 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
-                <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
+                {/* <div className={classNames.performerInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
+                  <UserLink
+                    name={item.createdBy.name}
+                    userId={item.announcementId}
+                    customClassNames={classNames.customPerformerLink}
+                  />
+                </div> */}
 
-                <div className={classNames.rightSubWrapper}>
-                  <div className={classNames.statusField}>
-                    <span
-                      className={classNames.circleIndicator}
-                      style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
-                    />
-                    <Typography className={classNames.standartText}>
-                      {RequestProposalStatusTranslate(proposal.status)}
-                    </Typography>
-                  </div>
-                  <div className={classNames.timeAndPriceWrapper}>
-                    <div className={classNames.timeWrapper}>
+                <div className={classNames.rightBlockSubWrapper}>
+                  <div className={classNames.rightSubWrapper}>
+                    <div className={classNames.statusField}>
+                      <span
+                        className={classNames.circleIndicator}
+                        style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
+                      />
                       <Typography className={classNames.standartText}>
-                        {t(TranslationKey['Time to complete'])}
+                        {RequestProposalStatusTranslate(proposal.status)}
                       </Typography>
-                      <Typography className={classNames.timeCount}>{minsToTime(proposal.execution_time)}</Typography>
-                    </div>
-
-                    <div className={classNames.rightItemSubWrapper}>
-                      <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
-                      <Typography className={classNames.price}>{toFixedWithDollarSign(proposal.price, 2)}</Typography>
                     </div>
                   </div>
-                </div>
 
-                <div className={classNames.proposalFooter}>
-                  <div className={classNames.btnsWrapper}>
+                  <div className={classNames.proposalFooter}>
                     <Button
+                      danger
                       disableElevation
                       tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
-                      color="primary"
                       className={[classNames.button, classNames.cancelBtn]}
-                      variant="text"
                       onClick={() => onClickDeleteBtn(proposal)}
                     >
                       {t(TranslationKey.Cancel)}
@@ -159,7 +151,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                         disableElevation
                         tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
                         disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
-                        color="primary"
                         className={classNames.button}
                         variant="contained"
                         onClick={() => onClickEditBtn(item, proposal)}
@@ -170,7 +161,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       <Button
                         disableElevation
                         tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
-                        color="primary"
                         variant="contained"
                         className={classNames.button}
                         onClick={() => onClickOpenBtn(item)}

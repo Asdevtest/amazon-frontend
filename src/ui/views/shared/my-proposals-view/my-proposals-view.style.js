@@ -22,7 +22,10 @@ export const styles = theme => ({
 
   dashboardCardWrapper: {
     width: '100%',
-    // padding: 0
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
+    marginTop: 30,
   },
 
   tablePanelViewWrapper: {

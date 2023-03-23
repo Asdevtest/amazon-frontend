@@ -88,6 +88,7 @@ export const IdeaSnack = forwardRef<HTMLDivElement, SimpleMessagesSnackProps>(
                   withAvatar={undefined}
                   maxNameWidth={undefined}
                   customStyles={undefined}
+                  customClassNames={undefined}
                 />
                 <Typography className={classNames.messageText}>
                   {t(TranslationKey['updated data on idea to product']) + ':'}
