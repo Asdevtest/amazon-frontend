@@ -1876,5 +1876,16 @@
   "Requests in progress": "Requests in progress",
   "Completed requests": "Completed requests",
   "EXECUTED_IN_PLURAL_KEY": "Executed",
-  "Search by Title, ASIN, ID": "Search by Title, ASIN, ID"
+  "Search by Title, ASIN, ID": "Search by Title, ASIN, ID",
+  "Request result": "Request result",
+  "Your image recommendations": "Your image recommendations",
+  "Upload your recommendations for product images.": "Upload your recommendations for product images.",
+  "Show image guidelines": "Show image guidelines",
+  "Hide image guidelines": "Hide image guidelines",
+  "Product images style guideline": "Product images style guideline",
+  "Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.": "Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.",
+  "Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.": "Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.",
+  "Upload multiple files": "Upload multiple files",
+  "or drag and drop 1 or more files below": "or drag and drop 1 or more files below",
+  "Link to sources": "Link to sources"
 }

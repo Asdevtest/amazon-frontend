@@ -12,8 +12,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {RequestResultModal} from '@components/modals/request-result-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -65,6 +67,7 @@ export class RequestDetailCustomViewRaw extends Component {
       chatIsConnected,
       requestProposals,
       showRequestResultModal,
+      showRequestDesignerResultModal,
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
@@ -74,11 +77,14 @@ export class RequestDetailCustomViewRaw extends Component {
       onClickSendAsResult,
       onClickCancelRequestProposal,
       onTypingMessage,
+      onClickResultBtn,
     } = this.viewModel
 
     const findRequestProposalByChatSelectedId = requestProposals?.find(
       requestProposal => requestProposal.proposal.chatId === chatSelectedId,
     )
+
+    // console.log('request', request)
 
     return (
       <React.Fragment>
@@ -152,9 +158,10 @@ export class RequestDetailCustomViewRaw extends Component {
                             //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
                             // }
                             onClick={() => {
-                              onTriggerOpenModal('showRequestResultModal')
                               // onClickSendAsResult(params)
                               // resetAllInputs()
+
+                              onClickResultBtn()
                             }}
                           >
                             {t(TranslationKey['Send as a result'])}
@@ -194,6 +201,17 @@ export class RequestDetailCustomViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
           onClickSendAsResult={onClickSendAsResult}
         />
+
+        <Modal
+          openModal={showRequestDesignerResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
+        >
+          <RequestDesignerResultForm
+            request={request}
+            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
+            onClickSendAsResult={onClickSendAsResult}
+          />
+        </Modal>
 
         <ConfirmationModal
           isWarning
