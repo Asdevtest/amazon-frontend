@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert, Typography} from '@mui/material'
@@ -82,8 +83,14 @@ class MyRequestsViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getCellClassName = params =>
-      params.row.originalData.countProposalsByStatuses.waitedProposals && classNames.waitingCheckedBacklighting
+    const getCellClassName = params => {
+      console.log('params', params)
+      return (
+        params.row.originalData.countProposalsByStatuses.waitedProposals &&
+        params.field === 'waitedProposals' &&
+        classNames.waitingCheckedBacklighting
+      )
+    }
 
     const getRowClassName = params => {
       if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && isRequestsAtWork) {

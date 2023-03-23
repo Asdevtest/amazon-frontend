@@ -102,7 +102,7 @@ export const styles = theme => ({
   },
 
   waitingCheckedBacklighting: {
-    color: theme.palette.background.green,
+    background: theme.palette.background.green,
   },
   yellowBorder: {
     background:
