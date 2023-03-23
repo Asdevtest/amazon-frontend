@@ -89,7 +89,8 @@ export const Navbar = observer(
                       (category.route?.includes('/client/my-orders/orders') &&
                         userInfo.purchaseOrderRequired?.length &&
                         userInfo.purchaseOrderRequired.length) ||
-                      (category.route?.includes('/warehouse/tasks') && userInfo.tasksAtProcess + userInfo.tasksNew)
+                      (category.route?.includes('/warehouse/tasks') &&
+                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll)
                     }
                   />
 

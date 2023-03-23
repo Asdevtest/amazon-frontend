@@ -46,13 +46,13 @@ export const NavbarCollapse = ({
     switch (subRoute) {
       case '/warehouse/tasks/vacant-tasks':
         return (
-          <ListItemIcon>{<div className={classNames.badge}>{currentViewModel.userInfo.tasksNew}</div>}</ListItemIcon>
+          <ListItemIcon>{<div className={classNames.badge}>{currentViewModel.userInfo.tasksNewAll}</div>}</ListItemIcon>
         )
 
       case '/warehouse/tasks/my-tasks':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel.userInfo.tasksAtProcess}</div>}
+            {<div className={classNames.badge}>{currentViewModel.userInfo.tasksAtProcessAll}</div>}
           </ListItemIcon>
         )
 
@@ -120,13 +120,12 @@ export const NavbarCollapse = ({
         to={subCategory.subRoute}
         onClick={() => onClickCategory(subIndex)}
       >
+        <div className={classNames.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
         <ListItemText
           disableTypography
           className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
           primary={subCategory.subtitle}
         />
-
-        {renderNotificationBySubRoute(subCategory.subRoute)}
       </NavbarSubCategory>
     </Button>
   )
