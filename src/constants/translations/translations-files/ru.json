@@ -1871,9 +1871,11 @@
   "Remaining offers": "Осталось предложений",
   "To work without confirmation": "В работу без подтверждения",
   "Open result": "Открыть результат",
-  "Search by Title, ID": "Поиск по Title, ID",
+  "Search by Title, ID": "Поиск по Названию, ID",
   "Executed": "Исполнено",
   "Select a product card for the order": "Выберите карточку товара для заявки",
   "Requests in progress": "Заявки в работе",
-  "Completed requests": "Исполненные заявки"
+  "Completed requests": "Исполненные заявки",
+  "EXECUTED_IN_PLURAL_KEY": "Исполненные",
+  "Search by Title, ASIN, ID": "Поиск по Названию, ASIN, ID"
 }

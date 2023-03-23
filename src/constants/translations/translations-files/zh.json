@@ -1874,5 +1874,7 @@
   "Executed": "Executed",
   "Select a product card for the order": "Select a product card for the order",
   "Requests in progress": "Requests in progress",
-  "Completed requests": "Completed requests"
+  "Completed requests": "Completed requests",
+  "EXECUTED_IN_PLURAL_KEY": "Executed",
+  "Search by Title, ASIN, ID": "Search by Title, ASIN, ID"
 }

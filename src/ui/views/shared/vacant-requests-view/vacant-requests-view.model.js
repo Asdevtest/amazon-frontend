@@ -122,7 +122,8 @@ export class VacantRequestsViewModel {
       return toJS(this.requests).filter(
         el =>
           el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {
       return toJS(this.requests)

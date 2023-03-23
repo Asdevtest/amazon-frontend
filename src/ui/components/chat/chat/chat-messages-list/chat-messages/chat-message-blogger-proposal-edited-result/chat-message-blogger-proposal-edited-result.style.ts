@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: theme.palette.background.general,
-    padding: '40px 30px 0 30px',
+    padding: '40px 30px 30px 30px',
     width: 1100,
     margin: '0 auto',
     border: '1px solid #4CAF50',
@@ -335,6 +335,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   fieldContainer: {
     width: 'min-content',
+
+    '&: last-of-type': {
+      marginBottom: '0 !important',
+    },
   },
 
   rightInfosSubWrapper: {
