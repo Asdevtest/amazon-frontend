@@ -69,7 +69,7 @@ export const ChoiceOfPerformerModal = ({
           classes={{root: classNames.dashboardCardWrapper}}
           display="grid"
           gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
-          gridGap="20px"
+          gridGap="10px"
         >
           {dataToRender.map((service, serviceKey) => (
             <ServiceExchangeCard
