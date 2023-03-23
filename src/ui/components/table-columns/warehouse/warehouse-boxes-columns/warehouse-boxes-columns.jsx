@@ -166,7 +166,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
         onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-    width: 220,
+    width: 240,
 
     // columnKey: columnnsKeys.shared.STRING,
   },
