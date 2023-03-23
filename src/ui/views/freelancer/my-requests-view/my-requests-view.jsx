@@ -83,14 +83,10 @@ class MyRequestsViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getCellClassName = params => {
-      console.log('params', params)
-      return (
-        params.row.originalData.countProposalsByStatuses.waitedProposals &&
-        params.field === 'waitedProposals' &&
-        classNames.waitingCheckedBacklighting
-      )
-    }
+    const getCellClassName = params =>
+      params.row.originalData.countProposalsByStatuses.waitedProposals &&
+      params.field === 'waitedProposals' &&
+      classNames.waitingCheckedBacklighting
 
     const getRowClassName = params => {
       if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && isRequestsAtWork) {

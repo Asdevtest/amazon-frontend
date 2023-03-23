@@ -57,8 +57,6 @@ export const VacantRequestTable = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('currentData', currentData)
-
   return (
     <div className={classNames.dataGridWrapper}>
       <MemoDataGrid
