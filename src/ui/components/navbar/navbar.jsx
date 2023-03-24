@@ -84,8 +84,8 @@ export const Navbar = observer(
                         userInfo.needConfirmPriceChange?.boxes +
                           userInfo.needConfirmPriceChange?.orders +
                           userInfo.needUpdateTariff?.boxes +
-                          userInfo.updatesOnIdeas?.length) ||
-                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas?.length) ||
+                          userInfo.updatesOnIdeas) ||
+                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
                       (category.route?.includes('/client/my-orders/orders') &&
                         userInfo.purchaseOrderRequired?.length &&
                         userInfo.purchaseOrderRequired.length) ||

@@ -61,14 +61,14 @@ export const NavbarCollapse = ({
       case '/client/notifications/ideas-notifications':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel.userInfo.updatesOnIdeas.length}</div>}
+            {<div className={classNames.badge}>{currentViewModel.userInfo.updatesOnIdeas}</div>}
           </ListItemIcon>
         )
 
       case '/buyer/notifications/ideas-notifications':
         return (
           <ListItemIcon>
-            {<div className={classNames.badge}>{currentViewModel.userInfo.updatesOnIdeas.length}</div>}
+            {<div className={classNames.badge}>{currentViewModel.userInfo.updatesOnIdeas}</div>}
           </ListItemIcon>
         )
 
