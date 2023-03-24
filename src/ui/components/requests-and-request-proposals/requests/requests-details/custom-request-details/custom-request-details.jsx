@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {TextareaAutosize, Typography} from '@mui/material'
 import Accordion from '@mui/material/Accordion'
@@ -8,7 +9,7 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
 import {t} from '@utils/translations'
@@ -38,21 +39,28 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
           <div className={classNames.mainWrapper}>
-            {/* <div>
-              <Typography className={classNames.files}>{t(TranslationKey.Files)}</Typography>
-
-              <PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />
-            </div> */}
-
-            <Field
+            {/* <Field
               multiline
               labelClasses={classNames.conditionsLabel}
               label={t(TranslationKey.Files)}
               containerClasses={classNames.filesWrapper}
-              inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />}
-            />
+              inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="379px" />}
+            /> */}
 
-            <Field
+            <div className={classNames.filesWrapper}>
+              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
+
+              <PhotoAndFilesCarousel
+                small
+                direction="column"
+                files={request?.details?.linksToMediaFiles}
+                width="379px"
+              />
+
+              {/* <PhotoCarousel files={request?.details?.linksToMediaFiles} /> */}
+            </div>
+
+            {/* <Field
               multiline
               labelClasses={classNames.conditionsLabel}
               label={t(TranslationKey.Description)}
@@ -60,7 +68,13 @@ export const CustomSearchRequestDetails = ({request}) => {
               inputComponent={
                 <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
               }
-            />
+            /> */}
+
+            <div className={classNames.conditionsFieldWrapper}>
+              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
+
+              <Typography className={classNames.conditionsField}>{request?.details.conditions}</Typography>
+            </div>
           </div>
         </AccordionDetails>
       </Accordion>
