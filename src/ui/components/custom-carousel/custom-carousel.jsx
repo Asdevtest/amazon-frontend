@@ -25,12 +25,12 @@ import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const CustomCarousel = observer(({children, title, view = 'simple', alignButtons = 'center'}) => {
+export const CustomCarousel = observer(({children, title, view = 'simple', alignButtons = 'center', index}) => {
   const {classes: classNames} = useClassNames()
   const [clides, setClides] = useState([])
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
 
-  const [slideCount, setSlideCount] = useState(1)
+  const [slideCount, setSlideCount] = useState(index ? index + 1 : 1)
 
   const handleLeftArrowClick = () => {
     setOffset(currentOffset => {
