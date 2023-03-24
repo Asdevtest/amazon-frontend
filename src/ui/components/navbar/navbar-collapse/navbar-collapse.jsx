@@ -143,7 +143,7 @@ export const NavbarCollapse = ({
             className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
             primary={subCategory.subtitle}
           />
-          {highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
+          {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
         </NavbarSubCategory>
       </Button>
     )

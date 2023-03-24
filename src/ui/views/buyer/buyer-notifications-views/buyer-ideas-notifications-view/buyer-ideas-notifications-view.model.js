@@ -33,6 +33,7 @@ export class BuyerIdeasNotificationsViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
+  isArchived = false
 
   rowHandlers = {
     onClickViewBtn: productId => this.onClickViewBtn(productId),
@@ -168,6 +169,11 @@ export class BuyerIdeasNotificationsViewModel {
         this.ideas = []
       })
     }
+  }
+
+  async handleArchive() {
+    await this.getIdeas(!this.isArchived)
+    this.isArchived = !this.isArchived
   }
 
   onClickViewBtn(productId) {

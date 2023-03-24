@@ -34,10 +34,6 @@ class ClientIdeasNotificationsViewRaw extends Component {
     this.viewModel.loadData()
   }
 
-  state = {
-    isArchived: false,
-  }
-
   render() {
     const {
       requestStatus,
@@ -49,7 +45,7 @@ class ClientIdeasNotificationsViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
-      getIdeas,
+      isArchived,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -58,6 +54,7 @@ class ClientIdeasNotificationsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      handleArchive,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -72,18 +69,8 @@ class ClientIdeasNotificationsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Notifications on ideas'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <Button
-                variant="outlined"
-                className={classNames.archiveHandler}
-                onClick={() => {
-                  getIdeas(!this.state.isArchived).then(() => {
-                    this.setState(sate => ({
-                      isArchived: !sate.isArchived,
-                    }))
-                  })
-                }}
-              >
-                {this.state.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+              <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
+                {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
               </Button>
               <div className={classNames.tableWrapper}>
                 <MemoDataGrid

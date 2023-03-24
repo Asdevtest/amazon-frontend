@@ -33,6 +33,7 @@ export class ClientIdeasNotificationsViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
+  isArchived = false
 
   rowHandlers = {
     onClickViewBtn: productId => this.onClickViewBtn(productId),
@@ -53,6 +54,11 @@ export class ClientIdeasNotificationsViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+  }
+
+  async handleArchive() {
+    await this.getIdeas(!this.isArchived)
+    this.isArchived = !this.isArchived
   }
 
   async updateColumnsModel() {
