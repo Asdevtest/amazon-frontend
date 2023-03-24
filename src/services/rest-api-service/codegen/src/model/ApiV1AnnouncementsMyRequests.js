@@ -51,6 +51,12 @@ class ApiV1AnnouncementsMyRequests {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
@@ -78,6 +84,18 @@ class ApiV1AnnouncementsMyRequests {
  * @member {String} _id
  */
 ApiV1AnnouncementsMyRequests.prototype['_id'] = undefined;
+
+/**
+ * Название заявки
+ * @member {String} title
+ */
+ApiV1AnnouncementsMyRequests.prototype['title'] = undefined;
+
+/**
+ * Человекочитаемый id заявки.
+ * @member {Number} humanFriendlyId
+ */
+ApiV1AnnouncementsMyRequests.prototype['humanFriendlyId'] = undefined;
 
 /**
  * Цена

@@ -45,8 +45,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.EXPIRED,
   ]
 
-  console.log('item', item)
-
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>

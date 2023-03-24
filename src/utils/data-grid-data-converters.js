@@ -834,4 +834,6 @@ export const freelancerServiceDetaildsDataConverter = data =>
     status: item?.status,
     timeoutAt: item?.timeoutAt,
     updatedAt: item?.updatedAt,
+    title: item?.title,
+    humanFriendlyId: item?.humanFriendlyId,
   }))

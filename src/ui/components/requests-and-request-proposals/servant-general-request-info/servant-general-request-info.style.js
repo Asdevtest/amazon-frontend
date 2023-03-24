@@ -374,4 +374,24 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     // marginBottom: 20,
   },
+
+  headerWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  idTitleWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  idText: {
+    fontWeight: 400,
+    fontSize: 18,
+    lineHeight: '140%',
+
+    color: theme.palette.text.second,
+  },
+  idTextDark: {
+    color: theme.palette.text.general,
+  },
 }))

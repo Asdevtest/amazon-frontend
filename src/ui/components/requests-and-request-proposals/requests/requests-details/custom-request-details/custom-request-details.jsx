@@ -9,7 +9,7 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
 import {t} from '@utils/translations'
@@ -56,8 +56,6 @@ export const CustomSearchRequestDetails = ({request}) => {
                 files={request?.details?.linksToMediaFiles}
                 width="379px"
               />
-
-              {/* <PhotoCarousel files={request?.details?.linksToMediaFiles} /> */}
             </div>
 
             {/* <Field

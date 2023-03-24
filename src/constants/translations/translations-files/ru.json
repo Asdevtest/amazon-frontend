@@ -1889,5 +1889,6 @@
   "Upload multiple files": "Загрузите несколько файлов",
   "or drag and drop 1 or more files below": "или перетащите 1 или несколько файлов ниже",
   "Link to sources": "Ссылка на исходники",
-  "Available to work without confirmation": "Доступна в работу без подтверждения"
+  "Available to work without confirmation": "Доступна в работу без подтверждения",
+  "Request ID": "ID заявки"
 }
