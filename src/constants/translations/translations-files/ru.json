@@ -1807,5 +1807,6 @@
   "Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box": "Search by SKU, ASIN, Title, Order, item, Prep Id, ID коробки",
   "Parsing error": "Ошибка парсинга",
   "The order has been updated": "Заказ был обновлен",
-  "Success parse": "Успешный парсинг"
+  "Success parse": "Успешный парсинг",
+  "New notifications": "Новые уведомления"
 }

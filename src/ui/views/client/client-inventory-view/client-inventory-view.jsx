@@ -191,7 +191,7 @@ export class ClientInventoryViewRaw extends Component {
 
     const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
 
-    // console.log('columnsModel', columnsModel)
+    console.log('columnsModel', columnsModel)
 
     return (
       <React.Fragment>
