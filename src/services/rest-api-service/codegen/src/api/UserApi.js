@@ -18,12 +18,12 @@ import CheckIsUniqueNameOrEmailReqSchema from '../model/CheckIsUniqueNameOrEmail
 import CheckIsUniqueNameOrEmailSchema from '../model/CheckIsUniqueNameOrEmailSchema';
 import ConflictInTheState from '../model/ConflictInTheState';
 import ForbiddenError from '../model/ForbiddenError';
-import InlineObject109 from '../model/InlineObject109';
-import InlineObject110 from '../model/InlineObject110';
-import InlineObject111 from '../model/InlineObject111';
-import InlineObject112 from '../model/InlineObject112';
-import InlineResponse20062 from '../model/InlineResponse20062';
-import InlineResponse20063 from '../model/InlineResponse20063';
+import InlineObject113 from '../model/InlineObject113';
+import InlineObject114 from '../model/InlineObject114';
+import InlineObject115 from '../model/InlineObject115';
+import InlineObject116 from '../model/InlineObject116';
+import InlineResponse20064 from '../model/InlineResponse20064';
+import InlineResponse20065 from '../model/InlineResponse20065';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
 import MePatchInputSchema from '../model/MePatchInputSchema';
@@ -61,7 +61,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject112} opts.body 
+     * @param {module:model/InlineObject116} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangeForgottenPasswordPostWithHttpInfo(opts) {
@@ -94,7 +94,7 @@ export default class UserApi {
      * ## Поменять пароль, если его забыли
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject112} opts.body 
+     * @param {module:model/InlineObject116} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangeForgottenPasswordPost(opts) {
@@ -110,7 +110,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject110} opts.body 
+     * @param {module:model/InlineObject114} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersChangePasswordPatchWithHttpInfo(opts) {
@@ -143,7 +143,7 @@ export default class UserApi {
      * ## Сменить пароль
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject110} opts.body 
+     * @param {module:model/InlineObject114} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersChangePasswordPatch(opts) {
@@ -208,7 +208,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20063>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20065>} and HTTP response
      */
     apiV1UsersContactsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -227,7 +227,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20063];
+      let returnType = [InlineResponse20065];
       return this.apiClient.callApi(
         '/api/v1/users/contacts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -240,7 +240,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20063>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20065>}
      */
     apiV1UsersContactsGet(opts) {
       return this.apiV1UsersContactsGetWithHttpInfo(opts)
@@ -311,7 +311,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject111} opts.body 
+     * @param {module:model/InlineObject115} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersForgotPasswordPostWithHttpInfo(opts) {
@@ -344,7 +344,7 @@ export default class UserApi {
      * ## Запросить смену пароля
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject111} opts.body 
+     * @param {module:model/InlineObject115} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersForgotPasswordPost(opts) {
@@ -606,7 +606,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20064} and HTTP response
      */
     apiV1UsersPlatformSettingsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -625,7 +625,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20062;
+      let returnType = InlineResponse20064;
       return this.apiClient.callApi(
         '/api/v1/users/platform_settings', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -638,7 +638,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20064}
      */
     apiV1UsersPlatformSettingsGet(opts) {
       return this.apiV1UsersPlatformSettingsGetWithHttpInfo(opts)
@@ -751,7 +751,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject109} opts.body 
+     * @param {module:model/InlineObject113} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1UsersSubNotePatchWithHttpInfo(opts) {
@@ -784,7 +784,7 @@ export default class UserApi {
      * ## Создание/изменение subNote, если null, то удаляется
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject109} opts.body 
+     * @param {module:model/InlineObject113} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1UsersSubNotePatch(opts) {

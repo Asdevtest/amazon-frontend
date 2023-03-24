@@ -22,10 +22,12 @@ class InlineObject113 {
     /**
      * Constructs a new <code>InlineObject113</code>.
      * @alias module:model/InlineObject113
+     * @param userId {String} Гуид саба
+     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor() { 
+    constructor(userId, comment) { 
         
-        InlineObject113.initialize(this);
+        InlineObject113.initialize(this, userId, comment);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject113 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userId, comment) { 
+        obj['userId'] = userId;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonOrderId')) {
-                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
-            }
-            if (data.hasOwnProperty('publicationLinks')) {
-                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -67,27 +65,16 @@ class InlineObject113 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Гуид саба
+ * @member {String} userId
  */
-InlineObject113.prototype['result'] = undefined;
+InlineObject113.prototype['userId'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Заметка о сабе написаная мастером
+ * @member {String} comment
  */
-InlineObject113.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * ключ с Амазона
- * @member {String} amazonOrderId
- */
-InlineObject113.prototype['amazonOrderId'] = undefined;
-
-/**
- * @member {Array.<String>} publicationLinks
- */
-InlineObject113.prototype['publicationLinks'] = undefined;
+InlineObject113.prototype['comment'] = undefined;
 
 
 

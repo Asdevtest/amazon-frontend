@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject113 from '../model/InlineObject113';
+import InlineObject117 from '../model/InlineObject117';
 import InlineObject77 from '../model/InlineObject77';
 import InlineObject78 from '../model/InlineObject78';
 import InlineObject79 from '../model/InlineObject79';
@@ -25,8 +25,12 @@ import InlineObject82 from '../model/InlineObject82';
 import InlineObject83 from '../model/InlineObject83';
 import InlineObject84 from '../model/InlineObject84';
 import InlineObject85 from '../model/InlineObject85';
+import InlineObject86 from '../model/InlineObject86';
+import InlineObject87 from '../model/InlineObject87';
 import InlineResponse20051 from '../model/InlineResponse20051';
-import InlineResponse20064 from '../model/InlineResponse20064';
+import InlineResponse20052 from '../model/InlineResponse20052';
+import InlineResponse20066 from '../model/InlineResponse20066';
+import InlineResponse20110 from '../model/InlineResponse20110';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -56,7 +60,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20064>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20066>} and HTTP response
      */
     apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -80,7 +84,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20064];
+      let returnType = [InlineResponse20066];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/custom/by_request_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -94,7 +98,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20064>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20066>}
      */
     apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts) {
       return this.apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts)
@@ -164,7 +168,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject113} opts.body 
+     * @param {module:model/InlineObject117} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -203,11 +207,217 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject113} opts.body 
+     * @param {module:model/InlineObject117} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {
       return this.apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Получить исходники.
+     * ## Получить исходники
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20052>} and HTTP response
+     */
+    apiV1RequestProposalsFreelanceSourcesGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20052];
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/freelance-sources', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Получить исходники.
+     * ## Получить исходники
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20052>}
+     */
+    apiV1RequestProposalsFreelanceSourcesGet(opts) {
+      return this.apiV1RequestProposalsFreelanceSourcesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Изменить исходник.
+     * ## Изменить исходник
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsFreelanceSourcesGuidDeleteWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsFreelanceSourcesGuidDelete");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/freelance-sources/{guid}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Изменить исходник.
+     * ## Изменить исходник
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsFreelanceSourcesGuidDelete(guid, opts) {
+      return this.apiV1RequestProposalsFreelanceSourcesGuidDeleteWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Изменить исходник.
+     * ## Изменить исходник
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject87} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1RequestProposalsFreelanceSourcesGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1RequestProposalsFreelanceSourcesGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/freelance-sources/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Изменить исходник.
+     * ## Изменить исходник
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject87} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, opts) {
+      return this.apiV1RequestProposalsFreelanceSourcesGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Создать исходник.
+     * ## Создать исходник
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject86} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20110} and HTTP response
+     */
+    apiV1RequestProposalsFreelanceSourcesPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20110;
+      return this.apiClient.callApi(
+        '/api/v1/request-proposals/freelance-sources', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Создать исходник.
+     * ## Создать исходник
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject86} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20110}
+     */
+    apiV1RequestProposalsFreelanceSourcesPost(opts) {
+      return this.apiV1RequestProposalsFreelanceSourcesPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

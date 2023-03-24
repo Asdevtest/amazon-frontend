@@ -46,7 +46,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject116() // InlineObject116 | 
 };
 apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -62,7 +62,7 @@ apiInstance.apiV1UsersChangeForgottenPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject116**](InlineObject116.md)|  | [optional] 
 
 ### Return type
 
@@ -100,7 +100,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
+  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
 };
 apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -116,7 +116,7 @@ apiInstance.apiV1UsersChangePasswordPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
+ **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
 
 ### Return type
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20063] apiV1UsersContactsGet(opts)
+> [InlineResponse20065] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20063]**](InlineResponse20063.md)
+[**[InlineResponse20065]**](InlineResponse20065.md)
 
 ### Authorization
 
@@ -316,7 +316,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
+  'body': new TestSwagger.InlineObject115() // InlineObject115 | 
 };
 apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -332,7 +332,7 @@ apiInstance.apiV1UsersForgotPasswordPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
+ **body** | [**InlineObject115**](InlineObject115.md)|  | [optional] 
 
 ### Return type
 
@@ -616,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20062 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20064 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20062**](InlineResponse20062.md)
+[**InlineResponse20064**](InlineResponse20064.md)
 
 ### Authorization
 
@@ -784,7 +784,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.UserApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
+  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
 };
 apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -800,7 +800,7 @@ apiInstance.apiV1UsersSubNotePatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
+ **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
 
 ### Return type
 

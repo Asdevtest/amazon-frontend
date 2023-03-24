@@ -106,6 +106,10 @@ import InlineObject112 from './model/InlineObject112';
 import InlineObject113 from './model/InlineObject113';
 import InlineObject114 from './model/InlineObject114';
 import InlineObject115 from './model/InlineObject115';
+import InlineObject116 from './model/InlineObject116';
+import InlineObject117 from './model/InlineObject117';
+import InlineObject118 from './model/InlineObject118';
+import InlineObject119 from './model/InlineObject119';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject14 from './model/InlineObject14';
@@ -291,7 +295,9 @@ import InlineResponse20063 from './model/InlineResponse20063';
 import InlineResponse20064 from './model/InlineResponse20064';
 import InlineResponse20065 from './model/InlineResponse20065';
 import InlineResponse20066 from './model/InlineResponse20066';
-import InlineResponse20066Details from './model/InlineResponse20066Details';
+import InlineResponse20067 from './model/InlineResponse20067';
+import InlineResponse20068 from './model/InlineResponse20068';
+import InlineResponse20068Details from './model/InlineResponse20068Details';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
@@ -299,6 +305,8 @@ import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
 import InlineResponse20110 from './model/InlineResponse20110';
 import InlineResponse20111 from './model/InlineResponse20111';
+import InlineResponse20112 from './model/InlineResponse20112';
+import InlineResponse20113 from './model/InlineResponse20113';
 import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
@@ -968,6 +976,30 @@ export {
      * @property {module:model/InlineObject115}
      */
     InlineObject115,
+
+    /**
+     * The InlineObject116 model constructor.
+     * @property {module:model/InlineObject116}
+     */
+    InlineObject116,
+
+    /**
+     * The InlineObject117 model constructor.
+     * @property {module:model/InlineObject117}
+     */
+    InlineObject117,
+
+    /**
+     * The InlineObject118 model constructor.
+     * @property {module:model/InlineObject118}
+     */
+    InlineObject118,
+
+    /**
+     * The InlineObject119 model constructor.
+     * @property {module:model/InlineObject119}
+     */
+    InlineObject119,
 
     /**
      * The InlineObject12 model constructor.
@@ -2080,10 +2112,22 @@ export {
     InlineResponse20066,
 
     /**
-     * The InlineResponse20066Details model constructor.
-     * @property {module:model/InlineResponse20066Details}
+     * The InlineResponse20067 model constructor.
+     * @property {module:model/InlineResponse20067}
      */
-    InlineResponse20066Details,
+    InlineResponse20067,
+
+    /**
+     * The InlineResponse20068 model constructor.
+     * @property {module:model/InlineResponse20068}
+     */
+    InlineResponse20068,
+
+    /**
+     * The InlineResponse20068Details model constructor.
+     * @property {module:model/InlineResponse20068Details}
+     */
+    InlineResponse20068Details,
 
     /**
      * The InlineResponse2007 model constructor.
@@ -2126,6 +2170,18 @@ export {
      * @property {module:model/InlineResponse20111}
      */
     InlineResponse20111,
+
+    /**
+     * The InlineResponse20112 model constructor.
+     * @property {module:model/InlineResponse20112}
+     */
+    InlineResponse20112,
+
+    /**
+     * The InlineResponse20113 model constructor.
+     * @property {module:model/InlineResponse20113}
+     */
+    InlineResponse20113,
 
     /**
      * The InlineResponse2012 model constructor.

@@ -50,6 +50,9 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('withoutConfirmation')) {
+                obj['withoutConfirmation'] = ApiClient.convertToType(data['withoutConfirmation'], 'Boolean');
+            }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
@@ -89,6 +92,9 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('announcementId')) {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
         }
         return obj;
     }
@@ -101,6 +107,12 @@ class ApiV1RequestsCustomGuidRequest {
  * @member {String} title
  */
 ApiV1RequestsCustomGuidRequest.prototype['title'] = undefined;
+
+/**
+ * Если у заявки стоит withoutConfirmation: true - статус предложения автоматически становится OFFER_CONDITIONS_ACCEPTED при pickup'е
+ * @member {Boolean} withoutConfirmation
+ */
+ApiV1RequestsCustomGuidRequest.prototype['withoutConfirmation'] = undefined;
 
 /**
  * Цена за каждое предложение.
@@ -179,6 +191,11 @@ ApiV1RequestsCustomGuidRequest.prototype['cashBackInPercent'] = undefined;
  * @member {String} announcementId
  */
 ApiV1RequestsCustomGuidRequest.prototype['announcementId'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+ApiV1RequestsCustomGuidRequest.prototype['linksToMediaFiles'] = undefined;
 
 
 

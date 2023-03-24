@@ -339,6 +339,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomByRequestIdGuidGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomByRequestIdGuidGet) | **GET** /api/v1/request-proposals/custom/by_request_id/{guid} | Получить список предложений по guid заявки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidResultEditPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidResultEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/result_edit | #  Редактировать результат работы.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGet) | **GET** /api/v1/request-proposals/freelance-sources | #  Получить исходники.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesGuidDelete**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidDelete) | **DELETE** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesGuidPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidPatch) | **PATCH** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesPost**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesPost) | **POST** /api/v1/request-proposals/freelance-sources | #  Создать исходник.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelBeforeDealPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelBeforeDealPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel_before_deal | # Отмена предложения до заключения сделки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
@@ -362,6 +366,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # (возможно данные метод не нужен) Удалить заявку по его GUID.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidPickupPost**](docs/RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidToPublishPatch**](docs/RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
+*TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidDelete**](docs/RequestsApi.md#apiV1RequestsMediaGuidDelete) | **DELETE** /api/v1/requests/media/{guid} | #  Удалить исходник.
+*TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidGet**](docs/RequestsApi.md#apiV1RequestsMediaGuidGet) | **GET** /api/v1/requests/media/{guid} | #  Получить медиа.
+*TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidPatch**](docs/RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
+*TestSwagger.RequestsApi* | [**apiV1RequestsMediaPost**](docs/RequestsApi.md#apiV1RequestsMediaPost) | **POST** /api/v1/requests/media | #  Создать медиа.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinStrategyGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinStrategyGet) | **GET** /api/v1/researchers/check_products/{asin}/{strategy} | Проверить продукт по ID существует ли он в базе.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGuidDelete**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidDelete) | **DELETE** /api/v1/researchers/products/{guid} | Удалить продукт.
@@ -531,6 +539,10 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject113](docs/InlineObject113.md)
  - [TestSwagger.InlineObject114](docs/InlineObject114.md)
  - [TestSwagger.InlineObject115](docs/InlineObject115.md)
+ - [TestSwagger.InlineObject116](docs/InlineObject116.md)
+ - [TestSwagger.InlineObject117](docs/InlineObject117.md)
+ - [TestSwagger.InlineObject118](docs/InlineObject118.md)
+ - [TestSwagger.InlineObject119](docs/InlineObject119.md)
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
@@ -716,7 +728,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)
  - [TestSwagger.InlineResponse20065](docs/InlineResponse20065.md)
  - [TestSwagger.InlineResponse20066](docs/InlineResponse20066.md)
- - [TestSwagger.InlineResponse20066Details](docs/InlineResponse20066Details.md)
+ - [TestSwagger.InlineResponse20067](docs/InlineResponse20067.md)
+ - [TestSwagger.InlineResponse20068](docs/InlineResponse20068.md)
+ - [TestSwagger.InlineResponse20068Details](docs/InlineResponse20068Details.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
@@ -724,6 +738,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)
  - [TestSwagger.InlineResponse20110](docs/InlineResponse20110.md)
  - [TestSwagger.InlineResponse20111](docs/InlineResponse20111.md)
+ - [TestSwagger.InlineResponse20112](docs/InlineResponse20112.md)
+ - [TestSwagger.InlineResponse20113](docs/InlineResponse20113.md)
  - [TestSwagger.InlineResponse2012](docs/InlineResponse2012.md)
  - [TestSwagger.InlineResponse2013](docs/InlineResponse2013.md)
  - [TestSwagger.InlineResponse2014](docs/InlineResponse2014.md)

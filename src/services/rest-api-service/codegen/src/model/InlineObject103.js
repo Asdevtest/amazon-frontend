@@ -22,10 +22,11 @@ class InlineObject103 {
     /**
      * Constructs a new <code>InlineObject103</code>.
      * @alias module:model/InlineObject103
+     * @param storekeeperComment {String} 
      */
-    constructor() { 
+    constructor(storekeeperComment) { 
         
-        InlineObject103.initialize(this);
+        InlineObject103.initialize(this, storekeeperComment);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject103 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperComment) { 
+        obj['storekeeperComment'] = storekeeperComment;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject103 {
         if (data) {
             obj = obj || new InlineObject103();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -64,22 +60,9 @@ class InlineObject103 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * @member {String} storekeeperComment
  */
-InlineObject103.prototype['name'] = undefined;
-
-/**
- * Описание услуги
- * @member {String} description
- */
-InlineObject103.prototype['description'] = undefined;
-
-/**
- * Цена услуги.
- * @member {Number} price
- */
-InlineObject103.prototype['price'] = undefined;
+InlineObject103.prototype['storekeeperComment'] = undefined;
 
 
 

@@ -106,6 +106,10 @@ docs/InlineObject112.md
 docs/InlineObject113.md
 docs/InlineObject114.md
 docs/InlineObject115.md
+docs/InlineObject116.md
+docs/InlineObject117.md
+docs/InlineObject118.md
+docs/InlineObject119.md
 docs/InlineObject12.md
 docs/InlineObject13.md
 docs/InlineObject14.md
@@ -291,7 +295,9 @@ docs/InlineResponse20063.md
 docs/InlineResponse20064.md
 docs/InlineResponse20065.md
 docs/InlineResponse20066.md
-docs/InlineResponse20066Details.md
+docs/InlineResponse20067.md
+docs/InlineResponse20068.md
+docs/InlineResponse20068Details.md
 docs/InlineResponse2007.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
@@ -299,6 +305,8 @@ docs/InlineResponse201.md
 docs/InlineResponse2011.md
 docs/InlineResponse20110.md
 docs/InlineResponse20111.md
+docs/InlineResponse20112.md
+docs/InlineResponse20113.md
 docs/InlineResponse2012.md
 docs/InlineResponse2013.md
 docs/InlineResponse2014.md
@@ -482,6 +490,10 @@ src/model/InlineObject112.js
 src/model/InlineObject113.js
 src/model/InlineObject114.js
 src/model/InlineObject115.js
+src/model/InlineObject116.js
+src/model/InlineObject117.js
+src/model/InlineObject118.js
+src/model/InlineObject119.js
 src/model/InlineObject12.js
 src/model/InlineObject13.js
 src/model/InlineObject14.js
@@ -667,7 +679,9 @@ src/model/InlineResponse20063.js
 src/model/InlineResponse20064.js
 src/model/InlineResponse20065.js
 src/model/InlineResponse20066.js
-src/model/InlineResponse20066Details.js
+src/model/InlineResponse20067.js
+src/model/InlineResponse20068.js
+src/model/InlineResponse20068Details.js
 src/model/InlineResponse2007.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
@@ -675,6 +689,8 @@ src/model/InlineResponse201.js
 src/model/InlineResponse2011.js
 src/model/InlineResponse20110.js
 src/model/InlineResponse20111.js
+src/model/InlineResponse20112.js
+src/model/InlineResponse20113.js
 src/model/InlineResponse2012.js
 src/model/InlineResponse2013.js
 src/model/InlineResponse2014.js
@@ -722,3 +738,12 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/InlineObject116.spec.js
+test/model/InlineObject117.spec.js
+test/model/InlineObject118.spec.js
+test/model/InlineObject119.spec.js
+test/model/InlineResponse20067.spec.js
+test/model/InlineResponse20068.spec.js
+test/model/InlineResponse20068Details.spec.js
+test/model/InlineResponse20112.spec.js
+test/model/InlineResponse20113.spec.js

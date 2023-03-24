@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject104 model module.
@@ -22,10 +23,12 @@ class InlineObject104 {
     /**
      * Constructs a new <code>InlineObject104</code>.
      * @alias module:model/InlineObject104
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject104.initialize(this);
+        InlineObject104.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject104 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -50,23 +55,29 @@ class InlineObject104 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -76,46 +87,57 @@ class InlineObject104 {
 }
 
 /**
- * Название склада.
+ * Название тарифа
  * @member {String} name
  */
 InlineObject104.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject104.prototype['country'] = undefined;
+InlineObject104.prototype['description'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject104.prototype['zipCode'] = undefined;
+InlineObject104.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject104.prototype['state'] = undefined;
+InlineObject104.prototype['cls'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject104.prototype['city'] = undefined;
+InlineObject104.prototype['etd'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject104.prototype['address'] = undefined;
+InlineObject104.prototype['eta'] = undefined;
 
 /**
- * Цвет шрифта
- * @member {String} fontColor
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
  */
-InlineObject104.prototype['fontColor'] = undefined;
+InlineObject104.prototype['minWeightInKg'] = undefined;
+
+/**
+ * Заархивирован ли тариф
+ * @member {Boolean} archive
+ */
+InlineObject104.prototype['archive'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ */
+InlineObject104.prototype['conditionsByRegion'] = undefined;
 
 
 

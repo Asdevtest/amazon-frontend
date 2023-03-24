@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20064 model module.
@@ -24,7 +21,6 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20064 {
     /**
      * Constructs a new <code>InlineResponse20064</code>.
-     * Схема универсального предложения
      * @alias module:model/InlineResponse20064
      */
     constructor() { 
@@ -51,14 +47,17 @@ class InlineResponse20064 {
         if (data) {
             obj = obj || new InlineResponse20064();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
             }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
+                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            }
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
         }
         return obj;
@@ -68,19 +67,28 @@ class InlineResponse20064 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse20064.prototype['proposal'] = undefined;
+InlineResponse20064.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
  */
-InlineResponse20064.prototype['details'] = undefined;
+InlineResponse20064.prototype['volumeWeightCoefficient'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+ * @member {Number} requestMinAmountPriceOfProposal
  */
-InlineResponse20064.prototype['request'] = undefined;
+InlineResponse20064.prototype['requestMinAmountPriceOfProposal'] = undefined;
+
+/**
+ * Комиссия за оплату предложения
+ * @member {Number} requestPlatformMarginInPercent
+ */
+InlineResponse20064.prototype['requestPlatformMarginInPercent'] = undefined;
 
 
 
