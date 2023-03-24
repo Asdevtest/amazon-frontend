@@ -80,8 +80,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
               containerClasses={classNames.fieldContainer}
               label={'Amazon order ID'}
               inputComponent={
-                <div className={classNames.infoItemWrapper}>
-                  <Typography className={classNames.infoItemText}>
+                <div className={cx(classNames.infoItemWrapper, classNames.amazonOrder)}>
+                  <Typography className={cx(classNames.infoItemText, classNames.amazonOrderText)}>
                     {message.data.proposal.details.amazonOrderId || t(TranslationKey.Missing)}
                   </Typography>
 

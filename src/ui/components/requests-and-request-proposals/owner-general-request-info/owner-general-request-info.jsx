@@ -14,6 +14,7 @@ import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {AsinLink} from '@components/asin-link'
 import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
@@ -37,6 +38,8 @@ export const OwnerGeneralRequestInfo = ({
   const {classes: classNames} = useClassNames()
   const now = new Date()
 
+  console.log('request', request)
+
   const isDraft = request?.request?.status === RequestStatus.DRAFT
 
   const newProductPrice =
@@ -55,14 +58,25 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.titleAndAsinWrapper}>
               <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-              {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` ? (
-                <div className={classNames.asinTitleWrapper}>
-                  <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
-                  <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
-                    {request?.request.asin || t(TranslationKey.Missing)}
-                  </Typography>
-                </div>
-              ) : null}
+              <div className={classNames.asinTitleWrapper}>
+                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
+                {/* <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
+                  {request?.request.asin || t(TranslationKey.Missing)}
+                </Typography> */}
+
+                <AsinLink
+                  asin={'request?.request.asin'}
+                  linkSpanClass={classNames.linkSpan}
+                  missingSpanClass={classNames.linkSpan}
+                />
+              </div>
+
+              <div className={classNames.asinTitleWrapper}>
+                <Typography className={classNames.asinText}>{t(TranslationKey.ID) + ':'}</Typography>
+                <Typography className={cx(classNames.asinText, classNames.asinTextDark)}>
+                  {request?.request.humanFriendlyId || t(TranslationKey.Missing)}
+                </Typography>
+              </div>
             </div>
 
             <Typography className={classNames.subTitle}>

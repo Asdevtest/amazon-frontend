@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
 import {observer} from 'mobx-react'
@@ -12,7 +13,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './asin-link.style'
 
-export const AsinLink = observer(({asin, withCopyValue}) => {
+export const AsinLink = observer(({asin, withCopyValue, linkSpanClass, missingSpanClass}) => {
   const {classes: classNames} = useClassNames()
 
   return (
@@ -24,10 +25,10 @@ export const AsinLink = observer(({asin, withCopyValue}) => {
           href={`https://www.amazon.com/dp/${asin}`}
           className={classNames.normalizeLink}
         >
-          <Typography className={classNames.linkSpan}>{shortAsin(asin)}</Typography>
+          <Typography className={cx(classNames.linkSpan, linkSpanClass)}>{shortAsin(asin)}</Typography>
         </a>
       ) : (
-        <Typography className={classNames.missingSpan}>{t(TranslationKey.Missing)}</Typography>
+        <Typography className={cx(classNames.missingSpan, missingSpanClass)}>{t(TranslationKey.Missing)}</Typography>
       )}
       {asin && withCopyValue && <CopyValue text={asin} />}
     </div>

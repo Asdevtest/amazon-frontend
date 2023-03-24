@@ -364,4 +364,22 @@ export const useClassNames = makeStyles()(theme => ({
   linkInfoItemList: {
     width: 525,
   },
+
+  amazonOrder: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  amazonOrderText: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
 }))
