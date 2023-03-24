@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -44,6 +45,7 @@ class ClientIdeasNotificationsViewRaw extends Component {
       drawerOpen,
       rowsPerPage,
       curPage,
+      isArchived,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -52,6 +54,7 @@ class ClientIdeasNotificationsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      handleArchive,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -66,6 +69,9 @@ class ClientIdeasNotificationsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Notifications on ideas'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
+                {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+              </Button>
               <div className={classNames.tableWrapper}>
                 <MemoDataGrid
                   pagination

@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsGetProductsByStatusStatusCreatedby
+# Amazonapi.ApiV1AdminsGetProductsByStatusStatusCreatedBy
 
 ## Properties
 
