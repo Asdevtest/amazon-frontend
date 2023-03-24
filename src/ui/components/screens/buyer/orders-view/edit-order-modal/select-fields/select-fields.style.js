@@ -274,4 +274,11 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: 20,
   },
+
+  inputError: {
+    '.Mui-disabled': {
+      '-webkit-text-fill-color': '#FF1616 !important',
+      opacity: '0.35',
+    },
+  },
 }))
