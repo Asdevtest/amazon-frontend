@@ -289,6 +289,14 @@ export const AddOrEditGroupPermissionForm = observer(
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
                           renderMenuItem(per),
                         )}
+
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] && (
+                        <ListSubheader className={classNames.listSubheader}>{UserRole.FREELANCER}</ListSubheader>
+                      )}
+                      {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] &&
+                        objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]].map(per =>
+                          renderMenuItem(per),
+                        )}
                       <div className={classNames.selectModalBtnsWrapper}>
                         <Button
                           className={classNames.button}

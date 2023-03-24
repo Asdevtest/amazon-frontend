@@ -13,6 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '35px 20px',
 
     marginBottom: 40,
+    marginLeft: 5,
   },
   cardCarouselWrapper: {
     height: 180,

@@ -15,7 +15,11 @@ import {
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
-import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
+import {
+  mapTaskPriorityStatusEnum,
+  TaskPriorityStatus,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -129,7 +133,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
                         onClick={() => onClickTaskPriorityBtn(type)}
                       >
                         {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
-                        {/* <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" /> */}
+
+                        {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
+                          <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+                        )}
                       </Button>
                     ))}
                 </div>

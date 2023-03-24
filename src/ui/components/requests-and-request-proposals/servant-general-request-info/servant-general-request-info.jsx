@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Typography, Paper, Avatar, Rating, Divider} from '@mui/material'
 
 import React from 'react'
@@ -51,9 +52,18 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
   const getMainInfos = () => (
     <div className={classNames.mainInfosWrapper}>
-      {requestProposals.length === 0 ? null : (
-        <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
-      )}
+      <div className={classNames.headerWrapper}>
+        {requestProposals.length === 0 ? null : (
+          <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
+        )}
+
+        <div className={classNames.idTitleWrapper}>
+          <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
+          <Typography className={cx(classNames.idText, classNames.idTextDark)}>
+            {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+          </Typography>
+        </div>
+      </div>
       <div className={classNames.mainInfosSubWrapper}>
         {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
           <div>

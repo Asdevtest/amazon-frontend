@@ -290,4 +290,25 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     color: theme.palette.text.second,
   },
+
+  massageHeaderWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  idWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  idTitle: {
+    color: theme.palette.text.general,
+  },
+  idText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
 }))

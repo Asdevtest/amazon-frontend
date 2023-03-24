@@ -1664,40 +1664,58 @@ export const styles = theme => ({
   },
   attributeMissing: {
     color: theme.palette.text.second,
-  },
+    nativeSelect: {
+      // width: '210px',
+      '& > div': {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+    },
 
-  requestPriceCellWrapper: {
-    width: '100%',
-    height: '100%',
+    requestPriceCellWrapper: {
+      width: '100%',
+      height: '100%',
 
-    display: 'flex',
-    gap: 5,
-    flexWrap: 'wrap',
+      display: 'flex',
+      gap: 5,
+      flexWrap: 'wrap',
 
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  twoStepFieldResult: {
-    color: theme.palette.text.main,
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '19px',
-  },
-  newPrice: {
-    color: '#FB1D5B',
-    fontWeight: 600,
-  },
-  oldPrice: {
-    textDecoration: 'line-through',
-  },
-  ratingScore: {
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    twoStepFieldResult: {
+      color: theme.palette.text.main,
+      fontWeight: 400,
+      fontSize: '14px',
+      lineHeight: '19px',
+    },
+    newPrice: {
+      color: '#FB1D5B',
+      fontWeight: 600,
+    },
+    oldPrice: {
+      textDecoration: 'line-through',
+    },
+    ratingScore: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '19px',
+    },
 
-  ChangeInputCommentCellWrapper: {
-    display: 'flex',
-    width: '100%',
+    ChangeInputCommentCellWrapper: {
+      display: 'flex',
+      width: '100%',
+    },
+
+    menuItem: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+
+    rushOrderImg: {
+      width: '12px',
+      height: '13px',
+    },
   },
 })

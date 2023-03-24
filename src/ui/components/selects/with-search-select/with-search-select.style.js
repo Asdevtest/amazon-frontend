@@ -40,7 +40,7 @@ export const styles = theme => ({
   },
 
   grayBorder: {
-    border: `1px solid #E0E0E0`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
   selectorIsOpen: {

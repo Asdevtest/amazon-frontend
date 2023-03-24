@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: theme.palette.text.main,
+    // color: theme.palette.text.main,
   },
   missingSpan: {
     fontWeight: 400,

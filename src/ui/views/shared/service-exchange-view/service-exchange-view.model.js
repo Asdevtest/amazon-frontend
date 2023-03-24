@@ -96,7 +96,6 @@ export class ServiceExchangeViewModel {
       })
       runInAction(() => {
         this.announcements = result
-        console.log('this.announcements', this.announcements)
       })
     } catch (error) {
       runInAction(() => {

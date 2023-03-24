@@ -82,6 +82,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    whiteSpace: 'nowrap',
 
     // height: '60px',
   },
@@ -202,8 +203,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-  asinTextBlue: {
-    color: theme.palette.primary.main,
+  asinTextDark: {
+    color: theme.palette.text.general,
+    fontWeight: 600,
   },
 
   blockInfoCellTitle: {
@@ -242,5 +244,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   newPrice: {
     color: '#FB1D5B',
+  },
+
+  linkSpan: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
   },
 }))

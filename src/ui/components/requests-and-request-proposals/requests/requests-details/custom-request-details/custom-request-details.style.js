@@ -11,28 +11,27 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
 
-    padding: '0 40px 40px 40px',
+    padding: '0 110px 66px 30px',
     width: '100%',
+
+    gap: 60,
   },
 
   conditionsFieldWrapper: {
     width: '100%',
-    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   conditionsField: {
     width: '100%',
     minHeight: '20vh',
-    fontFamily: 'inherit',
-    padding: '8px',
-    paddingLeft: 0,
     fontSize: '16px',
-    outline: 'none',
-    backgroundColor: 'inherit',
-    border: 'none',
     fontWeight: '400',
     lineHeight: '1.5',
-    resize: 'none',
+
+    whiteSpace: 'pre-wrap',
 
     color: theme.palette.text.general,
   },
@@ -46,7 +45,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.general,
+
+    padding: '0 14px',
   },
 
   imgBox: {
@@ -66,7 +67,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filesWrapper: {
-    height: 'min-content',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   filesContainer: {

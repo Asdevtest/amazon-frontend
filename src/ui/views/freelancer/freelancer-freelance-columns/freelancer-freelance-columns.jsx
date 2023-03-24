@@ -55,6 +55,24 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     width: 116,
     type: 'date',
   },
+
+  {
+    field: 'title',
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    width: 220,
+  },
+
+  {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey['Request ID']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
+    width: 93,
+  },
+
   {
     field: 'price',
     headerName: t(TranslationKey.Cost),

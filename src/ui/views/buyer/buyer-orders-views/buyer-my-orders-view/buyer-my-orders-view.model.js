@@ -773,7 +773,7 @@ export class BuyerMyOrdersViewModel {
         const elementOrderBox = {
           ...boxesForCreation[i],
           trackNumberText: trackNumber?.text || '',
-          trackNumberFile: this.readyImages.length ? this.readyImages[0] : '',
+          trackNumberFile: this.readyImages.length ? this.readyImages : [],
         }
 
         await this.onCreateBox(elementOrderBox, order)

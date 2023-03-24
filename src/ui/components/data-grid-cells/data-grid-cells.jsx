@@ -1,40 +1,33 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
-import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import {
   Avatar,
-  Badge,
+  Checkbox,
   Chip,
   Grid,
-  Link,
-  TextareaAutosize,
-  Tooltip,
-  Typography,
-  Rating,
   InputAdornment,
-  Checkbox,
-  IconButton,
+  Link,
   Menu,
   MenuItem,
+  Rating,
   Select,
+  Tooltip,
+  Typography,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import {fromUnixTime} from 'date-fns'
-import {TextArea} from 'react-mde'
-import {useHistory} from 'react-router-dom'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {ClockIcon} from '@constants/svg-icons'
@@ -48,7 +41,7 @@ import {
 } from '@constants/task-priority-status'
 import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRolePrettyMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -83,14 +76,14 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {
-  toFixedWithDollarSign,
-  trimBarcode,
-  toFixedWithKg,
   checkAndMakeAbsoluteUrl,
-  toFixed,
-  shortSku,
-  shortAsin,
   getShortenStringIfLongerThanCount,
+  shortAsin,
+  shortSku,
+  toFixed,
+  toFixedWithDollarSign,
+  toFixedWithKg,
+  trimBarcode,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -1051,8 +1044,13 @@ export const TaskPriorityCell =
               key={statusIndex}
               value={statusCode}
               style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode])}}
+              className={classNames.menuItem}
             >
               {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
+
+              {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[statusCode] && (
+                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+              )}
             </MenuItem>
           ))}
       </Select>

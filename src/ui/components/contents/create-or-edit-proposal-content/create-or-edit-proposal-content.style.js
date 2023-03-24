@@ -402,4 +402,21 @@ export const useClassNames = makeStyles()(theme => ({
   titleStyle: {
     marginBottom: 10,
   },
+  infoBlockWrapper: {
+    display: 'flex',
+
+    justifyContent: 'space-between',
+  },
+  infoCellWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  lastInfoCellWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  requestInfoText: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))

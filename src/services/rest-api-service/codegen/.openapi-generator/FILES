@@ -738,12 +738,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineObject116.spec.js
-test/model/InlineObject117.spec.js
-test/model/InlineObject118.spec.js
-test/model/InlineObject119.spec.js
-test/model/InlineResponse20067.spec.js
-test/model/InlineResponse20068.spec.js
-test/model/InlineResponse20068Details.spec.js
-test/model/InlineResponse20112.spec.js
-test/model/InlineResponse20113.spec.js

@@ -5,6 +5,7 @@ import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating
 
 import React, {useState} from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -70,8 +71,6 @@ export const CreateOrEditProposalContent = ({
 
     setFormFields(newFormFields)
   }
-
-  console.log('formFields', formFields)
 
   const onClickCreateSubmit = () => {
     onCreateSubmit(formFields, images)
@@ -154,8 +153,24 @@ export const CreateOrEditProposalContent = ({
             {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
           </Typography>
 
-          <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title']) + '*'}</Typography>
-          <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
+          <div className={classNames.infoBlockWrapper}>
+            <div className={classNames.infoCellWrapper}>
+              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
+              <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
+            </div>
+
+            <div className={classNames.infoCellWrapper}>
+              <Typography className={cx(classNames.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
+              <Typography className={classNames.requestTitle}>{request.request.humanFriendlyId}</Typography>
+            </div>
+
+            <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
+              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
+              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
+              </Typography>
+            </div>
+          </div>
 
           {request?.details.conditions && (
             <>

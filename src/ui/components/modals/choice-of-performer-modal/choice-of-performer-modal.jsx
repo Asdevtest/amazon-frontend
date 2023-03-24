@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Container, Link, Typography, Box, Alert} from '@mui/material'
+import {Typography, Box} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -8,10 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CopyValue} from '@components/copy-value/copy-value'
 import {SearchInput} from '@components/search-input'
-import {UploadFilesInput} from '@components/upload-files-input'
 
 import {t} from '@utils/translations'
 
@@ -28,6 +24,10 @@ export const ChoiceOfPerformerModal = ({
   const [dataToRender, setDataToRender] = useState(announcements)
 
   const [nameSearchValue, setNameSearchValue] = useState('')
+
+  useEffect(() => {
+    setDataToRender(announcements)
+  }, [announcements])
 
   useEffect(() => {
     if (nameSearchValue) {
@@ -69,7 +69,7 @@ export const ChoiceOfPerformerModal = ({
           classes={{root: classNames.dashboardCardWrapper}}
           display="grid"
           gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
-          gridGap="20px"
+          gridGap="10px"
         >
           {dataToRender.map((service, serviceKey) => (
             <ServiceExchangeCard

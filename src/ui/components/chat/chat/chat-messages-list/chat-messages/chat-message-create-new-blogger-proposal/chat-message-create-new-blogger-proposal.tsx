@@ -50,7 +50,16 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
         <Typography className={classNames.timeText}>{formatDateOnlyTime(message.createdAt)}</Typography>
 
         <div className={classNames.mainSubWrapper}>
-          <Typography className={classNames.headerText}>{t(TranslationKey.Request)}</Typography>
+          <div className={classNames.massageHeaderWrapper}>
+            <Typography className={classNames.headerText}>{t(TranslationKey.Request)}</Typography>
+
+            {!!message.humanFriendlyId && (
+              <div className={classNames.idWrapper}>
+                <Typography className={cx(classNames.idText, classNames.idTitle)}>{t(TranslationKey.ID)}</Typography>
+                <Typography className={classNames.idText}>{message.humanFriendlyId}</Typography>
+              </div>
+            )}
+          </div>
 
           <Linkify>
             <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography>

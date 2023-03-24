@@ -71,4 +71,5 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
 
   @IsOptional()
   public user?: ChatUserContract
+  public humanFriendlyId?: string
 }
