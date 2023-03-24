@@ -203,6 +203,7 @@ export class RequestDetailCustomViewRaw extends Component {
         />
 
         <Modal
+          missClickModalOn
           openModal={showRequestDesignerResultModal}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
         >
