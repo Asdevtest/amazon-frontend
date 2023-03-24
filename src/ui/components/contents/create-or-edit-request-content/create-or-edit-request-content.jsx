@@ -114,6 +114,7 @@ export const CreateOrEditRequestContent = ({
         '',
 
       productId: requestToEdit?.request?.productId || null,
+      withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
 
       discountedPrice: requestToEdit
         ? toFixed(
