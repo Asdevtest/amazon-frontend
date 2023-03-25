@@ -827,7 +827,7 @@ export const CreateOrEditRequestContent = ({
                       </div>
 
                       <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                      <PhotoAndFilesCarousel small files={images} />
+                      <PhotoAndFilesCarousel small direction={'column'} files={images} width={399} />
                     </div>
 
                     <div className={classNames.rightTwoStepMainWrapper}>
