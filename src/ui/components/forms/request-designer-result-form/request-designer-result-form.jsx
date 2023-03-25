@@ -2,21 +2,25 @@
 
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography, Avatar} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {PhotoCameraWithPlus} from '@constants/svg-icons'
+import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value'
+import {CustomCarousel} from '@components/custom-carousel'
 // import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {Modal} from '@components/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {minsToTime} from '@utils/text'
@@ -29,6 +33,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [showDetails, setShowDetails] = useState(false)
 
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [curImageId, setCurImageId] = useState(null)
+
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -36,15 +44,65 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   console.log('request', request)
 
   const sourceImagesData = [
-    {image: '', imageName: '', isMain: false},
-    {image: '', imageName: '', isMain: false},
-    {image: '', imageName: '', isMain: false},
+    {image: null, imageName: '', isMain: false, _id: `${new Date()}1`},
+    {image: null, imageName: '', isMain: false, _id: `${new Date()}2`},
+    {image: null, imageName: '', isMain: false, _id: `${new Date()}3`},
   ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
+  const onChangeImageFileds = (field, imageId) => event => {
+    const findImage = {...imagesData.find(el => el._id === imageId)}
+
+    findImage[field] = event.target.value
+
+    setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
+  }
+
+  console.log('imagesData', imagesData)
+
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: '', imageName: '', isMain: false}])
+    setImagesData(() => [...imagesData, {image: null, imageName: '', isMain: false, _id: `${new Date()}`}])
+  }
+
+  const onPasteFiles = index => async evt => {
+    if (evt.clipboardData.files.length === 0) {
+      return
+    } else {
+      const filesArr = Array.from(evt.clipboardData.files)
+
+      evt.preventDefault()
+
+      const readyFilesArr = filesArr.map(el => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el.name?.replace(/ /g, ''), {
+          type: el.type,
+          lastModified: el.lastModified,
+        }),
+      }))
+
+      setImagesData(() => imagesData.map((el, i) => (i === index ? {...el, image: readyFilesArr[0]} : el)))
+    }
+  }
+
+  const onUploadFile = index => async evt => {
+    if (evt.target.files.length === 0) {
+      return
+    } else {
+      const filesArr = Array.from(evt.target.files)
+
+      evt.preventDefault()
+
+      const readyFilesArr = filesArr.map(el => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el.name?.replace(/ /g, ''), {
+          type: el.type,
+          lastModified: el.lastModified,
+        }),
+      }))
+
+      setImagesData(() => imagesData.map((el, i) => (i === index ? {...el, image: readyFilesArr[0]} : el)))
+    }
   }
 
   // const [images, setImages] = useState([])
@@ -140,7 +198,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             label={t(TranslationKey['Time till deadline'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <Typography className={cx(classNames.timeSpan /* , classNames.textMargin */)}>
+              <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
                 {minsToTime(1440)}
               </Typography>
             }
@@ -150,9 +208,40 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       <div className={classNames.bodyWrapper}>
         {imagesData.map((item, index) => (
-          <div key={index} className={classNames.imageObjWrapper}>
+          <div key={item._id} className={classNames.imageObjWrapper}>
             <div className={classNames.imageWrapper}>
-              <PhotoCameraWithPlus />
+              {item.image ? (
+                <div className={classNames.imageListItem}>
+                  <Avatar
+                    className={classNames.image}
+                    src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
+                    alt={item.image?.file.name}
+                    variant="square"
+                    onClick={() => {
+                      setCurImageId(item._id)
+                      setShowImageModal(!showImageModal)
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className={classNames.imageSubWrapper}>
+                  <div className={classNames.cameraIconWrapper}>
+                    <PhotoCameraWithPlus className={classNames.cameraIcon} />
+                  </div>
+
+                  <Typography className={cx(classNames.imageUploadText /* , classNames.textMargin */)}>
+                    {'Upload'}
+                  </Typography>
+
+                  <input
+                    type={'file'}
+                    className={classNames.pasteInput}
+                    defaultValue={''}
+                    onPaste={onPasteFiles(index)}
+                    onChange={onUploadFile(index)}
+                  />
+                </div>
+              )}
             </div>
 
             <div className={classNames.imageObjSubWrapper}>
@@ -160,13 +249,20 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                 {index + 1}
               </Typography>
 
-              <Input multiline maxRows={3} variant="filled" className={classNames.imageObjInput} />
+              <Input
+                multiline
+                maxRows={3}
+                variant="filled"
+                className={classNames.imageObjInput}
+                value={item.imageName}
+                onChange={onChangeImageFileds('imageName', item._id)}
+              />
             </div>
           </div>
         ))}
 
         <div className={classNames.bigPlusWrapper}>
-          <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddImageObj} />
+          <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
         </div>
       </div>
 
@@ -187,117 +283,63 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         </Button>
       </div>
 
-      {/* {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-        <Field
-          inputProps={{maxLength: 100}}
-          labelClasses={classNames.label}
-          label={'Amazon order ID*'}
-          className={classNames.input}
-          containerClasses={classNames.numberInputField}
-          value={formFields.amazonOrderId}
-          onChange={onChangeField('amazonOrderId')}
-        />
-      )}
+      <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
+        <div className={classNames.imageModalWrapper}>
+          <div className={classNames.imageCarouselWrapperLeftSide}>
+            {imagesData
+              .filter(el => !!el.image)
+              .map(item => (
+                <div key={item._id} className={classNames.imageModalImageWrapperLeftSide}>
+                  <Avatar
+                    className={classNames.imageModalImageLeftSide}
+                    src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
+                    alt={item.image?.file.name}
+                    variant="square"
+                  />
 
-      {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-        <Field
-          labelClasses={classNames.label}
-          label={t(TranslationKey['Link to publication']) + '*'}
-          // containerClasses={classNames.input}
-          inputComponent={
-            <div className={classNames.linksWrapper}>
-              <div className={classNames.inputWrapper}>
-                <Input
-                  inputProps={{maxLength: 1500}}
-                  value={linkLine}
-                  className={classNames.pubInput}
-                  onChange={e => setLinkLine(e.target.value)}
-                />
-                <Button
-                  disableElevation
-                  disabled={!linkLine || disableFields}
-                  className={classNames.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickLinkBtn}
-                >
-                  {t(TranslationKey.Add)}
-                </Button>
-              </div>
-              {formFields?.publicationLinks?.length ? (
-                <div className={classNames.linksSubWrapper}>
-                  {formFields?.publicationLinks.map((el, index) => (
-                    <div key={index} className={classNames.linkWrapper}>
-                      <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                        <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
-                      </Link>
-
-                      <div className={classNames.linksBtnsWrapper}>
-                        <CopyValue text={el} />
-                        {!disableFields && (
-                          <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
-                            <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
-                          </IconButton>
-                        )}
-                      </div>
+                  {!!item.imageName && (
+                    <div>
+                      <Typography className={cx(classNames.simpleSpan)}>{item.imageName}</Typography>
                     </div>
-                  ))}
+                  )}
                 </div>
-              ) : null}
-            </div>
-          }
-        />
-      )}
+              ))}
+          </div>
 
-      <Field
-        multiline
-        // disabled={disableFields}
-        containerClasses={classNames.commentFieldWrapper}
-        labelClasses={classNames.label}
-        className={classNames.commentField}
-        inputProps={{maxLength: 255}}
-        minRows={4}
-        maxRows={4}
-        label={t(TranslationKey.Comments)}
-        value={formFields.result}
-        onChange={onChangeField('result')}
-      />
+          <div className={classNames.carouselWrapper}>
+            <CustomCarousel index={imagesData.filter(el => !!el.image).findIndex(el => el._id === curImageId)}>
+              {imagesData
+                .filter(el => !!el.image)
+                .map(item => (
+                  <div key={item._id} className={classNames.imageModalImageWrapper}>
+                    <Typography className={cx(classNames.simpleSpan)}>{item.imageName}</Typography>
 
-      <div className={classNames.dragAndDropWrapper}>
-        <UploadFilesInput
-          title={t(TranslationKey.Files)}
-          dragAndDropBtnHeight={55}
-          images={images}
-          setImages={setImages}
-          maxNumber={50}
-        />
-      </div> */}
+                    <Avatar
+                      className={classNames.imageModalImage}
+                      src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
+                      alt={item.image?.file.name}
+                      variant="square"
+                    />
+                  </div>
+                ))}
+            </CustomCarousel>
+          </div>
 
-      {/* <div className={classNames.buttonsWrapper}>
-        <Button
-          success
-          disabled={disabledBtn}
-          className={cx(classNames.button)}
-          // onClick={() => {
-          //   onClickSendAsResult({
-          //     message: formFields.result,
-          //     files: images,
-          //     amazonOrderId: formFields.amazonOrderId,
-          //     publicationLinks: formFields.publicationLinks,
-          //   })
-          // }}
-        >
-          {t(TranslationKey.Send)}
-        </Button>
+          <div>
+            <Button danger className={cx(classNames.button)}>
+              <DeleteOutlineOutlinedIcon />
+            </Button>
 
-        <Button
-          variant="text"
-          className={cx(classNames.button, classNames.cancelButton)}
-          // onClick={setOpenModal}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
-      </div> */}
+            <Button className={cx(classNames.button)}>
+              <AutorenewIcon />
+            </Button>
+
+            <Button className={cx(classNames.button)}>
+              <DownloadOutlinedIcon />
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

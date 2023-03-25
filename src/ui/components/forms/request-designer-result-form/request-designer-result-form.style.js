@@ -83,7 +83,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  timeSpan: {
+  simpleSpan: {
     fontWeight: 600,
     fontSize: 14,
   },
@@ -110,6 +110,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
+    marginTop: 30,
     // background: 'grey',
   },
 
@@ -127,6 +128,9 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     background: theme.palette.input.customDisabled,
     marginBottom: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   imageObjIndex: {
@@ -157,13 +161,124 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlus: {
+    color: theme.palette.primary.main,
+
     // marginTop: 40,
     margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
+    transform: 'scale(3.5)',
 
     '&:hover': {
-      transform: 'scale(1.1)',
+      transform: 'scale(3.8)',
     },
+  },
+
+  cameraIconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 85,
+    height: 85,
+  },
+
+  cameraIcon: {
+    color: theme.palette.primary.main,
+    transform: 'scale(3.5)',
+  },
+
+  imageSubWrapper: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&: hover': {
+      transform: 'scale(1.05)',
+    },
+  },
+
+  imageUploadText: {
+    fontSize: 18,
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+    objectPosition: 'center',
+
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&: hover': {
+      transform: 'scale(1.05)',
+    },
+  },
+
+  imageModalWrapper: {
+    width: '60vw',
+    // height: '80vh',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  carouselWrapper: {
+    width: 660,
+  },
+
+  imageModalImageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 'auto',
+    gap: 10,
+  },
+
+  imageCarouselWrapperLeftSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: 400,
+  },
+
+  imageModalImageWrapperLeftSide: {
+    display: 'flex',
+    // justifyContent: 'center',
+    width: '100%',
+    height: 'auto',
+    gap: 10,
+
+    marginBottom: 10,
+  },
+
+  imageModalImage: {
+    width: 560,
+    height: 560,
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  imageModalImageLeftSide: {
+    width: 73,
+    height: 73,
+    objectFit: 'contain',
+    objectPosition: 'center',
   },
 }))
