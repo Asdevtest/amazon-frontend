@@ -102,7 +102,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   btnWrapper: {
-    position: 'relative',
+    // position: 'relative',
     display: 'flex',
     alignItems: 'center',
   },

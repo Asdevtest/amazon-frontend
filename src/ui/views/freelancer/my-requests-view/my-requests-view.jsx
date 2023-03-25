@@ -131,6 +131,7 @@ class MyRequestsViewRaw extends Component {
               <div className={classNames.switchButtonWrapper}>
                 <Button
                   variant={'text'}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
                   className={cx(classNames.switchButton, {
                     [classNames.switchButtonBorder]: isRequestsAtWork,
                     [classNames.selectedSwitchButton]: isRequestsAtWork,
@@ -141,6 +142,7 @@ class MyRequestsViewRaw extends Component {
                 </Button>
                 <Button
                   variant={'text'}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
                   className={cx(classNames.switchButton, {
                     [classNames.switchButtonBorder]: !isRequestsAtWork,
                     [classNames.selectedSwitchButton]: !isRequestsAtWork,

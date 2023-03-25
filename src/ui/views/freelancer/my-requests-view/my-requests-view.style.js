@@ -114,13 +114,21 @@ export const styles = theme => ({
   },
 
   switchButtonWrapper: {
+    display: 'flex',
+
     marginBottom: 20,
   },
 
+  btnWrapperStyle: {
+    width: 'calc(100% / 2)',
+  },
+
   switchButton: {
-    position: 'relative',
-    width: '50%',
+    display: 'flex',
+    justifyContent: 'center',
     color: theme.palette.text.second,
+
+    width: '100%',
 
     fontWeight: 600,
     fontSize: 18,

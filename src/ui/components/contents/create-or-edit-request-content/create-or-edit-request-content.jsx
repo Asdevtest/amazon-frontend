@@ -802,6 +802,7 @@ export const CreateOrEditRequestContent = ({
                           <Field
                             label={t(TranslationKey.ASIN)}
                             labelClasses={classNames.spanLabel}
+                            containerClasses={cx(classNames.titleContainer)}
                             inputComponent={
                               <div className={classNames.asinWrapper}>
                                 <Typography className={classNames.orderText}>
