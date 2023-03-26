@@ -1,6 +1,9 @@
+/* eslint-disable import/no-unresolved */
+
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {TextareaAutosize, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -9,8 +12,8 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field/field'
+import {FilesCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomImageGalleryList} from '@components/custom-image-gallery-list'
 
 import {t} from '@utils/translations'
 
@@ -50,12 +53,23 @@ export const CustomSearchRequestDetails = ({request}) => {
             <div className={classNames.filesWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
 
-              <PhotoAndFilesCarousel
+              {/* <PhotoAndFilesCarousel
                 small
                 direction="column"
                 files={request?.details?.linksToMediaFiles}
                 width="379px"
-              />
+              /> */}
+              <div className={classNames.conditionsPhotosWraper}>
+                <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
+                <CustomImageGalleryList files={request?.details?.linksToMediaFiles} />
+              </div>
+
+              <div>
+                <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
+                  {t(TranslationKey.Files)}
+                </Typography>
+                <FilesCarousel files={request?.details?.linksToMediaFiles} />
+              </div>
             </div>
 
             {/* <Field

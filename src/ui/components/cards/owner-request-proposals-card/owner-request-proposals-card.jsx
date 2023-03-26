@@ -30,6 +30,8 @@ export const OwnerRequestProposalsCard = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('item', item)
+
   return (
     <div className={classNames.cardMainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -54,7 +56,7 @@ export const OwnerRequestProposalsCard = ({
 
                 <Typography className={classNames.successDeals}>
                   {t(TranslationKey['The number of total successful transactions:']) + ' '}
-                  {item?.proposal?.countProposalsComplited ?? t(TranslationKey.Missing)}
+                  {item?.proposal?.createdBy?.proposalsCompleted ?? t(TranslationKey.Missing)}
                 </Typography>
 
                 <div className={classNames.timeInfoWrapper}>

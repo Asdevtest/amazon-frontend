@@ -68,8 +68,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   filesWrapper: {
     display: 'flex',
+    height: '100%',
     flexDirection: 'column',
-    gap: 10,
   },
 
   filesContainer: {
@@ -104,6 +104,21 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
+
     color: theme.palette.text.general,
+  },
+  conditionsSubLabel: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    color: theme.palette.text.general,
+  },
+  filesLabel: {
+    marginBottom: 10,
+  },
+  conditionsPhotosWraper: {
+    marginTop: 15,
+    marginBottom: 54,
   },
 }))
