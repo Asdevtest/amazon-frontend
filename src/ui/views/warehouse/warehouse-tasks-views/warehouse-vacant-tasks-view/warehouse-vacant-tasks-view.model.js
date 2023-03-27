@@ -292,6 +292,7 @@ export class WarehouseVacantViewModel {
         priority,
       })
 
+      UserModel.getUserInfo()
       this.getTasksVacant()
     } catch (error) {
       console.log(error)
