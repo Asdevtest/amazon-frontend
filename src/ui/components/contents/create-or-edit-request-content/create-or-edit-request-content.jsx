@@ -30,6 +30,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
@@ -432,6 +433,9 @@ export const CreateOrEditRequestContent = ({
                     value={formFields.details.conditions}
                     onChange={onChangeField('details')('conditions')}
                   />
+
+                  {/* <CustomTextEditor /> */}
+
                   <span
                     className={cx(classNames.charactersHints, {
                       [classNames.error]: formFields.details.conditions.length > 1000,

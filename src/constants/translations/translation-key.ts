@@ -1892,7 +1892,7 @@ export enum TranslationKey {
   'The order has been updated' = 'The order has been updated',
   'Success parse' = 'Success parse',
   'New notifications' = 'New notifications',
-  // '' = '',
+  'Task description' = 'Task description',
   // '' = '',
   // '' = '',
   // '' = '',

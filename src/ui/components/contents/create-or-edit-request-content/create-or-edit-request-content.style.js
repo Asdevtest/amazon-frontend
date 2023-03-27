@@ -202,9 +202,9 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'end',
 
-    '& > span': {
-      marginTop: '-20px',
-    },
+    // '& > span': {
+    //   marginTop: '-20px',
+    // },
   },
 
   descriptionField: {

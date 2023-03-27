@@ -1893,5 +1893,6 @@
   "Request ID": "ID заявки",
   "The order has been updated": "Заказ был обновлен",
   "Success parse": "Успешный парсинг",
-  "New notifications": "Новые уведомления"
+  "New notifications": "Новые уведомления",
+  "Task description": "Описание задачи"
 }

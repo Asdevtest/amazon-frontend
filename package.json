@@ -74,6 +74,7 @@
     "mobx": "^6.3.3",
     "mobx-persist-store": "^1.0.4",
     "mobx-react": "^7.2.0",
+    "mui-rte": "^2.0.1",
     "mui-treasury": "^0.1.5-alpha.3",
     "notistack": "^2.0.8",
     "npm": "^8.10.0",
