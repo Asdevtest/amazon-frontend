@@ -149,79 +149,81 @@ export const ResearcherAddProductFormRaw = observer(
             </Box>
           </div>
 
-          <div className={classNames.rightBlockWrapper}>
-            <div className={classNames.fieldsWrapper}>
-              <Field
-                disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 255}}
-                label={t(TranslationKey.Niche)}
-                value={formFields.niche}
-                onChange={onChangeFormFields('niche')}
-              />
-              <Field
-                disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 255}}
-                label={'Asins'}
-                value={formFields.asins}
-                onChange={onChangeFormFields('asins')}
-              />
+          {!disabledNoProvatLabel && (
+            <div className={classNames.rightBlockWrapper}>
+              <div className={classNames.fieldsWrapper}>
+                <Field
+                  disabled={disabledNoProvatLabel}
+                  inputProps={{maxLength: 255}}
+                  label={t(TranslationKey.Niche)}
+                  value={formFields.niche}
+                  onChange={onChangeFormFields('niche')}
+                />
+                <Field
+                  disabled={disabledNoProvatLabel}
+                  inputProps={{maxLength: 255}}
+                  label={'Asins'}
+                  value={formFields.asins}
+                  onChange={onChangeFormFields('asins')}
+                />
 
-              <div className={classNames.fieldsSubWrapper}>
+                <div className={classNames.fieldsSubWrapper}>
+                  <Field
+                    disabled={disabledNoProvatLabel}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.shortInput}
+                    label={t(TranslationKey['Average revenue'])}
+                    value={formFields.avgRevenue}
+                    onChange={onChangeFormFields('avgRevenue')}
+                  />
+                  <Field
+                    disabled={disabledNoProvatLabel}
+                    containerClasses={classNames.shortInput}
+                    inputProps={{maxLength: 10}}
+                    label={t(TranslationKey['Average BSR'])}
+                    value={formFields.avgBSR}
+                    onChange={onChangeFormFields('avgBSR')}
+                  />
+                </div>
+              </div>
+
+              <div className={classNames.fieldsWrapper}>
                 <Field
                   disabled={disabledNoProvatLabel}
                   inputProps={{maxLength: 10}}
-                  containerClasses={classNames.shortInput}
-                  label={t(TranslationKey['Average revenue'])}
-                  value={formFields.avgRevenue}
-                  onChange={onChangeFormFields('avgRevenue')}
+                  label={t(TranslationKey['Total Revenue'])}
+                  value={formFields.totalRevenue}
+                  onChange={onChangeFormFields('totalRevenue')}
                 />
                 <Field
                   disabled={disabledNoProvatLabel}
-                  containerClasses={classNames.shortInput}
                   inputProps={{maxLength: 10}}
-                  label={t(TranslationKey['Average BSR'])}
-                  value={formFields.avgBSR}
-                  onChange={onChangeFormFields('avgBSR')}
+                  label={t(TranslationKey.Coefficient)}
+                  value={formFields.coefficient}
+                  onChange={onChangeFormFields('coefficient')}
                 />
+
+                <div className={classNames.fieldsSubWrapper}>
+                  <Field
+                    disabled={disabledNoProvatLabel}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.shortInput}
+                    label={t(TranslationKey['Average Price'])}
+                    value={formFields.avgPrice}
+                    onChange={onChangeFormFields('avgPrice')}
+                  />
+                  <Field
+                    disabled={disabledNoProvatLabel}
+                    containerClasses={classNames.shortInput}
+                    inputProps={{maxLength: 10}}
+                    label={t(TranslationKey['Average Review'])}
+                    value={formFields.avgReviews}
+                    onChange={onChangeFormFields('avgReviews')}
+                  />
+                </div>
               </div>
             </div>
-
-            <div className={classNames.fieldsWrapper}>
-              <Field
-                disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 10}}
-                label={t(TranslationKey['Total Revenue'])}
-                value={formFields.totalRevenue}
-                onChange={onChangeFormFields('totalRevenue')}
-              />
-              <Field
-                disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 10}}
-                label={t(TranslationKey.Coefficient)}
-                value={formFields.coefficient}
-                onChange={onChangeFormFields('coefficient')}
-              />
-
-              <div className={classNames.fieldsSubWrapper}>
-                <Field
-                  disabled={disabledNoProvatLabel}
-                  inputProps={{maxLength: 10}}
-                  containerClasses={classNames.shortInput}
-                  label={t(TranslationKey['Average Price'])}
-                  value={formFields.avgPrice}
-                  onChange={onChangeFormFields('avgPrice')}
-                />
-                <Field
-                  disabled={disabledNoProvatLabel}
-                  containerClasses={classNames.shortInput}
-                  inputProps={{maxLength: 10}}
-                  label={t(TranslationKey['Average Review'])}
-                  value={formFields.avgReviews}
-                  onChange={onChangeFormFields('avgReviews')}
-                />
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       )
     )

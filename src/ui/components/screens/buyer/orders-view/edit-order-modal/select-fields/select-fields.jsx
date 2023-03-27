@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Grid, Typography, Checkbox, Link, Button} from '@mui/material'
+import {Box, Button, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -14,9 +14,9 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcExchangeDollarsInYuansPrice, calcPriceForItem, calcOrderTotalPrice} from '@utils/calculation'
+import {calcExchangeDollarsInYuansPrice, calcOrderTotalPrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {formatDateWithoutTime} from '@utils/date-time'
+import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -498,7 +498,12 @@ export const SelectFields = ({
                 value={formatDateWithoutTime(orderFields.paymentDateToSupplier) || t(TranslationKey.Missing)}
                 label={t(TranslationKey['Payment date'])}
                 labelClasses={classNames.label}
-                inputClasses={classNames.input}
+                inputClasses={cx(classNames.input, {
+                  [classNames.inputError]:
+                    orderFields.paymentDateToSupplier &&
+                    Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) <=
+                      convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
+                })}
               />
             </div>
           ) : null}

@@ -1,18 +1,16 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import {Avatar, Typography, Link} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {chatsType} from '@constants/chats'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -29,6 +27,7 @@ import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {SearchResult} from '@components/search-result'
 
+import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
@@ -177,7 +176,11 @@ class MessagesViewRaw extends Component {
                     <img src={noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
                   </div>
 
-                  <Button className={classNames.newDialogBtn} onClick={onClickAddNewChatByEmail}>
+                  <Button
+                    disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
+                    className={classNames.newDialogBtn}
+                    onClick={onClickAddNewChatByEmail}
+                  >
                     {t(TranslationKey['New Dialogue'])}
                   </Button>
                 </div>

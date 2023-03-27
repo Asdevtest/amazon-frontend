@@ -135,7 +135,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Researcher found supplier']
 
     case ProductStatus.CHECKED_BY_SUPERVISOR:
-      return TranslationKey['Product checked by Supervisor']
+      return TranslationKey['Product is appropriate']
 
     case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
       return TranslationKey['Rejected by Supervisor']

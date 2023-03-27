@@ -8,19 +8,19 @@ import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  OrderCell,
-  MultilineTextCell,
-  NormDateCell,
-  UserLinkCell,
-  MultilineTextHeaderCell,
   DownloadAndCopyBtnsCell,
-  RenderFieldValueCell,
-  MultilineTextAlignLeftCell,
   IconHeaderCell,
+  MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  OrderCell,
   PriorityAndChinaDeliverCell,
+  RenderFieldValueCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -156,6 +156,12 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderCell: params => (
       <MultilineTextCell
         withLineBreaks
+        color={
+          Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) <=
+          convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm)
+            ? '#FF1616'
+            : null
+        }
         text={
           params.row.originalData.paymentDateToSupplier ? formatDate(params.row.originalData.paymentDateToSupplier) : ''
         }

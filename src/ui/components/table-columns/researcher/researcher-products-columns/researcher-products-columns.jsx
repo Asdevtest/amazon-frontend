@@ -59,17 +59,17 @@ export const researcherProductsViewColumns = () => [
     flex: 1,
   },
 
-  {
-    field: 'bsr',
-    headerName: t(TranslationKey.BSR),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+  // {
+  //   field: 'bsr',
+  //   headerName: t(TranslationKey.BSR),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
-    minWidth: 150,
+  //   renderCell: params => <MultilineTextCell text={params.value} />,
+  //   type: 'number',
+  //   minWidth: 150,
 
-    flex: 1,
-  },
+  //   flex: 1,
+  // },
 
   {
     field: 'createdAt',
