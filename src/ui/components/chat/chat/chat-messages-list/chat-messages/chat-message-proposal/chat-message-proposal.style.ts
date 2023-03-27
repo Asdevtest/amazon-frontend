@@ -50,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '305px',
     color: theme.palette.text.second,
     fontSize: 18,
-    whiteSpace: 'pre',
+    whiteSpace: 'pre-wrap',
   },
   footerWrapper: {
     display: 'flex',
