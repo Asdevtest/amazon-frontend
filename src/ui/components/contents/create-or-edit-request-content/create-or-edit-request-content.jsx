@@ -801,8 +801,8 @@ export const CreateOrEditRequestContent = ({
                         {formFields?.request?.asin && (
                           <Field
                             label={t(TranslationKey.ASIN)}
-                            labelClasses={classNames.spanLabel}
-                            containerClasses={cx(classNames.titleContainer)}
+                            labelClasses={cx(classNames.spanLabel, classNames.fitContentContainer)}
+                            containerClasses={cx(classNames.asinContainerStapTwo)}
                             inputComponent={
                               <div className={classNames.asinWrapper}>
                                 <Typography className={classNames.orderText}>
