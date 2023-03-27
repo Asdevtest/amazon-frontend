@@ -742,6 +742,7 @@ export const styles = theme => ({
 
   threeMultilineText: {
     justifyContent: 'center',
+    alignItems: 'center',
     height: 48,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
