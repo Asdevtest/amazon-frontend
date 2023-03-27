@@ -25,152 +25,180 @@ import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const CustomCarousel = observer(({children, title, view = 'simple', alignButtons = 'center', index}) => {
-  const {classes: classNames} = useClassNames()
-  const [clides, setClides] = useState([])
-  const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
+export const CustomCarousel = observer(
+  ({children, title, view = 'simple', alignButtons = 'center', index, onChengeIndex}) => {
+    const {classes: classNames} = useClassNames()
+    const [clides, setClides] = useState([])
+    const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
 
-  const [slideCount, setSlideCount] = useState(index ? index + 1 : 1)
+    const [slideCount, setSlideCount] = useState(index ? index + 1 : 1)
 
-  const handleLeftArrowClick = () => {
-    setOffset(currentOffset => {
-      const newOffset = currentOffset + RIGHT_BLOCK_WIDTH
+    const [carouselIsMounted, setCarouselIsMounted] = useState(false)
 
-      return Math.min(newOffset, 0)
-    })
+    useEffect(() => {
+      setCarouselIsMounted(true)
+    }, [])
 
-    if (slideCount > 1) {
-      setSlideCount(prev => prev - 1)
+    useEffect(() => {
+      setSlideCount(index + 1)
+    }, [index])
+
+    useEffect(() => {
+      setOffset(-RIGHT_BLOCK_WIDTH * index)
+    }, [index])
+
+    useEffect(() => {
+      if (!onChengeIndex || !carouselIsMounted) {
+        return
+      }
+      onChengeIndex(slideCount - 1)
+    }, [slideCount])
+
+    // console.log('slideCount', slideCount)
+    // console.log('index', index)
+
+    const handleLeftArrowClick = () => {
+      setOffset(currentOffset => {
+        const newOffset = currentOffset + RIGHT_BLOCK_WIDTH
+
+        return Math.min(newOffset, 0)
+      })
+
+      if (slideCount > 1) {
+        setSlideCount(prev => prev - 1)
+        // onChengeIndex(slideCount)
+      }
     }
-  }
 
-  const handleRightArrowClick = () => {
-    setOffset(currentOffset => {
-      const newOffset = currentOffset - RIGHT_BLOCK_WIDTH
+    const handleRightArrowClick = () => {
+      setOffset(currentOffset => {
+        const newOffset = currentOffset - RIGHT_BLOCK_WIDTH
 
-      const maxOffset = -(RIGHT_BLOCK_WIDTH * (clides.length - 1))
+        const maxOffset = -(RIGHT_BLOCK_WIDTH * (clides.length - 1))
 
-      return Math.max(newOffset, maxOffset)
-    })
+        return Math.max(newOffset, maxOffset)
+      })
 
-    if (slideCount < children.length) {
-      setSlideCount(prev => prev + 1)
+      if (slideCount < children.length) {
+        setSlideCount(prev => prev + 1)
+        // onChengeIndex(slideCount - 2)
+      }
     }
-  }
 
-  useEffect(() => {
-    setClides(
-      Children.map(children, child =>
-        cloneElement(child, {
-          style: {
-            height: '100%',
-            minWidth: `${RIGHT_BLOCK_WIDTH}%`,
-            maxWidth: `${RIGHT_BLOCK_WIDTH}%`,
-          },
-        }),
-      ),
-    )
-  }, [SettingsModel.languageTag, children])
+    useEffect(() => {
+      setClides(
+        Children.map(children, child =>
+          cloneElement(child, {
+            style: {
+              height: '100%',
+              minWidth: `${RIGHT_BLOCK_WIDTH}%`,
+              maxWidth: `${RIGHT_BLOCK_WIDTH}%`,
+            },
+          }),
+        ),
+      )
+    }, [SettingsModel.languageTag, children])
 
-  return (
-    <div className={classNames.mainContainer}>
-      {view === 'simple' && children?.length !== 0 && (
-        <div className={classNames.headerCarouselDocumentsWrapper}>
-          <div className={classNames.buttonDocumentsWrapper}>
+    return (
+      <div className={classNames.mainContainer}>
+        {view === 'simple' && children?.length !== 0 && (
+          <div className={classNames.headerCarouselDocumentsWrapper}>
+            <div className={classNames.buttonDocumentsWrapper}>
+              {alignButtons === 'center' ? (
+                <ArrowLeftIcon
+                  style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+                  // color={offset === 0 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  onClick={handleLeftArrowClick}
+                />
+              ) : null}
+
+              <div className={classNames.window}>
+                <div className={classNames.allClides} style={{transform: `translateX(${offset}%)`}}>
+                  {clides}
+                </div>
+              </div>
+              {alignButtons === 'center' ? (
+                <ArrowRightIcon
+                  style={{
+                    cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
+                    width: '40px',
+                    height: '40px',
+                  }}
+                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {
+                    [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
+                  })}
+                  onClick={handleRightArrowClick}
+                />
+              ) : null}
+            </div>
             {alignButtons === 'center' ? (
-              <ArrowLeftIcon
-                style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-                // color={offset === 0 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
-                onClick={handleLeftArrowClick}
-              />
-            ) : null}
+              <div className={classNames.numberOfFiles}>
+                <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+              </div>
+            ) : (
+              <div className={classNames.numberOfFilesFlex}>
+                <ArrowLeftIcon
+                  style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+                  // color={offset === 0 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  onClick={handleLeftArrowClick}
+                />
+                <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+                <ArrowRightIcon
+                  style={{
+                    cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
+                    width: '40px',
+                    height: '40px',
+                  }}
+                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {
+                    [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
+                  })}
+                  onClick={handleRightArrowClick}
+                />
+              </div>
+            )}
+          </div>
+        )}
+        {view === 'complex' && children?.length !== 0 && (
+          <div>
+            <div className={classNames.headerCarouselWrapper}>
+              <div className={classNames.buttonWrapper}>
+                <ArrowLeftIcon
+                  style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
+                  // color={offset === 0 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  onClick={handleLeftArrowClick}
+                />
+                <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
+
+                <ArrowRightIcon
+                  style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer'}}
+                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                  className={cx(classNames.arrowIcon, {
+                    [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
+                  })}
+                  onClick={handleRightArrowClick}
+                />
+              </div>
+              <div className={classNames.numberOfProposals}>
+                <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+              </div>
+            </div>
 
             <div className={classNames.window}>
-              <div className={classNames.allClides} style={{transform: `translateX(${offset}%)`}}>
+              <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
                 {clides}
               </div>
             </div>
-            {alignButtons === 'center' ? (
-              <ArrowRightIcon
-                style={{
-                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
-                  width: '40px',
-                  height: '40px',
-                }}
-                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
-                })}
-                onClick={handleRightArrowClick}
-              />
-            ) : null}
           </div>
-          {alignButtons === 'center' ? (
-            <div className={classNames.numberOfFiles}>
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
-            </div>
-          ) : (
-            <div className={classNames.numberOfFilesFlex}>
-              <ArrowLeftIcon
-                style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-                // color={offset === 0 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
-                onClick={handleLeftArrowClick}
-              />
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
-              <ArrowRightIcon
-                style={{
-                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
-                  width: '40px',
-                  height: '40px',
-                }}
-                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
-                })}
-                onClick={handleRightArrowClick}
-              />
-            </div>
-          )}
-        </div>
-      )}
-      {view === 'complex' && children?.length !== 0 && (
-        <div>
-          <div className={classNames.headerCarouselWrapper}>
-            <div className={classNames.buttonWrapper}>
-              <ArrowLeftIcon
-                style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
-                // color={offset === 0 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
-                onClick={handleLeftArrowClick}
-              />
-              <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
-
-              <ArrowRightIcon
-                style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer'}}
-                // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
-                })}
-                onClick={handleRightArrowClick}
-              />
-            </div>
-            <div className={classNames.numberOfProposals}>
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
-            </div>
-          </div>
-
-          <div className={classNames.window}>
-            <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
-              {clides}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-})
+        )}
+      </div>
+    )
+  },
+)
 const openPdfFile = url => {
   const pdfWindow = window.open('')
 
