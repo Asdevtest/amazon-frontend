@@ -115,6 +115,9 @@ export const NavbarCollapse = ({
       case '/buyer/closed-and-canceled-orders':
         return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
 
+      case '/buyer/ready-for-payment-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
+
       case '/buyer/all-orders':
         return (
           <ListItemIcon>
@@ -124,7 +127,8 @@ export const NavbarCollapse = ({
                   userInfo.inbound +
                   userInfo.needTrackNumber +
                   userInfo.notPaid +
-                  userInfo.closedAndCanceled}
+                  userInfo.closedAndCanceled +
+                  userInfo.readyForPayment}
               </div>
             }
           </ListItemIcon>

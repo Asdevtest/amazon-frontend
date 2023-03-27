@@ -60,6 +60,8 @@ const setNavbarActiveSubCategory = pathname => {
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
       case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
+      case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT
       default:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
     }
@@ -240,6 +242,8 @@ export class BuyerMyOrdersViewModel {
           return [OrderStatus.TRACK_NUMBER_ISSUED]
         case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
           return [OrderStatus.VERIFY_RECEIPT]
+        case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+          return [OrderStatus.READY_FOR_PAYMENT]
         case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
           return [OrderStatus.IN_STOCK, OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT]
 
@@ -253,6 +257,7 @@ export class BuyerMyOrdersViewModel {
             OrderStatus.IN_STOCK,
             OrderStatus.CANCELED_BY_BUYER,
             OrderStatus.CANCELED_BY_CLIENT,
+            OrderStatus.READY_FOR_PAYMENT,
           ]
         default:
           return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]

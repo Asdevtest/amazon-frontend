@@ -684,6 +684,15 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey['Not paid'],
   },
   {
+    routePath: '/buyer/ready-for-payment-orders',
+    component: BuyerMyOrdersView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER,
+
+    crumbNameKey: TranslationKey['Ready for payment'],
+  },
+  {
     routePath: '/buyer/need-track-number-orders',
     component: BuyerMyOrdersView,
     exact: false,

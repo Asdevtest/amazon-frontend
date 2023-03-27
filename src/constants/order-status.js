@@ -11,6 +11,7 @@ export const OrderStatus = {
   READY_FOR_BUYOUT: 'READY_FOR_BUYOUT',
   NEW: 'NEW',
   READY_TO_PROCESS: 'READY_TO_PROCESS',
+  READY_FOR_PAYMENT: 'READY_FOR_PAYMENT',
   AT_PROCESS: 'AT_PROCESS',
   NEED_CONFIRMING_TO_PRICE_CHANGE: 'NEED_CONFIRMING_TO_PRICE_CHANGE',
 
@@ -32,6 +33,7 @@ export const OrderStatusByCode = {
   3: OrderStatus.READY_FOR_BUYOUT,
   10: OrderStatus.READY_TO_PROCESS, // Заказ доступен к обработке закупщиком (через 15минут после того как он был сделан, приобрёл статус Новый ) - статус "доступен для обработки"
   15: OrderStatus.AT_PROCESS, // Закупщик взял заказ в обработку - статус "в обработке"
+  16: OrderStatus.READY_FOR_PAYMENT, // Закупщик взял заказ в обработку - статус "в обработке"
   19: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
   20: OrderStatus.PAID_TO_SUPPLIER, // закупщик оплатил заказ - статус "оплачен"
   25: OrderStatus.TRACK_NUMBER_ISSUED, // выдан и принят трек номер - статус "выдан трек номер"
@@ -102,6 +104,8 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey['Canceled by Client'])
     case OrderStatus.AWAITING_SHIPMENT:
       return t(TranslationKey['Awaiting shipment'])
+    case OrderStatus.READY_FOR_PAYMENT:
+      return t(TranslationKey['Ready for payment'])
     case OrderStatus.SHIPPED:
       return t(TranslationKey.Shipped)
   }

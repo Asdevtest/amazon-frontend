@@ -1810,7 +1810,7 @@ export enum TranslationKey {
   'New notifications' = 'New notifications',
   'Product is appropriate' = 'Product is appropriate',
   'Send to check' = 'Send to check',
-  // '' = '',
+  'Ready for payment' = 'Ready for payment',
   // '' = '',
   // '' = '',
   // '' = '',
