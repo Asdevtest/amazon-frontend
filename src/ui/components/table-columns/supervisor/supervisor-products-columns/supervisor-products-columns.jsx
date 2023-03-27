@@ -96,6 +96,16 @@ export const supervisorProductsViewColumns = () => [
     type: 'number',
     minWidth: 100,
   },
+
+  {
+    field: 'ordered',
+    headerName: t(TranslationKey.Ordered),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    minWidth: 50,
+  },
+
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
