@@ -1238,10 +1238,10 @@ export const VacantRequestPriceCell = React.memo(
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
     return (
-      <div className={classNames.requestPriceCellWrapper}>
+      <div className={classNames.priceCellWrapper}>
         {discountedPrice && cashBackInPercent ? (
           <Typography
-            className={cx(classNames.twoStepFieldResult, {
+            className={cx(classNames.priceText, {
               [classNames.newPrice]: discountedPrice && cashBackInPercent,
             })}
           >
@@ -1250,7 +1250,7 @@ export const VacantRequestPriceCell = React.memo(
         ) : null}
 
         <Typography
-          className={cx(classNames.twoStepFieldResult, {
+          className={cx(classNames.priceText, {
             [classNames.oldPrice]: discountedPrice && cashBackInPercent,
           })}
         >

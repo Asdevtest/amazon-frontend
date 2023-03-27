@@ -8,7 +8,8 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     padding: '30px 30px',
     width: '100%',
-    height: '263px',
+    minHeight: 'fit-content',
+    // height: '263px',
   },
   standartText: {
     color: theme.palette.text.general,
@@ -65,16 +66,25 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '8px',
   },
   title: {
-    width: '314px',
+    width: 479,
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
     color: theme.palette.text.second,
     // overflow: 'auto',
-    height: 80,
+    // height: 80,
+    // textOverflow: 'ellipsis',
+    // whiteSpace: 'nowrap',
+    // overflow: 'hidden',
+
+    height: 86,
+    whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
   },
 
   btnsBlockWrapper: {
@@ -300,7 +310,6 @@ export const useClassNames = makeStyles()(theme => ({
     // justifyContent: 'space-around',
     // alignItems: 'flex-end',
     width: '100%',
-    // height: 300,
     padding: '0 20px',
     gap: 10,
   },
@@ -362,16 +371,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardTitle: {
     // margin: '0 10px 0 20px',
-    height: 20,
+    // height: 20,
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
     // overflowY: 'auto',
     width: '500px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
     // marginBottom: 20,
   },
 
@@ -393,5 +402,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   idTextDark: {
     color: theme.palette.text.general,
+  },
+  titleAndIdWrapper: {
+    display: 'flex',
+    gap: 60,
+
+    marginBottom: 15,
   },
 }))

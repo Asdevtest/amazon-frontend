@@ -233,7 +233,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   requestTitle: {
     maxHeight: 150,
-    width: 150,
+    maxWidth: '320px !important',
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
     overflowY: 'auto',
@@ -654,11 +654,14 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
   },
   titleAndAsinWrapper: {
+    width: '100%',
+    gap: 30,
+
     display: 'flex',
-    gap: 85,
   },
   asinWrapper: {
     display: 'flex',
+    width: 'fit-content',
     gap: 5,
   },
   changePerformerBtn: {
@@ -723,7 +726,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   titleContainer: {
-    width: 'fit-content !important',
+    width: '250px !important',
+  },
+  asinContainerStapTwo: {
+    width: '130px !important',
   },
   fitContentContainer: {
     width: 'fit-content',
@@ -775,5 +781,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: 158,
     height: 30,
     marginBottom: 20,
+  },
+  orderText: {
+    width: 'fit-content',
   },
 }))

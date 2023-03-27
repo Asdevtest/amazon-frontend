@@ -84,8 +84,6 @@ export class RequestDetailCustomViewRaw extends Component {
       requestProposal => requestProposal.proposal.chatId === chatSelectedId,
     )
 
-    // console.log('request', request)
-
     return (
       <React.Fragment>
         <Navbar
