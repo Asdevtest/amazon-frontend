@@ -1807,5 +1807,7 @@
   "Parsing error": "Parsing error",
   "The order has been updated": "The order has been updated",
   "Success parse": "Success parse",
-  "New notifications": "New notifications"
+  "New notifications": "New notifications",
+  "Product is appropriate": "Product is appropriate",
+  "Send to check": "Send to check"
 }
