@@ -769,6 +769,9 @@ const NewBoxes = observer(
         >
           {t(TranslationKey['New boxes'])}
         </Text>
+
+        {/* <div></div> */}
+
         <div className={classNames.newBoxesWrapper}>
           {newBoxes.map((box, boxIndex) => (
             <Box
