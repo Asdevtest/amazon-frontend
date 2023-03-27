@@ -664,6 +664,60 @@ export default class BuyerApi {
 
 
     /**
+     * # Переместить заказ в статус readyForPayment
+     * Переместить заказ в статус readyForPayment
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BuyersOrdersReadyForPaymentGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersReadyForPaymentGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/buyers/orders/ready_for_payment/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Переместить заказ в статус readyForPayment
+     * Переместить заказ в статус readyForPayment
+     * @param {String} guid GUID заказа, который планируем изменить
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BuyersOrdersReadyForPaymentGuidPatch(guid, opts) {
+      return this.apiV1BuyersOrdersReadyForPaymentGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Редактировать номер заказа на inStock (30).
      * ## Редактировать номер заказа на inStock (30)
      * @param {String} guid GUID заказа, который планируем изменить

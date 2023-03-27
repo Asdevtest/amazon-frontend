@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperComment** | **String** |  | 
+**additionalBoxes** | [**[InlineObject17]**](InlineObject17.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

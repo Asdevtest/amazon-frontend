@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **supervisorId** | **String** | GUID супервизора. | [optional] 
 **chatId** | **String** | GUID чата. | [optional] 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
+**subId** | **String** | GUID саба | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **title** | **String** | Название предложения | [optional] 

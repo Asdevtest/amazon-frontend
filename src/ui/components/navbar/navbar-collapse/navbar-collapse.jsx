@@ -100,6 +100,36 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/buyer/not-paid-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.notPaid}</div>}</ListItemIcon>
+
+      case '/buyer/need-track-number-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.needTrackNumber}</div>}</ListItemIcon>
+
+      case '/buyer/inbound-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.inbound}</div>}</ListItemIcon>
+
+      case '/buyer/confirmation-required-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.confirmationRequired}</div>}</ListItemIcon>
+
+      case '/buyer/closed-and-canceled-orders':
+        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
+
+      case '/buyer/all-orders':
+        return (
+          <ListItemIcon>
+            {
+              <div className={classNames.redBadge}>
+                {userInfo.confirmationRequired +
+                  userInfo.inbound +
+                  userInfo.needTrackNumber +
+                  userInfo.notPaid +
+                  userInfo.closedAndCanceled}
+              </div>
+            }
+          </ListItemIcon>
+        )
+
       default:
         return null
     }

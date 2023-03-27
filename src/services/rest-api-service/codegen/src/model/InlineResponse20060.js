@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20060 model module.
@@ -22,12 +21,13 @@ import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 class InlineResponse20060 {
     /**
      * Constructs a new <code>InlineResponse20060</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20060
+     * @param _id {String} Гуид магазина
+     * @param name {String} Название магазина
      */
-    constructor() { 
+    constructor(_id, name) { 
         
-        InlineResponse20060.initialize(this);
+        InlineResponse20060.initialize(this, _id, name);
     }
 
     /**
@@ -35,7 +35,9 @@ class InlineResponse20060 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
     }
 
     /**
@@ -49,11 +51,11 @@ class InlineResponse20060 {
         if (data) {
             obj = obj || new InlineResponse20060();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -63,16 +65,16 @@ class InlineResponse20060 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * Гуид магазина
+ * @member {String} _id
  */
-InlineResponse20060.prototype['count'] = undefined;
+InlineResponse20060.prototype['_id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/ApiV1BatchesBoxes>} rows
+ * Название магазина
+ * @member {String} name
  */
-InlineResponse20060.prototype['rows'] = undefined;
+InlineResponse20060.prototype['name'] = undefined;
 
 
 

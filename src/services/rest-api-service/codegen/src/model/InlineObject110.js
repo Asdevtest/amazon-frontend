@@ -22,12 +22,10 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        InlineObject110.initialize(this, oldPassword, newPassword);
+        InlineObject110.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,26 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('listingName')) {
+                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('listingBulletPoints')) {
+                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
+            }
+            if (data.hasOwnProperty('listingProductDetails')) {
+                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
+            }
+            if (data.hasOwnProperty('listingSearchTerms')) {
+                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            }
+            if (data.hasOwnProperty('listingSubjectMatters')) {
+                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
+            }
+            if (data.hasOwnProperty('listingImages')) {
+                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
         }
         return obj;
@@ -65,16 +76,46 @@ class InlineObject110 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * 
+ * @member {String} listingName
  */
-InlineObject110.prototype['oldPassword'] = undefined;
+InlineObject110.prototype['listingName'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Массив ...
+ * @member {Array.<String>} listingBulletPoints
  */
-InlineObject110.prototype['newPassword'] = undefined;
+InlineObject110.prototype['listingBulletPoints'] = undefined;
+
+/**
+ * 
+ * @member {String} listingProductDetails
+ */
+InlineObject110.prototype['listingProductDetails'] = undefined;
+
+/**
+ * 
+ * @member {String} listingSearchTerms
+ */
+InlineObject110.prototype['listingSearchTerms'] = undefined;
+
+/**
+ * Массив ...
+ * @member {Array.<String>} listingSubjectMatters
+ */
+InlineObject110.prototype['listingSubjectMatters'] = undefined;
+
+/**
+ * массив картинок(в виде прямых ссылок).
+ * @member {Array.<String>} listingImages
+ */
+InlineObject110.prototype['listingImages'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject110.prototype['strategyStatus'] = undefined;
 
 
 

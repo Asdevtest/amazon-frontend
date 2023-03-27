@@ -575,7 +575,7 @@ export class BuyerMyOrdersViewModel {
   async onSubmitCancelOrder() {
     try {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
-
+      await UserModel.getUserInfo()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
@@ -675,6 +675,7 @@ export class BuyerMyOrdersViewModel {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
         })
         this.onTriggerOpenModal('showOrderModal')
+        UserModel.getUserInfo()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
 

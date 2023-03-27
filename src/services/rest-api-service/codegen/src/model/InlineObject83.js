@@ -53,6 +53,9 @@ class InlineObject83 {
             if (data.hasOwnProperty('review')) {
                 obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
         }
         return obj;
     }
@@ -71,6 +74,12 @@ InlineObject83.prototype['rating'] = undefined;
  * @member {String} review
  */
 InlineObject83.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject83.prototype['sourceFile'] = undefined;
 
 
 

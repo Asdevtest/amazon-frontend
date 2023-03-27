@@ -47,29 +47,32 @@ class InlineResponse20052 {
         if (data) {
             obj = obj || new InlineResponse20052();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -79,52 +82,58 @@ class InlineResponse20052 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * Гуид медиа
+ * @member {String} _id
  */
-InlineResponse20052.prototype['price'] = undefined;
+InlineResponse20052.prototype['_id'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineResponse20052.prototype['requestPlatformMarginInPercent'] = undefined;
+InlineResponse20052.prototype['sourceFile'] = undefined;
 
 /**
- * Услуги платформы.
- * @member {Number} platformMargin
+ * Комментарий к файлу
+ * @member {String} comment
  */
-InlineResponse20052.prototype['platformMargin'] = undefined;
+InlineResponse20052.prototype['comment'] = undefined;
 
 /**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
+ * Код специализации фрилансера
+ * @member {Number} typeTask
  */
-InlineResponse20052.prototype['requestSupervisorFeeInPercent'] = undefined;
+InlineResponse20052.prototype['typeTask'] = undefined;
 
 /**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
+ * гуид продукта
+ * @member {String} productId
  */
-InlineResponse20052.prototype['supervisorFee'] = undefined;
+InlineResponse20052.prototype['productId'] = undefined;
 
 /**
- * Сумма.
- * @member {Number} unitCost
+ * Гуид пропоузала
+ * @member {String} proposalId
  */
-InlineResponse20052.prototype['unitCost'] = undefined;
+InlineResponse20052.prototype['proposalId'] = undefined;
 
 /**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
+ * Клиент создавший заказ и коробку.
+ * @member {String} createdById
  */
-InlineResponse20052.prototype['maxAmountOfProposals'] = undefined;
+InlineResponse20052.prototype['createdById'] = undefined;
 
 /**
- * Итого.
- * @member {Number} totalCost
+ * Дата создания.
+ * @member {Date} createdAt
  */
-InlineResponse20052.prototype['totalCost'] = undefined;
+InlineResponse20052.prototype['createdAt'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse20052.prototype['updatedAt'] = undefined;
 
 
 

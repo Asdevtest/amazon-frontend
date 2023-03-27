@@ -32,5 +32,14 @@ Name | Type | Description | Notes
 **tasksAtProcessAll** | **Number** | Количество заданий в работе у пользователя | [optional] 
 **tasksNewHigh** | **Number** | Количество новых заданий у пользователя с высоким приоритетом | [optional] 
 **tasksAtProcessHigh** | **Number** | Количество заданий в работе у пользователяс высоким приоритетом | [optional] 
+**freeOrders** | **Number** | Количество заказов из /buyers/orders/vac | [optional] 
+**pendingOrders** | **Number** | Количество заказов 2, 3 статусы | [optional] 
+**notPaid** | **Number** | Количество заказов 15, 19 статусы | [optional] 
+**readyForPayment** | **Number** | Количество заказов 16 статусы | [optional] 
+**needTrackNumber** | **Number** | Количество заказов 20 статус | [optional] 
+**inbound** | **Number** | Количество заказов 25 статус | [optional] 
+**confirmationRequired** | **Number** | Количество заказов 27 статус | [optional] 
+**closedAndCanceled** | **Number** | Количество заказов 30,35,40 статусы | [optional] 
+**allOrders** | **Number** | Количество заказов 15, 20, 25, 27, 19, 30, 35, 40 статусы | [optional] 
 
 

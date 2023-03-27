@@ -90,6 +90,9 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
+            if (data.hasOwnProperty('subId')) {
+                obj['subId'] = ApiClient.convertToType(data['subId'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -192,6 +195,12 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['chatId'] = undefin
  * @member {String} lastModifiedById
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['lastModifiedById'] = undefined;
+
+/**
+ * GUID саба
+ * @member {String} subId
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['subId'] = undefined;
 
 /**
  * Дата создания

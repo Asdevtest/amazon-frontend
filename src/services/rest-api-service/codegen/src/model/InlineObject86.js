@@ -22,11 +22,13 @@ class InlineObject86 {
     /**
      * Constructs a new <code>InlineObject86</code>.
      * @alias module:model/InlineObject86
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @param sourceFile {String} Файл для записи в FreelanceSource
+     * @param typeTask {Number} Код специализации фрилансера
+     * @param productId {String} гуид продукта
      */
-    constructor(totalCost) { 
+    constructor(sourceFile, typeTask, productId) { 
         
-        InlineObject86.initialize(this, totalCost);
+        InlineObject86.initialize(this, sourceFile, typeTask, productId);
     }
 
     /**
@@ -34,8 +36,10 @@ class InlineObject86 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj, sourceFile, typeTask, productId) { 
+        obj['sourceFile'] = sourceFile;
+        obj['typeTask'] = typeTask;
+        obj['productId'] = productId;
     }
 
     /**
@@ -49,8 +53,20 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
         }
         return obj;
@@ -60,10 +76,34 @@ class InlineObject86 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject86.prototype['totalCost'] = undefined;
+InlineObject86.prototype['sourceFile'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} comment
+ */
+InlineObject86.prototype['comment'] = undefined;
+
+/**
+ * Код специализации фрилансера
+ * @member {Number} typeTask
+ */
+InlineObject86.prototype['typeTask'] = undefined;
+
+/**
+ * гуид продукта
+ * @member {String} productId
+ */
+InlineObject86.prototype['productId'] = undefined;
+
+/**
+ * Гуид пропоузала
+ * @member {String} proposalId
+ */
+InlineObject86.prototype['proposalId'] = undefined;
 
 
 
