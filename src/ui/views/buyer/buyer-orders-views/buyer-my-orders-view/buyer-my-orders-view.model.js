@@ -656,6 +656,10 @@ export class BuyerMyOrdersViewModel {
         await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
       }
 
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
+        await BuyerModel.orderReadyForPayment(order._id)
+      }
+
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}

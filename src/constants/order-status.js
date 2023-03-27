@@ -142,6 +142,11 @@ export const ORDER_STATUS_OPTIONS = [
   },
 
   {
+    key: OrderStatus.READY_FOR_PAYMENT,
+    label: 'Ready for payment',
+  },
+
+  {
     key: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
     label: 'To price change',
   },
@@ -190,6 +195,7 @@ export const orderColorByStatus = status => {
 
       OrderStatus.AT_PROCESS,
       OrderStatus.PAID_TO_SUPPLIER,
+      OrderStatus.READY_FOR_PAYMENT,
 
       OrderStatus.READY_TO_PROCESS,
       OrderStatus.TRACK_NUMBER_ISSUED,
@@ -218,6 +224,7 @@ export const OrderStatusText = ({className, status, isClient}) => {
         OrderStatus.PAID_TO_SUPPLIER,
         OrderStatus.TRACK_NUMBER_ISSUED,
         OrderStatus.READY_TO_PROCESS,
+        OrderStatus.READY_FOR_PAYMENT,
         OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
         OrderStatus.VERIFY_RECEIPT,
       ].includes(status)
