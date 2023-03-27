@@ -3,6 +3,14 @@ export const styles = theme => ({
     height: 'calc(100vh - 200px)',
   },
 
+  taskTypeWrapper: {
+    display: 'flex',
+  },
+
+  btnWrapperStyle: {
+    width: 'fit-content',
+  },
+
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -124,6 +132,7 @@ export const styles = theme => ({
 
     color: theme.palette.text.second,
   },
+
   viewCartSelected: {
     color: theme.palette.primary.main,
   },
@@ -164,5 +173,9 @@ export const styles = theme => ({
   redBorder: {
     background:
       'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
   },
 })

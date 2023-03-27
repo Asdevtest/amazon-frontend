@@ -66,6 +66,7 @@ docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
+docs/ApiV1RequestsCustomRequestLinksToMediaFiles.md
 docs/ApiV1ShopSellStatistics.md
 docs/ApiV1ShopSellStatistics1.md
 docs/ApiV1StorekeepersBoxesGuidItems.md
@@ -297,7 +298,8 @@ docs/InlineResponse20065.md
 docs/InlineResponse20066.md
 docs/InlineResponse20067.md
 docs/InlineResponse20068.md
-docs/InlineResponse20068Details.md
+docs/InlineResponse20069.md
+docs/InlineResponse20069Details.md
 docs/InlineResponse2007.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
@@ -459,6 +461,7 @@ src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
+src/model/ApiV1RequestsCustomRequestLinksToMediaFiles.js
 src/model/ApiV1ShopSellStatistics.js
 src/model/ApiV1ShopSellStatistics1.js
 src/model/ApiV1StorekeepersBoxesGuidItems.js
@@ -681,7 +684,8 @@ src/model/InlineResponse20065.js
 src/model/InlineResponse20066.js
 src/model/InlineResponse20067.js
 src/model/InlineResponse20068.js
-src/model/InlineResponse20068Details.js
+src/model/InlineResponse20069.js
+src/model/InlineResponse20069Details.js
 src/model/InlineResponse2007.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js

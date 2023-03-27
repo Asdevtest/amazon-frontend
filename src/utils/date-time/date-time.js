@@ -86,8 +86,8 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldN
   array
     ?.slice()
     ?.sort((a, b) => {
-      const first = Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
-      const second = Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
+      const first = a && object && a[object] && Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
+      const second = b && object && b[object] && Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
 
       if (first < second) {
         return -1
@@ -103,8 +103,8 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldN
 
 export const sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc = (array, fieldName, object) =>
   array?.slice()?.sort((a, b) => {
-    const first = a && Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
-    const second = b && Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
+    const first = a && object && a[object] && Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
+    const second = b && object && b[object] && Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
 
     if (first < second) {
       return -1

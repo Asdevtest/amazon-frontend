@@ -97,6 +97,7 @@ class MyProposalsViewRaw extends Component {
                       key={taskIndex}
                       variant="text"
                       disabled={taskType === selectedTaskType}
+                      btnWrapperStyle={classNames.btnWrapperStyle}
                       className={cx(classNames.button, {
                         [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
                       })}
