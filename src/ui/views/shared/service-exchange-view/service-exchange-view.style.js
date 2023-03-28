@@ -1,5 +1,13 @@
 /* eslint-disable no-unused-vars */
 export const styles = theme => ({
+  toggleBtnAndtaskTypeWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 30,
+  },
+  taskTypeWrapper: {
+    display: 'flex',
+  },
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -59,9 +67,10 @@ export const styles = theme => ({
 
     color: `${theme.palette.primary.main} !important`,
   },
-  toggleBtnAndtaskTypeWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 30,
+
+  btnWrapperStyle: {
+    width: 'fit-content',
+    margin: 0,
+    padding: 0,
   },
 })
