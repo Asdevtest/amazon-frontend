@@ -48,6 +48,7 @@ export const SelectFields = ({
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
+  onClickSupplierPaymentButton,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -449,28 +450,32 @@ export const SelectFields = ({
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <div className={classNames.barCodeWrapper}>
             <div className={classNames.barCodeLinkWrapper}>
-              <div>
-                <Field
-                  label={t(TranslationKey.BarCode)}
-                  labelClasses={classNames.label}
-                  inputComponent={
-                    orderFields.product.barCode ? (
-                      <div className={classNames.barCode}>
-                        <Link
-                          target="_blank"
-                          rel="noopener"
-                          href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                        >
-                          <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-                        <CopyValue text={orderFields.product.barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                    )
-                  }
-                />
-              </div>
+              <Field
+                label={t(TranslationKey.BarCode)}
+                labelClasses={classNames.label}
+                containerClasses={classNames.checkboxContainer}
+                inputComponent={
+                  orderFields.product.barCode ? (
+                    <div className={classNames.barCode}>
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}>
+                        <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                      </Link>
+                      <CopyValue text={orderFields.product.barCode} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                  )
+                }
+              />
+            </div>
+            <div className={classNames.supplierPaymentButtonWrapper}>
+              <Button
+                className={classNames.supplierPaymentButton}
+                variant="contained"
+                // onClick={onClickSupplierPaymentButton}
+              >
+                {t(TranslationKey['Supplier payment'])}
+              </Button>
             </div>
           </div>
 

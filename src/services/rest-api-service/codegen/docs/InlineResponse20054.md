@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **announcementId** | **String** | Гуид анонса | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
+**media** | [**[ApiV1RequestsMedia]**](ApiV1RequestsMedia.md) |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **countProposalsByStatuses** | [**ApiV1RequestsCountProposalsByStatuses**](ApiV1RequestsCountProposalsByStatuses.md) |  | [optional] 
 
