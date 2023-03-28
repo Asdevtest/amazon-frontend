@@ -30,7 +30,6 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
-  subUsersData,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -530,14 +529,14 @@ export const SelectFields = ({
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
 
-        {subUsersData?.length ? (
+        {order.product.subUsers?.length ? (
           <div className={classNames.subUsersWrapper}>
             <div className={classNames.subUsersTitleWrapper}>
               <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
             </div>
             <div className={classNames.subUsersBodyWrapper}>
               <div className={classNames.subUsersBody}>
-                {subUsersData?.map((subUser, index) => (
+                {order.product.subUsers?.map((subUser, index) => (
                   <div key={index} className={classNames.subUserBodyWrapper}>
                     <UserLinkCell
                       withAvatar

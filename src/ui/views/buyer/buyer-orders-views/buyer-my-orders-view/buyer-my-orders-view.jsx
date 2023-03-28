@@ -52,7 +52,6 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
-      subUsersData,
       pathnameNotPaid,
       yuanToDollarRate,
       orderStatusData,
@@ -204,7 +203,6 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
-            subUsersData={subUsersData}
             userInfo={userInfo}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
