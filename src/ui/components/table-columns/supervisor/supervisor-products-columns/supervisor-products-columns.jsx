@@ -102,7 +102,24 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Ordered),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        customTextStyles={
+          params.value
+            ? {
+                background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
+                '-webkit-background-clip': 'text',
+                '-webkit-text-fill-color': 'transparent',
+              }
+            : {
+                background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+                '-webkit-background-clip': 'text',
+                '-webkit-text-fill-color': 'transparent',
+              }
+        }
+        text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
+      />
+    ),
     minWidth: 50,
   },
 
