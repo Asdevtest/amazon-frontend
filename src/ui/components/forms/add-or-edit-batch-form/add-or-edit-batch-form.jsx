@@ -480,6 +480,11 @@ export const AddOrEditBatchForm = observer(
               pagination
               checkboxSelection
               keepNonExistentRowsSelected
+              initialState={{
+                sorting: {
+                  sortModel: [{field: 'updatedAt', sort: 'desc'}],
+                },
+              }}
               localeText={getLocalizationByLanguageTag()}
               rowsPerPageOptions={[50, 100]}
               components={{
