@@ -311,4 +311,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
+  blackText: {
+    color: '#001029',
+  },
 }))

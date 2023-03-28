@@ -184,6 +184,12 @@ export const CreateOrEditRequestContent = ({
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
         newFormFields[section][fieldName] = event.target.value
+
+        if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
+          newFormFields.request.discountedPrice = 0
+          newFormFields.request.cashBackInPercent = 0
+          newFormFields.request.priceAmazon = 0
+        }
       } else if (['productId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
       } else if (['asin'].includes(fieldName)) {
