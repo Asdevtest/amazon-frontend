@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject114 model module.
@@ -23,14 +21,13 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject114
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
+     * @param oldPassword {String} Старый ароль
+     * @param newPassword {String} Новый пароль
      */
-    constructor(request, details) { 
+    constructor(oldPassword, newPassword) { 
         
-        InlineObject114.initialize(this, request, details);
+        InlineObject114.initialize(this, oldPassword, newPassword);
     }
 
     /**
@@ -38,9 +35,9 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj, oldPassword, newPassword) { 
+        obj['oldPassword'] = oldPassword;
+        obj['newPassword'] = newPassword;
     }
 
     /**
@@ -54,11 +51,11 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('oldPassword')) {
+                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('newPassword')) {
+                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
             }
         }
         return obj;
@@ -68,14 +65,16 @@ class InlineObject114 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Старый ароль
+ * @member {String} oldPassword
  */
-InlineObject114.prototype['request'] = undefined;
+InlineObject114.prototype['oldPassword'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Новый пароль
+ * @member {String} newPassword
  */
-InlineObject114.prototype['details'] = undefined;
+InlineObject114.prototype['newPassword'] = undefined;
 
 
 

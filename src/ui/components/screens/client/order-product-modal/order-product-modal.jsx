@@ -263,7 +263,7 @@ export const OrderProductModal = ({
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>
-            <TableRow>
+            <TableRow className={classNames.tableRow}>
               <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
               <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
               <TableCell className={classNames.priceCell}>

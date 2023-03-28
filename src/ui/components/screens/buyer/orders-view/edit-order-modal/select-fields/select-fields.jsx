@@ -30,7 +30,6 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
-  subUsersData,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -50,6 +49,7 @@ export const SelectFields = ({
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
+  onClickSupplierPaymentButton,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -486,7 +486,7 @@ export const SelectFields = ({
 
         {/** Hs code fields */}
 
-        <Box my={3} className={classNames.formItem}>
+        <Box my={3} className={classNames.formItem} alignItems="flex-end">
           <Field
             label={'HS Code'}
             labelClasses={classNames.label}
@@ -496,23 +496,17 @@ export const SelectFields = ({
             onChange={onChangeHsField('hsCode')}
           />
 
-          <Field
-            disabled={disableSubmit || isPendingOrder}
-            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-            label={t(TranslationKey['HS code'])}
-            labelClasses={classNames.label}
-            inputProps={{maxLength: 50}}
-            inputComponent={
+          {!isPendingOrder && (
+            <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
+                className={classNames.supplierPaymentButton}
                 variant="contained"
-                // color="primary"
-                className={classNames.hsCodeBtn}
-                onClick={() => onClickHsCode(orderFields.product._id)}
+                onClick={onClickSupplierPaymentButton}
               >
-                {t(TranslationKey['HS code'])}
+                {t(TranslationKey['Supplier payment'])}
               </Button>
-            }
-          />
+            </div>
+          )}
         </Box>
 
         <Box my={3} className={classNames.formItem}>
@@ -586,14 +580,14 @@ export const SelectFields = ({
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
 
-        {subUsersData?.length ? (
+        {order.product.subUsers?.length ? (
           <div className={classNames.subUsersWrapper}>
             <div className={classNames.subUsersTitleWrapper}>
               <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
             </div>
             <div className={classNames.subUsersBodyWrapper}>
               <div className={classNames.subUsersBody}>
-                {subUsersData?.map((subUser, index) => (
+                {order.product.subUsers?.map((subUser, index) => (
                   <div key={index} className={classNames.subUserBodyWrapper}>
                     <UserLinkCell
                       withAvatar

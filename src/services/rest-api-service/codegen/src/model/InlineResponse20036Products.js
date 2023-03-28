@@ -59,9 +59,6 @@ class InlineResponse20036Products {
             if (data.hasOwnProperty('inWork')) {
                 obj['inWork'] = ApiClient.convertToType(data['inWork'], 'Number');
             }
-            if (data.hasOwnProperty('searchSupplierFromBuyer')) {
-                obj['searchSupplierFromBuyer'] = ApiClient.convertToType(data['searchSupplierFromBuyer'], 'Number');
-            }
             if (data.hasOwnProperty('withoutStatus')) {
                 obj['withoutStatus'] = ApiClient.convertToType(data['withoutStatus'], 'Number');
             }
@@ -91,11 +88,6 @@ InlineResponse20036Products.prototype['rejected'] = undefined;
  * @member {Number} inWork
  */
 InlineResponse20036Products.prototype['inWork'] = undefined;
-
-/**
- * @member {Number} searchSupplierFromBuyer
- */
-InlineResponse20036Products.prototype['searchSupplierFromBuyer'] = undefined;
 
 /**
  * @member {Number} withoutStatus

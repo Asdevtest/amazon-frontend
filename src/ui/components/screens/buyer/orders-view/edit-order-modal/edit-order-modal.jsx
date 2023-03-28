@@ -30,6 +30,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -66,7 +67,6 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
-    subUsersData,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -119,6 +119,8 @@ export const EditOrderModal = observer(
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
     const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
+
+    const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
 
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
@@ -204,11 +206,14 @@ export const EditOrderModal = observer(
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
+      paymentDetails: order.paymentDetails || [],
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
     const [hsCode, setHsCode] = useState({...hsCodeData})
+
+    console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -244,6 +249,7 @@ export const EditOrderModal = observer(
       hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
+      paymentDetailsPhotosToLoad,
     })
 
     const onClickSaveOrder = () => {
@@ -423,6 +429,7 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.PENDING]}`,
       `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
       `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+      `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`,
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
       `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
@@ -450,6 +457,7 @@ export const EditOrderModal = observer(
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
+    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
@@ -578,6 +586,7 @@ export const EditOrderModal = observer(
                         `${orderFields.status}` ===
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
@@ -603,6 +612,7 @@ export const EditOrderModal = observer(
                                   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                               [classNames.green]:
@@ -644,6 +654,7 @@ export const EditOrderModal = observer(
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                           [classNames.green]:
@@ -662,6 +673,8 @@ export const EditOrderModal = observer(
                           order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` &&
+                          order.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
                       }
@@ -679,7 +692,6 @@ export const EditOrderModal = observer(
           <SelectFields
             hsCode={hsCode}
             setHsCode={setHsCode}
-            subUsersData={subUsersData}
             yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
@@ -698,6 +710,7 @@ export const EditOrderModal = observer(
             setUsePriceInDollars={setUsePriceInDollars}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
+            onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
 
           <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
@@ -1092,6 +1105,18 @@ export const EditOrderModal = observer(
               setShowConfirmModal(!showConfirmModal)
               setShowCheckQuantityModal(!showCheckQuantityModal)
             }}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={supplierPaymentModal}
+          setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+        >
+          <SupplierPaymentForm
+            item={orderFields}
+            onClickSaveButton={setPaymentDetailsPhotosToLoad}
+            onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
         </Modal>
 

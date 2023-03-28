@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject17 from './InlineObject17';
 
 /**
  * The InlineObject99 model module.
@@ -22,11 +23,10 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
-     * @param storekeeperComment {String} 
      */
-    constructor(storekeeperComment) { 
+    constructor() { 
         
-        InlineObject99.initialize(this, storekeeperComment);
+        InlineObject99.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperComment) { 
-        obj['storekeeperComment'] = storekeeperComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,8 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject17]);
             }
         }
         return obj;
@@ -60,9 +59,10 @@ class InlineObject99 {
 }
 
 /**
- * @member {String} storekeeperComment
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject17>} additionalBoxes
  */
-InlineObject99.prototype['storekeeperComment'] = undefined;
+InlineObject99.prototype['additionalBoxes'] = undefined;
 
 
 

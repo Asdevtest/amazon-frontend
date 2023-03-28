@@ -328,6 +328,26 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  supplierPaymentButtonWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'end',
+  },
+
+  supplierPaymentButton: {
+    height: 32,
+
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    width: '100%',
+    marginBottom: '20px',
+    color: '#fff',
+  },
+
   formItem: {
     width: '100%',
     display: 'flex',
