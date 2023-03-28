@@ -67,6 +67,7 @@ import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1Requ
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './model/ApiV1RequestProposalsCustomByRequestIdGuidRequest';
+import ApiV1RequestProposalsCustomGuidResultEditSourceFiles from './model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles';
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
@@ -75,6 +76,8 @@ import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1RequestsCustomRequestLinksToMediaFiles from './model/ApiV1RequestsCustomRequestLinksToMediaFiles';
+import ApiV1RequestsMedia from './model/ApiV1RequestsMedia';
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
 import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
@@ -297,7 +300,8 @@ import InlineResponse20065 from './model/InlineResponse20065';
 import InlineResponse20066 from './model/InlineResponse20066';
 import InlineResponse20067 from './model/InlineResponse20067';
 import InlineResponse20068 from './model/InlineResponse20068';
-import InlineResponse20068Details from './model/InlineResponse20068Details';
+import InlineResponse20069 from './model/InlineResponse20069';
+import InlineResponse20069Details from './model/InlineResponse20069Details';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
@@ -744,6 +748,12 @@ export {
     ApiV1RequestProposalsCustomByRequestIdGuidRequest,
 
     /**
+     * The ApiV1RequestProposalsCustomGuidResultEditSourceFiles model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles}
+     */
+    ApiV1RequestProposalsCustomGuidResultEditSourceFiles,
+
+    /**
      * The ApiV1RequestProposalsDetailsCustom model constructor.
      * @property {module:model/ApiV1RequestProposalsDetailsCustom}
      */
@@ -790,6 +800,18 @@ export {
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
     ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1RequestsCustomRequestLinksToMediaFiles model constructor.
+     * @property {module:model/ApiV1RequestsCustomRequestLinksToMediaFiles}
+     */
+    ApiV1RequestsCustomRequestLinksToMediaFiles,
+
+    /**
+     * The ApiV1RequestsMedia model constructor.
+     * @property {module:model/ApiV1RequestsMedia}
+     */
+    ApiV1RequestsMedia,
 
     /**
      * The ApiV1ShopSellStatistics model constructor.
@@ -2124,10 +2146,16 @@ export {
     InlineResponse20068,
 
     /**
-     * The InlineResponse20068Details model constructor.
-     * @property {module:model/InlineResponse20068Details}
+     * The InlineResponse20069 model constructor.
+     * @property {module:model/InlineResponse20069}
      */
-    InlineResponse20068Details,
+    InlineResponse20069,
+
+    /**
+     * The InlineResponse20069Details model constructor.
+     * @property {module:model/InlineResponse20069Details}
+     */
+    InlineResponse20069Details,
 
     /**
      * The InlineResponse2007 model constructor.

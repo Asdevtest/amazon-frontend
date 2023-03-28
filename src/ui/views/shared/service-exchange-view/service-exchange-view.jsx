@@ -103,6 +103,7 @@ class ServiceExchangeViewRaw extends Component {
                       <Button
                         key={taskIndex}
                         variant="text"
+                        btnWrapperStyle={classNames.btnWrapperStyle}
                         disabled={Number(taskType) === Number(selectedTaskType)}
                         className={cx(classNames.button, {
                           [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),

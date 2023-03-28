@@ -32,8 +32,17 @@ export class CreateOrEditServicesViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, requestToEdit, pathname, onTriggerDrawerOpen, onClickCreateBtn, onClickBackBtn, onClickEditBtn} =
-      this.viewModel
+    const {
+      drawerOpen,
+      requestToEdit,
+      pathname,
+      userInfo,
+
+      onTriggerDrawerOpen,
+      onClickCreateBtn,
+      onClickBackBtn,
+      onClickEditBtn,
+    } = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -51,6 +60,7 @@ export class CreateOrEditServicesViewRaw extends Component {
               <div className={classNames.root}>
                 <CreateOrEditServiceContent
                   pathname={pathname}
+                  userInfo={userInfo}
                   data={requestToEdit}
                   onClickCreateBtn={onClickCreateBtn}
                   onClickEditBtn={onClickEditBtn}

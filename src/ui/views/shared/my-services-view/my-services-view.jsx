@@ -30,6 +30,8 @@ import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
+import {checkIsFreelancer} from '@utils/checks'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {MyServicesViewModel} from './my-services-view.model'
@@ -59,6 +61,8 @@ class MyServicesViewRaw extends Component {
       acceptMessage,
       showAcceptMessage,
       nameSearchValue,
+      userRole,
+      userInfo,
 
       onSearchSubmit,
       onTriggerOpenModal,
@@ -69,6 +73,11 @@ class MyServicesViewRaw extends Component {
       onClickOpenButton,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const whiteList =
+      !!userInfo && checkIsFreelancer(userRole)
+        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        : Object.keys(freelanceRequestTypeByCode)
 
     return (
       <React.Fragment>
@@ -103,7 +112,10 @@ class MyServicesViewRaw extends Component {
                   </div>
 
                   <div className={classNames.taskTypeWrapper}>
-                    {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                    {Object.keys({
+                      ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                      // freelanceRequestTypeByCode
+                    }).map((taskType, taskIndex) => (
                       <Button
                         key={taskIndex}
                         variant="text"

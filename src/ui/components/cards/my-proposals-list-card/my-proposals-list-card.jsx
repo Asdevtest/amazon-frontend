@@ -45,6 +45,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.EXPIRED,
   ]
 
+  console.log('item', item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -69,9 +71,11 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                 TranslationKey['The number of total successful transactions:'],
               )} 0`}</Typography>
 
-              {/* <Typography className={classNames.withoutСonfirmation}>
-                {t(TranslationKey['Available to work without confirmation'])}
-              </Typography> */}
+              {item.withoutConfirmation && (
+                <Typography className={classNames.withoutСonfirmation}>
+                  {t(TranslationKey['Available to work without confirmation'])}
+                </Typography>
+              )}
             </div>
           </div>
 
@@ -114,12 +118,12 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <div className={classNames.performerInfoCell}>
-                  {/* <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
+                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
                   <UserLink
-                    name={item.createdBy.name}
-                    userId={item.announcementId}
+                    name={proposal.createdBy.name}
+                    userId={proposal.createdBy._id}
                     customClassNames={classNames.customPerformerLink}
-                  /> */}
+                  />
                 </div>
 
                 <div className={classNames.rightBlockSubWrapper}>

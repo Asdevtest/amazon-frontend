@@ -17,6 +17,14 @@ export const styles = theme => ({
     width: '100%',
   },
 
+  taskTypeWrapper: {
+    display: 'flex',
+  },
+
+  btnWrapperStyle: {
+    width: 'fit-content',
+  },
+
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

@@ -31,12 +31,14 @@ import {SearchInput} from '@components/search-input'
 import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
+import {checkIsFreelancer} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {
   getDistanceBetweenDatesInSeconds,
   sortObjectsArrayByFiledDateWithParseISO,
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
@@ -70,6 +72,8 @@ class VacantRequestsViewRaw extends Component {
       requestStatus,
       columnsModel,
       currentData,
+      userRole,
+      userInfo,
 
       onTriggerSortMode,
       onTriggerDrawerOpen,
@@ -83,6 +87,11 @@ class VacantRequestsViewRaw extends Component {
       onChangeRowsPerPage,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const whiteList =
+      !!userInfo && checkIsFreelancer(userRole)
+        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {
       switch (mode) {
@@ -115,7 +124,10 @@ class VacantRequestsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.taskTypeWrapper}>
-                  {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                  {Object.keys({
+                    ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                    // freelanceRequestTypeByCode
+                  }).map((taskType, taskIndex) => (
                     <Button
                       key={taskIndex}
                       variant="text"
@@ -187,7 +199,7 @@ class VacantRequestsViewRaw extends Component {
                     viewMode === tableViewMode.LIST
                       ? 'repeat(auto-fill, minmax(100%, 1fr))'
                       : viewMode === tableViewMode.BLOCKS
-                      ? 'repeat(auto-fill, minmax(300px, 1fr))'
+                      ? 'repeat(auto-fill, minmax(297px, 1fr))'
                       : 'repeat(auto-fill, 100%'
                   }
                   // gridGap="20px"
