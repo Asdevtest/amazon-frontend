@@ -142,7 +142,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
   },
 
   {
-    field: 'toWorkWithoutConfirmation',
+    field: 'withoutConfirmation',
     headerName: t(TranslationKey['To work without confirmation']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To work without confirmation'])} />,
     renderCell: params => (
@@ -160,7 +160,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
                 '-webkit-text-fill-color': 'transparent',
               }
         }
-        text={'-'}
+        text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
       />
     ),
     width: 140,
