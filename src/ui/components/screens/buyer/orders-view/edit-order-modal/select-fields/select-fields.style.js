@@ -324,24 +324,25 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
 
     gap: 10,
-    supplierPaymentButtonWrapper: {
-      width: '100%',
-      height: '100%',
+  },
 
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'end',
-    },
+  supplierPaymentButtonWrapper: {
+    width: '100%',
+    height: '100%',
 
-    supplierPaymentButton: {
-      height: 32,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'end',
+  },
 
-      fontWeight: 400,
-      fontSize: 14,
-      lineHeight: '19px',
-      width: 231,
+  supplierPaymentButton: {
+    height: 32,
 
-      color: '#fff',
-    },
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    width: 234,
+
+    color: '#fff',
   },
 }))

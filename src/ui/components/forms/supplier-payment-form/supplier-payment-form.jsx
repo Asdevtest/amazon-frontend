@@ -1,51 +1,50 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {
-  Box,
-  Link,
-  Tabs,
-  Typography,
-  /* Tab, */
-} from '@mui/material'
+import {Box, Container, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {ITab} from '@components/i-tab/i-tab'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import {CopyValue} from '@components/copy-value/copy-value'
+import {PhotoCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Field} from '@components/field/field'
+import {UploadFilesInput} from '@components/upload-files-input'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './supplier-payment-form.style'
 
-export const SupplierPaymentForm = observer(
-  ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total}) => {
-    const {classes: classNames} = useClassNames()
+export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal}) => {
+  const {classes: classNames} = useClassNames()
 
-    return (
-      <div className={classNames.root}>
-        <Typography className={classNames.modalTile}>{t(TranslationKey['Add payment to supplier'])}</Typography>
+  const [files, setFiles] = useState([])
 
-        <div>
-          orderFields.product.barCode ? (
-          <div className={classNames.barCode}>
-            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl('s')}>
-              <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-            </Link>
-            <CopyValue text={'s'} />
-          </div>
-          ) : (<Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>)
-        </div>
+  return (
+    <Container disableGutters className={classNames.modalWrapper}>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
+
+      <div className={classNames.imageFileInputWrapper}>
+        <UploadFilesInput images={files} setImages={setFiles} maxNumber={50} />
       </div>
-    )
-  },
-)
+      {!!item?.paymentDetails.length && <PhotoCarousel small files={item?.paymentDetails} width="400px" />}
+
+      <Box className={classNames.saveBox}>
+        <Button
+          disabled={!files.length}
+          className={classNames.actionButton}
+          onClick={() => {
+            onClickSaveButton(files)
+            onCloseModal()
+          }}
+        >
+          {t(TranslationKey.Save)}
+        </Button>
+        <Button className={classNames.actionButton} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </Button>
+      </Box>
+    </Container>
+  )
+}

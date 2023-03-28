@@ -467,15 +467,17 @@ export const SelectFields = ({
                 }
               />
             </div>
-            <div className={classNames.supplierPaymentButtonWrapper}>
-              <Button
-                className={classNames.supplierPaymentButton}
-                variant="contained"
-                // onClick={onClickSupplierPaymentButton}
-              >
-                {t(TranslationKey['Supplier payment'])}
-              </Button>
-            </div>
+            {!isPendingOrder && (
+              <div className={classNames.supplierPaymentButtonWrapper}>
+                <Button
+                  className={classNames.supplierPaymentButton}
+                  variant="contained"
+                  onClick={onClickSupplierPaymentButton}
+                >
+                  {t(TranslationKey['Supplier payment'])}
+                </Button>
+              </div>
+            )}
           </div>
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (

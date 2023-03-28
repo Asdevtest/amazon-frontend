@@ -216,6 +216,7 @@ export const EditOrderModal = observer(
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
+      paymentDetails: order.paymentDetails || [],
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
@@ -256,6 +257,7 @@ export const EditOrderModal = observer(
       // hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
+      paymentDetailsPhotosToLoad,
     })
 
     const onClickSaveOrder = () => {
@@ -463,6 +465,7 @@ export const EditOrderModal = observer(
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
+    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
@@ -1116,7 +1119,11 @@ export const EditOrderModal = observer(
           openModal={supplierPaymentModal}
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
-          <SupplierPaymentForm />
+          <SupplierPaymentForm
+            item={orderFields}
+            onClickSaveButton={setPaymentDetailsPhotosToLoad}
+            onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+          />
         </Modal>
 
         <Modal
