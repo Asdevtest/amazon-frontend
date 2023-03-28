@@ -3,18 +3,7 @@ import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {
-  Box,
-  InputAdornment,
-  Select,
-  MenuItem,
-  Paper,
-  TableCell,
-  TableRow,
-  Typography,
-  Avatar,
-  Checkbox,
-} from '@mui/material'
+import {Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -57,9 +46,9 @@ import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@
 import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
-  timeToDeadlineInHoursAndMins,
-  getShortenStringIfLongerThanCount,
   clearEverythingExceptNumbers,
+  getShortenStringIfLongerThanCount,
+  timeToDeadlineInHoursAndMins,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -108,9 +97,10 @@ export const EditOrderModal = observer(
         ?.filter(el => !el.isDraft)
         .reduce(
           (acc, cur) =>
-            (acc +=
-              cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
-              cur.amount),
+            acc +
+            cur.items
+              .filter(item => item.product._id === order.product._id && item.order.id === order.id)
+              .reduce((acc, cur) => (acc += cur.amount), 0),
           0,
         ) || 0
 
