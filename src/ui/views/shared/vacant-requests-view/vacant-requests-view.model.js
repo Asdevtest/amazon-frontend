@@ -1,9 +1,14 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+} from '@constants/freelance-request-type'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
@@ -12,6 +17,7 @@ import {UserModel} from '@models/user-model'
 
 import {FreelancerVacantRequestColumns} from '@views/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
+import {checkIsFreelancer} from '@utils/checks'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 
 export class VacantRequestsViewModel {
@@ -22,11 +28,14 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedTaskType = undefined
 
   drawerOpen = false
 
   currentData = []
+
+  userInfo = []
+  userRole = undefined
 
   rowCount = 0
   curPage = 0
@@ -143,8 +152,22 @@ export class VacantRequestsViewModel {
     })
   }
 
+  async getUserInfo() {
+    const result = await UserModel.userInfo
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
+  }
+
   async loadData() {
     try {
+      await this.getUserInfo()
+
+      runInAction(() => {
+        this.selectedTaskType = checkIsFreelancer(this.userRole)
+          ? this.userInfo.allowedSpec.sort()[0]
+          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+      })
+
       await this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {

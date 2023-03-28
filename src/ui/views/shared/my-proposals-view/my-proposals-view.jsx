@@ -23,12 +23,14 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
+import {checkIsFreelancer} from '@utils/checks'
 import {
   sortObjectsArrayByArrayObjectFiledDateWithParseISO,
   sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
   sortObjectsArrayByFiledDateWithParseISO,
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
@@ -54,6 +56,8 @@ class MyProposalsViewRaw extends Component {
       drawerOpen,
       showConfirmModal,
       nameSearchValue,
+      userInfo,
+      userRole,
 
       onChangeNameSearchValue,
       onTriggerDrawerOpen,
@@ -66,6 +70,11 @@ class MyProposalsViewRaw extends Component {
       onClickTaskType,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const whiteList =
+      !!userInfo && checkIsFreelancer(userRole)
+        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {
       switch (mode) {
@@ -92,7 +101,10 @@ class MyProposalsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.taskTypeWrapper}>
-                  {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
+                  {Object.keys({
+                    ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                    // freelanceRequestTypeByCode
+                  }).map((taskType, taskIndex) => (
                     <Button
                       key={taskIndex}
                       variant="text"
@@ -107,19 +119,6 @@ class MyProposalsViewRaw extends Component {
                     </Button>
                   ))}
                 </div>
-
-                {/* <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
-
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleButton value={tableViewMode.LIST}>
-                      <TableRowsIcon color="primary" />
-                    </ToggleButton>
-                    <ToggleButton value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="primary" />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div> */}
 
                 <div>
                   <SearchInput

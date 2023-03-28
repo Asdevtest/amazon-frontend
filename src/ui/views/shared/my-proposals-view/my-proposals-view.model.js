@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
@@ -11,6 +12,7 @@ import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
+import {checkIsFreelancer} from '@utils/checks'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class MyProposalsViewModel {
@@ -26,7 +28,11 @@ export class MyProposalsViewModel {
   searchMyRequestsIds = []
   requests = []
   requestsBase = []
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+  selectedTaskType = undefined
+
+  userInfo = []
+  userRole = undefined
 
   showConfirmModal = false
   selectedProposal = undefined
@@ -156,8 +162,25 @@ export class MyProposalsViewModel {
     }
   }
 
+  async getUserInfo() {
+    const result = await UserModel.userInfo
+
+    console.log('getUserInfo', result)
+
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
+  }
+
   async loadData() {
     try {
+      await this.getUserInfo()
+
+      runInAction(() => {
+        this.selectedTaskType = checkIsFreelancer(this.userRole)
+          ? this.userInfo.allowedSpec.sort()[0]
+          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+      })
+
       await this.getRequestsCustom()
 
       this.getTableModeState()
@@ -173,7 +196,9 @@ export class MyProposalsViewModel {
       runInAction(() => {
         this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
 
-        this.requests = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.requests = result
+          .filter(el => +el.typeTask === this.selectedTaskType)
+          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)
