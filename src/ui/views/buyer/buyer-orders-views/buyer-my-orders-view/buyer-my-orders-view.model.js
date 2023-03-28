@@ -38,6 +38,7 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+  'paymentDetails',
 
   'amount',
   'orderSupplierId',
@@ -600,6 +601,7 @@ export class BuyerMyOrdersViewModel {
     // hsCode,
     trackNumber,
     commentToWarehouse,
+    paymentDetailsPhotosToLoad,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -622,7 +624,17 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFieldsToSave)
+      runInAction(() => {
+        this.readyImages = []
+      })
+      if (paymentDetailsPhotosToLoad.length) {
+        await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+      }
+
+      await this.onSaveOrder(order, {
+        ...orderFieldsToSave,
+        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+      })
 
       if (
         boxesForCreation.length > 0 &&
