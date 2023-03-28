@@ -31,6 +31,8 @@ export class MyProposalsViewModel {
 
   selectedTaskType = undefined
 
+  nameSearchValue = ''
+
   userInfo = []
   userRole = undefined
 
@@ -58,6 +60,13 @@ export class MyProposalsViewModel {
         })
       },
     )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   onChangeViewMode(event, nextView) {
@@ -67,7 +76,17 @@ export class MyProposalsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.requests)
+    if (this.nameSearchValue) {
+      return toJS(this.requests).filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.requests)
+    }
   }
 
   onClickDeleteBtn(item) {
@@ -203,6 +222,12 @@ export class MyProposalsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   // async onClickViewMore(id) {
