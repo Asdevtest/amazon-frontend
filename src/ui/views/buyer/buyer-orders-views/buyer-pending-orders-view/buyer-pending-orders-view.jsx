@@ -44,7 +44,6 @@ class BuyerPendingOrdersViewRaw extends Component {
 
   render() {
     const {
-      subUsersData,
       orderStatusData,
       yuanToDollarRate,
       warningInfoModalSettings,
@@ -174,7 +173,6 @@ class BuyerPendingOrdersViewRaw extends Component {
         >
           <EditOrderModal
             isPendingOrder
-            subUsersData={subUsersData}
             yuanToDollarRate={yuanToDollarRate}
             userInfo={userInfo}
             volumeWeightCoefficient={volumeWeightCoefficient}
