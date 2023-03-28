@@ -157,7 +157,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       <MultilineTextCell
         withLineBreaks
         color={
-          Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) <=
+          Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) >
           convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm)
             ? '#FF1616'
             : null

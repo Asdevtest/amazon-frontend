@@ -503,7 +503,7 @@ export const SelectFields = ({
                 inputClasses={cx(classNames.input, {
                   [classNames.inputError]:
                     orderFields.paymentDateToSupplier &&
-                    Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) <=
+                    Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
                       convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
                 })}
               />
