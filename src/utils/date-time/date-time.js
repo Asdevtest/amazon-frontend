@@ -16,6 +16,8 @@ import {SettingsModel} from '@models/settings-model'
 
 export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
 
+export const convertDaysToSeconds = days => days * 24 * 60 * 60
+
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 
 export const formatDateForShowWithoutParseISO = dateString => format(dateString, 'dd.MM.yyyy HH:mm')

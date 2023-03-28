@@ -110,7 +110,7 @@ class UserProfileViewRaw extends Component {
               /> */}
 
               {[
-                mapUserRoleEnumToKey[UserRole.RESEARCHER],
+                // mapUserRoleEnumToKey[UserRole.RESEARCHER],
                 mapUserRoleEnumToKey[UserRole.SUPERVISOR],
                 mapUserRoleEnumToKey[UserRole.BUYER],
               ].includes(user.role) ? (

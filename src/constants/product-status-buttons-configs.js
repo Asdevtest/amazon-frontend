@@ -11,17 +11,17 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.RESEARCHER_CREATED_PRODUCT,
-          label: t(TranslationKey['Create a product']),
+          label: t(TranslationKey['Send to check']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
 
-        {
-          statusKey: ProductStatus.RESEARCHER_FOUND_SUPPLIER,
-          label: t(TranslationKey['Create with a supplier']),
-          color: 'rgb(0, 123, 255)',
-          colorHover: '#1269ec',
-        },
+        // {
+        //   statusKey: ProductStatus.RESEARCHER_FOUND_SUPPLIER,
+        //   label: t(TranslationKey['Create with a supplier']),
+        //   color: 'rgb(0, 123, 255)',
+        //   colorHover: '#1269ec',
+        // },
       ]
     }
   },

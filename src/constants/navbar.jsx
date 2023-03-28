@@ -293,15 +293,15 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_USERS_RESEARCHER),
     },
 
-    {
-      icon: MyFinanceIcon,
-      title: t(TranslationKey.Finances),
-      route: '/researcher/finances',
-      key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_PAYMENTS_RESEARCHER),
-    },
+    // {
+    //   icon: MyFinanceIcon,
+    //   title: t(TranslationKey.Finances),
+    //   route: '/researcher/finances',
+    //   key: navBarActiveCategory.NAVBAR_FINANCES,
+    //   checkHideBlock: user =>
+    //     !isHaveMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_PAYMENTS_RESEARCHER),
+    // },
 
     {
       icon: Message,

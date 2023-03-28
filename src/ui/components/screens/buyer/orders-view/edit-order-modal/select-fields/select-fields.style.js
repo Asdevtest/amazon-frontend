@@ -274,4 +274,53 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: 20,
   },
+
+  inputError: {
+    '.Mui-disabled': {
+      '-webkit-text-fill-color': '#FF1616 !important',
+      opacity: '0.35',
+    },
+  },
+
+  subUsersWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 270,
+  },
+  subUsersTitleWrapper: {
+    marginBottom: 10,
+  },
+
+  subUsersTitle: {
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  subUsersBodyWrapper: {
+    width: 270,
+    maxHeight: 175,
+    overflowY: 'auto',
+
+    backgroundColor: theme.palette.background.general,
+
+    border: `1px solid ${theme.palette.input.customDisabled}`,
+    borderRadius: '4px',
+
+    padding: 5,
+  },
+
+  subUsersBody: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    width: '100%',
+    padding: '6px 0 6px 10px',
+
+    backgroundColor: theme.palette.background.general,
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+
+    gap: 10,
+  },
 }))

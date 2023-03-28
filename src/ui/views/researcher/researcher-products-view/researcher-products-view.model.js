@@ -370,11 +370,23 @@ export class ResearcherProductsViewModel {
   async getPropductsVacant() {
     try {
       const result = await ResearcherModel.getProductsVacant()
+
+      const filteredResult = result.filter(el =>
+        [
+          ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+          ProductStatusByKey[ProductStatus.DEFAULT],
+          ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+          // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+          ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+          ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+        ].includes(el.status),
+      )
+
       runInAction(() => {
-        this.baseNoConvertedProducts = result
+        this.baseNoConvertedProducts = filteredResult
 
         this.products = researcherProductsDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+          filteredResult.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )
       })
     } catch (error) {
