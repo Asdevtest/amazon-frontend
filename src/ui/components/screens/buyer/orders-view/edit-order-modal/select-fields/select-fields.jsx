@@ -44,6 +44,8 @@ export const SelectFields = ({
   setPhotosToLoad,
   deliveredGoodsCount,
   onClickHsCode,
+  hsCode,
+  setHsCode,
   setUsePriceInDollars,
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
@@ -52,6 +54,13 @@ export const SelectFields = ({
   const {classes: classNames} = useClassNames()
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  const onChangeHsField = fieldName => event => {
+    const newFormFields = {...hsCode}
+    newFormFields[fieldName] = event.target.value
+
+    setHsCode(newFormFields)
+  }
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -427,6 +436,66 @@ export const SelectFields = ({
             // onChange={setOrderField('trackingNumberChina')}
           />
 
+          <Box display="flex" width="100%">
+            <Box className={classNames.trackAndHsCodeAndComments}>
+              <div className={classNames.barCodeWrapper}>
+                <div className={classNames.barCodeLinkWrapper}>
+                  <div>
+                    <Field
+                      label={t(TranslationKey.BarCode)}
+                      labelClasses={classNames.label}
+                      inputComponent={
+                        orderFields.product.barCode ? (
+                          <div className={classNames.barCode}>
+                            <Link
+                              target="_blank"
+                              rel="noopener"
+                              href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
+                            >
+                              <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                            </Link>
+                            <CopyValue text={orderFields.product.barCode} />
+                          </div>
+                        ) : (
+                          <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
+                <Field
+                  disabled={disableSubmit}
+                  value={orderFields.tmpRefundToClient}
+                  label={t(TranslationKey['Return to Client']) + ', $'}
+                  labelClasses={classNames.label}
+                  inputClasses={classNames.input}
+                  inputProps={{maxLength: 50}}
+                  onChange={setOrderField('tmpRefundToClient')}
+                />
+              ) : null}
+            </Box>
+            <div className={classNames.researchWrapper}>
+              <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
+              <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+            </div>
+          </Box>
+        </Box>
+
+        {/** Hs code fields */}
+
+        <Box my={3} className={classNames.formItem}>
+          <Field
+            label={'HS Code'}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 255}}
+            value={hsCode.hsCode}
+            onChange={onChangeHsField('hsCode')}
+          />
+
           <Field
             disabled={disableSubmit || isPendingOrder}
             tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
@@ -446,53 +515,47 @@ export const SelectFields = ({
           />
         </Box>
 
-        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
-          <div className={classNames.barCodeWrapper}>
-            <div className={classNames.barCodeLinkWrapper}>
-              <div>
-                <Field
-                  label={t(TranslationKey.BarCode)}
-                  labelClasses={classNames.label}
-                  inputComponent={
-                    orderFields.product.barCode ? (
-                      <div className={classNames.barCode}>
-                        <Link
-                          target="_blank"
-                          rel="noopener"
-                          href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                        >
-                          <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-                        <CopyValue text={orderFields.product.barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                    )
-                  }
-                />
-              </div>
-            </div>
-          </div>
+        <Box my={3} className={classNames.formItem}>
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={'产品中文品名'}
+            labelClasses={classNames.label}
+            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            inputProps={{maxLength: 255}}
+            value={hsCode.chinaTitle}
+            onChange={onChangeHsField('chinaTitle')}
+          />
 
-          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
-            <Field
-              disabled={disableSubmit}
-              value={orderFields.tmpRefundToClient}
-              label={t(TranslationKey['Return to Client']) + ', $'}
-              labelClasses={classNames.label}
-              inputClasses={classNames.input}
-              inputProps={{maxLength: 50}}
-              onChange={setOrderField('tmpRefundToClient')}
-            />
-          ) : null}
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={t(TranslationKey.Material)}
+            labelClasses={classNames.label}
+            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            inputProps={{maxLength: 255}}
+            value={hsCode.material}
+            onChange={onChangeHsField('material')}
+          />
+        </Box>
+
+        <Box my={3}>
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={t(TranslationKey['Product usage'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.inputFullHeight}
+            inputProps={{maxLength: 255}}
+            value={hsCode.productUsage}
+            onChange={onChangeHsField('productUsage')}
+          />
         </Box>
 
         <div className={classNames.researchPaymentDateWrapper}>
-          <div className={classNames.researchWrapper}>
-            <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
-            <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
-          </div>
-
           {orderFields.status >= 20 ? (
             <div>
               <Field

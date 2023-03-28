@@ -3,18 +3,7 @@ import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {
-  Box,
-  InputAdornment,
-  Select,
-  MenuItem,
-  Paper,
-  TableCell,
-  TableRow,
-  Typography,
-  Avatar,
-  Checkbox,
-} from '@mui/material'
+import {Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -56,9 +45,9 @@ import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@
 import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
-  timeToDeadlineInHoursAndMins,
-  getShortenStringIfLongerThanCount,
   clearEverythingExceptNumbers,
+  getShortenStringIfLongerThanCount,
+  timeToDeadlineInHoursAndMins,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -88,6 +77,7 @@ export const EditOrderModal = observer(
     modalHeadCells,
     onSubmitSaveOrder,
     showProgress,
+    hsCodeData,
     progressValue,
     volumeWeightCoefficient,
     onSaveOrderItem,
@@ -218,6 +208,8 @@ export const EditOrderModal = observer(
 
     const [orderFields, setOrderFields] = useState(initialState)
 
+    const [hsCode, setHsCode] = useState({...hsCodeData})
+
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
 
@@ -249,7 +241,7 @@ export const EditOrderModal = observer(
       orderFields,
       boxesForCreation,
       photosToLoad,
-      // hsCode,
+      hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
     })
@@ -685,6 +677,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            hsCode={hsCode}
+            setHsCode={setHsCode}
             subUsersData={subUsersData}
             yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}

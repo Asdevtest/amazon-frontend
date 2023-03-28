@@ -195,6 +195,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '231px',
   },
 
+  inputFullHeight: {
+    height: 'auto',
+  },
+
   researchWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -322,5 +326,13 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
 
     gap: 10,
+  },
+
+  formItem: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: 0,
+    gap: 30,
   },
 }))
