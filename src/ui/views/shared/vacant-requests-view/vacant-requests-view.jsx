@@ -199,7 +199,7 @@ class VacantRequestsViewRaw extends Component {
                     viewMode === tableViewMode.LIST
                       ? 'repeat(auto-fill, minmax(100%, 1fr))'
                       : viewMode === tableViewMode.BLOCKS
-                      ? 'repeat(auto-fill, minmax(300px, 1fr))'
+                      ? 'repeat(auto-fill, minmax(297px, 1fr))'
                       : 'repeat(auto-fill, 100%'
                   }
                   // gridGap="20px"

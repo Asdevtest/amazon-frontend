@@ -10,6 +10,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: 500,
   },
 
+  cardHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
   cardTitleBlockWrapper: {
     marginBottom: '10px',
   },
@@ -198,5 +203,22 @@ export const useClassNames = makeStyles()(theme => ({
 
   dontWrapText: {
     whiteSpace: 'nowrap',
+  },
+
+  idWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  idTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
+
+  idText: {
+    color: theme.palette.text.general,
   },
 }))

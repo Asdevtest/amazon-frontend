@@ -58,6 +58,7 @@ docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidRequest.md
+docs/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.md
 docs/ApiV1RequestProposalsDetailsCustom.md
 docs/ApiV1RequestProposalsRequest.md
 docs/ApiV1RequestProposalsRequestDetailsCustom.md
@@ -67,6 +68,7 @@ docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
 docs/ApiV1RequestsCustomRequestLinksToMediaFiles.md
+docs/ApiV1RequestsMedia.md
 docs/ApiV1ShopSellStatistics.md
 docs/ApiV1ShopSellStatistics1.md
 docs/ApiV1StorekeepersBoxesGuidItems.md
@@ -453,6 +455,7 @@ src/model/ApiV1RequestProposalsCustomByRequestIdGuidDetails.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposal.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidRequest.js
+src/model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.js
 src/model/ApiV1RequestProposalsDetailsCustom.js
 src/model/ApiV1RequestProposalsRequest.js
 src/model/ApiV1RequestProposalsRequestDetailsCustom.js
@@ -462,6 +465,7 @@ src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
 src/model/ApiV1RequestsCustomRequestLinksToMediaFiles.js
+src/model/ApiV1RequestsMedia.js
 src/model/ApiV1ShopSellStatistics.js
 src/model/ApiV1ShopSellStatistics1.js
 src/model/ApiV1StorekeepersBoxesGuidItems.js
@@ -742,3 +746,5 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.spec.js
+test/model/ApiV1RequestsMedia.spec.js

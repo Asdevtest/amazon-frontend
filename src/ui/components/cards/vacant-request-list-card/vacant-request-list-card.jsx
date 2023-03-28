@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import {Grid, Typography, Avatar} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -29,6 +31,8 @@ import {useClassNames} from './vacant-request-list-card.style'
 export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('item', item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -43,7 +47,20 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
                 <Rating disabled value={item.createdBy.rating} />
               </div>
             </div>
-            <Typography className={classNames.cardTitle}>{item.title}</Typography>
+            <div className={classNames.titleWrapper}>
+              <Typography className={classNames.cardTitle}>
+                {`${item.title} / ${t(TranslationKey.ID)}`}{' '}
+                <span className={cx(classNames.cardTitle, classNames.idText)}>{item.humanFriendlyId}</span>
+              </Typography>
+
+              {/* <Typography
+                className={cx(classNames.cardTitle, classNames.idText)}
+              >{`${item.humanFriendlyId}`}</Typography> */}
+            </div>
+            {/* <div className={classNames.idWrapper}>
+              <Typography className={classNames.idTitle}>{t(TranslationKey.ID)}</Typography>
+              <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
+            </div> */}
           </div>
           <div className={classNames.cardTitleBlockFooterWrapper}>
             <Typography className={classNames.cardSubTitle}>
