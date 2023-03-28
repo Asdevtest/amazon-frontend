@@ -4,7 +4,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AnnouncementsModel} from '@models/announcements-model'
-import {RequestModel} from '@models/request-model'
+import {UserModel} from '@models/user-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
@@ -28,6 +28,7 @@ export class CreateOrEditServicesViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+  userInfo = undefined
 
   constructor({history, location}) {
     runInAction(() => {
@@ -61,6 +62,9 @@ export class CreateOrEditServicesViewModel {
   async loadData() {
     try {
       await this.getAnnouncementsDataByGuid()
+      runInAction(() => {
+        this.userInfo = UserModel.userInfo
+      })
     } catch (error) {
       console.log(error)
     }
