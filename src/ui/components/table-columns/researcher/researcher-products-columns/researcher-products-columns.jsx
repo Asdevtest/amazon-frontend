@@ -10,6 +10,7 @@ import {
   AsinCell,
   ToFixedWithDollarSignCell,
   MultilineStatusCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -21,8 +22,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextCell text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
-    minWidth: 150,
-    flex: 1,
+    width: 180,
   },
 
   {
@@ -30,9 +30,10 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 350,
+    width: 280,
     renderCell: params => (
       <MultilineTextCell
+        leftAlign
         text={params.value}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
@@ -44,8 +45,8 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 250,
+    renderCell: params => <MultilineStatusCell leftAlign status={params.value} />,
+    width: 180,
   },
 
   {
@@ -53,10 +54,11 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
-    renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
+    renderCell: params => <ToFixedWithDollarSignCell leftAlign value={params.row.amazon} fix={2} />,
+
     type: 'number',
-    minWidth: 150,
-    flex: 1,
+    width: 150,
+    // flex: 1,
   },
 
   // {
@@ -72,13 +74,24 @@ export const researcherProductsViewColumns = () => [
   // },
 
   {
+    field: 'supervisorComment',
+    headerName: t(TranslationKey["Supervisor's comment"]),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey["Supervisor's comment"])} />,
+
+    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+
+    filterable: false,
+    sortable: false,
+    flex: 1,
+  },
+
+  {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    minWidth: 250,
+    minWidth: 150,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
-    flex: 1,
   },
 ]

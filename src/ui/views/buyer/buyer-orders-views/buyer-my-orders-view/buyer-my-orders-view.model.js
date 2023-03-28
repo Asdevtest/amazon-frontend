@@ -85,6 +85,8 @@ export class BuyerMyOrdersViewModel {
 
   currentData = []
 
+  subUsersData = []
+
   curBoxesOfOrder = []
 
   createBoxesResult = []
@@ -512,6 +514,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getMySubUsers()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -692,6 +695,21 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getMySubUsers() {
+    try {
+      const result = await UserModel.getMySubUsers()
+      runInAction(() => {
+        this.subUsersData = result
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+        this.subUsersData = []
+      })
     }
   }
 

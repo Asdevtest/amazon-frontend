@@ -77,6 +77,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    subUsersData,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -690,6 +691,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            subUsersData={subUsersData}
             yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
