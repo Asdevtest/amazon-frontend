@@ -132,6 +132,7 @@ export const supervisorProductsDataConverter = data =>
     id: item._id,
     fbafee: item.fbafee,
     asin: item.asin,
+    ordered: item.ordered,
   }))
 
 export const buyerFinancesDataConverter = data =>
