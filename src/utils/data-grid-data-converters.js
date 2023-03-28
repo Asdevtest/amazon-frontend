@@ -94,6 +94,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -134,6 +135,7 @@ export const supervisorProductsDataConverter = data =>
     id: item._id,
     fbafee: item.fbafee,
     asin: item.asin,
+    ordered: item.ordered,
   }))
 
 export const buyerFinancesDataConverter = data =>

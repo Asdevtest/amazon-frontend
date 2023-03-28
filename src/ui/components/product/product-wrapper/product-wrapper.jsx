@@ -168,13 +168,15 @@ export const ProductWrapper = observer(
                 onChangeImagesForLoad={onChangeImagesForLoad}
                 onClickHsCode={onClickHsCode}
               />
-              <BottomCard
-                curUserRole={curUserRole}
-                product={product}
-                productBase={productBase}
-                formFieldsValidationErrors={formFieldsValidationErrors}
-                onChangeField={onChangeField}
-              />
+              {!checkIsResearcher(curUserRole) && (
+                <BottomCard
+                  curUserRole={curUserRole}
+                  product={product}
+                  productBase={productBase}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
+                  onChangeField={onChangeField}
+                />
+              )}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.ORDERS}>

@@ -97,34 +97,39 @@ export const RightSideComments = observer(
             value={product.checkednotes}
             onChange={onChangeField('checkednotes')}
           />
-          <Field
-            multiline
-            disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
-            error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
-            className={cx(classNames.heightFieldAuto, {
-              [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
-            })}
-            inputProps={{maxLength: 1000}}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Buyer)}
-            value={product.buyersComment}
-            onChange={onChangeField('buyersComment')}
-          />
 
-          <Field
-            multiline
-            disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-            className={cx(classNames.heightFieldAuto, {
-              // [classNames.errorActive]: formFieldsValidationErrors.icomment,
-            })}
-            inputProps={{maxLength: 1000}}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Client)}
-            value={product.clientComment}
-            onChange={onChangeField('clientComment')}
-          />
+          {!checkIsResearcher(curUserRole) && (
+            <>
+              <Field
+                multiline
+                disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
+                error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
+                className={cx(classNames.heightFieldAuto, {
+                  [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
+                })}
+                inputProps={{maxLength: 1000}}
+                minRows={4}
+                maxRows={6}
+                label={t(TranslationKey.Buyer)}
+                value={product.buyersComment}
+                onChange={onChangeField('buyersComment')}
+              />
+
+              <Field
+                multiline
+                disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
+                className={cx(classNames.heightFieldAuto, {
+                  // [classNames.errorActive]: formFieldsValidationErrors.icomment,
+                })}
+                inputProps={{maxLength: 1000}}
+                minRows={4}
+                maxRows={6}
+                label={t(TranslationKey.Client)}
+                value={product.clientComment}
+                onChange={onChangeField('clientComment')}
+              />
+            </>
+          )}
 
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>

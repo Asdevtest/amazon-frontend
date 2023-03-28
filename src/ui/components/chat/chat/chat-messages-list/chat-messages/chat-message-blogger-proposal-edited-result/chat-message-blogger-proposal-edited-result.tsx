@@ -42,7 +42,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
 
   const curUserId: string | undefined = UserModel.userId
 
-  // console.log('message', message)
+  console.log('message.data', message.data)
 
   // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 

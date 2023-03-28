@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import {
-  Typography,
   Checkbox,
+  CircularProgress,
   Divider,
   FormControl,
-  FormLabel,
-  RadioGroup,
   FormControlLabel,
+  FormLabel,
   Radio,
-  CircularProgress,
+  RadioGroup,
+  Typography,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -1150,6 +1150,15 @@ export const NumberFieldMenuItem = React.memo(
           setChoosenItems([...choosenItems, str])
         }
       }
+
+      const selectAllItemsHandler = fullList => {
+        if (fullList.length === choosenItems.length) {
+          setChoosenItems([])
+        } else {
+          setChoosenItems(fullList)
+        }
+      }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
@@ -1216,6 +1225,14 @@ export const NumberFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <div className={classNames.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={itemsForRender.length === choosenItems.length}
+                          onClick={() => selectAllItemsHandler(itemsForRender)}
+                        />
+                        <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
+                      </div>
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(

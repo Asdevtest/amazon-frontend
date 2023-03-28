@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Grid, Typography, Checkbox, Link, Button} from '@mui/material'
+import {Box, Button, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcExchangeDollarsInYuansPrice, calcPriceForItem, calcOrderTotalPrice} from '@utils/calculation'
+import {calcExchangeDollarsInYuansPrice, calcOrderTotalPrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {formatDateWithoutTime} from '@utils/date-time'
+import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -29,6 +30,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  subUsersData,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -46,6 +48,7 @@ export const SelectFields = ({
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
+  onClickSupplierPaymentButton,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -447,28 +450,32 @@ export const SelectFields = ({
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <div className={classNames.barCodeWrapper}>
             <div className={classNames.barCodeLinkWrapper}>
-              <div>
-                <Field
-                  label={t(TranslationKey.BarCode)}
-                  labelClasses={classNames.label}
-                  inputComponent={
-                    orderFields.product.barCode ? (
-                      <div className={classNames.barCode}>
-                        <Link
-                          target="_blank"
-                          rel="noopener"
-                          href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                        >
-                          <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-                        <CopyValue text={orderFields.product.barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                    )
-                  }
-                />
-              </div>
+              <Field
+                label={t(TranslationKey.BarCode)}
+                labelClasses={classNames.label}
+                containerClasses={classNames.checkboxContainer}
+                inputComponent={
+                  orderFields.product.barCode ? (
+                    <div className={classNames.barCode}>
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}>
+                        <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                      </Link>
+                      <CopyValue text={orderFields.product.barCode} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                  )
+                }
+              />
+            </div>
+            <div className={classNames.supplierPaymentButtonWrapper}>
+              <Button
+                className={classNames.supplierPaymentButton}
+                variant="contained"
+                // onClick={onClickSupplierPaymentButton}
+              >
+                {t(TranslationKey['Supplier payment'])}
+              </Button>
             </div>
           </div>
 
@@ -498,7 +505,12 @@ export const SelectFields = ({
                 value={formatDateWithoutTime(orderFields.paymentDateToSupplier) || t(TranslationKey.Missing)}
                 label={t(TranslationKey['Payment date'])}
                 labelClasses={classNames.label}
-                inputClasses={classNames.input}
+                inputClasses={cx(classNames.input, {
+                  [classNames.inputError]:
+                    orderFields.paymentDateToSupplier &&
+                    Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) <=
+                      convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
+                })}
               />
             </div>
           ) : null}
@@ -515,6 +527,29 @@ export const SelectFields = ({
           }
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
+
+        {subUsersData?.length ? (
+          <div className={classNames.subUsersWrapper}>
+            <div className={classNames.subUsersTitleWrapper}>
+              <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+            </div>
+            <div className={classNames.subUsersBodyWrapper}>
+              <div className={classNames.subUsersBody}>
+                {subUsersData?.map((subUser, index) => (
+                  <div key={index} className={classNames.subUserBodyWrapper}>
+                    <UserLinkCell
+                      withAvatar
+                      name={subUser?.name}
+                      userId={subUser?._id}
+                      customStyles={{fontWeight: 600, marginLeft: 5}}
+                      maxNameWidth={100}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </Grid>
 
       {showProgress && (

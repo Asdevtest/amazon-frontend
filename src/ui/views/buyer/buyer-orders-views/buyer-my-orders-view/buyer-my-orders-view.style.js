@@ -29,6 +29,8 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
+    transformOrigin: 'top left',
+
     '&:hover': {
       transform: 'scale(1.01)',
     },

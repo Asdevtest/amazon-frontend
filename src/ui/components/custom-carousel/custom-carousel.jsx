@@ -40,10 +40,17 @@ export const CustomCarousel = observer(
     }, [])
 
     useEffect(() => {
+      if (index === undefined) {
+        return
+      }
+
       setSlideCount(index + 1)
     }, [index])
 
     useEffect(() => {
+      if (index === undefined) {
+        return
+      }
       setOffset(-RIGHT_BLOCK_WIDTH * index)
     }, [index])
 
