@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1RequestsCountProposalsByStatuses from './ApiV1RequestsCountProposalsByStatuses';
+import ApiV1RequestsMedia from './ApiV1RequestsMedia';
 
 /**
  * The InlineResponse20054 model module.
@@ -136,6 +137,9 @@ class InlineResponse20054 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestsMedia]);
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
@@ -299,6 +303,11 @@ InlineResponse20054.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20054.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestsMedia>} media
+ */
+InlineResponse20054.prototype['media'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
