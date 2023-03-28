@@ -608,4 +608,10 @@ export const useClassNames = makeStyles()(theme => ({
       width: '180px',
     },
   },
+
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 }))

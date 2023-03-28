@@ -1810,5 +1810,8 @@
   "Success parse": "Успешный парсинг",
   "New notifications": "Новые уведомления",
   "Product is appropriate": "Продукт подходит",
-  "Send to check": "Отправить на проверку"
+  "Send to check": "Отправить на проверку",
+  "Total number of boxes": "Общее количество коробок",
+  "Supervisor's comment": "Комментарий супервизора",
+  "Product available": "Товар доступен"
 }
