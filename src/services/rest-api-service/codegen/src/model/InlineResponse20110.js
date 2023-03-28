@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20110 {
     /**
      * Constructs a new <code>InlineResponse20110</code>.
-     * Успешный ответ
      * @alias module:model/InlineResponse20110
      */
     constructor() { 
@@ -59,7 +58,7 @@ class InlineResponse20110 {
 }
 
 /**
- * guid обновленного объекта
+ * Гуид созданного исходника
  * @member {String} guid
  */
 InlineResponse20110.prototype['guid'] = undefined;
