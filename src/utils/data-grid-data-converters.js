@@ -91,6 +91,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>

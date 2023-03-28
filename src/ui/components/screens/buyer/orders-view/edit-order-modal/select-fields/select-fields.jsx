@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -29,6 +30,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  subUsersData,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -520,6 +522,29 @@ export const SelectFields = ({
           }
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
+
+        {subUsersData?.length ? (
+          <div className={classNames.subUsersWrapper}>
+            <div className={classNames.subUsersTitleWrapper}>
+              <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+            </div>
+            <div className={classNames.subUsersBodyWrapper}>
+              <div className={classNames.subUsersBody}>
+                {subUsersData?.map((subUser, index) => (
+                  <div key={index} className={classNames.subUserBodyWrapper}>
+                    <UserLinkCell
+                      withAvatar
+                      name={subUser?.name}
+                      userId={subUser?._id}
+                      customStyles={{fontWeight: 600, marginLeft: 5}}
+                      maxNameWidth={100}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </Grid>
 
       {showProgress && (

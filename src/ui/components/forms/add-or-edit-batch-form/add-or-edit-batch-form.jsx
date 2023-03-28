@@ -254,7 +254,7 @@ export const AddOrEditBatchForm = observer(
           ),
         ),
       ])
-    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
+    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod, chosenBoxes])
 
     // useEffect(() => {
     //   setIsActualGreaterTheVolume(
@@ -306,6 +306,8 @@ export const AddOrEditBatchForm = observer(
       const curChosenGoodsIds = chosenBoxesBase.map(el => el.id)
 
       const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
+
+      console.log('boxesData', boxesData)
 
       const newSelectedItems = [
         ...addOrEditBatchDataConverter(
