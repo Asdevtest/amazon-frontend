@@ -103,9 +103,11 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
     gap: '5px',
     alignItems: 'flex-start',
+
+    marginBottom: 20,
   },
   totalPriceWrapper: {
     marginTop: '20px',
@@ -322,5 +324,24 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
 
     gap: 10,
+    supplierPaymentButtonWrapper: {
+      width: '100%',
+      height: '100%',
+
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'end',
+    },
+
+    supplierPaymentButton: {
+      height: 32,
+
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '19px',
+      width: 231,
+
+      color: '#fff',
+    },
   },
 }))

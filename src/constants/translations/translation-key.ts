@@ -1814,6 +1814,8 @@ export enum TranslationKey {
   "Supervisor's comment" = "Supervisor's comment",
   'Product available' = 'Product available',
   'Ready for payment' = 'Ready for payment',
+  'Supplier payment' = 'Supplier payment',
+  'Add payment to supplier' = 'Add payment to supplier',
   // '' = '',
   // '' = '',
   // '' = '',
