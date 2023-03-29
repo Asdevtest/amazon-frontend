@@ -103,11 +103,9 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     gap: '5px',
     alignItems: 'flex-start',
-
-    marginBottom: 20,
   },
   totalPriceWrapper: {
     marginTop: '20px',
@@ -197,6 +195,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '231px',
   },
 
+  inputFullHeight: {
+    height: 'auto',
+  },
+
   researchWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -280,7 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
   inputError: {
     '.Mui-disabled': {
       '-webkit-text-fill-color': '#FF1616 !important',
-      opacity: '0.35',
+      opacity: '0.5',
     },
   },
 
@@ -341,8 +343,16 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    width: 234,
-
+    width: '100%',
+    marginBottom: '20px',
     color: '#fff',
+  },
+
+  formItem: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: 0,
+    gap: 30,
   },
 }))
