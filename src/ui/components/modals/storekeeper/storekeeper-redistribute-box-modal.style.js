@@ -288,4 +288,18 @@ export const useClassNames = makeStyles()(theme => ({
     border: '3px solid #F5CF00',
     borderRadius: 4,
   },
+
+  btnsWrapper: {
+    display: 'flex',
+    gap: 20,
+  },
+
+  applyAllBtn: {
+    transition: '.3s ease',
+    '&:hover:not(:active)': {
+      // background: theme.palette.background.green,
+
+      background: 'green',
+    },
+  },
 }))

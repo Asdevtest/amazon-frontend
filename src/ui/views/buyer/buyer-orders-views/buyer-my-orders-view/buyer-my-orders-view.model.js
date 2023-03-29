@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
+import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -624,7 +625,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.readyImages = []
       })
-      if (paymentDetailsPhotosToLoad.length) {
+      if (paymentDetailsPhotosToLoad?.length) {
         await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
       }
 
@@ -826,6 +827,10 @@ export class BuyerMyOrdersViewModel {
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
+        priority:
+          order.priority === '40'
+            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
+            : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
       if (!this.error) {
