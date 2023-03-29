@@ -580,6 +580,7 @@ export const SelectFields = ({
                   [classNames.inputError]:
                     orderFields.paymentDateToSupplier &&
                     orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+                    !!orderFields.product.currentSupplier.productionTerm &&
                     Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
                       convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
                 })}
