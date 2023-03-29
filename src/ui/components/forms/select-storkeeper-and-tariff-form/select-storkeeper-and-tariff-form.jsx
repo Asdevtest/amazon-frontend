@@ -73,6 +73,7 @@ export const SelectStorekeeperAndTariffForm = observer(
             .map(storekeeper => (
               <Button
                 key={storekeeper._id}
+                btnWrapperStyle={classNames.btnWrapperStyle}
                 disabled={curStorekeeper?._id === storekeeper._id}
                 className={cx(
                   classNames.button,

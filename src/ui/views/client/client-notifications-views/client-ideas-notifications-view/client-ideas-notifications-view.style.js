@@ -46,4 +46,9 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  archiveHandler: {
+    color: '#5BA0FE',
+    marginLeft: 'auto',
+  },
 })

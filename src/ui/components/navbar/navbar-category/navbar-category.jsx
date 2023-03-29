@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {ListItemIcon, ListItemText, SvgIcon} from '@mui/material'
+import {Box, ListItemIcon, ListItemText, SvgIcon} from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
 import {observer} from 'mobx-react'
@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import {withStyles} from 'tss-react/mui'
 
 import {Button} from '@components/buttons/button'
+import {HighPriorityValue} from '@components/shared/high-priority-value'
 
 import {renderTooltipTitle} from '@utils/renders'
 
@@ -23,8 +24,21 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     )
     .filter(el => el !== null)
 
-  const isRedBadge = category.route?.includes('/client/my-orders/orders')
+  const isRedBadge =
+    category.route?.includes('/client/my-orders/orders') ||
+    category.route?.includes('/buyer/pending-orders') ||
+    category.route?.includes('/buyer/free-orders')
 
+  const getHighPriorityValue = route => {
+    switch (route) {
+      case '/warehouse/tasks':
+        return userInfo.tasksNewHigh + userInfo.tasksAtProcessHigh
+      default:
+        return null
+    }
+  }
+
+  const highPriorityValue = getHighPriorityValue(category.route)
   // console.log('badge', badge, category)
 
   return (
@@ -63,6 +77,11 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
             className={cx({[classNames.listItemSelected]: isSelected})}
             primary={category.title}
           />
+        )}
+        {highPriorityValue && (
+          <Box pr="30px">
+            <HighPriorityValue value={highPriorityValue} />
+          </Box>
         )}
       </MuiListItem>
     </Button>

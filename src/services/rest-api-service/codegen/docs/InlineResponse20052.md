@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**price** | **Number** | Цена за каждое предложение. | [optional] 
-**requestPlatformMarginInPercent** | **Number** | Процент с каждого предложения, маржа платформы, в процентах. | [optional] 
-**platformMargin** | **Number** | Услуги платформы. | [optional] 
-**requestSupervisorFeeInPercent** | **Number** | Процент с каждого предложения для супервайзера, в процентах. | [optional] 
-**supervisorFee** | **Number** | Услуги супервайзера. | [optional] 
-**unitCost** | **Number** | Сумма. | [optional] 
-**maxAmountOfProposals** | **Number** | Количество предложений, не менее. | [optional] 
-**totalCost** | **Number** | Итого. | [optional] 
+**_id** | **String** | Гуид медиа | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comment** | **String** | Комментарий к файлу | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | [optional] 
+**productId** | **String** | гуид продукта | [optional] 
+**proposalId** | **String** | Гуид пропоузала | [optional] 
+**createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата создания. | [optional] 
 
 

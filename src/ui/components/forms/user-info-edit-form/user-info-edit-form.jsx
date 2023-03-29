@@ -8,11 +8,13 @@ import React, {useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 // import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
+import {checkIsResearcher} from '@utils/checks'
 import {t} from '@utils/translations'
 import {validationMessagesArray} from '@utils/validation'
 
@@ -263,6 +265,7 @@ export const UserInfoEditForm = observer(
 
         <div className={classNames.field}>
           <Field
+            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
             inputProps={{maxLength: 128}}
             labelClasses={classNames.labelField}
             error={wrongPassword && t(TranslationKey['Old password'])}
@@ -280,6 +283,7 @@ export const UserInfoEditForm = observer(
 
         <div className={classNames.field}>
           <Field
+            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
             inputProps={{maxLength: 128}}
             labelClasses={classNames.labelField}
             error={showError}
@@ -321,6 +325,7 @@ export const UserInfoEditForm = observer(
 
         <div className={classNames.field}>
           <Field
+            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
             inputProps={{maxLength: 128}}
             labelClasses={classNames.labelField}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}

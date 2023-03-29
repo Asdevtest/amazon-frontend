@@ -1,4 +1,4 @@
-# Amazonapi.ApiV1AdminsGetNotPaidProductsCreatedby
+# Amazonapi.ApiV1AdminsGetNotPaidProductsCreatedBy
 
 ## Properties
 

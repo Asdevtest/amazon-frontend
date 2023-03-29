@@ -61,6 +61,7 @@
     "compare-versions": "^6.0.0-rc.1",
     "customize-cra": "^1.0.0",
     "date-fns": "^2.25.0",
+    "dayjs": "^1.11.7",
     "emoji-mart": "^5.2.2",
     "env-cmd": "^10.1.0",
     "expect.js": "^0.3.1",

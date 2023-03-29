@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
   tooltipsWrapper: {
     position: 'absolute',
     top: '-10px',
-    right: '-15px',
+    right: '-10px',
     zIndex: '10',
 
     display: 'flex',
@@ -84,8 +84,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tooltip: {
-    width: '15px',
-    height: '15px',
+    width: '18px !important',
+    height: '18px !important',
+
     transition: '.3s ease-in-out',
     '&:hover': {
       cursor: 'default',
@@ -102,6 +103,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   btnWrapper: {
     position: 'relative',
-    display: 'inline',
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

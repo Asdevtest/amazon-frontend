@@ -205,46 +205,94 @@ export const TopCard = observer(
             />
           </Grid>
 
-          <div className={classNames.suppliersWrapper}>
-            <Typography variant="h6" className={classNames.supplierTitle}>
-              {t(TranslationKey['List of suppliers'])}
-            </Typography>
+          {!checkIsResearcher(curUserRole) && (
+            <>
+              <div className={classNames.suppliersWrapper}>
+                <Typography variant="h6" className={classNames.supplierTitle}>
+                  {t(TranslationKey['List of suppliers'])}
+                </Typography>
 
-            {!(
-              !showActionBtns ||
-              (checkIsClient(curUserRole) && product.archive) ||
-              (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
-              (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
-              checkIsSupervisor(curUserRole) ||
-              checkIsAdmin(curUserRole) ||
-              (checkIsResearcher(curUserRole) &&
-                productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-            ) || checkIsBuyer(curUserRole) ? (
-              <div className={classNames.supplierActionsWrapper}>
-                <div className={classNames.supplierContainer}>
-                  <div className={classNames.supplierButtonWrapper}>
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                      className={classNames.iconBtn}
-                      onClick={() => onClickSupplierBtns('add')}
-                    >
-                      <AddIcon />
-                    </Button>
-                    <Typography className={classNames.supplierButtonText}>
-                      {t(TranslationKey['Add supplier'])}
-                    </Typography>
-                  </div>
+                {!(
+                  !showActionBtns ||
+                  (checkIsClient(curUserRole) && product.archive) ||
+                  (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
+                  (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
+                  checkIsSupervisor(curUserRole) ||
+                  checkIsAdmin(curUserRole) ||
+                  (checkIsResearcher(curUserRole) &&
+                    productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
+                ) || checkIsBuyer(curUserRole) ? (
+                  <div className={classNames.supplierActionsWrapper}>
+                    <div className={classNames.supplierContainer}>
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
+                          className={classNames.iconBtn}
+                          onClick={() => onClickSupplierBtns('add')}
+                        >
+                          <AddIcon />
+                        </Button>
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Add supplier'])}
+                        </Typography>
+                      </div>
 
-                  {selectedSupplier ? (
-                    <>
-                      {((user?._id === selectedSupplier?.createdBy?._id ||
-                        user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
-                        checkIsBuyer(curUserRole)) ||
-                      selectedSupplier.name !== 'access denied' ? (
+                      {selectedSupplier ? (
                         <>
-                          {checkIsAdmin(curUserRole) ||
-                          checkIsSupervisor(curUserRole) ||
-                          (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
+                          {((user?._id === selectedSupplier?.createdBy?._id ||
+                            user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
+                            checkIsBuyer(curUserRole)) ||
+                          selectedSupplier.name !== 'access denied' ? (
+                            <>
+                              {checkIsAdmin(curUserRole) ||
+                              checkIsSupervisor(curUserRole) ||
+                              (checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
+                                <div className={classNames.supplierButtonWrapper}>
+                                  <Button
+                                    tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                                    className={classNames.iconBtn}
+                                    onClick={() => onClickSupplierBtns('view')}
+                                  >
+                                    <VisibilityOutlinedIcon />
+                                  </Button>
+                                  <Typography className={classNames.supplierButtonText}>
+                                    {t(TranslationKey['Open the parameters supplier'])}
+                                  </Typography>
+                                </div>
+                              ) : null}
+                              {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
+                                <div className={classNames.supplierButtonWrapper}>
+                                  <Button
+                                    tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                                    className={classNames.iconBtn}
+                                    onClick={() => onClickSupplierBtns('edit')}
+                                  >
+                                    <EditOutlinedIcon />
+                                  </Button>
+                                  <Typography className={classNames.supplierButtonText}>
+                                    {t(TranslationKey['Edit a supplier'])}
+                                  </Typography>
+                                </div>
+                              ) : null}
+
+                              {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
+                                <div className={classNames.supplierButtonWrapper}>
+                                  <Button
+                                    tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                                    className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                    onClick={() => onClickSupplierBtns('delete')}
+                                  >
+                                    <DeleteOutlineOutlinedIcon />
+                                  </Button>
+                                  <Typography className={classNames.supplierButtonText}>
+                                    {t(TranslationKey['Delete supplier'])}
+                                  </Typography>
+                                </div>
+                              )}
+                            </>
+                          ) : null}
+
+                          {showActionBtns ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
                                 tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
@@ -258,134 +306,90 @@ export const TopCard = observer(
                               </Typography>
                             </div>
                           ) : null}
-                          {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
+
+                          {showActionBtns ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
-                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                className={classNames.iconBtn}
-                                onClick={() => onClickSupplierBtns('edit')}
+                                tooltipInfoContent={
+                                  isSupplierAcceptRevokeActive
+                                    ? t(TranslationKey['Remove the current supplier'])
+                                    : t(TranslationKey['Select a supplier as the current supplier'])
+                                }
+                                className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
+                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                                })}
+                                onClick={() =>
+                                  isSupplierAcceptRevokeActive
+                                    ? onClickSupplierBtns('acceptRevoke')
+                                    : onClickSupplierBtns('accept')
+                                }
                               >
-                                <EditOutlinedIcon />
+                                {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
                               </Button>
                               <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Edit a supplier'])}
+                                {isSupplierAcceptRevokeActive
+                                  ? t(TranslationKey['Remove the main supplier status'])
+                                  : t(TranslationKey['Make the supplier the main'])}
                               </Typography>
                             </div>
                           ) : null}
-
-                          {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                                onClick={() => onClickSupplierBtns('delete')}
-                              >
-                                <DeleteOutlineOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Delete supplier'])}
-                              </Typography>
-                            </div>
-                          )}
                         </>
-                      ) : null}
-
-                      {showActionBtns ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('view')}
-                          >
-                            <VisibilityOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Open the parameters supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-
-                      {showActionBtns ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={
-                              isSupplierAcceptRevokeActive
-                                ? t(TranslationKey['Remove the current supplier'])
-                                : t(TranslationKey['Select a supplier as the current supplier'])
-                            }
-                            className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
-                              [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                            })}
-                            onClick={() =>
-                              isSupplierAcceptRevokeActive
-                                ? onClickSupplierBtns('acceptRevoke')
-                                : onClickSupplierBtns('accept')
-                            }
-                          >
-                            {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {isSupplierAcceptRevokeActive
-                              ? t(TranslationKey['Remove the main supplier status'])
-                              : t(TranslationKey['Make the supplier the main'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                    </>
-                  ) : undefined}
-                </div>
+                      ) : undefined}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={classNames.supplierActionsWrapper}>
+                    <div className={classNames.supplierContainer}>
+                      {/* {selectedSupplier && selectedSupplier.name !== 'access denied' ? ( */}
+                      <>
+                        {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
+                          <div className={classNames.supplierButtonWrapper}>
+                            <Button
+                              disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
+                              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                              className={classNames.iconBtn}
+                              onClick={() => onClickSupplierBtns('view')}
+                            >
+                              <VisibilityOutlinedIcon />
+                            </Button>
+                            <Typography className={classNames.supplierButtonText}>
+                              {t(TranslationKey['Open the parameters supplier'])}
+                            </Typography>
+                          </div>
+                        ) : null}
+                        {(user?._id === selectedSupplier?.createdBy?._id ||
+                          user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
+                        checkIsBuyer(curUserRole) ? (
+                          <div className={classNames.supplierButtonWrapper}>
+                            <Button
+                              disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                              className={classNames.iconBtn}
+                              onClick={() => onClickSupplierBtns('edit')}
+                            >
+                              <EditOutlinedIcon />
+                            </Button>
+                            <Typography className={classNames.supplierButtonText}>
+                              {t(TranslationKey['Edit a supplier'])}
+                            </Typography>
+                          </div>
+                        ) : null}
+                      </>
+                      {/* ) : undefined} */}
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className={classNames.supplierActionsWrapper}>
-                <div className={classNames.supplierContainer}>
-                  {/* {selectedSupplier && selectedSupplier.name !== 'access denied' ? ( */}
-                  <>
-                    {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
-                          tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('view')}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Open the parameters supplier'])}
-                        </Typography>
-                      </div>
-                    ) : null}
-                    {(user?._id === selectedSupplier?.createdBy?._id ||
-                      user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
-                    checkIsBuyer(curUserRole) ? (
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('edit')}
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      </div>
-                    ) : null}
-                  </>
-                  {/* ) : undefined} */}
-                </div>
-              </div>
-            )}
-          </div>
 
-          <TableSupplier
-            // isClient
-            product={product}
-            productBaseData={productBase}
-            selectedSupplier={selectedSupplier}
-            onClickSupplier={onClickSupplier}
-          />
+              <TableSupplier
+                // isClient
+                product={product}
+                productBaseData={productBase}
+                selectedSupplier={selectedSupplier}
+                onClickSupplier={onClickSupplier}
+              />
+            </>
+          )}
 
           {showProgress && (
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />

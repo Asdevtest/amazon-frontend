@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Grid, Typography, Checkbox, Link, Button} from '@mui/material'
+import {Box, Button, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcExchangeDollarsInYuansPrice, calcPriceForItem, calcOrderTotalPrice} from '@utils/calculation'
+import {calcExchangeDollarsInYuansPrice, calcOrderTotalPrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {formatDateWithoutTime} from '@utils/date-time'
+import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -42,14 +43,26 @@ export const SelectFields = ({
   setPhotosToLoad,
   deliveredGoodsCount,
   onClickHsCode,
+  hsCode,
+  setHsCode,
   setUsePriceInDollars,
   checkIsPlanningPrice,
   setCheckIsPlanningPrice,
   onClickUpdateButton,
+  onClickSupplierPaymentButton,
 }) => {
   const {classes: classNames} = useClassNames()
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  const onChangeHsField = fieldName => event => {
+    const newFormFields = {...hsCode}
+    newFormFields[fieldName] = event.target.value
+
+    setHsCode(newFormFields)
+  }
+
+  console.log('@', orderFields.orderSupplier.productionTerm)
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -360,7 +373,7 @@ export const SelectFields = ({
         </div>
       </Grid>
 
-      <Grid item>
+      <Grid item className={classNames.gridItem}>
         {/* <Box>
           <Field
             disabled
@@ -425,72 +438,139 @@ export const SelectFields = ({
             // onChange={setOrderField('trackingNumberChina')}
           />
 
+          <Box display="flex" width="100%">
+            <Box className={classNames.trackAndHsCodeAndComments}>
+              <div>
+                <div className={classNames.barCodeWrapper}>
+                  <div className={classNames.barCodeLinkWrapper}>
+                    <div>
+                      <Field
+                        label={t(TranslationKey.BarCode)}
+                        labelClasses={classNames.label}
+                        inputComponent={
+                          orderFields.product.barCode ? (
+                            <div className={classNames.barCode}>
+                              <Link
+                                target="_blank"
+                                rel="noopener"
+                                href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
+                              >
+                                <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                              </Link>
+                              <CopyValue text={orderFields.product.barCode} />
+                            </div>
+                          ) : (
+                            <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className={classNames.researchWrapper}>
+                    <Checkbox
+                      disabled
+                      className={classNames.checkbox}
+                      checked={orderFields.needsResearch}
+                      color="primary"
+                    />
+                    <Typography className={classNames.researchLabel}>
+                      {t(TranslationKey['Re-search supplier'])}
+                    </Typography>
+                  </div>
+                </div>
+
+                {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
+                  <Field
+                    disabled={disableSubmit}
+                    value={orderFields.tmpRefundToClient}
+                    label={t(TranslationKey['Return to Client']) + ', $'}
+                    labelClasses={classNames.label}
+                    inputClasses={classNames.input}
+                    inputProps={{maxLength: 50}}
+                    onChange={setOrderField('tmpRefundToClient')}
+                  />
+                ) : null}
+              </div>
+              {/* <div className={classNames.researchWrapper}>
+                <Checkbox
+                  disabled
+                  className={classNames.checkbox}
+                  checked={orderFields.needsResearch}
+                  color="primary"
+                />
+                <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+              </div> */}
+            </Box>
+          </Box>
+        </Box>
+
+        {/** Hs code fields */}
+
+        <Box my={3} className={classNames.formItem} alignItems="flex-end">
           <Field
-            disabled={disableSubmit || isPendingOrder}
-            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-            label={t(TranslationKey['HS code'])}
+            label={'HS Code'}
             labelClasses={classNames.label}
-            inputProps={{maxLength: 50}}
-            inputComponent={
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 255}}
+            value={hsCode.hsCode}
+            onChange={onChangeHsField('hsCode')}
+          />
+
+          {!isPendingOrder && (
+            <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
+                className={classNames.supplierPaymentButton}
                 variant="contained"
-                // color="primary"
-                className={classNames.hsCodeBtn}
-                onClick={() => onClickHsCode(orderFields.product._id)}
+                onClick={onClickSupplierPaymentButton}
               >
-                {t(TranslationKey['HS code'])}
+                {t(TranslationKey['Supplier payment'])}
               </Button>
-            }
+            </div>
+          )}
+        </Box>
+
+        <Box my={3} className={classNames.formItem}>
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={'产品中文品名'}
+            labelClasses={classNames.label}
+            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            inputProps={{maxLength: 255}}
+            value={hsCode.chinaTitle}
+            onChange={onChangeHsField('chinaTitle')}
+          />
+
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={t(TranslationKey.Material)}
+            labelClasses={classNames.label}
+            inputClasses={cx(classNames.input, classNames.inputFullHeight)}
+            inputProps={{maxLength: 255}}
+            value={hsCode.material}
+            onChange={onChangeHsField('material')}
           />
         </Box>
 
-        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
-          <div className={classNames.barCodeWrapper}>
-            <div className={classNames.barCodeLinkWrapper}>
-              <div>
-                <Field
-                  label={t(TranslationKey.BarCode)}
-                  labelClasses={classNames.label}
-                  inputComponent={
-                    orderFields.product.barCode ? (
-                      <div className={classNames.barCode}>
-                        <Link
-                          target="_blank"
-                          rel="noopener"
-                          href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                        >
-                          <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                        </Link>
-                        <CopyValue text={orderFields.product.barCode} />
-                      </div>
-                    ) : (
-                      <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                    )
-                  }
-                />
-              </div>
-            </div>
-          </div>
-
-          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
-            <Field
-              disabled={disableSubmit}
-              value={orderFields.tmpRefundToClient}
-              label={t(TranslationKey['Return to Client']) + ', $'}
-              labelClasses={classNames.label}
-              inputClasses={classNames.input}
-              inputProps={{maxLength: 50}}
-              onChange={setOrderField('tmpRefundToClient')}
-            />
-          ) : null}
+        <Box my={3}>
+          <Field
+            multiline
+            minRows={2}
+            maxRows={2}
+            label={t(TranslationKey['Product usage'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.inputFullHeight}
+            inputProps={{maxLength: 255}}
+            value={hsCode.productUsage}
+            onChange={onChangeHsField('productUsage')}
+          />
         </Box>
 
         <div className={classNames.researchPaymentDateWrapper}>
-          <div className={classNames.researchWrapper}>
-            <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
-            <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
-          </div>
-
           {orderFields.status >= 20 ? (
             <div>
               <Field
@@ -498,7 +578,14 @@ export const SelectFields = ({
                 value={formatDateWithoutTime(orderFields.paymentDateToSupplier) || t(TranslationKey.Missing)}
                 label={t(TranslationKey['Payment date'])}
                 labelClasses={classNames.label}
-                inputClasses={classNames.input}
+                inputClasses={cx(classNames.input, {
+                  [classNames.inputError]:
+                    orderFields.paymentDateToSupplier &&
+                    orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+                    !!orderFields.orderSupplier.productionTerm &&
+                    Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
+                      convertDaysToSeconds(orderFields.orderSupplier.productionTerm),
+                })}
               />
             </div>
           ) : null}
@@ -515,6 +602,29 @@ export const SelectFields = ({
           }
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
+
+        {order.product.subUsers?.length ? (
+          <div className={classNames.subUsersWrapper}>
+            <div className={classNames.subUsersTitleWrapper}>
+              <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+            </div>
+            <div className={classNames.subUsersBodyWrapper}>
+              <div className={classNames.subUsersBody}>
+                {order.product.subUsers?.map((subUser, index) => (
+                  <div key={index} className={classNames.subUserBodyWrapper}>
+                    <UserLinkCell
+                      withAvatar
+                      name={subUser?.name}
+                      userId={subUser?._id}
+                      customStyles={{fontWeight: 600, marginLeft: 5}}
+                      maxNameWidth={100}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </Grid>
 
       {showProgress && (

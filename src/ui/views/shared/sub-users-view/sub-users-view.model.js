@@ -33,6 +33,8 @@ export class SubUsersViewModel {
   groupPermissions = []
   shopsData = []
 
+  currentData = []
+
   curUserProductPermissions = []
   productPermissionsData = []
 
@@ -51,6 +53,7 @@ export class SubUsersViewModel {
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+    onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
 
   firstRowId = undefined
@@ -85,6 +88,14 @@ export class SubUsersViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.subUsersData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async updateColumnsModel() {
@@ -97,6 +108,17 @@ export class SubUsersViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+  }
+
+  async onClickSaveComment(id, comment) {
+    try {
+      // console.log(id, comment)
+      await UserModel.patchSubNote(id, comment)
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   setDataGridState(state) {
@@ -222,44 +244,6 @@ export class SubUsersViewModel {
       })
     }
   }
-
-  // async getProductsMy(shopId) {
-  //   try {
-  //     const methodByRole = () => {
-  //       switch (UserRoleCodeMap[this.userInfo.role]) {
-  //         case UserRole.CLIENT:
-  //           return ClientModel.getProductsMyFilteredByShopId({shopId})
-
-  //         case UserRole.BUYER:
-  //           return BuyerModel.getProductsMy()
-
-  //         case UserRole.SUPERVISOR:
-  //           return SupervisorModel.getProductsMy()
-
-  //         case UserRole.RESEARCHER:
-  //           return ResearcherModel.getProductsVacant()
-
-  //         default:
-  //           return ClientModel.getProductsMyFilteredByShopId({shopId})
-  //       }
-  //     }
-
-  //     const result = await methodByRole()
-
-  //     runInAction(() => {
-  //       this.productsMy = clientInventoryDataConverter(result)
-  //         .filter(el => !el.originalData.archive)
-  //         .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.productsMy = []
-
-  //     if (error.body && error.body.message) {
-  //       this.error = error.body.message
-  //     }
-  //   }
-  // }
 
   async getUsers() {
     try {

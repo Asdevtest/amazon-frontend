@@ -8,6 +8,7 @@ import {withStyles} from 'tss-react/mui'
 import {getResearcherDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -18,6 +19,7 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {UserLink} from '@components/user-link'
 
+import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
@@ -51,7 +53,9 @@ export class ResearcherDashboardViewRaw extends Component {
                 <div className={classNames.userInfoLeftWrapper}>
                   <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  {!checkIsResearcher(UserRoleCodeMap[userInfo.role]) && (
+                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  )}
                 </div>
 
                 <DashboardButtons user={userInfo} routes={researcherButtonsRoutes} />

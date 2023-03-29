@@ -92,6 +92,9 @@ class InlineResponse20051 {
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
+            if (data.hasOwnProperty('subId')) {
+                obj['subId'] = ApiClient.convertToType(data['subId'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -200,6 +203,12 @@ InlineResponse20051.prototype['chatId'] = undefined;
  * @member {String} lastModifiedById
  */
 InlineResponse20051.prototype['lastModifiedById'] = undefined;
+
+/**
+ * GUID саба
+ * @member {String} subId
+ */
+InlineResponse20051.prototype['subId'] = undefined;
 
 /**
  * Дата создания

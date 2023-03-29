@@ -129,7 +129,9 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
+              {!checkIsBuyer(curUserRole) && !checkIsResearcher(curUserRole) && (
+                <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+              )}
 
               {!checkIsResearcher(curUserRole) && (
                 <ITab
@@ -164,13 +166,15 @@ export const ProductWrapper = observer(
                 onChangeImagesForLoad={onChangeImagesForLoad}
                 onClickHsCode={onClickHsCode}
               />
-              <BottomCard
-                curUserRole={curUserRole}
-                product={product}
-                productBase={productBase}
-                formFieldsValidationErrors={formFieldsValidationErrors}
-                onChangeField={onChangeField}
-              />
+              {!checkIsResearcher(curUserRole) && (
+                <BottomCard
+                  curUserRole={curUserRole}
+                  product={product}
+                  productBase={productBase}
+                  formFieldsValidationErrors={formFieldsValidationErrors}
+                  onChangeField={onChangeField}
+                />
+              )}
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.ORDERS}>

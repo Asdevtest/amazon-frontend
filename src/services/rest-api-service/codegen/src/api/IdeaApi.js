@@ -586,25 +586,21 @@ export default class IdeaApi {
 
 
     /**
-     * Удалить идею
-     * ## Удаление идеи  
-     * @param {String} guid ID идеи
+     * Получить нотификации идей
+     * ## Получить нотификации идей  
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20041>} and HTTP response
      */
-    apiV1IdeasNotificationsGetWithHttpInfo(guid, opts) {
+    apiV1IdeasNotificationsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasNotificationsGet");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
+        'archive': opts['archive']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -624,15 +620,15 @@ export default class IdeaApi {
     }
 
     /**
-     * Удалить идею
-     * ## Удаление идеи  
-     * @param {String} guid ID идеи
+     * Получить нотификации идей
+     * ## Получить нотификации идей  
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20041>}
      */
-    apiV1IdeasNotificationsGet(guid, opts) {
-      return this.apiV1IdeasNotificationsGetWithHttpInfo(guid, opts)
+    apiV1IdeasNotificationsGet(opts) {
+      return this.apiV1IdeasNotificationsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

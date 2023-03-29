@@ -7,6 +7,7 @@ import {TranslationKey} from './translations/translation-key'
 
 export const ProductStatus = {
   NEW_PRODUCT: 'NEW_PRODUCT',
+  DEFAULT: 'DEFAULT', // Для сортировки
   RESEARCHER_FOUND_SUPPLIER: 'RESEARCHER_FOUND_SUPPLIER',
   RESEARCHER_CREATED_PRODUCT: 'RESEARCHER_CREATED_PRODUCT',
   CHECKED_BY_SUPERVISOR: 'CHECKED_BY_SUPERVISOR',
@@ -38,6 +39,7 @@ export const ProductStatus = {
 export const ProductStatusByCode = {
   // Товар после заведения в базе ресерчером получает этот статус. Ресечер может дополнительно сменить его на статус 30
   0: ProductStatus.NEW_PRODUCT,
+  1: ProductStatus.DEFAULT, // Для сортировки
   5: ProductStatus.RESEARCHER_CREATED_PRODUCT,
   10: ProductStatus.RESEARCHER_FOUND_SUPPLIER,
   // Статусы, которые поставит супервайзер по итогам проверки
@@ -123,6 +125,9 @@ export const productStatusTranslateKey = status => {
     case ProductStatus.NEW_PRODUCT:
       return TranslationKey['New product']
 
+    case ProductStatus.DEFAULT:
+      return TranslationKey.All
+
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
       return TranslationKey['Product on check with Supervisor']
 
@@ -130,7 +135,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Researcher found supplier']
 
     case ProductStatus.CHECKED_BY_SUPERVISOR:
-      return TranslationKey['Product checked by Supervisor']
+      return TranslationKey['Product is appropriate']
 
     case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
       return TranslationKey['Rejected by Supervisor']

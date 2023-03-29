@@ -1,7 +1,7 @@
 import {keyframes} from '@emotion/react'
 
 const ani = keyframes`
-0% {
+  0% {
     transform: translateY(-150%);
     opacity: 0;
   }
@@ -19,7 +19,7 @@ export const styles = theme => ({
   // },
 
   tableWrapper: {
-    height: 'calc(100vh - 180px)',
+    height: 'calc(100vh - 250px)',
   },
   root: {
     border: '0 !important',
@@ -146,6 +146,11 @@ export const styles = theme => ({
     marginBottom: 5,
     color: theme.palette.primary.main,
 
+    display: 'flex',
+    alignItems: 'center !important',
+    gap: '12px',
+    justifyContent: 'center',
+
     fontSize: 14,
     fontWeight: 600,
 
@@ -169,5 +174,10 @@ export const styles = theme => ({
     borderBottom: '5px solid #0460DE',
 
     color: `${theme.palette.primary.main} !important`,
+  },
+
+  rushOrderImg: {
+    width: '12px',
+    height: '14px',
   },
 })

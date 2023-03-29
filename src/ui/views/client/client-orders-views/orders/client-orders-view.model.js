@@ -324,6 +324,7 @@ export class ClientOrdersViewModel {
           return [
             OrderStatus.AT_PROCESS,
             OrderStatus.READY_TO_PROCESS,
+            OrderStatus.READY_FOR_PAYMENT,
             OrderStatus.PAID_TO_SUPPLIER,
             OrderStatus.TRACK_NUMBER_ISSUED,
             OrderStatus.VERIFY_RECEIPT,
