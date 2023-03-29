@@ -560,6 +560,7 @@ export const SelectFields = ({
                 inputClasses={cx(classNames.input, {
                   [classNames.inputError]:
                     orderFields.paymentDateToSupplier &&
+                    orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
                     Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
                       convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
                 })}
