@@ -534,20 +534,20 @@ export const navbarConfig = () => ({
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER),
         },
         {
-          subtitle: t(TranslationKey['Need track number']),
-          subRoute: '/buyer/need-track-number-orders',
-          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
-          checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER),
-        },
-        {
           subtitle: t(TranslationKey['Ready for payment']),
           subRoute: '/buyer/ready-for-payment-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER),
+        },
+        {
+          subtitle: t(TranslationKey['Need track number']),
+          subRoute: '/buyer/need-track-number-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER),
         },
         {
           subtitle: t(TranslationKey.Inbound),
