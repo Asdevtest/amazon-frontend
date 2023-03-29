@@ -159,7 +159,8 @@ export const buyerMyOrdersViewColumns = firstRowId => [
         color={
           Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) >
             convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm) &&
-          params.row.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
+          params.row.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+          !!params.row.originalData.orderSupplier.productionTerm
             ? '#FF1616'
             : null
         }
