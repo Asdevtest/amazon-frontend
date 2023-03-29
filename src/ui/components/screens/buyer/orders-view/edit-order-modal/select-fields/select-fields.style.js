@@ -288,8 +288,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputError: {
     '.Mui-disabled': {
-      '-webkit-text-fill-color': '#FF1616 !important',
-      opacity: '0.5',
+      '-webkit-text-fill-color': 'red !important',
     },
   },
 
