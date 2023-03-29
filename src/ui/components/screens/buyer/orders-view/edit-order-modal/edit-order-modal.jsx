@@ -77,6 +77,7 @@ export const EditOrderModal = observer(
     modalHeadCells,
     onSubmitSaveOrder,
     showProgress,
+    hsCodeData,
     progressValue,
     volumeWeightCoefficient,
     onSaveOrderItem,
@@ -211,6 +212,8 @@ export const EditOrderModal = observer(
 
     const [orderFields, setOrderFields] = useState(initialState)
 
+    const [hsCode, setHsCode] = useState({...hsCodeData})
+
     console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
@@ -244,7 +247,7 @@ export const EditOrderModal = observer(
       orderFields,
       boxesForCreation,
       photosToLoad,
-      // hsCode,
+      hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
       paymentDetailsPhotosToLoad,
@@ -688,6 +691,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            hsCode={hsCode}
+            setHsCode={setHsCode}
             yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}

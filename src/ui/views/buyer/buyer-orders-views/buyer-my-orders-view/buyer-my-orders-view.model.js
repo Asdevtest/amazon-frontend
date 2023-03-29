@@ -559,8 +559,10 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
+        this.hsCodeData = hsCode
         this.selectedOrder = orderData
       })
       this.getBoxesOfOrder(orderId)
@@ -595,7 +597,7 @@ export class BuyerMyOrdersViewModel {
     orderFields,
     boxesForCreation,
     photosToLoad,
-    // hsCode,
+    hsCode,
     trackNumber,
     commentToWarehouse,
     paymentDetailsPhotosToLoad,
@@ -689,6 +691,18 @@ export class BuyerMyOrdersViewModel {
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
       // }
+
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
+      }
 
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
