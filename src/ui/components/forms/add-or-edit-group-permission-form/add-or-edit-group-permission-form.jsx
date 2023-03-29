@@ -354,25 +354,27 @@ export const AddOrEditGroupPermissionForm = observer(
           />
         </div>
 
-        <Button
-          disableElevation
-          disabled={disableSubmitBtn}
-          color="primary"
-          variant="contained"
-          onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
-        >
-          {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
-        </Button>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            disableElevation
+            disabled={disableSubmitBtn}
+            color="primary"
+            variant="contained"
+            onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
+          >
+            {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
+          </Button>
 
-        <Button
-          disableElevation
-          className={classNames.button}
-          color="primary"
-          variant="contained"
-          onClick={() => onCloseModal()}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
+          <Button
+            disableElevation
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={() => onCloseModal()}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
 
         <Modal
           openModal={showAddOrEditSinglePermissionModal}
