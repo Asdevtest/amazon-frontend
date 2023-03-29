@@ -303,8 +303,12 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
-      this.selectedOrder = orderData
+      runInAction(() => {
+        this.hsCodeData = hsCode
+        this.selectedOrder = orderData
+      })
       this.getBoxesOfOrder(orderId)
 
       const result = await UserModel.getPlatformSettings()
@@ -331,7 +335,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder({order, orderFields, photosToLoad}) {
+  async onSubmitSaveOrder({order, orderFields, photosToLoad, hsCode}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -353,6 +357,18 @@ export class BuyerMyOrdersViewModel {
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
         }
+      }
+
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
       }
 
       this.setRequestStatus(loadingStatuses.success)
