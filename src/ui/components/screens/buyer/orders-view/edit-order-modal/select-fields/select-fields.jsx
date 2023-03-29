@@ -62,6 +62,8 @@ export const SelectFields = ({
     setHsCode(newFormFields)
   }
 
+  console.log('@', orderFields.orderSupplier.productionTerm)
+
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
@@ -580,9 +582,9 @@ export const SelectFields = ({
                   [classNames.inputError]:
                     orderFields.paymentDateToSupplier &&
                     orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
-                    !!orderFields.product.currentSupplier.productionTerm &&
+                    !!orderFields.orderSupplier.productionTerm &&
                     Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
-                      convertDaysToSeconds(orderFields.product.currentSupplier.productionTerm),
+                      convertDaysToSeconds(orderFields.orderSupplier.productionTerm),
                 })}
               />
             </div>
