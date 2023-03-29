@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Локальное развертывание
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Склонируйте данный репозиторий `git clone git@bitbucket.org:bintoll/amazon-frontend.git`
+2. Выполните установку npm-пакетов `yarn`
+3. Обновите схему запросов к апи - для этого перенесите содержимое с [данного сайта](https://amazonapi.fvds.ru/documentation/json) в файл `schema.json` 
+4. Выполните генерацию api сервиса `yarn generate-rest-api-service`
+5. Запустите проект `yarn start`
+6. Перейдите на `http://localhost:3000`
 
-## Available Scripts
+# Гайд по ведению git'a
 
-In the project directory, you can run:
+### Написание сообщений коммитов
 
-### `yarn start`
+Для стандартизаций внешнего вида коммитов следует писать сообщения для них базируясь на [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Создание веток для задач
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Под каждую задачу необходимо создавать отдельную ветку с определённым названием
 
-### `yarn test`
+Формат для названия ветки:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Id Задачи (не обязателен)]-[Вид изменений (см. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/))]-[Область, в которую вносятся изменения (в виде camelCase)]-[Краткое описание задачи (слова разделять с помощью нижнего подчёркивания)]
 
-### `yarn build`
+Пример:
+**`1255-feat-orderModal-add_new_data_field`**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Создание pull request'a
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+После выполнения поставленной задачи необходимо создать pull request.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Перед созданием pull request'a нужно обновить свою ветку до dev, только после этого создавать PR.
 
-### `yarn eject`
+Для правильного обновления своей ветки до dev необходимо выполнить следующие шаги:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Сфетчить текущие изменения с удалённого репозитория - `git fetch origin`
+2. Находясь на своей ветке выполнить pull изменений с dev ветки - `git pull origin dev`
+3. При наличии решить все конфликты
+4. Выполнить push изменений - `git push`
