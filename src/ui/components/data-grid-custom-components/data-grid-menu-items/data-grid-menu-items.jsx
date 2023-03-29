@@ -21,6 +21,7 @@ import {OrderStatusTranslate} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DataGridSelectAllFilters} from '@components/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Input} from '@components/input'
 import {SearchInput} from '@components/search-input'
@@ -324,6 +325,11 @@ export const ObJectFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(
@@ -448,6 +454,11 @@ export const NormalFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender.map((el, index) => (
                         <div key={index} className={classNames.shop}>
                           <Checkbox
@@ -615,6 +626,11 @@ export const ProductMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
 
@@ -770,6 +786,11 @@ export const OrderOrItemMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
                         // ?.sort(
@@ -928,6 +949,11 @@ export const DestinationMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
 
@@ -1069,6 +1095,11 @@ export const FromToDateMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(
@@ -1151,14 +1182,6 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
-      const selectAllItemsHandler = fullList => {
-        if (fullList.length === choosenItems.length) {
-          setChoosenItems([])
-        } else {
-          setChoosenItems(fullList)
-        }
-      }
-
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
@@ -1225,14 +1248,11 @@ export const NumberFieldMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
-                      <div className={classNames.shop}>
-                        <Checkbox
-                          color="primary"
-                          checked={itemsForRender.length === choosenItems.length}
-                          onClick={() => selectAllItemsHandler(itemsForRender)}
-                        />
-                        <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
-                      </div>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(
@@ -1423,6 +1443,11 @@ export const InStockMenuItem = React.memo(
                 <>
                   {itemsForRender.length ? (
                     <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
                       {itemsForRender
                         // .filter(el => el)
                         // .sort(
