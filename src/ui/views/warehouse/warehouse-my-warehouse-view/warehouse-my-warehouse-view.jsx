@@ -130,6 +130,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
     const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
 
+    const disableSelectionCells = ['prepId']
+
     return (
       <React.Fragment>
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
@@ -192,7 +194,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={onChangeFilterModel}
                   onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+
+                  onCellDoubleClick={params =>
+                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+                  }
                 />
               </div>
             </MainContent>
