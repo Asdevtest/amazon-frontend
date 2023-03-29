@@ -16,10 +16,10 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './supplier-payment-form.style'
 
-export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal}) => {
+export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal, uploadedFiles}) => {
   const {classes: classNames} = useClassNames()
 
-  const [files, setFiles] = useState([])
+  const [files, setFiles] = useState(uploadedFiles || [])
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
