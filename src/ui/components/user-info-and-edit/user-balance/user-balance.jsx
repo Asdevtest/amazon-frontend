@@ -61,24 +61,26 @@ export const UserBalance = observer(({userId}) => {
     <div className={classNames.mainWrapper}>
       <DashboardBalance user={user} title={t(TranslationKey.Balance)} />
 
-      <Button
-        disableElevation
-        className={[classNames.button, classNames.depositBtn]}
-        color="primary"
-        variant="contained"
-        onClick={onTriggerReplenishModal}
-      >
-        {t(TranslationKey.Deposit)}
-      </Button>
-      <Button
-        disableElevation
-        className={[classNames.button, classNames.cancelBtn]}
-        color="primary"
-        variant="text"
-        onClick={onTriggerWithdrawModal}
-      >
-        {t(TranslationKey.Withdraw)}
-      </Button>
+      <div className={classNames.btnsWrapper}>
+        <Button
+          disableElevation
+          className={[classNames.button, classNames.depositBtn]}
+          color="primary"
+          variant="contained"
+          onClick={onTriggerReplenishModal}
+        >
+          {t(TranslationKey.Deposit)}
+        </Button>
+        <Button
+          disableElevation
+          className={[classNames.button, classNames.cancelBtn]}
+          color="primary"
+          variant="text"
+          onClick={onTriggerWithdrawModal}
+        >
+          {t(TranslationKey.Withdraw)}
+        </Button>
+      </div>
       <div className={classNames.tableWrapper}>
         <MemoDataGrid
           pagination
