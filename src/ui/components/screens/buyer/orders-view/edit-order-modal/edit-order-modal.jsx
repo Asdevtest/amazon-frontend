@@ -98,9 +98,10 @@ export const EditOrderModal = observer(
         ?.filter(el => !el.isDraft)
         .reduce(
           (acc, cur) =>
-            (acc +=
-              cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
-              cur.amount),
+            acc +
+            cur.items
+              .filter(item => item.product._id === order.product._id && item.order.id === order.id)
+              .reduce((acc, cur) => (acc += cur.amount), 0),
           0,
         ) || 0
 
