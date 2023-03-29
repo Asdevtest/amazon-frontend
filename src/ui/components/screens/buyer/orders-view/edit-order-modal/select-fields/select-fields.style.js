@@ -103,9 +103,10 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    // flexDirection: 'column',
     gap: '5px',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   totalPriceWrapper: {
     marginTop: '20px',
@@ -173,6 +174,10 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
+  gridItem: {
+    width: 500,
+  },
+
   photoWrapper: {
     width: '339px',
     height: '254px',
@@ -203,10 +208,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
+
+    width: 130,
   },
 
   researchLabel: {
-    maxWidth: '231px',
+    width: 100,
 
     color: theme.palette.text.second,
     fontWeight: '400',

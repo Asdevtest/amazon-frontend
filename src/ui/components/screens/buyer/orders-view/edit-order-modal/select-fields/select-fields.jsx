@@ -371,7 +371,7 @@ export const SelectFields = ({
         </div>
       </Grid>
 
-      <Grid item>
+      <Grid item className={classNames.gridItem}>
         {/* <Box>
           <Field
             disabled
@@ -438,49 +438,68 @@ export const SelectFields = ({
 
           <Box display="flex" width="100%">
             <Box className={classNames.trackAndHsCodeAndComments}>
-              <div className={classNames.barCodeWrapper}>
-                <div className={classNames.barCodeLinkWrapper}>
-                  <div>
-                    <Field
-                      label={t(TranslationKey.BarCode)}
-                      labelClasses={classNames.label}
-                      inputComponent={
-                        orderFields.product.barCode ? (
-                          <div className={classNames.barCode}>
-                            <Link
-                              target="_blank"
-                              rel="noopener"
-                              href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                            >
-                              <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                            </Link>
-                            <CopyValue text={orderFields.product.barCode} />
-                          </div>
-                        ) : (
-                          <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                        )
-                      }
+              <div>
+                <div className={classNames.barCodeWrapper}>
+                  <div className={classNames.barCodeLinkWrapper}>
+                    <div>
+                      <Field
+                        label={t(TranslationKey.BarCode)}
+                        labelClasses={classNames.label}
+                        inputComponent={
+                          orderFields.product.barCode ? (
+                            <div className={classNames.barCode}>
+                              <Link
+                                target="_blank"
+                                rel="noopener"
+                                href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
+                              >
+                                <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                              </Link>
+                              <CopyValue text={orderFields.product.barCode} />
+                            </div>
+                          ) : (
+                            <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className={classNames.researchWrapper}>
+                    <Checkbox
+                      disabled
+                      className={classNames.checkbox}
+                      checked={orderFields.needsResearch}
+                      color="primary"
                     />
+                    <Typography className={classNames.researchLabel}>
+                      {t(TranslationKey['Re-search supplier'])}
+                    </Typography>
                   </div>
                 </div>
-              </div>
 
-              {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
-                <Field
-                  disabled={disableSubmit}
-                  value={orderFields.tmpRefundToClient}
-                  label={t(TranslationKey['Return to Client']) + ', $'}
-                  labelClasses={classNames.label}
-                  inputClasses={classNames.input}
-                  inputProps={{maxLength: 50}}
-                  onChange={setOrderField('tmpRefundToClient')}
+                {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
+                  <Field
+                    disabled={disableSubmit}
+                    value={orderFields.tmpRefundToClient}
+                    label={t(TranslationKey['Return to Client']) + ', $'}
+                    labelClasses={classNames.label}
+                    inputClasses={classNames.input}
+                    inputProps={{maxLength: 50}}
+                    onChange={setOrderField('tmpRefundToClient')}
+                  />
+                ) : null}
+              </div>
+              {/* <div className={classNames.researchWrapper}>
+                <Checkbox
+                  disabled
+                  className={classNames.checkbox}
+                  checked={orderFields.needsResearch}
+                  color="primary"
                 />
-              ) : null}
+                <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+              </div> */}
             </Box>
-            <div className={classNames.researchWrapper}>
-              <Checkbox disabled className={classNames.checkbox} checked={orderFields.needsResearch} color="primary" />
-              <Typography className={classNames.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
-            </div>
           </Box>
         </Box>
 
