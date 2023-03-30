@@ -101,11 +101,10 @@ export const EditOrderModal = observer(
             acc +
             cur.items
               .filter(item => item.product._id === order.product._id && item.order.id === order.id)
-              .reduce((acc, cur) => (acc += cur.amount), 0),
+              .reduce((acc, cur) => (acc += cur.amount), 0) *
+              cur.amount,
           0,
         ) || 0
-
-    // const deliveredGoodsCount = order.amount || 0
 
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
 
@@ -214,7 +213,7 @@ export const EditOrderModal = observer(
 
     const [hsCode, setHsCode] = useState({...hsCodeData})
 
-    console.log('orderFields', orderFields)
+    // console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}

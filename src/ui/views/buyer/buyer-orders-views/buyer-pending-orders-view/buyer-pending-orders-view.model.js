@@ -17,7 +17,7 @@ import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
-import {calcOrderTotalPrice} from '@utils/calculation'
+import {calcOrderTotalPrice, calcOrderTotalPriceInYuann} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -419,6 +419,7 @@ export class BuyerMyOrdersViewModel {
           ...updateOrderData,
           orderSupplierId: updateOrderData.orderSupplier?._id,
           totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+          priceInYuan: toFixed(calcOrderTotalPriceInYuann(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
         },
         updateOrderKeys,
         true,
