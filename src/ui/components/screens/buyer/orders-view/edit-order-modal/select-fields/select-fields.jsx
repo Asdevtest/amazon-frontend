@@ -15,7 +15,12 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {calcExchangeDollarsInYuansPrice, calcOrderTotalPrice, calcPriceForItem} from '@utils/calculation'
+import {
+  calcExchangeDollarsInYuansPrice,
+  calcOrderTotalPrice,
+  calcOrderTotalPriceInYuann,
+  calcPriceForItem,
+} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {
@@ -152,7 +157,13 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   // value={orderFields.priceInYuan}
                   // Убрать если что
-                  value={toFixed(orderFields.priceInYuan, 2)}
+
+                  // value={toFixed(orderFields.priceInYuan, 2)}
+                  value={
+                    isPendingOrder
+                      ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
+                      : toFixed(orderFields.priceInYuan, 2) || ''
+                  }
                   label={t(TranslationKey['Yuan per batch']) + ', ¥'}
                   onChange={setOrderField('priceInYuan')}
                 />
@@ -256,11 +267,6 @@ export const SelectFields = ({
                   inputClasses={classNames.input}
                   labelClasses={classNames.greenLabel}
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
-                  // value={
-                  //   isPendingOrder
-                  //     ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
-                  //     : orderFields.totalPriceChanged
-                  // }
                   value={
                     isPendingOrder
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)

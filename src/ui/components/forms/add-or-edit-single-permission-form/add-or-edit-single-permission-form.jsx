@@ -203,25 +203,27 @@ export const AddOrEditSinglePermissionForm = observer(
           />
         </div>
 
-        <Button
-          disableElevation
-          disabled={disableSubmitBtn}
-          color="primary"
-          variant="contained"
-          onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
-        >
-          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
-        </Button>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            disableElevation
+            disabled={disableSubmitBtn}
+            color="primary"
+            variant="contained"
+            onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
+          >
+            {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
+          </Button>
 
-        <Button
-          disableElevation
-          className={classNames.button}
-          color="primary"
-          variant="contained"
-          onClick={() => onCloseModal()}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
+          <Button
+            disableElevation
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={() => onCloseModal()}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
       </div>
     )
   },
