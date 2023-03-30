@@ -20,6 +20,7 @@ import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -85,6 +86,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showOrderPriceMismatchModal,
       showWarningInfoModal,
       showConfirmModal,
+      showEditHSCodeModal,
       navbarActiveSubCategory,
       hsCodeData,
 
@@ -110,6 +112,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      onClickSaveHsCode,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -292,6 +295,14 @@ class BuyerMyOrdersViewRaw extends Component {
             onTriggerOpenModal('showSuccessModal')
           }}
         />
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }
