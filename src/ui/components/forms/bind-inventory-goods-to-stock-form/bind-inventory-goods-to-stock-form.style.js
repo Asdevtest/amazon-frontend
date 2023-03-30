@@ -89,6 +89,8 @@ export const useClassNames = makeStyles()(theme => ({
     // backgroundColor: '#F4F4F4',
     flexGrow: 1,
     height: 40,
+    marginLeft: '20px',
+
     '&:focus-within': {
       backgroundColor: theme.palette.background.general,
     },
