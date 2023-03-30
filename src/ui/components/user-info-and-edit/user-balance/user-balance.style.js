@@ -24,6 +24,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 70,
   },
 
+  btnsWrapper: {
+    display: 'flex',
+    gap: 30,
+    alignItems: 'center',
+  },
+
   tableWrapper: {
     marginTop: '24px',
     width: '100%',

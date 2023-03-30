@@ -3,18 +3,7 @@ import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {
-  Box,
-  InputAdornment,
-  Select,
-  MenuItem,
-  Paper,
-  TableCell,
-  TableRow,
-  Typography,
-  Avatar,
-  Checkbox,
-} from '@mui/material'
+import {Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -57,9 +46,9 @@ import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@
 import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
-  timeToDeadlineInHoursAndMins,
-  getShortenStringIfLongerThanCount,
   clearEverythingExceptNumbers,
+  getShortenStringIfLongerThanCount,
+  timeToDeadlineInHoursAndMins,
 } from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -78,7 +67,6 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
-    subUsersData,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -89,6 +77,7 @@ export const EditOrderModal = observer(
     modalHeadCells,
     onSubmitSaveOrder,
     showProgress,
+    hsCodeData,
     progressValue,
     volumeWeightCoefficient,
     onSaveOrderItem,
@@ -109,13 +98,13 @@ export const EditOrderModal = observer(
         ?.filter(el => !el.isDraft)
         .reduce(
           (acc, cur) =>
-            (acc +=
-              cur.items.filter(item => item.product._id === order.product._id).reduce((a, c) => (a += c.amount), 0) *
-              cur.amount),
+            acc +
+            cur.items
+              .filter(item => item.product._id === order.product._id && item.order.id === order.id)
+              .reduce((acc, cur) => (acc += cur.amount), 0) *
+              cur.amount,
           0,
         ) || 0
-
-    // const deliveredGoodsCount = order.amount || 0
 
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
 
@@ -217,11 +206,14 @@ export const EditOrderModal = observer(
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
+      paymentDetails: order.paymentDetails || [],
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    console.log('orderFields', orderFields)
+    const [hsCode, setHsCode] = useState({...hsCodeData})
+
+    // console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -254,9 +246,10 @@ export const EditOrderModal = observer(
       orderFields,
       boxesForCreation,
       photosToLoad,
-      // hsCode,
+      hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
+      paymentDetailsPhotosToLoad,
     })
 
     const onClickSaveOrder = () => {
@@ -464,6 +457,7 @@ export const EditOrderModal = observer(
     ]
 
     const [photosToLoad, setPhotosToLoad] = useState([])
+    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
@@ -696,7 +690,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
-            subUsersData={subUsersData}
+            hsCode={hsCode}
+            setHsCode={setHsCode}
             yuanToDollarRate={yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
@@ -1118,7 +1113,12 @@ export const EditOrderModal = observer(
           openModal={supplierPaymentModal}
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
-          <SupplierPaymentForm />
+          <SupplierPaymentForm
+            item={orderFields}
+            uploadedFiles={paymentDetailsPhotosToLoad}
+            onClickSaveButton={setPaymentDetailsPhotosToLoad}
+            onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+          />
         </Modal>
 
         <Modal

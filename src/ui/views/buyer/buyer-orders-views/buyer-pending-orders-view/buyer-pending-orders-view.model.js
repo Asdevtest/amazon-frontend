@@ -17,7 +17,7 @@ import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 
-import {calcOrderTotalPrice} from '@utils/calculation'
+import {calcOrderTotalPrice, calcOrderTotalPriceInYuann} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -41,8 +41,6 @@ export class BuyerMyOrdersViewModel {
   filteredStatus = []
 
   currentData = []
-
-  subUsersData = []
 
   curBoxesOfOrder = []
 
@@ -241,7 +239,6 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
-      this.getMySubUsers()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -303,26 +300,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async getMySubUsers() {
-    try {
-      const result = await UserModel.getMySubUsers()
-      runInAction(() => {
-        this.subUsersData = result
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.subUsersData = []
-      })
-    }
-  }
-
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
-      this.selectedOrder = orderData
+      runInAction(() => {
+        this.hsCodeData = hsCode
+        this.selectedOrder = orderData
+      })
       this.getBoxesOfOrder(orderId)
 
       const result = await UserModel.getPlatformSettings()
@@ -349,7 +335,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder({order, orderFields, photosToLoad}) {
+  async onSubmitSaveOrder({order, orderFields, photosToLoad, hsCode}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -371,6 +357,18 @@ export class BuyerMyOrdersViewModel {
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
         }
+      }
+
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
       }
 
       this.setRequestStatus(loadingStatuses.success)
@@ -421,6 +419,7 @@ export class BuyerMyOrdersViewModel {
           ...updateOrderData,
           orderSupplierId: updateOrderData.orderSupplier?._id,
           totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+          priceInYuan: toFixed(calcOrderTotalPriceInYuann(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
         },
         updateOrderKeys,
         true,

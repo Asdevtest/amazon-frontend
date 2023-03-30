@@ -16,6 +16,8 @@ import {useClassNames} from './extra-order-info.style'
 export const ExtraOrderInfo = ({order, isClient, onChangeField, formFields}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('order', order)
+
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.photosWrapper}>
@@ -37,6 +39,14 @@ export const ExtraOrderInfo = ({order, isClient, onChangeField, formFields}) => 
           </Text>
           <div className={classNames.photoCarousel}>
             <PhotoCarousel files={order.orderSupplier?.images} />
+          </div>
+        </div>
+        <div className={classNames.photoWrapper}>
+          <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
+            {t(TranslationKey['Supplier payment']) + ':'}
+          </Text>
+          <div className={classNames.photoCarousel}>
+            <PhotoCarousel files={order?.paymentDetails} />
           </div>
         </div>
       </div>

@@ -8,6 +8,11 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: '#1da1f2',
   },
 
+  boxesFiltersWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+
   button: {
     marginBottom: 5,
     marginRight: '10px',

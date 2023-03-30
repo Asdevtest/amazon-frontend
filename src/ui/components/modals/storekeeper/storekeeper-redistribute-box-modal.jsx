@@ -47,6 +47,7 @@ const Box = ({
   setDestinationsFavouritesItem,
   onClickEditBox,
   setCurBox,
+  onClickApplyAllBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -291,7 +292,7 @@ const Box = ({
               <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
                 <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
               </IconButton>
-              <div>
+              <div className={classNames.btnsWrapper}>
                 <Button
                   className={cx(classNames.editBtn, {
                     [classNames.editBtnYellow]:
@@ -307,6 +308,21 @@ const Box = ({
                   }}
                 >
                   {t(TranslationKey.Edit)}
+                </Button>
+
+                <Button
+                  disabled={
+                    !box.widthCmWarehouse ||
+                    !box.weighGrossKgWarehouse ||
+                    !box.lengthCmWarehouse ||
+                    !box.heightCmWarehouse
+                  }
+                  className={classNames.applyAllBtn}
+                  onClick={() => {
+                    onClickApplyAllBtn(box)
+                  }}
+                >
+                  {t(TranslationKey['Apply to all'])}
                 </Button>
               </div>
               <div className={classNames.incomingBtnWrapper}>
@@ -369,6 +385,7 @@ const NewBoxes = ({
   volumeWeightCoefficient,
   onClickEditBox,
   setNewBoxes,
+  onClickApplyAllBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -401,6 +418,7 @@ const NewBoxes = ({
             onRemoveBox={onRemoveBox}
             onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
       ))}
@@ -554,6 +572,17 @@ export const StorekeeperRedistributeBox = observer(
       }
     }
 
+    const onClickApplyAllBtn = box => {
+      const arr = newBoxes.map(el => ({
+        ...el,
+        widthCmWarehouse: box.widthCmWarehouse,
+        weighGrossKgWarehouse: box.weighGrossKgWarehouse,
+        lengthCmWarehouse: box.lengthCmWarehouse,
+        heightCmWarehouse: box.heightCmWarehouse,
+      }))
+      setNewBoxes([...arr])
+    }
+
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
       requestStatus === loadingStatuses.isLoading ||
@@ -625,6 +654,7 @@ export const StorekeeperRedistributeBox = observer(
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
 

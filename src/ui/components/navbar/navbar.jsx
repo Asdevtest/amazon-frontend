@@ -90,7 +90,9 @@ export const Navbar = observer(
                         userInfo.purchaseOrderRequired?.length &&
                         userInfo.purchaseOrderRequired.length) ||
                       (category.route?.includes('/warehouse/tasks') &&
-                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll)
+                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll) ||
+                      (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
+                      (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
                     }
                   />
 

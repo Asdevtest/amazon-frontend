@@ -103,11 +103,10 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    // flexDirection: 'column',
     gap: '5px',
     alignItems: 'flex-start',
-
-    marginBottom: 20,
+    justifyContent: 'space-between',
   },
   totalPriceWrapper: {
     marginTop: '20px',
@@ -175,6 +174,10 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
+  gridItem: {
+    width: 500,
+  },
+
   photoWrapper: {
     width: '339px',
     height: '254px',
@@ -197,14 +200,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: '231px',
   },
 
+  inputFullHeight: {
+    height: 'auto',
+  },
+
   researchWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 15,
+
+    width: 130,
   },
 
   researchLabel: {
-    maxWidth: '231px',
+    width: 100,
 
     color: theme.palette.text.second,
     fontWeight: '400',
@@ -279,8 +288,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputError: {
     '.Mui-disabled': {
-      '-webkit-text-fill-color': '#FF1616 !important',
-      opacity: '0.35',
+      '-webkit-text-fill-color': 'red !important',
     },
   },
 
@@ -324,24 +332,33 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
 
     gap: 10,
-    supplierPaymentButtonWrapper: {
-      width: '100%',
-      height: '100%',
+  },
 
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'end',
-    },
+  supplierPaymentButtonWrapper: {
+    width: '100%',
+    height: '100%',
 
-    supplierPaymentButton: {
-      height: 32,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'end',
+  },
 
-      fontWeight: 400,
-      fontSize: 14,
-      lineHeight: '19px',
-      width: 231,
+  supplierPaymentButton: {
+    height: 32,
 
-      color: '#fff',
-    },
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    width: '100%',
+    marginBottom: '20px',
+    color: '#fff',
+  },
+
+  formItem: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: 0,
+    gap: 30,
   },
 }))

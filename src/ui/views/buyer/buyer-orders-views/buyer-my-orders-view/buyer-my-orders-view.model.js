@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
+import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -38,6 +39,7 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+  'paymentDetails',
 
   'amount',
   'orderSupplierId',
@@ -84,8 +86,6 @@ export class BuyerMyOrdersViewModel {
   baseNoConvertedOrders = []
 
   currentData = []
-
-  subUsersData = []
 
   curBoxesOfOrder = []
 
@@ -514,7 +514,6 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
-      this.getMySubUsers()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -561,8 +560,10 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
+        this.hsCodeData = hsCode
         this.selectedOrder = orderData
       })
       this.getBoxesOfOrder(orderId)
@@ -597,9 +598,10 @@ export class BuyerMyOrdersViewModel {
     orderFields,
     boxesForCreation,
     photosToLoad,
-    // hsCode,
+    hsCode,
     trackNumber,
     commentToWarehouse,
+    paymentDetailsPhotosToLoad,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -622,7 +624,17 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFieldsToSave)
+      runInAction(() => {
+        this.readyImages = []
+      })
+      if (paymentDetailsPhotosToLoad?.length) {
+        await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+      }
+
+      await this.onSaveOrder(order, {
+        ...orderFieldsToSave,
+        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+      })
 
       if (
         boxesForCreation.length > 0 &&
@@ -681,6 +693,18 @@ export class BuyerMyOrdersViewModel {
       }
       // }
 
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
+      }
+
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
@@ -695,21 +719,6 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
-    }
-  }
-
-  async getMySubUsers() {
-    try {
-      const result = await UserModel.getMySubUsers()
-      runInAction(() => {
-        this.subUsersData = result
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.subUsersData = []
-      })
     }
   }
 
@@ -832,6 +841,10 @@ export class BuyerMyOrdersViewModel {
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
+        priority:
+          order.priority === '40'
+            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
+            : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
       if (!this.error) {

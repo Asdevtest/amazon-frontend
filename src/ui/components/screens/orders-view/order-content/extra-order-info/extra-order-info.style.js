@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 15px',
+    padding: '15px 0',
     width: '537px',
   },
   orderBorderRightMdUp: {
@@ -110,7 +110,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subTitleWrapper: {
-    marginBottom: '28px',
+    // marginBottom: '28px',
+    display: 'flex',
+    justifyContent: 'center',
+
     width: '100%',
     minHeight: 50,
   },

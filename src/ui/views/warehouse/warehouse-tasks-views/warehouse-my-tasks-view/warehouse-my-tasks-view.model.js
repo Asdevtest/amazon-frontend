@@ -564,6 +564,7 @@ export class WarehouseMyTasksViewModel {
         priority,
       })
 
+      UserModel.getUserInfo()
       this.getTasksMy()
     } catch (error) {
       console.log(error)

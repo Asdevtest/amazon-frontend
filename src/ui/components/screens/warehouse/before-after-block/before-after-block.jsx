@@ -51,6 +51,7 @@ const Box = observer(
     newBoxes,
     volumeWeightCoefficient,
     referenceEditingBox,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -666,7 +667,7 @@ const Box = observer(
           <div className={classNames.bottomBlockWrapper}>
             <div className={cx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
               {isEdit && !readOnly && (
-                <div>
+                <div className={classNames.btnsWrapper}>
                   <Button
                     className={classNames.editBtn}
                     tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
@@ -676,6 +677,21 @@ const Box = observer(
                     }}
                   >
                     {t(TranslationKey.Edit)}
+                  </Button>
+
+                  <Button
+                    disabled={
+                      !box.widthCmWarehouse ||
+                      !box.weighGrossKgWarehouse ||
+                      !box.lengthCmWarehouse ||
+                      !box.heightCmWarehouse
+                    }
+                    className={classNames.applyAllBtn}
+                    onClick={() => {
+                      onClickApplyAllBtn(box)
+                    }}
+                  >
+                    {t(TranslationKey['Apply to all'])}
                   </Button>
                 </div>
               )}
@@ -755,6 +771,7 @@ const NewBoxes = observer(
     setNewBoxes,
     volumeWeightCoefficient,
     readOnly,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -796,6 +813,7 @@ const NewBoxes = observer(
               showEditBoxModal={showEditBoxModal}
               onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
               onClickEditBox={onClickEditBox}
+              onClickApplyAllBtn={onClickApplyAllBtn}
             />
           ))}
         </div>
@@ -831,6 +849,7 @@ export const BeforeAfterBlock = observer(
     volumeWeightCoefficient,
     onClickOpenModal,
     readOnly,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -920,6 +939,7 @@ export const BeforeAfterBlock = observer(
             showEditBoxModal={showEditBoxModal}
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         )}
         {taskType === TaskOperationType.RECEIVE &&

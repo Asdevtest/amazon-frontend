@@ -22,7 +22,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   buttonWrapper: {
-    textAlign: 'right',
+    display: 'flex',
+    gap: 30,
+    justifyContent: 'flex-end',
+    // textAlign: 'right',
     marginTop: 30,
   },
   rightBtn: {

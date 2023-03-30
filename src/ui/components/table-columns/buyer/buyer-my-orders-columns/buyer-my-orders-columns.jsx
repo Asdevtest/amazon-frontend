@@ -4,7 +4,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import React from 'react'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
-import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
+import {orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -157,8 +157,10 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       <MultilineTextCell
         withLineBreaks
         color={
-          Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) <=
-          convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm)
+          Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) >
+            convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm) &&
+          params.row.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+          !!params.row.originalData.orderSupplier.productionTerm
             ? '#FF1616'
             : null
         }

@@ -1900,7 +1900,7 @@ export enum TranslationKey {
   'Ready for payment' = 'Ready for payment',
   'Supplier payment' = 'Supplier payment',
   'Add payment to supplier' = 'Add payment to supplier',
-  // '' = '',
+  'Apply to all' = 'Apply to all',
   // '' = '',
   // '' = '',
   // '' = '',
