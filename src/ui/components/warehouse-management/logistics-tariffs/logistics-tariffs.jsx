@@ -62,6 +62,7 @@ export const LogisticsTariffs = observer(() => {
     onSubmitChangeDestination,
     onClickAddressBtn,
     onTriggerArchive,
+    changeColumnsModel,
   } = gpModel.current
 
   useEffect(() => {
@@ -131,6 +132,11 @@ export const LogisticsTariffs = observer(() => {
         components={{
           Toolbar: DataGridCustomToolbar,
           ColumnMenuIcon: FilterAltOutlinedIcon,
+        }}
+        componentsProps={{
+          toolbar: {
+            columsBtnSettings: {columnsModel, changeColumnsModel},
+          },
         }}
         density={densityModel}
         columns={columnsModel}
