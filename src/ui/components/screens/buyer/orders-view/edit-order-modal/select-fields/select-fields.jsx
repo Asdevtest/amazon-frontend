@@ -35,6 +35,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -530,7 +531,15 @@ export const SelectFields = ({
                 variant="contained"
                 onClick={onClickSupplierPaymentButton}
               >
-                {t(TranslationKey['Supplier payment'])}
+                <Typography>{t(TranslationKey['Supplier payment'])}</Typography>
+                {!!orderFields?.paymentDetails.length && (
+                  <Typography>{`(${orderFields?.paymentDetails.length})`}</Typography>
+                )}
+                {!!paymentDetailsPhotosToLoad.length && (
+                  <Typography
+                    className={classNames.greenPaymentText}
+                  >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
+                )}
               </Button>
             </div>
           )}

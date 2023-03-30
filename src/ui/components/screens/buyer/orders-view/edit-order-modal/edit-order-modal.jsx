@@ -690,6 +690,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
             yuanToDollarRate={yuanToDollarRate}
