@@ -56,6 +56,15 @@ export class ClientIdeasNotificationsViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async handleArchive() {
     await this.getIdeas(!this.isArchived)
     this.isArchived = !this.isArchived
