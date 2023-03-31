@@ -64,6 +64,7 @@ export class BuyerMyProductsViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onSearchSubmit,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -118,6 +119,11 @@ export class BuyerMyProductsViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
+                }}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

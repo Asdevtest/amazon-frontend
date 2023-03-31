@@ -73,6 +73,15 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   constructor({history}) {
     runInAction(() => {
       this.history = history

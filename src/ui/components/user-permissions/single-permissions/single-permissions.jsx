@@ -54,6 +54,7 @@ export const SinglePermissions = observer(() => {
     setDataGridState,
     onChangeSortingModel,
     onChangeFilterModel,
+    changeColumnsModel,
   } = spModel.current
 
   return (
@@ -85,6 +86,11 @@ export const SinglePermissions = observer(() => {
           components={{
             Toolbar: DataGridCustomToolbar,
             ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {columnsModel, changeColumnsModel},
+            },
           }}
           density={densityModel}
           columns={columnsModel}

@@ -121,6 +121,15 @@ export class ResearcherProductsViewModel {
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = researcherProductsViewColumns().map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.RESEARCHER_PRODUCTS]
 

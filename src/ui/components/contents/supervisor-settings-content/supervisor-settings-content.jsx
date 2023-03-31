@@ -78,6 +78,7 @@ export const SupervisorSettingsContent = observer(() => {
     onChangeNameSearchValue,
     onSelectionModel,
     onClickRemoveSelectedBtn,
+    changeColumnsModel,
   } = gpModel.current
 
   useEffect(() => {
@@ -156,6 +157,11 @@ export const SupervisorSettingsContent = observer(() => {
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
+            }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
@@ -216,6 +222,11 @@ export const SupervisorSettingsContent = observer(() => {
             components={{
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
             }}
             density={densityModel}
             columns={columnsModel}
@@ -278,6 +289,11 @@ export const SupervisorSettingsContent = observer(() => {
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
+            }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
@@ -338,6 +354,11 @@ export const SupervisorSettingsContent = observer(() => {
             components={{
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
             }}
             density={densityModel}
             columns={columnsModel}

@@ -57,6 +57,15 @@ export class WarehouseSentBatchesViewModel {
   densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   get userInfo() {
     return UserModel.userInfo
   }

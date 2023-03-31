@@ -114,6 +114,8 @@ class BuyerMyOrdersViewRaw extends Component {
       onSubmitChangeBoxFields,
       onClickSaveHsCode,
 
+      changeColumnsModel,
+
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -175,6 +177,9 @@ class BuyerMyOrdersViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: {orderStatusData},
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
