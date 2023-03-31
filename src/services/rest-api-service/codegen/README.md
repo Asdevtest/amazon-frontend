@@ -501,6 +501,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposal](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidRequest](docs/ApiV1RequestProposalsCustomByRequestIdGuidRequest.md)
+ - [TestSwagger.ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles](docs/ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles.md)
  - [TestSwagger.ApiV1RequestProposalsCustomGuidResultEditSourceFiles](docs/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.md)
  - [TestSwagger.ApiV1RequestProposalsDetailsCustom](docs/ApiV1RequestProposalsDetailsCustom.md)
  - [TestSwagger.ApiV1RequestProposalsRequest](docs/ApiV1RequestProposalsRequest.md)

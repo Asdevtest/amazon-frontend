@@ -26,13 +26,13 @@ export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal, uplo
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={files} setImages={setFiles} maxNumber={50} />
+        <UploadFilesInput images={files} setImages={setFiles} maxNumber={50 - item?.paymentDetails.length} />
       </div>
       {!!item?.paymentDetails.length && <PhotoCarousel small files={item?.paymentDetails} width="400px" />}
 
       <Box className={classNames.saveBox}>
         <Button
-          disabled={!files.length}
+          // disabled={!files.length}
           className={classNames.actionButton}
           onClick={() => {
             onClickSaveButton(files)

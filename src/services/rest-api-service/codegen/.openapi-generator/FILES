@@ -58,6 +58,7 @@ docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidRequest.md
+docs/ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles.md
 docs/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.md
 docs/ApiV1RequestProposalsDetailsCustom.md
 docs/ApiV1RequestProposalsRequest.md
@@ -455,6 +456,7 @@ src/model/ApiV1RequestProposalsCustomByRequestIdGuidDetails.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposal.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidRequest.js
+src/model/ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles.js
 src/model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.js
 src/model/ApiV1RequestProposalsDetailsCustom.js
 src/model/ApiV1RequestProposalsRequest.js
@@ -746,5 +748,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.spec.js
-test/model/ApiV1RequestsMedia.spec.js
