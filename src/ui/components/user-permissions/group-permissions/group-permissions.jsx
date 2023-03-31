@@ -55,6 +55,7 @@ export const GroupPermissions = observer(() => {
     setDataGridState,
     onChangeSortingModel,
     onChangeFilterModel,
+    changeColumnsModel,
   } = gpModel.current
 
   return (
@@ -86,6 +87,11 @@ export const GroupPermissions = observer(() => {
           components={{
             Toolbar: DataGridCustomToolbar,
             ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {columnsModel, changeColumnsModel},
+            },
           }}
           density={densityModel}
           columns={columnsModel}
