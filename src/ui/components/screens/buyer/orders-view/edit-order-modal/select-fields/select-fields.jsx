@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Button, Checkbox, Grid, Link, Typography} from '@mui/material'
+import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
@@ -528,12 +529,16 @@ export const SelectFields = ({
             <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
                 className={classNames.supplierPaymentButton}
-                variant="contained"
+                variant="outlined"
                 onClick={onClickSupplierPaymentButton}
               >
-                <Typography>{t(TranslationKey['Supplier payment'])}</Typography>
+                <Typography className={classNames.normalPaymentText}>
+                  {t(TranslationKey['Payment documents'])}
+                </Typography>
                 {!!orderFields?.paymentDetails.length && (
-                  <Typography>{`(${orderFields?.paymentDetails.length})`}</Typography>
+                  <Typography
+                    className={classNames.normalPaymentText}
+                  >{`(${orderFields?.paymentDetails.length})`}</Typography>
                 )}
                 {!!paymentDetailsPhotosToLoad.length && (
                   <Typography
