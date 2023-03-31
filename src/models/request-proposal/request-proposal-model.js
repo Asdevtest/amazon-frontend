@@ -144,6 +144,11 @@ class RequestProposalModelStatic {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGet(type, requestsType)
     return response
   }
+
+  getSourseFiles = async () => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGet()
+    return response
+  }
 }
 
 export const RequestProposalModel = new RequestProposalModelStatic()

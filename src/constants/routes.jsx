@@ -454,6 +454,12 @@ const RequestDetailCustomView = lazy(() =>
   })),
 )
 
+const SourceFilesView = lazy(() =>
+  import('@views/freelancer/source-files-view').then(module => ({
+    default: module.SourceFilesView,
+  })),
+)
+
 const ServiceDetailsView = lazy(() =>
   import('@views/shared/services-detail-view').then(module => ({
     default: module.ServiceDetailsView,
@@ -1931,6 +1937,14 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/freelancer/freelance/source-files',
+    component: SourceFilesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Source Files'],
   },
 
   {

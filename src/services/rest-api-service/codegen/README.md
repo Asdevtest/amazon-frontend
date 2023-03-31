@@ -504,6 +504,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles](docs/ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles.md)
  - [TestSwagger.ApiV1RequestProposalsCustomGuidResultEditSourceFiles](docs/ApiV1RequestProposalsCustomGuidResultEditSourceFiles.md)
  - [TestSwagger.ApiV1RequestProposalsDetailsCustom](docs/ApiV1RequestProposalsDetailsCustom.md)
+ - [TestSwagger.ApiV1RequestProposalsFreelanceSourcesProposal](docs/ApiV1RequestProposalsFreelanceSourcesProposal.md)
+ - [TestSwagger.ApiV1RequestProposalsFreelanceSourcesProposalRequest](docs/ApiV1RequestProposalsFreelanceSourcesProposalRequest.md)
  - [TestSwagger.ApiV1RequestProposalsRequest](docs/ApiV1RequestProposalsRequest.md)
  - [TestSwagger.ApiV1RequestProposalsRequestDetailsCustom](docs/ApiV1RequestProposalsRequestDetailsCustom.md)
  - [TestSwagger.ApiV1RequestsCountProposalsByStatuses](docs/ApiV1RequestsCountProposalsByStatuses.md)

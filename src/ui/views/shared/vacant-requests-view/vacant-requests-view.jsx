@@ -10,7 +10,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {ViewCartsBlock, ViewCartsLine, ViewCartsTable} from '@constants/svg-icons'
@@ -90,7 +95,10 @@ class VacantRequestsViewRaw extends Component {
 
     const whiteList =
       !!userInfo && checkIsFreelancer(userRole)
-        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        ? [
+            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+          ]
         : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {

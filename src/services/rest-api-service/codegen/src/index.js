@@ -70,6 +70,8 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './model/ApiV1Requ
 import ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles from './model/ApiV1RequestProposalsCustomGuidResultEditLinksToMediaFiles';
 import ApiV1RequestProposalsCustomGuidResultEditSourceFiles from './model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles';
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsFreelanceSourcesProposal from './model/ApiV1RequestProposalsFreelanceSourcesProposal';
+import ApiV1RequestProposalsFreelanceSourcesProposalRequest from './model/ApiV1RequestProposalsFreelanceSourcesProposalRequest';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
@@ -765,6 +767,18 @@ export {
      * @property {module:model/ApiV1RequestProposalsDetailsCustom}
      */
     ApiV1RequestProposalsDetailsCustom,
+
+    /**
+     * The ApiV1RequestProposalsFreelanceSourcesProposal model constructor.
+     * @property {module:model/ApiV1RequestProposalsFreelanceSourcesProposal}
+     */
+    ApiV1RequestProposalsFreelanceSourcesProposal,
+
+    /**
+     * The ApiV1RequestProposalsFreelanceSourcesProposalRequest model constructor.
+     * @property {module:model/ApiV1RequestProposalsFreelanceSourcesProposalRequest}
+     */
+    ApiV1RequestProposalsFreelanceSourcesProposalRequest,
 
     /**
      * The ApiV1RequestProposalsRequest model constructor.

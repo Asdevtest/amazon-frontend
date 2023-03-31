@@ -349,6 +349,12 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
         },
 
+        {
+          subtitle: t(TranslationKey['Source Files']),
+          subRoute: '/freelancer/freelance/source-files',
+          key: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
+        },
+
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
