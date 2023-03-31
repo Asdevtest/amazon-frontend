@@ -67,6 +67,7 @@ class MyRequestsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -116,6 +117,11 @@ class MyRequestsViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

@@ -40,6 +40,15 @@ export class GoodsDaysReportModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   setDataGridState(state) {
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',

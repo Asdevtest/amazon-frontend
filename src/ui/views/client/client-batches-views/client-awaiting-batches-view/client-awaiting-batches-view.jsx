@@ -88,6 +88,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       onSubmitChangeBoxFields,
 
       onClickStorekeeperBtn,
+
+      changeColumnsModel,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -189,6 +191,11 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection)
                   }}
