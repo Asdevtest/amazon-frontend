@@ -47,6 +47,7 @@ class GoodsDaysReportRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onClickShopBtn,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -103,6 +104,11 @@ class GoodsDaysReportRaw extends Component {
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
               }}
               density={densityModel}
               columns={columnsModel}

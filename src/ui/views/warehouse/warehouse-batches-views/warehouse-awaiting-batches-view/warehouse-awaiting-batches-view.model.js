@@ -67,6 +67,15 @@ export class WarehouseAwaitingBatchesViewModel {
   densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   get isInvalidTariffBoxSelected() {
     return this.selectedBatches.some(batchId => {
       const findBatch = this.batches.find(batch => batch._id === batchId)

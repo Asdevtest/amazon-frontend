@@ -125,6 +125,15 @@ export class WarehouseMyWarehouseViewModel {
   densityModel = 'compact'
   columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo)
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   get userInfo() {
     return UserModel.userInfo
   }

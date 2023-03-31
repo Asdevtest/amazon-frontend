@@ -39,6 +39,15 @@ export class SupervisorReadyToCheckViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   getCurrentData() {
     return toJS(this.productsReadyToCheck)
   }

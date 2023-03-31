@@ -81,6 +81,8 @@ class StockReportRaw extends Component {
       onClickShopBtn,
       onSubmitMoveToInventoryGoods,
       onClickAddSupplierButton,
+
+      changeColumnsModel,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -172,6 +174,11 @@ class StockReportRaw extends Component {
             components={{
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
             }}
             density={densityModel}
             columns={columnsModel}
