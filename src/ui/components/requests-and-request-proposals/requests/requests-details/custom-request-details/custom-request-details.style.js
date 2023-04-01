@@ -69,6 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
   filesWrapper: {
     display: 'flex',
     height: '100%',
+    minWidth: 358,
     flexDirection: 'column',
   },
 

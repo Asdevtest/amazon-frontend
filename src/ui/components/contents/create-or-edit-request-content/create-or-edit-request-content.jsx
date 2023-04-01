@@ -18,6 +18,8 @@ import {
 
 import React, {useEffect, useState} from 'react'
 
+import {toJS} from 'mobx'
+
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -132,6 +134,8 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
+  console.log('formFields', formFields)
+
   useEffect(() => {
     setFormFields(() => formFields)
   }, [choosenAnnouncements, announcementsData])
@@ -238,7 +242,7 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
-    formFields.details.conditions.length > 1000 ||
+    // formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -443,16 +447,17 @@ export const CreateOrEditRequestContent = ({
 
                   <CustomTextEditor
                     conditions={formFields.details.conditions}
+                    editorMaxHeight={classNames.editorMaxHeight}
                     changeConditions={onChangeField('details')('conditions')}
                   />
 
-                  <span
+                  {/* <span
                     className={cx(classNames.charactersHints, {
                       [classNames.error]: formFields.details.conditions.length > 1000,
                     })}
                   >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
                     TranslationKey.characters,
-                  )}`}</span>
+                  )}`}</span> */}
                 </div>
 
                 <div className={classNames.imageFileInputWrapper}>
@@ -1005,14 +1010,19 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                 /> */}
 
-                  <div>
+                  <div className={classNames.performerDescriptionWrapperTextStepTwo}>
                     <Typography className={classNames.spanLabel}>
                       {t(TranslationKey['Description of your request'])}
                     </Typography>
 
-                    <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
+                    {/* <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
                       {formFields.details.conditions}
-                    </Typography>
+                    </Typography> */}
+                    <CustomTextEditor
+                      readOnly
+                      conditions={formFields.details.conditions}
+                      editorMaxHeight={classNames.editorMaxHeight}
+                    />
                   </div>
                 </div>
               </div>

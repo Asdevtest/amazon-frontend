@@ -10,7 +10,7 @@ import {Button, Typography} from '@mui/material'
 
 import {FC, useEffect, useRef, useState} from 'react'
 
-import {Editor, EditorState, convertFromRaw} from 'draft-js'
+import {Editor, EditorState, convertFromRaw, convertToRaw} from 'draft-js'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
@@ -23,8 +23,26 @@ import {useClassNames} from './custom-text-editor.style'
 
 const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
 
-export const CustomTextEditor = observer(({conditions, changeConditions, placeHolder, readOnly}) => {
+export const CustomTextEditor = observer(({conditions = '', changeConditions, readOnly, editorMaxHeight}) => {
   const {classes: classNames} = useClassNames()
+
+  const [value, setValue] = useState()
+
+  useEffect(() => {
+    isJSON(conditions)
+  }, [conditions])
+
+  const isJSON = text => {
+    try {
+      JSON.parse(text)
+      setValue(text)
+    } catch (error) {
+      const editorState = EditorState?.createWithText(text)
+      const serializedEditorState = JSON?.stringify(convertToRaw(editorState.getCurrentContent()))
+
+      setValue(serializedEditorState)
+    }
+  }
 
   const richTextEditorRef = useRef(null)
 
@@ -43,8 +61,8 @@ export const CustomTextEditor = observer(({conditions, changeConditions, placeHo
       <MUIRichTextEditor
         ref={richTextEditorRef}
         readOnly={readOnly}
-        defaultValue={conditions}
-        label={placeHolder ?? t(TranslationKey['Task description'])}
+        defaultValue={value}
+        label={!readOnly && t(TranslationKey['Task description'])}
         controls={
           readOnly
             ? []
@@ -91,7 +109,7 @@ export const CustomTextEditor = observer(({conditions, changeConditions, placeHo
         classes={{
           root: classNames.root,
           container: classNames.container,
-          editor: classNames.editor,
+          editor: cx(classNames.editor, editorMaxHeight, {[classNames.editorBorder]: !readOnly}),
           editorContainer: classNames.editorContainer,
           placeHolder: classNames.placeHolder,
           toolbar: classNames.toolbar,
@@ -104,6 +122,7 @@ export const CustomTextEditor = observer(({conditions, changeConditions, placeHo
           }
         }}
         onSave={text => {
+          setValue(text)
           changeConditions(text)
         }}
       />

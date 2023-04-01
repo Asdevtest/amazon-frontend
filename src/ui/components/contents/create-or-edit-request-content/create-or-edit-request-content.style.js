@@ -201,10 +201,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
-
-    // '& > span': {
-    //   marginTop: '-20px',
-    // },
   },
 
   descriptionField: {
@@ -760,6 +756,10 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
   },
+
+  performerDescriptionWrapperTextStepTwo: {
+    marginBottom: 25,
+  },
   checkboxText: {
     whiteSpace: 'nowrap',
   },
@@ -784,5 +784,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
   orderText: {
     width: 'fit-content',
+  },
+  descriptionBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  editorMaxHeight: {
+    maxHeight: '138px !important',
   },
 }))

@@ -23,12 +23,13 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
   },
   editor: {
+    minHeight: 184,
+    // maxHeight: 184,
+    overflowY: 'auto',
+  },
+  editorBorder: {
     border: '1px solid #C4C4C4',
     borderRadius: 4,
-
-    height: 184,
-    maxHeight: 184,
-    overflowY: 'auto',
   },
   editorContainer: {
     padding: '10px 16px !important',
@@ -38,6 +39,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100% !important',
   },
   container: {
+    width: '100%',
+    height: '100%',
     margin: '0 !important',
     padding: 0,
   },
