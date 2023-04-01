@@ -31,6 +31,7 @@ import {IdeaSnack} from '@components/snacks/idea-snack'
 import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
 import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
 
+import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
@@ -266,9 +267,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   </Typography>
                 </Tooltip>
 
-                <Typography className={classNames.balance}>
-                  {toFixedWithDollarSign(componentModel.current.balance, 2)}
-                </Typography>
+                {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                  <Typography className={classNames.balance}>
+                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                  </Typography>
+                )}
               </div>
               <ArrowDropDownIcon className={classNames.hideOnModile} />
             </div>
@@ -290,9 +293,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
                   </Typography>
 
-                  <Typography className={classNames.menuClientInfoText}>
-                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
-                  </Typography>
+                  {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                    <Typography className={classNames.menuClientInfoText}>
+                      {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                    </Typography>
+                  )}
                 </div>
 
                 <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />

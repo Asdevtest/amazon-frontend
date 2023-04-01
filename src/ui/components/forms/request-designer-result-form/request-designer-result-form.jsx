@@ -21,6 +21,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {minsToTime} from '@utils/text'
@@ -41,12 +42,12 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setShowDetails(!showDetails)
   }
 
-  console.log('request', request)
+  // console.log('request', request)
 
   const sourceImagesData = [
-    {image: null, imageName: '', isMain: false, _id: `${new Date()}1`},
-    {image: null, imageName: '', isMain: false, _id: `${new Date()}2`},
-    {image: null, imageName: '', isMain: false, _id: `${new Date()}3`},
+    {image: null, imageName: '', isMain: false, _id: `${Date.now()}1`},
+    {image: null, imageName: '', isMain: false, _id: `${Date.now()}2`},
+    {image: null, imageName: '', isMain: false, _id: `${Date.now()}3`},
   ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -59,13 +60,18 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
   }
 
-  console.log('imagesData', imagesData)
+  // console.log('imagesData', imagesData)
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, imageName: '', isMain: false, _id: `${new Date()}`}])
+    setImagesData(() => [...imagesData, {image: null, imageName: '', isMain: false, _id: `${Date.now()}`}])
   }
 
-  const onPasteFiles = index => async evt => {
+  const onClickRemoveImageObj = () => {
+    setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+    setCurImageId(() => null)
+  }
+
+  const onPasteFiles = imageId => async evt => {
     if (evt.clipboardData.files.length === 0) {
       return
     } else {
@@ -81,11 +87,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map((el, i) => (i === index ? {...el, image: readyFilesArr[0]} : el)))
+      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
     }
   }
 
-  const onUploadFile = index => async evt => {
+  const onUploadFile = imageId => async evt => {
     if (evt.target.files.length === 0) {
       return
     } else {
@@ -101,18 +107,24 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map((el, i) => (i === index ? {...el, image: readyFilesArr[0]} : el)))
+      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
     }
   }
 
-  // const [images, setImages] = useState([])
+  const onClickDownloadBtn = () => {
+    const imageObj = {...imagesData.find(el => el._id === curImageId)}
 
-  // const sourceFormFields = {
-  //   amazonOrderId: '',
-  //   publicationLinks: [],
-  //   result: '',
-  //   // linksToMediaFiles: [],
-  // }
+    // console.log('imageObj', imageObj)
+
+    const aElement = document.createElement('a')
+    aElement.setAttribute('download', /* `boxReceiveReport_${id}.xlsx` */ `${imageObj.imageName || 'no-name'}`)
+    const href = /* URL.createObjectURL(res.data) */ imageObj.image.data_url
+    aElement.href = href
+    aElement.setAttribute('target', '_blank')
+    aElement.click()
+    // URL.revokeObjectURL(href)
+    aElement.remove()
+  }
 
   // const [formFields, setFormFields] = useState(sourceFormFields)
 
@@ -214,6 +226,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                 <div className={classNames.imageListItem}>
                   <Avatar
                     className={classNames.image}
+                    classes={{img: classNames.image}}
                     src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
                     alt={item.image?.file.name}
                     variant="square"
@@ -237,8 +250,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                     type={'file'}
                     className={classNames.pasteInput}
                     defaultValue={''}
-                    onPaste={onPasteFiles(index)}
-                    onChange={onUploadFile(index)}
+                    onPaste={onPasteFiles(item._id)}
+                    onChange={onUploadFile(item._id)}
                   />
                 </div>
               )}
@@ -283,63 +296,34 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         </Button>
       </div>
 
-      <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
-        <div className={classNames.imageModalWrapper}>
-          <div className={classNames.imageCarouselWrapperLeftSide}>
-            {imagesData
-              .filter(el => !!el.image)
-              .map(item => (
-                <div key={item._id} className={classNames.imageModalImageWrapperLeftSide}>
-                  <Avatar
-                    className={classNames.imageModalImageLeftSide}
-                    src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
-                    alt={item.image?.file.name}
-                    variant="square"
-                  />
-
-                  {!!item.imageName && (
-                    <div>
-                      <Typography className={cx(classNames.simpleSpan)}>{item.imageName}</Typography>
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-
-          <div className={classNames.carouselWrapper}>
-            <CustomCarousel index={imagesData.filter(el => !!el.image).findIndex(el => el._id === curImageId)}>
-              {imagesData
-                .filter(el => !!el.image)
-                .map(item => (
-                  <div key={item._id} className={classNames.imageModalImageWrapper}>
-                    <Typography className={cx(classNames.simpleSpan)}>{item.imageName}</Typography>
-
-                    <Avatar
-                      className={classNames.imageModalImage}
-                      src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
-                      alt={item.image?.file.name}
-                      variant="square"
-                    />
-                  </div>
-                ))}
-            </CustomCarousel>
-          </div>
-
-          <div>
-            <Button danger className={cx(classNames.button)}>
+      <BigObjectImagesModal
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        imagesData={imagesData}
+        curImageId={curImageId}
+        renderBtns={() => (
+          <div className={cx(classNames.imagesModalBtnsWrapper)}>
+            <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
               <DeleteOutlineOutlinedIcon />
             </Button>
 
-            <Button className={cx(classNames.button)}>
+            <Button className={cx(classNames.imagesModalBtn)}>
               <AutorenewIcon />
+              <input
+                type={'file'}
+                className={classNames.pasteInput}
+                defaultValue={''}
+                onChange={onUploadFile(curImageId)}
+              />
             </Button>
 
-            <Button className={cx(classNames.button)}>
+            <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
               <DownloadOutlinedIcon />
             </Button>
           </div>
-        </div>
-      </Modal>
+        )}
+        setCurImageId={setCurImageId}
+      />
     </div>
   )
 }

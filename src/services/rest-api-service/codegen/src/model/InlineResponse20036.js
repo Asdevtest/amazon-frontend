@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20034Finances from './InlineResponse20034Finances';
 import InlineResponse20036Products from './InlineResponse20036Products';
 
 /**
@@ -52,9 +51,6 @@ class InlineResponse20036 {
             if (data.hasOwnProperty('products')) {
                 obj['products'] = InlineResponse20036Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20034Finances.constructFromObject(data['finances']);
-            }
         }
         return obj;
     }
@@ -66,11 +62,6 @@ class InlineResponse20036 {
  * @member {module:model/InlineResponse20036Products} products
  */
 InlineResponse20036.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20034Finances} finances
- */
-InlineResponse20036.prototype['finances'] = undefined;
 
 
 

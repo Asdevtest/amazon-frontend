@@ -330,11 +330,11 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     // maxWidth: 450,
-    // color: theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
 
   fieldContainer: {
-    width: 'min-content',
+    width: 'min-content !important',
 
     '&: last-of-type': {
       marginBottom: '0 !important',

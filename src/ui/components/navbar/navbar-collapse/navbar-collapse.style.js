@@ -44,12 +44,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   redBadge: {
-    position: 'absolute',
-    top: 15,
-    left: 20,
+    margin: '0 auto',
+    width: 'fit-content',
     height: 20,
-    width: 20,
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
 
     borderRadius: 30,
     display: 'flex',

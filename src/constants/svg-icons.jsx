@@ -340,9 +340,9 @@ export const ViewCartsBlock = props => (
     />
     <defs>
       <linearGradient id="ViewCartsGradient" x1="0" y1="100%" x2="0" y2="0">
-        <stop offset="0%" stop-color="#5BA0FE" />
-        <stop offset="0.01" stop-color="#0164F4" />
-        <stop offset="100%" stop-color="#0164F4" />
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -376,9 +376,9 @@ export const ViewCartsLine = props => (
     />
     <defs>
       <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#5BA0FE" />
-        <stop offset="0.01" stop-color="#0164F4" />
-        <stop offset="100%" stop-color="#0164F4" />
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -395,42 +395,42 @@ export const ViewCartsTable = props => (
     <rect y="15" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
     <defs>
       <linearGradient id="paint0_linear_19869_110270" x1="9" y1="0" x2="9" y2="2" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint1_linear_19869_110270" x1="9" y1="3" x2="9" y2="5" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint2_linear_19869_110270" x1="9" y1="6" x2="9" y2="8" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint3_linear_19869_110270" x1="9" y1="9" x2="9" y2="11" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint4_linear_19869_110270" x1="9" y1="12" x2="9" y2="14" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint5_linear_19869_110270" x1="9" y1="15" x2="9" y2="17" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
     {/* </svg> */}
     <defs>
       <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#5BA0FE" />
-        <stop offset="0.01" stop-color="#0164F4" />
-        <stop offset="100%" stop-color="#0164F4" />
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -454,9 +454,9 @@ export const NewTasksIcon = props => (
         y2="11.1205"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_643_454"
@@ -466,9 +466,9 @@ export const NewTasksIcon = props => (
         y2="15.6254"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_643_454"
@@ -478,9 +478,9 @@ export const NewTasksIcon = props => (
         y2="16.087"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_643_454"
@@ -490,9 +490,9 @@ export const NewTasksIcon = props => (
         y2="13.6085"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint4_linear_643_454"
@@ -502,9 +502,9 @@ export const NewTasksIcon = props => (
         y2="10.659"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint5_linear_643_454"
@@ -514,14 +514,14 @@ export const NewTasksIcon = props => (
         y2="13.1468"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint6_linear_643_454" x1="12" y1="1" x2="12" y2="21" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -538,8 +538,8 @@ export const PhotoCameraWithPlus = props => (
       // fill="red"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M13.6893 7H9.30469V14.3154L2 14.3154V18.7H9.30469V26H13.6893V18.7H21V14.3154L13.6893 14.3154V7Z"
       // fill="red"
     />
@@ -552,9 +552,9 @@ export const PhotoCameraWithPlus = props => (
         y2="70"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_20489_19264"
@@ -564,14 +564,14 @@ export const PhotoCameraWithPlus = props => (
         y2="60.144"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint2_linear_20489_19264" x1="11.5" y1="7" x2="11.5" y2="26" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -580,15 +580,15 @@ export const PhotoCameraWithPlus = props => (
 export const BigPlus = props => (
   <SvgIcon {...props} width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M41.2194 0H25.7578V25.7969L0 25.7969V41.2584H25.7578V67H41.2194V41.2584H67V25.7969L41.2194 25.7969V0Z"
     />
     <defs>
       <linearGradient id="paint0_linear_12007_299529" x1="33.5" y1="0" x2="33.5" y2="67" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>

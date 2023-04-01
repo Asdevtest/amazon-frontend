@@ -36,21 +36,21 @@ export const getResearcherDashboardCardConfig = () => [
           ],
         },
       },
-      {
-        dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: t(TranslationKey.Completed),
-        color: '#00B746',
-        route: '/researcher/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [TranslationKey['Search complete']],
-            },
-          ],
-        },
-      },
+      // {
+      //   dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
+      //   title: t(TranslationKey.Completed),
+      //   color: '#00B746',
+      //   route: '/researcher/products',
+      //   dataGridFilter: {
+      //     items: [
+      //       {
+      //         columnField: 'status',
+      //         operatorValue: 'isAnyOf',
+      //         value: [TranslationKey['Search complete']],
+      //       },
+      //     ],
+      //   },
+      // },
 
       {
         dataKey: ResearcherDashboardCardDataKey.REJECTED_PRODUCTS,
@@ -87,74 +87,74 @@ export const getResearcherDashboardCardConfig = () => [
         },
       },
 
-      {
-        dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
-        title: t(TranslationKey["Buyer's search for a supplier"]),
+      // {
+      //   dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
+      //   title: t(TranslationKey["Buyer's search for a supplier"]),
 
-        route: '/researcher/products',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'status',
-              operatorValue: 'isAnyOf',
-              value: [
-                TranslationKey['Buyer found a supplier'],
-                TranslationKey['Is in search of a Buyer'],
-                TranslationKey['Product at the Buyer in work'],
-              ],
-            },
-          ],
-        },
-      },
-      {
-        dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
-        title: t(TranslationKey['No status']),
+      //   route: '/researcher/products',
+      //   dataGridFilter: {
+      //     items: [
+      //       {
+      //         columnField: 'status',
+      //         operatorValue: 'isAnyOf',
+      //         value: [
+      //           TranslationKey['Buyer found a supplier'],
+      //           TranslationKey['Is in search of a Buyer'],
+      //           TranslationKey['Product at the Buyer in work'],
+      //         ],
+      //       },
+      //     ],
+      //   },
+      // },
+      // {
+      //   dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
+      //   title: t(TranslationKey['No status']),
 
-        route: '/researcher/products',
-        dataGridFilter: {
-          items: [{columnField: 'status', operatorValue: 'isAnyOf', value: [TranslationKey['New product']]}],
-        },
-      },
+      //   route: '/researcher/products',
+      //   dataGridFilter: {
+      //     items: [{columnField: 'status', operatorValue: 'isAnyOf', value: [TranslationKey['New product']]}],
+      //   },
+      // },
     ],
   },
 
-  {
-    key: 'FINANCES',
-    title: t(TranslationKey.Finances),
-    subTitle: t(TranslationKey['Accrual data']),
-    items: [
-      {
-        dataKey: ResearcherDashboardCardDataKey.REPLENISH,
-        title: t(TranslationKey.Accruals),
+  // {
+  //   key: 'FINANCES',
+  //   title: t(TranslationKey.Finances),
+  //   subTitle: t(TranslationKey['Accrual data']),
+  //   items: [
+  //     {
+  //       dataKey: ResearcherDashboardCardDataKey.REPLENISH,
+  //       title: t(TranslationKey.Accruals),
 
-        route: '/researcher/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '>=',
-              value: '0',
-            },
-          ],
-        },
-      },
-      {
-        dataKey: ResearcherDashboardCardDataKey.FINES,
-        title: t(TranslationKey.Fines),
-        isNegative: true,
-        route: '/researcher/finances',
-        dataGridFilter: {
-          items: [
-            {
-              columnField: 'sum',
-              operatorValue: '<',
-              value: '0',
-            },
-          ],
-        },
-      },
-    ],
-  },
+  //       route: '/researcher/finances',
+  //       dataGridFilter: {
+  //         items: [
+  //           {
+  //             columnField: 'sum',
+  //             operatorValue: '>=',
+  //             value: '0',
+  //           },
+  //         ],
+  //       },
+  //     },
+  //     {
+  //       dataKey: ResearcherDashboardCardDataKey.FINES,
+  //       title: t(TranslationKey.Fines),
+  //       isNegative: true,
+  //       route: '/researcher/finances',
+  //       dataGridFilter: {
+  //         items: [
+  //           {
+  //             columnField: 'sum',
+  //             operatorValue: '<',
+  //             value: '0',
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   ],
+  // },
 ]
 
 export const FreelancerDashboardCardDataKey = {

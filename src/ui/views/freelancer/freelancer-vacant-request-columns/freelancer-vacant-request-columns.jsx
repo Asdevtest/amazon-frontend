@@ -3,28 +3,13 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ToFixedCell,
-  BarcodeCell,
   ShortDateCell,
-  MultilineStatusCell, // ActiveBarcodeCell,
-  // NoActiveBarcodeCell,
-  HsCodeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  ShowBarcodeOrHscodeCell,
-  FourMonthesStockCell,
-  MultilineTextAlignLeftCell,
-  ChangeInputCell,
-  InStockCell,
-  CommentOfSbCell,
-  ProductAsinCell,
-  UserCell,
   MultilineRequestStatusCell,
   UserMiniCell,
   NormalActionBtnCell,
@@ -32,14 +17,7 @@ import {
   VacantRequestPriceCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {
-  timeToDeadlineInDaysAndHours,
-  timeToDeadlineInDaysHoursAndMins,
-  timeToDeadlineInHoursAndMins,
-  toFixed,
-  toFixedWithDollarSign,
-} from '@utils/text'
+import {timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
@@ -164,7 +142,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
   },
 
   {
-    field: 'toWorkWithoutConfirmation',
+    field: 'withoutConfirmation',
     headerName: t(TranslationKey['To work without confirmation']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To work without confirmation'])} />,
     renderCell: params => (
@@ -182,7 +160,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
                 '-webkit-text-fill-color': 'transparent',
               }
         }
-        text={'-'}
+        text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
       />
     ),
     width: 140,

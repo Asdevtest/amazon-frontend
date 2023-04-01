@@ -7,12 +7,14 @@ import {
   freelanceRequestTypeByKey,
 } from '@constants/freelance-request-type'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {AnnouncementsModel} from '@models/announcements-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
+
+import {checkIsFreelancer} from '@utils/checks'
 
 export class MyServicesViewModel {
   history = undefined
@@ -25,7 +27,10 @@ export class MyServicesViewModel {
   showAcceptMessage = null
   acceptMessage = null
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedTaskType = undefined
+
+  userInfo = []
+  userRole = undefined
 
   announcements = []
 
@@ -42,10 +47,6 @@ export class MyServicesViewModel {
   sortMode = tableSortMode.DESK
 
   showImageModal = false
-
-  get userInfo() {
-    return UserModel.userInfo || {}
-  }
 
   constructor({history, location}) {
     runInAction(() => {
@@ -90,8 +91,22 @@ export class MyServicesViewModel {
     })
   }
 
+  async getUserInfo() {
+    const result = await UserModel.userInfo
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
+  }
+
   async loadData() {
     try {
+      await this.getUserInfo()
+
+      runInAction(() => {
+        this.selectedTaskType = checkIsFreelancer(this.userRole)
+          ? this.userInfo.allowedSpec.sort()[0]
+          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+      })
+
       await this.getMyAnnouncementsData()
     } catch (error) {
       console.log(error)

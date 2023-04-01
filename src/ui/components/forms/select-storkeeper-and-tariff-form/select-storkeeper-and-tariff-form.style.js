@@ -9,7 +9,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxesFiltersWrapper: {
+    display: 'flex',
     marginBottom: 10,
+  },
+  btnWrapperStyle: {
+    width: 'fit-content',
   },
 
   button: {

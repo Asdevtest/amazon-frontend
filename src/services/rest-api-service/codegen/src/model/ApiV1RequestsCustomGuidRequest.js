@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomRequestLinksToMediaFiles from './ApiV1RequestsCustomRequestLinksToMediaFiles';
 
 /**
  * The ApiV1RequestsCustomGuidRequest model module.
@@ -93,7 +94,7 @@ class ApiV1RequestsCustomGuidRequest {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [ApiV1RequestsCustomRequestLinksToMediaFiles]);
             }
         }
         return obj;
@@ -193,7 +194,7 @@ ApiV1RequestsCustomGuidRequest.prototype['cashBackInPercent'] = undefined;
 ApiV1RequestsCustomGuidRequest.prototype['announcementId'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * @member {Array.<module:model/ApiV1RequestsCustomRequestLinksToMediaFiles>} linksToMediaFiles
  */
 ApiV1RequestsCustomGuidRequest.prototype['linksToMediaFiles'] = undefined;
 

@@ -742,6 +742,7 @@ export const styles = theme => ({
 
   threeMultilineText: {
     justifyContent: 'center',
+    alignItems: 'center',
     height: 48,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
@@ -1672,50 +1673,51 @@ export const styles = theme => ({
         alignItems: 'center',
       },
     },
+  },
 
-    requestPriceCellWrapper: {
-      width: '100%',
-      height: '100%',
+  ratingScore: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
 
-      display: 'flex',
-      gap: 5,
-      flexWrap: 'wrap',
+  ChangeInputCommentCellWrapper: {
+    display: 'flex',
+    width: '100%',
+  },
 
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    twoStepFieldResult: {
-      color: theme.palette.text.main,
-      fontWeight: 400,
-      fontSize: '14px',
-      lineHeight: '19px',
-    },
-    newPrice: {
-      color: '#FB1D5B',
-      fontWeight: 600,
-    },
-    oldPrice: {
-      textDecoration: 'line-through',
-    },
-    ratingScore: {
-      fontWeight: 400,
-      fontSize: 14,
-      lineHeight: '19px',
-    },
+  menuItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 
-    ChangeInputCommentCellWrapper: {
-      display: 'flex',
-      width: '100%',
-    },
+  rushOrderImg: {
+    width: '12px',
+    height: '13px',
+  },
 
-    menuItem: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
+  priceCellWrapper: {
+    width: '100%',
+    height: '100%',
 
-    rushOrderImg: {
-      width: '12px',
-      height: '13px',
-    },
+    display: 'flex',
+    gap: 5,
+    flexWrap: 'wrap',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  priceText: {
+    color: theme.palette.text.main,
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+    fontWeight: 600,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
   },
 })

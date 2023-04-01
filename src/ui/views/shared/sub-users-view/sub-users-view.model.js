@@ -112,7 +112,7 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      console.log(id, comment)
+      // console.log(id, comment)
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()

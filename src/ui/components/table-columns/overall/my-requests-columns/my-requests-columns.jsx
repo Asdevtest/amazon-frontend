@@ -6,7 +6,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   AsinCell,
   MultilineRequestStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
@@ -51,7 +50,9 @@ export const myRequestsViewColumns = languageTag => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
+    ),
     width: 228,
   },
 

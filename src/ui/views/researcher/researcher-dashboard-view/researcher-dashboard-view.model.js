@@ -61,15 +61,15 @@ export class ResearcherDashboardViewModel {
           ...this.dashboardData,
 
           [ResearcherDashboardCardDataKey.ALL_PRODUCTS]: result.products.all,
-          [ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.completed,
+          // [ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS]: result.products.completed,
 
           [ResearcherDashboardCardDataKey.REJECTED_PRODUCTS]: result.products.rejected,
           [ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING]: result.products.inWork,
-          [ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER]: result.products.searchSupplierFromBuyer,
-          [ResearcherDashboardCardDataKey.NO_STATUS]: result.products.withoutStatus,
+          // [ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER]: result.products.searchSupplierFromBuyer,
+          // [ResearcherDashboardCardDataKey.NO_STATUS]: result.products.withoutStatus,
 
-          [ResearcherDashboardCardDataKey.REPLENISH]: result.finances.accruals,
-          [ResearcherDashboardCardDataKey.FINES]: result.finances.fines,
+          // [ResearcherDashboardCardDataKey.REPLENISH]: result.finances.accruals,
+          // [ResearcherDashboardCardDataKey.FINES]: result.finances.fines,
         }
       })
     } catch (error) {

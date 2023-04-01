@@ -24,7 +24,10 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     )
     .filter(el => el !== null)
 
-  const isRedBadge = category.route?.includes('/client/my-orders/orders')
+  const isRedBadge =
+    category.route?.includes('/client/my-orders/orders') ||
+    category.route?.includes('/buyer/pending-orders') ||
+    category.route?.includes('/buyer/free-orders')
 
   const getHighPriorityValue = route => {
     switch (route) {

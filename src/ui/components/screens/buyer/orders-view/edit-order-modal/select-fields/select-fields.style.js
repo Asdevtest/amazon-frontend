@@ -103,9 +103,10 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    // flexDirection: 'column',
     gap: '5px',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   totalPriceWrapper: {
     marginTop: '20px',
@@ -173,6 +174,10 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
+  gridItem: {
+    width: 500,
+  },
+
   photoWrapper: {
     width: '339px',
     height: '254px',
@@ -195,14 +200,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: '231px',
   },
 
+  inputFullHeight: {
+    height: 'auto',
+  },
+
   researchWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 15,
+
+    width: 130,
   },
 
   researchLabel: {
-    maxWidth: '231px',
+    width: 100,
 
     color: theme.palette.text.second,
     fontWeight: '400',
@@ -273,5 +284,81 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+  },
+
+  inputError: {
+    '.Mui-disabled': {
+      '-webkit-text-fill-color': 'red !important',
+    },
+  },
+
+  subUsersWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 270,
+  },
+  subUsersTitleWrapper: {
+    marginBottom: 10,
+  },
+
+  subUsersTitle: {
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  subUsersBodyWrapper: {
+    width: 270,
+    maxHeight: 175,
+    overflowY: 'auto',
+
+    backgroundColor: theme.palette.background.general,
+
+    border: `1px solid ${theme.palette.input.customDisabled}`,
+    borderRadius: '4px',
+
+    padding: 5,
+  },
+
+  subUsersBody: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    width: '100%',
+    padding: '6px 0 6px 10px',
+
+    backgroundColor: theme.palette.background.general,
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+
+    gap: 10,
+  },
+
+  supplierPaymentButtonWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'end',
+  },
+
+  supplierPaymentButton: {
+    height: 32,
+
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    width: '100%',
+    marginBottom: '20px',
+    color: '#fff',
+  },
+
+  formItem: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: 0,
+    gap: 30,
   },
 }))

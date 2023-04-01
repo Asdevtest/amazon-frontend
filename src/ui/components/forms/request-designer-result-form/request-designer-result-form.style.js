@@ -203,6 +203,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  imageListItem: {
+    width: '100%',
+    height: '100%',
+  },
+
   imageUploadText: {
     fontSize: 18,
   },
@@ -222,7 +227,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     objectFit: 'contain',
-    objectPosition: 'center',
+    // objectPosition: 'center',
 
     transition: '.3s ease',
     cursor: 'pointer',
@@ -231,54 +236,13 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  imageModalWrapper: {
-    width: '60vw',
-    // height: '80vh',
+  imagesModalBtnsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    gap: 20,
   },
 
-  carouselWrapper: {
-    width: 660,
-  },
-
-  imageModalImageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: 'auto',
-    gap: 10,
-  },
-
-  imageCarouselWrapperLeftSide: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxHeight: 400,
-  },
-
-  imageModalImageWrapperLeftSide: {
-    display: 'flex',
-    // justifyContent: 'center',
-    width: '100%',
-    height: 'auto',
-    gap: 10,
-
-    marginBottom: 10,
-  },
-
-  imageModalImage: {
-    width: 560,
-    height: 560,
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  imageModalImageLeftSide: {
-    width: 73,
-    height: 73,
-    objectFit: 'contain',
-    objectPosition: 'center',
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
   },
 }))

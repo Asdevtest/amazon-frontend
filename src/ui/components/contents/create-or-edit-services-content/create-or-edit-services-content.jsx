@@ -1,53 +1,38 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {
-  Checkbox,
-  Typography,
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  Select,
-  Input,
-  InputAdornment,
-  MenuItem,
-} from '@mui/material'
+import {Typography, Select, Input, InputAdornment, MenuItem} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 
-import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
-import {
-  checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
-  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
-} from '@utils/checks'
-import {formatDateForShowWithoutParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {shortAsin, clearEverythingExceptNumbers, replaceCommaByDot, toFixed} from '@utils/text'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-services-content.style'
 
-export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, onClickEditBtn, onClickBackBtn}) => {
+export const CreateOrEditServiceContent = ({
+  data,
+  pathname,
+  onClickCreateBtn,
+  onClickEditBtn,
+  onClickBackBtn,
+  userInfo,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const isEdit = pathname?.includes('edit-service')
+
+  const whiteList = userInfo?.allowedSpec?.map(spec => String(spec)) || []
 
   const [images, setImages] = useState([])
 
@@ -109,9 +94,7 @@ export const CreateOrEditServiceContent = ({data, pathname, onClickCreateBtn, on
               </MenuItem>
 
               {Object.keys({
-                ...getObjectFilteredByKeyArrayBlackList(freelanceRequestTypeByCode, [
-                  `${freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]}`,
-                ]),
+                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
               }).map((taskType, taskIndex) => (
                 <MenuItem key={taskIndex} value={taskType}>
                   {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}

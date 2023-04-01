@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
+import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -38,6 +39,7 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+  'paymentDetails',
 
   'amount',
   'orderSupplierId',
@@ -60,6 +62,8 @@ const setNavbarActiveSubCategory = pathname => {
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
       case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
+      case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT
       default:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
     }
@@ -240,6 +244,8 @@ export class BuyerMyOrdersViewModel {
           return [OrderStatus.TRACK_NUMBER_ISSUED]
         case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
           return [OrderStatus.VERIFY_RECEIPT]
+        case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+          return [OrderStatus.READY_FOR_PAYMENT]
         case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
           return [OrderStatus.IN_STOCK, OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT]
 
@@ -253,6 +259,7 @@ export class BuyerMyOrdersViewModel {
             OrderStatus.IN_STOCK,
             OrderStatus.CANCELED_BY_BUYER,
             OrderStatus.CANCELED_BY_CLIENT,
+            OrderStatus.READY_FOR_PAYMENT,
           ]
         default:
           return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
@@ -553,8 +560,10 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
+        this.hsCodeData = hsCode
         this.selectedOrder = orderData
       })
       this.getBoxesOfOrder(orderId)
@@ -575,7 +584,7 @@ export class BuyerMyOrdersViewModel {
   async onSubmitCancelOrder() {
     try {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
-
+      await UserModel.getUserInfo()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
@@ -589,9 +598,10 @@ export class BuyerMyOrdersViewModel {
     orderFields,
     boxesForCreation,
     photosToLoad,
-    // hsCode,
+    hsCode,
     trackNumber,
     commentToWarehouse,
+    paymentDetailsPhotosToLoad,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -614,7 +624,17 @@ export class BuyerMyOrdersViewModel {
         images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
       }
 
-      await this.onSaveOrder(order, orderFieldsToSave)
+      runInAction(() => {
+        this.readyImages = []
+      })
+      if (paymentDetailsPhotosToLoad?.length) {
+        await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+      }
+
+      await this.onSaveOrder(order, {
+        ...orderFieldsToSave,
+        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+      })
 
       if (
         boxesForCreation.length > 0 &&
@@ -651,6 +671,10 @@ export class BuyerMyOrdersViewModel {
         await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
       }
 
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
+        await BuyerModel.orderReadyForPayment(order._id)
+      }
+
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
@@ -669,12 +693,25 @@ export class BuyerMyOrdersViewModel {
       }
       // }
 
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
+      }
+
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
         })
         this.onTriggerOpenModal('showOrderModal')
+        UserModel.getUserInfo()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
 
@@ -804,6 +841,10 @@ export class BuyerMyOrdersViewModel {
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
+        priority:
+          order.priority === '40'
+            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
+            : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
       if (!this.error) {

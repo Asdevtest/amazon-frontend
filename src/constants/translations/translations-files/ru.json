@@ -1894,5 +1894,14 @@
   "The order has been updated": "Заказ был обновлен",
   "Success parse": "Успешный парсинг",
   "New notifications": "Новые уведомления",
-  "Task description": "Описание задачи"
+  "Task description": "Описание задачи",
+  "Product is appropriate": "Продукт подходит",
+  "Send to check": "Отправить на проверку",
+  "Total number of boxes": "Общее количество коробок",
+  "Supervisor's comment": "Комментарий супервизора",
+  "Product available": "Товар доступен",
+  "Ready for payment": "Готов к оплате",
+  "Supplier payment": "Оплата поставщику",
+  "Add payment to supplier": "Добавить оплату поставщику",
+  "Apply to all": "Применить ко всем"
 }

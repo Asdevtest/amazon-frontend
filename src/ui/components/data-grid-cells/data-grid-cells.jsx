@@ -1238,10 +1238,10 @@ export const VacantRequestPriceCell = React.memo(
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
     return (
-      <div className={classNames.requestPriceCellWrapper}>
+      <div className={classNames.priceCellWrapper}>
         {discountedPrice && cashBackInPercent ? (
           <Typography
-            className={cx(classNames.twoStepFieldResult, {
+            className={cx(classNames.priceText, {
               [classNames.newPrice]: discountedPrice && cashBackInPercent,
             })}
           >
@@ -1250,7 +1250,7 @@ export const VacantRequestPriceCell = React.memo(
         ) : null}
 
         <Typography
-          className={cx(classNames.twoStepFieldResult, {
+          className={cx(classNames.priceText, {
             [classNames.oldPrice]: discountedPrice && cashBackInPercent,
           })}
         >
@@ -1460,9 +1460,11 @@ export const TextHeaderCell = React.memo(
 
 export const MultilineStatusCell = React.memo(
   withStyles(
-    ({classes: classNames, status}) => (
+    ({classes: classNames, status, leftAlign}) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
+        <Typography className={cx(classNames.statusMultilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
+          {status?.replace(/_/g, ' ')}
+        </Typography>
       </div>
     ),
     styles,
@@ -1881,9 +1883,9 @@ export const ToFixedCell = React.memo(
 
 export const ToFixedWithDollarSignCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix}) => (
+    ({classes: classNames, value, fix, leftAlign}) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={classNames.multilineText}>
+        <Typography className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
           {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
         </Typography>
       </div>

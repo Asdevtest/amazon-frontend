@@ -86,15 +86,14 @@ class BuyerMyOrdersViewRaw extends Component {
       showOrderPriceMismatchModal,
       showWarningInfoModal,
       showConfirmModal,
+      showEditHSCodeModal,
       navbarActiveSubCategory,
       hsCodeData,
-      showEditHSCodeModal,
 
       showProgress,
       progressValue,
 
       onClickHsCode,
-      onClickSaveHsCode,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -113,6 +112,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      onClickSaveHsCode,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -203,6 +203,7 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            hsCodeData={hsCodeData}
             userInfo={userInfo}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
@@ -239,14 +240,6 @@ class BuyerMyOrdersViewRaw extends Component {
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-          />
-        </Modal>
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
@@ -302,6 +295,14 @@ class BuyerMyOrdersViewRaw extends Component {
             onTriggerOpenModal('showSuccessModal')
           }}
         />
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

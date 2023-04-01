@@ -3,6 +3,14 @@ export const styles = theme => ({
     padding: '16px 20px',
     marginBottom: '42px',
   },
+
+  taskTypeWrapper: {
+    display: 'flex',
+  },
+
+  btnWrapperStyle: {
+    width: 'fit-content',
+  },
   formWrapper: {
     marginTop: '32px',
   },

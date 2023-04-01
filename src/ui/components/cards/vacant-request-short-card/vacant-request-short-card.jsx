@@ -38,13 +38,20 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
   return (
     <Grid item>
       <div className={classNames.cardWrapper}>
-        <div className={classNames.userInfoWrapper}>
-          <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+        <div className={classNames.cardHeader}>
+          <div className={classNames.userInfoWrapper}>
+            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
-          <div className={classNames.nameRatingWrapper}>
-            <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
+            <div className={classNames.nameRatingWrapper}>
+              <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
 
-            <Rating disabled value={item.createdBy.rating} />
+              <Rating disabled value={item.createdBy.rating} />
+            </div>
+          </div>
+
+          <div className={classNames.idWrapper}>
+            <Typography className={classNames.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
+            <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
           </div>
         </div>
 

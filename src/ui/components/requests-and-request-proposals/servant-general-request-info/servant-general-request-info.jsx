@@ -57,12 +57,14 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <Typography className={classNames.cardTitle}>{request?.request.title}</Typography>
         )}
 
-        <div className={classNames.idTitleWrapper}>
-          <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
-          <Typography className={cx(classNames.idText, classNames.idTextDark)}>
-            {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-          </Typography>
-        </div>
+        {requestProposals.length === 0 ? null : (
+          <div className={classNames.idTitleWrapper}>
+            <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
+            <Typography className={cx(classNames.idText, classNames.idTextDark)}>
+              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+            </Typography>
+          </div>
+        )}
       </div>
       <div className={classNames.mainInfosSubWrapper}>
         {request?.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
@@ -218,7 +220,16 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         </div>
 
         <div>
-          <Typography className={classNames.title}>{request?.request.title}</Typography>
+          <div className={classNames.titleAndIdWrapper}>
+            <Typography className={classNames.title}>{request?.request.title}</Typography>
+
+            <div className={classNames.idTitleWrapper}>
+              <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
+              <Typography className={cx(classNames.idText, classNames.idTextDark)}>
+                {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+              </Typography>
+            </div>
+          </div>
 
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.standartText}>

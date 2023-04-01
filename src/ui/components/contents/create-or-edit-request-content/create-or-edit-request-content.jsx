@@ -184,6 +184,12 @@ export const CreateOrEditRequestContent = ({
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
         newFormFields[section][fieldName] = event.target.value
+
+        if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
+          newFormFields.request.discountedPrice = 0
+          newFormFields.request.cashBackInPercent = 0
+          newFormFields.request.priceAmazon = 0
+        }
       } else if (['productId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
       } else if (['asin'].includes(fieldName)) {
@@ -809,8 +815,8 @@ export const CreateOrEditRequestContent = ({
                         {formFields?.request?.asin && (
                           <Field
                             label={t(TranslationKey.ASIN)}
-                            labelClasses={classNames.spanLabel}
-                            containerClasses={cx(classNames.titleContainer)}
+                            labelClasses={cx(classNames.spanLabel, classNames.fitContentContainer)}
+                            containerClasses={cx(classNames.asinContainerStapTwo)}
                             inputComponent={
                               <div className={classNames.asinWrapper}>
                                 <Typography className={classNames.orderText}>

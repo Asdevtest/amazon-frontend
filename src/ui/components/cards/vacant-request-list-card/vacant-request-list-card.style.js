@@ -48,9 +48,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
-    overflowY: 'auto',
-    width: '395px',
-    height: 80,
   },
 
   cardSubTitle: {
@@ -234,5 +231,23 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainInfosSubWrapper: {
     width: 180,
+  },
+
+  titleWrapper: {
+    display: 'flex',
+
+    overflowY: 'auto',
+    width: '395px',
+    height: 80,
+  },
+  idTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.general,
+  },
+  idText: {
+    color: `${theme.palette.text.second} !important`,
   },
 }))

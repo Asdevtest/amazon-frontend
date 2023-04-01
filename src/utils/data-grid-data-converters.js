@@ -12,6 +12,7 @@ import {
   calcPriceForBox,
   calcTotalPriceForBatch,
   calcVolumeWeightForBox,
+  checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
@@ -94,6 +95,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -134,6 +136,7 @@ export const supervisorProductsDataConverter = data =>
     id: item._id,
     fbafee: item.fbafee,
     asin: item.asin,
+    ordered: item.ordered,
   }))
 
 export const buyerFinancesDataConverter = data =>
@@ -403,7 +406,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .slice(0, -2),
   }))
 
-export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, finalWeightCalculationMethod) =>
+export const addOrEditBatchDataConverter = (
+  data,
+  volumeWeightCoefficient,
+  finalWeightCalculationMethod,
+  getBatchWeightCalculationMethodForBox,
+  calculationMethod,
+  // isDifferentMethodForEach,
+) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -413,7 +423,12 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+    finalWeight: getBatchWeightCalculationMethodForBox
+      ? getBatchWeightCalculationMethodForBox(
+          calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+        )(item, volumeWeightCoefficient) * item.amount
+      : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
 
     destination: item.destination?.name,
@@ -430,7 +445,13 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice:
-      getTariffRateForBoxOrOrder(item) * finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+      getTariffRateForBoxOrOrder(item) *
+      (getBatchWeightCalculationMethodForBox
+        ? getBatchWeightCalculationMethodForBox(
+            calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+          )(item, volumeWeightCoefficient) * item.amount
+        : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
 
     deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
 

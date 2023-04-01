@@ -9,9 +9,9 @@ export class SupervisorPayment extends InlineResponse2004 {}
 export class SupervisorUpdateProductParams extends InlineObject18 {}
 
 export class SupervisorUpdateProductContract {
-  @IsNotEmpty()
-  @IsString()
-  checkednotes
+  // @IsNotEmpty()
+  // @IsString()
+  // checkednotes
 
   @IsOptional()
   @IsString()
