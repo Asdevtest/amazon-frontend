@@ -21,16 +21,10 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-text-editor.style'
 
-const TextAlign = ({children, textAlign}) => <Typography style={{textAlign: `${textAlign}`}}>{children}</Typography>
+const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
 
-export const CustomTextEditor = observer(({placeHolder}) => {
+export const CustomTextEditor = observer(({conditions, changeConditions, placeHolder, readOnly}) => {
   const {classes: classNames} = useClassNames()
-
-  const [value, setValue] = useState('')
-
-  // const contentState = value && convertFromRaw(toJS(value))
-  // const editorState = EditorState.createWithContent(contentState)
-  // console.log('editorState', editorState)
 
   const richTextEditorRef = useRef(null)
 
@@ -38,31 +32,34 @@ export const CustomTextEditor = observer(({placeHolder}) => {
     richTextEditorRef.current.save()
   }
 
-  useEffect(() => {
-    console.log('value', value)
-  }, [value])
-
   return (
     <div className={classNames.richTextEditorWrapper}>
-      <Typography className={classNames.richTextEditorTitle}>
-        {t(TranslationKey['Describe your task']) + '*'}
-      </Typography>
+      {!readOnly && (
+        <Typography className={classNames.richTextEditorTitle}>
+          {t(TranslationKey['Describe your task']) + '*'}
+        </Typography>
+      )}
 
       <MUIRichTextEditor
         ref={richTextEditorRef}
-        disable
+        readOnly={readOnly}
+        defaultValue={conditions}
         label={placeHolder ?? t(TranslationKey['Task description'])}
-        controls={[
-          'bold',
-          'underline',
-          'strikethrough',
-          'numberList',
-          'bulletList',
-          'justifyLeft',
-          'justifyCenter',
-          'justifyRight',
-          'justifyFull',
-        ]}
+        controls={
+          readOnly
+            ? []
+            : [
+                'bold',
+                'underline',
+                'strikethrough',
+                'numberList',
+                'bulletList',
+                'justifyLeft',
+                'justifyCenter',
+                'justifyRight',
+                'justifyFull',
+              ]
+        }
         customControls={[
           {
             name: 'justifyLeft',
@@ -101,9 +98,13 @@ export const CustomTextEditor = observer(({placeHolder}) => {
         }}
         inlineToolbar={false}
         maxLength={4000}
-        onChange={handleSave}
+        onBlur={() => {
+          if (changeConditions) {
+            handleSave()
+          }
+        }}
         onSave={text => {
-          setValue(text)
+          changeConditions(text)
         }}
       />
     </div>

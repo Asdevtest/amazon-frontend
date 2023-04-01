@@ -133,7 +133,6 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
   useEffect(() => {
-    // setFormFields(getSourceFormFields(formFields))
     setFormFields(() => formFields)
   }, [choosenAnnouncements, announcementsData])
 
@@ -188,6 +187,8 @@ export const CreateOrEditRequestContent = ({
       } else if (['productId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
       } else if (['asin'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
+      } else if (['conditions'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
       } else {
         newFormFields[section][fieldName] = event.target.value
@@ -421,7 +422,7 @@ export const CreateOrEditRequestContent = ({
                 )}
 
                 <div className={classNames.descriptionFieldWrapper}>
-                  <Field
+                  {/* <Field
                     multiline
                     tooltipInfoContent={t(TranslationKey['Maximize the details of your request'])}
                     inputProps={{maxLength: 1100}}
@@ -432,9 +433,12 @@ export const CreateOrEditRequestContent = ({
                     label={`${t(TranslationKey['Describe your request'])} *`}
                     value={formFields.details.conditions}
                     onChange={onChangeField('details')('conditions')}
-                  />
+                  /> */}
 
-                  {/* <CustomTextEditor /> */}
+                  <CustomTextEditor
+                    conditions={formFields.details.conditions}
+                    changeConditions={onChangeField('details')('conditions')}
+                  />
 
                   <span
                     className={cx(classNames.charactersHints, {
