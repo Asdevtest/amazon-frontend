@@ -866,6 +866,7 @@ export const SourceFilesDataConverter = data =>
 
     _id: item?._id,
     sourceFile: item?.sourceFile,
+    comment: item?.comment,
     proposal: item?.proposal,
     typeTask: item?.typeTask,
     productId: item?.productId,

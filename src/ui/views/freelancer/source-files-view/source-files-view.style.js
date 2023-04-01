@@ -2,7 +2,9 @@
 
 export const styles = theme => ({
   dataGridWrapper: {
-    height: 'calc(100vh - 200px)',
+    marginTop: 30,
+
+    height: 'calc(100vh - 185px)',
   },
 
   row: {

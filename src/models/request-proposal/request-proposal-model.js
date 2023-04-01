@@ -145,8 +145,20 @@ class RequestProposalModelStatic {
     return response
   }
 
-  getSourseFiles = async () => {
+  getFreelanceSourceFiles = async () => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGet()
+    return response
+  }
+
+  patchFreelanceSourceFilesByGuid = async (id, data) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
+  deleteFreelanceSourceFilesByGuid = async id => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete(id)
     return response
   }
 }

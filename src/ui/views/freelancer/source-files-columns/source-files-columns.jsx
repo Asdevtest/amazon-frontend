@@ -16,12 +16,23 @@ import {
   AsinCell,
   VacantRequestPriceCell,
   EditOrRemoveIconBtnsCell,
+  ScrollingLinkCell,
+  CopyAndEditLinkCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const sourceFilesColumns = (handlers, languageTag) => [
+export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
+  // {
+  //   field: 'title2',
+  //   headerName: t(TranslationKey.Title),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+  //   renderCell: params => console.log('params', params),
+  //   width: 205,
+  // },
+
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
@@ -51,16 +62,48 @@ export const sourceFilesColumns = (handlers, languageTag) => [
     field: 'performer',
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-    width: 112,
-    renderCell: params => <UserMiniCell user={params.sub ? params.row.sub : params.row.createdBy} />,
+    width: 137,
+    renderCell: params => <UserMiniCell user={params.row.sub ? params.row.sub : params.row.performer} />,
   },
 
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-    width: 112,
-    renderCell: params => <UserMiniCell user={params.row.createdBy} />,
+    width: 137,
+    renderCell: params => <UserMiniCell user={params.row.client} />,
+  },
+
+  {
+    field: 'asin',
+    headerName: t(TranslationKey.ASIN),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+    width: 128,
+    renderCell: params => <AsinCell asin={params.value} />,
+  },
+
+  {
+    field: 'sourceFile',
+    headerName: t(TranslationKey.Link),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
+    width: 239,
+    renderCell: params => (
+      <CopyAndEditLinkCell
+        link={params.value}
+        isEdit={params?.row?.originalData?._id === editField?._id}
+        onChangeText={rowHandlers.onChangeText}
+      />
+    ),
+  },
+
+  {
+    field: 'comment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    width: 239,
+    renderCell: params => (
+      <ChangeInputCommentCell text={params?.value} disabled={params?.row?.originalData?._id !== editField?._id} />
+    ),
   },
 
   {
@@ -73,8 +116,9 @@ export const sourceFilesColumns = (handlers, languageTag) => [
       <EditOrRemoveIconBtnsCell
         tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
-        handlers={handlers}
+        handlers={rowHandlers}
         row={params.row}
+        isSave={params?.row?.originalData?._id === editField?._id}
       />
     ),
 

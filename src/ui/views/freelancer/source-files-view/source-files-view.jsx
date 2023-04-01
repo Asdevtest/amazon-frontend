@@ -62,6 +62,7 @@ class SourceFilesViewRaw extends Component {
       onTriggerSortMode,
       onTriggerDrawerOpen,
       onChangeNameSearchValue,
+      onSelectionModel,
       onChangeCurPage,
       onChangeSortingModel,
       onChangeFilterModel,
@@ -147,6 +148,7 @@ class SourceFilesViewRaw extends Component {
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onPageChange={onChangeCurPage}
+                  onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onFilterModelChange={onChangeFilterModel}
