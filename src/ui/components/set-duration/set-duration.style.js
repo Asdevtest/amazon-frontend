@@ -38,8 +38,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: 35,
 
     border: 'none',
+    // borderBottom: '1px solid #C4C4C4',
     margin: '0 !important',
     padding: '0 !important',
+
+    '&:after': {
+      position: 'absolute',
+      bottom: 0,
+      left: 9,
+      content: '" "',
+      display: 'block',
+      height: 1,
+      width: 20,
+      background: theme.palette.text.second,
+    },
 
     borderRadius: 0,
 
