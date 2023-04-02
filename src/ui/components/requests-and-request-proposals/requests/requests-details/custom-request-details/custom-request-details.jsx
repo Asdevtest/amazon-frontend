@@ -32,7 +32,7 @@ export const CustomSearchRequestDetails = ({request}) => {
     <div className={classNames.root}>
       <Accordion
         classes={{root: classNames.accordion}}
-        style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
+        // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
         expanded={showDetails}
         onChange={onClickToShowDetails}
       >
