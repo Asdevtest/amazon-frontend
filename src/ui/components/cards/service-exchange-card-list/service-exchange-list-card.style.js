@@ -11,7 +11,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: 800,
 
     borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    backgroundColor: theme.palette.background.general,
+
     padding: '20px 20px 20px 0',
 
     marginBottom: 30,

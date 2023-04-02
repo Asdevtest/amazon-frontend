@@ -126,7 +126,8 @@ export const styles = theme => ({
   dataGridWrapper: {
     marginTop: 30,
     height: '55vh',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+
     // borderRadius: 4,
   },
 
@@ -139,7 +140,7 @@ export const styles = theme => ({
   },
   root: {
     border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     // backgroundColor: theme.palette.background.general,
 
     backgroundColor: theme.palette.background.general,
