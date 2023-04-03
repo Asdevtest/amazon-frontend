@@ -74,7 +74,7 @@ export const FieldsAndSuppliers = observer(
           disabled
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
-            <div>
+            <>
               <div className={classNames.linkAndButtonWrapper}>
                 <div className={classNames.copyLink}>
                   {edit && product.lamazon ? (
@@ -121,31 +121,33 @@ export const FieldsAndSuppliers = observer(
                 ) : null}
               </div>
 
-              {checkIsClient(curUserRole) &&
-                product.isCreatedByClient &&
-                !product.archive &&
-                clientToEditStatuses.includes(productBase.status) &&
-                (edit ? (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    className={classNames.editButton}
-                    onClick={() => setEdit(!edit)}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                ) : (
-                  <Button
-                    success
-                    tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    className={classNames.editButton}
-                    onClick={() => setEdit(!edit)}
-                  >
-                    {t(TranslationKey.Save)}
-                  </Button>
-                ))}
-            </div>
+              <div className={classNames.editButtonWrapper}>
+                {checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  !product.archive &&
+                  clientToEditStatuses.includes(productBase.status) &&
+                  (edit ? (
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
+                      disabled={!checkIsClient(curUserRole)}
+                      className={classNames.editButton}
+                      onClick={() => setEdit(!edit)}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  ) : (
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
+                      disabled={!checkIsClient(curUserRole)}
+                      className={classNames.editButton}
+                      onClick={() => setEdit(!edit)}
+                    >
+                      {t(TranslationKey.Save)}
+                    </Button>
+                  ))}
+              </div>
+            </>
           }
         />
 
