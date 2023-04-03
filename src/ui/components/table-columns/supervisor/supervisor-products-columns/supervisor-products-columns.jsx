@@ -121,6 +121,7 @@ export const supervisorProductsViewColumns = () => [
       />
     ),
     minWidth: 50,
+    type: 'boolean',
   },
 
   {
