@@ -395,7 +395,7 @@ export const TopCard = observer(
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
           )}
 
-          {actionStatus === loadingStatuses.isLoading ? <CircularProgressWithLabel /> : null}
+          {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
         </Paper>
 
         <BigImagesModal
