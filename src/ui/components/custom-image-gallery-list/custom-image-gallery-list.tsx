@@ -54,13 +54,6 @@ export const CustomImageGalleryList: FC<Props> = observer(({files}) => {
           <Typography className={classNames.photoTitle}>{'Img'}</Typography>
         </div>
       ))}
-      {/* ) : (
-        <div className={classNames.emptyIconWrapper}>
-          <div className={classNames.emptyIcon}>
-            <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
-          </div>
-        </div>
-      )} */}
 
       <BigImagesModal
         openModal={showPhotosModal}

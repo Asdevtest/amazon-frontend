@@ -38,6 +38,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   accordion: {
     width: '100%',
+    borderRadius: '4px',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     // backgroundColor: 'red',
   },
 
