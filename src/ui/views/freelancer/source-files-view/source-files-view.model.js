@@ -1,22 +1,16 @@
 /* eslint-disable no-unused-vars */
-import {th} from 'date-fns/locale'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {tableSortMode} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
 
 import {sourceFilesColumns} from '@views/freelancer/source-files-columns/source-files-columns'
 
-import {addIdDataConverter, SourceFilesDataConverter} from '@utils/data-grid-data-converters'
+import {SourceFilesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
 
 export class SourceFilesViewModel {
   history = undefined
