@@ -27,7 +27,7 @@ export class MyServicesViewModel {
   showAcceptMessage = null
   acceptMessage = null
 
-  selectedTaskType = undefined
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   userInfo = []
   userRole = undefined
@@ -100,13 +100,6 @@ export class MyServicesViewModel {
   async loadData() {
     try {
       await this.getUserInfo()
-
-      runInAction(() => {
-        this.selectedTaskType = checkIsFreelancer(this.userRole)
-          ? this.userInfo.allowedSpec.sort()[0]
-          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-      })
-
       await this.getMyAnnouncementsData()
     } catch (error) {
       console.log(error)

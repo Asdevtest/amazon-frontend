@@ -76,7 +76,10 @@ class MyServicesViewRaw extends Component {
 
     const whiteList =
       !!userInfo && checkIsFreelancer(userRole)
-        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        ? [
+            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+          ]
         : Object.keys(freelanceRequestTypeByCode)
 
     return (
