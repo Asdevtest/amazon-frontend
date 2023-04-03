@@ -206,7 +206,7 @@ export const CustomCarousel = observer(
     )
   },
 )
-const openPdfFile = url => {
+export const openPdfFile = url => {
   const pdfWindow = window.open('')
 
   pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
@@ -500,66 +500,6 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
           <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
         </div>
         <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
-      </div>
-    </div>
-  )
-})
-
-export const FilesCarousel = observer(({files}) => {
-  const {classes: classNames} = useClassNames()
-
-  const notEmptyFiles = files?.length
-    ? files.filter(el => (el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el)))
-    : []
-
-  return files?.length ? (
-    <div className={classNames.imagesCarouselWrapper}>
-      <div className={classNames.imageWrapper}>
-        {notEmptyFiles?.length ? (
-          <CustomCarousel>
-            {notEmptyFiles.map((file, index) =>
-              file?.data_url ? (
-                <div
-                  key={index}
-                  className={classNames.documentWrapper}
-                  onClick={() => file.data_url && openPdfFile(file.data_url)}
-                >
-                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                  <Typography className={classNames.documentTitle}>
-                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                  </Typography>
-                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                </div>
-              ) : (
-                <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
-                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                  <Typography className={classNames.documentTitle}>
-                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                  </Typography>
-                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                </Link>
-              ),
-            )}
-          </CustomCarousel>
-        ) : (
-          <div className={classNames.emptyProposalsIconWrapper}>
-            <div className={classNames.emptyProposalsIcon}>
-              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
-            </div>
-            <div className={classNames.emptyProposalsDescriptionWrapper}>
-              <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  ) : (
-    <div className={classNames.emptyIconWrapper}>
-      <div className={classNames.emptyWrapper}>
-        <div className={classNames.emptyIcon}>
-          <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
-        </div>
-        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files added'])}</Typography>
       </div>
     </div>
   )

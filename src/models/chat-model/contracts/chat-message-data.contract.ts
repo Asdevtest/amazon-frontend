@@ -215,7 +215,7 @@ export class ChatMessageDataProposalResultEditedEdited
 {
   @IsOptional()
   @IsString({each: true})
-  public linksToMediaFiles?: string[]
+  public linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
   @IsNotEmpty()
   @IsString()
   public result!: string

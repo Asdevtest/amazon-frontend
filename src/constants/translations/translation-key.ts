@@ -1903,7 +1903,7 @@ export enum TranslationKey {
   'Add payment to supplier' = 'Add payment to supplier',
   'Apply to all' = 'Apply to all',
   'Source Files' = 'Source Files',
-  // '' = '',
+  'No files' = 'No files',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -182,7 +182,10 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'loadedFiles'})
+        await onSubmitPostImages.call(this, {
+          images: typeof files[0] === 'object' ? files.map(el => el.image) : files,
+          type: 'loadedFiles',
+        })
       }
 
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
@@ -206,9 +209,9 @@ export class RequestDetailCustomViewModel {
 
         await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
           result: message,
-          linksToMediaFiles: this.loadedFiles.map(el => ({
+          linksToMediaFiles: this.loadedFiles.map((el, i) => ({
             fileLink: el,
-            commentByPerformer: '',
+            commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
           })),
           ...(amazonOrderId && {amazonOrderId}),
           ...(publicationLinks && {publicationLinks}),

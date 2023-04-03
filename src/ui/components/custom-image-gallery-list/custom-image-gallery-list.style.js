@@ -25,18 +25,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
   emptyIconWrapper: {
     width: '100%',
-    height: '100px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: '25px',
-    // marginLeft: '20px',
+
+    marginTop: 20,
   },
   emptyIcon: {
-    width: '60px',
-    height: '60px',
-    backgroundColor: '#e0e0e0',
-    borderRadius: '50%',
+    // width: 80,
+    // height: 80,
+    // backgroundColor: '#e0e0e0',
+    // borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -58,8 +57,14 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
   noPhotoText: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
     textAlign: 'center',
     color: theme.palette.text.second,
+
+    marginTop: 15,
   },
   photoTitle: {
     fontWeight: 600,
@@ -80,5 +85,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+  },
+  noPhotoIcon: {
+    width: '80px !important',
+    height: '80px !important',
   },
 }))

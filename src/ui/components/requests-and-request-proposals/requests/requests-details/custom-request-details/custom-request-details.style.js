@@ -122,6 +122,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   conditionsPhotosWraper: {
     marginTop: 15,
-    marginBottom: 54,
+    marginBottom: 30,
   },
 }))

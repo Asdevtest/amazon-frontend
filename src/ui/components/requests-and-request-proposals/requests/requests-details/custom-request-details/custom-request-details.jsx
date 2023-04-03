@@ -12,9 +12,9 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {FilesCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {CustomImageGalleryList} from '@components/custom-image-gallery-list'
 import {CustomTextEditor} from '@components/custom-text-editor'
+import {FilesCarousel} from '@components/files-carousel'
 
 import {t} from '@utils/translations'
 
@@ -62,7 +62,13 @@ export const CustomSearchRequestDetails = ({request}) => {
               /> */}
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList files={request?.details?.linksToMediaFiles} />
+                <CustomImageGalleryList
+                  files={
+                    request?.request?.media
+                      ? request?.request?.media.map(item => item.fileLink)
+                      : request?.details?.linksToMediaFiles
+                  }
+                />
               </div>
 
               <div>

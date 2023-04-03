@@ -9,7 +9,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -73,7 +78,10 @@ class MyProposalsViewRaw extends Component {
 
     const whiteList =
       !!userInfo && checkIsFreelancer(userRole)
-        ? userInfo?.allowedSpec?.map(spec => spec && String(spec))
+        ? [
+            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+          ]
         : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {

@@ -39,7 +39,7 @@ const TabPanel = ({children, value, index, ...other}: TabPanelProps) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
+    {value === index && <Box /* paddingTop={3} */>{children}</Box>}
   </div>
 )
 
@@ -56,7 +56,7 @@ export const ChatsList: FC<Props> = observer(
   ({chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner}) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('chats', chats)
+    // console.log('chats', chats)
 
     const solvedChats = isFreelanceOwner
       ? useMemo(
