@@ -111,6 +111,7 @@ const WithSearchSelectRaw = observer(
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
         <div
           className={cx(classNames.root, {
+            [classNames.selectHeight]: asinSelect,
             [classNames.disableRoot]: disabled,
           })}
           style={width && {width}}
