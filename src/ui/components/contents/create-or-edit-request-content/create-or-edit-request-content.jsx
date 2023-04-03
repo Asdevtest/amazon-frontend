@@ -136,11 +136,8 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
-  // console.log('requestToEdit', requestToEdit)
-
   useEffect(() => {
-    setFormFields(() => formFields)
+    setFormFields(() => getSourceFormFields())
   }, [choosenAnnouncements, announcementsData])
 
   const [deadlineError, setDeadlineError] = useState(false)
