@@ -143,7 +143,7 @@ export const EditTaskModal = observer(
 
             {task.operationType === TaskOperationType.RECEIVE && (
               <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
-                {t(TranslationKey['Download box file'])}
+                {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
             )}
