@@ -679,6 +679,10 @@ export const EditOrderModal = observer(
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` &&
                           order.status === OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PENDING]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
                       }
