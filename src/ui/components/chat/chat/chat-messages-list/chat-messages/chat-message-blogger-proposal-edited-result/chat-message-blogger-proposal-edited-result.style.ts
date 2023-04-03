@@ -330,7 +330,8 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     // maxWidth: 450,
-    color: theme.palette.primary.main,
+    // color: theme.palette.primary.main,
+    color: '#006CFF',
   },
 
   fieldContainer: {
