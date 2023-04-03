@@ -98,12 +98,13 @@ export class CreateOrEditRequestViewModel {
           {
             ...data.request,
             announcementId: data.request.announcementId._id,
+            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
           },
           ['discountedPrice'],
         ),
         details: {
           ...data.details,
-          linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+          // linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
         },
       }
 
@@ -149,15 +150,19 @@ export class CreateOrEditRequestViewModel {
           {
             ...data.request,
             announcementId: data.request.announcementId._id,
+            linksToMediaFiles: [
+              ...data.details.linksToMediaFiles,
+              ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+            ],
           },
           ['discountedPrice'],
         ),
         details: {
           ...data.details,
-          linksToMediaFiles: [
-            ...data.details.linksToMediaFiles,
-            ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
-          ],
+          // linksToMediaFiles: [
+          //   ...data.details.linksToMediaFiles,
+          //   ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+          // ],
         },
       }
 
