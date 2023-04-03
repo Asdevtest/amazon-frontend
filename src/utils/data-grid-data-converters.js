@@ -878,7 +878,7 @@ export const SourceFilesDataConverter = data =>
     updatedAt: item?.updatedAt,
 
     humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
-    title: item?.proposal?.request?.asin,
+    title: item?.proposal?.request?.title,
     asin: item?.proposal?.request?.asin,
     client: item?.proposal?.client,
   }))
