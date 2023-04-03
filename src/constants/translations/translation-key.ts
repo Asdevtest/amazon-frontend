@@ -1892,6 +1892,7 @@ export enum TranslationKey {
   'The order has been updated' = 'The order has been updated',
   'Success parse' = 'Success parse',
   'New notifications' = 'New notifications',
+  'Task description' = 'Task description',
   'Product is appropriate' = 'Product is appropriate',
   'Send to check' = 'Send to check',
   'Total number of boxes' = 'Total number of boxes',

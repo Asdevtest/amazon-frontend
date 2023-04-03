@@ -542,23 +542,6 @@ export const FilesCarousel = observer(({files}) => {
             )}
           </CustomCarousel>
         ) : (
-          // <div className={classNames.emptyIconWrapper}>
-          //   <div className={classNames.emptyIcon}>
-          //     <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
-          //   </div>
-          // </div>
-
-          // <div className={classNames.emptyProposalsIconWrapperMini}>
-          //   <div className={classNames.emptyProposalsIconMini}>
-          //     <InboxIcon style={{color: '#C4C4C4', fontSize: '40px', padding: 10}} />
-          //   </div>
-          //   <div className={classNames.emptyProposalsDescriptionWrapper}>
-          //     <Typography className={classNames.emptyProposalsTitleMini}>
-          //       {t(TranslationKey['No files added'])}
-          //     </Typography>
-          //   </div>
-          // </div>
-
           <div className={classNames.emptyProposalsIconWrapper}>
             <div className={classNames.emptyProposalsIcon}>
               <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
@@ -576,7 +559,7 @@ export const FilesCarousel = observer(({files}) => {
         <div className={classNames.emptyIcon}>
           <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
         </div>
-        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
+        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No files added'])}</Typography>
       </div>
     </div>
   )

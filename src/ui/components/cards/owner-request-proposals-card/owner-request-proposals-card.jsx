@@ -30,8 +30,6 @@ export const OwnerRequestProposalsCard = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('item', item)
-
   return (
     <div className={classNames.cardMainWrapper}>
       <div className={classNames.cardWrapper}>

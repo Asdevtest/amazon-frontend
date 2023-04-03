@@ -18,6 +18,8 @@ import {
 
 import React, {useEffect, useState} from 'react'
 
+import {toJS} from 'mobx'
+
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -30,6 +32,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
@@ -131,8 +134,9 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
+  console.log('formFields', formFields)
+
   useEffect(() => {
-    // setFormFields(getSourceFormFields(formFields))
     setFormFields(() => formFields)
   }, [choosenAnnouncements, announcementsData])
 
@@ -194,6 +198,8 @@ export const CreateOrEditRequestContent = ({
         newFormFields[section][fieldName] = event
       } else if (['asin'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
+      } else if (['conditions'].includes(fieldName)) {
+        newFormFields[section][fieldName] = event
       } else {
         newFormFields[section][fieldName] = event.target.value
       }
@@ -236,7 +242,7 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
-    formFields.details.conditions.length > 1000 ||
+    // formFields.details.conditions.length > 1000 ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -426,7 +432,7 @@ export const CreateOrEditRequestContent = ({
                 )}
 
                 <div className={classNames.descriptionFieldWrapper}>
-                  <Field
+                  {/* <Field
                     multiline
                     tooltipInfoContent={t(TranslationKey['Maximize the details of your request'])}
                     inputProps={{maxLength: 1100}}
@@ -437,14 +443,21 @@ export const CreateOrEditRequestContent = ({
                     label={`${t(TranslationKey['Describe your request'])} *`}
                     value={formFields.details.conditions}
                     onChange={onChangeField('details')('conditions')}
+                  /> */}
+
+                  <CustomTextEditor
+                    conditions={formFields.details.conditions}
+                    editorMaxHeight={classNames.editorMaxHeight}
+                    changeConditions={onChangeField('details')('conditions')}
                   />
-                  <span
+
+                  {/* <span
                     className={cx(classNames.charactersHints, {
                       [classNames.error]: formFields.details.conditions.length > 1000,
                     })}
                   >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
                     TranslationKey.characters,
-                  )}`}</span>
+                  )}`}</span> */}
                 </div>
 
                 <div className={classNames.imageFileInputWrapper}>
@@ -997,14 +1010,19 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                 /> */}
 
-                  <div>
+                  <div className={classNames.performerDescriptionWrapperTextStepTwo}>
                     <Typography className={classNames.spanLabel}>
                       {t(TranslationKey['Description of your request'])}
                     </Typography>
 
-                    <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
+                    {/* <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
                       {formFields.details.conditions}
-                    </Typography>
+                    </Typography> */}
+                    <CustomTextEditor
+                      readOnly
+                      conditions={formFields.details.conditions}
+                      editorMaxHeight={classNames.editorMaxHeight}
+                    />
                   </div>
                 </div>
               </div>

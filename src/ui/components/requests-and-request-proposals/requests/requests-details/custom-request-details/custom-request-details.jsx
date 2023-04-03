@@ -14,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {FilesCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {CustomImageGalleryList} from '@components/custom-image-gallery-list'
+import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {t} from '@utils/translations'
 
@@ -85,7 +86,9 @@ export const CustomSearchRequestDetails = ({request}) => {
             <div className={classNames.conditionsFieldWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
 
-              <Typography className={classNames.conditionsField}>{request?.details.conditions}</Typography>
+              <CustomTextEditor readOnly conditions={request?.details?.conditions} />
+
+              {/* <Typography className={classNames.conditionsField}>{request?.details.conditions}</Typography> */}
             </div>
           </div>
         </AccordionDetails>
