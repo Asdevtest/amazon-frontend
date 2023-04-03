@@ -4,10 +4,11 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 1500,
-    maxHeight: 800,
+    // maxHeight: 800,
 
     // padding: '0 10px',
   },
+
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -93,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     marginTop: 30,
+    // marginBottom: 30,
     gap: 30,
   },
 
@@ -107,11 +109,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   bodyWrapper: {
     minHeight: 300,
+    maxHeight: 400,
+
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
     marginTop: 30,
     // background: 'grey',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
 
   imageObjWrapper: {
