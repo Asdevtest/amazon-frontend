@@ -156,7 +156,7 @@ export interface ChatMessageDataProposalStatusChanged {
 }
 
 export interface ChatMessageDataProposalResultEditedEdited {
-  linksToMediaFiles?: string[]
+  linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
   result: string
 }
 

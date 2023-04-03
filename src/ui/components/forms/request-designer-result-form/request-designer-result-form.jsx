@@ -45,9 +45,9 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   // console.log('request', request)
 
   const sourceImagesData = [
-    {image: null, imageName: '', isMain: false, _id: `${Date.now()}1`},
-    {image: null, imageName: '', isMain: false, _id: `${Date.now()}2`},
-    {image: null, imageName: '', isMain: false, _id: `${Date.now()}3`},
+    {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
+    {image: null, comment: '', isMain: false, _id: `${Date.now()}2`},
+    {image: null, comment: '', isMain: false, _id: `${Date.now()}3`},
   ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -63,7 +63,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   // console.log('imagesData', imagesData)
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, imageName: '', isMain: false, _id: `${Date.now()}`}])
+    setImagesData(() => [...imagesData, {image: null, comment: '', isMain: false, _id: `${Date.now()}`}])
   }
 
   const onClickRemoveImageObj = () => {
@@ -117,7 +117,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     // console.log('imageObj', imageObj)
 
     const aElement = document.createElement('a')
-    aElement.setAttribute('download', /* `boxReceiveReport_${id}.xlsx` */ `${imageObj.imageName || 'no-name'}`)
+    aElement.setAttribute('download', /* `boxReceiveReport_${id}.xlsx` */ `${imageObj.comment || 'no-name'}`)
     const href = /* URL.createObjectURL(res.data) */ imageObj.image.data_url
     aElement.href = href
     aElement.setAttribute('target', '_blank')
@@ -135,6 +135,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   //   setFormFields(newFormFields)
   // }
+
+  const disableSubmit = imagesData.every(el => !el.image)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -267,8 +269,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                 maxRows={3}
                 variant="filled"
                 className={classNames.imageObjInput}
-                value={item.imageName}
-                onChange={onChangeImageFileds('imageName', item._id)}
+                value={item.comment}
+                onChange={onChangeImageFileds('comment', item._id)}
               />
             </div>
           </div>
@@ -291,7 +293,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           {t(TranslationKey.Back)}
         </Button>
 
-        <Button disabled className={cx(classNames.button)}>
+        <Button
+          disabled={disableSubmit}
+          className={cx(classNames.button)}
+          onClick={() => onClickSendAsResult({message: '', files: imagesData.filter(el => el.image)})}
+        >
           {t(TranslationKey.Send)}
         </Button>
       </div>
