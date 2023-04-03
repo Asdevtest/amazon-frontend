@@ -160,7 +160,7 @@ export class VacantRequestsViewModel {
 
   async loadData() {
     try {
-      this.getUserInfo()
+      await this.getUserInfo()
       this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
@@ -173,12 +173,10 @@ export class VacantRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
         typeTask:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? this.userInfo?.allowedSpec?.map(spec => Number(spec))
+            ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
             : this.selectedTaskType,
       })
 
-      console.log(String(this.selectedTaskType) === String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
-      console.log(this.userInfo?.allowedSpec?.map(spec => spec))
       runInAction(() => {
         this.requests = addIdDataConverter(result)
         this.rowCount = result.length

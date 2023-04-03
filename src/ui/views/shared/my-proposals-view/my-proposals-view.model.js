@@ -29,7 +29,7 @@ export class MyProposalsViewModel {
   requests = []
   requestsBase = []
 
-  selectedTaskType = undefined
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   nameSearchValue = ''
 
@@ -132,7 +132,11 @@ export class MyProposalsViewModel {
     })
     // this.getRequestsCustom()
 
-    this.requests = this.requestsBase.filter(el => +el.typeTask === +taskType)
+    if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
+      this.requests = this.requestsBase
+    } else {
+      this.requests = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
+    }
   }
 
   onClickEditBtn(request, proposal) {
@@ -183,9 +187,6 @@ export class MyProposalsViewModel {
 
   async getUserInfo() {
     const result = await UserModel.userInfo
-
-    console.log('getUserInfo', result)
-
     this.userInfo = result
     this.userRole = UserRoleCodeMap[result.role]
   }
@@ -193,15 +194,7 @@ export class MyProposalsViewModel {
   async loadData() {
     try {
       await this.getUserInfo()
-
-      runInAction(() => {
-        this.selectedTaskType = checkIsFreelancer(this.userRole)
-          ? this.userInfo.allowedSpec.sort()[0]
-          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-      })
-
       await this.getRequestsCustom()
-
       this.getTableModeState()
     } catch (error) {
       console.log(error)
@@ -216,8 +209,16 @@ export class MyProposalsViewModel {
         this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
 
         this.requests = result
-          .filter(el => +el.typeTask === this.selectedTaskType)
+          .filter(el => {
+            if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
+              return el
+            } else {
+              return Number(el.typeTask) === Number(this.selectedTaskType)
+            }
+          })
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        console.log('this.requests', this.requests)
       })
     } catch (error) {
       console.log(error)
