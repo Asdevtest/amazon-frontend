@@ -12,9 +12,9 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {FilesCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {CustomImageGalleryList} from '@components/custom-image-gallery-list'
 import {CustomTextEditor} from '@components/custom-text-editor'
+import {FilesCarousel} from '@components/files-carousel'
 
 import {t} from '@utils/translations'
 
