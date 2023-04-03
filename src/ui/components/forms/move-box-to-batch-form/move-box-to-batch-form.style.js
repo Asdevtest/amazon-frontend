@@ -84,6 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '40px',
+    color: '#000',
 
     [theme.breakpoints.down(768)]: {
       marginLeft: 0,
