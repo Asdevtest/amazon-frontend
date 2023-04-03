@@ -62,7 +62,13 @@ export const CustomSearchRequestDetails = ({request}) => {
               /> */}
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList files={request?.details?.linksToMediaFiles} />
+                <CustomImageGalleryList
+                  files={
+                    request?.request?.media
+                      ? request?.request?.media.map(item => item.fileLink)
+                      : request?.details?.linksToMediaFiles
+                  }
+                />
               </div>
 
               <div>
