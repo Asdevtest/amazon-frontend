@@ -18,6 +18,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottomWidth: '2px',
     borderBottomColor: theme.palette.input.customBorder,
     borderBottomStyle: 'solid',
+
+    borderTop: `1px solid ${theme.palette.input.customBorder}`,
   },
   chatWrapperIsSelected: {
     borderBottomColor: `${theme.palette.primary.main} !important`,
