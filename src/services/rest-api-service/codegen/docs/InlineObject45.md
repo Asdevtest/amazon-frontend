@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **buyerComment** | **String** | Комментарий баера | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
 
 
 
@@ -25,6 +26,23 @@ Name | Type | Description | Notes
 * `receive` (value: `"receive"`)
 
 * `edit` (value: `"edit"`)
+
+
+
+
+
+## Enum: PriorityEnum
+
+
+* `10` (value: `"10"`)
+
+* `20` (value: `"20"`)
+
+* `30` (value: `"30"`)
+
+* `40` (value: `"40"`)
+
+* `50` (value: `"50"`)
 
 
 

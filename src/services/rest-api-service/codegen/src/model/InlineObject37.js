@@ -77,6 +77,9 @@ class InlineObject37 {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
         }
         return obj;
     }
@@ -131,6 +134,12 @@ InlineObject37.prototype['images'] = undefined;
  */
 InlineObject37.prototype['storekeeperComment'] = undefined;
 
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject37.PriorityEnum} priority
+ */
+InlineObject37.prototype['priority'] = undefined;
+
 
 
 
@@ -165,6 +174,45 @@ InlineObject37['OperationTypeEnum'] = {
      * @const
      */
     "edit": "edit"
+};
+
+
+/**
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject37['PriorityEnum'] = {
+
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
+
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
+
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
+
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
+
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
 };
 
 

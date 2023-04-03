@@ -28,7 +28,7 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
-  selectedTaskType = undefined
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   drawerOpen = false
 
@@ -160,15 +160,8 @@ export class VacantRequestsViewModel {
 
   async loadData() {
     try {
-      await this.getUserInfo()
-
-      runInAction(() => {
-        this.selectedTaskType = checkIsFreelancer(this.userRole)
-          ? this.userInfo.allowedSpec.sort()[0]
-          : freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-      })
-
-      await this.getRequestsVacant()
+      this.getUserInfo()
+      this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
       console.log(error)
@@ -178,9 +171,14 @@ export class VacantRequestsViewModel {
   async getRequestsVacant() {
     try {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
-        typeTask: this.selectedTaskType,
+        typeTask:
+          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? this.userInfo?.allowedSpec?.map(spec => Number(spec))
+            : this.selectedTaskType,
       })
 
+      console.log(String(this.selectedTaskType) === String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
+      console.log(this.userInfo?.allowedSpec?.map(spec => spec))
       runInAction(() => {
         this.requests = addIdDataConverter(result)
         this.rowCount = result.length

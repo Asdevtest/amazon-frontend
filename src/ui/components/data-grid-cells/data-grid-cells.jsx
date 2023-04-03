@@ -6,6 +6,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import {
   Avatar,
   Checkbox,
@@ -180,23 +181,23 @@ export const UserRolesCell = React.memo(
 
 export const AsinCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({classes: classNames, product, asin}) => (
       <div className={classNames.multilineTextHeaderWrapper}>
         <Typography className={classNames.typoCell}>
-          {product.asin ? (
+          {product?.asin || asin ? (
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.amazon.com/dp/${product.asin}`}
+              href={`https://www.amazon.com/dp/${product?.asin || asin}`}
               className={classNames.normalizeLink}
             >
-              <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+              <span className={classNames.linkSpan}>{shortAsin(product?.asin || asin)}</span>
             </a>
           ) : (
             <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
           )}
         </Typography>
-        {product.asin ? <CopyValue text={product.asin} /> : null}
+        {product?.asin || asin ? <CopyValue text={product?.asin || asin} /> : null}
       </div>
     ),
     styles,
@@ -662,33 +663,14 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, maxLength}) => {
+  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength}) => {
     const [value, setValue] = useState(text)
 
     useEffect(() => {
       setValue(text)
     }, [text])
 
-    // const [isMyInputFocused, setIsMyInputFocused] = useState(false)
-
     const [isShow, setShow] = useState(false)
-
-    // useEffect(() => {
-    //   const listener = event => {
-    //     if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-    //       event.preventDefault()
-    //       setShow(true)
-    //       setTimeout(() => {
-    //         setShow(false)
-    //       }, 2000)
-    //       onClickSubmit(id, value)
-    //     }
-    //   }
-    //   document.addEventListener('keydown', listener)
-    //   return () => {
-    //     document.removeEventListener('keydown', listener)
-    //   }
-    // }, [value])
 
     return (
       <div className={classNames.ChangeInputCommentCellWrapper}>
@@ -697,45 +679,42 @@ export const ChangeInputCommentCell = React.memo(
           autoFocus={false}
           minRows={2}
           maxRows={2}
-          inputProps={{maxLength: maxLength ? maxLength : 1000}}
+          inputProps={{maxLength: maxLength ? maxLength : 256}}
           placeholder={t(TranslationKey.Comment)}
           disabled={disabled}
           className={classNames.changeInputComment}
           classes={{input: classNames.changeInputComment}}
           value={value}
           endAdornment={
-            <InputAdornment position="start">
-              {isShow && text !== value ? (
-                <DoneIcon classes={{root: classNames.doneIcon}} />
-              ) : text !== value ? (
-                <div className={classNames.iconWrapper}>
-                  <img
-                    src={'/assets/icons/save-discet.svg'}
-                    className={classNames.changeInputIcon}
-                    onClick={() => {
-                      setShow(true)
-                      setTimeout(() => {
-                        setShow(false)
-                      }, 2000)
-                      onClickSubmit(id, value)
-                    }}
-                  />
-                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
-                </div>
-              ) : null}
-            </InputAdornment>
+            !!onClickSubmit && (
+              <InputAdornment position="start">
+                {isShow && text !== value ? (
+                  <DoneIcon classes={{root: classNames.doneIcon}} />
+                ) : text !== value ? (
+                  <div className={classNames.iconWrapper}>
+                    <img
+                      src={'/assets/icons/save-discet.svg'}
+                      className={classNames.changeInputIcon}
+                      onClick={() => {
+                        setShow(true)
+                        setTimeout(() => {
+                          setShow(false)
+                        }, 2000)
+                        onClickSubmit(id, value)
+                      }}
+                    />
+                    <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
+                  </div>
+                ) : null}
+              </InputAdornment>
+            )
           }
           onChange={e => {
-            // isInts
-            //   ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-            //   :
             setValue(e.target.value)
           }}
           onKeyDown={event => {
             event.stopPropagation()
           }}
-          // onBlur={() => setIsMyInputFocused(false)}
-          // onFocus={() => setIsMyInputFocused(true)}
         />
       </div>
     )
@@ -1825,6 +1804,17 @@ export const CommentUsersCell = React.memo(
   ),
 )
 
+export const CommentSourceFilesCell = React.memo(
+  withStyles(
+    ({classes: classNames, handler, params}) => (
+      <div className={classNames.CommentUsersCellWrapper}>
+        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
+      </div>
+    ),
+    styles,
+  ),
+)
+
 export const ActiveBarcodeCell = React.memo(
   withStyles(
     ({classes: classNames, barCode}) => (
@@ -2318,6 +2308,53 @@ export const ScrollingLinkCell = React.memo(
   ),
 )
 
+export const CopyAndEditLinkCell = React.memo(
+  withStyles(({classes: classNames, link, isEdit, onChangeText}) => {
+    const [value, setValue] = useState(link)
+
+    useEffect(() => {
+      setValue(link)
+    }, [link])
+
+    return (
+      <React.Fragment>
+        {isEdit ? (
+          <div className={classNames.ChangeInputCommentCellWrapper}>
+            <Input
+              autoFocus={false}
+              inputProps={256}
+              placeholder={t(TranslationKey.Comment)}
+              className={classNames.changeInputComment}
+              classes={{input: classNames.changeInputComment}}
+              value={value}
+              onChange={e => {
+                setValue(e.target.value)
+
+                if (onChangeText) {
+                  onChangeText('sourceFile')(e.target.value)
+                }
+              }}
+              onKeyDown={event => {
+                event.stopPropagation()
+              }}
+            />
+          </div>
+        ) : value ? (
+          <div className={classNames.CopyLinkWrapper}>
+            <Link target="_blank" rel="noopener" className={classNames.linkText} href={checkAndMakeAbsoluteUrl(value)}>
+              <Typography className={classNames.linkTextClass}>{value}</Typography>
+            </Link>
+
+            <CopyValue text={value} />
+          </div>
+        ) : (
+          <Typography className={classNames.missingLinkText}>{t(TranslationKey.Missing)}</Typography>
+        )}
+      </React.Fragment>
+    )
+  }, styles),
+)
+
 export const EditOrRemoveBtnsCell = React.memo(
   withStyles(
     ({
@@ -2372,29 +2409,46 @@ export const EditOrRemoveIconBtnsCell = React.memo(
       tooltipSecondButton,
       isFirstRow,
       isArchive,
+      isSave,
     }) => (
       <div className={classNames.editOrRemoveIconBtnsCell}>
         <div className={classNames.editOrRemoveIconBtnsSubCell}>
-          <div className={classNames.editOrRemoveBtnWrapper}>
-            <Button
-              tooltipInfoContent={isFirstRow && tooltipFirstButton}
-              disabled={disableActionBtn}
-              className={classNames.removeOrEditBtn}
-              onClick={() => handlers.onClickEditBtn(row)}
-            >
-              {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
-            </Button>
-            <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
-          </div>
+          {!isSave && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers?.onClickEditBtn(row)}
+              >
+                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
+            </div>
+          )}
 
-          {handlers.onTriggerArchive && (
+          {isSave && (
+            <div className={classNames.editOrRemoveBtnWrapper}>
+              <Button
+                tooltipInfoContent={isFirstRow && tooltipFirstButton}
+                disabled={disableActionBtn}
+                className={classNames.removeOrEditBtn}
+                onClick={() => handlers.onClickSaveBtn(row)}
+              >
+                {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <SaveOutlinedIcon />}
+              </Button>
+              <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Save)}</Typography>
+            </div>
+          )}
+
+          {handlers?.onTriggerArchive && (
             <div className={classNames.editOrRemoveBtnWrapper}>
               <Button
                 success={isArchive}
                 // tooltipInfoContent={isFirstRow && tooltipFirstButton}
                 disabled={disableActionBtn}
                 className={classNames.removeOrEditBtn}
-                onClick={() => handlers.onTriggerArchive(row)}
+                onClick={() => handlers?.onTriggerArchive(row)}
               >
                 <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
               </Button>

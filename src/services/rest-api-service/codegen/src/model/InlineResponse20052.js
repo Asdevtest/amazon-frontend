@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20052 model module.
@@ -56,17 +58,17 @@ class InlineResponse20052 {
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
+            if (data.hasOwnProperty('proposal')) {
+                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
+            }
             if (data.hasOwnProperty('typeTask')) {
                 obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -100,6 +102,11 @@ InlineResponse20052.prototype['sourceFile'] = undefined;
 InlineResponse20052.prototype['comment'] = undefined;
 
 /**
+ * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
+ */
+InlineResponse20052.prototype['proposal'] = undefined;
+
+/**
  * Код специализации фрилансера
  * @member {Number} typeTask
  */
@@ -112,16 +119,9 @@ InlineResponse20052.prototype['typeTask'] = undefined;
 InlineResponse20052.prototype['productId'] = undefined;
 
 /**
- * Гуид пропоузала
- * @member {String} proposalId
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-InlineResponse20052.prototype['proposalId'] = undefined;
-
-/**
- * Клиент создавший заказ и коробку.
- * @member {String} createdById
- */
-InlineResponse20052.prototype['createdById'] = undefined;
+InlineResponse20052.prototype['createdBy'] = undefined;
 
 /**
  * Дата создания.

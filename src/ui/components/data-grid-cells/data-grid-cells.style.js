@@ -956,20 +956,6 @@ export const styles = theme => ({
     padding: '0 10px',
   },
 
-  linkText: {
-    color: theme.palette.primary.main,
-    fontSize: '16px',
-    lineHeight: '140%',
-    fontWeight: '400',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-      opacity: '0.8',
-    },
-  },
-
   blackLinkText: {
     color: theme.palette.text.general,
     fontSize: '16px',
@@ -1719,5 +1705,35 @@ export const styles = theme => ({
   },
   oldPrice: {
     textDecoration: 'line-through',
+  },
+
+  CopyLinkWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    gap: 5,
+  },
+  linkText: {
+    width: 'fit-content',
+    maxWidth: 'calc(100% - 25px)',
+  },
+  linkTextClass: {
+    whiteSpace: 'nowrap',
+    // maxWidth: 'calc(100% - 20px)',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    color: theme.palette.primary.main,
+    fontSize: 14,
+    lineHeight: '140%',
+    fontWeight: 400,
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
   },
 })

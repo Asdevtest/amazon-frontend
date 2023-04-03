@@ -858,3 +858,27 @@ export const freelancerServiceDetaildsDataConverter = data =>
     title: item?.title,
     humanFriendlyId: item?.humanFriendlyId,
   }))
+
+export const SourceFilesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item?._id,
+
+    _id: item?._id,
+    sourceFile: item?.sourceFile,
+    comment: item?.comment,
+    proposal: item?.proposal,
+    typeTask: item?.typeTask,
+    productId: item?.productId,
+
+    performer: item?.createdBy,
+    sub: item?.proposal.sub,
+
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+
+    humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
+    title: item?.proposal?.request?.asin,
+    asin: item?.proposal?.request?.asin,
+    client: item?.proposal?.client,
+  }))
