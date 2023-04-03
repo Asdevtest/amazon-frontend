@@ -74,8 +74,6 @@ export const CreateOrEditRequestContent = ({
 
   const [images, setImages] = useState([])
 
-  // console.log('images', images)
-
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
@@ -135,8 +133,6 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
-
-  // console.log('formFields', formFields)
 
   useEffect(() => {
     setFormFields(() => formFields)
@@ -254,7 +250,9 @@ export const CreateOrEditRequestContent = ({
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
         <div className={classNames.headerWrapper}>
-          <Typography className={classNames.mainTitle}>
+          <Typography
+            className={cx(classNames.mainTitle, {[classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO})}
+          >
             {curStep === stepVariant.STEP_TWO
               ? t(TranslationKey['The request is ready'])
               : t(TranslationKey['We will find a reliable performer for you'])}
@@ -272,12 +270,6 @@ export const CreateOrEditRequestContent = ({
         </div>
 
         <div className={classNames.mainContentWrapper}>
-          {curStep === stepVariant.STEP_ONE && (
-            <Typography variant="h5" className={classNames.title}>
-              {t(TranslationKey['Creating a request'])}
-            </Typography>
-          )}
-
           {curStep === stepVariant.STEP_ONE && (
             <div className={classNames.mainSubRightWrapper}>
               <div className={classNames.middleWrapper}>
@@ -321,24 +313,6 @@ export const CreateOrEditRequestContent = ({
                           onChangeField('request')('productId')(el._id)
                         }}
                       />
-
-                      // <Select
-                      //   displayEmpty
-                      //   value={formFields.request.typeTask || null}
-                      //   className={classNames.asinField}
-                      //   input={<Input startAdornment={<InputAdornment position="start" />} />}
-                      //   onChange={onChangeField('request')('typeTask')}
-                      // >
-                      //   <MenuItem disabled value={null}>
-                      //     {t(TranslationKey['Select from the list'])}
-                      //   </MenuItem>
-
-                      //   {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-                      //     <MenuItem key={taskIndex} value={taskType}>
-                      //       {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                      //     </MenuItem>
-                      //   ))}
-                      // </Select>
                     }
                   />
 
@@ -433,6 +407,17 @@ export const CreateOrEditRequestContent = ({
                   </div>
                 )}
 
+                <div className={classNames.imageFileInputWrapper}>
+                  <UploadFilesInputMini withComment images={images} setImages={setImages} maxNumber={50} />
+                  {formFields.details.linksToMediaFiles?.length ? (
+                    <PhotoAndFilesCarousel
+                      small
+                      files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
+                      width="400px"
+                    />
+                  ) : null}
+                </div>
+
                 <div className={classNames.descriptionFieldWrapper}>
                   {/* <Field
                     multiline
@@ -460,17 +445,6 @@ export const CreateOrEditRequestContent = ({
                   >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
                     TranslationKey.characters,
                   )}`}</span> */}
-                </div>
-
-                <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInputMini withComment images={images} setImages={setImages} maxNumber={50} />
-                  {formFields.details.linksToMediaFiles?.length ? (
-                    <PhotoAndFilesCarousel
-                      small
-                      files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
-                      width="400px"
-                    />
-                  ) : null}
                 </div>
               </div>
 
@@ -667,7 +641,7 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   </div>
                 </div>
-                {requestToEdit ? (
+                {/* {requestToEdit ? (
                   <div className={classNames.footerWrapper}>
                     <div className={classNames.footerRightWrapper}>
                       <div className={classNames.buttonsWrapper}>
@@ -733,7 +707,7 @@ export const CreateOrEditRequestContent = ({
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           )}
@@ -783,29 +757,6 @@ export const CreateOrEditRequestContent = ({
                       <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
                       {t(TranslationKey['on our freelance exchange.'])}
                     </Typography>
-
-                    {/* <div className={classNames.performerWrapperStepTwo}>
-                      <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                      <div className={classNames.userInfo}>
-                        <Avatar
-                          src={getUserAvatarSrc(formFields.request.announcementId._id)}
-                          className={classNames.cardImg}
-                        />
-
-                        <div className={classNames.nameWrapperStepTwo}>
-                          <UserLink
-                            blackText
-                            name={formFields.request.announcementId.title}
-                            userId={formFields.request.announcementId._id}
-                            customStyles={{maxWidth: 300}}
-                          />
-                          <Rating disabled value={5} size="small" classes={classNames.rating} />
-                        </div>
-                      </div>
-                      <Typography className={classNames.performerDescriptionText}>
-                        {formFields.request.announcementId.description}
-                      </Typography>
-                    </div> */}
                   </div>
                 </div>
 
@@ -1004,26 +955,11 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   </div>
 
-                  {/* <Field
-                  multiline
-                  disabled
-                  inputClasses={classNames.inputDescriptionStepTwoField}
-                  containerClasses={classNames.descriptionStepTwoField}
-                  labelClasses={classNames.spanLabel}
-                  minRows={13}
-                  maxRows={13}
-                  label={t(TranslationKey['Description of your request'])}
-                  value={formFields.details.conditions}
-                /> */}
-
                   <div className={classNames.performerDescriptionWrapperTextStepTwo}>
                     <Typography className={classNames.spanLabel}>
                       {t(TranslationKey['Description of your request'])}
                     </Typography>
 
-                    {/* <Typography className={cx(classNames.performerDescriptionTextStepTwo)}>
-                      {formFields.details.conditions}
-                    </Typography> */}
                     <CustomTextEditor
                       readOnly
                       conditions={formFields.details.conditions}
@@ -1032,7 +968,7 @@ export const CreateOrEditRequestContent = ({
                   </div>
                 </div>
               </div>
-              <div className={classNames.footerWrapper}>
+              {/* <div className={classNames.footerWrapper}>
                 <div className={classNames.footerRightWrapper}>
                   <div className={classNames.buttonsWrapper}>
                     <Button
@@ -1075,10 +1011,123 @@ export const CreateOrEditRequestContent = ({
                     </Button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
+        {curStep === stepVariant.STEP_ONE &&
+          (requestToEdit ? (
+            <div className={classNames.footerWrapper}>
+              <div className={classNames.footerRightWrapper}>
+                <div className={classNames.buttonsWrapper}>
+                  <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                    {t(TranslationKey.Cancel)}
+                  </Button>
+
+                  <Button
+                    success
+                    disabled={disableSubmit}
+                    className={classNames.successBtn}
+                    onClick={() => onEditSubmit(formFields, images)}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={classNames.footerWrapper}>
+              <div className={classNames.footerRightWrapper}>
+                <div className={classNames.buttonsWrapper}>
+                  <Button
+                    tooltipInfoContent={
+                      curStep === stepVariant.STEP_TWO
+                        ? t(TranslationKey['Back to Step 1'])
+                        : t(TranslationKey['Cancel request creation'])
+                    }
+                    variant={'text'}
+                    className={classNames.backBtn}
+                    onClick={onClickBackBtn}
+                  >
+                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
+                  </Button>
+
+                  <Button
+                    success
+                    tooltipInfoContent={
+                      curStep === stepVariant.STEP_TWO
+                        ? t(TranslationKey['Creates a completed request'])
+                        : t(TranslationKey['Go to Step 2'])
+                    }
+                    disabled={disableSubmit}
+                    className={classNames.successBtn}
+                    onClick={onSuccessSubmit}
+                  >
+                    {curStep === stepVariant.STEP_TWO ? (
+                      t(TranslationKey['Create a request'])
+                    ) : (
+                      <div className={classNames.successBtnTextWrapper}>
+                        <Typography>{t(TranslationKey.Next)}</Typography>
+                        <img
+                          src="/assets/icons/right-arrow.svg"
+                          className={cx(classNames.successBtnArrow, {
+                            [classNames.disablesBtnArrow]: disableSubmit,
+                          })}
+                        />
+                      </div>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+
+        {curStep === stepVariant.STEP_TWO && (
+          <div className={classNames.footerWrapper}>
+            <div className={classNames.footerRightWrapper}>
+              <div className={classNames.buttonsWrapper}>
+                <Button
+                  tooltipInfoContent={
+                    curStep === stepVariant.STEP_TWO
+                      ? t(TranslationKey['Back to Step 1'])
+                      : t(TranslationKey['Cancel request creation'])
+                  }
+                  variant={'text'}
+                  className={classNames.backBtn}
+                  onClick={onClickBackBtn}
+                >
+                  {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
+                </Button>
+
+                <Button
+                  success
+                  tooltipInfoContent={
+                    curStep === stepVariant.STEP_TWO
+                      ? t(TranslationKey['Creates a completed request'])
+                      : t(TranslationKey['Go to Step 2'])
+                  }
+                  disabled={disableSubmit}
+                  className={classNames.successBtn}
+                  onClick={onSuccessSubmit}
+                >
+                  {curStep === stepVariant.STEP_TWO ? (
+                    t(TranslationKey['Create a request'])
+                  ) : (
+                    <div className={classNames.successBtnTextWrapper}>
+                      <Typography>{t(TranslationKey.Next)}</Typography>
+                      <img
+                        src="/assets/icons/right-arrow.svg"
+                        className={cx(classNames.successBtnArrow, {
+                          [classNames.disablesBtnArrow]: disableSubmit,
+                        })}
+                      />
+                    </div>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className={classNames.steps}>
         <div className={classNames.stepPagination}>

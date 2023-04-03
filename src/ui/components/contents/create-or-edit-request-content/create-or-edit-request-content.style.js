@@ -4,14 +4,13 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
 
-    gap: 10,
-    // justifyContent: 'space-between',
+    gap: 20,
   },
 
   mainSubWrapper: {
-    padding: 20,
+    padding: 30,
+    height: 709,
     display: 'flex',
     flexDirection: 'column',
 
@@ -60,33 +59,33 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    fontWeight: '400',
-    fontSize: '34px',
-    lineHeight: '40px',
-    color: theme.palette.text.general,
-  },
+    width: '50%',
 
-  headerWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-    marginBottom: 15,
-  },
-
-  title: {
-    marginBottom: '20px',
-    fontWeight: '600',
-    fontSize: '18px',
+    fontWeight: 600,
+    fontSize: 18,
     lineHeight: '140%',
 
     color: theme.palette.text.general,
   },
 
+  mainTitleStapTwo: {
+    width: '20%',
+  },
+
+  headerWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    marginBottom: 20,
+  },
+
   mainSubTitle: {
+    width: '50%',
     fontWeight: '400',
     fontSize: '14px',
+    lineHeight: '19px',
+
     color: theme.palette.text.second,
-    // width: '373px',
   },
 
   mainSubStepTwoTitle: {
