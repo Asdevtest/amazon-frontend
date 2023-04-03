@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '95%',
     margin: '0 auto',
     // maxHeight: 250,
-    maxHeight: 150,
+    maxHeight: 300,
     overflowY: 'auto',
   },
 
@@ -180,31 +180,31 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageListItem: {
     overflow: 'hidden',
-    border: ' 1px solid rgba(0,123, 255, .7)',
+    // border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     // background: '#EFEFEF',
 
-    background: theme.palette.background.second,
+    // background: theme.palette.background.second,
 
     display: 'flex',
     flexDirection: 'column',
-    gap: '3px',
+    gap: 5,
     marginBottom: 10,
   },
 
   imageLinkListItem: {
     overflow: 'hidden',
-    border: ' 1px solid rgba(0,123, 255, .7)',
+    // border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     // background: '#EFEFEF',
 
-    background: theme.palette.background.second,
+    // background: theme.palette.background.second,
     padding: '5px',
 
     display: 'flex',
     alignItems: 'center',
-    gap: '3px',
-    width: '280px',
+    gap: 5,
+    // width: '280px',
     justifyContent: 'space-between',
     margin: '0',
   },
@@ -212,6 +212,8 @@ export const useClassNames = makeStyles()(theme => ({
   actionIconsWrapper: {
     display: 'flex',
     justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    gap: 10,
   },
   actionIcon: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -270,5 +272,23 @@ export const useClassNames = makeStyles()(theme => ({
     dragAndDropBtn: {
       height: '68px',
     },
+  },
+
+  imageObjInput: {
+    width: 133,
+    height: '70px',
+    // overflow: 'auto',
+  },
+
+  subImageObjInput: {
+    // width: 133,
+    height: '65px !important',
+    overflowY: 'auto !important',
+  },
+
+  inputIndex: {
+    fontWeight: 600,
+    marginLeft: 5,
+    height: 65,
   },
 }))

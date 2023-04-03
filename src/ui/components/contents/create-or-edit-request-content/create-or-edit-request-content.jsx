@@ -74,6 +74,8 @@ export const CreateOrEditRequestContent = ({
 
   const [images, setImages] = useState([])
 
+  // console.log('images', images)
+
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
@@ -134,7 +136,7 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
+  // console.log('formFields', formFields)
 
   useEffect(() => {
     setFormFields(() => formFields)
@@ -461,9 +463,13 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInputMini images={images} setImages={setImages} maxNumber={50} />
+                  <UploadFilesInputMini withComment images={images} setImages={setImages} maxNumber={50} />
                   {formFields.details.linksToMediaFiles?.length ? (
-                    <PhotoAndFilesCarousel small files={formFields.details.linksToMediaFiles} width="400px" />
+                    <PhotoAndFilesCarousel
+                      small
+                      files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
+                      width="400px"
+                    />
                   ) : null}
                 </div>
               </div>
@@ -846,7 +852,7 @@ export const CreateOrEditRequestContent = ({
                       </div>
 
                       <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                      <PhotoAndFilesCarousel small direction={'column'} files={images} width={399} />
+                      <PhotoAndFilesCarousel small direction={'column'} files={images.map(el => el.file)} width={399} />
                     </div>
 
                     <div className={classNames.rightTwoStepMainWrapper}>
