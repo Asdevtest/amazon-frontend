@@ -13,7 +13,6 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {SetDuration} from '@components/set-duration/set-duration'
-import {UploadFilesInput} from '@components/upload-files-input'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 import {UserLink} from '@components/user-link'
 
@@ -21,7 +20,7 @@ import {calcNumberMinusPercent} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-proposal-content.style'
@@ -313,7 +312,11 @@ export const CreateOrEditProposalContent = ({
               onChange={onChangeField('price')}
             />
 
-            <SetDuration titleStyle={classNames.titleStyle} setTotalTimeInMinute={onChangeField('execution_time')} />
+            <SetDuration
+              duration={formFields.execution_time}
+              titleStyle={classNames.titleStyle}
+              setTotalTimeInMinute={onChangeField('execution_time')}
+            />
 
             {/* <Field
               label={t(TranslationKey['Time to complete, min*'])}

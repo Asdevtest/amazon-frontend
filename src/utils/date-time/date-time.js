@@ -8,6 +8,10 @@ import {
   formatDistanceStrict,
   formatISO,
   isValid,
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  minutesToMilliseconds,
 } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
@@ -118,3 +122,9 @@ export const sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc = (array, fie
 
     // compareAsc(first, second)
   })
+
+export const getDaysHoursMinutesForMinuter = minutes => ({
+  days: Math.floor(minutes / 1440),
+  hours: Math.floor((minutes % 1440) / 60),
+  minutes: minutes % 60,
+})

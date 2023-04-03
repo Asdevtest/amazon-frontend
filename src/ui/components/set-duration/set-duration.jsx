@@ -14,20 +14,23 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Field} from '@components/field'
 
 import {checkIsPositiveNum} from '@utils/checks'
+import {getDaysHoursMinutesForMinuter} from '@utils/date-time'
 import {clearEverythingExceptNumbers} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './set-duration.style'
 
-export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute}) => {
+export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute, duration}) => {
   const {classes: classNames} = useClassNames()
 
-  const initialState = {
-    days: '',
-    hours: '',
-    minutes: '',
+  const timeDuration = getDaysHoursMinutesForMinuter(duration)
 
-    totalTimeInMinute: '',
+  const initialState = {
+    days: timeDuration.days || '',
+    hours: timeDuration.hours || '',
+    minutes: timeDuration.minutes || '',
+
+    totalTimeInMinute: duration,
   }
 
   const [formFields, setFormFields] = useState(initialState)
