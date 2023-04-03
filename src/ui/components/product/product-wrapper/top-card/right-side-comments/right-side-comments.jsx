@@ -70,13 +70,7 @@ export const RightSideComments = observer(
             value={product.icomment}
             onChange={onChangeField('icomment')}
           />
-          {showActionBtns && (
-            <ProductStatusButtons
-              product={product}
-              buttonsConfig={productStatusButtonsConfig}
-              onClickButton={onClickSetProductStatusBtn}
-            />
-          )}
+
           <Field
             multiline
             disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
@@ -123,6 +117,15 @@ export const RightSideComments = observer(
                 onChange={onChangeField('clientComment')}
               />
             </>
+          )}
+
+          {showActionBtns && (
+            <ProductStatusButtons
+              product={product}
+              curUserRole={curUserRole}
+              buttonsConfig={productStatusButtonsConfig}
+              onClickButton={onClickSetProductStatusBtn}
+            />
           )}
 
           {showActionBtns ? (
