@@ -2,7 +2,13 @@ import {cx} from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import {Grid, Typography, Avatar, Link} from '@mui/material'
+import {
+  Grid,
+  Typography,
+  Avatar,
+  InputAdornment,
+  /* Link */
+} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useState} from 'react'
@@ -18,7 +24,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './upload-files-input-mini.style'
@@ -43,6 +49,7 @@ export const UploadFilesInputMini = observer(
     dragAndDropBtnHeight = undefined,
     requestWidth,
     isNotShowActionsBtns,
+    withComment,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -59,15 +66,35 @@ export const UploadFilesInputMini = observer(
       const linkIsValid = regExpUriChecking.test(linkInput)
 
       if (linkIsValid) {
-        setImages([...images, linkInput])
+        if (withComment) {
+          setImages([...images, {file: linkInput, comment: '', _id: `${Date.now()}`}])
+        } else {
+          setImages([...images, linkInput])
+        }
+
+        // setImages([...images, linkInput])
         setLinkInput('')
       } else {
         setLinkInputError(true)
       }
     }
 
-    const onChange = (imageList /* , addUpdateIndex тут можно индекс получить*/) => {
-      setImages(imageList)
+    const onChange = (imageList /* , addUpdateIndex  тут можно индекс получить*/) => {
+      // console.log('addUpdateIndex', addUpdateIndex)
+
+      if (withComment) {
+        setImages(
+          imageList.map((el, i) => ({
+            file: el,
+            comment: images[i]?.comment || '',
+            _id: images[i]?._id || `${Date.now()}${i}`,
+          })),
+        )
+      } else {
+        setImages(imageList)
+      }
+
+      // setImages(imageList)
     }
 
     const onPasteFiles = async evt => {
@@ -88,7 +115,18 @@ export const UploadFilesInputMini = observer(
           }),
         }))
 
-        setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
+        if (withComment) {
+          setImages([
+            ...images,
+            ...readyFilesArr
+              .slice(0, filesAlowLength)
+              .map((el, i) => ({file: el, comment: '', _id: `${Date.now()}${i}`})),
+          ])
+        } else {
+          setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
+        }
+
+        // setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
       }
     }
 
@@ -108,6 +146,16 @@ export const UploadFilesInputMini = observer(
         )}
       </div>
     )
+
+    const onChangeComment = index => e => {
+      setImages(() => images.map((el, i) => (i === index ? {...el, comment: e.target.value} : el)))
+    }
+
+    const onClickImageRemove = index => {
+      const removeImageId = images[index]._id
+
+      setImages(() => images.filter(el => el._id !== removeImageId))
+    }
 
     const [showImages, setShowImages] = useState(true)
 
@@ -153,7 +201,7 @@ export const UploadFilesInputMini = observer(
           <ImageUploading
             multiple
             acceptType={acceptType}
-            value={images}
+            value={withComment ? images.map(el => el.file) : images}
             maxNumber={maxNumber}
             dataURLKey="data_url"
             maxFileSize={maxSizeInBytes}
@@ -224,21 +272,42 @@ export const UploadFilesInputMini = observer(
                               <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                             </Tooltip>
 
-                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                            {/* <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
                               <Typography className={classNames.linkName}>{image}</Typography>
-                            </Link>
+                            </Link> */}
+
+                            {withComment && (
+                              <Input
+                                multiline
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
+                                  </InputAdornment>
+                                }
+                                placeholder={'Title'}
+                                maxRows={3}
+                                variant="filled"
+                                className={classNames.imageObjInput}
+                                value={images[index]?.comment}
+                                onChange={onChangeComment(index)}
+                              />
+                            )}
 
                             <div className={classNames.actionIconsWrapper}>
+                              <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
+
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
-                                onClick={() => onImageRemove(index)}
+                                // onClick={() => onImageRemove(index)}
+
+                                onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
                             </div>
                           </div>
                         </Grid>
                       ) : (
                         <Grid key={index} item>
-                          <div className={classNames.imageListItem}>
+                          <div className={classNames.imageLinkListItem /* imageListItem */}>
                             <Tooltip
                               title={renderImageInfo(image?.data_url, image?.file.name)}
                               classes={{popper: classNames.imgTooltip}}
@@ -251,13 +320,33 @@ export const UploadFilesInputMini = observer(
                               />
                             </Tooltip>
 
-                            <Typography className={classNames.fileName}>{image?.file.name} </Typography>
+                            {/* <Typography className={classNames.fileName}>{image?.file.name} </Typography> */}
+
+                            {withComment && (
+                              <Input
+                                multiline
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
+                                  </InputAdornment>
+                                }
+                                placeholder={'Title'}
+                                maxRows={3}
+                                variant="filled"
+                                className={classNames.imageObjInput}
+                                classes={{input: classNames.subImageObjInput}}
+                                value={images[index]?.comment}
+                                onChange={onChangeComment(index)}
+                              />
+                            )}
 
                             <div className={classNames.actionIconsWrapper}>
                               <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
-                                onClick={() => onImageRemove(index)}
+                                // onClick={() => onImageRemove(index)}
+
+                                onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
                             </div>
                           </div>

@@ -89,7 +89,7 @@ export class CreateOrEditRequestViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, {images: files.map(el => el.file), type: 'uploadedFiles'})
       }
 
       const dataWithFiles = {
@@ -101,7 +101,10 @@ export class CreateOrEditRequestViewModel {
           },
           ['discountedPrice'],
         ),
-        details: {...data.details, linksToMediaFiles: this.uploadedFiles},
+        details: {
+          ...data.details,
+          linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+        },
       }
 
       await RequestModel.createRequest(dataWithFiles)
@@ -137,7 +140,7 @@ export class CreateOrEditRequestViewModel {
   async onSubmitEditRequest(data, files) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, {images: files.map(el => el.file), type: 'uploadedFiles'})
       }
 
       const dataWithFiles = {
@@ -149,7 +152,13 @@ export class CreateOrEditRequestViewModel {
           },
           ['discountedPrice'],
         ),
-        details: {...data.details, linksToMediaFiles: [...data.details.linksToMediaFiles, ...this.uploadedFiles]},
+        details: {
+          ...data.details,
+          linksToMediaFiles: [
+            ...data.details.linksToMediaFiles,
+            ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+          ],
+        },
       }
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
