@@ -6,7 +6,12 @@ import React, {useState} from 'react'
 import {ProductStatusByCode} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 
-export const ProductStatusButtons = ({buttonsConfig, product, onClickButton}) => {
+import {Text} from '@components/text'
+
+import {translateTooltipAttentionMessageByRole, translateTooltipMessageByRole} from '@utils/translate-tooltip-message'
+
+export const ProductStatusButtons = props => {
+  const {buttonsConfig, product, onClickButton, curUserRole} = props
   const [selected, setSelected] = useState(ProductStatusByCode[product.status])
   if (!buttonsConfig) {
     return <div />
@@ -30,7 +35,14 @@ export const ProductStatusButtons = ({buttonsConfig, product, onClickButton}) =>
                 sx={{paddingLeft: '20px'}}
                 control={<Radio />}
                 value={buttonConfig.statusKey}
-                label={buttonConfig.label}
+                label={
+                  <Text
+                    tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole)}
+                    tooltipAttentionContent={translateTooltipAttentionMessageByRole(buttonConfig.label, curUserRole)}
+                  >
+                    {buttonConfig.label}
+                  </Text>
+                }
                 disabled={
                   mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
                   buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'
