@@ -66,10 +66,10 @@ export const FilesCarousel = observer(({files}) => {
         ) : (
           <div className={classNames.emptyProposalsIconWrapper}>
             <div className={classNames.emptyProposalsIcon}>
-              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
+              <NoDocumentIcon className={classNames.noDocumentIcon} />
             </div>
             <div className={classNames.emptyProposalsDescriptionWrapper}>
-              <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
+              <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
             </div>
           </div>
         )}
