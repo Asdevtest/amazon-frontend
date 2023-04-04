@@ -436,7 +436,7 @@ const ServiceExchangeView = lazy(() =>
 )
 
 const MyRequestsView = lazy(() =>
-  import('@views/freelancer/my-requests-view').then(module => ({default: module.MyRequestsView})),
+  import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
 )
 
 // const FreelancerMyRequestsView = lazy(() =>
