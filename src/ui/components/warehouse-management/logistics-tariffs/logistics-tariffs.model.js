@@ -75,6 +75,15 @@ export class LogisticsTariffsModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()

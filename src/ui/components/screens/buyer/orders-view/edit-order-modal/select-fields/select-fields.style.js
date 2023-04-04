@@ -196,6 +196,18 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#00B746',
   },
 
+  normalPaymentText: {
+    color: theme.palette.text.general,
+    // color: 'green',
+    fontSize: 14,
+  },
+
+  greenPaymentText: {
+    color: theme.palette.text.green,
+    // color: 'green',
+    fontWeight: 600,
+  },
+
   input: {
     width: '231px',
   },
@@ -344,14 +356,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   supplierPaymentButton: {
-    height: 32,
+    // height: 32,
+    width: 230,
 
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    width: '100%',
+    // width: '100%',
     marginBottom: '20px',
     color: '#fff',
+
+    display: 'flex',
+    gap: 5,
   },
 
   formItem: {

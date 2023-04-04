@@ -49,6 +49,7 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
       onTriggerOpenModal,
       onPickupSomeItems,
       setDataGridState,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -92,6 +93,11 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}

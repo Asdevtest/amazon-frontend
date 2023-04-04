@@ -64,6 +64,7 @@ export class AdminSentBatchesViewRaw extends Component {
 
       setCurrentOpenedBatch,
       onSearchSubmit,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -107,6 +108,11 @@ export class AdminSentBatchesViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 density={densityModel}
                 columns={columnsModel}

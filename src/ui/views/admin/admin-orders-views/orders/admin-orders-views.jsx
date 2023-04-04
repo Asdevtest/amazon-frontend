@@ -61,6 +61,7 @@ class AdminOrdersViewsRaw extends Component {
       onClickTableRow,
       onChangeFilterModel,
       onSearchSubmit,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -120,6 +121,11 @@ class AdminOrdersViewsRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

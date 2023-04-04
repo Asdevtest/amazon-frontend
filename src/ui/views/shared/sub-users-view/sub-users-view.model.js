@@ -73,6 +73,15 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   constructor({history}) {
     runInAction(() => {
       this.history = history
@@ -91,6 +100,14 @@ export class SubUsersViewModel {
 
     reaction(
       () => this.subUsersData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => this.nameSearchValue,
       () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()

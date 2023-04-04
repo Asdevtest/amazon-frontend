@@ -88,6 +88,15 @@ export class StockReportModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()

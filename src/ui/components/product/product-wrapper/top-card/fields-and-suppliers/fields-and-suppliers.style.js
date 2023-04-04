@@ -342,9 +342,12 @@ export const useClassNames = makeStyles()(theme => ({
     // alignSelf: 'flex-end'
   },
 
-  editButton: {
+  editButtonWrapper: {
+    width: 'fit-content',
     marginTop: '15px',
   },
+
+  editButton: {},
 
   linkDecoration: {
     color: 'red !important',

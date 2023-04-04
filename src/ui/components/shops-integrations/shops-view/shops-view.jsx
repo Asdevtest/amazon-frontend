@@ -69,6 +69,7 @@ class ShopsViewRaw extends Component {
       onSubmitRemoveShop,
       onSelectionModel,
       updateShops,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: className} = this.props
@@ -112,6 +113,11 @@ class ShopsViewRaw extends Component {
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
               }}
               density={densityModel}
               columns={columnsModel}

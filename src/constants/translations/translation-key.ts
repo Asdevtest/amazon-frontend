@@ -1904,6 +1904,7 @@ export enum TranslationKey {
   'Apply to all' = 'Apply to all',
   'Source Files' = 'Source Files',
   'No files' = 'No files',
+  'Payment documents' = 'Payment documents',
   // '' = '',
   // '' = '',
   // '' = '',

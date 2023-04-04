@@ -33,6 +33,7 @@ import {styles} from './warehouse-awaiting-batches-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES
+
 @observer
 export class WarehouseAwaitingBatchesViewRaw extends Component {
   viewModel = new WarehouseAwaitingBatchesViewModel({history: this.props.history})
@@ -92,6 +93,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       setCurrentOpenedBatch,
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -187,8 +189,10 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
@@ -196,6 +200,9 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
                   onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection)
+                  }}
                 />
               </div>
             </MainContent>
