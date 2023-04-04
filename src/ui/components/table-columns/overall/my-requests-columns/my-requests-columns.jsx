@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +15,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const myRequestsViewColumns = languageTag => [
+export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -38,11 +39,19 @@ export const myRequestsViewColumns = languageTag => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Status)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
     width: 161,
     filterable: false,
+
+    columnKey: columnnsKeys.shared.MY_REQUESTS_ORDERS_STATUS,
   },
 
   {
