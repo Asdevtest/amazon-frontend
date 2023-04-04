@@ -188,6 +188,16 @@ export class RequestDetailCustomViewModel {
         })
       }
 
+      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+        result: message,
+        linksToMediaFiles: this.loadedFiles.map((el, i) => ({
+          fileLink: el,
+          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+        })),
+        ...(amazonOrderId && {amazonOrderId}),
+        ...(publicationLinks && {publicationLinks}),
+      })
+
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
           reason: message,
@@ -202,21 +212,23 @@ export class RequestDetailCustomViewModel {
           reason: message,
           linksToMediaFiles: this.loadedFiles,
         })
-      } else {
-        if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
-          await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
-        }
-
-        await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-          result: message,
-          linksToMediaFiles: this.loadedFiles.map((el, i) => ({
-            fileLink: el,
-            commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-          })),
-          ...(amazonOrderId && {amazonOrderId}),
-          ...(publicationLinks && {publicationLinks}),
-        })
       }
+
+      // else {
+      //   if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+      //     await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
+      //   }
+
+      //   await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+      //     result: message,
+      //     linksToMediaFiles: this.loadedFiles.map((el, i) => ({
+      //       fileLink: el,
+      //       commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+      //     })),
+      //     ...(amazonOrderId && {amazonOrderId}),
+      //     ...(publicationLinks && {publicationLinks}),
+      //   })
+      // }
     } catch (error) {
       console.log(error)
       runInAction(() => {

@@ -296,7 +296,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         <Button
           disabled={disableSubmit}
           className={cx(classNames.button)}
-          onClick={() => onClickSendAsResult({message: '', files: imagesData.filter(el => el.image)})}
+          onClick={() => {
+            onClickSendAsResult({message: '', files: imagesData.filter(el => el.image)})
+            setOpenModal()
+          }}
         >
           {t(TranslationKey.Send)}
         </Button>

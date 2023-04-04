@@ -13,6 +13,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateTime} from '@utils/date-time'
@@ -59,6 +60,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
             <div className={classNames.reasonWrapper}>
               <p className={classNames.reasonText}>{message.data.reason}</p>
             </div>
+
+            <PhotoAndFilesCarousel notToShowEmpty small files={message.data.linksToMediaFiles} width="340px" />
+
             <div className={classNames.footerWrapper}>
               <div className={classNames.footerRow}>
                 {message.data.timeLimitInMinutes ? (
@@ -85,6 +89,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                 <Typography className={classNames.reasonText}>{message.data.reason}</Typography>
               </Linkify>
             </div>
+
+            <PhotoAndFilesCarousel notToShowEmpty small files={message.data.linksToMediaFiles} width="340px" />
 
             <div className={classNames.footerWrapper}>
               {chatRequestAndRequestProposal &&
