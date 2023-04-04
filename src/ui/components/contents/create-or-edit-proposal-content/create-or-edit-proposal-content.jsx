@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 import {Field} from '@components/field'
 import {SetDuration} from '@components/set-duration/set-duration'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
@@ -176,7 +177,12 @@ export const CreateOrEditProposalContent = ({
               <Typography className={classNames.requestTitleName}>
                 {t(TranslationKey['Request description'])}
               </Typography>
-              <Typography className={classNames.requestTitle}>{request?.details.conditions}</Typography>
+              {/* <Typography className={classNames.requestTitle}>{request?.details.conditions}</Typography> */}
+              <CustomTextEditor
+                readOnly
+                conditions={request?.details.conditions}
+                editorMaxHeight={classNames.editorMaxHeight}
+              />
             </>
           )}
 

@@ -87,6 +87,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    whiteSpace: 'pre-wrap',
 
     fontSize: 12,
 

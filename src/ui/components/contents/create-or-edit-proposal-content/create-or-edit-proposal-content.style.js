@@ -419,4 +419,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  editorMaxHeight: {
+    maxHeight: 300,
+  },
 }))
