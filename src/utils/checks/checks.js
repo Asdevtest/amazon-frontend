@@ -58,7 +58,9 @@ export const checkIsImageLink = link =>
   link?.endsWith('.svg') ||
   link?.endsWith('.webp') ||
   link?.endsWith('.avif') ||
-  link?.endsWith('.jpeg')
+  link?.endsWith('.jpeg') ||
+  link?.includes('http:/') ||
+  link?.includes('https:/')
 
 export const validateEmail = email =>
   String(email)

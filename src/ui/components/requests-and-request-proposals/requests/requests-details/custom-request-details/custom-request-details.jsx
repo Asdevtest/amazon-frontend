@@ -23,6 +23,8 @@ import {useClassNames} from './custom-request-details.style'
 export const CustomSearchRequestDetails = ({request}) => {
   const {classes: classNames} = useClassNames()
 
+  console.log('request', request)
+
   const [showDetails, setShowDetails] = useState(false)
 
   const onClickToShowDetails = () => {
@@ -64,9 +66,7 @@ export const CustomSearchRequestDetails = ({request}) => {
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
                 <CustomImageGalleryList
                   files={
-                    request?.request?.media
-                      ? request?.request?.media.map(item => item.fileLink)
-                      : request?.details?.linksToMediaFiles
+                    request?.request?.media?.length ? request?.request?.media : request?.details?.linksToMediaFiles
                   }
                 />
               </div>
