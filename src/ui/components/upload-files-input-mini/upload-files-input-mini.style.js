@@ -129,6 +129,10 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
   },
 
+  oneLineMaxHeight: {
+    maxHeight: 100,
+  },
+
   image: {
     width: '80px',
     height: '70px',
