@@ -132,7 +132,7 @@ export class MyProposalsViewModel {
     })
     // this.getRequestsCustom()
 
-    if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
+    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
       this.requests = this.requestsBase
     } else {
       this.requests = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
