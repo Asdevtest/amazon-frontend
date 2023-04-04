@@ -337,24 +337,40 @@ export const navbarConfig = () => ({
           subtitle: t(TranslationKey['Vacant requests']),
           subRoute: '/freelancer/freelance/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER),
         },
 
         {
           subtitle: t(TranslationKey['My proposals']),
           subRoute: '/freelancer/freelance/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
         },
 
         {
           subtitle: t(TranslationKey['My services']),
           subRoute: '/freelancer/freelance/my-services',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER),
         },
 
         {
           subtitle: t(TranslationKey['Source Files']),
           subRoute: '/freelancer/freelance/source-files',
           key: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER),
         },
 
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
@@ -362,7 +378,13 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
+        ),
     },
 
     {
