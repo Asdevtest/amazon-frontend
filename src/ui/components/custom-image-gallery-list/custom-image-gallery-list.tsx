@@ -1,4 +1,4 @@
-import {Avatar, Typography} from '@mui/material'
+import {Avatar, Tooltip, Typography} from '@mui/material'
 
 import {FC, useEffect, useState} from 'react'
 
@@ -18,8 +18,10 @@ import {t} from '@utils/translations'
 import {useClassNames} from './custom-image-gallery-list.style'
 
 interface FilesObject {
-  data_url: string
   fileLink: string
+
+  commentByClient: string
+  commentByPerformer: string
 }
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
@@ -38,6 +40,8 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
 
   const [filesForRender, setFilesForRender] = useState(files)
 
+  console.log('filesForRender', filesForRender)
+
   useEffect(() => {
     setFilesForRender(files)
   }, [SettingsModel.languageTag, files])
@@ -50,9 +54,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
     : filesForRender?.filter(el => {
         if (typeof el === 'string') {
           return checkIsImageLink(el)
-          // return el
         } else {
-          // return el?.fileLink
           return checkIsImageLink(el?.fileLink)
         }
       })
@@ -92,7 +94,11 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
               })
             }}
           />
-          <Typography className={classNames.photoTitle}>{'Img'}</Typography>
+          {typeof photo !== 'string' && (
+            <Tooltip title={photo.commentByClient}>
+              <Typography className={classNames.photoTitle}>{photo.commentByClient}</Typography>
+            </Tooltip>
+          )}
         </div>
       ))}
 
@@ -109,6 +115,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
         <div className={classNames.emptyIcon}>
           <NoPhotoIcon className={classNames.noPhotoIcon} />
         </div>
+
         <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
       </div>
     </div>
