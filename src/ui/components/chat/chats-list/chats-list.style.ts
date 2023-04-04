@@ -43,5 +43,6 @@ export const useClassNames = makeStyles()(theme => ({
   tabRoot: {
     textTransform: 'none',
     minHeight: `40px`,
+    borderBottom: `1px solid ${theme.palette.input.customBorder}`,
   },
 }))
