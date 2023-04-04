@@ -19,9 +19,7 @@ import {useClassNames} from './custom-image-gallery-list.style'
 
 interface FilesObject {
   data_url: string
-  file: {
-    name: string
-  }
+  fileLink: string
 }
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
@@ -48,23 +46,25 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyPhotos = isAmazonPhoto
-    ? files?.map(el => getAmazonImageUrl(el, true))
-    : files?.filter(el => {
+    ? filesForRender?.map(el => getAmazonImageUrl(el, true))
+    : filesForRender?.filter(el => {
         if (typeof el === 'string') {
           return checkIsImageLink(el)
+          // return el
         } else {
-          return checkIsImageLink(el?.file?.name)
+          // return el?.fileLink
+          return checkIsImageLink(el?.fileLink)
         }
       })
 
   return !!filesForRender && filesForRender?.length ? (
     <div className={classNames.imagesCarouselWrapper}>
-      {notEmptyPhotos.map((photo: string, index: number) => (
+      {notEmptyPhotos.map((photo: string | FilesObject, index: number) => (
         <div key={index} className={classNames.imageWrapper}>
           <Avatar
             variant="square"
             alt={'!'}
-            src={photo}
+            src={typeof photo === 'string' ? photo : photo?.fileLink}
             className={classNames.smallImage}
             classes={{img: classNames.img}}
             onClick={() => {
@@ -72,20 +72,20 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
 
               setBigImagesOptions({
                 images: isAmazonPhoto
-                  ? files?.map(el => getAmazonImageUrl(el, true))
-                  : files
+                  ? filesForRender?.map(el => getAmazonImageUrl(el, true))
+                  : filesForRender
                       ?.filter(el => {
                         if (typeof el === 'string') {
                           return checkIsImageLink(el)
                         } else {
-                          return checkIsImageLink(el?.file?.name)
+                          return checkIsImageLink(el?.fileLink)
                         }
                       })
                       .map(el => {
                         if (typeof el === 'string') {
                           return el
                         } else {
-                          return el?.data_url
+                          return el?.fileLink
                         }
                       }),
                 imgIndex: index,
