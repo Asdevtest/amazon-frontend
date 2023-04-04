@@ -317,7 +317,9 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/freelancer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER),
     },
 
     {
@@ -340,7 +342,9 @@ export const navbarConfig = () => ({
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
-      checkHideBlock: user => !isHaveMasterUser(user),
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
     },
 
     {
@@ -349,7 +353,9 @@ export const navbarConfig = () => ({
       route: '/freelancer/users/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_USERS_FREELANCER),
     },
 
     {
@@ -357,7 +363,9 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Finances),
       route: '/freelancer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
     },
     {
       icon: Message,
@@ -365,7 +373,9 @@ export const navbarConfig = () => ({
       route: '/freelancer/messages',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_CHAT_FREELANCER),
     },
   ],
   [UserRole.SUPERVISOR]: [
