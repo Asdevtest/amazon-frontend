@@ -771,7 +771,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item?.items
       .reduce((acc, cur) => (acc += cur?.order?.id + ', '), '')
       .slice(0, -2)}  item №: ${item?.items
-      // .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
+      .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 

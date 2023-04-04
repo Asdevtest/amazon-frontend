@@ -116,6 +116,15 @@ export class MyRequestsViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = myRequestsViewColumns(this.languageTag).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()

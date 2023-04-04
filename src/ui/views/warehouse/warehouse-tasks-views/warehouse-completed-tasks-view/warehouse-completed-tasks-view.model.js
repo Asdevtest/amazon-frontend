@@ -126,6 +126,15 @@ export class WarehouseCompletedViewModel {
     })
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e

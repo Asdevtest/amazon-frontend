@@ -80,6 +80,15 @@ export class WarehouseVacantViewModel {
     }
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model

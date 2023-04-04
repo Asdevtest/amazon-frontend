@@ -62,6 +62,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       onTriggerOpenModal,
       setCurrentOpenedBox,
       onSearchSubmit,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -108,6 +109,11 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}

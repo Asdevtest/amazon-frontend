@@ -675,6 +675,14 @@ export const EditOrderModal = observer(
                           order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` &&
                           order.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PENDING]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
                       }
@@ -690,6 +698,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
             yuanToDollarRate={yuanToDollarRate}

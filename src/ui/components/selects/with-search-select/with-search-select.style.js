@@ -7,6 +7,10 @@ export const styles = theme => ({
     display: 'visible !important',
   },
 
+  selectHeight: {
+    height: 40,
+  },
+
   disableRoot: {
     opacity: '.8',
   },
@@ -40,6 +44,8 @@ export const styles = theme => ({
   },
 
   grayBorder: {
+    height: 40,
+    maxHeight: 40,
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
@@ -74,6 +80,7 @@ export const styles = theme => ({
   },
 
   chosenItemNoHover: {
+    height: 40,
     '&:hover': {
       transform: 'unset',
       backgroundColor: 'unset',
