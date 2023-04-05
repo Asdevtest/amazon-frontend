@@ -285,6 +285,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
+                                inputProps={{maxLength: 64}}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
@@ -331,6 +332,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
+                                inputProps={{maxLength: 64}}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
