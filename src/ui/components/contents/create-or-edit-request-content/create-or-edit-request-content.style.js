@@ -10,7 +10,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubWrapper: {
     padding: 30,
-    height: 709,
+    minHeight: 709,
+
     display: 'flex',
     flexDirection: 'column',
 

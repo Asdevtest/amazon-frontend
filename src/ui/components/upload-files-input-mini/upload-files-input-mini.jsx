@@ -39,6 +39,7 @@ export const UploadFilesInputMini = observer(
     images,
     setImages,
     maxNumber,
+    maxHeight,
     acceptType = [''],
     // acceptType = ['jpg', 'gif', 'png', 'jpeg', 'pdf'],
     withoutLinks = false,
@@ -267,6 +268,7 @@ export const UploadFilesInputMini = observer(
                   <Grid
                     container
                     className={cx(classNames.imageListWrapper, {[classNames.oneLineMaxHeight]: oneLineMaxHeight})}
+                    style={maxHeight && {maxHeight}}
                     justifyContent="flex-start"
                     spacing={2}
                   >
