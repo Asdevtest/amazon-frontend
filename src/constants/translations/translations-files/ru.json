@@ -1909,5 +1909,6 @@
   "Payment documents": "Документы оплаты",
   "Allow the performer to take the request for work without confirmation": "Разрешить исполнителю брать заявку в работу без подтверждения",
   "Sent for rework": "Отправлено на доработку",
-  "Refine": "Доработать"
+  "Refine": "Доработать",
+  "Performer's comment": "Комментарий исполнителя"
 }

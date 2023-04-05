@@ -132,12 +132,31 @@ export const useClassNames = makeStyles()(theme => ({
     width: 161,
     height: 161,
     borderRadius: 4,
-    background: theme.palette.input.customDisabled,
+    backgroundColor: theme.palette.input.customDisabled,
     marginBottom: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     // position: 'relative',
+  },
+
+  isHaveImage: {
+    backgroundColor: 'inherit',
+  },
+
+  headerRightSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 30,
+    width: '100%',
+  },
+
+  heightFieldAuto: {
+    height: 'auto',
+    width: '100%',
+
+    padding: 0,
   },
 
   mainStarIcon: {
@@ -188,10 +207,10 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
-    transform: 'scale(3.5)',
+    transform: 'scale(2.8)',
 
     '&:hover': {
-      transform: 'scale(3.8)',
+      transform: 'scale(3)',
     },
   },
 
