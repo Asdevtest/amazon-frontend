@@ -69,6 +69,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                   small
                   files={message.data.proposal.details.linksToMediaFiles}
                   width="340px"
+                  withoutPhotos={undefined}
+                  whithoutFiles={undefined}
                 />
               }
             />

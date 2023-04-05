@@ -71,6 +71,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           small
           files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
           width="340px"
+          withoutPhotos={undefined}
+          whithoutFiles={undefined}
         />
 
         <div className={classNames.resultRightSide}>

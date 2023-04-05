@@ -85,7 +85,14 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
             </div>
 
             {message.data.linksToMediaFiles.length > 0 && (
-              <PhotoAndFilesCarousel notToShowEmpty small files={message.data.linksToMediaFiles} width="340px" />
+              <PhotoAndFilesCarousel
+                notToShowEmpty
+                small
+                files={message.data.linksToMediaFiles}
+                width="340px"
+                withoutPhotos={undefined}
+                whithoutFiles={undefined}
+              />
             )}
 
             <div className={classNames.footerWrapper}>
@@ -136,7 +143,14 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
               </Linkify>
             </div>
 
-            <PhotoAndFilesCarousel notToShowEmpty small files={message.data.linksToMediaFiles} width="340px" />
+            <PhotoAndFilesCarousel
+              notToShowEmpty
+              small
+              files={message.data.linksToMediaFiles}
+              width="340px"
+              withoutPhotos={undefined}
+              whithoutFiles={undefined}
+            />
 
             <div className={classNames.footerWrapper}>
               {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
