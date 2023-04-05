@@ -194,14 +194,14 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                     columnMenu: columnMenuSettings,
                     toolbar: {
                       resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      // columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  componentsProps={{
-                    toolbar: {
                       columsBtnSettings: {columnsModel, changeColumnsModel},
                     },
                   }}
+                  // componentsProps={{
+                  //   toolbar: {
+                  //     columsBtnSettings: {columnsModel, changeColumnsModel},
+                  //   },
+                  // }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
