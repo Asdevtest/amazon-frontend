@@ -32,7 +32,10 @@ import {ChatMessageBloggerProposalEditedResult} from './chat-messages/chat-messa
 import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
 import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
-import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
+import {
+  ChatMessageProposalStatusChanged,
+  ChatMessageRequestProposalStatusChangedHandlers,
+} from './chat-messages/chat-message-proposal-status-changed'
 import {ChatMessageRemoveUsersFromGroupChat} from './chat-messages/chat-message-remove-users-from-group-chat'
 import {ChatMessageRequest} from './chat-messages/chat-message-request'
 import {
@@ -40,7 +43,9 @@ import {
   ChatMessageRequestProposalResultEditedHandlers,
 } from './chat-messages/chat-message-request-proposal-result-edited'
 
-export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers & ChatMessageRequestProposalResultEditedHandlers
+export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
+  ChatMessageRequestProposalResultEditedHandlers &
+  ChatMessageRequestProposalStatusChangedHandlers
 
 interface Props {
   isGroupChat: boolean
@@ -99,6 +104,7 @@ export const ChatMessagesList: FC<Props> = observer(
       messageItem: ChatMessageContract,
       unReadMessage: boolean,
       showName: boolean,
+      isLastMessage: boolean,
     ) => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
         return <ChatMessageRequest message={messageItem} />
@@ -115,10 +121,12 @@ export const ChatMessagesList: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
         return (
           <ChatMessageProposalStatusChanged
+            isLastMessage={isLastMessage}
             message={messageItem}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+              onClickReworkProposal: handlers.onClickReworkProposal,
             }}
           />
         )
@@ -245,7 +253,7 @@ export const ChatMessagesList: FC<Props> = observer(
                         })}
                       >
                         <div className={classNames.messageInnerContentWrapper}>
-                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName)}
+                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName, isLastMessage)}
                         </div>
                       </div>
                     </div>

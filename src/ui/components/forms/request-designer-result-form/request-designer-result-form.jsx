@@ -46,7 +46,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setShowDetails(!showDetails)
   }
 
-  console.log('request', request)
+  // console.log('request', request)
 
   const sourceImagesData = isRework
     ? request.request.media.map((el, index) => ({

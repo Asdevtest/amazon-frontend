@@ -178,7 +178,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
-    console.log('proposalId', proposalId)
+    // console.log('proposalId', proposalId)
 
     runInAction(() => {
       this.acceptProposalResultSetting = {

@@ -168,6 +168,14 @@ export class RequestDetailCustomViewModel {
     }
   }
 
+  onClickReworkProposal() {
+    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else {
+      this.onTriggerOpenModal('showRequestResultModal')
+    }
+  }
+
   async onClickSendAsResult({message, files, amazonOrderId, publicationLinks, sourceLink}) {
     try {
       const findRequestProposalByChatSelectedId = this.requestProposals.find(

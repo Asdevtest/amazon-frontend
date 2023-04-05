@@ -23,7 +23,7 @@ import {useClassNames} from './custom-request-details.style'
 export const CustomSearchRequestDetails = ({request}) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('request', request)
+  // console.log('request', request)
 
   const [showDetails, setShowDetails] = useState(false)
 
