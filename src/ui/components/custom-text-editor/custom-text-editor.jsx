@@ -10,8 +10,7 @@ import {Button, Typography} from '@mui/material'
 
 import {FC, useEffect, useRef, useState} from 'react'
 
-import {Editor, EditorState, convertFromRaw, convertToRaw} from 'draft-js'
-import {toJS} from 'mobx'
+import {EditorState, convertToRaw} from 'draft-js'
 import {observer} from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
 
@@ -26,7 +25,7 @@ const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAli
 export const CustomTextEditor = observer(({conditions = '', changeConditions, readOnly, editorMaxHeight}) => {
   const {classes: classNames} = useClassNames()
 
-  const [value, setValue] = useState()
+  const [value, setValue] = useState('')
 
   useEffect(() => {
     isJSON(conditions)
@@ -34,12 +33,14 @@ export const CustomTextEditor = observer(({conditions = '', changeConditions, re
 
   const isJSON = text => {
     try {
-      JSON.parse(text)
+      const res = JSON.parse(text)
+      if (typeof res === 'number') {
+        throw new Error()
+      }
       setValue(text)
     } catch (error) {
-      const editorState = EditorState?.createWithText(text)
-      const serializedEditorState = JSON?.stringify(convertToRaw(editorState.getCurrentContent()))
-
+      const editorState = EditorState.createWithText(text)
+      const serializedEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
       setValue(serializedEditorState)
     }
   }
