@@ -62,14 +62,20 @@ export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curIm
               <Avatar
                 className={classNames.imageModalImageLeftSide}
                 classes={{img: classNames.imageModalImageLeftSide}}
-                src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
-                alt={item.image?.file.name}
+                src={
+                  typeof item.image === 'string'
+                    ? item.image
+                    : item.image?.file.type.includes('image')
+                    ? item.image?.data_url
+                    : '/assets/icons/file.png'
+                }
+                alt={item.image?.file?.name || ''}
                 variant="square"
               />
 
-              {!!item.imageName && (
+              {!!item.comment && (
                 <div>
-                  <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.imageName}</Typography>
+                  <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
                 </div>
               )}
             </div>
@@ -80,13 +86,19 @@ export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curIm
           <CustomCarousel index={curImageIndex} onChengeIndex={onChangeCurImageIndex}>
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
-                <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.imageName}</Typography>
+                <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>
 
                 <Avatar
                   className={classNames.imageModalImage}
                   classes={{img: classNames.imageModalImage}}
-                  src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
-                  alt={item.image?.file.name}
+                  src={
+                    typeof item.image === 'string'
+                      ? item.image
+                      : item.image?.file.type.includes('image')
+                      ? item.image?.data_url
+                      : '/assets/icons/file.png'
+                  }
+                  alt={item.image?.file?.name || ''}
                   variant="square"
                 />
               </div>
