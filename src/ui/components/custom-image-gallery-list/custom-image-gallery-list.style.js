@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 379,
     height: 390,
     padding: '10px 5px',
-    boxShadow: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+    boxShadow: theme.palette.boxShadow.imageList,
 
     overflowY: 'auto',
   },
