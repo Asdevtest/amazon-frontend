@@ -16,10 +16,12 @@ import {colorByRequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
 // import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
 
+import {calcNumberMinusPercent} from '@utils/calculation'
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -30,6 +32,8 @@ import {useClassNames} from './vacant-request-list-card.style'
 
 export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
   const {classes: classNames} = useClassNames()
+
+  const discountedPrice = calcNumberMinusPercent(item.priceAmazon, item.cashBackInPercent)
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -87,11 +91,17 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
                 label={t(TranslationKey['Product price'])}
                 inputComponent={
                   <div className={classNames.priceAmazonWrapper}>
-                    <Typography className={classNames.cashBackPrice}>
+                    {/* <Typography className={classNames.cashBackPrice}>
                       {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
                     </Typography>
 
-                    <Typography className={classNames.redText}>{`$ ${toFixed(item.priceAmazon, 2)}`}</Typography>
+                    <Typography className={classNames.redText}>{`$ ${toFixed(item.priceAmazon, 2)}`}</Typography> */}
+
+                    <VacantRequestPriceCell
+                      AlignLeft
+                      price={item.priceAmazon}
+                      cashBackInPercent={item.cashBackInPercent}
+                    />
                   </div>
                 }
               />

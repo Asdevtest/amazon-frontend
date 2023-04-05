@@ -20,6 +20,7 @@ import {colorByRequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
 // import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
@@ -69,14 +70,20 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                   label={t(TranslationKey['Product price'])}
                   inputComponent={
                     <div className={classNames.priceAmazonWrapper}>
-                      <Typography className={cx(classNames.cashBackPrice, classNames.dontWrapText)}>
+                      {/* <Typography className={cx(classNames.cashBackPrice, classNames.dontWrapText)}>
                         {`$ ${toFixed(item.priceAmazon - (item.priceAmazon * item.cashBackInPercent) / 100, 2)}`}
                       </Typography>
 
                       <Typography className={cx(classNames.redText, classNames.dontWrapText)}>{`$ ${toFixed(
                         item.priceAmazon,
                         2,
-                      )}`}</Typography>
+                      )}`}</Typography> */}
+
+                      <VacantRequestPriceCell
+                        AlignLeft
+                        price={item.priceAmazon}
+                        cashBackInPercent={item.cashBackInPercent}
+                      />
                     </div>
                   }
                 />

@@ -1213,11 +1213,11 @@ export const MultilineTextCell = React.memo(
 )
 
 export const VacantRequestPriceCell = React.memo(
-  withStyles(({classes: classNames, price, cashBackInPercent}) => {
+  withStyles(({classes: classNames, price, cashBackInPercent, AlignLeft}) => {
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
     return (
-      <div className={classNames.priceCellWrapper}>
+      <div className={cx(classNames.priceCellWrapper, {[classNames.priceCellWrapperAlignLeft]: AlignLeft})}>
         {discountedPrice && cashBackInPercent ? (
           <Typography
             className={cx(classNames.priceText, {

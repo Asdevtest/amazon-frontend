@@ -1693,6 +1693,9 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  priceCellWrapperAlignLeft: {
+    justifyContent: 'flex-start',
+  },
   priceText: {
     color: theme.palette.text.main,
     fontWeight: 400,
