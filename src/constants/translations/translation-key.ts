@@ -1908,6 +1908,8 @@ export enum TranslationKey {
   'Allow the performer to take the request for work without confirmation' = 'Allow the performer to take the request for work without confirmation',
   'Sent for rework' = 'Sent for rework',
   'Refine' = 'Refine',
+  "Performer's comment" = "Performer's comment",
+
   // '' = '',
   // '' = '',
   // '' = '',

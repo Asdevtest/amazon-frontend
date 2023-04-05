@@ -42,6 +42,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [sourceLink, setSourceLink] = useState('')
 
+  const [comment, setComment] = useState('')
+
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -227,13 +229,32 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
               </Typography>
             }
           />
+
+          <Field
+            multiline
+            className={cx(classNames.heightFieldAuto)}
+            labelClasses={classNames.fieldLabel}
+            inputProps={{maxLength: 1000}}
+            minRows={4}
+            maxRows={4}
+            label={t(TranslationKey["Performer's comment"])}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+          />
         </div>
       </div>
 
       <div className={classNames.bodyWrapper}>
         {imagesData.map((item, index) => (
           <div key={item._id} className={classNames.imageObjWrapper}>
-            <div className={cx(classNames.imageWrapper, {[classNames.mainImageWrapper]: index === 0})}>
+            <div
+              className={cx(
+                classNames.imageWrapper,
+
+                {[classNames.isHaveImage]: !!item.image},
+                {[classNames.mainImageWrapper]: index === 0},
+              )}
+            >
               {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
               {item.image ? (
                 <div className={classNames.imageListItem}>
@@ -283,6 +304,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
               <Input
                 multiline
+                inputProps={{maxLength: 128}}
                 maxRows={3}
                 variant="filled"
                 className={classNames.imageObjInput}
