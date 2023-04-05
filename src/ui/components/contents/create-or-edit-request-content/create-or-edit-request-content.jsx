@@ -404,7 +404,13 @@ export const CreateOrEditRequestContent = ({
                 )}
 
                 <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInputMini withComment images={images} setImages={setImages} maxNumber={50} />
+                  <UploadFilesInputMini
+                    withComment
+                    oneLineMaxHeight
+                    images={images}
+                    setImages={setImages}
+                    maxNumber={50}
+                  />
                   {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel
                       small

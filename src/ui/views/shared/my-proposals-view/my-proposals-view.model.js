@@ -218,7 +218,7 @@ export class MyProposalsViewModel {
           })
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
 
-        console.log('this.requests', this.requests)
+        // console.log('this.requests', this.requests)
       })
     } catch (error) {
       console.log(error)

@@ -168,7 +168,15 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onClickSendAsResult({message, files, amazonOrderId, publicationLinks}) {
+  onClickReworkProposal() {
+    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else {
+      this.onTriggerOpenModal('showRequestResultModal')
+    }
+  }
+
+  async onClickSendAsResult({message, files, amazonOrderId, publicationLinks, sourceLink}) {
     try {
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
@@ -196,6 +204,14 @@ export class RequestDetailCustomViewModel {
         })),
         ...(amazonOrderId && {amazonOrderId}),
         ...(publicationLinks && {publicationLinks}),
+        ...(sourceLink && {
+          sourceFiles: [
+            {
+              sourceFile: sourceLink,
+              comments: '',
+            },
+          ],
+        }),
       })
 
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {

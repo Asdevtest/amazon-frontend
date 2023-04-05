@@ -32,11 +32,15 @@ import {useClassNames} from './request-designer-result-form.style'
 export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal}) => {
   const {classes: classNames} = useClassNames()
 
+  const isRework = !!request.request.media?.length
+
   const [showDetails, setShowDetails] = useState(false)
 
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [curImageId, setCurImageId] = useState(null)
+
+  const [sourceLink, setSourceLink] = useState('')
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
@@ -44,11 +48,17 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   // console.log('request', request)
 
-  const sourceImagesData = [
-    {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
-    {image: null, comment: '', isMain: false, _id: `${Date.now()}2`},
-    {image: null, comment: '', isMain: false, _id: `${Date.now()}3`},
-  ]
+  const sourceImagesData = isRework
+    ? request.request.media.map((el, index) => ({
+        image: el.fileLink,
+        comment: el.commentByPerformer,
+        _id: `${Date.now()}${index}`,
+      }))
+    : [
+        {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
+        {image: null, comment: '', isMain: false, _id: `${Date.now()}2`},
+        {image: null, comment: '', isMain: false, _id: `${Date.now()}3`},
+      ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -223,14 +233,21 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
       <div className={classNames.bodyWrapper}>
         {imagesData.map((item, index) => (
           <div key={item._id} className={classNames.imageObjWrapper}>
-            <div className={classNames.imageWrapper}>
+            <div className={cx(classNames.imageWrapper, {[classNames.mainImageWrapper]: index === 0})}>
+              {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
               {item.image ? (
                 <div className={classNames.imageListItem}>
                   <Avatar
                     className={classNames.image}
                     classes={{img: classNames.image}}
-                    src={item.image?.file.type.includes('image') ? item.image?.data_url : '/assets/icons/file.png'}
-                    alt={item.image?.file.name}
+                    src={
+                      typeof item.image === 'string'
+                        ? item.image
+                        : item.image?.file.type.includes('image')
+                        ? item.image?.data_url
+                        : '/assets/icons/file.png'
+                    }
+                    alt={isRework ? '' : item.imageitem.image?.file.name}
                     variant="square"
                     onClick={() => {
                       setCurImageId(item._id)
@@ -287,6 +304,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           inputClasses={classNames.linkInput}
           label={t(TranslationKey['Link to sources']) + ':'}
           containerClasses={classNames.containerField}
+          value={sourceLink}
+          onChange={e => setSourceLink(e.target.value)}
         />
 
         <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
@@ -297,7 +316,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           disabled={disableSubmit}
           className={cx(classNames.button)}
           onClick={() => {
-            onClickSendAsResult({message: '', files: imagesData.filter(el => el.image)})
+            onClickSendAsResult({message: '', files: imagesData.filter(el => el.image), sourceLink})
             setOpenModal()
           }}
         >

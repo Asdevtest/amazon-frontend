@@ -25,6 +25,8 @@ import {ServantGeneralRequestInfo} from '@components/requests-and-request-propos
 
 import {t} from '@utils/translations'
 
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+
 import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
 import {styles} from './servant-requests-detail-custom-view.style'
 
@@ -78,11 +80,15 @@ export class RequestDetailCustomViewRaw extends Component {
       onClickCancelRequestProposal,
       onTypingMessage,
       onClickResultBtn,
+      onClickReworkProposal,
     } = this.viewModel
 
-    const findRequestProposalByChatSelectedId = requestProposals?.find(
-      requestProposal => requestProposal.proposal.chatId === chatSelectedId,
-    )
+    // const findRequestProposalForCurChat = requestProposals?.find(
+    //   requestProposal => requestProposal.proposal.chatId === chatSelectedId,
+    // )
+
+    const findRequestProposalForCurChat =
+      chatSelectedId && requestProposals.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
 
     return (
       <React.Fragment>
@@ -122,60 +128,69 @@ export class RequestDetailCustomViewRaw extends Component {
               ) : null}
               {chatIsConnected && chats?.length ? (
                 <div className={classNames.chatWrapper}>
-                  <MultipleChats
-                    chats={chats}
-                    typingUsers={typingUsers}
-                    userId={userInfo._id}
-                    chatSelectedId={chatSelectedId}
-                    chatMessageHandlers={{}}
-                    renderAdditionalButtons={(params, resetAllInputs) => (
-                      <div className={classNames.additionalButtonsWrapper}>
-                        {findRequestProposalByChatSelectedId &&
-                        requestProposalCancelAllowedStatuses.includes(
-                          findRequestProposalByChatSelectedId?.proposal?.status,
-                        ) ? (
-                          <Button danger onClick={() => onTriggerOpenModal('showConfirmModal')}>
-                            {t(TranslationKey['Reject the deal'])}
-                          </Button>
-                        ) : (
-                          <div />
-                        )}
+                  <ChatRequestAndRequestProposalContext.Provider
+                    value={{
+                      request,
+                      requestProposal: findRequestProposalForCurChat,
+                    }}
+                  >
+                    <MultipleChats
+                      chats={chats}
+                      typingUsers={typingUsers}
+                      userId={userInfo._id}
+                      chatSelectedId={chatSelectedId}
+                      chatMessageHandlers={{
+                        onClickReworkProposal,
+                      }}
+                      renderAdditionalButtons={(params, resetAllInputs) => (
+                        <div className={classNames.additionalButtonsWrapper}>
+                          {findRequestProposalForCurChat &&
+                          requestProposalCancelAllowedStatuses.includes(
+                            findRequestProposalForCurChat?.proposal?.status,
+                          ) ? (
+                            <Button danger onClick={() => onTriggerOpenModal('showConfirmModal')}>
+                              {t(TranslationKey['Reject the deal'])}
+                            </Button>
+                          ) : (
+                            <div />
+                          )}
 
-                        {findRequestProposalByChatSelectedId?.proposal?.status ===
-                          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                        findRequestProposalByChatSelectedId?.proposal?.status === RequestProposalStatus.TO_CORRECT ? (
-                          // ||
-                          // findRequestProposalByChatSelectedId.proposal.status ===
-                          //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
-                          // eslint-disable-next-line react/jsx-indent
-                          <Button
-                            // disabled={
-                            //   !params.files.length &&
-                            //   !params.message &&
-                            //   `${request?.request?.typeTask}` !==
-                            //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
-                            // }
-                            onClick={() => {
-                              // onClickSendAsResult(params)
-                              // resetAllInputs()
+                          {findRequestProposalForCurChat?.proposal?.status ===
+                            RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+                          findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ? (
+                            // ||
+                            // findRequestProposalForCurChat.proposal.status ===
+                            //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
+                            // eslint-disable-next-line react/jsx-indent
+                            <Button
+                              // disabled={
+                              //   !params.files.length &&
+                              //   !params.message &&
+                              //   `${request?.request?.typeTask}` !==
+                              //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                              // }
+                              onClick={() => {
+                                // onClickSendAsResult(params)
+                                // resetAllInputs()
 
-                              onClickResultBtn()
-                            }}
-                          >
-                            {t(TranslationKey['Send as a result'])}
-                          </Button>
-                        ) : undefined}
-                        {/* {findRequestProposalByChatSelectedId?.proposal.status ===
+                                onClickResultBtn()
+                              }}
+                            >
+                              {t(TranslationKey['Send as a result'])}
+                            </Button>
+                          ) : undefined}
+                          {/* {findRequestProposalForCurChat?.proposal.status ===
                         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
                           <Button onClick={onClickReadyToVerify}>Отправить на проверку</Button>
                         ) : undefined} */}
-                      </div>
-                    )}
-                    updateData={this.viewModel.loadData}
-                    onSubmitMessage={onSubmitMessage}
-                    onClickChat={onClickChat}
-                    onTypingMessage={onTypingMessage}
-                  />
+                        </div>
+                      )}
+                      updateData={this.viewModel.loadData}
+                      onSubmitMessage={onSubmitMessage}
+                      onClickChat={onClickChat}
+                      onTypingMessage={onTypingMessage}
+                    />
+                  </ChatRequestAndRequestProposalContext.Provider>
                 </div>
               ) : null}
             </MainContent>

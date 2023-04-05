@@ -50,6 +50,7 @@ export const UploadFilesInputMini = observer(
     requestWidth,
     isNotShowActionsBtns,
     withComment,
+    oneLineMaxHeight,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -263,7 +264,12 @@ export const UploadFilesInputMini = observer(
                 </div>
 
                 {showImages && (
-                  <Grid container className={classNames.imageListWrapper} justifyContent="flex-start" spacing={2}>
+                  <Grid
+                    container
+                    className={cx(classNames.imageListWrapper, {[classNames.oneLineMaxHeight]: oneLineMaxHeight})}
+                    justifyContent="flex-start"
+                    spacing={2}
+                  >
                     {imageList.map((image, index) =>
                       typeof image === 'string' ? (
                         <Grid key={index} item>
@@ -279,6 +285,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
+                                inputProps={{maxLength: 64}}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
@@ -325,6 +332,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
+                                inputProps={{maxLength: 64}}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
