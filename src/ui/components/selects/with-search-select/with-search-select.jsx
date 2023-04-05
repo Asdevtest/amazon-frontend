@@ -225,7 +225,7 @@ const WithSearchSelectRaw = observer(
                             </>
                           ))}
 
-                          {asinSelect && <SelectProductAsinCellWithourTitle product={el} />}
+                          {asinSelect && <SelectProductAsinCellWithourTitle preventDefault product={el} />}
 
                           {favourites ? (
                             <StarOutlinedIcon
