@@ -203,6 +203,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
+
+    whiteSpace: 'nowrap',
   },
 
   whiteNormalPaymentText: {
