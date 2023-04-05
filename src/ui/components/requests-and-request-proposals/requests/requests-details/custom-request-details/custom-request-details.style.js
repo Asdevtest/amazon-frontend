@@ -49,7 +49,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
     color: theme.palette.text.general,
 
-    padding: '0 14px',
+    paddingLeft: 14,
   },
 
   imgBox: {
