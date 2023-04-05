@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import AddIcon from '@mui/icons-material/Add'
 import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -528,21 +529,49 @@ export const SelectFields = ({
           {!isPendingOrder && (
             <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
-                className={classNames.supplierPaymentButton}
-                variant="outlined"
+                className={cx(classNames.supplierPaymentButton, {
+                  [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+                })}
+                variant={
+                  !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
+                }
                 onClick={onClickSupplierPaymentButton}
               >
-                <Typography className={classNames.normalPaymentText}>
-                  {t(TranslationKey['Payment documents'])}
+                <Typography
+                  className={cx(classNames.normalPaymentText, {
+                    [classNames.whiteNormalPaymentText]:
+                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                  })}
+                >
+                  {t(
+                    TranslationKey[
+                      `${
+                        !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                          ? 'Add payment document'
+                          : 'Document added'
+                      }`
+                    ],
+                  )}
                 </Typography>
+
+                {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
+                  <AddIcon className={classNames.addIcon} />
+                )}
+
                 {!!orderFields?.paymentDetails.length && (
                   <Typography
-                    className={classNames.normalPaymentText}
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
                   >{`(${orderFields?.paymentDetails.length})`}</Typography>
                 )}
                 {!!paymentDetailsPhotosToLoad.length && (
                   <Typography
-                    className={classNames.greenPaymentText}
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
                   >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
                 )}
               </Button>

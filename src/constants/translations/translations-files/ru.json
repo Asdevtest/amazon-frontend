@@ -1818,5 +1818,7 @@
   "Supplier payment": "Оплата поставщику",
   "Add payment to supplier": "Добавить оплату поставщику",
   "Apply to all": "Применить ко всем",
-  "Payment documents": "Документы оплаты"
+  "Payment documents": "Документы оплаты",
+  "Add payment document": "Добавить документ оплаты",
+  "Document added": "Документ добавлен"
 }
