@@ -176,7 +176,7 @@ export class MyRequestsViewModel {
 
   onClickChangeCatigory(value) {
     runInAction(() => {
-      console.log('value', value)
+      // console.log('value', value)
       this.isRequestsAtWork = value
     })
   }

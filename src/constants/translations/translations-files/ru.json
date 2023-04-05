@@ -1906,5 +1906,7 @@
   "Apply to all": "Применить ко всем",
   "Source Files": "Исходные файлы",
   "No files": "Файлов нет",
-  "Payment documents": "Документы оплаты"
+  "Payment documents": "Документы оплаты",
+  "Sent for rework": "Отправлено на доработку",
+  "Refine": "Доработать"
 }

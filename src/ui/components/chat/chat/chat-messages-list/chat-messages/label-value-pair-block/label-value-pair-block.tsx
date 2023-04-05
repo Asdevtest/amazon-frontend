@@ -8,7 +8,7 @@ import {useClassNames} from './label-value-pair-block.style'
 
 interface Props {
   bgColor?: 'white' | 'green' | 'yellow'
-  label: string
+  label: string | undefined
   value: string | undefined | React.ReactNode
   labelClasses?: ClassNamesArg | undefined
 }
@@ -23,9 +23,11 @@ export const LabelValuePairBlock: FC<Props> = ({bgColor, label, value, labelClas
         {[classNames.rootYellow]: bgColor === 'yellow'},
       )}
     >
-      <div className={classNames.labelWrapper}>
-        <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>
-      </div>
+      {label && (
+        <div className={classNames.labelWrapper}>
+          <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>
+        </div>
+      )}
       <div className={classNames.valueWrapper}>
         {typeof value === 'string' ? <Typography className={classNames.valueText}>{value}</Typography> : value}
       </div>

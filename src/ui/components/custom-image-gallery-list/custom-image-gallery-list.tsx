@@ -40,7 +40,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
 
   const [filesForRender, setFilesForRender] = useState(files)
 
-  console.log('filesForRender', filesForRender)
+  // console.log('filesForRender', filesForRender)
 
   useEffect(() => {
     setFilesForRender(files)

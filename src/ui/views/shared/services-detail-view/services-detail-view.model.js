@@ -82,7 +82,7 @@ export class ServiceDetailsViewModel {
       () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()
-          console.log('this.currentData', this.currentData)
+          // console.log('this.currentData', this.currentData)
         }),
     )
 
