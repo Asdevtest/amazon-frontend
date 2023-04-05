@@ -78,7 +78,8 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
             primary={category.title}
           />
         )}
-        {highPriorityValue && (
+
+        {highPriorityValue && !shortNavbar && (
           <Box pr="30px">
             <HighPriorityValue value={highPriorityValue} />
           </Box>

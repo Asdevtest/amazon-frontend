@@ -62,6 +62,7 @@ export class AdminFeedbackViewRaw extends Component {
       onTriggerOpenModal,
 
       onClickWriteBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -104,6 +105,11 @@ export class AdminFeedbackViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 getRowHeight={() => 'auto'}
                 rows={getCurrentData()}

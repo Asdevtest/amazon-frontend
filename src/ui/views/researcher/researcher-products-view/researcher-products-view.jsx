@@ -57,6 +57,7 @@ class ResearcherProductsViewRaw extends Component {
       chekedCode,
       // onClickCheckBtn,
       // onClickAddBtn,
+      changeColumnsModel,
       onClickCheckAndAddProductBtn,
       onTriggerDrawerOpen,
       onChangeCurPage,
@@ -118,6 +119,11 @@ class ResearcherProductsViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
                   }}

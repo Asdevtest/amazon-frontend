@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Button, Checkbox, Grid, Link, Typography} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
@@ -35,6 +37,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
   isPendingOrder,
@@ -526,11 +529,51 @@ export const SelectFields = ({
           {!isPendingOrder && (
             <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
-                className={classNames.supplierPaymentButton}
-                variant="contained"
+                className={cx(classNames.supplierPaymentButton, {
+                  [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+                })}
+                variant={
+                  !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
+                }
                 onClick={onClickSupplierPaymentButton}
               >
-                {t(TranslationKey['Supplier payment'])}
+                <Typography
+                  className={cx(classNames.normalPaymentText, {
+                    [classNames.whiteNormalPaymentText]:
+                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                  })}
+                >
+                  {t(
+                    TranslationKey[
+                      `${
+                        !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                          ? 'Add payment document'
+                          : 'Document added'
+                      }`
+                    ],
+                  )}
+                </Typography>
+
+                {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
+                  <AddIcon className={classNames.addIcon} />
+                )}
+
+                {!!orderFields?.paymentDetails.length && (
+                  <Typography
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
+                  >{`(${orderFields?.paymentDetails.length})`}</Typography>
+                )}
+                {!!paymentDetailsPhotosToLoad.length && (
+                  <Typography
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
+                  >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
+                )}
               </Button>
             </div>
           )}

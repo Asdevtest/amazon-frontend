@@ -174,6 +174,15 @@ export class WarehouseMyTasksViewModel {
     this.getTasksMy()
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedTasks = model

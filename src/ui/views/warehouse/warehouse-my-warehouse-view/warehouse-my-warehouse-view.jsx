@@ -127,6 +127,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onClickResetFilters,
       isSomeFilterOn,
       setDestinationsFavouritesItem,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -194,6 +195,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                     toolbar: {
                       resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
                       // columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
                     },
                   }}
                   density={densityModel}

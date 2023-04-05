@@ -70,6 +70,7 @@ class AdminUsersViewRaw extends Component {
 
       onTriggerOpenModal,
       onChangeNameSearchValue,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -110,6 +111,11 @@ class AdminUsersViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])

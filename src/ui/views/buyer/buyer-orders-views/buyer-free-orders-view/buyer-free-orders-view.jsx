@@ -61,6 +61,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onClickContinueWorkButton,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -104,6 +105,11 @@ class BuyerFreeOrdersViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

@@ -113,7 +113,7 @@ export const NavbarCollapse = ({
         return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.confirmationRequired}</div>}</ListItemIcon>
 
       case '/buyer/closed-and-canceled-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
 
       case '/buyer/ready-for-payment-orders':
         return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
@@ -122,7 +122,7 @@ export const NavbarCollapse = ({
         return (
           <ListItemIcon>
             {
-              <div className={classNames.redBadge}>
+              <div className={classNames.badge}>
                 {userInfo.confirmationRequired +
                   userInfo.inbound +
                   userInfo.needTrackNumber +
