@@ -60,6 +60,7 @@ export const CustomTextEditor = observer(({conditions = '', changeConditions, re
 
       <MUIRichTextEditor
         ref={richTextEditorRef}
+        maxLength={6000}
         readOnly={readOnly}
         defaultValue={value}
         label={!readOnly && t(TranslationKey['Task description'])}
@@ -115,7 +116,6 @@ export const CustomTextEditor = observer(({conditions = '', changeConditions, re
           toolbar: classNames.toolbar,
         }}
         inlineToolbar={false}
-        maxLength={4000}
         onBlur={() => {
           if (changeConditions) {
             handleSave()
