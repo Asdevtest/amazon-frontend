@@ -91,7 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filesMainWrapper: {
-    padding: '14px 10px',
+    paddingBottom: '10px',
     borderRadius: '4px',
   },
 
