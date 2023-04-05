@@ -406,7 +406,8 @@ export const CreateOrEditRequestContent = ({
                 <div className={classNames.imageFileInputWrapper}>
                   <UploadFilesInputMini
                     withComment
-                    oneLineMaxHeight
+                    // oneLineMaxHeight
+                    maxHeight={200}
                     images={images}
                     setImages={setImages}
                     maxNumber={50}

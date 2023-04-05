@@ -122,7 +122,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageListWrapper: {
-    width: '95%',
+    // width: '95%',
     margin: '0 auto',
     // maxHeight: 250,
     maxHeight: 300,
