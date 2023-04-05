@@ -3,18 +3,18 @@ import {cx} from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@mui/material'
+import {Avatar, Divider, Hidden, IconButton, Paper, Typography} from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC, useEffect, ReactElement} from 'react'
+import React, {FC, ReactElement, useEffect, useRef, useState} from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
-import {useSnackbar} from 'notistack'
 import {useHistory, useLocation} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 import {snackNoticeKey} from '@constants/snack-notifications'
 import {HintsOff, HintsOn} from '@constants/svg-icons'
@@ -27,13 +27,13 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
-import {IdeaSnack} from '@components/snacks/idea-snack'
-import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
-import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
+import {IdeaNotification} from '@components/snacks/idea-notification'
+import {OrderDeadlineNotification} from '@components/snacks/order-deadline-notification'
+import {SimpleMessagesNotification} from '@components/snacks/simple-messages-notification'
 
 import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign, getShortenStringIfLongerThanCount} from '@utils/text'
+import {getShortenStringIfLongerThanCount, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {AppbarModel} from './appbar.model'
@@ -54,9 +54,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
-  const {role, snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
-
-  const {enqueueSnackbar} = useSnackbar()
+  const {
+    role,
+    snackNotifications,
+    clearSnackNoticeByKey: markNotificationAsReaded,
+    onClickMessage,
+    checkMessageIsRead,
+  } = componentModel.current
 
   useEffect(() => {
     if (
@@ -64,68 +68,28 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       !location.pathname.includes('/messages') &&
       !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE])
     ) {
-      // console.log(
-      //   'snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]',
-      //   snackNotifications[snackNoticeKey.SIMPLE_MESSAGE],
-      // )
-      enqueueSnackbar('', {
-        // persist: true,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: (key /* , message*/) => (
-          <SimpleMessagesSnack
-            id={key}
-            autoHideDuration={5000}
-            snackBarMessageLast={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
-            onClickMessage={onClickMessage}
-          />
-        ),
-      })
-
-      clearSnackNoticeByKey(snackNoticeKey.SIMPLE_MESSAGE)
+      toast(
+        <SimpleMessagesNotification
+          noticeItem={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
+          onClickMessage={onClickMessage}
+        />,
+        {autoClose: 5000},
+      )
+      markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
     if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-      enqueueSnackbar('', {
-        // persist: true,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: key => (
-          <OrderDeadlineSnack
-            id={key}
-            autoHideDuration={25000}
-            noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]}
-          />
-        ),
+      toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
+        autoClose: 25000,
       })
-
-      clearSnackNoticeByKey(snackNoticeKey.ORDER_DEADLINE)
+      markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
     }
 
     if (snackNotifications[snackNoticeKey.IDEAS]) {
-      enqueueSnackbar('', {
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: key => (
-          <IdeaSnack
-            id={key}
-            role={role}
-            autoHideDuration={25000}
-            noticeItem={snackNotifications[snackNoticeKey.IDEAS]}
-          />
-        ),
+      toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
+        autoClose: 25000,
       })
-
-      clearSnackNoticeByKey(snackNoticeKey.IDEAS)
+      markNotificationAsReaded(snackNoticeKey.IDEAS)
     }
   }, [snackNotifications])
 
