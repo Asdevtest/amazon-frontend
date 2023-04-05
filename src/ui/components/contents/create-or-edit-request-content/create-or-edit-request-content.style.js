@@ -128,24 +128,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'flex-end',
-    margin: 0,
+    marginLeft: -12,
 
     cursor: 'pointer',
-  },
-
-  checkboxSubWrapper: {
-    width: 35,
-  },
-
-  checkbox: {
-    top: -6,
-    left: -12,
-    position: 'absolute',
-  },
-
-  checkboxPosition: {
-    top: 3,
   },
 
   footerWrapper: {
@@ -155,8 +140,6 @@ export const useClassNames = makeStyles()(theme => ({
 
     alignItems: 'center',
   },
-
-  stepsWrapper: {},
 
   buttonsWrapper: {
     display: 'flex',
@@ -338,9 +321,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   checkboxProposalWrapper: {
     width: '375px !important',
-  },
-  checkboxProposalMarginTopWrapper: {
-    marginTop: 23,
   },
   checkboxesWrapper: {
     width: '100%',
@@ -683,6 +663,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: 378,
 
     gap: 20,
+
+    marginTop: 25,
   },
   userInfo: {
     display: 'flex',

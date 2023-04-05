@@ -135,7 +135,9 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
   useEffect(() => {
-    setFormFields(() => getSourceFormFields())
+    if (requestToEdit) {
+      setFormFields(() => getSourceFormFields())
+    }
   }, [choosenAnnouncements, announcementsData])
 
   const [deadlineError, setDeadlineError] = useState(false)
@@ -174,7 +176,11 @@ export const CreateOrEditRequestContent = ({
       } else if (['timeoutAt'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
         setDeadlineError(false)
-      } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
+      } else if (
+        ['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee', 'withoutConfirmation'].includes(
+          fieldName,
+        )
+      ) {
         newFormFields[section][fieldName] = !newFormFields[section][fieldName]
       } else if (['title'].includes(fieldName)) {
         newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
@@ -354,16 +360,6 @@ export const CreateOrEditRequestContent = ({
                 {`${formFields?.request?.typeTask}` ===
                   `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
                   <div className={classNames.bloggerFieldsWrapper}>
-                    {/* <Field
-                      className={classNames.nameField}
-                      containerClasses={classNames.bloggerFieldContainer}
-                      inputProps={{maxLength: 10}}
-                      label={t(TranslationKey.ASIN)}
-                      labelClasses={classNames.spanLabelSmall}
-                      value={formFields.request.asin}
-                      onChange={onChangeField('request')('asin')}
-                    /> */}
-
                     <Field
                       className={classNames.nameField}
                       containerClasses={classNames.bloggerFieldContainer}
@@ -500,16 +496,15 @@ export const CreateOrEditRequestContent = ({
                     />
                   </div>
 
-                  <div className={classNames.checkboxesWrapper}>
-                    {/* <div
+                  {/* <div className={classNames.checkboxesWrapper}> */}
+                  {/* <div
                       className={cx(classNames.checkboxWrapper, classNames.checkboxWrapperLeft)}
                       onClick={e => {
                         onChangeField('request')('maxAmountOfProposals')({...e, target: {value: ''}})
-                        setIsLimited(!isLimited)
                       }}
                     >
                       <div className={classNames.checkboxSubWrapper}>
-                        <Checkbox color="primary" checked={isLimited} classes={{root: classNames.checkbox}} />
+                        <Checkbox color="primary" classes={{root: classNames.checkbox}} />
                       </div>
                       <Text
                         className={classNames.checkboxText}
@@ -519,7 +514,7 @@ export const CreateOrEditRequestContent = ({
                       </Text>
                     </div> */}
 
-                    {`${formFields?.request?.typeTask}` !==
+                  {/* {`${formFields?.request?.typeTask}` !==
                       `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
                       `${formFields?.request?.typeTask}` !==
                         `${freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]}` && (
@@ -543,8 +538,8 @@ export const CreateOrEditRequestContent = ({
                             {t(TranslationKey['Need a supervisor check'])}
                           </Text>
                         </div>
-                      )}
-                  </div>
+                      )} */}
+                  {/* </div> */}
 
                   <div className={classNames.priceAndAmountWrapper}>
                     <Field
@@ -574,67 +569,32 @@ export const CreateOrEditRequestContent = ({
                   </div>
 
                   <div className={classNames.checkboxAndButtonWrapper}>
-                    <div className={classNames.performerAndButtonWrapper}>
-                      <div className={classNames.performerAndButtonSubWrapper}>
-                        {formFields.request.announcementId ? (
-                          <div className={classNames.performerWrapper}>
-                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                            <div className={classNames.userInfo}>
-                              <Avatar
-                                src={getUserAvatarSrc(formFields?.request?.announcementId?.createdBy?._id)}
-                                className={classNames.cardImg}
-                              />
-
-                              <div className={classNames.nameWrapper}>
-                                <UserLink
-                                  blackText
-                                  name={formFields?.request?.announcementId?.createdBy?.name}
-                                  userId={formFields?.request?.announcementId?.createdBy?._id}
-                                />
-                                <Rating disabled value={5} size="small" classes={classNames.rating} />
-                              </div>
-                            </div>
-                          </div>
-                        ) : null}
-                        <Button
-                          disabled={!formFields?.request?.typeTask}
-                          variant={'contained'}
-                          className={classNames.changePerformerBtn}
-                          onClick={async () => {
-                            await onClickChoosePerformer(formFields.request.typeTask)
-                            setOpenModal(true)
-                          }}
+                    <div className={cx(classNames.checkboxProposalWrapper)}>
+                      <div
+                        className={classNames.checkboxWrapper}
+                        onClick={onChangeField('request')('withoutConfirmation')}
+                      >
+                        <Checkbox color="primary" checked={formFields.request.withoutConfirmation} />
+                        <Text
+                          tooltipPosition={'corner'}
+                          tooltipInfoContent={t(
+                            TranslationKey['Allow the performer to take the request for work without confirmation'],
+                          )}
                         >
-                          {formFields.request.announcementId
-                            ? t(TranslationKey['Change performer'])
-                            : t(TranslationKey['Select a Performer'])}
-                        </Button>
+                          {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
+                        </Text>
                       </div>
-                      {formFields.request.announcementId.title && (
-                        <div className={classNames.performerDescriptionWrapper}>
-                          <Typography className={classNames.performerDescriptionText}>
-                            {formFields.request.announcementId.title}
-                          </Typography>
-                        </div>
-                      )}
                     </div>
 
-                    <div
-                      className={cx(classNames.checkboxProposalWrapper, {
-                        [classNames.checkboxProposalMarginTopWrapper]: formFields.request.announcementId,
-                      })}
-                    >
+                    <div className={cx(classNames.checkboxProposalWrapper)}>
                       <div
                         className={classNames.checkboxWrapper}
                         onClick={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
                       >
-                        <div className={classNames.checkboxSubWrapper}>
-                          <Checkbox
-                            color="primary"
-                            classes={{root: cx(classNames.checkbox, classNames.checkboxPosition)}}
-                            checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                          />
-                        </div>
+                        <Checkbox
+                          color="primary"
+                          checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                        />
                         <Text
                           tooltipPosition={'corner'}
                           tooltipInfoContent={t(
@@ -645,6 +605,51 @@ export const CreateOrEditRequestContent = ({
                         </Text>
                       </div>
                     </div>
+                  </div>
+
+                  <div className={classNames.performerAndButtonWrapper}>
+                    <div className={classNames.performerAndButtonSubWrapper}>
+                      {formFields.request.announcementId ? (
+                        <div className={classNames.performerWrapper}>
+                          <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                          <div className={classNames.userInfo}>
+                            <Avatar
+                              src={getUserAvatarSrc(formFields?.request?.announcementId?.createdBy?._id)}
+                              className={classNames.cardImg}
+                            />
+
+                            <div className={classNames.nameWrapper}>
+                              <UserLink
+                                blackText
+                                name={formFields?.request?.announcementId?.createdBy?.name}
+                                userId={formFields?.request?.announcementId?.createdBy?._id}
+                              />
+                              <Rating disabled value={5} size="small" classes={classNames.rating} />
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                      <Button
+                        disabled={!formFields?.request?.typeTask}
+                        variant={'contained'}
+                        className={classNames.changePerformerBtn}
+                        onClick={async () => {
+                          await onClickChoosePerformer(formFields.request.typeTask)
+                          setOpenModal(true)
+                        }}
+                      >
+                        {formFields.request.announcementId
+                          ? t(TranslationKey['Change performer'])
+                          : t(TranslationKey['Select a Performer'])}
+                      </Button>
+                    </div>
+                    {formFields.request.announcementId.title && (
+                      <div className={classNames.performerDescriptionWrapper}>
+                        <Typography className={classNames.performerDescriptionText}>
+                          {formFields.request.announcementId.title}
+                        </Typography>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* {requestToEdit ? (
