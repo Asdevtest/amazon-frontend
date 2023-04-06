@@ -81,7 +81,10 @@ export class MyProposalsViewModel {
         el =>
           el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
           el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.proposals?.some(item => item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          el?.proposals?.some(item =>
+            item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
         // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {

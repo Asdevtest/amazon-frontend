@@ -234,7 +234,8 @@ export class MyRequestsViewModel {
         .filter(
           el =>
             el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+            el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
         )
         .filter(el =>
           this.columnMenuSettings.status.currentFilterData.length
