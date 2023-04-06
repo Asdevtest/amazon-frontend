@@ -6,6 +6,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
   },
 
+  taskTypeWrapper: {
+    display: 'flex',
+  },
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
