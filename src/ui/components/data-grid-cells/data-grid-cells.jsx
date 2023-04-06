@@ -254,7 +254,7 @@ export const ProductAsinCell = React.memo(
 
 export const SelectProductAsinCellWithourTitle = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({classes: classNames, product, preventDefault}) => (
       <div className={classNames.asinCellMainWrapper}>
         <img alt="" className={cx(classNames.imgMini)} src={getAmazonImageUrl(product?.images?.slice()[0])} />
 
@@ -269,6 +269,11 @@ export const SelectProductAsinCellWithourTitle = React.memo(
                   rel="noreferrer"
                   href={`https://www.amazon.com/dp/${product.asin}`}
                   className={classNames.normalizeLink}
+                  onClick={event => {
+                    if (preventDefault) {
+                      event.preventDefault()
+                    }
+                  }}
                 >
                   <span className={classNames.attributeLink}>{shortAsin(product.asin)}</span>
                 </a>

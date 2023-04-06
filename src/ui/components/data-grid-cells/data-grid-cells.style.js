@@ -1644,10 +1644,10 @@ export const styles = theme => ({
     fontSize: 12,
     lineHeight: '16px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.second,
   },
   attributeLink: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
   },
   attributeMissing: {
     color: theme.palette.text.second,
