@@ -315,4 +315,8 @@ export const useClassNames = makeStyles()(theme => ({
   blackText: {
     color: '#001029',
   },
+
+  editorMaxHeight: {
+    height: 300,
+  },
 }))
