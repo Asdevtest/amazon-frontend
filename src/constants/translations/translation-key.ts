@@ -1909,7 +1909,8 @@ export enum TranslationKey {
   'Sent for rework' = 'Sent for rework',
   'Refine' = 'Refine',
   "Performer's comment" = "Performer's comment",
-
+  'Add payment document' = 'Add payment document',
+  'Document added' = 'Document added',
   // '' = '',
   // '' = '',
   // '' = '',

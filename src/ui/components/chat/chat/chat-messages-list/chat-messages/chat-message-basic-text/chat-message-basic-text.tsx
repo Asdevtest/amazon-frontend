@@ -140,6 +140,8 @@ export const ChatMessageBasicText: FC<Props> = observer(
                 small
                 files={message.files}
                 width={window.innerWidth < 768 ? '150px' : '250px'}
+                withoutPhotos={undefined}
+                whithoutFiles={undefined}
               />
             </div>
           ) : undefined}

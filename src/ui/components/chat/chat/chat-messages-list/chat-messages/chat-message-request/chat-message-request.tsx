@@ -55,7 +55,14 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
             />
           </Linkify>
         </div>
-        <PhotoAndFilesCarousel notToShowEmpty small files={message?.data.details?.linksToMediaFiles} width="352px" />
+        <PhotoAndFilesCarousel
+          notToShowEmpty
+          small
+          files={message?.data.details?.linksToMediaFiles}
+          width="352px"
+          withoutPhotos={undefined}
+          whithoutFiles={undefined}
+        />
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.footerRow}>

@@ -268,7 +268,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                         ? item.image?.data_url
                         : '/assets/icons/file.png'
                     }
-                    alt={isRework ? '' : item.imageitem.image?.file.name}
+                    alt={isRework ? '' : item?.imageitem?.image?.file?.name}
                     variant="square"
                     onClick={() => {
                       setCurImageId(item._id)

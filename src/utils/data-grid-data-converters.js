@@ -758,7 +758,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     client: item?.client?.name,
 
     humanFriendlyId: item?.humanFriendlyId,
-    qty: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
+    amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
     isDraft: item?.isDraft,
     createdAt: item?.createdAt,

@@ -136,7 +136,7 @@ class MyProposalsViewRaw extends Component {
                     inputClasses={classNames.searchInput}
                     placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
                       TranslationKey.Title,
-                    )}, User`}
+                    )}, User, ${t(TranslationKey.ID)}`}
                     value={nameSearchValue}
                     onChange={onChangeNameSearchValue}
                   />

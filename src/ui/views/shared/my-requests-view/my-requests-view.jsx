@@ -119,7 +119,7 @@ class MyRequestsViewRaw extends Component {
                   inputClasses={classNames.searchInput}
                   placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(
                     TranslationKey.ASIN,
-                  )}`}
+                  )}, ${t(TranslationKey.ID)}`}
                   value={nameSearchValue}
                   onChange={onChangeNameSearchValue}
                 />
