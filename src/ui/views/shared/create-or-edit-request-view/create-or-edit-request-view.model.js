@@ -151,7 +151,7 @@ export class CreateOrEditRequestViewModel {
             ...data.request,
             announcementId: data.request.announcementId._id,
             linksToMediaFiles: [
-              ...data.details.linksToMediaFiles,
+              // ...data.details.linksToMediaFiles,
               ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
             ],
           },

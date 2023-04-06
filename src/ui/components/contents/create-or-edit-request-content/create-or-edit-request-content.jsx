@@ -72,7 +72,18 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  const [images, setImages] = useState([])
+  console.log('requestToEdit', requestToEdit)
+
+  const [images, setImages] = useState(
+    requestToEdit
+      ? requestToEdit.request.media.map(el => ({
+          file: el.fileLink,
+          comment: el.commentByClient,
+          commentByPerformer: el.commentByPerformer,
+          _id: `${Date.now()}`,
+        }))
+      : [],
+  )
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -412,13 +423,13 @@ export const CreateOrEditRequestContent = ({
                     setImages={setImages}
                     maxNumber={50}
                   />
-                  {formFields.details.linksToMediaFiles?.length ? (
+                  {/* {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel
                       small
                       files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
                       width="400px"
                     />
-                  ) : null}
+                  ) : null} */}
                 </div>
 
                 <div className={classNames.descriptionFieldWrapper}>
