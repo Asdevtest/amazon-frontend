@@ -186,6 +186,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  clientComment: {
+    fontSize: 18,
+    // color: theme.palette.text.red,
+    color: '#DF0C0C',
+  },
+
   imageObjInput: {
     // width: '100%',
     width: 133,
