@@ -220,10 +220,13 @@ export const PhotoAndFilesCarousel = ({
   notToShowEmpty = false,
   withoutPhotos,
   whithoutFiles,
+  imagesTitles = [],
 }) => {
   const {classes: classNames} = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  console.log('imagesTitles', imagesTitles)
 
   const notEmptyFiles = files?.length
     ? files.filter(el => (el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el)))
@@ -240,30 +243,37 @@ export const PhotoAndFilesCarousel = ({
     >
       {!withoutPhotos && (
         <>
-          {' '}
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
             <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
               {notEmptyPhotos?.length ? (
                 <CustomCarousel>
                   {notEmptyPhotos.map((photo, index) => (
-                    <Avatar
-                      key={index}
-                      variant="square"
-                      alt={'!'}
-                      src={photo?.data_url || photo}
-                      className={classNames.image}
-                      classes={{img: small ? classNames.smallImage : classNames.image}}
-                      onClick={() => {
-                        setShowPhotosModal(!showPhotosModal)
+                    <div key={index} className={classNames.imageSubWrapper}>
+                      <>
+                        <Avatar
+                          key={index}
+                          variant="square"
+                          alt={'!'}
+                          src={photo?.data_url || photo}
+                          className={classNames.image}
+                          classes={{img: small ? classNames.smallImage : classNames.image}}
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
 
-                        setBigImagesOptions({
-                          images: files
-                            .filter(el => checkIsImageLink(el?.file?.name || el))
-                            .map(img => img?.data_url || img),
-                          imgIndex: index,
-                        })
-                      }}
-                    />
+                            setBigImagesOptions({
+                              images: files
+                                .filter(el => checkIsImageLink(el?.file?.name || el))
+                                .map(img => img?.data_url || img),
+                              imgIndex: index,
+                            })
+                          }}
+                        />
+
+                        {imagesTitles[index] && (
+                          <Typography className={classNames.imageTitle}>{imagesTitles[index]}</Typography>
+                        )}
+                      </>
+                    </div>
                   ))}
                 </CustomCarousel>
               ) : (
