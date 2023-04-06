@@ -131,7 +131,9 @@ export const timeToDeadlineInDaysAndHours = ({date, now}) => {
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')
 
 export const getTableByColumn = (column, hint) => {
-  if (['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper'].includes(column)) {
+  if (
+    ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId'].includes(column)
+  ) {
     return 'boxes'
   } else if (['id', 'item'].includes(column)) {
     return 'orders'

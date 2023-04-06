@@ -2,20 +2,9 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    borderRadius: 20,
-
-    backgroundColor: theme.palette.background.general,
-    padding: '15px 20px',
-    zIndex: 999,
-
-    // marginBottom: 20,
-
-    display: 'flex',
-    // alignItems: 'center',
-    // border: `1px solid ${theme.palette.primary.main}`,
-    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.4)',
-
     cursor: 'pointer',
+    display: 'flex',
+    flexWrap: 'wrap',
     transition: '.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',
@@ -39,17 +28,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 10,
   },
 
-  closeIcon: {
-    color: '#C4C4C4',
-    cursor: 'pointer',
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
-  },
-
   messageDate: {
     fontSize: 12,
+    marginRight: '-20px',
+    marginTop: '-18px',
     color: theme.palette.text.second,
   },
 
@@ -59,13 +41,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: 20,
   },
 
-  rightSiteWrapper: {
-    marginLeft: 20,
-    height: '100%',
+  footer: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    width: '100%',
   },
 
   centerWrapper: {

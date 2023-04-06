@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -24,6 +25,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+    columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
   {
@@ -34,6 +36,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
     width: 140,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
 
   {
@@ -55,10 +59,12 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       ),
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {
-    field: 'qty',
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
@@ -72,10 +78,11 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     width: 110,
     type: 'number',
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'warehouse',
+    field: 'destination',
     headerName: t(TranslationKey['Destination and tariff']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
@@ -88,6 +95,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     width: 170,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
   },
 
   {
@@ -108,6 +117,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
     type: 'number',
     width: 110,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -168,6 +179,6 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     ),
     width: 240,
 
-    // columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING,
   },
 ]
