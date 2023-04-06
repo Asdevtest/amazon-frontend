@@ -9,6 +9,7 @@ import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
+import {Button} from '@components/buttons/button'
 import {ImagesTile} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import {UserLink} from '@components/user-link'
 
@@ -118,7 +119,10 @@ export const ChatMessageBasicText: FC<Props> = observer(
               {/*  files={message.files}*/}
               {/*  width={window.innerWidth < 768 ? '150px' : '250px'}*/}
               {/* />*/}
-              <ImagesTile images={message.files.filter(url => imagesRegex.test(url))} />
+              <ImagesTile
+                images={message.files.filter(url => imagesRegex.test(url))}
+                controls={(imageIndex, image) => <Button>Download</Button>}
+              />
             </div>
           ) : undefined}
 

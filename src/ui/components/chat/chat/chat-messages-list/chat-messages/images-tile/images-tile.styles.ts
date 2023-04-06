@@ -50,7 +50,8 @@ export const useClassNames = makeStyles()(theme => ({
       gridColumn: '1/3',
       gridRow: '1/3',
     },
-    '& div:nth-child(2)': {
+
+    '& div:nth-child(6)': {
       gridColumn: '3',
       gridRow: '3',
     },

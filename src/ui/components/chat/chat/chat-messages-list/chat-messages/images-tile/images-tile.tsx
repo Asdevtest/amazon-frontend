@@ -8,10 +8,11 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 interface ImagesTileProps {
   images: string[]
+  controls?: (imageIndex?: number, image?: string) => React.ReactNode
 }
 
 export const ImagesTile: FC<ImagesTileProps> = props => {
-  const {images} = props
+  const {images, controls} = props
   const [selectedImage, setSelectedImage] = useState(0)
   const [isShowImagePreview, setIsShowImagePreview] = useState(false)
 
@@ -29,7 +30,7 @@ export const ImagesTile: FC<ImagesTileProps> = props => {
       >
         {images.slice(0, 6).map((el, index) => (
           <Box key={index} onClick={() => handlePreview(index)}>
-            <img className={styles.image} src={el} srcSet={el} alt={el} loading="lazy" />
+            <img className={styles.image} src={el} srcSet={el} alt={index.toString()} loading="lazy" />
           </Box>
         ))}
 
@@ -41,10 +42,13 @@ export const ImagesTile: FC<ImagesTileProps> = props => {
       </Box>
 
       <BigImagesModal
+        showPreviews
         openModal={isShowImagePreview}
         setOpenModal={() => setIsShowImagePreview(prevState => !prevState)}
         images={images}
         imgIndex={selectedImage}
+        setImageIndex={setSelectedImage}
+        controls={controls}
       />
     </>
   )
