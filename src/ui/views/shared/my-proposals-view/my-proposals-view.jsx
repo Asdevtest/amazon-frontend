@@ -87,8 +87,6 @@ class MyProposalsViewRaw extends Component {
           ]
         : Object.keys(freelanceRequestTypeByCode)
 
-    console.log('whiteList', whiteList)
-
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:
