@@ -10,9 +10,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreateNewDesignerProposalContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
 import {minsToTime, toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -38,7 +40,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  // const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.userId
 
   // console.log('message', message)
 
@@ -61,15 +63,24 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
             )}
           </div>
 
-          <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography>
-          </Linkify>
+          <div className={classNames.paragraphWrapper}>
+            <Linkify>
+              {/* <Typography className={classNames.descriptionText}>{message.data.request?.details?.conditions}</Typography> */}
+
+              <CustomTextEditor
+                readOnly
+                conditions={message.data.request?.details?.conditions}
+                changeConditions={undefined}
+                editorMaxHeight={undefined}
+              />
+            </Linkify>
+          </div>
 
           <div className={classNames.infosWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey.Deadline)}
-                value={formatNormDateTime(message.data.request.timeoutAt)}
+                value={formatNormDateTime(message.data.request?.timeoutAt)}
                 bgColor="green"
               />
             </div>
@@ -79,45 +90,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
                 label={t(TranslationKey['Request price'])}
                 value={
                   <Typography className={classNames.accentText}>
-                    {toFixedWithDollarSign(message.data.request.price, 2)}
-                  </Typography>
-                }
-                bgColor="green"
-              />
-            </div>
-
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Product price'])}
-                value={
-                  <div className={classNames.priceAmazonWrapper}>
-                    <Typography className={classNames.cashBackPrice}>
-                      {`$ ${toFixed(
-                        message.data.request.priceAmazon -
-                          (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
-                        2,
-                      )}`}
-                    </Typography>
-
-                    <Typography className={classNames.redText}>{`$ ${toFixed(
-                      message.data.request.priceAmazon,
-                      2,
-                    )}`}</Typography>
-                  </div>
-                }
-                bgColor="green"
-              />
-            </div>
-
-            <div className={classNames.labelValueBlockWrapper}>
-              <LabelValuePairBlock
-                label={'CashBack'}
-                value={
-                  <Typography className={classNames.accentText}>
-                    {`$ ${toFixed(
-                      (message.data.request.priceAmazon * message.data.request.cashBackInPercent) / 100,
-                      2,
-                    )}`}
+                    {toFixedWithDollarSign(message.data.request?.price, 2)}
                   </Typography>
                 }
                 bgColor="green"
@@ -130,7 +103,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
           <PhotoAndFilesCarousel
             notToShowEmpty
             small
-            files={message.data.request.details.linksToMediaFiles}
+            files={message.data.request?.details?.linksToMediaFiles}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}
@@ -141,33 +114,21 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
         <div className={classNames.mainSubWrapper}>
           <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
 
-          <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.proposal.comment}</Typography>
-          </Linkify>
-
+          <div className={classNames.paragraphWrapper}>
+            <Linkify>
+              <Typography className={classNames.descriptionText}>{message.data.proposal?.comment}</Typography>
+            </Linkify>
+          </div>
           <div className={classNames.infosProposalWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
-                label={t(TranslationKey.Time)}
+                label={t(TranslationKey['Time to complete'])}
                 value={
                   <Typography className={classNames.accentText}>
-                    {minsToTime(message.data.proposal.execution_time)}
+                    {minsToTime(message.data.proposal?.execution_time)}
                   </Typography>
                 }
                 bgColor="green"
-              />
-            </div>
-
-            <div className={cx(classNames.labelValueBlockWrapper /* , classNames.labelValueBlockWrapperNotFirst */)}>
-              <LabelValuePairBlock
-                label={t(TranslationKey['Request price'])}
-                labelClasses={classNames.blackText}
-                value={
-                  <Typography className={cx(classNames.accentText, classNames.blackText)}>
-                    {toFixedWithDollarSign(message.data.proposal.price, 2)}
-                  </Typography>
-                }
-                bgColor="yellow"
               />
             </div>
           </div>
@@ -186,11 +147,12 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
       </div>
 
       <div className={classNames.footerWrapper}>
-        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
               <Button

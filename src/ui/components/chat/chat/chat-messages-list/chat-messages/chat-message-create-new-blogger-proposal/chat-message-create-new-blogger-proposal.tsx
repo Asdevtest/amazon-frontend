@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreateNewBloggerProposalContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -39,7 +40,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  // const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.userId
 
   // console.log('message', message)
 
@@ -62,16 +63,18 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
             )}
           </div>
 
-          <Linkify>
-            {/* <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography> */}
+          <div className={classNames.paragraphWrapper}>
+            <Linkify>
+              {/* <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography> */}
 
-            <CustomTextEditor
-              readOnly
-              conditions={message.data.request.details.conditions}
-              changeConditions={undefined}
-              editorMaxHeight={undefined /* classNames.editorMaxHeight */}
-            />
-          </Linkify>
+              <CustomTextEditor
+                readOnly
+                conditions={message.data.request.details.conditions}
+                changeConditions={undefined}
+                editorMaxHeight={undefined /* classNames.editorMaxHeight */}
+              />
+            </Linkify>
+          </div>
 
           <div className={classNames.infosWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
@@ -149,9 +152,11 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
         <div className={classNames.mainSubWrapper}>
           <Typography className={classNames.headerText}>{t(TranslationKey.Proposal)}</Typography>
 
-          <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.proposal.comment}</Typography>
-          </Linkify>
+          <div className={classNames.paragraphWrapper}>
+            <Linkify>
+              <Typography className={classNames.descriptionText}>{message.data.proposal.comment}</Typography>
+            </Linkify>
+          </div>
 
           <div className={classNames.infosProposalWrapper}>
             <div className={classNames.labelValueBlockWrapper}>
@@ -194,11 +199,12 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
       </div>
 
       <div className={classNames.footerWrapper}>
-        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-          RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
               <Button

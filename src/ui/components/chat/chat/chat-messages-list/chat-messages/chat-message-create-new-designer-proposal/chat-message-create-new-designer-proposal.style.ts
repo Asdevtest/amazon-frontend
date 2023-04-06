@@ -315,4 +315,9 @@ export const useClassNames = makeStyles()(theme => ({
   blackText: {
     color: '#001029',
   },
+
+  paragraphWrapper: {
+    minHeight: 180,
+    marginTop: 20,
+  },
 }))
