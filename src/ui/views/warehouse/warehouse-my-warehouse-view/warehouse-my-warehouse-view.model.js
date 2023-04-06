@@ -4,12 +4,12 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {operationTypes} from '@constants/operation-types'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {GeneralModel} from '@models/general-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -17,13 +17,9 @@ import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
-import {
-  clientWarehouseDataConverter,
-  warehouseBatchesDataConverter,
-  warehouseBoxesDataConverter,
-} from '@utils/data-grid-data-converters'
+import {warehouseBatchesDataConverter, warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
+import {getTableByColumn, objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -47,6 +43,26 @@ const updateBoxWhiteList = [
   'upsTrackNumber',
   'fbaNumber',
   'prepId',
+]
+
+const filtersFields = [
+  'humanFriendlyId',
+  'orderIdsItems',
+  'orders',
+  'amount',
+  'warehouse',
+  'client',
+  'batchId',
+  'dimansions',
+  'action',
+  'prepId',
+  'id',
+  'item',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'destination',
+  'logicsTariff',
 ]
 
 export class WarehouseMyWarehouseViewModel {
@@ -1234,30 +1250,31 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const filter = objectToUrlQs({
-        or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
-          {id: {$eq: this.nameSearchValue}},
-          {humanFriendlyId: {$eq: this.nameSearchValue}},
-          {prepId: {$contains: this.nameSearchValue}},
-        ].filter(
-          el =>
-            ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-              !el.id &&
-              !el.humanFriendlyId) ||
-            !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-        ),
-      })
+      // const filter = objectToUrlQs({
+      //   or: [
+      //     {asin: {$contains: this.nameSearchValue}},
+      //     {amazonTitle: {$contains: this.nameSearchValue}},
+      //     {skusByClient: {$contains: this.nameSearchValue}},
+      //     {item: {$eq: this.nameSearchValue}},
+      //     {id: {$eq: this.nameSearchValue}},
+      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
+      //     {prepId: {$contains: this.nameSearchValue}},
+      //   ].filter(
+      //     el =>
+      //       ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+      //         !el.id &&
+      //         !el.humanFriendlyId) ||
+      //       !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      //   ),
+      // })
 
       // console.log('filter', filter)
 
+      console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
-        filters: this.nameSearchValue ? filter : null,
+        filters: this.getFilter(),
 
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
         limit: this.rowsPerPage,
         offset: this.curPage * this.rowsPerPage,
@@ -1289,5 +1306,190 @@ export class WarehouseMyWarehouseViewModel {
       })
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getBoxesMy()
+    this.getDataGridState()
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+    this.getDataGridState()
+  }
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getBoxesMy()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      // this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      // console.log('shopFilter', shopFilter)
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'boxes'),
+        column,
+
+        `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: {...this.columnMenuSettings[column], filterData: data},
+        }
+      }
+      // this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      // this.setFilterRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  getFilter(exclusion) {
+    const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
+    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
+    const humanFriendlyIdFilter =
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+    const destinationFilter =
+      exclusion !== 'destination' && this.columnMenuSettings.destination.currentFilterData.map(el => el._id).join(',')
+    const logicsTariffFilter =
+      exclusion !== 'logicsTariff' && this.columnMenuSettings.logicsTariff.currentFilterData.map(el => el._id).join(',')
+    const batchIdFilter =
+      exclusion !== 'batchId' && this.columnMenuSettings.batchId.currentFilterData.map(el => el._id).join(',')
+
+    // const orderIdsItemsFilter = exclusion !== 'orderIdsItemsFilter' && this.columnMenuSettings.orderIdsItems.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        {asin: {$contains: this.nameSearchValue}},
+        {amazonTitle: {$contains: this.nameSearchValue}},
+        {skusByClient: {$contains: this.nameSearchValue}},
+        {item: {$eq: this.nameSearchValue}},
+        {id: {$eq: this.nameSearchValue}},
+        {humanFriendlyId: {$eq: this.nameSearchValue}},
+        {prepId: {$contains: this.nameSearchValue}},
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(idFilter && {
+        id: {$eq: idFilter},
+      }),
+
+      ...(itemFilter && {
+        item: {$eq: itemFilter},
+      }),
+
+      ...(amountFilter && {
+        amount: {$eq: amountFilter},
+      }),
+
+      ...(humanFriendlyIdFilter && {
+        humanFriendlyId: {$eq: humanFriendlyIdFilter},
+      }),
+
+      ...(prepIdFilter && {
+        prepId: {$eq: prepIdFilter},
+      }),
+
+      ...(asinFilter && {
+        asin: {$eq: asinFilter},
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: {$eq: skusByClientFilter},
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: {$eq: amazonTitleFilter},
+      }),
+
+      ...(destinationFilter && {
+        destinationId: {$eq: destinationFilter},
+      }),
+      ...(logicsTariffFilter && {
+        logicsTariffId: {$eq: logicsTariffFilter},
+      }),
+      ...(batchIdFilter && {
+        batchId: {$eq: batchIdFilter},
+      }),
+
+      // ...(orderIdsItemsFilter && {
+      //   prepId: {$eq: orderIdsItemsFilter},
+      // }),
+    })
+
+    return filter
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 }
