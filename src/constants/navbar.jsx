@@ -602,6 +602,7 @@ export const navbarConfig = () => ({
             item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
         ),
     },
