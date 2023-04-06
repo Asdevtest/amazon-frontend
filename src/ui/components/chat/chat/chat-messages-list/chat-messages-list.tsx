@@ -17,6 +17,7 @@ import {
   checkIsChatMessageAddUsersToGroupChatContract,
   checkIsChatMessageBloggerProposalResultEditedContract,
   checkIsChatMessageCreateNewBloggerProposalContract,
+  checkIsChatMessageCreateNewDesignerProposalContract,
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
@@ -30,6 +31,7 @@ import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-u
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
 import {ChatMessageBloggerProposalEditedResult} from './chat-messages/chat-message-blogger-proposal-edited-result'
 import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
+import {ChatMessageCreateNewDesignerProposal} from './chat-messages/chat-message-create-new-designer-proposal'
 import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {
@@ -143,6 +145,16 @@ export const ChatMessagesList: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
         return (
           <ChatMessageCreateNewBloggerProposal
+            message={messageItem}
+            handlers={{
+              onClickProposalAccept: handlers.onClickProposalAccept,
+              onClickProposalRegect: handlers.onClickProposalRegect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageCreateNewDesignerProposalContract(messageItem)) {
+        return (
+          <ChatMessageCreateNewDesignerProposal
             message={messageItem}
             handlers={{
               onClickProposalAccept: handlers.onClickProposalAccept,
