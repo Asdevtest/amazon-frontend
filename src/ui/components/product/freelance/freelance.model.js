@@ -175,7 +175,10 @@ export class FreelanceModel {
     try {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY, {
         productId: this.productId,
-        typeTask: this.selectedTaskType,
+        typeTask:
+          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+            : this.selectedTaskType,
       })
 
       runInAction(() => {
