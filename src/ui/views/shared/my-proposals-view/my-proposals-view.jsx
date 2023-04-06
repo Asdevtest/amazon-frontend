@@ -63,6 +63,7 @@ class MyProposalsViewRaw extends Component {
       nameSearchValue,
       userInfo,
       userRole,
+      requestsBase,
 
       onChangeNameSearchValue,
       onTriggerDrawerOpen,
@@ -80,9 +81,13 @@ class MyProposalsViewRaw extends Component {
       !!userInfo && checkIsFreelancer(userRole)
         ? [
             String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+            ...(userInfo?.allowedSpec
+              ?.filter(spec => requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
+              ?.map(item => String(item)) || []),
           ]
         : Object.keys(freelanceRequestTypeByCode)
+
+    console.log('whiteList', whiteList)
 
     const getSortedData = mode => {
       switch (mode) {
