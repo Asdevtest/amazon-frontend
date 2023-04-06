@@ -72,6 +72,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
                 conditions={message.data.request?.details?.conditions}
                 changeConditions={undefined}
                 editorMaxHeight={undefined}
+                verticalResize={undefined}
               />
             </Linkify>
           </div>

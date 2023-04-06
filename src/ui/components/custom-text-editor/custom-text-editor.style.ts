@@ -27,6 +27,9 @@ export const useClassNames = makeStyles()(theme => ({
     // maxHeight: 184,
     overflowY: 'auto',
   },
+  verticalResize: {
+    resize: 'vertical',
+  },
   editorBorder: {
     border: '1px solid #C4C4C4',
     borderRadius: 4,

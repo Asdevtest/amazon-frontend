@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubWrapper: {
     padding: 30,
-    minHeight: 709,
+    minHeight: 760,
 
     display: 'flex',
     flexDirection: 'column',
@@ -135,6 +135,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
+    position: 'fixed',
+    bottom: 100,
     display: 'flex',
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
@@ -770,8 +772,5 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  editorMaxHeight: {
-    maxHeight: '138px !important',
   },
 }))

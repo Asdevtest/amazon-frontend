@@ -16,7 +16,7 @@ import {
   Rating,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {toJS} from 'mobx'
 
@@ -436,8 +436,8 @@ export const CreateOrEditRequestContent = ({
                   /> */}
 
                   <CustomTextEditor
+                    verticalResize
                     conditions={formFields.details.conditions}
-                    editorMaxHeight={classNames.editorMaxHeight}
                     changeConditions={onChangeField('details')('conditions')}
                   />
 
