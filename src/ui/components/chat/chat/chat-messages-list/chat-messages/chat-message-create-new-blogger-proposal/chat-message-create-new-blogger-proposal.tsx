@@ -13,6 +13,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
 import {minsToTime, toFixed, toFixedWithDollarSign} from '@utils/text'
@@ -62,7 +63,14 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
           </div>
 
           <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography>
+            {/* <Typography className={classNames.descriptionText}>{message.data.request.details.conditions}</Typography> */}
+
+            <CustomTextEditor
+              readOnly
+              conditions={message.data.request.details.conditions}
+              changeConditions={undefined}
+              editorMaxHeight={undefined /* classNames.editorMaxHeight */}
+            />
           </Linkify>
 
           <div className={classNames.infosWrapper}>
