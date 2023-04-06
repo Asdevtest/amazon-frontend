@@ -74,7 +74,14 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
         </div>
         <div className={classNames.rightSideWrapper}>
           <div>
-            <PhotoAndFilesCarousel notToShowEmpty small files={message.images} width="352px" />
+            <PhotoAndFilesCarousel
+              notToShowEmpty
+              small
+              files={message.images}
+              width="352px"
+              withoutPhotos={undefined}
+              whithoutFiles={undefined}
+            />
           </div>
 
           <div className={classNames.footerWrapper}>
