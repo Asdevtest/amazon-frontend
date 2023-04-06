@@ -83,7 +83,7 @@ export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curIm
         </div>
 
         <div className={classNames.carouselWrapper}>
-          <CustomCarousel index={curImageIndex} onChengeIndex={onChangeCurImageIndex}>
+          <CustomCarousel index={curImageIndex} onChangeIndex={onChangeCurImageIndex}>
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
                 <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>

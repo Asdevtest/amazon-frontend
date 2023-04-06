@@ -11,7 +11,7 @@ export const freelanceRequestType = {
   PPC: 'PPC',
 }
 
-export const freelanceRequestTypeByCode = {
+export const freelanceRequestTypeByCode: {[key: number]: string} = {
   0: freelanceRequestType.DEFAULT,
   10: freelanceRequestType.DESIGNER,
   20: freelanceRequestType.SEO,
@@ -21,7 +21,7 @@ export const freelanceRequestTypeByCode = {
 
 export const freelanceRequestTypeByKey = objectFlip(freelanceRequestTypeByCode, parseInt)
 
-export const freelanceRequestTypeTranslate = type => {
+export const freelanceRequestTypeTranslate = (type: string) => {
   switch (type) {
     case freelanceRequestType.DEFAULT:
       return t(TranslationKey.All)

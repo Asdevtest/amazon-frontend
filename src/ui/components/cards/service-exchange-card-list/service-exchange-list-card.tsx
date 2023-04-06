@@ -1,34 +1,74 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+/* eslint-disable react/no-children-prop */
+
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Divider, Grid, Typography, Avatar} from '@mui/material'
+import {Typography, Avatar} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import React from 'react'
+import React, {FC} from 'react'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './service-exchange-list-card.style'
 
-export const ServiceExchangeCardList = ({service, choose, order, history, onClickThumbnail, onClickButton}) => {
+interface CreatedByInterface {
+  _id: string
+  name: string
+}
+
+interface RequestsInterface {
+  _id: string
+  title: string
+  humanFriendlyId: number
+  price: number
+  status: string
+  timeoutAt: string
+  createdBy: CreatedByInterface
+  updatedAt: string
+}
+
+interface Service {
+  _id: string
+  type: number
+  requests: Array<RequestsInterface>
+  linksToMediaFiles: Array<string>
+  title: string
+  description: string
+  createdBy: CreatedByInterface
+  createdAt: string
+  updatedAt: string
+}
+
+interface ServiceExchangeCardListProps {
+  service: Service
+  choose: boolean
+  order: boolean
+  pathname: string
+  onClickThumbnail: (data: {images: Array<string>; imgIndex: number}) => void
+  onClickButton: (data: Service) => void
+}
+
+export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props => {
+  const {service, choose, order, pathname, onClickThumbnail, onClickButton} = props
+
   const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.cardWrapper}>
       <div className={classNames.cardCarouselWrapper}>
-        <CustomCarousel>
+        {/*  @ts-ignore */}
+        <CustomCarousel children={undefined} title={undefined} index={undefined} onChangeIndex={undefined}>
           {service.linksToMediaFiles.map((imageHash, index) => (
             <img
               key={index}
@@ -50,7 +90,7 @@ export const ServiceExchangeCardList = ({service, choose, order, history, onClic
       </div>
 
       <div className={classNames.detailsAndButtonWrapper}>
-        {history?.location?.pathname !== '/freelancer/freelance/my-services' ? (
+        {pathname !== '/freelancer/freelance/my-services' ? (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.detailsSubWrapper}>
               <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
@@ -72,8 +112,11 @@ export const ServiceExchangeCardList = ({service, choose, order, history, onClic
                     name={service.createdBy.name}
                     userId={service.createdBy._id}
                     customStyles={{fontSize: 14}}
+                    withAvatar={undefined}
+                    maxNameWidth={undefined}
+                    customClassNames={undefined}
                   />
-                  <Rating disabled value={5} size="small" classes={classNames.rating} />
+                  <Rating disabled value={5} size="small" />
                 </div>
               </div>
             </div>
