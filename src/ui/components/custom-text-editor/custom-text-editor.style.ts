@@ -48,6 +48,10 @@ export const useClassNames = makeStyles()(theme => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
+
+    '.MuiIconButton-colorPrimary': {
+      color: theme.palette.primary.main,
+    },
   },
 
   placeHolder: {
