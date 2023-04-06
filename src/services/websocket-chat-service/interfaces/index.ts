@@ -85,6 +85,7 @@ export enum ChatMessageType {
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
   'CREATED_NEW_BLOGGER_PROPOSAL' = 'CREATED_NEW_BLOGGER_PROPOSAL',
+  'CREATED_NEW_DESIGNER_PROPOSAL' = 'CREATED_NEW_DESIGNER_PROPOSAL',
   'BLOGGER_PROPOSAL_RESULT_EDITED' = 'BLOGGER_PROPOSAL_RESULT_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
@@ -181,7 +182,32 @@ export interface ChatMessageDataRequestCreateNewBloggerProposal {
   cashBackInPercent: number
 }
 
+export interface ChatMessageDataRequestCreateNewDesignerProposal {
+  _id: string
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+
+  details: {conditions: string; linksToMediaFiles: [string]}
+
+  createdBy: {_id: string}
+  timeoutAt: string
+  priceAmazon: number
+  cashBackInPercent: number
+}
+
 export interface ChatMessageDataProposalCreateNewBloggerProposal {
+  _id: string
+  comment: string
+  linksToMediaFiles: [string]
+  execution_time: number
+
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+}
+
+export interface ChatMessageDataProposalCreateNewDesignerProposal {
   _id: string
   comment: string
   linksToMediaFiles: [string]
@@ -210,6 +236,11 @@ export interface ChatMessageDataProposalResultEdited {
 }
 
 export interface ChatMessageDataCreateNewBloggerProposal {
+  request: ChatMessageDataProposalResultEditedRequest
+  proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
+}
+
+export interface ChatMessageDataCreateNewDesignerProposal {
   request: ChatMessageDataProposalResultEditedRequest
   proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
 }

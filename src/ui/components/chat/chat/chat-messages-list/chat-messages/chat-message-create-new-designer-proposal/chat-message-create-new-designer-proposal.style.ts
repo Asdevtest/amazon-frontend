@@ -316,10 +316,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#001029',
   },
 
-  editorMaxHeight: {
-    height: 300,
-  },
-
   paragraphWrapper: {
     minHeight: 180,
     marginTop: 20,
