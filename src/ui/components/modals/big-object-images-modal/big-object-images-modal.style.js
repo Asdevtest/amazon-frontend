@@ -79,6 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageName: {
     fontWeight: 600,
     fontSize: 14,
+    minHeight: 20,
   },
 
   shortText: {
@@ -91,5 +92,20 @@ export const useClassNames = makeStyles()(theme => ({
   titleName: {
     marginBottom: 35,
     minHeight: 20,
+  },
+
+  imageComment: {
+    fontSize: 18,
+    color: theme.palette.text.second,
+  },
+
+  imageLeftSideComment: {
+    fontSize: 14,
+    color: theme.palette.text.second,
+    wordBreak: 'break-word',
+  },
+
+  redText: {
+    color: '#DF0C0C',
   },
 }))

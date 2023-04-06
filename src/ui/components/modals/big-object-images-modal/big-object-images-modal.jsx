@@ -7,9 +7,19 @@ import {useEffect, useState} from 'react'
 import {CustomCarousel} from '@components/custom-carousel'
 import {Modal} from '@components/modal'
 
+import {getShortenStringIfLongerThanCount} from '@utils/text'
+
 import {useClassNames} from './big-object-images-modal.style'
 
-export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curImageId, renderBtns, setCurImageId}) => {
+export const BigObjectImagesModal = ({
+  openModal,
+  setOpenModal,
+  imagesData,
+  curImageId,
+  renderBtns,
+  setCurImageId,
+  isRedImageComment,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const filteredImagesData = imagesData.filter(el => !!el.image)
@@ -73,11 +83,15 @@ export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curIm
                 variant="square"
               />
 
-              {!!item.comment && (
-                <div>
-                  <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
-                </div>
-              )}
+              {/* {!!item.comment && ( */}
+              <div>
+                <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
+
+                <Typography className={cx(classNames.imageLeftSideComment)}>
+                  {getShortenStringIfLongerThanCount('item.imageCommentfffffffffff', 20)}
+                </Typography>
+              </div>
+              {/* )} */}
             </div>
           ))}
         </div>
@@ -101,6 +115,10 @@ export const BigObjectImagesModal = ({openModal, setOpenModal, imagesData, curIm
                   alt={item.image?.file?.name || ''}
                   variant="square"
                 />
+
+                <Typography className={cx(classNames.imageComment, {[classNames.redText]: isRedImageComment})}>
+                  {item.imageComment}
+                </Typography>
               </div>
             ))}
           </CustomCarousel>

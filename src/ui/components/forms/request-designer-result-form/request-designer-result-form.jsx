@@ -24,7 +24,7 @@ import {Modal} from '@components/modal'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {minsToTime} from '@utils/text'
+import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './request-designer-result-form.style'
@@ -48,12 +48,13 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setShowDetails(!showDetails)
   }
 
-  // console.log('request', request)
+  console.log('request', request)
 
   const sourceImagesData = isRework
     ? request.request.media.map((el, index) => ({
         image: el.fileLink,
         comment: el.commentByPerformer,
+        commentByClient: el.commentByClient,
         _id: `${Date.now()}${index}`,
       }))
     : [
@@ -312,6 +313,15 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                 onChange={onChangeImageFileds('comment', item._id)}
               />
             </div>
+
+            <div className={classNames.imageObjSubWrapper}>
+              <Typography className={cx(classNames.clientComment /* , classNames.textMargin */)}>
+                {getShortenStringIfLongerThanCount(
+                  item.commentByClient || 'Заменить, фото не соответствует качеству',
+                  30,
+                )}
+              </Typography>
+            </div>
           </div>
         ))}
 
@@ -347,9 +357,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
       </div>
 
       <BigObjectImagesModal
+        isRedImageComment
         openModal={showImageModal}
         setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData}
+        imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
         curImageId={curImageId}
         renderBtns={() => (
           <div className={cx(classNames.imagesModalBtnsWrapper)}>
