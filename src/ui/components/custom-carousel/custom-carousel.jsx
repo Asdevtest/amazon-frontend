@@ -26,7 +26,7 @@ import {useClassNames} from './custom-carousel.style'
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const CustomCarousel = observer(
-  ({children, title, view = 'simple', alignButtons = 'center', index, onChengeIndex}) => {
+  ({children, title, view = 'simple', alignButtons = 'center', index, onChangeIndex}) => {
     const {classes: classNames} = useClassNames()
     const [clides, setClides] = useState([])
     const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
@@ -55,10 +55,10 @@ export const CustomCarousel = observer(
     }, [index])
 
     useEffect(() => {
-      if (!onChengeIndex || !carouselIsMounted) {
+      if (!onChangeIndex || !carouselIsMounted) {
         return
       }
-      onChengeIndex(slideCount - 1)
+      onChangeIndex(slideCount - 1)
     }, [slideCount])
 
     // console.log('slideCount', slideCount)
@@ -73,7 +73,7 @@ export const CustomCarousel = observer(
 
       if (slideCount > 1) {
         setSlideCount(prev => prev - 1)
-        // onChengeIndex(slideCount)
+        // onChangeIndex(slideCount)
       }
     }
 
@@ -88,7 +88,7 @@ export const CustomCarousel = observer(
 
       if (slideCount < children.length) {
         setSlideCount(prev => prev + 1)
-        // onChengeIndex(slideCount - 2)
+        // onChangeIndex(slideCount - 2)
       }
     }
 
