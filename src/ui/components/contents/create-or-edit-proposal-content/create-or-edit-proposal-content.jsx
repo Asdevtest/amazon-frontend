@@ -319,6 +319,7 @@ export const CreateOrEditProposalContent = ({
             />
 
             <SetDuration
+              title={t(TranslationKey['Time to complete'])}
               duration={formFields.execution_time}
               titleStyle={classNames.titleStyle}
               setTotalTimeInMinute={onChangeField('execution_time')}

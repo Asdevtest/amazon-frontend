@@ -26,6 +26,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-form.style'
 
@@ -48,7 +49,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setShowDetails(!showDetails)
   }
 
-  console.log('request', request)
+  // console.log('request', request)
 
   const sourceImagesData = isRework
     ? request.request.media.map((el, index) => ({
@@ -127,27 +128,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   const onClickDownloadBtn = () => {
     const imageObj = {...imagesData.find(el => el._id === curImageId)}
 
-    // console.log('imageObj', imageObj)
-
-    const aElement = document.createElement('a')
-    aElement.setAttribute('download', /* `boxReceiveReport_${id}.xlsx` */ `${imageObj.comment || 'no-name'}`)
-    const href = /* URL.createObjectURL(res.data) */ imageObj.image.data_url
-    aElement.href = href
-    aElement.setAttribute('target', '_blank')
-    aElement.click()
-    // URL.revokeObjectURL(href)
-    aElement.remove()
+    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
   }
-
-  // const [formFields, setFormFields] = useState(sourceFormFields)
-
-  // const onChangeField = fieldName => event => {
-  //   const newFormFields = {...formFields}
-
-  //   newFormFields[fieldName] = event.target.value
-
-  //   setFormFields(newFormFields)
-  // }
 
   const disableSubmit = imagesData.every(el => !el.image)
 
@@ -316,10 +298,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
             <div className={classNames.imageObjSubWrapper}>
               <Typography className={cx(classNames.clientComment /* , classNames.textMargin */)}>
-                {getShortenStringIfLongerThanCount(
-                  item.commentByClient || 'Заменить, фото не соответствует качеству',
-                  30,
-                )}
+                {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
               </Typography>
             </div>
           </div>

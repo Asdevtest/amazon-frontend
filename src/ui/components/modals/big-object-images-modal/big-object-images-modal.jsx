@@ -88,7 +88,7 @@ export const BigObjectImagesModal = ({
                 <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
 
                 <Typography className={cx(classNames.imageLeftSideComment)}>
-                  {getShortenStringIfLongerThanCount('item.imageCommentfffffffffff', 20)}
+                  {getShortenStringIfLongerThanCount(item.imageComment, 20)}
                 </Typography>
               </div>
               {/* )} */}

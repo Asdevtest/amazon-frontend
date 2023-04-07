@@ -24,8 +24,8 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: 20,
   },
 
-  mainTitleMargin: {
-    marginBottom: 35,
+  secondSpanText: {
+    color: theme.palette.text.second,
   },
 
   labelMargin: {
@@ -50,8 +50,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
-  headerLeftSubWrapper: {
-    maxWidth: '50%',
+  titleWrapper: {
+    display: 'flex',
+    gap: 5,
+    // alignItems: 'center',
   },
 
   accordionMain: {
@@ -91,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 30,
     // marginBottom: 30,
@@ -105,6 +107,52 @@ export const useClassNames = makeStyles()(theme => ({
 
   linkInput: {
     width: 350,
+  },
+
+  button: {
+    padding: '0 25px',
+    whiteSpace: 'nowrap',
+  },
+
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
+  downloadsWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 30,
+  },
+
+  downloadsCheckWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 10,
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.05)',
+    },
+  },
+
+  commentBtn: {
+    width: '100%',
+
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+    paddingRight: '40px',
+  },
+
+  commentIcon: {
+    // marginLeft: '15px',
+    position: 'absolute',
+    top: '11px',
+    right: '15px',
+
+    width: 15,
+    height: 15,
   },
 
   bodyWrapper: {
@@ -146,15 +194,26 @@ export const useClassNames = makeStyles()(theme => ({
 
   headerRightSubWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    gap: 30,
-    width: '100%',
+    // flexDirection: 'column',
+    // alignItems: 'flex-end',
+    gap: 50,
+    // width: '100%',
+  },
+
+  viewLinkWrapper: {
+    // height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
+
+  linkSpan: {
+    color: theme.palette.primary.main,
   },
 
   heightFieldAuto: {
     height: 'auto',
-    width: '100%',
+    width: 520,
 
     padding: 0,
   },
@@ -182,8 +241,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageObjSubWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 10,
+  },
+
+  imageObjTitle: {
+    fontSize: 14,
+    fontWeight: 600,
+    wordBreak: 'break-word',
   },
 
   clientComment: {
@@ -193,9 +258,24 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageObjInput: {
-    // width: '100%',
-    width: 133,
-    height: 'auto',
+    width: '100%',
+    // width: 133,
+    height: 95,
+  },
+
+  subImageObjInput: {
+    // width: 133,
+    height: '90px !important',
+    overflowY: 'auto !important',
+  },
+
+  commentHideBtn: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: ' center',
+    height: 40,
+    paddingRight: 5,
+    cursor: 'pointer',
   },
 
   bigPlusWrapper: {
