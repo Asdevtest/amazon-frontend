@@ -10,6 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '5px',
     gridTemplateColumns: 'repeat(1, 1fr)',
     gridTemplateRows: 'repeat(1, 1fr)',
+
+    '& div': {
+      overflow: 'hidden',
+    },
   },
   imageTile2: {
     gridTemplateColumns: 'repeat(2, 1fr)',
