@@ -184,6 +184,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
+
+    marginTop: 20,
   },
 
   descriptionField: {

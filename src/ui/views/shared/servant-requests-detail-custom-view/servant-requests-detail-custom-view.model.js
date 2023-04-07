@@ -201,7 +201,7 @@ export class RequestDetailCustomViewModel {
 
       await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
         result: message,
-        linksToMediaFiles: this.loadedFiles.map((el, i) => ({
+        media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
         })),

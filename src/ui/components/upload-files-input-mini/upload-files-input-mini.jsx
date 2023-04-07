@@ -297,18 +297,23 @@ export const UploadFilesInputMini = observer(
                                 maxRows={3}
                                 variant="filled"
                                 className={classNames.imageObjInput}
+                                classes={{input: classNames.subImageObjInput}}
                                 value={images[index]?.comment}
                                 onChange={onChangeComment(index)}
                               />
                             )}
 
                             <div className={classNames.actionIconsWrapper}>
-                              <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
+                              <AutorenewIcon
+                                className={classNames.actionIcon}
+                                fontSize="small"
+                                onClick={() => onImageUpdate(index)}
+                              />
 
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
                                 // onClick={() => onImageRemove(index)}
-
+                                fontSize="small"
                                 onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
                             </div>
@@ -351,11 +356,15 @@ export const UploadFilesInputMini = observer(
                             )}
 
                             <div className={classNames.actionIconsWrapper}>
-                              <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
+                              <AutorenewIcon
+                                className={classNames.actionIcon}
+                                fontSize="small"
+                                onClick={() => onImageUpdate(index)}
+                              />
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
                                 // onClick={() => onImageRemove(index)}
-
+                                fontSize="small"
                                 onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
                             </div>
