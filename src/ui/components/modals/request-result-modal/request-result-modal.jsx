@@ -16,6 +16,7 @@ import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
+import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 
 import {t} from '@utils/translations'
 
@@ -161,11 +162,13 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
 
         <div className={classNames.dragAndDropWrapper}>
           <UploadFilesInput
+            withComment
             title={t(TranslationKey.Files)}
             dragAndDropBtnHeight={55}
             images={images}
             setImages={setImages}
             maxNumber={50}
+            maxHeight={160}
           />
         </div>
 
@@ -178,7 +181,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
             onClick={() => {
               onClickSendAsResult({
                 message: formFields.result,
-                files: images,
+                files: images.map(el => ({...el, image: el.file})),
                 amazonOrderId: formFields.amazonOrderId,
                 publicationLinks: formFields.publicationLinks,
               })

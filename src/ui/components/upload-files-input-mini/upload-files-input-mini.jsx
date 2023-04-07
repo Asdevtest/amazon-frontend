@@ -312,7 +312,6 @@ export const UploadFilesInputMini = observer(
 
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
-                                // onClick={() => onImageRemove(index)}
                                 fontSize="small"
                                 onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
