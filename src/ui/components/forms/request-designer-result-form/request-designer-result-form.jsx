@@ -348,7 +348,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           disabled={disableSubmit}
           className={cx(classNames.button)}
           onClick={() => {
-            onClickSendAsResult({message: '', files: imagesData.filter(el => el.image), sourceLink})
+            onClickSendAsResult({message: comment, files: imagesData.filter(el => el.image), sourceLink})
             setOpenModal()
           }}
         >

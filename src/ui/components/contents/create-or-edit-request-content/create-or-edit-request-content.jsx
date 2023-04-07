@@ -72,7 +72,7 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('requestToEdit', requestToEdit)
+  // console.log('requestToEdit', requestToEdit)
 
   const [images, setImages] = useState(
     requestToEdit
@@ -418,7 +418,7 @@ export const CreateOrEditRequestContent = ({
                   <UploadFilesInputMini
                     withComment
                     // oneLineMaxHeight
-                    maxHeight={200}
+                    maxHeight={160}
                     images={images}
                     setImages={setImages}
                     maxNumber={50}

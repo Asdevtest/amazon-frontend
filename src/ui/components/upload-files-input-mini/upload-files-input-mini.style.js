@@ -134,10 +134,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   image: {
-    width: '80px',
-    height: '70px',
+    width: 55,
+    height: 55,
     objectFit: 'contain',
     objectPosition: 'center',
+    borderRadius: 4,
   },
 
   tooltipImg: {
@@ -204,7 +205,7 @@ export const useClassNames = makeStyles()(theme => ({
     // background: '#EFEFEF',
 
     // background: theme.palette.background.second,
-    padding: '5px',
+    padding: '3px',
 
     display: 'flex',
     alignItems: 'center',
@@ -281,19 +282,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageObjInput: {
     width: 133,
-    height: '70px',
+    height: 55,
     // overflow: 'auto',
   },
 
   subImageObjInput: {
     // width: 133,
-    height: '65px !important',
+    height: '55px !important',
     overflowY: 'auto !important',
   },
 
   inputIndex: {
     fontWeight: 600,
     marginLeft: 5,
-    height: 65,
+    height: 55,
   },
 }))
