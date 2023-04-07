@@ -96,7 +96,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
           />
           {typeof photo !== 'string' && (
             <Tooltip title={photo.commentByClient}>
-              <Typography className={classNames.photoTitle}>{photo.commentByClient}</Typography>
+              <Typography className={classNames.photoTitle}>{`${index} ${photo.commentByClient}`}</Typography>
             </Tooltip>
           )}
         </div>
