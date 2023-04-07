@@ -46,6 +46,7 @@ export const UserBalance = observer(({userId}) => {
 
     rowsPerPage,
     curPage,
+    changeColumnsModel,
     onChangeCurPage,
     onChangeRowsPerPage,
     onSelectionModel,
@@ -105,6 +106,11 @@ export const UserBalance = observer(({userId}) => {
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {columnsModel, changeColumnsModel},
+            },
+          }}
           onSelectionModelChange={newSelection => {
             onSelectionModel(newSelection[0])
           }}
