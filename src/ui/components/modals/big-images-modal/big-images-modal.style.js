@@ -4,10 +4,12 @@ export const useClassNames = makeStyles()(() => ({
   imgBox: {
     objectFit: 'contain',
     width: '50vw',
+    // maxWidth: "565px",
     maxHeight: '70vh',
   },
   carouselWrapper: {
     textAlign: 'center',
+    height: '100%',
     width: '55vw',
   },
 
@@ -43,7 +45,9 @@ export const useClassNames = makeStyles()(() => ({
     position: 'relative',
     overflow: 'visible',
     // width: '50vw',
-    // height: '70vh',
+    height: '70vh',
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   previewList: {
@@ -56,6 +60,7 @@ export const useClassNames = makeStyles()(() => ({
 
   previewListItem: {
     maxWidth: '75px',
+    maxHeight: '75px',
   },
 
   previewListImage: {
