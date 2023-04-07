@@ -4,18 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**action** | **String** |  | 
-**reason** | **String** | Причина смены статуса. | [optional] 
-
-
-
-## Enum: ActionEnum
-
-
-* `LINK` (value: `"LINK"`)
-
-* `UNLINK` (value: `"UNLINK"`)
-
-
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
 
 

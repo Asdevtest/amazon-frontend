@@ -50,14 +50,11 @@ class InlineObject81 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('timeLimitInMinutes')) {
-                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -73,21 +70,16 @@ class InlineObject81 {
 InlineObject81.prototype['rating'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject81.prototype['reason'] = undefined;
+InlineObject81.prototype['review'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
  */
-InlineObject81.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {Number} timeLimitInMinutes
- */
-InlineObject81.prototype['timeLimitInMinutes'] = undefined;
+InlineObject81.prototype['sourceFile'] = undefined;
 
 
 

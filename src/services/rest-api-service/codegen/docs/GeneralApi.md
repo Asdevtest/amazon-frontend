@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1GeneralDataFiltersGet**](GeneralApi.md#apiV1GeneralDataFiltersGet) | **GET** /api/v1/general/data_filters | Получить данные по определенной таблице по определенной колонке
+[**apiV1GeneralTagsGet**](GeneralApi.md#apiV1GeneralTagsGet) | **GET** /api/v1/general/tags | Получить теги
+[**apiV1GeneralTagsPost**](GeneralApi.md#apiV1GeneralTagsPost) | **POST** /api/v1/general/tags | Создать тег
 
 
 
@@ -63,5 +65,111 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1GeneralTagsGet
+
+> [InlineResponse20039] apiV1GeneralTagsGet(opts)
+
+Получить теги
+
+# Получить теги
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.GeneralApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1GeneralTagsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20039]**](InlineResponse20039.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1GeneralTagsPost
+
+> InlineResponse2018 apiV1GeneralTagsPost(opts)
+
+Создать тег
+
+# Создать тег
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.GeneralApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject54() // InlineObject54 | 
+};
+apiInstance.apiV1GeneralTagsPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject54**](InlineObject54.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse2018**](InlineResponse2018.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -18,7 +18,6 @@ import ApiV1BatchesBoxes from '../model/ApiV1BatchesBoxes';
 import ApiV1StorekeepersTariffWarehouses from '../model/ApiV1StorekeepersTariffWarehouses';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject100 from '../model/InlineObject100';
 import InlineObject101 from '../model/InlineObject101';
 import InlineObject102 from '../model/InlineObject102';
 import InlineObject103 from '../model/InlineObject103';
@@ -27,12 +26,13 @@ import InlineObject105 from '../model/InlineObject105';
 import InlineObject106 from '../model/InlineObject106';
 import InlineObject107 from '../model/InlineObject107';
 import InlineObject108 from '../model/InlineObject108';
-import InlineObject99 from '../model/InlineObject99';
-import InlineResponse20025 from '../model/InlineResponse20025';
+import InlineObject109 from '../model/InlineObject109';
+import InlineObject110 from '../model/InlineObject110';
+import InlineResponse20026 from '../model/InlineResponse20026';
 import InlineResponse2004 from '../model/InlineResponse2004';
-import InlineResponse20061 from '../model/InlineResponse20061';
 import InlineResponse20062 from '../model/InlineResponse20062';
 import InlineResponse20063 from '../model/InlineResponse20063';
+import InlineResponse20064 from '../model/InlineResponse20064';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -63,7 +63,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject103} opts.body 
+     * @param {module:model/InlineObject105} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersBoxesCommentGuidPatchWithHttpInfo(guid, opts) {
@@ -102,7 +102,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject103} opts.body 
+     * @param {module:model/InlineObject105} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersBoxesCommentGuidPatch(guid, opts) {
@@ -166,7 +166,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject102} opts.body 
+     * @param {module:model/InlineObject104} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersBoxesGuidPatchWithHttpInfo(guid, opts) {
@@ -205,7 +205,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject102} opts.body 
+     * @param {module:model/InlineObject104} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersBoxesGuidPatch(guid, opts) {
@@ -221,7 +221,7 @@ export default class StorekeepersApi {
      * ## Создать/обновить дестинейшн  Доступно для сторкипера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject108} opts.body 
+     * @param {module:model/InlineObject110} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1StorekeepersDestinationPostWithHttpInfo(opts) {
@@ -254,7 +254,7 @@ export default class StorekeepersApi {
      * ## Создать/обновить дестинейшн  Доступно для сторкипера
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject108} opts.body 
+     * @param {module:model/InlineObject110} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1StorekeepersDestinationPost(opts) {
@@ -325,7 +325,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20063>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20064>} and HTTP response
      */
     apiV1StorekeepersGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -345,7 +345,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20063];
+      let returnType = [InlineResponse20064];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -359,7 +359,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20063>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20064>}
      */
     apiV1StorekeepersGet(opts) {
       return this.apiV1StorekeepersGetWithHttpInfo(opts)
@@ -375,7 +375,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject101} opts.body 
+     * @param {module:model/InlineObject103} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersOrdersSetStatusGuidPatchWithHttpInfo(guid, opts) {
@@ -414,7 +414,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID ордера, который мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject101} opts.body 
+     * @param {module:model/InlineObject103} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts) {
@@ -435,7 +435,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20063} and HTTP response
      */
     apiV1StorekeepersPagBoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -459,7 +459,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20062;
+      let returnType = InlineResponse20063;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/pag/boxes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -477,7 +477,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20063}
      */
     apiV1StorekeepersPagBoxesGet(opts) {
       return this.apiV1StorekeepersPagBoxesGetWithHttpInfo(opts)
@@ -547,7 +547,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject105} opts.body 
+     * @param {module:model/InlineObject107} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTariffLogisticsGuidPatchWithHttpInfo(guid, opts) {
@@ -586,7 +586,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject105} opts.body 
+     * @param {module:model/InlineObject107} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTariffLogisticsGuidPatch(guid, opts) {
@@ -652,7 +652,7 @@ export default class StorekeepersApi {
      * ## Создать тарифами доставки.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject104} opts.body 
+     * @param {module:model/InlineObject106} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1StorekeepersTariffLogisticsPostWithHttpInfo(opts) {
@@ -685,7 +685,7 @@ export default class StorekeepersApi {
      * ## Создать тарифами доставки.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject104} opts.body 
+     * @param {module:model/InlineObject106} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1StorekeepersTariffLogisticsPost(opts) {
@@ -756,7 +756,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject107} opts.body 
+     * @param {module:model/InlineObject109} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTariffWarehouseGuidPatchWithHttpInfo(guid, opts) {
@@ -795,7 +795,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID тарифа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject107} opts.body 
+     * @param {module:model/InlineObject109} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTariffWarehouseGuidPatch(guid, opts) {
@@ -858,7 +858,7 @@ export default class StorekeepersApi {
      * ## Создать тариф услуг склада.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject106} opts.body 
+     * @param {module:model/InlineObject108} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1StorekeepersTariffWarehousesPostWithHttpInfo(opts) {
@@ -891,7 +891,7 @@ export default class StorekeepersApi {
      * ## Создать тариф услуг склада.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject106} opts.body 
+     * @param {module:model/InlineObject108} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1StorekeepersTariffWarehousesPost(opts) {
@@ -1016,7 +1016,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksDoneGuidPostWithHttpInfo(guid, opts) {
@@ -1055,7 +1055,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject99} opts.body 
+     * @param {module:model/InlineObject101} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksDoneGuidPost(guid, opts) {
@@ -1072,7 +1072,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject102} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1StorekeepersTasksGuidPatchWithHttpInfo(guid, opts) {
@@ -1111,7 +1111,7 @@ export default class StorekeepersApi {
      * @param {String} guid GUID задачи, которую мы хотим изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject100} opts.body 
+     * @param {module:model/InlineObject102} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1StorekeepersTasksGuidPatch(guid, opts) {
@@ -1185,7 +1185,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20061} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
      */
     apiV1StorekeepersTasksLightPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1212,7 +1212,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20061;
+      let returnType = InlineResponse20062;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks_light/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1233,7 +1233,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20061}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
      */
     apiV1StorekeepersTasksLightPagMyGet(opts) {
       return this.apiV1StorekeepersTasksLightPagMyGetWithHttpInfo(opts)
@@ -1256,7 +1256,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20061} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20062} and HTTP response
      */
     apiV1StorekeepersTasksLightPagVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1283,7 +1283,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20061;
+      let returnType = InlineResponse20062;
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks_light/pag/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1304,7 +1304,7 @@ export default class StorekeepersApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20061}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20062}
      */
     apiV1StorekeepersTasksLightPagVacGet(opts) {
       return this.apiV1StorekeepersTasksLightPagVacGetWithHttpInfo(opts)
@@ -1367,7 +1367,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20026>} and HTTP response
      */
     apiV1StorekeepersTasksMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1387,7 +1387,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20025];
+      let returnType = [InlineResponse20026];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1401,7 +1401,7 @@ export default class StorekeepersApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.status Статус задачи для фильтра.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20026>}
      */
     apiV1StorekeepersTasksMyGet(opts) {
       return this.apiV1StorekeepersTasksMyGetWithHttpInfo(opts)
@@ -1573,7 +1573,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20026>} and HTTP response
      */
     apiV1StorekeepersTasksVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1592,7 +1592,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20025];
+      let returnType = [InlineResponse20026];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tasks/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1605,7 +1605,7 @@ export default class StorekeepersApi {
      * ## Получить задачи не закрепленные за сотрудниками склада.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20026>}
      */
     apiV1StorekeepersTasksVacGet(opts) {
       return this.apiV1StorekeepersTasksVacGetWithHttpInfo(opts)

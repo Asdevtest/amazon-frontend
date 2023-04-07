@@ -22,10 +22,11 @@ class InlineObject83 {
     /**
      * Constructs a new <code>InlineObject83</code>.
      * @alias module:model/InlineObject83
+     * @param action {module:model/InlineObject83.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject83.initialize(this);
+        InlineObject83.initialize(this, action);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject83 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -47,14 +49,11 @@ class InlineObject83 {
         if (data) {
             obj = obj || new InlineObject83();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
-            }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -64,25 +63,39 @@ class InlineObject83 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * @member {module:model/InlineObject83.ActionEnum} action
  */
-InlineObject83.prototype['rating'] = undefined;
+InlineObject83.prototype['action'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject83.prototype['review'] = undefined;
+InlineObject83.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * Файл для записи в FreelanceSource по этому пропоузалу
- * @member {String} sourceFile
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject83.prototype['sourceFile'] = undefined;
+InlineObject83['ActionEnum'] = {
 
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

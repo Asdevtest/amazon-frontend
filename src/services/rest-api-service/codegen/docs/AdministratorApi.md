@@ -21,6 +21,8 @@ Method | HTTP request | Description
 [**apiV1AdminsProductsVacGet**](AdministratorApi.md#apiV1AdminsProductsVacGet) | **GET** /api/v1/admins/products/vac | # Получить список вакантных товаров.
 [**apiV1AdminsProxyGet**](AdministratorApi.md#apiV1AdminsProxyGet) | **GET** /api/v1/admins/proxy | #  Получить список прокси
 [**apiV1AdminsProxyPost**](AdministratorApi.md#apiV1AdminsProxyPost) | **POST** /api/v1/admins/proxy | #  Изменить список прокси
+[**apiV1AdminsRedFlagsGuidDelete**](AdministratorApi.md#apiV1AdminsRedFlagsGuidDelete) | **DELETE** /api/v1/admins/red_flags/{guid} | #  Получить список отзывов/репортов
+[**apiV1AdminsRedFlagsPost**](AdministratorApi.md#apiV1AdminsRedFlagsPost) | **POST** /api/v1/admins/red_flags | #  Получить список отзывов/репортов
 [**apiV1AdminsSetSettingPatch**](AdministratorApi.md#apiV1AdminsSetSettingPatch) | **PATCH** /api/v1/admins/set_setting | # Установить динамические настройки.
 [**apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch**](AdministratorApi.md#apiV1AdminsSetTimeToDeadlinePendingOrderValuePatch) | **PATCH** /api/v1/admins/set_timeToDeadlinePendingOrder/{value} | # Изменить интервал нотификаций касательно дедлайна ордера
 [**apiV1AdminsTasksLightGet**](AdministratorApi.md#apiV1AdminsTasksLightGet) | **GET** /api/v1/admins/tasks_light | #  Облегченная версия. Получить задачи.
@@ -926,6 +928,114 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1AdminsRedFlagsGuidDelete
+
+> String apiV1AdminsRedFlagsGuidDelete(guid, opts)
+
+#  Получить список отзывов/репортов
+
+## Получить список отзывов/репортов   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let guid = null; // String | GUID красного флага в БД.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1AdminsRedFlagsGuidDelete(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID красного флага в БД. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1AdminsRedFlagsPost
+
+> {String: Object} apiV1AdminsRedFlagsPost(opts)
+
+#  Получить список отзывов/репортов
+
+## Получить список отзывов/репортов   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.AdministratorApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
+};
+apiInstance.apiV1AdminsRedFlagsPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
+
+### Return type
+
+**{String: Object}**
 
 ### Authorization
 

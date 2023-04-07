@@ -47,20 +47,8 @@ class InlineObject89 {
         if (data) {
             obj = obj || new InlineObject89();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -70,34 +58,10 @@ class InlineObject89 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject89.prototype['execution_time'] = undefined;
-
-/**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject89.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject89.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject89.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject89.prototype['title'] = undefined;
+InlineObject89.prototype['suppliersIds'] = undefined;
 
 
 

@@ -47,11 +47,8 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineObject87 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject87.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comments
- */
-InlineObject87.prototype['comments'] = undefined;
+InlineObject87.prototype['suppliersIds'] = undefined;
 
 
 
