@@ -140,7 +140,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
         </div>
       </div>
       <div className={classNames.footerWrapper}>
-        {chatRequestAndRequestProposal &&
+        {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+        chatRequestAndRequestProposal &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
           chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
