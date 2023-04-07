@@ -33,6 +33,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWithCommentModal = false
   showChat = false
   showConfirmWorkResultFormModal = false
+  showRequestDesignerResultClientModal = false
   showReviewModal = false
 
   confirmModalSettings = {

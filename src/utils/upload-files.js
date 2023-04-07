@@ -96,3 +96,24 @@ export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   }
   this.progressValue = 0
 }
+
+export const downloadFileByLink = async (str, fileName) => {
+  fetch(str)
+    .then(resp => resp.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob)
+
+      const a = document.createElement('a')
+
+      a.setAttribute('download', fileName ?? `no-name`)
+      a.style.display = 'none'
+      a.href = url
+
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      a.remove()
+      // alert('your file has downloaded!') // or you know, something with better UX...
+    })
+  // .catch(() => alert('oh no!'))
+}

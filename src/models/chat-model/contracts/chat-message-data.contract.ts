@@ -162,6 +162,9 @@ export class ChatMessageDataRequestCreateNewBloggerProposalContract
   public details!: {conditions: string; linksToMediaFiles: [string]}
 
   @IsNotEmpty()
+  public media!: string[]
+
+  @IsNotEmpty()
   public createdBy!: {_id: string}
 
   @IsNumber()
@@ -192,6 +195,9 @@ export class ChatMessageDataRequestCreateNewDesignerProposalContract
 
   @IsNotEmpty()
   public details!: {conditions: string; linksToMediaFiles: [string]}
+
+  @IsNotEmpty()
+  public media!: string[]
 
   @IsNotEmpty()
   public createdBy!: {_id: string}
