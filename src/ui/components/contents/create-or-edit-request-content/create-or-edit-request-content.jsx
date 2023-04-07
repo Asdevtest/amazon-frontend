@@ -970,15 +970,32 @@ export const CreateOrEditRequestContent = ({
                         )}
 
                         {formFields.request.needCheckBySupervisor && (
-                          <Typography className={classNames.restrictMoreThanOneProposal}>
-                            {t(TranslationKey['A supervisor check is necessary'])}
-                          </Typography>
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(TranslationKey['A supervisor check is necessary'])}
+                            </Typography>
+                          </div>
                         )}
 
                         {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
-                          <Typography className={classNames.restrictMoreThanOneProposal}>
-                            {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
-                          </Typography>
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
+                            </Typography>
+                          </div>
+                        )}
+
+                        {formFields.request.withoutConfirmation && (
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(
+                                TranslationKey['Allow the performer to take the request for work without confirmation'],
+                              )}
+                            </Typography>
+                          </div>
                         )}
                       </div>
                     </div>
