@@ -195,7 +195,7 @@ let apiInstance = new TestSwagger.SupplierApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
 };
 apiInstance.apiV1SuppliersGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
 
 ### Return type
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse20113 apiV1SuppliersPost(opts)
+> InlineResponse20114 apiV1SuppliersPost(opts)
 
 # Добавить нового поставщика.
 
@@ -250,7 +250,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.SupplierApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
+  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
 };
 apiInstance.apiV1SuppliersPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -266,11 +266,11 @@ apiInstance.apiV1SuppliersPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
+ **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse20113**](InlineResponse20113.md)
+[**InlineResponse20114**](InlineResponse20114.md)
 
 ### Authorization
 

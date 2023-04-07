@@ -716,6 +716,9 @@ export const ChangeInputCommentCell = React.memo(
           }
           onChange={e => {
             setValue(e.target.value)
+            if (onChangeText) {
+              onChangeText('comments')(e.target.value)
+            }
           }}
           onKeyDown={event => {
             event.stopPropagation()
