@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
 
 

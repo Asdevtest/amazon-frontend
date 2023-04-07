@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
 
 

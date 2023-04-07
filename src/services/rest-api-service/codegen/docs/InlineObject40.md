@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**refundPrice** | **Number** | Сумма воврата | [optional] 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

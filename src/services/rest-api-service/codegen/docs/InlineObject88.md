@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | 
+**comment** | **String** | Комментарий к файлу | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | 
+**productId** | **String** | гуид продукта | 
+**proposalId** | **String** | Гуид пропоузала | [optional] 
 
 

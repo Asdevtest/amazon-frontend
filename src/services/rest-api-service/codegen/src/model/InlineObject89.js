@@ -47,8 +47,11 @@ class InlineObject89 {
         if (data) {
             obj = obj || new InlineObject89();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,16 @@ class InlineObject89 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject89.prototype['suppliersIds'] = undefined;
+InlineObject89.prototype['sourceFile'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} comments
+ */
+InlineObject89.prototype['comments'] = undefined;
 
 
 
