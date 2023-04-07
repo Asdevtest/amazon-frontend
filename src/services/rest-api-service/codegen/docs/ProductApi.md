@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**apiV1ProductsKeepaPost**](ProductApi.md#apiV1ProductsKeepaPost) | **POST** /api/v1/products/keepa | # Отфильтровать и получить данные  о продуктах через Keepa
 [**apiV1ProductsParseAmazonIdGet**](ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 [**apiV1ProductsParseSellercentralGet**](ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
+[**apiV1ProductsRedFlagsGet**](ProductApi.md#apiV1ProductsRedFlagsGet) | **GET** /api/v1/products/red_flags | # Получить красные флаги
 [**apiV1ProductsRemoveShopsGuidPost**](ProductApi.md#apiV1ProductsRemoveShopsGuidPost) | **POST** /api/v1/products/remove_shops/{guid} | Удалить магазины из продукта.
 [**apiV1ProductsRemoveSuppliersGuidPost**](ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
 
@@ -41,7 +42,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
+  'body': new TestSwagger.InlineObject77() // InlineObject77 | 
 };
 apiInstance.apiV1ProductsAddShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -58,7 +59,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
+ **body** | [**InlineObject77**](InlineObject77.md)|  | [optional] 
 
 ### Return type
 
@@ -97,7 +98,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -114,7 +115,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
 
 ### Return type
 
@@ -348,7 +349,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsKeepaPost
 
-> [InlineResponse20050] apiV1ProductsKeepaPost(opts)
+> [InlineResponse20051] apiV1ProductsKeepaPost(opts)
 
 # Отфильтровать и получить данные  о продуктах через Keepa
 
@@ -386,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20050]**](InlineResponse20050.md)
+[**[InlineResponse20051]**](InlineResponse20051.md)
 
 ### Authorization
 
@@ -454,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20049 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20050 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -496,7 +497,59 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20049**](InlineResponse20049.md)
+[**InlineResponse20050**](InlineResponse20050.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1ProductsRedFlagsGet
+
+> [ApiV1AdminsGetProductsByStatusRedFlags] apiV1ProductsRedFlagsGet(opts)
+
+# Получить красные флаги
+
+       Получить красные флаги       
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ProductApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ProductsRedFlagsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md)
 
 ### Authorization
 
@@ -531,7 +584,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
+  'body': new TestSwagger.InlineObject78() // InlineObject78 | 
 };
 apiInstance.apiV1ProductsRemoveShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -548,7 +601,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
+ **body** | [**InlineObject78**](InlineObject78.md)|  | [optional] 
 
 ### Return type
 
@@ -587,7 +640,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -604,7 +657,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+ **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
 
 ### Return type
 

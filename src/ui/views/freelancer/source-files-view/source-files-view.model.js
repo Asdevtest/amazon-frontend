@@ -186,7 +186,9 @@ export class SourceFilesViewModel {
 
   async onClickSaveBtn(row) {
     try {
-      const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comment'])
+      const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comments'])
+
+      console.log('saveData', saveData)
 
       if (this.editField._id === row.originalData._id) {
         await RequestProposalModel.patchFreelanceSourceFilesByGuid(this.editField._id, saveData)
@@ -238,6 +240,9 @@ export class SourceFilesViewModel {
       runInAction(() => {
         this.sourceFiles = SourceFilesDataConverter(result)
       })
+
+      console.log('result', result)
+      console.log('this.sourceFiles', this.sourceFiles)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

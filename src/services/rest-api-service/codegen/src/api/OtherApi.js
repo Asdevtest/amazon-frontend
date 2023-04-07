@@ -15,12 +15,12 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject3 from '../model/InlineObject3';
-import InlineObject69 from '../model/InlineObject69';
-import InlineObject70 from '../model/InlineObject70';
 import InlineObject71 from '../model/InlineObject71';
+import InlineObject72 from '../model/InlineObject72';
+import InlineObject73 from '../model/InlineObject73';
 import InlineResponse2003 from '../model/InlineResponse2003';
-import InlineResponse20046 from '../model/InlineResponse20046';
-import InlineResponse2019 from '../model/InlineResponse2019';
+import InlineResponse20047 from '../model/InlineResponse20047';
+import InlineResponse20110 from '../model/InlineResponse20110';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -200,7 +200,7 @@ export default class OtherApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject70} opts.body 
+     * @param {module:model/InlineObject72} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1OtherCheckAsinsGuidPatchWithHttpInfo(guid, opts) {
@@ -239,7 +239,7 @@ export default class OtherApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject70} opts.body 
+     * @param {module:model/InlineObject72} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1OtherCheckAsinsGuidPatch(guid, opts) {
@@ -256,7 +256,7 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject3>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20046} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20047} and HTTP response
      */
     apiV1OtherCheckAsinsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -275,7 +275,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20046;
+      let returnType = InlineResponse20047;
       return this.apiClient.callApi(
         '/api/v1/other/check_asins', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -289,7 +289,7 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject3>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20046}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20047}
      */
     apiV1OtherCheckAsinsPost(opts) {
       return this.apiV1OtherCheckAsinsPostWithHttpInfo(opts)
@@ -304,7 +304,7 @@ export default class OtherApi {
      * ## Отправка отзыва/репорта
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1OtherFeedbackPostWithHttpInfo(opts) {
@@ -337,7 +337,7 @@ export default class OtherApi {
      * ## Отправка отзыва/репорта
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1OtherFeedbackPost(opts) {
@@ -609,7 +609,7 @@ export default class OtherApi {
      * ## Загрузить аватар.   Данный метод нужен для заливки аватара пользователем, при повторном вызове происходит обновление. Старая картинка затирается новой! картинка уменьшается до 300 на 300 точек(без обрезания). после сжиматься.  пример: \"https://amazonapi.fvds.ru/uploads/avatars/{userId}.webp\", где userId это GUID пользователя например, 90aac7d1-5777-4ef3-b29c-212f665a2543 https://amazonapi.fvds.ru/uploads/avatars/90aac7d1-5777-4ef3-b29c-212f665a2543.webp Проверки: Проверка расширений, доступные форматы:  'jpeg', 'jpg', 'png', 'webp', 'gif', 'avif', 'tiff' 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20110} and HTTP response
      */
     apiV1OtherUploadAvatarPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -628,7 +628,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse20110;
       return this.apiClient.callApi(
         '/api/v1/other/upload_avatar', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -641,7 +641,7 @@ export default class OtherApi {
      * ## Загрузить аватар.   Данный метод нужен для заливки аватара пользователем, при повторном вызове происходит обновление. Старая картинка затирается новой! картинка уменьшается до 300 на 300 точек(без обрезания). после сжиматься.  пример: \"https://amazonapi.fvds.ru/uploads/avatars/{userId}.webp\", где userId это GUID пользователя например, 90aac7d1-5777-4ef3-b29c-212f665a2543 https://amazonapi.fvds.ru/uploads/avatars/90aac7d1-5777-4ef3-b29c-212f665a2543.webp Проверки: Проверка расширений, доступные форматы:  'jpeg', 'jpg', 'png', 'webp', 'gif', 'avif', 'tiff' 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20110}
      */
     apiV1OtherUploadAvatarPost(opts) {
       return this.apiV1OtherUploadAvatarPostWithHttpInfo(opts)
@@ -656,8 +656,8 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
+     * @param {module:model/InlineObject71} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20110} and HTTP response
      */
     apiV1OtherUploadFileByUrlPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -676,7 +676,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse20110;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file_by_url', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -689,8 +689,8 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject69} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
+     * @param {module:model/InlineObject71} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20110}
      */
     apiV1OtherUploadFileByUrlPost(opts) {
       return this.apiV1OtherUploadFileByUrlPostWithHttpInfo(opts)
@@ -705,7 +705,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20110} and HTTP response
      */
     apiV1OtherUploadFilePostWithHttpInfo(opts) {
       opts = opts || {};
@@ -724,7 +724,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse20110;
       return this.apiClient.callApi(
         '/api/v1/other/upload_file', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -737,7 +737,7 @@ export default class OtherApi {
      * ## Загрузить изображение.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20110}
      */
     apiV1OtherUploadFilePost(opts) {
       return this.apiV1OtherUploadFilePostWithHttpInfo(opts)
