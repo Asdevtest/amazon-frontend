@@ -22,13 +22,10 @@ class InlineObject86 {
     /**
      * Constructs a new <code>InlineObject86</code>.
      * @alias module:model/InlineObject86
-     * @param sourceFile {String} Файл для записи в FreelanceSource
-     * @param typeTask {Number} Код специализации фрилансера
-     * @param productId {String} гуид продукта
      */
-    constructor(sourceFile, typeTask, productId) { 
+    constructor() { 
         
-        InlineObject86.initialize(this, sourceFile, typeTask, productId);
+        InlineObject86.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject86 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sourceFile, typeTask, productId) { 
-        obj['sourceFile'] = sourceFile;
-        obj['typeTask'] = typeTask;
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,20 +47,8 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -76,34 +58,10 @@ class InlineObject86 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject86.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comment
- */
-InlineObject86.prototype['comment'] = undefined;
-
-/**
- * Код специализации фрилансера
- * @member {Number} typeTask
- */
-InlineObject86.prototype['typeTask'] = undefined;
-
-/**
- * гуид продукта
- * @member {String} productId
- */
-InlineObject86.prototype['productId'] = undefined;
-
-/**
- * Гуид пропоузала
- * @member {String} proposalId
- */
-InlineObject86.prototype['proposalId'] = undefined;
+InlineObject86.prototype['suppliersIds'] = undefined;
 
 
 

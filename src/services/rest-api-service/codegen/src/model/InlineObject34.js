@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject34
-     * @param buyerComment {String} Комментарии байера.
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor(buyerComment) { 
+    constructor(userIds, title) { 
         
-        InlineObject34.initialize(this, buyerComment);
+        InlineObject34.initialize(this, userIds, title);
     }
 
     /**
@@ -35,8 +35,9 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -50,8 +51,11 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -61,10 +65,15 @@ class InlineObject34 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * @member {Array.<String>} userIds
  */
-InlineObject34.prototype['buyerComment'] = undefined;
+InlineObject34.prototype['userIds'] = undefined;
+
+/**
+ * Название группового чата
+ * @member {String} title
+ */
+InlineObject34.prototype['title'] = undefined;
 
 
 

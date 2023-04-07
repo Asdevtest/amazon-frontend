@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ProductsKeepaOffers from './ApiV1ProductsKeepaOffers';
+import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
 
 /**
  * The InlineResponse20053 model module.
@@ -47,29 +49,71 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('isRecommended')) {
+                obj['isRecommended'] = ApiClient.convertToType(data['isRecommended'], 'Boolean');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            if (data.hasOwnProperty('trackingSince')) {
+                obj['trackingSince'] = ApiClient.convertToType(data['trackingSince'], 'Number');
             }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            if (data.hasOwnProperty('lastRatingUpdate')) {
+                obj['lastRatingUpdate'] = ApiClient.convertToType(data['lastRatingUpdate'], 'Number');
             }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            if (data.hasOwnProperty('rootCategory')) {
+                obj['rootCategory'] = ApiClient.convertToType(data['rootCategory'], 'Number');
             }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            if (data.hasOwnProperty('categories')) {
+                obj['categories'] = ApiClient.convertToType(data['categories'], ['Number']);
             }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            if (data.hasOwnProperty('parentAsin')) {
+                obj['parentAsin'] = ApiClient.convertToType(data['parentAsin'], 'String');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('variationCSV')) {
+                obj['variationCSV'] = ApiClient.convertToType(data['variationCSV'], 'String');
             }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('frequentlyBoughtTogether')) {
+                obj['frequentlyBoughtTogether'] = ApiClient.convertToType(data['frequentlyBoughtTogether'], ['String']);
+            }
+            if (data.hasOwnProperty('manufacturer')) {
+                obj['manufacturer'] = ApiClient.convertToType(data['manufacturer'], 'String');
+            }
+            if (data.hasOwnProperty('brand')) {
+                obj['brand'] = ApiClient.convertToType(data['brand'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('publicationDate')) {
+                obj['publicationDate'] = ApiClient.convertToType(data['publicationDate'], 'Number');
+            }
+            if (data.hasOwnProperty('releaseDate')) {
+                obj['releaseDate'] = ApiClient.convertToType(data['releaseDate'], 'Number');
+            }
+            if (data.hasOwnProperty('contributors')) {
+                obj['contributors'] = ApiClient.convertToType(data['contributors'], [['Number']]);
+            }
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            }
+            if (data.hasOwnProperty('salesRanks')) {
+                obj['salesRanks'] = ApiClient.convertToType(data['salesRanks'], Object);
+            }
+            if (data.hasOwnProperty('offers')) {
+                obj['offers'] = ApiClient.convertToType(data['offers'], [ApiV1ProductsKeepaOffers]);
+            }
+            if (data.hasOwnProperty('liveOffersOrder')) {
+                obj['liveOffersOrder'] = ApiClient.convertToType(data['liveOffersOrder'], ['Number']);
+            }
+            if (data.hasOwnProperty('buyBoxSellerIdHistory')) {
+                obj['buyBoxSellerIdHistory'] = ApiClient.convertToType(data['buyBoxSellerIdHistory'], ['String']);
+            }
+            if (data.hasOwnProperty('availabilityAmazon')) {
+                obj['availabilityAmazon'] = ApiClient.convertToType(data['availabilityAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('newPriceIsMAP')) {
+                obj['newPriceIsMAP'] = ApiClient.convertToType(data['newPriceIsMAP'], 'Boolean');
+            }
+            if (data.hasOwnProperty('stats')) {
+                obj['stats'] = ApiV1ProductsKeepaStats.constructFromObject(data['stats']);
             }
         }
         return obj;
@@ -79,52 +123,114 @@ class InlineResponse20053 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * @member {Boolean} isRecommended
  */
-InlineResponse20053.prototype['price'] = undefined;
+InlineResponse20053.prototype['isRecommended'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * @member {Number} trackingSince
  */
-InlineResponse20053.prototype['requestPlatformMarginInPercent'] = undefined;
+InlineResponse20053.prototype['trackingSince'] = undefined;
 
 /**
- * Услуги платформы.
- * @member {Number} platformMargin
+ * @member {Number} lastRatingUpdate
  */
-InlineResponse20053.prototype['platformMargin'] = undefined;
+InlineResponse20053.prototype['lastRatingUpdate'] = undefined;
 
 /**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
+ * @member {Number} rootCategory
  */
-InlineResponse20053.prototype['requestSupervisorFeeInPercent'] = undefined;
+InlineResponse20053.prototype['rootCategory'] = undefined;
 
 /**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
+ * @member {Array.<Number>} categories
  */
-InlineResponse20053.prototype['supervisorFee'] = undefined;
+InlineResponse20053.prototype['categories'] = undefined;
 
 /**
- * Сумма.
- * @member {Number} unitCost
+ * @member {String} parentAsin
  */
-InlineResponse20053.prototype['unitCost'] = undefined;
+InlineResponse20053.prototype['parentAsin'] = undefined;
 
 /**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
+ * @member {String} variationCSV
  */
-InlineResponse20053.prototype['maxAmountOfProposals'] = undefined;
+InlineResponse20053.prototype['variationCSV'] = undefined;
 
 /**
- * Итого.
- * @member {Number} totalCost
+ * @member {Array.<String>} frequentlyBoughtTogether
  */
-InlineResponse20053.prototype['totalCost'] = undefined;
+InlineResponse20053.prototype['frequentlyBoughtTogether'] = undefined;
+
+/**
+ * @member {String} manufacturer
+ */
+InlineResponse20053.prototype['manufacturer'] = undefined;
+
+/**
+ * @member {String} brand
+ */
+InlineResponse20053.prototype['brand'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20053.prototype['productGroup'] = undefined;
+
+/**
+ * @member {Number} publicationDate
+ */
+InlineResponse20053.prototype['publicationDate'] = undefined;
+
+/**
+ * @member {Number} releaseDate
+ */
+InlineResponse20053.prototype['releaseDate'] = undefined;
+
+/**
+ * @member {Array.<Array.<Number>>} contributors
+ */
+InlineResponse20053.prototype['contributors'] = undefined;
+
+/**
+ * @member {String} size
+ */
+InlineResponse20053.prototype['size'] = undefined;
+
+/**
+ * @member {Object} salesRanks
+ */
+InlineResponse20053.prototype['salesRanks'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1ProductsKeepaOffers>} offers
+ */
+InlineResponse20053.prototype['offers'] = undefined;
+
+/**
+ * @member {Array.<Number>} liveOffersOrder
+ */
+InlineResponse20053.prototype['liveOffersOrder'] = undefined;
+
+/**
+ * @member {Array.<String>} buyBoxSellerIdHistory
+ */
+InlineResponse20053.prototype['buyBoxSellerIdHistory'] = undefined;
+
+/**
+ * @member {Number} availabilityAmazon
+ */
+InlineResponse20053.prototype['availabilityAmazon'] = undefined;
+
+/**
+ * @member {Boolean} newPriceIsMAP
+ */
+InlineResponse20053.prototype['newPriceIsMAP'] = undefined;
+
+/**
+ * @member {module:model/ApiV1ProductsKeepaStats} stats
+ */
+InlineResponse20053.prototype['stats'] = undefined;
 
 
 

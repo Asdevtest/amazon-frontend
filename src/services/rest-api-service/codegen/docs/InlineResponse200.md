@@ -81,5 +81,7 @@ Name | Type | Description | Notes
 **fbaFbmStockSum** | **Number** |  | [optional] 
 **ideaCount** | **Number** |  | [optional] 
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
 
 

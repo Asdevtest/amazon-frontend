@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | Гуид созданного исходника | [optional] 
+**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
 
 

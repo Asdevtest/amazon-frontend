@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

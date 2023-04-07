@@ -1820,6 +1820,7 @@ export enum TranslationKey {
   'Payment documents' = 'Payment documents',
   'Add payment document' = 'Add payment document',
   'Document added' = 'Document added',
+  'Red flags' = 'Red flags',
   // '' = '',
   // '' = '',
   // '' = '',

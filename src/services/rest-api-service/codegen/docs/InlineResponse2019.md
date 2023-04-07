@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
+**status** | **String** | Тестовый статус запуска | [optional] 
+**wsUrl** | **String** | Строка подключения к WS соединению | [optional] 
 
 
