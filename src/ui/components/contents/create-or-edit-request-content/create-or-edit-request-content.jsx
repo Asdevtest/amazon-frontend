@@ -101,6 +101,8 @@ export const CreateOrEditRequestContent = ({
     setAnnouncementsData(announcements)
   }, [announcements])
 
+  const [clearСonditionsText, setСonditionsClearText] = useState('')
+
   const getSourceFormFields = currentFields => ({
     request: {
       title: requestToEdit?.request.title || '',
@@ -144,6 +146,18 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  useEffect(() => {
+    if (formFields.details.conditions) {
+      try {
+        const obj = JSON.parse(formFields.details.conditions)
+        const text = obj?.blocks?.map(block => block?.text).join('')
+        setСonditionsClearText(text)
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+  }, [formFields.details.conditions])
 
   useEffect(() => {
     if (requestToEdit) {
@@ -257,7 +271,8 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
-    // formFields.details.conditions.length > 1000 ||
+    clearСonditionsText.length >= 6000 ||
+    !clearСonditionsText.length ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
