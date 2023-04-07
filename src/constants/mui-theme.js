@@ -253,6 +253,7 @@ export const lightTheme = createTheme({
       second: '#656565',
 
       negativeMain: '#fff',
+      gray: '#C4C4C4',
       green: 'green',
     },
 
@@ -687,6 +688,8 @@ export const darkTheme = createTheme({
       text: {
         general: '#fff',
         second: '#E1E1E1',
+
+        gray: 'gray',
 
         negativeMain: '#001029',
         green: '#2FE341',

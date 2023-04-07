@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
   },
   editorBorder: {
-    border: '1px solid #C4C4C4',
+    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
   },
   editorContainer: {
@@ -61,6 +61,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: `${theme.palette.text.second} !important`,
+    color: `${theme.palette.text.gray} !important`,
   },
 }))
