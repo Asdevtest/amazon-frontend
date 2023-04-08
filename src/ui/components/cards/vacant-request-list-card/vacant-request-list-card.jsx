@@ -41,12 +41,12 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
         <div className={classNames.cardTitleBlockWrapper}>
           <div className={classNames.cardTitleBlockHeaderWrapper}>
             <div className={classNames.userInfoWrapper}>
-              <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+              <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
 
               <div className={classNames.nameWrapper}>
-                <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
+                <UserLink blackText name={item?.createdBy?.name} userId={item?.createdBy?._id} />
 
-                <Rating disabled value={item.createdBy.rating} />
+                <Rating disabled value={item?.createdBy?.rating} />
               </div>
             </div>
             <div className={classNames.titleWrapper}>
@@ -67,8 +67,8 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
           <div className={classNames.cardTitleBlockFooterWrapper}>
             <Typography className={classNames.cardSubTitle}>
               {translateProposalsLeftMessage(
-                item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
-                item.maxAmountOfProposals,
+                item?.maxAmountOfProposals - item?.countProposalsByStatuses?.acceptedProposals,
+                item?.maxAmountOfProposals,
               )}
             </Typography>
 
