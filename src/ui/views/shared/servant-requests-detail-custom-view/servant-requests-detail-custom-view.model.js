@@ -236,12 +236,11 @@ export class RequestDetailCustomViewModel {
           reason: message,
           linksToMediaFiles: this.loadedFiles,
         })
+      } else {
+        if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+          await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
+        }
       }
-
-      // else {
-      //   if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
-      //     await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
-      //   }
 
       //   await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
       //     result: message,
