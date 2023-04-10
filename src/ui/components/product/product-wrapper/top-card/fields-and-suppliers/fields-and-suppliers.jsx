@@ -58,7 +58,7 @@ export const FieldsAndSuppliers = observer(
     }
 
     const isEditRedFlags =
-      showActionBtns && (checkIsSupervisor(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole))
+      showActionBtns && (checkIsSupervisor(curUserRole) || checkIsBuyer(curUserRole) || checkIsClient(curUserRole))
 
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
