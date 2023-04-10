@@ -21,7 +21,7 @@ import InlineObject76 from '../model/InlineObject76';
 import InlineObject77 from '../model/InlineObject77';
 import InlineObject78 from '../model/InlineObject78';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20027 from '../model/InlineResponse20027';
+import InlineResponse20033 from '../model/InlineResponse20033';
 import InlineResponse20050 from '../model/InlineResponse20050';
 import InlineResponse20051 from '../model/InlineResponse20051';
 import InternalServerError from '../model/InternalServerError';
@@ -165,7 +165,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20027>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20033>} and HTTP response
      */
     apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -189,7 +189,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20027];
+      let returnType = [InlineResponse20033];
       return this.apiClient.callApi(
         '/api/v1/products/by_creator/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -203,7 +203,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20027>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20033>}
      */
     apiV1ProductsByCreatorGuidGet(guid, opts) {
       return this.apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts)

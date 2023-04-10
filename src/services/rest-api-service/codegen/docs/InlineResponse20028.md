@@ -4,11 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID продукта в базе данных | [optional] 
-**asin** | **String** | ASIN продукта | [optional] 
-**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
-**amazonTitle** | **String** | Заголовок на товар с сайта амазон. | [optional] 
-**skusByClient** | **[String]** |  | [optional] 
-**images** | **[String]** | Массив картинок. | [optional] 
+**products** | [**InlineResponse20028Products**](InlineResponse20028Products.md) |  | [optional] 
+**orders** | [**InlineResponse20028Orders**](InlineResponse20028Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20028PendingOrders**](InlineResponse20028PendingOrders.md) |  | [optional] 
+**finances** | [**InlineResponse20028Finances**](InlineResponse20028Finances.md) |  | [optional] 
 
 
