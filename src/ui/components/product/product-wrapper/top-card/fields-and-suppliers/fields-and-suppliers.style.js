@@ -108,6 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   productFieldBox: {
     display: 'flex',
+    flexWrap: 'wrap',
     // flexDirection: 'column',
     // height: '100%',
     // justifyContent: 'space-between',
