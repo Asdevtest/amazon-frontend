@@ -229,6 +229,32 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
+  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes /* .filter(el => el.image) */}) {
+    try {
+      // runInAction(() => {
+      //   this.uploadedFiles = []
+      // })
+      // if (files.length) {
+      //   await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      // }
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+      if (!findProposalByChatId) {
+        return
+      }
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        reason,
+        timeLimitInMinutes: parseInt(timeLimitInMinutes),
+        // linksToMediaFiles: this.uploadedFiles,
+        // media: '',
+      })
+      this.loadData()
+    } catch (error) {
+      console.warn('onClickProposalResultToCorrect error ', error)
+    }
+  }
+
   async getCustomProposalsForRequestCur() {
     try {
       this.platformSettings = await UserModel.getPlatformSettings()
@@ -296,6 +322,11 @@ export class OwnerRequestDetailCustomViewModel {
 
   onClickReview() {
     this.onTriggerOpenModal('showReviewModal')
+  }
+
+  onClickOpenRequest() {
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    this.getCustomProposalsForRequestCur()
   }
 
   onClickOrderProposal(proposalId, price) {

@@ -8,9 +8,9 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 auto',
     border: '1px solid #4CAF50',
     borderRadius: '4px',
-    '& p, h1, h2, h3, h4, h5, span': {
-      margin: 0,
-    },
+    // '& p, h1, h2, h3, h4, h5, span': {
+    //   margin: 0,
+    // },
   },
   headerAndTimeWrapper: {
     flexDirection: 'row',

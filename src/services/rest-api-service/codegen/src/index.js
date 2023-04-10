@@ -69,13 +69,14 @@ import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1Requ
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './model/ApiV1RequestProposalsCustomByRequestIdGuidRequest';
-import ApiV1RequestProposalsCustomGuidResultEditMedia from './model/ApiV1RequestProposalsCustomGuidResultEditMedia';
-import ApiV1RequestProposalsCustomGuidResultEditSourceFiles from './model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles';
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsFreelanceSourcesProposal from './model/ApiV1RequestProposalsFreelanceSourcesProposal';
 import ApiV1RequestProposalsFreelanceSourcesProposalRequest from './model/ApiV1RequestProposalsFreelanceSourcesProposalRequest';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './model/ApiV1RequestProposalsGuidResultToCorrectMedia';
+import ApiV1RequestProposalsMedia from './model/ApiV1RequestProposalsMedia';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
+import ApiV1RequestProposalsSourceFiles from './model/ApiV1RequestProposalsSourceFiles';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
@@ -769,18 +770,6 @@ export {
     ApiV1RequestProposalsCustomByRequestIdGuidRequest,
 
     /**
-     * The ApiV1RequestProposalsCustomGuidResultEditMedia model constructor.
-     * @property {module:model/ApiV1RequestProposalsCustomGuidResultEditMedia}
-     */
-    ApiV1RequestProposalsCustomGuidResultEditMedia,
-
-    /**
-     * The ApiV1RequestProposalsCustomGuidResultEditSourceFiles model constructor.
-     * @property {module:model/ApiV1RequestProposalsCustomGuidResultEditSourceFiles}
-     */
-    ApiV1RequestProposalsCustomGuidResultEditSourceFiles,
-
-    /**
      * The ApiV1RequestProposalsDetailsCustom model constructor.
      * @property {module:model/ApiV1RequestProposalsDetailsCustom}
      */
@@ -799,6 +788,18 @@ export {
     ApiV1RequestProposalsFreelanceSourcesProposalRequest,
 
     /**
+     * The ApiV1RequestProposalsGuidResultToCorrectMedia model constructor.
+     * @property {module:model/ApiV1RequestProposalsGuidResultToCorrectMedia}
+     */
+    ApiV1RequestProposalsGuidResultToCorrectMedia,
+
+    /**
+     * The ApiV1RequestProposalsMedia model constructor.
+     * @property {module:model/ApiV1RequestProposalsMedia}
+     */
+    ApiV1RequestProposalsMedia,
+
+    /**
      * The ApiV1RequestProposalsRequest model constructor.
      * @property {module:model/ApiV1RequestProposalsRequest}
      */
@@ -809,6 +810,12 @@ export {
      * @property {module:model/ApiV1RequestProposalsRequestDetailsCustom}
      */
     ApiV1RequestProposalsRequestDetailsCustom,
+
+    /**
+     * The ApiV1RequestProposalsSourceFiles model constructor.
+     * @property {module:model/ApiV1RequestProposalsSourceFiles}
+     */
+    ApiV1RequestProposalsSourceFiles,
 
     /**
      * The ApiV1RequestsCountProposalsByStatuses model constructor.

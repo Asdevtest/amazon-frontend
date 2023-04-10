@@ -30,10 +30,10 @@ import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-form.style'
 
-export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal}) => {
+export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal, proposal}) => {
   const {classes: classNames} = useClassNames()
 
-  const isRework = !!request.request.media?.length
+  const isRework = !!proposal.proposal.media?.length
 
   const [showDetails, setShowDetails] = useState(false)
 
@@ -41,9 +41,9 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [curImageId, setCurImageId] = useState(null)
 
-  const [sourceLink, setSourceLink] = useState('')
+  const [sourceLink, setSourceLink] = useState(proposal.proposal.sourceFiles?.[0]?.sourceFile || '')
 
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState(proposal.details.result)
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
@@ -52,7 +52,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   // console.log('request', request)
 
   const sourceImagesData = isRework
-    ? request.request.media.map((el, index) => ({
+    ? proposal.proposal.media.map((el, index) => ({
         image: el.fileLink,
         comment: el.commentByPerformer,
         commentByClient: el.commentByClient,
@@ -208,7 +208,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {minsToTime(1440)}
+                {minsToTime(proposal.proposal.execution_time)}
               </Typography>
             }
           />

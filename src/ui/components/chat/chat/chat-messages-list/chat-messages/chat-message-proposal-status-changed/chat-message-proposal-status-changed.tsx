@@ -81,10 +81,10 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
               </div>
             </div>
             <div className={classNames.reasonWrapper}>
-              <p className={classNames.reasonText}>{message.data.reason}</p>
+              <p className={classNames.reasonText}>{message?.data?.reason}</p>
             </div>
 
-            {message.data.linksToMediaFiles.length > 0 && (
+            {message.data?.linksToMediaFiles?.length > 0 && (
               <PhotoAndFilesCarousel
                 notToShowEmpty
                 small

@@ -21,6 +21,7 @@ import {
 import React, {useEffect, useState} from 'react'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
+import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -41,8 +42,29 @@ import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-client-form.style'
 
-export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, setOpenModal}) => {
+export const RequestDesignerResultClientForm = ({
+  onClickProposalResultAccept,
+  onPressSubmitDesignerResultToCorrect,
+  request,
+  setOpenModal,
+  proposal,
+  userInfo,
+}) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('request', request)
+
+  console.log('proposal', proposal)
+
+  const isNotClient = userInfo._id !== request.request.createdBy._id
+
+  const proposalIsAccepted = [
+    RequestProposalStatus.ACCEPTED_BY_CLIENT,
+    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+  ].includes(proposal.proposal.status)
+
+  const noShowActions = isNotClient || proposalIsAccepted
 
   const [showImageModal, setShowImageModal] = useState(false)
 
@@ -52,11 +74,9 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  console.log('imagesForDownload', imagesForDownload)
+  // console.log('imagesForDownload', imagesForDownload)
 
-  // console.log('request', request)
-
-  const sourceImagesData = request.request.media.map((el, index) => ({
+  const sourceImagesData = proposal.proposal.media.map((el, index) => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
@@ -157,12 +177,18 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
             label={t(TranslationKey['Source Files'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              <div className={classNames.viewLinkWrapper}>
-                <Link href={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'} target="_blank">
-                  {t(TranslationKey.View)}
-                </Link>
-                <CopyValue text={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'} />
-              </div>
+              proposal.proposal.sourceFiles?.[0]?.sourceFile ? (
+                <div className={classNames.viewLinkWrapper}>
+                  <Link href={proposal.proposal.sourceFiles?.[0]?.sourceFile} target="_blank">
+                    {t(TranslationKey.View)}
+                  </Link>
+                  <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
+                </div>
+              ) : (
+                <div className={classNames.shippingLabelWrapper}>
+                  <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
+                </div>
+              )
             }
           />
 
@@ -182,7 +208,7 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {request.request.media.length}
+                {proposal.proposal.media.length}
               </Typography>
             }
           />
@@ -192,10 +218,8 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {/* {request.request.asin} */}
-
-                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${request.request.asin}`}>
-                  <span className={classNames.linkSpan}>{request.request.asin}</span>
+                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${proposal.request.asin}`}>
+                  <span className={classNames.linkSpan}>{proposal.request.asin}</span>
                 </a>
               </Typography>
             }
@@ -252,7 +276,7 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
               </div>
             </div>
 
-            {!item.isEditCommentOpen && (
+            {!item.isEditCommentOpen && !noShowActions && (
               <Button className={cx(classNames.commentBtn)} onClick={() => onClickCommentBtn(item._id)}>
                 {t(TranslationKey.Comment)}
                 <img
@@ -262,7 +286,7 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
               </Button>
             )}
 
-            {item.isEditCommentOpen && (
+            {item.isEditCommentOpen && !noShowActions && (
               <div>
                 <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
                   <Typography>{t(TranslationKey.Comment)}</Typography>
@@ -293,28 +317,35 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
       </div>
 
       <div className={classNames.footerWrapper}>
-        <Field
-          multiline
-          className={cx(classNames.heightFieldAuto)}
-          labelClasses={classNames.fieldLabel}
-          containerClasses={classNames.containerField}
-          inputProps={{maxLength: 1000}}
-          minRows={4}
-          maxRows={4}
-          placeholder={t(TranslationKey['Enter remarks'])}
-          label={t(TranslationKey.Remarks)}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-        />
+        {!noShowActions && (
+          <>
+            <Field
+              multiline
+              className={cx(classNames.heightFieldAuto)}
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.containerField}
+              inputProps={{maxLength: 1000}}
+              minRows={4}
+              maxRows={4}
+              placeholder={t(TranslationKey['Enter remarks'])}
+              label={t(TranslationKey.Remarks)}
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+            />
 
-        <Field
-          labelClasses={classNames.fieldLabel}
-          label={t(TranslationKey['Time for rework'])}
-          containerClasses={classNames.containerField}
-          inputComponent={
-            <SetDuration duration={formFields.execution_time} setTotalTimeInMinute={onChangeField('execution_time')} />
-          }
-        />
+            <Field
+              labelClasses={classNames.fieldLabel}
+              label={t(TranslationKey['Time for rework'])}
+              containerClasses={classNames.containerField}
+              inputComponent={
+                <SetDuration
+                  duration={formFields.execution_time}
+                  setTotalTimeInMinute={onChangeField('execution_time')}
+                />
+              }
+            />
+          </>
+        )}
 
         {/* <Field
           labelClasses={classNames.fieldLabel}
@@ -340,28 +371,34 @@ export const RequestDesignerResultClientForm = ({onClickSendAsResult, request, s
           </Button>
         </div>
 
-        <Button
-          disabled /* ={disableSubmit} */
-          className={cx(classNames.button)}
-          // onClick={() => {
-          //   onClickSendAsResult({message: comment, files: imagesData /* .filter(el => el.image) */, sourceLink})
-          //   setOpenModal()
-          // }}
-        >
-          {t(TranslationKey['Send in for rework'])}
-        </Button>
-
-        <Button
-          success
-          disabled /* ={disableSubmit} */
-          className={cx(classNames.button)}
-          // onClick={() => {
-          //   onClickSendAsResult({message: comment, files: imagesData /* .filter(el => el.image) */, sourceLink})
-          //   setOpenModal()
-          // }}
-        >
-          {t(TranslationKey.Accept)}
-        </Button>
+        {!noShowActions && (
+          <>
+            <Button
+              // disabled /* ={disableSubmit} */
+              className={cx(classNames.button)}
+              onClick={() => {
+                onPressSubmitDesignerResultToCorrect({
+                  reason: comment,
+                  timeLimitInMinutes: formFields.execution_time /* .filter(el => el.image) */,
+                })
+                setOpenModal()
+              }}
+            >
+              {t(TranslationKey['Send in for rework'])}
+            </Button>
+            <Button
+              success
+              // disabled /* ={disableSubmit} */
+              className={cx(classNames.button)}
+              onClick={() => {
+                onClickProposalResultAccept(proposal.proposal._id)
+                setOpenModal()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+          </>
+        )}
 
         <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
