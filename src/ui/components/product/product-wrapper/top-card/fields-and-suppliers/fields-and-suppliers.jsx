@@ -15,11 +15,14 @@ import {
 } from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {GeneralModel} from '@models/general-model'
+
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {TagSelector} from '@components/product/product-wrapper/tag-selector/tag-selector'
 import {RedFlags} from '@components/shared/redFlags/red-flags'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
@@ -308,6 +311,22 @@ export const FieldsAndSuppliers = observer(
               </div>
             </Box>
           </div>
+
+          {(showActionBtns || !!product?.tags?.length) && (
+            <div>
+              <div className={classNames.subUsersTitleWrapper}>
+                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
+              </div>
+              <TagSelector
+                isEditMode={showActionBtns}
+                handleSaveTags={tags => onChangeField('tags')({target: {value: tags}})}
+                currentTags={product.tags}
+                getTags={GeneralModel.getTagList}
+                prefix="# "
+                placeholder={'# ' + t(TranslationKey['Input tag'])}
+              />
+            </div>
+          )}
 
           {(isEditRedFlags || !!product?.redFlags?.length) && (
             <div>
