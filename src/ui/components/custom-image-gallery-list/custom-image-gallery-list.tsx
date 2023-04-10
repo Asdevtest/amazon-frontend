@@ -40,7 +40,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
 
   const {files, isAmazonPhoto} = props
 
-  const isObjectFiles = files.some(el => typeof el === 'object')
+  const isObjectFiles = files?.some(el => typeof el === 'object')
 
   const [filesForRender, setFilesForRender] = useState(files)
 
