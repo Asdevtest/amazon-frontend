@@ -195,7 +195,7 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      // console.log('files', files)
+      console.log('files', files)
 
       if (files.length) {
         await onSubmitPostImages.call(this, {
