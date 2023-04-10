@@ -99,6 +99,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickHideChat,
       onClickOrderProposal,
       onTypingMessage,
+      onClickOpenRequest,
+      onPressSubmitDesignerResultToCorrect,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -192,15 +194,13 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                             onClickProposalResultToCorrect,
                             onClickProposalResultAccept,
                             onClickOrderProposal,
+                            onClickOpenRequest,
                           }}
-                          renderAdditionalButtons={() => (
-                            <Button
-                              // className={classNames.hideChatButton}
-                              onClick={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-                            >
-                              ПОКАЗАТЬ РЕЗУЛЬТАТ (тест дизайнера)
-                            </Button>
-                          )}
+                          // renderAdditionalButtons={() => (
+                          //   <Button onClick={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}>
+                          //     ПОКАЗАТЬ РЕЗУЛЬТАТ (тест дизайнера)
+                          //   </Button>
+                          // )}
                           updateData={this.viewModel.loadData}
                           onSubmitMessage={onSubmitMessage}
                           onClickChat={onClickChat}
@@ -244,9 +244,12 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
           >
             <RequestDesignerResultClientForm
+              userInfo={userInfo}
               request={request}
+              proposal={findRequestProposalForCurChat}
               setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-              // onClickSendAsResult={onClickSendAsResult}
+              onClickProposalResultAccept={onClickProposalResultAccept}
+              onPressSubmitDesignerResultToCorrect={onPressSubmitDesignerResultToCorrect}
             />
           </Modal>
 

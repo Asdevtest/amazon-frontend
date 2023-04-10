@@ -26,6 +26,7 @@ export class RequestDetailCustomViewModel {
   showConfirmModal = false
   showRequestResultModal = false
   showRequestDesignerResultModal = false
+  showRequestDesignerResultClientModal = false
 
   loadedFiles = []
 
@@ -122,6 +123,10 @@ export class RequestDetailCustomViewModel {
     })
   }
 
+  onClickOpenRequest() {
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+  }
+
   async onSubmitMessage(message, files, chatIdId) {
     try {
       await ChatModel.sendMessage({
@@ -190,7 +195,7 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      console.log('files', files)
+      // console.log('files', files)
 
       if (files.length) {
         await onSubmitPostImages.call(this, {
@@ -248,6 +253,8 @@ export class RequestDetailCustomViewModel {
       //     ...(publicationLinks && {publicationLinks}),
       //   })
       // }
+
+      this.getRequestProposals()
     } catch (error) {
       console.log(error)
       runInAction(() => {

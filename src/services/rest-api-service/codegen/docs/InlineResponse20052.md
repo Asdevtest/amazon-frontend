@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **chatId** | **String** | GUID чата. | [optional] 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
 **subId** | **String** | GUID саба | [optional] 
+**sourceFiles** | [**[ApiV1RequestProposalsSourceFiles]**](ApiV1RequestProposalsSourceFiles.md) |  | [optional] 
+**media** | [**[ApiV1RequestProposalsMedia]**](ApiV1RequestProposalsMedia.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **title** | **String** | Название предложения | [optional] 

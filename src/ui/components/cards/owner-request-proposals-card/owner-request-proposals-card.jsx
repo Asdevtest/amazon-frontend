@@ -83,6 +83,7 @@ export const OwnerRequestProposalsCard = ({
 
             <div className={classNames.photoWrapper}>
               <PhotoCarousel files={item.proposal.linksToMediaFiles} />
+              {/* <PhotoCarousel files={item.proposal.media?.map(el => el.fileLink)} /> */}
             </div>
           </div>
         </div>

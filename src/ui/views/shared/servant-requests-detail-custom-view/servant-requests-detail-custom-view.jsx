@@ -12,6 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -70,6 +71,7 @@ export class RequestDetailCustomViewRaw extends Component {
       requestProposals,
       showRequestResultModal,
       showRequestDesignerResultModal,
+      showRequestDesignerResultClientModal,
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
@@ -81,6 +83,7 @@ export class RequestDetailCustomViewRaw extends Component {
       onTypingMessage,
       onClickResultBtn,
       onClickReworkProposal,
+      onClickOpenRequest,
     } = this.viewModel
 
     // const findRequestProposalForCurChat = requestProposals?.find(
@@ -141,6 +144,7 @@ export class RequestDetailCustomViewRaw extends Component {
                       chatSelectedId={chatSelectedId}
                       chatMessageHandlers={{
                         onClickReworkProposal,
+                        onClickOpenRequest,
                       }}
                       renderAdditionalButtons={(params, resetAllInputs) => (
                         <div className={classNames.additionalButtonsWrapper}>
@@ -208,6 +212,20 @@ export class RequestDetailCustomViewRaw extends Component {
           }}
         />
 
+        <Modal
+          missClickModalOn
+          openModal={showRequestDesignerResultClientModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        >
+          <RequestDesignerResultClientForm
+            userInfo={userInfo}
+            request={request}
+            proposal={findRequestProposalForCurChat}
+            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+            // onClickSendAsResult={onClickSendAsResult}
+          />
+        </Modal>
+
         <RequestResultModal
           request={request}
           openModal={showRequestResultModal}
@@ -222,6 +240,7 @@ export class RequestDetailCustomViewRaw extends Component {
         >
           <RequestDesignerResultForm
             request={request}
+            proposal={findRequestProposalForCurChat}
             setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
             onClickSendAsResult={onClickSendAsResult}
           />
