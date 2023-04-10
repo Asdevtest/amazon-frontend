@@ -1,13 +1,16 @@
 import {cx} from '@emotion/css'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import {Avatar, Typography} from '@mui/material'
 
 import {useEffect, useState} from 'react'
 
+import {Button} from '@components/buttons/button'
 // import React, {useEffect, useState} from 'react'
 import {CustomCarousel} from '@components/custom-carousel'
 import {Modal} from '@components/modal'
 
 import {getShortenStringIfLongerThanCount} from '@utils/text'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './big-object-images-modal.style'
 
@@ -50,6 +53,12 @@ export const BigObjectImagesModal = ({
   const onClickLeftSideImage = iamageId => {
     setCurImageId(() => iamageId)
     setCurImageIndex(() => filteredImagesData.findIndex(el => el._id === curImageId) || 0)
+  }
+
+  const onClickDownloadBtn = () => {
+    const imageObj = {...imagesData.find(el => el._id === curImageId)}
+
+    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
   }
 
   // console.log('curImageId', curImageId)
@@ -125,7 +134,13 @@ export const BigObjectImagesModal = ({
         </div>
 
         <div className={cx(classNames.imageModalSubWrapper, classNames.imageModalSubWrapperRightSide)}>
-          {renderBtns()}
+          {renderBtns ? (
+            renderBtns()
+          ) : (
+            <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
+              <DownloadOutlinedIcon />
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2001 from './InlineResponse2001';
+import InlineResponse20028Finances from './InlineResponse20028Finances';
 
 /**
  * The InlineResponse20031 model module.
@@ -22,7 +22,6 @@ import InlineResponse2001 from './InlineResponse2001';
 class InlineResponse20031 {
     /**
      * Constructs a new <code>InlineResponse20031</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20031
      */
     constructor() { 
@@ -49,11 +48,8 @@ class InlineResponse20031 {
         if (data) {
             obj = obj || new InlineResponse20031();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
-            }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20028Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -63,16 +59,9 @@ class InlineResponse20031 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {module:model/InlineResponse20028Finances} finances
  */
-InlineResponse20031.prototype['count'] = undefined;
-
-/**
- * Массив заказов c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse2001>} rows
- */
-InlineResponse20031.prototype['rows'] = undefined;
+InlineResponse20031.prototype['finances'] = undefined;
 
 
 
