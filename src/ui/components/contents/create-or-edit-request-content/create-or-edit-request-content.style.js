@@ -186,6 +186,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
+
+    marginTop: 20,
   },
 
   descriptionField: {
@@ -772,5 +774,13 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  editorMaxHeight: {
+    maxHeight: '138px !important',
+  },
+  selectedCheckbox: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: -10,
   },
 }))

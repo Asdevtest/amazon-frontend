@@ -4,8 +4,11 @@ import {RequestStatus} from '@constants/request-status'
 import {
   ChatMessageDataBloggerProposalResultEditedContract,
   ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalBloggerProposalResultEdited,
   ChatMessageDataProposalCreateNewBloggerProposalContract,
+  ChatMessageDataProposalDesignerProposalResultEdited,
+  ChatMessageDataRequestDesignerProposalContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
 
 import {ChatHandlerName} from '../event-handler-mappings'
@@ -87,6 +90,7 @@ export enum ChatMessageType {
   'CREATED_NEW_BLOGGER_PROPOSAL' = 'CREATED_NEW_BLOGGER_PROPOSAL',
   'CREATED_NEW_DESIGNER_PROPOSAL' = 'CREATED_NEW_DESIGNER_PROPOSAL',
   'BLOGGER_PROPOSAL_RESULT_EDITED' = 'BLOGGER_PROPOSAL_RESULT_EDITED',
+  'DESIGNER_PROPOSAL_RESULT_EDITED' = 'DESIGNER_PROPOSAL_RESULT_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
 }
@@ -107,6 +111,7 @@ export type ChatMessageDataUniversal =
   | ChatMessagePatchInfoGroupChat
   | ChatMessageDataCreateNewBloggerProposalContract
   | ChatMessageDataBloggerProposalResultEditedContract
+  | ChatMessageDataDesignerProposalResultEditedContract
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -196,6 +201,10 @@ export interface ChatMessageDataRequestCreateNewDesignerProposal {
   cashBackInPercent: number
 }
 
+export interface ChatMessageDataRequestDesignerProposal {
+  asin: string
+}
+
 export interface ChatMessageDataProposalCreateNewBloggerProposal {
   _id: string
   comment: string
@@ -223,6 +232,15 @@ export interface ChatMessageDataProposalBloggerProposalResultEditedProposal {
   details: {amazonOrderId: string | null; linksToMediaFiles: [string]; publicationLinks: [string]; result: string}
 }
 
+export interface ChatMessageDataProposalDesignerProposalResultEditedProposal {
+  _id: string
+  comment: string
+
+  execution_time: number
+  title: string
+  media: {fileLink: string}[]
+}
+
 export interface ChatMessageDataProposalResultEditedProposal {
   _id: string
   status: keyof typeof RequestProposalStatus
@@ -247,6 +265,11 @@ export interface ChatMessageDataCreateNewDesignerProposal {
 
 export interface ChatMessageDataBloggerProposalResultEdited {
   proposal: ChatMessageDataProposalBloggerProposalResultEdited
+}
+
+export interface ChatMessageDataDesignerProposalResultEdited {
+  proposal: ChatMessageDataProposalDesignerProposalResultEdited
+  request: ChatMessageDataRequestDesignerProposalContract
 }
 export interface ChatUser {
   _id: string

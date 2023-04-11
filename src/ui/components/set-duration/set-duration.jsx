@@ -73,9 +73,11 @@ export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute, d
   return (
     <div className={classNames.root}>
       <div className={classNames.durationMainWrapper}>
-        <Typography className={cx(classNames.time, titleStyle)}>
-          {title ?? t(TranslationKey['Time to complete']) + '*'}
-        </Typography>
+        {!!title && (
+          <Typography className={cx(classNames.time, titleStyle)}>
+            {title ?? t(TranslationKey['Time to complete']) + '*'}
+          </Typography>
+        )}
         <div className={classNames.inputsWrapper}>
           <div className={classNames.inputWrapper}>
             <Field

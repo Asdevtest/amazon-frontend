@@ -97,12 +97,16 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
   },
 
   {
-    field: 'comment',
+    field: 'comments',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 239,
     renderCell: params => (
-      <ChangeInputCommentCell text={params?.value} disabled={params?.row?.originalData?._id !== editField?._id} />
+      <ChangeInputCommentCell
+        text={params?.value}
+        disabled={params?.row?.originalData?._id !== editField?._id}
+        onChangeText={rowHandlers.onChangeText}
+      />
     ),
   },
 

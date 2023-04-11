@@ -162,6 +162,9 @@ export class ChatMessageDataRequestCreateNewBloggerProposalContract
   public details!: {conditions: string; linksToMediaFiles: [string]}
 
   @IsNotEmpty()
+  public media!: string[]
+
+  @IsNotEmpty()
   public createdBy!: {_id: string}
 
   @IsNumber()
@@ -194,6 +197,9 @@ export class ChatMessageDataRequestCreateNewDesignerProposalContract
   public details!: {conditions: string; linksToMediaFiles: [string]}
 
   @IsNotEmpty()
+  public media!: string[]
+
+  @IsNotEmpty()
   public createdBy!: {_id: string}
 
   @IsNumber()
@@ -201,6 +207,14 @@ export class ChatMessageDataRequestCreateNewDesignerProposalContract
   @IsNotEmpty()
   @IsString()
   public timeoutAt!: string
+}
+
+export class ChatMessageDataRequestDesignerProposalContract
+  implements TWebsocketChatService.ChatMessageDataRequestDesignerProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public asin!: string
 }
 
 export class ChatMessageDataProposalCreateNewBloggerProposalContract
@@ -266,6 +280,25 @@ export class ChatMessageDataProposalBloggerProposalResultEdited
   }
 }
 
+export class ChatMessageDataProposalDesignerProposalResultEdited
+  implements TWebsocketChatService.ChatMessageDataProposalDesignerProposalResultEditedProposal
+{
+  @IsNotEmpty()
+  public _id!: string
+
+  @IsNotEmpty()
+  public comment!: string
+
+  @IsNotEmpty()
+  public execution_time!: number
+
+  @IsNotEmpty()
+  public title!: string
+
+  @IsNotEmpty()
+  public media!: {fileLink: string}[]
+}
+
 export class ChatMessageDataProposalResultEditedEdited
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
 {
@@ -325,4 +358,14 @@ export class ChatMessageDataBloggerProposalResultEditedContract
 {
   @Type(() => ChatMessageDataProposalBloggerProposalResultEdited)
   public proposal!: ChatMessageDataProposalBloggerProposalResultEdited
+}
+
+export class ChatMessageDataDesignerProposalResultEditedContract
+  implements TWebsocketChatService.ChatMessageDataDesignerProposalResultEdited
+{
+  @Type(() => ChatMessageDataProposalDesignerProposalResultEdited)
+  public proposal!: ChatMessageDataProposalDesignerProposalResultEdited
+
+  @Type(() => ChatMessageDataRequestDesignerProposalContract)
+  public request!: ChatMessageDataRequestDesignerProposalContract
 }

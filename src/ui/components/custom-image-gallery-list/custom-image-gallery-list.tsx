@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -22,6 +23,7 @@ interface FilesObject {
 
   commentByClient: string
   commentByPerformer: string
+  _id: string
 }
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
@@ -38,7 +40,11 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
 
   const {files, isAmazonPhoto} = props
 
+  const isObjectFiles = files?.some(el => typeof el === 'object')
+
   const [filesForRender, setFilesForRender] = useState(files)
+
+  const [curImageId, setCurImageId] = useState<string | null>(null)
 
   // console.log('filesForRender', filesForRender)
 
@@ -70,44 +76,62 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
             className={classNames.smallImage}
             classes={{img: classNames.img}}
             onClick={() => {
-              setShowPhotosModal(!showPhotosModal)
+              if (isObjectFiles) {
+                setCurImageId(typeof photo === 'string' ? photo : photo._id)
+              } else {
+                setBigImagesOptions({
+                  images: isAmazonPhoto
+                    ? filesForRender?.map(el => getAmazonImageUrl(el, true))
+                    : filesForRender
+                        ?.filter(el => {
+                          if (typeof el === 'string') {
+                            return checkIsImageLink(el)
+                          } else {
+                            return checkIsImageLink(el?.fileLink)
+                          }
+                        })
+                        .map(el => {
+                          if (typeof el === 'string') {
+                            return el
+                          } else {
+                            return el?.fileLink
+                          }
+                        }),
+                  imgIndex: index,
+                })
+              }
 
-              setBigImagesOptions({
-                images: isAmazonPhoto
-                  ? filesForRender?.map(el => getAmazonImageUrl(el, true))
-                  : filesForRender
-                      ?.filter(el => {
-                        if (typeof el === 'string') {
-                          return checkIsImageLink(el)
-                        } else {
-                          return checkIsImageLink(el?.fileLink)
-                        }
-                      })
-                      .map(el => {
-                        if (typeof el === 'string') {
-                          return el
-                        } else {
-                          return el?.fileLink
-                        }
-                      }),
-                imgIndex: index,
-              })
+              setShowPhotosModal(!showPhotosModal)
             }}
           />
           {typeof photo !== 'string' && (
             <Tooltip title={photo.commentByClient}>
-              <Typography className={classNames.photoTitle}>{photo.commentByClient}</Typography>
+              <Typography className={classNames.photoTitle}>{`${index + 1} ${photo.commentByClient}`}</Typography>
             </Tooltip>
           )}
         </div>
       ))}
 
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
+      {isObjectFiles ? (
+        <BigObjectImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imagesData={files.map(
+            el => typeof el === 'object' && {...el, image: el.fileLink, imageComment: el.commentByClient || ''},
+          )}
+          curImageId={curImageId}
+          setCurImageId={setCurImageId}
+          renderBtns={undefined}
+          isRedImageComment={undefined}
+        />
+      ) : (
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
+      )}
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>

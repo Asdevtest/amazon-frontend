@@ -22,6 +22,7 @@ import {
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
   checkIsChatMessageDataProposalStatusChangedContract,
+  checkIsChatMessageDesignerProposalResultEditedContract,
   checkIsChatMessagePatchInfoGroupChatContract,
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
@@ -32,6 +33,10 @@ import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
 import {ChatMessageBloggerProposalEditedResult} from './chat-messages/chat-message-blogger-proposal-edited-result'
 import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
 import {ChatMessageCreateNewDesignerProposal} from './chat-messages/chat-message-create-new-designer-proposal'
+import {
+  ChatMessageDesignerProposalEditedResult,
+  ChatMessageRequestProposalDesignerResultEditedHandlers,
+} from './chat-messages/chat-message-designer-proposal-edited-result'
 import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {
@@ -47,7 +52,8 @@ import {
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
-  ChatMessageRequestProposalStatusChangedHandlers
+  ChatMessageRequestProposalStatusChangedHandlers &
+  ChatMessageRequestProposalDesignerResultEditedHandlers
 
 interface Props {
   isGroupChat: boolean
@@ -169,6 +175,15 @@ export const ChatMessagesList: FC<Props> = observer(
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageDesignerProposalResultEditedContract(messageItem)) {
+        return (
+          <ChatMessageDesignerProposalEditedResult
+            message={messageItem}
+            handlers={{
+              onClickOpenRequest: handlers.onClickOpenRequest,
             }}
           />
         )

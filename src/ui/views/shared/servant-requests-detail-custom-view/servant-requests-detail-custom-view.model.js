@@ -26,6 +26,7 @@ export class RequestDetailCustomViewModel {
   showConfirmModal = false
   showRequestResultModal = false
   showRequestDesignerResultModal = false
+  showRequestDesignerResultClientModal = false
 
   loadedFiles = []
 
@@ -122,6 +123,10 @@ export class RequestDetailCustomViewModel {
     })
   }
 
+  onClickOpenRequest() {
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+  }
+
   async onSubmitMessage(message, files, chatIdId) {
     try {
       await ChatModel.sendMessage({
@@ -190,7 +195,7 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      console.log('files', files)
+      // console.log('files', files)
 
       if (files.length) {
         await onSubmitPostImages.call(this, {
@@ -199,23 +204,26 @@ export class RequestDetailCustomViewModel {
         })
       }
 
-      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-        result: message,
-        linksToMediaFiles: this.loadedFiles.map((el, i) => ({
-          fileLink: el,
-          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-        })),
-        ...(amazonOrderId && {amazonOrderId}),
-        ...(publicationLinks && {publicationLinks}),
-        ...(sourceLink && {
-          sourceFiles: [
-            {
-              sourceFile: sourceLink,
-              comments: '',
-            },
-          ],
-        }),
-      })
+      // await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+      //   result: message,
+      //   media: this.loadedFiles.map((el, i) => ({
+      //     fileLink: el,
+      //     commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+      //     _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+      //       ? files[i]?._id
+      //       : null,
+      //   })),
+      //   ...(amazonOrderId && {amazonOrderId}),
+      //   ...(publicationLinks && {publicationLinks}),
+      //   ...(sourceLink && {
+      //     sourceFiles: [
+      //       {
+      //         sourceFile: sourceLink,
+      //         comments: '',
+      //       },
+      //     ],
+      //   }),
+      // })
 
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
@@ -231,23 +239,34 @@ export class RequestDetailCustomViewModel {
           reason: message,
           linksToMediaFiles: this.loadedFiles,
         })
+      } else {
+        if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+          await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
+        }
       }
 
-      // else {
-      //   if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
-      //     await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
-      //   }
+      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+        result: message,
+        media: this.loadedFiles.map((el, i) => ({
+          fileLink: el,
+          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+            ? files[i]?._id
+            : null,
+        })),
+        ...(amazonOrderId && {amazonOrderId}),
+        ...(publicationLinks && {publicationLinks}),
+        ...(sourceLink && {
+          sourceFiles: [
+            {
+              sourceFile: sourceLink,
+              comments: '',
+            },
+          ],
+        }),
+      })
 
-      //   await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-      //     result: message,
-      //     linksToMediaFiles: this.loadedFiles.map((el, i) => ({
-      //       fileLink: el,
-      //       commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-      //     })),
-      //     ...(amazonOrderId && {amazonOrderId}),
-      //     ...(publicationLinks && {publicationLinks}),
-      //   })
-      // }
+      this.getRequestProposals()
     } catch (error) {
       console.log(error)
       runInAction(() => {

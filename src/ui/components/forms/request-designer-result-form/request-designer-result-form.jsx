@@ -26,13 +26,14 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-form.style'
 
-export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal}) => {
+export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal, proposal}) => {
   const {classes: classNames} = useClassNames()
 
-  const isRework = !!request.request.media?.length
+  const isRework = !!proposal.proposal.media?.length
 
   const [showDetails, setShowDetails] = useState(false)
 
@@ -40,22 +41,22 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [curImageId, setCurImageId] = useState(null)
 
-  const [sourceLink, setSourceLink] = useState('')
+  const [sourceLink, setSourceLink] = useState(proposal.proposal.sourceFiles?.[0]?.sourceFile || '')
 
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState(proposal.details.result)
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
   }
 
-  console.log('request', request)
+  // console.log('request', request)
 
   const sourceImagesData = isRework
-    ? request.request.media.map((el, index) => ({
+    ? proposal.proposal.media.map(el => ({
         image: el.fileLink,
         comment: el.commentByPerformer,
         commentByClient: el.commentByClient,
-        _id: `${Date.now()}${index}`,
+        _id: el._id,
       }))
     : [
         {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
@@ -127,27 +128,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   const onClickDownloadBtn = () => {
     const imageObj = {...imagesData.find(el => el._id === curImageId)}
 
-    // console.log('imageObj', imageObj)
-
-    const aElement = document.createElement('a')
-    aElement.setAttribute('download', /* `boxReceiveReport_${id}.xlsx` */ `${imageObj.comment || 'no-name'}`)
-    const href = /* URL.createObjectURL(res.data) */ imageObj.image.data_url
-    aElement.href = href
-    aElement.setAttribute('target', '_blank')
-    aElement.click()
-    // URL.revokeObjectURL(href)
-    aElement.remove()
+    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
   }
-
-  // const [formFields, setFormFields] = useState(sourceFormFields)
-
-  // const onChangeField = fieldName => event => {
-  //   const newFormFields = {...formFields}
-
-  //   newFormFields[fieldName] = event.target.value
-
-  //   setFormFields(newFormFields)
-  // }
 
   const disableSubmit = imagesData.every(el => !el.image)
 
@@ -226,7 +208,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {minsToTime(1440)}
+                {minsToTime(proposal.proposal.execution_time)}
               </Typography>
             }
           />
@@ -316,10 +298,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
             <div className={classNames.imageObjSubWrapper}>
               <Typography className={cx(classNames.clientComment /* , classNames.textMargin */)}>
-                {getShortenStringIfLongerThanCount(
-                  item.commentByClient || 'Заменить, фото не соответствует качеству',
-                  30,
-                )}
+                {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
               </Typography>
             </div>
           </div>
@@ -348,7 +327,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           disabled={disableSubmit}
           className={cx(classNames.button)}
           onClick={() => {
-            onClickSendAsResult({message: '', files: imagesData.filter(el => el.image), sourceLink})
+            onClickSendAsResult({message: comment, files: imagesData.filter(el => el.image), sourceLink})
             setOpenModal()
           }}
         >

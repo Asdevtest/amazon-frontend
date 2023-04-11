@@ -77,12 +77,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     maxHeight: 38,
 
-    whiteSpace: 'pre-wrap',
+    whiteSpace: 'pre',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     wordBreak: 'break-word',
 
-    display: '-webkit-box',
+    // display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
   },

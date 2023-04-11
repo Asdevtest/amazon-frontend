@@ -51,16 +51,16 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
         <div className={classNames.cardTitleBlockWrapper}>
           <div className={classNames.userInfoWrapper}>
             <div className={classNames.nameWrapper}>
-              <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+              <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={classNames.cardImg} />
 
               <div className={classNames.ratingWrapper}>
                 <UserLink
                   blackText
-                  name={item.createdBy.name}
-                  userId={item.createdBy._id}
+                  name={item?.createdBy?.name}
+                  userId={item?.createdBy?._id}
                   customClassNames={classNames.customUserLink}
                 />
-                <Rating disabled size="small" value={item.createdBy.rating} />
+                <Rating disabled size="small" value={item?.createdBy?.rating} />
               </div>
             </div>
 

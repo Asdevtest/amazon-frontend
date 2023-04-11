@@ -1,5 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -33,6 +34,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWithCommentModal = false
   showChat = false
   showConfirmWorkResultFormModal = false
+  showRequestDesignerResultClientModal = false
   showReviewModal = false
 
   confirmModalSettings = {
@@ -61,6 +63,13 @@ export class OwnerRequestDetailCustomViewModel {
 
   get chats() {
     return ChatModel.chats || []
+  }
+
+  get findRequestProposalForCurChat() {
+    return (
+      this.chatSelectedId &&
+      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
+    )
   }
 
   constructor({history, location, scrollToChat}) {
@@ -199,7 +208,11 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultToCorrect() {
-    this.triggerShowResultToCorrectFormModal()
+    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else {
+      this.triggerShowResultToCorrectFormModal()
+    }
   }
 
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
@@ -221,6 +234,32 @@ export class OwnerRequestDetailCustomViewModel {
         ...formFields,
         timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
         linksToMediaFiles: this.uploadedFiles,
+      })
+      this.loadData()
+    } catch (error) {
+      console.warn('onClickProposalResultToCorrect error ', error)
+    }
+  }
+
+  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */}) {
+    try {
+      // runInAction(() => {
+      //   this.uploadedFiles = []
+      // })
+      // if (files.length) {
+      //   await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      // }
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+      if (!findProposalByChatId) {
+        return
+      }
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        reason,
+        timeLimitInMinutes: parseInt(timeLimitInMinutes),
+        // linksToMediaFiles: this.uploadedFiles,
+        media: imagesData.map(el => ({_id: el._id, commentByClient: el.commentByClient})),
       })
       this.loadData()
     } catch (error) {
@@ -295,6 +334,11 @@ export class OwnerRequestDetailCustomViewModel {
 
   onClickReview() {
     this.onTriggerOpenModal('showReviewModal')
+  }
+
+  onClickOpenRequest() {
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    this.getCustomProposalsForRequestCur()
   }
 
   onClickOrderProposal(proposalId, price) {

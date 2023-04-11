@@ -73,7 +73,18 @@ export const CreateOrEditRequestContent = ({
   const {classes: classNames} = useClassNames()
   // ScrollToTopOrBottom
 
-  const [images, setImages] = useState([])
+  // console.log('requestToEdit', requestToEdit)
+
+  const [images, setImages] = useState(
+    requestToEdit
+      ? requestToEdit.request.media.map(el => ({
+          file: el.fileLink,
+          comment: el.commentByClient,
+          commentByPerformer: el.commentByPerformer,
+          _id: `${Date.now()}`,
+        }))
+      : [],
+  )
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -90,6 +101,8 @@ export const CreateOrEditRequestContent = ({
   useEffect(() => {
     setAnnouncementsData(announcements)
   }, [announcements])
+
+  const [clearСonditionsText, setСonditionsClearText] = useState('')
 
   const getSourceFormFields = currentFields => ({
     request: {
@@ -134,6 +147,18 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  useEffect(() => {
+    if (formFields.details.conditions) {
+      try {
+        const obj = JSON.parse(formFields.details.conditions)
+        const text = obj?.blocks?.map(block => block?.text).join('')
+        setСonditionsClearText(text)
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+  }, [formFields.details.conditions])
 
   useEffect(() => {
     if (requestToEdit) {
@@ -247,7 +272,8 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
-    // formFields.details.conditions.length > 1000 ||
+    clearСonditionsText.length >= 6000 ||
+    !clearСonditionsText.length ||
     !formFields.request.typeTask ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
@@ -408,18 +434,18 @@ export const CreateOrEditRequestContent = ({
                   <UploadFilesInputMini
                     withComment
                     // oneLineMaxHeight
-                    maxHeight={200}
+                    maxHeight={160}
                     images={images}
                     setImages={setImages}
                     maxNumber={50}
                   />
-                  {formFields.details.linksToMediaFiles?.length ? (
+                  {/* {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel
                       small
                       files={formFields.details.linksToMediaFiles.map(el => el.fileLink)}
                       width="400px"
                     />
-                  ) : null}
+                  ) : null} */}
                 </div>
 
                 <div className={classNames.descriptionFieldWrapper}>
@@ -960,15 +986,32 @@ export const CreateOrEditRequestContent = ({
                         )}
 
                         {formFields.request.needCheckBySupervisor && (
-                          <Typography className={classNames.restrictMoreThanOneProposal}>
-                            {t(TranslationKey['A supervisor check is necessary'])}
-                          </Typography>
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(TranslationKey['A supervisor check is necessary'])}
+                            </Typography>
+                          </div>
                         )}
 
                         {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
-                          <Typography className={classNames.restrictMoreThanOneProposal}>
-                            {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
-                          </Typography>
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
+                            </Typography>
+                          </div>
+                        )}
+
+                        {formFields.request.withoutConfirmation && (
+                          <div className={classNames.selectedCheckbox}>
+                            <Checkbox checked disabled color="primary" />
+                            <Typography className={classNames.restrictMoreThanOneProposal}>
+                              {t(
+                                TranslationKey['Allow the performer to take the request for work without confirmation'],
+                              )}
+                            </Typography>
+                          </div>
                         )}
                       </div>
                     </div>

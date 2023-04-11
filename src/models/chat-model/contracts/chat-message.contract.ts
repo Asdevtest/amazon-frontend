@@ -9,6 +9,7 @@ import {
   ChatMessageDataCreatedNewProposalProposalDescriptionContract,
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
   ChatMessageRemovePatchInfoGroupChatContract,
@@ -28,6 +29,7 @@ export type TChatMessageDataUniversal =
   | ChatMessageRemovePatchInfoGroupChatContract
   | ChatMessageDataCreateNewBloggerProposalContract
   | ChatMessageDataBloggerProposalResultEditedContract
+  | ChatMessageDataDesignerProposalResultEditedContract
   | undefined
 
 export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>

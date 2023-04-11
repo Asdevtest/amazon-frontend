@@ -186,7 +186,7 @@ export class SourceFilesViewModel {
 
   async onClickSaveBtn(row) {
     try {
-      const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comment'])
+      const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comments'])
 
       if (this.editField._id === row.originalData._id) {
         await RequestProposalModel.patchFreelanceSourceFilesByGuid(this.editField._id, saveData)

@@ -22,10 +22,11 @@ class InlineObject7 {
     /**
      * Constructs a new <code>InlineObject7</code>.
      * @alias module:model/InlineObject7
+     * @param title {String} Название красного флага
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject7.initialize(this);
+        InlineObject7.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject7 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -47,17 +49,8 @@ class InlineObject7 {
         if (data) {
             obj = obj || new InlineObject7();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -67,24 +60,10 @@ class InlineObject7 {
 }
 
 /**
- * @member {Number} type
- */
-InlineObject7.prototype['type'] = undefined;
-
-/**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject7.prototype['linksToMediaFiles'] = undefined;
-
-/**
+ * Название красного флага
  * @member {String} title
  */
 InlineObject7.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject7.prototype['description'] = undefined;
 
 
 

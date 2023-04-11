@@ -99,7 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content',
+    width: 'min-content !important',
     marginBottom: '0 !important',
   },
 
