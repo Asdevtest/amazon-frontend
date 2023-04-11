@@ -7,7 +7,7 @@ import {BuyerModel} from '@models/buyer-model'
 import {buyerSearchSuppliersViewColumns} from '@components/table-columns/buyer/buyer-seach-suppliers-columns'
 
 import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 
 export class BuyerSearchSupplierBySupervisorModel {
   history = undefined
@@ -88,7 +88,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
     } catch (error) {
