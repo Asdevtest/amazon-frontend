@@ -1914,7 +1914,7 @@ export enum TranslationKey {
   'Number of illustrations' = 'Number of illustrations',
   'Remarks' = 'Remarks',
   'Enter remarks' = 'Enter remarks',
-  // '' = '',
+  'Do you want to delete the source file?' = 'Do you want to delete the source file?',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {tableSortMode} from '@constants/table-view-modes'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
@@ -11,6 +12,7 @@ import {sourceFilesColumns} from '@views/freelancer/source-files-columns/source-
 
 import {SourceFilesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class SourceFilesViewModel {
   history = undefined
@@ -52,9 +54,12 @@ export class SourceFilesViewModel {
   densityModel = 'compact'
   columnsModel = sourceFilesColumns(this.rowHandlers, this.languageTag, this.editField)
   openModal = null
-  warningInfoModalSettings = {
+
+  confirmModalSettings = {
     isWarning: false,
     title: '',
+    message: '',
+    onClickSuccess: () => {},
   }
 
   get languageTag() {
@@ -204,6 +209,17 @@ export class SourceFilesViewModel {
   }
 
   async onClickRemoveBtn(row) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Do you want to delete the original file?']),
+      onClickSuccess: () => this.removeSourceData(row),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async removeSourceData(row) {
     try {
       if (row.originalData._id) {
         await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row.originalData._id)
@@ -214,6 +230,8 @@ export class SourceFilesViewModel {
 
         this.getSourceFiles()
       }
+
+      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
