@@ -249,6 +249,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 600,
     wordBreak: 'break-word',
+    // whiteSpace: 'break-spaces',
+
+    whiteSpace: 'pre-line',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   clientComment: {
