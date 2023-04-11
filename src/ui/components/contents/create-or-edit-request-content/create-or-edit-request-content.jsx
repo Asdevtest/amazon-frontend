@@ -71,6 +71,7 @@ export const CreateOrEditRequestContent = ({
   onClickThumbnail,
 }) => {
   const {classes: classNames} = useClassNames()
+  // ScrollToTopOrBottom
 
   const [images, setImages] = useState([])
 
