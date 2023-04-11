@@ -141,6 +141,9 @@ class InlineResponse20055 {
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestsMedia]);
             }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -308,6 +311,11 @@ InlineResponse20055.prototype['updatedAt'] = undefined;
  * @member {Array.<module:model/ApiV1RequestsMedia>} media
  */
 InlineResponse20055.prototype['media'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+InlineResponse20055.prototype['sub'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
