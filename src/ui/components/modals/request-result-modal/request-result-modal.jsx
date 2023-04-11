@@ -80,7 +80,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
   // }, [openModal])
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMainWrapper}>
         <Typography className={cx(classNames.modalTitle)}>{t(TranslationKey['Result of the request'])}</Typography>
 
