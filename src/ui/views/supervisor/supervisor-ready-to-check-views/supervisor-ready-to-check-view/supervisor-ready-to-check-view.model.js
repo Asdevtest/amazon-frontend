@@ -8,7 +8,7 @@ import {SupervisorModel} from '@models/supervisor-model'
 import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
 
 import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
@@ -92,7 +92,7 @@ export class SupervisorReadyToCheckViewModel {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
           result
             .filter(el => el.status !== ProductStatusByKey[ProductStatus.NEW_PRODUCT])
-            .sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+            .sort(sortObjectsArrayByFiledDateWithParseISOAsc('createdAt')),
         )
       })
     } catch (error) {

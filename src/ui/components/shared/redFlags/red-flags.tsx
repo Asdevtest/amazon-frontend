@@ -59,7 +59,9 @@ export const RedFlags: FC<RedFlagsProps> = props => {
             <FormControlLabel
               label={
                 <Box display="flex" gap="15px">
-                  <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+                  <Box className={styles.flagIcon}>
+                    <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+                  </Box>
                   {el.title}
                 </Box>
               }
@@ -79,9 +81,9 @@ export const RedFlags: FC<RedFlagsProps> = props => {
       {!isEditMode &&
         !!selectedFlags.length &&
         selectedFlags.map((el, index) => (
-          <div key={index}>
+          <Box key={index} className={styles.flagIcon}>
             <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
-          </div>
+          </Box>
         ))}
     </>
   )
