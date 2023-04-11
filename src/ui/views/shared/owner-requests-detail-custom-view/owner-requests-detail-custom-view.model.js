@@ -1,5 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -62,6 +63,13 @@ export class OwnerRequestDetailCustomViewModel {
 
   get chats() {
     return ChatModel.chats || []
+  }
+
+  get findRequestProposalForCurChat() {
+    return (
+      this.chatSelectedId &&
+      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
+    )
   }
 
   constructor({history, location, scrollToChat}) {
@@ -200,7 +208,11 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultToCorrect() {
-    this.triggerShowResultToCorrectFormModal()
+    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else {
+      this.triggerShowResultToCorrectFormModal()
+    }
   }
 
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
