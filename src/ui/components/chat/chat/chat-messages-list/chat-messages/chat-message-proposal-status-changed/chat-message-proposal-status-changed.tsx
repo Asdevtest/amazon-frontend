@@ -122,79 +122,78 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
           </div>
         )
       case RequestProposalStatus.CORRECTED:
-        return (
-          <div className={classNames.detailsWrapper}>
-            <div className={classNames.headerAndTimeWrapper}>
-              <div className={classNames.titleWrapper}>
-                <Typography className={classNames.titleText}>
-                  {`${t(TranslationKey.Corrections)}`.toUpperCase()}
-                </Typography>
-              </div>
+        return <div></div>
+      // <div className={classNames.detailsWrapper}>
+      //   <div className={classNames.headerAndTimeWrapper}>
+      //     <div className={classNames.titleWrapper}>
+      //       <Typography className={classNames.titleText}>
+      //         {`${t(TranslationKey.Corrections)}`.toUpperCase()}
+      //       </Typography>
+      //     </div>
 
-              <div className={classNames.timeWrapper}>
-                <Typography className={classNames.timeText}>
-                  {formatDateTimeHourAndMinutes(message.createdAt)}
-                </Typography>
-              </div>
-            </div>
-            <div className={classNames.reasonWrapper}>
-              <Linkify>
-                <Typography className={classNames.reasonText}>{message.data.reason}</Typography>
-              </Linkify>
-            </div>
+      //     <div className={classNames.timeWrapper}>
+      //       <Typography className={classNames.timeText}>
+      //         {formatDateTimeHourAndMinutes(message.createdAt)}
+      //       </Typography>
+      //     </div>
+      //   </div>
+      //   <div className={classNames.reasonWrapper}>
+      //     <Linkify>
+      //       <Typography className={classNames.reasonText}>{message.data.reason}</Typography>
+      //     </Linkify>
+      //   </div>
 
-            <PhotoAndFilesCarousel
-              notToShowEmpty
-              small
-              files={message.data.linksToMediaFiles}
-              width="340px"
-              withoutPhotos={undefined}
-              whithoutFiles={undefined}
-            />
+      //   <PhotoAndFilesCarousel
+      //     notToShowEmpty
+      //     small
+      //     files={message.data.linksToMediaFiles}
+      //     width="340px"
+      //     withoutPhotos={undefined}
+      //     whithoutFiles={undefined}
+      //   />
 
-            <div className={classNames.footerWrapper}>
-              {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
-              isLastMessage &&
-              chatRequestAndRequestProposal &&
-              (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
-                chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-                  RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-                  RequestProposalStatus.READY_TO_VERIFY) &&
-              curUserId ? (
-                <div className={classNames.btnsWrapper}>
-                  {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
-                    RequestProposalStatus.TO_CORRECT && (
-                    <Button
-                      color="primary"
-                      btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                      className={cx(classNames.actionButton, classNames.editBtn)}
-                      onClick={() =>
-                        chatRequestAndRequestProposal.requestProposal &&
-                        handlers.onClickProposalResultToCorrect(
-                          chatRequestAndRequestProposal.requestProposal.proposal._id,
-                        )
-                      }
-                    >
-                      {t(TranslationKey['Send in for rework'])}
-                    </Button>
-                  )}
-                  <Button
-                    color="primary"
-                    btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-                    className={cx(classNames.actionButton, classNames.successBtn)}
-                    onClick={() =>
-                      chatRequestAndRequestProposal.requestProposal &&
-                      handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)
-                    }
-                  >
-                    {t(TranslationKey.Receive)}
-                  </Button>
-                </div>
-              ) : undefined}
-            </div>
-          </div>
-        )
+      //   <div className={classNames.footerWrapper}>
+      //     {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+      //     isLastMessage &&
+      //     chatRequestAndRequestProposal &&
+      //     (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
+      //       chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+      //         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+      //       chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+      //         RequestProposalStatus.READY_TO_VERIFY) &&
+      //     curUserId ? (
+      //       <div className={classNames.btnsWrapper}>
+      //         {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+      //           RequestProposalStatus.TO_CORRECT && (
+      //           <Button
+      //             color="primary"
+      //             btnWrapperStyle={classNames.actionBtnWrapperStyle}
+      //             className={cx(classNames.actionButton, classNames.editBtn)}
+      //             onClick={() =>
+      //               chatRequestAndRequestProposal.requestProposal &&
+      //               handlers.onClickProposalResultToCorrect(
+      //                 chatRequestAndRequestProposal.requestProposal.proposal._id,
+      //               )
+      //             }
+      //           >
+      //             {t(TranslationKey['Send in for rework'])}
+      //           </Button>
+      //         )}
+      //         <Button
+      //           color="primary"
+      //           btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+      //           className={cx(classNames.actionButton, classNames.successBtn)}
+      //           onClick={() =>
+      //             chatRequestAndRequestProposal.requestProposal &&
+      //             handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)
+      //           }
+      //         >
+      //           {t(TranslationKey.Receive)}
+      //         </Button>
+      //       </div>
+      //     ) : undefined}
+      //   </div>
+      // </div>
     }
   }
 

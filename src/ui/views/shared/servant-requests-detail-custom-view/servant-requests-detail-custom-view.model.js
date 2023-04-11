@@ -204,26 +204,26 @@ export class RequestDetailCustomViewModel {
         })
       }
 
-      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-        result: message,
-        media: this.loadedFiles.map((el, i) => ({
-          fileLink: el,
-          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
-            ? files[i]?._id
-            : null,
-        })),
-        ...(amazonOrderId && {amazonOrderId}),
-        ...(publicationLinks && {publicationLinks}),
-        ...(sourceLink && {
-          sourceFiles: [
-            {
-              sourceFile: sourceLink,
-              comments: '',
-            },
-          ],
-        }),
-      })
+      // await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+      //   result: message,
+      //   media: this.loadedFiles.map((el, i) => ({
+      //     fileLink: el,
+      //     commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+      //     _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+      //       ? files[i]?._id
+      //       : null,
+      //   })),
+      //   ...(amazonOrderId && {amazonOrderId}),
+      //   ...(publicationLinks && {publicationLinks}),
+      //   ...(sourceLink && {
+      //     sourceFiles: [
+      //       {
+      //         sourceFile: sourceLink,
+      //         comments: '',
+      //       },
+      //     ],
+      //   }),
+      // })
 
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
@@ -245,16 +245,26 @@ export class RequestDetailCustomViewModel {
         }
       }
 
-      //   await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-      //     result: message,
-      //     linksToMediaFiles: this.loadedFiles.map((el, i) => ({
-      //       fileLink: el,
-      //       commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
-      //     })),
-      //     ...(amazonOrderId && {amazonOrderId}),
-      //     ...(publicationLinks && {publicationLinks}),
-      //   })
-      // }
+      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+        result: message,
+        media: this.loadedFiles.map((el, i) => ({
+          fileLink: el,
+          commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+            ? files[i]?._id
+            : null,
+        })),
+        ...(amazonOrderId && {amazonOrderId}),
+        ...(publicationLinks && {publicationLinks}),
+        ...(sourceLink && {
+          sourceFiles: [
+            {
+              sourceFile: sourceLink,
+              comments: '',
+            },
+          ],
+        }),
+      })
 
       this.getRequestProposals()
     } catch (error) {
