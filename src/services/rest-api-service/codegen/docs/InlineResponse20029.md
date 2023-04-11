@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tasks** | [**InlineResponse20029Tasks**](InlineResponse20029Tasks.md) |  | [optional] 
-**boxes** | [**InlineResponse20029Boxes**](InlineResponse20029Boxes.md) |  | [optional] 
-**batches** | [**InlineResponse20029Batches**](InlineResponse20029Batches.md) |  | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20029Rows]**](InlineResponse20029Rows.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 
