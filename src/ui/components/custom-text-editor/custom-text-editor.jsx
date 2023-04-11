@@ -71,6 +71,7 @@ export const CustomTextEditor = observer(
               ? []
               : [
                   'bold',
+                  'italic',
                   'underline',
                   'strikethrough',
                   'numberList',
