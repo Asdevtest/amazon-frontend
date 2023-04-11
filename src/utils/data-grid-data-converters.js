@@ -872,7 +872,7 @@ export const SourceFilesDataConverter = data =>
     productId: item?.productId,
 
     performer: item?.createdBy,
-    sub: item?.proposal.sub,
+    sub: item?.proposal?.sub,
 
     createdAt: item?.createdAt,
     updatedAt: item?.updatedAt,
