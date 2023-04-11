@@ -17,6 +17,7 @@ class UserModelStatic {
   accessToken = undefined
   userInfo = undefined
   userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
+  masterUserId = undefined
   isHydrated = false
 
   constructor() {
@@ -42,6 +43,7 @@ class UserModelStatic {
     this.accessToken = undefined
     this.userInfo = undefined
     this.userId = undefined
+    this.masterUserId = undefined
     restApiService.removeAccessToken()
 
     ChatModel.disconnect()
@@ -102,12 +104,14 @@ class UserModelStatic {
       runInAction(() => {
         this.userInfo = response
         this.userId = response._id
+        this.masterUserId = response.masterUser?._id
       })
       return response
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined
       this.userId = undefined
+      this.masterUserId = undefined
       ChatModel.disconnect()
 
       SettingsModel.setBreadcrumbsForProfile(null)

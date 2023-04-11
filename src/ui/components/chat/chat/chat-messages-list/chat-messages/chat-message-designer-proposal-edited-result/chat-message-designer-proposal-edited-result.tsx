@@ -39,11 +39,11 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message.data', message.data)
 
-  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>

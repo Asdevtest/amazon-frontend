@@ -40,7 +40,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message', message)
 
