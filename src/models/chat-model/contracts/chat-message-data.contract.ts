@@ -162,7 +162,10 @@ export class ChatMessageDataRequestCreateNewBloggerProposalContract
   public details!: {conditions: string; linksToMediaFiles: [string]}
 
   @IsNotEmpty()
-  public media!: string[]
+  public media!: {fileLink: string; commentByClient: string}[]
+
+  // @IsNotEmpty()
+  // public media!: string[]
 
   @IsNotEmpty()
   public createdBy!: {_id: string}
@@ -197,7 +200,10 @@ export class ChatMessageDataRequestCreateNewDesignerProposalContract
   public details!: {conditions: string; linksToMediaFiles: [string]}
 
   @IsNotEmpty()
-  public media!: string[]
+  public media!: {fileLink: string; commentByClient: string}[]
+
+  // @IsNotEmpty()
+  // public media!: string[]
 
   @IsNotEmpty()
   public createdBy!: {_id: string}
@@ -294,6 +300,9 @@ export class ChatMessageDataProposalDesignerProposalResultEdited
 
   @IsNotEmpty()
   public title!: string
+
+  @IsNotEmpty()
+  public details!: {result: string}
 
   @IsNotEmpty()
   public media!: {fileLink: string}[]

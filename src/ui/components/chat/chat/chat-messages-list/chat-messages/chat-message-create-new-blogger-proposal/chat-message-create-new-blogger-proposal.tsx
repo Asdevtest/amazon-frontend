@@ -141,7 +141,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
           <PhotoAndFilesCarousel
             notToShowEmpty
             small
-            files={message.data.request?.media}
+            files={message.data.request?.media.map(el => el.fileLink)}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}
