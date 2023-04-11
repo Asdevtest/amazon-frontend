@@ -106,9 +106,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    // const findRequestProposalForCurChat =
-    //   chatSelectedId && requestProposals.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
-
     return (
       <React.Fragment>
         <Navbar

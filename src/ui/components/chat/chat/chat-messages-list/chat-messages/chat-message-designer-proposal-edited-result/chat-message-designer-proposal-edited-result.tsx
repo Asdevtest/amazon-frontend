@@ -39,11 +39,11 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message.data', message.data)
 
-  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>
@@ -54,7 +54,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
 
         <div className={classNames.infosWrapper}>
           <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.proposal.comment}</Typography>
+            <Typography className={classNames.descriptionText}>{message.data.proposal.details.result}</Typography>
             {/* <Typography className={classNames.descriptionText}>
               {chatRequestAndRequestProposal?.requestProposal?.details.result}
             </Typography> */}

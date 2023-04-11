@@ -44,7 +44,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
 
   // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('curUserId', curUserId)
   // console.log(

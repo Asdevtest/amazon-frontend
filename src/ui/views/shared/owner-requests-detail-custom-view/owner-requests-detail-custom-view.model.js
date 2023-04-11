@@ -83,11 +83,18 @@ export class OwnerRequestDetailCustomViewModel {
       this.history = history
       this.scrollToChat = scrollToChat
       if (location.state) {
+        console.log('location.state', location.state)
+        if (location.state.chatId) {
+          this.chatSelectedId = location.state.chatId
+          this.showChat = true
+        }
+
         // this.requestId = location.state.request._id
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
         const state = {...history.location.state}
+        delete state.chatId
         delete state.acceptMessage
         delete state.showAcceptMessage
         history.replace({...history.location, state})
