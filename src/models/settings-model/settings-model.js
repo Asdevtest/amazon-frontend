@@ -42,6 +42,7 @@ class SettingsModelStatic {
   snackNotifications = {
     [snackNoticeKey.SIMPLE_MESSAGE]: null,
     [snackNoticeKey.ORDER_DEADLINE]: null,
+    [snackNoticeKey.ORDERS_UPDATES]: null,
     [snackNoticeKey.IDEAS]: null,
   }
 

@@ -29,6 +29,7 @@ import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
 import {IdeaNotification} from '@components/snacks/idea-notification'
 import {OrderDeadlineNotification} from '@components/snacks/order-deadline-notification'
+import {OrdersUpdatesNotification} from '@components/snacks/orders-updates-notification/orders-updates-notification'
 import {SimpleMessagesNotification} from '@components/snacks/simple-messages-notification'
 
 import {checkIsResearcher} from '@utils/checks'
@@ -90,6 +91,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         autoClose: 25000,
       })
       markNotificationAsReaded(snackNoticeKey.IDEAS)
+    }
+
+    if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
+      toast(<OrdersUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]} />, {
+        autoClose: 25000,
+      })
+      markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
     }
   }, [snackNotifications])
 

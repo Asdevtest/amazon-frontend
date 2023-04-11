@@ -1821,5 +1821,7 @@
   "Payment documents": "Документы оплаты",
   "Add payment document": "Добавить документ оплаты",
   "Document added": "Документ добавлен",
-  "Red flags": "Красные флаги"
+  "Red flags": "Красные флаги",
+  "New orders available": "Доступны новые заказы",
+  "Orders need confirmation": "Заказы нуждаются в подтверждении"
 }
