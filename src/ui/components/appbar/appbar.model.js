@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMapForRoutes, UserRole, mapUserRoleEnumToKey} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 import {SettingsModel} from '@models/settings-model'
@@ -83,10 +83,41 @@ export class AppbarModel {
     SettingsModel.setUiTheme(theme)
   }
 
-  onClickMessage(chatId) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.role]}/messages`, {
-      chatId,
-    })
+  onClickMessage(noticeItem) {
+    if (!noticeItem.chatId) {
+      return
+    }
+
+    if (!noticeItem.crmItemId) {
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.role]}/messages`, {
+        chatId: noticeItem.chatId,
+      })
+    } else {
+      switch (this.role) {
+        case mapUserRoleEnumToKey[UserRole.CLIENT]:
+          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`, {
+            chatId: noticeItem.chatId,
+          })
+
+        case mapUserRoleEnumToKey[UserRole.FREELANCER]:
+          return this.history.push(`/freelancer/freelance/my-proposals/custom-search-request`, {
+            chatId: noticeItem.chatId,
+            requestId: noticeItem.crmItemId,
+          })
+
+        default:
+          return
+      }
+    }
+
+    // this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`, {
+    //   chatId: noticeItem.chatId,
+    // })
+
+    // this.history.push(`/freelancer/freelance/my-proposals/custom-search-request`, {
+    //   chatId: noticeItem.chatId,
+    //   requestId: noticeItem.crmItemId,
+    // })
   }
 
   clearSnackNoticeByKey(key) {
