@@ -52,6 +52,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
               conditions={message?.data?.details?.conditions}
               changeConditions={undefined}
               editorMaxHeight={undefined}
+              verticalResize={undefined}
             />
           </Linkify>
         </div>

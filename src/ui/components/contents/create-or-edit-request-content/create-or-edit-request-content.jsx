@@ -16,7 +16,7 @@ import {
   Rating,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {toJS} from 'mobx'
 
@@ -71,6 +71,7 @@ export const CreateOrEditRequestContent = ({
   onClickThumbnail,
 }) => {
   const {classes: classNames} = useClassNames()
+  // ScrollToTopOrBottom
 
   // console.log('requestToEdit', requestToEdit)
 
@@ -462,8 +463,8 @@ export const CreateOrEditRequestContent = ({
                   /> */}
 
                   <CustomTextEditor
+                    verticalResize
                     conditions={formFields.details.conditions}
-                    editorMaxHeight={classNames.editorMaxHeight}
                     changeConditions={onChangeField('details')('conditions')}
                   />
 
