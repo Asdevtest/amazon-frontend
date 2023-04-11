@@ -22,6 +22,7 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 
@@ -58,6 +59,8 @@ class SourceFilesViewRaw extends Component {
       requestStatus,
       columnsModel,
       currentData,
+      showConfirmModal,
+      confirmModalSettings,
 
       onTriggerSortMode,
       onTriggerDrawerOpen,
@@ -67,6 +70,7 @@ class SourceFilesViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onChangeRowsPerPage,
+      onTriggerOpenModal,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -159,6 +163,17 @@ class SourceFilesViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={confirmModalSettings.title}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }

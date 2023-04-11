@@ -171,6 +171,7 @@ export interface ChatMessageDataProposalResultEditedRequest {
   price: number
   status: keyof typeof RequestStatus
   title: string
+  media?: {fileLink: string; commentByClient: string}[] | string[]
 }
 
 export interface ChatMessageDataRequestCreateNewBloggerProposal {
@@ -180,6 +181,8 @@ export interface ChatMessageDataRequestCreateNewBloggerProposal {
   title: string
 
   details: {conditions: string; linksToMediaFiles: [string]}
+
+  media: {fileLink: string; commentByClient: string}[]
 
   createdBy: {_id: string}
   timeoutAt: string
@@ -194,6 +197,7 @@ export interface ChatMessageDataRequestCreateNewDesignerProposal {
   title: string
 
   details: {conditions: string; linksToMediaFiles: [string]}
+  media: {fileLink: string; commentByClient: string}[]
 
   createdBy: {_id: string}
   timeoutAt: string

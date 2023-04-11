@@ -40,7 +40,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message', message)
 
@@ -72,6 +72,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
                 conditions={message.data.request?.details?.conditions}
                 changeConditions={undefined}
                 editorMaxHeight={undefined}
+                verticalResize={undefined}
               />
             </Linkify>
           </div>
@@ -103,7 +104,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
           <PhotoAndFilesCarousel
             notToShowEmpty
             small
-            files={message.data.request?.media}
+            files={message.data.request?.media.map(el => el.fileLink)}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}

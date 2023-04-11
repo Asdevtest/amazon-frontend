@@ -81,7 +81,7 @@ class MyProposalsViewRaw extends Component {
       !!userInfo && checkIsFreelancer(userRole)
         ? [
             String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-            ...(userInfo?.allowedSpec
+            ...(Object.keys(freelanceRequestTypeByCode)
               ?.filter(spec => requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
               ?.map(item => String(item)) || []),
           ]

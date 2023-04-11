@@ -6,9 +6,9 @@ import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft'
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
-import {Button, Typography} from '@mui/material'
+import {Button, TextareaAutosize, Typography} from '@mui/material'
 
-import {FC, useEffect, useRef, useState} from 'react'
+import React, {FC, forwardRef, useEffect, useRef, useState} from 'react'
 
 import {EditorState, convertToRaw} from 'draft-js'
 import {observer} from 'mobx-react'
@@ -22,111 +22,117 @@ import {useClassNames} from './custom-text-editor.style'
 
 const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
 
-export const CustomTextEditor = observer(({conditions = '', changeConditions, readOnly, editorMaxHeight}) => {
-  const {classes: classNames} = useClassNames()
+export const CustomTextEditor = observer(
+  ({conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize}) => {
+    const {classes: classNames} = useClassNames()
 
-  const [value, setValue] = useState('')
+    const [value, setValue] = useState('')
 
-  useEffect(() => {
-    isJSON(conditions)
-  }, [conditions])
+    useEffect(() => {
+      isJSON(conditions)
+    }, [conditions])
 
-  const isJSON = text => {
-    try {
-      const res = JSON.parse(text)
-      if (typeof res === 'number') {
-        throw new Error()
-      }
-      setValue(text)
-    } catch (error) {
-      const editorState = EditorState.createWithText(text)
-      const serializedEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-      setValue(serializedEditorState)
-    }
-  }
-
-  const richTextEditorRef = useRef(null)
-
-  const handleSave = () => {
-    richTextEditorRef.current.save()
-  }
-
-  return (
-    <div className={classNames.richTextEditorWrapper}>
-      {!readOnly && (
-        <Typography className={classNames.richTextEditorTitle}>
-          {t(TranslationKey['Describe your task']) + '*'}
-        </Typography>
-      )}
-
-      <MUIRichTextEditor
-        ref={richTextEditorRef}
-        maxLength={6000}
-        readOnly={readOnly}
-        defaultValue={value}
-        label={!readOnly && t(TranslationKey['Task description'])}
-        controls={
-          readOnly
-            ? []
-            : [
-                'bold',
-                'underline',
-                'strikethrough',
-                'numberList',
-                'bulletList',
-                'justifyLeft',
-                'justifyCenter',
-                'justifyRight',
-                'justifyFull',
-              ]
+    const isJSON = text => {
+      try {
+        const res = JSON.parse(text)
+        if (typeof res === 'number') {
+          throw new Error()
         }
-        customControls={[
-          {
-            name: 'justifyLeft',
-            icon: <FormatAlignLeftIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'left'} />,
-          },
-          {
-            name: 'justifyCenter',
-            icon: <FormatAlignCenterIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'center'} />,
-          },
+        setValue(text)
+      } catch (error) {
+        const editorState = EditorState.createWithText(text)
+        const serializedEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+        setValue(serializedEditorState)
+      }
+    }
 
-          {
-            name: 'justifyRight',
-            icon: <FormatAlignRightIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'right'} />,
-          },
+    const richTextEditorRef = useRef(null)
 
-          {
-            name: 'justifyFull',
-            icon: <FormatAlignJustifyIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'justify'} />,
-          },
-        ]}
-        classes={{
-          root: classNames.root,
-          container: classNames.container,
-          editor: cx(classNames.editor, editorMaxHeight, {[classNames.editorBorder]: !readOnly}),
-          editorContainer: classNames.editorContainer,
-          placeHolder: classNames.placeHolder,
-          toolbar: classNames.toolbar,
-        }}
-        inlineToolbar={false}
-        onBlur={() => {
-          if (changeConditions) {
-            handleSave()
+    const handleSave = () => {
+      richTextEditorRef.current.save()
+    }
+
+    return (
+      <div className={classNames.richTextEditorWrapper}>
+        {!readOnly && (
+          <Typography className={classNames.richTextEditorTitle}>
+            {t(TranslationKey['Describe your task']) + '*'}
+          </Typography>
+        )}
+
+        <MUIRichTextEditor
+          ref={richTextEditorRef}
+          maxLength={6000}
+          readOnly={readOnly}
+          defaultValue={value}
+          label={!readOnly && t(TranslationKey['Task description'])}
+          controls={
+            readOnly
+              ? []
+              : [
+                  'bold',
+                  'italic',
+                  'underline',
+                  'strikethrough',
+                  'numberList',
+                  'bulletList',
+                  'justifyLeft',
+                  'justifyCenter',
+                  'justifyRight',
+                  'justifyFull',
+                ]
           }
-        }}
-        onSave={text => {
-          setValue(text)
-          changeConditions(text)
-        }}
-      />
-    </div>
-  )
-})
+          customControls={[
+            {
+              name: 'justifyLeft',
+              icon: <FormatAlignLeftIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'left'} />,
+            },
+            {
+              name: 'justifyCenter',
+              icon: <FormatAlignCenterIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'center'} />,
+            },
+
+            {
+              name: 'justifyRight',
+              icon: <FormatAlignRightIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'right'} />,
+            },
+
+            {
+              name: 'justifyFull',
+              icon: <FormatAlignJustifyIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'justify'} />,
+            },
+          ]}
+          classes={{
+            root: classNames.root,
+            container: classNames.container,
+            editor: cx(classNames.editor, editorMaxHeight, {
+              [classNames.verticalResize]: verticalResize,
+              [classNames.editorBorder]: !readOnly,
+            }),
+            editorContainer: classNames.editorContainer,
+            placeHolder: classNames.placeHolder,
+            toolbar: classNames.toolbar,
+          }}
+          inlineToolbar={false}
+          onBlur={() => {
+            if (changeConditions) {
+              handleSave()
+            }
+          }}
+          onSave={text => {
+            setValue(text)
+            changeConditions(text)
+          }}
+        />
+      </div>
+    )
+  },
+)

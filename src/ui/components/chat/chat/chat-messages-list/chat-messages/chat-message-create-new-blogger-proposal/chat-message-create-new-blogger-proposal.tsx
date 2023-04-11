@@ -40,7 +40,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message', message)
 
@@ -72,6 +72,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
                 conditions={message.data.request.details.conditions}
                 changeConditions={undefined}
                 editorMaxHeight={undefined /* classNames.editorMaxHeight */}
+                verticalResize={undefined}
               />
             </Linkify>
           </div>
@@ -141,7 +142,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
           <PhotoAndFilesCarousel
             notToShowEmpty
             small
-            files={message.data.request?.media}
+            files={message.data.request?.media.map(el => el.fileLink)}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}

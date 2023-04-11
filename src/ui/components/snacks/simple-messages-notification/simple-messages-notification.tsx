@@ -19,7 +19,7 @@ import {useClassNames} from './simple-messages-notification.style'
 
 interface SimpleMessagesNotificationProps {
   noticeItem: ChatMessageContract | null
-  onClickMessage: (chatId: string) => void
+  onClickMessage: (noticeItem: ChatMessageContract | null) => void
 }
 
 export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = props => {
@@ -46,7 +46,7 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = p
     <div
       className={classNames.mainWrapper}
       onClick={() => {
-        onClickMessage(noticeItem?.chatId || '')
+        onClickMessage(noticeItem)
       }}
     >
       <Avatar src={getUserAvatarSrc(noticeItem?.user?._id)} className={classNames.avatarWrapper} />
