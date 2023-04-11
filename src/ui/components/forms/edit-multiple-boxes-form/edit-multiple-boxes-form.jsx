@@ -318,7 +318,7 @@ const Box = ({
                 inputComponent={
                   <Button
                     variant={box.logicsTariffId && 'text'}
-                    className={cx(classNames.storekeeperBtnDefault, {[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                    className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {box.logicsTariffId
