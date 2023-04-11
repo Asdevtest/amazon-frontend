@@ -52,11 +52,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   // console.log('request', request)
 
   const sourceImagesData = isRework
-    ? proposal.proposal.media.map((el, index) => ({
+    ? proposal.proposal.media.map(el => ({
         image: el.fileLink,
         comment: el.commentByPerformer,
         commentByClient: el.commentByClient,
-        _id: `${Date.now()}${index}`,
+        _id: el._id,
       }))
     : [
         {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
