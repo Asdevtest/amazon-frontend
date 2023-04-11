@@ -52,11 +52,14 @@ export const RequestDesignerResultClientForm = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('request', request)
+  // console.log('request', request)
 
-  console.log('proposal', proposal)
+  // console.log('proposal', proposal)
 
-  const isNotClient = userInfo._id !== request.request.createdBy._id
+  console.log('userInfo', userInfo)
+
+  const isNotClient =
+    userInfo._id !== request.request.createdBy._id && userInfo.masterUser?._id !== request.request.createdBy._id
 
   const proposalIsAccepted = [
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
