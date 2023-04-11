@@ -59,7 +59,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
 
           <div className={classNames.imagesWrapper}>
             {message.data.proposal.media
-              .slice(0, 4)
+              ?.slice(0, 4)
               .map(el => el.fileLink)
               .map((item, index) => (
                 <div key={index} className={classNames.imageObjWrapper}>
@@ -114,7 +114,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {message.data.proposal.media.length}
+                {message.data.proposal.media?.length}
               </Typography>
             }
           />
