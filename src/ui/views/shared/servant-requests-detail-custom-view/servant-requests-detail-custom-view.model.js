@@ -195,7 +195,7 @@ export class RequestDetailCustomViewModel {
         this.loadedFiles = []
       })
 
-      console.log('files', files)
+      // console.log('files', files)
 
       if (files.length) {
         await onSubmitPostImages.call(this, {
@@ -209,6 +209,9 @@ export class RequestDetailCustomViewModel {
         media: this.loadedFiles.map((el, i) => ({
           fileLink: el,
           commentByPerformer: typeof files[0] === 'object' ? files[i]?.comment : '',
+          _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
+            ? files[i]?._id
+            : null,
         })),
         ...(amazonOrderId && {amazonOrderId}),
         ...(publicationLinks && {publicationLinks}),

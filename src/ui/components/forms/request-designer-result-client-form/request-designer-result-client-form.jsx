@@ -76,12 +76,12 @@ export const RequestDesignerResultClientForm = ({
 
   // console.log('imagesForDownload', imagesForDownload)
 
-  const sourceImagesData = proposal.proposal.media.map((el, index) => ({
+  const sourceImagesData = proposal.proposal.media.map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
     isEditCommentOpen: false,
-    _id: `${Date.now()}${index}`,
+    _id: el._id,
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -380,6 +380,7 @@ export const RequestDesignerResultClientForm = ({
                 onPressSubmitDesignerResultToCorrect({
                   reason: comment,
                   timeLimitInMinutes: formFields.execution_time /* .filter(el => el.image) */,
+                  imagesData,
                 })
                 setOpenModal()
               }}

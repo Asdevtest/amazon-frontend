@@ -229,7 +229,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes /* .filter(el => el.image) */}) {
+  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */}) {
     try {
       // runInAction(() => {
       //   this.uploadedFiles = []
@@ -247,7 +247,7 @@ export class OwnerRequestDetailCustomViewModel {
         reason,
         timeLimitInMinutes: parseInt(timeLimitInMinutes),
         // linksToMediaFiles: this.uploadedFiles,
-        // media: '',
+        media: imagesData.map(el => ({_id: el._id, commentByClient: el.commentByClient})),
       })
       this.loadData()
     } catch (error) {
