@@ -57,6 +57,10 @@ export class RequestDetailCustomViewModel {
       if (location.state) {
         this.requestId = location.state.requestId
       }
+
+      if (location.state.chatId) {
+        this.chatSelectedId = location.state.chatId
+      }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
