@@ -64,18 +64,14 @@ export const CustomSearchRequestDetails = ({request}) => {
               /> */}
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList
-                  files={
-                    request?.request?.media?.length ? request?.request?.media : request?.details?.linksToMediaFiles
-                  }
-                />
+                <CustomImageGalleryList files={request?.request?.media} />
               </div>
 
               <div>
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <FilesCarousel files={request?.details?.linksToMediaFiles} />
+                <FilesCarousel files={request?.request?.media.map(el => el.fileLink)} />
               </div>
             </div>
 
