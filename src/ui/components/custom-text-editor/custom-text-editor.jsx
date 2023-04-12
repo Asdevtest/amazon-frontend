@@ -23,7 +23,7 @@ import {useClassNames} from './custom-text-editor.style'
 const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
 
 export const CustomTextEditor = observer(
-  ({conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize}) => {
+  ({conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize, textToCheck}) => {
     const {classes: classNames} = useClassNames()
 
     const [value, setValue] = useState('')
@@ -51,8 +51,6 @@ export const CustomTextEditor = observer(
     const handleSave = () => {
       richTextEditorRef.current.save()
     }
-
-    // console.log('richTextEditorRef', richTextEditorRef)
 
     return (
       <div className={classNames.richTextEditorWrapper}>
@@ -82,7 +80,6 @@ export const CustomTextEditor = observer(
                   'justifyCenter',
                   'justifyRight',
                   'justifyFull',
-                  'save',
                 ]
           }
           customControls={[
@@ -124,14 +121,15 @@ export const CustomTextEditor = observer(
             placeHolder: classNames.placeHolder,
             toolbar: classNames.toolbar,
           }}
-          inlineToolbar={false}
           onBlur={() => {
             if (changeConditions) {
               handleSave()
             }
           }}
           onChange={EditorState => {
-            console.log('EditorState', EditorState.getCurrentContent().getPlainText())
+            if (changeConditions) {
+              textToCheck(EditorState.getCurrentContent().getPlainText())
+            }
           }}
           onSave={text => {
             changeConditions(text)
