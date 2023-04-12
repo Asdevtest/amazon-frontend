@@ -81,7 +81,7 @@ export const CreateOrEditRequestContent = ({
           file: el.fileLink,
           comment: el.commentByClient,
           commentByPerformer: el.commentByPerformer,
-          _id: `${Date.now()}`,
+          _id: el._id,
         }))
       : [],
   )
