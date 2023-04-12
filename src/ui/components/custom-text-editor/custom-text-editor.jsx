@@ -52,6 +52,8 @@ export const CustomTextEditor = observer(
       richTextEditorRef.current.save()
     }
 
+    // console.log('richTextEditorRef', richTextEditorRef)
+
     return (
       <div className={classNames.richTextEditorWrapper}>
         {!readOnly && (
@@ -80,6 +82,7 @@ export const CustomTextEditor = observer(
                   'justifyCenter',
                   'justifyRight',
                   'justifyFull',
+                  'save',
                 ]
           }
           customControls={[
@@ -127,8 +130,10 @@ export const CustomTextEditor = observer(
               handleSave()
             }
           }}
+          onChange={EditorState => {
+            console.log('EditorState', EditorState.getCurrentContent().getPlainText())
+          }}
           onSave={text => {
-            setValue(text)
             changeConditions(text)
           }}
         />

@@ -73,8 +73,6 @@ export const CreateOrEditRequestContent = ({
   const {classes: classNames} = useClassNames()
   // ScrollToTopOrBottom
 
-  // console.log('requestToEdit', requestToEdit)
-
   const [images, setImages] = useState(
     requestToEdit
       ? requestToEdit.request.media.map(el => ({
