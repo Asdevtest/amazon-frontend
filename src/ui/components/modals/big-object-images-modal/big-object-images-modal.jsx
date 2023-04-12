@@ -38,12 +38,7 @@ export const BigObjectImagesModal = ({
   }, [curImageId])
 
   const onChangeCurImageIndex = index => {
-    // console.log('filteredImagesData', filteredImagesData)
-    // console.log('index', index)
-
     const objImage = filteredImagesData.find((el, i) => i === index)
-
-    // console.log('objImage', objImage)
 
     if (objImage) {
       setCurImageId(() => objImage._id)
@@ -60,11 +55,6 @@ export const BigObjectImagesModal = ({
 
     downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
   }
-
-  // console.log('curImageId', curImageId)
-
-  // console.log('filteredImagesData', filteredImagesData)
-  // console.log('curImageIndex', curImageIndex)
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
