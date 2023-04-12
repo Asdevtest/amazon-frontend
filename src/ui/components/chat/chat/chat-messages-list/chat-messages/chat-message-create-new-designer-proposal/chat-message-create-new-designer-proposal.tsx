@@ -42,7 +42,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  // console.log('message', message)
+  console.log('message', message)
 
   // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
@@ -104,7 +104,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
           <PhotoAndFilesCarousel
             notToShowEmpty
             small
-            files={message.data.request?.media.map(el => el.fileLink)}
+            files={message.data.request?.media?.map(el => el.fileLink)}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}

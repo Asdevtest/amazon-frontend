@@ -51,16 +51,15 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
   storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)
 
 export const checkIsImageLink = link =>
-  link?.endsWith('.png') ||
-  link?.endsWith('.jpg') ||
-  link?.endsWith('.ico') ||
-  link?.endsWith('.gif') ||
-  link?.endsWith('.svg') ||
-  link?.endsWith('.webp') ||
-  link?.endsWith('.avif') ||
-  link?.endsWith('.jpeg') ||
-  link?.includes('http:/') ||
-  link?.includes('https:/')
+  (link?.endsWith('.png') ||
+    link?.endsWith('.jpg') ||
+    link?.endsWith('.ico') ||
+    link?.endsWith('.gif') ||
+    link?.endsWith('.svg') ||
+    link?.endsWith('.webp') ||
+    link?.endsWith('.avif') ||
+    link?.endsWith('.jpeg')) &&
+  (link?.includes('http:/') || link?.includes('https:/'))
 
 export const validateEmail = email =>
   String(email)
