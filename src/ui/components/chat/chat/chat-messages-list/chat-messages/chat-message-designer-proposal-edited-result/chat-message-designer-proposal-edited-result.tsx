@@ -54,7 +54,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
 
         <div className={classNames.infosWrapper}>
           <Linkify>
-            <Typography className={classNames.descriptionText}>{message.data.proposal.details.result}</Typography>
+            <Typography className={classNames.descriptionText}>{message.data.proposal?.details?.result}</Typography>
             {/* <Typography className={classNames.descriptionText}>
               {chatRequestAndRequestProposal?.requestProposal?.details.result}
             </Typography> */}
