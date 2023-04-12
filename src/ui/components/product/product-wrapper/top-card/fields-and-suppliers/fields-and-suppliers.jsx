@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import ClearIcon from '@mui/icons-material/Clear'
-import {Box, Grid, Typography, Link, Select, MenuItem, Checkbox, ListItemText, Tooltip} from '@mui/material'
+import {Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography} from '@mui/material'
 import MuiCheckbox from '@mui/material/Checkbox'
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
@@ -22,8 +20,9 @@ import {CopyValue} from '@components/copy-value/copy-value'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {RedFlags} from '@components/shared/redFlags/red-flags'
 
-import {checkIsClient, checkIsSupervisor, checkIsResearcher, checkIsBuyer} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -57,6 +56,9 @@ export const FieldsAndSuppliers = observer(
     const onChangeShop = e => {
       onChangeField('shopIds')({target: {value: e.target.value ? [e.target.value] : []}})
     }
+
+    const isEditRedFlags =
+      showActionBtns && (checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole) || checkIsClient(curUserRole))
 
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
@@ -306,6 +308,24 @@ export const FieldsAndSuppliers = observer(
               </div>
             </Box>
           </div>
+
+          {(isEditRedFlags || !!product?.redFlags?.length) && (
+            <div>
+              <div className={classNames.subUsersTitleWrapper}>
+                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
+              </div>
+              <div className={cx(classNames.redFlags, {[classNames.redFlagsView]: !isEditRedFlags})}>
+                <RedFlags
+                  isEditMode={isEditRedFlags}
+                  activeFlags={product.redFlags}
+                  handleSaveFlags={flags =>
+                    onChangeField('redFlags')({target: {value: flags.map(value => value._id) || []}})
+                  }
+                />
+              </div>
+            </div>
+          )}
+
           <div className={classNames.strategyAndSubUsersWrapper}>
             {Number(product.strategyStatus) ===
               mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (

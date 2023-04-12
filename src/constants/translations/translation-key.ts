@@ -1944,6 +1944,7 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
+  'Red flags' = 'Red flags',
   // '' = '',
   // '' = '',
   // '' = '',

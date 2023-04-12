@@ -117,7 +117,7 @@ export const supervisorProductsViewColumns = () => [
                 '-webkit-text-fill-color': 'transparent',
               }
         }
-        color={params.value ? 'green' : 'red'}
+        color={params.value ? '#00b746' : 'red'}
         text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
       />
     ),

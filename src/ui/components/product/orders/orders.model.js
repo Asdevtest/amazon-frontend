@@ -100,6 +100,15 @@ export class OrdersModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
@@ -126,6 +135,7 @@ export class OrdersModel {
               el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
           ),
         )

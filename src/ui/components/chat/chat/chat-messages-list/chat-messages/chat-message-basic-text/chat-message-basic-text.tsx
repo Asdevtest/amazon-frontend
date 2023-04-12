@@ -9,7 +9,8 @@ import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Button} from '@components/buttons/button'
+import {ImagesTile} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import {UserLink} from '@components/user-link'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
@@ -79,6 +80,8 @@ const findChunks = ({/* autoEscape, caseSensitive, sanitize, */ searchWords, tex
   return chunks
 }
 
+const imagesRegex = /(http[s]?:\/\/.*\.(?:png|jpg|gif|svg|jpeg))/i
+
 export const ChatMessageBasicText: FC<Props> = observer(
   ({message, isIncomming, unReadMessage, isFound, searchPhrase, showName}) => {
     const {classes: classNames} = useClassNames()
@@ -109,6 +112,21 @@ export const ChatMessageBasicText: FC<Props> = observer(
             />
           ) : null}
 
+          {message.files.length ? (
+            <div className={classNames.filesMainWrapper}>
+              {/* <PhotoAndFilesCarousel*/}
+              {/*  notToShowEmpty*/}
+              {/*  small*/}
+              {/*  files={message.files}*/}
+              {/*  width={window.innerWidth < 768 ? '150px' : '250px'}*/}
+              {/* />*/}
+              <ImagesTile
+                images={message.files.filter(url => imagesRegex.test(url))}
+                // controls={(imageIndex, image) => <Button>Download</Button>}
+              />
+            </div>
+          ) : undefined}
+
           {message.text && (
             <Highlighter
               autoEscape
@@ -132,19 +150,6 @@ export const ChatMessageBasicText: FC<Props> = observer(
               )}
             />
           )}
-
-          {message.files.length ? (
-            <div className={classNames.filesMainWrapper}>
-              <PhotoAndFilesCarousel
-                notToShowEmpty
-                small
-                files={message.files}
-                width={window.innerWidth < 768 ? '150px' : '250px'}
-                withoutPhotos={undefined}
-                whithoutFiles={undefined}
-              />
-            </div>
-          ) : undefined}
         </div>
 
         <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
