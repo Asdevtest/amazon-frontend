@@ -21,7 +21,6 @@ import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './my-proposals-list-card.style'
@@ -118,8 +117,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                 <div className={classNames.performerInfoCell}>
                   <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
                   <UserLink
-                    name={proposal.createdBy.name}
-                    userId={proposal.createdBy._id}
+                    name={proposal?.sub?.name || proposal?.createdBy?.name}
+                    userId={proposal?.sub?._id || proposal?.createdBy?._id}
                     customClassNames={classNames.customPerformerLink}
                   />
                 </div>
