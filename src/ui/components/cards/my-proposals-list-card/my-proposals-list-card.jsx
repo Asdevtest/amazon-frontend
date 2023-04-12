@@ -117,8 +117,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                 <div className={classNames.performerInfoCell}>
                   <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Performer)}</Typography>
                   <UserLink
-                    name={proposal.subId?.name || proposal.createdBy?.name}
-                    userId={proposal.subId?._id || proposal.createdBy?._id}
+                    name={proposal?.sub?.name || proposal?.createdBy?.name}
+                    userId={proposal?.sub?._id || proposal?.createdBy?._id}
                     customClassNames={classNames.customPerformerLink}
                   />
                 </div>
