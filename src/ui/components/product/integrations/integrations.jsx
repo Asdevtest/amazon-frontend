@@ -50,6 +50,7 @@ export const Integrations = observer(({productId}) => {
     onClickBindInventoryGoodsToStockBtn,
     onSelectionModel,
     onUnlinkSkuSProduct,
+    changeColumnsModel,
   } = model.current
 
   return (
@@ -85,6 +86,11 @@ export const Integrations = observer(({productId}) => {
         components={{
           Toolbar: DataGridCustomToolbar,
           ColumnMenuIcon: FilterAltOutlinedIcon,
+        }}
+        componentsProps={{
+          toolbar: {
+            columsBtnSettings: {columnsModel, changeColumnsModel},
+          },
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
