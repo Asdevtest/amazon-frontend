@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Box, Grid, Paper, Typography, Alert} from '@mui/material'
@@ -28,6 +30,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 import {checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {TableSupplier} from '../../table-supplier'
 import {FieldsAndSuppliers} from './fields-and-suppliers'
@@ -79,6 +82,43 @@ export const TopCard = observer(
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
 
+    const onClickDownloadBtn = image => {
+      downloadFileByLink(
+        typeof image === 'string' ? image : image.image.data_url,
+        // imageObj.comment,
+      )
+    }
+
+    const onClickRemoveImageObj = image => {
+      // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+      // setCurImageId(() => null)
+
+      onChangeImagesForLoad(imagesForLoad.filter(el => el !== image))
+      setBigImagesOptions(() => ({...bigImagesOptions, images: imagesForLoad.filter(el => el !== image)}))
+    }
+
+    const bigImagesModalControls = (imageIndex, image) => (
+      <div className={cx(classNames.imagesModalBtnsWrapper)}>
+        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(image)}>
+          <DeleteOutlineOutlinedIcon />
+        </Button>
+
+        <Button className={cx(classNames.imagesModalBtn)}>
+          <AutorenewIcon />
+          <input
+            type={'file'}
+            className={classNames.pasteInput}
+            defaultValue={''}
+            // onChange={onUploadFile(curImageId)}
+          />
+        </Button>
+
+        <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(image)}>
+          <DownloadOutlinedIcon />
+        </Button>
+      </div>
+    )
+
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
         productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
@@ -108,18 +148,20 @@ export const TopCard = observer(
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
                       <CustomCarousel>
-                        {product.images.map((imageHash, index) => (
-                          <img
-                            key={index}
-                            alt=""
-                            className={classNames.carouselImage}
-                            src={getAmazonImageUrl(imageHash, true)}
-                            onClick={() => {
-                              setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images: product.images, imgIndex: index})
-                            }}
-                          />
-                        ))}
+                        {
+                          /* product.images */ imagesForLoad.map((imageHash, index) => (
+                            <img
+                              key={index}
+                              alt=""
+                              className={classNames.carouselImage}
+                              src={getAmazonImageUrl(imageHash, true)}
+                              onClick={() => {
+                                setShowImageModal(!showImageModal)
+                                setBigImagesOptions({images: imagesForLoad /* product.images */, imgIndex: index})
+                              }}
+                            />
+                          ))
+                        }
                       </CustomCarousel>
                     </div>
                   ) : undefined}
@@ -399,10 +441,13 @@ export const TopCard = observer(
         </Paper>
 
         <BigImagesModal
+          showPreviews
           openModal={showImageModal}
           setOpenModal={() => setShowImageModal(!showImageModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          controls={bigImagesModalControls}
         />
 
         {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>

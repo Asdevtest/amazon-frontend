@@ -19,6 +19,7 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -199,6 +200,8 @@ export class ClientProductViewModel {
         this.product = result
 
         this.productBase = result
+
+        this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
@@ -476,7 +479,7 @@ export class ClientProductViewModel {
           {
             ...this.curUpdateProductData,
             images: this.uploadedImages.length
-              ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+              ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
           ['suppliers'],
