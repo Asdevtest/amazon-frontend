@@ -57,7 +57,7 @@ export const BigImagesModal = props => {
             index={imgIndex}
             onChange={now => handlePreview(now)}
           >
-            {images.map((el, index) => (
+            {images?.map((el, index) => (
               <div key={index} className={classNames.mainWrapper}>
                 <img className={classNames.imgBox} src={getAmazonImageUrl(el, true)} alt="" />
               </div>
