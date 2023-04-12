@@ -4,13 +4,17 @@ import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
+import PrintIcon from '@mui/icons-material/Print'
 import {
   Avatar,
+  Box,
   Checkbox,
   Chip,
   Grid,
+  IconButton,
   InputAdornment,
   Link,
   Menu,
@@ -21,9 +25,11 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {fromUnixTime} from 'date-fns'
+import {flushSync} from 'react-dom'
+import {useReactToPrint} from 'react-to-print'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
@@ -48,6 +54,7 @@ import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Input} from '@components/input'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
@@ -77,6 +84,7 @@ import {
   trimBarcode,
 } from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {styles} from './data-grid-cells.style'
 
@@ -850,6 +858,82 @@ export const OrderCell = React.memo(
     ),
     styles,
   ),
+)
+
+export const DownloadAndPrintFilesCell = React.memo(
+  withStyles(props => {
+    const {classes: styles, files} = props
+    const imageRef = useRef(null)
+    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [selectedImage, setSelectedImage] = useState({})
+
+    const handlePrint = useReactToPrint({
+      content: () => imageRef.current,
+      documentTitle: 'AwesomeFileName',
+      removeAfterPrint: true,
+    })
+
+    const handleImagePreview = el => {
+      setSelectedImage(el)
+      setIsOpenModal(true)
+    }
+
+    const printFile = el => {
+      flushSync(() => setSelectedImage(el))
+      handlePrint()
+    }
+
+    return (
+      <>
+        <Box display="flex" flexDirection="column" gap="10px" py="14px">
+          {files.map((el, index) => (
+            <div key={index}>
+              <Typography className={styles.dapTitle}>{el.title}</Typography>
+              {el.fileUrl && (
+                <Box display="flex" gap="8px" alignItems="center">
+                  <Button className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
+                    {el.fileName}
+                  </Button>
+
+                  <IconButton sx={{color: '#0164F4'}} onClick={() => printFile(el)}>
+                    <PrintIcon color="inherit" />
+                  </IconButton>
+                </Box>
+              )}
+              {!el.fileUrl && (
+                <Typography sx={{marginLeft: '25px', width: 'fit-content'}}>
+                  {t(TranslationKey['Not added'])}
+                </Typography>
+              )}
+            </div>
+          ))}
+        </Box>
+
+        <Box display="none">
+          <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
+        </Box>
+
+        <BigImagesModal
+          openModal={isOpenModal}
+          setOpenModal={() => setIsOpenModal(prevState => !prevState)}
+          images={[selectedImage.fileUrl]}
+          controls={() => (
+            <Box display="flex" gap="20px">
+              <Button
+                onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
+              >
+                <FileDownloadOutlinedIcon color="inherit" />
+              </Button>
+
+              <Button onClick={() => handlePrint()}>
+                <PrintIcon color="inherit" />
+              </Button>
+            </Box>
+          )}
+        />
+      </>
+    )
+  }, styles),
 )
 
 export const OrderBoxesCell = React.memo(
