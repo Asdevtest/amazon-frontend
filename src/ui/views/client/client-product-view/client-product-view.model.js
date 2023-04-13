@@ -91,6 +91,7 @@ const fieldsOfProductAllowedToUpdate = [
   'avgReviews',
   'shopIds',
   'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -225,6 +226,7 @@ export class ClientProductViewModel {
           'asins',
           'shopIds',
           'redFlags',
+          'tags',
         ].includes(fieldName)
       ) {
         runInAction(() => {

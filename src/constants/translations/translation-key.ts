@@ -1822,6 +1822,8 @@ export enum TranslationKey {
   'Document added' = 'Document added',
   'Red flags' = 'Red flags',
   'Not added' = 'Not added',
+  'Product tags' = 'Product tags',
+  'Input tag' = 'Input tag',
   // '' = '',
   // '' = '',
   // '' = '',

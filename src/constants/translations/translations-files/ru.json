@@ -1822,5 +1822,7 @@
   "Add payment document": "Добавить документ оплаты",
   "Document added": "Документ добавлен",
   "Red flags": "Красные флаги",
-  "Not added": "Не добавлено"
+  "Not added": "Не добавлено",
+  "Product tags": "Теги продукта",
+  "Input tag": "Введите тег"
 }
