@@ -168,6 +168,12 @@ export class SupervisorProductsViewModel {
     })
   }
 
+  getProductsCountByStatus(status) {
+    return supervisorProductsDataConverter(this.baseNoConvertedProducts).filter(
+      product => Number(product.status) === Number(status),
+    )
+  }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -260,6 +266,7 @@ export class SupervisorProductsViewModel {
       this.curPage = e
     })
   }
+
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
