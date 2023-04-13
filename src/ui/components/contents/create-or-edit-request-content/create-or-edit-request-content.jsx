@@ -73,8 +73,6 @@ export const CreateOrEditRequestContent = ({
   const {classes: classNames} = useClassNames()
   // ScrollToTopOrBottom
 
-  // console.log('requestToEdit', requestToEdit)
-
   const [images, setImages] = useState(
     requestToEdit
       ? requestToEdit.request.media.map(el => ({
@@ -147,18 +145,6 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
-
-  useEffect(() => {
-    if (formFields.details.conditions) {
-      try {
-        const obj = JSON.parse(formFields.details.conditions)
-        const text = obj?.blocks?.map(block => block?.text).join('')
-        setСonditionsClearText(text)
-      } catch (error) {
-        console.log('error', error)
-      }
-    }
-  }, [formFields.details.conditions])
 
   useEffect(() => {
     if (requestToEdit) {
@@ -465,6 +451,7 @@ export const CreateOrEditRequestContent = ({
                   <CustomTextEditor
                     verticalResize
                     conditions={formFields.details.conditions}
+                    textToCheck={setСonditionsClearText}
                     changeConditions={onChangeField('details')('conditions')}
                   />
 

@@ -73,6 +73,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
                 changeConditions={undefined}
                 editorMaxHeight={undefined /* classNames.editorMaxHeight */}
                 verticalResize={undefined}
+                textToCheck={undefined}
               />
             </Linkify>
           </div>

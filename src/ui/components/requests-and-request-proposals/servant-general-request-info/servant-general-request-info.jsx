@@ -20,6 +20,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
+import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
 
@@ -74,20 +75,11 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
               containerClasses={classNames.fieldContainer}
               label={t(TranslationKey['Product price'])}
               inputComponent={
-                <div className={classNames.priceAmazonWrapper}>
-                  <Typography className={classNames.cashBackPrice}>
-                    {`$ ${toFixed(
-                      request?.request.priceAmazon -
-                        (request?.request.priceAmazon * request?.request.cashBackInPercent) / 100,
-                      2,
-                    )}`}
-                  </Typography>
-
-                  <Typography className={classNames.redText}>{`$ ${toFixed(
-                    request?.request.priceAmazon,
-                    2,
-                  )}`}</Typography>
-                </div>
+                <VacantRequestPriceCell
+                  AlignLeft
+                  price={request?.request.priceAmazon}
+                  cashBackInPercent={request?.request.cashBackInPercent}
+                />
               }
             />
 
