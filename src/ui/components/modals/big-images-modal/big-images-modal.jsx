@@ -7,7 +7,8 @@ import Carousel from 'react-material-ui-carousel'
 
 import {Modal} from '@components/modal'
 
-// import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+
 import {useClassNames} from './big-images-modal.style'
 
 export const BigImagesModal = props => {
@@ -43,7 +44,7 @@ export const BigImagesModal = props => {
                   // alt={el}
                   src={
                     typeof el === 'string'
-                      ? el
+                      ? getAmazonImageUrl(el, true)
                       : el?.file.type.includes('image')
                       ? el?.data_url
                       : '/assets/icons/file.png'
@@ -75,7 +76,7 @@ export const BigImagesModal = props => {
 
                   src={
                     typeof el === 'string'
-                      ? el
+                      ? getAmazonImageUrl(el, true)
                       : el?.file.type.includes('image')
                       ? el?.data_url
                       : '/assets/icons/file.png'
