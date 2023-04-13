@@ -197,6 +197,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   normalPaymentText: {
+    width: 'fit-content',
     color: theme.palette.primary.main,
     // color: 'green',
 
@@ -376,7 +377,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
     color: '#fff',
 
-    gap: 20,
+    gap: 5,
   },
 
   noPaymentButton: {
