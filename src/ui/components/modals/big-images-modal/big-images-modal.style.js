@@ -54,22 +54,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   previewList: {
     overflowY: 'auto',
-    maxHeight: '70vh',
+    // maxHeight: '70vh',
+    height: '90%',
+
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
 
-    // justifyContent: 'flex-end',
+    justifyContent: 'flex-end',
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
     left: 30,
-    padding: '20px 0',
+    paddingBottom: '10px',
     marginLeft: 20,
   },
 
   previewListItem: {
     width: '75px',
-    height: '75px !important',
+    height: '75px',
   },
 
   previewListImage: {

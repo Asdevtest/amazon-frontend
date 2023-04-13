@@ -85,7 +85,7 @@ export const TopCard = observer(
 
     const onClickDownloadBtn = image => {
       downloadFileByLink(
-        typeof image === 'string' ? image : image.image.data_url,
+        typeof image === 'string' ? getAmazonImageUrl(image, true) : image.image.data_url,
         // imageObj.comment,
       )
     }
@@ -148,46 +148,54 @@ export const TopCard = observer(
 
     const bigImagesModalControls = (imageIndex, image) => (
       <div className={cx(classNames.imagesModalBtnsWrapper)}>
-        {!checkIsAdmin(curUserRole) && !checkIsBuyer(curUserRole) && (
-          <>
-            <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
+        {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
+          !product.archive &&
+          showActionBtns && (
+            <>
+              <Button
+                danger
+                className={cx(classNames.imagesModalBtn)}
+                onClick={() => onClickRemoveImageObj(imageIndex)}
+              >
+                <DeleteOutlineOutlinedIcon />
+              </Button>
 
-            <Button className={cx(classNames.imagesModalBtn)}>
-              <AutorenewIcon />
-              <input
-                type={'file'}
-                className={classNames.pasteInput}
-                defaultValue={''}
-                onChange={onUploadFile(imageIndex)}
-              />
-            </Button>
-          </>
-        )}
+              <Button className={cx(classNames.imagesModalBtn)}>
+                <AutorenewIcon />
+                <input
+                  type={'file'}
+                  className={classNames.pasteInput}
+                  defaultValue={''}
+                  onChange={onUploadFile(imageIndex)}
+                />
+              </Button>
+            </>
+          )}
 
         <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(image)}>
           <DownloadOutlinedIcon />
         </Button>
 
-        {!checkIsAdmin(curUserRole) && !checkIsBuyer(curUserRole) && (
-          <>
-            {imageIndex === 0 ? (
-              <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-                <StarOutlinedIcon />
-              </div>
-            ) : (
-              <Button
-                disabled={imageIndex === 0}
-                // success={imageIndex === 0}
-                className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickMakeMainImageObj(imageIndex, image)}
-              >
-                <StarOutlinedIcon />
-              </Button>
-            )}
-          </>
-        )}
+        {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
+          !product.archive &&
+          showActionBtns && (
+            <>
+              {imageIndex === 0 ? (
+                <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+                  <StarOutlinedIcon />
+                </div>
+              ) : (
+                <Button
+                  disabled={imageIndex === 0}
+                  // success={imageIndex === 0}
+                  className={cx(classNames.imagesModalBtn)}
+                  onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+                >
+                  <StarOutlinedIcon />
+                </Button>
+              )}
+            </>
+          )}
       </div>
     )
 
@@ -230,7 +238,7 @@ export const TopCard = observer(
 
                               src={
                                 typeof imageHash === 'string'
-                                  ? imageHash
+                                  ? getAmazonImageUrl(imageHash, true)
                                   : imageHash?.file.type.includes('image')
                                   ? imageHash?.data_url
                                   : '/assets/icons/file.png'
