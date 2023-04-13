@@ -151,8 +151,8 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
       <div className={classNames.footerWrapper}>
         {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+          /*  chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED || */
           chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
             RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
           <div className={classNames.btnsWrapper}>
