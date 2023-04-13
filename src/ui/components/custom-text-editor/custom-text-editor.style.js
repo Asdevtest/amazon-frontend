@@ -24,6 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   editor: {
     minHeight: 184,
+    maxHeight: 1550,
     // maxHeight: 184,
     overflowY: 'auto',
   },

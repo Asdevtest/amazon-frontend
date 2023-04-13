@@ -6,6 +6,12 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'fixed',
 
     display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
+  arrowWrapper: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
 
@@ -14,6 +20,10 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
 
     borderRadius: '50%',
+  },
+
+  arrowIconRoteta: {
+    transform: 'rotateX(180deg)',
   },
 
   arrowIcon: {

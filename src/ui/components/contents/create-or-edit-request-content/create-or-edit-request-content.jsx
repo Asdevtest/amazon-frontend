@@ -70,39 +70,60 @@ export const CreateOrEditRequestContent = ({
   progressValue,
   onClickChoosePerformer,
   onClickThumbnail,
+  mainContentRef,
 }) => {
   const {classes: classNames} = useClassNames()
-  // ScrollToTopOrBottom
 
-  // console.log('requestToEdit', requestToEdit)
+  const mainContentRefElement = mainContentRef.current
+  const parentRef = useRef(null)
+  const childRef = useRef(null)
 
-  const resizableComponentRef = useRef(null)
+  const [showScrollUp, setShowScrollUp] = useState(false)
+  const [showScrollDown, setShowScrollDown] = useState(false)
 
-  const handleResize = () => {
-    const element = resizableComponentRef.current
+  const [openModal, setOpenModal] = useState(false)
 
-    // Проверить, выходит ли компонент за пределы экрана
-    if (element.offsetHeight > window.innerHeight) {
-      // Скроллить страницу вниз, если компонент растягивается вниз
-      if (element.getBoundingClientRect().bottom > window.innerHeight) {
-        element.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'center'})
-      }
-      // Скроллить страницу вверх, если компонент растягивается вверх
-      else if (element.getBoundingClientRect().top < 0) {
-        element.scrollIntoView({behavior: 'smooth', block: 'top', inline: 'center'})
-      }
-    }
+  const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
+
+  const [announcementsData, setAnnouncementsData] = useState(announcements)
+
+  const [clearСonditionsText, setСonditionsClearText] = useState('')
+
+  const handleScroll = () => {
+    const scrollTop = mainContentRefElement.scrollTop
+    const scrollHeight = mainContentRefElement.scrollHeight
+    const clientHeight = mainContentRefElement.clientHeight
+
+    setShowScrollUp(scrollTop > 100)
+    setShowScrollDown(scrollHeight - scrollTop - clientHeight > 100)
   }
 
-  // useEffect(() => {
-  //   const element = resizableComponentRef.current
-  //   element.addEventListener('click', handleResize)
+  useEffect(() => {
+    if (mainContentRefElement) {
+      mainContentRefElement.addEventListener('scroll', handleScroll)
+    }
+    return () => {
+      if (mainContentRefElement) {
+        mainContentRefElement.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [mainContentRefElement])
 
-  //   // Очистить обработчик события при размонтировании компонента
-  //   return () => {
-  //     element.removeEventListener('click', handleResize)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (entry.target === parentRef.current) {
+          parentRef.current.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
+        }
+      }
+    })
+
+    resizeObserver.observe(parentRef.current)
+
+    return () => {
+      resizeObserver.unobserve(parentRef.current)
+    }
+  }, [])
 
   const [images, setImages] = useState(
     requestToEdit
@@ -115,11 +136,7 @@ export const CreateOrEditRequestContent = ({
       : [],
   )
 
-  const [openModal, setOpenModal] = useState(false)
-
-  const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [announcementsData, setAnnouncementsData] = useState(announcements)
+  const showScrollArrows = curStep === stepVariant.STEP_ONE && (showScrollUp || showScrollDown)
 
   useEffect(() => {
     if (requestToEdit) {
@@ -130,8 +147,6 @@ export const CreateOrEditRequestContent = ({
   useEffect(() => {
     setAnnouncementsData(announcements)
   }, [announcements])
-
-  const [clearСonditionsText, setСonditionsClearText] = useState('')
 
   const getSourceFormFields = currentFields => ({
     request: {
@@ -297,9 +312,16 @@ export const CreateOrEditRequestContent = ({
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
-    <div ref={resizableComponentRef} className={classNames.mainWrapper}>
+    <div ref={parentRef} className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
-        <ScrollToTopOrBottom customStyles={{bottom: '180px', right: '55px'}} />
+        {showScrollArrows && (
+          <ScrollToTopOrBottom
+            showScrollUp={showScrollUp}
+            showScrollDown={showScrollDown}
+            customStyles={{bottom: '180px', right: '55px'}}
+            сomponentWillScroll={parentRef}
+          />
+        )}
         <div className={classNames.headerWrapper}>
           <Typography
             className={cx(classNames.mainTitle, {[classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO})}
@@ -481,7 +503,6 @@ export const CreateOrEditRequestContent = ({
                   /> */}
 
                   <CustomTextEditor
-                    // ref={resizableComponentRef}
                     verticalResize
                     conditions={formFields.details.conditions}
                     textToCheck={setСonditionsClearText}
