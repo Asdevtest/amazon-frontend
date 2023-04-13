@@ -117,3 +117,30 @@ export const downloadFileByLink = async (str, fileName) => {
     })
   // .catch(() => alert('oh no!'))
 }
+
+export const getFileWeight = async url =>
+  fetch(url)
+    .then(res => res.blob())
+    .then(res => {
+      const fileSizeInKB = res.size / 1024
+      const fileSizeInMB = fileSizeInKB / 1024
+      const fileSizeInGB = fileSizeInMB / 1024
+
+      let formattedSize
+
+      switch (true) {
+        case fileSizeInGB > 1:
+          formattedSize = `${fileSizeInGB.toFixed(2)} GB`
+          break
+        case fileSizeInMB > 1:
+          formattedSize = `${fileSizeInMB.toFixed(2)} MB`
+          break
+        case fileSizeInKB > 1:
+          formattedSize = `${fileSizeInKB.toFixed(2)} KB`
+          break
+        default:
+          formattedSize = `${res.size.toFixed(2)} bytes`
+      }
+
+      return formattedSize
+    })
