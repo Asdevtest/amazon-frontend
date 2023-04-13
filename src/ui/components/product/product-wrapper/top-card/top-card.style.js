@@ -211,12 +211,31 @@ export const useClassNames = makeStyles()(theme => ({
 
   imagesModalBtnsWrapper: {
     display: 'flex',
+    // flexDirection: 'column',
     gap: 20,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    marginRight: 20,
   },
 
   imagesModalBtn: {
     width: 40,
     height: 40,
+  },
+
+  activeMainIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    background: 'rgb(53, 112, 155)',
+    // background: '#F5CF00',
+    // background: theme.palette.background.yellow,
+
+    // color: 'yellow',
+    // color: '#fff',
+    color: '#F5CF00',
   },
 
   pasteInput: {

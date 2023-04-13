@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -6,8 +7,7 @@ import Carousel from 'react-material-ui-carousel'
 
 import {Modal} from '@components/modal'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-
+// import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {useClassNames} from './big-images-modal.style'
 
 export const BigImagesModal = props => {
@@ -38,9 +38,16 @@ export const BigImagesModal = props => {
                   className={cx(classNames.previewListImage, {
                     [classNames.activeImage]: index === imgIndex,
                   })}
-                  src={el}
-                  srcSet={el}
-                  alt={el}
+                  // src={el}
+                  // srcSet={el}
+                  // alt={el}
+                  src={
+                    typeof el === 'string'
+                      ? el
+                      : el?.file.type.includes('image')
+                      ? el?.data_url
+                      : '/assets/icons/file.png'
+                  }
                   loading="lazy"
                 />
               </div>
@@ -50,20 +57,37 @@ export const BigImagesModal = props => {
 
         <div className={classNames.carouselWrapper}>
           <Carousel
+            navButtonsAlwaysVisible
             navButtonsAlwaysInvisible={currentScreenWidth < 768}
             autoPlay={false}
             timeout={100}
             animation="fade"
+            // IndicatorIcon={<div>{`${imgIndex + 1}/ ${images.length}`}</div>}
+            indicators={false}
             index={imgIndex}
             onChange={now => handlePreview(now)}
           >
             {images?.map((el, index) => (
               <div key={index} className={classNames.mainWrapper}>
-                <img className={classNames.imgBox} src={getAmazonImageUrl(el, true)} alt="" />
+                <img
+                  className={classNames.imgBox}
+                  // src={getAmazonImageUrl(el, true)}
+
+                  src={
+                    typeof el === 'string'
+                      ? el
+                      : el?.file.type.includes('image')
+                      ? el?.data_url
+                      : '/assets/icons/file.png'
+                  }
+                  alt=""
+                />
               </div>
             ))}
           </Carousel>
         </div>
+
+        <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images.length}`}</Typography>
 
         {controls && <div className={classNames.controls}>{controls(imgIndex, images[imgIndex])}</div>}
       </div>

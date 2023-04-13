@@ -192,6 +192,16 @@ export class ClientProductViewModel {
     }
   }
 
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
   async getProductById() {
     try {
       const result = await ProductModel.getProductById(this.productId)
@@ -201,7 +211,10 @@ export class ClientProductViewModel {
 
         this.productBase = result
 
-        this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+
+        this.updateImagesForLoad(result.images)
+
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
@@ -736,6 +749,8 @@ export class ClientProductViewModel {
                 // fbafee: this.product.fbafee,
               }
             })
+
+            this.updateImagesForLoad(amazonResult.images)
           }
           updateProductAutoCalculatedFields.call(this)
         })
