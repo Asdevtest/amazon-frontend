@@ -58,7 +58,7 @@ export const styles = theme => ({
   },
 
   selectStatusFilterButton: {
-    padding: '0 15px',
+    padding: '0 20px',
     height: 40,
     whiteSpace: 'nowrap',
     marginBottom: 5,
@@ -81,6 +81,6 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    marginLeft: '40%',
+    marginLeft: '50%',
   },
 })
