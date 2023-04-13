@@ -1821,6 +1821,7 @@ export enum TranslationKey {
   'Add payment document' = 'Add payment document',
   'Document added' = 'Document added',
   'Red flags' = 'Red flags',
+  'Not added' = 'Not added',
   // '' = '',
   // '' = '',
   // '' = '',
