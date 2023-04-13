@@ -37,6 +37,7 @@ import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
+import {ScrollToTopOrBottom} from '@components/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
@@ -72,6 +73,36 @@ export const CreateOrEditRequestContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
   // ScrollToTopOrBottom
+
+  // console.log('requestToEdit', requestToEdit)
+
+  const resizableComponentRef = useRef(null)
+
+  const handleResize = () => {
+    const element = resizableComponentRef.current
+
+    // Проверить, выходит ли компонент за пределы экрана
+    if (element.offsetHeight > window.innerHeight) {
+      // Скроллить страницу вниз, если компонент растягивается вниз
+      if (element.getBoundingClientRect().bottom > window.innerHeight) {
+        element.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'center'})
+      }
+      // Скроллить страницу вверх, если компонент растягивается вверх
+      else if (element.getBoundingClientRect().top < 0) {
+        element.scrollIntoView({behavior: 'smooth', block: 'top', inline: 'center'})
+      }
+    }
+  }
+
+  // useEffect(() => {
+  //   const element = resizableComponentRef.current
+  //   element.addEventListener('click', handleResize)
+
+  //   // Очистить обработчик события при размонтировании компонента
+  //   return () => {
+  //     element.removeEventListener('click', handleResize)
+  //   }
+  // }, [])
 
   const [images, setImages] = useState(
     requestToEdit
@@ -266,8 +297,9 @@ export const CreateOrEditRequestContent = ({
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div ref={resizableComponentRef} className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
+        <ScrollToTopOrBottom customStyles={{bottom: '180px', right: '55px'}} />
         <div className={classNames.headerWrapper}>
           <Typography
             className={cx(classNames.mainTitle, {[classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO})}
@@ -449,6 +481,7 @@ export const CreateOrEditRequestContent = ({
                   /> */}
 
                   <CustomTextEditor
+                    // ref={resizableComponentRef}
                     verticalResize
                     conditions={formFields.details.conditions}
                     textToCheck={setСonditionsClearText}

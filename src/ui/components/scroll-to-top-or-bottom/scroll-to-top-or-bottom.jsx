@@ -23,17 +23,11 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './scroll-to-top-or-bottom.style'
 
-export const ScrollToTopOrBottom = ({
-  item,
-  onClickContactWithExecutor,
-  onClickReview,
-  onClickOrderProposal,
-  onClickRejectProposal,
-}) => {
+export const ScrollToTopOrBottom = ({customStyles}) => {
   const {classes: classNames} = useClassNames()
 
   return (
-    <div className={classNames.root}>
+    <div style={customStyles} className={classNames.root}>
       <KeyboardArrowUpIcon className={classNames.arrowIcon} />
     </div>
   )
