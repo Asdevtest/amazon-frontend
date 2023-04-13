@@ -23,8 +23,8 @@ import {t} from '@utils/translations'
 export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 159,
   },

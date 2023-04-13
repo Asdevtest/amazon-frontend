@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-} from '@constants/freelance-request-type'
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -17,7 +13,6 @@ import {UserModel} from '@models/user-model'
 
 import {FreelancerVacantRequestColumns} from '@views/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
-import {checkIsFreelancer} from '@utils/checks'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 
 export class VacantRequestsViewModel {
