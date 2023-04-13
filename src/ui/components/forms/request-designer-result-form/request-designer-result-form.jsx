@@ -313,6 +313,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         <Field
           labelClasses={classNames.fieldLabel}
           inputClasses={classNames.linkInput}
+          inputProps={{maxLength: 500}}
           label={t(TranslationKey['Link to sources']) + ':'}
           containerClasses={classNames.containerField}
           value={sourceLink}
