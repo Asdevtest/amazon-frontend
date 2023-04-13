@@ -31,6 +31,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     // overflowX: 'hidden',
     minWidth: 220,
+    // position: 'absolute',
+    // bottom: 30,
+    // left: 30,
   },
 
   imageModalSubWrapperRightSide: {

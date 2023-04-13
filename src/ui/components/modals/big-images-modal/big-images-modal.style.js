@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   imgBox: {
     objectFit: 'contain',
     width: '50vw',
@@ -15,7 +15,9 @@ export const useClassNames = makeStyles()(() => ({
 
   body: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    justifyContent: 'center',
+    padding: '20px 140px 70px',
   },
 
   closeIcon: {
@@ -52,15 +54,22 @@ export const useClassNames = makeStyles()(() => ({
 
   previewList: {
     overflowY: 'auto',
-    height: '70vh',
+    maxHeight: '70vh',
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+
+    // justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 10,
+    left: 30,
+    padding: '20px 0',
+    marginLeft: 20,
   },
 
   previewListItem: {
-    maxWidth: '75px',
-    maxHeight: '75px',
+    width: '75px',
+    height: '75px !important',
   },
 
   previewListImage: {
@@ -69,7 +78,7 @@ export const useClassNames = makeStyles()(() => ({
     objectFit: 'cover',
     borderRadius: '4px',
     cursor: 'pointer',
-    border: '1px solid #E0E0E0',
+    border: '3px solid #E0E0E0',
   },
 
   activeImage: {
@@ -79,5 +88,14 @@ export const useClassNames = makeStyles()(() => ({
   controls: {
     display: 'flex',
     alignItems: 'flex-end',
+  },
+
+  indicator: {
+    position: 'absolute',
+    bottom: 30,
+    left: '50%',
+    color: theme.palette.primary.main,
+    fontSize: 18,
+    transform: 'translate(-50%,0)',
   },
 }))
