@@ -32,7 +32,7 @@ export const BigImagesModal = props => {
       <div className={classNames.body}>
         {showPreviews && (
           <div className={classNames.previewList}>
-            {images.map((el, index) => (
+            {images?.map((el, index) => (
               <div key={index} className={classNames.previewListItem} onClick={() => handlePreview(index)}>
                 <img
                   className={cx(classNames.previewListImage, {
@@ -87,9 +87,9 @@ export const BigImagesModal = props => {
           </Carousel>
         </div>
 
-        <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images.length}`}</Typography>
+        <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images?.length}`}</Typography>
 
-        {controls && <div className={classNames.controls}>{controls(imgIndex, images[imgIndex])}</div>}
+        {controls && <div className={classNames.controls}>{controls(imgIndex, images?.[imgIndex])}</div>}
       </div>
     </Modal>
   )
