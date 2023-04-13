@@ -9,4 +9,16 @@ export const useRedFlagStyles = makeStyles()(theme => ({
     gap: '15px',
     cursor: 'pointer',
   },
+  flagIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 24,
+    height: 24,
+
+    '& > img': {
+      width: '100%',
+      height: '100%',
+    },
+  },
 }))

@@ -1583,4 +1583,13 @@ export const styles = theme => ({
     width: '12px',
     height: '13px',
   },
+
+  dapTitle: {
+    color: theme.palette.text.second,
+    fontSize: '12px',
+  },
+
+  dapBtn: {
+    padding: '6px 44px',
+  },
 })

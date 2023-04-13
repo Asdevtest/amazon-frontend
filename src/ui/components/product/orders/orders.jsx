@@ -54,6 +54,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    changeColumnsModel,
   } = model.current
 
   useEffect(() => {
@@ -84,6 +85,9 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
         }}
         componentsProps={{
           columnMenu: {orderStatusData},
+          toolbar: {
+            columsBtnSettings: {columnsModel, changeColumnsModel},
+          },
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
