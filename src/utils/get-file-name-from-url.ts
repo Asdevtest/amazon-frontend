@@ -1,5 +1,12 @@
 export const getFileNameFromUrl = (url?: string) => {
-  if (!url) return ''
+  if (!url) {
+    return {
+      fullName: '',
+      type: '',
+      name: '',
+    }
+  }
+
   const splitedUrl = url.split('.')
 
   return {
