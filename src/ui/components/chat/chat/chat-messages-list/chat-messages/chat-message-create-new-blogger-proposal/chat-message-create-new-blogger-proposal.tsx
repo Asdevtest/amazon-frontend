@@ -203,8 +203,8 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
       <div className={classNames.footerWrapper}>
         {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+          /* chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED  ||*/
           chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
             RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
           <div className={classNames.btnsWrapper}>
@@ -213,7 +213,7 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
                 danger
                 // btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton /* , classNames.editButton */)}
-                onClick={() => handlers.onClickProposalRegect(message.data.request._id)}
+                onClick={() => handlers.onClickProposalRegect(message.data.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
               </Button>
