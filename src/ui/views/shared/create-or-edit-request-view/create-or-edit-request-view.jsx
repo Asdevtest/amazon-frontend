@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -20,6 +20,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 @observer
 export class CreateOrEditRequestView extends Component {
+  mainContentRef = createRef()
   viewModel = new CreateOrEditRequestViewModel({
     history: this.props.history,
     location: this.props.location,
@@ -50,6 +51,8 @@ export class CreateOrEditRequestView extends Component {
       onClickThumbnail,
     } = this.viewModel
 
+    console.log('this.mainContentRef', this.mainContentRef)
+
     return (
       <React.Fragment>
         <Navbar
@@ -60,8 +63,9 @@ export class CreateOrEditRequestView extends Component {
         />
         <Main>
           <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
+            <MainContent ref={this.mainContentRef}>
               <CreateOrEditRequestContent
+                mainContentRef={this.mainContentRef}
                 choosenAnnouncements={choosenAnnouncements}
                 permissionsData={permissionsData}
                 announcements={announcements}

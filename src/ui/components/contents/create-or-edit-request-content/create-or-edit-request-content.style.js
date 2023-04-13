@@ -9,6 +9,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainSubWrapper: {
+    position: 'relative',
+
     padding: 30,
     minHeight: 760,
 

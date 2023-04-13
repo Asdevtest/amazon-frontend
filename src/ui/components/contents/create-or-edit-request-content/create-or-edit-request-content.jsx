@@ -37,6 +37,7 @@ import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
+import {ScrollToTopOrBottom} from '@components/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
@@ -69,9 +70,60 @@ export const CreateOrEditRequestContent = ({
   progressValue,
   onClickChoosePerformer,
   onClickThumbnail,
+  mainContentRef,
 }) => {
   const {classes: classNames} = useClassNames()
-  // ScrollToTopOrBottom
+
+  const mainContentRefElement = mainContentRef.current
+  const parentRef = useRef(null)
+  const childRef = useRef(null)
+
+  const [showScrollUp, setShowScrollUp] = useState(false)
+  const [showScrollDown, setShowScrollDown] = useState(false)
+
+  const [openModal, setOpenModal] = useState(false)
+
+  const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
+
+  const [announcementsData, setAnnouncementsData] = useState(announcements)
+
+  const [clearСonditionsText, setСonditionsClearText] = useState('')
+
+  const handleScroll = () => {
+    const scrollTop = mainContentRefElement.scrollTop
+    const scrollHeight = mainContentRefElement.scrollHeight
+    const clientHeight = mainContentRefElement.clientHeight
+
+    setShowScrollUp(scrollTop > 100)
+    setShowScrollDown(scrollHeight - scrollTop - clientHeight > 100)
+  }
+
+  useEffect(() => {
+    if (mainContentRefElement) {
+      mainContentRefElement.addEventListener('scroll', handleScroll)
+    }
+    return () => {
+      if (mainContentRefElement) {
+        mainContentRefElement.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [mainContentRefElement])
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (entry.target === parentRef.current) {
+          parentRef.current.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
+        }
+      }
+    })
+
+    resizeObserver.observe(parentRef.current)
+
+    return () => {
+      resizeObserver.unobserve(parentRef.current)
+    }
+  }, [])
 
   const [images, setImages] = useState(
     requestToEdit
@@ -84,11 +136,7 @@ export const CreateOrEditRequestContent = ({
       : [],
   )
 
-  const [openModal, setOpenModal] = useState(false)
-
-  const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [announcementsData, setAnnouncementsData] = useState(announcements)
+  const showScrollArrows = curStep === stepVariant.STEP_ONE && (showScrollUp || showScrollDown)
 
   useEffect(() => {
     if (requestToEdit) {
@@ -99,8 +147,6 @@ export const CreateOrEditRequestContent = ({
   useEffect(() => {
     setAnnouncementsData(announcements)
   }, [announcements])
-
-  const [clearСonditionsText, setСonditionsClearText] = useState('')
 
   const getSourceFormFields = currentFields => ({
     request: {
@@ -266,8 +312,16 @@ export const CreateOrEditRequestContent = ({
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div ref={parentRef} className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
+        {showScrollArrows && (
+          <ScrollToTopOrBottom
+            showScrollUp={showScrollUp}
+            showScrollDown={showScrollDown}
+            customStyles={{bottom: '180px', right: '55px'}}
+            сomponentWillScroll={parentRef}
+          />
+        )}
         <div className={classNames.headerWrapper}>
           <Typography
             className={cx(classNames.mainTitle, {[classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO})}
