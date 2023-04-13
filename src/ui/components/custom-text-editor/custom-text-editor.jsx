@@ -23,7 +23,7 @@ import {useClassNames} from './custom-text-editor.style'
 const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
 
 export const CustomTextEditor = observer(
-  ({conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize}) => {
+  ({conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize, textToCheck}) => {
     const {classes: classNames} = useClassNames()
 
     const [value, setValue] = useState('')
@@ -121,14 +121,17 @@ export const CustomTextEditor = observer(
             placeHolder: classNames.placeHolder,
             toolbar: classNames.toolbar,
           }}
-          inlineToolbar={false}
           onBlur={() => {
             if (changeConditions) {
               handleSave()
             }
           }}
+          onChange={EditorState => {
+            if (changeConditions) {
+              textToCheck(EditorState.getCurrentContent().getPlainText())
+            }
+          }}
           onSave={text => {
-            setValue(text)
             changeConditions(text)
           }}
         />

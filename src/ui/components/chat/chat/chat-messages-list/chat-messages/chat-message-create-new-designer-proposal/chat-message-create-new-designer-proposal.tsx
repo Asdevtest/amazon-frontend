@@ -73,6 +73,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
                 changeConditions={undefined}
                 editorMaxHeight={undefined}
                 verticalResize={undefined}
+                textToCheck={undefined}
               />
             </Linkify>
           </div>
