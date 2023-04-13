@@ -48,19 +48,20 @@ export const TagSelector: FC<TagSelectorProps> = props => {
 
     const tag = tagList.find(el => el.title === selectValue?.title)
 
+    let newValue: Tag[] = []
+
     if (tag) {
-      setSelectedTags(prevState => [...prevState, tag])
+      newValue = [...selectedTags, tag]
+      setSelectedTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
-        setSelectedTags(prevState => [
-          ...prevState,
-          {title: selectValue?.title.replace(prefix, ''), _id: res._id} as Tag,
-        ])
+        newValue = [...selectedTags, {title: selectValue?.title.replace(prefix, ''), _id: res._id} as Tag]
+        setSelectedTags(newValue)
         getTags().then(value => setTagList(value))
       })
     }
 
-    handleSaveTags(selectedTags)
+    handleSaveTags(newValue)
   }
 
   return (

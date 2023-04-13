@@ -337,9 +337,7 @@ export const FieldsAndSuppliers = observer(
                 <RedFlags
                   isEditMode={isEditRedFlags}
                   activeFlags={product.redFlags}
-                  handleSaveFlags={flags =>
-                    onChangeField('redFlags')({target: {value: flags.map(value => value._id) || []}})
-                  }
+                  handleSaveFlags={flags => onChangeField('redFlags')({target: {value: flags || []}})}
                 />
               </div>
             </div>
