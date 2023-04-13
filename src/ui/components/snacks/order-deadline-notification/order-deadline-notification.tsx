@@ -9,7 +9,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {getDistanceBetweenDatesInSeconds, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import {
+  formatDateDistanceFromNowStrict,
+  getDistanceBetweenDatesInSeconds,
+  sortObjectsArrayByFiledDateWithParseISOAsc,
+} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './order-deadline-notification.style'
@@ -54,9 +58,7 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
 
                 <Typography className={classNames.messageText}>{`${t(
                   TranslationKey['The redemption deadline expires in'],
-                )} ${secondsToHours(getDistanceBetweenDatesInSeconds(el.deadline))} ${t(
-                  TranslationKey.hour,
-                )}`}</Typography>
+                )}: ${formatDateDistanceFromNowStrict(el.deadline)}`}</Typography>
               </div>
             ))}
         </div>
