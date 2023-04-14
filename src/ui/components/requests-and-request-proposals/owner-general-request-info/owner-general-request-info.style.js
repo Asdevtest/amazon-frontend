@@ -39,8 +39,8 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '35px',
   },
   userPhoto: {
-    width: 71,
-    height: 71,
+    width: 57,
+    height: 57,
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -250,5 +250,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
+  },
+
+  userInfo: {
+    display: 'flex',
+    // alignItems: 'center',
+
+    gap: 15,
   },
 }))
