@@ -221,7 +221,7 @@ export class SupervisorProductsViewModel {
   }
 
   getProductsCountByStatus(status) {
-    return supervisorProductsDataConverter(this.baseNoConvertedProducts).filter(
+    return supervisorProductsDataConverter(this.baseNoConvertedProducts)?.filter(
       product => Number(product.status) === Number(status),
     )
   }
