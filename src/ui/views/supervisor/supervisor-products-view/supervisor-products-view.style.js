@@ -67,9 +67,26 @@ export const styles = theme => ({
     fontSize: 14,
     fontWeight: 600,
 
-    '&>disabled': {
-      backgroundColor: 'inherit',
+    '&.Mui-disabled': {
+      opacity: '.3',
+      backgroundColor: 'transparent',
     },
+  },
+  badge: {
+    margin: '0 auto',
+    height: 20,
+    width: 'fit-content',
+    background: theme.palette.primary.main,
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
+
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
   },
   selectedStatusFilterButton: {
     marginBottom: 0,

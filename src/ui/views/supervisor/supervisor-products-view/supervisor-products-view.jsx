@@ -98,6 +98,7 @@ class SupervisorProductsViewRaw extends Component {
       onChangeNameSearchValue,
       onClickStatusFilterButton,
       changeColumnsModel,
+      getProductsCountByStatus,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -114,19 +115,25 @@ class SupervisorProductsViewRaw extends Component {
               <div className={classNames.headerWrapper}>
                 {Object.keys({
                   ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
-                }).map((status, statusIndex) => (
-                  <Button
-                    key={statusIndex}
-                    variant="text"
-                    // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-                    className={cx(classNames.selectStatusFilterButton, {
-                      [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
-                    })}
-                    onClick={() => onClickStatusFilterButton(status)}
-                  >
-                    {t(productStatusTranslateKey(ProductStatusByCode[status]))}
-                  </Button>
-                ))}
+                }).map((status, statusIndex) => {
+                  const count = getProductsCountByStatus(status).length
+
+                  return (
+                    <Button
+                      key={statusIndex}
+                      variant="text"
+                      disabled={!count}
+                      // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+                      className={cx(classNames.selectStatusFilterButton, {
+                        [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
+                      })}
+                      onClick={() => onClickStatusFilterButton(status)}
+                    >
+                      {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
+                      {count >= 1 && <span className={classNames.badge}>{count}</span>}
+                    </Button>
+                  )
+                })}
 
                 <div className={classNames.searchInputWrapper}>
                   <SearchInput
