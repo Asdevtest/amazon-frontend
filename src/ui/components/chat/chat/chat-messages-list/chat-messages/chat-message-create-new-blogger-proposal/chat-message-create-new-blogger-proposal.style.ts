@@ -56,6 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 16,
     minHeight: 100,
     wordBreak: 'break-word',
+    whiteSpace: 'pre-line',
   },
   resultWrapper: {
     width: '100%',
@@ -323,5 +324,6 @@ export const useClassNames = makeStyles()(theme => ({
   paragraphWrapper: {
     minHeight: 180,
     marginTop: 20,
+    marginBottom: 10,
   },
 }))

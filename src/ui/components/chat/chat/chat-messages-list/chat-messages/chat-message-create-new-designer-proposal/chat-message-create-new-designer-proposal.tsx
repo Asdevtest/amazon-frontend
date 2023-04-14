@@ -42,7 +42,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  console.log('message', message)
+  // console.log('message', message)
 
   // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
