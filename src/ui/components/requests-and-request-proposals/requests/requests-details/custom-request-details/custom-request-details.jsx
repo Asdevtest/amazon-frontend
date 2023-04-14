@@ -23,8 +23,6 @@ import {useClassNames} from './custom-request-details.style'
 export const CustomSearchRequestDetails = ({request}) => {
   const {classes: classNames} = useClassNames()
 
-  // console.log('request', request)
-
   const [showDetails, setShowDetails] = useState(false)
 
   const onClickToShowDetails = () => {
@@ -45,23 +43,9 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
           <div className={classNames.mainWrapper}>
-            {/* <Field
-              multiline
-              labelClasses={classNames.conditionsLabel}
-              label={t(TranslationKey.Files)}
-              containerClasses={classNames.filesWrapper}
-              inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="379px" />}
-            /> */}
-
             <div className={classNames.filesWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
 
-              {/* <PhotoAndFilesCarousel
-                small
-                direction="column"
-                files={request?.details?.linksToMediaFiles}
-                width="379px"
-              /> */}
               <div className={classNames.conditionsPhotosWraper}>
                 <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
                 <CustomImageGalleryList files={request?.request?.media} />
@@ -75,22 +59,10 @@ export const CustomSearchRequestDetails = ({request}) => {
               </div>
             </div>
 
-            {/* <Field
-              multiline
-              labelClasses={classNames.conditionsLabel}
-              label={t(TranslationKey.Description)}
-              containerClasses={classNames.conditionsFieldWrapper}
-              inputComponent={
-                <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
-              }
-            /> */}
-
             <div className={classNames.conditionsFieldWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
 
               <CustomTextEditor readOnly conditions={request?.details?.conditions} />
-
-              {/* <Typography className={classNames.conditionsField}>{request?.details.conditions}</Typography> */}
             </div>
           </div>
         </AccordionDetails>

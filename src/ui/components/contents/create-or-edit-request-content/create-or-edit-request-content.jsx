@@ -75,6 +75,7 @@ export const CreateOrEditRequestContent = ({
   const {classes: classNames} = useClassNames()
 
   const mainContentRefElement = mainContentRef.current
+
   const componentRef = useRef(null)
 
   const [showScrollUp, setShowScrollUp] = useState(false)
@@ -120,7 +121,9 @@ export const CreateOrEditRequestContent = ({
     resizeObserver.observe(componentRef.current)
 
     return () => {
-      resizeObserver.unobserve(componentRef.current)
+      if (componentRef?.current) {
+        resizeObserver?.unobserve(componentRef.current)
+      }
     }
   }, [])
 
