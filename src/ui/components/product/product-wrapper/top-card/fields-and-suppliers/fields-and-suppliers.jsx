@@ -313,7 +313,7 @@ export const FieldsAndSuppliers = observer(
           </div>
 
           {(showActionBtns || !!product?.tags?.length) && (
-            <div>
+            <Box maxWidth={300}>
               <div className={classNames.subUsersTitleWrapper}>
                 <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
               </div>
@@ -325,7 +325,7 @@ export const FieldsAndSuppliers = observer(
                 prefix="# "
                 placeholder={'# ' + t(TranslationKey['Input tag'])}
               />
-            </div>
+            </Box>
           )}
 
           {(isEditRedFlags || !!product?.redFlags?.length) && (
