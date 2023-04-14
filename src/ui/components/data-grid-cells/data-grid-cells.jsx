@@ -2331,21 +2331,21 @@ export const EditOrRemoveIconBtnsCell = React.memo(
               tooltipInfoContent={isFirstRow && tooltipFirstButton}
               disabled={disableActionBtn}
               className={classNames.removeOrEditBtn}
-              onClick={() => handlers.onClickEditBtn(row)}
+              onClick={() => handlers?.onClickEditBtn(row)}
             >
               {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
             </Button>
             <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
           </div>
 
-          {handlers.onTriggerArchive && (
+          {handlers?.onTriggerArchive && (
             <div className={classNames.editOrRemoveBtnWrapper}>
               <Button
                 success={isArchive}
                 // tooltipInfoContent={isFirstRow && tooltipFirstButton}
                 disabled={disableActionBtn}
                 className={classNames.removeOrEditBtn}
-                onClick={() => handlers.onTriggerArchive(row)}
+                onClick={() => handlers?.onTriggerArchive(row)}
               >
                 <img src={isArchive ? '/assets/icons/arrow-up.svg' : '/assets/icons/arrow-down.svg'} />
               </Button>
@@ -2363,7 +2363,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
               // className={classNames.rowCancelBtn}
               className={classNames.removeOrEditBtn}
               onClick={() => {
-                handlers.onClickRemoveBtn(row)
+                handlers?.onClickRemoveBtn(row)
               }}
             >
               <DeleteOutlineOutlinedIcon />
