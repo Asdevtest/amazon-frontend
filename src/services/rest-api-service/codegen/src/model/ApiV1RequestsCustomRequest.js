@@ -87,9 +87,6 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('typeTask')) {
                 obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
@@ -168,12 +165,6 @@ ApiV1RequestsCustomRequest.prototype['roles'] = undefined;
  * @member {Number} typeTask
  */
 ApiV1RequestsCustomRequest.prototype['typeTask'] = undefined;
-
-/**
- * Гуид продукта
- * @member {String} productId
- */
-ApiV1RequestsCustomRequest.prototype['productId'] = undefined;
 
 /**
  * Привязанный асин

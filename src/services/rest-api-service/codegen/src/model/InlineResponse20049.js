@@ -23,6 +23,7 @@ import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
 class InlineResponse20049 {
     /**
      * Constructs a new <code>InlineResponse20049</code>.
+     * Схема парсинга.
      * @alias module:model/InlineResponse20049
      */
     constructor() { 

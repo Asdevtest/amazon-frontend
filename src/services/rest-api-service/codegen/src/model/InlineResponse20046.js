@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20046Failed from './InlineResponse20046Failed';
 
 /**
  * The InlineResponse20046 model module.

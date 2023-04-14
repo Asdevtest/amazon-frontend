@@ -164,7 +164,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject63} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -187,8 +187,8 @@ export default class IdeaApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/ideas/edit_requests_status/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -203,7 +203,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject63} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IdeasEditRequestsStatusGuidPatch(guid, opts) {
       return this.apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts)
@@ -372,7 +372,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -395,8 +395,8 @@ export default class IdeaApi {
 
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = 'String';
       return this.apiClient.callApi(
         '/api/v1/ideas/get_supplier_requests/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -410,7 +410,7 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IdeasGetSupplierRequestsGuidGet(guid, opts) {
       return this.apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts)
@@ -578,6 +578,60 @@ export default class IdeaApi {
      */
     apiV1IdeasGuidPatch(guid, opts) {
       return this.apiV1IdeasGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Удалить идею
+     * ## Удаление идеи  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20041>} and HTTP response
+     */
+    apiV1IdeasNotificationsGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasNotificationsGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20041];
+      return this.apiClient.callApi(
+        '/api/v1/ideas/notifications', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Удалить идею
+     * ## Удаление идеи  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20041>}
+     */
+    apiV1IdeasNotificationsGet(guid, opts) {
+      return this.apiV1IdeasNotificationsGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -284,6 +284,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidDelete**](docs/IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidGet**](docs/IdeaApi.md#apiV1IdeasGuidGet) | **GET** /api/v1/ideas/{guid} | Получить идею по гуиду
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidPatch**](docs/IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
+*TestSwagger.IdeaApi* | [**apiV1IdeasNotificationsGet**](docs/IdeaApi.md#apiV1IdeasNotificationsGet) | **GET** /api/v1/ideas/notifications | Удалить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasPost**](docs/IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasRemoveSupplierGuidPost**](docs/IdeaApi.md#apiV1IdeasRemoveSupplierGuidPost) | **POST** /api/v1/ideas/remove_supplier/{guid} | Удалить поставщика
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsCreateAndLinkSkuProductsPost**](docs/IntegrationsApi.md#apiV1IntegrationsCreateAndLinkSkuProductsPost) | **POST** /api/v1/integrations/create_and_link_sku_products | # Создать, привязать товары к SKU. Спарсить данные. 
@@ -478,6 +479,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BuyersOrdersMyOrderSupplier](docs/ApiV1BuyersOrdersMyOrderSupplier.md)
  - [TestSwagger.ApiV1BuyersOrdersMyProduct](docs/ApiV1BuyersOrdersMyProduct.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
+ - [TestSwagger.ApiV1IdeasNotificationsCreatedBy](docs/ApiV1IdeasNotificationsCreatedBy.md)
+ - [TestSwagger.ApiV1IdeasNotificationsIdea](docs/ApiV1IdeasNotificationsIdea.md)
+ - [TestSwagger.ApiV1IdeasNotificationsProduct](docs/ApiV1IdeasNotificationsProduct.md)
  - [TestSwagger.ApiV1IntegrationsCreateAndLinkSkuProductsPayload](docs/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks](docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseStocksShop](docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md)
@@ -486,6 +490,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestProposalsCreatedBy](docs/ApiV1RequestProposalsCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidDetails](docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposal](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md)
+ - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidRequest](docs/ApiV1RequestProposalsCustomByRequestIdGuidRequest.md)
  - [TestSwagger.ApiV1RequestProposalsDetailsCustom](docs/ApiV1RequestProposalsDetailsCustom.md)
  - [TestSwagger.ApiV1RequestProposalsRequest](docs/ApiV1RequestProposalsRequest.md)
@@ -689,6 +694,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20045](docs/InlineResponse20045.md)
  - [TestSwagger.InlineResponse20045Failed](docs/InlineResponse20045Failed.md)
  - [TestSwagger.InlineResponse20046](docs/InlineResponse20046.md)
+ - [TestSwagger.InlineResponse20046Failed](docs/InlineResponse20046Failed.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
  - [TestSwagger.InlineResponse20048](docs/InlineResponse20048.md)
  - [TestSwagger.InlineResponse20049](docs/InlineResponse20049.md)
@@ -754,15 +760,11 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UserFullSchema](docs/UserFullSchema.md)
  - [TestSwagger.UserFullSchemaNote](docs/UserFullSchemaNote.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
- - [TestSwagger.UserInfoSchemaCreatedBy](docs/UserInfoSchemaCreatedBy.md)
- - [TestSwagger.UserInfoSchemaIdea](docs/UserInfoSchemaIdea.md)
  - [TestSwagger.UserInfoSchemaMasterUser](docs/UserInfoSchemaMasterUser.md)
  - [TestSwagger.UserInfoSchemaNeedConfirmPriceChange](docs/UserInfoSchemaNeedConfirmPriceChange.md)
  - [TestSwagger.UserInfoSchemaNeedUpdateTariff](docs/UserInfoSchemaNeedUpdateTariff.md)
  - [TestSwagger.UserInfoSchemaPermissionGroups](docs/UserInfoSchemaPermissionGroups.md)
  - [TestSwagger.UserInfoSchemaPermissions](docs/UserInfoSchemaPermissions.md)
- - [TestSwagger.UserInfoSchemaProduct](docs/UserInfoSchemaProduct.md)
- - [TestSwagger.UserInfoSchemaUpdatesOnIdeas](docs/UserInfoSchemaUpdatesOnIdeas.md)
  - [TestSwagger.UserRegisterSchema](docs/UserRegisterSchema.md)
  - [TestSwagger.UserSettingInputSchema](docs/UserSettingInputSchema.md)
  - [TestSwagger.UserSettingInputSchemaData](docs/UserSettingInputSchemaData.md)

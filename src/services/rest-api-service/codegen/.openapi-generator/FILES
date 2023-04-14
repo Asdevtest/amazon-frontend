@@ -45,6 +45,9 @@ docs/ApiV1BoxesStorekeepersSentToBatchOrder.md
 docs/ApiV1BuyersOrdersMyOrderSupplier.md
 docs/ApiV1BuyersOrdersMyProduct.md
 docs/ApiV1GologinProfileNavigator.md
+docs/ApiV1IdeasNotificationsCreatedBy.md
+docs/ApiV1IdeasNotificationsIdea.md
+docs/ApiV1IdeasNotificationsProduct.md
 docs/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md
 docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md
 docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md
@@ -53,6 +56,7 @@ docs/ApiV1ProductsKeepaStats.md
 docs/ApiV1RequestProposalsCreatedBy.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md
+docs/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidRequest.md
 docs/ApiV1RequestProposalsDetailsCustom.md
 docs/ApiV1RequestProposalsRequest.md
@@ -265,6 +269,7 @@ docs/InlineResponse20044.md
 docs/InlineResponse20045.md
 docs/InlineResponse20045Failed.md
 docs/InlineResponse20046.md
+docs/InlineResponse20046Failed.md
 docs/InlineResponse20047.md
 docs/InlineResponse20048.md
 docs/InlineResponse20049.md
@@ -344,15 +349,11 @@ docs/UserApi.md
 docs/UserFullSchema.md
 docs/UserFullSchemaNote.md
 docs/UserInfoSchema.md
-docs/UserInfoSchemaCreatedBy.md
-docs/UserInfoSchemaIdea.md
 docs/UserInfoSchemaMasterUser.md
 docs/UserInfoSchemaNeedConfirmPriceChange.md
 docs/UserInfoSchemaNeedUpdateTariff.md
 docs/UserInfoSchemaPermissionGroups.md
 docs/UserInfoSchemaPermissions.md
-docs/UserInfoSchemaProduct.md
-docs/UserInfoSchemaUpdatesOnIdeas.md
 docs/UserRegisterSchema.md
 docs/UserSettingInputSchema.md
 docs/UserSettingInputSchemaData.md
@@ -429,6 +430,9 @@ src/model/ApiV1BoxesStorekeepersSentToBatchOrder.js
 src/model/ApiV1BuyersOrdersMyOrderSupplier.js
 src/model/ApiV1BuyersOrdersMyProduct.js
 src/model/ApiV1GologinProfileNavigator.js
+src/model/ApiV1IdeasNotificationsCreatedBy.js
+src/model/ApiV1IdeasNotificationsIdea.js
+src/model/ApiV1IdeasNotificationsProduct.js
 src/model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.js
 src/model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.js
 src/model/ApiV1IntegrationsSellerboardWarehouseStocksShop.js
@@ -437,6 +441,7 @@ src/model/ApiV1ProductsKeepaStats.js
 src/model/ApiV1RequestProposalsCreatedBy.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidDetails.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposal.js
+src/model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidRequest.js
 src/model/ApiV1RequestProposalsDetailsCustom.js
 src/model/ApiV1RequestProposalsRequest.js
@@ -640,6 +645,7 @@ src/model/InlineResponse20044.js
 src/model/InlineResponse20045.js
 src/model/InlineResponse20045Failed.js
 src/model/InlineResponse20046.js
+src/model/InlineResponse20046Failed.js
 src/model/InlineResponse20047.js
 src/model/InlineResponse20048.js
 src/model/InlineResponse20049.js
@@ -705,15 +711,11 @@ src/model/UserAdminFullSchema.js
 src/model/UserFullSchema.js
 src/model/UserFullSchemaNote.js
 src/model/UserInfoSchema.js
-src/model/UserInfoSchemaCreatedBy.js
-src/model/UserInfoSchemaIdea.js
 src/model/UserInfoSchemaMasterUser.js
 src/model/UserInfoSchemaNeedConfirmPriceChange.js
 src/model/UserInfoSchemaNeedUpdateTariff.js
 src/model/UserInfoSchemaPermissionGroups.js
 src/model/UserInfoSchemaPermissions.js
-src/model/UserInfoSchemaProduct.js
-src/model/UserInfoSchemaUpdatesOnIdeas.js
 src/model/UserRegisterSchema.js
 src/model/UserSettingInputSchema.js
 src/model/UserSettingInputSchemaData.js

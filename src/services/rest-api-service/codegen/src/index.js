@@ -54,6 +54,9 @@ import ApiV1BoxesStorekeepersSentToBatchOrder from './model/ApiV1BoxesStorekeepe
 import ApiV1BuyersOrdersMyOrderSupplier from './model/ApiV1BuyersOrdersMyOrderSupplier';
 import ApiV1BuyersOrdersMyProduct from './model/ApiV1BuyersOrdersMyProduct';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
+import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './model/ApiV1IdeasNotificationsProduct';
 import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
@@ -62,6 +65,7 @@ import ApiV1ProductsKeepaStats from './model/ApiV1ProductsKeepaStats';
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
+import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './model/ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
@@ -265,6 +269,7 @@ import InlineResponse20044 from './model/InlineResponse20044';
 import InlineResponse20045 from './model/InlineResponse20045';
 import InlineResponse20045Failed from './model/InlineResponse20045Failed';
 import InlineResponse20046 from './model/InlineResponse20046';
+import InlineResponse20046Failed from './model/InlineResponse20046Failed';
 import InlineResponse20047 from './model/InlineResponse20047';
 import InlineResponse20048 from './model/InlineResponse20048';
 import InlineResponse20049 from './model/InlineResponse20049';
@@ -330,15 +335,11 @@ import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
-import UserInfoSchemaCreatedBy from './model/UserInfoSchemaCreatedBy';
-import UserInfoSchemaIdea from './model/UserInfoSchemaIdea';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
-import UserInfoSchemaProduct from './model/UserInfoSchemaProduct';
-import UserInfoSchemaUpdatesOnIdeas from './model/UserInfoSchemaUpdatesOnIdeas';
 import UserRegisterSchema from './model/UserRegisterSchema';
 import UserSettingInputSchema from './model/UserSettingInputSchema';
 import UserSettingInputSchemaData from './model/UserSettingInputSchemaData';
@@ -657,6 +658,24 @@ export {
     ApiV1GologinProfileNavigator,
 
     /**
+     * The ApiV1IdeasNotificationsCreatedBy model constructor.
+     * @property {module:model/ApiV1IdeasNotificationsCreatedBy}
+     */
+    ApiV1IdeasNotificationsCreatedBy,
+
+    /**
+     * The ApiV1IdeasNotificationsIdea model constructor.
+     * @property {module:model/ApiV1IdeasNotificationsIdea}
+     */
+    ApiV1IdeasNotificationsIdea,
+
+    /**
+     * The ApiV1IdeasNotificationsProduct model constructor.
+     * @property {module:model/ApiV1IdeasNotificationsProduct}
+     */
+    ApiV1IdeasNotificationsProduct,
+
+    /**
      * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
      * @property {module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload}
      */
@@ -703,6 +722,12 @@ export {
      * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal}
      */
     ApiV1RequestProposalsCustomByRequestIdGuidProposal,
+
+    /**
+     * The ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy}
+     */
+    ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy,
 
     /**
      * The ApiV1RequestProposalsCustomByRequestIdGuidRequest model constructor.
@@ -1923,6 +1948,12 @@ export {
     InlineResponse20046,
 
     /**
+     * The InlineResponse20046Failed model constructor.
+     * @property {module:model/InlineResponse20046Failed}
+     */
+    InlineResponse20046Failed,
+
+    /**
      * The InlineResponse20047 model constructor.
      * @property {module:model/InlineResponse20047}
      */
@@ -2313,18 +2344,6 @@ export {
     UserInfoSchema,
 
     /**
-     * The UserInfoSchemaCreatedBy model constructor.
-     * @property {module:model/UserInfoSchemaCreatedBy}
-     */
-    UserInfoSchemaCreatedBy,
-
-    /**
-     * The UserInfoSchemaIdea model constructor.
-     * @property {module:model/UserInfoSchemaIdea}
-     */
-    UserInfoSchemaIdea,
-
-    /**
      * The UserInfoSchemaMasterUser model constructor.
      * @property {module:model/UserInfoSchemaMasterUser}
      */
@@ -2353,18 +2372,6 @@ export {
      * @property {module:model/UserInfoSchemaPermissions}
      */
     UserInfoSchemaPermissions,
-
-    /**
-     * The UserInfoSchemaProduct model constructor.
-     * @property {module:model/UserInfoSchemaProduct}
-     */
-    UserInfoSchemaProduct,
-
-    /**
-     * The UserInfoSchemaUpdatesOnIdeas model constructor.
-     * @property {module:model/UserInfoSchemaUpdatesOnIdeas}
-     */
-    UserInfoSchemaUpdatesOnIdeas,
 
     /**
      * The UserRegisterSchema model constructor.

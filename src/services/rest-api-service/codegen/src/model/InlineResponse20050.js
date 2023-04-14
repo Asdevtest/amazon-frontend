@@ -163,7 +163,7 @@ InlineResponse20050.prototype['attempts'] = undefined;
  * Цена предложения.
  * @member {Number} price
  */
-InlineResponse20050.prototype['price'] = undefined;
+InlineResponse20050.prototype['isRecommended'] = undefined;
 
 /**
  * Комментарий к предложению.

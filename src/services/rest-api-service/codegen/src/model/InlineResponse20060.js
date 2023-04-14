@@ -23,6 +23,7 @@ import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehous
 class InlineResponse20060 {
     /**
      * Constructs a new <code>InlineResponse20060</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20060
      * @param _id {String} GUID сторкипера в DB
      */

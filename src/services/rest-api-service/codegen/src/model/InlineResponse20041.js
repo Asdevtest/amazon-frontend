@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
+import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20041 model module.
@@ -22,7 +24,6 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1Integrations
 class InlineResponse20041 {
     /**
      * Constructs a new <code>InlineResponse20041</code>.
-     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20041
      */
     constructor() { 
@@ -119,13 +120,7 @@ class InlineResponse20041 {
                 obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('shop')) {
-                obj['shop'] = ApiV1IntegrationsSellerboardWarehouseStocksShop.constructFromObject(data['shop']);
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -138,7 +133,7 @@ class InlineResponse20041 {
  * ﻿\"ASIN\"
  * @member {String} asin
  */
-InlineResponse20041.prototype['asin'] = undefined;
+InlineResponse20041.prototype['createdBy'] = undefined;
 
 /**
  * SKU
@@ -277,17 +272,6 @@ InlineResponse20041.prototype['shippingToFbaDays'] = undefined;
  * @member {Date} createdAt
  */
 InlineResponse20041.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления
- * @member {Date} updatedAt
- */
-InlineResponse20041.prototype['updatedAt'] = undefined;
-
-/**
- * @member {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop} shop
- */
-InlineResponse20041.prototype['shop'] = undefined;
 
 
 

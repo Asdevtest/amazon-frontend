@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
  * The InlineResponse20061 model module.
@@ -22,10 +24,11 @@ class InlineResponse20061 {
     /**
      * Constructs a new <code>InlineResponse20061</code>.
      * @alias module:model/InlineResponse20061
+     * @param _id {String} GUID сторкипера в DB
      */
-    constructor() { 
+    constructor(_id) { 
         
-        InlineResponse20061.initialize(this);
+        InlineResponse20061.initialize(this, _id);
     }
 
     /**
@@ -33,7 +36,8 @@ class InlineResponse20061 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id) { 
+        obj['_id'] = _id;
     }
 
     /**

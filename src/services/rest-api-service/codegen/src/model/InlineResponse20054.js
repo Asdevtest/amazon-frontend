@@ -23,7 +23,7 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineResponse20054 {
     /**
      * Constructs a new <code>InlineResponse20054</code>.
-     * Схема получение лайт версии продажи магазина
+     * Успешный ответ.
      * @alias module:model/InlineResponse20054
      */
     constructor() { 
@@ -50,8 +50,8 @@ class InlineResponse20054 {
         if (data) {
             obj = obj || new InlineResponse20054();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
             if (data.hasOwnProperty('owner')) {
                 obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
@@ -88,13 +88,14 @@ class InlineResponse20054 {
 }
 
 /**
- * GUID магазина на продажу.
- * @member {String} _id
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20054.prototype['_id'] = undefined;
+InlineResponse20054.prototype['isExist'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
 InlineResponse20054.prototype['owner'] = undefined;
 

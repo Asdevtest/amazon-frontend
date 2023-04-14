@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20057 {
     /**
      * Constructs a new <code>InlineResponse20057</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20057
      * @param _id {String} Гуид магазина
      * @param name {String} Название магазина

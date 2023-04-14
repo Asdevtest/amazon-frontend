@@ -119,11 +119,14 @@ class InlineResponse20055 {
             if (data.hasOwnProperty('additionalInfo')) {
                 obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -270,16 +273,21 @@ InlineResponse20055.prototype['reasonForSale'] = undefined;
 InlineResponse20055.prototype['additionalInfo'] = undefined;
 
 /**
- * Дата создания
- * @member {Date} createdAt
+ * @member {module:model/ApiV1ShopSellStatistics} statistics
  */
-InlineResponse20055.prototype['createdAt'] = undefined;
+InlineResponse20055.prototype['statistics'] = undefined;
 
 /**
- * Дата изменения
- * @member {Date} updatedAt
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
  */
-InlineResponse20055.prototype['updatedAt'] = undefined;
+InlineResponse20055.prototype['businessStartDate'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20055.prototype['shopDetails'] = undefined;
 
 
 

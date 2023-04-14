@@ -309,6 +309,11 @@ InlineResponse20064.prototype['detailsCustom'] = undefined;
  */
 InlineResponse20064.prototype['proposals'] = undefined;
 
+/**
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ */
+InlineResponse20064.prototype['request'] = undefined;
+
 
 
 
