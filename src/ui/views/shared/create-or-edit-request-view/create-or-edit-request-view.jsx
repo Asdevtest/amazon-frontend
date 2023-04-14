@@ -51,8 +51,6 @@ export class CreateOrEditRequestView extends Component {
       onClickThumbnail,
     } = this.viewModel
 
-    console.log('this.mainContentRef', this.mainContentRef)
-
     return (
       <React.Fragment>
         <Navbar
