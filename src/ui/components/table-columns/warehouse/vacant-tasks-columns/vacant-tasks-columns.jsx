@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -12,6 +13,7 @@ import {
   CheckboxCell,
   StringListCell,
   TaskPriorityCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -51,11 +53,20 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'comment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    width: 271,
+    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
+  },
+
+  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 170,
+    width: 123,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -89,8 +100,9 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: 160,
+    width: 119,
     sortable: false,
+    align: 'center',
   },
 
   {
@@ -100,8 +112,9 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
-    width: 160,
+    width: 134,
     sortable: false,
+    align: 'center',
   },
 
   // {

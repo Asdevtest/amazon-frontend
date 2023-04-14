@@ -676,7 +676,7 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength}) => {
+  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength, rowsCount}) => {
     const [value, setValue] = useState(text)
 
     useEffect(() => {
@@ -690,8 +690,8 @@ export const ChangeInputCommentCell = React.memo(
         <Input
           multiline
           autoFocus={false}
-          minRows={2}
-          maxRows={2}
+          minRows={rowsCount ?? 2}
+          maxRows={rowsCount ?? 2}
           inputProps={{maxLength: maxLength ? maxLength : 256}}
           placeholder={t(TranslationKey.Comment)}
           disabled={disabled}
