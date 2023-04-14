@@ -52,9 +52,10 @@ export const OwnerRequestProposalsCard = ({
                   </div>
                 </div>
 
-                <Typography className={classNames.successDeals}>{`${t(
-                  TranslationKey['The number of total successful transactions:'],
-                )} n/a`}</Typography>
+                <Typography className={classNames.successDeals}>
+                  {t(TranslationKey['The number of total successful transactions:']) + ' '}
+                  {item?.proposal?.createdBy?.proposalsCompleted ?? t(TranslationKey.Missing)}
+                </Typography>
 
                 <div className={classNames.timeInfoWrapper}>
                   <div className={classNames.timeItemInfoWrapper}>
@@ -82,6 +83,7 @@ export const OwnerRequestProposalsCard = ({
 
             <div className={classNames.photoWrapper}>
               <PhotoCarousel files={item.proposal.linksToMediaFiles} />
+              {/* <PhotoCarousel files={item.proposal.media?.map(el => el.fileLink)} /> */}
             </div>
           </div>
         </div>

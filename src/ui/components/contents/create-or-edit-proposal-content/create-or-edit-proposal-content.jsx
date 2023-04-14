@@ -1,22 +1,27 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography, Rating} from '@mui/material'
+import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating} from '@mui/material'
 
 import React, {useState} from 'react'
 
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 import {Field} from '@components/field'
-import {UploadFilesInput} from '@components/upload-files-input'
+import {SetDuration} from '@components/set-duration/set-duration'
+import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 import {UserLink} from '@components/user-link'
 
+import {calcNumberMinusPercent} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-proposal-content.style'
@@ -28,26 +33,35 @@ export const CreateOrEditProposalContent = ({
   showProgress,
   progressValue,
   proposalToEdit,
+  onClickBackBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState(
+    proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+  )
+
+  const newProductPrice =
+    calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
+
+  console.log('proposalToEdit', proposalToEdit)
 
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
     title: proposalToEdit?.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
+
   const [checked, setChecked] = useState(false)
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
     if (['execution_time'].includes(fieldName)) {
-      newFormFields[fieldName] = parseInt(event.target.value) || ''
+      newFormFields[fieldName] = Number(event) || ''
     } else if (
       ['price'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -134,55 +148,115 @@ export const CreateOrEditProposalContent = ({
                 userId={request.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
-                <Typography>{t(TranslationKey.Rating)}</Typography>
                 <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
               </div>
             </div>
           </div>
 
+          <Typography className={classNames.subTitle}>
+            {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
+          </Typography>
+
+          <div className={classNames.infoBlockWrapper}>
+            <div className={classNames.infoCellWrapper}>
+              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
+              <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
+            </div>
+
+            <div className={classNames.infoCellWrapper}>
+              <Typography className={cx(classNames.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
+              <Typography className={classNames.requestTitle}>{request.request.humanFriendlyId}</Typography>
+            </div>
+
+            <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
+              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
+              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
+              </Typography>
+            </div>
+          </div>
+
+          {request?.details.conditions && (
+            <>
+              <Typography className={classNames.requestTitleName}>
+                {t(TranslationKey['Request description'])}
+              </Typography>
+              {/* <Typography className={classNames.requestTitle}>{request?.details.conditions}</Typography> */}
+              <CustomTextEditor
+                readOnly
+                conditions={request?.details.conditions}
+                editorMaxHeight={classNames.editorMaxHeight}
+              />
+            </>
+          )}
+
           <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
             request?.request.maxAmountOfProposals || request.maxAmountOfProposals
           } ${t(TranslationKey['suggestions left'])}`}</Typography>
-        </div>
 
-        <Field
-          multiline
-          className={classNames.descriptionField}
-          label={t(TranslationKey['Application details'])}
-          labelClasses={classNames.spanLabel}
-          inputComponent={
-            <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
-          }
-        />
+          <div className={classNames.requestTitleAndInfo}>
+            <div className={cx(classNames.blockInfoWrapper)}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+                <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+                  {toFixed(request?.request.price, 2) + '$'}
+                </Typography>
+              </div>
+
+              {newProductPrice || request?.request?.priceAmazon ? (
+                <div className={classNames.blockInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>
+                    {t(TranslationKey['Product price'])}
+                  </Typography>
+                  <div className={classNames.pricesWrapper}>
+                    {newProductPrice && (
+                      <Typography
+                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                      >
+                        {'$ ' + toFixed(newProductPrice, 2)}
+                      </Typography>
+                    )}
+
+                    <Typography
+                      className={cx(classNames.blockInfoCellText, {
+                        [classNames.oldPrice]: newProductPrice,
+                      })}
+                    >
+                      {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
+                    </Typography>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className={cx(classNames.blockInfoWrapper)}>
+              <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
+                <Typography className={classNames.blockInfoCellTitle}>
+                  {t(TranslationKey['Performance time'])}
+                </Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {formatNormDateTime(request?.request.timeoutAt)}
+                </Typography>
+              </div>
+
+              {request?.request?.cashBackInPercent ? (
+                <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
+                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                  <Typography className={cx(classNames.blockInfoCellText)}>
+                    {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
+                  </Typography>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
 
         {request.details.linksToMediaFiles?.length > 0 ? (
           <Field
-            label={'Файлы'}
+            label={t(TranslationKey.Files)}
             inputComponent={<PhotoAndFilesCarousel small files={request.details.linksToMediaFiles} width="400px" />}
           />
         ) : null}
-
-        <div className={classNames.mainLeftSubWrapper}>
-          <Field
-            label={t(TranslationKey.Price)}
-            labelClasses={classNames.spanLabel}
-            inputComponent={
-              <Typography className={cx(classNames.twoStepFieldResult, classNames.price)}>
-                {toFixedWithDollarSign(request?.request.price, 2)}
-              </Typography>
-            }
-          />
-
-          <Field
-            label={t(TranslationKey.Deadline)}
-            labelClasses={classNames.spanLabel}
-            inputComponent={
-              <Typography className={classNames.twoStepFieldResult}>
-                {request.request.timeoutAt && formatNormDateTime(request?.request.timeoutAt)}
-              </Typography>
-            }
-          />
-        </div>
       </div>
 
       <div className={classNames.mainRightWrapper}>
@@ -197,26 +271,20 @@ export const CreateOrEditProposalContent = ({
                 value={formFields.title}
                 onChange={onChangeField('title')}
               />
-              <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 80})}>{`${
+              {/* <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 80})}>{`${
                 formFields.title.length
-              } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+              } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span> */}
             </div>
 
-            <div className={classNames.imageFileInputWrapper}>
-              <Typography className={classNames.imageFileInputTitle}>
-                {t(TranslationKey['Attach a file (link to your portfolio, examples of work)'])}
-              </Typography>
-              <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-              <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
-            </div>
             <div className={classNames.descriptionWrapper}>
               <Field
                 multiline
                 className={classNames.descriptionField}
+                containerClasses={classNames.conrainer}
                 labelClasses={classNames.spanLabel}
                 inputProps={{maxLength: 2100}}
-                minRows={5}
-                maxRows={5}
+                minRows={9}
+                maxRows={9}
                 label={t(TranslationKey['Describe your proposal'])}
                 value={formFields.comment}
                 onChange={onChangeField('comment')}
@@ -224,6 +292,19 @@ export const CreateOrEditProposalContent = ({
               <span className={cx(classNames.standartText, {[classNames.error]: formFields.comment.length > 2000})}>{`${
                 formFields.comment.length
               } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
+            </div>
+
+            <div className={classNames.imageFileInputWrapper}>
+              <div className={classNames.inputTitleWrapper}>
+                <Typography className={classNames.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
+
+                <Typography className={classNames.imageFileInputSubTitle}>
+                  {`(${t(TranslationKey['link to your portfolio, examples of work'])})`}
+                </Typography>
+              </div>
+
+              <UploadFilesInputMini withoutTitle requestWidth images={images} setImages={setImages} maxNumber={50} />
+              {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
             </div>
           </div>
 
@@ -241,13 +322,20 @@ export const CreateOrEditProposalContent = ({
               onChange={onChangeField('price')}
             />
 
-            <Field
+            <SetDuration
+              title={t(TranslationKey['Time to complete'])}
+              duration={formFields.execution_time}
+              titleStyle={classNames.titleStyle}
+              setTotalTimeInMinute={onChangeField('execution_time')}
+            />
+
+            {/* <Field
               label={t(TranslationKey['Time to complete, min*'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.dateWrapper}
               value={formFields.execution_time}
               onChange={onChangeField('execution_time')}
-            />
+            /> */}
           </div>
         </div>
 
@@ -260,6 +348,10 @@ export const CreateOrEditProposalContent = ({
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
             >
               {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
+            </Button>
+
+            <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
+              {t(TranslationKey.Back)}
             </Button>
           </div>
         </div>

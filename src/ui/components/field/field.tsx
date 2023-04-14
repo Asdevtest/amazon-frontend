@@ -24,7 +24,7 @@ interface Props {
   containerClasses?: ClassNamesArg | undefined
   labelClasses?: ClassNamesArg | undefined
   inputClasses?: ClassNamesArg | undefined
-  inputComponent?: React.ComponentType
+  inputComponent?: React.ComponentType | ReactElement
   error?: string
   successText?: string
   oneLine?: boolean

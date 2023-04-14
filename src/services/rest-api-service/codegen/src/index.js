@@ -74,8 +74,11 @@ import ApiV1RequestProposalsCustomGuidResultEditSourceFiles from './model/ApiV1R
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsFreelanceSourcesProposal from './model/ApiV1RequestProposalsFreelanceSourcesProposal';
 import ApiV1RequestProposalsFreelanceSourcesProposalRequest from './model/ApiV1RequestProposalsFreelanceSourcesProposalRequest';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './model/ApiV1RequestProposalsGuidResultToCorrectMedia';
+import ApiV1RequestProposalsMedia from './model/ApiV1RequestProposalsMedia';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
+import ApiV1RequestProposalsSourceFiles from './model/ApiV1RequestProposalsSourceFiles';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
@@ -799,6 +802,18 @@ export {
     ApiV1RequestProposalsFreelanceSourcesProposalRequest,
 
     /**
+     * The ApiV1RequestProposalsGuidResultToCorrectMedia model constructor.
+     * @property {module:model/ApiV1RequestProposalsGuidResultToCorrectMedia}
+     */
+    ApiV1RequestProposalsGuidResultToCorrectMedia,
+
+    /**
+     * The ApiV1RequestProposalsMedia model constructor.
+     * @property {module:model/ApiV1RequestProposalsMedia}
+     */
+    ApiV1RequestProposalsMedia,
+
+    /**
      * The ApiV1RequestProposalsRequest model constructor.
      * @property {module:model/ApiV1RequestProposalsRequest}
      */
@@ -809,6 +824,12 @@ export {
      * @property {module:model/ApiV1RequestProposalsRequestDetailsCustom}
      */
     ApiV1RequestProposalsRequestDetailsCustom,
+
+    /**
+     * The ApiV1RequestProposalsSourceFiles model constructor.
+     * @property {module:model/ApiV1RequestProposalsSourceFiles}
+     */
+    ApiV1RequestProposalsSourceFiles,
 
     /**
      * The ApiV1RequestsCountProposalsByStatuses model constructor.

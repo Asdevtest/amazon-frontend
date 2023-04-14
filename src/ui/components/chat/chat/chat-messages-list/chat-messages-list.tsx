@@ -15,10 +15,14 @@ import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {
   checkIsChatMessageAddUsersToGroupChatContract,
+  checkIsChatMessageBloggerProposalResultEditedContract,
+  checkIsChatMessageCreateNewBloggerProposalContract,
+  checkIsChatMessageCreateNewDesignerProposalContract,
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
   checkIsChatMessageDataProposalResultEditedContract,
   checkIsChatMessageDataProposalStatusChangedContract,
+  checkIsChatMessageDesignerProposalResultEditedContract,
   checkIsChatMessagePatchInfoGroupChatContract,
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
@@ -26,9 +30,19 @@ import {
 import {useClassNames} from './chat-messages-list.style'
 import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-users-to-group-chat'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
+import {ChatMessageBloggerProposalEditedResult} from './chat-messages/chat-message-blogger-proposal-edited-result'
+import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
+import {ChatMessageCreateNewDesignerProposal} from './chat-messages/chat-message-create-new-designer-proposal'
+import {
+  ChatMessageDesignerProposalEditedResult,
+  ChatMessageRequestProposalDesignerResultEditedHandlers,
+} from './chat-messages/chat-message-designer-proposal-edited-result'
 import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
-import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
+import {
+  ChatMessageProposalStatusChanged,
+  ChatMessageRequestProposalStatusChangedHandlers,
+} from './chat-messages/chat-message-proposal-status-changed'
 import {ChatMessageRemoveUsersFromGroupChat} from './chat-messages/chat-message-remove-users-from-group-chat'
 import {ChatMessageRequest} from './chat-messages/chat-message-request'
 import {
@@ -36,7 +50,10 @@ import {
   ChatMessageRequestProposalResultEditedHandlers,
 } from './chat-messages/chat-message-request-proposal-result-edited'
 
-export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers & ChatMessageRequestProposalResultEditedHandlers
+export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
+  ChatMessageRequestProposalResultEditedHandlers &
+  ChatMessageRequestProposalStatusChangedHandlers &
+  ChatMessageRequestProposalDesignerResultEditedHandlers
 
 interface Props {
   isGroupChat: boolean
@@ -95,6 +112,7 @@ export const ChatMessagesList: FC<Props> = observer(
       messageItem: ChatMessageContract,
       unReadMessage: boolean,
       showName: boolean,
+      isLastMessage: boolean,
     ) => {
       if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
         return <ChatMessageRequest message={messageItem} />
@@ -111,10 +129,12 @@ export const ChatMessagesList: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
         return (
           <ChatMessageProposalStatusChanged
+            isLastMessage={isLastMessage}
             message={messageItem}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+              onClickReworkProposal: handlers.onClickReworkProposal,
             }}
           />
         )
@@ -125,6 +145,45 @@ export const ChatMessagesList: FC<Props> = observer(
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,
               onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
+        return (
+          <ChatMessageCreateNewBloggerProposal
+            message={messageItem}
+            handlers={{
+              onClickProposalAccept: handlers.onClickProposalAccept,
+              onClickProposalRegect: handlers.onClickProposalRegect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageCreateNewDesignerProposalContract(messageItem)) {
+        return (
+          <ChatMessageCreateNewDesignerProposal
+            message={messageItem}
+            handlers={{
+              onClickProposalAccept: handlers.onClickProposalAccept,
+              onClickProposalRegect: handlers.onClickProposalRegect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageBloggerProposalResultEditedContract(messageItem)) {
+        return (
+          <ChatMessageBloggerProposalEditedResult
+            message={messageItem}
+            handlers={{
+              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
+              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+            }}
+          />
+        )
+      } else if (handlers && checkIsChatMessageDesignerProposalResultEditedContract(messageItem)) {
+        return (
+          <ChatMessageDesignerProposalEditedResult
+            message={messageItem}
+            handlers={{
+              onClickOpenRequest: handlers.onClickOpenRequest,
             }}
           />
         )
@@ -221,7 +280,7 @@ export const ChatMessagesList: FC<Props> = observer(
                         })}
                       >
                         <div className={classNames.messageInnerContentWrapper}>
-                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName)}
+                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName, isLastMessage)}
                         </div>
                       </div>
                     </div>

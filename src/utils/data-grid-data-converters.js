@@ -62,13 +62,16 @@ export const myRequestsDataConverter = data =>
     status: item.status,
     title: item.title,
     price: item.price,
+    asin: item.asin,
+    humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
     timeoutAt: item.timeoutAt,
-    acceptedProposals: item.countProposalsByStatuses.acceptedProposals,
-    allProposals: item.countProposalsByStatuses.allProposals,
-    atWorkProposals: item.countProposalsByStatuses.atWorkProposals,
-    verifyingProposals: item.countProposalsByStatuses.verifyingProposals,
-    waitedProposals: item.countProposalsByStatuses.waitedProposals,
+    acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
+    allProposals: item?.countProposalsByStatuses?.allProposals,
+    atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
+    verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
+    waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
+    typeTask: item?.typeTask,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -841,4 +844,41 @@ export const adminGroupPermissionsDataConverter = data =>
     key: item.key,
     title: item.title,
     description: item.description,
+  }))
+
+export const freelancerServiceDetaildsDataConverter = data =>
+  data.requests.map(item => ({
+    id: item?._id,
+    originalData: item,
+    createdBy: item.createdBy,
+    price: item?.price,
+    status: item?.status,
+    timeoutAt: item?.timeoutAt,
+    updatedAt: item?.updatedAt,
+    title: item?.title,
+    humanFriendlyId: item?.humanFriendlyId,
+  }))
+
+export const SourceFilesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item?._id,
+
+    _id: item?._id,
+    sourceFile: item?.sourceFile,
+    comments: item?.comments,
+    proposal: item?.proposal,
+    typeTask: item?.typeTask,
+    productId: item?.productId,
+
+    performer: item?.createdBy,
+    sub: item?.proposal?.sub,
+
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+
+    humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
+    title: item?.proposal?.request?.title,
+    asin: item?.proposal?.request?.asin,
+    client: item?.proposal?.client,
   }))

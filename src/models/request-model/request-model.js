@@ -104,8 +104,8 @@ class RequestModelStatic {
     return response
   }
 
-  getRequests = async (type, subType) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType)
+  getRequests = async (type, subType, opts) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType, opts)
     return response
   }
 
