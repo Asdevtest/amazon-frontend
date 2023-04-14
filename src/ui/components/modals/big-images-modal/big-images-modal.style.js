@@ -52,21 +52,26 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  previewList: {
-    overflowY: 'auto',
-    // maxHeight: '70vh',
+  previewListWrapper: {
     height: '90%',
 
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-
-    justifyContent: 'flex-end',
     position: 'absolute',
     bottom: 20,
     left: 30,
     paddingBottom: '10px',
     marginLeft: 20,
+
+    overflowY: 'auto',
+    display: 'flex',
+  },
+
+  previewList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+
+    paddingBottom: '10px',
+    marginTop: 'auto',
   },
 
   previewListItem: {
