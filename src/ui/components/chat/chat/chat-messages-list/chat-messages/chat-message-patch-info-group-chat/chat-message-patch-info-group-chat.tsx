@@ -40,6 +40,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
           withAvatar={undefined}
           maxNameWidth={undefined}
           customStyles={undefined}
+          customClassNames={undefined}
         />
 
         <Typography className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</Typography>

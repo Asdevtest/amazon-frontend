@@ -1,6 +1,8 @@
 import {createContext} from 'react'
 
-export interface TRequest {}
+export interface TRequest {
+  request: {createdBy: {_id: string}}
+}
 
 export interface TRequestProposal {
   details: {

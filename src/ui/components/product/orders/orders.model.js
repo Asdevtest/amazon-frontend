@@ -294,8 +294,6 @@ export class OrdersModel {
           await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
 
-        console.log('product', product)
-
         if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',

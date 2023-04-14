@@ -83,7 +83,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
                 style={{width: '100%'}}
                 label={placeholder}
                 onInput={(event: any) => {
-                  event.target.value = event?.target.value.slice(0, 12) // Ограничиваем длину ввода
+                  event.target.value = event?.target.value.slice(0, 75) // Ограничиваем длину ввода
                 }}
               />
             )}

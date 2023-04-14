@@ -13,3 +13,5 @@ declare module '@mui/material/styles' {
 }
 
 declare module 'react-highlight-words'
+
+declare module 'notistack'

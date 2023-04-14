@@ -15,6 +15,7 @@ import {
   ShopSellApi,
 } from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
+import AnnouncementsApi from './codegen/src/api/AnnouncementsApi'
 import BatchesApi from './codegen/src/api/BatchesApi'
 import BuyerApi from './codegen/src/api/BuyerApi'
 import ClientApi from './codegen/src/api/ClientApi'
@@ -40,6 +41,7 @@ class RestApiService {
       'Access-Control-Allow-Origin': 'null',
     }
     this.administratorApi = new AdministratorApi(this.apiClient)
+    this.announcementsApi = new AnnouncementsApi(this.apiClient)
     this.buyerApi = new BuyerApi(this.apiClient)
     this.clientApi = new ClientApi(this.apiClient)
     this.product = new Product(this.apiClient)

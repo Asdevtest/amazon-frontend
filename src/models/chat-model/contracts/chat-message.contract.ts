@@ -5,8 +5,12 @@ import {TWebsocketChatService} from '@services/websocket-chat-service'
 
 import {
   ChatMessageDataAddUsersToGroupChatContract,
+  ChatMessageDataBloggerProposalResultEditedContract,
   ChatMessageDataCreatedNewProposalProposalDescriptionContract,
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
+  ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataCreateNewDesignerProposalContract,
+  ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
   ChatMessageRemovePatchInfoGroupChatContract,
@@ -24,6 +28,10 @@ export type TChatMessageDataUniversal =
   | ChatMessageDataProposalResultEditedContract
   | ChatMessageRemoveUsersFromGroupChatContract
   | ChatMessageRemovePatchInfoGroupChatContract
+  | ChatMessageDataCreateNewBloggerProposalContract
+  | ChatMessageDataBloggerProposalResultEditedContract
+  | ChatMessageDataDesignerProposalResultEditedContract
+  | ChatMessageDataCreateNewDesignerProposalContract
   | undefined
 
 export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>
@@ -67,4 +75,5 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
 
   @IsOptional()
   public user?: ChatUserContract
+  public humanFriendlyId?: string
 }

@@ -87,6 +87,14 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
+  imageTitle: {
+    fontSize: '12px',
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    width: '100%',
+  },
+
   documentHover: {
     display: 'none',
   },
@@ -99,7 +107,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesAndFilesWrapper: {
-    height: '100%',
+    // height: '100%', вернуть если что-то сломается
+    height: 'auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline',
@@ -135,6 +144,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '50%',
 
     height: '100%',
+  },
+
+  imageSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 
   notToShowEmptyWrapper: {

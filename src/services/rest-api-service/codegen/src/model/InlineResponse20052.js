@@ -14,7 +14,9 @@
 import ApiClient from '../ApiClient';
 import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsDetailsCustom from './ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsMedia from './ApiV1RequestProposalsMedia';
 import ApiV1RequestProposalsRequest from './ApiV1RequestProposalsRequest';
+import ApiV1RequestProposalsSourceFiles from './ApiV1RequestProposalsSourceFiles';
 
 /**
  * The InlineResponse20052 model module.
@@ -94,6 +96,12 @@ class InlineResponse20052 {
             }
             if (data.hasOwnProperty('subId')) {
                 obj['subId'] = ApiClient.convertToType(data['subId'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFiles')) {
+                obj['sourceFiles'] = ApiClient.convertToType(data['sourceFiles'], [ApiV1RequestProposalsSourceFiles]);
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsMedia]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -209,6 +217,16 @@ InlineResponse20052.prototype['lastModifiedById'] = undefined;
  * @member {String} subId
  */
 InlineResponse20052.prototype['subId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsSourceFiles>} sourceFiles
+ */
+InlineResponse20052.prototype['sourceFiles'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsMedia>} media
+ */
+InlineResponse20052.prototype['media'] = undefined;
 
 /**
  * Дата создания

@@ -208,4 +208,44 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
+  imagesModalBtnsWrapper: {
+    display: 'flex',
+    // flexDirection: 'column',
+    gap: 20,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    marginRight: 20,
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  activeMainIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    background: 'rgb(53, 112, 155)',
+    // background: '#F5CF00',
+    // background: theme.palette.background.yellow,
+
+    // color: 'yellow',
+    // color: '#fff',
+    color: '#F5CF00',
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
 }))
